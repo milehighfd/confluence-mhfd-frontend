@@ -8,7 +8,7 @@ import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import {history} from "./store/configureStore";
 import store from './store';
-
+import 'antd/dist/antd.css';
 
 import LoginView from './Components/Login/LoginView';
 import NavbarView from './Components/Navbar/NavbarView';
