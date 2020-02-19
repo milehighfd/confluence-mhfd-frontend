@@ -2,7 +2,7 @@
 $dark: #06242D;
 $green: #28C499;
 $purple: #251863;
-
+$white: #ffffff;
 
 // GENERAL
 html, body{
@@ -24,5 +24,46 @@ html, body{
   background: $dark !important;
 }
 .ant-menu-dark, .ant-menu-dark .ant-menu-sub{
+  background: $dark !important;
+}
+.header{
+  .ll-00{
+    color: $white;
+    background: $green;
+    border-radius: 50%;
+    padding: 5px 5.23px;
+    margin-right: 5px;
+  }
+  .ll-0{
+    background: $white;
+    padding: 8px 0.5px;
+    opacity: 0.5;
+    margin-right: 18px;
+  }
+  a{
+    color: $white;
+  }
+  a:hover{
+    color: $white;
+  }
+  .anticon{
+    color: $white;
+    opacity: 0.5;
+    font-size: 10px;
+  }
+  h6{
+    color: white;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    left: 50%;
+    font-size: 16px;
+    font-weight: normal;
+  }
+}
+.ant-dropdown-menu {
+  top: 18px;
+}
+// SIDEBAR
+.ant-layout-sider{
   background: $dark !important;
 }

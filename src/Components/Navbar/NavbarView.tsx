@@ -1,78 +1,39 @@
 import * as React from "react";
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Dropdown, Icon } from 'antd';
 
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
-
+const { Header} = Layout;
+const menu = (
+  <Menu>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="">
+        Logout
+      </a>
+    </Menu.Item>
+  </Menu>
+);
 export default () => {
-  return <Layout style={{ minHeight: '100vh' }}>
+  return <Layout>
     <Header className="header">
       <div className="logo"
       style={{backgroundImage: 'url(icons/logo.svg)'}}
       />
+      <h6>Confluence   |   User Managementf</h6>
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={['2']}
+        defaultSelectedKeys={['0']}
         style={{ lineHeight: '58px', float: 'right' }}
       >
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
+        <Menu.Item key=""><img src="icons/icon-26.svg" alt=""/></Menu.Item>
+        <label className="ll-0"></label>
+        <Dropdown overlay={menu}>
+           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+             <label className="ll-00">JC</label> Janelle <Icon type="caret-down" />
+           </a>
+         </Dropdown>
+        <Menu.Item key=""><img src="icons/icon-27.svg" alt=""/></Menu.Item>
       </Menu>
     </Header>
-    <Layout>
-      <Sider width={200} style={{ background: '#fff' }}>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <Icon type="user" />
-                subnav 1
-              </span>
-            }
-          >
-            <Menu.Item key="1">option1</Menu.Item>
-            <Menu.Item key="2">option2</Menu.Item>
-            <Menu.Item key="3">option3</Menu.Item>
-            <Menu.Item key="4">option4</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub2"
-            title={
-              <span>
-                <Icon type="laptop" />
-                subnav 2
-              </span>
-            }
-          >
-            <Menu.Item key="5">option5</Menu.Item>
-            <Menu.Item key="6">option6</Menu.Item>
-            <Menu.Item key="7">option7</Menu.Item>
-            <Menu.Item key="8">option8</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub3"
-            title={
-              <span>
-                <Icon type="notification" />
-                subnav 3
-              </span>
-            }
-          >
-            <Menu.Item key="9">option9</Menu.Item>
-            <Menu.Item key="10">option10</Menu.Item>
-            <Menu.Item key="11">option11</Menu.Item>
-            <Menu.Item key="12">option12</Menu.Item>
-          </SubMenu>
-        </Menu>
-      </Sider>
-    </Layout>
   </Layout>
 }
