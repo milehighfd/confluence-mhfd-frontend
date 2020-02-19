@@ -17,6 +17,7 @@ import ConfirmPasswordView from './Components/ConfirmPassword/ConfirmPasswordVie
 import SidebarView from './Components/Sidebar/SidebarView';
 import SignUpView from './Components/SignUp/SignUpView';
 import App from './App';
+import UserView from './Components/User/UserView';
 
 
 ReactDOM.render(
@@ -30,6 +31,7 @@ ReactDOM.render(
         <Route path={`/confirm-password`} component={ConfirmPasswordView}/>
         <Route path={`/sidebar`} component={SidebarView}/>
         <Route path={`/sign-up`} component={SignUpView}/>
+        <Route path={`/user`} component={UserView}/>
       </Switch>
     </ConnectedRouter>
   </Provider>, document.getElementById('root'));
