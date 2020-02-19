@@ -66,4 +66,30 @@ html, body{
 // SIDEBAR
 .ant-layout-sider{
   background: $dark !important;
+
+  img{
+    margin-right: 10px;
+  }
+  li{
+    margin-bottom: 15px !important;
+  }
+}
+.img-a{
+  display: none;
+}
+.img-h{
+  opacity: 0.5;
+}
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background-color: transparent !important;
+  color: $green !important;
+}
+.ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item-active, .ant-menu-dark .ant-menu-submenu-active, .ant-menu-dark .ant-menu-submenu-open, .ant-menu-dark .ant-menu-submenu-selected, .ant-menu-dark .ant-menu-submenu-title:hover {
+  color: $green !important;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-a{
+  display: inline-block;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-h{
+  display: none;
 }
