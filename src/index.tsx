@@ -24,7 +24,6 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
-      <Route path={`/`} component={App}/>
         <Route path={`/login`} component={LoginView}/>
         <Route path={`/navbar`} component={NavbarView}/>
         <Route path={`/reset-password`} component={ResetPasswordView}/>
@@ -32,6 +31,7 @@ ReactDOM.render(
         <Route path={`/sidebar`} component={SidebarView}/>
         <Route path={`/sign-up`} component={SignUpView}/>
         <Route path={`/user`} component={UserView}/>
+        <Route path={`/`} component={App}/>
       </Switch>
     </ConnectedRouter>
   </Provider>, document.getElementById('root'));
