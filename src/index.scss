@@ -75,7 +75,7 @@ html, body{
   }
 }
 .img-a{
-  display: none;
+  display: none !important;
 }
 .img-h{
   opacity: 0.5;
@@ -88,7 +88,7 @@ html, body{
   color: $green !important;
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-a{
-  display: inline-block;
+  display: inline-block !important;
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-h{
   display: none;
