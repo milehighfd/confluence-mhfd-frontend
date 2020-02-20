@@ -350,11 +350,12 @@ html, body{
   justify-content: center;
 }
 .login-form h1 {
-  color: #11093c;
+  color: $purple00;
   font-size: 2.6rem;
   font-family: 'Ubuntu';
   font-style: normal;
   line-height: normal;
+  margin: 40px 0px ;
 }
 .login-step01 .buttonLogin {
   height: 72px;
@@ -362,4 +363,114 @@ html, body{
   background-color: #000000;
   color: $white;
   font-size: 1.2rem;
+  margin: 40px 0px;
+}
+// login_material style
+.returnText {
+  position: absolute !important;
+  top: 101px;
+  width: 533px;
+  align-items: center;
+  font-size: 1rem;
+  justify-content: center;
+}
+.returnText span {
+  margin: 0 11px;
+}
+.returnText Button {
+  color: #251863;
+  border: 1px solid #251863;
+}
+
+// styles material input
+.group { 
+  position:relative; 
+  margin-bottom:45px; 
+}
+.group input {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #251863
+  ;
+}
+.group input:focus 		{ outline:none; }
+
+/* LABEL material*/
+.group label 				 {
+  color:#999; 
+  font-size: 1rem !important;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state material */
+.group input:focus ~ label, input:valid ~ label 		{
+  top:-20px;
+  font-size:14px;
+  color:#5264AE;
+}
+
+/* material bar bottom */
+.bar 	{ position:relative; display:block; width:100%; }
+.bar:before, .bar:after 	{
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#5264AE; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+/* active state */
+.group input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+.group input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* transition material*/
+@-webkit-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
 }
