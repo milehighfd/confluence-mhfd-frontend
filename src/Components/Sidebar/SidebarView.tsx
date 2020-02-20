@@ -1,23 +1,14 @@
-import * as React from "react";
+import React, {useState} from "react";
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 
 const { Header, Sider } = Layout;
 const { SubMenu } = Menu;
 
 
-  let state = {
-    collapsed: false,
-  };
-
-  let onCollapse = (collapsed:any) => {
-    console.log(collapsed);
-    state.collapsed = !state.collapsed;
-    console.log(state.collapsed);
-  };
-
 export default () => {
+  const [collapsed, setCollapsed] = useState();
   return <Layout style={{ minHeight: 'calc(100vh)' }}>
-        <Sider collapsible collapsed={state.collapsed} onCollapse={onCollapse}>
+        <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
           <Menu theme="dark" defaultSelectedKeys={['0']} mode="inline">
             <Menu.Item key="1">
               <img className="img-h" src="icons/menu-white-01.svg" alt="" width="18px" />
