@@ -107,38 +107,44 @@ export default () => {
                       <h3>USER DESIGNATION</h3>
                       <Row gutter={16}>
                         <Col className="gutter-row" span={4}>
-                          <div>
-                            <h6>MHFD Staff</h6>
+                          <div className="user-card">
+                            <div className="user-d"><h6>MHFD Staff</h6></div>
                             <p><Radio></Radio></p>
                           </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
-                          <div>
-                            <h6> Consultant/ Contractor</h6>
+                          <div className="user-card">
+                            <div className="user-d"><h6> Consultant/ Contractor</h6></div>
                             <p><Radio></Radio></p>
                           </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
-                          <div>
-                            <h6>Local Government</h6>
+                          <div className="user-card">
+                            <div className="user-d">
+                              <h6>Local</h6>
+                              <h6>Government</h6>
+                            </div>
                             <p><Radio></Radio></p>
                           </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
-                          <div>
-                            <h6>Other</h6>
+                          <div className="user-card">
+                            <div className="user-d"><h6>Other</h6></div>
                             <p><Radio></Radio></p>
                           </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
-                          <div>
-                            <h6>Local Government Admin</h6>
+                          <div className="user-card">
+                            <div className="user-d">
+                              <h6>Local </h6>
+                              <h6>Government Admin</h6>
+                            </div>
                             <p><Radio></Radio></p>
                           </div>
                         </Col>
                         <Col className="gutter-row" span={4}>
-                          <div>
-                            <h6>MHFD Admin</h6>
+                          <div className="user-card">
+                            <div className="user-d"><h6>MHFD Admin</h6></div>
                             <p><Radio></Radio></p>
                           </div>
                         </Col>
@@ -153,7 +159,7 @@ export default () => {
                         <Col className="gutter-row" span={12}>
                           <Dropdown overlay={menu}>
                             <Button>
-                              User Designation <Icon type="down" />
+                              User Designation <img src="icons/icon-12.svg" alt=""/>
                             </Button>
                           </Dropdown>
                         </Col>
@@ -161,7 +167,7 @@ export default () => {
                         <Col className="gutter-row" span={12}>
                           <Dropdown overlay={menu}>
                             <Button>
-                              User Designation <Icon type="down" />
+                              User Designation <img src="icons/icon-12.svg" alt=""/>
                             </Button>
                           </Dropdown>
                         </Col>
@@ -171,22 +177,170 @@ export default () => {
                         <Col className="gutter-row" span={12}>
                         <Dropdown overlay={menu}>
                           <Button>
-                            User Designation <Icon type="down" />
+                            User Designation <img src="icons/icon-12.svg" alt=""/>
                           </Button>
                         </Dropdown>
                         </Col>
                       </Row>
                     </div>
-                    <div>
-                      <Button type="primary">Primary</Button>
-                      <Button type="primary">Primary</Button>
+                    <div className="user-footer">
+                      <Button className="btn-d">Delete</Button>
+                      <Button className="btn-s">Save</Button>
                     </div>
                   </Panel>
                 </Collapse>
               </TabPane>
 
               <TabPane tab="Pending User Requests" key="2">
-                 Tab 2
+              <div className="user-filter">
+                <div>
+                  <Search
+                    placeholder="Search by Name"
+                    onSearch={value => console.log(value)}
+                    style={{ width: 240 }}
+                  />
+                </div>
+
+                <div>
+                  <Dropdown overlay={menu}>
+                    <Button>
+                      Organization <img src="icons/icon-12.svg" alt=""/>
+                    </Button>
+                  </Dropdown>
+                </div>
+                <div>
+                  <Dropdown overlay={menu}>
+                    <Button>
+                      Service Area <img src="icons/icon-12.svg" alt=""/>
+                    </Button>
+                  </Dropdown>
+                </div>
+
+                <div>
+                  <Dropdown overlay={menu}>
+                    <Button>
+                      User Designation <img src="icons/icon-12.svg" alt=""/>
+                    </Button>
+                  </Dropdown>
+                </div>
+
+                <div>
+                  <Button className="f-btn">Reset</Button>
+                </div>
+
+                <div className="btn-r">
+                  <label>Sort by:</label>
+                  <Dropdown overlay={menu}>
+                    <Button>
+                      Approval Date <img src="icons/icon-14.svg" alt=""/>
+                    </Button>
+                  </Dropdown>
+                </div>
+              </div>
+
+              <Collapse accordion className="user-tab">
+                <Panel header="1. Rinnie Gauger" key="1" extra={genExtra()}>
+                  <div className="gutter-example">
+                    <h3>PROFILE</h3>
+                    <Row gutter={16}>
+                      <Col className="gutter-row" span={12}><Input placeholder="First Name" /></Col>
+                      <Col className="gutter-row" span={12}><Input placeholder="Last Name" /></Col>
+                    </Row>
+                    <br></br>
+                    <Row gutter={16}>
+                      <Col className="gutter-row" span={12}><Input placeholder="Email" /></Col>
+                      <Col className="gutter-row" span={12}><Input placeholder="Organization" /></Col>
+                    </Row>
+                  </div>
+
+                  <hr></hr>
+
+                  <div className="gutter-example">
+                    <h3>USER DESIGNATION</h3>
+                    <Row gutter={16}>
+                      <Col className="gutter-row" span={4}>
+                        <div className="user-card">
+                          <div className="user-d"><h6>MHFD Staff</h6></div>
+                          <p><Radio></Radio></p>
+                        </div>
+                      </Col>
+                      <Col className="gutter-row" span={4}>
+                        <div className="user-card">
+                          <div className="user-d"><h6> Consultant/ Contractor</h6></div>
+                          <p><Radio></Radio></p>
+                        </div>
+                      </Col>
+                      <Col className="gutter-row" span={4}>
+                        <div className="user-card">
+                          <div className="user-d">
+                            <h6>Local</h6>
+                            <h6>Government</h6>
+                          </div>
+                          <p><Radio></Radio></p>
+                        </div>
+                      </Col>
+                      <Col className="gutter-row" span={4}>
+                        <div className="user-card">
+                          <div className="user-d"><h6>Other</h6></div>
+                          <p><Radio></Radio></p>
+                        </div>
+                      </Col>
+                      <Col className="gutter-row" span={4}>
+                        <div className="user-card">
+                          <div className="user-d">
+                            <h6>Local </h6>
+                            <h6>Government Admin</h6>
+                          </div>
+                          <p><Radio></Radio></p>
+                        </div>
+                      </Col>
+                      <Col className="gutter-row" span={4}>
+                        <div className="user-card">
+                          <div className="user-d"><h6>MHFD Admin</h6></div>
+                          <p><Radio></Radio></p>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+
+                  <hr></hr>
+
+                  <div className="gutter-example">
+                    <h3>PROFILE</h3>
+                    <Row gutter={16}>
+                      <Col className="gutter-row" span={12}>
+                        <Dropdown overlay={menu}>
+                          <Button>
+                            User Designation <img src="icons/icon-12.svg" alt=""/>
+                          </Button>
+                        </Dropdown>
+                      </Col>
+
+                      <Col className="gutter-row" span={12}>
+                        <Dropdown overlay={menu}>
+                          <Button>
+                            User Designation <img src="icons/icon-12.svg" alt=""/>
+                          </Button>
+                        </Dropdown>
+                      </Col>
+                    </Row>
+                    <br></br>
+                    <Row gutter={16}>
+                      <Col className="gutter-row" span={12}>
+                      <Dropdown overlay={menu}>
+                        <Button>
+                          User Designation <img src="icons/icon-12.svg" alt=""/>
+                        </Button>
+                      </Dropdown>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="user-footer">
+                    <Button className="btn-d">Delete</Button>
+                    <Button className="btn-s">Save</Button>
+                  </div>
+                </Panel>
+              </Collapse>
                </TabPane>
             </Tabs>
           </Col>
