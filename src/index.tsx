@@ -18,6 +18,7 @@ import SidebarView from './Components/Sidebar/SidebarView';
 import SignUpView from './Components/SignUp/SignUpView';
 import App from './App';
 import UserView from './Components/User/UserView';
+import MapView from './Components/Map/MapView';
 
 
 ReactDOM.render(
@@ -25,6 +26,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <Switch>
         <Route path={`/login`} component={LoginView}/>
+        <Route path={`/map`} component={MapView}/>
         <Route path={`/navbar`} component={NavbarView}/>
         <Route path={`/reset-password`} component={ResetPasswordView}/>
         <Route path={`/confirm-password`} component={ConfirmPasswordView}/>
