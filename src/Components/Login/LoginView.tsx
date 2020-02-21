@@ -8,21 +8,21 @@ export default () => {
       <Col span={13}>
       <Carousel autoplay>
             <div>
-              <img src="icons/banner.png" alt=""/>
+              <img src="/icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="icons/banner.png" alt=""/>
+            <img src="/icons/banner.png" alt=""/>
              <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="icons/banner.png" alt=""/>
+            <img src="/icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
@@ -40,7 +40,7 @@ export default () => {
           <Col span={12} style={{ textAlign: 'right' }}>
           <span>Continue as Guest</span><Button shape="circle" icon="arrow-right" />
           </Col>
-      </Row>
+        </Row>
         </div>
         <div>
         <Form style={{ width: '533px' }}  className="login-form">

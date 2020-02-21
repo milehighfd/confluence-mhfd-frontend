@@ -8,21 +8,21 @@ export default () => {
       <Col span={13}>
       <Carousel autoplay>
             <div>
-              <img src="icons/banner.png" alt=""/>
+              <img src="/icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="icons/banner.png" alt=""/>
+            <img src="/icons/banner.png" alt=""/>
              <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="icons/banner.png" alt=""/>
+            <img src="/icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
@@ -78,7 +78,7 @@ export default () => {
       </div>
       <Form.Item>
         <Button className="buttonLogin" block htmlType="submit">
-            Login
+            Sign Up
         </Button>
       </Form.Item>
       </Form>
