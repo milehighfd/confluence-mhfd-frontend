@@ -9,21 +9,31 @@ export default () => {
       <Carousel autoplay>
             <div>
               <img src="icons/banner.png" alt=""/>
-              <h3>1</h3>
+              <div className="textContent">
+                <h2>What can I do with Confluence?</h2>
+                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+              </div>
             </div>
             <div>
             <img src="icons/banner.png" alt=""/>
-              <h3>2</h3>
+             <div className="textContent">
+                <h2>What can I do with Confluence?</h2>
+                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+              </div>
             </div>
             <div>
             <img src="icons/banner.png" alt=""/>
-              <h3>3</h3>
+              <div className="textContent">
+                <h2>What can I do with Confluence?</h2>
+                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+              </div>
             </div>
       </Carousel>        
       </Col>
       <Col span={11}>
       <div className="login-step01">
-      <Row className="returnText">
+        <div>
+        <Row className="returnText">
           <Col span={12}>
           <Button shape="circle" icon="arrow-left" /><span>Back</span>
           </Col>
@@ -31,7 +41,9 @@ export default () => {
           <span>Continue as Guest</span><Button shape="circle" icon="arrow-right" />
           </Col>
       </Row>
-      <Form style={{ width: '533px' }}  className="login-form">
+        </div>
+        <div>
+        <Form style={{ width: '533px' }}  className="login-form">
       <h1>
         Welcome to MHFD's Confluence
       </h1>
@@ -58,6 +70,8 @@ export default () => {
         </Button>
       </Form.Item>
       </Form>
+        </div>
+
       </div>  
       </Col>
     </Row>    
