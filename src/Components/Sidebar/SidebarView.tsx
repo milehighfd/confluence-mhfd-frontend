@@ -7,8 +7,7 @@ const { SubMenu } = Menu;
 
 export default () => {
   const [collapsed, setCollapsed] = useState(true);
-  return <Layout style={{ minHeight: 'calc(100vh)' }}>
-        <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
+  return <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
           <Menu theme="dark" defaultSelectedKeys={['2']} mode="inline">
             <Menu.Item key="1">
               <img className="img-h anticon" src="icons/menu-white-01.svg" alt="" width="18px" />
@@ -42,5 +41,4 @@ export default () => {
             </Menu.Item>
           </Menu>
         </Sider>
-      </Layout>
 };

@@ -13,8 +13,7 @@ const menu = (
   </Menu>
 );
 export default () => {
-  return <Layout>
-    <Header className="header">
+  return <Header className="header">
       <div className="logo"
       style={{backgroundImage: 'url(icons/logo.svg)'}}
       />
@@ -35,5 +34,5 @@ export default () => {
         <Menu.Item key=""><img src="icons/icon-27.svg" alt=""/></Menu.Item>
       </Menu>
     </Header>
-  </Layout>
+  
 }
