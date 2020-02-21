@@ -544,6 +544,7 @@ body{
 .head-filter{
   background: $opacity00;
   height: 50px;
+  border-radius: 12px 12px 0px 0px;
 
   .ant-input-affix-wrapper {
     width: 200px !important;

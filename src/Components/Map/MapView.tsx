@@ -60,22 +60,22 @@ export default () => {
 
                   <div className="head-filter">
                     <Row>
-                      <Col span={18}>
+                      <Col span={16}>
                         <Search
                           placeholder="Search..."
                           onSearch={value => console.log(value)}
                           style={{ width: 200 }}
                         />
                       </Col>
-                      <Col style={{textAlign: 'right'}} span={3}>
+                      <Col style={{textAlign: 'right'}} span={4}>
                         <Dropdown overlay={menu}>
                           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                            Hover me <Icon type="down" />
+                            Sort by Cost <img src="icons/icon-14.svg" alt=""/>
                           </a>
                         </Dropdown>
                       </Col>
-                      <Col style={{textAlign: 'right'}} span={3}>
-                        <Button type="primary">Primary</Button>
+                      <Col style={{textAlign: 'right'}} span={4}>
+                        <Button type="primary"><img src="icons/icon-29.svg" alt=""/> Filters (4)</Button>
                       </Col>
                     </Row>
                   </div>
