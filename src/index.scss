@@ -374,7 +374,6 @@ html, body{
   font-family: 'Ubuntu';
   font-style: normal;
   line-height: normal;
-  margin: 40px 0px ;
 }
 .login-step01 .buttonLogin {
   height: 72px;
@@ -382,7 +381,6 @@ html, body{
   background-color: #000000;
   color: $white;
   font-size: 1.2rem;
-  margin: 40px 0px;
 }
 // login_material style
 .returnText {
@@ -491,4 +489,19 @@ html, body{
 @keyframes inputHighlighter {
 	from { background:#5264AE; }
   to 	{ width:0; background:transparent; }
+}
+
+/* Sign up */
+.signup {
+  margin: 20px 0;
+  display: flex;
+  height: 56px;
+  justify-content: space-between;
+}
+.signup button {
+  white-space: inherit;
+  padding: 6px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
 }
