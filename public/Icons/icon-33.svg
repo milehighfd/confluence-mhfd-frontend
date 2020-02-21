@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11" height="11" viewBox="0 0 11 11">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Trazado_40" data-name="Trazado 40" d="M691-201a1,1,0,0,1,1,1v3a1,1,0,0,1-1,1h-3a1,1,0,0,1-1-1v-3a1,1,0,0,1,1-1Zm6,0a1,1,0,0,1,1,1v3a1,1,0,0,1-1,1h-3a1,1,0,0,1-1-1v-3a1,1,0,0,1,1-1Zm-6-6a1,1,0,0,1,1,1v3a1,1,0,0,1-1,1h-3a1,1,0,0,1-1-1v-3a1,1,0,0,1,1-1Zm6,0a1,1,0,0,1,1,1v3a1,1,0,0,1-1,1h-3a1,1,0,0,1-1-1v-3a1,1,0,0,1,1-1Z" fill="none" clip-rule="evenodd"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectángulo_3" data-name="Rectángulo 3" width="31" height="31" transform="translate(677 -217)" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <path id="Trazado_39" data-name="Trazado 39" d="M687-196h11v-11H687Z" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_44" data-name="Grupo 44" transform="translate(-687 207)" clip-path="url(#clip-path)">
+    <g id="Grupo_43" data-name="Grupo 43" style="isolation: isolate">
+      <g id="Grupo_42" data-name="Grupo 42" clip-path="url(#clip-path-2)">
+        <g id="Grupo_41" data-name="Grupo 41" clip-path="url(#clip-path-3)">
+          <g id="Grupo_40" data-name="Grupo 40" transform="translate(687 -207)">
+            <path id="Trazado_38" data-name="Trazado 38" d="M4,6A1,1,0,0,1,5,7v3a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V7A1,1,0,0,1,1,6Zm6,0a1,1,0,0,1,1,1v3a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V7A1,1,0,0,1,7,6ZM4,0A1,1,0,0,1,5,1V4A1,1,0,0,1,4,5H1A1,1,0,0,1,0,4V1A1,1,0,0,1,1,0Zm6,0a1,1,0,0,1,1,1V4a1,1,0,0,1-1,1H7A1,1,0,0,1,6,4V1A1,1,0,0,1,7,0Z" fill="none" stroke="#28c499" stroke-width="2"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

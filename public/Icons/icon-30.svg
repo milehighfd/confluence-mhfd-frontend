@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="11" viewBox="0 0 16 11">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Trazado_35" data-name="Trazado 35" d="M657.5-197a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-11a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5Zm2-5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-15a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5Zm-2-5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-11a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5Z" fill="none" clip-rule="evenodd"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_38" data-name="Grupo 38" transform="translate(-644 207)" clip-path="url(#clip-path)">
+    <path id="Trazado_34" data-name="Trazado 34" d="M639-212h26v21H639Z" fill="rgba(36,24,98,0.5)"/>
+  </g>
+</svg>
