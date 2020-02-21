@@ -382,14 +382,15 @@ body{
   font-style: normal;
   line-height: normal;
   font-weight: 400;
-  margin-bottom: 55px;
+  margin: 0;
 }
 .login-step01 .buttonLogin {
   height: 72px;
   border-radius: 4px;
-  background-color: #000000;
+  background-color: $black;
   color: $white;
   font-size: 1.2rem;
+  margin: 10px 0;
 }
 // login_material style
 .returnText {
@@ -513,7 +514,16 @@ body{
   border-radius: 4px;
   box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
 }
-
+// Reset password
+.resetText {
+  margin: 20px 0 50px 0;
+  font-size: 21.3px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
 // MAP
 .head-m{
   margin-bottom: 20px;

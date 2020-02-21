@@ -42,12 +42,11 @@ export default () => {
           </Col>
         </Row>
         </div>
-        <div>
         <Form style={{ width: '533px' }}  className="login-form">
       <h1>
           Reset your password
       </h1>
-        <Row>
+        <Row className="resetText">
           <p>Enter your email address below and we’ll send you a link to reset your password.</p>
         </Row>
       <div className="group">      
@@ -62,8 +61,6 @@ export default () => {
         </Button>
       </Form.Item>
       </Form>
-        </div>
-
       </div>  
       </Col>
     </Row>    

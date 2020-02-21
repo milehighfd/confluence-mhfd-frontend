@@ -42,11 +42,11 @@ export default () => {
           </Col>
         </Row>
         </div>
-        <div>
         <Form style={{ width: '533px' }}  className="login-form">
       <h1>
         Welcome to MHFD's Confluence
       </h1>
+      <div style={{ marginTop: '50px' }}>
       <div className="group">      
         <input type="text" required/>
         <span className="highlight"></span>
@@ -69,9 +69,8 @@ export default () => {
             Login
         </Button>
       </Form.Item>
+      </div>
       </Form>
-        </div>
-
       </div>  
       </Col>
     </Row>    
