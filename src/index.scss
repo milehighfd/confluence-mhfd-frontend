@@ -357,7 +357,6 @@ body{
   position: relative;
   height: 80vh;
   font-size: 1.2rem;
-  font-family: 'Ubuntu';
   font-weight: 400;
   margin-left: 58px;
 }
@@ -380,9 +379,10 @@ body{
 .login-form h1 {
   color: $purple00;
   font-size: 2.6rem;
-  font-family: 'Ubuntu';
   font-style: normal;
   line-height: normal;
+  font-weight: 400;
+  margin-bottom: 55px;
 }
 .login-step01 .buttonLogin {
   height: 72px;
@@ -411,11 +411,11 @@ body{
 // styles material input
 .group {
   position:relative;
-  margin-bottom:45px;
+  margin-bottom:35px;
 }
 .group input {
   font-size:18px;
-  padding:10px 10px 10px 5px;
+  padding:10px 10px 10px 0;
   display:block;
   width:100%;
   border:none;
@@ -431,7 +431,6 @@ body{
   font-weight: normal;
   position: absolute;
   pointer-events: none;
-  left:5px;
   top:10px;
   transition:0.2s ease all;
   -moz-transition:0.2s ease all;
@@ -449,7 +448,7 @@ body{
 .bar 	{ position:relative; display:block; width:100%; }
 .bar:before, .bar:after 	{
   content:'';
-  height:2px;
+  height:1px;
   width:0;
   bottom:1px;
   position:absolute;
