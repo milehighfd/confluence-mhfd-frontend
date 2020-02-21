@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Layout, Row, Col, Tabs, Input, Menu, Dropdown, Button, Icon, Collapse, Radio} from 'antd';
+import {Layout, Row, Col, Tabs, Input, Menu, Dropdown, Button, Icon, Collapse, Radio, Switch} from 'antd';
 import NavbarView from "../Navbar/NavbarView";
 import SidebarView from "../Sidebar/SidebarView";
 
@@ -24,18 +24,11 @@ const menu = (
   </Menu>
 );
 const genExtra = () => (
-  // <Icon
-  //   type="setting"
-  //   onClick={event => {
-  //    If you don't want click extra trigger collapse, you can prevent this:
-  //     event.stopPropagation();
-  //   }}
-  // />
   <img src="icons/icon-20.svg" alt=""/>
 );
 
 export default () => {
-  return <>  
+  return <>
     <Layout>
       <NavbarView></NavbarView>
         <Layout>

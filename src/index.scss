@@ -226,6 +226,9 @@ html, body{
   .ant-collapse-content > .ant-collapse-content-box {
     padding: 35px 80px 0px 80px;
   }
+  .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+    border-color: $purple;
+  }
 }
 .user-tab{
   h6{
@@ -399,9 +402,9 @@ html, body{
 }
 
 // styles material input
-.group { 
-  position:relative; 
-  margin-bottom:45px; 
+.group {
+  position:relative;
+  margin-bottom:45px;
 }
 .group input {
   font-size:18px;
@@ -416,15 +419,15 @@ html, body{
 
 /* LABEL material*/
 .group label 				 {
-  color:#999; 
+  color:#999;
   font-size: 1rem !important;
   font-weight: normal;
   position: absolute;
   pointer-events: none;
   left:5px;
   top:10px;
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
   -webkit-transition:0.2s ease all;
 }
 
@@ -439,20 +442,20 @@ html, body{
 .bar 	{ position:relative; display:block; width:100%; }
 .bar:before, .bar:after 	{
   content:'';
-  height:2px; 
+  height:2px;
   width:0;
-  bottom:1px; 
+  bottom:1px;
   position:absolute;
-  background:#5264AE; 
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
+  background:#5264AE;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
   -webkit-transition:0.2s ease all;
 }
 .bar:before {
   left:50%;
 }
 .bar:after {
-  right:50%; 
+  right:50%;
 }
 
 /* active state */
@@ -462,9 +465,9 @@ html, body{
 
 .highlight {
   position:absolute;
-  height:60%; 
-  width:100px; 
-  top:25%; 
+  height:60%;
+  width:100px;
+  top:25%;
   left:0;
   pointer-events:none;
   opacity:0.5;
@@ -490,7 +493,6 @@ html, body{
 	from { background:#5264AE; }
   to 	{ width:0; background:transparent; }
 }
-
 /* Sign up */
 .signup {
   margin: 20px 0;
