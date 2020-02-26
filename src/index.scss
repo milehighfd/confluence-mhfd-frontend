@@ -532,6 +532,9 @@ body{
     color: $purple00;
     font-size: 22px;
   }
+  a:hover {
+    color: $purple00;
+  }
   button{
     background: transparent;
     border: 0px;
@@ -540,11 +543,16 @@ body{
   .btn-mm{
     border-right: 1px solid $opacity00;
   }
+  .ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
+    text-decoration: none !important;
+    background: transparent !important;
+  }
 }
 .head-filter{
   background: $opacity00;
   height: 50px;
   border-radius: 12px 12px 0px 0px;
+  padding: 6px 20px;
 
   .ant-input-affix-wrapper {
     width: 200px !important;
@@ -560,5 +568,116 @@ body{
   }
   .ant-input-affix-wrapper .ant-input {
     width: 200px;
+  }
+  .ant-dropdown-link{
+    color: $purple00;
+    text-align: left;
+    font-size: 12px;
+    padding: 18px 0px;
+  }
+  button{
+    border: none;
+    background-color: transparent;
+    color: $purple00;
+    font-size: 12px;
+  }
+  button img{
+    margin-right: 5px;
+  }
+  .ant-input:hover {
+    border-color: $purple;
+  }
+  .ant-input:focus{
+    box-shadow: none;
+  }
+  .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+    border-color: $purple;
+  }
+  .ant-btn:hover, .ant-btn:focus {
+    color: $purple;
+    background-color: transparent;
+    border-color: none;
+  }
+}
+.tabs-map{
+  .ant-tabs-nav .ant-tabs-tab-active {
+    color: $purple;
+  }
+  .ant-tabs-nav .ant-tabs-tab {
+    padding: 12px 0px 8px 0px !important;
+  }
+  .ant-tabs-ink-bar {
+    background-color: $purple;
+  }
+  .ant-tabs-nav .ant-tabs-tab:hover {
+    color: $purple;
+  }
+}
+.hastag{
+  display: flex;
+  h6{
+    font-size: 14px;
+    color: $purple;
+    font-weight: 600;
+    margin-right: 10px;
+    width: 218px;
+  }
+  .ant-tag {
+    color: $opacity;
+    font-size: 14px;
+    display: inline-block;
+    height: auto;
+    background: transparent;
+    border: none;
+    border-radius: 0px;
+    margin-bottom: 10px;
+  }
+ .ant-tag .anticon-close {
+    font-size: 10px;
+    background: $opacity00;
+    border-radius: 50%;
+    padding: 4px;
+    color: $white;
+    font-weight: 600;
+  }
+}
+.card-map{
+  padding: 0px 20px;
+
+  .ant-card-bordered {
+    border: none;
+  }
+  .ant-card{
+    background: none;
+  }
+  .ant-card-hoverable:hover {
+    box-shadow: none;
+  }
+  .ant-card-body {
+    padding: 10px 0px;
+  }
+  h4{
+    font-size: 16px;
+    color: $purple;
+    margin-bottom: 0px;
+  }
+  h6{
+    font-size: 14px;
+    color: $opacity;
+    font-weight: 400;
+    margin-bottom: 2px;
+  }
+  h5{
+    font-size: 18px;
+    color: $purple;
+  }
+  h5 span{
+    color: $opacity;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+  hr{
+    opacity: 0.5;
   }
 }

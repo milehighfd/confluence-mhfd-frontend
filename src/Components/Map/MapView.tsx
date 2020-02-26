@@ -13,17 +13,17 @@ const { Search } = Input;
 const menu = (
   <Menu>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+      <a target="_blank" rel="noopener noreferrer" href="">
         1st menu item
       </a>
     </Menu.Item>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+      <a target="_blank" rel="noopener noreferrer" href="">
         2nd menu item
       </a>
     </Menu.Item>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+      <a target="_blank" rel="noopener noreferrer" href="">
         3rd menu item
       </a>
     </Menu.Item>
@@ -52,14 +52,20 @@ export default () => {
                     </Col>
                     <Col style={{textAlign: 'right'}} span={12}>
                       <ButtonGroup>
-                        <Button className="btn-mm"><img src="icons/icon-30.svg" alt=""/></Button>
-                        <Button><img src="icons/icon-33.svg" alt=""/></Button>
+                        <Button className="btn-mm">
+                          <img className="img-h" src="/icons/icon-30.svg" alt=""/>
+                          <img className="img-a" src="/icons/icon-32.svg" alt=""/>
+                        </Button>
+                        <Button>
+                          <img className="img-h" src="/icons/icon-31.svg" alt=""/>
+                          <img className="img-a" src="/icons/icon-33.svg" alt=""/>
+                        </Button>
                       </ButtonGroup>
                     </Col>
                   </Row>
 
                   <div className="head-filter">
-                    <Row>
+                    <Row type="flex" justify="space-around" align="middle">
                       <Col span={16}>
                         <Search
                           placeholder="Search..."
@@ -67,46 +73,95 @@ export default () => {
                           style={{ width: 200 }}
                         />
                       </Col>
-                      <Col style={{textAlign: 'right'}} span={4}>
+                      <Col  style={{textAlign: 'right'}} span={8}>
                         <Dropdown overlay={menu}>
                           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                             Sort by Cost <img src="icons/icon-14.svg" alt=""/>
                           </a>
                         </Dropdown>
-                      </Col>
-                      <Col style={{textAlign: 'right'}} span={4}>
-                        <Button type="primary"><img src="icons/icon-29.svg" alt=""/> Filters (4)</Button>
+                        <Button><img src="icons/icon-29.svg" alt=""/> Filters (4)</Button>
                       </Col>
                     </Row>
                   </div>
 
-                  <Tabs defaultActiveKey="1">
-                    <TabPane tab="Tab 1" key="1">
+                  <Tabs defaultActiveKey="1" className="tabs-map">
+                    <TabPane tab="Problems" key="1">
                       <div className="hastag">
                         <h6>Showing 67 Problems:</h6>
-                        <Tag closable >
-                           $600K - $1.2M
-                        </Tag>
-                        <Tag closable >
-                           Active
-                        </Tag>
-                        <Tag closable >
-                           Stream Restoration
-                        </Tag>
+                        <div>
+                          <Tag closable >
+                             $600K - $1.2M
+                          </Tag>
+                          <Tag closable >
+                             Active
+                          </Tag>
+                          <Tag closable >
+                             Stream Restoration
+                          </Tag>
+                          <Tag closable >
+                             Maintenance
+                          </Tag>
+                          <Tag closable >
+                             Westminster
+                          </Tag>
+                          <Tag closable >
+                             Components
+                          </Tag>
+                        </div>
                       </div>
-                      <Row>
+                      <Row className="card-map" gutter={[16, 16]}>
                         <Col span={8}>
                           <Card
                             hoverable
-                            style={{ width: 240 }}
-                            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                            style={{ width: '100%' }}
+                            cover={<img alt="example" src="/icons/eje.png" />}
                           >
-                            <Meta title="Europe Street beat" description="www.instagram.com" />
+                            <h4>West Tollagate Creek GSB Drops</h4>
+                            <h6>Westminster</h6>
+                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
+                            <hr/>
+                            <div style={{display: 'flex', width:'100%'}}>
+                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
+                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
+                            </div>
                           </Card>
                         </Col>
+                        <Col span={8}>
+                          <Card
+                            hoverable
+                            style={{ width: '100%' }}
+                            cover={<img alt="example" src="/icons/eje.png" />}
+                          >
+                            <h4>West Tollagate Creek GSB Drops</h4>
+                            <h6>Westminster</h6>
+                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
+                            <hr/>
+                            <div style={{display: 'flex', width:'100%'}}>
+                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
+                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
+                            </div>
+                          </Card>
+                        </Col>
+                        <Col span={8}>
+                          <Card
+                            hoverable
+                            style={{ width: '100%' }}
+                            cover={<img alt="example" src="/icons/eje.png" />}
+                          >
+                            <h4>West Tollagate Creek GSB Drops</h4>
+                            <h6>Westminster</h6>
+                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
+                            <hr/>
+                            <div style={{display: 'flex', width:'100%'}}>
+                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
+                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
+                            </div>
+                          </Card>
+                        </Col>
+
                       </Row>
                     </TabPane>
-                    <TabPane tab="Tab 2" key="2">
+                    <TabPane tab="Projects" key="2">
                       Tab 2
                     </TabPane>
                   </Tabs>
