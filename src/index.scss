@@ -434,6 +434,7 @@ body{
   display:block;
   width:100%;
   border:none;
+  opacity: 15%;
   border-bottom:1px solid #251863
   ;
 }
@@ -516,14 +517,24 @@ body{
 }
 /* Sign up */
 .signup {
-  margin: 20px 0;
+  margin: 15px 0 50px 0;
   display: flex;
-  height: 56px;
+  height: 66px;
   justify-content: space-between;
 }
 .signup button {
+  border: $white;
   white-space: inherit;
-  padding: 6px;
+  padding: 14px 20px 7px 20px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
+}
+.signup button:hover {
+  background-color: $green;
+  color: $white;
+  border: $green;
+  white-space: inherit;
   height: auto;
   border-radius: 4px;
   box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
