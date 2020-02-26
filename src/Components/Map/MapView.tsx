@@ -63,17 +63,17 @@ export default () => {
                   <div className="m-footer">
                     <h5>NFHL 100 year floodplain</h5>
                     <hr/>
-                    <p><label></label> 6 - 12 inches</p>
-                    <p><label></label> 12 - 18 inches</p>
-                    <p><label></label> 18 - 24 inches</p>
-                    <p><label></label> +24 inches</p>
-                    <p><label></label> Stream Channel</p>
-                    <p><label></label> Service Area (Watershed)</p>
+                    <p><div style={{background:'#99C9FF'}}></div> 6 - 12 inches</p>
+                    <p><div style={{background:'#4B9CFF'}}></div> 12 - 18 inches</p>
+                    <p><div style={{background:'#4C81C4'}}></div> 18 - 24 inches</p>
+                    <p><div style={{background:'#4A6A9C'}}></div> +24 inches</p>
+                    <p><div style={{background:'#8FA7C8', height: '2px', marginTop: '7px'}}></div> Stream Channel</p>
+                    <p><div style={{background:'#ffffff', border: '1px dashed'}}></div> Service Area (Watershed)</p>
                   </div>
 
                   <div className="m-zoom">
                     <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt=""/></Button>
-                    <Button style={{borderRadius:'0px 0px 4px 4px'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
+                    <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
                   </div>
                 </div>
               </Col>

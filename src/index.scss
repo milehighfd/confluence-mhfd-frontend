@@ -754,7 +754,7 @@ body{
   height: calc(100vh - 69px);
   margin: 5px;
   background-size: cover;
-  background-image: url('/icons/mapitash.png');
+  background-image: url('/Icons/mapitash.png');
   position: relative;
 }
 .map .m-head{
@@ -800,6 +800,25 @@ body{
   position: absolute;
   bottom: 20px;
   left: 20px;
+  padding: 15px;
+  h5{
+    font-size: 12px;
+    text-transform: uppercase;
+    color: $opacity;
+  }
+  p{
+    font-size: 11px;
+    color: $purple00;
+    margin-bottom: 2px;
+    display: flex;
+  }
+  div{
+    height: 8px;
+    width: 16px;
+    border: 1px solid #979797;
+    margin-right: 8px;
+    margin-top: 4px;
+  }
 }
 .map .m-zoom{
   position: absolute;
