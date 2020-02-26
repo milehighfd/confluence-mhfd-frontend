@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input } from 'antd';
+import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress } from 'antd';
 
 
 import NavbarView from "../Navbar/NavbarView";
@@ -12,6 +12,17 @@ const ButtonGroup = Button.Group;
 const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Search } = Input;
+
+const genExtra = () => (
+  <div>
+    <div>Piney Creek Channel Restoration</div>
+    <div>Westminster</div>
+    <div>$450,200</div>
+    <div><Progress percent={90} showInfo={false} size="small" /></div>
+    <div><img src="/Icons/icon-20.svg" alt=""/></div>
+  </div>
+);
+
 const menu = (
   <Menu>
     <Menu.Item>
@@ -253,6 +264,13 @@ export default () => {
                           </Card>
                         </Col>
                       </Row>
+
+                      <Collapse accordion>
+                        <Panel header="" key="1" extra={genExtra()}>
+                          <p>mapitashhhh</p>
+                        </Panel>
+                      </Collapse>
+
                     </TabPane>
                     <TabPane tab="Projects" key="2">
                       Tab 2
