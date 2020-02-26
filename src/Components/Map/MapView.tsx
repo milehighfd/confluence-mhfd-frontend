@@ -38,15 +38,23 @@ export default () => {
             <SidebarView></SidebarView>
             <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
             <Row>
-              <Col span={12}>Aquí va el mapitash :v</Col>
-              <Col style={{padding:'20px 0px'}} span={12}>
+              <Col span={12}>
+                <div className="map">
+
+                </div>
+              </Col>
+              <Col span={12}>
+                <div className="count">
+                <Button className="btn-coll">
+                  <img src="/icons/icon-34.svg" alt=""/>
+                </Button>
               {/*<Collapse accordion>
                 <Panel header="" key="1">*/}
                   <Row className="head-m">
                     <Col span={12}>
                     <Dropdown overlay={menu}>
                       <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                        Westminter, CO  <img src="icons/icon-12.svg" alt=""/>
+                        Westminter, CO  <img src="/icons/icon-12.svg" alt=""/>
                       </a>
                     </Dropdown>
                     </Col>
@@ -158,7 +166,56 @@ export default () => {
                             </div>
                           </Card>
                         </Col>
-
+                      </Row>
+                      <Row className="card-map" gutter={[16, 16]}>
+                        <Col span={8}>
+                          <Card
+                            hoverable
+                            style={{ width: '100%' }}
+                            cover={<img alt="example" src="/icons/eje.png" />}
+                          >
+                            <h4>West Tollagate Creek GSB Drops</h4>
+                            <h6>Westminster</h6>
+                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
+                            <hr/>
+                            <div style={{display: 'flex', width:'100%'}}>
+                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
+                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
+                            </div>
+                          </Card>
+                        </Col>
+                        <Col span={8}>
+                          <Card
+                            hoverable
+                            style={{ width: '100%' }}
+                            cover={<img alt="example" src="/icons/eje.png" />}
+                          >
+                            <h4>West Tollagate Creek GSB Drops</h4>
+                            <h6>Westminster</h6>
+                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
+                            <hr/>
+                            <div style={{display: 'flex', width:'100%'}}>
+                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
+                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
+                            </div>
+                          </Card>
+                        </Col>
+                        <Col span={8}>
+                          <Card
+                            hoverable
+                            style={{ width: '100%' }}
+                            cover={<img alt="example" src="/icons/eje.png" />}
+                          >
+                            <h4>West Tollagate Creek GSB Drops</h4>
+                            <h6>Westminster</h6>
+                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
+                            <hr/>
+                            <div style={{display: 'flex', width:'100%'}}>
+                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
+                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
+                            </div>
+                          </Card>
+                        </Col>
                       </Row>
                     </TabPane>
                     <TabPane tab="Projects" key="2">
@@ -168,6 +225,7 @@ export default () => {
 
                 {/*</Panel>
                 </Collapse>*/}
+                </div>
               </Col>
               </Row>
             </Layout>

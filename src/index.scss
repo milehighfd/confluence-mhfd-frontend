@@ -17,10 +17,10 @@ html, body{
 body{
  font-family: $ubunto !important;
 }
-.user::-webkit-scrollbar{
+.user::-webkit-scrollbar, .count::-webkit-scrollbar{
   width: 6px;
 }
-.user::-webkit-scrollbar-thumb {
+.user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }
@@ -573,19 +573,33 @@ body{
     text-decoration: none !important;
     background: transparent !important;
   }
+  .img-h{
+    opacity: 1;
+  }
+   .ant-btn:hover .img-h, .ant-btn:focus .img-h, .ant-btn:active .img-h, .ant-btn.active .img-h {
+    display: none;
+  }
+  .ant-btn:hover .img-a, .ant-btn:focus .img-a, .ant-btn:active .img-a, .ant-btn.active .img-a {
+   display: inline-block !important;
+  }
+  .ant-btn:hover, .ant-btn:focus {
+    border-color: $opacity00;
+  }
 }
 .head-filter{
   background: $opacity00;
   height: 50px;
-  border-radius: 12px 12px 0px 0px;
+  // border-radius: 12px 12px 0px 0px;
   padding: 6px 20px;
+  margin-left: -20px;
+  margin-right: -20px;
 
   .ant-input-affix-wrapper {
     width: 200px !important;
     color: $purple;
     height: 38px;
     border-radius: 4px;
-    border: solid 1.3px rgba(37, 24, 99, 0.1);
+    // border: solid 1.3px rgba(37, 24, 99, 0.1);
     background-color: $white;
     box-shadow: none;
   }
@@ -706,4 +720,28 @@ body{
   hr{
     opacity: 0.5;
   }
+}
+.count{
+  padding:20px;
+  background: $white;
+  height: calc(100vh - 58px);
+  overflow-y: auto;
+}
+.btn-coll{
+  border: none !important;
+  background: white;
+  box-shadow: none !important;
+  position: absolute !important;
+  top: calc(50% - 27px);
+  left: -50px;
+  padding: 0px !important;
+  width: 50px;
+  height: 70px !important;
+  border-radius: 10px 0px 0px 10px !important;
+}
+.map{
+  height: calc(100vh - 69px);
+  margin: 5px;
+  background-size: cover;
+  background-image: url('/icons/mapitash.png');
 }
