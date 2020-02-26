@@ -746,3 +746,16 @@ body{
   background-image: url('/icons/mapitash.png');
   position: relative;
 }
+.map .m-footer{
+  width: 210px;
+  background-color: $white;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+.map .m-zoom{
+  position: absolute;
+  width: 32px;
+  right: 20px;
+  bottom: 20px;
+}

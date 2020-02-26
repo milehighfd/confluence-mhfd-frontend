@@ -40,7 +40,7 @@ export default () => {
             <Row>
               <Col span={12}>
                 <div className="map">
-                  <div>
+                  <div className="m-head">
                     <Search
                       placeholder="input search text"
                       onSearch={value => console.log(value)}
@@ -59,7 +59,7 @@ export default () => {
                     </Dropdown>
                   </div>
 
-                  <div>
+                  <div className="m-footer">
                     <h5>NFHL 100 year floodplain</h5>
                     <hr/>
                     <p><label></label> 6 - 12 inches</p>
@@ -70,7 +70,7 @@ export default () => {
                     <p><label></label> Service Area (Watershed)</p>
                   </div>
 
-                  <div>
+                  <div className="m-zoom">
                     <Button><img src="/icons/icon-35.svg" alt=""/></Button>
                     <Button><img src="/icons/icon-36.svg" alt=""/></Button>
                   </div>
