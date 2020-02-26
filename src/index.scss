@@ -757,6 +757,43 @@ body{
   background-image: url('/icons/mapitash.png');
   position: relative;
 }
+.map .m-head{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+
+  button{
+    height: 34px;
+    border: none;
+    width: 34px;
+    padding: 0px;
+  }
+  .btn-01{
+    margin: 0px 15px;
+  }
+  .btn-02{
+    background: $green;
+  }
+  .ant-input-search-icon{
+    color: $purple;
+  }
+}
+.map .btn-03{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  height: 34px;
+  color: $purple;
+  font-size: 12px;
+
+  img{
+    margin-left: 8px;
+  }
+}
+.map .btn-03:active, .map .btn-03.active, .map .btn-03:hover, .map .btn-03:focus{
+  color: $purple;
+  border-color: $purple;
+}
 .map .m-footer{
   width: 210px;
   background-color: $white;
@@ -769,4 +806,11 @@ body{
   width: 32px;
   right: 20px;
   bottom: 20px;
+
+  button{
+    width: 32px;
+    height: 32px;
+    padding: 0px;
+    border: none;
+  }
 }

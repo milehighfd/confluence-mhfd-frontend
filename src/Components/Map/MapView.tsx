@@ -42,22 +42,23 @@ export default () => {
                 <div className="map">
                   <div className="m-head">
                     <Search
-                      placeholder="input search text"
+                      placeholder="Search..."
                       onSearch={value => console.log(value)}
                       style={{ width: 200 }}
                     />
-                    <Button><img src="/icons/icon-04.svg" alt=""/></Button>
-                    <Dropdown overlay={menu}>
+                    <Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>
+                    <Dropdown overlay={menu} className="btn-02">
                       <Button>
-                        <img src="/icons/icon-05.svg" alt=""/>
-                      </Button>
-                    </Dropdown>
-                    <Dropdown overlay={menu}>
-                      <Button>
-                        Dark Terrain <img src="/icons/icon-12.svg" alt=""/>
+                        <img src="/Icons/icon-05.svg" alt=""/>
                       </Button>
                     </Dropdown>
                   </div>
+
+                  <Dropdown overlay={menu} className="btn-03">
+                    <Button>
+                      Dark Terrain <img src="/Icons/icon-12.svg" alt=""/>
+                    </Button>
+                  </Dropdown>
 
                   <div className="m-footer">
                     <h5>NFHL 100 year floodplain</h5>
@@ -71,15 +72,15 @@ export default () => {
                   </div>
 
                   <div className="m-zoom">
-                    <Button><img src="/icons/icon-35.svg" alt=""/></Button>
-                    <Button><img src="/icons/icon-36.svg" alt=""/></Button>
+                    <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt=""/></Button>
+                    <Button style={{borderRadius:'0px 0px 4px 4px'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
                   </div>
                 </div>
               </Col>
               <Col span={12}>
                 <div className="count">
                 <Button className="btn-coll">
-                  <img src="/icons/icon-34.svg" alt=""/>
+                  <img src="/Icons/icon-34.svg" alt=""/>
                 </Button>
               {/*<Collapse accordion>
                 <Panel header="" key="1">*/}
@@ -87,19 +88,19 @@ export default () => {
                     <Col span={12}>
                     <Dropdown overlay={menu}>
                       <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                        Westminter, CO  <img src="/icons/icon-12.svg" alt=""/>
+                        Westminter, CO  <img src="/Icons/icon-12.svg" alt=""/>
                       </a>
                     </Dropdown>
                     </Col>
                     <Col style={{textAlign: 'right'}} span={12}>
                       <ButtonGroup>
                         <Button className="btn-mm">
-                          <img className="img-h" src="/icons/icon-30.svg" alt=""/>
-                          <img className="img-a" src="/icons/icon-32.svg" alt=""/>
+                          <img className="img-h" src="/Icons/icon-30.svg" alt=""/>
+                          <img className="img-a" src="/Icons/icon-32.svg" alt=""/>
                         </Button>
                         <Button>
-                          <img className="img-h" src="/icons/icon-31.svg" alt=""/>
-                          <img className="img-a" src="/icons/icon-33.svg" alt=""/>
+                          <img className="img-h" src="/Icons/icon-31.svg" alt=""/>
+                          <img className="img-a" src="/Icons/icon-33.svg" alt=""/>
                         </Button>
                       </ButtonGroup>
                     </Col>
@@ -117,10 +118,10 @@ export default () => {
                       <Col  style={{textAlign: 'right'}} span={8}>
                         <Dropdown overlay={menu}>
                           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                            Sort by Cost <img src="icons/icon-14.svg" alt=""/>
+                            Sort by Cost <img src="Icons/icon-14.svg" alt=""/>
                           </a>
                         </Dropdown>
-                        <Button><img src="icons/icon-29.svg" alt=""/> Filters (4)</Button>
+                        <Button><img src="Icons/icon-29.svg" alt=""/> Filters (4)</Button>
                       </Col>
                     </Row>
                   </div>
@@ -155,7 +156,7 @@ export default () => {
                           <Card
                             hoverable
                             style={{ width: '100%' }}
-                            cover={<img alt="example" src="/icons/eje.png" />}
+                            cover={<img alt="example" src="/Icons/eje.png" />}
                           >
                             <h4>West Tollagate Creek GSB Drops</h4>
                             <h6>Westminster</h6>
@@ -171,7 +172,7 @@ export default () => {
                           <Card
                             hoverable
                             style={{ width: '100%' }}
-                            cover={<img alt="example" src="/icons/eje.png" />}
+                            cover={<img alt="example" src="/Icons/eje.png" />}
                           >
                             <h4>West Tollagate Creek GSB Drops</h4>
                             <h6>Westminster</h6>
@@ -187,7 +188,7 @@ export default () => {
                           <Card
                             hoverable
                             style={{ width: '100%' }}
-                            cover={<img alt="example" src="/icons/eje.png" />}
+                            cover={<img alt="example" src="/Icons/eje.png" />}
                           >
                             <h4>West Tollagate Creek GSB Drops</h4>
                             <h6>Westminster</h6>
@@ -205,7 +206,7 @@ export default () => {
                           <Card
                             hoverable
                             style={{ width: '100%' }}
-                            cover={<img alt="example" src="/icons/eje.png" />}
+                            cover={<img alt="example" src="/Icons/eje.png" />}
                           >
                             <h4>West Tollagate Creek GSB Drops</h4>
                             <h6>Westminster</h6>
@@ -221,7 +222,7 @@ export default () => {
                           <Card
                             hoverable
                             style={{ width: '100%' }}
-                            cover={<img alt="example" src="/icons/eje.png" />}
+                            cover={<img alt="example" src="/Icons/eje.png" />}
                           >
                             <h4>West Tollagate Creek GSB Drops</h4>
                             <h6>Westminster</h6>
@@ -237,7 +238,7 @@ export default () => {
                           <Card
                             hoverable
                             style={{ width: '100%' }}
-                            cover={<img alt="example" src="/icons/eje.png" />}
+                            cover={<img alt="example" src="/Icons/eje.png" />}
                           >
                             <h4>West Tollagate Creek GSB Drops</h4>
                             <h6>Westminster</h6>
