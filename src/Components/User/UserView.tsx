@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Layout, Row, Col, Tabs, Input, Menu, Dropdown, Button, Icon, Collapse, Radio, Switch} from 'antd';
-import NavbarView from "../Navbar/NavbarView";
-import SidebarView from "../Sidebar/SidebarView";
+import NavbarView from "../Navbar/NavbarContainer";
+import SidebarView from "../Sidebar/SidebarContainer";
 
 const {Content} = Layout;
 const { TabPane } = Tabs;

@@ -10,29 +10,29 @@ import {history} from "./store/configureStore";
 import store from './store';
 import 'antd/dist/antd.css';
 
-import LoginView from './Components/Login/LoginView';
-import NavbarView from './Components/Navbar/NavbarView';
-import ResetPasswordView from './Components/ResetPassword/ResetPasswordView';
-import ConfirmPasswordView from './Components/ConfirmPassword/ConfirmPasswordView';
-import SidebarView from './Components/Sidebar/SidebarView';
-import SignUpView from './Components/SignUp/SignUpView';
 import App from './App';
-import UserView from './Components/User/UserView';
-import MapView from './Components/Map/MapView';
+import LoginContainer from './Components/Login/LoginContainer';
+import MapContainer from './Components/Map/MapContainer';
+import NavbarContainer from './Components/Navbar/NavbarContainer';
+import ResetPasswordContainer from './Components/ResetPassword/ResetPasswordContainer';
+import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswordContainer';
+import SidebarContainer from './Components/Sidebar/SidebarContainer';
+import SignUpContainer from './Components/SignUp/SignUpContainer';
+import UserContainer from './Components/User/UserContainer';
 
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
-        <Route path={`/login`} component={LoginView}/>
-        <Route path={`/map`} component={MapView}/>
-        <Route path={`/navbar`} component={NavbarView}/>
-        <Route path={`/reset-password`} component={ResetPasswordView}/>
-        <Route path={`/confirm-password`} component={ConfirmPasswordView}/>
-        <Route path={`/sidebar`} component={SidebarView}/>
-        <Route path={`/sign-up`} component={SignUpView}/>
-        <Route path={`/user`} component={UserView}/>
+        <Route path={`/login`} component={LoginContainer}/>
+        <Route path={`/map`} component={MapContainer}/>
+        <Route path={`/navbar`} component={NavbarContainer}/>
+        <Route path={`/reset-password`} component={ResetPasswordContainer}/>
+        <Route path={`/confirm-password`} component={ConfirmPasswordContainer}/>
+        <Route path={`/sidebar`} component={SidebarContainer}/>
+        <Route path={`/sign-up`} component={SignUpContainer}/>
+        <Route path={`/user`} component={UserContainer}/>
         <Route path={`/`} component={App}/>
       </Switch>
     </ConnectedRouter>
