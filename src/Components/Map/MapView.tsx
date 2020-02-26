@@ -4,6 +4,8 @@ import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Ca
 
 import NavbarView from "../Navbar/NavbarView";
 import SidebarView from "../Sidebar/SidebarView";
+import MapFilterView from '../MapFilter/MapFilterView';
+import MapTypesView from "../MapTypes/MapTypesView";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -47,14 +49,14 @@ export default () => {
                       style={{ width: 200 }}
                     />
                     <Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>
-                    <Dropdown overlay={menu} className="btn-02">
+                    <Dropdown overlay={MapFilterView} className="btn-02">
                       <Button>
                         <img src="/Icons/icon-05.svg" alt=""/>
                       </Button>
                     </Dropdown>
                   </div>
 
-                  <Dropdown overlay={menu} className="btn-03">
+                  <Dropdown overlay={MapTypesView} className="btn-03">
                     <Button>
                       Dark Terrain <img src="/Icons/icon-12.svg" alt=""/>
                     </Button>
