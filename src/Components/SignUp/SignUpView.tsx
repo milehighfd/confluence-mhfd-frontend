@@ -37,8 +37,8 @@ export default () => {
       <h1>
         Sign Up!
       </h1>
-        <Row>
-        <span>Define your user role:</span>
+        <Row style={{ marginTop: '20px' }}>
+        <span className="loginLabels">Define your user role:</span>
           <Col className="signup">
           <Button style={{ width: '104px' }}>MHFD Staff</Button>
           <Button style={{ width: '140px' }}>Consultant / Contractor</Button>

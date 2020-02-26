@@ -42,12 +42,11 @@ export default () => {
           </Col>
         </Row>
         </div>
-        <div>
         <Form style={{ width: '533px' }}  className="login-form">
       <h1>
           Reset your password
       </h1>
-        <Row>
+        <Row className="resetText">
           <p>Enter a new password to reset the password for your account,<span> Shea Thomas</span></p>
         </Row>
       <div className="group">      
@@ -62,14 +61,12 @@ export default () => {
         <span className="bar"></span>
         <label>Confirm New Password</label>
       </div>
-      <Form.Item>
+      <div>
         <Button className="buttonLogin" block htmlType="submit">
             Set New Password
         </Button>
-      </Form.Item>
+      </div>
       </Form>
-        </div>
-
       </div>  
       </Col>
     </Row>    

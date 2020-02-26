@@ -59,16 +59,16 @@ export default () => {
         <span className="bar"></span>
         <label>Enter Password</label>
       </div>
-      <Form.Item>
+      <div className="marbot-4">
         <span>Don’t have an account?</span>
           <a className="login-form-forgot" href="">
           Sign-Up
           </a>
-          <a href="">Forgot Password?</a>
+          <a href="" style={{ float: 'right', color: '#11093C'}}>Forgot Password?</a>
+      </div>
         <Button className="buttonLogin" block htmlType="submit">
             Login
         </Button>
-      </Form.Item>
       </div>
       </Form>
       </div>  
