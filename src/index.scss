@@ -660,7 +660,7 @@ body{
     color: $purple;
     font-weight: 600;
     margin-right: 10px;
-    width: 218px;
+    width: 234px;
   }
   .ant-tag {
     color: $opacity;
@@ -674,7 +674,7 @@ body{
   }
  .ant-tag .anticon-close {
     font-size: 10px;
-    background: $opacity00;
+    background: $opacity;
     border-radius: 50%;
     padding: 4px;
     color: $white;
@@ -744,4 +744,5 @@ body{
   margin: 5px;
   background-size: cover;
   background-image: url('/icons/mapitash.png');
+  position: relative;
 }

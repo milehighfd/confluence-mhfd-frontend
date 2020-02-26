@@ -40,7 +40,40 @@ export default () => {
             <Row>
               <Col span={12}>
                 <div className="map">
+                  <div>
+                    <Search
+                      placeholder="input search text"
+                      onSearch={value => console.log(value)}
+                      style={{ width: 200 }}
+                    />
+                    <Button><img src="/icons/icon-04.svg" alt=""/></Button>
+                    <Dropdown overlay={menu}>
+                      <Button>
+                        <img src="/icons/icon-05.svg" alt=""/>
+                      </Button>
+                    </Dropdown>
+                    <Dropdown overlay={menu}>
+                      <Button>
+                        Dark Terrain <img src="/icons/icon-12.svg" alt=""/>
+                      </Button>
+                    </Dropdown>
+                  </div>
 
+                  <div>
+                    <h5>NFHL 100 year floodplain</h5>
+                    <hr/>
+                    <p><label></label> 6 - 12 inches</p>
+                    <p><label></label> 12 - 18 inches</p>
+                    <p><label></label> 18 - 24 inches</p>
+                    <p><label></label> +24 inches</p>
+                    <p><label></label> Stream Channel</p>
+                    <p><label></label> Service Area (Watershed)</p>
+                  </div>
+
+                  <div>
+                    <Button><img src="/icons/icon-35.svg" alt=""/></Button>
+                    <Button><img src="/icons/icon-36.svg" alt=""/></Button>
+                  </div>
                 </div>
               </Col>
               <Col span={12}>
