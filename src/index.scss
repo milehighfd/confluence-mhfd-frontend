@@ -10,7 +10,7 @@ $opacity: rgba(17, 9, 60, 0.5);
 $opacity00: rgba(37, 24, 99, 0.03);
 $red:#ff0000;
 $orange: #FDB32B;
-
+$shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 // GENERAL
 html, body{
   height: 100vh;
@@ -256,6 +256,31 @@ body{
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
     float: none;
   }
+  .ant-table-thead > tr > th{
+    background: transparent;
+    border-bottom: none;
+  }
+  .ant-table-tbody > tr {
+    background: $white;
+  }
+  .ant-table table {
+    border-collapse: separate !important;
+    border-spacing: 0px 10px !important;
+  }
+  .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
+    border: none;
+  }
+  .ant-pagination-disabled a, .ant-pagination-disabled:hover a, .ant-pagination-disabled:focus a, .ant-pagination-disabled .ant-pagination-item-link, .ant-pagination-disabled:hover .ant-pagination-item-link, .ant-pagination-disabled:focus .ant-pagination-item-link {
+    color: $purple;
+  }
+  .ant-pagination-item-active a {
+    color: $white;
+  }
+
+  .ant-pagination-item-active {
+    background: $green;
+    border-color: $green;
+  }
 }
 .user-tab{
   h6{
@@ -368,6 +393,43 @@ body{
     background-color: $green;
   }
 }
+.activity-h{
+  padding: 0px 20px;
+
+  button{
+    border: none;
+    background-color: transparent;
+    color: $opacity;
+    font-size: 14px;
+    box-shadow: none;
+    text-align: left;
+    padding: 0px;
+  }
+  img{
+    margin-left: 5px;
+  }
+  button:hover, button:focus, button.active{
+    border: none;
+    background-color: transparent;
+    color: $opacity;
+    box-shadow: none;
+    text-align: left;
+    padding: 0px;
+  }
+}
+.activity-b{
+  background: $white;
+  padding: 13px 20px;
+  height: 50px;
+  min-height: 50px;
+  font-size: 16px;
+  border-radius: 4px;
+  font-weight:400;
+  box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.05);
+  margin-top: 10px;
+  color: $purple;
+}
+
 // logo white
 .logo-white {
   width: 162px;
@@ -1098,11 +1160,22 @@ body{
   margin: 30px 0;
 }
 .line-social h2 {
-  width: 100%; 
-  text-align: center; 
-  border-bottom: 1px solid #d8d8d8; 
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #d8d8d8;
   line-height: 0.1em;
-  margin: 10px 0 20px; 
+  margin: 10px 0 20px;
+}
+.line-social span {
+   background:#fff;
+   padding:0 10px;
+   color: $purple00;
+   font-size: 21.3px;
+   font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+   letter-spacing: normal;
+   text-align: center;
 }
 .divider-vertical {
   width: 1px;
