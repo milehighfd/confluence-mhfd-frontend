@@ -24,7 +24,7 @@ const menu = (
   </Menu>
 );
 const genExtra = () => (
-  <img src="icons/icon-20.svg" alt=""/>
+  <img src="Icons/icon-20.svg" alt=""/>
 );
 
 export default () => {
@@ -52,14 +52,14 @@ export default () => {
                             <div>
                               <Dropdown overlay={menu}>
                                 <Button>
-                                  Organization <img src="icons/icon-12.svg" alt=""/>
+                                  Organization <img src="Icons/icon-12.svg" alt=""/>
                                 </Button>
                               </Dropdown>
                             </div>
                             <div>
                               <Dropdown overlay={menu}>
                                 <Button>
-                                  Service Area <img src="icons/icon-12.svg" alt=""/>
+                                  Service Area <img src="Icons/icon-12.svg" alt=""/>
                                 </Button>
                               </Dropdown>
                             </div>
@@ -67,7 +67,7 @@ export default () => {
                             <div>
                               <Dropdown overlay={menu}>
                                 <Button>
-                                  User Designation <img src="icons/icon-12.svg" alt=""/>
+                                  User Designation <img src="Icons/icon-12.svg" alt=""/>
                                 </Button>
                               </Dropdown>
                             </div>
@@ -80,7 +80,7 @@ export default () => {
                               <label>Sort by:</label>
                               <Dropdown overlay={menu}>
                                 <Button>
-                                  Approval Date <img src="icons/icon-14.svg" alt=""/>
+                                  Approval Date <img src="Icons/icon-14.svg" alt=""/>
                                 </Button>
                               </Dropdown>
                             </div>
@@ -159,7 +159,7 @@ export default () => {
                                   <Col className="gutter-row" span={12}>
                                     <Dropdown overlay={menu}>
                                       <Button>
-                                        User Designation <img src="icons/icon-12.svg" alt=""/>
+                                        User Designation <img src="Icons/icon-12.svg" alt=""/>
                                       </Button>
                                     </Dropdown>
                                   </Col>
@@ -167,7 +167,7 @@ export default () => {
                                   <Col className="gutter-row" span={12}>
                                     <Dropdown overlay={menu}>
                                       <Button>
-                                        User Designation <img src="icons/icon-12.svg" alt=""/>
+                                        User Designation <img src="Icons/icon-12.svg" alt=""/>
                                       </Button>
                                     </Dropdown>
                                   </Col>
@@ -177,7 +177,7 @@ export default () => {
                                   <Col className="gutter-row" span={12}>
                                   <Dropdown overlay={menu}>
                                     <Button>
-                                      User Designation <img src="icons/icon-12.svg" alt=""/>
+                                      User Designation <img src="Icons/icon-12.svg" alt=""/>
                                     </Button>
                                   </Dropdown>
                                   </Col>
@@ -204,14 +204,14 @@ export default () => {
                           <div>
                             <Dropdown overlay={menu}>
                               <Button>
-                                Organization <img src="icons/icon-12.svg" alt=""/>
+                                Organization <img src="Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </div>
                           <div>
                             <Dropdown overlay={menu}>
                               <Button>
-                                Service Area <img src="icons/icon-12.svg" alt=""/>
+                                Service Area <img src="Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </div>
@@ -219,7 +219,7 @@ export default () => {
                           <div>
                             <Dropdown overlay={menu}>
                               <Button>
-                                User Designation <img src="icons/icon-12.svg" alt=""/>
+                                User Designation <img src="Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </div>
@@ -232,7 +232,7 @@ export default () => {
                             <label>Sort by:</label>
                             <Dropdown overlay={menu}>
                               <Button>
-                                Approval Date <img src="icons/icon-14.svg" alt=""/>
+                                Approval Date <img src="Icons/icon-14.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </div>
@@ -311,7 +311,7 @@ export default () => {
                                 <Col className="gutter-row" span={12}>
                                   <Dropdown overlay={menu}>
                                     <Button>
-                                      User Designation <img src="icons/icon-12.svg" alt=""/>
+                                      User Designation <img src="Icons/icon-12.svg" alt=""/>
                                     </Button>
                                   </Dropdown>
                                 </Col>
@@ -319,7 +319,7 @@ export default () => {
                                 <Col className="gutter-row" span={12}>
                                   <Dropdown overlay={menu}>
                                     <Button>
-                                      User Designation <img src="icons/icon-12.svg" alt=""/>
+                                      User Designation <img src="Icons/icon-12.svg" alt=""/>
                                     </Button>
                                   </Dropdown>
                                 </Col>
@@ -329,7 +329,7 @@ export default () => {
                                 <Col className="gutter-row" span={12}>
                                 <Dropdown overlay={menu}>
                                   <Button>
-                                    User Designation <img src="icons/icon-12.svg" alt=""/>
+                                    User Designation <img src="Icons/icon-12.svg" alt=""/>
                                   </Button>
                                 </Dropdown>
                                 </Col>

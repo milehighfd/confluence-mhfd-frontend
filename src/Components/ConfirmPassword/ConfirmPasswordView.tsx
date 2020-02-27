@@ -8,27 +8,27 @@ export default () => {
       <Col span={13}>
       <Carousel autoplay>
             <div>
-              <img src="/icons/banner.png" alt=""/>
+              <img src="/Icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="/icons/banner.png" alt=""/>
+            <img src="/Icons/banner.png" alt=""/>
              <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="/icons/banner.png" alt=""/>
+            <img src="/Icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
-      </Carousel>        
+      </Carousel>
       </Col>
       <Col span={11}>
       <div className="login-step01">
@@ -49,13 +49,13 @@ export default () => {
         <Row className="resetText">
           <p>Enter a new password to reset the password for your account,<span> Shea Thomas</span></p>
         </Row>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>New Password</label>
       </div>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
@@ -67,8 +67,8 @@ export default () => {
         </Button>
       </div>
       </Form>
-      </div>  
+      </div>
       </Col>
-    </Row>    
+    </Row>
         </Layout>
 }

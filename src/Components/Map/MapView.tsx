@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress } from 'antd';
+import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Timeline } from 'antd';
 
 
 import NavbarView from "../Navbar/NavbarView";
@@ -14,13 +14,16 @@ const { TabPane } = Tabs;
 const { Search } = Input;
 
 const genExtra = () => (
-  <div>
-    <div>Piney Creek Channel Restoration</div>
-    <div>Westminster</div>
-    <div>$450,200</div>
-    <div><Progress percent={90} showInfo={false} size="small" /></div>
-    <div><img src="/Icons/icon-20.svg" alt=""/></div>
-  </div>
+  <Row className="tab-head">
+    <Col span={9}>Piney Creek Channel Restoration</Col>
+    <Col span={5}>Westminster</Col>
+    <Col span={4}>$450,200</Col>
+    <Col span={4} style={{textAlign: 'center'}}>
+      90%
+      <Progress percent={90} showInfo={false} style={{height: '4px !important'}}/>
+    </Col>
+    <Col span={2}><img src="/Icons/icon-20.svg" alt=""/></Col>
+  </Row>
 );
 
 const menu = (
@@ -265,9 +268,45 @@ export default () => {
                         </Col>
                       </Row>
 
+                      {/*LIST*/}
+                      <Row className="list-h">
+                        <Col span={9}>Problem & Component Name</Col>
+                        <Col span={5}>Jurisdiction</Col>
+                        <Col span={4}>Solution Cost</Col>
+                        <Col span={6}> Solution Status</Col>
+                      </Row>
                       <Collapse accordion>
                         <Panel header="" key="1" extra={genExtra()}>
-                          <p>mapitashhhh</p>
+                          <Row>
+                            <Col span={9}>
+                            <Timeline>
+                              <Timeline.Item color="green">
+                                <p>Component 1 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              </Timeline.Item>
+                              <Timeline.Item color="green">
+                                <p>Component 2 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              </Timeline.Item>
+                              <Timeline.Item color="red">
+                                <p>Component 3 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              </Timeline.Item>
+                              </Timeline>
+                            </Col>
+                            <Col span={5}>
+                              <p>Westminter</p>
+                              <p>Westminter</p>
+                              <p>Westminter</p>
+                            </Col>
+                            <Col span={4}>
+                              <p>$200,000</p>
+                              <p>$200,000</p>
+                              <p>$200,000</p>
+                            </Col>
+                            <Col span={6}>
+                              <p>Project XYZ</p>
+                              <p>Project XYZ</p>
+                              <p>Project XYZ</p>
+                            </Col>
+                          </Row>
                         </Panel>
                       </Collapse>
 
