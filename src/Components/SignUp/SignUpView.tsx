@@ -8,27 +8,27 @@ export default () => {
       <Col span={13}>
       <Carousel autoplay>
             <div>
-              <img src="/icons/banner.png" alt=""/>
+              <img src="/Icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="/icons/banner.png" alt=""/>
+            <img src="/Icons/banner.png" alt=""/>
              <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="/icons/banner.png" alt=""/>
+            <img src="/Icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
-      </Carousel>        
+      </Carousel>
       </Col>
       <Col span={11}>
       <div className="login-step01">
@@ -46,31 +46,31 @@ export default () => {
           <Button style={{ width: '100px' }}>Other</Button>
           </Col>
         </Row>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>First Name</label>
       </div>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Last Name</label>
       </div>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Email</label>
       </div>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Jurisdiction</label>
       </div>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
@@ -84,8 +84,8 @@ export default () => {
       </Form>
         </div>
 
-      </div>  
+      </div>
       </Col>
-    </Row>    
+    </Row>
         </Layout>
 }
