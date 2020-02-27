@@ -24,7 +24,19 @@ const menu = (
   </Menu>
 );
 const genExtra = () => (
-  <img src="Icons/icon-20.svg" alt=""/>
+  <Row className="user-head" type="flex" justify="space-around" align="middle">
+    <Col span={19}>
+      <h6>1. Ronnie Gougers</h6>
+      <span>(Organization - Service Area - User Designation)</span>
+    </Col>
+    <Col span={3} style={{textAlign: 'right'}}>
+      <div>
+        <Switch defaultChecked />
+      </div>
+    </Col>
+    <Col span={1} style={{textAlign: 'right'}}><img src="Icons/icon-20.svg" alt=""/></Col>
+  </Row>
+
 );
 
 export default () => {
@@ -87,7 +99,7 @@ export default () => {
                           </div>
 
                           <Collapse accordion className="user-tab">
-                            <Panel header="1. Rinnie Gauger" key="1" extra={genExtra()}>
+                            <Panel header="" key="1" extra={genExtra()}>
                               <div className="gutter-example">
                                 <h3>PROFILE</h3>
                                 <Row gutter={16}>
@@ -97,7 +109,13 @@ export default () => {
                                 <br></br>
                                 <Row gutter={16}>
                                   <Col className="gutter-row" span={12}><Input placeholder="Email" /></Col>
-                                  <Col className="gutter-row" span={12}><Input placeholder="Organization" /></Col>
+                                  <Col className="gutter-row" span={12}>
+                                    <Dropdown overlay={menu}>
+                                      <Button>
+                                        Organization <img src="Icons/icon-12.svg" alt=""/>
+                                      </Button>
+                                    </Dropdown>
+                                  </Col>
                                 </Row>
                               </div>
 
@@ -108,44 +126,44 @@ export default () => {
                                 <Row gutter={16}>
                                   <Col className="gutter-row" span={4}>
                                     <div className="user-card">
+                                      <p><Radio></Radio></p>
+                                      <div className="user-d"><h6>MHFD Admin</h6></div>
+                                    </div>
+                                  </Col>
+                                  <Col className="gutter-row" span={4}>
+                                    <div className="user-card">
+                                      <p><Radio></Radio></p>
                                       <div className="user-d"><h6>MHFD Staff</h6></div>
-                                      <p><Radio></Radio></p>
                                     </div>
                                   </Col>
                                   <Col className="gutter-row" span={4}>
                                     <div className="user-card">
-                                      <div className="user-d"><h6> Consultant/ Contractor</h6></div>
                                       <p><Radio></Radio></p>
-                                    </div>
-                                  </Col>
-                                  <Col className="gutter-row" span={4}>
-                                    <div className="user-card">
-                                      <div className="user-d">
-                                        <h6>Local</h6>
-                                        <h6>Government</h6>
-                                      </div>
-                                      <p><Radio></Radio></p>
-                                    </div>
-                                  </Col>
-                                  <Col className="gutter-row" span={4}>
-                                    <div className="user-card">
-                                      <div className="user-d"><h6>Other</h6></div>
-                                      <p><Radio></Radio></p>
-                                    </div>
-                                  </Col>
-                                  <Col className="gutter-row" span={4}>
-                                    <div className="user-card">
                                       <div className="user-d">
                                         <h6>Local </h6>
                                         <h6>Government Admin</h6>
                                       </div>
-                                      <p><Radio></Radio></p>
                                     </div>
                                   </Col>
                                   <Col className="gutter-row" span={4}>
                                     <div className="user-card">
-                                      <div className="user-d"><h6>MHFD Admin</h6></div>
                                       <p><Radio></Radio></p>
+                                      <div className="user-d">
+                                        <h6>Local</h6>
+                                        <h6>Government</h6>
+                                      </div>
+                                    </div>
+                                  </Col>
+                                  <Col className="gutter-row" span={4}>
+                                    <div className="user-card">
+                                      <p><Radio></Radio></p>
+                                      <div className="user-d"><h6> Consultant/ Contractor</h6></div>
+                                    </div>
+                                  </Col>
+                                  <Col className="gutter-row" span={4}>
+                                    <div className="user-card">
+                                      <p><Radio></Radio></p>
+                                      <div className="user-d"><h6>Other</h6></div>
                                     </div>
                                   </Col>
                                 </Row>
@@ -239,7 +257,7 @@ export default () => {
                         </div>
 
                         <Collapse accordion className="user-tab">
-                          <Panel header="1. Rinnie Gauger" key="1" extra={genExtra()}>
+                          <Panel header="" key="1" extra={genExtra()}>
                             <div className="gutter-example">
                               <h3>PROFILE</h3>
                               <Row gutter={16}>
@@ -249,7 +267,13 @@ export default () => {
                               <br></br>
                               <Row gutter={16}>
                                 <Col className="gutter-row" span={12}><Input placeholder="Email" /></Col>
-                                <Col className="gutter-row" span={12}><Input placeholder="Organization" /></Col>
+                                <Col className="gutter-row" span={12}>
+                                  <Dropdown overlay={menu}>
+                                    <Button>
+                                      Organization <img src="Icons/icon-12.svg" alt=""/>
+                                    </Button>
+                                  </Dropdown>
+                                </Col>
                               </Row>
                             </div>
 
@@ -260,8 +284,8 @@ export default () => {
                               <Row gutter={16}>
                                 <Col className="gutter-row" span={4}>
                                   <div className="user-card">
-                                    <div className="user-d"><h6>MHFD Staff</h6></div>
                                     <p><Radio></Radio></p>
+                                    <div className="user-d"><h6>MHFD Staff</h6></div>
                                   </div>
                                 </Col>
                                 <Col className="gutter-row" span={4}>
@@ -341,6 +365,8 @@ export default () => {
                             </div>
                           </Panel>
                         </Collapse>
+                        </TabPane>
+                        <TabPane tab="User Activity" key="3">
                         </TabPane>
                       </Tabs>
                     </Col>
