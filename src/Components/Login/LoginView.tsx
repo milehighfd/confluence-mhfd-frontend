@@ -6,6 +6,26 @@ export default () => {
   return <Layout style={{ background: '#fff' }}>
     <Row>
       <Col span={13}>
+          <div className="logo-white" 
+              style={{backgroundImage: 'url(Icons/logo-white.svg)'}}>
+              <p>Protecting People, Property, and our Environment.</p>
+          </div>
+          <div className="contact01">
+              <div className="icons-list">
+                <Icon type="twitter"/>
+                <Icon type="facebook" />
+                <Icon type="linkedin" />
+              </div>
+              <div className="social01">
+                <ul>
+                  <li><a href="">Contact</a></li>
+                  <span>|</span>
+                  <li><a href="">©2020 Mile High Flood District</a></li>
+                  <span>|</span>
+                  <li><a href="">Privacy Policy</a></li>
+                </ul>
+              </div>
+          </div>        
       <Carousel autoplay>
             <div>
               <img src="/Icons/banner.png" alt=""/>

@@ -6,6 +6,10 @@ export default () => {
   return <Layout style={{ background: '#fff' }}>
     <Row>
       <Col span={13}>
+          <div className="logo-white" 
+              style={{backgroundImage: 'url(Icons/logo-white.svg)'}}>
+              <p>Protecting People, Property, and our Environment.</p>
+          </div>
           <div className="contact01">
               <div className="icons-list">
                 <Icon type="twitter"/>

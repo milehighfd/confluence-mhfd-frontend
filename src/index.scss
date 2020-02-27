@@ -349,7 +349,27 @@ body{
     color: $purple;
   }
 }
-
+// logo white
+.logo-white {
+  width: 162px;
+  height: 56px;
+  float: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 50px 0 0 50px;
+  position: absolute;
+  z-index: 5;
+  color: white;
+  font-size: 11px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.18;
+  letter-spacing: normal;
+}
+.logo-white p {
+  position: relative;
+  top: 65px;
+}
 // carousel
 .ant-carousel .slick-slide {
   text-align: center;
