@@ -6,29 +6,45 @@ export default () => {
   return <Layout style={{ background: '#fff' }}>
     <Row>
       <Col span={13}>
+          <div className="contact01">
+              <div className="icons-list">
+                <Icon type="twitter"/>
+                <Icon type="facebook" />
+                <Icon type="linkedin" />
+              </div>
+              <div className="social01">
+                <ul>
+                  <li><a href="">Contact</a></li>
+                  <span>|</span>
+                  <li><a href="">©2020 Mile High Flood District</a></li>
+                  <span>|</span>
+                  <li><a href="">Privacy Policy</a></li>
+                </ul>
+              </div>
+          </div>
       <Carousel autoplay>
             <div>
-              <img src="/Icons/banner.png" alt=""/>
+              <img src="/icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="/Icons/banner.png" alt=""/>
+            <img src="/icons/banner.png" alt=""/>
              <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
             <div>
-            <img src="/Icons/banner.png" alt=""/>
+            <img src="/icons/banner.png" alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
-      </Carousel>
+      </Carousel>        
       </Col>
       <Col span={11}>
       <div className="login-step01">
@@ -46,31 +62,31 @@ export default () => {
           <Button style={{ width: '100px' }}>Other</Button>
           </Col>
         </Row>
-      <div className="group">
+      <div className="group">      
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>First Name</label>
       </div>
-      <div className="group">
+      <div className="group">      
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Last Name</label>
       </div>
-      <div className="group">
+      <div className="group">      
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Email</label>
       </div>
-      <div className="group">
+      <div className="group">      
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Jurisdiction</label>
       </div>
-      <div className="group">
+      <div className="group">      
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
@@ -84,8 +100,8 @@ export default () => {
       </Form>
         </div>
 
-      </div>
+      </div>  
       </Col>
-    </Row>
+    </Row> 
         </Layout>
 }

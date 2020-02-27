@@ -420,6 +420,34 @@ body{
   font-size: 1.2rem;
   margin: 10px 0;
 }
+// footer carousel
+.contact01 {
+  position: fixed;
+  z-index: 3;
+  color: white;
+  bottom: 3%;
+  margin: 0 60px;
+  font-size: 25px;
+}
+.social01 ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.social01 li {
+  display: inline;
+}
+.social01 a {
+  color: $white;
+  font-size: 16px;
+}
+.social01 span {
+  display: inline-block;
+  width: 45px;
+  text-align: center;
+  font-weight: 100;
+  font-size: 16px;
+}
 // login_material style
 .returnText {
   top: 10%;
@@ -556,7 +584,9 @@ body{
 // Reset password
 .resetText {
   margin: 20px 0 50px 0;
-  font-size: 21.3px;
+  font-size: 1.33rem;
+  color: $purple00;
+  opacity: 50%;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -565,7 +595,7 @@ body{
 }
 // login-labels
 .loginLabels {
-  font-size: 1.3rem;
+  font-size: 1.33rem;
   color: $purple00;
   opacity: 50%;
 }
@@ -934,4 +964,65 @@ body{
     padding: 0px;
     border: none;
   }
+}
+
+// buttons-creation
+.btn-creation01 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 10%;
+}
+.btn-creation01 div {
+  width: 293px;
+  height: 267px;
+  margin: 40px;
+}
+.btn-creation01 Button {
+  height: inherit;
+  width: inherit;
+  border: 1px solid rgba(37, 24, 99, 0.1);
+  text-transform: uppercase;
+  font-size: 21.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+.btn-creation01 Button:hover {
+  background-color: $green;
+  border: 1.3px solid rgba(5, 33, 41, 0.1);
+  color: $white;
+}
+.btn-creation01 Button:focus {
+  background-color: $green;
+  border: 1.3px solid rgba(5, 33, 41, 0.1);
+  color: $white;
+}
+// content-creation-new
+.content-create {
+  height: calc(100vh - 58px);
+  background: rgba(37, 24, 99, 0.03) !important;
+  overflow-y: auto;
+  padding: 20px 19px 0 19px;
+  font-family: "Ubuntu", sans-serif;
+  text-align: center;
+}
+.content-create .content-new01 {
+  background-color: $white;
+  height: 100%;
+  box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
+}
+.content-new01 h1 {
+  font-size: 40px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: $purple00;
+  margin-top: 49px;
 }
