@@ -19,7 +19,7 @@ const genExtra = () => (
     <Col span={5}>Westminster</Col>
     <Col span={4}>$450,200</Col>
     <Col span={4} style={{textAlign: 'center'}}>
-      90%
+       <p>90%</p>
       <Progress percent={90} showInfo={false} style={{height: '4px !important'}}/>
     </Col>
     <Col span={2}><img src="/Icons/icon-20.svg" alt=""/></Col>
@@ -283,11 +283,12 @@ export default () => {
                               <Timeline.Item color="green">
                                 <p>Component 1 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
                               </Timeline.Item>
-                              <Timeline.Item color="green">
+                              <Timeline.Item color="gray">
                                 <p>Component 2 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
                               </Timeline.Item>
-                              <Timeline.Item color="red">
-                                <p>Component 3 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              <Timeline.Item color="green" className="line-00">
+                                <div className="ant-timeline-item-tail" style={{top:'10px', left:'-38px'}}></div>
+                                <p style={{marginBottom: '0px'}}>Component 3 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
                               </Timeline.Item>
                               </Timeline>
                             </Col>

@@ -9,6 +9,7 @@ $black: #000000;
 $opacity: rgba(17, 9, 60, 0.5);
 $opacity00: rgba(37, 24, 99, 0.03);
 $red:#ff0000;
+$orange: #FDB32B;
 
 // GENERAL
 html, body{
@@ -24,6 +25,17 @@ body{
   background: $purple;
   border-radius: 5px;
 }
+.ant-timeline-item-head-green {
+  color: $green !important;
+  border-color: $green !important;
+  background: $green !important;
+}
+.ant-timeline-item-head-gray {
+  color: $orange !important;
+  border-color: $orange !important;
+  background: $orange !important;
+}
+
 // margins
 .marbot-4 {
   margin-bottom: 20px;
@@ -114,7 +126,9 @@ body{
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-h{
   display: none;
 }
-
+.ant-layout-sider-trigger{
+  background: $dark !important;
+}
 // USER
 .user-filter{
   display: flex;
@@ -691,6 +705,35 @@ body{
   .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
     border-radius: 0 0 0px 0px;
   }
+  .ant-collapse-content>.ant-collapse-content-box {
+    padding: 20px 15px 0px 15px;
+  }
+  .ant-timeline-item {
+    padding: 0px;
+    font-size: 14px;
+    list-style: none;
+  }
+  .ant-timeline-item-last > .ant-timeline-item-content {
+    min-height: 0px;
+  }
+  .ant-timeline-item-tail {
+    position: absolute;
+    top: 4px;
+    left: -20px;
+    height: calc(100% - 10px);
+    border-top: 2px solid #e8e8e8;
+    width: 20px;
+    border-left: none;
+  }
+  .ant-timeline {
+    padding-left: 20px;
+    border-left: 2px solid #e8e8e8;
+    margin-top: -20px;
+    padding-top: 26px;
+  }
+}
+.line-00{
+  height: 6px;
 }
 .tab-head{
   display: flex;
@@ -703,13 +746,23 @@ body{
     background-color: $green;
     height: 4px;
   }
+  .ant-progress-line {
+    position: absolute;
+    width: 100%;
+    font-size: 14px;
+    top: 12px;
+    left: 0px;
+  }
+  p{
+    margin-top: -6px;
+    margin-bottom: 0px;
+  }
 }
 .list-h{
   display: flex;
   font-size: 14px;
   color: $green;
   width: 100%;
-  margin-bottom: 10px;
   padding: 10px;
 }
 .hastag{
