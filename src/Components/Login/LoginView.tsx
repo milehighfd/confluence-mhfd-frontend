@@ -90,6 +90,19 @@ export default () => {
             Login
         </Button>
       </div>
+      <div className="line-social">
+        <h2>
+          <span>or</span>
+        </h2>
+      </div>
+      <div className="social-login">
+        <Button className="button-social" block htmlType="submit">
+        <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="18px" /><span></span> Login with Google
+        </Button>
+        <Button className="button-social" block htmlType="submit">
+            <span></span> Login with Microsoft
+        </Button>
+      </div>
       </Form>
       </div>
       </Col>
