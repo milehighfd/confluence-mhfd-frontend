@@ -1078,6 +1078,7 @@ body{
 .social-login .button-social {
   width: 533px;
   height: 72px;
+  padding: 0 24px;
   border-radius: 4px;
   box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
   background-color: $white;
@@ -1090,6 +1091,8 @@ body{
   letter-spacing: normal;
   text-align: left;
   color: $purple00;
+  display: flex;
+  align-items: center;
 }
 .line-social {
   margin: 30px 0;
@@ -1100,15 +1103,11 @@ body{
   border-bottom: 1px solid #d8d8d8; 
   line-height: 0.1em;
   margin: 10px 0 20px; 
-} 
-.line-social span { 
-   background:#fff; 
-   padding:0 10px;
-   color: $purple00;
-   font-size: 21.3px;
-   font-weight: normal;
-   font-stretch: normal;
-   font-style: normal;
-   letter-spacing: normal;
-   text-align: center;
+}
+.divider-vertical {
+  width: 1px;
+  height: 45px;
+  opacity: 0.15;
+  background: $purple;
+  margin: 0 26px 0 24px;
 }

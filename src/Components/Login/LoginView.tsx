@@ -97,10 +97,10 @@ export default () => {
       </div>
       <div className="social-login">
         <Button className="button-social" block htmlType="submit">
-        <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="18px" /><span></span> Login with Google
+        <img className="anticon" src="/Icons/google.svg" alt="" width="32px" /><div className="divider-vertical"></div> Login with Google
         </Button>
         <Button className="button-social" block htmlType="submit">
-            <span></span> Login with Microsoft
+        <img className="anticon" src="/Icons/windows.svg" alt="" width="32px" /><div className="divider-vertical"></div> Login with Microsoft
         </Button>
       </div>
       </Form>
