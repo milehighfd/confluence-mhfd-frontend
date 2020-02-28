@@ -21,6 +21,7 @@ import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
 import NewProjectFormContainer from './Components/NewProjectForm/NewProjectFormContainer';
 import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
+import FiltersProjectContainer from './Components/FiltersProject/FiltersProjectContainer';
 
 
 ReactDOM.render(
@@ -37,6 +38,7 @@ ReactDOM.render(
         <Route path={`/user`} component={UserContainer}/>
         <Route path={`/new-project-form`} component={NewProjectFormContainer}/>
         <Route path={`/new-project-types`} component={NewProjectTypesContainer}/>
+        <Route path={`/filter-projects`} component={FiltersProjectContainer}/>
         <Route path={`/`} component={App}/>
       </Switch>
     </ConnectedRouter>

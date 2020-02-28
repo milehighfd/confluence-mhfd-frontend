@@ -6,7 +6,7 @@ const { SubMenu } = Menu;
 
 
 export default () => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState<boolean>(true);
   return <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
           <Menu theme="dark" defaultSelectedKeys={['2']} mode="inline">
             <Menu.Item key="1">
