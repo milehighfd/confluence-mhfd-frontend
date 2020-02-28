@@ -276,11 +276,31 @@ body{
   .ant-pagination-item-active a {
     color: $white;
   }
-
   .ant-pagination-item-active {
     background: $green;
     border-color: $green;
   }
+  .ant-pagination-item:focus, .ant-pagination-item:hover {
+    border-color: $green;
+    background: $green;
+  }
+  .ant-pagination-item:focus a, .ant-pagination-item:hover a {
+    color: $white;
+  }
+  .ant-pagination-item {
+    margin-right: 4px;
+    border: none;
+  }
+  .ant-pagination-prev a, .ant-pagination-next a {
+    color: $purple;
+  }
+  .ant-pagination{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+.pagi-00{
+  float: right;
 }
 .user-tab{
   h6{
@@ -429,7 +449,6 @@ body{
   margin-top: 10px;
   color: $purple;
 }
-
 // logo white
 .logo-white {
   width: 162px;
@@ -718,7 +737,6 @@ body{
 // MAP
 .head-m{
   margin-bottom: 20px;
-
   a{
     color: $purple00;
     font-size: 22px;
@@ -1075,7 +1093,61 @@ body{
     border: none;
   }
 }
-
+.filter-map{
+  h6{
+    font-size: 16px;
+    color: $opacity;
+    font-weight: 400;
+    margin-bottom: 0px;
+  }
+  p{
+    font-size: 20px;
+    margin-bottom: 0px;
+  }
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: $purple;
+    border-color: $purple;
+  }
+  .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+  .ant-checkbox:hover .ant-checkbox-inner,
+  .ant-checkbox-input:focus + .ant-checkbox-inner {
+    border-color: $purple;
+  }
+  .ant-checkbox-wrapper {
+    color: $purple;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum', "tnum";
+    display: inline-block;
+    line-height: unset;
+    cursor: pointer;
+  }
+}
+.btn-footer{
+  text-align: right;
+  .btn-00, .btn-00:hover{
+    width: 127px !important;
+    height: 37px !important;
+    border-radius: 4px;
+    border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
+    background-color: $white;
+    color: $opacity !important;
+    font-size: 16px !important;
+    margin-right: 15px;
+  }
+  .btn-01, .btn-01:hover{
+    background-color: $purple;
+    color: $white !important;
+    font-size: 16px !important;
+    width: 173px !important;
+    height: 37px !important;
+    border-radius: 4px;
+    border: none;
+  }
+}
 // buttons-creation
 .btn-creation01 {
   display: flex;

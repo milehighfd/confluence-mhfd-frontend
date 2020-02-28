@@ -206,7 +206,9 @@ export default () => {
                               </div>
                             </Panel>
                           </Collapse>
-                          <Pagination defaultCurrent={1} total={200} />
+                          <div className="pagi-00">
+                            <Pagination defaultCurrent={1} total={200} />
+                          </div>
                         </TabPane>
 
                         <TabPane tab="Pending User Requests" key="2">
@@ -366,7 +368,9 @@ export default () => {
                           </Panel>
                         </Collapse>
 
-                        <Pagination defaultCurrent={1} total={200} />
+                        <div className="pagi-00">
+                          <Pagination defaultCurrent={1} total={200} />
+                        </div>
                         </TabPane>
 
                         <TabPane tab="User Activity" key="3">
@@ -405,7 +409,9 @@ export default () => {
                             <Col span={5}><a href="">User Login</a></Col>
                           </Row>
 
-                          <Pagination defaultCurrent={1} total={200} />
+                          <div className="pagi-00">
+                            <Pagination defaultCurrent={1} total={200} />
+                          </div>
                         </TabPane>
                       </Tabs>
                     </Col>
