@@ -12,9 +12,9 @@ export default () => {
           </div>
           <div className="contact01">
               <div className="icons-list">
-                <Icon type="twitter"/>
-                <Icon type="facebook" />
-                <Icon type="linkedin" />
+                <a href=""><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
+                <a href=""><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
+                <a href=""><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
               </div>
               <div className="social01">
                 <ul>
