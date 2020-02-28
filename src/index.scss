@@ -1108,32 +1108,26 @@ body{
     font-size: 20px;
     margin-bottom: 0px;
   }
-  .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: $purple;
-    border-color: $purple;
-  }
-  .ant-checkbox-wrapper:hover .ant-checkbox-inner,
-  .ant-checkbox:hover .ant-checkbox-inner,
-  .ant-checkbox-input:focus + .ant-checkbox-inner {
-    border-color: $purple;
-  }
-  .ant-checkbox-wrapper {
-    color: $purple;
-    font-size: 14px;
-    font-variant: tabular-nums;
-    line-height: 1.5;
-    list-style: none;
-    -webkit-font-feature-settings: 'tnum';
-    font-feature-settings: 'tnum', "tnum";
-    display: inline-block;
-    line-height: unset;
-    cursor: pointer;
-  }
+}
+// CHECKBOXES
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: $purple !important;
+  border-color: $purple !important;
+}
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: $purple !important;
+}
+.ant-checkbox-wrapper {
+  color: $purple !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
 }
 .btn-footer{
   text-align: right;
   .btn-00, .btn-00:hover{
-    width: 127px !important;
+    // width: 127px !important;
     height: 37px !important;
     border-radius: 4px;
     border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
@@ -1146,7 +1140,7 @@ body{
     background-color: $purple;
     color: $white !important;
     font-size: 16px !important;
-    width: 173px !important;
+    // width: 173px !important;
     height: 37px !important;
     border-radius: 4px;
     border: none;
@@ -1345,4 +1339,60 @@ body{
   opacity: 0.15;
   background: $purple;
   margin: 0 26px 0 24px;
+}
+
+// FILTERS MAP
+.filt-00{
+  margin-bottom: 15px;
+  h5{
+    font-size: 14px;
+    color: $opacity;
+    text-transform: uppercase;
+  }
+  .filt-s{
+    float: right;
+    margin-right: 35px;
+    font-size: 12px;
+    color: $opacity;
+  }
+  span{
+    color: $purple;
+  }
+  p{
+    margin-bottom: 4px;
+  }
+  label{
+    font-size: 12px;
+    color: $opacity;
+  }
+  .ant-radio-checked .ant-radio-inner {
+    border-color: $purple;
+  }
+  .ant-radio-inner::after {
+    background-color: $purple;
+  }
+  .ant-radio-wrapper:hover .ant-radio,
+  .ant-radio:hover .ant-radio-inner,
+  .ant-radio-input:focus + .ant-radio-inner {
+    border-color: $purple;
+  }
+  .ant-select-selection--single {
+    height: 38px;
+  }
+  .ant-select-selection__rendered {
+    line-height: 36px;
+    color: $opacity;
+  }
+  .ant-select-selection:hover {
+    border-color: $purple;
+  }
+  .ant-select-focused .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active {
+    border-color: $purple;
+    box-shadow: none;
+  }
+}
+.filt-h5{
+  font-size: 14px;
+  color: $opacity;
+  text-transform: uppercase;
 }
