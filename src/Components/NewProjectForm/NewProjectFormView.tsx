@@ -12,6 +12,7 @@ const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Search } = Input;
 const { Dragger } = Upload;
+const { TextArea } = Input;
 
 const genExtra = () => (
   <Row className="tab-head">
@@ -46,7 +47,7 @@ const menu = (
   </Menu>
 );
 
-const columns = [
+const columns01 = [
   {
     title: 'Component',
     dataIndex: 'Component',
@@ -85,7 +86,7 @@ const columns = [
 
 const pagination = { position: 'none' };
 
-const data = [
+const data01 = [
   {
     key: '1',
     Component: 'New Fork Creek',
@@ -102,6 +103,60 @@ const data = [
   },
 ];
 
+const columns02 = [
+  {
+    title: 'SUBTOTAL COST',
+    dataIndex: 'Component',
+    key: 'Component',
+    width: 170,
+    ellipsis: true,
+  },
+  {
+    dataIndex: 'Jurisdiction',
+    key: 'Jurisdiction',
+    width: 150,
+    ellipsis: true,
+  },
+  {
+    dataIndex: 'Cost',
+    key: 'Cost',
+    width: 150,
+    ellipsis: true,
+  },
+
+  {
+    title: 'Study Name',
+    dataIndex: 'StudyName',
+    key: 'StudyName',
+    width: 270,
+    ellipsis: true,
+  },
+];
+
+const data02 = [
+  {
+    key: '1',
+    Component: 'Additional Cost',
+    Jurisdiction: <Dropdown overlay={menu} trigger={['click']}>
+    <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+      Click me 
+    </a>
+    </Dropdown>,
+    Cost: <span>$1,570,000</span>,
+    StudyName: <TextArea rows={1} placeholder="Enter Description" />,
+  },
+  {
+    key: '2',
+    Component: 'Overhead Cost',
+    Jurisdiction: <Dropdown overlay={menu} trigger={['click']}>
+    <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+      Click me 
+    </a>
+    </Dropdown>,
+    Cost: <span>$1,570,000</span>,
+    StudyName: <TextArea rows={1} placeholder="Enter Description" />,
+  },
+];
 
 
 export default () => {
@@ -180,7 +235,10 @@ export default () => {
                     </div>
 
                     <div className="table-create-pro">
-                      <Table columns={columns} dataSource={data} pagination={false} />
+                      <Table columns={columns01} dataSource={data01} pagination={false} />
+                    </div>
+                    <div className="table-create-bottom">
+                      <Table columns={columns02} dataSource={data02} pagination={false} />
                     </div>
                     <div className="gutter-example user-tab">
                         <h3>PROJECT INFORMATION</h3>
