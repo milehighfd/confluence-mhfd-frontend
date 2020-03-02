@@ -109,19 +109,384 @@ export default () => {
 
                 <Tabs defaultActiveKey="1" className="tabs-map">
                   <TabPane tab="Capital" key="1">
-                    Tab 1
+                    <div className="work-request">
+                      <div>
+                        <h3>Workspace</h3>
+                        <div className="col-wr">
+                          <Button className="btn-create"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
+                          <div className="card-wr">
+                            <h4>West Tollgate Creek GSB Drops </h4>
+                            <h6>$410,000</h6>
+                            <p>Aurora <label>Draft</label></p>
+                            <Dropdown overlay={menu} className="menu-wr">
+                              <a className="ant-dropdown-link">
+                                 <img src="/Icons/icon-60.svg" alt=""/>
+                              </a>
+                            </Dropdown>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2020</h3>
+                        <div className="col-wr">
+                        <div className="card-wr">
+                          <h4>West Tollgate Creek GSB Drops </h4>
+                          <h6>$410,000</h6>
+                          <p>Aurora <label>Draft</label></p>
+                          <Dropdown overlay={menu} className="menu-wr">
+                            <a className="ant-dropdown-link">
+                               <img src="/Icons/icon-60.svg" alt=""/>
+                            </a>
+                          </Dropdown>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2021</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                      <div>
+                      <h3>2022</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2023</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="cost-wr">
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>TOTAL REQUESTED</h5></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Target Cost</h5></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Differential</h5></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                      </Row>
+                      <Row style={{padding: '0px 20px'}}>
+                        <Col span={24} style={{textAlign: 'right'}}>
+                          <Button>Submit to Admin</Button>
+                        </Col>
+                      </Row>
+                    </div>
+
                   </TabPane>
                   <TabPane tab="Study" key="2">
-                    Tab 2
+                    <div className="work-request">
+                      <div>
+                        <h3>Workspace</h3>
+                        <div className="col-wr">
+                          <Button className="btn-create"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
+                          <div className="card-wr">
+                            <h4>West Tollgate Creek GSB Drops </h4>
+                            <h6>$410,000</h6>
+                            <p>Aurora <label>Draft</label></p>
+                            <Dropdown overlay={menu} className="menu-wr">
+                              <a className="ant-dropdown-link">
+                                 <img src="/Icons/icon-60.svg" alt=""/>
+                              </a>
+                            </Dropdown>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2020</h3>
+                        <div className="col-wr">
+                        <div className="card-wr">
+                          <h4>West Tollgate Creek GSB Drops </h4>
+                          <h6>$410,000</h6>
+                          <p>Aurora <label>Draft</label></p>
+                          <Dropdown overlay={menu} className="menu-wr">
+                            <a className="ant-dropdown-link">
+                               <img src="/Icons/icon-60.svg" alt=""/>
+                            </a>
+                          </Dropdown>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2021</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                      <div>
+                      <h3>2022</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2023</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="cost-wr">
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>TOTAL REQUESTED</h5></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Target Cost</h5></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Differential</h5></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                      </Row>
+                      <Row style={{padding: '0px 20px'}}>
+                        <Col span={24} style={{textAlign: 'right'}}>
+                          <Button>Submit to Admin</Button>
+                        </Col>
+                      </Row>
+                    </div>
                   </TabPane>
                   <TabPane tab="Maintenance" key="3">
-                    Tab 3
+                    <div className="work-request">
+                      <div>
+                        <h3>Workspace</h3>
+                        <div className="col-wr">
+                          <Button className="btn-create"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
+                          <div className="card-wr">
+                            <h4>West Tollgate Creek GSB Drops </h4>
+                            <h6>$410,000</h6>
+                            <p>Aurora <label>Draft</label></p>
+                            <Dropdown overlay={menu} className="menu-wr">
+                              <a className="ant-dropdown-link">
+                                 <img src="/Icons/icon-60.svg" alt=""/>
+                              </a>
+                            </Dropdown>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>Debris</h3>
+                        <div className="col-wr">
+                        <div className="card-wr">
+                          <h4>West Tollgate Creek GSB Drops </h4>
+                          <h6>$410,000</h6>
+                          <p>Aurora <label>Draft</label></p>
+                          <Dropdown overlay={menu} className="menu-wr">
+                            <a className="ant-dropdown-link">
+                               <img src="/Icons/icon-60.svg" alt=""/>
+                            </a>
+                          </Dropdown>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>Vegetation</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                      <div>
+                      <h3>Sidimient</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2023</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="cost-wr">
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>TOTAL REQUESTED</h5></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Target Cost</h5></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Differential</h5></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                      </Row>
+                      <Row style={{padding: '0px 20px'}}>
+                        <Col span={24} style={{textAlign: 'right'}}>
+                          <Button>Submit to Admin</Button>
+                        </Col>
+                      </Row>
+                    </div>
                   </TabPane>
                   <TabPane tab="Acquisition" key="4">
-                    Tab 3
+                    <div className="work-request">
+                      <div>
+                        <h3>Workspace</h3>
+                        <div className="col-wr">
+                          <Button className="btn-create"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
+                          <div className="card-wr">
+                            <h4>West Tollgate Creek GSB Drops </h4>
+                            <h6>$410,000</h6>
+                            <p>Aurora <label>Draft</label></p>
+                            <Dropdown overlay={menu} className="menu-wr">
+                              <a className="ant-dropdown-link">
+                                 <img src="/Icons/icon-60.svg" alt=""/>
+                              </a>
+                            </Dropdown>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2020</h3>
+                        <div className="col-wr">
+                        <div className="card-wr">
+                          <h4>West Tollgate Creek GSB Drops </h4>
+                          <h6>$410,000</h6>
+                          <p>Aurora <label>Draft</label></p>
+                          <Dropdown overlay={menu} className="menu-wr">
+                            <a className="ant-dropdown-link">
+                               <img src="/Icons/icon-60.svg" alt=""/>
+                            </a>
+                          </Dropdown>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2021</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+
+                    </div>
+
+                    <div className="cost-wr">
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>TOTAL REQUESTED</h5></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Target Cost</h5></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Differential</h5></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                      </Row>
+                      <Row style={{padding: '0px 20px'}}>
+                        <Col span={24} style={{textAlign: 'right'}}>
+                          <Button>Submit to Admin</Button>
+                        </Col>
+                      </Row>
+                    </div>
                   </TabPane>
                   <TabPane tab="Special" key="5">
-                    Tab 3
+                    <div className="work-request">
+                      <div>
+                        <h3>Workspace</h3>
+                        <div className="col-wr">
+                          <Button className="btn-create"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
+                          <div className="card-wr">
+                            <h4>West Tollgate Creek GSB Drops </h4>
+                            <h6>$410,000</h6>
+                            <p>Aurora <label>Draft</label></p>
+                            <Dropdown overlay={menu} className="menu-wr">
+                              <a className="ant-dropdown-link">
+                                 <img src="/Icons/icon-60.svg" alt=""/>
+                              </a>
+                            </Dropdown>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2020</h3>
+                        <div className="col-wr">
+                        <div className="card-wr">
+                          <h4>West Tollgate Creek GSB Drops </h4>
+                          <h6>$410,000</h6>
+                          <p>Aurora <label>Draft</label></p>
+                          <Dropdown overlay={menu} className="menu-wr">
+                            <a className="ant-dropdown-link">
+                               <img src="/Icons/icon-60.svg" alt=""/>
+                            </a>
+                          </Dropdown>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>2021</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div className="cost-wr">
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>TOTAL REQUESTED</h5></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                        <Col span={6}><Input placeholder="Total cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Target Cost</h5></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                        <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
+                      </Row>
+                      <Row gutter={[16, 24]} style={{padding: '0px 20px'}}>
+                        <Col span={6}><h5>Differential</h5></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                        <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
+                      </Row>
+                      <Row style={{padding: '0px 20px'}}>
+                        <Col span={24} style={{textAlign: 'right'}}>
+                          <Button>Submit to Admin</Button>
+                        </Col>
+                      </Row>
+                    </div>
                   </TabPane>
                 </Tabs>
 

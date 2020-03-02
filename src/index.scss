@@ -12,6 +12,7 @@ $opacity01: rgba(61, 46, 138, 0.07);
 $red:#ff0000;
 $orange: #FDB32B;
 $shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+$gray: #9faeb1;
 // GENERAL
 html, body{
   height: 100vh;
@@ -24,6 +25,20 @@ body{
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb {
   background: $purple;
+  border-radius: 5px;
+}
+.col-wr::-webkit-scrollbar{
+  width: 6px;
+}
+.col-wr::-webkit-scrollbar-thumb{
+  background: #e9e7ef;
+  border-radius: 5px;
+}
+.work-request::-webkit-scrollbar{
+  height: 4px;
+}
+.work-request::-webkit-scrollbar-thumb{
+  background: #e9e7ef;
   border-radius: 5px;
 }
 .ant-timeline-item-head-green {
@@ -1432,4 +1447,139 @@ body{
   font-size: 14px;
   color: $opacity;
   text-transform: uppercase;
+}
+
+// WORK REQUEST
+.request{
+  h2{
+    font-size: 24px;
+    color: $purple00;
+  }
+  .btn-request{
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  .btn-comment, .btn-comment:hover, .btn-comment:active{
+    width: 140px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: $opacity00;
+    border: none;
+    color: $purple00;
+  }
+  .btn-comment img{
+    margin-right: 5px;
+  }
+}
+.work-request{
+  display: flex;
+  overflow-x: auto;
+  margin: 0px 20px;
+
+  .col-wr{
+    min-width: 213px;
+    width: 213px;
+    height: 687px;
+    min-height: 687px;
+    border-radius: 4px;
+    background-color: $opacity00;
+    margin: 0px 3.5px;
+    padding: 40px 8px 20px 8px;
+    position: relative;
+    overflow-y: auto;
+  }
+  .btn-create, .btn-create:hover{
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    box-shadow: none;
+    font-size: 14px;
+    color: $purple00;
+    position: absolute;
+    top: 0px;
+  }
+  .btn-create img{
+    margin-right: 5px;
+  }
+  .card-wr{
+    width: 197px;
+    height: 133px;
+    box-shadow: 0 3px 5px 0 rgba(6, 36, 45, 0.06);
+    background-color: $white;
+    border-left: 4px solid $gray;
+    position: relative;
+    padding: 5px 5px;
+    margin-bottom: 5px;
+  }
+  h3{
+    font-size: 18px;
+    color: $purple00;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  h4{
+    font-size: 18.7px;
+    color: $purple00;
+  }
+  h6{
+    font-size: 14px;
+    color: $purple;
+  }
+  .menu-wr{
+    position: absolute;
+    top: 8px;
+    right: 5px;
+  }
+  p{
+    position: absolute;
+    bottom: 1px;
+    margin-bottom: 0px;
+    width: 183px;
+    color: $opacity;
+  }
+  label{
+    float: right;
+  }
+}
+.cost-wr{
+  margin-top: 20px;
+  h5{
+    font-size: 14px;
+    color: $opacity;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+  }
+  .ant-input {
+    height: 32px;
+    padding: 4px 11px;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    line-height: 1.5;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid $opacity01;
+  }
+  .ant-input:hover {
+    border-color: $purple;
+  }
+  .ant-input:focus {
+    box-shadow: none;
+    border-color: $purple;
+  }
+  .input-pp::placeholder{
+    color: $purple;
+  }
+  .input-rr::placeholder{
+    color: $red;
+  }
+  button{
+    width: 200px;
+    height: 59px;
+    border-radius: 4px;
+    background-color: #251863;
+    font-size: 16px;
+    color: $white;
+    margin-top: 10px;
+  }
 }
