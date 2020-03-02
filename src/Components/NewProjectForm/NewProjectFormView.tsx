@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Breadcrumb, Tabs, Tag, Card, Input, Progress, Timeline } from 'antd';
-
+import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Breadcrumb, Tabs, Tag, Card, Input, Progress, Timeline, Upload, message } from 'antd';
 
 import NavbarView from "../Navbar/NavbarView";
 import SidebarView from "../Sidebar/SidebarView";
@@ -12,6 +11,7 @@ const ButtonGroup = Button.Group;
 const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Search } = Input;
+const { Dragger } = Upload;
 
 const genExtra = () => (
   <Row className="tab-head">
@@ -112,7 +112,7 @@ export default () => {
                         <h5>SELECTED COMPONENTS</h5>
                         <button><img src="/Icons/icon-08.svg" alt=""/></button>
                         <span>|</span>
-                        <button><img src="/Icons/icon-08.svg" alt=""/></button>
+                        <button><img src="/Icons/icon-35.svg" alt=""/></button>
                       </div>
                         <span>TOTAL COST: $11,370,000</span>
                     </div>
@@ -135,25 +135,60 @@ export default () => {
                             <div><p>Pedrestrian Trail Restoration</p></div>
                             <div></div>
                     </div>
-                    <Row className="activity-r">
-                            <Col span={5}></Col>
-                            <Col span={5}></Col>
-                            <Col span={5}></Col>
-                            <Col span={5}></Col>
-                    </Row>
-                  <div className="head-filter">
-                    <Row type="flex" justify="space-around" align="middle">
-                      <Col span={16}>
-
-                      </Col>
-                      <Col  style={{textAlign: 'right'}} span={8}>
-
-                      </Col>
-                    </Row>
-                  </div>
-
-                {/*</Panel>
-                </Collapse>*/}
+                    <div className="gutter-example user-tab">
+                        <h3>PROJECT INFORMATION</h3>
+                        <Row gutter={16}>
+                          <Col className="gutter-row" span={12}><label htmlFor="">MHFD Funding Request</label>
+                          <Input placeholder="Enter MHFD funding request" /></Col>
+                          <Col className="gutter-row" span={12}><label htmlFor="">Local Dollars Contribution</label>
+                          <Input placeholder="Enter local dollars" /></Col>
+                        </Row>
+                        <br></br>
+                        <Row gutter={16}>
+                        <Col className="gutter-row" span={12}><label htmlFor="">Requested Funding Year</label>
+                            <Dropdown overlay={menu}>
+                              <Button>
+                              - Select - <img src="Icons/icon-12.svg" alt=""/>
+                              </Button>
+                            </Dropdown>
+                          </Col>                          
+                          <Col className="gutter-row" span={12}><label htmlFor="">Goal</label>
+                            <Dropdown overlay={menu}>
+                              <Button>
+                              - Select - <img src="Icons/icon-12.svg" alt=""/>
+                              </Button>
+                            </Dropdown>
+                          </Col>
+                        </Row>
+                    </div>
+                    <div>
+                    <h3>Upload Main Image</h3>
+                      <Dragger>
+                        <p className="ant-upload-drag-icon">
+                        </p>
+                        <img src="Icons/icon-17.svg" alt=""/>
+                        <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
+                      </Dragger>
+                      <div className="tag-upload">
+                      <Tag closable>
+                        Little Dry Creek_image-1.jpg
+                      </Tag>
+                      </div>   
+                    </div>
+                    <div>
+                    <h3>Upload Attachments</h3>
+                      <Dragger>
+                        <p className="ant-upload-drag-icon">
+                        </p>
+                        <img src="Icons/icon-17.svg" alt=""/>
+                        <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
+                      </Dragger>
+                      <div className="tag-upload">
+                      <Tag closable>
+                        Little Dry Creek_image-1.jpg
+                      </Tag>
+                      </div>   
+                    </div>            
                 </div>
               </Col>
               </Row>
