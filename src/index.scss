@@ -299,6 +299,14 @@ body{
     margin-top: 20px;
     margin-bottom: 20px;
   }
+  .btn-down{
+    position: absolute;
+    right: 0px;
+    top: 15px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
 }
 .pagi-00{
   float: right;
@@ -1008,7 +1016,7 @@ body{
   box-shadow: none !important;
   position: absolute !important;
   top: calc(50% - 27px);
-  left: -50px;
+  right: 0px;
   padding: 0px !important;
   width: 50px;
   height: 70px !important;

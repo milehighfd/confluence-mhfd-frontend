@@ -374,11 +374,12 @@ export default () => {
                         </TabPane>
 
                         <TabPane tab="User Activity" key="3">
+                          <Button className="btn-down"><img src="/Icons/icon-15.svg" alt=""/></Button>
                           <Row className="activity-h">
                             <Col span={5}><Button>Data and Time <img src="Icons/icon-14.svg" alt=""/></Button></Col>
-                            <Col span={5}><Button>User <img src="Icons/icon-14.svg" alt=""/></Button></Col>
-                            <Col span={5}><Button>City <img src="Icons/icon-14.svg" alt=""/></Button></Col>
-                            <Col span={5}><Button>Change <img src="Icons/icon-14.svg" alt=""/></Button></Col>
+                            <Col span={5}><Button>User <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
+                            <Col span={5}><Button>City <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
+                            <Col span={5}><Button>Change <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
                           </Row>
 
                           <Row className="activity-b">

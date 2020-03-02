@@ -92,12 +92,12 @@ export default () => {
                     <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
                   </div>
                 </div>
-              </Col>
-              <Col span={12}>
-                <div className="count">
                 <Button className="btn-coll">
                   <img src="/Icons/icon-34.svg" alt=""/>
                 </Button>
+              </Col>
+              <Col span={12}>
+                <div className="count">
               {/*<Collapse accordion>
                 <Panel header="" key="1">*/}
                   <Row className="head-m">
@@ -267,6 +267,48 @@ export default () => {
                           </Card>
                         </Col>
                       </Row>
+                      {/*LIST*/}
+                      <Row className="list-h">
+                        <Col span={9}>Problem & Component Name</Col>
+                        <Col span={5}>Jurisdiction</Col>
+                        <Col span={4}>Solution Cost</Col>
+                        <Col span={6}> Solution Status</Col>
+                      </Row>
+                      <Collapse accordion>
+                        <Panel header="" key="1" extra={genExtra()}>
+                          <Row>
+                            <Col span={9}>
+                            <Timeline>
+                              <Timeline.Item color="green">
+                                <p>Component 1 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              </Timeline.Item>
+                              <Timeline.Item color="gray">
+                                <p>Component 2 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              </Timeline.Item>
+                              <Timeline.Item color="green" className="line-00">
+                                <div className="ant-timeline-item-tail" style={{top:'10px', left:'-38px'}}></div>
+                                <p style={{marginBottom: '0px'}}>Component 3 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              </Timeline.Item>
+                              </Timeline>
+                            </Col>
+                            <Col span={5}>
+                              <p>Westminter</p>
+                              <p>Westminter</p>
+                              <p>Westminter</p>
+                            </Col>
+                            <Col span={4}>
+                              <p>$200,000</p>
+                              <p>$200,000</p>
+                              <p>$200,000</p>
+                            </Col>
+                            <Col span={6}>
+                              <p>Project XYZ</p>
+                              <p>Project XYZ</p>
+                              <p>Project XYZ</p>
+                            </Col>
+                          </Row>
+                        </Panel>
+                      </Collapse>
                     </TabPane>
 
                     <TabPane tab="Projects" key="2">
@@ -293,48 +335,66 @@ export default () => {
                           </Tag>
                         </div>
                       </div>
-                    {/*LIST*/}
-                    <Row className="list-h">
-                      <Col span={9}>Problem & Component Name</Col>
-                      <Col span={5}>Jurisdiction</Col>
-                      <Col span={4}>Solution Cost</Col>
-                      <Col span={6}> Solution Status</Col>
-                    </Row>
-                    <Collapse accordion>
-                      <Panel header="" key="1" extra={genExtra()}>
-                        <Row>
-                          <Col span={9}>
-                          <Timeline>
-                            <Timeline.Item color="green">
-                              <p>Component 1 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
-                            </Timeline.Item>
-                            <Timeline.Item color="gray">
-                              <p>Component 2 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
-                            </Timeline.Item>
-                            <Timeline.Item color="green" className="line-00">
-                              <div className="ant-timeline-item-tail" style={{top:'10px', left:'-38px'}}></div>
-                              <p style={{marginBottom: '0px'}}>Component 3 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
-                            </Timeline.Item>
-                            </Timeline>
-                          </Col>
-                          <Col span={5}>
-                            <p>Westminter</p>
-                            <p>Westminter</p>
-                            <p>Westminter</p>
-                          </Col>
-                          <Col span={4}>
-                            <p>$200,000</p>
-                            <p>$200,000</p>
-                            <p>$200,000</p>
-                          </Col>
-                          <Col span={6}>
-                            <p>Project XYZ</p>
-                            <p>Project XYZ</p>
-                            <p>Project XYZ</p>
-                          </Col>
-                        </Row>
-                      </Panel>
-                    </Collapse>
+                      <Row className="card-map" gutter={[16, 16]}>
+                        <Col span={8}>
+                          <Card
+                            hoverable
+                            style={{ width: '100%' }}
+                            cover={<img alt="example" src="/Icons/eje.png" />}
+                          >
+                            <h4>West Tollagate Creek GSB Drops</h4>
+                            <h6>Westminster</h6>
+                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
+                            <hr/>
+                            <div style={{display: 'flex', width:'100%'}}>
+                              <p style={{color: ' #11093c', width:'50%', opacity: '0.6'}}>Maintenance</p>
+                              <span style={{textAlign: 'right', width:'50%',color: ' #11093c', opacity: '0.6'}}>Requested</span>
+                            </div>
+                          </Card>
+                        </Col>
+                      </Row>
+                      {/*LIST*/}
+                      <Row className="list-h">
+                        <Col span={9}>Problem & Component Name</Col>
+                        <Col span={5}>Jurisdiction</Col>
+                        <Col span={4}>Solution Cost</Col>
+                        <Col span={6}> Solution Status</Col>
+                      </Row>
+                      <Collapse accordion>
+                        <Panel header="" key="1" extra={genExtra()}>
+                          <Row>
+                            <Col span={9}>
+                            <Timeline>
+                              <Timeline.Item color="green">
+                                <p>Component 1 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              </Timeline.Item>
+                              <Timeline.Item color="gray">
+                                <p>Component 2 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              </Timeline.Item>
+                              <Timeline.Item color="green" className="line-00">
+                                <div className="ant-timeline-item-tail" style={{top:'10px', left:'-38px'}}></div>
+                                <p style={{marginBottom: '0px'}}>Component 3 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
+                              </Timeline.Item>
+                              </Timeline>
+                            </Col>
+                            <Col span={5}>
+                              <p>Westminter</p>
+                              <p>Westminter</p>
+                              <p>Westminter</p>
+                            </Col>
+                            <Col span={4}>
+                              <p>$200,000</p>
+                              <p>$200,000</p>
+                              <p>$200,000</p>
+                            </Col>
+                            <Col span={6}>
+                              <p>Project XYZ</p>
+                              <p>Project XYZ</p>
+                              <p>Project XYZ</p>
+                            </Col>
+                          </Row>
+                        </Panel>
+                      </Collapse>
                     </TabPane>
                   </Tabs>
                 {/*</Panel>

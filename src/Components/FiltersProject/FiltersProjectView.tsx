@@ -93,12 +93,12 @@ export default () => {
                     <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
                   </div>
                 </div>
-              </Col>
-              <Col span={12}>
-                <div className="count">
                 <Button className="btn-coll">
                   <img src="/Icons/icon-34.svg" alt=""/>
                 </Button>
+              </Col>
+              <Col span={12}>
+                <div className="count">
               {/*<Collapse accordion>
                 <Panel header="" key="1">*/}
                   <Row className="head-m">

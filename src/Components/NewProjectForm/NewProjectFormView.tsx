@@ -92,12 +92,12 @@ export default () => {
                     <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
                   </div>
                 </div>
-              </Col>
-              <Col span={12}>
-                <div className="count">
                 <Button className="btn-coll">
                   <img src="/Icons/icon-34.svg" alt=""/>
                 </Button>
+              </Col>
+              <Col span={12}>
+                <div className="count">
                   <Row className="head-m">
                     <Col span={24}>
                     <Breadcrumb separator=">">
@@ -116,7 +116,7 @@ export default () => {
                       </div>
                         <span>TOTAL COST: $11,370,000</span>
                     </div>
-                    
+
                     <Row className="head-m activity-h-02">
                             <Col span={5}><Button>Component <img src="Icons/icon-14.svg" alt=""/></Button></Col>
                             <Col span={5}><Button>Jurisdiction <img src="Icons/icon-14.svg" alt=""/></Button></Col>
@@ -127,27 +127,27 @@ export default () => {
                             <button><img src="/Icons/icon-08.svg" alt=""/></button>
                             <h6>Click on the icon above and draw a polygon to select components</h6>
                     </div>
-                    
+
                     <div className="activity-r">
                             <div><p>Aurora River</p></div>
                             <div><p>Westminster</p></div>
                             <div><p>$1,570,000</p></div>
                             <div><p>Pedrestrian Trail Restoration</p></div>
                             <div></div>
-                    </div>   
+                    </div>
                     <Row className="activity-r">
                             <Col span={5}></Col>
                             <Col span={5}></Col>
                             <Col span={5}></Col>
                             <Col span={5}></Col>
-                    </Row>                      
+                    </Row>
                   <div className="head-filter">
                     <Row type="flex" justify="space-around" align="middle">
                       <Col span={16}>
 
                       </Col>
                       <Col  style={{textAlign: 'right'}} span={8}>
-                        
+
                       </Col>
                     </Row>
                   </div>
