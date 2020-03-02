@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Timeline } from 'antd';
 
 
@@ -6,6 +6,7 @@ import NavbarView from "../Navbar/NavbarView";
 import SidebarView from "../Sidebar/SidebarView";
 import MapFilterView from '../MapFilter/MapFilterView';
 import MapTypesView from "../MapTypes/MapTypesView";
+import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -47,6 +48,21 @@ const menu = (
 );
 
 export default () => {
+  const emptyStyle: React.CSSProperties = {};
+  const [rotationStyle, setRotationStyle] = useState(emptyStyle);
+  const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
+  const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
+  const updateWidth = () => {
+    if (leftWidth === MEDIUM_SCREEN) {
+      setLeftWidth(COMPLETE_SCREEN);
+      setRightWitdh(EMPTY_SCREEN);
+      setRotationStyle({transform: 'rotate(180deg)'});
+    } else {
+      setLeftWidth(MEDIUM_SCREEN);
+      setRightWitdh(MEDIUM_SCREEN);
+      setRotationStyle(emptyStyle);
+    }
+  }
   return <>
         <Layout>
           <NavbarView></NavbarView>
@@ -54,7 +70,7 @@ export default () => {
             <SidebarView></SidebarView>
             <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
             <Row>
-              <Col span={12}>
+              <Col span={leftWidth}>
                 <div className="map">
                   <div className="m-head">
                     <Search
@@ -92,11 +108,11 @@ export default () => {
                     <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
                   </div>
                 </div>
-                <Button className="btn-coll">
-                  <img src="/Icons/icon-34.svg" alt=""/>
+                <Button className="btn-coll" onClick={updateWidth}>
+                  <img style={rotationStyle} src="/Icons/icon-34.svg" alt=""/>
                 </Button>
               </Col>
-              <Col span={12}>
+              <Col span={rightWidth}>
                 <div className="count">
               {/*<Collapse accordion>
                 <Panel header="" key="1">*/}
