@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Breadcrumb, Tabs, Tag, Card, Input, Progress, Timeline, Upload, message } from 'antd';
+import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Breadcrumb, Tabs, Tag, Card, Input, Progress, Timeline, Upload, message, Table } from 'antd';
 
 import NavbarView from "../Navbar/NavbarView";
 import SidebarView from "../Sidebar/SidebarView";
@@ -45,6 +45,64 @@ const menu = (
     </Menu.Item>
   </Menu>
 );
+
+const columns = [
+  {
+    title: 'Component',
+    dataIndex: 'Component',
+    key: 'Component',
+    width: 170,
+    ellipsis: true,
+  },
+  {
+    title: 'Jurisdiction',
+    dataIndex: 'Jurisdiction',
+    key: 'Jurisdiction',
+    width: 150,
+    ellipsis: true,
+  },
+  {
+    title: 'Cost',
+    dataIndex: 'Cost',
+    key: 'Cost',
+    width: 150,
+    ellipsis: true,
+  },
+
+  {
+    title: 'Study Name',
+    dataIndex: 'StudyName',
+    key: 'StudyName',
+    width: 270,
+    ellipsis: true,
+  },
+  {
+    key: 'action',
+    render: () => <a><img src="/Icons/icon-16.svg" alt=""/></a>,
+    width: 60,
+  },
+];
+
+const pagination = { position: 'none' };
+
+const data = [
+  {
+    key: '1',
+    Component: 'New Fork Creek',
+    Jurisdiction: 'Westminster',
+    Cost: <span>$1,570,000</span>,
+    StudyName: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    Component: 'New Fork Creek',
+    Jurisdiction: 'Westminster',
+    Cost: <span>$1,570,000</span>,
+    StudyName: 'New York No. 1 Lake Park',
+  },
+];
+
+
 
 export default () => {
   return <>
@@ -116,24 +174,13 @@ export default () => {
                       </div>
                         <span>TOTAL COST: $11,370,000</span>
                     </div>
-
-                    <Row className="head-m activity-h-02">
-                            <Col span={5}><Button>Component <img src="Icons/icon-14.svg" alt=""/></Button></Col>
-                            <Col span={5}><Button>Jurisdiction <img src="Icons/icon-14.svg" alt=""/></Button></Col>
-                            <Col span={5}><Button>Cost <img src="Icons/icon-14.svg" alt=""/></Button></Col>
-                            <Col span={5}><Button>Study Name <img src="Icons/icon-14.svg" alt=""/></Button></Col>
-                    </Row>
                     <div className="head-m draw-section">
                             <button><img src="/Icons/icon-08.svg" alt=""/></button>
                             <h6>Click on the icon above and draw a polygon to select components</h6>
                     </div>
 
-                    <div className="activity-r">
-                            <div><p>Aurora River</p></div>
-                            <div><p>Westminster</p></div>
-                            <div><p>$1,570,000</p></div>
-                            <div><p>Pedrestrian Trail Restoration</p></div>
-                            <div></div>
+                    <div className="table-create-pro">
+                      <Table columns={columns} dataSource={data} pagination={false} />
                     </div>
                     <div className="gutter-example user-tab">
                         <h3>PROJECT INFORMATION</h3>

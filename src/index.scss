@@ -1251,22 +1251,15 @@ body{
   margin: 0 5px;
   font-weight: 100;
 }
-.activity-h-02 {
-  padding: 0px 20px;
-}
-.activity-r {
-  display: flex;
-  background: $opacity01;
+.table-create-pro tbody > tr > td {
+  background: rgba(61, 46, 138, 0.07);
   padding: 20px 20px;
   height: 67px;
   min-height: 50px;
   font-size: 16px;
   border-radius: 4px;
-  font-weight:400;
-  box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.05);
+  font-weight: 400;
   margin-top: 10px;
-}
-.activity-r p {
   color: $purple00;
   font-size: 18.7px;
   font-weight: normal;
@@ -1274,6 +1267,16 @@ body{
   font-style: normal;
   line-height: 1.29;
   letter-spacing: 0.27px;
+}
+.table-create-pro th {
+  background-color: $white !important;
+  border: none !important;
+}
+.table-create-pro td {
+  border-bottom: 13px solid $white !important;
+}
+.activity-h-02 {
+  padding: 0px 20px;
 }
 .tag-upload {
   margin-top: 14px;
