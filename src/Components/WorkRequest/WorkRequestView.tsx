@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Timeline } from 'antd';
+import React, {useState} from "react";
+import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Drawer } from 'antd';
 
 
 import NavbarView from "../Navbar/NavbarView";
@@ -47,7 +47,20 @@ const menu = (
 );
 
 export default () => {
+  const [visible, setVisible] = useState(false);
+  const chat =  <Drawer
+    title="Basic Drawer"
+    placement="right"
+    closable={false}
+    onClose={() => setVisible(false)}
+    visible={visible}
+    >
+      <p>Some contents...</p>
+      <p>Some contents...</p>
+    <p>Some contents...</p>
+  </Drawer>
   return <>
+        {chat}
         <Layout>
           <NavbarView></NavbarView>
           <Layout>
@@ -103,7 +116,7 @@ export default () => {
                   <Col span={10} style={{textAlign:'right'}}>
                     <Button className="btn-request"><img src="/Icons/icon-01.svg" alt=""/></Button>
                     <Button className="btn-request"><img src="/Icons/icon-02.svg" alt=""/></Button>
-                    <Button className="btn-comment"><img src="/Icons/icon-03.svg" alt=""/> Comments</Button>
+                    <Button className="btn-comment" onClick={() => { setVisible(true);console.log('click ', visible);  }}><img src="/Icons/icon-03.svg" alt=""/> Comments</Button>
                   </Col>
                 </Row>
 
