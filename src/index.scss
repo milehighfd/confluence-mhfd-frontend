@@ -20,10 +20,12 @@ html, body{
 body{
  font-family: $ubunto !important;
 }
-.user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar{
+.user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
+.ant-drawer-wrapper-body::-webkit-scrollbar{
   width: 6px;
 }
-.user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thum {
+.user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thum,
+.ant-drawer-wrapper-body::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }
@@ -1576,7 +1578,7 @@ body{
   .input-rr::placeholder{
     color: $red;
   }
-  button{
+  button, button:hover, button.active{
     width: 200px;
     height: 59px;
     border-radius: 4px;
@@ -1584,5 +1586,96 @@ body{
     font-size: 16px;
     color: $white;
     margin-top: 10px;
+    border: none;
   }
+}
+// CHAT
+.ant-drawer-right .ant-drawer-content-wrapper {
+  right: 0;
+  width: 450px !important;
+}
+.chat-r{
+  h5{
+    font-size: 21.3px;
+    color: $purple00;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .ant-drawer-body {
+    padding: 20px 40px;;
+  }
+  h6{
+    font-size: 18.7px;
+    color: $purple00;
+    margin-bottom: 0px;
+    font-weight: normal;
+  }
+  p, span{
+    font-size: 14.7px;
+    color: $opacity;
+    margin-bottom: 15px;
+    margin-top: -3px;
+  }
+  img{
+    margin-top: 5px;
+  }
+}
+.chat-00{
+  width: 373px;
+  height: 533px;
+  border-radius: 4px;
+  background-color: $opacity00;
+  margin-top: 25px;
+
+  .chat-head{
+    height: 67px;
+    border-radius: 4px 4px 0px 0px;
+    background-color: $opacity00;
+    font-size: 21.3px;
+    color: $purple00;
+    text-transform: uppercase;
+    padding: 18px 13px;
+  }
+  .chat-head img{
+    margin-top: -3px;
+  }
+  .chat-body{
+    border-bottom: solid 1.3px $opacity01;
+    height: 398px;
+    text-align: center;
+    padding: 130px 50px;
+  }
+  .chat-footer{
+    height: 67px;
+    padding: 8px 15px;
+  }
+  .chat-body h6{
+    font-size: 21.3px;
+    color: $purple00;
+    margin-bottom: 10px;
+  }
+  .chat-body p{
+    font-size: 17.3px;
+    color: $opacity;
+  }
+  .chat-footer .ant-input {
+    padding: 4px 11px;
+    font-size: 18.7px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0px;
+    margin: 10px 0px;
+  }
+  .ant-input::placeholder{
+    color: $purple;
+  }
+}
+.chat-footer .btn-send{
+  font-size: 18.7px !important;
+  color: $purple !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-weight: bold;
+  margin: 10px 0px;
 }
