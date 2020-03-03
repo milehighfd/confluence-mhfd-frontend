@@ -6,7 +6,7 @@ export default () => {
   return <Layout style={{ background: '#fff' }}>
     <Row>
       <Col span={13}>
-          <div className="logo-white" 
+          <div className="logo-white"
               style={{backgroundImage: 'url(Icons/logo-white.svg)'}}>
               <p>Protecting People, Property, and our Environment.</p>
           </div>
@@ -48,9 +48,9 @@ export default () => {
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
-      </Carousel>        
+      </Carousel>
       </Col>
-      <Col span={11}>
+      <Col span={11} className="login-hh">
       <div className="login-step01">
         <div>
         <Form style={{ width: '533px' }}  className="login-form">
@@ -66,31 +66,31 @@ export default () => {
           <Button style={{ width: '100px' }}>Other</Button>
           </Col>
         </Row>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>First Name</label>
       </div>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Last Name</label>
       </div>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Email</label>
       </div>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Jurisdiction</label>
       </div>
-      <div className="group">      
+      <div className="group">
         <input type="text" required/>
         <span className="highlight"></span>
         <span className="bar"></span>
@@ -104,8 +104,8 @@ export default () => {
       </Form>
         </div>
 
-      </div>  
+      </div>
       </Col>
-    </Row> 
+    </Row>
         </Layout>
 }

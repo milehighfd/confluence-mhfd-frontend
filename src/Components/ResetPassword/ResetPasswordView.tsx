@@ -6,7 +6,7 @@ export default () => {
   return <Layout style={{ background: '#fff' }}>
     <Row>
       <Col span={13}>
-          <div className="logo-white" 
+          <div className="logo-white"
               style={{backgroundImage: 'url(Icons/logo-white.svg)'}}>
               <p>Protecting People, Property, and our Environment.</p>
           </div>
@@ -50,7 +50,7 @@ export default () => {
             </div>
       </Carousel>
       </Col>
-      <Col span={11}>
+      <Col span={11} className="login-hh">
       <div className="login-step01">
         <div>
         <Row className="returnText">

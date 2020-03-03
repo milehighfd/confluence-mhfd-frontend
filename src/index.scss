@@ -20,10 +20,10 @@ html, body{
 body{
  font-family: $ubunto !important;
 }
-.user::-webkit-scrollbar, .count::-webkit-scrollbar{
+.user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar{
   width: 6px;
 }
-.user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb {
+.user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thum {
   background: $purple;
   border-radius: 5px;
 }
@@ -543,11 +543,15 @@ body{
   line-height: normal;
   letter-spacing: normal;
 }
+.login-hh{
+  height: 100vh;
+  overflow-y: auto;
+}
 .login-step01 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  // height: 100%;
   position: relative;
   top: 101px;
 }
@@ -634,9 +638,8 @@ body{
   display:block;
   width:100%;
   border:none;
-  opacity: 15%;
-  border-bottom:1px solid #251863
-  ;
+  // opacity: 15%;
+  border-bottom:1px solid $opacity01;
 }
 .group input:focus 		{ outline:none; }
 
