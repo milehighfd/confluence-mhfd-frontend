@@ -1199,15 +1199,23 @@ body{
   line-height: normal;
   letter-spacing: 0.3px;
   text-align: center;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: initial;
+}
+.btn-creation01 button span {
+  margin: 45px 0;
 }
 .btn-creation01 Button:hover {
   background-color: $green;
-  border: 1.3px solid rgba(5, 33, 41, 0.1);
+  border: 1px solid rgba(5, 33, 41, 0.1);
   color: $white;
 }
 .btn-creation01 Button:focus {
   background-color: $green;
-  border: 1.3px solid rgba(5, 33, 41, 0.1);
+  border: 1px solid rgba(5, 33, 41, 0.1);
   color: $white;
 }
 // content-creation-new
@@ -1322,6 +1330,40 @@ body{
   color: $white !important;
   font-weight: 600 !important;
   margin-left: 8px !important;
+}
+// table creation new project
+.footer-table th{
+  display: none;
+}
+.table-create-bottom table th {
+  font-size: 18.7px;
+  padding: 20px 0 !important;
+  background-color: $white !important;
+}
+.table-create-bottom Table td {
+  padding: 17px 0 !important;
+  font-size: 18.7px;
+}
+.table-create-bottom Table td a {
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.27px;
+  color: $purple00;
+}
+.table-create-bottom Table td textarea {
+  border: transparent;
+}
+.numbers01-table {
+  font-size: 18.7px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.27px;
+  text-align: right;
+  color: $purple00;
 }
 // draw-section
 .draw-section {
