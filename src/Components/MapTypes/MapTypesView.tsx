@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Layout,  } from 'antd';
+import { Menu  } from 'antd';
 
-export default () => {
-  return <Layout style={{ background: '#fff' }}>
-        <div>mapitash negro</div>
-        <div>mapitash blanco</div>
-        <div>mapitash satellite</div>
+export default ({dropdownItems, selectMapStyle} : any) => {
 
-     </Layout>
+  return <Menu style={{ background: '#fff' }}>
+          {dropdownItems.items.map((item : any, index : number) => {
+            return <Menu.Item onClick={() => selectMapStyle(index)} key={index} >{item.type}</Menu.Item>
+          })}
+        </Menu>
 }

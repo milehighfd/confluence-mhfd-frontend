@@ -6,7 +6,8 @@ import NavbarView from "../Navbar/NavbarView";
 import SidebarView from "../Sidebar/SidebarView";
 import MapFilterView from '../MapFilter/MapFilterView';
 import MapTypesView from "../MapTypes/MapTypesView";
-import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
+import Map from './Map';
+import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, MAP_DROPDOWN_ITEMS } from "../../constants/constants";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -52,6 +53,8 @@ export default () => {
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
+  const [dropdownItems, setDropdownItems] = useState<any>({default: 0, items: MAP_DROPDOWN_ITEMS});
+
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
       setLeftWidth(COMPLETE_SCREEN);
@@ -63,6 +66,11 @@ export default () => {
       setRotationStyle(emptyStyle);
     }
   }
+
+  const selectMapStyle = (index : number) => {
+    setDropdownItems({...dropdownItems, default: index});
+  }
+
   return <>
         <Layout>
           <NavbarView></NavbarView>
@@ -72,43 +80,48 @@ export default () => {
             <Row>
               <Col span={leftWidth}>
                 <div className="map">
-                  <div className="m-head">
-                    <Search
-                      placeholder="Search..."
-                      onSearch={value => console.log(value)}
-                      style={{ width: 200 }}
-                    />
-                    <Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>
-                    <Dropdown overlay={MapFilterView} className="btn-02">
-                      <Button>
-                        <img src="/Icons/icon-05.svg" alt=""/>
-                      </Button>
-                    </Dropdown>
-                  </div>
+                  <Map 
+                    leftWidth={leftWidth}
+                    selectedMapStyle={dropdownItems.items[dropdownItems.default].style} >
+                      <div className="m-head">
+                        <div
+                          id="geocoder"
+                          placeholder="Search..."
+                          className="geocoder"
+                          style={{ width: 200 }}
+                        />
+                        <Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>
+                        <Dropdown overlay={MapFilterView} className="btn-02">
+                          <Button>
+                            <img src="/Icons/icon-05.svg" alt=""/>
+                          </Button>
+                        </Dropdown>
+                      </div>
 
-                  <Dropdown overlay={MapTypesView} className="btn-03">
-                    <Button>
-                      Dark Terrain <img src="/Icons/icon-12.svg" alt=""/>
-                    </Button>
-                  </Dropdown>
+                      <Dropdown overlay={MapTypesView({dropdownItems, selectMapStyle})} className="btn-03">
+                        <Button>
+                          {dropdownItems.items[dropdownItems.default].type} <img src="/Icons/icon-12.svg" alt=""/>
+                        </Button>
+                      </Dropdown>
 
-                  <div className="m-footer">
-                    <h5>NFHL 100 year floodplain</h5>
-                    <hr/>
-                    <p><div style={{background:'#99C9FF'}}></div> 6 - 12 inches</p>
-                    <p><div style={{background:'#4B9CFF'}}></div> 12 - 18 inches</p>
-                    <p><div style={{background:'#4C81C4'}}></div> 18 - 24 inches</p>
-                    <p><div style={{background:'#4A6A9C'}}></div> +24 inches</p>
-                    <p><div style={{background:'#8FA7C8', height: '2px', marginTop: '7px'}}></div> Stream Channel</p>
-                    <p><div style={{background:'#ffffff', border: '1px dashed'}}></div> Service Area (Watershed)</p>
-                  </div>
+                      <div className="m-footer">
+                        <h5>NFHL 100 year floodplain</h5>
+                        <hr/>
+                        <p><div style={{background:'#99C9FF'}}></div> 6 - 12 inches</p>
+                        <p><div style={{background:'#4B9CFF'}}></div> 12 - 18 inches</p>
+                        <p><div style={{background:'#4C81C4'}}></div> 18 - 24 inches</p>
+                        <p><div style={{background:'#4A6A9C'}}></div> +24 inches</p>
+                        <p><div style={{background:'#8FA7C8', height: '2px', marginTop: '7px'}}></div> Stream Channel</p>
+                        <p><div style={{background:'#ffffff', border: '1px dashed'}}></div> Service Area (Watershed)</p>
+                      </div>
 
-                  <div className="m-zoom">
-                    <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt=""/></Button>
-                    <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
-                  </div>
+                      {/* <div className="m-zoom">
+                        <Button id="zoom-in" style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt=""/></Button>
+                        <Button id="zoom-out" style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
+                      </div> */}
+                  </Map>
                 </div>
-                <Button className="btn-coll" onClick={updateWidth}>
+                <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt=""/>
                 </Button>
               </Col>
