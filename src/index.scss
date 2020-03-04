@@ -1333,8 +1333,22 @@ body{
 .footer-table th{
   display: none;
 }
+.table-create-bottom table th {
+  font-size: 18.7px;
+  padding: 20px 0 !important;
+  background-color: $white !important;
+}
 .table-create-bottom Table td {
-  padding: 15px 0 !important;
+  padding: 17px 0 !important;
+  font-size: 18.7px;
+}
+.table-create-bottom Table td a {
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.27px;
+  color: $purple00;
 }
 .table-create-bottom Table td textarea {
   border: transparent;
