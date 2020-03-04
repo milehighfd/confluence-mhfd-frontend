@@ -275,6 +275,10 @@ export default () => {
                       <Table columns={columns02} dataSource={data02} pagination={false} />
                       <Table className="footer-table" columns={footer} dataSource={data03} pagination={false} />
                     </div>
+                    <div>
+                      <label htmlFor="">Description</label>
+                      <TextArea rows={4} />
+                    </div>
                     <div className="gutter-example user-tab">
                         <h3>PROJECT INFORMATION</h3>
                         <Row gutter={16}>
@@ -321,18 +325,18 @@ export default () => {
                         <p className="ant-upload-drag-icon">
                         </p>
                         <img src="/Icons/icon-17.svg" alt=""/>
-                        <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
+                        <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
                       </Dragger>
                       <div className="tag-upload">
                       <Tag closable>
-                        Little Dry Creek_image-1.jpg
+                          Little Dry Creek_image-2.csv
                       </Tag>
                       </div>   
                     </div>
-                    <div>
-                      <Button>Reset</Button>
-                      <Button type="primary">Create Project</Button>
-                    </div>                                
+                    <div className="btn-footer" style={{marginTop: '25px'}}>
+                        <Button style={{width: '140px'}} className="btn-00">Reset</Button>
+                        <Button style={{width: '140px'}} className="btn-01">Create Project</Button>
+                    </div>                           
                 </div>
               </Col>
               </Row>

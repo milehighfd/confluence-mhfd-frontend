@@ -1298,6 +1298,8 @@ body{
 .table-create-pro th {
   background-color: $white !important;
   border: none !important;
+  font-size: 18.7px;
+  color: $opacity !important;
 }
 .table-create-pro td {
   border-bottom: 13px solid $white !important;
@@ -1363,29 +1365,7 @@ body{
   text-align: right;
   color: $purple00;
 }
-// .footer-table-01 {
-//   width: 382px;
-//   opacity: 0.6;
-//   font-family: Ubuntu;
-//   font-size: 18.7px;
-//   font-weight: 500;
-//   font-stretch: normal;
-//   font-style: normal;
-//   line-height: normal;
-//   letter-spacing: 0.27px;
-//   color: $opacity;
-// }
-// .footer-table-02 {
-//   width: 380px;
-//   font-family: Ubuntu;
-//   font-size: 18.7px;
-//   font-weight: bold;
-//   font-stretch: normal;
-//   font-style: normal;
-//   line-height: normal;
-//   letter-spacing: 0.27px;
-//   color: $purple00;
-// }
+
 // draw-section
 .draw-section {
   width: 100%;
