@@ -304,42 +304,111 @@ export default () => {
 
                   </TabPane>
                   <TabPane tab="Study" key="2">
-                  <Row gutter={[8, 24]} className="work-plan">
-                    <Col span={3}>
-                      <h3>Workspace <img src="/Icons/icon-19.svg" alt=""/></h3>
-                      <div className="col-wr" style={{marginTop: '35px'}}>
-                        <Button className="btn-create"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
-                      </div>
-                    </Col>
-                    <Col span={3}>
-                      <h3>2020</h3>
-                      <div style={{textAlign:'center'}}><a href="">View Map</a></div>
-                      <div className="col-wr">
-                      </div>
-                    </Col>
-                    <Col span={3}>
-                      <h3>2021</h3>
-                      <div style={{textAlign:'center'}}><a href="">View Map</a></div>
-                      <div className="col-wr">
-                      </div>
-                    </Col>
-                    <Col span={3}>
-                      <h3>2022</h3>
-                      <div style={{textAlign:'center'}}><a href="">View Map</a></div>
-                      <div className="col-wr">
-                      </div>
-                    </Col>
-                    <Col span={3}>
-                      <h3>2023</h3>
-                      <div style={{textAlign:'center'}}><a href="">View Map</a></div>
-                      <div className="col-wr">
-                      </div>
-                    </Col>
-                    <Col span={3}>
-                      <h3>2024</h3>
-                      <div style={{textAlign:'center'}}><a href="">View Map</a></div>
-                      <div className="col-wr">
-                      </div>
+                  <Row gutter={[8, 16]} className="work-plan">
+                    <Col span={18}>
+                    <Row gutter={[8, 24]}>
+                      <Col span={4}>
+                        <h3>Workspace <img src="/Icons/icon-19.svg" alt=""/></h3>
+                        <div className="col-wr-01" style={{marginTop: '35px'}}>
+                          <Button className="btn-create"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <h3>2020</h3>
+                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <h3>2021</h3>
+                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <h3>2022</h3>
+                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <h3>2023</h3>
+                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <h3>2024</h3>
+                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                    </Row>
+                    <div className="cost-wr">
+                      <Row gutter={[8, 16]}>
+                        <Col span={4}><h5>TOTAL Cost</h5></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                      </Row>
+                      <br></br>
+                      <Row gutter={[8, 16]}>
+                        <Col span={4}><h5>Budget Cost</h5></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                      </Row>
+                    </div>
+                    <Row gutter={[8, 24]}>
+                      <Col span={4}>
+                        <div className="col-wr-01" style={{marginTop: '13px'}}>
+                          <Button className="btn-create"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                      <Col span={4}>
+                        <div className="col-wr-01">
+                        </div>
+                      </Col>
+                    </Row>
+                    <div className="cost-wr">
+                      <Row gutter={[8, 16]}>
+                        <Col span={4}><h5>TOTAL Cost</h5></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                        <Col span={4}><Input placeholder="Total cost" /></Col>
+                      </Row>
+                      <br></br>
+                      <Row gutter={[8, 16]}>
+                        <Col span={4}><h5>Budget Cost</h5></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                        <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
+                      </Row>
+                    </div>
                     </Col>
                     <Col span={6}>
                       <div style={{display: 'flex'}}>
@@ -353,45 +422,17 @@ export default () => {
                         </Select>
                       </div>
 
-                    <div className="work-pc" style={{marginTop: '30px'}}>
-                      <div className="wp-chart">
-                        <h5>Requests by Jurisdiction <img src="/Icons/icon-19.svg" alt=""/></h5>
+                      <div className="work-pc work-pc-01" style={{marginTop: '30px'}}>
+                        <div className="wp-chart">
+                          <h5>Requests by Jurisdiction <img src="/Icons/icon-19.svg" alt=""/></h5>
+                        </div>
+                        <div className="wp-chart">
+                          <h5>Distribution Across Jurisdictions <img src="/Icons/icon-19.svg" alt=""/></h5>
+                        </div>
                       </div>
-                      <div className="wp-chart">
-                        <h5>Distribution Across Jurisdictions <img src="/Icons/icon-19.svg" alt=""/></h5>
-                      </div>
-                    </div>
-
                     </Col>
                   </Row>
-
                   <div className="cost-wr">
-                    <Row gutter={[8, 16]}>
-                      <Col span={3}><h5>TOTAL REQUESTED</h5></Col>
-                      <Col span={3}><Input placeholder="Total cost" /></Col>
-                      <Col span={3}><Input placeholder="Total cost" /></Col>
-                      <Col span={3}><Input placeholder="Total cost" /></Col>
-                      <Col span={3}><Input placeholder="Total cost" /></Col>
-                      <Col span={3}><Input placeholder="Total cost" /></Col>
-                    </Row>
-                    <br></br>
-                    <Row gutter={[8, 16]}>
-                      <Col span={3}><h5>Target Cost</h5></Col>
-                      <Col span={3}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-                      <Col span={3}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-                      <Col span={3}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-                      <Col span={3}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-                      <Col span={3}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-                    </Row>
-                    <br></br>
-                    <Row gutter={[8, 16]}>
-                      <Col span={3}><h5>Differential</h5></Col>
-                      <Col span={3}><Input className="input-r1" placeholder="XXX Difference" /></Col>
-                      <Col span={3}><Input className="input-r1" placeholder="XXX Difference" /></Col>
-                      <Col span={3}><Input className="input-r1" placeholder="XXX Difference" /></Col>
-                      <Col span={3}><Input className="input-r1" placeholder="XXX Difference" /></Col>
-                      <Col span={3}><Input className="input-r1" placeholder="XXX Difference" /></Col>
-                    </Row>
                     <Row style={{padding: '0px 20px'}}>
                       <Col span={24} style={{textAlign: 'right'}}>
                         <Button className="btn-00">Save Work Plan</Button>
