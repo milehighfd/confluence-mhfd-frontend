@@ -3,7 +3,7 @@ import { Col, Card } from "antd";
 
 export default (props: any) => {
     const a = [];
-    if (props.type === 'problem') {
+    if (props.type === 'Problems') {
         a.push(<div style={{ display: 'flex', width: '100%' }}>
             <p style={{ color: 'red', width: '50%' }}>{props.data.field6}</p>
             <span style={{ textAlign: 'right', width: '50%' }}>{props.data.field7}</span>
@@ -25,7 +25,7 @@ export default (props: any) => {
             <h6>{props.data.field2}</h6>
             <h5>{props.data.field3} <span style={{ float: 'right' }}><b>{props.data.field4}</b> Components</span></h5>
             <hr />
-            {props.type === 'problem' ? (
+            {props.type === 'Problems' ? (
                 <div style={{ display: 'flex', width: '100%' }}>
                     <p style={{ color: 'red', width: '50%' }}>{props.data.field6}</p>
                     <span style={{ textAlign: 'right', width: '50%' }}>{props.data.field7}</span>

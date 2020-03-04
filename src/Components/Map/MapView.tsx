@@ -8,9 +8,7 @@ import MapFilterView from '../MapFilter/MapFilterView';
 import MapTypesView from "../MapTypes/MapTypesView";
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
 import SortMenuView from "../SortMenu/SortMenuView";
-import AccordionDisplay from "../AccordionDisplay/AccordionDisplayView";
-import CardInformationView from "../CardInformation/CardInformationView";
-import AccordionRowView from "../AccordionRow/AccordionRowView"; 
+import GenericTabView from "../GenericTab/GenericTabView";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -194,59 +192,11 @@ export default () => {
 
                   <Tabs defaultActiveKey="1" className="tabs-map">
                     <TabPane tab="Problems" key="1">
-                      <div className="hastag">
-                        <h6>Showing 67 Problems:</h6>
-                        <div>
-                          {tags}
-                        </div>
-                      </div>
-                      <Row className="card-map" gutter={[16, 16]}>
-                        {cardInformationProblems.map( (data) => {
-                          return <CardInformationView data={data} type="problem" />
-                        })}
-                      </Row>
-                      {/*LIST*/}
-                      <Row className="list-h">
-                        <Col span={9}>Problem & Component Name</Col>
-                        <Col span={5}>Jurisdiction</Col>
-                        <Col span={4}>Solution Cost</Col>
-                        <Col span={6}> Solution Status</Col>
-                      </Row>
-                      <Collapse accordion>
-                        <Panel header="" key="1" extra={AccordionDisplay()}>
-                          {accordionRow.map( (data) => {
-                            return <AccordionRowView data={data} />
-                          })}
-                        </Panel>
-                      </Collapse>
+                      <GenericTabView type="Problems" totalElements={cardInformationProblems.length} cardInformation={cardInformationProblems} accordionRow={accordionRow}/>
                     </TabPane>
 
                     <TabPane tab="Projects" key="2">
-                      <div className="hastag">
-                        <h6>Showing 67 Problems:</h6>
-                        <div>
-                          {tags}
-                        </div>
-                      </div>
-                      <Row className="card-map" gutter={[16, 16]}>
-                        {cardInformationProjects.map( (data) => {
-                          return <CardInformationView data={data} type="projects" />
-                        })}
-                      </Row>
-                      {/*LIST*/}
-                      <Row className="list-h">
-                        <Col span={9}>Problem & Component Name</Col>
-                        <Col span={5}>Jurisdiction</Col>
-                        <Col span={4}>Solution Cost</Col>
-                        <Col span={6}> Solution Status</Col>
-                      </Row>
-                      <Collapse accordion>
-                        <Panel header="" key="1" extra={AccordionDisplay()}>
-                          {accordionRow.map( (data) => {
-                            return <AccordionRowView data={data} />
-                          })}
-                        </Panel>
-                      </Collapse>
+                    <GenericTabView type="Projects" totalElements={cardInformationProjects.length} cardInformation={cardInformationProjects} accordionRow={accordionRow}/>
                     </TabPane>
                   </Tabs>
                 {/*</Panel>
