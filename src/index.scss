@@ -1031,6 +1031,12 @@ body{
   height: calc(100vh - 58px);
   overflow-y: auto;
 }
+.count-01{
+  padding:25px 50px;
+  background: $white;
+  height: calc(100vh - 58px);
+  overflow-y: auto;
+}
 .btn-coll{
   border: none !important;
   background: white;
@@ -1244,6 +1250,49 @@ body{
   margin-top: 49px;
 }
 // styles creation project
+.label-new-form h3 {
+  display: inline;
+  text-transform: uppercase;
+  font-size: 17.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $purple00;
+
+}
+.label-new-form span {
+  font-size: 13.3px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $opacity;
+}
+.label-new-form img {
+  width: 19px;
+  height: 19px;
+  margin: 7px 0 7px 5px;
+}
+.directions01 {
+  color: $opacity;
+  font-size: 29.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+.directions-img {
+  transform: rotate(270deg);
+  width: 20px;
+  margin: 0 5px;
+}
+.directions-page {
+  color: $purple00;
+}
 .project-comp {
   display: flex;
   justify-content: space-between;
