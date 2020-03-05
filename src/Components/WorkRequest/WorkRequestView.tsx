@@ -27,20 +27,20 @@ const genExtra = () => (
 );
 
 const menu = (
-  <Menu>
-    <Menu.Item>
+  <Menu className="menu-card">
+    <Menu.Item style={{borderBottom: '1px solid rgba(61, 46, 138, 0.07)'}}>
       <a target="_blank" rel="noopener noreferrer" href="">
-        1st menu item
+        Edit
+      </a>
+    </Menu.Item>
+    <Menu.Item style={{borderBottom: '1px solid rgba(61, 46, 138, 0.07)'}}>
+      <a target="_blank" rel="noopener noreferrer" href="">
+        Copy
       </a>
     </Menu.Item>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        2nd menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        3rd menu item
+      <a target="_blank" rel="noopener noreferrer" href="" style={{color: 'red'}}>
+        Delete
       </a>
     </Menu.Item>
   </Menu>

@@ -85,7 +85,6 @@ const columns01 = [
 ];
 
 const pagination = { position: 'none' };
-
 const data01 = [
   {
     key: '1',
@@ -118,6 +117,7 @@ const columns02 = [
     ellipsis: true,
   },
   {
+    title: <span className="numbers01-table">$8,230,000</span>,
     dataIndex: 'Cost',
     key: 'Cost',
     width: 150,
@@ -139,7 +139,7 @@ const data02 = [
     Component: 'Additional Cost',
     Jurisdiction: <Dropdown overlay={menu} trigger={['click']}>
     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-      Click me 
+      Click me <img src="/Icons/icon-12.svg" alt=""/>
     </a>
     </Dropdown>,
     Cost: <span>$1,570,000</span>,
@@ -150,7 +150,7 @@ const data02 = [
     Component: 'Overhead Cost',
     Jurisdiction: <Dropdown overlay={menu} trigger={['click']}>
     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-      Click me 
+      Click me <img src="/Icons/icon-12.svg" alt=""/>
     </a>
     </Dropdown>,
     Cost: <span>$1,570,000</span>,
@@ -158,6 +158,41 @@ const data02 = [
   },
 ];
 
+const footer = [
+  {
+    dataIndex: 'Component',
+    key: 'Component',
+    width: 170,
+    ellipsis: true,
+  },
+  {
+    dataIndex: 'Jurisdiction',
+    key: 'Jurisdiction',
+    width: 150,
+    ellipsis: true,
+  },
+  {
+    dataIndex: 'Cost',
+    key: 'Cost',
+    width: 150,
+    ellipsis: true,
+  },
+
+  {
+    dataIndex: 'StudyName',
+    key: 'StudyName',
+    width: 270,
+    ellipsis: true,
+  },
+];
+
+const data03 = [
+  {
+    key: '1',
+    Component: 'TOTAL COST',
+    Cost: <span className="numbers01-table">$1,570,000</span>,
+  },
+];
 
 export default () => {
   return <>
@@ -210,13 +245,12 @@ export default () => {
                 </Button>
               </Col>
               <Col span={12}>
-                <div className="count">
+                <div className="count-01">
                   <Row className="head-m">
-                    <Col span={24}>
-                    <Breadcrumb separator=">">
-                      <Breadcrumb.Item>Home</Breadcrumb.Item>
-                      <Breadcrumb.Item>Application Center</Breadcrumb.Item>
-                    </Breadcrumb>
+                    <Col className="directions01" span={24}>
+                      <span>Back</span>
+                      <span><img className="directions-img" src="/Icons/icon-12.svg" alt=""/></span>
+                      <span className="directions-page">My Project Name</span>
                     </Col>
                   </Row>
 
@@ -233,67 +267,75 @@ export default () => {
                             <button><img src="/Icons/icon-08.svg" alt=""/></button>
                             <h6>Click on the icon above and draw a polygon to select components</h6>
                     </div>
-
                     <div className="table-create-pro">
                       <Table columns={columns01} dataSource={data01} pagination={false} />
                     </div>
                     <div className="table-create-bottom">
                       <Table columns={columns02} dataSource={data02} pagination={false} />
+                      <Table className="footer-table" columns={footer} dataSource={data03} pagination={false} />
+                    </div>
+                    <div>
+                      <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt=""/></label>
+                      <TextArea rows={4} />
                     </div>
                     <div className="gutter-example user-tab">
                         <h3>PROJECT INFORMATION</h3>
                         <Row gutter={16}>
-                          <Col className="gutter-row" span={12}><label htmlFor="">MHFD Funding Request</label>
+                          <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">MHFD Funding Request<img src="/Icons/icon-19.svg" alt=""/></label>
                           <Input placeholder="Enter MHFD funding request" /></Col>
-                          <Col className="gutter-row" span={12}><label htmlFor="">Local Dollars Contribution</label>
+                          <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">Local Dollars Contribution<img src="/Icons/icon-19.svg" alt=""/></label>
                           <Input placeholder="Enter local dollars" /></Col>
                         </Row>
                         <br></br>
                         <Row gutter={16}>
-                        <Col className="gutter-row" span={12}><label htmlFor="">Requested Funding Year</label>
+                        <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt=""/></label>
                             <Dropdown overlay={menu}>
                               <Button>
-                              - Select - <img src="Icons/icon-12.svg" alt=""/>
+                              - Select - <img src="/Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </Col>                          
-                          <Col className="gutter-row" span={12}><label htmlFor="">Goal</label>
+                          <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
                             <Dropdown overlay={menu}>
                               <Button>
-                              - Select - <img src="Icons/icon-12.svg" alt=""/>
+                              - Select - <img src="/Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </Col>
                         </Row>
                     </div>
                     <div>
-                    <h3>Upload Main Image</h3>
+                      <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt=""/></label>
                       <Dragger>
                         <p className="ant-upload-drag-icon">
                         </p>
-                        <img src="Icons/icon-17.svg" alt=""/>
+                        <img src="/Icons/icon-17.svg" alt=""/>
                         <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
                       </Dragger>
                       <div className="tag-upload">
-                      <Tag closable>
-                        Little Dry Creek_image-1.jpg
-                      </Tag>
+                        <Tag closable>
+                          Little Dry Creek_image-1.jpg
+                        </Tag>
                       </div>   
                     </div>
                     <div>
-                    <h3>Upload Attachments</h3>
+                      <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt=""/></label>
                       <Dragger>
                         <p className="ant-upload-drag-icon">
                         </p>
-                        <img src="Icons/icon-17.svg" alt=""/>
-                        <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
+                        <img src="/Icons/icon-17.svg" alt=""/>
+                        <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
                       </Dragger>
                       <div className="tag-upload">
-                      <Tag closable>
-                        Little Dry Creek_image-1.jpg
-                      </Tag>
+                        <Tag closable>
+                            Little Dry Creek_image-2.csv
+                        </Tag>
                       </div>   
-                    </div>            
+                    </div>
+                    <div className="btn-footer" style={{marginTop: '25px'}}>
+                        <Button style={{width: '140px'}} className="btn-00">Reset</Button>
+                        <Button style={{width: '140px'}} className="btn-01">Create Project</Button>
+                    </div>                           
                 </div>
               </Col>
               </Row>

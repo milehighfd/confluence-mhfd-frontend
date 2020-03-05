@@ -24,6 +24,8 @@ import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTyp
 import FiltersProjectContainer from './Components/FiltersProject/FiltersProjectContainer';
 import WorkPlanContainer from './Components/WorkPlan/WorkPlanContainer';
 import WorkRequestContainer from './Components/WorkRequest/WorkRequestContainer';
+import ProfileContainer from './Components/Profile/ProfileContainer';
+import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 
 
 ReactDOM.render(
@@ -43,6 +45,8 @@ ReactDOM.render(
         <Route path={`/filter-projects`} component={FiltersProjectContainer}/>
         <Route path={`/work-plan`} component={WorkPlanContainer}/>
         <Route path={`/work-request`} component={WorkRequestContainer}/>
+        <Route path={`/profile-view`} component={ProfileContainer}/>
+        <Route path={`/detailed-view`} component={DetailedContainer}/>
         <Route path={`/`} component={App}/>
       </Switch>
     </ConnectedRouter>

@@ -19,6 +19,7 @@ html, body{
 }
 body{
  font-family: $ubunto !important;
+ overflow-y: hidden;
 }
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
 .ant-drawer-wrapper-body::-webkit-scrollbar{
@@ -1030,6 +1031,12 @@ body{
   height: calc(100vh - 58px);
   overflow-y: auto;
 }
+.count-01{
+  padding:25px 50px;
+  background: $white;
+  height: calc(100vh - 58px);
+  overflow-y: auto;
+}
 .btn-coll{
   border: none !important;
   background: white;
@@ -1180,7 +1187,7 @@ body{
   text-align: right;
   .btn-00, .btn-00:hover{
     // width: 127px !important;
-    height: 37px !important;
+    height: 37px;
     border-radius: 4px;
     border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
     background-color: $white;
@@ -1193,7 +1200,7 @@ body{
     color: $white !important;
     font-size: 16px !important;
     // width: 173px !important;
-    height: 37px !important;
+    height: 37px;
     border-radius: 4px;
     border: none;
   }
@@ -1222,15 +1229,23 @@ body{
   line-height: normal;
   letter-spacing: 0.3px;
   text-align: center;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: initial;
+}
+.btn-creation01 button span {
+  margin: 45px 0;
 }
 .btn-creation01 Button:hover {
   background-color: $green;
-  border: 1.3px solid rgba(5, 33, 41, 0.1);
+  border: 1px solid rgba(5, 33, 41, 0.1);
   color: $white;
 }
 .btn-creation01 Button:focus {
   background-color: $green;
-  border: 1.3px solid rgba(5, 33, 41, 0.1);
+  border: 1px solid rgba(5, 33, 41, 0.1);
   color: $white;
 }
 // content-creation-new
@@ -1259,6 +1274,51 @@ body{
   margin-top: 49px;
 }
 // styles creation project
+.label-new-form {
+  display: flex;
+  align-items: center;
+}
+.label-new-form h3 {
+  display: inline;
+  text-transform: uppercase;
+  font-size: 17.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: inherit;
+  letter-spacing: normal;
+  color: $purple00;
+  margin: 0;
+
+}
+.label-new-form label {
+  font-size: 13.3px;
+  font-stretch: normal;
+  letter-spacing: normal;
+  color: $opacity;
+}
+.label-new-form img {
+  width: 19px;
+  height: 19px;
+  margin: 7px 0 7px 5px;
+}
+.directions01 {
+  color: $opacity;
+  font-size: 29.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+.directions-img {
+  transform: rotate(270deg);
+  width: 20px;
+  margin: 0 5px;
+}
+.directions-page {
+  color: $purple00;
+}
 .project-comp {
   display: flex;
   justify-content: space-between;
@@ -1345,6 +1405,40 @@ body{
   color: $white !important;
   font-weight: 600 !important;
   margin-left: 8px !important;
+}
+// table creation new project
+.footer-table th{
+  display: none;
+}
+.table-create-bottom table th {
+  font-size: 18.7px;
+  padding: 20px 0 !important;
+  background-color: $white !important;
+}
+.table-create-bottom Table td {
+  padding: 17px 0 !important;
+  font-size: 18.7px;
+}
+.table-create-bottom Table td a {
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.27px;
+  color: $purple00;
+}
+.table-create-bottom Table td textarea {
+  border: transparent;
+}
+.numbers01-table {
+  font-size: 18.7px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.27px;
+  text-align: right;
+  color: $purple00;
 }
 // draw-section
 .draw-section {
@@ -1489,15 +1583,30 @@ body{
     border: none;
     box-shadow: none;
   }
-  .btn-comment, .btn-comment:hover, .btn-comment:active{
+  .btn-comment, .btn-comment:hover, .btn-comment:active, .btn-comment.active{
     width: 140px;
     height: 50px;
     border-radius: 4px;
     background-color: $opacity00;
     border: none;
     color: $purple00;
+    font-size: 18.7px;
+    margin-left: 10px;
   }
   .btn-comment img{
+    margin-right: 5px;
+  }
+  .btn-comment-01, .btn-comment-01:hover, .btn-comment-01:active, .btn-comment-01.active{
+    width: 100px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: $opacity00;
+    border: none;
+    color: $purple00;
+    font-size: 18.7px;
+    margin-left: 10px;
+  }
+  .btn-comment-01 img{
     margin-right: 5px;
   }
 }
@@ -1571,6 +1680,21 @@ body{
     float: right;
   }
 }
+.menu-card{
+  width: 160px;
+  height: 140px;
+  left: -120px;
+
+  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a{
+    color: $purple00;
+    font-size: 13px;
+  }
+
+  li{
+    margin: 0px 15px;
+    padding: 10px 0px;
+  }
+}
 .cost-wr{
   margin-top: 20px;
   h5{
@@ -1602,6 +1726,9 @@ body{
   .input-rr::placeholder{
     color: $red;
   }
+  .input-rr::placeholder{
+    color: $opacity;
+  }
   button, button:hover, button.active{
     width: 200px;
     height: 59px;
@@ -1611,6 +1738,13 @@ body{
     color: $white;
     margin-top: 10px;
     border: none;
+  }
+  .btn-00, .btn-00:hover, .btn-00:focus, .btn-00.active{
+    border: solid 1.3px $opacity01;
+    background-color: $white;
+    color: $opacity;
+    margin-top: 20px;
+    margin-right: 20px;
   }
 }
 // CHAT
@@ -1702,4 +1836,128 @@ body{
   box-shadow: none !important;
   font-weight: bold;
   margin: 10px 0px;
+}
+
+// WORK PLAN
+.work-plan{
+  .col-wr{
+    min-width: 100%;
+    width: 100%;
+    height: 687px;
+    min-height: 687px;
+    border-radius: 4px;
+    background-color: $opacity00;
+    margin: 13px 3.5px 0px 3.5px;
+    padding: 40px 8px 20px 8px;
+    position: relative;
+    overflow-y: auto;
+  }
+  .col-wr-01{
+    min-width: 100%;
+    width: 100%;
+    height: 344px;
+    min-height: 344px;
+    border-radius: 4px;
+    background-color: $opacity00;
+    margin: 13px 3.5px 0px 3.5px;
+    padding: 40px 8px 20px 8px;
+    position: relative;
+    overflow-y: auto;
+  }
+  .btn-create, .btn-create:hover{
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    box-shadow: none;
+    font-size: 14px;
+    color: $purple00;
+    position: absolute;
+    top: 0px;
+  }
+  .btn-create img{
+    margin-right: 5px;
+  }
+  .card-wr{
+    width: 100%;
+    height: 133px;
+    box-shadow: 0 3px 5px 0 rgba(6, 36, 45, 0.06);
+    background-color: $white;
+    border-left: 4px solid $gray;
+    position: relative;
+    padding: 5px 5px;
+    margin-bottom: 5px;
+  }
+  h3{
+    font-size: 18px;
+    color: $purple00;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0px;
+  }
+  h4{
+    font-size: 18.7px;
+    color: $purple00;
+  }
+  h6{
+    font-size: 14px;
+    color: $purple;
+  }
+  .menu-wr{
+    position: absolute;
+    top: 8px;
+    right: 5px;
+  }
+  p{
+    position: absolute;
+    bottom: 1px;
+    margin-bottom: 0px;
+    width: 92%;
+    color: $opacity;
+  }
+  label{
+    float: right;
+  }
+  a, a:hover{
+    color: $green;
+    font-size: 14.7px;
+    text-decoration: underline;
+  }
+  .ant-select-selection {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid $opacity01;
+    font-size: 18.7px;
+    color: $opacity;
+    width: 160px;
+  }
+  .ant-select-selection:hover {
+    border-color: $purple;
+  }
+  .ant-select-arrow{
+    color: $purple;
+    font-weight: bold;
+  }
+}
+.work-pc{
+  min-width: 100%;
+  width: 100%;
+  height: 687px;
+  min-height: 687px;
+  border-radius: 4px;
+  background-color: $opacity00;
+  margin: 13px 3.5px 0px 3.5px;
+  padding: 20px;
+  position: relative;
+  overflow-y: auto;
+  .wp-chart{
+    height: 50%;
+  }
+  h5{
+    font-size: 18.7px;
+    color: $purple00;
+  }
+}
+.work-pc-01{
+  height: 833px;
+  min-height: 833px;
 }
