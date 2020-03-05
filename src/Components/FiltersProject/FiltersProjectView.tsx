@@ -573,7 +573,7 @@ export default () => {
                           <p><Radio>1984</Radio> <span className="filt-s">208</span></p>
                           <p><Radio>1996</Radio> <span className="filt-s">208</span></p>
                           <p><Radio>2008</Radio> <span className="filt-s">208</span></p>
-                          <p><Radio></Radio> <span className="filt-s">208</span></p>
+                          <p><Radio>2020</Radio> <span className="filt-s">208</span></p>
                         </Col>
                         <Col span={12}>
                           <h5>Estimated Cost <img src="Icons/icon-19.svg" alt=""/></h5>
