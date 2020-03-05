@@ -1183,6 +1183,20 @@ body{
   }
 }
 // buttons-creation
+.input-maint {
+  margin: 20px 0;
+  position: relative;
+}
+.input-maint input {
+  height: 59px;
+}
+.input-maint img {
+  position: absolute;
+  margin-left: 9px;
+  margin-top: 17px;
+  height: 26px;
+  width: 23px;
+}
 .btn-creation01 {
   display: flex;
   flex-wrap: wrap;
@@ -1251,6 +1265,25 @@ body{
   margin-top: 49px;
 }
 // styles creation project
+.form01 {
+  height: 70px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.form01-02 {
+  display: flex;
+  align-items: center;
+}
+.form01-02 img {
+  margin-left: 10px;
+}
+.form01-02 h3 {
+  margin: 0;
+  font-size: 18.7px;
+  letter-spacing: 0.27px;
+  color: $opacity;
+}
 .label-new-form {
   display: flex;
   align-items: center;
