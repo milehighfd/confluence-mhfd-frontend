@@ -1031,6 +1031,12 @@ body{
   height: calc(100vh - 58px);
   overflow-y: auto;
 }
+.count-01{
+  padding:25px 50px;
+  background: $white;
+  height: calc(100vh - 58px);
+  overflow-y: auto;
+}
 .btn-coll{
   border: none !important;
   background: white;
@@ -1199,15 +1205,23 @@ body{
   line-height: normal;
   letter-spacing: 0.3px;
   text-align: center;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: initial;
+}
+.btn-creation01 button span {
+  margin: 45px 0;
 }
 .btn-creation01 Button:hover {
   background-color: $green;
-  border: 1.3px solid rgba(5, 33, 41, 0.1);
+  border: 1px solid rgba(5, 33, 41, 0.1);
   color: $white;
 }
 .btn-creation01 Button:focus {
   background-color: $green;
-  border: 1.3px solid rgba(5, 33, 41, 0.1);
+  border: 1px solid rgba(5, 33, 41, 0.1);
   color: $white;
 }
 // content-creation-new
@@ -1236,6 +1250,49 @@ body{
   margin-top: 49px;
 }
 // styles creation project
+.label-new-form h3 {
+  display: inline;
+  text-transform: uppercase;
+  font-size: 17.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $purple00;
+
+}
+.label-new-form span {
+  font-size: 13.3px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $opacity;
+}
+.label-new-form img {
+  width: 19px;
+  height: 19px;
+  margin: 7px 0 7px 5px;
+}
+.directions01 {
+  color: $opacity;
+  font-size: 29.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+.directions-img {
+  transform: rotate(270deg);
+  width: 20px;
+  margin: 0 5px;
+}
+.directions-page {
+  color: $purple00;
+}
 .project-comp {
   display: flex;
   justify-content: space-between;
@@ -1322,6 +1379,40 @@ body{
   color: $white !important;
   font-weight: 600 !important;
   margin-left: 8px !important;
+}
+// table creation new project
+.footer-table th{
+  display: none;
+}
+.table-create-bottom table th {
+  font-size: 18.7px;
+  padding: 20px 0 !important;
+  background-color: $white !important;
+}
+.table-create-bottom Table td {
+  padding: 17px 0 !important;
+  font-size: 18.7px;
+}
+.table-create-bottom Table td a {
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.27px;
+  color: $purple00;
+}
+.table-create-bottom Table td textarea {
+  border: transparent;
+}
+.numbers01-table {
+  font-size: 18.7px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.27px;
+  text-align: right;
+  color: $purple00;
 }
 // draw-section
 .draw-section {
