@@ -58,32 +58,12 @@ const accordionRow: Array<any> = [
   }
 ];
 
-const tags: Array<any> = [
-  <Tag closable >
-     $600K - $1.2M
-  </Tag>,
-  <Tag closable >
-     Active
-  </Tag>,
-  <Tag closable >
-     Stream Restoration
-  </Tag>,
-  <Tag closable >
-     Maintenance
-  </Tag>,
-  <Tag closable >
-     Westminster
-  </Tag>,
-  <Tag closable >
-     Components
-  </Tag>
-]
-
 export default () => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
+  const [listDescription, setListDescription] = useState(false);
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
       setLeftWidth(COMPLETE_SCREEN);
@@ -158,11 +138,15 @@ export default () => {
                     </Col>
                     <Col style={{textAlign: 'right'}} span={12}>
                       <ButtonGroup>
-                        <Button className="btn-mm">
+                        <Button className="btn-mm" onClick={() => {
+                          setListDescription(true);
+                        }}>
                           <img className="img-h" src="/Icons/icon-30.svg" alt=""/>
                           <img className="img-a" src="/Icons/icon-32.svg" alt=""/>
                         </Button>
-                        <Button>
+                        <Button onClick={() => {
+                          setListDescription(false);
+                        }}>
                           <img className="img-h" src="/Icons/icon-31.svg" alt=""/>
                           <img className="img-a" src="/Icons/icon-33.svg" alt=""/>
                         </Button>
@@ -192,11 +176,11 @@ export default () => {
 
                   <Tabs defaultActiveKey="1" className="tabs-map">
                     <TabPane tab="Problems" key="1">
-                      <GenericTabView type="Problems" totalElements={cardInformationProblems.length} cardInformation={cardInformationProblems} accordionRow={accordionRow}/>
+                      <GenericTabView listDescription={listDescription} type="Problems" totalElements={cardInformationProblems.length} cardInformation={cardInformationProblems} accordionRow={accordionRow}/>
                     </TabPane>
 
                     <TabPane tab="Projects" key="2">
-                    <GenericTabView type="Projects" totalElements={cardInformationProjects.length} cardInformation={cardInformationProjects} accordionRow={accordionRow}/>
+                    <GenericTabView listDescription={listDescription} type="Projects" totalElements={cardInformationProjects.length} cardInformation={cardInformationProjects} accordionRow={accordionRow}/>
                     </TabPane>
                   </Tabs>
                 {/*</Panel>

@@ -22,35 +22,39 @@ export default (props: any) => {
         const newTags = tags.filter((element: String, indexE: Number) => indexE !== index);
         setTags(newTags);
     }
-    return <>
-        <div className="hastag">
-            <h6> Showing {props.totalElements} {props.type}:</h6>
-            <div>
-                {tags.map((data: String, index: Number) => {
-                    return <Tag closable onClose={() => deleteTag(index)}>
-                        {data}
-                    </Tag>
-                })}
-            </div>
-        </div>
-        <Row className="card-map" gutter={[16, 16]}>
-            {props.cardInformation.map((data: any) => {
-                return <CardInformationView data={data} type={props.type} />
+    return <> <div className="hastag">
+        <h6> Showing {props.totalElements} {props.type}:</h6>
+        <div>
+            {tags.map((data: String, index: Number) => {
+                return <Tag closable onClose={() => deleteTag(index)}>
+                    {data}
+                </Tag>
             })}
-        </Row>
-        {/*LIST*/}
-        <Row className="list-h">
-            <Col span={9}>Problem & Component Name</Col>
-            <Col span={5}>Jurisdiction</Col>
-            <Col span={4}>Solution Cost</Col>
-            <Col span={6}> Solution Status</Col>
-        </Row>
-        <Collapse accordion>
-            <Panel header="" key="1" extra={AccordionDisplayView()}>
-                {props.accordionRow.map((data: any) => {
-                    return <AccordionRowView data={data} />
-                })}
-            </Panel>
-        </Collapse>
-    </>
+        </div>
+    </div>
+        {props.listDescription ?
+            <>
+                <Row className="list-h">
+                    <Col span={9}>Problem & Component Name</Col>
+                    <Col span={5}>Jurisdiction</Col>
+                    <Col span={4}>Solution Cost</Col>
+                    <Col span={6}> Solution Status</Col>
+                </Row>
+                <Collapse accordion>
+                    {props.cardInformation.map((information: any, index: number) => (
+                        <Panel header="" key={"" + (index + 1)} extra={AccordionDisplayView(information)} >
+                            {props.accordionRow.map((data: any) => {
+                                return <AccordionRowView data={data} />
+                            })}
+                        </Panel>
+                    ))}
+
+                </Collapse> </>
+            :
+            <>
+                <Row className="card-map" gutter={[16, 16]}>
+                    {props.cardInformation.map((data: any) => {
+                        return <CardInformationView data={data} type={props.type} />
+                    })}
+                </Row> </>} </>
 }
