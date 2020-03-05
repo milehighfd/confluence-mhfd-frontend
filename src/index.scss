@@ -1250,6 +1250,10 @@ body{
   margin-top: 49px;
 }
 // styles creation project
+.label-new-form {
+  display: flex;
+  align-items: center;
+}
 .label-new-form h3 {
   display: inline;
   text-transform: uppercase;
@@ -1257,17 +1261,15 @@ body{
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
-  line-height: normal;
+  line-height: inherit;
   letter-spacing: normal;
   color: $purple00;
+  margin: 0;
 
 }
-.label-new-form span {
+.label-new-form label {
   font-size: 13.3px;
-  font-weight: normal;
   font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: normal;
   color: $opacity;
 }
