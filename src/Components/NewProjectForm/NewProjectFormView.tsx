@@ -275,27 +275,27 @@ export default () => {
                       <Table className="footer-table" columns={footer} dataSource={data03} pagination={false} />
                     </div>
                     <div>
-                      <label className="label-new-form" htmlFor=""><span>Description</span><img src="/Icons/icon-19.svg" alt=""/></label>
+                      <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt=""/></label>
                       <TextArea rows={4} />
                     </div>
                     <div className="gutter-example user-tab">
                         <h3>PROJECT INFORMATION</h3>
                         <Row gutter={16}>
-                          <Col className="gutter-row label-new-form" span={12}><label htmlFor=""><span>MHFD Funding Request</span><img src="/Icons/icon-19.svg" alt=""/></label>
+                          <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">MHFD Funding Request<img src="/Icons/icon-19.svg" alt=""/></label>
                           <Input placeholder="Enter MHFD funding request" /></Col>
-                          <Col className="gutter-row label-new-form" span={12}><label htmlFor=""><span>Local Dollars Contribution</span><img src="/Icons/icon-19.svg" alt=""/></label>
+                          <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">Local Dollars Contribution<img src="/Icons/icon-19.svg" alt=""/></label>
                           <Input placeholder="Enter local dollars" /></Col>
                         </Row>
                         <br></br>
                         <Row gutter={16}>
-                        <Col className="gutter-row label-new-form" span={12}><label htmlFor=""><span>Requested Funding Year</span><img src="/Icons/icon-19.svg" alt=""/></label>
+                        <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt=""/></label>
                             <Dropdown overlay={menu}>
                               <Button>
                               - Select - <img src="/Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </Col>                          
-                          <Col className="gutter-row label-new-form" span={12}><label htmlFor=""><span>Goal</span><img src="/Icons/icon-19.svg" alt=""/></label>
+                          <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
                             <Dropdown overlay={menu}>
                               <Button>
                               - Select - <img src="/Icons/icon-12.svg" alt=""/>
@@ -304,8 +304,8 @@ export default () => {
                           </Col>
                         </Row>
                     </div>
-                    <div className="label-new-form">
-                      <label htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt=""/></label>
+                    <div>
+                      <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt=""/></label>
                       <Dragger>
                         <p className="ant-upload-drag-icon">
                         </p>
@@ -313,13 +313,13 @@ export default () => {
                         <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
                       </Dragger>
                       <div className="tag-upload">
-                      <Tag closable>
-                        Little Dry Creek_image-1.jpg
-                      </Tag>
+                        <Tag closable>
+                          Little Dry Creek_image-1.jpg
+                        </Tag>
                       </div>   
                     </div>
-                    <div className="label-new-form">
-                      <label htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt=""/></label>
+                    <div>
+                      <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt=""/></label>
                       <Dragger>
                         <p className="ant-upload-drag-icon">
                         </p>
@@ -327,9 +327,9 @@ export default () => {
                         <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
                       </Dragger>
                       <div className="tag-upload">
-                      <Tag closable>
-                          Little Dry Creek_image-2.csv
-                      </Tag>
+                        <Tag closable>
+                            Little Dry Creek_image-2.csv
+                        </Tag>
                       </div>   
                     </div>
                     <div className="btn-footer" style={{marginTop: '25px'}}>
