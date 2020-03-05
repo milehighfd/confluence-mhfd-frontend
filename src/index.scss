@@ -1346,7 +1346,23 @@ body{
 .project-comp-btn {
   display: flex;
   align-items: flex-end;
+
+  .mapboxgl-ctrl-group.mapboxgl-ctrl {
+    margin-left: 5px;
+    box-shadow: 0 0 0 0;
+
+    .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon {
+      background-image: url("/Icons/icon-08.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      border: 0;
+    }
+  }
 }
+
 .project-comp-btn span {
   opacity: 0.15;
   color: $purple;
@@ -1452,6 +1468,7 @@ body{
   align-items: center;
   justify-content: center;
 }
+
 .draw-section h6 {
   font-size: 16px;
   font-weight: normal;
@@ -1463,6 +1480,7 @@ body{
   color: $purple00;
   opacity: 0.6;
 }
+
 .draw-section img {
   height: 27px;
   margin: 12px 13px;
