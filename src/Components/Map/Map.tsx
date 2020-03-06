@@ -98,12 +98,12 @@ const Map = ({ leftWidth, children } : any) => {
                 <div className="m-footer">
                     <h5>NFHL 100 year floodplain</h5>
                     <hr/>
-                    <p><div style={{background:'#99C9FF'}}></div> 6 - 12 inches</p>
-                    <p><div style={{background:'#4B9CFF'}}></div> 12 - 18 inches</p>
-                    <p><div style={{background:'#4C81C4'}}></div> 18 - 24 inches</p>
-                    <p><div style={{background:'#4A6A9C'}}></div> +24 inches</p>
-                    <p><div style={{background:'#8FA7C8', height: '2px', marginTop: '7px'}}></div> Stream Channel</p>
-                    <p><div style={{background:'#ffffff', border: '1px dashed'}}></div> Service Area (Watershed)</p>
+                    <p><span style={{background:'#99C9FF'}} />6 - 12 inches</p>
+                    <p><span style={{background:'#4B9CFF'}} /> 12 - 18 inches</p>
+                    <p><span style={{background:'#4C81C4'}} /> 18 - 24 inches</p>
+                    <p><span style={{background:'#4A6A9C'}} /> +24 inches</p>
+                    <p><span style={{background:'#8FA7C8', height: '2px', marginTop: '7px'}} />Stream Channel</p>
+                    <p><span style={{background:'#ffffff', border: '1px dashed'}} />Service Area (Watershed)</p>
                 </div>
 
                 {/* <div className="m-zoom">

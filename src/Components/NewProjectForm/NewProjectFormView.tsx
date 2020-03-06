@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Breadcrumb, Tabs, Tag, Card, Input, Progress, Timeline, Upload, message, Table } from 'antd';
+import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Breadcrumb, Switch, Tabs, Select, Tag, Card, Input, Progress, Timeline, Upload, message, Table } from 'antd';
 
 import NavbarView from "../Navbar/NavbarView";
 import SidebarView from "../Sidebar/SidebarView";
@@ -13,6 +13,7 @@ const { TabPane } = Tabs;
 const { Search } = Input;
 const { Dragger } = Upload;
 const { TextArea } = Input;
+const { Option } = Select;
 
 const genExtra = () => (
   <Row className="tab-head">
@@ -139,7 +140,7 @@ const data02 = [
     Component: 'Additional Cost',
     Jurisdiction: <Dropdown overlay={menu} trigger={['click']}>
     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-      Click me <img src="/Icons/icon-12.svg" alt=""/>
+      20% <img src="/Icons/icon-12.svg" alt=""/>
     </a>
     </Dropdown>,
     Cost: <span>$1,570,000</span>,
@@ -150,7 +151,7 @@ const data02 = [
     Component: 'Overhead Cost',
     Jurisdiction: <Dropdown overlay={menu} trigger={['click']}>
     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-      Click me <img src="/Icons/icon-12.svg" alt=""/>
+      20%<img src="/Icons/icon-12.svg" alt=""/>
     </a>
     </Dropdown>,
     Cost: <span>$1,570,000</span>,
@@ -252,6 +253,14 @@ export default () => {
                       </div>
                         <span>TOTAL COST: $11,370,000</span>
                     </div>
+                    <div className="input-maint">
+                        <label className="label-new-form" htmlFor="">#1</label>
+                        <Input placeholder="Basic usage" />
+                    </div>
+                    <div className="input-maint">
+                      <label className="label-new-form" htmlFor="">#2</label>
+                      <Input placeholder="Basic usage" /><img src="/Icons/icon-16.svg" alt=""/>
+                    </div>
                     <div className="head-m draw-section">
                         <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt=""/></button>
                         <h6>Click on the icon above and draw a polygon to select components</h6>
@@ -267,24 +276,65 @@ export default () => {
                       <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt=""/></label>
                       <TextArea rows={4} />
                     </div>
+                    
                     <div className="gutter-example user-tab">
-                        <h3>PROJECT INFORMATION</h3>
+                        <div className="label-new-form">
+                          <h3>PROJECT INFORMATION</h3>
+                        </div>
                         <Row gutter={16}>
-                          <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">MHFD Funding Request<img src="/Icons/icon-19.svg" alt=""/></label>
+                          <Col className="gutter-row" span={12}>
+                            <label className="label-new-form" htmlFor="">MHFD Funding Request<img src="/Icons/icon-19.svg" alt=""/></label>
                           <Input placeholder="Enter MHFD funding request" /></Col>
-                          <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">Local Dollars Contribution<img src="/Icons/icon-19.svg" alt=""/></label>
+                          <Col className="gutter-row" span={12}>
+                            <label className="label-new-form" htmlFor="">Local Dollars Contribution<img src="/Icons/icon-19.svg" alt=""/></label>
                           <Input placeholder="Enter local dollars" /></Col>
                         </Row>
                         <br></br>
                         <Row gutter={16}>
-                        <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt=""/></label>
+                        <Col className="gutter-row" span={12}>
+                          <label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt=""/></label>
                             <Dropdown overlay={menu}>
                               <Button>
                               - Select - <img src="/Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </Col>                          
-                          <Col className="gutter-row" span={12}><label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
+                          <Col className="gutter-row" span={12}>
+                            <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
+                            <Dropdown overlay={menu}>
+                              <Button>
+                              - Select - <img src="/Icons/icon-12.svg" alt=""/>
+                              </Button>
+                            </Dropdown>
+                          </Col>
+                        </Row>
+                        <br></br>
+                        <Row gutter={16}>
+                          <Col className="gutter-row" span={12}>
+                            <label className="label-new-form" htmlFor="">MHFD Dollars Requested<img src="/Icons/icon-19.svg" alt=""/></label>
+                          <Input placeholder="MHFD dollars" /></Col>                 
+                          <Col className="gutter-row" span={12}>
+                            <div className="form01">
+                              <div className="form01-02"><h3>Public Access / Ownership</h3><img src="/Icons/icon-19.svg" alt=""/></div>
+                              <Switch checkedChildren="YES" unCheckedChildren="NO" defaultChecked />
+                            </div>
+                          </Col>
+                        </Row>
+                        <br></br>
+                        <Row gutter={16}>
+                          <Col className="gutter-row" span={12}>
+                            <label className="label-new-form" htmlFor="">How is this site maintenance eligible?<img src="/Icons/icon-19.svg" alt=""/></label>
+                            <Select defaultValue="Maintenance eligible" style={{ width: '100%' }}>
+                              <Option value="jack">Jack</Option>
+                              <Option value="lucy">Lucy</Option>
+                              <Option value="disabled" disabled>
+                                Disabled
+                              </Option>
+                              <Option value="Yiminghe">yiminghe</Option>
+                            </Select>
+                          </Col>                          
+                          <Col className="gutter-row" span={12}>
+                            <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
                             <Dropdown overlay={menu}>
                               <Button>
                               - Select - <img src="/Icons/icon-12.svg" alt=""/>

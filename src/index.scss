@@ -13,6 +13,7 @@ $red:#ff0000;
 $orange: #FDB32B;
 $shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 $gray: #9faeb1;
+$yellow: #ffdd00;
 // GENERAL
 html, body{
   height: 100vh;
@@ -22,11 +23,11 @@ body{
  overflow-y: hidden;
 }
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
-.ant-drawer-wrapper-body::-webkit-scrollbar{
+.ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar{
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thum,
-.ant-drawer-wrapper-body::-webkit-scrollbar-thumb {
+.ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }
@@ -1134,7 +1135,7 @@ body{
     margin-bottom: 2px;
     display: flex;
   }
-  div{
+  span{
     height: 8px;
     width: 16px;
     border: 1px solid #979797;
@@ -1206,6 +1207,20 @@ body{
   }
 }
 // buttons-creation
+.input-maint {
+  margin: 20px 0;
+  position: relative;
+}
+.input-maint input {
+  height: 59px;
+}
+.input-maint img {
+  position: absolute;
+  margin-left: 9px;
+  margin-top: 17px;
+  height: 26px;
+  width: 23px;
+}
 .btn-creation01 {
   display: flex;
   flex-wrap: wrap;
@@ -1274,6 +1289,25 @@ body{
   margin-top: 49px;
 }
 // styles creation project
+.form01 {
+  height: 70px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.form01-02 {
+  display: flex;
+  align-items: center;
+}
+.form01-02 img {
+  margin-left: 10px;
+}
+.form01-02 h3 {
+  margin: 0;
+  font-size: 18.7px;
+  letter-spacing: 0.27px;
+  color: $opacity;
+}
 .label-new-form {
   display: flex;
   align-items: center;
@@ -1627,6 +1661,14 @@ body{
   .btn-comment-01 img{
     margin-right: 5px;
   }
+  hr {
+    border-bottom: dashed 1.3px #251863;
+    border-width: 1px;
+    opacity: 0.3;
+    border-top: none;
+    margin: 25px 0px 15px 0px;
+    opacity: 0.5;
+  }
 }
 .work-request{
   display: flex;
@@ -1976,6 +2018,222 @@ body{
   }
 }
 .work-pc-01{
-  height: 833px;
-  min-height: 833px;
+  height: 855px;
+  min-height: 855px;
+}
+.work-title{
+  padding-left: 15px;
+}
+.col-name{
+  font-size: 18.7px;
+  color: $purple00;
+  position: absolute;
+  transform: rotate(270deg);
+  left: -18px;
+  top: 50%;
+}
+.col-name-01{
+  font-size: 18.7px;
+  color: #11093c;
+  position: absolute;
+  transform: rotate(270deg);
+  left: -27px;
+  top: 50%;
+}
+
+// DETAILED PROBLEM
+.detailed{
+  width: 1600px;
+  min-width: 1600px;
+  height: 1053px;
+  border-radius: 5.3px;
+  box-shadow: $shadow;
+  background-color: $white;
+  overflow-y: auto;
+}
+.detailed-h{
+  height: 107px;
+  min-height: 107px;
+  background: $opacity00;
+  padding: 14px 40px;
+  margin: 0px !important;
+
+  h1{
+    font-size: 32px;
+    color: $purple00;
+    margin-bottom: -5px;
+  }
+  p{
+    font-size: 18.7px;
+    color: $opacity;
+    margin-bottom: 0px;
+  }
+  button, button:hover, button:focus, button:active, button.active{
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0px 20px;
+    margin: 23px 0px;
+  }
+
+}
+.status-d{
+  padding: 13px 0px;
+
+  label{
+    font-size: 16px;
+    color:$opacity;
+    margin-bottom: -2px;
+    width: 100%;
+  }
+  b{
+    float: right;
+    color: $purple;
+  }
+  .ant-progress-text{
+    display: none;
+  }
+  .ant-progress-show-info .ant-progress-outer{
+    margin-right: 0px;
+    padding-right:0px;
+  }
+  .ant-progress-success-bg, .ant-progress-bg{
+    background-color: $yellow;
+  }
+  .ant-progress-inner {
+    background-color: $opacity01;
+  }
+}
+.detailed-mm{
+  font-size: 17.3px;
+  color: $purple;
+  border-left: 1.5px solid $opacity01;
+  border-right: 1.5px solid $opacity01;
+  height: 35px;
+  min-height: 35px;
+  padding: 5px 0px;
+  margin: 18px 12px;
+}
+.detailed-b{
+  .ant-carousel .slick-slide {
+    text-align: center;
+    height: 333px;
+    overflow: hidden;
+  }
+  .ant-carousel .slick-slide h3 {
+    color: #fff;
+  }
+  .ant-carousel{
+    height: 333px;
+  }
+  .chat-r{
+    padding: 20px 40px;
+  }
+}
+.detailed-c{
+  height: 333px;
+  background-image: url('/Icons/bg-00.png');
+  background-size: cover;
+}
+.detailed-info{
+  padding: 20px 40px 0px 40px;
+  font-size: 18.7px;
+  label{
+    color: $opacity;
+  }
+  p{
+    color: $purple00;
+    margin-bottom: 30px;
+  }
+}
+.tabs-detailed{
+  padding: 0px 40px 20px 40px;
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
+    display: none;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    padding: 21px 0px;
+    color: $purple00;
+    font-size: 21.3px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .ant-collapse > .ant-collapse-item {
+    border-bottom: none;
+  }
+  .ant-collapse{
+    background-color: $white;
+    border-radius: 0px;
+    border: none;
+  }
+  .ant-collapse-content {
+    border-top: none;
+  }
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 10px 0px;
+  }
+}
+.detailed-map{
+  width: 100%;
+  height: 933px;
+  border-radius: 4px;
+  box-shadow: $shadow;
+  background-image: url('/Icons/mapitash.png');
+  position: relative;
+}
+.solution-h{
+  padding: 0px 20px;
+
+  button{
+    border: none;
+    background-color: transparent;
+    color: $opacity;
+    font-size: 17.3px;
+    box-shadow: none;
+    text-align: left;
+    padding: 0px;
+  }
+  img{
+    margin-left: 5px;
+  }
+  button:hover, button:focus, button.active{
+    border: none;
+    background-color: transparent;
+    color: $opacity;
+    box-shadow: none;
+    text-align: left;
+    padding: 0px;
+  }
+}
+.solution-b{
+  background: $opacity00;
+  padding: 13px 20px;
+  height: 50px;
+  min-height: 50px;
+  font-size: 18.7px;
+  border-radius: 4px;
+  font-weight:400;
+  margin-top: 10px;
+  color: $purple;
+}
+.data-00{
+  display: flex;
+  font-size: 18.7px;
+  color: $opacity;
+  div{
+    margin-right: 20px;
+  }
+  img{
+    margin-top: -2px;
+  }
+}
+.divider{
+  display: flex;
+}
+.line-00{
+  width: 720px;
+  height: 1px;
+  opacity: 0.1;
+  background-color: $purple;
+  margin: 10px 8px;
 }
