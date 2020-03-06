@@ -23,11 +23,11 @@ body{
  overflow-y: hidden;
 }
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
-.ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar{
+.ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollba{
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thum,
-.ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb {
+.ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }
@@ -1362,6 +1362,9 @@ display: inline-block !important;
   height: 100%;
   box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
 }
+.content-new01{
+  overflow-y: auto;
+}
 .content-new01 h1 {
   font-size: 40px;
   font-weight: normal;
@@ -2297,7 +2300,7 @@ display: inline-block !important;
 .divider{
   display: flex;
 }
-.line-00{
+.line-01{
   width: 720px;
   height: 1px;
   opacity: 0.1;

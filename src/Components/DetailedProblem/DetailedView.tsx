@@ -15,7 +15,7 @@ const { Option } = Select;
 
 const genExtra = () => (
 <div className="divider">
-  <div className="line-00"></div>
+  <div className="line-01"></div>
   <img src="/Icons/icon-20.svg" alt=""/>
 </div>
 );
