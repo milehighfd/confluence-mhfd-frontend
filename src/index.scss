@@ -2307,3 +2307,78 @@ display: inline-block !important;
   background-color: $purple;
   margin: 10px 8px;
 }
+// profile
+.profile-header {
+  background-color: $white;
+  height: 268px !important;
+}
+.profile-img {
+  height: 133px;
+  width: 133px;
+  margin-right: 17px;
+}
+.profile-info {
+  display: flex !important;
+  padding: 53px !important;
+}
+.profile-dat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.profile-name h3 {
+  font-size: 21.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $purple00;
+}
+.profile-contact button {
+  height: 51px;
+  width: 51px;
+  margin-right: 20px;
+}
+.profile-prot button {
+  margin: 0 6.5px;
+  background-color: $opacity00;
+}
+.profile-table {
+  padding: 20px 53px;
+}
+.profile-table td {
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: $purple00;
+}
+.profile-table span {
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: $purple00;
+}
+.profile-table th {
+  text-align: center !important;
+}
+.profile-tabs {
+  background: $white !important;
+  position: relative !important;
+  top: -39px !important;
+}
+.profile-divider {
+  background: #f0f2f5;
+  position: relative;
+  height: 13.3px;
+  bottom: -269px;
+  z-index: 10; 
+}
