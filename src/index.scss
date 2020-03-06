@@ -1145,6 +1145,111 @@ body{
     margin-bottom: 0px;
   }
 }
+.map-pop-00{
+  width: 320px;
+  padding: 0px;
+  height: 274px;
+  border-radius: 1.3px;
+  box-shadow: $shadow;
+  background-color: #fafbfb;
+
+  .ant-card-bordered {
+    border: none;
+  }
+  .ant-card{
+    background: none;
+  }
+  .ant-card-hoverable:hover {
+    box-shadow: none;
+  }
+  .ant-card-body {
+    padding: 10px 0px;
+  }
+  h4{
+    font-size: 21.3px;
+    color: $purple;
+    margin-bottom: 6px;
+    line-height: 24px;
+  }
+  h6{
+     font-size: 18.7px;
+    color: $opacity;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+  h5{
+    font-size: 21.3px;
+    color: $purple;
+  }
+  h5 span{
+    color: $opacity;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+  hr{
+    opacity: 0.5;
+  }
+  .headmap{
+   height: 60px;
+   border-radius: 1.3px 1.3px 0px 0px;
+   background: $opacity01;
+   font-size: 20px;
+   color: $opacity;
+   padding: 19.5px 25px;
+   text-transform: uppercase;
+  }
+  .bodymap{
+    padding: 15px 25px;
+  }
+}
+.map-pop-01{
+  width: 467px;
+  height: 386px;
+  border-radius: 1.3px;
+  box-shadow: $shadow;
+  background-color: #fafbfb;
+
+  .ant-card-bordered {
+    border: none;
+  }
+  .ant-card{
+    background: none;
+  }
+  .ant-card-hoverable:hover {
+    box-shadow: none;
+  }
+  .ant-card-body {
+    padding: 10px 0px;
+  }
+  .headmap{
+   height: 60px;
+   border-radius: 1.3px 1.3px 0px 0px;
+   background: $opacity01;
+   font-size: 20px;
+   color: $opacity;
+   padding: 19.5px 25px;
+   text-transform: uppercase;
+  }
+  .bodymap{
+    padding: 15px 25px;
+  }
+  h4{
+    font-size: 21.3px;
+    color: $purple;
+    margin-bottom: 12px;
+    line-height: 24px;
+  }
+  p{
+    font-size: 18.7px;
+    color: $purple;
+    margin-bottom: 9px;
+  }
+  i{
+    color: $opacity;
+  }
+
+}
 // CHECKBOXES
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: $purple !important;
