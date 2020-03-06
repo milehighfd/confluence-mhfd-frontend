@@ -1292,15 +1292,13 @@ body{
   margin: 20px 0;
   position: relative;
 }
-.input-maint input {
-  height: 59px;
-}
-.input-maint img {
+
+.input-maint .img-maint {
   position: absolute;
   margin-left: 9px;
-  margin-top: 17px;
-  height: 26px;
-  width: 23px;
+  margin-top: 11px;
+  height: 24px;
+  width: 21px;
 }
 .btn-creation01 {
   display: flex;
