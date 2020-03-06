@@ -304,9 +304,10 @@ export default () => {
 
                   </TabPane>
                   <TabPane tab="Study" key="2">
-                  <Row gutter={[8, 16]} className="work-plan">
+                  <Row gutter={[8, 16]} className="work-plan work-title">
                     <Col span={18}>
                     <Row gutter={[8, 24]}>
+                      <div className="col-name">MP</div>
                       <Col span={4}>
                         <h3>Workspace <img src="/Icons/icon-19.svg" alt=""/></h3>
                         <div className="col-wr-01" style={{marginTop: '35px'}}>
@@ -363,7 +364,9 @@ export default () => {
                         <Col span={4}><Input className="input-pp" placeholder="Enter budget cost" /></Col>
                       </Row>
                     </div>
+                    <hr></hr>
                     <Row gutter={[8, 24]}>
+                     <div className="col-name-01">FHAD</div>
                       <Col span={4}>
                         <div className="col-wr-01" style={{marginTop: '13px'}}>
                           <Button className="btn-create"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
