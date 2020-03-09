@@ -26,6 +26,7 @@ import WorkPlanContainer from './Components/WorkPlan/WorkPlanContainer';
 import WorkRequestContainer from './Components/WorkRequest/WorkRequestContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
+import MapToolContainer from './Components/MapTool/MapToolContainer';
 
 
 ReactDOM.render(
@@ -47,6 +48,7 @@ ReactDOM.render(
         <Route path={`/work-request`} component={WorkRequestContainer}/>
         <Route path={`/profile-view`} component={ProfileContainer}/>
         <Route path={`/detailed-view`} component={DetailedContainer}/>
+        <Route path={`/maptool-view`} component={MapToolContainer}/>
         <Route path={`/`} component={App}/>
       </Switch>
     </ConnectedRouter>
