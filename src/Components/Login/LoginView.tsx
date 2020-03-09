@@ -1,8 +1,34 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Layout, Row, Col, Form, Icon, Input, Button, } from 'antd';
 import { Carousel } from 'antd';
+import { useFormik } from "formik";
+import * as datasets from "../../Config/datasets"
+import { SERVER } from "../../Config/Server.config";
+import { Redirect } from "react-router-dom";
+
+const url2 = process.env.REACT_APP_API_URI;
 
 export default () => {
+  const [redirect, setRedirect] = useState(false);
+  const { handleSubmit, handleChange } = useFormik({
+    initialValues: {
+      email: "",
+      password: ""
+    },
+    onSubmit(values: any) {
+      const res = datasets.postData(SERVER.LOGIN, values).then(res => {
+        if(res.token) {
+          localStorage.setItem('mfx-token', res.token);
+          setRedirect(true);
+        }
+      })
+    }
+  })
+  
+  if(redirect) {
+    return <Redirect to="/profile-view" />
+  }
+
   return <Layout style={{ background: '#fff' }}>
     <Row>
       <Col span={13}>
@@ -62,19 +88,19 @@ export default () => {
           </Col>
         </Row>
         </div>
-        <Form style={{ width: '533px' }}  className="login-form">
+        <Form style={{ width: '533px' }}  className="login-form" onSubmit={handleSubmit}>
       <h1>
         Welcome to MHFD's Confluence
       </h1>
       <div style={{ marginTop: '50px' }}>
       <div className="group">
-        <input type="text" required/>
+        <input name="email" type="email" required onChange={handleChange} />
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Email Address</label>
       </div>
       <div className="group">
-        <input type="text" required/>
+        <input name="password" type="password" required  onChange={handleChange}/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Enter Password</label>
