@@ -42,7 +42,7 @@ export default (props: any) => {
                 </Row>
                 <Collapse accordion>
                     {props.cardInformation.map((information: any, index: number) => (
-                        <Panel header="" key={"" + (index + 1)} extra={AccordionDisplayView(information)} >
+                        <Panel header="" key={index} extra={AccordionDisplayView(information)} >
                             {props.accordionRow.map((data: any) => {
                                 return <AccordionRowView data={data} />
                             })}

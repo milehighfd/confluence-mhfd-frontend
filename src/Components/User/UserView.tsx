@@ -4,6 +4,7 @@ import NavbarView from "../Navbar/NavbarContainer";
 import SidebarView from "../Sidebar/SidebarContainer";
 import Accordeon from './ApprovedUsers/Accordeon';
 import UserFilters from './UserFilters';
+import ListUser from '../ListUser/ListUserView';
 
 const {Content} = Layout;
 const { TabPane } = Tabs;
@@ -42,7 +43,29 @@ const dropdownMenu = ({handleDropdowns, index, id} : any) => (
     </Menu.Item>
   </Menu>
 );
-
+const usersActivity = [
+  {
+    date: "09/16/2019, 06:17PM",
+    name: "Jovanna Maiani",
+    city: "Westminster",
+    change: "User Login"
+  }, {
+    date: "09/16/2019, 06:17PM",
+    name: "Ronnie Gauger",
+    city: "Westminster",
+    change: "User Login"
+  }, {
+    date: "09/16/2019, 06:17PM",
+    name: "Melvin Wentz",
+    city: "Westminster",
+    change: "User Login"
+  }, {
+    date: "09/16/2019, 06:17PM",
+    name: "Annette Griffeth",
+    city: "Westminster",
+    change: "User Login"
+  }
+]
 const genExtra = () => (
   <Row className="user-head" type="flex" justify="space-around" align="middle">
     <Col span={19}>
@@ -160,35 +183,9 @@ export default ({ users, saveUserState, deleteUser } : any) => {
                             <Col span={5}><Button>City <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
                             <Col span={5}><Button>Change <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
                           </Row>
-
-                          <Row className="activity-b">
-                            <Col span={5}>09/16/2019, 06:17PM</Col>
-                            <Col span={5}>Jovanna Maiani</Col>
-                            <Col span={5}>Westminster</Col>
-                            <Col span={5}><a href="">User Login</a></Col>
-                          </Row>
-
-                          <Row className="activity-b">
-                            <Col span={5}>09/16/2019, 06:17PM</Col>
-                            <Col span={5}>Jovanna Maiani</Col>
-                            <Col span={5}>Westminster</Col>
-                            <Col span={5}><a href="">User Login</a></Col>
-                          </Row>
-
-                          <Row className="activity-b">
-                            <Col span={5}>09/16/2019, 06:17PM</Col>
-                            <Col span={5}>Jovanna Maiani</Col>
-                            <Col span={5}>Westminster</Col>
-                            <Col span={5}><a href="">User Login</a></Col>
-                          </Row>
-
-                          <Row className="activity-b">
-                            <Col span={5}>09/16/2019, 06:17PM</Col>
-                            <Col span={5}>Jovanna Maiani</Col>
-                            <Col span={5}>Westminster</Col>
-                            <Col span={5}><a href="">User Login</a></Col>
-                          </Row>
-
+                          {usersActivity.map((user: {date: String, name: String, city: String, change: String}, index: number) => {
+                            return <ListUser user={user} key={index}/>
+                          })}
                           <div className="pagi-00">
                             <Pagination defaultCurrent={1} total={200} />
                           </div>

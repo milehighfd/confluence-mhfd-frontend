@@ -4,8 +4,10 @@ import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Ca
 
 import NavbarView from "../Navbar/NavbarView";
 import SidebarView from "../Sidebar/SidebarView";
+import CardInformationView from "../CardInformation/CardInformationView";
 import MapFilterView from '../MapFilter/MapFilterView';
 import MapTypesView from "../MapTypes/MapTypesView";
+
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -33,6 +35,37 @@ const menu = (
     </Menu.Item>
   </Menu>
 );
+
+const cardInformationProblems: Array<any> = [
+  {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }
+];
+const cardInformationProjects: Array<any> = [
+  {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "Maintenance", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "Study", field7: "80%"
+  }
+];
 
 const columns01 = [
   {
@@ -159,57 +192,15 @@ export default () => {
                   <Tabs style={{padding:'0 53px'}} defaultActiveKey="1" className="tabs-map">
                       <TabPane tab="Problems" key="1">
                       <Row style={{background: '#fff'}} className="card-map" gutter={[16, 16]}>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
-                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
-                            </div>
-                          </Card>
-                        </Col>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
-                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
-                            </div>
-                          </Card>
-                        </Col>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
-                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
-                            </div>
-                          </Card>
-                        </Col>
+                        {cardInformationProblems.map((data: any) => {
+                              return <CardInformationView data={data} type={"Problems"} />
+                        })}
                       </Row>
                       </TabPane>
                       <TabPane tab="Projects" key="2">
+                        {cardInformationProjects.map((data: any) => {
+                          return <CardInformationView data={data} type={"Projects"} />
+                        })}
                       </TabPane>
                   </Tabs>
                 </Col>
