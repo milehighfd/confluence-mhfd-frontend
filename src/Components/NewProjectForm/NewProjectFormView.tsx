@@ -255,11 +255,11 @@ export default () => {
                     </div>
                     <div className="input-maint">
                         <label className="label-new-form" htmlFor="">#1</label>
-                        <Input placeholder="Basic usage" />
+                        <Input size={"large"} placeholder="Basic usage" />
                     </div>
                     <div className="input-maint">
                       <label className="label-new-form" htmlFor="">#2</label>
-                      <Input placeholder="Basic usage" /><img src="/Icons/icon-16.svg" alt=""/>
+                      <Input size={"large"} placeholder="Basic usage" /><img className="img-maint" src="/Icons/icon-16.svg" alt=""/>
                     </div>
                     <div className="head-m draw-section">
                         <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt=""/></button>
@@ -324,7 +324,7 @@ export default () => {
                         <Row gutter={16}>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">How is this site maintenance eligible?<img src="/Icons/icon-19.svg" alt=""/></label>
-                            <Select defaultValue="Maintenance eligible" style={{ width: '100%' }}>
+                            <Select size={"large"} defaultValue="Maintenance eligible" style={{ width: '100%' }}>
                               <Option value="jack">Jack</Option>
                               <Option value="lucy">Lucy</Option>
                               <Option value="disabled" disabled>
@@ -341,6 +341,32 @@ export default () => {
                               </Button>
                             </Dropdown>
                           </Col>
+                        </Row>
+                        <br></br>
+                        <Row gutter={16}>
+                          <Col className="gutter-row" span={12}>
+                            <Select size={"large"} defaultValue="Restoration Task" style={{ width: '100%' }}>
+                              <Option value="jack">Jack</Option>
+                              <Option value="lucy">Lucy</Option>
+                              <Option value="disabled" disabled>
+                                Disabled
+                              </Option>
+                              <Option value="Yiminghe">yiminghe</Option>
+                            </Select>
+                          </Col>                          
+                        </Row>
+                        <Row gutter={16} className="input-maint">
+                          <Col className="gutter-row" span={12}>
+                            <Select size={"large"} defaultValue="Tree Thinning" style={{ width: '100%' }}>
+                              <Option value="jack">Jack</Option>
+                              <Option value="lucy">Lucy</Option>
+                              <Option value="disabled" disabled>
+                                Disabled
+                              </Option>
+                              <Option value="Yiminghe">yiminghe</Option>
+                            </Select>
+                            <img className="img-maint" src="/Icons/icon-16.svg" alt=""/>
+                          </Col>                          
                         </Row>
                     </div>
                     <div>

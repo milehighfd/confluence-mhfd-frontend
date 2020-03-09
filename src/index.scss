@@ -23,11 +23,11 @@ body{
  overflow-y: hidden;
 }
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
-.ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar{
+.ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollba{
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thum,
-.ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb {
+.ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }
@@ -1169,6 +1169,111 @@ body{
     margin-bottom: 0px;
   }
 }
+.map-pop-00{
+  width: 320px;
+  padding: 0px;
+  height: 274px;
+  border-radius: 1.3px;
+  box-shadow: $shadow;
+  background-color: #fafbfb;
+
+  .ant-card-bordered {
+    border: none;
+  }
+  .ant-card{
+    background: none;
+  }
+  .ant-card-hoverable:hover {
+    box-shadow: none;
+  }
+  .ant-card-body {
+    padding: 10px 0px;
+  }
+  h4{
+    font-size: 21.3px;
+    color: $purple;
+    margin-bottom: 6px;
+    line-height: 24px;
+  }
+  h6{
+     font-size: 18.7px;
+    color: $opacity;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+  h5{
+    font-size: 21.3px;
+    color: $purple;
+  }
+  h5 span{
+    color: $opacity;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+  hr{
+    opacity: 0.5;
+  }
+  .headmap{
+   height: 60px;
+   border-radius: 1.3px 1.3px 0px 0px;
+   background: $opacity01;
+   font-size: 20px;
+   color: $opacity;
+   padding: 19.5px 25px;
+   text-transform: uppercase;
+  }
+  .bodymap{
+    padding: 15px 25px;
+  }
+}
+.map-pop-01{
+  width: 467px;
+  height: 386px;
+  border-radius: 1.3px;
+  box-shadow: $shadow;
+  background-color: #fafbfb;
+
+  .ant-card-bordered {
+    border: none;
+  }
+  .ant-card{
+    background: none;
+  }
+  .ant-card-hoverable:hover {
+    box-shadow: none;
+  }
+  .ant-card-body {
+    padding: 10px 0px;
+  }
+  .headmap{
+   height: 60px;
+   border-radius: 1.3px 1.3px 0px 0px;
+   background: $opacity01;
+   font-size: 20px;
+   color: $opacity;
+   padding: 19.5px 25px;
+   text-transform: uppercase;
+  }
+  .bodymap{
+    padding: 15px 25px;
+  }
+  h4{
+    font-size: 21.3px;
+    color: $purple;
+    margin-bottom: 12px;
+    line-height: 24px;
+  }
+  p{
+    font-size: 18.7px;
+    color: $purple;
+    margin-bottom: 9px;
+  }
+  i{
+    color: $opacity;
+  }
+
+}
 // CHECKBOXES
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: $purple !important;
@@ -1211,15 +1316,13 @@ body{
   margin: 20px 0;
   position: relative;
 }
-.input-maint input {
-  height: 59px;
-}
-.input-maint img {
+
+.input-maint .img-maint {
   position: absolute;
   margin-left: 9px;
-  margin-top: 17px;
-  height: 26px;
-  width: 23px;
+  margin-top: 11px;
+  height: 24px;
+  width: 21px;
 }
 .btn-creation01 {
   display: flex;
@@ -1250,6 +1353,12 @@ body{
   justify-content: flex-end;
   align-items: initial;
 }
+.btn-creation01 .ant-btn:hover .img-h,.btn-creation01 .ant-btn:focus .img-h, .btn-creation01 .ant-btn:active .img-h, .btn-creation01 .ant-btn.active .img-h {
+ display: none;
+}
+.btn-creation01 .ant-btn:hover .img-a, .btn-creation01 .ant-btn:focus .img-a, .btn-creation01 .ant-btn:active .img-a, .btn-creation01 .ant-btn.active .img-a {
+display: inline-block !important;
+}
 .btn-creation01 button span {
   margin: 45px 0;
 }
@@ -1276,6 +1385,9 @@ body{
   background-color: $white;
   height: 100%;
   box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
+}
+.content-new01{
+  overflow-y: auto;
 }
 .content-new01 h1 {
   font-size: 40px;
@@ -2230,10 +2342,85 @@ body{
 .divider{
   display: flex;
 }
-.line-00{
+.line-01{
   width: 720px;
   height: 1px;
   opacity: 0.1;
   background-color: $purple;
   margin: 10px 8px;
+}
+// profile
+.profile-header {
+  background-color: $white;
+  height: 268px !important;
+}
+.profile-img {
+  height: 133px;
+  width: 133px;
+  margin-right: 17px;
+}
+.profile-info {
+  display: flex !important;
+  padding: 53px !important;
+}
+.profile-dat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.profile-name h3 {
+  font-size: 21.3px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $purple00;
+}
+.profile-contact button {
+  height: 51px;
+  width: 51px;
+  margin-right: 20px;
+}
+.profile-prot button {
+  margin: 0 6.5px;
+  background-color: $opacity00;
+}
+.profile-table {
+  padding: 20px 53px;
+}
+.profile-table td {
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: $purple00;
+}
+.profile-table span {
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: $purple00;
+}
+.profile-table th {
+  text-align: center !important;
+}
+.profile-tabs {
+  background: $white !important;
+  position: relative !important;
+  top: -39px !important;
+}
+.profile-divider {
+  background: #f0f2f5;
+  position: relative;
+  height: 13.3px;
+  bottom: -269px;
+  z-index: 10; 
 }
