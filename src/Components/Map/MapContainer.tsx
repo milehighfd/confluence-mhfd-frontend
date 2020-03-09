@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 
 import MapView from './MapView';
 
-const mapStateToProps = (state: any): any => {
+const mapStateToProps = (state: any) => {
   return {
-    sample: state.sample
+    polygons: state.map.polygons
   };
 };
 

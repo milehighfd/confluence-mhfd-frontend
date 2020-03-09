@@ -59,13 +59,13 @@ const accordionRow: Array<any> = [
   }
 ];
 
-export default () => {
+export default (props : any) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
   const [listDescription, setListDescription] = useState(false);
-
+  console.log(props.polygons);
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
       setLeftWidth(COMPLETE_SCREEN);
