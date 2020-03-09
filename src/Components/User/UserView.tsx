@@ -2,6 +2,7 @@ import * as React from "react";
 import {Layout, Row, Col, Tabs, Input, Menu, Dropdown, Button, Icon, Collapse, Radio, Switch, Table, Divider, Tag, Pagination} from 'antd';
 import NavbarView from "../Navbar/NavbarContainer";
 import SidebarView from "../Sidebar/SidebarContainer";
+import Accordeon from './ApprovedUsers/Accordeon';
 
 const {Content} = Layout;
 const { TabPane } = Tabs;
@@ -97,115 +98,8 @@ export default () => {
                             </div>
                           </div>
 
-                          <Collapse accordion className="user-tab">
-                            <Panel header="" key="1" extra={genExtra()}>
-                              <div className="gutter-example">
-                                <h3>PROFILE</h3>
-                                <Row gutter={16}>
-                                  <Col className="gutter-row" span={12}><Input placeholder="First Name" /></Col>
-                                  <Col className="gutter-row" span={12}><Input placeholder="Last Name" /></Col>
-                                </Row>
-                                <br></br>
-                                <Row gutter={16}>
-                                  <Col className="gutter-row" span={12}><Input placeholder="Email" /></Col>
-                                  <Col className="gutter-row" span={12}>
-                                    <Dropdown overlay={menu}>
-                                      <Button>
-                                        Organization <img src="Icons/icon-12.svg" alt=""/>
-                                      </Button>
-                                    </Dropdown>
-                                  </Col>
-                                </Row>
-                              </div>
+                          <Accordeon menu={menu} />
 
-                              <hr></hr>
-
-                              <div className="gutter-example">
-                                <h3>USER DESIGNATION</h3>
-                                <Row gutter={16}>
-                                  <Col className="gutter-row" span={4}>
-                                    <div className="user-card">
-                                      <p><Radio></Radio></p>
-                                      <div className="user-d"><h6>MHFD Admin</h6></div>
-                                    </div>
-                                  </Col>
-                                  <Col className="gutter-row" span={4}>
-                                    <div className="user-card">
-                                      <p><Radio></Radio></p>
-                                      <div className="user-d"><h6>MHFD Staff</h6></div>
-                                    </div>
-                                  </Col>
-                                  <Col className="gutter-row" span={4}>
-                                    <div className="user-card">
-                                      <p><Radio></Radio></p>
-                                      <div className="user-d">
-                                        <h6>Local </h6>
-                                        <h6>Government Admin</h6>
-                                      </div>
-                                    </div>
-                                  </Col>
-                                  <Col className="gutter-row" span={4}>
-                                    <div className="user-card">
-                                      <p><Radio></Radio></p>
-                                      <div className="user-d">
-                                        <h6>Local</h6>
-                                        <h6>Government</h6>
-                                      </div>
-                                    </div>
-                                  </Col>
-                                  <Col className="gutter-row" span={4}>
-                                    <div className="user-card">
-                                      <p><Radio></Radio></p>
-                                      <div className="user-d"><h6> Consultant/ Contractor</h6></div>
-                                    </div>
-                                  </Col>
-                                  <Col className="gutter-row" span={4}>
-                                    <div className="user-card">
-                                      <p><Radio></Radio></p>
-                                      <div className="user-d"><h6>Other</h6></div>
-                                    </div>
-                                  </Col>
-                                </Row>
-                              </div>
-
-                              <hr></hr>
-
-                              <div className="gutter-example">
-                                <h3>PROFILE</h3>
-                                <Row gutter={16}>
-                                  <Col className="gutter-row" span={12}>
-                                    <Dropdown overlay={menu}>
-                                      <Button>
-                                        User Designation <img src="Icons/icon-12.svg" alt=""/>
-                                      </Button>
-                                    </Dropdown>
-                                  </Col>
-
-                                  <Col className="gutter-row" span={12}>
-                                    <Dropdown overlay={menu}>
-                                      <Button>
-                                        User Designation <img src="Icons/icon-12.svg" alt=""/>
-                                      </Button>
-                                    </Dropdown>
-                                  </Col>
-                                </Row>
-                                <br></br>
-                                <Row gutter={16}>
-                                  <Col className="gutter-row" span={12}>
-                                  <Dropdown overlay={menu}>
-                                    <Button>
-                                      User Designation <img src="Icons/icon-12.svg" alt=""/>
-                                    </Button>
-                                  </Dropdown>
-                                  </Col>
-                                </Row>
-                              </div>
-                              <div className="user-footer">
-                                <Button className="btn-d">Delete</Button>
-                                <Button className="btn-s">Save</Button>
-                              </div>
-                            </Panel>
-                          </Collapse>
                           <div className="pagi-00">
                             <Pagination defaultCurrent={1} total={200} />
                           </div>
