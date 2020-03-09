@@ -58,7 +58,7 @@ export default () => {
       <h5>Team Collaborators</h5>
       <Row>
         <Col span={4}>
-          <img src="/Icons/icon-28.svg" alt="" height="41px"/>
+          <img src="/Icons/icon-28.svg" alt="" height="35px"/>
         </Col>
         <Col span={13}>
           <h6>Jon Villines</h6>
@@ -70,7 +70,7 @@ export default () => {
       </Row>
       <Row>
         <Col span={4}>
-          <img src="/Icons/icon-28.svg" alt="" height="41px"/>
+          <img src="/Icons/icon-28.svg" alt="" height="35px"/>
         </Col>
         <Col span={13}>
           <h6>Carolyn Roan</h6>
@@ -82,7 +82,7 @@ export default () => {
       </Row>
       <Row>
         <Col span={4}>
-          <img src="/Icons/icon-28.svg" alt="" height="41px"/>
+          <img src="/Icons/icon-28.svg" alt="" height="35px"/>
         </Col>
         <Col span={13}>
           <h6>Deb Ohlinger</h6>
@@ -94,7 +94,7 @@ export default () => {
       </Row>
       <Row>
         <Col span={4}>
-          <img src="/Icons/icon-28.svg" alt="" height="41px"/>
+          <img src="/Icons/icon-28.svg" alt="" height="35px"/>
         </Col>
         <Col span={13}>
           <h6>Amy Gabor</h6>
@@ -119,10 +119,10 @@ export default () => {
         <div className="chat-footer">
         <Row>
           <Col span={4}>
-            <img src="/Icons/icon-28.svg" alt="" height="41px"/>
+            <img src="/Icons/icon-28.svg" alt="" height="35px"/>
           </Col>
           <Col span={13}>
-            <Input placeholder="Add a coment..." />
+            <Input placeholder="Add a comment..." />
           </Col>
           <Col span={7} style={{textAlign: 'right'}}>
             <Button className="btn-send">SEND</Button>
@@ -178,7 +178,7 @@ export default () => {
                   </div>
                 </div>
                 <Button className="btn-coll">
-                  <img src="/Icons/icon-34.svg" alt=""/>
+                  <img src="/Icons/icon-34.svg" alt="" width="18px"/>
                 </Button>
               </Col>
               <Col span={12}>

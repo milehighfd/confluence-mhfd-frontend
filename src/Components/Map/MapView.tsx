@@ -89,7 +89,7 @@ export default (props : any) => {
                 <Map leftWidth={leftWidth} />
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
-                  <img style={rotationStyle} src="/Icons/icon-34.svg" alt=""/>
+                  <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                 </Button>
               </Col>
               <Col span={rightWidth}>

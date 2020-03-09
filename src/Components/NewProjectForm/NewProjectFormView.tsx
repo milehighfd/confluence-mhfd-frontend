@@ -228,9 +228,9 @@ export default () => {
             <Row>
               <Col span={leftWidth}>
                 <Map leftWidth={leftWidth} />
-                  
+
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
-                  <img style={rotationStyle} src="/Icons/icon-34.svg" alt=""/>
+                  <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                 </Button>
               </Col>
               <Col span={rightWidth}>
@@ -276,7 +276,7 @@ export default () => {
                       <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt=""/></label>
                       <TextArea rows={4} />
                     </div>
-                    
+
                     <div className="gutter-example user-tab">
                         <div className="label-new-form">
                           <h3>PROJECT INFORMATION</h3>
@@ -298,7 +298,7 @@ export default () => {
                               - Select - <img src="/Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
-                          </Col>                          
+                          </Col>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
                             <Dropdown overlay={menu}>
@@ -312,7 +312,7 @@ export default () => {
                         <Row gutter={16}>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">MHFD Dollars Requested<img src="/Icons/icon-19.svg" alt=""/></label>
-                          <Input placeholder="MHFD dollars" /></Col>                 
+                          <Input placeholder="MHFD dollars" /></Col>
                           <Col className="gutter-row" span={12}>
                             <div className="form01">
                               <div className="form01-02"><h3>Public Access / Ownership</h3><img src="/Icons/icon-19.svg" alt=""/></div>
@@ -332,7 +332,7 @@ export default () => {
                               </Option>
                               <Option value="Yiminghe">yiminghe</Option>
                             </Select>
-                          </Col>                          
+                          </Col>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
                             <Dropdown overlay={menu}>
@@ -353,7 +353,7 @@ export default () => {
                               </Option>
                               <Option value="Yiminghe">yiminghe</Option>
                             </Select>
-                          </Col>                          
+                          </Col>
                         </Row>
                         <Row gutter={16} className="input-maint">
                           <Col className="gutter-row" span={12}>
@@ -366,7 +366,7 @@ export default () => {
                               <Option value="Yiminghe">yiminghe</Option>
                             </Select>
                             <img className="img-maint" src="/Icons/icon-16.svg" alt=""/>
-                          </Col>                          
+                          </Col>
                         </Row>
                     </div>
                     <div>
@@ -381,7 +381,7 @@ export default () => {
                         <Tag closable>
                           Little Dry Creek_image-1.jpg
                         </Tag>
-                      </div>   
+                      </div>
                     </div>
                     <div>
                       <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt=""/></label>
@@ -395,12 +395,12 @@ export default () => {
                         <Tag closable>
                             Little Dry Creek_image-2.csv
                         </Tag>
-                      </div>   
+                      </div>
                     </div>
                     <div className="btn-footer" style={{marginTop: '25px'}}>
                         <Button style={{width: '140px'}} className="btn-00">Reset</Button>
                         <Button style={{width: '140px'}} className="btn-01">Create Project</Button>
-                    </div>                           
+                    </div>
                 </div>
               </Col>
               </Row>

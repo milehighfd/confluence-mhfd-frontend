@@ -1008,20 +1008,22 @@ body{
     font-size: 16px;
     color: $purple;
     margin-bottom: 0px;
+    line-height: 18px;
+    margin-bottom: 6px;
   }
   h6{
     font-size: 14px;
     color: $opacity;
     font-weight: 400;
-    margin-bottom: 2px;
+    // margin-bottom: 2px;
   }
   h5{
-    font-size: 18px;
+    font-size: 16px;
     color: $purple;
   }
   h5 span{
     color: $opacity;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 30px;
   }
@@ -1050,7 +1052,7 @@ body{
   right: 0px;
   padding: 0px !important;
   width: 50px;
-  height: 70px !important;
+  height: 55px !important;
   border-radius: 10px 0px 0px 10px !important;
 }
 .map{
@@ -1182,9 +1184,9 @@ body{
   }
 }
 .map-pop-00{
-  width: 320px;
+  width: 280px;
   padding: 0px;
-  height: 274px;
+  height: 218px;
   border-radius: 1.3px;
   box-shadow: $shadow;
   background-color: #fafbfb;
@@ -1199,27 +1201,27 @@ body{
     box-shadow: none;
   }
   .ant-card-body {
-    padding: 10px 0px;
+    padding: 0px;
   }
   h4{
-    font-size: 21.3px;
+    font-size: 16px;
     color: $purple;
     margin-bottom: 6px;
-    line-height: 24px;
+    line-height: 18px;
   }
   h6{
-     font-size: 18.7px;
+     font-size: 14px;
     color: $opacity;
     font-weight: 400;
     margin-bottom: 6px;
   }
   h5{
-    font-size: 21.3px;
+    font-size: 18px;
     color: $purple;
   }
   h5 span{
     color: $opacity;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 30px;
   }
@@ -1227,12 +1229,12 @@ body{
     opacity: 0.5;
   }
   .headmap{
-   height: 60px;
+   height: 48px;
    border-radius: 1.3px 1.3px 0px 0px;
    background: $opacity01;
-   font-size: 20px;
+   font-size: 16px;
    color: $opacity;
-   padding: 19.5px 25px;
+   padding: 11.5px 25px;
    text-transform: uppercase;
   }
   .bodymap{
@@ -1240,8 +1242,8 @@ body{
   }
 }
 .map-pop-01{
-  width: 467px;
-  height: 386px;
+  width: 360px;
+  height: 285px;
   border-radius: 1.3px;
   box-shadow: $shadow;
   background-color: #fafbfb;
@@ -1256,30 +1258,30 @@ body{
     box-shadow: none;
   }
   .ant-card-body {
-    padding: 10px 0px;
+    padding:0px;
   }
   .headmap{
-   height: 60px;
+   height: 48px;
    border-radius: 1.3px 1.3px 0px 0px;
    background: $opacity01;
-   font-size: 20px;
+   font-size: 16px;
    color: $opacity;
-   padding: 19.5px 25px;
+   padding: 11.5px 25px;
    text-transform: uppercase;
   }
   .bodymap{
     padding: 15px 25px;
   }
   h4{
-    font-size: 21.3px;
+    font-size: 16px;
     color: $purple;
     margin-bottom: 12px;
-    line-height: 24px;
+    line-height: 18px;
   }
   p{
-    font-size: 18.7px;
+    font-size: 14px;
     color: $purple;
-    margin-bottom: 9px;
+    margin-bottom: 5px;
   }
   i{
     color: $opacity;
@@ -1310,13 +1312,13 @@ body{
     border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
     background-color: $white;
     color: $opacity !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     margin-right: 15px;
   }
   .btn-01, .btn-01:hover{
     background-color: $purple;
     color: $white !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     // width: 173px !important;
     height: 37px;
     border-radius: 4px;
@@ -1462,7 +1464,7 @@ display: inline-block !important;
 }
 .directions01 {
   color: $opacity;
-  font-size: 29.3px;
+  font-size: 22px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -1751,8 +1753,9 @@ display: inline-block !important;
 // WORK REQUEST
 .request{
   h2{
-    font-size: 24px;
+    font-size: 22px;
     color: $purple00;
+    margin-bottom: 0px;
   }
   .btn-request{
     background: transparent;
@@ -1760,30 +1763,32 @@ display: inline-block !important;
     box-shadow: none;
   }
   .btn-comment, .btn-comment:hover, .btn-comment:active, .btn-comment.active{
-    width: 140px;
-    height: 50px;
+    height: 40px;
     border-radius: 4px;
     background-color: $opacity00;
     border: none;
     color: $purple00;
-    font-size: 18.7px;
+    font-size: 14px;
     margin-left: 10px;
+    padding: 0px 15px;
   }
   .btn-comment img{
     margin-right: 5px;
   }
   .btn-comment-01, .btn-comment-01:hover, .btn-comment-01:active, .btn-comment-01.active{
-    width: 100px;
-    height: 50px;
+    width: 80px;
+    height: 40px;
     border-radius: 4px;
     background-color: $opacity00;
     border: none;
     color: $purple00;
-    font-size: 18.7px;
+    font-size: 14px;
     margin-left: 10px;
   }
   .btn-comment-01 img{
-    margin-right: 5px;
+    margin-right: 6px;
+    height: 12px;
+    margin-top: -2px;
   }
   hr {
     border-bottom: dashed 1.3px #251863;
@@ -1835,13 +1840,13 @@ display: inline-block !important;
     margin-bottom: 5px;
   }
   h3{
-    font-size: 18px;
+    font-size: 16px;
     color: $purple00;
     text-transform: uppercase;
     text-align: center;
   }
   h4{
-    font-size: 18.7px;
+    font-size: 16px;
     color: $purple00;
   }
   h6{
@@ -1886,6 +1891,7 @@ display: inline-block !important;
     color: $opacity;
     text-transform: uppercase;
     margin-bottom: 0px;
+    margin-top: 5px;
   }
   .ant-input {
     height: 32px;
@@ -1910,15 +1916,12 @@ display: inline-block !important;
   .input-rr::placeholder{
     color: $red;
   }
-  .input-rr::placeholder{
-    color: $opacity;
-  }
-  button, button:hover, button.active{
-    width: 200px;
-    height: 59px;
+  button, button:hover, button.active, button:focus, button:active{
+    width: 170px;
+    height: 45px;
     border-radius: 4px;
     background-color: #251863;
-    font-size: 16px;
+    font-size: 14px;
     color: $white;
     margin-top: 10px;
     border: none;
@@ -1934,92 +1937,97 @@ display: inline-block !important;
 // CHAT
 .ant-drawer-right .ant-drawer-content-wrapper {
   right: 0;
-  width: 450px !important;
+  width: 400px !important;
 }
 .chat-r{
   h5{
-    font-size: 21.3px;
+    font-size: 18px;
     color: $purple00;
     text-transform: uppercase;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
   .ant-drawer-body {
     padding: 20px 40px;;
   }
   h6{
-    font-size: 18.7px;
+    font-size: 14px;
     color: $purple00;
     margin-bottom: 0px;
     font-weight: normal;
   }
   p, span{
-    font-size: 14.7px;
+    font-size: 12px;
     color: $opacity;
     margin-bottom: 15px;
     margin-top: -3px;
   }
   img{
-    margin-top: 5px;
+    margin-top: 2px;
   }
 }
 .chat-00{
-  width: 373px;
-  height: 533px;
+  width: 100%;
+  height: 420px;
   border-radius: 4px;
   background-color: $opacity00;
-  margin-top: 25px;
+  margin-top: 15px;
 
   .chat-head{
-    height: 67px;
+    height: 50px;
     border-radius: 4px 4px 0px 0px;
     background-color: $opacity00;
-    font-size: 21.3px;
+    font-size: 18px;
     color: $purple00;
     text-transform: uppercase;
-    padding: 18px 13px;
+    padding: 12px 15px;
   }
   .chat-head img{
     margin-top: -3px;
   }
   .chat-body{
     border-bottom: solid 1.3px $opacity01;
-    height: 398px;
+    height: 320px;
     text-align: center;
-    padding: 130px 50px;
+    padding: 105px 50px;
   }
   .chat-footer{
-    height: 67px;
+    height: 50px;
     padding: 8px 15px;
   }
   .chat-body h6{
-    font-size: 21.3px;
+    font-size: 16px;
     color: $purple00;
     margin-bottom: 10px;
   }
   .chat-body p{
-    font-size: 17.3px;
+    font-size: 12px;
     color: $opacity;
   }
   .chat-footer .ant-input {
     padding: 4px 11px;
-    font-size: 18.7px;
+    font-size: 14px;
     background-color: transparent;
     border: none;
     border-radius: 0px;
-    margin: 10px 0px;
+    margin: 2px 0px;
   }
   .ant-input::placeholder{
     color: $purple;
   }
 }
-.chat-footer .btn-send{
-  font-size: 18.7px !important;
-  color: $purple !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  font-weight: bold;
-  margin: 10px 0px;
+.chat-footer{
+  img{
+    margin-top: 0px;
+  }
+  .btn-send{
+    font-size: 18.7px !important;
+    color: $purple !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-weight: bold;
+    margin: 2px 0px;
+  }
 }
 
 // WORK PLAN
@@ -2072,15 +2080,16 @@ display: inline-block !important;
     margin-bottom: 5px;
   }
   h3{
-    font-size: 18px;
+    font-size: 16px;
     color: $purple00;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 0px;
   }
   h4{
-    font-size: 18.7px;
+    font-size:16px;
     color: $purple00;
+    line-height: 18px;
   }
   h6{
     font-size: 14px;
@@ -2103,7 +2112,7 @@ display: inline-block !important;
   }
   a, a:hover{
     color: $green;
-    font-size: 14.7px;
+    font-size: 12px;
     text-decoration: underline;
   }
   .ant-select-selection {
@@ -2121,6 +2130,9 @@ display: inline-block !important;
     color: $purple;
     font-weight: bold;
   }
+  .input-rr::placeholder{
+    color: $opacity;
+  }
 }
 .work-pc{
   min-width: 100%;
@@ -2137,7 +2149,7 @@ display: inline-block !important;
     height: 50%;
   }
   h5{
-    font-size: 18.7px;
+    font-size: 16px;
     color: $purple00;
   }
 }
@@ -2167,28 +2179,28 @@ display: inline-block !important;
 
 // DETAILED PROBLEM
 .detailed{
-  width: 1600px;
-  min-width: 1600px;
-  height: 1053px;
-  border-radius: 5.3px;
+  width: 1200px;
+  min-width: 1200px;
+  height: 100vh;
+  border-radius: 4px;
   box-shadow: $shadow;
   background-color: $white;
   overflow-y: auto;
 }
 .detailed-h{
-  height: 107px;
-  min-height: 107px;
+  height: 80px !important;
+  min-height: 80px;
   background: $opacity00;
-  padding: 14px 40px;
+  padding: 10px 20px;
   margin: 0px !important;
 
   h1{
-    font-size: 32px;
+    font-size: 24px;
     color: $purple00;
     margin-bottom: -5px;
   }
   p{
-    font-size: 18.7px;
+    font-size: 14px;
     color: $opacity;
     margin-bottom: 0px;
   }
@@ -2196,16 +2208,16 @@ display: inline-block !important;
     background: transparent;
     border: none;
     box-shadow: none;
-    padding: 0px 20px;
-    margin: 23px 0px;
+    padding: 0px 12px;
+    margin: 10px 0px;
   }
 
 }
 .status-d{
-  padding: 13px 0px;
+  padding: 6px 0px;
 
   label{
-    font-size: 16px;
+    font-size: 12px;
     color:$opacity;
     margin-bottom: -2px;
     width: 100%;
@@ -2229,45 +2241,45 @@ display: inline-block !important;
   }
 }
 .detailed-mm{
-  font-size: 17.3px;
+  font-size: 14px;
   color: $purple;
   border-left: 1.5px solid $opacity01;
   border-right: 1.5px solid $opacity01;
   height: 35px;
   min-height: 35px;
-  padding: 5px 0px;
-  margin: 18px 12px;
+  padding: 8px 0px;
+  margin: 10px 12px;
 }
 .detailed-b{
   .ant-carousel .slick-slide {
     text-align: center;
-    height: 333px;
+    height: 280px;
     overflow: hidden;
   }
   .ant-carousel .slick-slide h3 {
     color: #fff;
   }
   .ant-carousel{
-    height: 333px;
+    height: 280px;
   }
   .chat-r{
-    padding: 20px 40px;
+    padding: 20px 25px;
   }
 }
 .detailed-c{
-  height: 333px;
+  height: 280px;
   background-image: url('/Icons/bg-00.png');
   background-size: cover;
 }
 .detailed-info{
   padding: 20px 40px 0px 40px;
-  font-size: 18.7px;
+  font-size: 14px;
   label{
     color: $opacity;
   }
   p{
     color: $purple00;
-    margin-bottom: 30px;
+    margin-bottom: 12px;
   }
 }
 .tabs-detailed{
@@ -2278,7 +2290,7 @@ display: inline-block !important;
   .ant-collapse > .ant-collapse-item > .ant-collapse-header{
     padding: 21px 0px;
     color: $purple00;
-    font-size: 21.3px;
+    font-size:16px;
     text-transform: uppercase;
     font-weight: bold;
   }
@@ -2299,7 +2311,7 @@ display: inline-block !important;
 }
 .detailed-map{
   width: 100%;
-  height: 933px;
+  height: 650px;
   border-radius: 4px;
   box-shadow: $shadow;
   background-image: url('/Icons/mapitash.png');
@@ -2312,7 +2324,7 @@ display: inline-block !important;
     border: none;
     background-color: transparent;
     color: $opacity;
-    font-size: 17.3px;
+    font-size: 16px;
     box-shadow: none;
     text-align: left;
     padding: 0px;
@@ -2331,10 +2343,10 @@ display: inline-block !important;
 }
 .solution-b{
   background: $opacity00;
-  padding: 13px 20px;
+  padding: 14px 20px;
   height: 50px;
   min-height: 50px;
-  font-size: 18.7px;
+  font-size: 14px;
   border-radius: 4px;
   font-weight:400;
   margin-top: 10px;
@@ -2342,7 +2354,7 @@ display: inline-block !important;
 }
 .data-00{
   display: flex;
-  font-size: 18.7px;
+  font-size: 14px;
   color: $opacity;
   div{
     margin-right: 20px;
@@ -2355,11 +2367,11 @@ display: inline-block !important;
   display: flex;
 }
 .line-01{
-  width: 720px;
+  width: 515px;
   height: 1px;
   opacity: 0.1;
   background-color: $purple;
-  margin: 10px 8px;
+  margin: 12px 8px;
 }
 // profile
 .profile-header {
@@ -2434,5 +2446,5 @@ display: inline-block !important;
   position: relative;
   height: 13.3px;
   bottom: -269px;
-  z-index: 10; 
+  z-index: 10;
 }

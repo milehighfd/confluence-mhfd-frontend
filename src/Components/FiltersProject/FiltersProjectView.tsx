@@ -94,7 +94,7 @@ export default () => {
                   </div>
                 </div>
                 <Button className="btn-coll">
-                  <img src="/Icons/icon-34.svg" alt=""/>
+                  <img src="/Icons/icon-34.svg" alt="" width="18px"/>
                 </Button>
               </Col>
               <Col span={12}>
