@@ -856,6 +856,9 @@ body{
     border-color: none;
   }
 }
+.img-negative{
+  background-image: url('/Icons/icon-21.svg') !important;
+}
 .tabs-map{
   .ant-tabs-nav .ant-tabs-tab-active {
     color: $purple;

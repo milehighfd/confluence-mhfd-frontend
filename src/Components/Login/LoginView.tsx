@@ -90,11 +90,13 @@ export default () => {
             Login
         </Button>
       </div>
+      {/*
       <div className="line-social">
         <h2>
           <span>or</span>
         </h2>
       </div>
+
       <div className="social-login">
         <Button className="button-social" block htmlType="submit">
         <img className="anticon" src="/Icons/google.svg" alt="" width="32px" /><div className="divider-vertical"></div> Login with Google
@@ -102,7 +104,7 @@ export default () => {
         <Button className="button-social" block htmlType="submit">
         <img className="anticon" src="/Icons/windows.svg" alt="" width="32px" /><div className="divider-vertical"></div> Login with Microsoft
         </Button>
-      </div>
+      </div>*/}
       </Form>
       </div>
       </Col>

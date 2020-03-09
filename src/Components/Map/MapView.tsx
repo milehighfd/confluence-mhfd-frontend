@@ -8,6 +8,8 @@ import MapFilterView from '../MapFilter/MapFilterView';
 import MapTypesView from "../MapTypes/MapTypesView";
 import Map from './Map';
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
+import SortMenuView from "../SortMenu/SortMenuView";
+import GenericTabView from "../GenericTab/GenericTabView";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -15,44 +17,54 @@ const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Search } = Input;
 
-const genExtra = () => (
-  <Row className="tab-head">
-    <Col span={9}>Piney Creek Channel Restoration</Col>
-    <Col span={5}>Westminster</Col>
-    <Col span={4}>$450,200</Col>
-    <Col span={4} style={{textAlign: 'center'}}>
-       <p>90%</p>
-      <Progress percent={90} showInfo={false} style={{height: '4px !important'}}/>
-    </Col>
-    <Col span={2}><img src="/Icons/icon-20.svg" alt=""/></Col>
-  </Row>
-);
+const cardInformationProblems: Array<any> = [
+  {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+  }
+];
 
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        1st menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        2nd menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        3rd menu item
-      </a>
-    </Menu.Item>
-  </Menu>
-);
+const cardInformationProjects: Array<any> = [
+  {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "Maintenance", field7: "80%"
+  }, {
+    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
+    field4: 5, field5: "Components", field6: "Study", field7: "80%"
+  }
+];
+
+const accordionRow: Array<any> = [
+  {
+    color: "green", image: "/Icons/icon-19.svg", field1: "Component 1", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
+  }, {
+    color: "gray", image: "/Icons/icon-19.svg", field1: "Component 2", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
+  }, {
+    color: "green", image: "/Icons/icon-19.svg", field1: "Component 3", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
+  }
+];
 
 export default () => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
+  const [listDescription, setListDescription] = useState(false);
 
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
@@ -86,7 +98,7 @@ export default () => {
                 <Panel header="" key="1">*/}
                   <Row className="head-m">
                     <Col span={12}>
-                    <Dropdown overlay={menu}>
+                    <Dropdown overlay={SortMenuView}>
                       <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                         Westminter, CO  <img src="/Icons/icon-12.svg" alt=""/>
                       </a>
@@ -94,11 +106,15 @@ export default () => {
                     </Col>
                     <Col style={{textAlign: 'right'}} span={12}>
                       <ButtonGroup>
-                        <Button className="btn-mm">
+                        <Button className="btn-mm" onClick={() => {
+                          setListDescription(true);
+                        }}>
                           <img className="img-h" src="/Icons/icon-30.svg" alt=""/>
                           <img className="img-a" src="/Icons/icon-32.svg" alt=""/>
                         </Button>
-                        <Button>
+                        <Button onClick={() => {
+                          setListDescription(false);
+                        }}>
                           <img className="img-h" src="/Icons/icon-31.svg" alt=""/>
                           <img className="img-a" src="/Icons/icon-33.svg" alt=""/>
                         </Button>
@@ -116,7 +132,7 @@ export default () => {
                         />
                       </Col>
                       <Col  style={{textAlign: 'right'}} span={8}>
-                        <Dropdown overlay={menu}>
+                        <Dropdown overlay={SortMenuView}>
                           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                             Sort by Cost <img src="Icons/icon-14.svg" alt=""/>
                           </a>
@@ -128,257 +144,11 @@ export default () => {
 
                   <Tabs defaultActiveKey="1" className="tabs-map">
                     <TabPane tab="Problems" key="1">
-                      <div className="hastag">
-                        <h6>Showing 67 Problems:</h6>
-                        <div>
-                          <Tag closable >
-                             $600K - $1.2M
-                          </Tag>
-                          <Tag closable >
-                             Active
-                          </Tag>
-                          <Tag closable >
-                             Stream Restoration
-                          </Tag>
-                          <Tag closable >
-                             Maintenance
-                          </Tag>
-                          <Tag closable >
-                             Westminster
-                          </Tag>
-                          <Tag closable >
-                             Components
-                          </Tag>
-                        </div>
-                      </div>
-                      <Row className="card-map" gutter={[16, 16]}>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
-                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
-                            </div>
-                          </Card>
-                        </Col>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
-                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
-                            </div>
-                          </Card>
-                        </Col>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
-                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
-                            </div>
-                          </Card>
-                        </Col>
-                      </Row>
-                      <Row className="card-map" gutter={[16, 16]}>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
-                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
-                            </div>
-                          </Card>
-                        </Col>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
-                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
-                            </div>
-                          </Card>
-                        </Col>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: 'red', width:'50%'}}>High Priority</p>
-                              <span style={{textAlign: 'right', width:'50%'}}>80%</span>
-                            </div>
-                          </Card>
-                        </Col>
-                      </Row>
-                      {/*LIST*/}
-                      <Row className="list-h">
-                        <Col span={9}>Problem & Component Name</Col>
-                        <Col span={5}>Jurisdiction</Col>
-                        <Col span={4}>Solution Cost</Col>
-                        <Col span={6}> Solution Status</Col>
-                      </Row>
-                      <Collapse accordion>
-                        <Panel header="" key="1" extra={genExtra()}>
-                          <Row>
-                            <Col span={9}>
-                            <Timeline>
-                              <Timeline.Item color="green">
-                                <p>Component 1 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
-                              </Timeline.Item>
-                              <Timeline.Item color="gray">
-                                <p>Component 2 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
-                              </Timeline.Item>
-                              <Timeline.Item color="green" className="line-00">
-                                <div className="ant-timeline-item-tail" style={{top:'10px', left:'-38px'}}></div>
-                                <p style={{marginBottom: '0px'}}>Component 3 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
-                              </Timeline.Item>
-                              </Timeline>
-                            </Col>
-                            <Col span={5}>
-                              <p>Westminter</p>
-                              <p>Westminter</p>
-                              <p>Westminter</p>
-                            </Col>
-                            <Col span={4}>
-                              <p>$200,000</p>
-                              <p>$200,000</p>
-                              <p>$200,000</p>
-                            </Col>
-                            <Col span={6}>
-                              <p>Project XYZ</p>
-                              <p>Project XYZ</p>
-                              <p>Project XYZ</p>
-                            </Col>
-                          </Row>
-                        </Panel>
-                      </Collapse>
+                      <GenericTabView listDescription={listDescription} type="Problems" totalElements={cardInformationProblems.length} cardInformation={cardInformationProblems} accordionRow={accordionRow}/>
                     </TabPane>
 
                     <TabPane tab="Projects" key="2">
-                      <div className="hastag">
-                        <h6>Showing 67 Problems:</h6>
-                        <div>
-                          <Tag closable >
-                             $600K - $1.2M
-                          </Tag>
-                          <Tag closable >
-                             Active
-                          </Tag>
-                          <Tag closable >
-                             Stream Restoration
-                          </Tag>
-                          <Tag closable >
-                             Maintenance
-                          </Tag>
-                          <Tag closable >
-                             Westminster
-                          </Tag>
-                          <Tag closable >
-                             Components
-                          </Tag>
-                        </div>
-                      </div>
-                      <Row className="card-map" gutter={[16, 16]}>
-                        <Col span={8}>
-                          <Card
-                            hoverable
-                            style={{ width: '100%' }}
-                            cover={<img alt="example" src="/Icons/eje.png" />}
-                          >
-                            <h4>West Tollagate Creek GSB Drops</h4>
-                            <h6>Westminster</h6>
-                            <h5>$400,500 <span style={{float: 'right'}}><b>5</b> Components</span></h5>
-                            <hr/>
-                            <div style={{display: 'flex', width:'100%'}}>
-                              <p style={{color: ' #11093c', width:'50%', opacity: '0.6'}}>Maintenance</p>
-                              <span style={{textAlign: 'right', width:'50%',color: ' #11093c', opacity: '0.6'}}>Requested</span>
-                            </div>
-                          </Card>
-                        </Col>
-                      </Row>
-                      {/*LIST*/}
-                      <Row className="list-h">
-                        <Col span={9}>Problem & Component Name</Col>
-                        <Col span={5}>Jurisdiction</Col>
-                        <Col span={4}>Solution Cost</Col>
-                        <Col span={6}> Solution Status</Col>
-                      </Row>
-                      <Collapse accordion>
-                        <Panel header="" key="1" extra={genExtra()}>
-                          <Row>
-                            <Col span={9}>
-                            <Timeline>
-                              <Timeline.Item color="green">
-                                <p>Component 1 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
-                              </Timeline.Item>
-                              <Timeline.Item color="gray">
-                                <p>Component 2 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
-                              </Timeline.Item>
-                              <Timeline.Item color="green" className="line-00">
-                                <div className="ant-timeline-item-tail" style={{top:'10px', left:'-38px'}}></div>
-                                <p style={{marginBottom: '0px'}}>Component 3 <img className="img-h" src="/Icons/icon-19.svg" alt=""/></p>
-                              </Timeline.Item>
-                              </Timeline>
-                            </Col>
-                            <Col span={5}>
-                              <p>Westminter</p>
-                              <p>Westminter</p>
-                              <p>Westminter</p>
-                            </Col>
-                            <Col span={4}>
-                              <p>$200,000</p>
-                              <p>$200,000</p>
-                              <p>$200,000</p>
-                            </Col>
-                            <Col span={6}>
-                              <p>Project XYZ</p>
-                              <p>Project XYZ</p>
-                              <p>Project XYZ</p>
-                            </Col>
-                          </Row>
-                        </Panel>
-                      </Collapse>
+                    <GenericTabView listDescription={listDescription} type="Projects" totalElements={cardInformationProjects.length} cardInformation={cardInformationProjects} accordionRow={accordionRow}/>
                     </TabPane>
                   </Tabs>
                 {/*</Panel>
