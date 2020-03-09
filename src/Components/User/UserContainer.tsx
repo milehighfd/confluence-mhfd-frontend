@@ -1,16 +1,21 @@
 import { connect } from 'react-redux';
 
 import UserView from './UserView';
+import { bindActionCreators } from 'redux';
 
-const mapStateToProps = (state: any): any => {
+import { saveUserState, deleteUser } from '../../store/actions/userActions';
+
+const mapStateToProps = (state: any) => {
   return {
-    sample: state.sample
+    users: state.user.users
   };
 };
 
-const mapDispatchToProps = (dispatch: Function): any => {
-  return {
-  };
-};
+const mapDispatchToProps = (dispatch: any): any => ({
+  ...bindActionCreators({
+    saveUserState,
+    deleteUser
+  }, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserView);

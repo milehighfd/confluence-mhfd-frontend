@@ -34,6 +34,7 @@ const Map = ({ leftWidth, children } : any) => {
 
         const geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
+            placeholder: 'Search...'
         });
 
         const geo = document.getElementById('geocoder')!;
@@ -77,7 +78,6 @@ const Map = ({ leftWidth, children } : any) => {
             <div className="m-head">
                 <div
                     id="geocoder"
-                    placeholder="Search..."
                     className="geocoder"
                     style={{ width: 200 }}
                     />

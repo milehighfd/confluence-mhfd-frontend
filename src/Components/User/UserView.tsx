@@ -1,8 +1,9 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import {Layout, Row, Col, Tabs, Input, Menu, Dropdown, Button, Icon, Collapse, Radio, Switch, Table, Divider, Tag, Pagination} from 'antd';
 import NavbarView from "../Navbar/NavbarContainer";
 import SidebarView from "../Sidebar/SidebarContainer";
 import Accordeon from './ApprovedUsers/Accordeon';
+import UserFilters from './UserFilters';
 
 const {Content} = Layout;
 const { TabPane } = Tabs;
@@ -20,10 +21,28 @@ const menu = (
     </Menu.Item>
     <Menu.Item key="3">
       <Icon type="user" />
-      3rd item
+      3rd menu item
     </Menu.Item>
   </Menu>
 );
+
+const dropdownMenu = ({handleDropdowns, index, id} : any) => (
+  <Menu>
+    <Menu.Item key="1" onClick={() => handleDropdowns('1st menu item', index, id)}>
+      <Icon type="user" />
+      1st menu item
+    </Menu.Item>
+    <Menu.Item key="2" onClick={() => handleDropdowns('2nd menu item', index, id)}>
+      <Icon type="user" />
+      2nd menu item
+    </Menu.Item>
+    <Menu.Item key="3" onClick={() => handleDropdowns('3rd menu item', index, id)}>
+      <Icon type="user" />
+      3rd menu item
+    </Menu.Item>
+  </Menu>
+);
+
 const genExtra = () => (
   <Row className="user-head" type="flex" justify="space-around" align="middle">
     <Col span={19}>
@@ -39,7 +58,35 @@ const genExtra = () => (
   </Row>
 );
 
-export default () => {
+export default ({ users, saveUserState, deleteUser } : any) => {
+  const [userState, setUserState] = useState<any>([]);
+  let pndPos = 0; // momentary forced adition until getting the DB Structure
+  let aprPos = 0; // momentary forced adition until getting the DB Structure
+
+  useEffect(() => {
+    setUserState(users);
+  }, [users])
+
+  const handleDropdowns = (value : string, index : number, id : string) => {
+    const user = [...userState];
+    if(id === 'organization') user[index].profile[id] = value;
+    else user[index].areas[id] = value;
+    setUserState(user);
+  }
+
+  const handleRadioButton = (e : any, index : number) => {
+    const user = [...userState];
+    user[index][e.target.name] = e.target.value;
+    setUserState(user);
+  }
+
+  const saveUser = (approved : boolean, index : number) => {
+    const user = [...userState];
+    user[index]['approved'] = approved;
+    setUserState(user);
+    saveUserState(user);
+  }
+
   return <>
     <Layout>
       <NavbarView></NavbarView>
@@ -52,215 +99,53 @@ export default () => {
                     <Col span={24}>
                       <Tabs defaultActiveKey="1">
                         <TabPane tab="Approved Users" key="1">
-                          <div className="user-filter">
-                            <div>
-                              <Search
-                                placeholder="Search by Name"
-                                onSearch={value => console.log(value)}
-                                style={{ width: 240 }}
-                              />
-                            </div>
+                          <UserFilters menu={menu} />
 
-                            <div>
-                              <Dropdown overlay={menu}>
-                                <Button>
-                                  Organization <img src="Icons/icon-12.svg" alt=""/>
-                                </Button>
-                              </Dropdown>
-                            </div>
-                            <div>
-                              <Dropdown overlay={menu}>
-                                <Button>
-                                  Service Area <img src="Icons/icon-12.svg" alt=""/>
-                                </Button>
-                              </Dropdown>
-                            </div>
-
-                            <div>
-                              <Dropdown overlay={menu}>
-                                <Button>
-                                  User Designation <img src="Icons/icon-12.svg" alt=""/>
-                                </Button>
-                              </Dropdown>
-                            </div>
-
-                            <div>
-                              <Button className="f-btn">Reset</Button>
-                            </div>
-
-                            <div className="btn-r">
-                              <label>Sort by:</label>
-                              <Dropdown overlay={menu}>
-                                <Button>
-                                  Approval Date <img src="Icons/icon-14.svg" alt=""/>
-                                </Button>
-                              </Dropdown>
-                            </div>
-                          </div>
-
-                          <Accordeon menu={menu} />
-
+                          {userState.map((user : any, index : number) => {
+                            if(user.approved) {
+                              aprPos++;
+                              return (
+                                <div key={index} style={{marginBottom: 10}}>
+                                  <Accordeon 
+                                    menu={dropdownMenu}
+                                    user={user}
+                                    index={index}
+                                    pos={aprPos}
+                                    handleDropdowns={handleDropdowns}
+                                    handleRadioButton={handleRadioButton}
+                                    saveUser={saveUser}
+                                    deleteUser={deleteUser} />
+                                </div>
+                              );
+                            }
+                          })}
+                          
                           <div className="pagi-00">
                             <Pagination defaultCurrent={1} total={200} />
                           </div>
                         </TabPane>
 
                         <TabPane tab="Pending User Requests" key="2">
-                        <div className="user-filter">
-                          <div>
-                            <Search
-                              placeholder="Search by Name"
-                              onSearch={value => console.log(value)}
-                              style={{ width: 240 }}
-                            />
-                          </div>
+                        <UserFilters menu={menu} />
 
-                          <div>
-                            <Dropdown overlay={menu}>
-                              <Button>
-                                Organization <img src="Icons/icon-12.svg" alt=""/>
-                              </Button>
-                            </Dropdown>
-                          </div>
-                          <div>
-                            <Dropdown overlay={menu}>
-                              <Button>
-                                Service Area <img src="Icons/icon-12.svg" alt=""/>
-                              </Button>
-                            </Dropdown>
-                          </div>
-
-                          <div>
-                            <Dropdown overlay={menu}>
-                              <Button>
-                                User Designation <img src="Icons/icon-12.svg" alt=""/>
-                              </Button>
-                            </Dropdown>
-                          </div>
-
-                          <div>
-                            <Button className="f-btn">Reset</Button>
-                          </div>
-
-                          <div className="btn-r">
-                            <label>Sort by:</label>
-                            <Dropdown overlay={menu}>
-                              <Button>
-                                Approval Date <img src="Icons/icon-14.svg" alt=""/>
-                              </Button>
-                            </Dropdown>
-                          </div>
-                        </div>
-
-                        <Collapse accordion className="user-tab">
-                          <Panel header="" key="1" extra={genExtra()}>
-                            <div className="gutter-example">
-                              <h3>PROFILE</h3>
-                              <Row gutter={16}>
-                                <Col className="gutter-row" span={12}><Input placeholder="First Name" /></Col>
-                                <Col className="gutter-row" span={12}><Input placeholder="Last Name" /></Col>
-                              </Row>
-                              <br></br>
-                              <Row gutter={16}>
-                                <Col className="gutter-row" span={12}><Input placeholder="Email" /></Col>
-                                <Col className="gutter-row" span={12}>
-                                  <Dropdown overlay={menu}>
-                                    <Button>
-                                      Organization <img src="Icons/icon-12.svg" alt=""/>
-                                    </Button>
-                                  </Dropdown>
-                                </Col>
-                              </Row>
-                            </div>
-
-                            <hr></hr>
-
-                            <div className="gutter-example">
-                              <h3>USER DESIGNATION</h3>
-                              <Row gutter={16}>
-                                <Col className="gutter-row" span={4}>
-                                  <div className="user-card">
-                                    <p><Radio></Radio></p>
-                                    <div className="user-d"><h6>MHFD Admin</h6></div>
-                                  </div>
-                                </Col>
-                                <Col className="gutter-row" span={4}>
-                                  <div className="user-card">
-                                    <p><Radio></Radio></p>
-                                    <div className="user-d"><h6>MHFD Staff</h6></div>
-                                  </div>
-                                </Col>
-                                <Col className="gutter-row" span={4}>
-                                  <div className="user-card">
-                                    <p><Radio></Radio></p>
-                                    <div className="user-d">
-                                      <h6>Local </h6>
-                                      <h6>Government Admin</h6>
-                                    </div>
-                                  </div>
-                                </Col>
-                                <Col className="gutter-row" span={4}>
-                                  <div className="user-card">
-                                    <p><Radio></Radio></p>
-                                    <div className="user-d">
-                                      <h6>Local</h6>
-                                      <h6>Government</h6>
-                                    </div>
-                                  </div>
-                                </Col>
-                                <Col className="gutter-row" span={4}>
-                                  <div className="user-card">
-                                    <p><Radio></Radio></p>
-                                    <div className="user-d"><h6> Consultant/ Contractor</h6></div>
-                                  </div>
-                                </Col>
-                                <Col className="gutter-row" span={4}>
-                                  <div className="user-card">
-                                    <p><Radio></Radio></p>
-                                    <div className="user-d"><h6>Other</h6></div>
-                                  </div>
-                                </Col>
-                              </Row>
-                            </div>
-
-                            <hr></hr>
-
-                            <div className="gutter-example">
-                              <h3>PROFILE</h3>
-                              <Row gutter={16}>
-                                <Col className="gutter-row" span={12}>
-                                  <Dropdown overlay={menu}>
-                                    <Button>
-                                      User Designation <img src="Icons/icon-12.svg" alt=""/>
-                                    </Button>
-                                  </Dropdown>
-                                </Col>
-
-                                <Col className="gutter-row" span={12}>
-                                  <Dropdown overlay={menu}>
-                                    <Button>
-                                      User Designation <img src="Icons/icon-12.svg" alt=""/>
-                                    </Button>
-                                  </Dropdown>
-                                </Col>
-                              </Row>
-                              <br></br>
-                              <Row gutter={16}>
-                                <Col className="gutter-row" span={12}>
-                                <Dropdown overlay={menu}>
-                                  <Button>
-                                    User Designation <img src="Icons/icon-12.svg" alt=""/>
-                                  </Button>
-                                </Dropdown>
-                                </Col>
-                              </Row>
-                            </div>
-                            <div className="user-footer">
-                              <Button className="btn-d">Delete</Button>
-                              <Button className="btn-s">Save</Button>
-                            </div>
-                          </Panel>
-                        </Collapse>
+                          {userState.map((user : any, index : number) => {
+                            if(!user.approved) {
+                              pndPos++;
+                              return (
+                                <div key={index} style={{marginBottom: 10}}>
+                                  <Accordeon 
+                                    menu={dropdownMenu}
+                                    user={user}
+                                    index={index}
+                                    pos={pndPos}
+                                    handleDropdowns={handleDropdowns}
+                                    handleRadioButton={handleRadioButton}
+                                    saveUser={saveUser}
+                                    deleteUser={deleteUser} />
+                                </div>
+                              );
+                            }
+                          })}
 
                         <div className="pagi-00">
                           <Pagination defaultCurrent={1} total={200} />

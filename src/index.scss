@@ -1067,6 +1067,15 @@ body{
   .geocoder {
     display: inline-block;
     height: 34px;
+
+    .mapboxgl-ctrl-geocoder--icon.mapboxgl-ctrl-geocoder--icon-search {
+      fill: $purple;
+      width: 18px;
+    }
+
+    .mapboxgl-ctrl-geocoder--input {
+      font-size: 14px;
+    }
   }
 
   .mapboxgl-ctrl-geocoder {
@@ -1081,7 +1090,7 @@ body{
   }
 
   button{
-    top: -2px;
+    top: -1px;
     height: 34px;
     border: none;
     width: 34px;

@@ -13,7 +13,7 @@ const logger = (store: any) => (next: any) => (action: any) => {
   return result;
 };
 
-const composeEnhancers = compose;
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default function configureStore(preloadedState: any) {
   const store = createStore(
