@@ -17,7 +17,7 @@ export default () => {
       <div className="logo"
       style={{backgroundImage: 'url(Icons/logo.svg)'}}
       />
-      <h6>Confluence   |   User Managementf</h6>
+      <h6>Confluence   |   User Management</h6>
       <Menu
         theme="dark"
         mode="horizontal"
