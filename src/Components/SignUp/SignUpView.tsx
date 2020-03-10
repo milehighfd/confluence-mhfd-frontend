@@ -1,6 +1,27 @@
 import * as React from "react";
-import { Layout, Row, Col, Form, Icon, Input, Button, } from 'antd';
+import { Layout, Row, Col, Form, Icon, Input, Button, Menu, Dropdown } from 'antd';
 import { Carousel } from 'antd';
+
+const menu = (
+  <Menu className="js-mm">
+    <label>CITY</label>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+        Adams
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+        Araphoe
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+        Aurora
+      </a>
+    </Menu.Item>
+  </Menu>
+);
 
 export default () => {
   return <Layout style={{ background: '#fff' }}>
@@ -12,9 +33,9 @@ export default () => {
           </div>
           <div className="contact01">
               <div className="icons-list">
-                <Icon type="twitter"/>
-                <Icon type="facebook" />
-                <Icon type="linkedin" />
+                <a href=""><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
+                <a href=""><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
+                <a href=""><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
               </div>
               <div className="social01">
                 <ul>
@@ -53,17 +74,17 @@ export default () => {
       <Col span={11} className="login-hh">
       <div className="login-step01">
         <div>
-        <Form style={{ width: '533px' }}  className="login-form">
+        <Form style={{ width: '420px' }}  className="login-form">
       <h1>
         Sign Up!
       </h1>
         <Row style={{ marginTop: '20px' }}>
         <span className="loginLabels">Define your user role:</span>
           <Col className="signup">
-          <Button style={{ width: '104px' }}>MHFD Staff</Button>
-          <Button style={{ width: '140px' }}>Consultant / Contractor</Button>
-          <Button style={{ width: '149px' }}>Local Government</Button>
-          <Button style={{ width: '100px' }}>Other</Button>
+          <Button style={{ width: '80px' }}>MHFD Staff</Button>
+          <Button style={{ width: '115px' }}>Consultant / Contractor</Button>
+          <Button style={{ width: '117px' }}>Local Government</Button>
+          <Button style={{ width: '80px' }}>Other</Button>
           </Col>
         </Row>
       <div className="group">
@@ -84,11 +105,12 @@ export default () => {
         <span className="bar"></span>
         <label>Email</label>
       </div>
-      <div className="group">
-        <input type="text" required/>
-        <span className="highlight"></span>
-        <span className="bar"></span>
-        <label>Jurisdiction</label>
+      <div className="group btn-up">
+        <Dropdown overlay={menu}>
+          <Button>
+            Jurisdiction <img src="/Icons/icon-12.svg" alt=""/>
+          </Button>
+        </Dropdown>
       </div>
       <div className="group">
         <input type="text" required/>

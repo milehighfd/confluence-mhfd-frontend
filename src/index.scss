@@ -530,7 +530,7 @@ body{
 .ant-carousel .slick-slide h5 {
   color: $white;
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -540,7 +540,7 @@ body{
 .ant-carousel .slick-slide h2 {
   color: $white;
   margin: 0 0 12px 0;
-  font-size: 42px;
+  font-size: 28px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -550,38 +550,38 @@ body{
 .login-hh{
   height: 100vh;
   overflow-y: auto;
+  position: relative;
 }
 .login-step01 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  // height: 100%;
-  position: relative;
-  top: 101px;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // // height: 100%;
+  // position: relative;
+  // top: 101px;
+  padding: 0px 120px;
+  transform: translate(-50%,-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  .buttonLogin, .buttonLogin:hover, .buttonLogin:active, .buttonLogin.active {
+    height: 50px;
+    border-radius: 4px;
+    border-color: $purple;
+    background-color: $purple;
+    color: $white;
+    font-size: 16px;
+    margin-top: 15px;
+  }
 }
 .login-form h1 {
   color: $purple00;
-  font-size: 2.6rem;
+  font-size: 32px;
   font-style: normal;
   line-height: normal;
   font-weight: 400;
   margin: 0;
-}
-.login-step01 .buttonLogin {
-  height: 72px;
-  border-radius: 4px;
-  border-color: $purple;
-  background-color: $purple;
-  color: $white;
-  font-size: 1.2rem;
-}
-.login-step01 .buttonLogin:hover {
-  height: 72px;
-  border-radius: 4px;
-  border-color: $purple;
-  background-color: $purple;
-  color: $white;
-  font-size: 1.2rem;
 }
 // footer carousel
 .contact01 {
@@ -605,7 +605,7 @@ body{
 }
 .social01 a {
   color: $white;
-  font-size: 16px;
+  font-size: 14px;
 }
 .social01 span {
   display: inline-block;
@@ -617,54 +617,59 @@ body{
 // login_material style
 .returnText {
   top: 10%;
-  width: 533px;
+  // width: 533px;
   align-items: center;
   font-size: 1rem;
   justify-content: center;
   margin-bottom: 40px;
+
+  span {
+    margin: 0 11px;
+  }
+  Button, Button:hover, Button:focus, Button:active, Button.active {
+   color: #251863;
+   border: 1px solid #251863;
+ }
 }
-.returnText span {
-  margin: 0 11px;
-}
-.returnText Button {
-  color: #251863;
-  border: 1px solid #251863;
-}
+
 
 // styles material input
 .group {
   position:relative;
-  margin-bottom:35px;
-}
-.group input {
-  font-size:18px;
-  padding:10px 10px 10px 0;
-  display:block;
-  width:100%;
-  border:none;
-  // opacity: 15%;
-  border-bottom:1px solid $opacity01;
-}
-.group input:focus 		{ outline:none; }
-
-/* LABEL material*/
-.group label 				 {
-  color:#999;
-  font-size: 1rem !important;
-  font-weight: normal;
-  position: absolute;
-  pointer-events: none;
-  top:10px;
-  transition:0.2s ease all;
-  -moz-transition:0.2s ease all;
-  -webkit-transition:0.2s ease all;
-}
-
-/* active state material */
-.group input:focus ~ label, input:valid ~ label 		{
-  top:-20px;
-  font-size:14px;
-  color:#5264AE;
+  margin-bottom:30px;
+  input {
+    font-size:14px;
+    padding:10px 10px 10px 0;
+    display:block;
+    width:100%;
+    border:none;
+    // opacity: 15%;
+    border-bottom:1px solid $opacity01;
+    color: $purple00;
+  }
+  input:focus{
+    outline:none;
+  }
+  input::placeholder{
+    color: red;
+  }
+  /* LABEL material*/
+  label{
+    color: $opacity;
+    font-size: 14 !important;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    top:10px;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+  }
+  input:focus ~ label, input:valid ~ label 		{
+    top:-20px;
+    font-size:14px;
+    color: $opacity;
+  }
 }
 
 /* material bar bottom */
@@ -724,20 +729,24 @@ body{
 }
 /* Sign up */
 .signup {
-  margin: 15px 0 50px 0;
+  margin: 15px 0 40px 0;
   display: flex;
-  height: 66px;
+  height: 55px;
   justify-content: space-between;
 }
 .signup button {
   border: $white;
   white-space: inherit;
-  padding: 14px 20px 7px 20px;
+  padding: 9px 20px 7px 20px;
   height: auto;
   border-radius: 4px;
   box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
+  font-size: 13px;
+  line-height: 16px;
+  color: $purple00;
 }
-.signup button:hover {
+.signup button:hover, .signup .ant-btn:active, .signup .ant-btn.active,
+.signup .ant-btn:hover, .signup .ant-btn:focus{
   background-color: $green;
   color: $white;
   border: $green;
@@ -746,19 +755,63 @@ body{
   border-radius: 4px;
   box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
 }
+.btn-up{
+  .ant-btn {
+    box-shadow: none;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 0px;
+    color: $opacity;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid rgba(61, 46, 138, 0.07);
+  }
+  .ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active, {
+    box-shadow: none;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 0px;
+    color: $opacity;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid $purple;
+    background: transparent;
+  }
+  img{
+    float: right;
+    margin-top: 6px;
+  }
+}
+.js-mm{
+  padding: 15px 20px !important;
+  font-size: 14px !important;
+  color: $opacity !important;
+
+  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a{
+    padding: 10px 0px;
+    border-bottom: 1px solid $opacity01;
+    font-size: 14px;
+    color: $purple00;
+  }
+}
 // Reset password
 .resetText {
-  margin: 20px 0 50px 0;
-  font-size: 21.3px;
+  margin: 20px 0 20px 0;
+  font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.25;
   letter-spacing: normal;
+  color: $opacity;
 }
 // login-labels
 .loginLabels {
-  font-size: 1.3rem;
+  font-size: 16px;
   color: $purple00;
   opacity: 50%;
 }

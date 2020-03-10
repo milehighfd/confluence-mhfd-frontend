@@ -24,7 +24,7 @@ export default () => {
       })
     }
   })
-  
+
   if(redirect) {
     return <Redirect to="/profile-view" />
   }
@@ -78,7 +78,7 @@ export default () => {
       </Col>
       <Col span={11} className="login-hh">
       <div className="login-step01">
-        <div>
+        {/*<div>
         <Row className="returnText">
           <Col span={12}>
           <Button shape="circle" icon="arrow-left" /><span>Back</span>
@@ -87,12 +87,12 @@ export default () => {
           <span>Continue as Guest</span><Button shape="circle" icon="arrow-right" />
           </Col>
         </Row>
-        </div>
-        <Form style={{ width: '533px' }}  className="login-form" onSubmit={handleSubmit}>
+        </div>*/}
+        <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit}>
       <h1>
         Welcome to MHFD's Confluence
       </h1>
-      <div style={{ marginTop: '50px' }}>
+      <div style={{ marginTop: '30px' }}>
       <div className="group">
         <input name="email" type="email" required onChange={handleChange} />
         <span className="highlight"></span>
