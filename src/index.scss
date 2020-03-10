@@ -23,11 +23,11 @@ body{
  overflow-y: hidden;
 }
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
-.ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollba,
+.ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollbar,
 .count-01::-webkit-scrollbar{
   width: 6px;
 }
-.user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thum,
+.user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thumb,
 .ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb,
 .count-01::-webkit-scrollbar-thumb{
   background: $purple;
@@ -1423,11 +1423,11 @@ body{
   justify-content: center;
   padding: 20px 10%;
 }
-.btn-creation01 div {
-  width: 293px;
-  height: 267px;
-  margin: 40px;
-}
+// .btn-creation01 div {
+//   width: 220px;
+//   height: 200px;
+//   margin: 20px 25px;
+// }
 .btn-creation01 Button {
   height: inherit;
   width: inherit;
@@ -1445,6 +1445,8 @@ body{
   flex-direction: column;
   justify-content: flex-end;
   align-items: initial;
+  width: 220px;
+  height: 200px;
 }
 .btn-creation01 .ant-btn:hover .img-h,.btn-creation01 .ant-btn:focus .img-h, .btn-creation01 .ant-btn:active .img-h, .btn-creation01 .ant-btn.active .img-h {
  display: none;
@@ -1660,9 +1662,10 @@ display: inline-block !important;
   color: $opacity;
 }
 .table-create-bottom{
-  textarea.ant-input {
+  .ant-input {
     max-width: 92%;
     padding-left: 0px;
+    border: none;
   }
   .ant-input:focus{
     border-color: none;

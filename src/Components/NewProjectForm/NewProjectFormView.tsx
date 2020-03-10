@@ -139,7 +139,7 @@ const data02 = [
     </a>
     </Dropdown>,
     Cost: <span>$1,570,000</span>,
-    StudyName: <TextArea rows={1} placeholder="Enter Description" />,
+    StudyName: <Input placeholder="Enter Description" />,
   },
   {
     key: '2',
@@ -150,7 +150,7 @@ const data02 = [
     </a>
     </Dropdown>,
     Cost: <span>$1,570,000</span>,
-    StudyName: <TextArea rows={1} placeholder="Enter Description" />,
+    StudyName: <Input placeholder="Enter Description" />,
   },
 ];
 
