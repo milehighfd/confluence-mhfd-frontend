@@ -8,7 +8,7 @@ import { Redirect } from "react-router-dom";
 
 const url2 = process.env.REACT_APP_API_URI;
 
-export default () => {
+export default ({replaceAppUser}: any) => {
   const [redirect, setRedirect] = useState(false);
   const { handleSubmit, handleChange } = useFormik({
     initialValues: {
@@ -16,10 +16,15 @@ export default () => {
       password: ""
     },
     onSubmit(values: any) {
-      const res = datasets.postData(SERVER.LOGIN, values).then(res => {
-        if(res.token) {
+      const result = datasets.postData(SERVER.LOGIN, values).then(res => {
+        if(res?.token) {
           localStorage.setItem('mfx-token', res.token);
           setRedirect(true);
+          replaceAppUser({
+            name: 'Juan Perez',
+            email: 'gauss@gmail.com',
+            role: 'admin'
+          })
         }
       })
     }

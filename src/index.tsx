@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import {Route, Switch} from 'react-router-dom';
+
 import {ConnectedRouter} from 'connected-react-router';
 
 import './index.scss';
@@ -10,47 +10,15 @@ import {history} from "./store/configureStore";
 import store from './store';
 import 'antd/dist/antd.css';
 
-import App from './App';
-import LoginContainer from './Components/Login/LoginContainer';
-import MapContainer from './Components/Map/MapContainer';
-import NavbarContainer from './Components/Navbar/NavbarContainer';
-import ResetPasswordContainer from './Components/ResetPassword/ResetPasswordContainer';
-import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswordContainer';
-import SidebarContainer from './Components/Sidebar/SidebarContainer';
-import SignUpContainer from './Components/SignUp/SignUpContainer';
-import UserContainer from './Components/User/UserContainer';
-import NewProjectFormContainer from './Components/NewProjectForm/NewProjectFormContainer';
-import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
-import FiltersProjectContainer from './Components/FiltersProject/FiltersProjectContainer';
-import WorkPlanContainer from './Components/WorkPlan/WorkPlanContainer';
-import WorkRequestContainer from './Components/WorkRequest/WorkRequestContainer';
-import ProfileContainer from './Components/Profile/ProfileContainer';
-import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
-import MapToolContainer from './Components/MapTool/MapToolContainer';
+import App from './AppContainer';
+
+
 
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Switch>
-        <Route path={`/login`} component={LoginContainer}/>
-        <Route path={`/map`} component={MapContainer}/>
-        <Route path={`/navbar`} component={NavbarContainer}/>
-        <Route path={`/reset-password`} component={ResetPasswordContainer}/>
-        <Route path={`/confirm-password`} component={ConfirmPasswordContainer}/>
-        <Route path={`/sidebar`} component={SidebarContainer}/>
-        <Route path={`/sign-up`} component={SignUpContainer}/>
-        <Route path={`/user`} component={UserContainer}/>
-        <Route path={`/new-project-form`} component={NewProjectFormContainer}/>
-        <Route path={`/new-project-types`} component={NewProjectTypesContainer}/>
-        <Route path={`/filter-projects`} component={FiltersProjectContainer}/>
-        <Route path={`/work-plan`} component={WorkPlanContainer}/>
-        <Route path={`/work-request`} component={WorkRequestContainer}/>
-        <Route path={`/profile-view`} component={ProfileContainer}/>
-        <Route path={`/detailed-view`} component={DetailedContainer}/>
-        <Route path={`/maptool-view`} component={MapToolContainer}/>
-        <Route path={`/`} component={App}/>
-      </Switch>
+      <App />
     </ConnectedRouter>
   </Provider>, document.getElementById('root'));
 
