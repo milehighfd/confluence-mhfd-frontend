@@ -188,7 +188,7 @@ export default () => {
                 <div className="profile-divider"></div>
               </Row>
               <Row>
-                <Col className="profile-tabs" span={12}>
+                <Col className="profile-tabs" span={15}>
                   <Tabs style={{padding:'0 53px'}} defaultActiveKey="1" className="tabs-map">
                       <TabPane tab="Problems" key="1">
                       <Row style={{background: '#fff'}} className="card-map" gutter={[16, 16]}>
@@ -204,7 +204,7 @@ export default () => {
                       </TabPane>
                   </Tabs>
                 </Col>
-                <Col span={12}></Col>
+                <Col span={9}></Col>
               </Row>
             </Layout>
           </Layout>
