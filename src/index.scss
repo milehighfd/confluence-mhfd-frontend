@@ -23,11 +23,13 @@ body{
  overflow-y: hidden;
 }
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
-.ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollba{
+.ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollba,
+.count-01::-webkit-scrollbar{
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thum,
-.ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb {
+.ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb,
+.count-01::-webkit-scrollbar-thumb{
   background: $purple;
   border-radius: 5px;
 }
@@ -798,6 +800,18 @@ body{
     color: $purple00;
   }
 }
+.js-mm-00{
+  padding: 0px 20px 15px 20px !important;
+  font-size: 14px !important;
+  color: $opacity !important;
+
+  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a{
+    padding: 10px 0px;
+    border-bottom: 1px solid $opacity01;
+    font-size: 14px;
+    color: $purple00;
+  }
+}
 // Reset password
 .resetText {
   margin: 20px 0 20px 0;
@@ -1382,6 +1396,18 @@ body{
 .input-maint {
   margin: 20px 0;
   position: relative;
+  .ant-input-lg{
+    height: 36px;
+  }
+  .label-new-form{
+    color: $opacity;
+    font-size: 12px;
+  }
+  .ant-input:hover, .ant-input:focus {
+    border-color: $purple;
+    border-right-width: 1px !important;
+    box-shadow: none;
+  }
 }
 
 .input-maint .img-maint {
@@ -1467,23 +1493,43 @@ display: inline-block !important;
   color: $purple00;
   margin-top: 49px;
 }
+.img-npf{
+  margin-bottom: 20px;
+  .ant-upload.ant-upload-drag p.ant-upload-text {
+    margin: 0px;
+    color: $opacity !important;
+    font-size: 14px !important;
+  }
+  img{
+    margin-bottom: 5px;
+  }
+  .ant-upload.ant-upload-drag:not(.ant-upload-disabled):hover {
+    border-color: $purple;
+  }
+}
 // styles creation project
 .form01 {
-  height: 70px;
+  height: 62px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  .ant-switch-inner{
+    font-size: 11px;
+  }
+  .ant-switch-checked {
+    background-color: $green;
+  }
 }
 .form01-02 {
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // align-items: center;
 }
 .form01-02 img {
   margin-left: 10px;
 }
 .form01-02 h3 {
   margin: 0;
-  font-size: 18.7px;
+  font-size: 14px;
   letter-spacing: 0.27px;
   color: $opacity;
 }
@@ -1494,7 +1540,7 @@ display: inline-block !important;
 .label-new-form h3 {
   display: inline;
   text-transform: uppercase;
-  font-size: 17.3px;
+  font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -1502,7 +1548,6 @@ display: inline-block !important;
   letter-spacing: normal;
   color: $purple00;
   margin: 0;
-
 }
 .label-new-form label {
   font-size: 13.3px;
@@ -1538,7 +1583,7 @@ display: inline-block !important;
   margin: 20px 0;
 }
 .project-comp span {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -1548,7 +1593,7 @@ display: inline-block !important;
 }
 .project-comp h5 {
   margin: 0;
-  font-size: 17.3px;
+  font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -1586,20 +1631,20 @@ display: inline-block !important;
 }
 .table-create-pro tbody > tr > td {
   background: rgba(61, 46, 138, 0.07);
-  padding: 20px 20px;
-  height: 67px;
+  padding: 10px 17px;
+  height: 55px;
   min-height: 50px;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 4px;
   font-weight: 400;
   margin-top: 10px;
   color: $purple00;
-  font-size: 18.7px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.29;
   letter-spacing: 0.27px;
+  border-radius: 0px;
 }
 .table-create-pro th {
   background-color: $white !important;
@@ -1607,6 +1652,28 @@ display: inline-block !important;
 }
 .table-create-pro td {
   border-bottom: 13px solid $white !important;
+}
+.table-create-pro img{
+  float: right;
+}
+.table-create-pro .ant-table-thead > tr > th{
+  color: $opacity;
+}
+.table-create-bottom{
+  textarea.ant-input {
+    max-width: 92%;
+    padding-left: 0px;
+  }
+  .ant-input:focus{
+    border-color: none;
+    box-shadow: none !important;
+  }
+  .ant-table-tbody > tr > td{
+    border-bottom: none;
+  }
+  .footer-table{
+    border-top: 1px solid #e8e8e8;
+  }
 }
 .activity-h-02 {
   padding: 0px 20px;
@@ -1616,10 +1683,10 @@ display: inline-block !important;
   margin-bottom: 14px;
 }
 .tag-upload span {
-  height: 45px;
+  height: 35px;
   border-radius: 22.7px;
-  padding: 11px 11px 11px 20px;
-  font-size: 18.7px;
+  padding: 4px 10px;
+  font-size: 12px;
   font-weight: normal;
   letter-spacing: 0.27px;
   color: $purple00;
@@ -1640,13 +1707,14 @@ display: inline-block !important;
   display: none;
 }
 .table-create-bottom table th {
-  font-size: 18.7px;
+  font-size: 14px;
   padding: 20px 0 !important;
   background-color: $white !important;
+  color: $opacity !important;
 }
 .table-create-bottom Table td {
-  padding: 17px 0 !important;
-  font-size: 18.7px;
+  padding: 8.5px 0 !important;
+  font-size: 14px;
 }
 .table-create-bottom Table td a {
   font-weight: normal;
@@ -1660,7 +1728,7 @@ display: inline-block !important;
   border: transparent;
 }
 .numbers01-table {
-  font-size: 18.7px;
+  font-size: 14px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -1683,7 +1751,7 @@ display: inline-block !important;
 }
 
 .draw-section h6 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -1746,7 +1814,23 @@ display: inline-block !important;
   background: $purple;
   margin: 0 26px 0 24px;
 }
-
+.label-npf{
+  label{
+    font-size: 12px;
+    color: $opacity;
+  }
+  .ant-input:hover, .ant-input:focus {
+    border-color: $purple;
+    border-right-width: 1px !important;
+    box-shadow: none;
+  }
+}
+.all-npf{
+  label{
+    font-size: 12px;
+    color: $opacity;
+  }
+}
 // FILTERS MAP
 .filt-00{
   margin-bottom: 15px;

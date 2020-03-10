@@ -29,7 +29,7 @@ const genExtra = () => (
 );
 
 const menu = (
-  <Menu>
+  <Menu className="js-mm-00">
     <Menu.Item>
       <a target="_blank" rel="noopener noreferrer" href="">
         1st menu item
@@ -53,21 +53,18 @@ const columns01 = [
     title: 'Component',
     dataIndex: 'Component',
     key: 'Component',
-    width: 170,
     ellipsis: true,
   },
   {
     title: 'Jurisdiction',
     dataIndex: 'Jurisdiction',
     key: 'Jurisdiction',
-    width: 150,
     ellipsis: true,
   },
   {
     title: 'Cost',
     dataIndex: 'Cost',
     key: 'Cost',
-    width: 150,
     ellipsis: true,
   },
 
@@ -75,13 +72,12 @@ const columns01 = [
     title: 'Study Name',
     dataIndex: 'StudyName',
     key: 'StudyName',
-    width: 270,
     ellipsis: true,
   },
   {
     key: 'action',
+    textAlign: 'right',
     render: () => <a><img src="/Icons/icon-16.svg" alt=""/></a>,
-    width: 60,
   },
 ];
 
@@ -108,20 +104,20 @@ const columns02 = [
     title: 'SUBTOTAL COST',
     dataIndex: 'Component',
     key: 'Component',
-    width: 170,
+    width: '24%',
     ellipsis: true,
   },
   {
     dataIndex: 'Jurisdiction',
     key: 'Jurisdiction',
-    width: 150,
+    width: '19%',
     ellipsis: true,
   },
   {
     title: <span className="numbers01-table">$8,230,000</span>,
     dataIndex: 'Cost',
     key: 'Cost',
-    width: 150,
+    width: '20%',
     ellipsis: true,
   },
 
@@ -129,7 +125,6 @@ const columns02 = [
     title: 'Study Name',
     dataIndex: 'StudyName',
     key: 'StudyName',
-    width: 270,
     ellipsis: true,
   },
 ];
@@ -163,26 +158,22 @@ const footer = [
   {
     dataIndex: 'Component',
     key: 'Component',
-    width: 170,
     ellipsis: true,
   },
   {
     dataIndex: 'Jurisdiction',
     key: 'Jurisdiction',
-    width: 150,
     ellipsis: true,
   },
   {
     dataIndex: 'Cost',
     key: 'Cost',
-    width: 150,
     ellipsis: true,
   },
 
   {
     dataIndex: 'StudyName',
     key: 'StudyName',
-    width: 270,
     ellipsis: true,
   },
 ];
@@ -227,11 +218,11 @@ export default ({ polygons, components } : any) => {
             <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
             <Row>
               <Col span={leftWidth}>
-                <Map 
+                <Map
                   leftWidth={leftWidth}
                   polygons={polygons}
                   components={components} />
-                  
+
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                 </Button>
@@ -258,11 +249,11 @@ export default ({ polygons, components } : any) => {
                     </div>
                     <div className="input-maint">
                         <label className="label-new-form" htmlFor="">#1</label>
-                        <Input size={"large"} placeholder="Basic usage" />
+                        <Input size={"large"} placeholder="" />
                     </div>
                     <div className="input-maint">
                       <label className="label-new-form" htmlFor="">#2</label>
-                      <Input size={"large"} placeholder="Basic usage" /><img className="img-maint" src="/Icons/icon-16.svg" alt=""/>
+                      <Input size={"large"} placeholder="" /><img className="img-maint" src="/Icons/icon-16.svg" alt=""/>
                     </div>
                     <div className="head-m draw-section">
                         <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt=""/></button>
@@ -275,12 +266,17 @@ export default ({ polygons, components } : any) => {
                       <Table columns={columns02} dataSource={data02} pagination={false} />
                       <Table className="footer-table" columns={footer} dataSource={data03} pagination={false} />
                     </div>
-                    <div>
+
+                    <br></br>
+
+                    <div className="label-npf">
                       <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt=""/></label>
                       <TextArea rows={4} />
                     </div>
 
-                    <div className="gutter-example user-tab">
+                    <br></br>
+
+                    <div className="gutter-example user-tab all-npf">
                         <div className="label-new-form">
                           <h3>PROJECT INFORMATION</h3>
                         </div>
@@ -318,7 +314,7 @@ export default ({ polygons, components } : any) => {
                           <Input placeholder="MHFD dollars" /></Col>
                           <Col className="gutter-row" span={12}>
                             <div className="form01">
-                              <div className="form01-02"><h3>Public Access / Ownership</h3><img src="/Icons/icon-19.svg" alt=""/></div>
+                              <div className="form01-02"><h3>Public Access / Ownership <img src="/Icons/icon-19.svg" alt=""/></h3></div>
                               <Switch checkedChildren="YES" unCheckedChildren="NO" defaultChecked />
                             </div>
                           </Col>
@@ -327,14 +323,11 @@ export default ({ polygons, components } : any) => {
                         <Row gutter={16}>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">How is this site maintenance eligible?<img src="/Icons/icon-19.svg" alt=""/></label>
-                            <Select size={"large"} defaultValue="Maintenance eligible" style={{ width: '100%' }}>
-                              <Option value="jack">Jack</Option>
-                              <Option value="lucy">Lucy</Option>
-                              <Option value="disabled" disabled>
-                                Disabled
-                              </Option>
-                              <Option value="Yiminghe">yiminghe</Option>
-                            </Select>
+                            <Dropdown overlay={menu}>
+                              <Button>
+                              Maintenance eligible <img src="/Icons/icon-12.svg" alt=""/>
+                              </Button>
+                            </Dropdown>
                           </Col>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
@@ -348,35 +341,27 @@ export default ({ polygons, components } : any) => {
                         <br></br>
                         <Row gutter={16}>
                           <Col className="gutter-row" span={12}>
-                            <Select size={"large"} defaultValue="Restoration Task" style={{ width: '100%' }}>
-                              <Option value="jack">Jack</Option>
-                              <Option value="lucy">Lucy</Option>
-                              <Option value="disabled" disabled>
-                                Disabled
-                              </Option>
-                              <Option value="Yiminghe">yiminghe</Option>
-                            </Select>
+                            <Dropdown overlay={menu}>
+                              <Button>
+                              Restoration Task <img src="/Icons/icon-12.svg" alt=""/>
+                              </Button>
+                            </Dropdown>
                           </Col>
                         </Row>
                         <Row gutter={16} className="input-maint">
                           <Col className="gutter-row" span={12}>
-                            <Select size={"large"} defaultValue="Tree Thinning" style={{ width: '100%' }}>
-                              <Option value="jack">Jack</Option>
-                              <Option value="lucy">Lucy</Option>
-                              <Option value="disabled" disabled>
-                                Disabled
-                              </Option>
-                              <Option value="Yiminghe">yiminghe</Option>
-                            </Select>
+                            <Dropdown overlay={menu}>
+                              <Button>
+                              Tree Thinning <img src="/Icons/icon-12.svg" alt=""/>
+                              </Button>
+                            </Dropdown>
                             <img className="img-maint" src="/Icons/icon-16.svg" alt=""/>
                           </Col>
                         </Row>
                     </div>
-                    <div>
+                    <div className="img-npf">
                       <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt=""/></label>
                       <Dragger>
-                        <p className="ant-upload-drag-icon">
-                        </p>
                         <img src="/Icons/icon-17.svg" alt=""/>
                         <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
                       </Dragger>
@@ -386,11 +371,9 @@ export default ({ polygons, components } : any) => {
                         </Tag>
                       </div>
                     </div>
-                    <div>
+                    <div className="img-npf">
                       <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt=""/></label>
-                      <Dragger>
-                        <p className="ant-upload-drag-icon">
-                        </p>
+                      <Dragger className="img-npf">
                         <img src="/Icons/icon-17.svg" alt=""/>
                         <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
                       </Dragger>
