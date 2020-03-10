@@ -86,7 +86,7 @@ export default () => {
               <h1>Create a new project</h1>
             </Col>
             <Col>
-              <Input size="large" style={{ width: '693px' }} placeholder="Name your project" onChange={(event) => {
+              <Input size="large" style={{ width: '480px' }} placeholder="Name your project" onChange={(event) => {
                 console.log(event.target.value);
               }}/>
             </Col>

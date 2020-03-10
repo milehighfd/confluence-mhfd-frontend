@@ -1421,19 +1421,20 @@ body{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 20px 10%;
+  padding: 10px 10% 20px 10%;
 }
-// .btn-creation01 div {
-//   width: 220px;
-//   height: 200px;
-//   margin: 20px 25px;
-// }
+.btn-creation01 div {
+  width: 220px;
+  height: 200px;
+  margin: 20px 25px 10px 25px;
+}
 .btn-creation01 Button {
   height: inherit;
   width: inherit;
+  color: $opacity;
   border: 1px solid rgba(37, 24, 99, 0.1);
   text-transform: uppercase;
-  font-size: 21.3px;
+  font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -1445,8 +1446,9 @@ body{
   flex-direction: column;
   justify-content: flex-end;
   align-items: initial;
-  width: 220px;
-  height: 200px;
+  padding: 0px;
+  // width: 220px;
+  // height: 200px;
 }
 .btn-creation01 .ant-btn:hover .img-h,.btn-creation01 .ant-btn:focus .img-h, .btn-creation01 .ant-btn:active .img-h, .btn-creation01 .ant-btn.active .img-h {
  display: none;
@@ -1455,7 +1457,7 @@ body{
 display: inline-block !important;
 }
 .btn-creation01 button span {
-  margin: 45px 0;
+  margin: 35px 0;
 }
 .btn-creation01 Button:hover {
   background-color: $green;
@@ -1483,9 +1485,14 @@ display: inline-block !important;
 }
 .content-new01{
   overflow-y: auto;
+  .ant-input-lg {
+    height: 35px;
+    padding: 6px 11px;
+    font-size: 14px;
+  }
 }
 .content-new01 h1 {
-  font-size: 40px;
+  font-size: 28px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -1493,7 +1500,7 @@ display: inline-block !important;
   letter-spacing: normal;
   text-align: center;
   color: $purple00;
-  margin-top: 49px;
+  margin-top: 25px;
 }
 .img-npf{
   margin-bottom: 20px;
