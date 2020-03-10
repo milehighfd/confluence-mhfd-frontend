@@ -16,7 +16,7 @@ const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
 let map : any = null;
 
-const Map = ({ leftWidth, children } : any) => {
+const Map = ({ leftWidth, children, polygons, components } : any) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState<any>({default: 0, items: MAP_DROPDOWN_ITEMS});
 
@@ -25,8 +25,8 @@ const Map = ({ leftWidth, children } : any) => {
         map = new mapboxgl.Map({
             container: 'map',
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
-            center: [-105.02, 39.805], // starting position
-            zoom: 11, // starting zoom
+            center: [-105.04, 39.805], // starting position
+            zoom: 10.8, // starting zoom
         });
 
         const nav = new mapboxgl.NavigationControl({ showCompass: false });
@@ -34,7 +34,8 @@ const Map = ({ leftWidth, children } : any) => {
 
         const geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
-            placeholder: 'Search...'
+            placeholder: 'Search...',
+            marker: false
         });
 
         const geo = document.getElementById('geocoder')!;
@@ -47,8 +48,11 @@ const Map = ({ leftWidth, children } : any) => {
                 controls: { polygon: true }
             });
             map.on('draw.create', () => replaceOldPolygon(draw))
+            map.on('draw.update', () => replaceOldPolygon(draw))
             drawPolygon.appendChild(draw.onAdd(map));
         }
+        
+        map.on('style.load', () => drawPolygons());
     }, []);
 
     useEffect(() => {
@@ -59,6 +63,18 @@ const Map = ({ leftWidth, children } : any) => {
         map.resize();
     }, [leftWidth]);
 
+    // Refacture when Backend
+    useEffect(() => {
+        /* Refacture the logic when recieving props from Backend */
+        map.on('load', () => drawPolygons());
+    }, [polygons])
+
+    useEffect(() => {
+        /* Refacture the logic when recieving props from Backend */
+        map.on('load', () => drawComponents());
+    }, [components])
+    // -----------------------
+
     const selectMapStyle = (index : number) => {
         setDropdownItems({...dropdownItems, default: index});
     }  
@@ -67,6 +83,85 @@ const Map = ({ leftWidth, children } : any) => {
         if(draw.getAll().features.length > 1) {
             const features = draw.getAll().features;
             draw.delete(features[0].id);
+        }
+
+        /* Get the coords on Drawing */
+        // console.log(draw.getAll().features[0].geometry.coordinates);
+    }
+
+
+    const drawPolygons = () => {
+        if(!polygons) return;
+
+        polygons.map((polygon : any) => {
+            refreshSourceLayers(polygon.id);
+            map.addSource(polygon.id, {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Polygon',
+                        coordinates: [polygon.coordinates]
+                    }
+                }
+            });
+            map.addLayer({
+                id: polygon.id + '_fill',
+                type: 'fill',
+                source: polygon.id,
+                layout: {},
+                paint: {
+                    'fill-color': '#088',
+                    'fill-opacity': 0.3,
+                }
+            });
+            map.addLayer({
+                id: polygon.id + '_line',
+                type: 'line',
+                source: polygon.id,
+                layout: {},
+                paint: {
+                    'line-color': '#00bfa5',
+                    'line-width': 2.5,
+                }
+            });
+        });
+    }
+
+    const drawComponents = () => {
+        if(!components) return;
+
+        components.map((component : any) => {
+            refreshSourceLayers(component.id);
+            map.addSource(component.id, {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Polygon',
+                        coordinates: [component.coordinates]
+                    }
+                }
+            });
+            map.addLayer({
+                id: component.id + '_line',
+                type: 'line',
+                source: component.id,
+                layout: {},
+                paint: {
+                    'line-color': '#ff8f00',
+                    'line-width': 1,
+                }
+            });
+        });
+    }
+
+    const refreshSourceLayers = (id : number) => {
+        const mapSource = map.getSource(id);
+        if(mapSource) {
+            map.removeLayer(id + '_fill');
+            map.removeLayer(id + '_line');
+            map.removeSource(id);
         }
     }
 

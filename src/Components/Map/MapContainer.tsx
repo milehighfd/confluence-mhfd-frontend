@@ -4,7 +4,8 @@ import MapView from './MapView';
 
 const mapStateToProps = (state: any) => {
   return {
-    polygons: state.map.polygons
+    polygons: state.map.polygons,
+    components: state.map.components
   };
 };
 

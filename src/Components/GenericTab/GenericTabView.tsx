@@ -25,8 +25,8 @@ export default (props: any) => {
     return <> <div className="hastag">
         <h6> Showing {props.totalElements} {props.type}:</h6>
         <div>
-            {tags.map((data: String, index: Number) => {
-                return <Tag closable onClose={() => deleteTag(index)}>
+            {tags.map((data: String, index: number) => {
+                return <Tag key={index} closable onClose={() => deleteTag(index)}>
                     {data}
                 </Tag>
             })}
@@ -53,8 +53,8 @@ export default (props: any) => {
             :
             <>
                 <Row className="card-map" gutter={[16, 16]}>
-                    {props.cardInformation.map((data: any) => {
-                        return <CardInformationView data={data} type={props.type} />
+                    {props.cardInformation.map((data: any, index : number) => {
+                        return <CardInformationView key={index} data={data} type={props.type} />
                     })}
                 </Row> </>} </>
 }

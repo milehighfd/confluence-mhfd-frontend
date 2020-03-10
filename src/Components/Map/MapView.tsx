@@ -59,13 +59,13 @@ const accordionRow: Array<any> = [
   }
 ];
 
-export default (props : any) => {
+export default ({ polygons, components } : any) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
   const [listDescription, setListDescription] = useState(false);
-  console.log(props.polygons);
+
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
       setLeftWidth(COMPLETE_SCREEN);
@@ -86,7 +86,10 @@ export default (props : any) => {
             <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
             <Row>
               <Col span={leftWidth}>
-                <Map leftWidth={leftWidth} />
+                <Map 
+                  leftWidth={leftWidth} 
+                  polygons={polygons}
+                  components={components} />
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

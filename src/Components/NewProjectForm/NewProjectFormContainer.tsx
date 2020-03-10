@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 
 import NewProjectFormView from './NewProjectFormView';
 
-const mapStateToProps = (state: any): any => {
+const mapStateToProps = (state: any) => {
   return {
-    sample: state.sample
+    polygons: state.map.polygons,
+    components: state.map.components
   };
 };
 
