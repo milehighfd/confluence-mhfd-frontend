@@ -133,11 +133,7 @@ body{
      padding:0px 20px !important;
    }
 }
-.ant-menu-dark.ant-menu-inline .ant-menu-item, .ant-menu-dark.ant-menu-vertical .ant-menu-item,
-.ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
-.ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
-  padding: 0px 20px !important;
-}
+
 .img-a{
   display: none !important;
 }
@@ -2651,6 +2647,40 @@ display: inline-block !important;
   z-index: 10;
 }
 
+.profile-pad {
+  .ant-collapse-borderless > .ant-collapse-item {
+    border-bottom: none;
+    margin-bottom: 10px;
+    background: #f7f8f8;
+}
+.ant-collapse {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum', "tnum";
+  background-color: transparent;
+  border: none;
+  border-bottom: 0;
+  border-radius: 4px;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+  display: none;
+}
+.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content {
+  background-color: transparent;
+  border-top: 1px solid $opacity01;
+}
+.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+  padding-top: 18px;
+}
+}
 // MEDIA QUERIES
 @media (min-width: 1600px) {
   .btn-creation01 div {
