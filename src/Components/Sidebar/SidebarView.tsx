@@ -12,7 +12,7 @@ export default () => {
   const routes = ['/profile-view', '/map', '/new-project-types', '/work-request', '/work-plan', '/user'];
   const indexOf = "" + routes.indexOf(location.pathname);
 
-  return <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
+  return <Sider collapsedWidth="58" collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
     <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline" >
       <Menu.Item key="0">
         <Link to={'/profile-view'}>

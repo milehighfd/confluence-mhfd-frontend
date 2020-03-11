@@ -28,7 +28,7 @@ const genExtra = () => (
 );
 
 const menu = (
-  <Menu>
+  <Menu className="js-mm-00">
     <Menu.Item>
       <a target="_blank" rel="noopener noreferrer" href="">
         1st menu item

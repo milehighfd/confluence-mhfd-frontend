@@ -918,6 +918,7 @@ body{
     background-color: transparent;
     color: $purple00;
     font-size: 12px;
+    box-shadow: none;
   }
   button img{
     margin-right: 5px;
@@ -965,13 +966,16 @@ body{
     color: $purple;
     line-height: 30px;
     height: 54px;
-    box-shadow: 0px 3px 10px rgba(68, 58, 121, 0.2);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15) !important;
   }
   .ant-collapse > .ant-collapse-item {
     border-bottom: none;
+    background: $white;
+    margin-bottom: 10px;
   }
   .ant-collapse{
     border: none;
+    background: transparent;
   }
   .ant-collapse-content {
     background-color: $opacity00;
@@ -1009,7 +1013,15 @@ body{
   }
 }
 .line-00{
-  height: 6px;
+  height: 7px;
+}
+.line-02{
+  position: absolute;
+  background: #e8e8e8;
+  height: 2px;
+  width: 22px;
+  top: 11px;
+  left: -40px;
 }
 .tab-head{
   display: flex;
@@ -1448,7 +1460,7 @@ body{
   color: $opacity;
   border: 1px solid rgba(37, 24, 99, 0.1);
   text-transform: uppercase;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -1483,6 +1495,9 @@ display: inline-block !important;
   border: 1px solid rgba(5, 33, 41, 0.1);
   color: $white;
 }
+.btn-creation01 Button .img-h{
+  opacity: 0.8;
+}
 // content-creation-new
 .content-create {
   height: calc(100vh - 58px);
@@ -1491,6 +1506,7 @@ display: inline-block !important;
   padding: 20px 19px 0 19px;
   font-family: "Ubuntu", sans-serif;
   text-align: center;
+  position: relative;
 }
 .content-create .content-new01 {
   background-color: $white;
@@ -1726,6 +1742,25 @@ display: inline-block !important;
   font-weight: 600 !important;
   margin-left: 8px !important;
 }
+.back-around{
+  position: absolute;
+  top: 45px;
+  left: 45px;
+  z-index: 10;
+
+  button, button:hover, button:focus{
+    border: none;
+    background: transparent;
+    color: $opacity;
+    font-size: 16px;
+    box-shadow: none;
+  }
+  img{
+    transform: rotate(180deg);
+    margin-right: 6px;
+    margin-top: -2px;
+  }
+}
 // table creation new project
 .footer-table th{
   display: none;
@@ -1761,6 +1796,7 @@ display: inline-block !important;
   text-align: right;
   color: $purple00;
 }
+
 // draw-section
 .draw-section {
   width: 100%;

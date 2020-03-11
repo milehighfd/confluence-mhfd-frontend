@@ -2,7 +2,7 @@ import * as React from "react";
 import { Menu } from "antd";
 
 export default () => {
-    return <Menu>
+    return <Menu className="js-mm-00">
         <Menu.Item>
             <a target="_blank" rel="noopener noreferrer" href="">
                 1st menu item

@@ -6,8 +6,8 @@ export default (props: any) => {
     return <Row>
         <Col span={9}>
             <Timeline>
-                <Timeline.Item color={props.data.color}>
-                    <p> {props.data.field1} <img className="img-h" src={props.data.image} alt="" /></p>
+                <Timeline.Item className="line-00" color={props.data.color}>
+                    <p><div className="line-02"></div> {props.data.field1} <img className="img-h" src={props.data.image} alt="" /></p>
                 </Timeline.Item>
             </Timeline>
         </Col>

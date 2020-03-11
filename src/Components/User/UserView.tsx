@@ -11,24 +11,27 @@ const { TabPane } = Tabs;
 const { Search } = Input;
 const { Panel } = Collapse;
 const menu = (
-  <Menu>
-    <Menu.Item key="1">
-      <Icon type="user" />
-      1st menu item
+  <Menu className="js-mm-00">
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+        1st menu item
+      </a>
     </Menu.Item>
-    <Menu.Item key="2">
-      <Icon type="user" />
-      2nd menu item
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+        2nd menu item
+      </a>
     </Menu.Item>
-    <Menu.Item key="3">
-      <Icon type="user" />
-      3rd menu item
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+        3rd menu item
+      </a>
     </Menu.Item>
   </Menu>
 );
 
 const dropdownMenu = ({handleDropdowns, index, id} : any) => (
-  <Menu>
+  <Menu className="js-mm-00">
     <Menu.Item key="1" onClick={() => handleDropdowns('1st menu item', index, id)}>
       <Icon type="user" />
       1st menu item
@@ -129,7 +132,7 @@ export default ({ users, saveUserState, deleteUser } : any) => {
                               aprPos++;
                               return (
                                 <div key={index} style={{marginBottom: 10}}>
-                                  <Accordeon 
+                                  <Accordeon
                                     menu={dropdownMenu}
                                     user={user}
                                     index={index}
@@ -142,7 +145,7 @@ export default ({ users, saveUserState, deleteUser } : any) => {
                               );
                             }
                           })}
-                          
+
                           <div className="pagi-00">
                             <Pagination defaultCurrent={1} total={200} />
                           </div>
@@ -156,7 +159,7 @@ export default ({ users, saveUserState, deleteUser } : any) => {
                               pndPos++;
                               return (
                                 <div key={index} style={{marginBottom: 10}}>
-                                  <Accordeon 
+                                  <Accordeon
                                     menu={dropdownMenu}
                                     user={user}
                                     index={index}
