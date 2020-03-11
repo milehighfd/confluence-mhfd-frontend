@@ -2537,7 +2537,7 @@ display: inline-block !important;
 // profile
 .profile-header {
   background-color: $white;
-  height: 268px !important;
+  min-height: 268px !important;
 }
 .profile-img {
   height: 133px;
@@ -2601,6 +2601,7 @@ display: inline-block !important;
   background: $white !important;
   position: relative !important;
   top: -39px !important;
+  height: calc(100% - -36px);
 }
 .profile-divider {
   background: #f0f2f5;
@@ -2636,3 +2637,9 @@ display: inline-block !important;
     font-size: 16px;
   }
  }
+ .pad-collab {
+  padding: 2px 7px 2px 12px;
+}
+.profile-pad {
+  padding: 40px 35px 20px 20px;
+}
