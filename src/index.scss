@@ -133,7 +133,11 @@ body{
      padding:0px 20px !important;
    }
 }
-
+.ant-menu-dark.ant-menu-inline .ant-menu-item, .ant-menu-dark.ant-menu-vertical .ant-menu-item,
+.ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
+.ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
+  padding: 0px 20px !important;
+}
 .img-a{
   display: none !important;
 }
@@ -784,7 +788,7 @@ body{
     padding: 10px 10px 10px 0;
     border-bottom: 1px solid rgba(61, 46, 138, 0.07);
   }
-  .ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active, {
+  .ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
     box-shadow: none;
     height: 40px;
     font-size: 14px;

@@ -205,10 +205,9 @@ export default () => {
                           />
                       </div>
                       <div className="btn-r">
-                          <label>Sort by:</label>
                           <Dropdown overlay={menu}>
                           <Button>
-                              Approval Date <img src="Icons/icon-14.svg" alt=""/>
+                              By Status <img src="Icons/icon-14.svg" alt=""/>
                           </Button>
                           </Dropdown>
                       </div>
