@@ -2680,6 +2680,15 @@ display: inline-block !important;
 .ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
   padding-top: 18px;
 }
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  padding-left: 26px;
+  color: $purple00;
+}
+}
+.profile-pad h2 {
+  font-size: 18px;
+  color: $purple00;
+  margin-bottom: 18px;
 }
 // MEDIA QUERIES
 @media (min-width: 1600px) {
