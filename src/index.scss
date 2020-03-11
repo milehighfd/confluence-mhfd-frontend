@@ -236,13 +236,13 @@ body{
   .ant-tabs-nav .ant-tabs-tab-active {
     color: $purple00 !important;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 16px;
     font-family: $ubunto;
     font-weight: 400;
   }
   .ant-tabs-nav .ant-tabs-tab {
     padding: 12px 0px;
-    font-size: 18px;
+    font-size: 16px;
     font-family: $ubunto;
     color: $opacity;
     font-weight: 400;
@@ -389,10 +389,10 @@ body{
   }
 }
 .user-card{
-  height: 128px;
+  height: 110px;
   border-radius: 4px;
   background-color: $opacity00;
-  padding: 25px 12px;
+  padding: 25px 12px 20px 12px;
   text-align: center;
 
   h6{
@@ -402,7 +402,7 @@ body{
     margin-bottom: 0px;
   }
   .user-d{
-    height: 60px;
+    height: 55px;
   }
   .ant-radio-checked .ant-radio-inner {
     border-color: $green;
@@ -413,6 +413,12 @@ body{
   .ant-radio-wrapper:hover .ant-radio, .ant-radio:hover .ant-radio-inner,
   .ant-radio-input:focus + .ant-radio-inner {
     border-color: $green;
+  }
+  .ant-radio-wrapper{
+    margin-right: 0px;
+  }
+  p{
+    margin-bottom: 5px;
   }
 }
 .user-footer{
@@ -477,10 +483,10 @@ body{
 }
 .activity-b{
   background: $white;
-  padding: 13px 20px;
+  padding: 14.5px 20px;
   height: 50px;
   min-height: 50px;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 4px;
   font-weight:400;
   box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.05);

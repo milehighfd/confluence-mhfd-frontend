@@ -24,7 +24,7 @@ export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, s
           <Col span={1} style={{textAlign: 'right'}}><img src="Icons/icon-20.svg" alt=""/></Col>
         </Row>
       );
-      
+
     return (
         <>
             <Collapse accordion className="user-tab">
@@ -53,20 +53,20 @@ export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, s
                 <div className="gutter-example">
                 <h3>USER DESIGNATION</h3>
                 <Row gutter={16}>
-                    <Radio.Group name="designation" value={user.designation} onChange={(e) => handleRadioButton(e, index)}>
-                        <Col className="gutter-row" span={4}>
+                    <Radio.Group name="designation" value={user.designation} onChange={(e) => handleRadioButton(e, index)} style={{width:'100%'}}>
+                        <Col span={4}>
                         <div className="user-card">
                             <p><Radio value={'MHFD Admin'}></Radio></p>
                             <div className="user-d"><h6>MHFD Admin</h6></div>
                         </div>
                         </Col>
-                        <Col className="gutter-row" span={4}>
+                        <Col span={4}>
                         <div className="user-card">
                             <p><Radio value={'MHFD Staff'}></Radio></p>
                             <div className="user-d"><h6>MHFD Staff</h6></div>
                         </div>
                         </Col>
-                        <Col className="gutter-row" span={4}>
+                        <Col span={4}>
                         <div className="user-card">
                             <p><Radio value={'Local Government Admin'}></Radio></p>
                             <div className="user-d">
@@ -75,7 +75,7 @@ export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, s
                             </div>
                         </div>
                         </Col>
-                        <Col className="gutter-row" span={4}>
+                        <Col span={4}>
                         <div className="user-card">
                             <p><Radio value={'Local Government'}></Radio></p>
                             <div className="user-d">
@@ -84,13 +84,13 @@ export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, s
                             </div>
                         </div>
                         </Col>
-                        <Col className="gutter-row" span={4}>
+                        <Col span={4}>
                         <div className="user-card">
                             <p><Radio value={'Consultant/Contractor'}></Radio></p>
                             <div className="user-d"><h6> Consultant/ Contractor</h6></div>
                         </div>
                         </Col>
-                        <Col className="gutter-row" span={4}>
+                        <Col span={4}>
                         <div className="user-card">
                             <p><Radio value={'Other'}></Radio></p>
                             <div className="user-d"><h6>Other</h6></div>
