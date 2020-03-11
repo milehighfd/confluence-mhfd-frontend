@@ -33,16 +33,19 @@ const menu = (
 const dropdownMenu = ({handleDropdowns, index, id} : any) => (
   <Menu className="js-mm-00">
     <Menu.Item key="1" onClick={() => handleDropdowns('1st menu item', index, id)}>
-      <Icon type="user" />
+      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
       1st menu item
+      </a>
     </Menu.Item>
     <Menu.Item key="2" onClick={() => handleDropdowns('2nd menu item', index, id)}>
-      <Icon type="user" />
+      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
       2nd menu item
+      </a>
     </Menu.Item>
     <Menu.Item key="3" onClick={() => handleDropdowns('3rd menu item', index, id)}>
-      <Icon type="user" />
+      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
       3rd menu item
+      </a>
     </Menu.Item>
   </Menu>
 );
