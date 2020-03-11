@@ -123,12 +123,17 @@ body{
   background: $dark !important;
 
   img{
-    margin-right: 10px;
+    margin-right: 10px !important;
   }
   li{
     margin-bottom: 15px !important;
+    padding: 0 20px !important;
   }
+  .ant-menu-submenu-title{
+     padding:0px 20px !important;
+   }
 }
+
 .img-a{
   display: none !important;
 }
@@ -150,6 +155,9 @@ body{
 }
 .ant-layout-sider-trigger{
   background: $dark !important;
+}
+.ant-menu-inline-collapsed{
+  width: auto !important;
 }
 // USER
 .user-filter{
@@ -2595,3 +2603,30 @@ display: inline-block !important;
   bottom: -269px;
   z-index: 10;
 }
+
+// MEDIA QUERIES
+@media (min-width: 1600px) {
+  .btn-creation01 div {
+    width: 293px;
+    height: 267px;
+    margin: 30px;
+  }
+  .btn-creation01 Button{
+    font-size: 18px;
+  }
+  .btn-creation01 button span {
+    margin: 45px 0;
+  }
+  .btn-creation01 {
+    padding: 30px 15% 20px 15%;
+  }
+  .content-new01 h1 {
+    font-size: 40px;
+    margin-top: 40px;
+  }
+  .content-new01 .ant-input-lg {
+    height: 40px;
+    padding: 6px 11px;
+    font-size: 16px;
+  }
+ }

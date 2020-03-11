@@ -13,8 +13,8 @@ export default () => {
   const indexOf = "" + routes.indexOf(location.pathname);
 
   return <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
-    <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline">
-      <Menu.Item key="0" >
+    <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline" >
+      <Menu.Item key="0">
         <Link to={'/profile-view'}>
           <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="18px" />
           <img className="img-a anticon" src="/Icons/menu-green-01.svg" alt="" width="18px" />
