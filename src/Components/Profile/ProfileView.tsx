@@ -158,7 +158,9 @@ export default () => {
             <Layout className="map-00" style={{height: 'calc(100vh - 58px)', overflowY: 'scroll'}}>
               <Row className="profile-header">
                 <Col span={13} className="profile-info">
-                  <img className="profile-img" src="/Icons/icon-28.svg" alt=""/>
+                  <div style={{position: 'relative'}}><img className="profile-img" src="/Icons/icon-28.svg" alt=""/>
+                    <div className="profile-change"><Button type="default" shape="circle">i</Button></div>
+                  </div>
                   <div className="profile-dat">
                     <div className="profile-name">
                       <h3>Elaine Thompson</h3>
