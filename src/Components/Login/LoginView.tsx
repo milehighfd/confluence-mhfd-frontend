@@ -4,7 +4,7 @@ import { Carousel } from 'antd';
 import { useFormik } from "formik";
 import * as datasets from "../../Config/datasets"
 import { SERVER } from "../../Config/Server.config";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 const url2 = process.env.REACT_APP_API_URI;
 
@@ -112,9 +112,11 @@ export default ({replaceAppUser}: any) => {
       </div>
       <div className="marbot-4">
         <span>Don’t have an account?</span>
-          <a className="login-form-forgot" href="">
+        <Link to={'/sign-up'}>
+          <a className="login-form-forgot">
           Sign-Up
           </a>
+        </Link>
           <a href="" style={{ float: 'right', color: '#11093C'}}>Forgot Password?</a>
       </div>
         <Button className="buttonLogin" block htmlType="submit">

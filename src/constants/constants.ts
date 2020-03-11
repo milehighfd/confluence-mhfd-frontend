@@ -15,6 +15,45 @@ export const MAP_DROPDOWN_ITEMS = [
     }
 ];
 
+export const CITIES = [
+    "Arvada",
+    "Aurora",
+    "Boulder",
+    "Bow Mar",
+    "Brighton",
+    "Broomfield",
+    "Castle Pines",
+    "Centennial",
+    "Cherry Hills Village",
+    "Columbine Valley",
+    "Commerce City",
+    "Denver",
+    "Edgewater",
+    "Englewood",
+    "Erie",
+    "Federal Heights",
+    "Foxfield",
+    "Glendale",
+    "Golden",
+    "Greenwood Village",
+    "Lafayette",
+    "Lakeside",
+    "Lakewood",
+    "Littleton",
+    "Lochbuie",
+    "Lone Tree",
+    "Louisville",
+    "Morrison",
+    "Mountain View",
+    "Northglenn",
+    "Parker",
+    "Sheridan",
+    "Superior",
+    "Thornton",
+    "Westminster",
+    "Wheat Ridge"
+]
+
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11
     mapbox://styles/mapbox/outdoors-v11
