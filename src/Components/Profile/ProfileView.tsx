@@ -166,13 +166,13 @@ export default () => {
                     </div>
                     <div className="profile-contact">
                       <Button type="default" shape="circle">
-                        <img src="/Icons/icon-10.svg" alt=""/>
+                        <img src="/Icons/icon-65.svg" alt=""/>
                       </Button>
                       <Button type="default" shape="circle">
-                        <img src="/Icons/icon-10.svg" alt=""/>
+                        <img src="/Icons/icon-64.svg" alt=""/>
                       </Button>
                       <Button type="default" shape="circle">
-                        <img src="/Icons/icon-10.svg" alt=""/>
+                        <img src="/Icons/icon-67.svg" alt=""/>
                       </Button>
                     </div>
                   </div>
