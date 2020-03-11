@@ -122,6 +122,7 @@ const data01 = [
     Favorited: '3',
     Jurisdiction: '4',
     Drafts: '2',
+    className: 'meh',
   },
   {
     key: '3',
@@ -155,7 +156,7 @@ export default () => {
           <NavbarView></NavbarView>
           <Layout>
             <SidebarView></SidebarView>
-            <Layout className="map-00" style={{height: 'calc(100vh - 58px)', overflowY: 'scroll'}}>
+            <Layout className="map-00 profile-00" style={{height: 'calc(100vh - 58px)', overflowY: 'scroll'}}>
               <Row className="profile-header">
                 <Col span={13} className="profile-info">
                   <div style={{position: 'relative'}}><img className="profile-img" src="/Icons/icon-28.svg" alt=""/>
@@ -168,13 +169,13 @@ export default () => {
                     </div>
                     <div className="profile-contact">
                       <Button type="default" shape="circle">
-                        <img src="/Icons/icon-65.svg" alt=""/>
+                        <img src="/Icons/icon-65.svg" alt="" height="15px"/>
                       </Button>
                       <Button type="default" shape="circle">
-                        <img src="/Icons/icon-64.svg" alt=""/>
+                        <img src="/Icons/icon-64.svg" alt="" height="15px"/>
                       </Button>
                       <Button type="default" shape="circle">
-                        <img src="/Icons/icon-67.svg" alt=""/>
+                        <img src="/Icons/icon-67.svg" alt="" height="15px"/>
                       </Button>
                     </div>
                   </div>
@@ -220,7 +221,7 @@ export default () => {
                       </Row>
                       </TabPane>
                       <TabPane tab="Projects" key="2">
-                        <Row style={{background: '#fff', marginTop: '20px'}} gutter={[16, 16]}>
+                        <Row style={{background: '#fff', marginTop: '20px'}} className="card-map" gutter={[16, 16]}>
                           <div className="user-filter profile-filter">
                             <div>
                                 <Search
@@ -302,7 +303,7 @@ export default () => {
                           </Panel>
                         </Collapse>
                       </Col>
-                    </Row> 
+                    </Row>
                 </Col>
               </Row>
             </Layout>

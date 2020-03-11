@@ -24,12 +24,12 @@ body{
 }
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
 .ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollbar,
-.count-01::-webkit-scrollbar{
+.count-01::-webkit-scrollbar, .profile-00::-webkit-scrollbar{
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thumb,
 .ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb,
-.count-01::-webkit-scrollbar-thumb{
+.count-01::-webkit-scrollbar-thumb, .profile-00::-webkit-scrollbar-thumb{
   background: $purple;
   border-radius: 5px;
 }
@@ -1256,14 +1256,14 @@ body{
 }
 .map .m-zoom{
   position: absolute;
-  width: 32px;
+  width: 25px;
   right: 20px;
   bottom: 20px;
   z-index: 10;
 
   button{
-    width: 32px;
-    height: 32px;
+    width: 25px;
+    height: 25px;
     padding: 0px;
     border: none;
   }
@@ -2587,7 +2587,7 @@ display: inline-block !important;
 .profile-change {
   position: absolute;
   right: 25px;
-  bottom: 3px; 
+  bottom: 3px;
 }
 .btn-edit-00 {
   background: transparent;
@@ -2616,16 +2616,18 @@ display: inline-block !important;
   width: 40px;
   margin-right: 20px;
 }
-.profile-prot button {
+.profile-prot button,.profile-prot button:hover, .profile-prot button:focus, .profile-prot button:active, .profile-prot button.active {
   margin: 0 6.5px;
   background-color: $opacity00;
+  border: none;
+  color: $purple00;
 }
 .profile-table {
   padding: 20px 53px;
 }
 .profile-table td {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -2633,6 +2635,12 @@ display: inline-block !important;
   text-align: center;
   color: $purple00;
 }
+.profile-table tr:nth-child(2),.profile-table tr:nth-child(4){
+  background-color: $opacity00;
+}
+.profile-table .ant-table-small > .ant-table-content > .ant-table-body {
+    margin: 0px;
+  }
 .profile-bystatus {
   border: none !important;
   color: $opacity !important;
@@ -2675,38 +2683,38 @@ display: inline-block !important;
     border-bottom: none;
     margin-bottom: 10px;
     background: #f7f8f8;
-}
-.ant-collapse {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  color: rgba(0, 0, 0, 0.65);
-  font-size: 14px;
-  font-variant: tabular-nums;
-  line-height: 1.5;
-  list-style: none;
-  -webkit-font-feature-settings: 'tnum';
-  font-feature-settings: 'tnum', "tnum";
-  background-color: transparent;
-  border: none;
-  border-bottom: 0;
-  border-radius: 4px;
-}
-.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
-  display: none;
-}
-.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content {
-  background-color: transparent;
-  border-top: 1px solid $opacity01;
-}
-.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
-  padding-top: 18px;
-}
-.ant-collapse > .ant-collapse-item > .ant-collapse-header {
-  padding-left: 26px;
-  color: $purple00;
-}
+  }
+  .ant-collapse {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum', "tnum";
+    background-color: transparent;
+    border: none;
+    border-bottom: 0;
+    border-radius: 4px;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+    display: none;
+  }
+  .ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content {
+    background-color: transparent;
+    border-top: 1px solid $opacity01;
+  }
+  .ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+    padding-top: 18px;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding-left: 20px;
+    color: $purple00;
+  }
 }
 .profile-pad h2 {
   font-size: 18px;
@@ -2739,9 +2747,19 @@ display: inline-block !important;
     font-size: 16px;
   }
  }
- .pad-collab {
-  padding: 2px 7px 2px 12px;
-}
+//  .pad-collab {
+//   padding: 2px 7px 2px 12px;
+// }
 .profile-pad {
   padding: 40px 20px 20px 20px;
+}
+.error-404{
+  text-align: center;
+  color: $opacity;
+}
+.btn-error, .btn-error:hover, .btn-error:focus, .btn-error:active, .btn-error.active{
+  background: $purple !important;
+  color: $white !important;
+  border: none !important;
+  border-radius: 4px !important;
 }

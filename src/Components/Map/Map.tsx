@@ -51,7 +51,7 @@ const Map = ({ leftWidth, children, polygons, components } : any) => {
             map.on('draw.update', () => replaceOldPolygon(draw))
             drawPolygon.appendChild(draw.onAdd(map));
         }
-        
+
         map.on('style.load', () => drawPolygons());
     }, []);
 
@@ -77,7 +77,7 @@ const Map = ({ leftWidth, children, polygons, components } : any) => {
 
     const selectMapStyle = (index : number) => {
         setDropdownItems({...dropdownItems, default: index});
-    }  
+    }
 
     const replaceOldPolygon = (draw : any) => {
         if(draw.getAll().features.length > 1) {
@@ -202,8 +202,8 @@ const Map = ({ leftWidth, children, polygons, components } : any) => {
                 </div>
 
                 {/* <div className="m-zoom">
-                    <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt=""/></Button>
-                    <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt=""/></Button>
+                    <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt="" width="12px"/></Button>
+                    <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>
                 </div> */}
         </div>
     )
