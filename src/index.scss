@@ -2586,6 +2586,12 @@ display: inline-block !important;
 }
 .profile-change {
   position: absolute;
+  right: 25px;
+  bottom: 3px; 
+}
+.btn-edit-00 {
+  background: transparent;
+  border: none !important;
 }
 .profile-info {
   display: flex !important;
@@ -2626,6 +2632,16 @@ display: inline-block !important;
   letter-spacing: normal;
   text-align: center;
   color: $purple00;
+}
+.profile-bystatus {
+  border: none !important;
+  color: $opacity !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  width: 118px !important;
+}
+.profile-filter {
+  justify-content: space-between;
 }
 .profile-table span {
   font-size: 15px;
@@ -2727,5 +2743,5 @@ display: inline-block !important;
   padding: 2px 7px 2px 12px;
 }
 .profile-pad {
-  padding: 40px 35px 20px 20px;
+  padding: 40px 20px 20px 20px;
 }

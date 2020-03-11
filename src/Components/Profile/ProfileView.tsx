@@ -159,7 +159,7 @@ export default () => {
               <Row className="profile-header">
                 <Col span={13} className="profile-info">
                   <div style={{position: 'relative'}}><img className="profile-img" src="/Icons/icon-28.svg" alt=""/>
-                    <div className="profile-change"><Button type="default" shape="circle">i</Button></div>
+                    <div className="profile-change"><Button type="default" shape="circle" className="btn-edit-00"><img src="/Icons/icon-66.svg" alt=""/></Button></div>
                   </div>
                   <div className="profile-dat">
                     <div className="profile-name">
@@ -198,7 +198,7 @@ export default () => {
                   <Tabs style={{padding:'0 53px'}} defaultActiveKey="1" className="tabs-map">
                       <TabPane tab="Problems" key="1">
                       <Row style={{background: '#fff', marginTop: '20px'}} className="card-map" gutter={[16, 16]}>
-                      <div className="user-filter">
+                      <div className="user-filter profile-filter">
                       <div>
                           <Search
                           placeholder="Search by Name"
@@ -206,11 +206,11 @@ export default () => {
                           style={{ width: 240 }}
                           />
                       </div>
-                      <div className="btn-r">
+                      <div>
                           <Dropdown overlay={menu}>
-                          <Button>
-                              By Status <img src="Icons/icon-14.svg" alt=""/>
-                          </Button>
+                            <Button className="profile-bystatus" >
+                                By Status <img src="Icons/icon-14.svg" alt=""/>
+                            </Button>
                           </Dropdown>
                       </div>
                       </div>
@@ -221,7 +221,7 @@ export default () => {
                       </TabPane>
                       <TabPane tab="Projects" key="2">
                         <Row style={{background: '#fff', marginTop: '20px'}} gutter={[16, 16]}>
-                          <div className="user-filter">
+                          <div className="user-filter profile-filter">
                             <div>
                                 <Search
                                 placeholder="Search by Name"
@@ -229,12 +229,11 @@ export default () => {
                                 style={{ width: 240 }}
                                 />
                             </div>
-                            <div className="btn-r">
-                                <label>Sort by:</label>
+                            <div>
                                 <Dropdown overlay={menu}>
-                                <Button>
-                                    Approval Date <img src="Icons/icon-14.svg" alt=""/>
-                                </Button>
+                                  <Button className="profile-bystatus">
+                                      By Status <img src="Icons/icon-14.svg" alt=""/>
+                                  </Button>
                                 </Dropdown>
                             </div>
                           </div>
