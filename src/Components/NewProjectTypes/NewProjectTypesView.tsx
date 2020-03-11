@@ -7,7 +7,7 @@ const { Content } = Layout;
 
 
 export default () => {
-
+  const [arrow, setArrow] = useState<boolean>(false);
   const project = () => (
     <div className="btn-creation01">
       <div><Button>
@@ -15,12 +15,14 @@ export default () => {
         <img className="img-a" src="/Icons/icon-38.svg" alt="" />
         <span>Capital</span></Button></div>
       <div><Button onClick={() => {
+        setArrow(true);
         setCreate(maintenance);
       }}>
         <img className="img-h" src="/Icons/icon-39.svg" alt="" />
         <img className="img-a" src="/Icons/icon-40.svg" alt="" />
         <span>Maintenance</span></Button></div>
       <div><Button onClick={() => {
+        setArrow(true);
         setCreate(study);
       }}>
         <img className="img-h" src="/Icons/icon-41.svg" alt="" />
@@ -85,10 +87,17 @@ export default () => {
             <Col>
               <h1>Create a new project</h1>
             </Col>
-            <Col>
+            {(arrow) ? (<Col span={4}>
+              <Button onClick={() => {
+                setArrow(false);
+                setCreate(project);
+              }} 
+              shape="circle" icon="arrow-left" /><span>Back</span>
+            </Col>) : ''}
+            <Col span={24}>
               <Input size="large" style={{ width: '480px' }} placeholder="Name your project" onChange={(event) => {
                 console.log(event.target.value);
-              }}/>
+              }} />
             </Col>
             {create}
           </Row>
