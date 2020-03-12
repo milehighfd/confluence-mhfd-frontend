@@ -255,7 +255,7 @@ export default () => {
                           </Select>
                         </div>
 
-                      <div className="work-pc" style={{marginTop: '30px'}}>
+                      <div className="work-pc" style={{marginTop: '26px'}}>
                         <div className="wp-chart">
                           <h5>Requests by Jurisdiction <img src="/Icons/icon-19.svg" alt=""/></h5>
                         </div>
@@ -425,7 +425,7 @@ export default () => {
                         </Select>
                       </div>
 
-                      <div className="work-pc work-pc-01" style={{marginTop: '30px'}}>
+                      <div className="work-pc work-pc-01" style={{marginTop: '26px'}}>
                         <div className="wp-chart">
                           <h5>Requests by Jurisdiction <img src="/Icons/icon-19.svg" alt=""/></h5>
                         </div>
