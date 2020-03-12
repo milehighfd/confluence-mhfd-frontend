@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as mapboxgl from 'mapbox-gl';
+import * as turf from '@turf/turf';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -17,7 +18,7 @@ const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 let map : any = null;
 const drawConstants = ['problems', 'projects', 'components'];
 
-const Map = ({ leftWidth, children, polygons, projects, components } : any) => {
+const Map = ({ leftWidth, children, polygons, projects, components, setSelectedItems, setIsPolygon } : any) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState<any>({default: 0, items: MAP_DROPDOWN_ITEMS});
 
@@ -70,14 +71,51 @@ const Map = ({ leftWidth, children, polygons, projects, components } : any) => {
         setDropdownItems({...dropdownItems, default: index});
     }
 
-    const replaceOldPolygon = (draw : any) => {
+    const replaceOldPolygon = (draw : any) => {        
         if(draw.getAll().features.length > 1) {
             const features = draw.getAll().features;
             draw.delete(features[0].id);
         }
 
+        const points = getComponentsInPolygon(draw.getAll().features[0].geometry.coordinates[0]);
+        const polygonCoords = turf.polygon(draw.getAll().features[0].geometry.coordinates);
+        const turfPoints = points.map((point : any) => turf.point(point.coordinates));
+
+        const selectedItems : Array<[]> = [];
+        const values = turfPoints.map((v : any) => turf.inside(v, polygonCoords));
+        points.map((point : any, index : number) => { if(values[index]) selectedItems.push(point) });
+
+        setSelectedItems(selectedItems);
+        setIsPolygon(true);
+
         /* Get the coords on Drawing */
         // console.log(draw.getAll().features[0].geometry.coordinates);
+    }
+
+    const getComponentsInPolygon = (polygon : Array<[]>) => {
+        const minMaxX = getMinMaxOf2DIndex(polygon, 0);
+        const minMaxY = getMinMaxOf2DIndex(polygon, 1);
+
+        const minX = minMaxX.min;
+        const maxX = minMaxX.max;
+        const minY = minMaxY.min;
+        const maxY = minMaxY.max;
+
+        const points : Array<[]> = [];
+        components.map((point : any) => {
+            if(point.coordinates[0] >= minX && point.coordinates[0] <= maxX && point.coordinates[1] >= minY && point.coordinates[1] <= maxY){
+                points.push(point);
+            } 
+        });
+
+        return points;
+    }
+
+    const getMinMaxOf2DIndex = (arr : Array<[]>, ind : number) => {
+        return {
+            min: Math.min.apply(null, arr.map((e) => { return e[ind]})),
+            max: Math.max.apply(null, arr.map((e) => { return e[ind]}))
+        }
     }
 
     const addMapListeners = () => {
@@ -129,7 +167,6 @@ const Map = ({ leftWidth, children, polygons, projects, components } : any) => {
         if(trigger === 'problems') items = polygons;
         else if(trigger === 'projects') items = projects;
         else if(trigger === 'components') items = components;
-
         if(!items) return;
         refreshSourceLayers(trigger);
 

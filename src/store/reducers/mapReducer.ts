@@ -139,43 +139,83 @@ const initState = {
     ],
     components: [
         {
-            name: 'Little Dry Creek ARAP MDP Ph A',
+            key: '10',
+            componentName: 'Grey River',
+            jurisdiction: 'Westminster',
+            howCost: '$1,570,000',
+            studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.05122872371193, 39.80646143706309]
         },
         {
-            name: 'Little Dry Creek ARAP MDP Ph B',
+            key: '11',
+            componentName: 'Bulls Town',
+            jurisdiction: 'Longway',
+            howCost: '$1,570,000',
+            studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.01923195503527, 39.82544787234704]
         },
         {
-            name: 'Little Dry Creek ARAP MDP Ph C',
+            key: '12',
+            componentName: 'Juarez Raven',
+            jurisdiction: 'Juarez',
+            howCost: '$1,570,000',
+            studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.01428824828696, 39.80793834790717]
         },
         {
-            name: 'Little Dry Creek ARAP MDP Ph D',
+            key: '13',
+            componentName: 'New Town',
+            jurisdiction: 'Westminster',
+            howCost: '$1,570,000',
+            studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.01047599435583, 39.8038520952569]
         },
         {
-            name: 'Little Dry Creek ARAP MDP Ph E',
+            key: '14',
+            componentName: 'La Vela',
+            jurisdiction: 'Riverdale',
+            howCost: '$1,570,000',
+            studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.0076262517371, 39.800932966936955]
         },
         {
-            name: 'Little Dry Creek ARAP MDP Ph F',
+            key: '15',
+            componentName: 'Washington Problem',
+            jurisdiction: 'Westminster',
+            howCost: '$1,570,000',
+            studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.01131479817568, 39.800875134035095]
         },
         {
-            name: 'Trial Components 0.1',
+            key: '1',
+            componentName: 'Aurora River',
+            jurisdiction: 'Westminster',
+            howCost: '$1,570,000',
+            studyName: 'Pedestrian Trail Restoration',
             coordinates: [-104.99181142130422, 39.85783623146801]
         },
         {
-            name: 'Trial Components 0.2',
+            key: '2',
+            componentName: 'New Fork Creek',
+            jurisdiction: 'Westminster',
+            howCost: '$1,570,000',
+            studyName: 'Whitewater Section',
             coordinates: [-104.98016051889145, 39.85096161845925]
         },
         {
-            name: 'Trial Components 0.3',
+            key: '3',
+            componentName: 'Poplar Branch',
+            jurisdiction: 'Boulder',
+            howCost: '$1,570,000',
+            studyName: 'Channel Restoration',
             coordinates: [-104.96092795632697, 39.87449627602601]
         },
         {
-            name: 'Trial Components 0.4',
+            key: '4',
+            componentName: 'Animas River',
+            jurisdiction: 'Longmont',
+            howCost: '$1,570,000',
+            studyName: 'Combination Bridge',
             coordinates: [-104.99997101031218, 39.84543449508365]
         }
     ]

@@ -65,6 +65,7 @@ export default ({ polygons, projects, components } : any) => {
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
   const [listDescription, setListDescription] = useState(false);
+
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
       setLeftWidth(COMPLETE_SCREEN);

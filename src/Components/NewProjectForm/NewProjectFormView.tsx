@@ -48,56 +48,40 @@ const menu = (
   </Menu>
 );
 
-const columns01 = [
+const columns01 = ({removeSelectedItem} : any) => [
   {
     title: 'Component',
-    dataIndex: 'Component',
-    key: 'Component',
+    dataIndex: 'componentName',
+    key: 'componentName',
     ellipsis: true,
   },
   {
     title: 'Jurisdiction',
-    dataIndex: 'Jurisdiction',
-    key: 'Jurisdiction',
+    dataIndex: 'jurisdiction',
+    key: 'jurisdiction',
     ellipsis: true,
   },
   {
     title: 'Cost',
-    dataIndex: 'Cost',
-    key: 'Cost',
+    dataIndex: 'howCost',
+    key: 'howCost',
     ellipsis: true,
   },
 
   {
     title: 'Study Name',
-    dataIndex: 'StudyName',
-    key: 'StudyName',
+    dataIndex: 'studyName',
+    key: 'studyName',
     ellipsis: true,
   },
   {
     key: 'action',
     textAlign: 'right',
-    render: () => <a><img src="/Icons/icon-16.svg" alt=""/></a>,
+    render: (text : any, record : any) => <a onClick={() => removeSelectedItem(record.key)}><img src="/Icons/icon-16.svg" alt=""/></a>,
   },
 ];
 
 const pagination = { position: 'none' };
-const data01 = [
-  {
-    key: '1',
-    Component: 'New Fork Creek',
-    Jurisdiction: 'Westminster',
-    Cost: <span>$1,570,000</span>,
-    StudyName: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    Component: 'New Fork Creek',
-    Jurisdiction: 'Westminster',
-    Cost: <span>$1,570,000</span>,
-    StudyName: 'New York No. 1 Lake Park',
-  },
-];
 
 const columns02 = [
   {
@@ -191,6 +175,8 @@ export default ({ polygons, projects, components } : any) => {
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
+  const [selectedItems, setSelectedItems] = useState<Array<[]>>([]);
+  const [isPolygon, setIsPolygon] = useState<boolean>(false);
 
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
@@ -208,7 +194,14 @@ export default ({ polygons, projects, components } : any) => {
     const div = document.getElementById('polygon');
     const btn = div?.getElementsByTagName("button")[0];
     btn?.click();
-}
+  }
+
+  const removeSelectedItem = (key : string) => {
+    const items = [...selectedItems];
+    const index = items.findIndex((item : any) => item.key === key);
+    items.splice(index, 1);
+    setSelectedItems(items);
+  }
 
   return <>
         <Layout>
@@ -222,7 +215,9 @@ export default ({ polygons, projects, components } : any) => {
                   leftWidth={leftWidth}
                   polygons={polygons}
                   projects={projects}
-                  components={components} />
+                  components={components}
+                  setSelectedItems={setSelectedItems}
+                  setIsPolygon={setIsPolygon} />
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
@@ -256,18 +251,22 @@ export default ({ polygons, projects, components } : any) => {
                       <label className="label-new-form" htmlFor="">#2</label>
                       <Input size={"large"} placeholder="" /><img className="img-maint" src="/Icons/icon-16.svg" alt=""/>
                     </div> */}
-                    <div className="head-m draw-section">
-                        <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt=""/></button>
-                        <h6>Click on the icon above and draw a polygon to select components</h6>
-                    </div>
-                    <div className="table-create-pro">
-                      <Table columns={columns01} dataSource={data01} pagination={false} />
-                    </div>
+
+                    {!isPolygon ?
+                      <div className="head-m draw-section">
+                          <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt=""/></button>
+                          <h6>Click on the icon above and draw a polygon to select components</h6>
+                      </div>
+                      :
+                      <div className="table-create-pro">
+                        <Table columns={columns01({removeSelectedItem})} dataSource={selectedItems} pagination={false} />
+                      </div>
+                    }
+
                     <div className="table-create-bottom">
                       <Table columns={columns02} dataSource={data02} pagination={false} />
                       <Table className="footer-table" columns={footer} dataSource={data03} pagination={false} />
                     </div>
-
                     <br></br>
 
                     <div className="label-npf">
