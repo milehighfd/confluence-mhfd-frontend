@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import NewProjectDebrisView from './NewProjectDebrisView';
+import NewProjectDebrisView from './ProjectDebrisView';
 
 const mapStateToProps = (state: any) => {
   return {

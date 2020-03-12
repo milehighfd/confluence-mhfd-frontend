@@ -15,6 +15,86 @@ export const MAP_DROPDOWN_ITEMS = [
     }
 ];
 
+export const buttonsNewProject = [
+    {
+      title: 'capital',
+      route: 'new-project-form',
+      icon1: '/Icons/icon-37.svg',
+      icon2: '/Icons/icon-38.svg',
+      redirectRoute: '/new-project-form'
+    }, {
+      title: 'maintenance',
+      route: 'new-project-form',
+      icon1: '/Icons/icon-39.svg',
+      icon2: '/Icons/icon-40.svg',
+      buttonExtra: [
+        {
+          title: 'debris management',
+          route: 'new-project-form',
+          icon1: '/Icons/icon-47.svg',
+          icon2: '/Icons/icon-48.svg',
+          redirectRoute: '/project-debris'
+        }, {
+          title: 'vegetation management',
+          route: 'new-project-form',
+          icon1: '/Icons/icon-49.svg',
+          icon2: '/Icons/icon-50.svg',
+          redirectRoute: '/new-project-form'
+        }, {
+          title: 'sediment removal',
+          route: 'new-project-form',
+          icon1: '/Icons/icon-51.svg',
+          icon2: '/Icons/icon-52.svg',
+          redirectRoute: '/new-project-form'
+        }, {
+          title: 'minor repairs',
+          route: 'new-project-form',
+          icon1: '/Icons/icon-53.svg',
+          icon2: '/Icons/icon-54.svg',
+          redirectRoute: '/new-project-form'
+        }, {
+          title: 'restoration',
+          route: 'new-project-form',
+          icon1: '/Icons/icon-55.svg',
+          icon2: '/Icons/icon-56.svg',
+          redirectRoute: '/new-project-form'
+        }
+      ]
+    }, {
+      title: 'study',
+      route: 'new-project-form',
+      icon1: '/Icons/icon-41.svg',
+      icon2: '/Icons/icon-42.svg',
+      buttonExtra: [
+        {
+          title: 'master plan only',
+          route: 'new-project-form',
+          icon1: '/Icons/icon-57.svg',
+          icon2: '/Icons/icon-68.svg',
+          redirectRoute: '/new-project-form'
+        }, {
+          title: 'fhad only',
+          route: 'new-project-form',
+          icon1: '/Icons/icon-58.svg',
+          icon2: '/Icons/icon-59.svg',
+          redirectRoute: '/new-project-form'
+        }
+      ]
+    }, {
+      title: 'acquisition',
+      route: 'new-project-form',
+      icon1: '/Icons/icon-43.svg',
+      icon2: '/Icons/icon-44.svg',
+      redirectRoute: '/new-project-form'
+    }, {
+      title: 'special',
+      route: 'new-project-form',
+      icon1: '/Icons/icon-45.svg',
+      icon2: '/Icons/icon-46.svg',
+      redirectRoute: '/new-project-form'
+    }
+  ];
+
 export const CITIES = [
     "Arvada",
     "Aurora",

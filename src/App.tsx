@@ -20,7 +20,7 @@ import ProfileContainer from './Components/Profile/ProfileContainer';
 import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import MapToolContainer from './Components/MapTool/MapToolContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
-import NewProjectDebrisContainer from './Components/NewProjectDebris/NewProjectDebrisContainer';
+import ProjectDebrisContainer from './Components/ProjectDebris/ProjectDebrisContainer';
 
 function App({ appUser }: any) {
   // return <Switch>
@@ -56,7 +56,7 @@ function App({ appUser }: any) {
       <Route path={`/sign-up`} component={SignUpContainer} />
       <Route path={`/user`} component={UserContainer} />
       <Route path={`/new-project-form`} component={NewProjectFormContainer} />
-      <Route path={`/new-project-debris`} component={NewProjectDebrisContainer} />
+      <Route path={`/project-debris`} component={ProjectDebrisContainer} />
       <Route path={`/new-project-types`} component={NewProjectTypesContainer} />
       <Route path={`/filter-projects`} component={FiltersProjectContainer} />
       <Route path={`/work-plan`} component={WorkPlanContainer} />
