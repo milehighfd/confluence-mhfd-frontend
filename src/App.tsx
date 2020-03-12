@@ -21,6 +21,7 @@ import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import MapToolContainer from './Components/MapTool/MapToolContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import ProjectDebrisContainer from './Components/ProjectDebris/ProjectDebrisContainer';
+import AlertContainer from './Components/Alerts/AlertContainer';
 
 function App({ appUser }: any) {
   // return <Switch>
@@ -64,6 +65,7 @@ function App({ appUser }: any) {
       <Route path={`/profile-view`} component={ProfileContainer} />
       <Route path={`/detailed-view`} component={DetailedContainer} />
       <Route path={`/maptool-view`} component={MapToolContainer} />
+      <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={`/`} component={Unauthorized} />
     </Switch>
   );

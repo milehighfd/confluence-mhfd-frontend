@@ -2837,3 +2837,67 @@ display: inline-block !important;
   border: none !important;
   border-radius: 4px !important;
 }
+// ALERTS AND MODALS
+.alert-mm{
+  .ant-alert-error {
+    background-color: #fb3740;
+    text-align: center;
+  }
+  .ant-alert-message {
+    color: $white;
+  }
+  .ant-alert-icon {
+    color: $white !important;
+  }
+  .ant-alert-icon {
+    right: 40px !important;
+    left: inherit;
+  }
+}
+.modal-confirm{
+  h2{
+    color: $purple00;
+    font-size: 21px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .ant-modal-body{
+    text-align: center;
+    padding: 25px 30px;
+  }
+  .ant-modal-footer{
+    display: none;
+  }
+  .btn-submit{
+    width: 130px;
+    height: 45px;
+    border-radius: 4px;
+    background-color: $purple;
+    font-size: 14px;
+    color: $white;
+    margin-top: 10px;
+    border: none;
+  }
+  .btn-cancel{
+    width: 130px;
+    height: 45px;
+    border-radius: 4px;
+    background-color: $white;
+    font-size: 14px;
+    color: $opacity;
+    margin-top: 10px;
+    border: 1px solid $opacity01;
+    margin-right: 15px;
+  }
+  .ant-modal-close{
+    color: $purple;
+    height: 40px;
+    width: 40px;
+  }
+  .ant-modal-close-x {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    line-height: 40px;
+  }
+}
