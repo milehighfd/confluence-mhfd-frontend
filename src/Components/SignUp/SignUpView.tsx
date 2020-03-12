@@ -126,7 +126,7 @@ export default () => {
           const auxSignUp = {...sign};
           auxSignUp.firstName = event.target.value;
           setSign(auxSignUp);
-        }} style={sign.firstName ? {background: 'red'}: undefined}/>
+        }}/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>First Name</label>
@@ -170,7 +170,7 @@ export default () => {
       </div>
       <Form.Item>
         <Button className="buttonLogin" block htmlType="submit" onClick={() => {
-          if (sign.city !== 'Jurisdiction') {
+          if (sign.city !== 'Jurisdiction' && sign.designation) {
             submit();
           }
           return;
