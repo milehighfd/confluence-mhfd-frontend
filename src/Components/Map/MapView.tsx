@@ -59,7 +59,7 @@ const accordionRow: Array<any> = [
   }
 ];
 
-export default ({ polygons, components } : any) => {
+export default ({ polygons, projects, components } : any) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -88,6 +88,7 @@ export default ({ polygons, components } : any) => {
                 <Map 
                   leftWidth={leftWidth} 
                   polygons={polygons}
+                  projects={projects}
                   components={components} />
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>

@@ -55,7 +55,7 @@ const initState = {
             ]
         }
     ],
-    components: [
+    projects: [
         {
             id: 'comp1',
             coordinates: [
@@ -135,6 +135,48 @@ const initState = {
                 [-104.98252822292955, 39.75923650831089],
                 [-104.98663152143963, 39.760378029230594]
             ]
+        }
+    ],
+    components: [
+        {
+            name: 'Little Dry Creek ARAP MDP Ph A',
+            coordinates: [-105.05122872371193, 39.80646143706309]
+        },
+        {
+            name: 'Little Dry Creek ARAP MDP Ph B',
+            coordinates: [-105.01923195503527, 39.82544787234704]
+        },
+        {
+            name: 'Little Dry Creek ARAP MDP Ph C',
+            coordinates: [-105.01428824828696, 39.80793834790717]
+        },
+        {
+            name: 'Little Dry Creek ARAP MDP Ph D',
+            coordinates: [-105.01047599435583, 39.8038520952569]
+        },
+        {
+            name: 'Little Dry Creek ARAP MDP Ph E',
+            coordinates: [-105.0076262517371, 39.800932966936955]
+        },
+        {
+            name: 'Little Dry Creek ARAP MDP Ph F',
+            coordinates: [-105.01131479817568, 39.800875134035095]
+        },
+        {
+            name: 'Trial Components 0.1',
+            coordinates: [-104.99181142130422, 39.85783623146801]
+        },
+        {
+            name: 'Trial Components 0.2',
+            coordinates: [-104.98016051889145, 39.85096161845925]
+        },
+        {
+            name: 'Trial Components 0.3',
+            coordinates: [-104.96092795632697, 39.87449627602601]
+        },
+        {
+            name: 'Trial Components 0.4',
+            coordinates: [-104.99997101031218, 39.84543449508365]
         }
     ]
 }

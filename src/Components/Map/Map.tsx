@@ -15,8 +15,9 @@ const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
 let map : any = null;
+const drawConstants = ['problems', 'projects', 'components'];
 
-const Map = ({ leftWidth, children, polygons, components } : any) => {
+const Map = ({ leftWidth, children, polygons, projects, components } : any) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState<any>({default: 0, items: MAP_DROPDOWN_ITEMS});
 
@@ -41,6 +42,9 @@ const Map = ({ leftWidth, children, polygons, components } : any) => {
         const geo = document.getElementById('geocoder')!;
         geo.appendChild(geocoder.onAdd(map));
 
+        // Uncomment to see coords when a position in map is clicked
+        // map.on('click', (e : any) => console.log(e.lngLat));
+
         const drawPolygon = document.getElementById('polygon');
         if(drawPolygon) {
             const draw = new MapboxDraw({
@@ -51,8 +55,7 @@ const Map = ({ leftWidth, children, polygons, components } : any) => {
             map.on('draw.update', () => replaceOldPolygon(draw))
             drawPolygon.appendChild(draw.onAdd(map));
         }
-
-        map.on('style.load', () => drawPolygons());
+        addMapListeners();
     }, []);
 
     useEffect(() => {
@@ -62,18 +65,6 @@ const Map = ({ leftWidth, children, polygons, components } : any) => {
     useEffect(() => {
         map.resize();
     }, [leftWidth]);
-
-    // Refacture when Backend
-    useEffect(() => {
-        /* Refacture the logic when recieving props from Backend */
-        map.on('load', () => drawPolygons());
-    }, [polygons])
-
-    useEffect(() => {
-        /* Refacture the logic when recieving props from Backend */
-        map.on('load', () => drawComponents());
-    }, [components])
-    // -----------------------
 
     const selectMapStyle = (index : number) => {
         setDropdownItems({...dropdownItems, default: index});
@@ -89,80 +80,129 @@ const Map = ({ leftWidth, children, polygons, components } : any) => {
         // console.log(draw.getAll().features[0].geometry.coordinates);
     }
 
+    const addMapListeners = () => {
+        /* Add Listeners to the Polygons and Components */
 
-    const drawPolygons = () => {
-        if(!polygons) return;
-
-        polygons.map((polygon : any) => {
-            refreshSourceLayers(polygon.id);
-            map.addSource(polygon.id, {
-                type: 'geojson',
-                data: {
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Polygon',
-                        coordinates: [polygon.coordinates]
-                    }
-                }
+        drawConstants.map((trigger : string) => {
+            map.on('load', () =>  drawItemsInMap(trigger));
+            // map.on('style.load', () => drawItemsInMap(trigger));
+            map.on('click', trigger, (e : any) => {
+                const description = e.features[0].properties.description;
+                new mapboxgl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(description)
+                    .addTo(map)
             });
+            // Change the cursor to a pointer when the mouse is over the states layer.
+            map.on('mouseenter', trigger, () =>  {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+            
+            // Change it back to a pointer when it leaves.
+            map.on('mouseleave', trigger, () => {
+                map.getCanvas().style.cursor = '';
+            });
+        });
+    }
+
+    const popUpContent = (trigger : string) => (
+        '<div class="popup-header">'+
+            `<span class="head">${trigger === 'problems'?'PROBLEM':'PROJECT'}</strong>`+
+        '</div>'+
+        '<div class="popup-body">'+
+            `<div>${trigger === 'problems'?'Piney Creek Channel Restoration':'Murphy Creek Bank Stabilization'}</div>`+
+            '<div class="city">Westminster</div>'+
+            '<div>$400,500</div>'+
+            '<div class="components">'+
+                '<span style="font-weight: bold">8</span><span style="font-weight: normal"> Components</span>'+
+            '</div>'+
+        '</div>'+
+        '<div class="popup-footer">'+
+            '<hr class="divider">'+
+            `<span${trigger === 'problems'?' style="color: #ff0000">High Priority':'>Mantenance'}</span>`+
+            `<span style="float: right">${trigger === 'problems'?'80%':'Requested'}</span>`+
+        '</div>'
+    );
+
+    const drawItemsInMap = (trigger : string) => {
+        let items = null;
+        if(trigger === 'problems') items = polygons;
+        else if(trigger === 'projects') items = projects;
+        else if(trigger === 'components') items = components;
+
+        if(!items) return;
+        refreshSourceLayers(trigger);
+
+        const itemsFeatures = items.map((item : any) => {
+            return {
+                type: 'Feature',
+                properties: {
+                    description: popUpContent(trigger),
+                    icon: trigger === 'components'?'bar':null
+                },
+                geometry: {
+                    type: trigger !== 'components'?'Polygon':'Point',
+                    coordinates: trigger !== 'components'?[item.coordinates]:item.coordinates
+                }
+            }
+        });
+
+        map.addSource(trigger, {
+            type: 'geojson',
+            data: {
+                type: 'FeatureCollection',
+                features: itemsFeatures
+            }
+        });
+
+        if(trigger !== 'components') {
             map.addLayer({
-                id: polygon.id + '_fill',
+                id: trigger,
                 type: 'fill',
-                source: polygon.id,
+                source: trigger,
                 layout: {},
-                paint: {
+                paint: trigger === 'problems' ? {
                     'fill-color': '#088',
                     'fill-opacity': 0.3,
+                    } : {
+                        'fill-color': '#088',
+                        'fill-opacity': 0,
                 }
             });
+    
             map.addLayer({
-                id: polygon.id + '_line',
+                id: trigger + '_line',
                 type: 'line',
-                source: polygon.id,
+                source: trigger,
                 layout: {},
-                paint: {
+                paint: trigger === 'problems'? {
                     'line-color': '#00bfa5',
                     'line-width': 2.5,
-                }
-            });
-        });
-    }
-
-    const drawComponents = () => {
-        if(!components) return;
-
-        components.map((component : any) => {
-            refreshSourceLayers(component.id);
-            map.addSource(component.id, {
-                type: 'geojson',
-                data: {
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Polygon',
-                        coordinates: [component.coordinates]
+                    } : {
+                        'line-color': '#ff8f00',
+                        'line-width': 1,
                     }
-                }
             });
+        } else {
             map.addLayer({
-                id: component.id + '_line',
-                type: 'line',
-                source: component.id,
-                layout: {},
-                paint: {
-                    'line-color': '#ff8f00',
-                    'line-width': 1,
+                id: trigger,
+                type: 'symbol',
+                source: trigger,
+                layout: {
+                    'icon-image': '{icon}-15',
+                    'icon-allow-overlap': true
                 }
-            });
-        });
+            })
+        }
     }
 
-    const refreshSourceLayers = (id : number) => {
+    const refreshSourceLayers = (id : string) => {
         const mapSource = map.getSource(id);
         if(mapSource) {
-            map.removeLayer(id + '_fill');
+            map.removeLayer(id);
             map.removeLayer(id + '_line');
             map.removeSource(id);
-        }
+        } 
     }
 
     return (
