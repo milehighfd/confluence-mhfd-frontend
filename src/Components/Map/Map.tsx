@@ -85,7 +85,7 @@ const Map = ({ leftWidth, children, polygons, projects, components } : any) => {
 
         drawConstants.map((trigger : string) => {
             map.on('load', () =>  drawItemsInMap(trigger));
-            // map.on('style.load', () => drawItemsInMap(trigger));
+            map.on('style.load', () => drawItemsInMap(trigger));
             map.on('click', trigger, (e : any) => {
                 const description = e.features[0].properties.description;
                 new mapboxgl.Popup()
