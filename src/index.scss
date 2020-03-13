@@ -1751,7 +1751,7 @@ display: inline-block !important;
   color: $purple;
   width: 10px;
   text-align: center;
-  margin: 0 5px;
+  margin: 1px 5px;
   font-weight: 100;
 }
 .table-create-pro tbody > tr > td {
@@ -2910,74 +2910,55 @@ display: inline-block !important;
   }
 }
 // INPUT COLLAPSE
-/* Demo 2 */
-#demo-2 input[type=search] {
-	width: 15px;
-	padding-left: 10px;
-	color: transparent;
-	cursor: pointer;
-}
-#demo-2 input[type=search]:hover {
-	background-color: #fff;
-}
-#demo-2 input[type=search]:focus {
-	width: 130px;
-	padding-left: 32px;
-	color: #000;
-	background-color: #fff;
-	cursor: auto;
-}
-#demo-2 input:-moz-placeholder {
-	color: transparent;
-}
-#demo-2 input::-webkit-input-placeholder {
-	color: transparent;
-}
 #demo-2{
+  position: relative;
+  margin-top: -10px;
+  top: 7px;
+  input[type=search] {
+  	width: 15px;
+  	padding-left: 10px;
+  	color: transparent;
+  	cursor: pointer;
+  }
+  input[type=search]:hover {
+  	background-color: $opacity01;
+  }
+  input[type=search]:focus {
+  	width: 100px;
+  	padding-left: 25px;
+  	color: #000;
+  	background-color: $opacity01;
+  	cursor: auto;
+  }
+  input::placeholder {
+  	color: transparent;
+  }
   input {
 	outline: none;
-}
-input[type=search] {
-	-webkit-appearance: textfield;
-	-webkit-box-sizing: content-box;
-	font-family: inherit;
-	font-size: 100%;
-}
-input::-webkit-search-decoration,
-input::-webkit-search-cancel-button {
-	display: none;
-}
-
-
-input[type=search] {
-	background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
-	border: solid 1px #ccc;
-	padding: 9px 10px 9px 32px;
-	width: 25px;
-
-	-webkit-border-radius: 10em;
-	-moz-border-radius: 10em;
-	border-radius: 10em;
-
-	-webkit-transition: all .5s;
-	-moz-transition: all .5s;
-	transition: all .5s;
-}
-input[type=search]:focus {
-	width: 130px;
-	background-color: #fff;
-	border-color: #66CC75;
-
-	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
-	-moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
-	box-shadow: 0 0 5px rgba(109,207,246,.5);
-}
-
-
-input:-moz-placeholder {
-	color: #999;
-}
-input::-webkit-input-placeholder {
-	color: #999;
-}
+  }
+  // input[type=search] {
+  // 	-webkit-appearance: textfield;
+  // 	-webkit-box-sizing: content-box;
+  // 	font-family: inherit;
+  // 	font-size: 100%;
+  // }
+  input::-webkit-search-decoration,
+  input::-webkit-search-cancel-button {
+  	display: none;
+  }
+  input[type=search] {
+  	background: $white url('/Icons/icon-13.svg');
+    background-repeat: no-repeat;
+  	border: solid 1px $white;
+    width: 25px;
+    border-radius: 4px;
+    background-position-y: 10px;
+    background-position-x: 5px;
+  	transition: all .5s;
+    padding: 6px 5px;
+  }
+  input[type=search]:focus {
+  	width: 120px;
+  	background-color: $opacity01;
+  }
 }

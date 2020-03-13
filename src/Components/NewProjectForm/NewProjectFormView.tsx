@@ -271,7 +271,7 @@ export default ({ polygons, projects, components } : any) => {
                         <div id="polygon" />
                         <span>|</span>
                         <form id="demo-2">
-                        	<input type="search" placeholder=""/>
+                        	<input type="search" placeholder="Search"/>
                         </form>
                         <button><img src="/Icons/icon-35.svg" alt=""/></button>
                       </div>
