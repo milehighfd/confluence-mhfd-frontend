@@ -52,7 +52,7 @@ export default () => {
     })
   }
   if (redirect) {
-    return <Redirect to="/login" />
+    return <Redirect to="/profile-view" />
   }
 
   return <Layout style={{ background: '#fff' }}>

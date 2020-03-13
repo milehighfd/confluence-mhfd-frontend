@@ -4,16 +4,18 @@ export class Debris {
 	projectSubType: string;
 	description: string;
 	mhfdDollarRequest: number;
-	maintenanceEligility: string;
-    frecuency: string;
+	maintenanceEligibility: string;
+    frequency: string;
+    ownership: boolean
     constructor() {
         this.requestName = "";
-        this.projectType = "";
-        this.projectSubType = "";
+        this.projectType = "Maintenance";
+        this.projectSubType = "Debris Management";
         this.description = "";
         this.mhfdDollarRequest = 0;
-        this.maintenanceEligility = "";
-        this.frecuency = "";
+        this.maintenanceEligibility = "Maintenance eligible";
+        this.frequency = "Cycle per year";
+        this.ownership = false;
     }
 }
 
