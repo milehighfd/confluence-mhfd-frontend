@@ -239,6 +239,9 @@ export default ({ polygons, projects, components } : any) => {
                         {/* <button><img src="/Icons/icon-08.svg" alt=""/></button> */}
                         <div id="polygon" />
                         <span>|</span>
+                        <form id="demo-2">
+                        	<input type="search" placeholder=""/>
+                        </form>
                         <button><img src="/Icons/icon-35.svg" alt=""/></button>
                       </div>
                         <span>TOTAL COST: $11,370,000</span>

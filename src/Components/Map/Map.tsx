@@ -71,7 +71,7 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
         setDropdownItems({...dropdownItems, default: index});
     }
 
-    const replaceOldPolygon = (draw : any) => {        
+    const replaceOldPolygon = (draw : any) => {
         if(draw.getAll().features.length > 1) {
             const features = draw.getAll().features;
             draw.delete(features[0].id);
@@ -105,7 +105,7 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
         components.map((point : any) => {
             if(point.coordinates[0] >= minX && point.coordinates[0] <= maxX && point.coordinates[1] >= minY && point.coordinates[1] <= maxY){
                 points.push(point);
-            } 
+            }
         });
 
         return points;
@@ -135,7 +135,7 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
             map.on('mouseenter', trigger, () =>  {
                 map.getCanvas().style.cursor = 'pointer';
             });
-            
+
             // Change it back to a pointer when it leaves.
             map.on('mouseleave', trigger, () => {
                 map.getCanvas().style.cursor = '';
@@ -150,9 +150,11 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
         '<div class="popup-body">'+
             `<div>${trigger === 'problems'?'Piney Creek Channel Restoration':'Murphy Creek Bank Stabilization'}</div>`+
             '<div class="city">Westminster</div>'+
-            '<div>$400,500</div>'+
-            '<div class="components">'+
+            '<div style="display:flex; margin-top:8px">'+
+              '<div style="width:50%">$400,500</div>'+
+              '<div style="width:50%" class="components">'+
                 '<span style="font-weight: bold">8</span><span style="font-weight: normal"> Components</span>'+
+              '</div>'+
             '</div>'+
         '</div>'+
         '<div class="popup-footer">'+
@@ -206,7 +208,7 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
                         'fill-opacity': 0,
                 }
             });
-    
+
             map.addLayer({
                 id: trigger + '_line',
                 type: 'line',
@@ -239,7 +241,7 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
             map.removeLayer(id);
             map.removeLayer(id + '_line');
             map.removeSource(id);
-        } 
+        }
     }
 
     return (
