@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
+import ReactDOMServer from 'react-dom/server';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -8,6 +9,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import MapFilterView from '../MapFilter/MapFilterView';
 import MapTypesView from "../MapTypes/MapTypesView";
+import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
 import { MAP_DROPDOWN_ITEMS } from "../../constants/constants";
 
@@ -143,25 +145,10 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
         });
     }
 
-    const popUpContent = (trigger : string) => (
-        '<div class="popup-header">'+
-            `<span class="head">${trigger === 'problems'?'PROBLEM':'PROJECT'}</strong>`+
-        '</div>'+
-        '<div class="popup-body">'+
-            `<div>${trigger === 'problems'?'Piney Creek Channel Restoration':'Murphy Creek Bank Stabilization'}</div>`+
-            '<div class="city">Westminster</div>'+
-            '<div style="display:flex; margin-top:8px">'+
-              '<div style="width:50%">$400,500</div>'+
-              '<div style="width:50%" class="components">'+
-                '<span style="font-weight: bold">8</span><span style="font-weight: normal"> Components</span>'+
-              '</div>'+
-            '</div>'+
-        '</div>'+
-        '<div class="popup-footer">'+
-            '<hr class="divider">'+
-            `<span${trigger === 'problems'?' style="color: #ff0000">High Priority':'>Mantenance'}</span>`+
-            `<span style="float: right">${trigger === 'problems'?'80%':'Requested'}</span>`+
-        '</div>'
+    const popUpContent = (trigger : string) => ReactDOMServer.renderToStaticMarkup(
+        <>
+            {trigger !== 'components' ? <MainPopup trigger={trigger} /> : <ComponentPopup />}
+        </>
     );
 
     const drawItemsInMap = (trigger : string) => {

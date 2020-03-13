@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Breadcrumb, Switch, Tabs, Select, Tag, Card, Input, Progress, Timeline, Upload, message, Table } from 'antd';
+import React, { useState, useEffect } from "react";
+import { Layout, Row, Col, Collapse, Dropdown, Menu, Button, Breadcrumb, Switch, Tabs, Select, Tag, Card, Input, Progress, Timeline, Upload, message, Table } from 'antd';
 
 import NavbarView from "../Navbar/NavbarView";
 import SidebarView from "../Sidebar/SidebarView";
 import Map from '../Map/Map';
-import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
+import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, NEW_PROJECT_FORM_COST } from "../../constants/constants";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -83,7 +83,7 @@ const columns01 = ({removeSelectedItem} : any) => [
 
 const pagination = { position: 'none' };
 
-const columns02 = [
+const columns02 = ({ total, numberWithCommas } : any) => [
   {
     title: 'SUBTOTAL COST',
     dataIndex: 'Component',
@@ -98,7 +98,7 @@ const columns02 = [
     ellipsis: true,
   },
   {
-    title: <span className="numbers01-table">$8,230,000</span>,
+    title: <span className="numbers01-table">${numberWithCommas(total.subtotal)}</span>,
     dataIndex: 'Cost',
     key: 'Cost',
     width: '20%',
@@ -113,7 +113,7 @@ const columns02 = [
   },
 ];
 
-const data02 = [
+const data02 = ({total, numberWithCommas, updatePercentageCosts} : any) => [
   {
     key: '1',
     Component: 'Additional Cost',
@@ -122,7 +122,7 @@ const data02 = [
       20% <img src="/Icons/icon-12.svg" alt=""/>
     </a>
     </Dropdown>,
-    Cost: <span>$1,570,000</span>,
+    Cost: <span>${numberWithCommas(total.additional.cost)}</span>,
     StudyName: <Input placeholder="Enter Description" />,
   },
   {
@@ -133,7 +133,7 @@ const data02 = [
       20%<img src="/Icons/icon-12.svg" alt=""/>
     </a>
     </Dropdown>,
-    Cost: <span>$1,570,000</span>,
+    Cost: <span>${numberWithCommas(total.overhead.cost)}</span>,
     StudyName: <Input placeholder="Enter Description" />,
   },
 ];
@@ -162,11 +162,11 @@ const footer = [
   },
 ];
 
-const data03 = [
+const data03 = ({ total, numberWithCommas } : any) => [
   {
     key: '1',
     Component: 'TOTAL COST',
-    Cost: <span className="numbers01-table">$1,570,000</span>,
+    Cost: <span className="numbers01-table">${numberWithCommas(total.total)}</span>,
   },
 ];
 
@@ -177,6 +177,7 @@ export default ({ polygons, projects, components } : any) => {
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
   const [selectedItems, setSelectedItems] = useState<Array<[]>>([]);
   const [isPolygon, setIsPolygon] = useState<boolean>(false);
+  const [total, setTotal] = useState<any>(NEW_PROJECT_FORM_COST);
 
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
@@ -190,6 +191,18 @@ export default ({ polygons, projects, components } : any) => {
     }
   }
 
+  useEffect(() => {
+    if(selectedItems.length) {
+      const subtotal = selectedItems.map((item : any) => item.howCost).reduce((a, b) => a + b, 0);
+      const atnCost = subtotal * total.additional.per;
+      const ovhCost = subtotal * total.overhead.per;
+      const pricing = subtotal + atnCost + ovhCost;
+      const additional = { ...total.additional, cost: atnCost };
+      const overhead = { ...total.overhead, cost: ovhCost };
+      setTotal({...total, subtotal, additional, overhead, total: pricing})
+    }
+  }, [selectedItems])
+
   const getPolygonButton = () => {
     const div = document.getElementById('polygon');
     const btn = div?.getElementsByTagName("button")[0];
@@ -201,6 +214,14 @@ export default ({ polygons, projects, components } : any) => {
     const index = items.findIndex((item : any) => item.key === key);
     items.splice(index, 1);
     setSelectedItems(items);
+  }
+
+  const numberWithCommas = (x : number) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const updatePercentageCosts = () => {
+    console.log('updating');
   }
 
   return <>
@@ -244,7 +265,7 @@ export default ({ polygons, projects, components } : any) => {
                         </form>
                         <button><img src="/Icons/icon-35.svg" alt=""/></button>
                       </div>
-                        <span>TOTAL COST: $11,370,000</span>
+                        <span>TOTAL COST: ${numberWithCommas(total.total)}</span>
                     </div>
                     {/* <div className="input-maint">
                         <label className="label-new-form" htmlFor="">#1</label>
@@ -267,8 +288,8 @@ export default ({ polygons, projects, components } : any) => {
                     }
 
                     <div className="table-create-bottom">
-                      <Table columns={columns02} dataSource={data02} pagination={false} />
-                      <Table className="footer-table" columns={footer} dataSource={data03} pagination={false} />
+                      <Table columns={columns02({total, numberWithCommas})} dataSource={data02({total, numberWithCommas, updatePercentageCosts})} pagination={false} />
+                      <Table className="footer-table" columns={footer} dataSource={data03({total, numberWithCommas})} pagination={false} />
                     </div>
                     <br></br>
 

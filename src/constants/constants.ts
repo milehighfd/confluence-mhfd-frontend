@@ -4,16 +4,35 @@ export const EMPTY_SCREEN = 0;
 
 export const MAP_DROPDOWN_ITEMS = [
     {
-        type: 'Dark Terrain',
-        style: 'mapbox://styles/mapbox/dark-v10'
+        type: 'Light Road',
+        style: 'mapbox://styles/milehighfd/ck4k0tjln58h41cl4ixb8jsez'
     }, {
-        type: 'Light Terrain',
-        style: 'mapbox://styles/mapbox/light-v10'
+        type: 'Dark Road',
+        style: 'mapbox://styles/mapbox/dark-v10' 
+        // style: 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft' 
     }, {
-        type: 'Satellite Map',
-        style: 'mapbox://styles/mapbox/satellite-streets-v11'
+        type: 'Satellite',
+        style: 'mapbox://styles/milehighfd/ck4jfl22r5ada1cqwix8gpjwp'
+    }, {
+        type: 'Terrain',
+        style: 'mapbox://styles/milehighfd/ck4jflu4000ry1cmnh7fdp2oi'
     }
 ];
+
+export const NEW_PROJECT_FORM_COST = {
+  subtotal: 0,
+  additional: {
+    per: 0.2,
+    cost: 0,
+    description: ''
+  },
+  overhead: {
+    per: 0.2,
+    cost: 0,
+    description: ''
+  },
+  total: 0
+}
 
 export const buttonsNewProject = [
     {
