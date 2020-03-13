@@ -176,6 +176,7 @@ export default ({ polygons, projects, components } : any) => {
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
   const [selectedItems, setSelectedItems] = useState<Array<[]>>([]);
+  const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
   const [isPolygon, setIsPolygon] = useState<boolean>(false);
   const [total, setTotal] = useState<any>(NEW_PROJECT_FORM_COST);
 
@@ -192,6 +193,11 @@ export default ({ polygons, projects, components } : any) => {
   }
 
   useEffect(() => {
+    const selectedItemsCopy = selectedItems.map((item : any) => {
+      return {...item, key: item.componentId, howCost: '$'+numberWithCommas(item.howCost)}
+    });
+    setFormatSelectedItems(selectedItemsCopy);
+
     if(selectedItems.length) {
       const subtotal = selectedItems.map((item : any) => item.howCost).reduce((a, b) => a + b, 0);
       const atnCost = subtotal * total.additional.per;
@@ -200,6 +206,10 @@ export default ({ polygons, projects, components } : any) => {
       const additional = { ...total.additional, cost: atnCost };
       const overhead = { ...total.overhead, cost: ovhCost };
       setTotal({...total, subtotal, additional, overhead, total: pricing})
+    } else {
+      const additional = { ...total.additional, cost: 0 };
+      const overhead = { ...total.overhead, cost: 0 };
+      setTotal({...total, subtotal: 0, additional, overhead, total: 0 })
     }
   }, [selectedItems])
 
@@ -211,7 +221,7 @@ export default ({ polygons, projects, components } : any) => {
 
   const removeSelectedItem = (key : string) => {
     const items = [...selectedItems];
-    const index = items.findIndex((item : any) => item.key === key);
+    const index = items.findIndex((item : any) => item.componentId === key);
     items.splice(index, 1);
     setSelectedItems(items);
   }
@@ -283,7 +293,7 @@ export default ({ polygons, projects, components } : any) => {
                       </div>
                       :
                       <div className="table-create-pro">
-                        <Table columns={columns01({removeSelectedItem})} dataSource={selectedItems} pagination={false} />
+                        <Table columns={columns01({removeSelectedItem})} dataSource={formatSelectedItems} pagination={false} />
                       </div>
                     }
 

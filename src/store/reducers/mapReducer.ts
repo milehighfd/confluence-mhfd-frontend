@@ -139,7 +139,7 @@ const initState = {
     ],
     components: [
         {
-            key: '10',
+            componentId: '0905389549',
             componentName: 'Grey River',
             jurisdiction: 'Westminster',
             howCost: 1570000,
@@ -147,7 +147,7 @@ const initState = {
             coordinates: [-105.05122872371193, 39.80646143706309]
         },
         {
-            key: '11',
+            componentId: '2768996948',
             componentName: 'Bulls Town',
             jurisdiction: 'Longway',
             howCost: 1570000,
@@ -155,7 +155,7 @@ const initState = {
             coordinates: [-105.01923195503527, 39.82544787234704]
         },
         {
-            key: '12',
+            componentId: '7633852592',
             componentName: 'Juarez Raven',
             jurisdiction: 'Juarez',
             howCost: 1570000,
@@ -163,7 +163,7 @@ const initState = {
             coordinates: [-105.01428824828696, 39.80793834790717]
         },
         {
-            key: '13',
+            componentId: '6359756738',
             componentName: 'New Town',
             jurisdiction: 'Westminster',
             howCost: 1570000,
@@ -171,7 +171,7 @@ const initState = {
             coordinates: [-105.01047599435583, 39.8038520952569]
         },
         {
-            key: '14',
+            componentId: '4307207870',
             componentName: 'La Vela',
             jurisdiction: 'Riverdale',
             howCost: 1570000,
@@ -179,7 +179,7 @@ const initState = {
             coordinates: [-105.0076262517371, 39.800932966936955]
         },
         {
-            key: '15',
+            componentId: '7760439066',
             componentName: 'Washington Problem',
             jurisdiction: 'Westminster',
             howCost: 1570000,
@@ -187,7 +187,7 @@ const initState = {
             coordinates: [-105.01131479817568, 39.800875134035095]
         },
         {
-            key: '1',
+            componentId: '7307580223',
             componentName: 'Aurora River',
             jurisdiction: 'Westminster',
             howCost: 1570000,
@@ -195,7 +195,7 @@ const initState = {
             coordinates: [-104.99181142130422, 39.85783623146801]
         },
         {
-            key: '2',
+            componentId: '5052707408',
             componentName: 'New Fork Creek',
             jurisdiction: 'Westminster',
             howCost: 1570000,
@@ -203,7 +203,7 @@ const initState = {
             coordinates: [-104.98016051889145, 39.85096161845925]
         },
         {
-            key: '3',
+            componentId: '5341072622',
             componentName: 'Poplar Branch',
             jurisdiction: 'Boulder',
             howCost: 1570000,
@@ -211,7 +211,7 @@ const initState = {
             coordinates: [-104.96092795632697, 39.87449627602601]
         },
         {
-            key: '4',
+            componentId: '1082247547',
             componentName: 'Animas River',
             jurisdiction: 'Longmont',
             howCost: 1570000,
