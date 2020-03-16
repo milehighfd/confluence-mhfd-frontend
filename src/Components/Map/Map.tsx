@@ -212,11 +212,14 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
         } else {
             map.addLayer({
                 id: trigger,
-                type: 'symbol',
+                type: 'circle',
                 source: trigger,
-                layout: {
-                    'icon-image': '{icon}-15',
-                    'icon-allow-overlap': true
+                layout: {},
+                paint: {
+                    'circle-color': '#ef5350',
+                    'circle-stroke-color': '#f44336',
+                    'circle-stroke-width': 1,
+                    'circle-stroke-opacity': 0.75
                 }
             })
         }
