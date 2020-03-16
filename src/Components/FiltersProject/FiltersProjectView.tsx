@@ -61,9 +61,9 @@ export default () => {
                     <Search
                       placeholder="Search..."
                       onSearch={value => console.log(value)}
-                      style={{ width: 200 }}
+                      style={{ width: '200px', height: '35px' }}
                     />
-                    <Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>
+                    {/*<Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
                     <Dropdown overlay={MapFilterView} className="btn-02">
                       <Button>
                         <img src="/Icons/icon-05.svg" alt=""/>

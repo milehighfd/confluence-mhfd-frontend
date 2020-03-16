@@ -4,7 +4,7 @@ import { Layout, Checkbox, Row, Col, Button } from 'antd';
 
 
 export default () => {
-  return <Layout style={{ background: '#fff', width: '43.8vw', left: '-285px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
+  return <Layout style={{ background: '#fff', width: '43.8vw', left: '-235px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
           <Row gutter={[24, 16]} className="filter-map">
             <Col span={9}>
               <h6>HYDROLOGIC</h6>
