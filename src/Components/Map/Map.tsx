@@ -20,9 +20,10 @@ const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 let map : any = null;
 const drawConstants = ['problems', 'projects', 'components'];
 
-const Map = ({ leftWidth, children, polygons, projects, components, setSelectedItems, setIsPolygon } : any) => {
+const Map = ({ leftWidth, children, polygons, projects, components, setSelectedItems, selectedItems, setIsPolygon } : any) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState<any>({default: 0, items: MAP_DROPDOWN_ITEMS});
+    const [comItems, setComItems] = useState<Array<[]>>([])
 
     useEffect(() => {
         (mapboxgl as any).accessToken = MAPBOX_TOKEN;
@@ -63,11 +64,38 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
 
     useEffect(() => {
         map.setStyle(dropdownItems.items[dropdownItems.default].style);
-    }, [dropdownItems.items[dropdownItems.default].style])
+        refreshPaintedComponents();
+    }, [dropdownItems.items[dropdownItems.default].style]);
 
     useEffect(() => {
         map.resize();
     }, [leftWidth]);
+
+    /* https://github.com/mapbox/mapbox-gl-js/issues/2268 Mapbox issue when refreshing layers */
+    const refreshPaintedComponents = () => {
+        if(map.isStyleLoaded()) setTimeout(refreshPaintedComponents, 200);
+        else paintSelectedComponents(selectedItems);
+    }
+
+    const paintSelectedComponents = (items : Array<[]>) => {
+        if(map.getSource('components')) {
+            components.map((component : any) => {
+                map.setFeatureState(
+                    { source: 'components', id: component.componentId },
+                    { hover: false }
+                );
+            });
+    
+            if(items.length) {
+                items.map((item : any) => {
+                    map.setFeatureState(
+                        { source: 'components', id: item.componentId },
+                        { hover: true }
+                    );
+                });
+            }
+        }
+    }
 
     const selectMapStyle = (index : number) => {
         setDropdownItems({...dropdownItems, default: index});
@@ -87,6 +115,7 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
         const values = turfPoints.map((v : any) => turf.inside(v, polygonCoords));
         points.map((point : any, index : number) => { if(values[index]) selectedItems.push(point) });
 
+        paintSelectedComponents(selectedItems);
         setSelectedItems(selectedItems);
         setIsPolygon(true);
 
@@ -122,7 +151,6 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
 
     const addMapListeners = () => {
         /* Add Listeners to the Polygons and Components */
-
         drawConstants.map((trigger : string) => {
             map.on('load', () =>  drawItemsInMap(trigger));
             map.on('style.load', () => drawItemsInMap(trigger));
@@ -161,6 +189,7 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
 
         const itemsFeatures = items.map((item : any) => {
             return {
+                id: item.componentId,
                 type: 'Feature',
                 properties: {
                     description: popUpContent(trigger),
@@ -216,12 +245,18 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
                 source: trigger,
                 layout: {},
                 paint: {
-                    'circle-color': '#ef5350',
+                    'circle-color': [
+                        'case',
+                        ['boolean', ['feature-state', 'hover'], false],
+                        '#9e9d24',
+                        '#ef5350'
+                    ],
                     'circle-stroke-color': '#f44336',
                     'circle-stroke-width': 1,
-                    'circle-stroke-opacity': 0.75
+                    'circle-stroke-opacity': 0.75,
+                    'circle-opacity': 1
                 }
-            })
+            });
         }
     }
 

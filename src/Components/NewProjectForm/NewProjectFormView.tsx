@@ -248,6 +248,7 @@ export default ({ polygons, projects, components } : any) => {
                   projects={projects}
                   components={components}
                   setSelectedItems={setSelectedItems}
+                  selectedItems={selectedItems}
                   setIsPolygon={setIsPolygon} />
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
