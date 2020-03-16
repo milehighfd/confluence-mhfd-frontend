@@ -2,10 +2,11 @@ import React, {useState} from "react";
 import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Drawer } from 'antd';
 
 
-import NavbarView from "../Navbar/NavbarView";
-import SidebarView from "../Sidebar/SidebarView";
-import MapFilterView from '../MapFilter/MapFilterView';
-import MapTypesView from "../MapTypes/MapTypesView";
+import NavbarView from "../Shared/Navbar/NavbarView";
+import SidebarView from "../Shared/Sidebar/SidebarView";
+import MapFilterView from '../Shared/MapFilter/MapFilterView';
+import MapTypesView from "../Shared/MapTypes/MapTypesView";
+import { MAP_DROPDOWN_ITEMS } from "../../constants/constants";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -48,6 +49,10 @@ const menu = (
 
 export default () => {
   const [visible, setVisible] = useState(false);
+  const [dropdownItems, setDropdownItems] = useState<any>({default: 0, items: MAP_DROPDOWN_ITEMS});
+  const selectMapStyle = (index : number) => {
+    setDropdownItems({...dropdownItems, default: index});
+  }
   const chat =  <Drawer
     placement="right"
     closable={false}
@@ -155,7 +160,7 @@ export default () => {
                     </Dropdown>
                   </div>
 
-                  <Dropdown overlay={MapTypesView} className="btn-03">
+                  <Dropdown overlay={MapTypesView({dropdownItems, selectMapStyle})} className="btn-03">
                     <Button>
                       Dark Terrain <img src="/Icons/icon-12.svg" alt=""/>
                     </Button>

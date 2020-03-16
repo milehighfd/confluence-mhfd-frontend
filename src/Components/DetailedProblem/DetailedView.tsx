@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Drawer, Select, Carousel } from 'antd';
 
-import NavbarView from "../Navbar/NavbarView";
-import SidebarView from "../Sidebar/SidebarView";
-import MapFilterView from '../MapFilter/MapFilterView';
-import MapTypesView from "../MapTypes/MapTypesView";
+import NavbarView from "../Shared/Navbar/NavbarView";
+import SidebarView from "../Shared/Sidebar/SidebarView";
+import MapFilterView from '../Shared/MapFilter/MapFilterView';
+import MapTypesView from "../Shared/MapTypes/MapTypesView";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;

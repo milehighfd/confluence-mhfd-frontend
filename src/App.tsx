@@ -5,10 +5,10 @@ import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 
 import LoginContainer from './Components/Login/LoginContainer';
 import MapContainer from './Components/Map/MapContainer';
-import NavbarContainer from './Components/Navbar/NavbarContainer';
+import NavbarContainer from './Components/Shared/Navbar/NavbarContainer';
 import ResetPasswordContainer from './Components/ResetPassword/ResetPasswordContainer';
 import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswordContainer';
-import SidebarContainer from './Components/Sidebar/SidebarContainer';
+import SidebarContainer from './Components/Shared/Sidebar/SidebarContainer';
 import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
 import NewProjectFormContainer from './Components/NewProjectForm/NewProjectFormContainer';

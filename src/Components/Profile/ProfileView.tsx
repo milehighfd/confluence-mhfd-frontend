@@ -2,11 +2,9 @@ import * as React from "react";
 import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Timeline,Checkbox, Select, Radio, Table} from 'antd';
 
 
-import NavbarView from "../Navbar/NavbarView";
-import SidebarView from "../Sidebar/SidebarView";
-import CardInformationView from "../CardInformation/CardInformationView";
-import MapFilterView from '../MapFilter/MapFilterView';
-import MapTypesView from "../MapTypes/MapTypesView";
+import NavbarView from "../Shared/Navbar/NavbarView";
+import SidebarView from "../Shared/Sidebar/SidebarView";
+import CardInformationView from "../Shared/CardInformation/CardInformationView";
 
 
 const { Panel } = Collapse;

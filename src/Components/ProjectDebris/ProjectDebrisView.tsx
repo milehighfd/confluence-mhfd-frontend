@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Breadcrumb, Switch, Tabs, Select, Tag, Card, Input, Progress, Timeline, Upload, message, Table } from 'antd';
 
-import NavbarView from "../Navbar/NavbarView";
-import SidebarView from "../Sidebar/SidebarView";
+import NavbarView from "../Shared/Navbar/NavbarView";
+import SidebarView from "../Shared/Sidebar/SidebarView";
 import Map from '../Map/Map';
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
 import { Debris } from "../../Classes/Maintenance/Debris";

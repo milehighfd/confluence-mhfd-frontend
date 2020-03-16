@@ -2,8 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import { Tabs, Row, Col, Collapse, Tag } from "antd";
 import CardInformationView from "../CardInformation/CardInformationView";
-import AccordionRowView from "../AccordionRow/AccordionRowView";
-import AccordionDisplayView from "../AccordionDisplay/AccordionDisplayView";
+import AccordionRowView from "./AccordionRow/AccordionRowView";
+import AccordionDisplayView from "./AccordionDisplay/AccordionDisplayView";
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;

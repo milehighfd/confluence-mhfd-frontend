@@ -7,8 +7,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import MapFilterView from '../MapFilter/MapFilterView';
-import MapTypesView from "../MapTypes/MapTypesView";
+import MapFilterView from '../Shared/MapFilter/MapFilterView';
+import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
 import { MAP_DROPDOWN_ITEMS } from "../../constants/constants";

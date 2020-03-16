@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Row, Col, Form, Icon, Input, Button, } from 'antd';
-import NavbarView from "../Navbar/NavbarContainer";
-import SidebarView from "../Sidebar/SidebarContainer";
+import NavbarView from "../Shared/Navbar/NavbarContainer";
+import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import { useLocation, Redirect } from "react-router-dom";
 import ButtonProjectTypesView from "./ButtonProjectTypes/ButtonProjectTypesView";
 import { buttonsNewProject } from "../../constants/constants"

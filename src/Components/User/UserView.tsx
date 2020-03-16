@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {Layout, Row, Col, Tabs, Input, Menu, Dropdown, Button, Icon, Collapse, Radio, Switch, Table, Divider, Tag, Pagination} from 'antd';
-import NavbarView from "../Navbar/NavbarContainer";
-import SidebarView from "../Sidebar/SidebarContainer";
+import NavbarView from "../Shared/Navbar/NavbarContainer";
+import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import Accordeon from './ApprovedUsers/Accordeon';
 import UserFilters from './UserFilters';
-import ListUser from '../ListUser/ListUserView';
+import ListUser from './ListUser/ListUserView';
 
 const {Content} = Layout;
 const { TabPane } = Tabs;

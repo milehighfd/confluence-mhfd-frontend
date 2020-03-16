@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Timeline } from 'antd';
 
 
-import NavbarView from "../Navbar/NavbarView";
-import SidebarView from "../Sidebar/SidebarView";
-import MapFilterView from '../MapFilter/MapFilterView';
-import MapTypesView from "../MapTypes/MapTypesView";
+import NavbarView from "../Shared/Navbar/NavbarView";
+import SidebarView from "../Shared/Sidebar/SidebarView";
+import MapFilterView from '../Shared/MapFilter/MapFilterView';
+import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import Map from './Map';
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
 import SortMenuView from "../SortMenu/SortMenuView";
-import GenericTabView from "../GenericTab/GenericTabView";
+import GenericTabView from "../Shared/GenericTab/GenericTabView";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
