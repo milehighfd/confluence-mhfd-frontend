@@ -13,7 +13,7 @@ import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
 import { MAP_DROPDOWN_ITEMS } from "../../constants/constants";
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoianVhbmk4ODgiLCJhIjoiY2swenFnd2o0MHN4djNibnhwOGpicHVhcyJ9.gGs9uPzUhpgH3F127w3ggQ';
+const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
@@ -68,6 +68,10 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
     useEffect(() => {
         map.resize();
     }, [leftWidth]);
+
+    useEffect(() => {
+        paintSelectedComponents(selectedItems);
+    }, [selectedItems]);
 
     /* https://github.com/mapbox/mapbox-gl-js/issues/2268 Mapbox issue when refreshing layers */
     const refreshPaintedComponents = () => {
