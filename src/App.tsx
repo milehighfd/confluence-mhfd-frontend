@@ -21,8 +21,11 @@ import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import ProjectDebrisContainer from './Components/ProjectDebris/ProjectDebrisContainer';
 import AlertContainer from './Components/Alerts/AlertContainer';
-import ProjectCapital from './Components/ProjectCapital/ProjectCapitalContainer';
-import ProjectAcquisition from './Components/ProjectAcquisition/ProjectAcquisitionContainer';
+import ProjectCapitalContainer from './Components/ProjectCapital/ProjectCapitalContainer';
+import ProjectAcquisitionContainer from './Components/ProjectAcquisition/ProjectAcquisitionContainer';
+import ProjectSpecialContainer from './Components/ProjectSpecial/ProjectSpecialContainer';
+import ProjectStudyMasterContainer from './Components/ProjectStudyMaster/ProjectStudyMasterContainer';
+import ProjectStudyFHADContainer from './Components/ProjectStudyFHAD/ProjectStudyFHADContainer';
 
 function App({ appUser }: any) {
   // return <Switch>
@@ -59,8 +62,11 @@ function App({ appUser }: any) {
       <Route path={`/user`} component={UserContainer} />
       <Route path={`/new-project-form`} component={NewProjectFormContainer} />
       <Route path={`/project-debris`} component={ProjectDebrisContainer} />
-      <Route path={`/project-capital`} component={ProjectCapital} />
-      <Route path={`/project-acquisition`} component={ProjectAcquisition} />
+      <Route path={`/project-capital`} component={ProjectCapitalContainer} />
+      <Route path={`/project-acquisition`} component={ProjectAcquisitionContainer} />
+      <Route path={`/project-special`} component={ProjectSpecialContainer} />
+      <Route path={`/project-master-plan-only`} component={ProjectStudyMasterContainer} />
+      <Route path={`/project-fhad`} component={ProjectStudyFHADContainer} />
       <Route path={`/new-project-types`} component={NewProjectTypesContainer} />
       <Route path={`/filter-projects`} component={FiltersProjectContainer} />
       <Route path={`/work-plan`} component={WorkPlanContainer} />

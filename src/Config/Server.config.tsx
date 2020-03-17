@@ -10,6 +10,7 @@ export const SERVER = (function () {
     const CREATEPROJECTDEBRIS = 'createMaintenanceDebris';
     const CREATEPROJECTCAPITAL = 'createCapital';
     const CREATEPROJECTACQUISITION = 'createAcquisition';
+    const CREATEPROJECTSPECIAL = 'createSpecial'
     return {
         URL_BASE: URL_BASE.BASE,
         USER: `${URL_BASE.BASE}/${USER}`,
@@ -18,5 +19,6 @@ export const SERVER = (function () {
         CREATEPROJECTDEBRIS: `${URL_BASE.BASE}/${PROJECT}/${CREATEPROJECTDEBRIS}`,
         CREATEPROJECTCAPITAL: `${URL_BASE.BASE}/${PROJECT}/${CREATEPROJECTCAPITAL}`,
         CREATEPROJECTACQUISITION: `${URL_BASE.BASE}/${PROJECT}/${CREATEPROJECTACQUISITION}`,
+        CREATEPROJECTSPECIAL: `${URL_BASE.BASE}/${PROJECT}/${CREATEPROJECTSPECIAL}`,
     }
 })();

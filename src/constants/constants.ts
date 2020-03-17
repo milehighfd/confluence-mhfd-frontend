@@ -90,13 +90,13 @@ export const buttonsNewProject = [
           route: 'new-project-form',
           icon1: '/Icons/icon-57.svg',
           icon2: '/Icons/icon-68.svg',
-          redirectRoute: '/new-project-form'
+          redirectRoute: '/project-master-plan-only'
         }, {
           title: 'fhad only',
           route: 'new-project-form',
           icon1: '/Icons/icon-58.svg',
           icon2: '/Icons/icon-59.svg',
-          redirectRoute: '/new-project-form'
+          redirectRoute: '/project-fhad'
         }
       ]
     }, {
@@ -110,7 +110,7 @@ export const buttonsNewProject = [
       route: 'new-project-form',
       icon1: '/Icons/icon-45.svg',
       icon2: '/Icons/icon-46.svg',
-      redirectRoute: '/new-project-form'
+      redirectRoute: '/project-special'
     }
   ];
 

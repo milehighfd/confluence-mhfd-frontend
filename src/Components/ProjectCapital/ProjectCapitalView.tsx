@@ -191,7 +191,7 @@ export default ({ polygons, projects, components } : any) => {
     }
   }
 
-  if(submit.submit) {
+  if(submit.submit && submit.optionSubmit) {
     const valid = (
       projectCapital.description.length > 0 &&
       projectCapital.localDollarsContributed > 0 && 
@@ -206,6 +206,7 @@ export default ({ polygons, projects, components } : any) => {
         if(res) {
           setRedirect(true);
         }
+        submit.optionSubmit = false;
       })
     }
   }

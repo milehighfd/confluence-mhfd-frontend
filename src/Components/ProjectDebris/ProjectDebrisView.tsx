@@ -53,7 +53,7 @@ export default ({ problems, projects, components }: any) => {
       setRotationStyle(emptyStyle);
     }
   }
-  if(submit.submit) {
+  if(submit.submit && submit.optionSubmit) {
     const valid = (
       projectDebris.description.length > 0 &&
       projectDebris.frequency && 
@@ -67,6 +67,7 @@ export default ({ problems, projects, components }: any) => {
         if(res) {
           setRedirect(true);
         }
+        submit.optionSubmit = false;
       })
     } else {
       const auxSubmit = {...submit};
