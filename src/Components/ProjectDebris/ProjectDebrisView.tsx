@@ -10,6 +10,10 @@ import MenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
 import { useLocation, Redirect } from "react-router-dom";
 import * as datasets from "../../Config/datasets"
 import { SERVER } from "../../Config/Server.config";
+import { UploadFile } from "../Shared/UploadFiles/UploadFile";
+import { Files } from "../Shared/UploadFiles/File";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { client } from "../Shared/UploadFiles/apollo";
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
@@ -178,6 +182,11 @@ export default ({ problems, projects, components }: any) => {
                 </div>
                 <div className="img-npf">
                   <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
+                  {/* <ApolloProvider client={client}>
+                    <UploadFile />
+                    <Files />
+                  </ApolloProvider> */}
+                  
                   <Dragger>
                     <img src="/Icons/icon-17.svg" alt="" />
                     <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
