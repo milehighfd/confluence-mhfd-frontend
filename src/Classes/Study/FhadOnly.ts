@@ -1,18 +1,12 @@
 export class FhadOnly {
     requestName: string;
-	projectType: string;
-	projectSubType: string;
-	description: string;
-	mhfdDollarRequest: number;
-	maintenanceEligility: string;
-    frecuency: string;
+	sponsor: string;
+	coSponsor: string;
+	requestedStartyear: number;
     constructor() {
         this.requestName = "";
-        this.projectType = "";
-        this.projectSubType = "";
-        this.description = "";
-        this.mhfdDollarRequest = 0;
-        this.maintenanceEligility = "";
-        this.frecuency = "";
+        this.sponsor = "";
+        this.coSponsor = "";
+        this.requestedStartyear = 0;
     }
 }

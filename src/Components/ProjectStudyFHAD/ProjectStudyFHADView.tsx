@@ -5,7 +5,7 @@ import NavbarView from "../Shared/Navbar/NavbarView";
 import SidebarView from "../Shared/Sidebar/SidebarView";
 import Map from '../Map/Map';
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, NEW_PROJECT_FORM_COST } from "../../constants/constants";
-import { MasterPlanOnly } from "../../Classes/Study/MasterPlanOnly";
+import { FhadOnly } from "../../Classes/Study/FhadOnly";
 import { useLocation, Redirect } from "react-router-dom";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
@@ -49,7 +49,7 @@ const columns01 = ({removeSelectedItem} : any) => [
 ];
 
 
-const masterPlan = new MasterPlanOnly();
+const masterPlan = new FhadOnly();
 const send = {
   submit: false,
   optionSubmit : false
@@ -134,7 +134,7 @@ export default ({ polygons, projects, components } : any) => {
     );
     if (valid) {
       
-      const result = datasets.postData(SERVER.CREATEPROJECTSPECIAL, projectMasterPlan, datasets.getToken()).then(res => {
+      const result = datasets.postData(SERVER.CREATEPROJECTSTUDYFHAD, projectMasterPlan, datasets.getToken()).then(res => {
         if(res) {
           setRedirect(true);
         }
