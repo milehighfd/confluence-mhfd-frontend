@@ -20,18 +20,39 @@ const genExtra = () => (
 </div>
 );
 
+const menu = (
+  <Menu className="js-mm-00">
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="">
+        1st menu
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="">
+        2nd menu
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="">
+        3rd menu
+      </a>
+    </Menu.Item>
+  </Menu>
+);
+
 export default () => {
  return <div className="detailed">
     <Row className="detailed-h" gutter={[16, 8]}>
-      <Col span={14}>
+      <Col span={13}>
         <h1>Little Dry Creek FloodPlain At Sheridan BLVD</h1>
         <p><span>Capital Project</span>   •   <span>Arvada, CO</span>   •   <span>Jefferson County</span>   •   <span>West Service Area</span></p>
       </Col>
-      <Col span={4}>
+      <Col span={5}>
         <div className="status-d">
           <label>Solution Status <b>60%</b></label>
           <Progress percent={50} size="small" status="active" />
         </div>
+        {/*<div className="nn-hh">Project Status: Hydrology</div>*/}
       </Col>
       <Col span={3} style={{textAlign: 'center'}}>
         <div className="detailed-mm"><b>$1,230,500</b></div>
@@ -155,14 +176,66 @@ export default () => {
             </Panel>
             <Panel header="Map" key="3" extra={genExtra()}>
               <div className="detailed-map">
+                <Dropdown overlay={menu} className="btn-03">
+                  <Button>
+                    Dark Terrain <img src="/Icons/icon-12.svg" alt=""/>
+                  </Button>
+                </Dropdown>
 
+                <div className="m-zoom">
+                  <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt="" width="12px"/></Button>
+                  <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>
+                </div>
+
+                <div className="m-foo">
+                  <p><div style={{background:'#29c499', marginRight:'5px'}}></div> Problems</p>
+                  <p><div style={{background:'#fac774', marginRight:'5px'}}></div> Projects</p>
+                </div>
               </div>
             </Panel>
-            <Panel header="Attachments" key="3" extra={genExtra()}>
+            <Panel header="Attachments" key="4" extra={genExtra()}>
               <div className="data-00">
                 <div><img src="Icons/icon-63.svg" alt=""/> Little Dry Creek_image-1.jpg</div>
                 <div><img src="Icons/icon-63.svg" alt=""/> Little Dry Creek_image-2.jpg</div>
               </div>
+            </Panel>
+
+            <Panel header="PROBLEM" key="5" extra={genExtra()}>
+              <div className="detailed-info">
+                <Row>
+                  <Col span={4}>
+                    <label><i>Name</i></label>
+                  </Col>
+                  <Col span={8}>
+                    <p>8 structures in LDC floodplain @Alpha St</p>
+                  </Col>
+                  <Col span={4}>
+                    <label><i>Priority</i></label>
+                  </Col>
+                  <Col span={8}>
+                    <p>High Priority</p>
+                  </Col>
+                </Row>
+              </div>
+            </Panel>
+
+            <Panel header="VENDORS" key="6" extra={genExtra()}>
+            <div className="detailed-info">
+              <Row>
+                <Col span={4}>
+                  <label><i>Contractor</i></label>
+                </Col>
+                <Col span={8}>
+                  <p>Atkins</p>
+                </Col>
+                <Col span={4}>
+                  <label><i>Consultant</i></label>
+                </Col>
+                <Col span={8}>
+                  <p>Applegate Group</p>
+                </Col>
+              </Row>
+            </div>
             </Panel>
           </Collapse>
         </div>

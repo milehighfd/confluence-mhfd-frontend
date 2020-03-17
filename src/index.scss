@@ -2504,12 +2504,12 @@ body{
     border: none;
     box-shadow: none;
     padding: 0px 12px;
-    margin: 10px 0px;
+    margin: 8px 0px;
   }
 
 }
 .status-d{
-  padding: 6px 0px;
+  padding: 6px 0px 6px 40px;
 
   label{
     font-size: 12px;
@@ -2535,6 +2535,17 @@ body{
     background-color: $opacity01;
   }
 }
+.nn-hh{
+  height: 40px;
+  font-size: 13px;
+  color: $purple;
+  background: $opacity01;
+  border-radius: 2px;
+  text-align: center;
+  padding: 11px 0px;
+  font-weight: 500;
+  margin-top: 6px;
+}
 .detailed-mm{
   font-size: 14px;
   color: $purple;
@@ -2543,7 +2554,7 @@ body{
   height: 35px;
   min-height: 35px;
   padding: 8px 0px;
-  margin: 10px 12px;
+  margin: 8px 12px;
 }
 .detailed-b{
   .ant-carousel .slick-slide {
@@ -2611,6 +2622,55 @@ body{
   box-shadow: $shadow;
   background-image: url('/Icons/mapitash.png');
   position: relative;
+
+  .btn-03, .btn-03:hover, .btn-03:focus, .btn-03:active, .btn-03.active {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    height: 35px;
+    color: #251863;
+    font-size: 12px;
+    z-index: 10;
+  }
+  .btn-03 img {
+    margin-left: 8px;
+  }
+  .m-zoom {
+    position: absolute;
+    width: 25px;
+    right: 20px;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+  }
+  .m-zoom button {
+    width: 25px;
+    height: 25px;
+    padding: 0px;
+    border: none;
+  }
+  .m-foo{
+    width: 120px;
+    height: 50px;
+    border-radius: 4px;
+    box-shadow: $shadow;
+    background: $white;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 6px 10px;
+  }
+  p{
+    display: flex;
+    font-size: 12px;
+    color: $purple00;
+    margin-bottom: 2px;
+  }
+  p div{
+    width:15px;
+    height:5px;
+    margin-top: 6px;
+  }
 }
 .solution-h{
   padding: 0px 20px;
