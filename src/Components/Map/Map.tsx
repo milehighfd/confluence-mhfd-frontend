@@ -20,10 +20,9 @@ const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 let map : any = null;
 const drawConstants = ['problems', 'projects', 'components'];
 
-const Map = ({ leftWidth, children, polygons, projects, components, setSelectedItems, selectedItems, setIsPolygon } : any) => {
+const Map = ({ leftWidth, children, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon } : any) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState<any>({default: 0, items: MAP_DROPDOWN_ITEMS});
-    const [comItems, setComItems] = useState<Array<[]>>([])
 
     useEffect(() => {
         (mapboxgl as any).accessToken = MAPBOX_TOKEN;
@@ -73,7 +72,7 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
 
     /* https://github.com/mapbox/mapbox-gl-js/issues/2268 Mapbox issue when refreshing layers */
     const refreshPaintedComponents = () => {
-        if(map.isStyleLoaded()) setTimeout(refreshPaintedComponents, 200);
+        if(map.isStyleLoaded()) setTimeout(refreshPaintedComponents, 500);
         else paintSelectedComponents(selectedItems);
     }
 
@@ -150,7 +149,7 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
     }
 
     const addMapListeners = () => {
-        /* Add Listeners to the Polygons and Components */
+        /* Add Listeners to the problems and Components */
         drawConstants.map((trigger : string) => {
             map.on('load', () =>  drawItemsInMap(trigger));
             map.on('style.load', () => drawItemsInMap(trigger));
@@ -173,27 +172,42 @@ const Map = ({ leftWidth, children, polygons, projects, components, setSelectedI
         });
     }
 
-    const popUpContent = (trigger : string) => ReactDOMServer.renderToStaticMarkup(
+    const popUpContent = (trigger : string, name : string, jurisdiction: string, studyName : string) => ReactDOMServer.renderToStaticMarkup(
         <>
-            {trigger !== 'components' ? <MainPopup trigger={trigger} /> : <ComponentPopup />}
+            {trigger !== 'components' ? 
+                <MainPopup 
+                    trigger={trigger}
+                    name={name}
+                    jurisdiction={jurisdiction} /> : 
+                <ComponentPopup
+                    name={name}
+                    jurisdiction={jurisdiction}
+                    studyName={studyName} />}
         </>
     );
 
     const drawItemsInMap = (trigger : string) => {
         let items = null;
-        if(trigger === 'problems') items = polygons;
+        if(trigger === 'problems') items = problems;
         else if(trigger === 'projects') items = projects;
         else if(trigger === 'components') items = components;
         if(!items) return;
         refreshSourceLayers(trigger);
 
         const itemsFeatures = items.map((item : any) => {
+            const nameConst = trigger.slice(0, -1);
+
+            const id = item[nameConst + 'Id'];
+            const name = item[nameConst + 'Name'];
+            const jurisdiction = item.jurisdiction;
+
+            const studyName = item.studyName;
+                
             return {
-                id: item.componentId,
+                id: id,
                 type: 'Feature',
                 properties: {
-                    description: popUpContent(trigger),
-                    icon: trigger === 'components'?'bar':null
+                    description: popUpContent(trigger, name, jurisdiction, studyName)
                 },
                 geometry: {
                     type: trigger !== 'components'?'Polygon':'Point',

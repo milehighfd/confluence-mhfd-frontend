@@ -1,9 +1,13 @@
 // import * as types from '../types/userTypes';
 
 const initState = {
-    polygons: [
+    problems: [
         {
-            id: '1',
+            problemId: 'MJBPJCMTHH',
+            problemName: 'Piney Creek Channel Restoration',
+            problemPriority: 0.8,
+            jurisdiction: 'Westminster',
+            solutionCost: 400500,
             coordinates: [
                 [-105.06420012782819, 39.81026323699689],
                 [-105.05016547189382, 39.801761786974225],
@@ -16,7 +20,11 @@ const initState = {
             ]
         },
         {
-            id: '2',
+            problemId: '8YHX5F3F58',
+            problemName: 'West Tollgate Creek GSB Drops',
+            problemPriority: 0.8,
+            jurisdiction: 'Westminster',
+            solutionCost: 400500,
             coordinates: [
                 [-104.94271733364056, 39.80902390918499],
                 [-104.93309484040513, 39.821736685950924],
@@ -29,7 +37,11 @@ const initState = {
             ]
         },
         {
-            id: '3',
+            problemId: 'QHGBOM2HY2',
+            problemName: 'Murphy Creek Bank Stabilization',
+            problemPriority: 0.8,
+            jurisdiction: 'Westminster',
+            solutionCost: 400500,
             coordinates: [
                 [-104.85994340215153, 39.77514841494917],
                 [-104.83872293246881, 39.77721479372536],
@@ -42,7 +54,11 @@ const initState = {
             ]
         },
         {
-            id: '4',
+            problemId: 'Z7AKZ06D9U',
+            problemName: 'New Orleans Creek Regional Detention',
+            problemPriority: 0.8,
+            jurisdiction: 'Westminster',
+            solutionCost: 400500,
             coordinates: [
                 [-105.00144312624077, 39.76261082027116],
                 [-105.02360295987883, 39.7613643976824],
@@ -57,7 +73,12 @@ const initState = {
     ],
     projects: [
         {
-            id: 'comp1',
+            projectId: '74WA4X7E22',
+            projectName: 'Murphy Creek Bank Stabilization',
+            projectSubtype: 'Mantenance',
+            status: 'Requested',
+            finalCost: 400500,
+            jurisdiction: 'Westminster',
             coordinates: [
                 [-105.00678964730282, 39.82517491705079],
                 [-105.00762077207199, 39.82092555878796],
@@ -67,7 +88,12 @@ const initState = {
             ]
         },
         {
-            id: 'comp2',
+            projectId: 'TK2IR1O0QT',
+            projectName: 'Little Dry Check',
+            projectSubtype: 'Mantenance',
+            status: 'Requested',
+            finalCost: 400500,
+            jurisdiction: 'Westminster',
             coordinates: [
                 [-105.0110363830156, 39.804763700061244],
                 [-105.01186750778476, 39.80051434179842],
@@ -77,7 +103,12 @@ const initState = {
             ]
         },
         {
-            id: 'comp3',
+            projectId: 'B31X97N2JN',
+            projectName: 'Street Breakdown Creek',
+            projectSubtype: 'Mantenance',
+            status: 'Requested',
+            finalCost: 400500,
+            jurisdiction: 'Westminster',
             coordinates: [
                 [-105.03620004995867, 39.79835077739452],
                 [-105.03703117472783, 39.79410141913169],
@@ -87,7 +118,12 @@ const initState = {
             ]
         },
         {
-            id: 'comp4',
+            projectId: 'LTV5KLRYVF',
+            projectName: 'Denver Channel Restoration',
+            projectSubtype: 'Mantenance',
+            status: 'Requested',
+            finalCost: 400500,
+            jurisdiction: 'Westminster',
             coordinates: [
                 [-105.03596379426749, 39.83908124694051],
                 [-105.03679491903665, 39.834831888677684],
@@ -97,7 +133,12 @@ const initState = {
             ]
         },
         {
-            id: 'comp5',
+            projectId: 'Q3HUQJ5BBA',
+            projectName: 'Aplha Street Attendance',
+            projectSubtype: 'Mantenance',
+            status: 'Requested',
+            finalCost: 400500,
+            jurisdiction: 'Westminster',
             coordinates: [
                 [-105.03609048531352, 39.76589941774358],
                 [-105.03692161008269, 39.76165005948076],
@@ -107,7 +148,12 @@ const initState = {
             ]
         },
         {
-            id: 'comp6',
+            projectId: 'E3Z4PXX8BD',
+            projectName: 'Channel Breakdown Creek',
+            projectSubtype: 'Mantenance',
+            status: 'Requested',
+            finalCost: 400500,
+            jurisdiction: 'Westminster',
             coordinates: [
                 [-105.02319249898396, 39.729928914835114],
                 [-105.02402362375312, 39.72567955657229],
@@ -117,7 +163,12 @@ const initState = {
             ]
         },
         {
-            id: 'comp7',
+            projectId: '7OZUJ68M69',
+            projectName: 'Pedestrian Crossing in Park',
+            projectSubtype: 'Mantenance',
+            status: 'Requested',
+            finalCost: 400500,
+            jurisdiction: 'Westminster',
             coordinates: [
                 [-104.99081236446784, 39.73012142325817],
                 [-104.991643489237, 39.72587206499534],
@@ -127,7 +178,12 @@ const initState = {
             ]
         },
         {
-            id: 'comp8',
+            projectId: 'IQ4D5VETTC',
+            projectName: 'Building Inundation Crash',
+            projectSubtype: 'Mantenance',
+            status: 'Requested',
+            finalCost: 400500,
+            jurisdiction: 'Westminster',
             coordinates: [
                 [-104.98663152143963, 39.760378029230594],
                 [-104.9874626462088, 39.75612867096777],
@@ -143,6 +199,8 @@ const initState = {
             componentName: 'Grey River',
             jurisdiction: 'Westminster',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.05122872371193, 39.80646143706309]
         },
@@ -151,6 +209,8 @@ const initState = {
             componentName: 'Bulls Town',
             jurisdiction: 'Longway',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.01923195503527, 39.82544787234704]
         },
@@ -159,6 +219,8 @@ const initState = {
             componentName: 'Juarez Raven',
             jurisdiction: 'Juarez',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.01428824828696, 39.80793834790717]
         },
@@ -167,6 +229,8 @@ const initState = {
             componentName: 'New Town',
             jurisdiction: 'Westminster',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.01047599435583, 39.8038520952569]
         },
@@ -175,6 +239,8 @@ const initState = {
             componentName: 'La Vela',
             jurisdiction: 'Riverdale',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.0076262517371, 39.800932966936955]
         },
@@ -183,6 +249,8 @@ const initState = {
             componentName: 'Washington Problem',
             jurisdiction: 'Westminster',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Pedestrian Trail Restoration',
             coordinates: [-105.01131479817568, 39.800875134035095]
         },
@@ -191,6 +259,8 @@ const initState = {
             componentName: 'Aurora River',
             jurisdiction: 'Westminster',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Pedestrian Trail Restoration',
             coordinates: [-104.99181142130422, 39.85783623146801]
         },
@@ -199,6 +269,8 @@ const initState = {
             componentName: 'New Fork Creek',
             jurisdiction: 'Westminster',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Whitewater Section',
             coordinates: [-104.98016051889145, 39.85096161845925]
         },
@@ -207,6 +279,8 @@ const initState = {
             componentName: 'Poplar Branch',
             jurisdiction: 'Boulder',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Channel Restoration',
             coordinates: [-104.96092795632697, 39.87449627602601]
         },
@@ -215,6 +289,8 @@ const initState = {
             componentName: 'Animas River',
             jurisdiction: 'Longmont',
             howCost: 1570000,
+            status: 'Active',
+            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
             studyName: 'Combination Bridge',
             coordinates: [-104.99997101031218, 39.84543449508365]
         }

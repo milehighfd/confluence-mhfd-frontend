@@ -170,7 +170,7 @@ const data03 = ({ total, numberWithCommas } : any) => [
   },
 ];
 
-export default ({ polygons, projects, components } : any) => {
+export default ({ problems, projects, components } : any) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -244,7 +244,7 @@ export default ({ polygons, projects, components } : any) => {
               <Col span={leftWidth}>
                 <Map
                   leftWidth={leftWidth}
-                  polygons={polygons}
+                  problems={problems}
                   projects={projects}
                   components={components}
                   setSelectedItems={setSelectedItems}

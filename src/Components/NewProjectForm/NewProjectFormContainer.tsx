@@ -4,7 +4,7 @@ import NewProjectFormView from './NewProjectFormView';
 
 const mapStateToProps = (state: any) => {
   return {
-    polygons: state.map.polygons,
+    problems: state.map.problems,
     projects: state.map.projects,
     components: state.map.components
   };
