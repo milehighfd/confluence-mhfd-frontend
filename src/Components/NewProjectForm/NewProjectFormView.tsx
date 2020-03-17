@@ -170,7 +170,7 @@ const data03 = ({ total, numberWithCommas } : any) => [
   },
 ];
 
-export default ({ problems, projects, components } : any) => {
+export default ({ problems, projects, components, getReverseGeocode } : any) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -249,7 +249,8 @@ export default ({ problems, projects, components } : any) => {
                   components={components}
                   setSelectedItems={setSelectedItems}
                   selectedItems={selectedItems}
-                  setIsPolygon={setIsPolygon} />
+                  setIsPolygon={setIsPolygon}
+                  getReverseGeocode={getReverseGeocode} />
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

@@ -1,6 +1,8 @@
-// import * as types from '../types/userTypes';
+import * as types from '../types/mapTypes';
 
 const initState = {
+    county: '',
+    error: '',
     problems: [
         {
             problemId: 'MJBPJCMTHH',
@@ -299,6 +301,16 @@ const initState = {
 
 const mapReducer = (state = initState, action : any) => {
     switch(action.type) {
+        case types.SET_REVERSE_GEOCODE: 
+            return {
+                ...state,
+                county: action.county
+            }
+        case types.GEOCODE_REQUEST_ERROR:
+            return {
+                ...state,
+                error: action.err
+            }
         default: 
             return state;
     }

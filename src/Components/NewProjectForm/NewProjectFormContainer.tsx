@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import NewProjectFormView from './NewProjectFormView';
+import { getReverseGeocode } from '../../store/actions/mapActions';
 
 const mapStateToProps = (state: any) => {
   return {
@@ -10,9 +12,10 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Function): any => {
-  return {
-  };
-};
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators({
+    getReverseGeocode,
+  }, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewProjectFormView);

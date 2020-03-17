@@ -20,7 +20,7 @@ const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 let map : any = null;
 const drawConstants = ['problems', 'projects', 'components'];
 
-const Map = ({ leftWidth, children, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon } : any) => {
+const Map = ({ leftWidth, children, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode } : any) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState<any>({default: 0, items: MAP_DROPDOWN_ITEMS});
 
@@ -32,7 +32,6 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
             center: [-105.04, 39.805], // starting position
             zoom: 10.8, // starting zoom
         });
-
         const nav = new mapboxgl.NavigationControl({ showCompass: false });
         map.addControl(nav, 'bottom-right');
 
@@ -105,7 +104,6 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
             const features = draw.getAll().features;
             draw.delete(features[0].id);
         }
-
         const points = getComponentsInPolygon(draw.getAll().features[0].geometry.coordinates[0]);
         const polygonCoords = turf.polygon(draw.getAll().features[0].geometry.coordinates);
         const turfPoints = points.map((point : any) => turf.point(point.coordinates));
@@ -138,6 +136,7 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
             }
         });
 
+        getReverseGeocode((maxX + minX)/2, (maxY + minY)/2, MAPBOX_TOKEN);
         return points;
     }
 
