@@ -1,18 +1,16 @@
 export class Capital {
     requestName: string;
-	projectType: string;
-	projectSubType: string;
 	description: string;
-	mhfdDollarRequest: number;
-	maintenanceEligility: string;
-    frecuency: string;
+	localDollarsContributed: number;
+	mhfdFundingRequest: string;
+	requestFundingYear: number;
+	goal: string;
     constructor() {
         this.requestName = "";
-        this.projectType = "";
-        this.projectSubType = "";
         this.description = "";
-        this.mhfdDollarRequest = 0;
-        this.maintenanceEligility = "";
-        this.frecuency = "";
+        this.localDollarsContributed = 0;
+        this.mhfdFundingRequest = "";
+        this.requestFundingYear = 0;
+        this.goal = "";
     }
 }

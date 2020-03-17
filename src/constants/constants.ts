@@ -40,7 +40,7 @@ export const buttonsNewProject = [
       route: 'new-project-form',
       icon1: '/Icons/icon-37.svg',
       icon2: '/Icons/icon-38.svg',
-      redirectRoute: '/new-project-form'
+      redirectRoute: '/project-capital'
     }, {
       title: 'maintenance',
       route: 'new-project-form',
@@ -104,7 +104,7 @@ export const buttonsNewProject = [
       route: 'new-project-form',
       icon1: '/Icons/icon-43.svg',
       icon2: '/Icons/icon-44.svg',
-      redirectRoute: '/new-project-form'
+      redirectRoute: '/project-acquisition'
     }, {
       title: 'special',
       route: 'new-project-form',

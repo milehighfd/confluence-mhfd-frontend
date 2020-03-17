@@ -6,7 +6,7 @@ import SidebarView from "../Shared/Sidebar/SidebarView";
 import Map from '../Map/Map';
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
 import { Debris } from "../../Classes/Maintenance/Debris";
-import MenuView from "./Menu/MenuView";
+import MenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
 import { useLocation, Redirect } from "react-router-dom";
 import * as datasets from "../../Config/datasets"
 import { SERVER } from "../../Config/Server.config";

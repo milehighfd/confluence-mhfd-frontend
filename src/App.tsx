@@ -21,6 +21,8 @@ import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import ProjectDebrisContainer from './Components/ProjectDebris/ProjectDebrisContainer';
 import AlertContainer from './Components/Alerts/AlertContainer';
+import ProjectCapital from './Components/ProjectCapital/ProjectCapitalContainer';
+import ProjectAcquisition from './Components/ProjectAcquisition/ProjectAcquisitionContainer';
 
 function App({ appUser }: any) {
   // return <Switch>
@@ -57,6 +59,8 @@ function App({ appUser }: any) {
       <Route path={`/user`} component={UserContainer} />
       <Route path={`/new-project-form`} component={NewProjectFormContainer} />
       <Route path={`/project-debris`} component={ProjectDebrisContainer} />
+      <Route path={`/project-capital`} component={ProjectCapital} />
+      <Route path={`/project-acquisition`} component={ProjectAcquisition} />
       <Route path={`/new-project-types`} component={NewProjectTypesContainer} />
       <Route path={`/filter-projects`} component={FiltersProjectContainer} />
       <Route path={`/work-plan`} component={WorkPlanContainer} />
