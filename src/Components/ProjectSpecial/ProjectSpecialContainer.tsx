@@ -4,7 +4,7 @@ import ProjectSpecialView from './ProjectSpecialView';
 
 const mapStateToProps = (state: any) => {
   return {
-    polygons: state.map.polygons,
+    problems: state.map.problems,
     components: state.map.components
   };
 };

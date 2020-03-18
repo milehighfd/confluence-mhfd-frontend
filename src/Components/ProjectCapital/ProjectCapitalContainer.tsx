@@ -4,7 +4,7 @@ import ProjectCapitalView from './ProjectCapitalView';
 
 const mapStateToProps = (state: any) => {
   return {
-    polygons: state.map.polygons,
+    problems: state.map.problems,
     components: state.map.components
   };
 };

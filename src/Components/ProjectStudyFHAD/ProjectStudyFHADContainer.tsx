@@ -4,7 +4,7 @@ import ProjectStudyFHADView from './ProjectStudyFHADView';
 
 const mapStateToProps = (state: any) => {
   return {
-    polygons: state.map.polygons,
+    problems: state.map.problems,
     components: state.map.components
   };
 };
