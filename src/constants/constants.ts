@@ -167,6 +167,30 @@ export const CITIES = [
     "Wheat Ridge"
 ]
 
+export const FOOTER_PROJECT_CAPITAL = [
+  {
+    dataIndex: 'Component',
+    key: 'Component',
+    ellipsis: true,
+  },
+  {
+    dataIndex: 'Jurisdiction',
+    key: 'Jurisdiction',
+    ellipsis: true,
+  },
+  {
+    dataIndex: 'Cost',
+    key: 'Cost',
+    ellipsis: true,
+  },
+
+  {
+    dataIndex: 'StudyName',
+    key: 'StudyName',
+    ellipsis: true,
+  },
+];
+
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11
     mapbox://styles/mapbox/outdoors-v11

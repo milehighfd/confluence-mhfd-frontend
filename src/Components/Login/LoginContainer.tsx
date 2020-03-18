@@ -11,7 +11,7 @@ const mapStateToProps = (state: any): any => {
 
 const mapDispatchToProps = (dispatch: Function): any => {
   return {
-    replaceAppUser(appUser: any) {
+    replaceAppUser(appUser: {name: string, email: string, designation: string}) {
       dispatch(replaceAppUser(appUser))
     }
   };

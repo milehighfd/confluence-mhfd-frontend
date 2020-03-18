@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Row, Col, Form, Icon, Input, Button, } from 'antd';
+import { Layout, Row, Col, Form, Button, } from 'antd';
 import { Carousel } from 'antd';
 import { useFormik } from "formik";
 import * as datasets from "../../Config/datasets"
@@ -8,22 +8,22 @@ import { Redirect, Link } from "react-router-dom";
 
 const url2 = process.env.REACT_APP_API_URI;
 
-export default ({replaceAppUser}: any) => {
+export default ({replaceAppUser}: {replaceAppUser: Function}) => {
   const [redirect, setRedirect] = useState(false);
   const { handleSubmit, handleChange } = useFormik({
     initialValues: {
       email: "",
       password: ""
     },
-    onSubmit(values: any) {
+    onSubmit(values: {email: string, password: string}) {
       const result = datasets.postData(SERVER.LOGIN, values).then(res => {
         if(res?.token) {
           localStorage.setItem('mfx-token', res.token);
           setRedirect(true);
           replaceAppUser({
-            name: 'Juan Perez',
-            email: 'gauss@gmail.com',
-            role: 'admin'
+            name: res.userResult.name,
+            email: res.userResult.email,
+            designation: res.userResult.designation
           })
         }
       })

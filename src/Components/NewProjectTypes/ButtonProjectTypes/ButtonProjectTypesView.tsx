@@ -2,8 +2,7 @@ import React from "react";
 import { Button } from "antd";
 
 export default ({ buttons, setNameProject, setRedirect, nameProject, setRoute, setArrow, setCreate, setTitle }: any) => {
-
-  return <> {buttons.buttonExtra ? (<div><Button onClick={() => {
+  return <> {buttons.buttonExtra ? (<div ><Button  onClick={() => {
     setArrow(true);
     setCreate(buttons.buttonExtra);
     setTitle(buttons.title);

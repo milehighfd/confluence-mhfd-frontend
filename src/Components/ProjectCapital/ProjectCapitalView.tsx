@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Row, Col, Dropdown, Menu, Button, Tag, Input, Upload, Table } from 'antd';
-
+import { Layout, Row, Col, Dropdown, Menu, Button, Tag, Input, Upload, Table, Form } from 'antd';
+// import * as Yup from "yup";
 import NavbarView from "../Shared/Navbar/NavbarView";
 import SidebarView from "../Shared/Sidebar/SidebarView";
 import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
@@ -10,6 +10,11 @@ import { Capital } from "../../Classes/Capital";
 import { Redirect, useLocation } from "react-router-dom";
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets"
+import { useFormik } from "formik";
+import { VALIDATION_PROJECT_CAPITAL } from "../../constants/validation";
+import { FOOTER_PROJECT_CAPITAL } from "../../constants/constants";
+import { NewProjectFormProps, ComponentType } from "../../Classes/MapTypes";
+
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
@@ -125,29 +130,7 @@ const data02 = ({total, numberWithCommas, updatePercentageCosts} : any) => [
   },
 ];
 
-const footer = [
-  {
-    dataIndex: 'Component',
-    key: 'Component',
-    ellipsis: true,
-  },
-  {
-    dataIndex: 'Jurisdiction',
-    key: 'Jurisdiction',
-    ellipsis: true,
-  },
-  {
-    dataIndex: 'Cost',
-    key: 'Cost',
-    ellipsis: true,
-  },
 
-  {
-    dataIndex: 'StudyName',
-    key: 'StudyName',
-    ellipsis: true,
-  },
-];
 
 const data03 = ({ total, numberWithCommas } : any) => [
   {
@@ -157,17 +140,12 @@ const data03 = ({ total, numberWithCommas } : any) => [
   },
 ];
 
-
-const send = {
-    submit: false,
-    optionSubmit : false
-}
-
+const footer = FOOTER_PROJECT_CAPITAL;
+const validationSchema = VALIDATION_PROJECT_CAPITAL;
 export default ({ problems, projects, components } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
-  const capital = new Capital();
-  capital.requestName = cad[2] ? cad[2] : '';
+  const [title, setTitle] = useState<string>('');
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -176,8 +154,6 @@ export default ({ problems, projects, components } : any) => {
   const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
   const [isPolygon, setIsPolygon] = useState<boolean>(false);
   const [total, setTotal] = useState<any>(NEW_PROJECT_FORM_COST);
-  const [projectCapital, setProjectCapital] = useState(capital);
-  const [submit, setSubmit] = useState(send);
   const [redirect, setRedirect] = useState(false);
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
@@ -190,50 +166,27 @@ export default ({ problems, projects, components } : any) => {
       setRotationStyle(emptyStyle);
     }
   }
-
-  if(submit.submit && submit.optionSubmit) {
-    const valid = (
-      projectCapital.description.length > 0 &&
-      projectCapital.localDollarsContributed > 0 && 
-      projectCapital.mhfdFundingRequest.length > 0 &&
-      projectCapital.requestFundingYear > 0  &&
-      projectCapital.requestName.length > 0 &&
-      projectCapital.goal.length > 0
-    );
-    if (valid) {
-      
-      const result = datasets.postData(SERVER.CREATEPROJECTCAPITAL, projectCapital, datasets.getToken()).then(res => {
+  const { values, handleSubmit, handleChange, errors } = useFormik({
+    initialValues: {
+      description: '',
+      localDollarsContributed: 0,
+      mhfdFundingRequest: '',
+      requestName: cad[2] ? cad[2] : '',
+      requestFundingYear: 0,
+      goal: ''
+    },
+    validationSchema,
+    onSubmit(values: {description: string, requestName: string, localDollarsContributed: number, requestFundingYear: number, mhfdFundingRequest: string, goal: string}) {
+      const result = datasets.postData(SERVER.CREATEPROJECTCAPITAL, values, datasets.getToken()).then(res => {
         if(res) {
           setRedirect(true);
         }
-        submit.optionSubmit = false;
       })
     }
-  }
+  });
   if(redirect) {
     return <Redirect to="/map" />
   }
-  useEffect(() => {
-    const selectedItemsCopy = selectedItems.map((item : any) => {
-      return {...item, key: item.componentId, howCost: '$'+numberWithCommas(item.howCost)}
-    });
-    setFormatSelectedItems(selectedItemsCopy);
-
-    if(selectedItems.length) {
-      const subtotal = selectedItems.map((item : any) => item.howCost).reduce((a, b) => a + b, 0);
-      const atnCost = subtotal * total.additional.per;
-      const ovhCost = subtotal * total.overhead.per;
-      const pricing = subtotal + atnCost + ovhCost;
-      const additional = { ...total.additional, cost: atnCost };
-      const overhead = { ...total.overhead, cost: ovhCost };
-      setTotal({...total, subtotal, additional, overhead, total: pricing})
-    } else {
-      const additional = { ...total.additional, cost: 0 };
-      const overhead = { ...total.overhead, cost: 0 };
-      setTotal({...total, subtotal: 0, additional, overhead, total: 0 })
-    }
-  }, [selectedItems])
-
   const getPolygonButton = () => {
     const div = document.getElementById('polygon');
     const btn = div?.getElementsByTagName("button")[0];
@@ -254,7 +207,7 @@ export default ({ problems, projects, components } : any) => {
   const updatePercentageCosts = () => {
     console.log('updating');
   }
-
+  console.log(values);
   
   return <>
         <Layout>
@@ -262,7 +215,8 @@ export default ({ problems, projects, components } : any) => {
           <Layout>
             <SidebarView></SidebarView>
             <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
-            <Row>
+              <Form onSubmit={handleSubmit}>
+              <Row>
               <Col span={leftWidth}>
                 <Map
                   leftWidth={leftWidth}
@@ -282,14 +236,12 @@ export default ({ problems, projects, components } : any) => {
                     <Col className="directions01" span={24}>
                       <span>Back</span>
                       <span><img className="directions-img" src="/Icons/icon-12.svg" alt=""/></span>
-                      <span className="directions-page">{projectCapital.requestName}</span>
+                      <span className="directions-page">{values.requestName}</span>
                     </Col>
                   </Row>
-
                     <div className="head-m project-comp">
                       <div className="project-comp-btn">
                         <h5>SELECTED STREAMS</h5>
-                        {/* <button><img src="/Icons/icon-08.svg" alt=""/></button> */}
                         <div id="polygon" />
                         <span>|</span>
                         <form id="demo-2">
@@ -299,7 +251,6 @@ export default ({ problems, projects, components } : any) => {
                       </div>
                         <span>TOTAL COST: ${numberWithCommas(total.total)}</span>
                     </div>
-
                     {!isPolygon ?
                       <div className="head-m draw-section">
                           <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt=""/></button>
@@ -310,7 +261,6 @@ export default ({ problems, projects, components } : any) => {
                         <Table columns={columns01({removeSelectedItem})} dataSource={formatSelectedItems} pagination={false} />
                       </div>
                     }
-
                     <div className="table-create-bottom">
                       <Table columns={columns02({total, numberWithCommas})} dataSource={data02({total, numberWithCommas, updatePercentageCosts})} pagination={false} />
                       <Table className="footer-table" columns={footer} dataSource={data03({total, numberWithCommas})} pagination={false} />
@@ -319,15 +269,9 @@ export default ({ problems, projects, components } : any) => {
 
                     <div className="label-npf">
                       <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt=""/></label>
-                      <TextArea rows={4} placeholder="Enter description" onChange={ (event) => {
-                                const auxProjectCapital = {...projectCapital};
-                                auxProjectCapital.description = event.target.value;
-                                setProjectCapital(auxProjectCapital);
-                      }} />
+                      <TextArea rows={4} placeholder="Enter description" required name="description" onChange={handleChange} />
                     </div>
-
                     <br></br>
-
                     <div className="gutter-example user-tab all-npf">
                         <div className="label-new-form">
                           <h3>PROJECT INFORMATION</h3>
@@ -335,36 +279,28 @@ export default ({ problems, projects, components } : any) => {
                         <Row gutter={16}>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">MHFD Funding Request<img src="/Icons/icon-19.svg" alt=""/></label>
-                          <Input placeholder="Enter MHFD funding request" onChange={ (event) => {
-                                const auxProjectCapital = {...projectCapital};
-                                auxProjectCapital.mhfdFundingRequest = event.target.value;
-                                setProjectCapital(auxProjectCapital);
-                            }} />
+                          <Input placeholder="Enter MHFD funding request" required name="mhfdFundingRequest" onChange={handleChange} />
                           </Col>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">Local Dollars Contribution<img src="/Icons/icon-19.svg" alt=""/></label>
-                          <Input placeholder="Enter local dollars" type={"number"} onChange={ (event) => {
-                                const auxProjectCapital = {...projectCapital};
-                                auxProjectCapital.localDollarsContributed = (Number)(event.target.value);
-                                setProjectCapital(auxProjectCapital);
-                            }} />
+                          <Input placeholder="Enter local dollars" required type={"number"} name="localDollarsContributed" onChange={handleChange} />
                           </Col>
                         </Row>
                         <br></br>
                         <Row gutter={16}>
                         <Col className="gutter-row" span={12}>
                           <label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt=""/></label>
-                            <Dropdown overlay={ <DropdownMenuView items={requestFundingYear} item={projectCapital} setItem={setProjectCapital} field={'requestFundingYear'}/> }>
+                            <Dropdown overlay={ <DropdownMenuView values={values} items={requestFundingYear} item={title} setItem={setTitle} field={'requestFundingYear'}/> }>
                               <Button>
-                              {projectCapital.requestFundingYear ? projectCapital.requestFundingYear : '- Select -'} <img src="/Icons/icon-12.svg" alt=""/>
+                              {values.requestFundingYear ? values.requestFundingYear : '- Select -'} <img src="/Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </Col>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
-                            <Dropdown overlay={ <DropdownMenuView items={goal} item={projectCapital} setItem={setProjectCapital} field={'goal'}/> }>
+                            <Dropdown overlay={ <DropdownMenuView values={values} items={goal} item={title} setItem={setTitle} field={'goal'}/> }>
                               <Button>
-                              {projectCapital.goal ? projectCapital.goal : '- Select -'} <img src="/Icons/icon-12.svg" alt=""/>
+                              {values.goal ? values.goal : '- Select -'} <img src="/Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </Col>
@@ -396,16 +332,12 @@ export default ({ problems, projects, components } : any) => {
                     </div>
                     <div className="btn-footer" style={{marginTop: '25px'}}>
                         <Button style={{width: '140px'}} className="btn-00">Reset</Button>
-                        <Button style={{width: '140px'}} className="btn-01" onClick={ () => {
-                            const auxSubmit = {...submit};
-                            auxSubmit.submit = true;
-                            auxSubmit.optionSubmit = true;
-                            setSubmit(auxSubmit);
-                        }}>Create Project</Button>
+                        <Button style={{width: '140px'}} className="btn-01" block htmlType="submit" >Create Project</Button>
                     </div>
                 </div>
               </Col>
               </Row>
+              </Form>
             </Layout>
           </Layout>
         </Layout>

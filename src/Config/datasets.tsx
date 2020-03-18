@@ -56,7 +56,7 @@ export const deleteData = (url: any, token?: any) => {
 
 export const JSONOptions = (token?: any) => {
     let headers = new Headers();
-    headers.append('content-type', 'application/json');
+    headers.append('Content-Type', 'application/json');
     if (token) {
         headers.append('Authorization', 'Bearer ' + token);
     }
@@ -68,7 +68,7 @@ export const getToken = () => {
 
 export const JSONDefault = () => {
     let headers = new Headers();
-    headers.append('content-type', 'application/json');
+    headers.append('Content-Type', 'application/json');
     return headers;
 }
 
