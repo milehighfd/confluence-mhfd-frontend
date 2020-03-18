@@ -5,6 +5,7 @@ import NavbarView from "../Shared/Navbar/NavbarView";
 import SidebarView from "../Shared/Sidebar/SidebarView";
 import Map from '../Map/Map';
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, NEW_PROJECT_FORM_COST } from "../../constants/constants";
+import { NewProjectFormProps, ComponentType } from "../../Classes/MapTypes";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -170,15 +171,15 @@ const data03 = ({ total, numberWithCommas } : any) => [
   },
 ];
 
-export default ({ problems, projects, components, getReverseGeocode } : any) => {
+export default ({ problems, projects, components, getReverseGeocode } : NewProjectFormProps) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
-  const [selectedItems, setSelectedItems] = useState<Array<[]>>([]);
-  const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
-  const [isPolygon, setIsPolygon] = useState<boolean>(false);
-  const [total, setTotal] = useState<any>(NEW_PROJECT_FORM_COST);
+  const [selectedItems, setSelectedItems] = useState<any>([]);
+  const [formatSelectedItems, setFormatSelectedItems] = useState([]);
+  const [isPolygon, setIsPolygon] = useState(false);
+  const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
 
   const updateWidth = () => {
     if (leftWidth === MEDIUM_SCREEN) {
@@ -193,13 +194,13 @@ export default ({ problems, projects, components, getReverseGeocode } : any) => 
   }
 
   useEffect(() => {
-    const selectedItemsCopy = selectedItems.map((item : any) => {
+    const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
       return {...item, key: item.componentId, howCost: '$'+numberWithCommas(item.howCost)}
     });
     setFormatSelectedItems(selectedItemsCopy);
 
     if(selectedItems.length) {
-      const subtotal = selectedItems.map((item : any) => item.howCost).reduce((a, b) => a + b, 0);
+      const subtotal = selectedItems.map((item : ComponentType) => item.howCost).reduce((a : number, b : number) => a + b, 0);
       const atnCost = subtotal * total.additional.per;
       const ovhCost = subtotal * total.overhead.per;
       const pricing = subtotal + atnCost + ovhCost;

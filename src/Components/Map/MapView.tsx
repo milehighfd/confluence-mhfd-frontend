@@ -10,6 +10,7 @@ import Map from './Map';
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
 import SortMenuView from "../SortMenu/SortMenuView";
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
+import { MapViewProps } from "../../Classes/MapTypes";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -59,7 +60,7 @@ const accordionRow: Array<any> = [
   }
 ];
 
-export default ({ problems, projects, components } : any) => {
+export default ({ problems, projects, components } : MapViewProps) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);

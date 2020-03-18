@@ -17,7 +17,7 @@ const send = {
   optionSubmit : false
 }
 
-export default ({ polygons, projects, components } : any) => {
+export default ({ problems, projects, components } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   acquisition.requestName = cad[2] ? cad[2] : '';
@@ -74,7 +74,7 @@ export default ({ polygons, projects, components } : any) => {
               <Col span={leftWidth}>
                 <Map
                   leftWidth={leftWidth}
-                  polygons={polygons}
+                  problems={problems}
                   projects={projects}
                   components={components}
                   setSelectedItems={setSelectedItems}

@@ -2,6 +2,11 @@ export const COMPLETE_SCREEN = 24;
 export const MEDIUM_SCREEN = 12;
 export const EMPTY_SCREEN = 0;
 
+
+/* Map Constants */
+
+export const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
+
 export const MAP_DROPDOWN_ITEMS = [
     {
         type: 'Light Road',
@@ -18,6 +23,15 @@ export const MAP_DROPDOWN_ITEMS = [
         style: 'mapbox://styles/milehighfd/ck4jflu4000ry1cmnh7fdp2oi'
     }
 ];
+
+export const LATITUDE_INDEX = 0;
+export const LONGITUDE_INDEX = 1;
+
+export const PROBLEMS_TRIGGER = 'problems';
+export const PROJECTS_TRIGGER = 'projects';
+export const COMPONENTS_TRIGGER = 'components';
+
+/* End of Map Constants */
 
 export const NEW_PROJECT_FORM_COST = {
   subtotal: 0,

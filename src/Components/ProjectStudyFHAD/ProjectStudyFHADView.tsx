@@ -55,7 +55,7 @@ const send = {
   optionSubmit : false
 }
 
-export default ({ polygons, projects, components } : any) => {
+export default ({ problems, projects, components } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   masterPlan.requestName = cad[2] ? cad[2] : '';
@@ -64,7 +64,7 @@ export default ({ polygons, projects, components } : any) => {
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
-  const [selectedItems, setSelectedItems] = useState<Array<[]>>([]);
+  const [selectedItems, setSelectedItems] = useState<any>([]);
   const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
   const [isPolygon, setIsPolygon] = useState<boolean>(false);
   const [total, setTotal] = useState<any>(NEW_PROJECT_FORM_COST);
@@ -90,7 +90,7 @@ export default ({ polygons, projects, components } : any) => {
     setFormatSelectedItems(selectedItemsCopy);
 
     if(selectedItems.length) {
-      const subtotal = selectedItems.map((item : any) => item.howCost).reduce((a, b) => a + b, 0);
+      const subtotal = selectedItems.map((item : any) => item.howCost).reduce((a : number, b : number) => a + b, 0);
       const atnCost = subtotal * total.additional.per;
       const ovhCost = subtotal * total.overhead.per;
       const pricing = subtotal + atnCost + ovhCost;
@@ -156,7 +156,7 @@ export default ({ polygons, projects, components } : any) => {
               <Col span={leftWidth}>
                 <Map
                   leftWidth={leftWidth}
-                  polygons={polygons}
+                  problems={problems}
                   projects={projects}
                   components={components}
                   setSelectedItems={setSelectedItems}

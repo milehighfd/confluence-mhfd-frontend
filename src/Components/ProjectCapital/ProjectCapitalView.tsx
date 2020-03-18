@@ -163,7 +163,7 @@ const send = {
     optionSubmit : false
 }
 
-export default ({ polygons, projects, components } : any) => {
+export default ({ problems, projects, components } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const capital = new Capital();
@@ -266,7 +266,7 @@ export default ({ polygons, projects, components } : any) => {
               <Col span={leftWidth}>
                 <Map
                   leftWidth={leftWidth}
-                  polygons={polygons}
+                  problems={problems}
                   projects={projects}
                   components={components}
                   setSelectedItems={setSelectedItems}

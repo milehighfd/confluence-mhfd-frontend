@@ -11,18 +11,18 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
-import { MAP_DROPDOWN_ITEMS } from "../../constants/constants";
+import { MapProps, ComponentType } from '../../Classes/MapTypes';
+import { MAP_DROPDOWN_ITEMS, MAPBOX_TOKEN, LATITUDE_INDEX, LONGITUDE_INDEX, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from "../../constants/constants";
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
 let map : any = null;
-const drawConstants = ['problems', 'projects', 'components'];
+const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 
-const Map = ({ leftWidth, children, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode } : any) => {
+const Map = ({ leftWidth, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode } : MapProps) => {
     let mapRef = useRef<any>();
-    const [dropdownItems, setDropdownItems] = useState<any>({default: 0, items: MAP_DROPDOWN_ITEMS});
+    const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
 
     useEffect(() => {
         (mapboxgl as any).accessToken = MAPBOX_TOKEN;
@@ -79,19 +79,19 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
         else paintSelectedComponents(selectedItems);
     }
 
-    const paintSelectedComponents = (items : Array<[]>) => {
-        if(map.getSource('components')) {
-            components.map((component : any) => {
+    const paintSelectedComponents = (items? : Array<Object>) => {
+        if(map.getSource(COMPONENTS_TRIGGER)) {
+            components.map((component : ComponentType) => {
                 map.setFeatureState(
-                    { source: 'components', id: component.componentId },
+                    { source: COMPONENTS_TRIGGER, id: component.componentId },
                     { hover: false }
                 );
             });
     
-            if(items.length) {
+            if(items && items.length) {
                 items.map((item : any) => {
                     map.setFeatureState(
-                        { source: 'components', id: item.componentId },
+                        { source: COMPONENTS_TRIGGER, id: item.componentId },
                         { hover: true }
                     );
                 });
@@ -113,20 +113,20 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
         const turfPoints = points.map((point : any) => turf.point(point.coordinates));
 
         const selectedItems : Array<[]> = [];
-        const values = turfPoints.map((v : any) => turf.inside(v, polygonCoords));
+        const values = turfPoints.map((turfPoint : any) => turf.inside(turfPoint, polygonCoords));
         points.map((point : any, index : number) => { if(values[index]) selectedItems.push(point) });
 
         paintSelectedComponents(selectedItems);
-        setSelectedItems(selectedItems);
-        setIsPolygon(true);
+        setSelectedItems!(selectedItems);
+        setIsPolygon!(true);
 
         /* Get the coords on Drawing */
         // console.log(draw.getAll().features[0].geometry.coordinates);
     }
 
     const getComponentsInPolygon = (polygon : Array<[]>) => {
-        const minMaxX = getMinMaxOf2DIndex(polygon, 0);
-        const minMaxY = getMinMaxOf2DIndex(polygon, 1);
+        const minMaxX = getMinMaxOf2DIndex(polygon, LATITUDE_INDEX);
+        const minMaxY = getMinMaxOf2DIndex(polygon, LONGITUDE_INDEX);
 
         const minX = minMaxX.min;
         const maxX = minMaxX.max;
@@ -140,7 +140,7 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
             }
         });
 
-        getReverseGeocode((maxX + minX)/2, (maxY + minY)/2, MAPBOX_TOKEN);
+        getReverseGeocode!((maxX + minX) / 2, (maxY + minY) / 2, MAPBOX_TOKEN);
         return points;
     }
 
@@ -177,7 +177,7 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
 
     const popUpContent = (trigger : string, name : string, jurisdiction: string, studyName : string) => ReactDOMServer.renderToStaticMarkup(
         <>
-            {trigger !== 'components' ? 
+            {trigger !== COMPONENTS_TRIGGER ? 
                 <MainPopup 
                     trigger={trigger}
                     name={name}
@@ -190,10 +190,16 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
     );
 
     const drawItemsInMap = (trigger : string) => {
-        let items = null;
-        if(trigger === 'problems') items = problems;
-        else if(trigger === 'projects') items = projects;
-        else if(trigger === 'components') items = components;
+        let items : any = null;
+
+        if(trigger === PROBLEMS_TRIGGER) {
+            items = problems;
+        } else if(trigger === PROJECTS_TRIGGER) {
+            items = projects;
+        } else if(trigger === COMPONENTS_TRIGGER) {
+            items = components;
+        }
+
         if(!items) return;
         refreshSourceLayers(trigger);
 
@@ -213,8 +219,8 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
                     description: popUpContent(trigger, name, jurisdiction, studyName)
                 },
                 geometry: {
-                    type: trigger !== 'components'?'Polygon':'Point',
-                    coordinates: trigger !== 'components'?[item.coordinates]:item.coordinates
+                    type: trigger !== COMPONENTS_TRIGGER ? 'Polygon' : 'Point',
+                    coordinates: trigger !== COMPONENTS_TRIGGER ? [item.coordinates] : item.coordinates
                 }
             }
         });
@@ -227,13 +233,13 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
             }
         });
 
-        if(trigger !== 'components') {
+        if(trigger !== COMPONENTS_TRIGGER) {
             map.addLayer({
                 id: trigger,
                 type: 'fill',
                 source: trigger,
                 layout: {},
-                paint: trigger === 'problems' ? {
+                paint: trigger === PROBLEMS_TRIGGER ? {
                     'fill-color': '#088',
                     'fill-opacity': 0.3,
                     } : {
@@ -247,7 +253,7 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
                 type: 'line',
                 source: trigger,
                 layout: {},
-                paint: trigger === 'problems'? {
+                paint: trigger === PROBLEMS_TRIGGER ? {
                     'line-color': '#00bfa5',
                     'line-width': 2.5,
                     } : {
@@ -288,9 +294,7 @@ const Map = ({ leftWidth, children, problems, projects, components, setSelectedI
 
     return (
         <div className="map">
-            <div id="map" ref={mapRef} style={{width: '100%', height: '100%'}}>
-                {children}
-            </div>
+            <div id="map" ref={mapRef} style={{width: '100%', height: '100%'}} />
             <div className="m-head">
                 <div
                     id="geocoder"
