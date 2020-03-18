@@ -50,7 +50,7 @@ export default ({ problems, projects, components } : any) => {
     );
     if (valid) {
       
-      const result = datasets.postData(SERVER.CREATEPROJECTSPECIAL, projectSepcial, datasets.getToken()).then(res => {
+      const result = datasets.postData(SERVER.CREATE_PROJECT_SPECIAL, projectSepcial, datasets.getToken()).then(res => {
         if(res) {
           setRedirect(true);
         }

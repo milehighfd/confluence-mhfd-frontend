@@ -27,7 +27,7 @@ export default ({ problems, projects, components } : {problems: Array<ProblemTyp
       mhfdDollarRequest: 0
     },
     onSubmit(values: {description: string, requestName: string, localDollarsContributed: number, mhfdDollarRequest: number}) {
-      const result = datasets.postData(SERVER.CREATEPROJECTACQUISITION, values, datasets.getToken()).then(res => {
+      const result = datasets.postData(SERVER.CREATE_PROJECT_ACQUISITION, values, datasets.getToken()).then(res => {
         if(res) {
           setRedirect(true);
         }

@@ -135,7 +135,7 @@ export default ({ problems, projects, components } : any) => {
     );
     if (valid) {
       
-      const result = datasets.postData(SERVER.CREATEPROJECTSTUDYMASTER, projectMasterPlan, datasets.getToken()).then(res => {
+      const result = datasets.postData(SERVER.CREATE_PROJECT_STUDY_MASTER, projectMasterPlan, datasets.getToken()).then(res => {
         if(res) {
           setRedirect(true);
         }

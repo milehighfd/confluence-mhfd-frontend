@@ -4,16 +4,10 @@ import { Carousel } from 'antd';
 import { CITIES } from "../../constants/constants";
 import { Redirect } from "react-router-dom";
 import { SERVER } from "../../Config/Server.config";
-import * as datasets from "../../Config/datasets"
-
-const signUp = {
-  designation: '',
-  firstName: '',
-  lastName: '',
-  email: '',
-  city: 'Jurisdiction',
-  password: ''
-}
+import * as datasets from "../../Config/datasets";
+import { useFormik } from "formik";
+import { VALIDATION_SIGN_UP } from "../../constants/validation";
+import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
 
 const roles = [
   { value: 'MHFD Staff', style: '80px'},
@@ -22,19 +16,19 @@ const roles = [
   { value: 'Other', style: '80px'}
 ]
 
-
+const validationSchema = VALIDATION_SIGN_UP;
 export default () => {
 
-  const [sign, setSign] = useState(Object.assign(signUp));
+  const [title, setTitle] = useState('');
   const [redirect, setRedirect] = useState(false);
   const menu = (
     <Menu className="js-mm sign-menu">
       <label>CITY</label>
       {CITIES.map((city: string, index: number) => {
         return <Menu.Item key={index} onClick={() => {
-          const auxSignUp = {...sign};
-          auxSignUp.city = city;
-          setSign(auxSignUp);
+          values.city = city;
+          const auxTitle = city;
+          setTitle(auxTitle);
         }}>
           <a target="_blank" rel="noopener noreferrer">
             {city}
@@ -42,70 +36,38 @@ export default () => {
         </Menu.Item>
       })}
     </Menu>);
-  
-  const submit = () => {
-    const result = datasets.postData(SERVER.USER, sign).then(res => {
-      if(res?.token) {
-        localStorage.setItem('mfx-token', res.token);
-        setRedirect(true);
-      }
-    })
-  }
+  const { values, handleSubmit, handleChange } = useFormik({
+    initialValues: {
+      designation: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      city: '',
+      password: ''
+    },
+    validationSchema,
+    onSubmit(values: {firstName: string, lastName: string, email: string, city: string, password: string, designation: string, }) {
+      const result = datasets.postData(SERVER.USER, values).then(res => {
+        if(res?.token) {
+          localStorage.setItem('mfx-token', res.token);
+          setRedirect(true);
+        }
+      })
+    }
+  });
+
   if (redirect) {
     return <Redirect to="/profile-view" />
   }
-
+  console.log(values);
+  
   return <Layout style={{ background: '#fff' }}>
     <Row>
-      <Col span={13}>
-          <div className="logo-white"
-              style={{backgroundImage: 'url(Icons/logo-white.svg)'}}>
-              <p>Protecting People, Property, and our Environment.</p>
-          </div>
-          <div className="contact01">
-              <div className="icons-list">
-                <a href=""><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
-                <a href=""><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
-                <a href=""><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
-              </div>
-              <div className="social01">
-                <ul>
-                  <li><a href="">Contact</a></li>
-                  <span>|</span>
-                  <li><a href="">©2020 Mile High Flood District</a></li>
-                  <span>|</span>
-                  <li><a href="">Privacy Policy</a></li>
-                </ul>
-              </div>
-          </div>
-      <Carousel autoplay>
-            <div>
-              <img src="/icons/banner.png" alt=""/>
-              <div className="textContent">
-                <h2>What can I do with Confluence?</h2>
-                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-              </div>
-            </div>
-            <div>
-            <img src="/icons/banner.png" alt=""/>
-             <div className="textContent">
-                <h2>What can I do with Confluence?</h2>
-                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-              </div>
-            </div>
-            <div>
-            <img src="/icons/banner.png" alt=""/>
-              <div className="textContent">
-                <h2>What can I do with Confluence?</h2>
-                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-              </div>
-            </div>
-      </Carousel>
-      </Col>
+      <CarouselAutoPlayView />
       <Col span={11} className="login-hh">
       <div className="login-step01">
         <div>
-        <Form style={{ width: '420px' }}  className="login-form">
+        <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit}>
       <h1>
         Sign Up!
       </h1>
@@ -114,39 +76,27 @@ export default () => {
           <Col className="signup">
             {roles.map((role: {value: string, style: string}, index: number) => {
               return <Button key={index} style={{ width: role.style }} onClick={() => {
-                const auxSignUp = {...sign};
-                auxSignUp.designation = role.value;
-                setSign(auxSignUp);
+                values.designation = role.value;
+                const auxTitle = role.value;
+                setTitle(auxTitle);
               }}>{role.value}</Button>
             })}
           </Col>
         </Row>
       <div className="group">
-        <input value={sign.firstName} type="text" required onChange={(event) => {
-          const auxSignUp = {...sign};
-          auxSignUp.firstName = event.target.value;
-          setSign(auxSignUp);
-        }}/>
+        <input type="text" required name="firstName" onChange={handleChange}/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>First Name</label>
       </div>
       <div className="group">
-        <input value={sign.lastName} type="text" required onChange={(event) => {
-          const auxSignUp = {...sign};
-          auxSignUp.lastName = event.target.value;
-          setSign(auxSignUp);
-        }} />
+        <input type="text" required name="lastName" onChange={handleChange} />
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Last Name</label>
       </div>
       <div className="group">
-        <input value={sign.email} type="email" required onChange={(event) => {
-          const auxSignUp = {...sign};
-          auxSignUp.email = event.target.value;
-          setSign(auxSignUp);
-        }} />
+        <input type="email" required name="email" onChange={handleChange}/>
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Email</label>
@@ -154,27 +104,18 @@ export default () => {
       <div className="group btn-up">
         <Dropdown overlay={menu}>
           <Button>
-            {sign.city} <img src="/Icons/icon-12.svg" alt=""/>
+            {values.city ? values.city : 'Jurisdiction'} <img src="/Icons/icon-12.svg" alt=""/>
           </Button>
         </Dropdown>
       </div>
       <div className="group">
-        <input value={sign.password} type="password" required onChange={(event) => {
-          const auxSignUp = {...sign};
-          auxSignUp.password = event.target.value;
-          setSign(auxSignUp);
-        }} />
+        <input type="password" required name="password" onChange={handleChange} />
         <span className="highlight"></span>
         <span className="bar"></span>
         <label>Password</label>
       </div>
       <Form.Item>
-        <Button className="buttonLogin" block htmlType="submit" onClick={() => {
-          if (sign.city !== 'Jurisdiction' && sign.designation) {
-            submit();
-          }
-          return;
-        }}>
+        <Button className="buttonLogin" block htmlType="submit" >
             Sign Up
         </Button>
       </Form.Item>

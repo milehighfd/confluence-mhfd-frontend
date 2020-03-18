@@ -4,7 +4,6 @@ import { Menu } from "antd";
 export default ({values, items, item, setItem, field}: any) => {
 
     return <> <Menu className="js-mm-00" onClick={(event) => {
-        console.log('values', values);
         values[field] = event.item.props.children.props.children;
         const auxItem = event.item.props.children.props.children
         setItem(auxItem);

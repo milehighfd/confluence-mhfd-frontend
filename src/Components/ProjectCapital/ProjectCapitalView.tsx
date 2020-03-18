@@ -177,7 +177,7 @@ export default ({ problems, projects, components } : any) => {
     },
     validationSchema,
     onSubmit(values: {description: string, requestName: string, localDollarsContributed: number, requestFundingYear: number, mhfdFundingRequest: string, goal: string}) {
-      const result = datasets.postData(SERVER.CREATEPROJECTCAPITAL, values, datasets.getToken()).then(res => {
+      const result = datasets.postData(SERVER.CREATE_PROJECT_CAPITAL, values, datasets.getToken()).then(res => {
         if(res) {
           setRedirect(true);
         }
