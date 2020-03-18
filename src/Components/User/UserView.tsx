@@ -122,7 +122,7 @@ export default ({ users, saveUserState, deleteUser } : any) => {
         <Layout>
             <SidebarView></SidebarView>
             <Layout className="layout user">
-              <Content style={{ padding: '0 132.7px' }}>
+              <Content style={{ padding: '0 120px' }}>
                 <div>
                   <Row>
                     <Col span={24}>
