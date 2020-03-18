@@ -6,7 +6,8 @@ export type MapProps = {
     setSelectedItems?: Function,
     selectedItems?: Array<ComponentType>,
     setIsPolygon?: Function,
-    getReverseGeocode?: Function
+    getReverseGeocode?: Function,
+    savePolygonCoordinates?: Function
 }
 
 export type MapViewProps = {
@@ -19,7 +20,9 @@ export type NewProjectFormProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
-    getReverseGeocode: Function
+    getReverseGeocode: Function,
+    savePolygonCoordinates: Function,
+    saveNewProjectForm: Function
 }
 
 export type ProblemTypes = {

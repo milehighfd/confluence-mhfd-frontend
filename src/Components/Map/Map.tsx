@@ -20,7 +20,7 @@ const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 let map : any = null;
 const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 
-const Map = ({ leftWidth, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode } : MapProps) => {
+const Map = ({ leftWidth, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode, savePolygonCoordinates } : MapProps) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
 
@@ -140,6 +140,7 @@ const Map = ({ leftWidth, problems, projects, components, setSelectedItems, sele
             }
         });
 
+        savePolygonCoordinates!(polygon);
         getReverseGeocode!((maxX + minX) / 2, (maxY + minY) / 2, MAPBOX_TOKEN);
         return points;
     }

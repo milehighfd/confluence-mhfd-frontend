@@ -171,7 +171,7 @@ const data03 = ({ total, numberWithCommas } : any) => [
   },
 ];
 
-export default ({ problems, projects, components, getReverseGeocode } : NewProjectFormProps) => {
+export default ({ problems, projects, components, getReverseGeocode, savePolygonCoordinates, saveNewProjectForm } : NewProjectFormProps) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -251,7 +251,8 @@ export default ({ problems, projects, components, getReverseGeocode } : NewProje
                   setSelectedItems={setSelectedItems}
                   selectedItems={selectedItems}
                   setIsPolygon={setIsPolygon}
-                  getReverseGeocode={getReverseGeocode} />
+                  getReverseGeocode={getReverseGeocode}
+                  savePolygonCoordinates={savePolygonCoordinates} />
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
@@ -422,7 +423,7 @@ export default ({ problems, projects, components, getReverseGeocode } : NewProje
                     </div>
                     <div className="btn-footer" style={{marginTop: '25px'}}>
                         <Button style={{width: '140px'}} className="btn-00">Reset</Button>
-                        <Button style={{width: '140px'}} className="btn-01">Create Project</Button>
+                        <Button style={{width: '140px'}} onClick={() => saveNewProjectForm(selectedItems)} className="btn-01">Create Project</Button>
                     </div>
                 </div>
               </Col>

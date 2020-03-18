@@ -1,8 +1,11 @@
 import * as types from '../types/mapTypes';
 
 const initState = {
-    county: '',
     error: '',
+    newProject: {
+        jurisdiction: '',
+        coordinates: [],
+    },
     problems: [
         {
             problemId: 'MJBPJCMTHH',
@@ -304,12 +307,28 @@ const mapReducer = (state = initState, action : any) => {
         case types.SET_REVERSE_GEOCODE: 
             return {
                 ...state,
-                county: action.county
+                newProject: {
+                    ...state.newProject,
+                    jurisdiction: action.county
+                }
             }
         case types.GEOCODE_REQUEST_ERROR:
             return {
                 ...state,
                 error: action.err
+            }
+        case types.SAVE_POLYGON_COORDS:
+            return {
+                ...state,
+                newProject: {
+                    ...state.newProject,
+                    coordinates: action.polygon
+                }
+            }
+        case types.CREATE_NEW_PROJECT: 
+            return {
+                ...state,
+                problems: action.problems
             }
         default: 
             return state;
