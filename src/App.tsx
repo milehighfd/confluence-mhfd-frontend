@@ -28,6 +28,8 @@ import ProjectSpecialContainer from './Components/ProjectSpecial/ProjectSpecialC
 import ProjectStudyMasterContainer from './Components/ProjectStudyMaster/ProjectStudyMasterContainer';
 import ProjectStudyFHADContainer from './Components/ProjectStudyFHAD/ProjectStudyFHADContainer';
 
+import ProjectCapitalForm from './Components/ProjectForms/ProjectCapitalForm';
+
 function App({ appUser }: any) {
   // return <Switch>
   //     <Route path={`/login`} component={LoginContainer} />
@@ -64,7 +66,7 @@ function App({ appUser }: any) {
       <Route path={'/new-map-form'} component={NewMapForm} />
       <Route path={`/new-project-form`} component={NewProjectFormContainer} />
       <Route path={`/project-debris`} component={ProjectDebrisContainer} />
-      <Route path={`/project-capital`} component={ProjectCapitalContainer} />
+      <Route path={`/project-capital`} component={ProjectCapitalForm} />
       <Route path={`/project-acquisition`} component={ProjectAcquisitionContainer} />
       <Route path={`/project-special`} component={ProjectSpecialContainer} />
       <Route path={`/project-master-plan-only`} component={ProjectStudyMasterContainer} />
