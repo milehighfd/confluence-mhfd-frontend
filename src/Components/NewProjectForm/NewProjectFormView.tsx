@@ -212,7 +212,7 @@ export default ({ problems, projects, components, getReverseGeocode, savePolygon
       const overhead = { ...total.overhead, cost: 0 };
       setTotal({...total, subtotal: 0, additional, overhead, total: 0 })
     }
-  }, [selectedItems])
+  }, [selectedItems]);
 
   const getPolygonButton = () => {
     const div = document.getElementById('polygon');

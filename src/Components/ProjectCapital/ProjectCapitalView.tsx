@@ -9,7 +9,7 @@ import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, NEW_PROJECT_FORM_COST } f
 import { Capital } from "../../Classes/Capital";
 import { Redirect, useLocation } from "react-router-dom";
 import { SERVER } from "../../Config/Server.config";
-import * as datasets from "../../Config/datasets"
+import * as datasets from "../../Config/datasets";
 import { useFormik } from "formik";
 import { VALIDATION_PROJECT_CAPITAL } from "../../constants/validation";
 import { FOOTER_PROJECT_CAPITAL } from "../../constants/constants";
@@ -142,7 +142,7 @@ const data03 = ({ total, numberWithCommas } : any) => [
 
 const footer = FOOTER_PROJECT_CAPITAL;
 const validationSchema = VALIDATION_PROJECT_CAPITAL;
-export default ({ problems, projects, components } : any) => {
+export default ({ problems, projects, components, getReverseGeocode, savePolygonCoordinates, saveNewProjectForm } : NewProjectFormProps) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const [title, setTitle] = useState<string>('');
@@ -150,7 +150,7 @@ export default ({ problems, projects, components } : any) => {
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
-  const [selectedItems, setSelectedItems] = useState<Array<[]>>([]);
+  const [selectedItems, setSelectedItems] = useState<any>([]);
   const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
   const [isPolygon, setIsPolygon] = useState<boolean>(false);
   const [total, setTotal] = useState<any>(NEW_PROJECT_FORM_COST);
@@ -166,6 +166,28 @@ export default ({ problems, projects, components } : any) => {
       setRotationStyle(emptyStyle);
     }
   }
+
+  useEffect(() => {
+    const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
+      return {...item, key: item.componentId, howCost: '$'+numberWithCommas(item.howCost)}
+    });
+    setFormatSelectedItems(selectedItemsCopy);
+
+    if(selectedItems.length) {
+      const subtotal = selectedItems.map((item : ComponentType) => item.howCost).reduce((a : number, b : number) => a + b, 0);
+      const atnCost = subtotal * total.additional.per;
+      const ovhCost = subtotal * total.overhead.per;
+      const pricing = subtotal + atnCost + ovhCost;
+      const additional = { ...total.additional, cost: atnCost };
+      const overhead = { ...total.overhead, cost: ovhCost };
+      setTotal({...total, subtotal, additional, overhead, total: pricing})
+    } else {
+      const additional = { ...total.additional, cost: 0 };
+      const overhead = { ...total.overhead, cost: 0 };
+      setTotal({...total, subtotal: 0, additional, overhead, total: 0 })
+    }
+  }, [selectedItems]);
+
   const { values, handleSubmit, handleChange, errors } = useFormik({
     initialValues: {
       description: '',
@@ -177,11 +199,7 @@ export default ({ problems, projects, components } : any) => {
     },
     validationSchema,
     onSubmit(values: {description: string, requestName: string, localDollarsContributed: number, requestFundingYear: number, mhfdFundingRequest: string, goal: string}) {
-      const result = datasets.postData(SERVER.CREATE_PROJECT_CAPITAL, values, datasets.getToken()).then(res => {
-        if(res) {
-          setRedirect(true);
-        }
-      })
+      saveNewProjectForm(values, selectedItems, total);
     }
   });
   if(redirect) {
@@ -207,7 +225,6 @@ export default ({ problems, projects, components } : any) => {
   const updatePercentageCosts = () => {
     console.log('updating');
   }
-  console.log(values);
   
   return <>
         <Layout>
@@ -218,13 +235,16 @@ export default ({ problems, projects, components } : any) => {
               <Form onSubmit={handleSubmit}>
               <Row>
               <Col span={leftWidth}>
-                <Map
+              <Map
                   leftWidth={leftWidth}
                   problems={problems}
                   projects={projects}
                   components={components}
                   setSelectedItems={setSelectedItems}
-                  setIsPolygon={setIsPolygon} />
+                  selectedItems={selectedItems}
+                  setIsPolygon={setIsPolygon}
+                  getReverseGeocode={getReverseGeocode}
+                  savePolygonCoordinates={savePolygonCoordinates} />
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

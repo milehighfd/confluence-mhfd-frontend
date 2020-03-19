@@ -1,4 +1,6 @@
 import * as types from '../types/mapTypes';
+import { SERVER } from "../../Config/Server.config";
+import * as datasets from "../../Config/datasets";
 
 export const getReverseGeocode = (lat : any, lng : any, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/
@@ -22,21 +24,28 @@ export const savePolygonCoordinates = (polygon : Array<[]>) => {
     }
 }
 
-export const saveNewProjectForm = (data : Object) => {
+export const saveNewProjectForm = (data : Object, components: Array<Object>, total: any) => {
     return (dispatch : Function, getState : Function) => {
         const state = getState();
-        const newProjectData = state.map.newProject;
-        const problems = [...state.map.problems];
+        const county = state.map.newProject.jurisdiction;
 
         const newProject = {
-            problemId: 'NSBPJZSHHX',
-            problemName: 'Denver Channel Refactoring',
-            problemPriority: 0.7,
-            solutionCost: 500120,
-            ...newProjectData
-        }
-        problems.push(newProject);
+            projectType: 'Capital',
+            ...data,
+            finalCost: total.total, 
+            jurisdiction: county,
+            additionalCost: total.additional.cost, 
+            additionalCostDescription: total.additional.description, 
+            overheadCost: total.overhead.cost, 
+            overheadCostDescription: total.overhead.description,
+            components
+        };
 
-        dispatch({ type: types.CREATE_NEW_PROJECT, problems})
+        const result = datasets.postData(SERVER.CREATE_PROJECT_CAPITAL, newProject, datasets.getToken()).then(res => {
+            console.log(res);
+        })
+
+        // const newProjectData = state.map.newProject;
+        // dispatch({ type: types.CREATE_NEW_PROJECT, problems})
     }
 }
