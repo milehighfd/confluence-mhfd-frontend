@@ -192,6 +192,56 @@ export const FOOTER_PROJECT_CAPITAL = [
   },
 ];
 
+export const GOAL = [
+  {
+    name: "Reduce flood risk to Structures", 
+    id: "reduceFloodRiskStructures"
+  }, {
+    name: "Stream bank or bed stabilization",
+    id: "streamBankBedStabilization"
+  }, {
+    name: "Create shared-use paths and recreation",
+    id: "createSharedUsePathsRecreation"
+  }, {
+    name: "Vegetation Enhancements",
+    id: "vegetationEnhancements"
+  }, {
+    name: "Include permanent water quality BMP",
+    id: "includePermanentWaterQualityBMP"
+  }
+];
+
+export const REQUEST_FUNDING_YEAR = [
+  {
+    name: (new Date()).getFullYear(), 
+    id: (new Date()).getFullYear()
+  }, {
+    name: (new Date()).getFullYear() + 1,
+    id: (new Date()).getFullYear() + 1
+  }, {
+    name: (new Date()).getFullYear() + 2,
+    id: (new Date()).getFullYear() + 2
+  }, {
+    name: (new Date()).getFullYear() + 3,
+    id: (new Date()).getFullYear() + 3
+  }
+]
+export const REQUEST_START_YEAR = [
+  {
+    name: (new Date()).getFullYear(), 
+    id: (new Date()).getFullYear()
+  }, {
+    name: (new Date()).getFullYear() + 1,
+    id: (new Date()).getFullYear() + 1
+  }, {
+    name: (new Date()).getFullYear() + 2,
+    id: (new Date()).getFullYear() + 2
+  }, {
+    name: (new Date()).getFullYear() + 3,
+    id: (new Date()).getFullYear() + 3
+  }
+] 
+
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11
     mapbox://styles/mapbox/outdoors-v11

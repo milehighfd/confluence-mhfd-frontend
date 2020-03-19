@@ -9,8 +9,9 @@ import { useLocation, Redirect } from "react-router-dom";
 import * as datasets from "../../Config/datasets"
 import { SERVER } from "../../Config/Server.config";
 import { ComponentType, ProblemTypes, ProjectTypes } from "../../Classes/MapTypes";
-
+import { VALIDATION_PROJECT_ACQUISITION } from "../../constants/validation";
 const { TextArea } = Input;
+const validationSchema = VALIDATION_PROJECT_ACQUISITION;
 export default ({ problems, projects, components } : {problems: Array<ProblemTypes>, projects: Array<ProjectTypes>, components: Array<ComponentType>}) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
@@ -21,14 +22,16 @@ export default ({ problems, projects, components } : {problems: Array<ProblemTyp
   const [redirect, setRedirect] = useState(false);
   const { values, handleSubmit, handleChange } = useFormik({
     initialValues: {
+      projectType: "propertyAcquisition",
       description: '',
       localDollarsContributed: 0,
       requestName: cad[2] ? cad[2] : '',
       mhfdDollarRequest: 0
     },
-    onSubmit(values: {description: string, requestName: string, localDollarsContributed: number, mhfdDollarRequest: number}) {
-      const result = datasets.postData(SERVER.CREATE_PROJECT_ACQUISITION, values, datasets.getToken()).then(res => {
-        if(res) {
+    validationSchema,
+    onSubmit(values: {projectType: string, description: string, requestName: string, localDollarsContributed: number, mhfdDollarRequest: number}) {
+      const result = datasets.postData(SERVER.CREATE_PROJECT, values, datasets.getToken()).then(res => {
+        if(res?._id) {
           setRedirect(true);
         }
       })
