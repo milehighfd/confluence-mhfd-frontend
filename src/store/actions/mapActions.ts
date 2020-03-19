@@ -1,6 +1,7 @@
 import * as types from '../types/mapTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
+import { Redirect } from 'react-router-dom';
 
 export const getReverseGeocode = (lat : any, lng : any, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/
@@ -24,13 +25,12 @@ export const savePolygonCoordinates = (polygon : Array<[]>) => {
     }
 }
 
-export const saveNewProjectForm = (data : Object, components: Array<Object>, total: any) => {
+export const saveNewProjectForm = (data : Object, components: Array<Object>, total: any, setRedirect: Function) => {
     return (dispatch : Function, getState : Function) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
 
         const newProject = {
-            projectType: 'Capital',
             ...data,
             finalCost: total.total, 
             jurisdiction: county,
@@ -41,12 +41,11 @@ export const saveNewProjectForm = (data : Object, components: Array<Object>, tot
             components
         };
 
-        console.log(newProject);
-
-        const result = datasets.postData(SERVER.CREATE_PROJECT_CAPITAL, newProject, datasets.getToken()).then(res => {
-            console.log(res);
+        const result = datasets.postData(SERVER.CREATE_PROJECT, newProject, datasets.getToken()).then(res => {
+            if (res?._id) {
+                setRedirect(true);
+            }
         })
-
         // const newProjectData = state.map.newProject;
         // dispatch({ type: types.CREATE_NEW_PROJECT, problems})
     }

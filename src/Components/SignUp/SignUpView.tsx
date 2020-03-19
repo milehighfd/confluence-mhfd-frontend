@@ -59,7 +59,6 @@ export default () => {
   if (redirect) {
     return <Redirect to="/profile-view" />
   }
-  console.log(values);
   
   return <Layout style={{ background: '#fff' }}>
     <Row>

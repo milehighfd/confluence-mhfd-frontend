@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { VALIDATION_PROJECT_CAPITAL } from "../../constants/validation";
 import { FOOTER_PROJECT_CAPITAL } from "../../constants/constants";
 import { NewProjectFormProps, ComponentType } from "../../Classes/MapTypes";
-
+import { GOAL, REQUEST_FUNDING_YEAR } from "../../constants/constants";
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
@@ -187,16 +187,17 @@ export default ({ problems, projects, components, getReverseGeocode, savePolygon
 
   const { values, handleSubmit, handleChange, errors } = useFormik({
     initialValues: {
+      projectType: 'capital',
       description: '',
       localDollarsContributed: 0,
       mhfdFundingRequest: '',
       requestName: cad[2] ? cad[2] : '',
-      requestFundingYear: 0,
+      requestFundingYear: '',
       goal: ''
     },
     validationSchema,
-    onSubmit(values: {description: string, requestName: string, localDollarsContributed: number, requestFundingYear: number, mhfdFundingRequest: string, goal: string}) {
-      saveNewProjectForm(values, selectedItems, total);
+    onSubmit(values: {projectType: string, description: string, requestName: string, localDollarsContributed: number, requestFundingYear: string, mhfdFundingRequest: string, goal: string}) {
+      saveNewProjectForm(values, selectedItems, total, setRedirect);
     }
   });
   if(redirect) {
@@ -222,7 +223,6 @@ export default ({ problems, projects, components, getReverseGeocode, savePolygon
   const updatePercentageCosts = () => {
     console.log('updating');
   }
-  
   return <>
         <Layout>
           <NavbarView></NavbarView>
@@ -307,17 +307,17 @@ export default ({ problems, projects, components, getReverseGeocode, savePolygon
                         <Row gutter={16}>
                         <Col className="gutter-row" span={12}>
                           <label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt=""/></label>
-                            <Dropdown overlay={ <DropdownMenuView values={values} items={requestFundingYear} item={title} setItem={setTitle} field={'requestFundingYear'}/> }>
+                            <Dropdown overlay={ <DropdownMenuView values={values} items={REQUEST_FUNDING_YEAR} item={title} setItem={setTitle} field={'requestFundingYear'}/> }>
                               <Button>
-                              {values.requestFundingYear ? values.requestFundingYear : '- Select -'} <img src="/Icons/icon-12.svg" alt=""/>
+                              {values.requestFundingYear ? REQUEST_FUNDING_YEAR.filter( element => element.id === (Number)(values.requestFundingYear))[0].name : '- Select -' } <img src="/Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </Col>
                           <Col className="gutter-row" span={12}>
                             <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
-                            <Dropdown overlay={ <DropdownMenuView values={values} items={goal} item={title} setItem={setTitle} field={'goal'}/> }>
+                            <Dropdown overlay={ <DropdownMenuView values={values} items={GOAL} item={title} setItem={setTitle} field={'goal'}/> }>
                               <Button>
-                              {values.goal ? values.goal : '- Select -'} <img src="/Icons/icon-12.svg" alt=""/>
+                              {values.goal ? GOAL.filter( element => element.id === (values.goal))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt=""/>
                               </Button>
                             </Dropdown>
                           </Col>

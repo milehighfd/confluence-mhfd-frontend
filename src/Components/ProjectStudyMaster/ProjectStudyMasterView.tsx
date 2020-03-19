@@ -49,7 +49,7 @@ const columns01 = ({removeSelectedItem} : any) => [
 ];
 
 
-const masterPlan = new MasterPlanOnly();
+const masterPlan = new MasterPlanOnly(); 
 const send = {
   submit: false,
   optionSubmit : false
@@ -159,10 +159,7 @@ export default ({ problems, projects, components } : any) => {
                   leftWidth={leftWidth}
                   problems={problems}
                   projects={projects}
-                  components={components}
-                  setSelectedItems={setSelectedItems}
-                  selectedItems={selectedItems}
-                  setIsPolygon={setIsPolygon} />
+                  components={components}/>
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
