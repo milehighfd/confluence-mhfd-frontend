@@ -29,6 +29,8 @@ import ProjectStudyMasterContainer from './Components/ProjectStudyMaster/Project
 import ProjectStudyFHADContainer from './Components/ProjectStudyFHAD/ProjectStudyFHADContainer';
 
 import ProjectCapitalForm from './Components/ProjectForms/ProjectCapitalForm';
+import ProjectSpecialForm from './Components/ProjectForms/ProjectSpecialForm';
+import ProjectAcquisitionForm from './Components/ProjectForms/ProjectAcquisitionForm';
 
 function App({ appUser }: any) {
   // return <Switch>
@@ -67,8 +69,8 @@ function App({ appUser }: any) {
       <Route path={`/new-project-form`} component={NewProjectFormContainer} />
       <Route path={`/project-debris`} component={ProjectDebrisContainer} />
       <Route path={`/project-capital`} component={ProjectCapitalForm} />
-      <Route path={`/project-acquisition`} component={ProjectAcquisitionContainer} />
-      <Route path={`/project-special`} component={ProjectSpecialContainer} />
+      <Route path={`/project-acquisition`} component={ProjectAcquisitionForm} />
+      <Route path={`/project-special`} component={ProjectSpecialForm} />
       <Route path={`/project-master-plan-only`} component={ProjectStudyMasterContainer} />
       <Route path={`/project-fhad`} component={ProjectStudyFHADContainer} />
       <Route path={`/new-project-types`} component={NewProjectTypesContainer} />
