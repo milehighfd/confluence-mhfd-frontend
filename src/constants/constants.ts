@@ -6,6 +6,7 @@ export const EMPTY_SCREEN = 0;
 /* Map Constants */
 
 export const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
+export const HERE_TOKEN = 'aRgPPlNDstxfi9lnBVXAkAN5fUu5jC1D3fuZoDeyUFw';
 
 export const MAP_DROPDOWN_ITEMS = [
     {

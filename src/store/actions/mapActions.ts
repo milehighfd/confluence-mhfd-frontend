@@ -1,11 +1,17 @@
 import * as types from '../types/mapTypes';
 
 export const getReverseGeocode = (lat : any, lng : any, accessToken : string) => {
+    /* Intentionally Commented By The Other API Proposal and Backup*/
     return (dispatch : Function) => {
-        const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + lat + "," + lng + ".json?types=place&access_token=" + accessToken;
+        const url = "https://revgeocode.search.hereapi.com/v1/revgeocode?at=" + lng + "%2C" + lat + "&apiKey=" + accessToken;
+        // const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + lat + "," + lng + ".json?types=place&access_token=" + accessToken;
         fetch(url)
             .then(res => res.json())
-            .then(data => dispatch({ type: types.SET_REVERSE_GEOCODE, county: data.features[0].text }))
+            .then(data => {
+                const feature = data.items[0];
+                dispatch({ type: types.SET_REVERSE_GEOCODE, county: feature.address.county });
+            })
+            // .then(data => dispatch({ type: types.SET_REVERSE_GEOCODE, county: data.features[0].text }))
             .catch(err =>  dispatch({ type: types.GEOCODE_REQUEST_ERROR, err }));
     }
 }

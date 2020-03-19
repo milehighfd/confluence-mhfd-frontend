@@ -12,7 +12,7 @@ import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
 import { MapProps, ComponentType } from '../../Classes/MapTypes';
-import { MAP_DROPDOWN_ITEMS, MAPBOX_TOKEN, LATITUDE_INDEX, LONGITUDE_INDEX, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from "../../constants/constants";
+import { MAP_DROPDOWN_ITEMS, MAPBOX_TOKEN, HERE_TOKEN, LATITUDE_INDEX, LONGITUDE_INDEX, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from "../../constants/constants";
 
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -141,7 +141,7 @@ const Map = ({ leftWidth, problems, projects, components, setSelectedItems, sele
         });
 
         savePolygonCoordinates!(polygon);
-        getReverseGeocode!((maxX + minX) / 2, (maxY + minY) / 2, MAPBOX_TOKEN);
+        getReverseGeocode!((maxX + minX) / 2, (maxY + minY) / 2, HERE_TOKEN);
         return points;
     }
 
