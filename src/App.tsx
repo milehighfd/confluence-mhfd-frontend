@@ -11,6 +11,7 @@ import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswo
 import SidebarContainer from './Components/Shared/Sidebar/SidebarContainer';
 import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
+import NewMapForm from './Components/NewMapForm/NewMapFormView';
 import NewProjectFormContainer from './Components/NewProjectForm/NewProjectFormContainer';
 import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
 import FiltersProjectContainer from './Components/FiltersProject/FiltersProjectContainer';
@@ -60,6 +61,7 @@ function App({ appUser }: any) {
       <Route path={`/sidebar`} component={SidebarContainer} />
       <Route path={`/sign-up`} component={SignUpContainer} />
       <Route path={`/user`} component={UserContainer} />
+      <Route path={'/new-map-form'} component={NewMapForm} />
       <Route path={`/new-project-form`} component={NewProjectFormContainer} />
       <Route path={`/project-debris`} component={ProjectDebrisContainer} />
       <Route path={`/project-capital`} component={ProjectCapitalContainer} />

@@ -41,6 +41,8 @@ export const saveNewProjectForm = (data : Object, components: Array<Object>, tot
             components
         };
 
+        console.log(newProject);
+
         const result = datasets.postData(SERVER.CREATE_PROJECT_CAPITAL, newProject, datasets.getToken()).then(res => {
             console.log(res);
         })
