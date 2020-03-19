@@ -135,6 +135,7 @@ export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, s
                 <div className="user-footer">
                 <Button className="btn-d" onClick={() => deleteUser(index)}>Delete</Button>
                 <Button className="btn-s" onClick={() => saveUser(switchTo, index)}>Save</Button>
+                {/*<Button className="btn-s btn-s-01" onClick={() => saveUser(switchTo, index)}>Save</Button>*/}
                 </div>
             </Panel>
             </Collapse>
