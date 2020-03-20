@@ -154,4 +154,4 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewProjectForm 
     </Form>
     </>
 }
-export default mapFormContainer(ProjectStudyForm);
+export default mapFormContainer(ProjectStudyForm, null);
