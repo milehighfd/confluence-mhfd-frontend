@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Menu } from "antd";
 
 export default ({values, items, item, setItem, field}: any) => {

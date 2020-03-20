@@ -67,31 +67,31 @@ export const buttonsNewProject = [
           route: 'new-project-form',
           icon1: '/Icons/icon-47.svg',
           icon2: '/Icons/icon-48.svg',
-          redirectRoute: '/project-debris'
+          redirectRoute: '/project-maintenance/debrisManagement'
         }, {
           title: 'vegetation management',
           route: 'new-project-form',
           icon1: '/Icons/icon-49.svg',
           icon2: '/Icons/icon-50.svg',
-          redirectRoute: '/new-project-form'
+          redirectRoute: '/project-maintenance/vegetationManagement'
         }, {
           title: 'sediment removal',
           route: 'new-project-form',
           icon1: '/Icons/icon-51.svg',
           icon2: '/Icons/icon-52.svg',
-          redirectRoute: '/new-project-form'
+          redirectRoute: '/project-maintenance/sedimentRemoval'
         }, {
           title: 'minor repairs',
           route: 'new-project-form',
           icon1: '/Icons/icon-53.svg',
           icon2: '/Icons/icon-54.svg',
-          redirectRoute: '/new-project-form'
+          redirectRoute: '/project-maintenance/minorRepairs'
         }, {
           title: 'restoration',
           route: 'new-project-form',
           icon1: '/Icons/icon-55.svg',
           icon2: '/Icons/icon-56.svg',
-          redirectRoute: '/new-project-form'
+          redirectRoute: '/project-maintenance/restoration'
         }
       ]
     }, {
@@ -240,7 +240,45 @@ export const REQUEST_START_YEAR = [
     name: (new Date()).getFullYear() + 3,
     id: (new Date()).getFullYear() + 3
   }
-] 
+];
+export const MAINTENANCE_ELIGIBILITY = [
+  {
+    name: "Capital Project", 
+    id: "capitalProject"
+  }, {
+    name: "MEP",
+    id: "MEP"
+  }, {
+    name: "Grandfathered",
+    id: "grandfathered"
+  }, {
+    name: "Not Eligible",
+    id: "notEligible"
+  }, {
+    name: "I don't know",
+    id: "iDontKnow"
+  }
+];
+
+export const RECURRENCE = [
+  {
+    name: "One Time", 
+    id: "oneTime"
+  }, {
+    name: "Annually",
+    id: "annually"
+  }, {
+    name: "Multiple/yr",
+    id: "multiple"
+  }
+];
+
+export const FRECUENCY = [
+  {
+    name: "Cycle per year", 
+    id: "cyclePerYear"
+  }
+];
 
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11

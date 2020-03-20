@@ -33,6 +33,7 @@ import ProjectCapitalForm from './Components/ProjectForms/ProjectCapitalForm';
 import ProjectSpecialForm from './Components/ProjectForms/ProjectSpecialForm';
 import ProjectAcquisitionForm from './Components/ProjectForms/ProjectAcquisitionForm';
 import MapView from './Components/Map/MapView';
+import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenanceForm';
 
 function App({ appUser }: any) {
   // return <Switch>
@@ -73,6 +74,7 @@ function App({ appUser }: any) {
       <Route path={`/project-capital`} component={ProjectCapitalForm} />
       <Route path={`/project-acquisition`} component={ProjectAcquisitionForm} />
       <Route path={`/project-special`} component={ProjectSpecialForm} />
+      <Route path={`/project-maintenance`} component={ProjectMaintenanceForm} />
       <Route path={`/project-master-plan-only`} component={ProjectStudyMasterContainer} />
       <Route path={`/project-fhad`} component={ProjectStudyFHADContainer} />
       <Route path={`/new-project-types`} component={NewProjectTypesContainer} />
