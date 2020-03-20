@@ -77,7 +77,7 @@ export default ({ problems, projects, components }: any) => {
               file: fi.originFileObj,
               projectid: res._id
             };
-            datasets.postData(SERVER.UPLOAD_FILE, data, datasets.getToken()).then(res1 => {
+            datasets.postDataMultipart(SERVER.UPLOAD_FILE, data, datasets.getToken()).then(res1 => {
               console.log(res1);
             })
           }

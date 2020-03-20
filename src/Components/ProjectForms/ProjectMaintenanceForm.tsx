@@ -43,14 +43,16 @@ const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Fu
     const initialValues = cad[2] === 'debrisManagement' ? PROJECT_MAINTENANCE_DEBRIS : cad[2] === 'vegetationManagement' ? PROJECT_MAINTENANCE_VEGETATION : 
             cad[2] === 'sedimentRemoval' ? PROJECT_MAINTENANCE_SEDIMENT : cad[2] === 'minorRepairs' ? PROJECT_MAINTENANCE_MINOR_REPAIR : PROJECT_MAINTENANCE_RESTORATION;
     initialValues.requestName = cad[3];
-    initialValues.projectSubtype = cad[2];    
+    initialValues.projectSubtype = cad[2];
+    const files: Array<any> = [];
+    const [listFiles, setListFiles ] = useState(files);
     const [redirect, setRedirect] = useState(false);
     const [title, setTitle] = useState<string>('');
     const { values, handleSubmit, handleChange } = useFormik({
         initialValues,
         validationSchema,
         onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string}) {
-            saveNewProjectForm(values, setRedirect);
+            saveNewProjectForm(values, setRedirect, null, null, listFiles);
         }
     });
 
@@ -183,26 +185,30 @@ const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Fu
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger>
+          <Dragger multiple={false} onChange={(event)=>{
+          }}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
           </Dragger>
           <div className="tag-upload">
-            <Tag closable>
+            {/* <Tag closable>
               Little Dry Creek_image-1.jpg
-                        </Tag>
+                        </Tag> */}
           </div>
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger className="img-npf">
+          <Dragger className="img-npf" onChange={(event)=>{
+            console.log(event);
+            setListFiles(event.fileList);
+          }}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
           </Dragger>
           <div className="tag-upload">
-            <Tag closable>
+            {/* <Tag closable>
               Little Dry Creek_image-2.csv
-                        </Tag>
+                        </Tag> */}
           </div>
         </div>
         <div className="btn-footer" style={{ marginTop: '25px' }}>

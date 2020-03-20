@@ -1,8 +1,23 @@
 import React, { Component } from "react";
+import { url } from "inspector";
 
 
 export const postData = (url: any, body: any, token?: any) => {
     const headers = token ? JSONOptions(token) : JSONDefault();
+    return fetch(url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body)
+    })
+    .then(response => response.json())
+    .then(data => {return (data);})
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export const postDataMultipart = (url: any, body: any, token?: any) => {
+    const headers = token ? MultiPartOptions(token) : MultiPart();
     return fetch(url, {
         method: 'POST',
         headers,
@@ -62,6 +77,15 @@ export const JSONOptions = (token?: any) => {
     }
     return headers;
 }
+export const MultiPartOptions = (token?: any) => {
+    let headers = new Headers();
+    // headers.append('Accept', 'application/json');
+    // headers.append('Content-Type', 'multipart/form-data');
+    if (token) {
+        headers.append('Authorization', 'Bearer ' + token);
+    }
+    return headers;
+}
 export const getToken = () => {
     return sessionStorage.getItem('mfx-token') ? sessionStorage.getItem('mfx-token') : (localStorage.getItem('mfx-token') ? localStorage.getItem('mfx-token') : '');
 }
@@ -69,6 +93,13 @@ export const getToken = () => {
 export const JSONDefault = () => {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    return headers;
+}
+
+export const MultiPart = () => {
+    let headers = new Headers();
+    // headers.append('Accept', 'application/json');
+    // headers.append('Content-Type', 'multipart/form-data');
     return headers;
 }
 

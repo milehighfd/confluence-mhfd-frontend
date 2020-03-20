@@ -30,7 +30,7 @@ export const saveMarkerCoordinates = (marker : Array<[]>) => {
     }
 }
 
-export const saveNewProjectForm = (data : Object, setRedirect: Function, components: Array<Object>, total: any) => {
+export const saveNewProjectForm = (data : Object, setRedirect: Function, components: Array<Object>, total: any, files: Array<any>) => {
     return (dispatch : Function, getState : Function) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
@@ -47,6 +47,18 @@ export const saveNewProjectForm = (data : Object, setRedirect: Function, compone
 
         const result = datasets.postData(SERVER.CREATE_PROJECT, newProject, datasets.getToken()).then(res => {
             if (res?._id) {
+                if(files) {
+                    for(let da of files) {
+                        console.log(da);
+                        const data2 = {
+                            file: da.originFileObj,
+                            projectid: res._id
+                        };
+                        datasets.postDataMultipart(SERVER.UPLOAD_FILE, data2, datasets.getToken()).then(res1 => {
+                            console.log(res1);
+                        })
+                    }
+                }
                 setRedirect(true);
             }
         })
