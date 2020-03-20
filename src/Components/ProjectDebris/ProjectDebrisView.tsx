@@ -11,6 +11,7 @@ import { useLocation, Redirect } from "react-router-dom";
 import * as datasets from "../../Config/datasets"
 import { SERVER } from "../../Config/Server.config";
 import { UploadFile } from "../Shared/UploadFiles/UploadFile";
+import UploadFileAD from "../Shared/UploadFiles/UploadFileAD";
 import { Files } from "../Shared/UploadFiles/File";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { client } from "../Shared/UploadFiles/apollo";
@@ -33,7 +34,11 @@ export default ({ problems, projects, components }: any) => {
   const debris = new Debris();
   debris.requestName = cad[2] ? cad[2] : '';
   const emptyStyle: React.CSSProperties = {};
+  const files: Array<any> = [];
+  const image: any = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
+  var [listFiles, setListFiles ] = useState(files);
+  var [imageProject, setImageProject] = useState(image);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
   const [selectedItems, setSelectedItems] = useState<Array<[]>>([]);
@@ -53,6 +58,7 @@ export default ({ problems, projects, components }: any) => {
       setRotationStyle(emptyStyle);
     }
   }
+
   if(submit.submit && submit.optionSubmit) {
     const valid = (
       projectDebris.description.length > 0 &&
@@ -62,10 +68,20 @@ export default ({ problems, projects, components }: any) => {
       projectDebris.requestName.length > 0
     );
     if (valid) {
-      
-      const result = datasets.postData(SERVER.CREATE_PROJECT_DEBRIS, projectDebris, datasets.getToken()).then(res => {
+      console.log(projectDebris);
+      const result = datasets.postData(SERVER.CREATE_PROJECT, projectDebris, datasets.getToken()).then(res => {
+        console.log(res);
         if(res) {
-          setRedirect(true);
+          for(let fi of listFiles) {
+            const data = {
+              file: fi.originFileObj,
+              projectid: res._id
+            };
+            datasets.postData(SERVER.UPLOAD_FILE, data, datasets.getToken()).then(res1 => {
+              console.log(res1);
+            })
+          }
+          // setRedirect(true);
         }
         submit.optionSubmit = false;
       })
@@ -183,31 +199,41 @@ export default ({ problems, projects, components }: any) => {
                 </div>
                 <div className="img-npf">
                   <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
+                  
                   {/* <ApolloProvider client={client}>
                     <UploadFile />
                     <Files />
                   </ApolloProvider> */}
                   
-                  <Dragger>
+                  <Dragger multiple={false} onChange={(event) =>{
+                    setImageProject(event.file);
+                    // projectDebris.imageProject = event.file; 
+                    projectDebris.imageName = event.file.name;
+                  }}>
                     <img src="/Icons/icon-17.svg" alt="" />
                     <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
                   </Dragger>
                   <div className="tag-upload">
-                    <Tag closable>
+                    {/* <Tag closable>
                       Little Dry Creek_image-1.jpg
-                        </Tag>
+                        </Tag> */}
                   </div>
                 </div>
                 <div className="img-npf">
                   <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-                  <Dragger className="img-npf">
+                  {/* <UploadFileAD setListFiles={setListFiles} listFiles={listFiles} /> */}
+                  <Dragger className="img-npf" onChange={(event) =>{
+                    //projectDebris.listDocuments = event.fileList;
+                    console.log(event.fileList);
+                    setListFiles(event.fileList);
+                  }}>
                     <img src="/Icons/icon-17.svg" alt="" />
                     <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
                   </Dragger>
                   <div className="tag-upload">
-                    <Tag closable>
+                    {/* <Tag closable>
                       Little Dry Creek_image-2.csv
-                        </Tag>
+                        </Tag> */}
                   </div>
                 </div>
                 <div className="btn-footer" style={{ marginTop: '25px' }}>
