@@ -4,12 +4,12 @@ import Map from '../Components/Map/Map';
 import NavbarView from "../Components/Shared/Navbar/NavbarView";
 import SidebarView from "../Components/Shared/Sidebar/SidebarView";
 
-import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, NEW_PROJECT_FORM_COST } from "../constants/constants";
+import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../constants/constants";
 import { Redirect, useLocation } from "react-router-dom";
 
-import { Layout, Row, Col, Dropdown, Menu, Button, Tag, Input, Upload, Table, Form } from 'antd';
+import { Layout, Row, Col, Button } from 'antd';
 
-export default function (WrappedComponent : any) {
+export default function (WrappedComponent : any, layers : any) {
     return (props : any) => {
 
         const emptyStyle: React.CSSProperties = {};
@@ -44,6 +44,7 @@ export default function (WrappedComponent : any) {
                             setSelectedItems={setSelectedItems}
                             selectedItems={selectedItems}
                             setIsPolygon={setIsPolygon}
+                            layers={layers}
                             {...props} />
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>

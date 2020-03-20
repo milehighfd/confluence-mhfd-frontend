@@ -1,6 +1,6 @@
 import React from "react";
 import { Upload, message } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
+// import { InboxOutlined } from '@ant-design/icons';
 
 const { Dragger } = Upload;
 // https://www.mocky.io/v2/5cc8019d300000980a055e76
@@ -48,7 +48,7 @@ export default ({setListFiles, listFiles } : any) => {
         
       } }>
         <p className="ant-upload-drag-icon">
-          <InboxOutlined />
+          {/* <InboxOutlined /> */}
         </p>
         <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
         <p className="ant-upload-hint"></p>

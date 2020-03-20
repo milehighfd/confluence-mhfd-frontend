@@ -15,7 +15,6 @@ const { TextArea } = Input;
 const ProjectSpecialForm = () => {
   const location = useLocation();
   const cad = location.pathname.split('/');
-  const emptyStyle: React.CSSProperties = {};
   const [redirect, setRedirect] = useState(false);
 
   const { values, handleSubmit, handleChange } = useFormik({
@@ -70,4 +69,8 @@ const ProjectSpecialForm = () => {
     </>
 }
 
-export default mapFormContainer(ProjectSpecialForm);
+const layers = {
+  marker: true
+}
+
+export default mapFormContainer(ProjectSpecialForm, layers);

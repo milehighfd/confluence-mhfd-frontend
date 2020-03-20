@@ -232,7 +232,7 @@ export default ({ problems, projects, components, getReverseGeocode, savePolygon
               <Form onSubmit={handleSubmit}>
               <Row>
               <Col span={leftWidth}>
-              <Map
+              {/* <Map
                   leftWidth={leftWidth}
                   problems={problems}
                   projects={projects}
@@ -241,7 +241,7 @@ export default ({ problems, projects, components, getReverseGeocode, savePolygon
                   selectedItems={selectedItems}
                   setIsPolygon={setIsPolygon}
                   getReverseGeocode={getReverseGeocode}
-                  savePolygonCoordinates={savePolygonCoordinates} />
+                  savePolygonCoordinates={savePolygonCoordinates} /> */}
 
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

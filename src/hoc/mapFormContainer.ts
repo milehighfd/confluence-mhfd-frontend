@@ -21,4 +21,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     }, dispatch)
 });
   
-export default (WrappedComponent : any) => connect(mapStateToProps, mapDispatchToProps)(mapFormData(WrappedComponent));
+export default (WrappedComponent : any, layers : any) => connect(mapStateToProps, mapDispatchToProps)(mapFormData(WrappedComponent, layers));

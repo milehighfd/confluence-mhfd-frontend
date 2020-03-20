@@ -317,4 +317,8 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
     </>
 }
 
-export default mapFormContainer(ProjectCapitalForm);
+const layers = {
+  components: true
+}
+
+export default mapFormContainer(ProjectCapitalForm, layers);

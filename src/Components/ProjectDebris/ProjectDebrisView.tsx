@@ -103,13 +103,13 @@ export default ({ problems, projects, components }: any) => {
         <Layout className="map-00" style={{ height: 'calc(100vh - 58px)' }}>
           <Row>
             <Col span={leftWidth}>
-              <Map
+              {/* <Map
                 leftWidth={leftWidth}
                 problems={problems}
                 projects={projects}
                 components={components}
                 setSelectedItems={setSelectedItems}
-                setIsPolygon={setIsPolygon} />
+                setIsPolygon={setIsPolygon} /> */}
 
               <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                 <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />

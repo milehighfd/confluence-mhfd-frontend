@@ -20,7 +20,7 @@ const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 let map : any = null;
 const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 
-const Map = ({ leftWidth, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode, savePolygonCoordinates } : MapProps) => {
+const Map = ({ leftWidth, layers, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode, savePolygonCoordinates } : MapProps) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
 
@@ -40,7 +40,7 @@ const Map = ({ leftWidth, problems, projects, components, setSelectedItems, sele
             placeholder: 'Search...',
             marker: false
         });
-
+        
         const geo = document.getElementById('geocoder')!;
         geo.appendChild(geocoder.onAdd(map));
 
@@ -57,6 +57,14 @@ const Map = ({ leftWidth, problems, projects, components, setSelectedItems, sele
             map.on('draw.update', () => replaceOldPolygon(draw))
             drawPolygon.appendChild(draw.onAdd(map));
         }
+
+        if(layers && layers.marker) {
+            new mapboxgl.Marker()
+            .setLngLat([-104.93972902282832, 39.766095830817335])
+            .setDraggable(true)
+            .addTo(map);
+        }
+
         addMapListeners();
     }, []);
 
@@ -193,11 +201,11 @@ const Map = ({ leftWidth, problems, projects, components, setSelectedItems, sele
     const drawItemsInMap = (trigger : string) => {
         let items : any = null;
 
-        if(trigger === PROBLEMS_TRIGGER) {
+        if(trigger === PROBLEMS_TRIGGER && layers && layers.polygons) {
             items = problems;
-        } else if(trigger === PROJECTS_TRIGGER) {
+        } else if(trigger === PROJECTS_TRIGGER && layers && layers.polygons) {
             items = projects;
-        } else if(trigger === COMPONENTS_TRIGGER) {
+        } else if(trigger === COMPONENTS_TRIGGER && layers && layers.components) {
             items = components;
         }
 

@@ -62,11 +62,11 @@ export default ({ problems, projects, components } : any) => {
               <Form onSubmit={handleSubmit}>
                 <Row>
                 <Col span={leftWidth}>
-                  <Map
+                  {/* <Map
                     leftWidth={leftWidth}
                     problems={problems}
                     projects={projects}
-                    components={components} />
+                    components={components} /> */}
 
                   <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                     <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

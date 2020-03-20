@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Dropdown, Menu, Button, Switch, Tag, Input, Progress, Upload, Form, Table } from 'antd';
+import React, { useState } from "react";
+import { Row, Col, Dropdown, Menu, Button, Switch, Tag, Input, Upload, Form } from 'antd';
 
 import { FRECUENCY, MAINTENANCE_ELIGIBILITY, RECURRENCE } from "../../constants/constants";
 import mapFormContainer from "../../hoc/mapFormContainer";
@@ -229,4 +229,4 @@ const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Fu
         </>
 }
 
-export default mapFormContainer(ProjectMaintenanceForm);
+export default mapFormContainer(ProjectMaintenanceForm, null);

@@ -120,4 +120,9 @@ const MapView = () => {
         </>
 }
 
-export default mapFormContainer(MapView);
+const layers = {
+  polygons: true,
+  components: true
+}
+
+export default mapFormContainer(MapView, layers);

@@ -1,5 +1,6 @@
 export type MapProps = {
     leftWidth: number,
+    layers: MapLayersType,
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
@@ -53,4 +54,10 @@ export type ComponentType = {
     mitigationType: string,
     studyName: string,
     coordinates: Array<[]>
+}
+
+export type MapLayersType = {
+    marker?: boolean,
+    polygons?: boolean
+    components?:boolean
 }

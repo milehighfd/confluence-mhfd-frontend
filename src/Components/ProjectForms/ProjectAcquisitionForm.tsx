@@ -83,4 +83,8 @@ const ProjectAcdquisitionForm = () => {
         </>
 }
 
-export default mapFormContainer(ProjectAcdquisitionForm);
+const layers = {
+  marker: true
+}
+
+export default mapFormContainer(ProjectAcdquisitionForm, layers);
