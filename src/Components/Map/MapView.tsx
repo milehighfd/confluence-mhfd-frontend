@@ -1,20 +1,11 @@
 import React, {useState} from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Timeline } from 'antd';
+import {  Row, Col, Collapse, Dropdown, Button, Tabs, Card, Input } from 'antd';
 
-
-import NavbarView from "../Shared/Navbar/NavbarView";
-import SidebarView from "../Shared/Sidebar/SidebarView";
-import MapFilterView from '../Shared/MapFilter/MapFilterView';
-import MapTypesView from "../Shared/MapTypes/MapTypesView";
-import Map from './Map';
-import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../constants/constants";
 import SortMenuView from "../SortMenu/SortMenuView";
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
-import { MapViewProps } from "../../Classes/MapTypes";
+import mapFormContainer from "../../hoc/mapFormContainer";
 
-const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
-const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Search } = Input;
 
@@ -60,109 +51,73 @@ const accordionRow: Array<any> = [
   }
 ];
 
-export default ({ problems, projects, components } : MapViewProps) => {
-  const emptyStyle: React.CSSProperties = {};
-  const [rotationStyle, setRotationStyle] = useState(emptyStyle);
-  const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
-  const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
+const MapView = () => {
+
   const [listDescription, setListDescription] = useState(false);
 
-  const updateWidth = () => {
-    if (leftWidth === MEDIUM_SCREEN) {
-      setLeftWidth(COMPLETE_SCREEN);
-      setRightWitdh(EMPTY_SCREEN);
-      setRotationStyle({transform: 'rotate(180deg)'});
-    } else {
-      setLeftWidth(MEDIUM_SCREEN);
-      setRightWitdh(MEDIUM_SCREEN);
-      setRotationStyle(emptyStyle);
-    }
-  }
-
   return <>
-        <Layout>
-          <NavbarView></NavbarView>
-          <Layout>
-            <SidebarView></SidebarView>
-            <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
-            <Row>
-              <Col span={leftWidth}>
-                <Map 
-                  leftWidth={leftWidth} 
-                  problems={problems}
-                  projects={projects}
-                  components={components} />
+        <div className="count">
+          {/*<Collapse accordion>
+            <Panel header="" key="1">*/}
+              <Row className="head-m">
+                <Col span={12}>
+                <Dropdown overlay={SortMenuView}>
+                  <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                    Westminter, CO  <img src="/Icons/icon-12.svg" alt=""/>
+                  </a>
+                </Dropdown>
+                </Col>
+                <Col style={{textAlign: 'right'}} span={12}>
+                  <ButtonGroup>
+                    <Button className="btn-mm" onClick={() => {
+                      setListDescription(true);
+                    }}>
+                      <img className="img-h" src="/Icons/icon-30.svg" alt=""/>
+                      <img className="img-a" src="/Icons/icon-32.svg" alt=""/>
+                    </Button>
+                    <Button onClick={() => {
+                      setListDescription(false);
+                    }}>
+                      <img className="img-h" src="/Icons/icon-31.svg" alt=""/>
+                      <img className="img-a" src="/Icons/icon-33.svg" alt=""/>
+                    </Button>
+                  </ButtonGroup>
+                </Col>
+              </Row>
 
-                <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
-                  <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
-                </Button>
-              </Col>
-              <Col span={rightWidth}>
-                <div className="count">
-              {/*<Collapse accordion>
-                <Panel header="" key="1">*/}
-                  <Row className="head-m">
-                    <Col span={12}>
+              <div className="head-filter">
+                <Row type="flex" justify="space-around" align="middle">
+                  <Col span={16}>
+                    <Search
+                      placeholder="Search..."
+                      onSearch={value => console.log(value)}
+                      style={{ width: 200 }}
+                    />
+                  </Col>
+                  <Col  style={{textAlign: 'right'}} span={8}>
                     <Dropdown overlay={SortMenuView}>
                       <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                        Westminter, CO  <img src="/Icons/icon-12.svg" alt=""/>
+                        Sort by Cost <img src="Icons/icon-14.svg" alt=""/>
                       </a>
                     </Dropdown>
-                    </Col>
-                    <Col style={{textAlign: 'right'}} span={12}>
-                      <ButtonGroup>
-                        <Button className="btn-mm" onClick={() => {
-                          setListDescription(true);
-                        }}>
-                          <img className="img-h" src="/Icons/icon-30.svg" alt=""/>
-                          <img className="img-a" src="/Icons/icon-32.svg" alt=""/>
-                        </Button>
-                        <Button onClick={() => {
-                          setListDescription(false);
-                        }}>
-                          <img className="img-h" src="/Icons/icon-31.svg" alt=""/>
-                          <img className="img-a" src="/Icons/icon-33.svg" alt=""/>
-                        </Button>
-                      </ButtonGroup>
-                    </Col>
-                  </Row>
+                    <Button><img src="Icons/icon-29.svg" alt=""/> Filters (4)</Button>
+                  </Col>
+                </Row>
+              </div>
 
-                  <div className="head-filter">
-                    <Row type="flex" justify="space-around" align="middle">
-                      <Col span={16}>
-                        <Search
-                          placeholder="Search..."
-                          onSearch={value => console.log(value)}
-                          style={{ width: 200 }}
-                        />
-                      </Col>
-                      <Col  style={{textAlign: 'right'}} span={8}>
-                        <Dropdown overlay={SortMenuView}>
-                          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                            Sort by Cost <img src="Icons/icon-14.svg" alt=""/>
-                          </a>
-                        </Dropdown>
-                        <Button><img src="Icons/icon-29.svg" alt=""/> Filters (4)</Button>
-                      </Col>
-                    </Row>
-                  </div>
+              <Tabs defaultActiveKey="1" className="tabs-map">
+                <TabPane tab="Problems" key="1">
+                  <GenericTabView listDescription={listDescription} type="Problems" totalElements={cardInformationProblems.length} cardInformation={cardInformationProblems} accordionRow={accordionRow}/>
+                </TabPane>
 
-                  <Tabs defaultActiveKey="1" className="tabs-map">
-                    <TabPane tab="Problems" key="1">
-                      <GenericTabView listDescription={listDescription} type="Problems" totalElements={cardInformationProblems.length} cardInformation={cardInformationProblems} accordionRow={accordionRow}/>
-                    </TabPane>
-
-                    <TabPane tab="Projects" key="2">
-                    <GenericTabView listDescription={listDescription} type="Projects" totalElements={cardInformationProjects.length} cardInformation={cardInformationProjects} accordionRow={accordionRow}/>
-                    </TabPane>
-                  </Tabs>
-                {/*</Panel>
-                </Collapse>*/}
-                </div>
-              </Col>
-              </Row>
-            </Layout>
-          </Layout>
-        </Layout>
+                <TabPane tab="Projects" key="2">
+                <GenericTabView listDescription={listDescription} type="Projects" totalElements={cardInformationProjects.length} cardInformation={cardInformationProjects} accordionRow={accordionRow}/>
+                </TabPane>
+              </Tabs>
+            {/*</Panel>
+            </Collapse>*/}
+          </div>
         </>
 }
+
+export default mapFormContainer(MapView);

@@ -12,7 +12,6 @@ import { Layout, Row, Col, Dropdown, Menu, Button, Tag, Input, Upload, Table, Fo
 export default function (WrappedComponent : any) {
     return (props : any) => {
 
-        const location = useLocation();
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);

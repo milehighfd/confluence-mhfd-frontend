@@ -28,9 +28,11 @@ import ProjectSpecialContainer from './Components/ProjectSpecial/ProjectSpecialC
 import ProjectStudyMasterContainer from './Components/ProjectStudyMaster/ProjectStudyMasterContainer';
 import ProjectStudyFHADContainer from './Components/ProjectStudyFHAD/ProjectStudyFHADContainer';
 
+/* In use of Map/Form HOC */
 import ProjectCapitalForm from './Components/ProjectForms/ProjectCapitalForm';
 import ProjectSpecialForm from './Components/ProjectForms/ProjectSpecialForm';
 import ProjectAcquisitionForm from './Components/ProjectForms/ProjectAcquisitionForm';
+import MapView from './Components/Map/MapView';
 
 function App({ appUser }: any) {
   // return <Switch>
@@ -58,7 +60,7 @@ function App({ appUser }: any) {
   return (
     <Switch>
       <Route path={`/login`} component={LoginContainer} />
-      <Route path={`/map`} component={MapContainer} />
+      <Route path={`/map`} component={MapView} />
       <Route path={`/navbar`} component={NavbarContainer} />
       <Route path={`/reset-password`} component={ResetPasswordContainer} />
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
