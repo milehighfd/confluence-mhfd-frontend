@@ -197,7 +197,7 @@ export default ({ problems, projects, components, getReverseGeocode, savePolygon
     },
     validationSchema,
     onSubmit(values: {projectType: string, description: string, requestName: string, localDollarsContributed: number, requestFundingYear: string, mhfdFundingRequest: string, goal: string}) {
-      saveNewProjectForm(values, selectedItems, total, setRedirect);
+      saveNewProjectForm(values, setRedirect, selectedItems, total, );
     }
   });
   if(redirect) {

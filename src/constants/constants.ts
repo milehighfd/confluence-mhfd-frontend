@@ -105,13 +105,13 @@ export const buttonsNewProject = [
           route: 'new-project-form',
           icon1: '/Icons/icon-57.svg',
           icon2: '/Icons/icon-68.svg',
-          redirectRoute: '/project-master-plan-only'
+          redirectRoute: '/project-study/masterPlan'
         }, {
           title: 'fhad only',
           route: 'new-project-form',
           icon1: '/Icons/icon-58.svg',
           icon2: '/Icons/icon-59.svg',
-          redirectRoute: '/project-fhad'
+          redirectRoute: '/project-study/fhad'
         }
       ]
     }, {
@@ -211,6 +211,31 @@ export const GOAL = [
   }
 ];
 
+export const GOAL_STUDY = [
+  {
+    name: "Reduce flood risk to Structures", 
+    id: "reduceFloodRiskStructures"
+  }, {
+    name: "Stabilization",
+    id: "stabilization"
+  }, {
+    name: "Elminate roadway overtopping",
+    id: "eliminateRoadwayOvertopping"
+  }, {
+    name: "Increased Conveyance",
+    id: "increasedConveyance"
+  }, {
+    name: "Peak flow reduction",
+    id: "peakFlowReduction"
+  }, {
+    name: "Water Quality",
+    id: "waterQuality"
+  }, {
+    name: "Guide Development",
+    id: "guideDevelopment"
+  }
+];
+
 export const REQUEST_FUNDING_YEAR = [
   {
     name: (new Date()).getFullYear(), 
@@ -280,6 +305,78 @@ export const FRECUENCY = [
   }
 ];
 
+export const PROJECT_STUDY_MASTER= {
+  projectType: 'study',
+  projectSubtype: '',
+  requestName: '',
+  sponsor: '',
+  coSponsor: '',
+  requestedStartyear: '',
+  goal: ''
+}
+export const PROJECT_STUDY_FHAD= {
+  projectType: 'study',
+  projectSubtype: '',
+  requestName: '',
+  sponsor: '',
+  coSponsor: '',
+  requestedStartyear: ''
+}
+
+export const PROJECT_MAINTENANCE_DEBRIS= {
+  projectType: "maintenance",
+  projectSubtype: '',
+  requestName: '',
+  description: '',
+  mhfdDollarRequest: 0,
+  publicAccess: false,
+  frecuency: '',
+  maintenanceEligility: ''
+}
+
+export const PROJECT_MAINTENANCE_VEGETATION= {
+  projectType: "maintenance",
+  projectSubtype: '',
+  requestName: '',
+  description: '',
+  mhfdDollarRequest: 0,
+  publicAccess: false,
+  frecuency: '',
+  maintenanceEligility: '',
+  recurrence: ''
+}
+
+export const PROJECT_MAINTENANCE_SEDIMENT= {
+  projectType: "maintenance",
+  projectSubtype: '',
+  requestName: '',
+  description: '',
+  mhfdDollarRequest: 0,
+  publicAccess: false,
+  frecuency: '',
+  maintenanceEligility: '',
+  recurrence: ''
+}
+
+export const PROJECT_MAINTENANCE_MINOR_REPAIR= {
+  projectType: "maintenance",
+  projectSubtype: '',
+  requestName: '',
+  description: '',
+  mhfdDollarRequest: 0,
+  publicAccess: false,
+  maintenanceEligility: ''
+}
+
+export const PROJECT_MAINTENANCE_RESTORATION= {
+  projectType: "maintenance",
+  projectSubtype: '',
+  requestName: '',
+  description: '',
+  mhfdDollarRequest: 0,
+  publicAccess: false,
+  maintenanceEligility: ''
+}
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11
     mapbox://styles/mapbox/outdoors-v11

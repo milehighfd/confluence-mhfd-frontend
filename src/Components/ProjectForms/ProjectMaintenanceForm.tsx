@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Dropdown, Menu, Button, Switch, Tag, Input, Upload, Form } from 'antd';
 
-import { FRECUENCY, MAINTENANCE_ELIGIBILITY, RECURRENCE } from "../../constants/constants";
+import { FRECUENCY, MAINTENANCE_ELIGIBILITY, RECURRENCE, PROJECT_MAINTENANCE_DEBRIS, PROJECT_MAINTENANCE_VEGETATION, PROJECT_MAINTENANCE_SEDIMENT, PROJECT_MAINTENANCE_MINOR_REPAIR, PROJECT_MAINTENANCE_RESTORATION } from "../../constants/constants";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import { useLocation, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
@@ -38,38 +38,25 @@ const menu = (
 const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Function}) => {
     const location = useLocation();
     const cad = location.pathname.split('/');
-    const validationSchema = cad[3] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[3] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION : 
-            cad[3] === 'sedimentRemoval' ? VALIDATION_PROJECT_SEDIMENT : cad[3] === 'minorRepairs' ? VALIDATION_PROJECT_MINOR_REPAIR : VALIDATION_PROJECT_RESTORATION
+    const validationSchema = cad[2] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[2] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION : 
+            cad[2] === 'sedimentRemoval' ? VALIDATION_PROJECT_SEDIMENT : cad[2] === 'minorRepairs' ? VALIDATION_PROJECT_MINOR_REPAIR : VALIDATION_PROJECT_RESTORATION;
+    const initialValues = cad[2] === 'debrisManagement' ? PROJECT_MAINTENANCE_DEBRIS : cad[2] === 'vegetationManagement' ? PROJECT_MAINTENANCE_VEGETATION : 
+            cad[2] === 'sedimentRemoval' ? PROJECT_MAINTENANCE_SEDIMENT : cad[2] === 'minorRepairs' ? PROJECT_MAINTENANCE_MINOR_REPAIR : PROJECT_MAINTENANCE_RESTORATION;
+    initialValues.requestName = cad[3];
+    initialValues.projectSubtype = cad[2];    
     const [redirect, setRedirect] = useState(false);
     const [title, setTitle] = useState<string>('');
     const { values, handleSubmit, handleChange } = useFormik({
-        initialValues: {
-            projectType: "maintenance",
-            projectSubtype: cad[2] ? cad[2] : '',
-            requestName: cad[3] ? cad[3] : '',
-            description: "",
-            mhfdDollarRequest: 0,
-            publicAccess: false,
-            frecuency: "",
-            maintenanceEligility: "",
-            recurrence: ""
-        },
+        initialValues,
         validationSchema,
-        onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency: string, maintenanceEligility: string, recurrence: string}) {
-        const result = datasets.postData(SERVER.CREATE_PROJECT, values, datasets.getToken()).then(res => {
-            if(res?._id) {
-                saveNewProjectForm(values, setRedirect);
-            }
-        })
+        onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string}) {
+            saveNewProjectForm(values, setRedirect);
         }
     });
-    console.log(values);
-    
-    
+
     if(redirect) {
         return <Redirect to="/map" />
     }
-
   return <>
                   <Form onSubmit={handleSubmit}>
                   <div className="count-01">

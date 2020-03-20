@@ -25,19 +25,18 @@ export const savePolygonCoordinates = (polygon : Array<[]>) => {
     }
 }
 
-export const saveNewProjectForm = (data : Object, components: Array<Object>, total: any, setRedirect: Function) => {
+export const saveNewProjectForm = (data : Object, setRedirect: Function, components: Array<Object>, total: any) => {
     return (dispatch : Function, getState : Function) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
-
         const newProject = {
             ...data,
-            finalCost: total.total, 
+            finalCost: total ? total.total : 0, 
             jurisdiction: county,
-            additionalCost: total.additional.cost, 
-            additionalCostDescription: total.additional.description, 
-            overheadCost: total.overhead.cost, 
-            overheadCostDescription: total.overhead.description,
+            additionalCost: total ? total.additional?.cost : 0, 
+            additionalCostDescription: total ? total.additional?.description : 0, 
+            overheadCost: total ? total.overhead?.cost : 0, 
+            overheadCostDescription: total ? total.overhead?.description : 0,
             components
         };
 

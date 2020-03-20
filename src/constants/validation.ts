@@ -282,3 +282,61 @@ export const VALIDATION_PROJECT_RESTORATION = Yup.object().shape({
     .max(50, 'Too Long!')
     .required('Required'),
 });
+
+export const VALIDATION_PROJECT_MASTER_PLAN_ONLY = Yup.object().shape({
+  projectType: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),  
+  projectSubtype: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  requestName: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  sponsor: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  coSponsor: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  requestedStartyear: Yup.string()
+    .min(2, 'Too Short!')
+    .max(5, 'Too Long!')
+    .required('Required'),
+  goal: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required')
+});
+
+export const VALIDATION_PROJECT_FHAD = Yup.object().shape({
+  projectType: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),  
+  projectSubtype: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  requestName: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  sponsor: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  coSponsor: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  requestedStartyear: Yup.string()
+    .min(2, 'Too Short!')
+    .max(5, 'Too Long!')
+    .required('Required')
+});

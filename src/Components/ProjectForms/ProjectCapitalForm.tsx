@@ -178,7 +178,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
     },
     validationSchema,
     onSubmit(values: {projectType: string, description: string, requestName: string, localDollarsContributed: number, requestFundingYear: string, mhfdFundingRequest: string, goal: string}) {
-      saveNewProjectForm(values, selectedItems, total, setRedirect);
+      saveNewProjectForm(values, setRedirect, selectedItems, total);
     }
   });
 
@@ -202,7 +202,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   const updatePercentageCosts = () => {
     console.log('updating');
   }
-
+  
   if(redirect) {
     return <Redirect to="/map" />
   }
