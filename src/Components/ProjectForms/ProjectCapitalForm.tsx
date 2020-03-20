@@ -222,9 +222,9 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
                 <h5>SELECTED STREAMS</h5>
                 <div id="polygon" />
                 <span>|</span>
-                <form id="demo-2">
+                <div id="demo-2">
                     <input type="search" placeholder="Search"/>
-                </form>
+                </div>
                 <button><img src="/Icons/icon-35.svg" alt=""/></button>
                 </div>
                 <span>TOTAL COST: ${numberWithCommas(total.total)}</span>

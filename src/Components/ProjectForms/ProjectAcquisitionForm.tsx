@@ -54,7 +54,7 @@ const ProjectAcdquisitionForm = () => {
             <div className="head-m project-comp">
                 <div className="project-comp-btn">
                     <h5>DESCRIPTION</h5>
-                    <button><img src="/Icons/icon-10.svg" style={{height: '19px'}} alt=""/></button>
+                    <button id='marker'><img src="/Icons/icon-10.svg" style={{height: '19px'}} alt=""/></button>
                     <span>|</span>
                     <button><img src="/Icons/icon-35.svg" alt=""/></button>
                 </div>
@@ -84,7 +84,8 @@ const ProjectAcdquisitionForm = () => {
 }
 
 const layers = {
-  marker: true
+  marker: true,
+  acquisition: true
 }
 
 export default mapFormContainer(ProjectAcdquisitionForm, layers);

@@ -325,6 +325,14 @@ const mapReducer = (state = initState, action : any) => {
                     coordinates: action.polygon
                 }
             }
+        case types.SAVE_MARKER_COORDS:
+            return {
+                ...state,
+                newProject: {
+                    ...state.newProject,
+                    coordinates: action.marker
+                }
+            }
         case types.CREATE_NEW_PROJECT: 
             return {
                 ...state,

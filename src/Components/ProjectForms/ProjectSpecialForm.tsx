@@ -50,7 +50,7 @@ const ProjectSpecialForm = () => {
             <div className="head-m project-comp">
                 <div className="project-comp-btn">
                     <h5>DESCRIPTION</h5>
-                    <button><img src="/Icons/icon-11.svg" style={{height: '19px'}} alt=""/></button>
+                    <button id='marker'><img src="/Icons/icon-11.svg" style={{height: '19px'}} alt=""/></button>
                     <span>|</span>
                     <button><img src="/Icons/icon-35.svg" alt=""/></button>
                 </div>

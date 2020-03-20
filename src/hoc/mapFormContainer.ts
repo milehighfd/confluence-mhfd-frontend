@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getReverseGeocode, savePolygonCoordinates, saveNewProjectForm } from '../store/actions/mapActions';
+import { getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, saveNewProjectForm } from '../store/actions/mapActions';
 
 import mapFormData from './mapFormData';
 
@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     ...bindActionCreators({
         getReverseGeocode,
         savePolygonCoordinates,
+        saveMarkerCoordinates,
         saveNewProjectForm
     }, dispatch)
 });

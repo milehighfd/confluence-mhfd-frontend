@@ -20,7 +20,7 @@ const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 let map : any = null;
 const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 
-const Map = ({ leftWidth, layers, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode, savePolygonCoordinates } : MapProps) => {
+const Map = ({ leftWidth, layers, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates } : MapProps) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
 
@@ -59,10 +59,25 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
         }
 
         if(layers && layers.marker) {
-            new mapboxgl.Marker()
-            .setLngLat([-104.93972902282832, 39.766095830817335])
-            .setDraggable(true)
-            .addTo(map);
+            const el = document.createElement('div');
+            el.className = 'marker';
+            el.style.backgroundImage = layers.acquisition?'url("/Icons/pin-house.svg")':'url("/Icons/pin-star.svg")';
+
+            document.getElementById('marker')!.onclick = () => {
+                map.getCanvas().style.cursor = 'pointer';
+
+                map.once('click', (e : any) => {
+                    const marker = new mapboxgl.Marker(el)
+                        .setLngLat(e.lngLat)
+                        .setDraggable(true)
+                        .addTo(map);
+
+                    getReverseGeocode(e.lngLat.lng, e.lngLat.lat, HERE_TOKEN);
+                    saveMarkerCoordinates([e.lngLat.lng, e.lngLat.lat]);
+                    marker.on('dragend', () => getMarkerCoords(marker));
+                    map.getCanvas().style.cursor = '';
+                });
+            }
         }
 
         addMapListeners();
@@ -109,6 +124,12 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
 
     const selectMapStyle = (index : number) => {
         setDropdownItems({...dropdownItems, default: index});
+    }
+
+    const getMarkerCoords = (marker : any) => {
+        const lngLat = marker.getLngLat();
+        getReverseGeocode(lngLat.lng, lngLat.lat, HERE_TOKEN);
+        saveMarkerCoordinates([lngLat.lng, lngLat.lat]);
     }
 
     const replaceOldPolygon = (draw : any) => {

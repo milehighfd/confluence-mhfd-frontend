@@ -4,17 +4,22 @@ export type MapProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
-    setSelectedItems?: Function,
-    selectedItems?: Array<ComponentType>,
-    setIsPolygon?: Function,
-    getReverseGeocode?: Function,
-    savePolygonCoordinates?: Function
+    setSelectedItems: Function,
+    selectedItems: Array<ComponentType>,
+    setIsPolygon: Function,
+    getReverseGeocode: Function,
+    savePolygonCoordinates: Function,
+    saveMarkerCoordinates: Function
 }
 
-export type MapViewProps = {
+export type MapHOCProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
+    saveNewProjectForm: Function,
+    getReverseGeocode: Function,
+    savePolygonCoordinates: Function,
+    saveMarkerCoordinates: Function
 }
 
 export type NewProjectFormProps = {
@@ -59,5 +64,6 @@ export type ComponentType = {
 export type MapLayersType = {
     marker?: boolean,
     polygons?: boolean
-    components?:boolean
+    components?:boolean,
+    acquisition?:boolean
 }

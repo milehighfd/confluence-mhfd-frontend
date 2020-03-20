@@ -1,7 +1,6 @@
 import * as types from '../types/mapTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
-import { Redirect } from 'react-router-dom';
 
 export const getReverseGeocode = (lat : any, lng : any, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/
@@ -22,6 +21,12 @@ export const getReverseGeocode = (lat : any, lng : any, accessToken : string) =>
 export const savePolygonCoordinates = (polygon : Array<[]>) => {
     return (dispatch : Function) => {
         dispatch({ type: types.SAVE_POLYGON_COORDS, polygon });
+    }
+}
+
+export const saveMarkerCoordinates = (marker : Array<[]>) => {
+    return (dispatch : Function) => {
+        dispatch({ type: types.SAVE_MARKER_COORDS, marker });
     }
 }
 

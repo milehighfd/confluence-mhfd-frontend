@@ -8,17 +8,18 @@ import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../constants/const
 import { Redirect, useLocation } from "react-router-dom";
 
 import { Layout, Row, Col, Button } from 'antd';
+import { MapHOCProps } from '../Classes/MapTypes';
 
 export default function (WrappedComponent : any, layers : any) {
-    return (props : any) => {
+    return ({ problems, projects, components, saveNewProjectForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
         const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
-        const [selectedItems, setSelectedItems] = useState<any>([]);
-        const [isPolygon, setIsPolygon] = useState<boolean>(false);
-    
+        const [selectedItems, setSelectedItems] = useState([]);
+        const [isPolygon, setIsPolygon] = useState(false);
+
         const updateWidth = () => {
           if (leftWidth === MEDIUM_SCREEN) {
             setLeftWidth(COMPLETE_SCREEN);
@@ -41,11 +42,16 @@ export default function (WrappedComponent : any, layers : any) {
                     <Col span={leftWidth}>
                         <Map
                             leftWidth={leftWidth}
+                            layers={layers}
+                            problems={problems}
+                            projects={projects}
+                            components={components}
                             setSelectedItems={setSelectedItems}
                             selectedItems={selectedItems}
                             setIsPolygon={setIsPolygon}
-                            layers={layers}
-                            {...props} />
+                            getReverseGeocode={getReverseGeocode}
+                            savePolygonCoordinates={savePolygonCoordinates}
+                            saveMarkerCoordinates={saveMarkerCoordinates} />
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
@@ -56,7 +62,7 @@ export default function (WrappedComponent : any, layers : any) {
                             selectedItems={selectedItems}
                             isPolygon={isPolygon}
                             setSelectedItems={setSelectedItems}
-                            saveNewProjectForm={props.saveNewProjectForm} />
+                            saveNewProjectForm={saveNewProjectForm} />
                     </Col>
                 </Row>
               </Layout>
