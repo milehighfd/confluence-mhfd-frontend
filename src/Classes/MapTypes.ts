@@ -17,6 +17,7 @@ export type MapHOCProps = {
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
     saveNewProjectForm: Function,
+    saveNewProjectWithCoords: Function,
     getReverseGeocode: Function,
     savePolygonCoordinates: Function,
     saveMarkerCoordinates: Function,

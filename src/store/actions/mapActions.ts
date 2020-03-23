@@ -68,6 +68,26 @@ export const saveNewProjectForm = (data : Object, components: Array<Object>, tot
     }
 }
 
+export const saveNewProjectWithCoords = (data : Object) => {
+    return (dispatch : Function, getState : Function) => {
+        const state = getState();
+        const county = state.map.newProject.jurisdiction;
+        const coordinates = state.map.newProject.coordinates;
+
+        const newProject = {
+            ...data,
+            jurisdiction: county,
+            coordinates
+        };
+
+        const result = datasets.postData(SERVER.CREATE_PROJECT, newProject, datasets.getToken()).then(res => {
+            if (res?._id) {
+                dispatch(setRouteRedirect(true));
+            }
+        });
+    }
+}
+
 export const setRouteRedirect = (status : boolean) => {
     return (dispatch : Function) => {
         dispatch({ type: types.SET_REDIRECT, status });
