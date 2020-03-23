@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, saveNewProjectForm } from '../store/actions/mapActions';
+import { getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, saveNewProjectForm, setRouteRedirect } from '../store/actions/mapActions';
 
 import mapFormData from './mapFormData';
 
@@ -10,6 +10,7 @@ const mapStateToProps = (state: any) => {
         problems: state.map.problems,
         projects: state.map.projects,
         components: state.map.components,
+        redirect: state.map.redirect
     };
 };
 
@@ -18,7 +19,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         getReverseGeocode,
         savePolygonCoordinates,
         saveMarkerCoordinates,
-        saveNewProjectForm
+        saveNewProjectForm,
+        setRouteRedirect
     }, dispatch)
 });
   

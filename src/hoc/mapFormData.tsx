@@ -5,13 +5,13 @@ import NavbarView from "../Components/Shared/Navbar/NavbarView";
 import SidebarView from "../Components/Shared/Sidebar/SidebarView";
 
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../constants/constants";
-import { Redirect, useLocation } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button } from 'antd';
 import { MapHOCProps } from '../Classes/MapTypes';
 
 export default function (WrappedComponent : any, layers : any) {
-    return ({ problems, projects, components, saveNewProjectForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates } : MapHOCProps) => {
+    return ({ problems, projects, components, saveNewProjectForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, redirect, setRouteRedirect } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -30,6 +30,11 @@ export default function (WrappedComponent : any, layers : any) {
             setRightWitdh(MEDIUM_SCREEN);
             setRotationStyle(emptyStyle);
           }
+        }
+
+        if(redirect) { 
+          setRouteRedirect(false);
+          return <Redirect to='/map' />
         }
       
         return (

@@ -30,7 +30,7 @@ export const saveMarkerCoordinates = (marker : Array<[]>) => {
     }
 }
 
-export const saveNewProjectForm = (data : Object, setRedirect: Function, components: Array<Object>, total: any, files: Array<any>) => {
+export const saveNewProjectForm = (data : Object, components: Array<Object>, total: any, files: Array<any>) => {
     return (dispatch : Function, getState : Function) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
@@ -59,10 +59,17 @@ export const saveNewProjectForm = (data : Object, setRedirect: Function, compone
                         })
                     }
                 }
-                setRedirect(true);
+                dispatch(setRouteRedirect(true));
             }
-        })
+        });
+
         // const newProjectData = state.map.newProject;
         // dispatch({ type: types.CREATE_NEW_PROJECT, problems})
+    }
+}
+
+export const setRouteRedirect = (status : boolean) => {
+    return (dispatch : Function) => {
+        dispatch({ type: types.SET_REDIRECT, status });
     }
 }

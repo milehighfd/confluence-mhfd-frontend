@@ -2,6 +2,7 @@ import * as types from '../types/mapTypes';
 
 const initState = {
     error: '',
+    redirect: false,
     newProject: {
         jurisdiction: '',
         coordinates: [],
@@ -337,6 +338,11 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 problems: action.problems
+            }
+        case types.SET_REDIRECT: 
+            return {
+                ...state,
+                redirect: action.status
             }
         default: 
             return state;

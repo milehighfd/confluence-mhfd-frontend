@@ -43,7 +43,6 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewProjectForm 
   const initialValues = cad[2] === 'masterPlan' ? PROJECT_STUDY_MASTER : PROJECT_STUDY_FHAD;
   initialValues.requestName = cad[3];
   initialValues.projectSubtype = cad[2];
-  const [redirect, setRedirect] = useState(false);
   const [title, setTitle] = useState<string>('');
   const [formatSelectedItems, setFormatSelectedItems] = useState([]);
   const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
@@ -78,13 +77,10 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewProjectForm 
     initialValues,
     validationSchema,
         onSubmit(values: {projectType: string, projectSubtype: string, sponsor: string, requestName: string, coSponsor: string, requestedStartyear: string, goal?: string}) {
-            saveNewProjectForm(values, setRedirect);
+            saveNewProjectForm(values);
         }
   });
   
-  if(redirect) {
-    return <Redirect to="/map" />
-  }
   return <>
     <Form onSubmit={handleSubmit}>
     <div className="count-01">

@@ -143,7 +143,6 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   const [title, setTitle] = useState<string>('');
   const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
   const [total, setTotal] = useState<any>(NEW_PROJECT_FORM_COST);
-  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
@@ -178,7 +177,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
     },
     validationSchema,
     onSubmit(values: {projectType: string, description: string, requestName: string, localDollarsContributed: number, requestFundingYear: string, mhfdFundingRequest: string, goal: string}) {
-      saveNewProjectForm(values, setRedirect, selectedItems, total);
+      saveNewProjectForm(values, selectedItems, total);
     }
   });
 
@@ -201,10 +200,6 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
 
   const updatePercentageCosts = () => {
     console.log('updating');
-  }
-  
-  if(redirect) {
-    return <Redirect to="/map" />
   }
   
   return <>

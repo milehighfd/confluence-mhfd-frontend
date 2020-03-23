@@ -46,19 +46,16 @@ const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Fu
     initialValues.projectSubtype = cad[2];
     const files: Array<any> = [];
     const [listFiles, setListFiles ] = useState(files);
-    const [redirect, setRedirect] = useState(false);
     const [title, setTitle] = useState<string>('');
+    
     const { values, handleSubmit, handleChange } = useFormik({
         initialValues,
         validationSchema,
         onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string}) {
-            saveNewProjectForm(values, setRedirect, null, null, listFiles);
+            saveNewProjectForm(values, null, null, listFiles);
         }
     });
 
-    if(redirect) {
-        return <Redirect to="/map" />
-    }
   return <>
     <Form onSubmit={handleSubmit}>
       <div className="count-01">

@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {  Row, Col, Collapse, Dropdown, Button, Tabs, Card, Input } from 'antd';
+import React, { useState, useEffect } from "react";
+import {  Row, Col, Dropdown, Button, Tabs, Input } from 'antd';
 
 import SortMenuView from "../SortMenu/SortMenuView";
 import GenericTabView from "../Shared/GenericTab/GenericTabView";

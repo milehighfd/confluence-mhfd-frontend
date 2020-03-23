@@ -19,7 +19,9 @@ export type MapHOCProps = {
     saveNewProjectForm: Function,
     getReverseGeocode: Function,
     savePolygonCoordinates: Function,
-    saveMarkerCoordinates: Function
+    saveMarkerCoordinates: Function,
+    redirect: boolean,
+    setRouteRedirect: Function
 }
 
 export type NewProjectFormProps = {
