@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  Row, Col, Dropdown, Menu, Button, Input, Table, Form } from 'antd';
+import { Row, Col, Dropdown, Menu, Button, Input, Table, Form } from 'antd';
 import mapFormContainer from "../../hoc/mapFormContainer";
 import { NEW_PROJECT_FORM_COST, GOAL_STUDY, REQUEST_START_YEAR, PROJECT_STUDY_MASTER, PROJECT_STUDY_FHAD } from "../../constants/constants";
 import { ComponentType } from "../../Classes/MapTypes";
@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { useLocation, Redirect } from "react-router-dom";
 import { VALIDATION_PROJECT_MASTER_PLAN_ONLY, VALIDATION_PROJECT_FHAD } from "../../constants/validation";
 import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
+import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 
 const columns01 = ({removeSelectedItem} : any) => [
   {
@@ -36,7 +37,7 @@ const columns01 = ({removeSelectedItem} : any) => [
 
 
 
-const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewProjectForm }: {selectedItems : any, setSelectedItems: Function, saveNewProjectForm: Function}) => {
+const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm }: {selectedItems : any, setSelectedItems: Function, saveNewStudyForm: Function}) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const validationSchema = cad[2] === 'masterPlan' ? VALIDATION_PROJECT_MASTER_PLAN_ONLY : VALIDATION_PROJECT_FHAD;
@@ -77,77 +78,71 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewProjectForm 
     initialValues,
     validationSchema,
         onSubmit(values: {projectType: string, projectSubtype: string, sponsor: string, requestName: string, coSponsor: string, requestedStartyear: string, goal?: string}) {
-            saveNewProjectForm(values);
+          saveNewStudyForm(values);
         }
   });
   
   return <>
-    <Form onSubmit={handleSubmit}>
     <div className="count-01">
-                  <Row className="head-m">
-                    <Col className="directions01" span={24}>
-                      <span>Back</span>
-                      <span><img className="directions-img" src="/Icons/icon-12.svg" alt=""/></span>
-                      <span className="directions-page">{values.requestName}</span>
-                    </Col>
-                  </Row>
+      <ProjectsHeader route={values.requestName} />
 
-                    <div className="head-m project-comp">
-                      <div className="project-comp-btn">
-                        <h5>SELECTED STREAMS</h5>
-                        {/* <button><img src="/Icons/icon-08.svg" alt=""/></button> */}
-                        <div id="polygon" />
-                        <span>|</span>
-                        <form id="demo-2">
-                        	<input type="search" placeholder="Search"/>
-                        </form>
-                        <button><img src="/Icons/icon-35.svg" alt=""/></button>
-                      </div>
-                        <span>Total Estimated Cost: ${numberWithCommas(total.total)}</span>
-                    </div>
-                      <div className="table-create-pro">
-                        <Table columns={columns01({removeSelectedItem})} dataSource={formatSelectedItems} pagination={false} />
-                    </div>
-
-                    <div className="gutter-example user-tab all-npf">
-                        <div className="label-new-form">
-                          <h3>PROJECT INFORMATION</h3>
-                        </div>
-                        <Row gutter={16}>
-                          <Col className="gutter-row" span={12}>
-                            <label className="label-new-form" htmlFor="">Sponsor<img src="/Icons/icon-19.svg" alt=""/></label>
-                          <Input placeholder="Sponsor" name="sponsor" onChange={handleChange} /></Col>
-                          <Col className="gutter-row" span={12}>
-                            <label className="label-new-form" htmlFor="">Potential Co-Sponsor<img src="/Icons/icon-19.svg" alt=""/></label>
-                          <Input placeholder="Potential Co-Sponsor" name="coSponsor" onChange={handleChange} /></Col>
-                        </Row>
-                        <Row gutter={16}>
-                          <Col className="gutter-row" span={12}>
-                            <label className="label-new-form" htmlFor="">Requested Start Year<img src="/Icons/icon-19.svg" alt=""/></label>
-                            <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_START_YEAR} item={title} setItem={setTitle} field={'requestedStartyear'}/>}>
-                              <Button>
-                              {values.requestedStartyear ? REQUEST_START_YEAR.filter( element => element.id === (Number)(values.requestedStartyear))[0].name : '- Select -' } <img src="/Icons/icon-12.svg" alt=""/>
-                              </Button>
-                            </Dropdown>
-                          </Col>
-                          { values.projectSubtype === 'masterPlan' ? (
-                              <Col className="gutter-row" span={12}>
-                              <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
-                              <Dropdown overlay={<DropdownMenuView values={values} items={GOAL_STUDY} item={title} setItem={setTitle} field={'goal'}/>}>
-                                <Button>
-                                {values.goal ? GOAL_STUDY.filter( element => element.id === values.goal)[0].name : '- Select -' } <img src="/Icons/icon-12.svg" alt=""/>
-                                </Button>
-                              </Dropdown>
-                            </Col>
-                          ) : ''}
-                        </Row>
-                    </div>
-                    <div className="btn-footer" style={{marginTop: '25px'}}>
-                        <Button style={{width: '140px'}} className="btn-00">Reset</Button>
-                        <Button style={{width: '140px'}} block htmlType="submit" className="btn-01">Apply</Button>
-                    </div>
+      <div className="head-m project-comp">
+        <div className="project-comp-btn">
+          <h5>SELECTED STREAMS</h5>
+          {/* <button><img src="/Icons/icon-08.svg" alt=""/></button> */}
+          <div id="polygon" />
+          <span>|</span>
+          <form id="demo-2">
+            <input type="search" placeholder="Search" />
+          </form>
+          <button><img src="/Icons/icon-35.svg" alt="" /></button>
         </div>
-    </Form>
-    </>
+        <span>Total Estimated Cost: ${numberWithCommas(total.total)}</span>
+      </div>
+      <div className="table-create-pro">
+        <Table columns={columns01({ removeSelectedItem })} dataSource={formatSelectedItems} pagination={false} />
+      </div>
+
+      <Form onSubmit={handleSubmit}>
+        <div className="gutter-example user-tab all-npf">
+          <div className="label-new-form">
+            <h3>PROJECT INFORMATION</h3>
+          </div>
+          <Row gutter={16}>
+            <Col className="gutter-row" span={12}>
+              <label className="label-new-form" htmlFor="">Sponsor<img src="/Icons/icon-19.svg" alt="" /></label>
+              <Input placeholder="Sponsor" name="sponsor" onChange={handleChange} /></Col>
+            <Col className="gutter-row" span={12}>
+              <label className="label-new-form" htmlFor="">Potential Co-Sponsor<img src="/Icons/icon-19.svg" alt="" /></label>
+              <Input placeholder="Potential Co-Sponsor" name="coSponsor" onChange={handleChange} /></Col>
+          </Row>
+          <Row gutter={16}>
+            <Col className="gutter-row" span={12}>
+              <label className="label-new-form" htmlFor="">Requested Start Year<img src="/Icons/icon-19.svg" alt="" /></label>
+              <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_START_YEAR} item={title} setItem={setTitle} field={'requestedStartyear'} />}>
+                <Button>
+                  {values.requestedStartyear ? REQUEST_START_YEAR.filter(element => element.id === (Number)(values.requestedStartyear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                </Button>
+              </Dropdown>
+            </Col>
+            {values.projectSubtype === 'masterPlan' ? (
+              <Col className="gutter-row" span={12}>
+                <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt="" /></label>
+                <Dropdown overlay={<DropdownMenuView values={values} items={GOAL_STUDY} item={title} setItem={setTitle} field={'goal'} />}>
+                  <Button>
+                    {values.goal ? GOAL_STUDY.filter(element => element.id === values.goal)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                  </Button>
+                </Dropdown>
+              </Col>
+            ) : ''}
+          </Row>
+        </div>
+        <div className="btn-footer" style={{ marginTop: '25px' }}>
+          <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
+          <Button style={{ width: '140px' }} block htmlType="submit" className="btn-01">Apply</Button>
+        </div>
+      </Form>
+    </div>
+  </>
 }
 export default mapFormContainer(ProjectStudyForm, null);

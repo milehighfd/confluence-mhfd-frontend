@@ -9,6 +9,7 @@ import { VALIDATION_PROJECT_DEBRIS, VALIDATION_PROJECT_VEGETATION, VALIDATION_PR
 import * as datasets from "../../Config/datasets"
 import { SERVER } from "../../Config/Server.config";
 import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
+import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
@@ -35,7 +36,7 @@ const menu = (
 
 
 
-const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Function}) => {
+const ProjectMaintenanceForm = ({ saveNewMaintenanceForm } : {saveNewMaintenanceForm: Function}) => {
     const location = useLocation();
     const cad = location.pathname.split('/');
     const validationSchema = cad[2] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[2] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION : 
@@ -52,33 +53,28 @@ const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Fu
         initialValues,
         validationSchema,
         onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string}) {
-            saveNewProjectForm(values, null, null, listFiles);
+          saveNewMaintenanceForm(values, listFiles);
         }
     });
 
   return <>
-    <Form onSubmit={handleSubmit}>
-      <div className="count-01">
-        <Row className="head-m">
-          <Col className="directions01" span={24}>
-            <span>Back</span>
-            <span><img className="directions-img" src="/Icons/icon-12.svg" alt="" /></span>
-            <span className="directions-page">{values.requestName}</span>
-          </Col>
-        </Row>
+    <div className="count-01">
+      <ProjectsHeader route={values.requestName} />
 
-        <div className="head-m project-comp">
-          <div className="project-comp-btn">
-            <h5>ACTIVITY</h5>
-            {/* <button><img src="/Icons/icon-08.svg" alt=""/></button> */}
-            <div id="polygon" />
-            <span>|</span>
-            <div id="demo-2">
-              <input type="search" placeholder="Search" />
-            </div>
-            <button><img src="/Icons/icon-35.svg" alt="" /></button>
+      <div className="head-m project-comp">
+        <div className="project-comp-btn">
+          <h5>ACTIVITY</h5>
+          {/* <button><img src="/Icons/icon-08.svg" alt=""/></button> */}
+          <div id="polygon" />
+          <span>|</span>
+          <div id="demo-2">
+            <input type="search" placeholder="Search" />
           </div>
+          <button><img src="/Icons/icon-35.svg" alt="" /></button>
         </div>
+      </div>
+      <Form onSubmit={handleSubmit}>
+
         {values.projectSubtype !== 'restoration' ? (
           <><div className="input-maint">
             <label className="label-new-form" htmlFor="">#1</label>
@@ -182,7 +178,7 @@ const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Fu
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger multiple={false} onChange={(event)=>{
+          <Dragger multiple={false} onChange={(event) => {
           }}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
@@ -195,7 +191,7 @@ const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Fu
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger className="img-npf" onChange={(event)=>{
+          <Dragger className="img-npf" onChange={(event) => {
             console.log(event);
             setListFiles(event.fileList);
           }}>
@@ -212,10 +208,9 @@ const ProjectMaintenanceForm = ({ saveNewProjectForm } : {saveNewProjectForm: Fu
           <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
           <Button style={{ width: '140px' }} block htmlType="submit" className="btn-01">Create Project</Button>
         </div>
-      </div>
+      </Form>
 
-
-    </Form>
+    </div>
   </>
 }
 

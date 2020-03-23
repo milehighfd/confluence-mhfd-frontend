@@ -10,6 +10,7 @@ import { NEW_PROJECT_FORM_COST, FOOTER_PROJECT_CAPITAL, GOAL, REQUEST_FUNDING_YE
 
 import { NewProjectFormProps, ComponentType } from "../../Classes/MapTypes";
 import mapFormContainer from "../../hoc/mapFormContainer";
+import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
@@ -137,7 +138,7 @@ const data03 = ({ total, numberWithCommas } : any) => [
 const footer = FOOTER_PROJECT_CAPITAL;
 const validationSchema = VALIDATION_PROJECT_CAPITAL;
 
-const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNewProjectForm } : any) => {
+const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNewCapitalForm } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const [title, setTitle] = useState<string>('');
@@ -177,7 +178,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
     },
     validationSchema,
     onSubmit(values: {projectType: string, description: string, requestName: string, localDollarsContributed: number, requestFundingYear: string, mhfdFundingRequest: string, goal: string}) {
-      saveNewProjectForm(values, selectedItems, total);
+      saveNewCapitalForm(values, selectedItems, total);
     }
   });
 
@@ -203,113 +204,108 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   }
   
   return <>
-        <Form onSubmit={handleSubmit}>
-        <div className="count-01">
-            <Row className="head-m">
-            <Col className="directions01" span={24}>
-                <span>Back</span>
-                <span><img className="directions-img" src="/Icons/icon-12.svg" alt=""/></span>
-                <span className="directions-page">{values.requestName}</span>
-            </Col>
-            </Row>
-            <div className="head-m project-comp">
-                <div className="project-comp-btn">
-                <h5>SELECTED STREAMS</h5>
-                <div id="polygon" />
-                <span>|</span>
-                <div id="demo-2">
-                    <input type="search" placeholder="Search"/>
-                </div>
-                <button><img src="/Icons/icon-35.svg" alt=""/></button>
-                </div>
-                <span>TOTAL COST: ${numberWithCommas(total.total)}</span>
-            </div>
-            {!isPolygon ?
-                <div className="head-m draw-section">
-                    <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt=""/></button>
-                    <h6>Click on the icon above and draw a polygon to select components</h6>
-                </div>
-                :
-                <div className="table-create-pro">
-                <Table columns={columns01({removeSelectedItem})} dataSource={formatSelectedItems} pagination={false} />
-                </div>
-            }
-            <div className="table-create-bottom">
-                <Table columns={columns02({total, numberWithCommas})} dataSource={data02({total, numberWithCommas, updatePercentageCosts})} pagination={false} />
-                <Table className="footer-table" columns={footer} dataSource={data03({total, numberWithCommas})} pagination={false} />
-            </div>
-            <br></br>
+    <div className="count-01">
+      <ProjectsHeader route={values.requestName} />
 
-            <div className="label-npf">
-                <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt=""/></label>
-                <TextArea rows={4} placeholder="Enter description" required name="description" onChange={handleChange} />
-            </div>
-            <br></br>
-            <div className="gutter-example user-tab all-npf">
-                <div className="label-new-form">
-                    <h3>PROJECT INFORMATION</h3>
-                </div>
-                <Row gutter={16}>
-                    <Col className="gutter-row" span={12}>
-                    <label className="label-new-form" htmlFor="">MHFD Funding Request<img src="/Icons/icon-19.svg" alt=""/></label>
-                    <Input placeholder="Enter MHFD funding request" required name="mhfdFundingRequest" onChange={handleChange} />
-                    </Col>
-                    <Col className="gutter-row" span={12}>
-                    <label className="label-new-form" htmlFor="">Local Dollars Contribution<img src="/Icons/icon-19.svg" alt=""/></label>
-                    <Input placeholder="Enter local dollars" required type={"number"} name="localDollarsContributed" onChange={handleChange} />
-                    </Col>
-                </Row>
-                <br></br>
-                <Row gutter={16}>
-                <Col className="gutter-row" span={12}>
-                    <label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt=""/></label>
-                    <Dropdown overlay={ <DropdownMenuView values={values} items={REQUEST_FUNDING_YEAR} item={title} setItem={setTitle} field={'requestFundingYear'}/> }>
-                        <Button>
-                        {values.requestFundingYear ? REQUEST_FUNDING_YEAR.filter( element => element.id === (Number)(values.requestFundingYear))[0].name : '- Select -' } <img src="/Icons/icon-12.svg" alt=""/>
-                        </Button>
-                    </Dropdown>
-                    </Col>
-                    <Col className="gutter-row" span={12}>
-                    <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt=""/></label>
-                    <Dropdown overlay={ <DropdownMenuView values={values} items={GOAL} item={title} setItem={setTitle} field={'goal'}/> }>
-                        <Button>
-                        {values.goal ? GOAL.filter( element => element.id === (values.goal))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt=""/>
-                        </Button>
-                    </Dropdown>
-                    </Col>
-                </Row>
-            </div>
-            <div className="img-npf">
-                <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt=""/></label>
-                <Dragger>
-                <img src="/Icons/icon-17.svg" alt=""/>
-                <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
-                </Dragger>
-                <div className="tag-upload">
-                <Tag closable>
-                    Little Dry Creek_image-1.jpg
-                </Tag>
-                </div>
-            </div>
-            <div className="img-npf">
-                <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt=""/></label>
-                <Dragger className="img-npf">
-                <img src="/Icons/icon-17.svg" alt=""/>
-                <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
-                </Dragger>
-                <div className="tag-upload">
-                <Tag closable>
-                    Little Dry Creek_image-2.csv
-                </Tag>
-                </div>
-            </div>
-            <div className="btn-footer" style={{marginTop: '25px'}}>
-                <Button style={{width: '140px'}} className="btn-00">Reset</Button>
-                <Button style={{width: '140px'}} className="btn-01" block htmlType="submit" >Create Project</Button>
-            </div>
+      <div className="head-m project-comp">
+        <div className="project-comp-btn">
+          <h5>SELECTED STREAMS</h5>
+          <div id="polygon" />
+          <span>|</span>
+          <div id="demo-2">
+            <input type="search" placeholder="Search" />
+          </div>
+          <button><img src="/Icons/icon-35.svg" alt="" /></button>
         </div>
-        </Form>
-    </>
+        <span>TOTAL COST: ${numberWithCommas(total.total)}</span>
+      </div>
+      {!isPolygon ?
+        <div className="head-m draw-section">
+          <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt="" /></button>
+          <h6>Click on the icon above and draw a polygon to select components</h6>
+        </div>
+        :
+        <div className="table-create-pro">
+          <Table columns={columns01({ removeSelectedItem })} dataSource={formatSelectedItems} pagination={false} />
+        </div>
+      }
+      <div className="table-create-bottom">
+        <Table columns={columns02({ total, numberWithCommas })} dataSource={data02({ total, numberWithCommas, updatePercentageCosts })} pagination={false} />
+        <Table className="footer-table" columns={footer} dataSource={data03({ total, numberWithCommas })} pagination={false} />
+      </div>
+      <br></br>
+
+      <Form onSubmit={handleSubmit}>
+        <div className="label-npf">
+          <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt="" /></label>
+          <TextArea rows={4} placeholder="Enter description" required name="description" onChange={handleChange} />
+        </div>
+        <br></br>
+        <div className="gutter-example user-tab all-npf">
+          <div className="label-new-form">
+            <h3>PROJECT INFORMATION</h3>
+          </div>
+          <Row gutter={16}>
+            <Col className="gutter-row" span={12}>
+              <label className="label-new-form" htmlFor="">MHFD Funding Request<img src="/Icons/icon-19.svg" alt="" /></label>
+              <Input placeholder="Enter MHFD funding request" required name="mhfdFundingRequest" onChange={handleChange} />
+            </Col>
+            <Col className="gutter-row" span={12}>
+              <label className="label-new-form" htmlFor="">Local Dollars Contribution<img src="/Icons/icon-19.svg" alt="" /></label>
+              <Input placeholder="Enter local dollars" required type={"number"} name="localDollarsContributed" onChange={handleChange} />
+            </Col>
+          </Row>
+          <br></br>
+          <Row gutter={16}>
+            <Col className="gutter-row" span={12}>
+              <label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt="" /></label>
+              <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_FUNDING_YEAR} item={title} setItem={setTitle} field={'requestFundingYear'} />}>
+                <Button>
+                  {values.requestFundingYear ? REQUEST_FUNDING_YEAR.filter(element => element.id === (Number)(values.requestFundingYear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                </Button>
+              </Dropdown>
+            </Col>
+            <Col className="gutter-row" span={12}>
+              <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt="" /></label>
+              <Dropdown overlay={<DropdownMenuView values={values} items={GOAL} item={title} setItem={setTitle} field={'goal'} />}>
+                <Button>
+                  {values.goal ? GOAL.filter(element => element.id === (values.goal))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                </Button>
+              </Dropdown>
+            </Col>
+          </Row>
+        </div>
+        <div className="img-npf">
+          <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
+          <Dragger>
+            <img src="/Icons/icon-17.svg" alt="" />
+            <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
+          </Dragger>
+          <div className="tag-upload">
+            <Tag closable>
+              Little Dry Creek_image-1.jpg
+                </Tag>
+          </div>
+        </div>
+        <div className="img-npf">
+          <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
+          <Dragger className="img-npf">
+            <img src="/Icons/icon-17.svg" alt="" />
+            <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
+          </Dragger>
+          <div className="tag-upload">
+            <Tag closable>
+              Little Dry Creek_image-2.csv
+                </Tag>
+          </div>
+        </div>
+        <div className="btn-footer" style={{ marginTop: '25px' }}>
+          <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
+          <Button style={{ width: '140px' }} className="btn-01" block htmlType="submit" >Create Project</Button>
+        </div>
+      </Form>
+    </div>
+  </>
 }
 
 const layers = {

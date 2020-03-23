@@ -4,8 +4,10 @@ import { bindActionCreators } from 'redux';
 import { getReverseGeocode, 
         savePolygonCoordinates, 
         saveMarkerCoordinates, 
-        saveNewProjectForm, 
+        saveNewCapitalForm, 
         saveNewProjectWithCoords,
+        saveNewStudyForm,
+        saveNewMaintenanceForm,
         setRouteRedirect } from '../store/actions/mapActions';
 
 import mapFormData from './mapFormData';
@@ -24,8 +26,10 @@ const mapDispatchToProps = (dispatch: any) => ({
         getReverseGeocode,
         savePolygonCoordinates,
         saveMarkerCoordinates,
-        saveNewProjectForm,
+        saveNewCapitalForm,
         saveNewProjectWithCoords,
+        saveNewStudyForm,
+        saveNewMaintenanceForm,
         setRouteRedirect
     }, dispatch)
 });

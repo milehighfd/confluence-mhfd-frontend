@@ -16,8 +16,10 @@ export type MapHOCProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
-    saveNewProjectForm: Function,
+    saveNewCapitalForm: Function,
     saveNewProjectWithCoords: Function,
+    saveNewStudyForm: Function,
+    saveNewMaintenanceForm: Function,
     getReverseGeocode: Function,
     savePolygonCoordinates: Function,
     saveMarkerCoordinates: Function,
@@ -31,7 +33,7 @@ export type NewProjectFormProps = {
     components: Array<ComponentType>,
     getReverseGeocode: Function,
     savePolygonCoordinates: Function,
-    saveNewProjectForm: Function
+    saveNewCapitalForm: Function
 }
 
 export type ProblemTypes = {

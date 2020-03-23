@@ -171,7 +171,7 @@ const data03 = ({ total, numberWithCommas } : any) => [
   },
 ];
 
-export default ({ problems, projects, components, getReverseGeocode, savePolygonCoordinates, saveNewProjectForm } : NewProjectFormProps) => {
+export default ({ problems, projects, components, getReverseGeocode, savePolygonCoordinates, saveNewCapitalForm } : NewProjectFormProps) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -423,7 +423,7 @@ export default ({ problems, projects, components, getReverseGeocode, savePolygon
                     </div>
                     <div className="btn-footer" style={{marginTop: '25px'}}>
                         <Button style={{width: '140px'}} className="btn-00">Reset</Button>
-                        <Button style={{width: '140px'}} onClick={() => saveNewProjectForm(selectedItems)} className="btn-01">Create Project</Button>
+                        <Button style={{width: '140px'}} onClick={() => saveNewCapitalForm(selectedItems)} className="btn-01">Create Project</Button>
                     </div>
                 </div>
               </Col>

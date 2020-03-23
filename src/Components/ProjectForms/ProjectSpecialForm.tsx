@@ -8,6 +8,7 @@ import { SERVER } from "../../Config/Server.config";
 import { VALIDATION_PROJECT_SPECIAL } from "../../constants/validation";
 import { useFormik } from "formik";
 import mapFormContainer from "../../hoc/mapFormContainer";
+import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 const validationSchema = VALIDATION_PROJECT_SPECIAL;
 const { TextArea } = Input;
 
@@ -29,13 +30,8 @@ const ProjectSpecialForm = ({ saveNewProjectWithCoords } : any) => {
 
   return <>
       <div className="count-01">
-        <Row className="head-m">
-            <Col className="directions01" span={24}>
-            <span>Back</span>
-            <span><img className="directions-img" src="/Icons/icon-12.svg" alt=""/></span>
-            <span className="directions-page">{values.requestName}</span>
-            </Col>
-        </Row>
+        <ProjectsHeader route={values.requestName} />
+        
         <div className="head-m project-comp">
           <div className="project-comp-btn">
               <h5>DESCRIPTION</h5>
