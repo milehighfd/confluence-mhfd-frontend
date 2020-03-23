@@ -53,8 +53,10 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
                 displayControlsDefault: false,
                 controls: { polygon: true }
             });
-            map.on('draw.create', () => replaceOldPolygon(draw))
-            map.on('draw.update', () => replaceOldPolygon(draw))
+            if(layers && layers.components) {
+                map.on('draw.create', () => replaceOldPolygon(draw));
+                map.on('draw.update', () => replaceOldPolygon(draw));
+            }
             drawPolygon.appendChild(draw.onAdd(map));
         }
 

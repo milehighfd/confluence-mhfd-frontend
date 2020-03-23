@@ -90,13 +90,21 @@ export const saveNewProjectWithCoords = (data : Object) => {
 
 export const saveNewStudyForm = (data: Object) => {
     return (dispatch : Function, getState : Function) => {
-        console.log('study', data);
+        const result = datasets.postData(SERVER.CREATE_PROJECT, data, datasets.getToken()).then(res => {
+            if (res?._id) {
+                dispatch(setRouteRedirect(true));
+            }
+        });
     }
 }
 
 export const saveNewMaintenanceForm = (data: Object, files: Array<any>) => {
     return (dispatch : Function, getState : Function) => {
-        console.log('maintenance', data);
+        const result = datasets.postData(SERVER.CREATE_PROJECT, data, datasets.getToken()).then(res => {
+            if (res?._id) {
+                dispatch(setRouteRedirect(true));
+            }
+        });
     }
 }
 
