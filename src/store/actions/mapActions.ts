@@ -39,9 +39,9 @@ export const saveNewCapitalForm = (data : Object, components: Array<Object>, tot
             finalCost: total ? total.total : 0, 
             jurisdiction: county,
             additionalCost: total ? total.additional?.cost : 0, 
-            additionalCostDescription: total ? total.additional?.description : 0, 
+            additionalCostDescription: total ? total.additional?.additionalCostDescription : '', 
             overheadCost: total ? total.overhead?.cost : 0, 
-            overheadCostDescription: total ? total.overhead?.description : 0,
+            overheadCostDescription: total ? total.overhead?.overheadCostDescription : '',
             components
         };
 

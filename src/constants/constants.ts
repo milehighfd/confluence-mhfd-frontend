@@ -39,12 +39,12 @@ export const NEW_PROJECT_FORM_COST = {
   additional: {
     per: 0.2,
     cost: 0,
-    description: ''
+    additionalCostDescription: ''
   },
   overhead: {
     per: 0.2,
     cost: 0,
-    description: ''
+    overheadCostDescription: ''
   },
   total: 0
 }

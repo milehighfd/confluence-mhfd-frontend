@@ -53,10 +53,8 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
                 displayControlsDefault: false,
                 controls: { polygon: true }
             });
-            if(layers && layers.components) {
-                map.on('draw.create', () => replaceOldPolygon(draw));
-                map.on('draw.update', () => replaceOldPolygon(draw));
-            }
+            map.on('draw.create', () => replaceOldPolygon(draw));
+            map.on('draw.update', () => replaceOldPolygon(draw));
             drawPolygon.appendChild(draw.onAdd(map));
         }
 
@@ -139,17 +137,21 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
             const features = draw.getAll().features;
             draw.delete(features[0].id);
         }
+
         const points = getComponentsInPolygon(draw.getAll().features[0].geometry.coordinates[0]);
-        const polygonCoords = turf.polygon(draw.getAll().features[0].geometry.coordinates);
-        const turfPoints = points.map((point : any) => turf.point(point.coordinates));
 
-        const selectedItems : Array<[]> = [];
-        const values = turfPoints.map((turfPoint : any) => turf.inside(turfPoint, polygonCoords));
-        points.map((point : any, index : number) => { if(values[index]) selectedItems.push(point) });
-
-        paintSelectedComponents(selectedItems);
-        setSelectedItems!(selectedItems);
-        setIsPolygon!(true);
+        if(layers && layers.components) {
+            const polygonCoords = turf.polygon(draw.getAll().features[0].geometry.coordinates);
+            const turfPoints = points.map((point : any) => turf.point(point.coordinates));
+    
+            const selectedItems : Array<[]> = [];
+            const values = turfPoints.map((turfPoint : any) => turf.inside(turfPoint, polygonCoords));
+            points.map((point : any, index : number) => { if(values[index]) selectedItems.push(point) });
+    
+            paintSelectedComponents(selectedItems);
+            setSelectedItems(selectedItems);
+            setIsPolygon(true);
+        }
 
         /* Get the coords on Drawing */
         // console.log(draw.getAll().features[0].geometry.coordinates);
@@ -171,8 +173,8 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
             }
         });
 
-        savePolygonCoordinates!(polygon);
-        getReverseGeocode!((maxX + minX) / 2, (maxY + minY) / 2, HERE_TOKEN);
+        savePolygonCoordinates(polygon);
+        getReverseGeocode((maxX + minX) / 2, (maxY + minY) / 2, HERE_TOKEN);
         return points;
     }
 

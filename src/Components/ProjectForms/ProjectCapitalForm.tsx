@@ -102,7 +102,7 @@ const columns02 = ({ total, numberWithCommas } : any) => [
   },
 ];
 
-const data02 = ({total, numberWithCommas, updatePercentageCosts} : any) => [
+const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
   {
     key: '1',
     Component: 'Additional Cost',
@@ -112,7 +112,7 @@ const data02 = ({total, numberWithCommas, updatePercentageCosts} : any) => [
     </a>
     </Dropdown>,
     Cost: <span>${numberWithCommas(total.additional.cost)}</span>,
-    StudyName: <Input placeholder="Enter Description" />,
+    StudyName: <Input id='additionalCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
   {
     key: '2',
@@ -123,7 +123,7 @@ const data02 = ({total, numberWithCommas, updatePercentageCosts} : any) => [
     </a>
     </Dropdown>,
     Cost: <span>${numberWithCommas(total.overhead.cost)}</span>,
-    StudyName: <Input placeholder="Enter Description" />,
+    StudyName: <Input id='overheadCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
 ];
 
@@ -141,9 +141,9 @@ const validationSchema = VALIDATION_PROJECT_CAPITAL;
 const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNewCapitalForm } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState('');
   const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
-  const [total, setTotal] = useState<any>(NEW_PROJECT_FORM_COST);
+  const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
 
   useEffect(() => {
     const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
@@ -199,8 +199,14 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  const updatePercentageCosts = () => {
-    console.log('updating');
+  const updateCostsDescription = (event : any) => {
+    if(event.target.id === 'additionalCostDescription') {
+      const additional = {...total.additional, [event.target.id]: event.target.value}
+      setTotal({...total, additional});
+    } else {
+      const overhead = {...total.overhead, [event.target.id]: event.target.value}
+      setTotal({...total, overhead});
+    }
   }
   
   return <>
@@ -230,7 +236,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
         </div>
       }
       <div className="table-create-bottom">
-        <Table columns={columns02({ total, numberWithCommas })} dataSource={data02({ total, numberWithCommas, updatePercentageCosts })} pagination={false} />
+        <Table columns={columns02({ total, numberWithCommas })} dataSource={data02({ total, numberWithCommas, updateCostsDescription })} pagination={false} />
         <Table className="footer-table" columns={footer} dataSource={data03({ total, numberWithCommas })} pagination={false} />
       </div>
       <br></br>
