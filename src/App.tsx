@@ -1,10 +1,9 @@
 import * as React from 'react';
 import logo from './logo.svg';
 import './App.scss';
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import LoginContainer from './Components/Login/LoginContainer';
-import MapContainer from './Components/Map/MapContainer';
 import NavbarContainer from './Components/Shared/Navbar/NavbarContainer';
 import ResetPasswordContainer from './Components/ResetPassword/ResetPasswordContainer';
 import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswordContainer';
@@ -19,13 +18,7 @@ import WorkRequestContainer from './Components/WorkRequest/WorkRequestContainer'
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
-import ProjectDebrisContainer from './Components/ProjectDebris/ProjectDebrisContainer';
 import AlertContainer from './Components/Alerts/AlertContainer';
-import ProjectCapitalContainer from './Components/ProjectCapital/ProjectCapitalContainer';
-import ProjectAcquisitionContainer from './Components/ProjectAcquisition/ProjectAcquisitionContainer';
-import ProjectSpecialContainer from './Components/ProjectSpecial/ProjectSpecialContainer';
-import ProjectStudyMasterContainer from './Components/ProjectStudyMaster/ProjectStudyMasterContainer';
-import ProjectStudyFHADContainer from './Components/ProjectStudyFHAD/ProjectStudyFHADContainer';
 
 /* In use of Map/Form HOC */
 import ProjectCapitalForm from './Components/ProjectForms/ProjectCapitalForm';
@@ -69,14 +62,14 @@ function App({ appUser }: any) {
       <Route path={`/sign-up`} component={SignUpContainer} />
       <Route path={`/user`} component={UserContainer} />
       <Route path={`/new-project-form`} component={NewProjectFormContainer} />
-      <Route path={`/project-debris`} component={ProjectDebrisContainer} />
+      {/* <Route path={`/project-debris`} component={ProjectDebrisContainer} /> */}
       <Route path={`/project-capital`} component={ProjectCapitalForm} />
       <Route path={`/project-acquisition`} component={ProjectAcquisitionForm} />
       <Route path={`/project-special`} component={ProjectSpecialForm} />
       <Route path={`/project-maintenance`} component={ProjectMaintenanceForm} />
       <Route path={`/project-study`} component={ProjectStudyForm} />
-      <Route path={`/project-master-plan-only`} component={ProjectStudyMasterContainer} />
-      <Route path={`/project-fhad`} component={ProjectStudyFHADContainer} />
+      {/* <Route path={`/project-master-plan-only`} component={ProjectStudyMasterContainer} />
+      <Route path={`/project-fhad`} component={ProjectStudyFHADContainer} /> */}
       <Route path={`/new-project-types`} component={NewProjectTypesContainer} />
       <Route path={`/filter-projects`} component={FiltersProjectContainer} />
       <Route path={`/work-plan`} component={WorkPlanContainer} />
