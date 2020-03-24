@@ -7,7 +7,7 @@ import ButtonProjectTypesView from "./ButtonProjectTypes/ButtonProjectTypesView"
 import { buttonsNewProject } from "../../constants/constants"
 
 
-export default ({ clearCoordinates } : { clearCoordinates : Function}) => {
+export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, clearCoordinates : Function}) => {
   const [arrow, setArrow] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
   const [route, setRoute] = useState<string>('');
@@ -16,7 +16,7 @@ export default ({ clearCoordinates } : { clearCoordinates : Function}) => {
   const [title, setTitle] = useState('new');
 
   useEffect(() => {
-    clearCoordinates();
+    if(coordinates.length) clearCoordinates();
   }, []);
 
   if(redirect) {

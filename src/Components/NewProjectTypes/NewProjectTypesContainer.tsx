@@ -5,9 +5,9 @@ import NewProjectTypesView from './NewProjectTypesView';
 import { clearCoordinates } from '../../store/actions/mapActions';
 import { bindActionCreators } from 'redux';
 
-const mapStateToProps = (state: any): any => {
+const mapStateToProps = (state: any) => {
   return {
-    sample: state.sample
+    coordinates: state.map.newProject.coordinates
   };
 };
 
