@@ -36,7 +36,7 @@ const menu = (
 
 
 
-const ProjectMaintenanceForm = ({ saveNewMaintenanceForm } : {saveNewMaintenanceForm: Function}) => {
+const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm: Function}) => {
     const location = useLocation();
     const cad = location.pathname.split('/');
     const validationSchema = cad[2] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[2] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION : 
@@ -45,15 +45,15 @@ const ProjectMaintenanceForm = ({ saveNewMaintenanceForm } : {saveNewMaintenance
             cad[2] === 'sedimentRemoval' ? PROJECT_MAINTENANCE_SEDIMENT : cad[2] === 'minorRepairs' ? PROJECT_MAINTENANCE_MINOR_REPAIR : PROJECT_MAINTENANCE_RESTORATION;
     initialValues.requestName = cad[3];
     initialValues.projectSubtype = cad[2];
-    const files: Array<any> = [];
-    const [listFiles, setListFiles ] = useState(files);
+    const [mainImage, setMainImage] = useState([]);
+    const [listFiles, setListFiles ] = useState([]);
     const [title, setTitle] = useState<string>('');
     
     const { values, handleSubmit, handleChange } = useFormik({
         initialValues,
         validationSchema,
         onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string}) {
-          saveNewMaintenanceForm(values, listFiles);
+          createNewProjectForm(values, [...mainImage, ...listFiles]);
         }
     });
 
@@ -178,7 +178,9 @@ const ProjectMaintenanceForm = ({ saveNewMaintenanceForm } : {saveNewMaintenance
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger multiple={false} onChange={(event) => {
+          <Dragger multiple={false} onChange={(event : any) => {
+            console.log(event);
+            setMainImage(event.fileList);
           }}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
@@ -191,7 +193,7 @@ const ProjectMaintenanceForm = ({ saveNewMaintenanceForm } : {saveNewMaintenance
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger className="img-npf" onChange={(event) => {
+          <Dragger className="img-npf" onChange={(event : any) => {
             console.log(event);
             setListFiles(event.fileList);
           }}>

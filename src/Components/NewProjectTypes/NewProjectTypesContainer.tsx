@@ -2,15 +2,19 @@ import { connect } from 'react-redux';
 
 import NewProjectTypesView from './NewProjectTypesView';
 
-const mapStateToProps = (state: any): any => {
+import { clearCoordinates } from '../../store/actions/mapActions';
+import { bindActionCreators } from 'redux';
+
+const mapStateToProps = (state: any) => {
   return {
-    sample: state.sample
+    coordinates: state.map.newProject.coordinates
   };
 };
 
-const mapDispatchToProps = (dispatch: Function): any => {
-  return {
-  };
-};
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators({
+    clearCoordinates
+  }, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewProjectTypesView);

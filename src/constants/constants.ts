@@ -377,6 +377,17 @@ export const PROJECT_MAINTENANCE_RESTORATION= {
   publicAccess: false,
   maintenanceEligility: ''
 }
+
+
+
+/* Unselected Items on Maps Errors */
+export const NO_COMPONENTS_ERROR = 'Must select at least one map component.';
+export const NO_POLYGON_ERROR = 'Must draw a polygon on the map to continue.';
+export const NO_MARKER_ERROR = 'Must put the marker on the map to continue.';
+
+
+
+
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11
     mapbox://styles/mapbox/outdoors-v11

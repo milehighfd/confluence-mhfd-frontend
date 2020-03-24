@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Map from '../Components/Map/Map';
 import NavbarView from "../Components/Shared/Navbar/NavbarView";
@@ -7,11 +7,11 @@ import SidebarView from "../Components/Shared/Sidebar/SidebarView";
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../constants/constants";
 import { Redirect } from "react-router-dom";
 
-import { Layout, Row, Col, Button } from 'antd';
+import { Layout, Row, Col, Button, message } from 'antd';
 import { MapHOCProps } from '../Classes/MapTypes';
 
 export default function (WrappedComponent : any, layers : any) {
-    return ({ problems, projects, components, saveNewCapitalForm, saveNewProjectWithCoords, saveNewStudyForm, saveNewMaintenanceForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, redirect, setRouteRedirect } : MapHOCProps) => {
+    return ({ problems, projects, components, saveNewCapitalForm, saveNewStudyForm, createNewProjectForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, redirect, setRouteRedirect, error, clearErrorMessage } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -19,6 +19,13 @@ export default function (WrappedComponent : any, layers : any) {
         const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
         const [selectedItems, setSelectedItems] = useState([]);
         const [isPolygon, setIsPolygon] = useState(false);
+
+        useEffect(() => {
+          if(error) {
+            message.error(error);
+            clearErrorMessage();
+          }
+        }, [error]);
 
         const updateWidth = () => {
           if (leftWidth === MEDIUM_SCREEN) {
@@ -68,9 +75,8 @@ export default function (WrappedComponent : any, layers : any) {
                             isPolygon={isPolygon}
                             setSelectedItems={setSelectedItems}
                             saveNewCapitalForm={saveNewCapitalForm}
-                            saveNewProjectWithCoords={saveNewProjectWithCoords}
                             saveNewStudyForm={saveNewStudyForm}
-                            saveNewMaintenanceForm={saveNewMaintenanceForm} />
+                            createNewProjectForm={createNewProjectForm} />
                     </Col>
                 </Row>
               </Layout>

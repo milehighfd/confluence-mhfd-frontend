@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 
 import { Row, Col, Dropdown, Menu, Button, Tag, Input, Upload, Table, Form } from 'antd';
@@ -8,7 +8,7 @@ import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuV
 import { VALIDATION_PROJECT_CAPITAL } from "../../constants/validation";
 import { NEW_PROJECT_FORM_COST, FOOTER_PROJECT_CAPITAL, GOAL, REQUEST_FUNDING_YEAR } from "../../constants/constants";
 
-import { NewProjectFormProps, ComponentType } from "../../Classes/MapTypes";
+import { ComponentType } from "../../Classes/MapTypes";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 

@@ -17,14 +17,15 @@ export type MapHOCProps = {
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
     saveNewCapitalForm: Function,
-    saveNewProjectWithCoords: Function,
     saveNewStudyForm: Function,
-    saveNewMaintenanceForm: Function,
+    createNewProjectForm: Function,
     getReverseGeocode: Function,
     savePolygonCoordinates: Function,
     saveMarkerCoordinates: Function,
     redirect: boolean,
-    setRouteRedirect: Function
+    setRouteRedirect: Function,
+    error: string,
+    clearErrorMessage: Function,
 }
 
 export type NewProjectFormProps = {

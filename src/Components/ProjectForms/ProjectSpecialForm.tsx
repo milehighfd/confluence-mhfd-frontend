@@ -12,7 +12,7 @@ import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 const validationSchema = VALIDATION_PROJECT_SPECIAL;
 const { TextArea } = Input;
 
-const ProjectSpecialForm = ({ saveNewProjectWithCoords } : any) => {
+const ProjectSpecialForm = ({ createNewProjectForm } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
 
@@ -24,7 +24,7 @@ const ProjectSpecialForm = ({ saveNewProjectWithCoords } : any) => {
     },
     validationSchema,
     onSubmit(values: {projectType: string, description: string, requestName: string}) {
-      saveNewProjectWithCoords(values);
+      createNewProjectForm(values);
     }
   });
 

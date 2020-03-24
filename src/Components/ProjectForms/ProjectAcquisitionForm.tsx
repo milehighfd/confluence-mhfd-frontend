@@ -9,7 +9,7 @@ import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 const { TextArea } = Input;
 const validationSchema = VALIDATION_PROJECT_ACQUISITION;
 
-const ProjectAcdquisitionForm = ({ saveNewProjectWithCoords } : any) => {
+const ProjectAcdquisitionForm = ({ createNewProjectForm } : any) => {
 
   const location = useLocation();
   const cad = location.pathname.split('/');
@@ -24,7 +24,7 @@ const ProjectAcdquisitionForm = ({ saveNewProjectWithCoords } : any) => {
     },
     validationSchema,
     onSubmit(values: {projectType: string, description: string, requestName: string, localDollarsContributed: number, mhfdDollarRequest: number}) {
-      saveNewProjectWithCoords(values);
+      createNewProjectForm(values);
     }
   });
   

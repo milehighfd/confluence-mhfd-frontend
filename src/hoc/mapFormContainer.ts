@@ -5,9 +5,9 @@ import { getReverseGeocode,
         savePolygonCoordinates, 
         saveMarkerCoordinates, 
         saveNewCapitalForm, 
-        saveNewProjectWithCoords,
         saveNewStudyForm,
-        saveNewMaintenanceForm,
+        createNewProjectForm,
+        clearErrorMessage,
         setRouteRedirect } from '../store/actions/mapActions';
 
 import mapFormData from './mapFormData';
@@ -17,6 +17,7 @@ const mapStateToProps = (state: any) => {
         problems: state.map.problems,
         projects: state.map.projects,
         components: state.map.components,
+        error: state.map.error,
         redirect: state.map.redirect
     };
 };
@@ -27,10 +28,10 @@ const mapDispatchToProps = (dispatch: any) => ({
         savePolygonCoordinates,
         saveMarkerCoordinates,
         saveNewCapitalForm,
-        saveNewProjectWithCoords,
         saveNewStudyForm,
-        saveNewMaintenanceForm,
-        setRouteRedirect
+        createNewProjectForm,
+        clearErrorMessage,
+        setRouteRedirect,
     }, dispatch)
 });
   
