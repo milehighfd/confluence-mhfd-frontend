@@ -98,9 +98,16 @@ export const saveNewStudyForm = (data: Object) => {
     }
 }
 
-export const saveNewMaintenanceForm = (data: Object, files: Array<any>) => {
+export const saveNewMaintenanceForm = (data: any, files: Array<any>) => {
+    const dataForm = new FormData;
+    for (const key in data) {
+        dataForm.append(key, '' + data[key]);
+    }
+    for (const file of files) {
+        dataForm.append('file', file.originFileObj);
+    }
     return (dispatch : Function, getState : Function) => {
-        const result = datasets.postData(SERVER.CREATE_PROJECT, data, datasets.getToken()).then(res => {
+        const result = datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
             if (res?._id) {
                 dispatch(setRouteRedirect(true));
             }

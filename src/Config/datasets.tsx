@@ -17,11 +17,12 @@ export const postData = (url: any, body: any, token?: any) => {
 }
 
 export const postDataMultipart = (url: any, body: any, token?: any) => {
+    console.log('my body ', body);
     const headers = token ? MultiPartOptions(token) : MultiPart();
     return fetch(url, {
         method: 'POST',
         headers,
-        body: JSON.stringify(body)
+        body: body
     })
     .then(response => response.json())
     .then(data => {return (data);})
