@@ -6,8 +6,6 @@ import mapFormContainer from "../../hoc/mapFormContainer";
 import { useLocation, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
 import { VALIDATION_PROJECT_DEBRIS, VALIDATION_PROJECT_VEGETATION, VALIDATION_PROJECT_SEDIMENT, VALIDATION_PROJECT_MINOR_REPAIR, VALIDATION_PROJECT_RESTORATION } from "../../constants/validation";
-import * as datasets from "../../Config/datasets"
-import { SERVER } from "../../Config/Server.config";
 import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
 import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 const { Dragger } = Upload;
@@ -34,8 +32,6 @@ const menu = (
   </Menu>
 );
 
-
-
 const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm: Function}) => {
     const location = useLocation();
     const cad = location.pathname.split('/');
@@ -56,6 +52,12 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
           createNewProjectForm(values, [...mainImage, ...listFiles]);
         }
     });
+    
+    // const dummyRequest = ({ file, onSuccess } : any) => {
+    //   setTimeout(() => {
+    //     onSuccess("ok");
+    //   }, 0);
+    // }
 
   return <>
     <div className="count-01">
@@ -178,10 +180,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger multiple={false} onChange={(event : any) => {
-            console.log(event);
-            setMainImage(event.fileList);
-          }}>
+          <Dragger multiple={false} onChange={({file, fileList} : any) => setMainImage(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
           </Dragger>
@@ -193,10 +192,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger className="img-npf" onChange={(event : any) => {
-            console.log(event);
-            setListFiles(event.fileList);
-          }}>
+          <Dragger className="img-npf" onChange={({file, fileList} : any) => setListFiles(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
           </Dragger>

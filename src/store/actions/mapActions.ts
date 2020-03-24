@@ -98,7 +98,7 @@ export const createNewProjectForm = (data: any, files: Array<any>) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
         const coordinates = state.map.newProject.coordinates;
-
+        console.log(files);
         if(coordinates.length) {
             const dataForm : any = new FormData;
             for (const key in data) {
