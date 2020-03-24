@@ -344,6 +344,19 @@ const mapReducer = (state = initState, action : any) => {
                 ...state,
                 redirect: action.status
             }
+        case types.SET_ERROR_MESSAGE:
+            return {
+                ...state,
+                error: action.error
+            }
+        case types.CLEAR_COORDINATES:
+            return {
+                ...state,
+                newProject: {
+                    ...state.newProject,
+                    coordinates: []
+                }
+            }
         default: 
             return state;
     }

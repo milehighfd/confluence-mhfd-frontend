@@ -24,7 +24,9 @@ export type MapHOCProps = {
     savePolygonCoordinates: Function,
     saveMarkerCoordinates: Function,
     redirect: boolean,
-    setRouteRedirect: Function
+    setRouteRedirect: Function,
+    error: string,
+    clearErrorMessage: Function,
 }
 
 export type NewProjectFormProps = {
