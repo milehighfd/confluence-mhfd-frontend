@@ -21,11 +21,10 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
         if(res?.token) {
           localStorage.setItem('mfx-token', res.token);
           setRedirect(true);
-          replaceAppUser({
-            name: res.userResult.name,
-            email: res.userResult.email,
-            designation: res.userResult.designation
-          })
+          datasets.getData(SERVER.ME, datasets.getToken()).then(result => {
+            console.log(result);
+            replaceAppUser(result);
+          });
         }
       })
     }
