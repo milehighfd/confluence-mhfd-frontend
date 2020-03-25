@@ -41,11 +41,11 @@ const cardInformationProblems: Array<any> = [
 
 const cardInformationProjects: Array<any> = [
   {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "Maintenance", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "Maintenance", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "Study", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "Study", percentage: "80%"
   }
 ];
 

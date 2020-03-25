@@ -40,32 +40,33 @@ const genExtra = () => (
 
 const cardInformationProblems: Array<any> = [
   {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }
 ];
+
 const cardInformationProjects: Array<any> = [
   {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "Maintenance", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "Maintenance", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "Study", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "Study", percentage: "80%"
   }
 ];
 
@@ -213,8 +214,8 @@ export default () => {
                           </Dropdown>
                       </div>
                       </div>
-                        {cardInformationProblems.map((data: any) => {
-                              return <CardInformationView data={data} type={"Problems"} />
+                        {cardInformationProblems.map((data: any, index: number) => {
+                              return <CardInformationView key={index} data={data} type={"Problems"} />
                         })}
                       </Row>
                       </TabPane>
@@ -236,8 +237,8 @@ export default () => {
                                 </Dropdown>
                             </div>
                           </div>
-                          {cardInformationProjects.map((data: any) => {
-                            return <CardInformationView data={data} type={"Projects"} />
+                          {cardInformationProjects.map((data: any, index: number) => {
+                            return <CardInformationView key={index} data={data} type={"Projects"} />
                           })}
                         </Row>
                       </TabPane>

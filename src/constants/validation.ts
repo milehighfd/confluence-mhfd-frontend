@@ -41,10 +41,9 @@ export const VALIDATION_SIGN_UP = Yup.object().shape({
       .max(50, 'Too Long!')
       .required('Required'),
   email: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
+      .email()
       .required('Required'),
-  city: Yup.string()
+  organization: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
       .required('Required'),

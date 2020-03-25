@@ -3051,3 +3051,22 @@ body{
  .switch-options {
    z-index: 100000000000;
  }
+
+ .button-dropdown {
+  background-color: #28C499 !important;
+  color: #ffffff !important;
+  border: #28C499 !important;
+  white-space: inherit !important;
+  height: auto !important;
+  border-radius: 4px !important;
+ }
+
+ .text-button-dropdown {
+  font-size: 14px !important;
+  padding: 10px 10px 10px 0 !important;
+  display: block !important;
+  width: 100% !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(61, 46, 138, 0.07) !important;
+  color: #11093c !important;
+ }

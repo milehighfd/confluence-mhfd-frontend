@@ -2,20 +2,8 @@ import * as React from "react";
 import { Col, Card } from "antd";
 
 export default (props: any) => {
-    const a = [];
-    if (props.type === 'Problems') {
-        a.push(<div style={{ display: 'flex', width: '100%' }}>
-            <p style={{ color: 'red', width: '50%' }}>{props.data.field6}</p>
-            <span style={{ textAlign: 'right', width: '50%' }}>{props.data.field7}</span>
-        </div>)
-    } else {
-        a.push(<div style={{ display: 'flex', width: '100%' }}>
-            <p style={{ color: ' #11093c', width: '50%', opacity: '0.6' }}>{props.data.projectType}</p>
-            <span style={{ textAlign: 'right', width: '50%', color: ' #11093c', opacity: '0.6' }}>{props.data.status}</span>
-        </div>)
-    }
 
-    return <Col span={8}>
+    return <Col key={props.index} span={8}>
         <Card
             hoverable
             style={{ width: '100%' }}
