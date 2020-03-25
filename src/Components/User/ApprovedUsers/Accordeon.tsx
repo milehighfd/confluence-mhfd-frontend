@@ -39,6 +39,7 @@ export default ({ menu, user, index, pos, saveUser, handleDropdowns, deleteUser 
 
     const handleSwitchButton = (checked : boolean) => {
         setSwitchTo(checked);
+        deleteUser(user._id);
     }
 
     const genExtra = () => (
