@@ -2,6 +2,7 @@ import * as types from '../types/mapTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
+import { TotalType } from '../../Classes/MapTypes';
 
 export const getReverseGeocode = (lat : any, lng : any, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/
@@ -31,8 +32,8 @@ export const saveMarkerCoordinates = (marker : Array<[]>) => {
     }
 }
 
-export const saveNewCapitalForm = (data : Object, components: Array<Object>, total: any, files: Array<any>) => {
-    return (dispatch : Function, getState : Function) => {
+export const saveNewCapitalForm = (data : Object, components: Array<Object>, total: TotalType, files: Array<[]>) => {
+    return (dispatch : Function) => {
         if(components.length) {
             const newProject = {
                 ...data,

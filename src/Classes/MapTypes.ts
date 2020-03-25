@@ -74,3 +74,16 @@ export type MapLayersType = {
     components?:boolean,
     acquisition?:boolean
 }
+
+export type TotalType = {
+    subtotal: number,
+    additional: {
+        cost: number,
+        additionalCostDescription: string
+    },
+    overhead: {
+        cost: number,
+        overheadCostDescription: string
+    }
+    total: number
+}
