@@ -24,6 +24,8 @@ export const SERVER = (function () {
     const EDIT_USER = 'edit-user';
     const FILTER_PROJECT = 'filters';
     const SIGN_UP = 'signup';
+    const RECOVERY_PASSWORD = 'recovery-password';
+    const RESET_PASSWORD = 'reset-password';
     return {
         URL_BASE: URL_BASE.BASE,
         USER: `${URL_BASE.BASE}/${USER}`,
@@ -45,5 +47,7 @@ export const SERVER = (function () {
         CHANGE_USER_STATE: `${URL_BASE.BASE}/${ADMIN}/${CHANGE_USER_STATE}`,
         EDIT_USER: `${URL_BASE.BASE}/${ADMIN}/${EDIT_USER}`,
         SIGN_UP: `${URL_BASE.BASE}/${USER}/${SIGN_UP}`,
+        RECOVERY_PASSWORD: `${URL_BASE.BASE}/${USER}/${RECOVERY_PASSWORD}`,
+        RESET_PASSWORD: `${URL_BASE.BASE}/${USER}/${RESET_PASSWORD}`
     }
 })();

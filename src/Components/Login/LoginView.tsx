@@ -67,13 +67,11 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
       </div>
       <div className="marbot-4">
         <span>Don’t have an account?</span>
-        <Link to={'/sign-up'}>
-          <a className="login-form-forgot">
+        <Link to={'/sign-up'} className="login-form-forgot">
           Sign-Up
-          </a>
         </Link>
-        <Link to={'/reset-password'}>
-          <a href="" style={{ float: 'right', color: '#11093C'}}>Forgot Password?</a>
+        <Link to={'/reset-password'} style={{ float: 'right', color: '#11093C'}}>
+            Forgot Password?
         </Link> 
       </div>
         <Button className="buttonLogin" block htmlType="submit">
