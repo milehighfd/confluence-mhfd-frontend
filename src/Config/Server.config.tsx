@@ -21,6 +21,7 @@ export const SERVER = (function () {
     const ADMIN = 'admin';
     const LIST = 'list';
     const CHANGE_USER_STATE = 'change-user-state';
+    const EDIT_USER = 'edit-user';
     return {
         URL_BASE: URL_BASE.BASE,
         USER: `${URL_BASE.BASE}/${USER}`,
@@ -39,5 +40,6 @@ export const SERVER = (function () {
         CREATE_PROJECT_STUDY_FHAD: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_STUDY_FHAD}`,
         LIST_USERS: `${URL_BASE.BASE}/${ADMIN}/${LIST}`,
         CHANGE_USER_STATE: `${URL_BASE.BASE}/${ADMIN}/${CHANGE_USER_STATE}`,
+        EDIT_USER: `${URL_BASE.BASE}/${ADMIN}/${EDIT_USER}`,
     }
 })();

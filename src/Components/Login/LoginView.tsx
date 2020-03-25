@@ -22,7 +22,6 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
           localStorage.setItem('mfx-token', res.token);
           setRedirect(true);
           datasets.getData(SERVER.ME, datasets.getToken()).then(result => {
-            console.log(result);
             replaceAppUser(result);
           });
         }

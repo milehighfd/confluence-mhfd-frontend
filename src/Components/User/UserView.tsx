@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {Layout, Row, Col, Tabs, Input, Menu, Collapse, Pagination} from 'antd';
+import {Layout, Row, Col, Tabs, Menu, Pagination} from 'antd';
 import NavbarView from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import Accordeon from './ApprovedUsers/Accordeon';
 import UserFilters from './UserFilters';
-import ListUser from './ListUser/ListUserView';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 const {Content} = Layout;
@@ -51,7 +50,7 @@ const dropdownMenu = ({handleDropdowns, index, id} : any) => (
 
 const getUserActivated = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
   datasets.getData(url, datasets.getToken()).then(res => {
-    if(res.users.length > 0) {
+    if(res.users) {
       saveUser(res.users);
       setUser(res.users);
       setTotal(res.pages * 10);
@@ -65,7 +64,7 @@ const options = {
   serviceArea: '',
   designation: ''
 }
-export default ({ saveUserActivated, saveUserPending } : any) => {
+export default ({ saveUserActivated, saveUserPending } : {saveUserActivated: Function, saveUserPending: Function}) => {
   const [userActivatedState, setUserActivatedState] = useState<any>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
@@ -86,31 +85,20 @@ export default ({ saveUserActivated, saveUserPending } : any) => {
     setUserActivatedState(user);
   }
 
-  const handleRadioButton = (e : any, index : number) => {
+  const saveUserActivatedState = (approved : boolean) => {
     const user = [...userActivatedState];
-    user[index][e.target.name] = e.target.value;
-    setUserActivatedState(user);
-  }
-
-  const saveUserActivatedState = (approved : boolean, index : number) => {
-    const user = [...userActivatedState];
-    user[index]['activated'] = approved;
-    if(!user[index]['activated']) {
+    if(!approved) {
+      setOptionUserActivated(options);
       getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
       getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
-    } else {
-      setUserActivatedState(user);
     }
   }
 
-  const saveUserPendingState = (approved : boolean, index : number) => {
-    const user = [...userPendingState];
-    user[index]['activated'] = approved;
-    if(user[index]['activated']) {
+  const saveUserPendingState = (approved : boolean) => {
+    if(approved) {
+      setOptionUserActivated(options);
       getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
       getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
-    } else {
-      setUserPendingState(user);
     }
   }
 
@@ -121,6 +109,7 @@ export default ({ saveUserActivated, saveUserPending } : any) => {
 
   const searchUserActivated = (option: {name: string, organization: string, serviceArea: string, designation: string}) => {
     const searchOption = urlOptions(option);
+    console.log(searchOption);
     getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS + '?' + searchOption, setTotalUsersActivated);
   }
 
@@ -129,13 +118,15 @@ export default ({ saveUserActivated, saveUserPending } : any) => {
     getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false&' + searchOption, setTotalUsersPending);
   }
   const deleteUserActivated = (id: string) => {
-    datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, datasets.getToken()).then(res => {
-      // console.log(res);
+    datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {},datasets.getToken()).then(res => {
+      if(res?._id) {
+        setOptionUserActivated(options);
+        setOptionUserPending(options);
+        getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
+        getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
+      }
     });
-    setOptionUserActivated(options);
-    setOptionUserPending(options);
-    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
-    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
+    
   }
   return <>
     <Layout>
@@ -161,8 +152,6 @@ export default ({ saveUserActivated, saveUserPending } : any) => {
                                     index={index}
                                     pos={aprPos}
                                     handleDropdowns={handleDropdowns}
-                                    handleRadioButton={handleRadioButton}
-                                    saveUser={saveUserActivatedState}
                                     deleteUser={deleteUserActivated} />
                                 </div>
                               );
@@ -187,9 +176,7 @@ export default ({ saveUserActivated, saveUserPending } : any) => {
                                     index={index}
                                     pos={pndPos}
                                     handleDropdowns={handleDropdowns}
-                                    handleRadioButton={handleRadioButton}
-                                    saveUser={saveUserPendingState}
-                                    deleteUser={null} />
+                                    deleteUser={deleteUserActivated} />
                                 </div>
                               );
                             }

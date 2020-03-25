@@ -1,10 +1,41 @@
 import React, { useState } from 'react';
 import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form } from 'antd';
+import { USER } from "../../../constants/constants";
+import { VALIDATION_USER } from "../../../constants/validation";
+import { useFormik } from 'formik';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from '../../../Config/Server.config';
+
 
 const { Panel } = Collapse;
-
-export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, saveUser, deleteUser } : any) => {
+const initialValues = USER;
+const validationSchema = VALIDATION_USER;
+export default ({ menu, user, index, pos,  handleDropdowns, deleteUser } : any) => {
     const [switchTo, setSwitchTo] = useState<boolean>(user.activated);
+    const [designation, setDesignation] = useState<string>(user.designation);
+    initialValues._id = user._id;
+    initialValues.firstName = user.firstName;
+    initialValues.lastName = user.lastName;
+    initialValues.activated = user.activated;
+    initialValues.organization = user.organization;
+    initialValues.name = user.name;
+    initialValues.designation = user.designation;
+    initialValues.email = user.email;
+    initialValues.city = user.city;
+    initialValues.county = user.county ? user.county : 'County';
+    initialValues.serviceArea = user.serviceArea ? user.serviceArea : 'serviceArea';
+    const { values, handleSubmit, handleChange } = useFormik({
+        initialValues,
+        validationSchema,
+        onSubmit(values: {_id: string, firstName: string, lastName: string, activated: boolean, organization: string, name: string, designation: string, email: string, city: string, county: string, serviceArea: string}) {
+            values.designation = designation;
+            const result = datasets.putData(SERVER.EDIT_USER + '/' + values._id, values, datasets.getToken()).then( res => {
+                if (res?._id) {
+                    
+                }
+            });
+        }
+    });
 
     const handleSwitchButton = (checked : boolean) => {
         setSwitchTo(checked);
@@ -18,7 +49,7 @@ export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, s
           </Col>
           <Col span={3} style={{textAlign: 'right'}}>
             <div>
-              <Switch checked={switchTo} onChange={handleSwitchButton} />
+              <Switch className={'switch-options'} checked={switchTo} onChange={handleSwitchButton} />
             </div>
           </Col>
           <Col span={1} style={{textAlign: 'right'}}><img src="Icons/icon-20.svg" alt=""/></Col>
@@ -26,26 +57,29 @@ export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, s
       );
     return (
         <>
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Collapse accordion className="user-tab">
             <Panel header="" key="1" extra={genExtra()}>
                 <div className="gutter-example">
                 <h3>PROFILE</h3>
                 <Row gutter={16}>
-                    <Col className="gutter-row" span={12}><Input placeholder="First Name" value={user.firstName} /></Col>
-                    <Col className="gutter-row" span={12}><Input placeholder="Last Name" value={user.lastName} /></Col>
+                    <Col className="gutter-row" span={12}><Input placeholder="First Name" value={values.firstName} name="firstName" onChange={handleChange} /></Col>
+                    <Col className="gutter-row" span={12}><Input placeholder="Last Name" value={values.lastName} name="lastName" onChange={handleChange} /></Col>
                 </Row>
                 <br></br>
                 <Row gutter={16}>
-                    <Col className="gutter-row" span={12}><Input placeholder="Email" value={user.email} /></Col>
-                    <Col className="gutter-row" span={12}><Input placeholder="Organization" value={user.organization} /></Col>
+                    <Col className="gutter-row" span={12}><Input placeholder="Email" value={values.email} name="email" onChange={handleChange} /></Col>
+                    <Col className="gutter-row" span={12}><Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange} /></Col>
                 </Row>
                 </div>
                 <hr></hr>
                 <div className="gutter-example">
                 <h3>USER DESIGNATION</h3>
                 <Row gutter={16}>
-                    <Radio.Group name="designation" value={user.designation} onChange={(e) => handleRadioButton(e, index)} style={{width:'100%'}}>
+                    <Radio.Group name="designation" value={designation} onChange={(event) => {
+                            values.designation = event.target.value;
+                            setDesignation(event.target.value);
+                        }} style={{width:'100%'}}>
                         <Col span={4}>
                         <div className="user-card">
                             <p><Radio value={'admin'}></Radio></p>
@@ -98,15 +132,15 @@ export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, s
                     <Col className="gutter-row" span={12}>
                     <Dropdown overlay={menu({handleDropdowns, index, id: "city"})}>
                         <Button>
-                        {user.city ? user.city : 'City'} <img src="Icons/icon-12.svg" alt=""/>
+                        {values.city ? values.city : 'City'} <img src="Icons/icon-12.svg" alt=""/>
                         </Button>
                     </Dropdown>
                     </Col>
 
                     <Col className="gutter-row" span={12}>
-                    <Dropdown overlay={menu({handleDropdowns, index, id: "country"})}>
+                    <Dropdown overlay={menu({handleDropdowns, index, id: "county"})}>
                         <Button>
-                        {user.country ? user.country : 'Country'}  <img src="Icons/icon-12.svg" alt=""/>
+                        {values.county ? values.county : 'County'}  <img src="Icons/icon-12.svg" alt=""/>
                         </Button>
                     </Dropdown>
                     </Col>
@@ -116,16 +150,15 @@ export default ({ menu, user, index, pos,  handleDropdowns, handleRadioButton, s
                     <Col className="gutter-row" span={12}>
                     <Dropdown overlay={menu({handleDropdowns, index, id: "serviceArea"})}>
                     <Button>
-                        {user.serviceArea ? user.serviceArea : 'Service Area'}  <img src="Icons/icon-12.svg" alt=""/>
+                        {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="Icons/icon-12.svg" alt=""/>
                     </Button>
                     </Dropdown>
                     </Col>
                 </Row>
                 </div>
                 <div className="user-footer">
-                {user.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : ''}
-                <Button className="btn-s" onClick={() => saveUser(switchTo, index)}>Save</Button>
-                {/*<Button className="btn-s btn-s-01" onClick={() => saveUser(switchTo, index)}>Save</Button>*/}
+                {values.activated ? <Button className="btn-d" onClick={() => deleteUser(values._id)}>Delete</Button> : ''}
+                <Button className="btn-s" block htmlType="submit" >Save</Button>
                 </div>
             </Panel>
             </Collapse>

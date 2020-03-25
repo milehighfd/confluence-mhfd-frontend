@@ -378,7 +378,19 @@ export const PROJECT_MAINTENANCE_RESTORATION= {
   maintenanceEligility: ''
 }
 
-
+export const USER = {
+  activated: false,
+  organization: "",
+  firstName: "",
+  lastName: "",
+  name: "",
+  designation: "",
+  _id: "",
+  email: "",
+  city: "",
+  county: "",
+  serviceArea: ""
+}
 
 /* Unselected Items on Maps Errors */
 export const NO_COMPONENTS_ERROR = 'Must select at least one map component.';

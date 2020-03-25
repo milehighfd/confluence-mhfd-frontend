@@ -12,6 +12,8 @@ export default ({ menu, option, setOption, search } : {menu: any , option: {name
                     const auxOption = {...option};
                     auxOption.name = value;
                     setOption(auxOption);
+                    console.log(auxOption);
+                    
                     search(auxOption);
                 }}
                 style={{ width: 240 }}
