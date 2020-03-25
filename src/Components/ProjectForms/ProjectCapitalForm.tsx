@@ -145,7 +145,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
   const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
   const [mainImage, setMainImage] = useState([]);
-  const [listFiles, setListFiles ] = useState([]); 
+  const [listFiles, setListFiles] = useState([]); 
 
   useEffect(() => {
     const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
@@ -209,6 +209,10 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
       const overhead = {...total.overhead, [event.target.id]: event.target.value}
       setTotal({...total, overhead});
     }
+  }
+
+  const dummyRequest = ({ onSuccess } : { onSuccess: Function}) => {
+    setTimeout(() => onSuccess("ok"), 0);
   }
   
   return <>
@@ -285,27 +289,27 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger onChange={({file, fileList} : any) => setMainImage(fileList)}>
+          <Dragger customRequest={dummyRequest} onChange={({file, fileList} : any) => setMainImage(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
           </Dragger>
-          <div className="tag-upload">
+          {/* <div className="tag-upload">
             <Tag closable>
               Little Dry Creek_image-1.jpg
-                </Tag>
-          </div>
+            </Tag>
+          </div> */}
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger className="img-npf" onChange={({file, fileList} : any) => setListFiles(fileList)}>
+          <Dragger customRequest={dummyRequest} className="img-npf" onChange={({file, fileList} : any) => setListFiles(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
           </Dragger>
-          <div className="tag-upload">
+          {/* <div className="tag-upload">
             <Tag closable>
               Little Dry Creek_image-2.csv
-                </Tag>
-          </div>
+            </Tag>
+          </div> */}
         </div>
         <div className="btn-footer" style={{ marginTop: '25px' }}>
           <Button style={{ width: '140px' }} className="btn-00">Reset</Button>

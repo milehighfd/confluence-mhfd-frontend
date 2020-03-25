@@ -75,7 +75,7 @@ export const createNewProjectForm = (data: any, files: Array<any>) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
         const coordinates = state.map.newProject.coordinates;
-        console.log(files);
+
         if(coordinates.length) {
             const dataForm : any = new FormData;
             for (const key in data) {
@@ -92,7 +92,7 @@ export const createNewProjectForm = (data: any, files: Array<any>) => {
 
             const result = datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
                 if (res?._id) {
-                    dispatch(setRouteRedirect(true));
+                    // dispatch(setRouteRedirect(true));
                 }
             });
         } else {
