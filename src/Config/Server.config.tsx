@@ -22,6 +22,7 @@ export const SERVER = (function () {
     const LIST = 'list';
     const CHANGE_USER_STATE = 'change-user-state';
     const EDIT_USER = 'edit-user';
+    const FILTER_PROJECT = 'filters';
     return {
         URL_BASE: URL_BASE.BASE,
         USER: `${URL_BASE.BASE}/${USER}`,
@@ -31,6 +32,7 @@ export const SERVER = (function () {
         GRAPHQL:`${URL_BASE.BASE}/${GRAPHQL}`, 
         UPLOAD_FILE: `${URL_BASE.BASE}/${ATTACHMENT}/${UPLOAD_FILE}`,
         PROJECT: `${URL_BASE.BASE}/${PROJECT}`,
+        FILTER_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${FILTER_PROJECT}`,
         CREATE_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT}`,
         CREATE_PROJECT_DEBRIS: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_DEBRIS}`,
         CREATE_PROJECT_CAPITAL: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_CAPITAL}`,

@@ -27,6 +27,7 @@ export type MapHOCProps = {
     setRouteRedirect: Function,
     error: string,
     clearErrorMessage: Function,
+    filterProjects: Function
 }
 
 export type NewProjectFormProps = {

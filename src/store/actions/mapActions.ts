@@ -169,3 +169,17 @@ export const clearCoordinates = () => {
         dispatch({ type: types.CLEAR_COORDINATES });
     }
 }
+export const setProjectByFilter = (projects : Array<any>) => {
+    return (dispatch : Function) => {
+        dispatch({ type: types.FILTER_PROJECT, projects});
+    }
+}
+
+export const filterProjects = (data: Object, projects : Array<any>) => {
+    const resultado = {
+        search: data
+    };
+    const result = datasets.postData(SERVER.FILTER_PROJECT, resultado, datasets.getToken()).then(res => {
+        console.log(res);
+    });
+}

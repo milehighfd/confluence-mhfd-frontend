@@ -6,6 +6,7 @@ import NavbarView from "../Shared/Navbar/NavbarView";
 import SidebarView from "../Shared/Sidebar/SidebarView";
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import MapTypesView from "../Shared/MapTypes/MapTypesView";
+// import RadioGroup from "antd/lib/radio/group";
 
 const { Panel } = Collapse;
 const ButtonGroup = Button.Group;
@@ -46,6 +47,38 @@ const menu = (
     </Menu.Item>
   </Menu>
 );
+
+const onChangeProjectType = (event: any) => {
+  console.log(event.target.value);
+}
+
+const onChangeEstimatedCost = (event: any) => {
+  console.log(event.target.value);
+}
+
+const onChangeStartYear = (event: any) => {
+  console.log(event.target.value);
+}
+
+const onChangeCompletedYear = (event: any) => {
+  console.log(event.target.value);
+}
+
+const onChangeCapitalGoal = (event: any) => {
+  console.log(event.target.value);
+}
+
+const onChangeStudyGoal = (event: any) => {
+  console.log(event.target.value);
+}
+
+const onChangeMhfdDollars = (event: any) => {
+  console.log(event.target.value);
+}
+
+const onChangeWorkPlanYear = (event: any) => {
+  console.log(event.target.value);
+}
 
 export default () => {
   return <>
@@ -307,18 +340,22 @@ export default () => {
                       <Row className="filt-00" style={{marginTop: '10px'}}>
                         <Col span={12}>
                           <h5>Project type <img src="Icons/icon-19.svg" alt=""/></h5>
-                          <p><Radio>Capital</Radio> <span className="filt-s">13%</span></p>
-                          <p><Radio>Maintenance</Radio> <span className="filt-s">8%</span></p>
-                          <p><Radio>Study</Radio> <span className="filt-s">19%</span></p>
-                          <p><Radio>Property Acquisition</Radio> <span className="filt-s">25%</span></p>
-                          <p><Radio>Special</Radio> <span className="filt-s">35%</span></p>
+                          <Radio.Group onChange={onChangeProjectType}>
+                            <p><Radio value={'capital'}>Capital</Radio> <span className="filt-s">13%</span></p>
+                            <p><Radio value={'maintenance'}>Maintenance</Radio> <span className="filt-s">8%</span></p>
+                            <p><Radio value={'study'}>Study</Radio> <span className="filt-s">19%</span></p>
+                            <p><Radio value={'propertyAcquisition'}>Property Acquisition</Radio> <span className="filt-s">25%</span></p>
+                            <p><Radio value={'special'}>Special</Radio> <span className="filt-s">35%</span></p>
+                          </Radio.Group>
                         </Col>
                         <Col span={12}>
                           <h5>Estimated total cost <img src="Icons/icon-19.svg" alt=""/></h5>
-                          <p><Radio>20M-25M</Radio> <span className="filt-s">30</span></p>
-                          <p><Radio>15M-20M</Radio> <span className="filt-s">30</span></p>
-                          <p><Radio>5M-10M</Radio> <span className="filt-s">30</span></p>
-                          <p><Radio>0 - 5M</Radio> <span className="filt-s">30</span></p>
+                          <Radio.Group onChange={onChangeEstimatedCost}>
+                            <p><Radio value={20}>20M-25M</Radio> <span className="filt-s">30</span></p>
+                            <p><Radio value={15}>15M-20M</Radio> <span className="filt-s">30</span></p>
+                            <p><Radio value={5}>5M-10M</Radio> <span className="filt-s">30</span></p>
+                            <p><Radio value={0}>0 - 5M</Radio> <span className="filt-s">30</span></p>
+                          </Radio.Group>
                         </Col>
                       </Row>
 
@@ -349,58 +386,70 @@ export default () => {
                       <Row className="filt-00">
                         <Col span={12}>
                           <h5>Start year <img src="Icons/icon-19.svg" alt=""/></h5>
-                          <p><Radio>2015</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2017</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2019</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2021</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2023</Radio> <span className="filt-s">8</span></p>
+                          <Radio.Group onChange={onChangeStartYear}>
+                          <p><Radio value={2015}>2015</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2017}>2017</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2019}>2019</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2021}>2021</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2023}>2023</Radio> <span className="filt-s">8</span></p>
+                          </Radio.Group>
                         </Col>
                         <Col span={12}>
                           <h5>Completed year <img src="Icons/icon-19.svg" alt=""/></h5>
-                          <p><Radio>2015</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2017</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2019</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2021</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2023</Radio> <span className="filt-s">8</span></p>
+                          <Radio.Group onChange={onChangeCompletedYear}>
+                          <p><Radio value={2015}>2015</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2017}>2017</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2019}>2019</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2021}>2021</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2023}>2023</Radio> <span className="filt-s">8</span></p>
+                          </Radio.Group>
                         </Col>
                       </Row>
 
                       <Row className="filt-00">
                         <Col span={12}>
                           <h5>Capital Goal <img src="Icons/icon-19.svg" alt=""/></h5>
-                          <p><Radio>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Shared-Use Paths and Recreation</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Include Permanent Water Quality BMP</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Stream Bank or Bed Stabilization</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Vegetation Enhancements</Radio> <span className="filt-s">8</span></p>
+                          <Radio.Group onChange={onChangeCapitalGoal}>
+                          <p><Radio value={'reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'createSharedUsePathsRecreation'}>Shared-Use Paths and Recreation</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'includePermanentWaterQualityBMP'}>Include Permanent Water Quality BMP</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'streamBankBedStabilization'}>Stream Bank or Bed Stabilization</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'vegetationEnhancements'}>Vegetation Enhancements</Radio> <span className="filt-s">8</span></p>
+                          </Radio.Group>
                         </Col>
                         <Col span={12}>
                           <h5>Study goal - Master plan & Fhad <img src="Icons/icon-19.svg" alt=""/></h5>
-                          <p><Radio>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Stabilization</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Eliminate Roadway Overstopping</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Increased Conveyance</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Peak Flow Reduction</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Water Quality</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>Guide Development</Radio> <span className="filt-s">8</span></p>
+                          <Radio.Group onChange={onChangeStudyGoal}>
+                          <p><Radio value={'reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'stabilization'}>Stabilization</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'eliminateRoadwayOvertopping'}>Eliminate Roadway Overstopping</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'increasedConveyance'}>Increased Conveyance</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'peakFlowReduction'}>Peak Flow Reduction</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'waterQuality'}>Water Quality</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={'guideDevelopment'}>Guide Development</Radio> <span className="filt-s">8</span></p>
+                          </Radio.Group>
                         </Col>
                       </Row>
 
                       <Row className="filt-00">
                         <Col span={12}>
                           <h5>MHFD Dollars Allocated <img src="Icons/icon-19.svg" alt=""/></h5>
-                          <p><Radio>0-5M</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>5M-10M</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>10M-15M</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>15M-20M</Radio> <span className="filt-s">8</span></p>
+                          <Radio.Group onChange={onChangeMhfdDollars}>
+                          <p><Radio value={0}>0-5M</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={5}>5M-10M</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={10}>10M-15M</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={15}>15M-20M</Radio> <span className="filt-s">8</span></p>
+                          </Radio.Group>
                         </Col>
                         <Col span={12}>
                           <h5>Work Plan Year <img src="Icons/icon-19.svg" alt=""/></h5>
-                          <p><Radio>2015</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2017</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2019</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2020</Radio> <span className="filt-s">8</span></p>
-                          <p><Radio>2023</Radio> <span className="filt-s">8</span></p>
+                          <Radio.Group onChange={onChangeWorkPlanYear}>
+                          <p><Radio value={2015}>2015</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2017}>2017</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2019}>2019</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2020}>2020</Radio> <span className="filt-s">8</span></p>
+                          <p><Radio value={2023}>2023</Radio> <span className="filt-s">8</span></p>
+                          </Radio.Group>
                         </Col>
                       </Row>
 

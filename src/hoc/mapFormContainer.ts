@@ -9,7 +9,8 @@ import { getReverseGeocode,
         saveNewStudyForm,
         saveNewMaintenanceForm,
         clearErrorMessage,
-        setRouteRedirect } from '../store/actions/mapActions';
+        setRouteRedirect,
+        filterProjects } from '../store/actions/mapActions';
 
 import mapFormData from './mapFormData';
 
@@ -34,6 +35,7 @@ const mapDispatchToProps = (dispatch: any) => ({
         saveNewMaintenanceForm,
         clearErrorMessage,
         setRouteRedirect,
+        filterProjects
     }, dispatch)
 });
   

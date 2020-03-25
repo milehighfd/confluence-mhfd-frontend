@@ -21,7 +21,7 @@ export const postDataMultipart = (url: any, body: any, token?: any) => {
     return fetch(url, {
         method: 'POST',
         headers,
-        body: JSON.stringify(body)
+        body: body //JSON.stringify(body)
     })
     .then(response => response.json())
     .then(data => {return (data);})
