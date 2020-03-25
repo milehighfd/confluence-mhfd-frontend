@@ -34,43 +34,20 @@ export const saveMarkerCoordinates = (marker : Array<[]>) => {
 export const saveNewCapitalForm = (data : Object, components: Array<Object>, total: any, files: Array<any>) => {
     return (dispatch : Function, getState : Function) => {
         if(components.length) {
-            const state = getState();
-            const county = state.map.newProject.jurisdiction;
             const newProject = {
                 ...data,
                 finalCost: total ? total.total : 0, 
-                jurisdiction: county,
                 additionalCost: total ? total.additional?.cost : 0, 
                 additionalCostDescription: total ? total.additional?.additionalCostDescription : '', 
                 overheadCost: total ? total.overhead?.cost : 0, 
                 overheadCostDescription: total ? total.overhead?.overheadCostDescription : '',
-                components
+                components: JSON.stringify(components)
             };
 
-            console.log(components);
-    
-            const result = datasets.postData(SERVER.CREATE_PROJECT, newProject, datasets.getToken()).then(res => {
-                if (res?._id) {
-                    if(files) {
-                        for(let da of files) {
-                            console.log(da);
-                            const data2 = {
-                                file: da.originFileObj,
-                                projectid: res._id
-                            };
-                            datasets.postDataMultipart(SERVER.UPLOAD_FILE, data2, datasets.getToken()).then(res1 => {
-                                console.log(res1);
-                            })
-                        }
-                    }
-                    dispatch(setRouteRedirect(true));
-                }
-            });
+            dispatch(createNewProjectForm(newProject, files));
         } else {
             dispatch({ type: types.SET_ERROR_MESSAGE, error: constants.NO_COMPONENTS_ERROR });
         }
-        // const newProjectData = state.map.newProject;
-        // dispatch({ type: types.CREATE_NEW_PROJECT, problems})
     }
 }
 

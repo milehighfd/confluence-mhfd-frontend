@@ -144,6 +144,8 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   const [title, setTitle] = useState('');
   const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
   const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
+  const [mainImage, setMainImage] = useState([]);
+  const [listFiles, setListFiles ] = useState([]); 
 
   useEffect(() => {
     const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
@@ -178,7 +180,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
     },
     validationSchema,
     onSubmit(values: {projectType: string, description: string, requestName: string, localDollarsContributed: number, requestFundingYear: string, mhfdFundingRequest: string, goal: string}) {
-      saveNewCapitalForm(values, selectedItems, total);
+      saveNewCapitalForm(values, selectedItems, total, [...mainImage, ...listFiles]);
     }
   });
 
@@ -283,7 +285,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger>
+          <Dragger onChange={({file, fileList} : any) => setMainImage(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
           </Dragger>
@@ -295,7 +297,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger className="img-npf">
+          <Dragger className="img-npf" onChange={({file, fileList} : any) => setListFiles(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
           </Dragger>
