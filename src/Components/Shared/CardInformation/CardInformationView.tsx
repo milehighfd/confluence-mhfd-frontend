@@ -19,7 +19,9 @@ export default (props: any) => {
         <Card
             hoverable
             style={{ width: '100%' }}
-            cover={<img alt="example" src="/Icons/eje.png" />}
+            cover={
+                props.data.mainImage ? <img alt="example" src={props.data.mainImage} /> : <img alt="example" src="/Icons/eje.png" />
+            }
         >
             <h4>{props.data.requestName}</h4>
             <h6>{props.data.jurisdiction}</h6>

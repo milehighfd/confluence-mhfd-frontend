@@ -300,7 +300,8 @@ const initState = {
             studyName: 'Combination Bridge',
             coordinates: [-104.99997101031218, 39.84543449508365]
         }
-    ]
+    ],
+    filters: []
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -355,6 +356,13 @@ const mapReducer = (state = initState, action : any) => {
                 newProject: {
                     ...state.newProject,
                     coordinates: []
+                }
+            }
+        case types.FILTER_PROJECT:
+            return {
+                ...state,
+                filters: {
+                    ...state.filters
                 }
             }
         default: 
