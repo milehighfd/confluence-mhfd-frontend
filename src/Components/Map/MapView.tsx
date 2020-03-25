@@ -4,6 +4,11 @@ import {  Row, Col, Dropdown, Button, Tabs, Input } from 'antd';
 import SortMenuView from "../SortMenu/SortMenuView";
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
+import { useFormik } from "formik";
+import { string, number } from "yup";
+import { filterProjects } from "../../store/actions/mapActions";
+import * as datasets from "../../Config/datasets";
+import { SERVER } from "../../Config/Server.config";
 
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -11,23 +16,23 @@ const { Search } = Input;
 
 const cardInformationProblems: Array<any> = [
   {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", field1: "West Tollagate Creek GSB Drops", field2: "Westminster", field3: "$400,500",
-    field4: 5, field5: "Components", field6: "High Priority", field7: "80%"
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }
 ];
 
@@ -51,9 +56,29 @@ const accordionRow: Array<any> = [
   }
 ];
 
+const getProjectWithFilters = (url: String, data: any, setProjects: Function, setTotal: Function) => {
+  datasets.postData(url, data, datasets.getToken()).then(res => {
+    // console.log(res);
+    setProjects(res);
+    setTotal(res.length);
+  });
+}
+
 const MapView = () => {
 
   const [listDescription, setListDescription] = useState(false);
+
+  const projects: Array<any> = [];
+  const filters: Array<any> = ['uno','dos'];
+  var data = {};
+  const [listProjects, setListProjects] = useState<any>(projects);
+  const [totalProjects, setTotalProjects] = useState<number>(0);
+  const [dataFilters, setDataFilters] = useState<any>(data);
+  const [listFilters, setListFilters] = useState<any>(filters);
+
+  useEffect(() => {
+    getProjectWithFilters(SERVER.FILTER_PROJECT, data, setListProjects, setTotalProjects);
+  }, []);
 
   return <>
         <div className="count">
@@ -63,7 +88,7 @@ const MapView = () => {
                 <Col span={12}>
                 <Dropdown overlay={SortMenuView}>
                   <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                    Westminter, CO  <img src="/Icons/icon-12.svg" alt=""/>
+                    Westminter, CO 1 <img src="/Icons/icon-12.svg" alt=""/>
                   </a>
                 </Dropdown>
                 </Col>
@@ -90,7 +115,12 @@ const MapView = () => {
                   <Col span={16}>
                     <Search
                       placeholder="Search..."
-                      onSearch={value => console.log(value)}
+                      onSearch={value => {
+                        console.log(value)
+                        dataFilters.requestName = value;
+                        setDataFilters(dataFilters);
+                        getProjectWithFilters(SERVER.FILTER_PROJECT, dataFilters, setListProjects, setTotalProjects);
+                      }}
                       style={{ width: 200 }}
                     />
                   </Col>
@@ -111,7 +141,8 @@ const MapView = () => {
                 </TabPane>
 
                 <TabPane tab="Projects" key="2">
-                <GenericTabView listDescription={listDescription} type="Projects" totalElements={cardInformationProjects.length} cardInformation={cardInformationProjects} accordionRow={accordionRow}/>
+                <GenericTabView listDescription={listDescription} type="Projects" totalElements={listProjects.length} 
+                  cardInformation={listProjects} accordionRow={accordionRow} listFilters={listFilters}/>
                 </TabPane>
               </Tabs>
             {/*</Panel>

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {Layout, Row, Col, Tabs, Input, Menu, Dropdown, Button, Icon, Collapse, Radio, Switch, Table, Divider, Tag, Pagination} from 'antd';
+import {Layout, Row, Col, Tabs, Menu, Pagination} from 'antd';
 import NavbarView from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import Accordeon from './ApprovedUsers/Accordeon';
 import UserFilters from './UserFilters';
-import ListUser from './ListUser/ListUserView';
-
+import { SERVER } from "../../Config/Server.config";
+import * as datasets from "../../Config/datasets";
 const {Content} = Layout;
 const { TabPane } = Tabs;
-const { Search } = Input;
-const { Panel } = Collapse;
 const menu = (
   <Menu className="js-mm-00">
     <Menu.Item>
@@ -49,73 +47,82 @@ const dropdownMenu = ({handleDropdowns, index, id} : any) => (
     </Menu.Item>
   </Menu>
 );
-const usersActivity = [
-  {
-    date: "09/16/2019, 06:17PM",
-    name: "Jovanna Maiani",
-    city: "Westminster",
-    change: "User Login"
-  }, {
-    date: "09/16/2019, 06:17PM",
-    name: "Ronnie Gauger",
-    city: "Westminster",
-    change: "User Login"
-  }, {
-    date: "09/16/2019, 06:17PM",
-    name: "Melvin Wentz",
-    city: "Westminster",
-    change: "User Login"
-  }, {
-    date: "09/16/2019, 06:17PM",
-    name: "Annette Griffeth",
-    city: "Westminster",
-    change: "User Login"
-  }
-]
-const genExtra = () => (
-  <Row className="user-head" type="flex" justify="space-around" align="middle">
-    <Col span={19}>
-      <h6>1. Ronnie Gougers</h6>
-      <span>(Organization - Service Area - User Designation)</span>
-    </Col>
-    <Col span={3} style={{textAlign: 'right'}}>
-      <div>
-        <Switch defaultChecked />
-      </div>
-    </Col>
-    <Col span={1} style={{textAlign: 'right'}}><img src="Icons/icon-20.svg" alt=""/></Col>
-  </Row>
-);
 
-export default ({ users, saveUserState, deleteUser } : any) => {
-  const [userState, setUserState] = useState<any>([]);
+const getUserActivated = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
+  datasets.getData(url, datasets.getToken()).then(res => {
+    if(res.users) {
+      saveUser(res.users);
+      setUser(res.users);
+      setTotal(res.pages * 10);
+    }
+  });
+}
+
+const options = {
+  name: '',
+  organization: '',
+  serviceArea: '',
+  designation: ''
+}
+export default ({ saveUserActivated, saveUserPending } : {saveUserActivated: Function, saveUserPending: Function}) => {
+  const [userActivatedState, setUserActivatedState] = useState<any>([]);
+  const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
+  const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
+  const [userPendingState, setUserPendingState] = useState<any>([]);
+  const [optionUserActivated, setOptionUserActivated] = useState(options);
+  const [optionUserPending, setOptionUserPending] = useState(options);
   let pndPos = 0; // momentary forced adition until getting the DB Structure
   let aprPos = 0; // momentary forced adition until getting the DB Structure
 
   useEffect(() => {
-    setUserState(users);
-  }, [users])
-
+    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
+    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
+  }, []);
   const handleDropdowns = (value : string, index : number, id : string) => {
-    const user = [...userState];
+    const user = [...userActivatedState];
     if(id === 'organization') user[index].profile[id] = value;
     else user[index].areas[id] = value;
-    setUserState(user);
+    setUserActivatedState(user);
   }
 
-  const handleRadioButton = (e : any, index : number) => {
-    const user = [...userState];
-    user[index][e.target.name] = e.target.value;
-    setUserState(user);
+  const saveUserState = (approved : boolean) => {
+    const user = [...userActivatedState];
+    setOptionUserActivated(options);
+    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
+    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
   }
 
-  const saveUser = (approved : boolean, index : number) => {
-    const user = [...userState];
-    user[index]['approved'] = approved;
-    setUserState(user);
-    saveUserState(user);
+  // const saveUserPendingState = (approved : boolean) => {
+  //   setOptionUserActivated(options);
+  //   getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
+  //   getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
+  // }
+
+  const urlOptions = (options: {name: string, organization: string, serviceArea: string, designation: string}) => {
+    return 'name=' + (options.name ? options.name : '') + '&organization=' + (options.organization ? options.organization : '') 
+          + '&serviceArea=' + (options.serviceArea ? options.serviceArea : '') + '&designation=' + (options.designation ? options.designation : '');
   }
 
+  const searchUserActivated = (option: {name: string, organization: string, serviceArea: string, designation: string}) => {
+    const searchOption = urlOptions(option);
+    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS + '?' + searchOption, setTotalUsersActivated);
+  }
+
+  const searchUserPending = (option: {name: string, organization: string, serviceArea: string, designation: string}) => {
+    const searchOption = urlOptions(option);
+    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false&' + searchOption, setTotalUsersPending);
+  }
+  const deleteUserActivated = (id: string) => {
+    datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {},datasets.getToken()).then(res => {
+      if(res?._id) {
+        setOptionUserActivated(options);
+        setOptionUserPending(options);
+        getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
+        getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
+      }
+    });
+    
+  }
   return <>
     <Layout>
       <NavbarView></NavbarView>
@@ -128,10 +135,9 @@ export default ({ users, saveUserState, deleteUser } : any) => {
                     <Col span={24}>
                       <Tabs defaultActiveKey="1">
                         <TabPane tab="Approved Users" key="1">
-                          <UserFilters menu={menu} />
+                          <UserFilters menu={menu} option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated} />
 
-                          {userState.map((user : any, index : number) => {
-                            if(user.approved) {
+                          {userActivatedState.map((user : any, index : number) => {
                               aprPos++;
                               return (
                                 <div key={index} style={{marginBottom: 10}}>
@@ -140,24 +146,22 @@ export default ({ users, saveUserState, deleteUser } : any) => {
                                     user={user}
                                     index={index}
                                     pos={aprPos}
+                                    saveUser={saveUserState}
                                     handleDropdowns={handleDropdowns}
-                                    handleRadioButton={handleRadioButton}
-                                    saveUser={saveUser}
-                                    deleteUser={deleteUser} />
+                                    deleteUser={deleteUserActivated} />
                                 </div>
                               );
-                            }
                           })}
 
                           <div className="pagi-00">
-                            <Pagination defaultCurrent={1} total={200} />
+                            <Pagination defaultCurrent={1} total={totalUsersActivated} />
                           </div>
                         </TabPane>
 
                         <TabPane tab="Pending User Requests" key="2">
-                        <UserFilters menu={menu} />
+                        <UserFilters menu={menu} option={optionUserPending} setOption={setOptionUserPending} search={searchUserPending} />
 
-                          {userState.map((user : any, index : number) => {
+                          {userPendingState.map((user : any, index : number) => {
                             if(!user.approved) {
                               pndPos++;
                               return (
@@ -167,21 +171,20 @@ export default ({ users, saveUserState, deleteUser } : any) => {
                                     user={user}
                                     index={index}
                                     pos={pndPos}
+                                    saveUser={saveUserState}
                                     handleDropdowns={handleDropdowns}
-                                    handleRadioButton={handleRadioButton}
-                                    saveUser={saveUser}
-                                    deleteUser={deleteUser} />
+                                    deleteUser={deleteUserActivated} />
                                 </div>
                               );
                             }
                           })}
 
                         <div className="pagi-00">
-                          <Pagination defaultCurrent={1} total={200} />
+                          <Pagination defaultCurrent={1} total={totalUsersPending} />
                         </div>
                         </TabPane>
 
-                        <TabPane tab="User Activity" key="3">
+                        {/* <TabPane tab="User Activity" key="3">
                           <Button className="btn-down"><img src="/Icons/icon-15.svg" alt=""/></Button>
                           <Row className="activity-h">
                             <Col span={5}><Button>Data and Time <img src="Icons/icon-14.svg" alt=""/></Button></Col>
@@ -195,7 +198,7 @@ export default ({ users, saveUserState, deleteUser } : any) => {
                           <div className="pagi-00">
                             <Pagination defaultCurrent={1} total={200} />
                           </div>
-                        </TabPane>
+                        </TabPane> */}
                       </Tabs>
                     </Col>
                   </Row>

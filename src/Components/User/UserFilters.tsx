@@ -1,15 +1,21 @@
 import React from 'react';
 import { Dropdown, Button, Input } from 'antd';
 
-export default ({ menu } : any) => {
+export default ({ menu, option, setOption, search } : {menu: any , option: {name: string, organization: string, serviceArea: string, designation: string} , setOption: Function, search: Function}) => {
     const { Search } = Input;
-
     return (
         <div className="user-filter">
             <div>
                 <Search
                 placeholder="Search by Name"
-                onSearch={value => console.log(value)}
+                onSearch={value => {
+                    const auxOption = {...option};
+                    auxOption.name = value;
+                    setOption(auxOption);
+                    console.log(auxOption);
+                    
+                    search(auxOption);
+                }}
                 style={{ width: 240 }}
                 />
             </div>

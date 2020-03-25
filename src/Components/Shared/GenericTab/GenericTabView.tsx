@@ -9,14 +9,21 @@ const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
 export default (props: any) => {
-    const [tags, setTags] = useState([
-        "$600K - $1.2M",
-        "Active",
-        "Stream Restoration",
-        "Maintenance",
-        "Westminster",
-        "Components"
-    ]);
+    // const [tags, setTags] = useState([
+    //     "$600K - $1.2M",
+    //     "Active",
+    //     "Stream Restoration",
+    //     "Maintenance",
+    //     "Westminster",
+    //     "Components"
+    // ]);
+    //console.log(props.listFilters);
+    const [tags, setTags] = useState([]);
+    if(props.listFilters != undefined) {
+        console.log(props.listFilters);
+        //setTags(props.listFilters);
+    }
+    //setTags(props.filters);
 
     const deleteTag = (index: Number) => {
         const newTags = tags.filter((element: String, indexE: Number) => indexE !== index);

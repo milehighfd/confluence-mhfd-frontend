@@ -92,7 +92,7 @@ export const createNewProjectForm = (data: any, files: Array<any>) => {
 
             const result = datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
                 if (res?._id) {
-                    // dispatch(setRouteRedirect(true));
+                    dispatch(setRouteRedirect(true));
                 }
             });
         } else {
@@ -117,4 +117,18 @@ export const clearCoordinates = () => {
     return (dispatch : Function) => {
         dispatch({ type: types.CLEAR_COORDINATES });
     }
+}
+export const setProjectByFilter = (projects : Array<any>) => {
+    return (dispatch : Function) => {
+        dispatch({ type: types.FILTER_PROJECT, projects});
+    }
+}
+
+export const filterProjects = (data: Object, projects : Array<any>) => {
+    const resultado = {
+        search: data
+    };
+    const result = datasets.postData(SERVER.FILTER_PROJECT, resultado, datasets.getToken()).then(res => {
+        console.log(res);
+    });
 }

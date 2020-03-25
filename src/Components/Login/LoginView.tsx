@@ -21,11 +21,9 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
         if(res?.token) {
           localStorage.setItem('mfx-token', res.token);
           setRedirect(true);
-          replaceAppUser({
-            name: res.userResult.name,
-            email: res.userResult.email,
-            designation: res.userResult.designation
-          })
+          datasets.getData(SERVER.ME, datasets.getToken()).then(result => {
+            replaceAppUser(result);
+          });
         }
       })
     }
@@ -74,7 +72,9 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
           Sign-Up
           </a>
         </Link>
+        <Link to={'/reset-password'}>
           <a href="" style={{ float: 'right', color: '#11093C'}}>Forgot Password?</a>
+        </Link> 
       </div>
         <Button className="buttonLogin" block htmlType="submit">
             Login

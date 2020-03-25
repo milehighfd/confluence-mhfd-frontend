@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Layout, Menu, Dropdown, Icon } from 'antd';
 import * as datasets from "../../../Config/datasets";
 import { Redirect } from "react-router-dom";
+import { User } from "../../../Classes/User";
+import { replaceAppUser } from '../../../store/actions/appUser';
 const { SubMenu } = Menu;
 const { Header } = Layout;
 

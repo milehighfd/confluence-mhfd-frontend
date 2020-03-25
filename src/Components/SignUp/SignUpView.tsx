@@ -10,10 +10,10 @@ import { VALIDATION_SIGN_UP } from "../../constants/validation";
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
 
 const roles = [
-  { value: 'MHFD Staff', style: '80px'},
-  { value: 'Consultant / Contractor', style: '115px'},
-  { value: 'Local Government', style: '117px'},
-  { value: 'Other', style: '80px'}
+  { title: 'MHFD Staff', style: '80px', value: 'staff'},
+  { title: 'Consultant / Contractor', style: '115px', value: 'consultant'},
+  { title: 'Local Government', style: '117px', value: 'government_staff'},
+  { title: 'Other', style: '80px', value: 'other'}
 ]
 
 const validationSchema = VALIDATION_SIGN_UP;
@@ -43,11 +43,12 @@ export default () => {
       lastName: '',
       email: '',
       city: '',
-      password: ''
+      password: '',
+      organization: 'organization'
     },
     validationSchema,
-    onSubmit(values: {firstName: string, lastName: string, email: string, city: string, password: string, designation: string, }) {
-      const result = datasets.postData(SERVER.USER, values).then(res => {
+    onSubmit(values: {firstName: string, lastName: string, email: string, city: string, password: string, designation: string, organization: string}) {
+      const result = datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if(res?.token) {
           localStorage.setItem('mfx-token', res.token);
           setRedirect(true);
@@ -73,12 +74,12 @@ export default () => {
         <Row style={{ marginTop: '20px' }}>
         <span className="loginLabels">Define your user role:</span>
           <Col className="signup">
-            {roles.map((role: {value: string, style: string}, index: number) => {
+            {roles.map((role: {value: string, style: string, title: string}, index: number) => {
               return <Button key={index} style={{ width: role.style }} onClick={() => {
                 values.designation = role.value;
                 const auxTitle = role.value;
                 setTitle(auxTitle);
-              }}>{role.value}</Button>
+              }}>{role.title}</Button>
             })}
           </Col>
         </Row>

@@ -27,59 +27,44 @@ import ProjectAcquisitionForm from './Components/ProjectForms/ProjectAcquisition
 import MapView from './Components/Map/MapView';
 import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenanceForm';
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
-
-function App({ appUser }: any) {
-  // return <Switch>
-  //     <Route path={`/login`} component={LoginContainer} />
-  //     <Route path={'/404'} component={Unauthorized} />
-
-  //     {appUser.role === 'admin' && <Route path={`/map`} component={MapContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/navbar`} component={NavbarContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/reset-password`} component={ResetPasswordContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/sidebar`} component={SidebarContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/sign-up`} component={SignUpContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/user`} component={UserContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/new-project-form`} component={NewProjectFormContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/new-project-types`} component={NewProjectTypesContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/filter-projects`} component={FiltersProjectContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/work-plan`} component={WorkPlanContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/work-request`} component={WorkRequestContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/profile-view`} component={ProfileContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/detailed-view`} component={DetailedContainer} />}
-  //     {appUser.role === 'admin' && <Route path={`/maptool-view`} component={MapToolContainer} />}
-  //     <Redirect from={'*'} to="/404"/>
-  //   </Switch>
-
-  return (
-    <Switch>
+import * as datasets from "./Config/datasets"
+import { SERVER } from "./Config/Server.config";
+import { User } from './Classes/User';
+function App({ appUser, replaceAppUser }: any) {
+  if(datasets.getToken() && appUser.email === '') {
+    const result = datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
+      if (res?._id) {
+        replaceAppUser(res);
+      }
+    });
+  }
+  return <Switch>
       <Route path={`/login`} component={LoginContainer} />
-      <Route path={`/map`} component={MapView} />
-      <Route path={`/navbar`} component={NavbarContainer} />
+      <Route path={`/sign-up`} component={SignUpContainer} />
+      <Route path={'/404'} component={Unauthorized} />
       <Route path={`/reset-password`} component={ResetPasswordContainer} />
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
-      <Route path={`/sidebar`} component={SidebarContainer} />
-      <Route path={`/sign-up`} component={SignUpContainer} />
-      <Route path={`/user`} component={UserContainer} />
-      <Route path={`/new-project-form`} component={NewProjectFormContainer} />
-      {/* <Route path={`/project-debris`} component={ProjectDebrisContainer} /> */}
-      <Route path={`/project-capital`} component={ProjectCapitalForm} />
-      <Route path={`/project-acquisition`} component={ProjectAcquisitionForm} />
-      <Route path={`/project-special`} component={ProjectSpecialForm} />
-      <Route path={`/project-maintenance`} component={ProjectMaintenanceForm} />
-      <Route path={`/project-study`} component={ProjectStudyForm} />
-      {/* <Route path={`/project-master-plan-only`} component={ProjectStudyMasterContainer} />
-      <Route path={`/project-fhad`} component={ProjectStudyFHADContainer} /> */}
-      <Route path={`/new-project-types`} component={NewProjectTypesContainer} />
-      <Route path={`/filter-projects`} component={FiltersProjectContainer} />
-      <Route path={`/work-plan`} component={WorkPlanContainer} />
-      <Route path={`/work-request`} component={WorkRequestContainer} />
-      <Route path={`/profile-view`} component={ProfileContainer} />
-      <Route path={`/detailed-view`} component={DetailedContainer} />
-      <Route path={`/alert-view`} component={AlertContainer} />
+      {datasets.getToken() && <Route path={`/profile-view`} component={ProfileContainer} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/map`} component={MapView} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/navbar`} component={NavbarContainer} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/sidebar`} component={SidebarContainer} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/user`} component={UserContainer} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/new-project-form`} component={NewProjectFormContainer} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-capital`} component={ProjectCapitalForm} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-acquisition`} component={ProjectAcquisitionForm} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-special`} component={ProjectSpecialForm} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-maintenance`} component={ProjectMaintenanceForm} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-study`} component={ProjectStudyForm} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/new-project-types`} component={NewProjectTypesContainer} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/filter-projects`} component={FiltersProjectContainer} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/work-plan`} component={WorkPlanContainer} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/work-request`} component={WorkRequestContainer} />}
+
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/detailed-view`} component={DetailedContainer} />}
+      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/alert-view`} component={AlertContainer} />}
       <Route path={`/`} component={Unauthorized} />
-    </Switch>
-  );
+  </Switch>
+
 }
 
 
