@@ -20,7 +20,7 @@ export default (props: any) => {
             hoverable
             style={{ width: '100%' }}
             cover={
-                props.data.mainImage ? <img alt="example" src={props.data.mainImage} /> : <img alt="example" src="/Icons/eje.png" />
+                props.data.mainImage ? <img alt="example" src={props.data.mainImage} height="122px" /> : <img alt="example" src="/Icons/eje.png" />
             }
         >
             <h4>{props.data.requestName}</h4>
