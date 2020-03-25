@@ -158,7 +158,7 @@ export default ({ menu, user, index, pos, saveUser, handleDropdowns, deleteUser 
                 </Row>
                 </div>
                 <div className="user-footer">
-                {values.activated ? <Button className="btn-d" onClick={() => deleteUser(values._id)}>Delete</Button> : ''}
+                {values.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : ''}
                 <Button className="btn-s" block htmlType="submit" >Save</Button>
                 </div>
             </Form>
