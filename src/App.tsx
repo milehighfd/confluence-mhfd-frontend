@@ -42,11 +42,11 @@ function App({ appUser, replaceAppUser }: any) {
       <Route path={`/login`} component={LoginContainer} />
       <Route path={`/sign-up`} component={SignUpContainer} />
       <Route path={'/404'} component={Unauthorized} />
+      <Route path={`/reset-password`} component={ResetPasswordContainer} />
+      <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
       {datasets.getToken() && <Route path={`/profile-view`} component={ProfileContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/map`} component={MapView} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/navbar`} component={NavbarContainer} />}
-      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/reset-password`} component={ResetPasswordContainer} />}
-      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/sidebar`} component={SidebarContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/user`} component={UserContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/new-project-form`} component={NewProjectFormContainer} />}

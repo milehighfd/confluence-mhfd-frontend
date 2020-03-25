@@ -85,22 +85,18 @@ export default ({ saveUserActivated, saveUserPending } : {saveUserActivated: Fun
     setUserActivatedState(user);
   }
 
-  const saveUserActivatedState = (approved : boolean) => {
+  const saveUserState = (approved : boolean) => {
     const user = [...userActivatedState];
-    if(!approved) {
-      setOptionUserActivated(options);
-      getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
-      getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
-    }
+    setOptionUserActivated(options);
+    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
+    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
   }
 
-  const saveUserPendingState = (approved : boolean) => {
-    if(approved) {
-      setOptionUserActivated(options);
-      getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
-      getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
-    }
-  }
+  // const saveUserPendingState = (approved : boolean) => {
+  //   setOptionUserActivated(options);
+  //   getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS, setTotalUsersActivated);
+  //   getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false', setTotalUsersPending);
+  // }
 
   const urlOptions = (options: {name: string, organization: string, serviceArea: string, designation: string}) => {
     return 'name=' + (options.name ? options.name : '') + '&organization=' + (options.organization ? options.organization : '') 
@@ -109,7 +105,6 @@ export default ({ saveUserActivated, saveUserPending } : {saveUserActivated: Fun
 
   const searchUserActivated = (option: {name: string, organization: string, serviceArea: string, designation: string}) => {
     const searchOption = urlOptions(option);
-    console.log(searchOption);
     getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS + '?' + searchOption, setTotalUsersActivated);
   }
 
@@ -151,6 +146,7 @@ export default ({ saveUserActivated, saveUserPending } : {saveUserActivated: Fun
                                     user={user}
                                     index={index}
                                     pos={aprPos}
+                                    saveUser={saveUserState}
                                     handleDropdowns={handleDropdowns}
                                     deleteUser={deleteUserActivated} />
                                 </div>
@@ -175,6 +171,7 @@ export default ({ saveUserActivated, saveUserPending } : {saveUserActivated: Fun
                                     user={user}
                                     index={index}
                                     pos={pndPos}
+                                    saveUser={saveUserState}
                                     handleDropdowns={handleDropdowns}
                                     deleteUser={deleteUserActivated} />
                                 </div>

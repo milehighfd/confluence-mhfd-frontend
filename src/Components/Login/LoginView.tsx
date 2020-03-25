@@ -72,7 +72,9 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
           Sign-Up
           </a>
         </Link>
+        <Link to={'/reset-password'}>
           <a href="" style={{ float: 'right', color: '#11093C'}}>Forgot Password?</a>
+        </Link> 
       </div>
         <Button className="buttonLogin" block htmlType="submit">
             Login

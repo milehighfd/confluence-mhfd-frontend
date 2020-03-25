@@ -43,11 +43,12 @@ export default () => {
       lastName: '',
       email: '',
       city: '',
-      password: ''
+      password: '',
+      organization: 'organization'
     },
     validationSchema,
-    onSubmit(values: {firstName: string, lastName: string, email: string, city: string, password: string, designation: string, }) {
-      const result = datasets.postData(SERVER.USER, values).then(res => {
+    onSubmit(values: {firstName: string, lastName: string, email: string, city: string, password: string, designation: string, organization: string}) {
+      const result = datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if(res?.token) {
           localStorage.setItem('mfx-token', res.token);
           setRedirect(true);

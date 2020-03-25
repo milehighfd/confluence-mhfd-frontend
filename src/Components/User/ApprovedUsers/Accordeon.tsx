@@ -10,7 +10,7 @@ import { SERVER } from '../../../Config/Server.config';
 const { Panel } = Collapse;
 const initialValues = USER;
 const validationSchema = VALIDATION_USER;
-export default ({ menu, user, index, pos,  handleDropdowns, deleteUser } : any) => {
+export default ({ menu, user, index, pos, saveUser, handleDropdowns, deleteUser } : any) => {
     const [switchTo, setSwitchTo] = useState<boolean>(user.activated);
     const [designation, setDesignation] = useState<string>(user.designation);
     initialValues._id = user._id;
@@ -21,7 +21,7 @@ export default ({ menu, user, index, pos,  handleDropdowns, deleteUser } : any) 
     initialValues.name = user.name;
     initialValues.designation = user.designation;
     initialValues.email = user.email;
-    initialValues.city = user.city;
+    initialValues.city = user.city ? user.city : 'city';
     initialValues.county = user.county ? user.county : 'County';
     initialValues.serviceArea = user.serviceArea ? user.serviceArea : 'serviceArea';
     const { values, handleSubmit, handleChange } = useFormik({
@@ -29,9 +29,9 @@ export default ({ menu, user, index, pos,  handleDropdowns, deleteUser } : any) 
         validationSchema,
         onSubmit(values: {_id: string, firstName: string, lastName: string, activated: boolean, organization: string, name: string, designation: string, email: string, city: string, county: string, serviceArea: string}) {
             values.designation = designation;
-            const result = datasets.putData(SERVER.EDIT_USER + '/' + values._id, values, datasets.getToken()).then( res => {
+            const result = datasets.putData(SERVER.EDIT_USER + '/' + user._id, values, datasets.getToken()).then( res => {
                 if (res?._id) {
-                    
+                    saveUser();
                 }
             });
         }
@@ -39,6 +39,7 @@ export default ({ menu, user, index, pos,  handleDropdowns, deleteUser } : any) 
 
     const handleSwitchButton = (checked : boolean) => {
         setSwitchTo(checked);
+        deleteUser(user._id);
     }
 
     const genExtra = () => (
@@ -56,10 +57,11 @@ export default ({ menu, user, index, pos,  handleDropdowns, deleteUser } : any) 
         </Row>
       );
     return (
-        <>
-        <Form onSubmit={handleSubmit}>
-            <Collapse accordion className="user-tab">
-            <Panel header="" key="1" extra={genExtra()}>
+    <>
+    <Collapse accordion className="user-tab">
+            
+        <Panel header="" key="1" extra={genExtra()}>
+            <Form onSubmit={handleSubmit}>
                 <div className="gutter-example">
                 <h3>PROFILE</h3>
                 <Row gutter={16}>
@@ -157,12 +159,12 @@ export default ({ menu, user, index, pos,  handleDropdowns, deleteUser } : any) 
                 </Row>
                 </div>
                 <div className="user-footer">
-                {values.activated ? <Button className="btn-d" onClick={() => deleteUser(values._id)}>Delete</Button> : ''}
+                {values.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : ''}
                 <Button className="btn-s" block htmlType="submit" >Save</Button>
                 </div>
-            </Panel>
-            </Collapse>
-        </Form>
-        </>
+            </Form>
+        </Panel>
+    </Collapse>
+    </>
     )
 }

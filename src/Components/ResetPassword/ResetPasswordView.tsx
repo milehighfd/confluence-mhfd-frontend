@@ -1,65 +1,27 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Layout, Row, Col, Form, Icon, Input, Button, } from 'antd';
 import { Carousel } from 'antd';
+import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
+import { Redirect } from "react-router-dom";
 
 export default () => {
+  const [redirect, setRedirect] = useState(false);
+  if (redirect) {
+    return <Redirect to="/login" />
+  }
   return <Layout style={{ background: '#fff' }}>
     <Row>
-      <Col span={13}>
-          <div className="logo-white"
-              style={{backgroundImage: 'url(Icons/logo-white.svg)'}}>
-              <p>Protecting People, Property, and our Environment.</p>
-          </div>
-          <div className="contact01">
-              <div className="icons-list">
-                <a href=""><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
-                <a href=""><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
-                <a href=""><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
-              </div>
-              <div className="social01">
-                <ul>
-                  <li><a href="">Contact</a></li>
-                  <span>|</span>
-                  <li><a href="">©2020 Mile High Flood District</a></li>
-                  <span>|</span>
-                  <li><a href="">Privacy Policy</a></li>
-                </ul>
-              </div>
-          </div>
-      <Carousel autoplay>
-            <div>
-              <img src="/Icons/banner.png" alt=""/>
-              <div className="textContent">
-                <h2>What can I do with Confluence?</h2>
-                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-              </div>
-            </div>
-            <div>
-            <img src="/Icons/banner.png" alt=""/>
-             <div className="textContent">
-                <h2>What can I do with Confluence?</h2>
-                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-              </div>
-            </div>
-            <div>
-            <img src="/Icons/banner.png" alt=""/>
-              <div className="textContent">
-                <h2>What can I do with Confluence?</h2>
-                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-              </div>
-            </div>
-      </Carousel>
-      </Col>
+    <CarouselAutoPlayView />
       <Col span={11} className="login-hh">
       <div className="login-step01">
         <div>
         <Row className="returnText">
           <Col span={12}>
-          <Button shape="circle" icon="arrow-left" /><span>Back</span>
+          <Button shape="circle" icon="arrow-left" onClick={ () => setRedirect(true)} /><span>Back</span>
           </Col>
-          <Col span={12} style={{ textAlign: 'right' }}>
+          {/* <Col span={12} style={{ textAlign: 'right' }}>
           <span>Continue as Guest</span><Button shape="circle" icon="arrow-right" />
-          </Col>
+          </Col> */}
         </Row>
         </div>
         <Form style={{ width: '420px' }}  className="login-form">

@@ -23,6 +23,7 @@ export const SERVER = (function () {
     const CHANGE_USER_STATE = 'change-user-state';
     const EDIT_USER = 'edit-user';
     const FILTER_PROJECT = 'filters';
+    const SIGN_UP = 'signup';
     return {
         URL_BASE: URL_BASE.BASE,
         USER: `${URL_BASE.BASE}/${USER}`,
@@ -43,5 +44,6 @@ export const SERVER = (function () {
         LIST_USERS: `${URL_BASE.BASE}/${ADMIN}/${LIST}`,
         CHANGE_USER_STATE: `${URL_BASE.BASE}/${ADMIN}/${CHANGE_USER_STATE}`,
         EDIT_USER: `${URL_BASE.BASE}/${ADMIN}/${EDIT_USER}`,
+        SIGN_UP: `${URL_BASE.BASE}/${USER}/${SIGN_UP}`,
     }
 })();
