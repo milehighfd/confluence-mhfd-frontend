@@ -8,20 +8,20 @@ import AccordionDisplayView from "./AccordionDisplay/AccordionDisplayView";
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
-export default ({ tags, setTags, totalElements, type, listDescription, cardInformation, accordionRow }: any) => {
+export default ({ filterNames, setFilterNames, totalElements, type, listDescription, cardInformation, accordionRow }: any) => {
 
-    const deleteTag = (index: number) => {
-        const newTags = [...tags];
-        newTags.splice(index, 1);
-        setTags(newTags);
+    const deleteFilter = (index: number) => {
+        const newFilters = [...filterNames];
+        newFilters.splice(index, 1);
+        setFilterNames(newFilters);
     }
 
     return <>
         <div className="hastag">
             <h6> Showing {totalElements} {type}:</h6>
             <div>
-                {tags.map((data: String, index: number) => {
-                    return <Tag key={index} closable onClose={() => deleteTag(index)}>
+                {filterNames.map((data: String, index: number) => {
+                    return <Tag key={index} closable onClose={() => deleteFilter(index)}>
                         {data}
                     </Tag>
                 })}

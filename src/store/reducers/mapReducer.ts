@@ -301,6 +301,7 @@ const initState = {
             coordinates: [-104.99997101031218, 39.84543449508365]
         }
     ],
+    secProjects: [],
     filters: []
 }
 
@@ -361,9 +362,8 @@ const mapReducer = (state = initState, action : any) => {
         case types.FILTER_PROJECT:
             return {
                 ...state,
-                filters: {
-                    ...state.filters
-                }
+                filters: action.data.filters,
+                secProjects: action.data.projects
             }
         default: 
             return state;

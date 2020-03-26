@@ -119,6 +119,16 @@ export const clearCoordinates = () => {
         dispatch({ type: types.CLEAR_COORDINATES });
     }
 }
+
+export const getProjectWithFilters = (filters : any) => {
+    return (dispatch : Function) => {
+        const data = filters?filters:{};
+        datasets.postData(SERVER.FILTER_PROJECT, data, datasets.getToken()).then(projects => {
+            dispatch({ type: types.FILTER_PROJECT, data: { projects, filters }});
+        });
+    } 
+}
+
 export const setProjectByFilter = (projects : Array<any>) => {
     return (dispatch : Function) => {
         dispatch({ type: types.FILTER_PROJECT, projects});

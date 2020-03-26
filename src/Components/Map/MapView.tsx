@@ -71,36 +71,35 @@ const getProjectWithFilters = (url: String, data: any, setProjects: Function, se
 }
 
 
-const MapView = () => {
+const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: any, secProjects: any, getProjectWithFilters : Function}) => {
 
   const [listDescription, setListDescription] = useState(false);
-  const filters = {};
-  const [listFilters, setListFilters] = useState<any>(filters);
-  const projects: Array<any> = [];
-  
-  var data = {};
-  const [listProjects, setListProjects] = useState<any>(projects);
-  const [totalProjects, setTotalProjects] = useState<number>(0);
-  const [dataFilters, setDataFilters] = useState<any>(data);  
   const [toggleFilters, setToggleFilters] = useState(false);
-  const [tags, setTags] = useState<Array<string>>([]);
+  const [filterNames, setFilterNames] = useState<Array<string>>([]);
 
   useEffect(() => {
-    getProjectWithFilters(SERVER.FILTER_PROJECT, data, setListProjects, setTotalProjects);
+    getProjectWithFilters();
   }, []);
 
-  const handleOnSubmit = (filters : any) => {
-    setListFilters(filters);
-    setDataFilters(filters);
-    getCurrentFilters(filters);
-    // getProjectWithFilters(SERVER.FILTER_PROJECT, filters, setListProjects, setTotalProjects);
+  useEffect(() => {
+    if(filters) setCurrentFilters(filters);
+  }, [filters]);
+
+  const handleOnSearch = (data : string) => {
+    const requestData = { requestName: '' };
+    requestData.requestName = data;
+    getProjectWithFilters(data);
   }
 
-  const getCurrentFilters = (filters : any) => {
-    const values : Array<string> = Object.values(filters);
+  const handleOnSubmit = (filtersData : any) => {
+    getProjectWithFilters(filtersData);
+  }
+
+  const setCurrentFilters = (filtersData : any) => {
+    const values : Array<string> = Object.values(filtersData);
     const filterTypes : any = FILTER_TYPES;
-    const tagNames = values.map((value : string) => filterTypes[value]);
-    setTags(tagNames);
+    const getFilterNames = values.map((value : string) => filterTypes[value]);
+    setFilterNames(getFilterNames);
   }
 
   return <>
@@ -138,12 +137,7 @@ const MapView = () => {
           <Col span={16}>
             <Search
               placeholder="Search..."
-              onSearch={value => {
-                console.log(value)
-                dataFilters.requestName = value;
-                setDataFilters(dataFilters);
-                getProjectWithFilters(SERVER.FILTER_PROJECT, dataFilters, setListProjects, setTotalProjects);
-              }}
+              onSearch={handleOnSearch}
               style={{ width: 200 }}
             />
           </Col>
@@ -164,8 +158,8 @@ const MapView = () => {
         <Tabs defaultActiveKey="1" className="tabs-map">
           <TabPane tab="Problems" key="1">
             <GenericTabView 
-                  tags={tags}
-                  setTags={setTags}
+                  filterNames={filterNames}
+                  setFilterNames={setFilterNames}
                   listDescription={listDescription} 
                   type="Problems" 
                   totalElements={cardInformationProblems.length} 
@@ -175,22 +169,22 @@ const MapView = () => {
 
           <TabPane tab="Projects" key="2">
             <GenericTabView 
-                  tags={tags}
-                  setTags={setTags}
+                  filterNames={filterNames}
+                  setFilterNames={setFilterNames}
                   listDescription={listDescription} 
                   type="Projects" 
-                  totalElements={listProjects?listProjects.length:0}
-                  cardInformation={listProjects} 
+                  totalElements={secProjects?secProjects.length:0}
+                  cardInformation={secProjects?secProjects:[]} 
                   accordionRow={accordionRow} 
-                  listFilters={listFilters} />
+                  listFilters={filters} />
           </TabPane>
         </Tabs> 
           :
         <FiltersProjectView 
-            tags={tags} 
+            filterNames={filterNames} 
             setToggleFilters={setToggleFilters}
             handleOnSubmit={handleOnSubmit}
-            setTags={setTags} />
+            setFilterNames={setFilterNames} />
       }
     </div>
   </>

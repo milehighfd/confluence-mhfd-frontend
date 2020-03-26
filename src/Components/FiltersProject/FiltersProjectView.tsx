@@ -33,13 +33,13 @@ const menu = (
   </Menu>
 );
 
-const FiltersHeader = ({ tags, deleteTag, totalElements, type } : any) => {
+const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any) => {
   return (
       <div className="hastag">
           <h6> Showing {totalElements} {type}:</h6>
           <div>
-              {tags.map((data: String, index: number) => {
-                  return <Tag key={index} closable onClose={() => deleteTag(index)}>
+              {filterNames.map((data: String, index: number) => {
+                  return <Tag key={index} closable onClose={() => deleteFilter(index)}>
                       {data}
                   </Tag>
               })}
@@ -48,22 +48,22 @@ const FiltersHeader = ({ tags, deleteTag, totalElements, type } : any) => {
   );
 }
 
-export default ({tags, setTags, setToggleFilters, handleOnSubmit} : {tags : any, setTags : any, setToggleFilters: Function, handleOnSubmit: Function}) => {
-  let selectedTags: Object = {};
+export default ({filterNames, setFilterNames, setToggleFilters, handleOnSubmit} : {filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function}) => {
+  let selectedFilters: Object = {};
 
   const handleRadioGroup = (event : any, id : string) => {
-    selectedTags = { ...selectedTags, [id]: event.target.value };
+    selectedFilters = { ...selectedFilters, [id]: event.target.value };
   }
 
   const handleAppliedChanges = () => {
     setToggleFilters(false);
-    handleOnSubmit(selectedTags);
+    handleOnSubmit(selectedFilters);
   }
 
-  const deleteTag = (index: number) => {
-    const newTags = [...tags];
-    newTags.splice(index, 1);
-    setTags(newTags);
+  const deleteFilter = (index: number) => {
+    const newFilters = [...filterNames];
+    newFilters.splice(index, 1);
+    setFilterNames(newFilters);
   }
 
   const getFilterBody = (trigger : string) => {
@@ -85,8 +85,8 @@ export default ({tags, setTags, setToggleFilters, handleOnSubmit} : {tags : any,
         return (
           <TabPane tab={value} key={'' + index}>
             <FiltersHeader
-              tags={tags}
-              deleteTag={deleteTag}
+              filterNames={filterNames}
+              deleteFilter={deleteFilter}
               totalElements={3}
               type={value} />
             {getFilterBody(value)}

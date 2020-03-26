@@ -16,6 +16,8 @@ export type MapHOCProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
+    secProjects: any,
+    filters: any,
     saveNewCapitalForm: Function,
     saveNewStudyForm: Function,
     createNewProjectForm: Function,
@@ -26,6 +28,7 @@ export type MapHOCProps = {
     setRouteRedirect: Function,
     error: string,
     clearErrorMessage: Function,
+    getProjectWithFilters: Function,
     filterProjects: Function
 }
 
