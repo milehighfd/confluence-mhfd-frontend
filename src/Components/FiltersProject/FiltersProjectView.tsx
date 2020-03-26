@@ -23,7 +23,7 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any)
   );
 }
 
-export default ({filterNames, setFilterNames, setToggleFilters, handleOnSubmit} : {filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function}) => {
+export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit} : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function}) => {
   let selectedFilters: Object = {};
 
   const handleRadioGroup = (event : any, id : string) => {
@@ -61,7 +61,7 @@ export default ({filterNames, setFilterNames, setToggleFilters, handleOnSubmit} 
   }
 
   return <>
-    <Tabs className="tabs-map">
+    <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map">
       {tabs.map((value: string, index: number) => {
         return (
           <TabPane tab={value} key={'' + index}>

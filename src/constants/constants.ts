@@ -602,6 +602,19 @@ export const FILTER_TYPES = {
   '[5000000, 10000000]': '5M-10M',
   '[0, 5000000]': '0-5M',
 
+  approved: 'Approved',
+  idle: 'Idle',
+  initiated: 'Initiated',
+  preliminaryDesign: 'Preliminary Design',
+  finalDesign: 'Final Design',
+  construction: 'Construction',
+  monitoring: 'Monitoring',
+
+  hydrology: 'Hydrology',
+  floodplain: 'Floodplain',
+  alternatives: 'Alternatives',
+  conceptual: 'Conceptual',
+
   '2015': 2015,
   '2017': 2017,
   '2019': 2019,

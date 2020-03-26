@@ -66,6 +66,7 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
   const [listDescription, setListDescription] = useState(false);
   const [toggleFilters, setToggleFilters] = useState(false);
   const [filterNames, setFilterNames] = useState<Array<string>>([]);
+  const [tabPosition, setTabPosition] = useState('0');
 
   useEffect(() => {
     getProjectWithFilters();
@@ -85,8 +86,21 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
     getProjectWithFilters(filtersData);
   }
 
+  const handleToggle = () => {
+    // Force coded cause' components tab doesn't exists on MapView
+    if(tabPosition === "2") setTabPosition("0");
+    setToggleFilters(!toggleFilters);
+  }
+
   const setCurrentFilters = (filtersData : any) => {
-    const values : Array<string> = Object.values(filtersData);
+    const values : Array<string> = [];
+    for (const key in filtersData) {
+      if(Array.isArray(filtersData[key])) {
+        filtersData[key].map((value : string) => values.push(value));
+      } else {
+        values.push(filtersData[key]);
+      }
+    }
     const filterTypes : any = FILTER_TYPES;
     const getFilterNames = values.map((value : string) => filterTypes[value]);
     setFilterNames(getFilterNames);
@@ -137,16 +151,16 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
                 Sort by Cost <img src="Icons/icon-14.svg" alt="" />
               </a>
             </Dropdown>
-            <Button onClick={() => setToggleFilters(!toggleFilters)}>
-              <img src="Icons/icon-29.svg" alt="" /> Filters (4)
-              </Button>
+            <Button onClick={handleToggle}>
+              <img src="Icons/icon-29.svg" alt="" /> Filters ({filterNames.length})
+            </Button>
           </Col>
         </Row>
       </div>
 
       {!toggleFilters ? 
-        <Tabs defaultActiveKey="1" className="tabs-map">
-          <TabPane tab="Problems" key="1">
+        <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map">
+          <TabPane tab="Problems" key="0">
             <GenericTabView 
                   filterNames={filterNames}
                   setFilterNames={setFilterNames}
@@ -157,7 +171,7 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
                   accordionRow={accordionRow} />
           </TabPane>
 
-          <TabPane tab="Projects" key="2">
+          <TabPane tab="Projects" key="1">
             <GenericTabView 
                   filterNames={filterNames}
                   setFilterNames={setFilterNames}
@@ -171,6 +185,8 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
         </Tabs> 
           :
         <FiltersProjectView 
+            tabPosition={tabPosition}
+            setTabPosition={setTabPosition}
             filterNames={filterNames} 
             setToggleFilters={setToggleFilters}
             handleOnSubmit={handleOnSubmit}
