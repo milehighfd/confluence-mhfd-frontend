@@ -1,6 +1,8 @@
 import React from 'react';
 import { Row, Col, Button, Tag, Checkbox, Select, Radio} from 'antd';
 
+import { PROJECT_TYPE, ESTIMATED_COST, START_YEAR, COMPLETED_YEAR, CAPITAL_GOAL, STUDY_GOAL, MHFD_DOLLAR_REQUEST, WORK_PLAN_YEAR } from '../../constants/constants';
+
 const { Option } = Select;
 
 export const ProblemsFilter = () => (
@@ -120,21 +122,21 @@ export const ProjectsFilter = ({ handleRadioGroup } : any) => (
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Project type <img src="Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group id="onChangeProjectType" onChange={(e) => handleRadioGroup(e)}>
-                    <p><Radio value={'projectType,capital'}>Capital</Radio> <span className="filt-s">13%</span></p>
-                    <p><Radio value={'projectType,maintenance'}>Maintenance</Radio> <span className="filt-s">8%</span></p>
-                    <p><Radio value={'projectType,study'}>Study</Radio> <span className="filt-s">19%</span></p>
-                    <p><Radio value={'projectType,propertyAcquisition'}>Property Acquisition</Radio> <span className="filt-s">25%</span></p>
-                    <p><Radio value={'projectType,special'}>Special</Radio> <span className="filt-s">35%</span></p>
+                <Radio.Group id="onChangeProjectType" onChange={(e) => handleRadioGroup(e, PROJECT_TYPE)}>
+                    <p><Radio value={'capital'}>Capital</Radio> <span className="filt-s">13%</span></p>
+                    <p><Radio value={'maintenance'}>Maintenance</Radio> <span className="filt-s">8%</span></p>
+                    <p><Radio value={'study'}>Study</Radio> <span className="filt-s">19%</span></p>
+                    <p><Radio value={'propertyAcquisition'}>Property Acquisition</Radio> <span className="filt-s">25%</span></p>
+                    <p><Radio value={'special'}>Special</Radio> <span className="filt-s">35%</span></p>
                 </Radio.Group>
             </Col>
             <Col span={12}>
                 <h5>Estimated total cost <img src="Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group id="onChangeEstimatedCost" onChange={(e) => handleRadioGroup(e)}>
-                    <p><Radio value={'estimatedCost,20'}>20M-25M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'estimatedCost,15'}>15M-20M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'estimatedCost,5'}>5M-10M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'estimatedCost,0'}>0 - 5M</Radio> <span className="filt-s">30</span></p>
+                <Radio.Group id="onChangeEstimatedCost" onChange={(e) => handleRadioGroup(e, ESTIMATED_COST)}>
+                    <p><Radio value={'20'}>20M-25M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'15'}>15M-20M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'5'}>5M-10M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'0'}>0 - 5M</Radio> <span className="filt-s">30</span></p>
                 </Radio.Group>
             </Col>
         </Row>
@@ -166,22 +168,22 @@ export const ProjectsFilter = ({ handleRadioGroup } : any) => (
         <Row className="filt-00">
             <Col span={12}>
                 <h5>Start year <img src="Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group id="onChangeStartYear" onChange={(e) => handleRadioGroup(e)}>
-                    <p><Radio value={'startyear,2015'}>2015</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'startyear,2017'}>2017</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'startyear,2019'}>2019</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'startyear,2021'}>2021</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'startyear,2023'}>2023</Radio> <span className="filt-s">8</span></p>
+                <Radio.Group id="onChangeStartYear" onChange={(e) => handleRadioGroup(e, START_YEAR)}>
+                    <p><Radio value={'2015'}>2015</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2017'}>2017</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2019'}>2019</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2021'}>2021</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2023'}>2023</Radio> <span className="filt-s">8</span></p>
                 </Radio.Group>
             </Col>
             <Col span={12}>
                 <h5>Completed year <img src="Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group id="onChangeCompletedYear" onChange={(e) => handleRadioGroup(e)}>
-                    <p><Radio value={'completedyear,2015'}>2015</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'completedyear,2017'}>2017</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'completedyear,2019'}>2019</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'completedyear,2021'}>2021</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'completedyear,2023'}>2023</Radio> <span className="filt-s">8</span></p>
+                <Radio.Group id="onChangeCompletedYear" onChange={(e) => handleRadioGroup(e, COMPLETED_YEAR)}>
+                    <p><Radio value={'2015'}>2015</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2017'}>2017</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2019'}>2019</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2021'}>2021</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2023'}>2023</Radio> <span className="filt-s">8</span></p>
                 </Radio.Group>
             </Col>
         </Row>
@@ -189,24 +191,24 @@ export const ProjectsFilter = ({ handleRadioGroup } : any) => (
         <Row className="filt-00">
             <Col span={12}>
                 <h5>Capital Goal <img src="Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group id="onChangeCapitalGoal" onChange={(e) => handleRadioGroup(e)}>
-                    <p><Radio value={'capitalgoal,reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'capitalgoal,createSharedUsePathsRecreation'}>Shared-Use Paths and Recreation</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'capitalgoal,includePermanentWaterQualityBMP'}>Include Permanent Water Quality BMP</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'capitalgoal,streamBankBedStabilization'}>Stream Bank or Bed Stabilization</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'capitalgoal,vegetationEnhancements'}>Vegetation Enhancements</Radio> <span className="filt-s">8</span></p>
+                <Radio.Group id="onChangeCapitalGoal" onChange={(e) => handleRadioGroup(e, CAPITAL_GOAL)}>
+                    <p><Radio value={'reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'createSharedUsePathsRecreation'}>Shared-Use Paths and Recreation</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'includePermanentWaterQualityBMP'}>Include Permanent Water Quality BMP</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'streamBankBedStabilization'}>Stream Bank or Bed Stabilization</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'vegetationEnhancements'}>Vegetation Enhancements</Radio> <span className="filt-s">8</span></p>
                 </Radio.Group>
             </Col>
             <Col span={12}>
                 <h5>Study goal - Master plan & Fhad <img src="Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group id="onChangeStudyGoal" onChange={(e) => handleRadioGroup(e)}>
-                    <p><Radio value={'studyGoal,reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'studyGoal,stabilization'}>Stabilization</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'studyGoal,eliminateRoadwayOvertopping'}>Eliminate Roadway Overstopping</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'studyGoal,increasedConveyance'}>Increased Conveyance</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'studyGoal,peakFlowReduction'}>Peak Flow Reduction</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'studyGoal,waterQuality'}>Water Quality</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'studyGoal,guideDevelopment'}>Guide Development</Radio> <span className="filt-s">8</span></p>
+                <Radio.Group id="onChangeStudyGoal" onChange={(e) => handleRadioGroup(e, STUDY_GOAL)}>
+                    <p><Radio value={'reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'stabilization'}>Stabilization</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'eliminateRoadwayOvertopping'}>Eliminate Roadway Overstopping</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'increasedConveyance'}>Increased Conveyance</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'peakFlowReduction'}>Peak Flow Reduction</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'waterQuality'}>Water Quality</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'guideDevelopment'}>Guide Development</Radio> <span className="filt-s">8</span></p>
                 </Radio.Group>
             </Col>
         </Row>
@@ -214,16 +216,16 @@ export const ProjectsFilter = ({ handleRadioGroup } : any) => (
         <Row className="filt-00">
             <Col span={12}>
                 <h5>MHFD Dollars Allocated <img src="Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group id="onChangeMhfdDollars" onChange={(e) => handleRadioGroup(e)}>
-                    <p><Radio value={'mhfdDollarRequest,0'}>0-5M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'mhfdDollarRequest,5'}>5M-10M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'mhfdDollarRequest,10'}>10M-15M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'mhfdDollarRequest,15'}>15M-20M</Radio> <span className="filt-s">8</span></p>
+                <Radio.Group id="onChangeMhfdDollars" onChange={(e) => handleRadioGroup(e, MHFD_DOLLAR_REQUEST)}>
+                    <p><Radio value={'0'}>0-5M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'5'}>5M-10M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'10'}>10M-15M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'15'}>15M-20M</Radio> <span className="filt-s">8</span></p>
                 </Radio.Group>
             </Col>
             <Col span={12}>
                 <h5>Work Plan Year <img src="Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group id="onChangeWorkPlanYear" onChange={(e) => handleRadioGroup(e)}>
+                <Radio.Group id="onChangeWorkPlanYear" onChange={(e) => handleRadioGroup(e, WORK_PLAN_YEAR)}>
                     <p><Radio value={2015}>2015</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={2017}>2017</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={2019}>2019</Radio> <span className="filt-s">8</span></p>

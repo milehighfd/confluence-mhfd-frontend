@@ -13,6 +13,8 @@ import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
+import { FILTER_TYPES } from '../../constants/constants';
+
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -81,7 +83,7 @@ const MapView = () => {
   const [totalProjects, setTotalProjects] = useState<number>(0);
   const [dataFilters, setDataFilters] = useState<any>(data);  
   const [toggleFilters, setToggleFilters] = useState(false);
-  const [tags, setTags] = useState(['$600K - $1.2M', 'Active', 'Stream Restoration', 'Maintenance', 'Westminster', 'Components']);
+  const [tags, setTags] = useState<Array<string>>([]);
 
   useEffect(() => {
     getProjectWithFilters(SERVER.FILTER_PROJECT, data, setListProjects, setTotalProjects);
@@ -90,7 +92,15 @@ const MapView = () => {
   const handleOnSubmit = (filters : any) => {
     setListFilters(filters);
     setDataFilters(filters);
-    getProjectWithFilters(SERVER.FILTER_PROJECT, filters, setListProjects, setTotalProjects);
+    getCurrentFilters(filters);
+    // getProjectWithFilters(SERVER.FILTER_PROJECT, filters, setListProjects, setTotalProjects);
+  }
+
+  const getCurrentFilters = (filters : any) => {
+    const values : Array<string> = Object.values(filters);
+    const filterTypes : any = FILTER_TYPES;
+    const tagNames = values.map((value : string) => filterTypes[value]);
+    setTags(tagNames);
   }
 
   return <>
@@ -178,7 +188,6 @@ const MapView = () => {
           :
         <FiltersProjectView 
             tags={tags} 
-            listFilters={listFilters}
             setToggleFilters={setToggleFilters}
             handleOnSubmit={handleOnSubmit}
             setTags={setTags} />

@@ -48,22 +48,16 @@ const FiltersHeader = ({ tags, deleteTag, totalElements, type } : any) => {
   );
 }
 
-export default ({tags, setTags, listFilters, setToggleFilters, handleOnSubmit} : {tags : any, setTags : any, listFilters: any, setToggleFilters: Function, handleOnSubmit: Function}) => {
-  const opciones: Array<string> = [];
+export default ({tags, setTags, setToggleFilters, handleOnSubmit} : {tags : any, setTags : any, setToggleFilters: Function, handleOnSubmit: Function}) => {
+  let selectedTags: Object = {};
 
-  const handleRadioGroup = (event : any) => {
-    console.log(event.target.value);
-    opciones.push(event.target.value);
+  const handleRadioGroup = (event : any, id : string) => {
+    selectedTags = { ...selectedTags, [id]: event.target.value };
   }
 
   const handleAppliedChanges = () => {
-    let auxListFilters = {...listFilters};
-    for(const opc of opciones) {
-      let values = opc.split(',');
-      auxListFilters[values[0]] = values[1];
-    }
     setToggleFilters(false);
-    handleOnSubmit(auxListFilters);
+    handleOnSubmit(selectedTags);
   }
 
   const deleteTag = (index: number) => {
@@ -86,11 +80,10 @@ export default ({tags, setTags, listFilters, setToggleFilters, handleOnSubmit} :
   }
 
   return <>
-    <Tabs defaultActiveKey="1" className="tabs-map">
+    <Tabs className="tabs-map">
       {tabs.map((value: string, index: number) => {
-        let itemsLength = 0;
         return (
-          <TabPane tab={value} key={'' + (index-1)}>
+          <TabPane tab={value} key={'' + index}>
             <FiltersHeader
               tags={tags}
               deleteTag={deleteTag}

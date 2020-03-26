@@ -577,6 +577,50 @@ export const NO_MARKER_ERROR = 'Must put the marker on the map to continue.';
 export const FILTER_PROBLEMS_TRIGGER = 'Problems';
 export const FILTER_PROJECTS_TRIGGER = 'Projects';
 export const FILTER_COMPONENTS_TRIGGER = 'Components';
+
+export const PROJECT_TYPE = 'projectType';
+export const ESTIMATED_COST = 'estimatedCost';
+export const START_YEAR = 'startYear';
+export const COMPLETED_YEAR = 'completedYear';
+export const CAPITAL_GOAL = 'capitalGoal';
+export const STUDY_GOAL = 'studyGoal';
+export const MHFD_DOLLAR_REQUEST = 'mhfdDollarRequest';
+export const WORK_PLAN_YEAR = 'workPlanYear';
+
+export const FILTER_TYPES = {
+  capital: 'Capital',
+  maintenance: 'Maintenance',
+  study: 'Study',
+  propertyAcquisition: 'Property Acquisition',
+  special: 'Special',
+
+  '20': '20M-25M',
+  '15': '15M-20M',
+  '10': '10M-15M',
+  '5': '5M-10M',
+  '0': '0-5M',
+
+  '2015': 2015,
+  '2017': 2017,
+  '2019': 2019,
+  '2021': 2021,
+  '2023': 2023,
+
+  reduceFloodRiskStructures: 'Reduce Flood Risk to Structures',
+  createSharedUsePathsRecreation: 'Shared-Use Paths and Recreation',
+  includePermanentWaterQualityBMP: 'Include Permanent Water Quality BMP',
+  streamBankBedStabilization: 'Stream Bank or Bed Stabilization',
+  vegetationEnhancements: 'Vegetation Enhancements',
+
+  stabilization: 'Stabilization',
+  eliminateRoadwayOvertopping: 'Eliminate Roadway Overstopping',
+  increasedConveyance: 'Increased Conveyance',
+  peakFlowReduction: 'Peak Flow Reduction',
+  waterQuality: 'Water Quality',
+  guideDevelopment: 'Guide Development'
+}
+
+
 /* End of Filter Constants */
 
 /*  // Mapbox Custom Styles
