@@ -1,6 +1,3 @@
-import React, { Component } from "react";
-import { url } from "inspector";
-
 
 export const postData = (url: any, body: any, token?: any) => {
     const headers = token ? JSONOptions(token) : JSONDefault();

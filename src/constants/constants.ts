@@ -343,6 +343,28 @@ export const ROLES = [
   { title: 'Other', style: '80px', value: 'other', options: []}
 ]
 
+export const SERVICE_AREA = [
+  "Boulder Service Area",
+  "Cherry Creek Service Area",
+  "North Service Area",
+  "Northeast Service Area",
+  "Sand Creek Service Area",
+  "South Platte River Service Area",
+  "South Service Area",
+  "Southwest Service Area",
+  "West Service Area"
+];
+
+export const COUNTIES = [
+  "Adams",
+  "Arapahoe",
+  "Boulder",
+  "Broomfield",
+  "Denver",
+  "Douglas",
+  "Jefferson"
+];
+
 export const FOOTER_PROJECT_CAPITAL = [
   {
     dataIndex: 'Component',
@@ -566,6 +588,25 @@ export const USER = {
   county: "",
   serviceArea: ""
 }
+export const RADIO_ITEMS = [
+  {
+    value: 'admin', name: 'MHFD Admin'
+  }, {
+    value: 'staff', name: 'MHFD Staff'
+  }, {
+    value: 'government_admin', name: 'Local Government Admin'
+  }, {
+    value: 'government_staff', name: 'Local Government'
+  }, {
+    value: 'consultant', name: 'Consultant / Contractor'
+  }, {
+    value: 'other', name: 'Other'
+  }
+]
+
+export const ROLE = [
+  'admin', 'staff', 'government_admin', 'government_staff', 'consultant', 'other'
+];
 
 /* Unselected Items on Maps Errors */
 export const NO_COMPONENTS_ERROR = 'Must select at least one map component.';

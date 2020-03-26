@@ -1,18 +1,8 @@
 import React, {useState} from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Drawer, Select, Carousel } from 'antd';
+import { Row, Col, Collapse, Dropdown, Menu, Button, Input, Progress, Carousel } from 'antd';
 
-import NavbarView from "../Shared/Navbar/NavbarView";
-import SidebarView from "../Shared/Sidebar/SidebarView";
-import MapFilterView from '../Shared/MapFilter/MapFilterView';
-import MapTypesView from "../Shared/MapTypes/MapTypesView";
 
 const { Panel } = Collapse;
-const ButtonGroup = Button.Group;
-const { Meta } = Card;
-const { TabPane } = Tabs;
-const { Search } = Input;
-const { Option } = Select;
-
 const genExtra = () => (
 <div className="divider">
   <div className="line-01"></div>

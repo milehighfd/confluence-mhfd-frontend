@@ -8,17 +8,17 @@ export default () => {
           </div>
           <div className="contact01">
               <div className="icons-list">
-                <a href=""><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
-                <a href=""><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
-                <a href=""><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
+                <a ><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
+                <a ><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
+                <a ><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
               </div>
               <div className="social01">
                 <ul>
-                  <li><a href="">Contact</a></li>
+                  <li><a >Contact</a></li>
                   <span>|</span>
-                  <li><a href="">©2020 Mile High Flood District</a></li>
+                  <li><a >©2020 Mile High Flood District</a></li>
                   <span>|</span>
-                  <li><a href="">Privacy Policy</a></li>
+                  <li><a >Privacy Policy</a></li>
                 </ul>
               </div>
           </div>

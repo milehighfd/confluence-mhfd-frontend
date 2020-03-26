@@ -11,7 +11,7 @@ export default () => {
     const seg = setTimeout(() => {
         const value = second - 1;
         setSecond(value);
-    }, 1000)
+    }, 1000);
     if(redirect) {
         if(getToken()) {
             return <Redirect to="/profile-view" />

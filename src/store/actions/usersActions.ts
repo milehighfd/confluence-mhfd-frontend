@@ -1,8 +1,6 @@
 import * as types from '../types/usersTypes';
 
 export const saveUserActivated = (users : any) => {
-    
-    
     return (dispatch : Function) => {
         dispatch({ type: types.SAVE_USER_ACTIVATED, users });
     }
