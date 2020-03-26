@@ -81,15 +81,16 @@ const MapView = () => {
   const [totalProjects, setTotalProjects] = useState<number>(0);
   const [dataFilters, setDataFilters] = useState<any>(data);  
   const [toggleFilters, setToggleFilters] = useState(false);
+  const [tags, setTags] = useState(['$600K - $1.2M', 'Active', 'Stream Restoration', 'Maintenance', 'Westminster', 'Components']);
 
   useEffect(() => {
     getProjectWithFilters(SERVER.FILTER_PROJECT, data, setListProjects, setTotalProjects);
   }, []);
 
-  const handleOnSubmit = () => {
-    //console.log(listFilters);
-    setDataFilters(listFilters);
-    getProjectWithFilters(SERVER.FILTER_PROJECT, listFilters, setListProjects, setTotalProjects);
+  const handleOnSubmit = (filters : any) => {
+    setListFilters(filters);
+    setDataFilters(filters);
+    getProjectWithFilters(SERVER.FILTER_PROJECT, filters, setListProjects, setTotalProjects);
   }
 
   return <>
@@ -100,7 +101,7 @@ const MapView = () => {
         <Col span={12}>
           <Dropdown overlay={SortMenuView}>
             <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-              Westminter, CO 1 <img src="/Icons/icon-12.svg" alt="" />
+              Westminter, CO <img src="/Icons/icon-12.svg" alt="" />
             </a>
           </Dropdown>
         </Col>
@@ -152,16 +153,35 @@ const MapView = () => {
       {!toggleFilters ? 
         <Tabs defaultActiveKey="1" className="tabs-map">
           <TabPane tab="Problems" key="1">
-            <GenericTabView listDescription={listDescription} type="Problems" totalElements={cardInformationProblems.length} cardInformation={cardInformationProblems} accordionRow={accordionRow} />
+            <GenericTabView 
+                  tags={tags}
+                  setTags={setTags}
+                  listDescription={listDescription} 
+                  type="Problems" 
+                  totalElements={cardInformationProblems.length} 
+                  cardInformation={cardInformationProblems} 
+                  accordionRow={accordionRow} />
           </TabPane>
 
           <TabPane tab="Projects" key="2">
-            <GenericTabView listDescription={listDescription} type="Projects" totalElements={listProjects.length}
-              cardInformation={listProjects} accordionRow={accordionRow} listFilters={listFilters} />
+            <GenericTabView 
+                  tags={tags}
+                  setTags={setTags}
+                  listDescription={listDescription} 
+                  type="Projects" 
+                  totalElements={listProjects?listProjects.length:0}
+                  cardInformation={listProjects} 
+                  accordionRow={accordionRow} 
+                  listFilters={listFilters} />
           </TabPane>
         </Tabs> 
           :
-        <FiltersProjectView listFilters={listFilters} setListFilters={setListFilters} setToggleFilters={setToggleFilters} handleOnSubmit={handleOnSubmit} />
+        <FiltersProjectView 
+            tags={tags} 
+            listFilters={listFilters}
+            setToggleFilters={setToggleFilters}
+            handleOnSubmit={handleOnSubmit}
+            setTags={setTags} />
       }
     </div>
   </>

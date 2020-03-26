@@ -3,38 +3,8 @@ import { Row, Col, Button, Tag, Checkbox, Select, Radio} from 'antd';
 
 const { Option } = Select;
 
-const FiltersHeader = () => {
-    return (
-        <div className="hastag">
-            <h6>Showing 67 Problems:</h6>
-            <div>
-                <Tag closable >
-                    $600K - $1.2M
-                      </Tag>
-                <Tag closable >
-                    Active
-                      </Tag>
-                <Tag closable >
-                    Stream Restoration
-                      </Tag>
-                <Tag closable >
-                    Maintenance
-                      </Tag>
-                <Tag closable >
-                    Westminster
-                      </Tag>
-                <Tag closable >
-                    Components
-                      </Tag>
-            </div>
-        </div>
-    );
-}
-
 export const ProblemsFilter = () => (
     <>
-        <FiltersHeader />
-
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Solution Cost <img src="Icons/icon-19.svg" alt="" /></h5>
@@ -145,10 +115,8 @@ export const ProblemsFilter = () => (
     </>
 );
 
-export const ProjectsFilter = ({ handleRadioGroup } : { handleRadioGroup : Function}) => (
+export const ProjectsFilter = ({ handleRadioGroup } : any) => (
     <>
-        <FiltersHeader />
-
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Project type <img src="Icons/icon-19.svg" alt="" /></h5>
@@ -385,8 +353,6 @@ export const ProjectsFilter = ({ handleRadioGroup } : { handleRadioGroup : Funct
 
 export const ComponentsFilter = () => (
     <>
-        <FiltersHeader />
-
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Component Type <img src="Icons/icon-19.svg" alt="" /></h5>

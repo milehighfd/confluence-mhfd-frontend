@@ -8,38 +8,26 @@ import AccordionDisplayView from "./AccordionDisplay/AccordionDisplayView";
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
-export default (props: any) => {
-    // const [tags, setTags] = useState([
-    //     "$600K - $1.2M",
-    //     "Active",
-    //     "Stream Restoration",
-    //     "Maintenance",
-    //     "Westminster",
-    //     "Components"
-    // ]);
-    //console.log(props.listFilters);
-    const [tags, setTags] = useState([]);
-    if(props.listFilters != undefined) {
-        console.log(props.listFilters);
-        //setTags(props.listFilters);
-    }
-    //setTags(props.filters);
+export default ({ tags, setTags, totalElements, type, listDescription, cardInformation, accordionRow }: any) => {
 
-    const deleteTag = (index: Number) => {
-        const newTags = tags.filter((element: String, indexE: Number) => indexE !== index);
+    const deleteTag = (index: number) => {
+        const newTags = [...tags];
+        newTags.splice(index, 1);
         setTags(newTags);
     }
-    return <> <div className="hastag">
-        <h6> Showing {props.totalElements} {props.type}:</h6>
-        <div>
-            {tags.map((data: String, index: number) => {
-                return <Tag key={index} closable onClose={() => deleteTag(index)}>
-                    {data}
-                </Tag>
-            })}
+
+    return <>
+        <div className="hastag">
+            <h6> Showing {totalElements} {type}:</h6>
+            <div>
+                {tags.map((data: String, index: number) => {
+                    return <Tag key={index} closable onClose={() => deleteTag(index)}>
+                        {data}
+                    </Tag>
+                })}
+            </div>
         </div>
-    </div>
-        {props.listDescription ?
+        {listDescription ?
             <>
                 <Row className="list-h">
                     <Col span={9}>Problem & Component Name</Col>
@@ -48,20 +36,22 @@ export default (props: any) => {
                     <Col span={6}> Solution Status</Col>
                 </Row>
                 <Collapse accordion>
-                    {props.cardInformation.map((information: any, index: number) => (
+                    {cardInformation.map((information: any, index: number) => (
                         <Panel header="" key={index} extra={AccordionDisplayView(information)} >
-                            {props.accordionRow.map((data: any) => {
+                            {accordionRow.map((data: any) => {
                                 return <AccordionRowView data={data} />
                             })}
                         </Panel>
                     ))}
 
-                </Collapse> </>
+                </Collapse> 
+            </>
             :
-            <>
-                <Row className="card-map" gutter={[16, 16]}>
-                    {props.cardInformation.map((data: any, index : number) => {
-                        return <CardInformationView key={index} data={data} type={props.type} />
-                    })}
-                </Row> </>} </>
+            <Row className="card-map" gutter={[16, 16]}>
+                {cardInformation.map((data: any, index: number) => {
+                    return <CardInformationView key={index} data={data} type={type} />
+                })}
+            </Row>
+        }
+    </>
 }

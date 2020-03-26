@@ -571,9 +571,13 @@ export const USER = {
 export const NO_COMPONENTS_ERROR = 'Must select at least one map component.';
 export const NO_POLYGON_ERROR = 'Must draw a polygon on the map to continue.';
 export const NO_MARKER_ERROR = 'Must put the marker on the map to continue.';
+/* End of Unselected Items on Maps Errors */
 
-
-
+/* Filter Constants */
+export const FILTER_PROBLEMS_TRIGGER = 'Problems';
+export const FILTER_PROJECTS_TRIGGER = 'Projects';
+export const FILTER_COMPONENTS_TRIGGER = 'Components';
+/* End of Filter Constants */
 
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11
