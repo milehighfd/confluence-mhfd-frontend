@@ -79,10 +79,11 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
   const handleOnSearch = (data : string) => {
     const requestData = { requestName: '' };
     requestData.requestName = data;
-    getProjectWithFilters(data);
+    getProjectWithFilters(requestData);
   }
 
   const handleOnSubmit = (filtersData : any) => {
+    //console.log(filtersData);
     getProjectWithFilters(filtersData);
   }
 

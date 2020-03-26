@@ -119,10 +119,10 @@ export const ProblemsFilter = () => (
             </Col>
         </Row>
 
-        <div className="btn-footer" style={{ marginTop: '25px' }}>
+        {/* <div className="btn-footer" style={{ marginTop: '25px' }}>
             <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
             <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
-        </div>
+        </div> */}
     </>
 );
 
@@ -142,10 +142,10 @@ export const ProjectsFilter = ({ handleRadioGroup, handleCheckbox } : any) => (
             <Col span={12}>
                 <h5>Estimated total cost <img src="Icons/icon-19.svg" alt="" /></h5>
                 <Radio.Group id="onChangeEstimatedCost" onChange={(e) => handleRadioGroup(e, ESTIMATED_COST)}>
-                    <p><Radio value={'[20000000, 25000000]'}>20M-25M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'[15000000, 20000000]'}>15M-20M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'[5000000, 10000000]'}>5M-10M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'[0, 5000000]'}>0-5M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'[20000000,25000000]'}>20M-25M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'[15000000,20000000]'}>15M-20M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'[5000000,10000000]'}>5M-10M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'[0,5000000]'}>0-5M</Radio> <span className="filt-s">30</span></p>
                 </Radio.Group>
             </Col>
         </Row>
@@ -230,10 +230,10 @@ export const ProjectsFilter = ({ handleRadioGroup, handleCheckbox } : any) => (
             <Col span={12}>
                 <h5>MHFD Dollars Allocated <img src="Icons/icon-19.svg" alt="" /></h5>
                 <Radio.Group id="onChangeMhfdDollars" onChange={(e) => handleRadioGroup(e, MHFD_DOLLAR_REQUEST)}>
-                    <p><Radio value={'[0, 5000000]'}>0-5M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'[5000000, 10000000]'}>5M-10M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'[10000000, 15000000]'}>10M-15M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'[15000000, 20000000]'}>15M-20M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'[0,5000000]'}>0-5M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'[5000000,10000000]'}>5M-10M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'[10000000,15000000]'}>10M-15M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'[15000000,20000000]'}>15M-20M</Radio> <span className="filt-s">8</span></p>
                 </Radio.Group>
             </Col>
             <Col span={12}>
@@ -469,9 +469,9 @@ export const ComponentsFilter = () => (
             </Col>
         </Row>
 
-        <div className="btn-footer" style={{ marginTop: '25px' }}>
+        {/* <div className="btn-footer" style={{ marginTop: '25px' }}>
             <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
             <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
-        </div>
+        </div> */}
     </>
 );
