@@ -1,37 +1,12 @@
 import * as React from "react";
-import { Collapse, Menu, Button, Tabs, Tag, Card, Input, Select } from 'antd';
+import { Button, Tabs, Tag } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER } from '../../constants/constants';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
-const { Panel } = Collapse;
-const ButtonGroup = Button.Group;
-const { Meta } = Card;
 const { TabPane } = Tabs;
-const { Search } = Input;
-const { Option } = Select;
-
-const menu = (
-  <Menu className="js-mm-00">
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        1st menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        2nd menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        3rd menu item
-      </a>
-    </Menu.Item>
-  </Menu>
-);
 
 const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any) => {
   return (
@@ -55,6 +30,10 @@ export default ({filterNames, setFilterNames, setToggleFilters, handleOnSubmit} 
     selectedFilters = { ...selectedFilters, [id]: event.target.value };
   }
 
+  const handleCheckbox = (checkedValues : Array<string>, id : string) => {
+    selectedFilters = { ...selectedFilters, [id]: checkedValues };
+  }
+
   const handleAppliedChanges = () => {
     setToggleFilters(false);
     handleOnSubmit(selectedFilters);
@@ -71,7 +50,9 @@ export default ({filterNames, setFilterNames, setToggleFilters, handleOnSubmit} 
       case FILTER_PROBLEMS_TRIGGER:
         return <ProblemsFilter />
       case FILTER_PROJECTS_TRIGGER:
-        return <ProjectsFilter handleRadioGroup={handleRadioGroup} />
+        return <ProjectsFilter 
+                  handleRadioGroup={handleRadioGroup} 
+                  handleCheckbox={handleCheckbox} />
       case FILTER_COMPONENTS_TRIGGER:
         return <ComponentsFilter />
       default:

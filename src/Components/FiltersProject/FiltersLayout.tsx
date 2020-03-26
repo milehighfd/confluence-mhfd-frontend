@@ -1,7 +1,16 @@
 import React from 'react';
 import { Row, Col, Button, Tag, Checkbox, Select, Radio} from 'antd';
 
-import { PROJECT_TYPE, ESTIMATED_COST, START_YEAR, COMPLETED_YEAR, CAPITAL_GOAL, STUDY_GOAL, MHFD_DOLLAR_REQUEST, WORK_PLAN_YEAR } from '../../constants/constants';
+import { PROJECT_TYPE, 
+        ESTIMATED_COST, 
+        CAPITAL_STATUS,
+        START_YEAR, 
+        COMPLETED_YEAR, 
+        CAPITAL_GOAL, 
+        STUDY_GOAL, 
+        MHFD_DOLLAR_REQUEST, 
+        WORK_PLAN_YEAR, 
+        STUDY_STATUS } from '../../constants/constants';
 
 const { Option } = Select;
 
@@ -117,7 +126,7 @@ export const ProblemsFilter = () => (
     </>
 );
 
-export const ProjectsFilter = ({ handleRadioGroup } : any) => (
+export const ProjectsFilter = ({ handleRadioGroup, handleCheckbox } : any) => (
     <>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
@@ -133,10 +142,10 @@ export const ProjectsFilter = ({ handleRadioGroup } : any) => (
             <Col span={12}>
                 <h5>Estimated total cost <img src="Icons/icon-19.svg" alt="" /></h5>
                 <Radio.Group id="onChangeEstimatedCost" onChange={(e) => handleRadioGroup(e, ESTIMATED_COST)}>
-                    <p><Radio value={'20'}>20M-25M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'15'}>15M-20M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'5'}>5M-10M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'0'}>0 - 5M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'[20000000, 25000000]'}>20M-25M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'[15000000, 20000000]'}>15M-20M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'[5000000, 10000000]'}>5M-10M</Radio> <span className="filt-s">30</span></p>
+                    <p><Radio value={'[0, 5000000]'}>0-5M</Radio> <span className="filt-s">30</span></p>
                 </Radio.Group>
             </Col>
         </Row>
@@ -145,23 +154,27 @@ export const ProjectsFilter = ({ handleRadioGroup } : any) => (
         <Row className="filt-00">
             <Col span={12}>
                 <h5>Capital Status <img src="Icons/icon-19.svg" alt="" /></h5>
-                <p><Checkbox>Approved</Checkbox> <span className="filt-s">71</span></p>
-                <p><Checkbox>Idle</Checkbox> <span className="filt-s">16</span></p>
-                <p><Checkbox>Initiated</Checkbox> <span className="filt-s">5</span></p>
-                <p><Checkbox>Preliminary Design</Checkbox> <span className="filt-s">4</span></p>
-                <p><Checkbox>Final Design</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Construction</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Monitoring</Checkbox> <span className="filt-s">1</span></p>
+                <Checkbox.Group onChange={(items) => handleCheckbox(items, CAPITAL_STATUS)}>
+                    <p><Checkbox value={'approved'}>Approved</Checkbox> <span className="filt-s">71</span></p>
+                    <p><Checkbox value={'idle'}>Idle</Checkbox> <span className="filt-s">16</span></p>
+                    <p><Checkbox value={'initiated'}>Initiated</Checkbox> <span className="filt-s">5</span></p>
+                    <p><Checkbox value={'preliminaryDesign'}>Preliminary Design</Checkbox> <span className="filt-s">4</span></p>
+                    <p><Checkbox value={'finalDesign'}>Final Design</Checkbox> <span className="filt-s">1</span></p>
+                    <p><Checkbox value={'construction'}>Construction</Checkbox> <span className="filt-s">1</span></p>
+                    <p><Checkbox value={'monitoring'}>Monitoring</Checkbox> <span className="filt-s">1</span></p>
+                </Checkbox.Group>
             </Col>
             <Col span={12}>
                 <h5>Study Status <img src="Icons/icon-19.svg" alt="" /></h5>
-                <p><Checkbox>Approved</Checkbox> <span>1</span></p>
-                <p><Checkbox>Idle</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Initiated</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Hydrology</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Floodplain</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Alternatives</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Conceptual</Checkbox> <span className="filt-s">1</span></p>
+                <Checkbox.Group onChange={(items) => handleCheckbox(items, STUDY_STATUS)}>
+                    <p><Checkbox value={'approved'}>Approved</Checkbox> <span>1</span></p>
+                    <p><Checkbox value={'idle'}>Idle</Checkbox> <span className="filt-s">1</span></p>
+                    <p><Checkbox value={'initiated'}>Initiated</Checkbox> <span className="filt-s">1</span></p>
+                    <p><Checkbox value={'hydrology'}>Hydrology</Checkbox> <span className="filt-s">1</span></p>
+                    <p><Checkbox value={'floodplain'}>Floodplain</Checkbox> <span className="filt-s">1</span></p>
+                    <p><Checkbox value={'alternatives'}>Alternatives</Checkbox> <span className="filt-s">1</span></p>
+                    <p><Checkbox value={'conceptual'}>Conceptual</Checkbox> <span className="filt-s">1</span></p>
+                </Checkbox.Group>
             </Col>
         </Row>
 
@@ -217,20 +230,20 @@ export const ProjectsFilter = ({ handleRadioGroup } : any) => (
             <Col span={12}>
                 <h5>MHFD Dollars Allocated <img src="Icons/icon-19.svg" alt="" /></h5>
                 <Radio.Group id="onChangeMhfdDollars" onChange={(e) => handleRadioGroup(e, MHFD_DOLLAR_REQUEST)}>
-                    <p><Radio value={'0'}>0-5M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'5'}>5M-10M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'10'}>10M-15M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'15'}>15M-20M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'[0, 5000000]'}>0-5M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'[5000000, 10000000]'}>5M-10M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'[10000000, 15000000]'}>10M-15M</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'[15000000, 20000000]'}>15M-20M</Radio> <span className="filt-s">8</span></p>
                 </Radio.Group>
             </Col>
             <Col span={12}>
                 <h5>Work Plan Year <img src="Icons/icon-19.svg" alt="" /></h5>
                 <Radio.Group id="onChangeWorkPlanYear" onChange={(e) => handleRadioGroup(e, WORK_PLAN_YEAR)}>
-                    <p><Radio value={2015}>2015</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={2017}>2017</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={2019}>2019</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={2020}>2020</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={2023}>2023</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2015'}>2015</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2017'}>2017</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2019'}>2019</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2020'}>2020</Radio> <span className="filt-s">8</span></p>
+                    <p><Radio value={'2023'}>2023</Radio> <span className="filt-s">8</span></p>
                 </Radio.Group>
             </Col>
         </Row>

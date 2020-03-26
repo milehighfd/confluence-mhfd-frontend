@@ -12,7 +12,6 @@ import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
 import NewProjectFormContainer from './Components/NewProjectForm/NewProjectFormContainer';
 import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
-import FiltersProjectContainer from './Components/FiltersProject/FiltersProjectContainer';
 import WorkPlanContainer from './Components/WorkPlan/WorkPlanContainer';
 import WorkRequestContainer from './Components/WorkRequest/WorkRequestContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
@@ -56,7 +55,6 @@ function App({ appUser, replaceAppUser }: any) {
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-maintenance`} component={ProjectMaintenanceForm} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-study`} component={ProjectStudyForm} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/new-project-types`} component={NewProjectTypesContainer} />}
-      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/filter-projects`} component={FiltersProjectContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/work-plan`} component={WorkPlanContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/work-request`} component={WorkRequestContainer} />}
 

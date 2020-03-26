@@ -580,6 +580,8 @@ export const FILTER_COMPONENTS_TRIGGER = 'Components';
 
 export const PROJECT_TYPE = 'projectType';
 export const ESTIMATED_COST = 'estimatedCost';
+export const CAPITAL_STATUS = 'capitalStatus';
+export const STUDY_STATUS = 'studyStatus';
 export const START_YEAR = 'startYear';
 export const COMPLETED_YEAR = 'completedYear';
 export const CAPITAL_GOAL = 'capitalGoal';
@@ -594,15 +596,16 @@ export const FILTER_TYPES = {
   propertyAcquisition: 'Property Acquisition',
   special: 'Special',
 
-  '20': '20M-25M',
-  '15': '15M-20M',
-  '10': '10M-15M',
-  '5': '5M-10M',
-  '0': '0-5M',
+  '[20000000, 25000000]': '20M-25M',
+  '[15000000, 20000000]': '15M-20M',
+  '[10000000, 15000000]': '10M-15M',
+  '[5000000, 10000000]': '5M-10M',
+  '[0, 5000000]': '0-5M',
 
   '2015': 2015,
   '2017': 2017,
   '2019': 2019,
+  '2020': 2020,
   '2021': 2021,
   '2023': 2023,
 

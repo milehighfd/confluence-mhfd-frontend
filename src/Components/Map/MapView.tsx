@@ -61,16 +61,6 @@ const accordionRow: Array<any> = [
   }
 ];
 
-const getProjectWithFilters = (url: String, data: any, setProjects: Function, setTotal: Function) => {
-  //console.log(data);
-  datasets.postData(url, data, datasets.getToken()).then(res => {
-    //console.log(res);
-    setProjects(res);
-    setTotal(res.length);
-  });
-}
-
-
 const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: any, secProjects: any, getProjectWithFilters : Function}) => {
 
   const [listDescription, setListDescription] = useState(false);
