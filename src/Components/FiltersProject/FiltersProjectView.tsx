@@ -28,12 +28,19 @@ const menu = (
     </Menu.Item>
   </Menu>
 );
+var opciones: Array<string> = [];
 
 const handleRadioGroup = (event : any) => {
   console.log(event.target.value);
+  opciones.push(event.target.value);
 }
 
-export default () => {
+const submitFilters = () => {
+  console.log('submit')
+}
+
+export default ({listFilters, setListFilters, setToggleFilters, handleOnSubmit} : {listFilters: any, setListFilters: Function, setToggleFilters: Function, handleOnSubmit: Function}) => {
+
   return <>
       <Tabs defaultActiveKey="1" className="tabs-map">
         <TabPane tab="Problems" key="1">
@@ -43,6 +50,19 @@ export default () => {
         <TabPane tab="Projects" key="2">
           <ProjectsFilter
               handleRadioGroup={handleRadioGroup} />
+          <div className="btn-footer" style={{ marginTop: '25px' }}>
+            <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
+            <Button style={{ width: '140px' }} onClick={(event) => {
+              let auxListFilters = {...listFilters};
+              for(const opc of opciones) {
+                let values = opc.split(',');
+                auxListFilters[values[0]] = values[1];
+              }
+              setListFilters(auxListFilters);
+              setToggleFilters(false);
+              handleOnSubmit();
+            }} className="btn-01">Apply</Button>
+        </div>
         </TabPane>
 
         <TabPane tab="Components" key="3">

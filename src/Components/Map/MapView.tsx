@@ -60,29 +60,37 @@ const accordionRow: Array<any> = [
 ];
 
 const getProjectWithFilters = (url: String, data: any, setProjects: Function, setTotal: Function) => {
+  //console.log(data);
   datasets.postData(url, data, datasets.getToken()).then(res => {
-    // console.log(res);
+    //console.log(res);
     setProjects(res);
     setTotal(res.length);
   });
 }
 
+
 const MapView = () => {
 
   const [listDescription, setListDescription] = useState(false);
-
+  const filters = {};
+  const [listFilters, setListFilters] = useState<any>(filters);
   const projects: Array<any> = [];
-  const filters: Array<any> = ['uno', 'dos'];
+  
   var data = {};
   const [listProjects, setListProjects] = useState<any>(projects);
   const [totalProjects, setTotalProjects] = useState<number>(0);
-  const [dataFilters, setDataFilters] = useState<any>(data);
-  const [listFilters, setListFilters] = useState<any>(filters);
+  const [dataFilters, setDataFilters] = useState<any>(data);  
   const [toggleFilters, setToggleFilters] = useState(false);
 
   useEffect(() => {
     getProjectWithFilters(SERVER.FILTER_PROJECT, data, setListProjects, setTotalProjects);
   }, []);
+
+  const handleOnSubmit = () => {
+    //console.log(listFilters);
+    setDataFilters(listFilters);
+    getProjectWithFilters(SERVER.FILTER_PROJECT, listFilters, setListProjects, setTotalProjects);
+  }
 
   return <>
     <div className="count">
@@ -153,7 +161,7 @@ const MapView = () => {
           </TabPane>
         </Tabs> 
           :
-        <FiltersProjectView />
+        <FiltersProjectView listFilters={listFilters} setListFilters={setListFilters} setToggleFilters={setToggleFilters} handleOnSubmit={handleOnSubmit} />
       }
     </div>
   </>
