@@ -8,7 +8,7 @@ export const VALIDATION_PROJECT_CAPITAL = Yup.object().shape({
       .required('Required'),
   description: Yup.string()
       .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
+      .max(200, 'Too Long!')
       .required('Required'),
   requestName: Yup.string()
       .min(2, 'Too Short!')

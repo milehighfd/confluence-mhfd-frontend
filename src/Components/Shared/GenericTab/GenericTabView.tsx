@@ -14,9 +14,9 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
     }
 
     return <>
-        <div className="hastag">
+        <div className="hastag" style={{minHeight: 34}}>
             <h6> Showing {totalElements} {type}:</h6>
-            <div>
+            <div style={{marginBottom: totalElements?0:5}}>
                 {filterNames.map((data: any, index: number) => {
                     return <Tag key={index} closable onClose={() => deleteFilter(index)}>
                         {data.value}

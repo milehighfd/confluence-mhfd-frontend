@@ -33,31 +33,29 @@ const menu = (
 );
 
 const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm: Function}) => {
-    const location = useLocation();
-    const cad = location.pathname.split('/');
-    const validationSchema = cad[2] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[2] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION : 
-            cad[2] === 'sedimentRemoval' ? VALIDATION_PROJECT_SEDIMENT : cad[2] === 'minorRepairs' ? VALIDATION_PROJECT_MINOR_REPAIR : VALIDATION_PROJECT_RESTORATION;
-    const initialValues = cad[2] === 'debrisManagement' ? PROJECT_MAINTENANCE_DEBRIS : cad[2] === 'vegetationManagement' ? PROJECT_MAINTENANCE_VEGETATION : 
-            cad[2] === 'sedimentRemoval' ? PROJECT_MAINTENANCE_SEDIMENT : cad[2] === 'minorRepairs' ? PROJECT_MAINTENANCE_MINOR_REPAIR : PROJECT_MAINTENANCE_RESTORATION;
-    initialValues.requestName = cad[3];
-    initialValues.projectSubtype = cad[2];
-    const [mainImage, setMainImage] = useState([]);
-    const [listFiles, setListFiles ] = useState([]);
-    const [title, setTitle] = useState<string>('');
-    
-    const { values, handleSubmit, handleChange } = useFormik({
-        initialValues,
-        validationSchema,
-        onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string}) {
-          createNewProjectForm(values, [...mainImage, ...listFiles]);
-        }
-    });
-    
-    // const dummyRequest = ({ file, onSuccess } : any) => {
-    //   setTimeout(() => {
-    //     onSuccess("ok");
-    //   }, 0);
-    // }
+  const location = useLocation();
+  const cad = location.pathname.split('/');
+  const validationSchema = cad[2] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[2] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION : 
+          cad[2] === 'sedimentRemoval' ? VALIDATION_PROJECT_SEDIMENT : cad[2] === 'minorRepairs' ? VALIDATION_PROJECT_MINOR_REPAIR : VALIDATION_PROJECT_RESTORATION;
+  const initialValues = cad[2] === 'debrisManagement' ? PROJECT_MAINTENANCE_DEBRIS : cad[2] === 'vegetationManagement' ? PROJECT_MAINTENANCE_VEGETATION : 
+          cad[2] === 'sedimentRemoval' ? PROJECT_MAINTENANCE_SEDIMENT : cad[2] === 'minorRepairs' ? PROJECT_MAINTENANCE_MINOR_REPAIR : PROJECT_MAINTENANCE_RESTORATION;
+  initialValues.requestName = cad[3];
+  initialValues.projectSubtype = cad[2];
+  const [mainImage, setMainImage] = useState([]);
+  const [listFiles, setListFiles ] = useState([]);
+  const [title, setTitle] = useState<string>('');
+  
+  const { values, handleSubmit, handleChange } = useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string}) {
+        createNewProjectForm(values, [...mainImage, ...listFiles]);
+      }
+  });
+  
+  const dummyRequest = ({ onSuccess } : { onSuccess: Function}) => {
+    setTimeout(() => onSuccess("ok"), 0);
+  }  
 
   return <>
     <div className="count-01">
@@ -180,7 +178,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger multiple={false} onChange={({file, fileList} : any) => setMainImage(fileList)}>
+          <Dragger customRequest={dummyRequest} onChange={({file, fileList} : any) => setMainImage(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
           </Dragger>
@@ -192,7 +190,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger className="img-npf" onChange={({file, fileList} : any) => setListFiles(fileList)}>
+          <Dragger customRequest={dummyRequest} className="img-npf" onChange={({file, fileList} : any) => setListFiles(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
           </Dragger>

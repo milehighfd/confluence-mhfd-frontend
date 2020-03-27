@@ -1,29 +1,35 @@
 import * as React from "react";
 import { Col, Card } from "antd";
 
-export default (props: any) => {
+export default ({ data, type }: { data: any, type: string}) => {
+    const numberWithCommas = (x : number) => {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
-    return <Col key={props.index} span={8}>
+    return <Col span={8}>
         <Card
             hoverable
-            style={{ width: '100%' }}
+            style={{width: '100%'}}
+            className="card-information"
             cover={
-                props.data.mainImage ? <img alt="example" src={props.data.mainImage} height="122px" /> : <img alt="example" src="/Icons/eje.png" />
+                data.mainImage ? <img alt="example" src={data.mainImage} /> : <img alt="example" src="/Icons/eje.png" />
             }
         >
-            <h4>{props.data.requestName}</h4>
-            <h6>{props.data.jurisdiction}</h6>
-            <h5>{props.data.estimatedCost} <span style={{ float: 'right' }}><b>4</b> Components</span></h5>
+            <div style={{height: 40}}>
+                <h4>{data.requestName}</h4>
+            </div>
+            <h6>{data.jurisdiction?data.jurisdiction:'No County'}</h6>
+            <h5>${numberWithCommas(data.finalCost?data.finalCost:data.estimatedCost)} <span style={{ float: 'right' }}><b>4</b> Components</span></h5>
             <hr />
-            {props.type === 'Problems' ? (
+            {type === 'Problems' ? (
                 <div style={{ display: 'flex', width: '100%' }}>
-                    <p style={{ color: 'red', width: '50%' }}>{props.data.priority}</p>
-                    <span style={{ textAlign: 'right', width: '50%' }}>{props.data.percentage}</span>
+                    <p style={{ color: 'red', width: '50%' }}>{data.priority}</p>
+                    <span style={{ textAlign: 'right', width: '50%' }}>{data.percentage}</span>
                 </div>
             ) : (
                     <div style={{ display: 'flex', width: '100%' }}>
-                        <p style={{ color: ' #11093c', width: '50%', opacity: '0.6' }}>{props.data.projectType === 'propertyAcquisition' ? 'acquisition' : props.data.projectType }</p>
-                        <span style={{ textAlign: 'right', width: '50%', color: ' #11093c', opacity: '0.6' }}>{props.data.status}</span>
+                        <p style={{ color: ' #11093c', width: '50%', opacity: '0.6' }}>{data.projectType === 'propertyAcquisition' ? 'acquisition' : data.projectType }</p>
+                        <span style={{ textAlign: 'right', width: '50%', color: ' #11093c', opacity: '0.6' }}>{data.status}</span>
                     </div>
                 )}
         </Card>

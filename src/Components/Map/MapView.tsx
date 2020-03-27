@@ -16,22 +16,22 @@ const { Search } = Input;
 
 const cardInformationProblems: Array<any> = [
   {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
     field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
     field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
     field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
     field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
     field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
+    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
     field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
   }
 ];
@@ -136,7 +136,8 @@ const MapView = ({ filters, secProjects, getProjectWithFilters, removeFilter } :
           <Col span={16}>
             <Search
               placeholder="Search..."
-              onSearch={handleOnSearch}
+              onChange={(e) => handleOnSearch(e.target.value)}
+              // onSearch={handleOnSearch}
               style={{ width: 200 }}
             />
           </Col>
