@@ -129,17 +129,24 @@ export const getProjectWithFilters = (filters : any) => {
     } 
 }
 
-export const setProjectByFilter = (projects : Array<any>) => {
-    return (dispatch : Function) => {
-        dispatch({ type: types.FILTER_PROJECT, projects});
-    }
-}
+export const removeFilter = (item: any) => {
+    return (dispatch : Function, getState : Function) => {
+        const state = getState();
+        let newFilters = {...state.map.filters};
 
-export const filterProjects = (data: Object, projects : Array<any>) => {
-    const resultado = {
-        search: data
-    };
-    const result = datasets.postData(SERVER.FILTER_PROJECT, resultado, datasets.getToken()).then(res => {
-        console.log(res);
-    });
+        if(Array.isArray(newFilters[item.key])) {
+            const array = [...newFilters[item.key]];
+            const arrayIndex = array.indexOf(item.type);
+            if(arrayIndex > -1) array.splice(arrayIndex, 1);
+
+            if(array.length) {
+                newFilters = {...newFilters, [item.key]: array};
+            } else {
+                delete newFilters[item.key];
+            }
+        } else {
+            delete newFilters[item.key];
+        }
+        dispatch(getProjectWithFilters(newFilters));
+    }
 }

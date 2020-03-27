@@ -11,7 +11,7 @@ import { Layout, Row, Col, Button, message } from 'antd';
 import { MapHOCProps } from '../Classes/MapTypes';
 
 export default function (WrappedComponent : any, layers : any) {
-    return ({ problems, projects, components, secProjects, filters, saveNewCapitalForm, saveNewStudyForm, createNewProjectForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, redirect, setRouteRedirect, error, clearErrorMessage, getProjectWithFilters } : MapHOCProps) => {
+    return ({ problems, projects, components, secProjects, filters, saveNewCapitalForm, saveNewStudyForm, createNewProjectForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, redirect, setRouteRedirect, error, clearErrorMessage, getProjectWithFilters, removeFilter } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -79,6 +79,7 @@ export default function (WrappedComponent : any, layers : any) {
                             createNewProjectForm={createNewProjectForm}
                             getProjectWithFilters={getProjectWithFilters}
                             filters={filters}
+                            removeFilter={removeFilter}
                             secProjects={secProjects} />
                     </Col>
                 </Row>

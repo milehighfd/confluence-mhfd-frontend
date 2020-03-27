@@ -8,7 +8,7 @@ import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import { useFormik } from "formik";
 import { string, number } from "yup";
-import { filterProjects } from "../../store/actions/mapActions";
+import { removeFilter } from "../../store/actions/mapActions";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
@@ -61,14 +61,12 @@ const accordionRow: Array<any> = [
   }
 ];
 
-const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: any, secProjects: any, getProjectWithFilters : Function}) => {
+const MapView = ({ filters, secProjects, getProjectWithFilters, removeFilter } : { filters: any, secProjects: any, getProjectWithFilters : Function, removeFilter: Function}) => {
 
   const [listDescription, setListDescription] = useState(false);
   const [toggleFilters, setToggleFilters] = useState(false);
-  const [filterNames, setFilterNames] = useState<Array<string>>([]);
+  const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('0');
-  const [dataFilter, setDataFilter] = useState<any>();
-  const [detailFilter, setDetailFilter] = useState<any>([]);
 
   useEffect(() => {
     getProjectWithFilters();
@@ -88,31 +86,6 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
     getProjectWithFilters(filtersData);
   }
 
-  const removeFilter = (index : number) => {
-    const data = detailFilter[index];
-    for (const key in dataFilter) {
-      if(key == data.key) {
-        if(Array.isArray(dataFilter[key])) {
-          const auxArray = [];
-          for(const arr in dataFilter[key]) {
-            if(data.value != dataFilter[key][arr]) {
-              auxArray.push(dataFilter[key][arr])
-            }
-          }
-          if(auxArray.length == 0) {
-            delete dataFilter[key];
-          } else {
-            dataFilter[key] = auxArray;
-          }
-        } else {
-          delete dataFilter[key];
-        }
-      }
-    }
-    getProjectWithFilters(dataFilter);
-    
-  }
-
   const handleToggle = () => {
     // Force coded cause' components tab doesn't exists on MapView
     if(tabPosition === "2") setTabPosition("0");
@@ -120,30 +93,27 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
   }
 
   const setCurrentFilters = (filtersData : any) => {
-    setDataFilter(filtersData);
-    var details : Array<any> = [];
-    const values : Array<string> = [];
+    const values : Array<any> = [];
     for (const key in filtersData) {
       if(Array.isArray(filtersData[key])) {
         filtersData[key].map((value : string) => {
-          values.push(value);
-          details.push({
+          values.push({
             key: key,
             value: value
           });
         });
       } else {
-        values.push(filtersData[key]);
-        details.push({
+        values.push({
           key: key,
           value: filtersData[key]
         });
       }
     }
     const filterTypes : any = FILTER_TYPES;
-    const getFilterNames = values.map((value : string) => filterTypes[value]);
+    const getFilterNames = values.map((value : any) => {
+      return { key: value.key, type: value.value, value: filterTypes[value.value] }
+    });
     setFilterNames(getFilterNames);
-    setDetailFilter(details);
   }
 
   return <>
@@ -203,7 +173,6 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
           <TabPane tab="Problems" key="0">
             <GenericTabView 
                   filterNames={filterNames}
-                  setFilterNames={setFilterNames}
                   listDescription={listDescription} 
                   type="Problems" 
                   totalElements={cardInformationProblems.length} 
@@ -214,7 +183,6 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
           <TabPane tab="Projects" key="1">
             <GenericTabView 
                   filterNames={filterNames}
-                  setFilterNames={setFilterNames}
                   listDescription={listDescription} 
                   type="Projects" 
                   totalElements={secProjects?secProjects.length:0}

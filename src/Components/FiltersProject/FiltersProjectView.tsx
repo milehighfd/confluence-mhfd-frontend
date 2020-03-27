@@ -13,9 +13,9 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any)
       <div className="hastag">
           <h6> Showing {totalElements} {type}:</h6>
           <div>
-              {filterNames.map((data: String, index: number) => {
+              {filterNames.map((data: any, index: number) => {
                   return <Tag key={index} closable onClose={() => deleteFilter(index)}>
-                      {data}
+                      {data.value}
                   </Tag>
               })}
           </div>

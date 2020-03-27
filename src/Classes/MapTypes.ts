@@ -29,7 +29,7 @@ export type MapHOCProps = {
     error: string,
     clearErrorMessage: Function,
     getProjectWithFilters: Function,
-    filterProjects: Function
+    removeFilter: Function
 }
 
 export type NewProjectFormProps = {

@@ -1,29 +1,25 @@
 import * as React from "react";
-import { useState } from "react";
-import { Tabs, Row, Col, Collapse, Tag } from "antd";
+import { Row, Col, Collapse, Tag } from "antd";
 import CardInformationView from "../CardInformation/CardInformationView";
 import AccordionRowView from "./AccordionRow/AccordionRowView";
 import AccordionDisplayView from "./AccordionDisplay/AccordionDisplayView";
 
-const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
-export default ({ filterNames, setFilterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter }: any) => {
+export default ({ filterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter }: any) => {
 
     const deleteFilter = (index: number) => {
-        const newFilters = [...filterNames];
-        newFilters.splice(index, 1);
-        setFilterNames(newFilters);
-        removeFilter(index);
+        const item = filterNames[index];
+        removeFilter(item);
     }
 
     return <>
         <div className="hastag">
             <h6> Showing {totalElements} {type}:</h6>
             <div>
-                {filterNames.map((data: String, index: number) => {
+                {filterNames.map((data: any, index: number) => {
                     return <Tag key={index} closable onClose={() => deleteFilter(index)}>
-                        {data}
+                        {data.value}
                     </Tag>
                 })}
             </div>
