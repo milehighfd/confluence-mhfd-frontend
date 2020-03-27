@@ -8,12 +8,13 @@ import AccordionDisplayView from "./AccordionDisplay/AccordionDisplayView";
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
-export default ({ filterNames, setFilterNames, totalElements, type, listDescription, cardInformation, accordionRow }: any) => {
+export default ({ filterNames, setFilterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter }: any) => {
 
     const deleteFilter = (index: number) => {
         const newFilters = [...filterNames];
         newFilters.splice(index, 1);
         setFilterNames(newFilters);
+        removeFilter(index);
     }
 
     return <>

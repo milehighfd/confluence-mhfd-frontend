@@ -67,6 +67,8 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
   const [toggleFilters, setToggleFilters] = useState(false);
   const [filterNames, setFilterNames] = useState<Array<string>>([]);
   const [tabPosition, setTabPosition] = useState('0');
+  const [dataFilter, setDataFilter] = useState<any>();
+  const [detailFilter, setDetailFilter] = useState<any>([]);
 
   useEffect(() => {
     getProjectWithFilters();
@@ -83,8 +85,32 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
   }
 
   const handleOnSubmit = (filtersData : any) => {
-    //console.log(filtersData);
     getProjectWithFilters(filtersData);
+  }
+
+  const removeFilter = (index : number) => {
+    const data = detailFilter[index];
+    for (const key in dataFilter) {
+      if(key == data.key) {
+        if(Array.isArray(dataFilter[key])) {
+          const auxArray = [];
+          for(const arr in dataFilter[key]) {
+            if(data.value != dataFilter[key][arr]) {
+              auxArray.push(dataFilter[key][arr])
+            }
+          }
+          if(auxArray.length == 0) {
+            delete dataFilter[key];
+          } else {
+            dataFilter[key] = auxArray;
+          }
+        } else {
+          delete dataFilter[key];
+        }
+      }
+    }
+    getProjectWithFilters(dataFilter);
+    
   }
 
   const handleToggle = () => {
@@ -94,17 +120,30 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
   }
 
   const setCurrentFilters = (filtersData : any) => {
+    setDataFilter(filtersData);
+    var details : Array<any> = [];
     const values : Array<string> = [];
     for (const key in filtersData) {
       if(Array.isArray(filtersData[key])) {
-        filtersData[key].map((value : string) => values.push(value));
+        filtersData[key].map((value : string) => {
+          values.push(value);
+          details.push({
+            key: key,
+            value: value
+          });
+        });
       } else {
         values.push(filtersData[key]);
+        details.push({
+          key: key,
+          value: filtersData[key]
+        });
       }
     }
     const filterTypes : any = FILTER_TYPES;
     const getFilterNames = values.map((value : string) => filterTypes[value]);
     setFilterNames(getFilterNames);
+    setDetailFilter(details);
   }
 
   return <>
@@ -181,7 +220,8 @@ const MapView = ({ filters, secProjects, getProjectWithFilters } : { filters: an
                   totalElements={secProjects?secProjects.length:0}
                   cardInformation={secProjects?secProjects:[]} 
                   accordionRow={accordionRow} 
-                  listFilters={filters} />
+                  listFilters={filters}
+                  removeFilter={removeFilter} />
           </TabPane>
         </Tabs> 
           :
