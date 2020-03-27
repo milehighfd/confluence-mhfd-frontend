@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-
-import {  Row, Col, Dropdown, Button, Tabs, Input } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input } from 'antd';
 
 import SortMenuView from "../SortMenu/SortMenuView";
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
-import { useFormik } from "formik";
-import { string, number } from "yup";
-import { removeFilter } from "../../store/actions/mapActions";
-import * as datasets from "../../Config/datasets";
-import { SERVER } from "../../Config/Server.config";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
-import { FILTER_TYPES } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES } from '../../constants/constants';
+
+const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -38,16 +33,6 @@ const cardInformationProblems: Array<any> = [
   }, {
     image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
     field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }
-];
-
-const cardInformationProjects: Array<any> = [
-  {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
-    field4: 5, field5: "Components", priority: "Maintenance", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: "$400,500",
-    field4: 5, field5: "Components", priority: "Study", percentage: "80%"
   }
 ];
 
@@ -170,27 +155,32 @@ const MapView = ({ filters, secProjects, getProjectWithFilters, removeFilter } :
 
       {!toggleFilters ? 
         <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map">
-          <TabPane tab="Problems" key="0">
-            <GenericTabView 
-                  filterNames={filterNames}
-                  listDescription={listDescription} 
-                  type="Problems" 
-                  totalElements={cardInformationProblems.length} 
-                  cardInformation={cardInformationProblems} 
-                  accordionRow={accordionRow} />
-          </TabPane>
+          {tabs.map((value : string, index : number) => {
+            let totalElements = 0;
+            let cardInformation : Array<Object> = [];
 
-          <TabPane tab="Projects" key="1">
-            <GenericTabView 
-                  filterNames={filterNames}
-                  listDescription={listDescription} 
-                  type="Projects" 
-                  totalElements={secProjects?secProjects.length:0}
-                  cardInformation={secProjects?secProjects:[]} 
-                  accordionRow={accordionRow} 
-                  listFilters={filters}
-                  removeFilter={removeFilter} />
-          </TabPane>
+            if(value === FILTER_PROBLEMS_TRIGGER) {
+              totalElements = cardInformationProblems.length;
+              cardInformation = cardInformationProblems;
+            } else if (secProjects) {
+              totalElements = secProjects.length;
+              cardInformation = secProjects;
+            }
+
+            return (
+              <TabPane tab={value} key={'' + index}>
+                <GenericTabView 
+                      filterNames={filterNames}
+                      listDescription={listDescription} 
+                      type={value} 
+                      totalElements={totalElements} 
+                      cardInformation={cardInformation} 
+                      accordionRow={accordionRow}
+                      listFilters={filters}
+                      removeFilter={removeFilter} />
+              </TabPane>
+            );
+          })}
         </Tabs> 
           :
         <FiltersProjectView 

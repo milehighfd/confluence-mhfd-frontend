@@ -631,6 +631,7 @@ export const MHFD_DOLLAR_REQUEST = 'mhfdDollarRequest';
 export const WORK_PLAN_YEAR = 'workPlanYear';
 
 export const FILTER_TYPES = {
+  /* Project Filters */
   capital: 'Capital',
   maintenance: 'Maintenance',
   study: 'Study',
