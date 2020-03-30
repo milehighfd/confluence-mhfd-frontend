@@ -18,6 +18,7 @@ const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
 let map : any = null;
+let popup = new mapboxgl.Popup();
 // const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 
@@ -85,7 +86,6 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
     useEffect(() => {
         map.setStyle(dropdownItems.items[dropdownItems.default].style);
         refreshPaintedComponents();
-        addMapListeners();
     }, [dropdownItems.items[dropdownItems.default].style]);
 
     useEffect(() => {
@@ -198,15 +198,16 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
 
     const addMapListeners = () => {
         /* Add Listeners to the problems and Components */
-        drawConstants.map((trigger : string) => {
+        drawConstants.map((trigger : string) => {            
             map.on('load', () =>  drawItemsInMap(trigger));
             map.on('style.load', () => drawItemsInMap(trigger));
             map.on('click', trigger, (e : any) => {
                 const description = e.features[0].properties.description;
-                new mapboxgl.Popup()
-                    .setLngLat(e.lngLat)
-                    .setHTML(description)
-                    .addTo(map)
+                popup.remove();
+                popup = new mapboxgl.Popup();
+                popup.setLngLat(e.lngLat)
+                     .setHTML(description)
+                     .addTo(map);
             });
             // Change the cursor to a pointer when the mouse is over the states layer.
             map.on('mouseenter', trigger, () =>  {
