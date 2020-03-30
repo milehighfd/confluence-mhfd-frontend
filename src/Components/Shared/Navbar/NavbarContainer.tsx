@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import NavbarView from './NavbarView';
-import { User } from '../../../Classes/User';
+import { User } from '../../../Classes/TypeList';
 import { replaceAppUser } from '../../../store/actions/appUser';
 const mapStateToProps = (state: any): any => {
   return {

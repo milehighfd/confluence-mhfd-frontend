@@ -11,7 +11,7 @@ import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayVie
 
 const roles = ROLES;
 const validationSchema = VALIDATION_SIGN_UP;
-export default () => {
+export default ({replaceAppUser}: {replaceAppUser: Function}) => {
 
   const [title, setTitle] = useState('');
   const [redirect, setRedirect] = useState(false);
@@ -46,6 +46,7 @@ export default () => {
       const result = datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if(res?.token) {
           localStorage.setItem('mfx-token', res.token);
+          replaceAppUser(res.user);
           setRedirect(true);
         }
       })

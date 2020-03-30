@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import LoginView from './LoginView';
 import { replaceAppUser } from '../../store/actions/appUser';
-import { User } from '../../Classes/User';
+import { User } from '../../Classes/TypeList';
 
 const mapStateToProps = (state: any): any => {
   return {

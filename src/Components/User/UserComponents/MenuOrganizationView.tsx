@@ -3,12 +3,11 @@ import { Menu } from "antd";
 import { User } from "../../../Classes/TypeList";
 import { ORGANIZATION, CONSULTANT_CONTRACTOR, JURISDICTION } from "../../../constants/constants";
 export default (values : User, setTitle: Function) => {
-    const handleClick = (event: any) => {
-        values.organization = event.item.props.children;
-        setTitle(event.item.props.children);
-      };
     return <Menu className="js-mm sign-menu-organization"
-        onClick={handleClick}>
+        onClick={(event) => {
+            values.organization = event.item.props.children;
+            setTitle(event.item.props.children);
+          }}>
         <Menu.ItemGroup key="g1" title="Organization">
             {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}>{item}</Menu.Item>))}
         </Menu.ItemGroup>

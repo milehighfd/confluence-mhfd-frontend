@@ -11,3 +11,13 @@ export type User = {
     county: string,
     serviceArea: string
 }
+
+export type OptionsFiltersUser = {
+        page: number,
+        limit: number,
+        name: string,
+        organization: string,
+        serviceArea: string,
+        designation: string,
+        sort: string
+}

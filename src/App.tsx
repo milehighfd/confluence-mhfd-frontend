@@ -29,7 +29,9 @@ import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import * as datasets from "./Config/datasets"
 import { SERVER } from "./Config/Server.config";
 import { User } from './Classes/User';
-function App({ appUser, replaceAppUser }: any) {
+import store from './store';
+function App({ replaceAppUser }: any) {
+  const appUser = store.getState().appUser;
   if(datasets.getToken() && appUser.email === '') {
     const result = datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
       if (res?._id) {

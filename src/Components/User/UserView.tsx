@@ -6,6 +6,7 @@ import Accordeon from './UserComponents/Accordeon';
 import UserFilters from './UserFilters';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
+import { OptionsFiltersUser, User } from "../../Classes/TypeList";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -20,6 +21,8 @@ const getUserActivated = (saveUser: Function, setUser: Function, url: string, se
 }
 
 const options = {
+  page: 1,
+  limit: 10,
   name: '',
   organization: '',
   serviceArea: '',
@@ -31,38 +34,32 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
   const [userPendingState, setUserPendingState] = useState<any>([]);
-  const [optionUserActivated, setOptionUserActivated] = useState(options);
-  const [optionUserPending, setOptionUserPending] = useState(options);
+  const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(options);
+  const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(options);
   const [title, setTitle] = useState('');
   let pndPos = 0; // momentary forced adition until getting the DB Structure
   let aprPos = 0; // momentary forced adition until getting the DB Structure
 
   useEffect(() => {
-    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS + '?sort=name', setTotalUsersActivated);
-    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false&sort=name', setTotalUsersPending);
+    saveUserState();
   }, []);
 
   const saveUserState = () => {
-    setOptionUserActivated(options);
-    setOptionUserPending(options);
-    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS + '?sort=name', setTotalUsersActivated);
-    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + + '?pending=false&sort=name', setTotalUsersPending);
+    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + urlOptions(optionUserActivated), setTotalUsersActivated);
+    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + urlOptions(optionUserPending), setTotalUsersPending);
   }
 
-  const urlOptions = (options: { name: string, organization: string, serviceArea: string, designation: string, sort: string }) => {
+  const urlOptions = (options: OptionsFiltersUser) => {
     return 'name=' + (options.name ? options.name : '') + '&organization=' + (options.organization ? options.organization : '')
-      + '&serviceArea=' + (options.serviceArea ? options.serviceArea : '') + '&designation=' + (options.designation ? options.designation : '' + '&sort=' + options.sort);
+      + '&serviceArea=' + (options.serviceArea ? options.serviceArea : '') + '&designation=' + (options.designation ? options.designation : ''
+      + '&sort=' + options.sort) + '&limit=' + options.limit + '&page=' + options.page;
   }
 
-  const searchUserActivated = (option: { name: string, organization: string, serviceArea: string, designation: string, sort: string }) => {
-    
-    
-    const searchOption = urlOptions(option);
-    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS + '?' + searchOption, setTotalUsersActivated);
+  const searchUserActivated = (option: OptionsFiltersUser) => {
+    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + urlOptions(option), setTotalUsersActivated);
   }
-  const searchUserPending = (option: { name: string, organization: string, serviceArea: string, designation: string, sort: string }) => {
-    const searchOption = urlOptions(option);
-    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false&' + searchOption, setTotalUsersPending);
+  const searchUserPending = (option: OptionsFiltersUser) => {
+    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + urlOptions(option), setTotalUsersPending);
   }
   const deleteUserActivated = (id: string) => {
     setTitle(id);
@@ -70,8 +67,7 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
       if (res?._id) {
         setOptionUserActivated(options);
         setOptionUserPending(options);
-        getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS + '?sort=name', setTotalUsersActivated);
-        getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS + '?pending=false&sort=name', setTotalUsersPending);
+        saveUserState();
       }
     });
 
@@ -100,7 +96,12 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                       })}
 
                       <div className="pagi-00">
-                        <Pagination defaultCurrent={1} total={totalUsersActivated} />
+                        <Pagination defaultCurrent={optionUserActivated.page} total={totalUsersActivated} onChange={(page, pageSize) => {
+                          const auxOption = {...optionUserActivated};
+                          auxOption.page = page;
+                          setOptionUserActivated(auxOption);
+                          searchUserActivated(auxOption);
+                        }} />
                       </div>
                     </TabPane>
 
@@ -117,7 +118,12 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                       })}
 
                       <div className="pagi-00">
-                        <Pagination defaultCurrent={1} total={totalUsersPending} />
+                        <Pagination defaultCurrent={optionUserPending.page} total={totalUsersPending} onChange={(page, pageSize) => {
+                          const auxOption = {...optionUserPending};
+                          auxOption.page = page;
+                          setOptionUserPending(auxOption);
+                          searchUserPending(auxOption);
+                        }} />
                       </div>
                     </TabPane>
 

@@ -41,6 +41,8 @@ export default ({ user, pos, saveUser, deleteUser }: any) => {
       values.designation = designation;
       const result = datasets.putData(SERVER.EDIT_USER + '/' + user._id, values, datasets.getToken()).then(res => {
         if (res?._id) {
+          console.log('save: ', res);
+          
           saveUser();
         }
       });

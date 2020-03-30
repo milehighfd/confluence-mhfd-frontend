@@ -1,11 +1,12 @@
 import React from 'react';
 import { Dropdown, Button, Input, Menu } from 'antd';
 import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, JURISDICTION, ROLE, RADIO_ITEMS } from "../../constants/constants";
+import { OptionsFiltersUser } from '../../Classes/TypeList';
 
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation'];
-const SORT_ITEMS = [{name: 'Name', value: 'name'}, {name: 'Organization', value: 'organization'}, {name: 'Service Area', value:'serviceArea'}, {name: 'Designation', value:'designation'}];
-const ROLES = [ 'MHFD Admin', 'MHFD Staff', 'Local Government Admin', 'Local Government', 'Consultant / Contractor', 'Other' ];
-export default ({ option, setOption, search }: { option: { name: string, organization: string, serviceArea: string, designation: string, sort: string }, setOption: Function, search: Function }) => {
+const SORT_ITEMS = [{ name: 'Name', value: 'name' }, { name: 'Organization', value: 'organization' }, { name: 'Service Area', value: 'serviceArea' }, { name: 'Designation', value: 'designation' }];
+const ROLES = ['MHFD Admin', 'MHFD Staff', 'Local Government Admin', 'Local Government', 'Consultant / Contractor', 'Other'];
+export default ({ option, setOption, search }: { option: OptionsFiltersUser, setOption: Function, search: Function }) => {
   const { Search } = Input;
   const menu = (list: Array<string>, title: string, defaultValue: string) => (
     <Menu className="js-mm-00 sign-menu"
@@ -24,11 +25,11 @@ export default ({ option, setOption, search }: { option: { name: string, organiz
         setOption(auxOption);
         search(auxOption);
       }}>
-        {defaultValue ? <Menu.Item key="x">
-          <a target="_blank" rel="noopener noreferrer">
-            {defaultValue}
+      {defaultValue ? <Menu.Item key="x">
+        <a target="_blank" rel="noopener noreferrer">
+          {defaultValue} - All
           </a>
-        </Menu.Item>: ''}
+      </Menu.Item> : ''}
       {list.map((element: string, index: number) => {
         return <Menu.Item key={index}>
           <a target="_blank" rel="noopener noreferrer">
@@ -38,6 +39,25 @@ export default ({ option, setOption, search }: { option: { name: string, organiz
       })}
     </Menu>
   );
+  const MenuOrganization = () => (<Menu className="js-mm sign-menu-organization"
+    onClick={(event) => {
+      const auxOption = { ...option };
+      const val = event.key !== 'x' ? event.item.props.children : ''
+      auxOption.organization = val;
+      setOption(auxOption);
+      search(auxOption);
+    }}>
+    <Menu.Item key={"x"}>Organization - All</Menu.Item>
+    <Menu.ItemGroup key="g1" title="Organization">
+      {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}>{item}</Menu.Item>))}
+    </Menu.ItemGroup>
+    <Menu.ItemGroup key="g2" title="Consultant / Contractor">
+      {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g2"}>{item}</Menu.Item>))}
+    </Menu.ItemGroup>
+    <Menu.ItemGroup key="g3" title="Jurisdiction">
+      {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g3"}>{item}</Menu.Item>))}
+    </Menu.ItemGroup>
+  </Menu>);
   return (
     <div className="user-filter">
       <div>
@@ -54,10 +74,9 @@ export default ({ option, setOption, search }: { option: { name: string, organiz
       </div>
 
       <div>
-        <Dropdown overlay={menu(ORGANIZATION, 'organization', 'Organization')}>
+        <Dropdown overlay={MenuOrganization}>
           <Button>
-            {option.organization ? option.organization : 'Organization'}
-            <img src="Icons/icon-12.svg" alt="" />
+            {option.organization ? option.organization : 'Organization'}  <img src="Icons/icon-12.svg" alt="" />
           </Button>
         </Dropdown>
       </div>

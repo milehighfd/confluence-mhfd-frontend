@@ -26,6 +26,8 @@ export const SERVER = (function () {
     const SIGN_UP = 'signup';
     const RECOVERY_PASSWORD = 'recovery-password';
     const RESET_PASSWORD = 'reset-password';
+    const LIST_USERS_ACTIVATED = 'list?';
+    const LIST_USERS_PENDING = 'list?pending=false&';
     return {
         URL_BASE: URL_BASE.BASE,
         USER: `${URL_BASE.BASE}/${USER}`,
@@ -43,7 +45,8 @@ export const SERVER = (function () {
         CREATE_PROJECT_SPECIAL: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_SPECIAL}`,
         CREATE_PROJECT_STUDY_MASTER: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_STUDY_MASTER}`,
         CREATE_PROJECT_STUDY_FHAD: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_STUDY_FHAD}`,
-        LIST_USERS: `${URL_BASE.BASE}/${ADMIN}/${LIST}`,
+        LIST_USERS_ACTIVATED: `${URL_BASE.BASE}/${ADMIN}/${LIST_USERS_ACTIVATED}`,
+        LIST_USERS_PENDING: `${URL_BASE.BASE}/${ADMIN}/${LIST_USERS_PENDING}`,
         CHANGE_USER_STATE: `${URL_BASE.BASE}/${ADMIN}/${CHANGE_USER_STATE}`,
         EDIT_USER: `${URL_BASE.BASE}/${ADMIN}/${EDIT_USER}`,
         SIGN_UP: `${URL_BASE.BASE}/${USER}/${SIGN_UP}`,
