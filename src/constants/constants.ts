@@ -610,6 +610,24 @@ export const ROLE = [
 export const ROUTERS_SIDEBAR = [
   '/profile-view', '/map', '/new-project-types', '/work-request', '/work-plan', '/user'
 ];
+export const TASK = [
+  {
+    name: "Sediment Removal", 
+    id: "sedimentRemoval"
+  }, {
+    name: "Tree Thinning",
+    id: "treeThinning"
+  }, {
+    name: "Bank Stabilization",
+    id: "bankStabilization"
+  }, {
+    name: "Drainage Structure",
+    id: "drainageStructure"
+  }, {
+    name: "Regional Detention",
+    id: "regionalDetention"
+  }
+];
 export const PAGE_USER = {
   page: 1,
   limit: 10,

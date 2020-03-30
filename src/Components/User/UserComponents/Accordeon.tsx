@@ -35,7 +35,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     values.serviceArea = user.serviceArea;
   }, [user]);
 
-  const { values, handleSubmit, handleChange } = useFormik({
+  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues,
     validationSchema,
     onSubmit(values: User) {
@@ -77,15 +77,24 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
             <div className="gutter-example">
               <h3>PROFILE</h3>
               <Row gutter={16}>
-                <Col className="gutter-row" span={12}><Input placeholder="First Name" value={values.firstName} name="firstName" onChange={handleChange} /></Col>
-                <Col className="gutter-row" span={12}><Input placeholder="Last Name" value={values.lastName} name="lastName" onChange={handleChange} /></Col>
+                <Col className="gutter-row" span={12}>
+                  <Input placeholder="First Name" value={values.firstName} name="firstName" onChange={handleChange} 
+                    style={(errors.firstName && touched.firstName) ? {border: "solid red"}:{}} />
+                </Col>
+                <Col className="gutter-row" span={12}>
+                  <Input placeholder="Last Name" value={values.lastName} name="lastName" onChange={handleChange} 
+                    style={(errors.lastName && touched.lastName) ? {border: "solid red"}:{}}/>
+                </Col>
               </Row>
               <br></br>
               <Row gutter={16}>
-                <Col className="gutter-row" span={12}><Input placeholder="Email" value={values.email} name="email" onChange={handleChange} /></Col>
+                <Col className="gutter-row" span={12}>
+                  <Input placeholder="Email" value={values.email} name="email" onChange={handleChange} 
+                  style={(errors.email && touched.email) ? {border: "solid red"}:{}}/>
+                </Col>
                 <Col className="gutter-row" span={12}>
                   <Dropdown overlay={MenuOrganizationView(values, setTitle)}>
-                    <Button>
+                    <Button style={(errors.organization && touched.organization) ? {border: "solid red"}:{}}>
                       {values.organization ? values.organization : 'Organization'}  <img src="Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -112,7 +121,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
               <Row gutter={16}>
                 <Col className="gutter-row" span={12}>
                   <Dropdown overlay={MenuAreaView(CITIES, 'city', values, setTitle)}>
-                    <Button>
+                    <Button style={(errors.city && touched.city && !values.city ) ? {border: "solid red"}:{}}>
                       {values.city ? values.city : 'City'} <img src="Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -120,8 +129,8 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
 
                 <Col className="gutter-row" span={12}>
                   <Dropdown overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}>
-                    <Button>
-                      {values.county ? values.county : 'county'}  <img src="Icons/icon-12.svg" alt="" />
+                    <Button style={(errors.county && touched.county && !values.county ) ? {border: "solid red"}:{}}>
+                      {values.county ? values.county : 'County'}  <img src="Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
                 </Col>
@@ -130,7 +139,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
               <Row gutter={16}>
                 <Col className="gutter-row" span={12}>
                   <Dropdown overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}>
-                    <Button>
+                    <Button style={{border: (errors.serviceArea && touched.serviceArea && !values.serviceArea ) ? "solid red":""}}>
                       {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -139,7 +148,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
             </div>
             <div className="user-footer">
               {values.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : ''}
-              <Button className="btn-s" block htmlType="submit" >Save</Button>
+              <Button className="btn-s colorButton" block htmlType="submit">Save</Button>
             </div>
           </Form>
         </Panel>

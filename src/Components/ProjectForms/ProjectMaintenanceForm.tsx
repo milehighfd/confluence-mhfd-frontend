@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Dropdown, Menu, Button, Switch, Tag, Input, Upload, Form } from 'antd';
 
-import { FRECUENCY, MAINTENANCE_ELIGIBILITY, RECURRENCE, PROJECT_MAINTENANCE_DEBRIS, PROJECT_MAINTENANCE_VEGETATION, PROJECT_MAINTENANCE_SEDIMENT, PROJECT_MAINTENANCE_MINOR_REPAIR, PROJECT_MAINTENANCE_RESTORATION } from "../../constants/constants";
+import { FRECUENCY, MAINTENANCE_ELIGIBILITY, RECURRENCE, PROJECT_MAINTENANCE_DEBRIS, PROJECT_MAINTENANCE_VEGETATION, PROJECT_MAINTENANCE_SEDIMENT, PROJECT_MAINTENANCE_MINOR_REPAIR, PROJECT_MAINTENANCE_RESTORATION, TASK } from "../../constants/constants";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import { useLocation, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
@@ -32,19 +32,27 @@ const menu = (
   </Menu>
 );
 
-const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm: Function}) => {
+const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm: Function }) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
-  const validationSchema = cad[2] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[2] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION : 
-          cad[2] === 'sedimentRemoval' ? VALIDATION_PROJECT_SEDIMENT : cad[2] === 'minorRepairs' ? VALIDATION_PROJECT_MINOR_REPAIR : VALIDATION_PROJECT_RESTORATION;
-  const initialValues = cad[2] === 'debrisManagement' ? PROJECT_MAINTENANCE_DEBRIS : cad[2] === 'vegetationManagement' ? PROJECT_MAINTENANCE_VEGETATION : 
-          cad[2] === 'sedimentRemoval' ? PROJECT_MAINTENANCE_SEDIMENT : cad[2] === 'minorRepairs' ? PROJECT_MAINTENANCE_MINOR_REPAIR : PROJECT_MAINTENANCE_RESTORATION;
+  const validationSchema = cad[2] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[2] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION :
+    cad[2] === 'sedimentRemoval' ? VALIDATION_PROJECT_SEDIMENT : cad[2] === 'minorRepairs' ? VALIDATION_PROJECT_MINOR_REPAIR : VALIDATION_PROJECT_RESTORATION;
+  const initialValues = cad[2] === 'debrisManagement' ? PROJECT_MAINTENANCE_DEBRIS : cad[2] === 'vegetationManagement' ? PROJECT_MAINTENANCE_VEGETATION :
+    cad[2] === 'sedimentRemoval' ? PROJECT_MAINTENANCE_SEDIMENT : cad[2] === 'minorRepairs' ? PROJECT_MAINTENANCE_MINOR_REPAIR : PROJECT_MAINTENANCE_RESTORATION;
   initialValues.requestName = cad[3];
   initialValues.projectSubtype = cad[2];
   const [mainImage, setMainImage] = useState([]);
   const [listFiles, setListFiles ] = useState([]);
   const [title, setTitle] = useState<string>('');
-  
+  const [tasks, setTasks] = useState<Array<Object>>([
+    <Col className="gutter-row" span={12}>
+      <Dropdown overlay={menu}>
+        <Button>
+          Tree Thinning <img src="/Icons/icon-12.svg" alt="" />
+        </Button>
+      </Dropdown>
+    </Col>
+    ]);
   const { values, handleSubmit, handleChange } = useFormik({
       initialValues,
       validationSchema,
@@ -57,6 +65,31 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
     setTimeout(() => onSuccess("ok"), 0);
   }  
 
+  const task = () => <>
+    <Col className="gutter-row" span={12}>
+      <Dropdown overlay={menu}>
+        <Button>
+          Tree Thinning <img src="/Icons/icon-12.svg" alt="" />
+        </Button>
+      </Dropdown>
+      <img className="img-maint" src="/Icons/icon-16.svg" alt="" onClick={() => {
+      }} />
+    </Col>
+  </>;
+
+  const deleteTask = (pos: number) => {
+    const auxTask = [...tasks];
+    auxTask.splice(pos, 1);
+    setTasks(auxTask);
+  }
+  console.log(tasks);
+  
+
+  const addTask = () => {
+    const auxTask = [...tasks];
+    auxTask.push(task());
+    setTasks(auxTask);
+  }
   return <>
     <div className="count-01">
       <ProjectsHeader route={values.requestName} />
@@ -70,7 +103,11 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
           <div id="demo-2">
             <input type="search" placeholder="Search" />
           </div>
-          <button><img src="/Icons/icon-35.svg" alt="" /></button>
+          {values.projectSubtype === 'restoration' ? (<button onClick={() => {
+            addTask();
+          }}><img src="/Icons/icon-35.svg" alt="" /></button>
+          ): (<button><img src="/Icons/icon-35.svg" alt="" /></button>)}
+
         </div>
       </div>
       <Form onSubmit={handleSubmit}>
@@ -86,25 +123,11 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
             </div></>
         ) : (
             <><div className="gutter-example user-tab all-npf">
-              <Row gutter={16}>
-                <Col className="gutter-row" span={12}>
-                  <Dropdown overlay={menu}>
-                    <Button>
-                      Restoration Task <img src="/Icons/icon-12.svg" alt="" />
-                    </Button>
-                  </Dropdown>
-                </Col>
-              </Row>
-              <Row gutter={16} className="input-maint">
-                <Col className="gutter-row" span={12}>
-                  <Dropdown overlay={menu}>
-                    <Button>
-                      Tree Thinning <img src="/Icons/icon-12.svg" alt="" />
-                    </Button>
-                  </Dropdown>
-                  <img className="img-maint" src="/Icons/icon-16.svg" alt="" />
-                </Col>
-              </Row>
+              {tasks.map( (item: Object, index: number) => {
+                return <Row gutter={16} className="input-maint">
+                  {item}
+                </Row>
+              })}
             </div>
             </>
           )}
@@ -132,7 +155,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
             </Col>
           </Row>
           <br></br>
-          {(values.projectSubtype !== 'restoration', values.projectSubtype !== 'minorRepairs') ? (
+          {((values.projectSubtype === 'debrisManagement' || values.projectSubtype === 'vegetationManagement' || values.projectSubtype === 'sedimentRemoval')) && (
             <Row gutter={16}>
               {values.projectSubtype === 'debrisManagement' ? (
                 <Col className="gutter-row" span={12}>
@@ -162,7 +185,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
                 </Dropdown>
               </Col>
             </Row>
-          ) : ''}
+          )}
           {values.projectSubtype !== 'debrisManagement' ? (
             <Row gutter={16}>
               <Col className="gutter-row" span={12}>
@@ -178,7 +201,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Main Image</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger customRequest={dummyRequest} onChange={({file, fileList} : any) => setMainImage(fileList)}>
+          <Dragger customRequest={dummyRequest} onChange={({ file, fileList }: any) => setMainImage(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach main image in PNG or JPEG format</p>
           </Dragger>
@@ -190,7 +213,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm } : {createNewProjectForm
         </div>
         <div className="img-npf">
           <label className="label-new-form" htmlFor=""><h3>Upload Attachments</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-          <Dragger customRequest={dummyRequest} className="img-npf" onChange={({file, fileList} : any) => setListFiles(fileList)}>
+          <Dragger customRequest={dummyRequest} className="img-npf" onChange={({ file, fileList }: any) => setListFiles(fileList)}>
             <img src="/Icons/icon-17.svg" alt="" />
             <p className="ant-upload-text">Attach Docs, PDFs, CSVs, ZIPs and other files</p>
           </Dragger>

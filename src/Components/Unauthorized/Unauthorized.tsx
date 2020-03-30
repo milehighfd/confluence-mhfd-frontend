@@ -10,9 +10,6 @@ export default () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setRedirect(true);
-            const seg = setTimeout(() => {
-                setSecond(second - 1);
-            }, 1000);
         }, 10000);
         return () => clearTimeout(timer);
       }, []);
