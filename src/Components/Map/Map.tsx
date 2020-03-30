@@ -85,6 +85,7 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
     useEffect(() => {
         map.setStyle(dropdownItems.items[dropdownItems.default].style);
         refreshPaintedComponents();
+        addMapListeners();
     }, [dropdownItems.items[dropdownItems.default].style]);
 
     useEffect(() => {
@@ -96,7 +97,14 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
     }, [selectedItems]);
 
     useEffect(() => {
-        if(projects.length) addMapListeners();
+        if(projects.length) {
+            addMapListeners();
+        }
+        if(map.isStyleLoaded()) {
+            drawConstants.map((item : string) => {
+                drawItemsInMap(item);
+            });
+        }
     }, [projects]);
 
     /* https://github.com/mapbox/mapbox-gl-js/issues/2268 Mapbox issue when refreshing layers */
@@ -310,7 +318,7 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
         const mapSource = map.getSource(id);
         if(mapSource) {
             map.removeLayer(id);
-            map.removeLayer(id + '_line');
+            if(id !== COMPONENTS_TRIGGER) map.removeLayer(id + '_line');
             map.removeSource(id);
         }
     }

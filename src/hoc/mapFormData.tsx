@@ -29,16 +29,13 @@ export default function (WrappedComponent : any, layers : any) {
         }, [error]);
 
         useEffect(() => {
-          if(projects.length) {
-            const newProjects = projects.filter((project : any) => project.projectType === 'maintenance')
-            .map((project : any) => {
-              const newProject : any = {...project};
-              newProject.coordinates = JSON.parse(project.coordinates);
-              return newProject;
-            });
-
-            setFormatedProjects(newProjects);
-          }
+          const newProjects = projects.filter((project : any) => project.projectType === 'maintenance')
+          .map((project : any) => {
+            const newProject : any = {...project};
+            newProject.coordinates = JSON.parse(project.coordinates);
+            return newProject;
+          });
+          setFormatedProjects(newProjects);
         }, [projects]);
 
         const updateWidth = () => {
