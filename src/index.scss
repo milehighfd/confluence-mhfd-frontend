@@ -1379,7 +1379,7 @@ body{
 .map-pop-00{
   width: 240px;
   padding: 0px;
-  height: 203px;
+  min-height: 150px;
    // font-weight: bold;
   border-radius: 1.3px;
   box-shadow: $shadow;

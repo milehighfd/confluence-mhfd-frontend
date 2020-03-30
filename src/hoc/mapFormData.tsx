@@ -11,7 +11,7 @@ import { Layout, Row, Col, Button, message } from 'antd';
 import { MapHOCProps } from '../Classes/MapTypes';
 
 export default function (WrappedComponent : any, layers : any) {
-    return ({ problems, projects, components, secProjects, filters, saveNewCapitalForm, saveNewStudyForm, createNewProjectForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, redirect, setRouteRedirect, error, clearErrorMessage, getProjectWithFilters, removeFilter } : MapHOCProps) => {
+    return ({ problems, projects, components, filters, saveNewCapitalForm, saveNewStudyForm, createNewProjectForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, redirect, setRouteRedirect, error, clearErrorMessage, getProjectWithFilters, removeFilter } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -19,6 +19,7 @@ export default function (WrappedComponent : any, layers : any) {
         const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
         const [selectedItems, setSelectedItems] = useState([]);
         const [isPolygon, setIsPolygon] = useState(false);
+        const [formatedProjects, setFormatedProjects] = useState<any>([]);
 
         useEffect(() => {
           if(error) {
@@ -26,6 +27,19 @@ export default function (WrappedComponent : any, layers : any) {
             clearErrorMessage();
           }
         }, [error]);
+
+        useEffect(() => {
+          if(projects.length) {
+            const newProjects = projects.filter((project : any) => project.projectType === 'maintenance')
+            .map((project : any) => {
+              const newProject : any = {...project};
+              newProject.coordinates = JSON.parse(project.coordinates);
+              return newProject;
+            });
+
+            setFormatedProjects(newProjects);
+          }
+        }, [projects]);
 
         const updateWidth = () => {
           if (leftWidth === MEDIUM_SCREEN) {
@@ -56,7 +70,7 @@ export default function (WrappedComponent : any, layers : any) {
                             leftWidth={leftWidth}
                             layers={layers}
                             problems={problems}
-                            projects={projects}
+                            projects={formatedProjects}
                             components={components}
                             setSelectedItems={setSelectedItems}
                             selectedItems={selectedItems}
@@ -79,8 +93,8 @@ export default function (WrappedComponent : any, layers : any) {
                             createNewProjectForm={createNewProjectForm}
                             getProjectWithFilters={getProjectWithFilters}
                             filters={filters}
-                            removeFilter={removeFilter}
-                            secProjects={secProjects} />
+                            removeFilter={removeFilter} 
+                            projects={projects} />
                     </Col>
                 </Row>
               </Layout>

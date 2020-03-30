@@ -46,7 +46,7 @@ const accordionRow: Array<any> = [
   }
 ];
 
-const MapView = ({ filters, secProjects, getProjectWithFilters, removeFilter } : { filters: any, secProjects: any, getProjectWithFilters : Function, removeFilter: Function}) => {
+const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { filters: any, projects: any, getProjectWithFilters : Function, removeFilter: Function}) => {
 
   const [listDescription, setListDescription] = useState(false);
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -163,9 +163,9 @@ const MapView = ({ filters, secProjects, getProjectWithFilters, removeFilter } :
             if(value === FILTER_PROBLEMS_TRIGGER) {
               totalElements = cardInformationProblems.length;
               cardInformation = cardInformationProblems;
-            } else if (secProjects) {
-              totalElements = secProjects.length;
-              cardInformation = secProjects;
+            } else if (projects) {
+              totalElements = projects.length;
+              cardInformation = projects;
             }
 
             return (

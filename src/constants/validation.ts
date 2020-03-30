@@ -63,7 +63,7 @@ export const VALIDATION_PROJECT_ACQUISITION = Yup.object().shape({
     .required('Required'),
   description: Yup.string()
     .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .max(200, 'Too Long!')
     .required('Required'),
   requestName: Yup.string()
     .min(2, 'Too Short!')
@@ -86,7 +86,7 @@ export const VALIDATION_PROJECT_SPECIAL = Yup.object().shape({
     .required('Required'),
   description: Yup.string()
     .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .max(200, 'Too Long!')
     .required('Required'),
   requestName: Yup.string()
     .min(2, 'Too Short!')
@@ -136,7 +136,7 @@ export const VALIDATION_PROJECT_DEBRIS = Yup.object().shape({
     .required('Required'),
   description: Yup.string()
     .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .max(200, 'Too Long!')
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')
@@ -168,7 +168,7 @@ export const VALIDATION_PROJECT_VEGETATION = Yup.object().shape({
     .required('Required'),
   description: Yup.string()
     .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .max(200, 'Too Long!')
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')
@@ -204,7 +204,7 @@ export const VALIDATION_PROJECT_SEDIMENT = Yup.object().shape({
     .required('Required'),
   description: Yup.string()
     .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .max(200, 'Too Long!')
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')
@@ -240,7 +240,7 @@ export const VALIDATION_PROJECT_MINOR_REPAIR = Yup.object().shape({
     .required('Required'),
   description: Yup.string()
     .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .max(200, 'Too Long!')
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')
@@ -268,7 +268,7 @@ export const VALIDATION_PROJECT_RESTORATION = Yup.object().shape({
     .required('Required'),
   description: Yup.string()
     .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .max(200, 'Too Long!')
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')

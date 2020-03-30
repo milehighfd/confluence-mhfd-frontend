@@ -77,128 +77,7 @@ const initState = {
             ]
         }
     ],
-    projects: [
-        {
-            projectId: '74WA4X7E22',
-            projectName: 'Murphy Creek Bank Stabilization',
-            projectSubtype: 'Mantenance',
-            status: 'Requested',
-            finalCost: 400500,
-            jurisdiction: 'Westminster',
-            coordinates: [
-                [-105.00678964730282, 39.82517491705079],
-                [-105.00762077207199, 39.82092555878796],
-                [-105.00294402258662, 39.821099789922386],
-                [-105.0031449187985, 39.824311517701204],
-                [-105.00678964730282, 39.82517491705079]
-            ]
-        },
-        {
-            projectId: 'TK2IR1O0QT',
-            projectName: 'Little Dry Check',
-            projectSubtype: 'Mantenance',
-            status: 'Requested',
-            finalCost: 400500,
-            jurisdiction: 'Westminster',
-            coordinates: [
-                [-105.0110363830156, 39.804763700061244],
-                [-105.01186750778476, 39.80051434179842],
-                [-105.00719075829939, 39.80068857293284],
-                [-105.0069330845055, 39.80362217914154],
-                [-105.0110363830156, 39.804763700061244]
-            ]
-        },
-        {
-            projectId: 'B31X97N2JN',
-            projectName: 'Street Breakdown Creek',
-            projectSubtype: 'Mantenance',
-            status: 'Requested',
-            finalCost: 400500,
-            jurisdiction: 'Westminster',
-            coordinates: [
-                [-105.03620004995867, 39.79835077739452],
-                [-105.03703117472783, 39.79410141913169],
-                [-105.03235442524246, 39.794275650266115],
-                [-105.03209675144858, 39.797209256474815],
-                [-105.03620004995867, 39.79835077739452]
-            ]
-        },
-        {
-            projectId: 'LTV5KLRYVF',
-            projectName: 'Denver Channel Restoration',
-            projectSubtype: 'Mantenance',
-            status: 'Requested',
-            finalCost: 400500,
-            jurisdiction: 'Westminster',
-            coordinates: [
-                [-105.03596379426749, 39.83908124694051],
-                [-105.03679491903665, 39.834831888677684],
-                [-105.03211816955128, 39.83500611981211],
-                [-105.0318604957574, 39.83793972602081],
-                [-105.03596379426749, 39.83908124694051]
-            ]
-        },
-        {
-            projectId: 'Q3HUQJ5BBA',
-            projectName: 'Aplha Street Attendance',
-            projectSubtype: 'Mantenance',
-            status: 'Requested',
-            finalCost: 400500,
-            jurisdiction: 'Westminster',
-            coordinates: [
-                [-105.03609048531352, 39.76589941774358],
-                [-105.03692161008269, 39.76165005948076],
-                [-105.03224486059732, 39.76182429061518],
-                [-105.03198718680343, 39.76475789682388],
-                [-105.03609048531352, 39.76589941774358]
-            ]
-        },
-        {
-            projectId: 'E3Z4PXX8BD',
-            projectName: 'Channel Breakdown Creek',
-            projectSubtype: 'Mantenance',
-            status: 'Requested',
-            finalCost: 400500,
-            jurisdiction: 'Westminster',
-            coordinates: [
-                [-105.02319249898396, 39.729928914835114],
-                [-105.02402362375312, 39.72567955657229],
-                [-105.01934687426775, 39.72585378770671],
-                [-105.01908920047387, 39.72878739391541],
-                [-105.02319249898396, 39.729928914835114]
-            ]
-        },
-        {
-            projectId: '7OZUJ68M69',
-            projectName: 'Pedestrian Crossing in Park',
-            projectSubtype: 'Mantenance',
-            status: 'Requested',
-            finalCost: 400500,
-            jurisdiction: 'Westminster',
-            coordinates: [
-                [-104.99081236446784, 39.73012142325817],
-                [-104.991643489237, 39.72587206499534],
-                [-104.98696673975164, 39.726046296129766],
-                [-104.98670906595775, 39.728979902338466],
-                [-104.99081236446784, 39.73012142325817]
-            ]
-        },
-        {
-            projectId: 'IQ4D5VETTC',
-            projectName: 'Building Inundation Crash',
-            projectSubtype: 'Mantenance',
-            status: 'Requested',
-            finalCost: 400500,
-            jurisdiction: 'Westminster',
-            coordinates: [
-                [-104.98663152143963, 39.760378029230594],
-                [-104.9874626462088, 39.75612867096777],
-                [-104.98278589672343, 39.75630290210219],
-                [-104.98252822292955, 39.75923650831089],
-                [-104.98663152143963, 39.760378029230594]
-            ]
-        }
-    ],
+    projects: [],
     components: [
         {
             componentId: '0905389549',
@@ -301,7 +180,6 @@ const initState = {
             coordinates: [-104.99997101031218, 39.84543449508365]
         }
     ],
-    secProjects: [],
     filters: []
 }
 
@@ -363,7 +241,7 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 filters: action.data.filters,
-                secProjects: action.data.projects
+                projects: action.data.projects
             }
         default: 
             return state;

@@ -18,7 +18,8 @@ const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
 let map : any = null;
-const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
+// const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
+const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 
 const Map = ({ leftWidth, layers, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates } : MapProps) => {
     let mapRef = useRef<any>();
@@ -79,8 +80,6 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
                 });
             }
         }
-
-        addMapListeners();
     }, []);
 
     useEffect(() => {
@@ -95,6 +94,10 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
     useEffect(() => {
         paintSelectedComponents(selectedItems);
     }, [selectedItems]);
+
+    useEffect(() => {
+        if(projects.length) addMapListeners();
+    }, [projects]);
 
     /* https://github.com/mapbox/mapbox-gl-js/issues/2268 Mapbox issue when refreshing layers */
     const refreshPaintedComponents = () => {
@@ -209,17 +212,14 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
         });
     }
 
-    const popUpContent = (trigger : string, name : string, jurisdiction: string, studyName : string) => ReactDOMServer.renderToStaticMarkup(
+    const popUpContent = (trigger : string, item : any) => ReactDOMServer.renderToStaticMarkup(
         <>
             {trigger !== COMPONENTS_TRIGGER ? 
                 <MainPopup 
                     trigger={trigger}
-                    name={name}
-                    jurisdiction={jurisdiction} /> : 
+                    item={item} /> : 
                 <ComponentPopup
-                    name={name}
-                    jurisdiction={jurisdiction}
-                    studyName={studyName} />}
+                    item={item} />}
         </>
     );
 
@@ -239,18 +239,13 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
 
         const itemsFeatures = items.map((item : any) => {
             const nameConst = trigger.slice(0, -1);
-
             const id = item[nameConst + 'Id'];
-            const name = item[nameConst + 'Name'];
-            const jurisdiction = item.jurisdiction;
-
-            const studyName = item.studyName;
                 
             return {
                 id: id,
                 type: 'Feature',
                 properties: {
-                    description: popUpContent(trigger, name, jurisdiction, studyName)
+                    description: popUpContent(trigger, item)
                 },
                 geometry: {
                     type: trigger !== COMPONENTS_TRIGGER ? 'Polygon' : 'Point',
@@ -273,13 +268,10 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
                 type: 'fill',
                 source: trigger,
                 layout: {},
-                paint: trigger === PROBLEMS_TRIGGER ? {
+                paint: {
                     'fill-color': '#088',
                     'fill-opacity': 0.3,
-                    } : {
-                        'fill-color': '#088',
-                        'fill-opacity': 0,
-                }
+                } 
             });
 
             map.addLayer({
@@ -287,13 +279,10 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
                 type: 'line',
                 source: trigger,
                 layout: {},
-                paint: trigger === PROBLEMS_TRIGGER ? {
+                paint: {
                     'line-color': '#00bfa5',
                     'line-width': 2.5,
-                    } : {
-                        'line-color': '#ff8f00',
-                        'line-width': 1,
-                    }
+                }
             });
         } else {
             map.addLayer({

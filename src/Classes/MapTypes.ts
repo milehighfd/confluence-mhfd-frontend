@@ -16,7 +16,6 @@ export type MapHOCProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
-    secProjects: any,
     filters: any,
     saveNewCapitalForm: Function,
     saveNewStudyForm: Function,
