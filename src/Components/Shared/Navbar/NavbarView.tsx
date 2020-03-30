@@ -4,12 +4,16 @@ import * as datasets from "../../../Config/datasets";
 import { Redirect } from "react-router-dom";
 import { User } from "../../../Classes/User";
 import { replaceAppUser } from '../../../store/actions/appUser';
+import store from "../../../store";
 const { SubMenu } = Menu;
 const { Header } = Layout;
 
 
 export default () => {
   const [redirect, setRedirect] = useState(false);
+  const user = store.getState().appUser;
+  const name = user.firstName;
+  const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
   const logout = () => {
     datasets.logout();
     setRedirect(true);
@@ -44,7 +48,7 @@ export default () => {
       <label className="ll-0"></label>
       <Dropdown overlay={menu}>
         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-          <label className="ll-00">JC</label> Janelle <Icon type="caret-down" />
+          <label className="ll-00">{initialName}</label> {name} <Icon type="caret-down" />
         </a>
       </Dropdown>
       <Menu.Item><img src="Icons/icon-27.svg" alt="" /></Menu.Item>

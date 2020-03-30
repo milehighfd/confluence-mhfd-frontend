@@ -7,6 +7,7 @@ import UserFilters from './UserFilters';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import { OptionsFiltersUser, User } from "../../Classes/TypeList";
+import { PAGE_USER } from "../../constants/constants";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -20,22 +21,13 @@ const getUserActivated = (saveUser: Function, setUser: Function, url: string, se
   });
 }
 
-const options = {
-  page: 1,
-  limit: 10,
-  name: '',
-  organization: '',
-  serviceArea: '',
-  designation: '',
-  sort: 'name'
-}
 export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Function, saveUserPending: Function }) => {
-  const [userActivatedState, setUserActivatedState] = useState<any>([]);
+  const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
-  const [userPendingState, setUserPendingState] = useState<any>([]);
-  const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(options);
-  const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(options);
+  const [userPendingState, setUserPendingState] = useState<Array<User>>([]);
+  const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
+  const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
   const [title, setTitle] = useState('');
   let pndPos = 0; // momentary forced adition until getting the DB Structure
   let aprPos = 0; // momentary forced adition until getting the DB Structure
@@ -65,8 +57,8 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
     setTitle(id);
     datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {}, datasets.getToken()).then(res => {
       if (res?._id) {
-        setOptionUserActivated(options);
-        setOptionUserPending(options);
+        setOptionUserActivated(PAGE_USER);
+        setOptionUserPending(PAGE_USER);
         saveUserState();
       }
     });
@@ -86,11 +78,11 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                     <TabPane tab="Approved Users" key="1">
                       <UserFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated} />
 
-                      {userActivatedState.map((user: any, index: number) => {
+                      {userActivatedState.map((user: User, index: number) => {
                         aprPos++;
                         return (
                           <div key={index} style={{ marginBottom: 10 }}>
-                            <Accordeon user={user} pos={aprPos} saveUser={saveUserState} deleteUser={deleteUserActivated} />
+                            <Accordeon user={user} pos={(((optionUserActivated.page - 1) * 10) + aprPos)} saveUser={saveUserState} deleteUser={deleteUserActivated} />
                           </div>
                         );
                       })}
@@ -108,11 +100,11 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                     <TabPane tab="Pending User Requests" key="2">
                       <UserFilters option={optionUserPending} setOption={setOptionUserPending} search={searchUserPending} />
 
-                      {userPendingState.map((user: any, index: number) => {
+                      {userPendingState.map((user: User, index: number) => {
                         pndPos++;
                         return (
                           <div key={index} style={{ marginBottom: 10 }}>
-                            <Accordeon user={user} pos={pndPos} saveUser={saveUserState} deleteUser={deleteUserActivated} />
+                            <Accordeon user={user} pos={((optionUserPending.page - 1) * 10) + pndPos} saveUser={saveUserState} deleteUser={deleteUserActivated} />
                           </div>
                         );
                       })}

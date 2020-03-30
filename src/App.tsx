@@ -45,7 +45,7 @@ function App({ replaceAppUser }: any) {
       <Route path={'/404'} component={Unauthorized} />
       <Route path={`/reset-password`} component={ResetPasswordContainer} />
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
-      {datasets.getToken() && <Route path={`/profile-view`} component={ProfileContainer} />}
+      {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/map`} component={MapView} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/navbar`} component={NavbarContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/sidebar`} component={SidebarContainer} />}

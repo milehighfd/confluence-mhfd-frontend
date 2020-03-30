@@ -8,11 +8,12 @@ import { SERVER } from '../../../Config/Server.config';
 import RadioItemsView from './RadioItemsView';
 import MenuAreaView from './MenuAreaView';
 import MenuOrganizationView from './MenuOrganizationView';
+import { User } from '../../../Classes/TypeList';
 
 const { Panel } = Collapse;
 const validationSchema = VALIDATION_USER;
 
-export default ({ user, pos, saveUser, deleteUser }: any) => {
+export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, saveUser: Function, deleteUser: Function}) => {
 
   const [switchTo, setSwitchTo] = useState<boolean>(user.activated);
   const [designation, setDesignation] = useState<string>(user.designation);
@@ -37,12 +38,10 @@ export default ({ user, pos, saveUser, deleteUser }: any) => {
   const { values, handleSubmit, handleChange } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit(values: { _id: string, firstName: string, lastName: string, activated: boolean, organization: string, name: string, designation: string, email: string, city: string, county: string, serviceArea: string }) {
+    onSubmit(values: User) {
       values.designation = designation;
       const result = datasets.putData(SERVER.EDIT_USER + '/' + user._id, values, datasets.getToken()).then(res => {
         if (res?._id) {
-          console.log('save: ', res);
-          
           saveUser();
         }
       });
@@ -58,6 +57,7 @@ export default ({ user, pos, saveUser, deleteUser }: any) => {
     <Row className="user-head" type="flex" justify="space-around" align="middle">
       <Col span={19}>
         <h6>{pos + '. ' + user.firstName + ' ' + user.lastName}</h6>
+        {/* <span>(Organization - Service Area - User Designation)</span> */}
       </Col>
       <Col span={3} style={{ textAlign: 'right' }}>
         <div>

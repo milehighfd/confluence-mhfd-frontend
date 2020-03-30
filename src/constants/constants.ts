@@ -610,6 +610,15 @@ export const ROLE = [
 export const ROUTERS_SIDEBAR = [
   '/profile-view', '/map', '/new-project-types', '/work-request', '/work-plan', '/user'
 ];
+export const PAGE_USER = {
+  page: 1,
+  limit: 10,
+  name: '',
+  organization: '',
+  serviceArea: '',
+  designation: '',
+  sort: 'name'
+}
 
 /* Unselected Items on Maps Errors */
 export const NO_COMPONENTS_ERROR = 'Must select at least one map component.';

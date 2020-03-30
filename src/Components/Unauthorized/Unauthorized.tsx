@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Result, Button } from 'antd';
 import { getToken } from '../../Config/datasets'
 import { Redirect, Link } from "react-router-dom";
+import store from "../../store";
 export default () => {
     const [redirect, setRedirect] = useState<boolean>(false);
     const [second, setSecond] = useState<number>(10);
-    const exit = setTimeout(() => {
-        setRedirect(true);
-    }, 10000);
+    const user = store.getState().appUser;
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setRedirect(true);
+            const seg = setTimeout(() => {
+                setSecond(second - 1);
+            }, 1000);
+        }, 10000);
+        return () => clearTimeout(timer);
+      }, []);
     if(redirect) {
-        clearTimeout(exit);
-        if(getToken()) {
+        if(getToken() && user.activated) {
             return <Redirect to="/profile-view" />
         } else {
             return <Redirect to="/login" />
