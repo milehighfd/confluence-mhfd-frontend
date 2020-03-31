@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Alert, Modal, Button } from 'antd';
+import React from "react";
+import { Modal} from 'antd';
 
 export default ({ save, visible, setVisible }: { save: Function, visible: { visible: boolean }, setVisible: Function }) => {
   const handleCancel = () => {

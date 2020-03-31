@@ -571,7 +571,8 @@ export const PROJECT_MAINTENANCE_RESTORATION= {
   description: '',
   mhfdDollarRequest: 0,
   publicAccess: false,
-  maintenanceEligility: ''
+  maintenanceEligility: '',
+  task: ['sedimentRemoval']
 }
 
 export const USER = {

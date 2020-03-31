@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu, Result } from 'antd';
+import { useFormik } from 'formik';
+
 import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS } from "../../../constants/constants";
 import { VALIDATION_USER } from "../../../constants/validation";
-import { useFormik } from 'formik';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from '../../../Config/Server.config';
 import RadioItemsView from './RadioItemsView';
@@ -11,12 +12,13 @@ import MenuOrganizationView from './MenuOrganizationView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
 
-const { Panel } = Collapse;
-const validationSchema = VALIDATION_USER;
-const visible = {
-  visible: false
-};
+
 export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, saveUser: Function, deleteUser: Function}) => {
+  const validationSchema = VALIDATION_USER;
+  const { Panel } = Collapse;
+  const visible = {
+    visible: false
+  };
   const [modal, setModal] = useState(visible);
   const [switchTo, setSwitchTo] = useState<boolean>(user.activated);
   const [designation, setDesignation] = useState<string>(user.designation);
@@ -160,8 +162,8 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
               </Row>
             </div>
             <div className="user-footer">
-              {values.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : ''}
-              <Button className="btn-s colorButton" block htmlType="submit">Save</Button>
+              {values.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : <Button className="btn-d"></Button>}
+              <Button style={{color: 'rgb(6, 145, 6)'}} className="btn-s colorButton" block htmlType="submit">Save</Button>
             </div>
           </Form>
         </Panel>
