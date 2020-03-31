@@ -108,10 +108,10 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
     Component: 'Additional Cost',
     Jurisdiction: <Dropdown overlay={menu} trigger={['click']}>
     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-      20% <img src="/Icons/icon-12.svg" alt=""/>
+      {/* 20% <img src="/Icons/icon-12.svg" alt=""/> */}
     </a>
     </Dropdown>,
-    Cost: <span>${numberWithCommas(total.additional.cost)}</span>,
+    Cost: <Input id="cost" value={total.additional.cost} onChange={(e) => updateCostsDescription(e)} />,
     StudyName: <Input id='additionalCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
   {
@@ -159,6 +159,8 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
       const ovhCost = subtotal * total.overhead.per;
       const pricing = subtotal + atnCost + ovhCost;
       const additional = { ...total.additional, cost: atnCost };
+      console.log(additional.cost);
+      // const additionalCost = additional.cost; //total.additionalCost;
       const overhead = { ...total.overhead, cost: ovhCost };
       setTotal({...total, subtotal, additional, overhead, total: pricing})
     } else {
@@ -202,7 +204,12 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   }
 
   const updateCostsDescription = (event : any) => {
+    console.log(event.target.id);
     if(event.target.id === 'additionalCostDescription') {
+      const additional = {...total.additional, [event.target.id]: event.target.value}
+      setTotal({...total, additional});
+    } if(event.target.id === 'cost') {
+      console.log(event.target.value);
       const additional = {...total.additional, [event.target.id]: event.target.value}
       setTotal({...total, additional});
     } else {
