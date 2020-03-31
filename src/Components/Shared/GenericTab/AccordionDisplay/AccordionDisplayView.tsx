@@ -10,6 +10,6 @@ export default (props: any) => {
             <p>90%</p>
             <Progress percent={90} showInfo={false} style={{ height: '4px !important' }} />
         </Col>
-        <Col span={2}><img  src="/Icons/icon-20.svg" alt="" /></Col>
+        <Col span={2}>{ props.components ? (props.components.length ? <img  src="/Icons/icon-20.svg" alt="" /> : '') : '' }</Col>
     </Row>
 }
