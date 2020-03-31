@@ -6,17 +6,32 @@ import * as datasets from "../../Config/datasets"
 import { SERVER } from "../../Config/Server.config";
 import { Redirect, Link } from "react-router-dom";
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
+import ReCAPTCHA from "react-google-recaptcha";
+import * as Yup from "yup";
 
-const url2 = process.env.REACT_APP_API_URI;
 
+const keyCaptcha = SERVER.CAPTCHA;
+const validationSchema = Yup.object().shape({
+  email: Yup.string()      
+    .email()
+    .required('Required'),
+  password: Yup.string()      
+    .min(2)
+    .required('Required'),
+  recaptcha: Yup.string()
+    .min(5)
+    .required()
+});
 export default ({replaceAppUser}: {replaceAppUser: Function}) => {
   const [redirect, setRedirect] = useState(false);
-  const { handleSubmit, handleChange } = useFormik({
+  const { values, handleSubmit, handleChange } = useFormik({
     initialValues: {
-      email: "",
-      password: ""
+      email: '',
+      password: '',
+      recaptcha: ''
     },
-    onSubmit(values: {email: string, password: string}) {
+    validationSchema,
+    onSubmit(values: {email: string, password: string, recaptcha: string}) {
       const result = datasets.postData(SERVER.LOGIN, values).then(res => {
         if(res?.token) {
           localStorage.setItem('mfx-token', res.token);
@@ -27,7 +42,7 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
         }
       })
     }
-  })
+  });
 
   if(redirect) {
     return <Redirect to="/profile-view" />
@@ -73,6 +88,12 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
         <Link to={'/reset-password'} style={{ float: 'right', color: '#11093C'}}>
             Forgot Password?
         </Link> 
+        <ReCAPTCHA
+          sitekey={"" + keyCaptcha}
+          onChange={(event) => {
+            values.recaptcha = '' + (event !== 'null' ? event : '');
+          }}
+        />
       </div>
         <Button className="buttonLogin" block htmlType="submit">
             Login
