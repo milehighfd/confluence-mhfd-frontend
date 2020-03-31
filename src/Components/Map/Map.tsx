@@ -97,14 +97,13 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
     }, [selectedItems]);
 
     useEffect(() => {
-        if(projects.length) {
-            addMapListeners();
-        }
         if(map.isStyleLoaded()) {
             drawConstants.map((item : string) => {
                 drawItemsInMap(item);
             });
         }
+
+        addMapListeners();
     }, [projects]);
 
     /* https://github.com/mapbox/mapbox-gl-js/issues/2268 Mapbox issue when refreshing layers */

@@ -111,7 +111,7 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
       {/* 20% <img src="/Icons/icon-12.svg" alt=""/> */}
     </a>
     </Dropdown>,
-    Cost: <Input id="cost" value={total.additional.cost} onChange={(e) => updateCostsDescription(e)} />,
+    Cost: <><span>$</span><span id="additionalCost" suppressContentEditableWarning contentEditable onBlur={(e) => updateCostsDescription(e)} onFocus={selectText}>{numberWithCommas(total.additional.additionalCost)}</span></>,
     StudyName: <Input id='additionalCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
   {
@@ -122,7 +122,7 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
       20%<img src="/Icons/icon-12.svg" alt=""/>
     </a>
     </Dropdown>,
-    Cost: <span>${numberWithCommas(total.overhead.cost)}</span>,
+    Cost: <span>${numberWithCommas(total.overhead.overheadCost)}</span>,
     StudyName: <Input id='overheadCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
 ];
@@ -134,6 +134,12 @@ const data03 = ({ total, numberWithCommas } : any) => [
     Cost: <span className="numbers01-table">${numberWithCommas(total.total)}</span>,
   },
 ];
+
+const selectText = () => {
+  setTimeout(() => {
+    document.execCommand('selectAll', false, '');
+  }, 0);
+}
 
 const footer = FOOTER_PROJECT_CAPITAL;
 const validationSchema = VALIDATION_PROJECT_CAPITAL;
@@ -155,17 +161,14 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
 
     if(selectedItems.length) {
       const subtotal = selectedItems.map((item : ComponentType) => item.howCost).reduce((a : number, b : number) => a + b, 0);
-      const atnCost = subtotal * total.additional.per;
       const ovhCost = subtotal * total.overhead.per;
-      const pricing = subtotal + atnCost + ovhCost;
-      const additional = { ...total.additional, cost: atnCost };
-      console.log(additional.cost);
-      // const additionalCost = additional.cost; //total.additionalCost;
-      const overhead = { ...total.overhead, cost: ovhCost };
+      const pricing = subtotal + total.additional.additionalCost + ovhCost;
+      const additional = { ...total.additional };
+      const overhead = { ...total.overhead, overheadCost: ovhCost };
       setTotal({...total, subtotal, additional, overhead, total: pricing})
     } else {
-      const additional = { ...total.additional, cost: 0 };
-      const overhead = { ...total.overhead, cost: 0 };
+      const additional = { ...total.additional, additionalCost: 0 };
+      const overhead = { ...total.overhead, overheadCost: 0 };
       setTotal({...total, subtotal: 0, additional, overhead, total: 0 })
     }
   }, [selectedItems]);
@@ -204,16 +207,17 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   }
 
   const updateCostsDescription = (event : any) => {
-    console.log(event.target.id);
     if(event.target.id === 'additionalCostDescription') {
       const additional = {...total.additional, [event.target.id]: event.target.value}
       setTotal({...total, additional});
-    } if(event.target.id === 'cost') {
-      console.log(event.target.value);
-      const additional = {...total.additional, [event.target.id]: event.target.value}
-      setTotal({...total, additional});
-    } else {
-      const overhead = {...total.overhead, [event.target.id]: event.target.value}
+    } if(event.target.id === 'additionalCost') {
+      const value : any = document.getElementById(event.target.id)?.innerHTML;
+      const parsedValue = !isNaN(parseInt(value))?parseInt(value):0;
+      const additional = {...total.additional, [event.target.id]: parsedValue};
+      const newTotal = total.subtotal + parsedValue + total.overhead.overheadCost;
+      setTotal({...total, total: newTotal, additional});
+    } else if(event.target.id === 'overheadCostDescription') {
+      const overhead = {...total.overhead, [event.target.id]: event.target.value};
       setTotal({...total, overhead});
     }
   }

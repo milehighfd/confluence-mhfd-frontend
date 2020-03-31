@@ -10,7 +10,6 @@ import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswo
 import SidebarContainer from './Components/Shared/Sidebar/SidebarContainer';
 import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
-import NewProjectFormContainer from './Components/NewProjectForm/NewProjectFormContainer';
 import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
 import WorkPlanContainer from './Components/WorkPlan/WorkPlanContainer';
 import WorkRequestContainer from './Components/WorkRequest/WorkRequestContainer';
@@ -51,7 +50,6 @@ function App({ replaceAppUser }: any) {
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/navbar`} component={NavbarContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/sidebar`} component={SidebarContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/user`} component={UserContainer} />}
-      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/new-project-form`} component={NewProjectFormContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-capital`} component={ProjectCapitalForm} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-acquisition`} component={ProjectAcquisitionForm} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/project-special`} component={ProjectSpecialForm} />}

@@ -20,6 +20,7 @@ export const SERVER = (function () {
     const UPLOAD_FILE = 'upload-file';
     const ME = 'me';
     const ADMIN = 'admin';
+    const MAP = 'map';
     const LIST = 'list';
     const CHANGE_USER_STATE = 'change-user-state';
     const EDIT_USER = 'edit-user';
@@ -47,12 +48,13 @@ export const SERVER = (function () {
         CREATE_PROJECT_SPECIAL: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_SPECIAL}`,
         CREATE_PROJECT_STUDY_MASTER: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_STUDY_MASTER}`,
         CREATE_PROJECT_STUDY_FHAD: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_STUDY_FHAD}`,
+        MAP_TABLES: `${URL_BASE.BASE}/${MAP}`,
         LIST_USERS_ACTIVATED: `${URL_BASE.BASE}/${ADMIN}/${LIST_USERS_ACTIVATED}`,
         LIST_USERS_PENDING: `${URL_BASE.BASE}/${ADMIN}/${LIST_USERS_PENDING}`,
         CHANGE_USER_STATE: `${URL_BASE.BASE}/${ADMIN}/${CHANGE_USER_STATE}`,
         EDIT_USER: `${URL_BASE.BASE}/${ADMIN}/${EDIT_USER}`,
         SIGN_UP: `${URL_BASE.BASE}/${USER}/${SIGN_UP}`,
         RECOVERY_PASSWORD: `${URL_BASE.BASE}/${USER}/${RECOVERY_PASSWORD}`,
-        RESET_PASSWORD: `${URL_BASE.BASE}/${USER}/${RESET_PASSWORD}`
+        RESET_PASSWORD: `${URL_BASE.BASE}/${USER}/${RESET_PASSWORD}`,
     }
 })();
