@@ -3,7 +3,6 @@ import { Alert, Modal, Button } from 'antd';
 
 export default ({ save, visible, setVisible }: { save: Function, visible: { visible: boolean }, setVisible: Function }) => {
   const handleCancel = () => {
-    console.log('rrorr close');
     const auxState = {...visible};
     auxState.visible = false;
     setVisible(auxState);
