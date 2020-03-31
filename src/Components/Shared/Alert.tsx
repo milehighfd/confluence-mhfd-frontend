@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal} from 'antd';
 
-export default ({ save, visible, setVisible }: { save: Function, visible: { visible: boolean }, setVisible: Function }) => {
+export default ({ save, visible, setVisible, message }: { save: Function, visible: { visible: boolean }, setVisible: Function, message: string }) => {
   const handleCancel = () => {
     const auxState = {...visible};
     auxState.visible = false;
@@ -14,7 +14,7 @@ export default ({ save, visible, setVisible }: { save: Function, visible: { visi
     className="modal-confirm"
     width="400px"
   >
-    <h2>Are you sure you want to update the user?</h2>
+    <h2>{message}</h2>
     <button className="btn-cancel" onClick={() => {
       handleCancel();
     }}>Cancel</button>

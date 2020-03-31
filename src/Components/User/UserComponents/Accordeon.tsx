@@ -16,6 +16,7 @@ import Alert from '../../Shared/Alert';
 export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, saveUser: Function, deleteUser: Function}) => {
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
+  
   const visible = {
     visible: false
   };
@@ -61,7 +62,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
       }
     });
   } 
-
+  const message = 'Are you sure you want to update the user ' + values.firstName + ' ' + values.lastName + '?';
   const handleSwitchButton = (checked: boolean) => {
     setSwitchTo(checked);
     setTitle(user._id);
@@ -163,12 +164,12 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
             </div>
             <div className="user-footer">
               {values.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : <Button className="btn-d"></Button>}
-              <Button style={{color: 'rgb(6, 145, 6)'}} className="btn-s colorButton" block htmlType="submit">Save</Button>
+              <Button style={{color: '#28C499'}} className="btn-s colorButton" block htmlType="submit">Save</Button>
             </div>
           </Form>
         </Panel>
       </Collapse>
-      <Alert save={result} visible={modal} setVisible={setModal} />
+      <Alert save={result} visible={modal} setVisible={setModal} message={message} />
     </>
   )
 }
