@@ -6,7 +6,7 @@ import { OptionsFiltersUser } from '../../Classes/TypeList';
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation'];
 const SORT_ITEMS = [{ name: 'Name', value: 'name' }, { name: 'Organization', value: 'organization' }, { name: 'Service Area', value: 'serviceArea' }, { name: 'Designation', value: 'designation' }];
 const ROLES = ['MHFD Admin', 'MHFD Staff', 'Local Government Admin', 'Local Government', 'Consultant / Contractor', 'Other'];
-export default ({ option, setOption, search }: { option: OptionsFiltersUser, setOption: Function, search: Function }) => {
+export default ({ option, setOption, search, reset }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function }) => {
   const { Search } = Input;
   const menu = (list: Array<string>, title: string, defaultValue: string) => (
     <Menu className="js-mm-00 sign-menu"
@@ -99,7 +99,9 @@ export default ({ option, setOption, search }: { option: OptionsFiltersUser, set
       </div>
 
       <div>
-        <Button className="f-btn">Reset</Button>
+        <Button className="f-btn" onClick={() => {
+          reset();
+        }}>Reset</Button>
       </div>
 
       <div className="btn-r">

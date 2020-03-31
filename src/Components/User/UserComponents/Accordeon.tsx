@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu } from 'antd';
+import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu, Result } from 'antd';
 import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS } from "../../../constants/constants";
 import { VALIDATION_USER } from "../../../constants/validation";
 import { useFormik } from 'formik';
@@ -9,12 +9,15 @@ import RadioItemsView from './RadioItemsView';
 import MenuAreaView from './MenuAreaView';
 import MenuOrganizationView from './MenuOrganizationView';
 import { User } from '../../../Classes/TypeList';
+import Alert from '../../Shared/Alert';
 
 const { Panel } = Collapse;
 const validationSchema = VALIDATION_USER;
-
+const visible = {
+  visible: false
+};
 export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, saveUser: Function, deleteUser: Function}) => {
-
+  const [modal, setModal] = useState(visible);
   const [switchTo, setSwitchTo] = useState<boolean>(user.activated);
   const [designation, setDesignation] = useState<string>(user.designation);
   const [title, setTitle] = useState<string>('');
@@ -40,13 +43,23 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     validationSchema,
     onSubmit(values: User) {
       values.designation = designation;
-      const result = datasets.putData(SERVER.EDIT_USER + '/' + user._id, values, datasets.getToken()).then(res => {
-        if (res?._id) {
-          saveUser();
-        }
-      });
+      const auxState = {...visible};
+      auxState.visible = true;
+      setModal(auxState);
     }
   });
+
+  const result = () => {
+    const auxState = {...visible};
+    auxState.visible = false;
+    setModal(auxState);
+    datasets.putData(SERVER.EDIT_USER + '/' + user._id, values, datasets.getToken()).then(res => {
+      if (res?._id) {
+        saveUser();
+      }
+    });
+  } 
+
   const handleSwitchButton = (checked: boolean) => {
     setSwitchTo(checked);
     setTitle(user._id);
@@ -153,6 +166,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
           </Form>
         </Panel>
       </Collapse>
+      <Alert save={result} visible={modal} setVisible={setModal} />
     </>
   )
 }

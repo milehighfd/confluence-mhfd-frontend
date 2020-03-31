@@ -54,6 +54,9 @@ export const VALIDATION_SIGN_UP = Yup.object().shape({
   designation: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
+      .required('Required'),
+  recaptcha: Yup.string()
+      .min(5)
       .required('Required')
 });
 export const VALIDATION_PROJECT_ACQUISITION = Yup.object().shape({

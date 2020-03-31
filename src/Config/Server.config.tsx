@@ -1,4 +1,5 @@
 const URL = process.env.REACT_APP_API_URI;
+const CAPTCHA = process.env.REACT_APP_CAPTCHA;
 export const SERVER = (function () {
     const URL_BASE = {
         BASE: URL
@@ -30,6 +31,7 @@ export const SERVER = (function () {
     const LIST_USERS_PENDING = 'list?pending=false&';
     return {
         URL_BASE: URL_BASE.BASE,
+        CAPTCHA: CAPTCHA,
         USER: `${URL_BASE.BASE}/${USER}`,
         AUTH: `${URL_BASE.BASE}/${AUTH}`,
         LOGIN: `${URL_BASE.BASE}/${AUTH}/${LOGIN}`,

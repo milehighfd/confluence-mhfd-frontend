@@ -45,6 +45,7 @@ function App({ replaceAppUser }: any) {
       <Route path={'/404'} component={Unauthorized} />
       <Route path={`/reset-password`} component={ResetPasswordContainer} />
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
+      <Route path={`/alert-view`} component={AlertContainer} />
       {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/map`} component={MapView} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/navbar`} component={NavbarContainer} />}
@@ -59,9 +60,7 @@ function App({ replaceAppUser }: any) {
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/new-project-types`} component={NewProjectTypesContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/work-plan`} component={WorkPlanContainer} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/work-request`} component={WorkRequestContainer} />}
-
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/detailed-view`} component={DetailedContainer} />}
-      {(appUser.designation === 'admin') && appUser.activated && <Route path={`/alert-view`} component={AlertContainer} />}
       <Route path={`/`} component={Unauthorized} />
   </Switch>
 

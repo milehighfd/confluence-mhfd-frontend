@@ -1,26 +1,30 @@
 import React, { useState } from "react";
-import { Layout, Row, Col, Form, Icon, Input, Button, } from 'antd';
-import { Carousel } from 'antd';
+import { Layout, Row, Col, Form, Button, } from 'antd';
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
 import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
-
+import ReCAPTCHA from "react-google-recaptcha";
+const keyCaptcha = SERVER.CAPTCHA;
 const validationSchema = Yup.object().shape({
   email: Yup.string()      
     .email()
-    .required('Required')
+    .required('Required'),
+  recaptcha: Yup.string()
+    .min(5)
+    .required()
 });
 export default () => {
   const [redirect, setRedirect] = useState(false);
   const { values, handleSubmit, handleChange } = useFormik({
     initialValues: {
-      email: ''
+      email: '',
+      recaptcha: ''
     },
     validationSchema,
-    onSubmit(values: {email: string}) {
+    onSubmit(values: {email: string, recaptcha: string}) {
       const result = datasets.postData(SERVER.RECOVERY_PASSWORD, values).then(res => {
         if(res) {
           setRedirect(true);
@@ -57,6 +61,12 @@ export default () => {
                 <span className="bar"></span>
                 <label>Email</label>
               </div>
+              <ReCAPTCHA
+                sitekey={"" + keyCaptcha}
+                onChange={(event) => {
+                  values.recaptcha = '' + (event !== 'null' ? event : '');
+                }}
+              />
               <Form.Item>
                 <Button className="buttonLogin" block htmlType="submit">
                     Send Password Reset Email

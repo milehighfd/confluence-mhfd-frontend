@@ -11,7 +11,7 @@ import { PAGE_USER } from "../../constants/constants";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
-const getUserActivated = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
+const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
   datasets.getData(url, datasets.getToken()).then(res => {
     if (res.users) {
       saveUser(res.users);
@@ -33,12 +33,12 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
   let aprPos = 0; // momentary forced adition until getting the DB Structure
 
   useEffect(() => {
-    saveUserState();
+    getAllUser();
   }, []);
 
-  const saveUserState = () => {
-    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + urlOptions(optionUserActivated), setTotalUsersActivated);
-    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + urlOptions(optionUserPending), setTotalUsersPending);
+  const getAllUser = () => {
+    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + urlOptions(optionUserActivated), setTotalUsersActivated);
+    getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + urlOptions(optionUserPending), setTotalUsersPending);
   }
 
   const urlOptions = (options: OptionsFiltersUser) => {
@@ -48,22 +48,34 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
   }
 
   const searchUserActivated = (option: OptionsFiltersUser) => {
-    getUserActivated(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + urlOptions(option), setTotalUsersActivated);
+    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + urlOptions(option), setTotalUsersActivated);
   }
   const searchUserPending = (option: OptionsFiltersUser) => {
-    getUserActivated(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + urlOptions(option), setTotalUsersPending);
+    getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + urlOptions(option), setTotalUsersPending);
   }
   const deleteUserActivated = (id: string) => {
     setTitle(id);
     datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {}, datasets.getToken()).then(res => {
       if (res?._id) {
-        setOptionUserActivated(PAGE_USER);
-        setOptionUserPending(PAGE_USER);
-        saveUserState();
+        getAllUser();
       }
     });
 
   }
+  const resetActivated = () => {
+    const resetOptions = {...PAGE_USER};
+    setOptionUserActivated(resetOptions);
+    searchUserActivated(resetOptions);
+    console.log(optionUserActivated);
+    
+  }
+  const resetPending = () => {
+    const resetOptions = {...PAGE_USER};
+    setOptionUserPending(resetOptions);
+    searchUserPending(resetOptions);
+  }
+  
+  
   return <>
     <Layout>
       <NavbarView></NavbarView>
@@ -76,19 +88,19 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                 <Col span={24}>
                   <Tabs defaultActiveKey="1">
                     <TabPane tab="Approved Users" key="1">
-                      <UserFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated} />
+                      <UserFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated} reset={resetActivated}/>
 
                       {userActivatedState.map((user: User, index: number) => {
                         aprPos++;
                         return (
                           <div key={index} style={{ marginBottom: 10 }}>
-                            <Accordeon user={user} pos={(((optionUserActivated.page - 1) * 10) + aprPos)} saveUser={saveUserState} deleteUser={deleteUserActivated} />
+                            <Accordeon user={user} pos={(((optionUserActivated.page - 1) * 10) + aprPos)} saveUser={getAllUser} deleteUser={deleteUserActivated} />
                           </div>
                         );
                       })}
 
                       <div className="pagi-00">
-                        <Pagination defaultCurrent={optionUserActivated.page} total={totalUsersActivated} onChange={(page, pageSize) => {
+                        <Pagination current={optionUserActivated.page} total={totalUsersActivated} onChange={(page, pageSize) => {
                           const auxOption = {...optionUserActivated};
                           auxOption.page = page;
                           setOptionUserActivated(auxOption);
@@ -98,19 +110,19 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                     </TabPane>
 
                     <TabPane tab="Pending User Requests" key="2">
-                      <UserFilters option={optionUserPending} setOption={setOptionUserPending} search={searchUserPending} />
+                      <UserFilters option={optionUserPending} setOption={setOptionUserPending} search={searchUserPending} reset={resetPending}/>
 
                       {userPendingState.map((user: User, index: number) => {
                         pndPos++;
                         return (
                           <div key={index} style={{ marginBottom: 10 }}>
-                            <Accordeon user={user} pos={((optionUserPending.page - 1) * 10) + pndPos} saveUser={saveUserState} deleteUser={deleteUserActivated} />
+                            <Accordeon user={user} pos={((optionUserPending.page - 1) * 10) + pndPos} saveUser={getAllUser} deleteUser={deleteUserActivated} />
                           </div>
                         );
                       })}
 
                       <div className="pagi-00">
-                        <Pagination defaultCurrent={optionUserPending.page} total={totalUsersPending} onChange={(page, pageSize) => {
+                        <Pagination current={optionUserPending.page} total={totalUsersPending} onChange={(page, pageSize) => {
                           const auxOption = {...optionUserPending};
                           auxOption.page = page;
                           setOptionUserPending(auxOption);

@@ -82,7 +82,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
     auxTask.splice(pos, 1);
     setTasks(auxTask);
   }
-  console.log(tasks);
+  // console.log(tasks);
   
 
   const addTask = () => {
