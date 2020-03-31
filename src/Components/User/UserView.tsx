@@ -66,8 +66,6 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
     const resetOptions = {...PAGE_USER};
     setOptionUserActivated(resetOptions);
     searchUserActivated(resetOptions);
-    console.log(optionUserActivated);
-    
   }
   const resetPending = () => {
     const resetOptions = {...PAGE_USER};
