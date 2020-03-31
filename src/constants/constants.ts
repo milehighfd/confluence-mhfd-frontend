@@ -32,6 +32,17 @@ export const PROBLEMS_TRIGGER = 'problems';
 export const PROJECTS_TRIGGER = 'projects';
 export const COMPONENTS_TRIGGER = 'components';
 
+// Map Layer Filters
+export const FLOODPLAINS_FEMA_FILTERS = 'national_flood_hazard_layer';
+export const FLOODPLAINS_NON_FEMA_FILTERS = 'udfcd_fhad_floodplains';
+export const WATERSHED_FILTERS = 'basins';
+export const STREAMS_FILTERS = 'streams';
+
+export const SERVICE_AREA_FILTERS = 'watershed_service_areas';
+export const MUNICIPALITIES_FILTERS = 'municipalities';
+export const COUNTIES_FILTERS = 'mhcounties';
+export const MHFD_BOUNDARY_FILTERS = 'district_boundary';
+
 /* End of Map Constants */
 
 export const NEW_PROJECT_FORM_COST = {

@@ -36,10 +36,6 @@ export default function (WrappedComponent : any, layers : any) {
         const [formatedProjects, setFormatedProjects] = useState<any>([]);
 
         useEffect(() => {
-          getMapTables('problems');
-        }, []);
-
-        useEffect(() => {
           if(error) {
             message.error(error);
             clearErrorMessage();
@@ -92,7 +88,8 @@ export default function (WrappedComponent : any, layers : any) {
                             setIsPolygon={setIsPolygon}
                             getReverseGeocode={getReverseGeocode}
                             savePolygonCoordinates={savePolygonCoordinates}
-                            saveMarkerCoordinates={saveMarkerCoordinates} />
+                            saveMarkerCoordinates={saveMarkerCoordinates}
+                            getMapTables={getMapTables} />
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

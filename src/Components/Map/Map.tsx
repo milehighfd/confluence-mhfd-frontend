@@ -22,9 +22,10 @@ let popup = new mapboxgl.Popup();
 // const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 
-const Map = ({ leftWidth, layers, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates } : MapProps) => {
+const Map = ({ leftWidth, layers, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, getMapTables } : MapProps) => {
     let mapRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
+    const [selectedLayers, setSelectedLayers] = useState<Array<string>>([]);
 
     useEffect(() => {
         (mapboxgl as any).accessToken = MAPBOX_TOKEN;
@@ -323,6 +324,23 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
         }
     }
 
+    const selectCheckboxes = (selectedItems : Array<string>) => {
+        let selectedItem = '';
+        if(selectedLayers.length < selectedItems.length) {
+            selectedItem = selectedItems[selectedItems.length - 1];
+        } else {
+            selectedLayers.forEach((item : string) => {
+                const index = selectedItems.indexOf(item);
+                if(index < 0) {
+                    selectedItem = item;
+                    return;
+                }
+            });
+        }
+        setSelectedLayers(selectedItems);
+        getMapTables(selectedItem);
+    }
+
     return (
         <div className="map">
             <div id="map" ref={mapRef} style={{width: '100%', height: '100%'}} />
@@ -333,10 +351,10 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
                     style={{width: '200px', height: '35px' }}
                     />
                     {/*<Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
-                    <Dropdown overlay={MapFilterView} className="btn-02">
-                    <Button>
-                        <img src="/Icons/icon-05.svg" alt=""/>
-                    </Button>
+                    <Dropdown overlay={MapFilterView({selectCheckboxes})} className="btn-02">
+                        <Button>
+                            <img src="/Icons/icon-05.svg" alt=""/>
+                        </Button>
                     </Dropdown>
                 </div>
 
@@ -344,7 +362,7 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
                     <Button>
                         {dropdownItems.items[dropdownItems.default].type} <img src="/Icons/icon-12.svg" alt=""/>
                     </Button>
-                    </Dropdown>
+                </Dropdown>
 
                 <div className="m-footer">
                     <h5>NFHL 100 year floodplain</h5>

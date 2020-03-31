@@ -154,7 +154,7 @@ export const removeFilter = (item: any) => {
 
 export const getMapTables = (trigger : string) => {
     return (dispatch : Function) => {
-        const data = { table: 'streams '};
+        const data = { table: trigger };
         datasets.postData(SERVER.MAP_TABLES, data, datasets.getToken()).then(projects => {
             // console.log(projects);
         });

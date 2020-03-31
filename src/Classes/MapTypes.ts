@@ -9,7 +9,8 @@ export type MapProps = {
     setIsPolygon: Function,
     getReverseGeocode: Function,
     savePolygonCoordinates: Function,
-    saveMarkerCoordinates: Function
+    saveMarkerCoordinates: Function,
+    getMapTables: Function
 }
 
 export type MapHOCProps = {
