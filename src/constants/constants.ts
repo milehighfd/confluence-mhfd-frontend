@@ -37,13 +37,12 @@ export const COMPONENTS_TRIGGER = 'components';
 export const NEW_PROJECT_FORM_COST = {
   subtotal: 0,
   additional: {
-    per: 0.2,
-    cost: 0,
+    additionalCost: 0,
     additionalCostDescription: ''
   },
   overhead: {
     per: 0.2,
-    cost: 0,
+    overheadCost: 0,
     overheadCostDescription: ''
   },
   total: 0

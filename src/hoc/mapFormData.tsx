@@ -11,7 +11,21 @@ import { Layout, Row, Col, Button, message } from 'antd';
 import { MapHOCProps } from '../Classes/MapTypes';
 
 export default function (WrappedComponent : any, layers : any) {
-    return ({ problems, projects, components, filters, saveNewCapitalForm, saveNewStudyForm, createNewProjectForm, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, redirect, setRouteRedirect, error, clearErrorMessage, getProjectWithFilters, removeFilter } : MapHOCProps) => {
+    return ({ problems, 
+              projects, 
+              components, 
+              filters, 
+              saveNewCapitalForm, 
+              saveNewStudyForm, 
+              createNewProjectForm, 
+              getReverseGeocode, 
+              savePolygonCoordinates, 
+              saveMarkerCoordinates, 
+              redirect, 
+              setRouteRedirect, 
+              error, 
+              clearErrorMessage, 
+              getProjectWithFilters, removeFilter, getMapTables } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -20,6 +34,10 @@ export default function (WrappedComponent : any, layers : any) {
         const [selectedItems, setSelectedItems] = useState([]);
         const [isPolygon, setIsPolygon] = useState(false);
         const [formatedProjects, setFormatedProjects] = useState<any>([]);
+
+        useEffect(() => {
+          getMapTables('problems');
+        }, []);
 
         useEffect(() => {
           if(error) {

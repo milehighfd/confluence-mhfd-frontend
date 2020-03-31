@@ -38,9 +38,9 @@ export const saveNewCapitalForm = (data : Object, components: Array<Object>, tot
             const newProject = {
                 ...data,
                 finalCost: total ? total.total : 0, 
-                additionalCost: total ? total.additional?.cost : 0, 
+                additionalCost: total ? total.additional?.additionalCost : 0, 
                 additionalCostDescription: total ? total.additional?.additionalCostDescription : '', 
-                overheadCost: total ? total.overhead?.cost : 0, 
+                overheadCost: total ? total.overhead?.overheadCost : 0, 
                 overheadCostDescription: total ? total.overhead?.overheadCostDescription : '',
                 components: JSON.stringify(components)
             };
@@ -149,5 +149,14 @@ export const removeFilter = (item: any) => {
             delete newFilters[item.key];
         }
         dispatch(getProjectWithFilters(newFilters));
+    }
+}
+
+export const getMapTables = (trigger : string) => {
+    return (dispatch : Function) => {
+        const data = { table: 'streams '};
+        datasets.postData(SERVER.MAP_TABLES, data, datasets.getToken()).then(projects => {
+            // console.log(projects);
+        });
     }
 }

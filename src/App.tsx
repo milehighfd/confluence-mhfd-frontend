@@ -10,7 +10,6 @@ import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswo
 import SidebarContainer from './Components/Shared/Sidebar/SidebarContainer';
 import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
-import NewProjectFormContainer from './Components/NewProjectForm/NewProjectFormContainer';
 import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
 import WorkPlanContainer from './Components/WorkPlan/WorkPlanContainer';
 import WorkRequestContainer from './Components/WorkRequest/WorkRequestContainer';
@@ -53,10 +52,6 @@ function App({ replaceAppUser }: any) {
       {appUser.activated && <Route path={`/map`} component={MapView} />}
       {(appUser.designation === 'admin' || 
         appUser.designation === 'staff') && appUser.activated && <Route path={`/user`} component={UserContainer} />}
-      {(appUser.designation === 'admin' ||
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && appUser.activated && <Route path={`/new-project-form`} component={NewProjectFormContainer} />}
       {(appUser.designation === 'admin' || 
         appUser.designation === 'staff'|| 
         appUser.designation === 'government_admin' || 

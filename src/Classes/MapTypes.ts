@@ -28,7 +28,8 @@ export type MapHOCProps = {
     error: string,
     clearErrorMessage: Function,
     getProjectWithFilters: Function,
-    removeFilter: Function
+    removeFilter: Function,
+    getMapTables: Function
 }
 
 export type NewProjectFormProps = {
@@ -80,11 +81,11 @@ export type MapLayersType = {
 export type TotalType = {
     subtotal: number,
     additional: {
-        cost: number,
+        additionalCost: number,
         additionalCostDescription: string
     },
     overhead: {
-        cost: number,
+        overheadCost: number,
         overheadCostDescription: string
     }
     total: number
