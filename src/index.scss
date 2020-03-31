@@ -3080,11 +3080,17 @@ body{
    color: #ff7600 !important;
  }
 
-
  .card-information {
    img {
      height: 20vh;
      object-fit: cover;
      width: 100%;
    }
+ }
+
+ .input-span {
+   display: inline-block;
+   width: calc(100% - 80px);
+   outline: none;
+   border: none;
  }

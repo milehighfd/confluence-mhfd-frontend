@@ -53,6 +53,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
       </Dropdown>
     </Col>
     ]);
+
   const { values, handleSubmit, handleChange } = useFormik({
       initialValues,
       validationSchema,
@@ -92,7 +93,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
   }
   return <>
     <div className="count-01">
-      <ProjectsHeader route={values.requestName} />
+      <ProjectsHeader requestName={values.requestName} handleChange={handleChange} />
 
       <div className="head-m project-comp">
         <div className="project-comp-btn">

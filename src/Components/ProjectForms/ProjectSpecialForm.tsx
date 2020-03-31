@@ -1,10 +1,8 @@
-import React from "react";
-import { Row, Col, Button, Input, Form } from 'antd';
+import React, { useState } from "react";
+import { Button, Input, Form } from 'antd';
 
 
 import { useLocation } from "react-router-dom";
-import * as datasets from "../../Config/datasets";
-import { SERVER } from "../../Config/Server.config";
 import { VALIDATION_PROJECT_SPECIAL } from "../../constants/validation";
 import { useFormik } from "formik";
 import mapFormContainer from "../../hoc/mapFormContainer";
@@ -30,7 +28,7 @@ const ProjectSpecialForm = ({ createNewProjectForm } : any) => {
 
   return <>
       <div className="count-01">
-        <ProjectsHeader route={values.requestName} />
+        <ProjectsHeader requestName={values.requestName} handleChange={handleChange} />
         
         <div className="head-m project-comp">
           <div className="project-comp-btn">

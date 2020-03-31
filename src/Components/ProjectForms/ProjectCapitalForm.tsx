@@ -225,10 +225,10 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   const dummyRequest = ({ onSuccess } : { onSuccess: Function}) => {
     setTimeout(() => onSuccess("ok"), 0);
   }
-  
+
   return <>
     <div className="count-01">
-      <ProjectsHeader route={values.requestName} />
+      <ProjectsHeader requestName={values.requestName} handleChange={handleChange} />
 
       <div className="head-m project-comp">
         <div className="project-comp-btn">

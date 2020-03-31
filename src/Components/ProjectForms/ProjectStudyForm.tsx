@@ -48,7 +48,6 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm }:
   const [formatSelectedItems, setFormatSelectedItems] = useState([]);
   const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
 
-
   useEffect(() => {
     const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
       return {...item, key: item.componentId, howCost: '$'+numberWithCommas(item.howCost)}
@@ -84,7 +83,7 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm }:
   
   return <>
     <div className="count-01">
-      <ProjectsHeader route={values.requestName} />
+      <ProjectsHeader requestName={values.requestName} handleChange={handleChange} />
 
       <div className="head-m project-comp">
         <div className="project-comp-btn">
