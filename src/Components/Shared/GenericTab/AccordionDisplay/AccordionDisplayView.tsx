@@ -3,9 +3,9 @@ import { Row, Col, Progress } from "antd";
 
 export default (props: any) => {
     return <Row className="tab-head">
-        <Col span={9}>{props.field1}</Col>
-        <Col span={5}>{props.field2}</Col>
-        <Col span={4}>{props.field3}</Col>
+        <Col span={9}>{props.requestName}</Col>
+        <Col span={5}>{props.jurisdiction}</Col>
+        <Col span={4}>{props.finalCost}</Col>
         <Col span={4} style={{ textAlign: 'center' }}>
             <p>90%</p>
             <Progress percent={90} showInfo={false} style={{ height: '4px !important' }} />
