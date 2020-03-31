@@ -57,7 +57,9 @@ body{
   border-color: $orange !important;
   background: $orange !important;
 }
-
+:focus {
+    outline: none !important;
+}
 // margins
 .marbot-4 {
   margin-bottom: 20px;
@@ -1753,14 +1755,16 @@ body{
     margin-left: 5px;
     box-shadow: 0 0 0 0;
 
-    .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon {
-      background-image: url("/Icons/icon-08.svg");
-      background-repeat: no-repeat;
-      background-position: center;
+    .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon, .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon:hover,
+    .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon:focus, .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon.active {
+      background-image: url("/Icons/icon-08.svg") !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
       width: 20px;
       height: 20px;
       padding: 0;
       border: 0;
+      box-shadow: none !important
     }
   }
   span {
@@ -1772,7 +1776,11 @@ body{
     font-weight: 100;
   }
 }
-
+.table-create-bottom{
+  .ant-table-tbody > tr:nth-child(2) > td{
+    border-bottom: 1px solid #e8e8e8 !important;
+  }
+}
 .table-create-pro{
   tbody > tr > td {
     background: rgba(61, 46, 138, 0.07);
@@ -3095,3 +3103,6 @@ body{
    outline: none;
    border: none;
  }
+.rr-tt{
+  display: none;
+}

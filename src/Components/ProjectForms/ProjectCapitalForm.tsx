@@ -125,15 +125,16 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
     Cost: <span>${numberWithCommas(total.overhead.overheadCost)}</span>,
     StudyName: <Input id='overheadCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
-];
-
-const data03 = ({ total, numberWithCommas } : any) => [
   {
-    key: '1',
+    key: '3',
     Component: 'TOTAL COST',
+    Jurisdiction: <span className="rr-tt">xxx</span>,
     Cost: <span className="numbers01-table">${numberWithCommas(total.total)}</span>,
+    StudyName: <span className="rr-tt">xxx</span>,
+
   },
 ];
+
 
 const selectText = () => {
   setTimeout(() => {
@@ -151,7 +152,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
   const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
   const [mainImage, setMainImage] = useState([]);
-  const [listFiles, setListFiles] = useState([]); 
+  const [listFiles, setListFiles] = useState([]);
 
   useEffect(() => {
     const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
@@ -230,7 +231,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
     <div className="count-01">
       <ProjectsHeader requestName={values.requestName} handleChange={handleChange} />
 
-      <div className="head-m project-comp">
+      <div className="head-m project-comp table-ff">
         <div className="project-comp-btn">
           <h5>SELECTED STREAMS</h5>
           <div id="polygon" />
@@ -254,7 +255,6 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
       }
       <div className="table-create-bottom">
         <Table columns={columns02({ total, numberWithCommas })} dataSource={data02({ total, numberWithCommas, updateCostsDescription })} pagination={false} />
-        <Table className="footer-table" columns={footer} dataSource={data03({ total, numberWithCommas })} pagination={false} />
       </div>
       <br></br>
 
