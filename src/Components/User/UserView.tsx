@@ -28,7 +28,7 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
   const [userPendingState, setUserPendingState] = useState<Array<User>>([]);
   const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
-  const [title, setTitle] = useState('');
+  // const [title, setTitle] = useState('');
   let pndPos = 0; // momentary forced adition until getting the DB Structure
   let aprPos = 0; // momentary forced adition until getting the DB Structure
 
@@ -54,7 +54,7 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
     getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + urlOptions(option), setTotalUsersPending);
   }
   const deleteUserActivated = (id: string) => {
-    setTitle(id);
+    // setTitle(id);
     datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {}, datasets.getToken()).then(res => {
       if (res?._id) {
         getAllUser();

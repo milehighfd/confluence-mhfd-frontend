@@ -441,10 +441,11 @@ body{
   .btn-d{
     color: $red;
     border-right: 1px solid $opacity00 !important;
+    -webkit-text-stroke: medium;
   }
   .btn-s{
     color: $purple;
-    background-color: rgb(65, 196, 65) !important;
+    -webkit-text-stroke: medium;
   }
   .btn-s-01{
     width: 100% !important;
@@ -3080,11 +3081,17 @@ body{
    color: #ff7600 !important;
  }
 
-
  .card-information {
    img {
      height: 20vh;
      object-fit: cover;
      width: 100%;
    }
+ }
+
+ .input-span {
+   display: inline-block;
+   width: calc(100% - 80px);
+   outline: none;
+   border: none;
  }

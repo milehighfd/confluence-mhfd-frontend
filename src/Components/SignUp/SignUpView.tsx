@@ -13,6 +13,7 @@ const roles = ROLES;
 const validationSchema = VALIDATION_SIGN_UP;
 const keyCaptcha = SERVER.CAPTCHA;
 export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
+  const [message, setMessage] = useState({message: '', color: '#28C499'});
   const [title, setTitle] = useState('');
   const [redirect, setRedirect] = useState(false);
   const [targetButton, setTargetButton] = useState('staff');
@@ -46,14 +47,21 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
     onSubmit(values: { firstName: string, lastName: string, email: string, password: string, designation: string, organization: string, recaptcha: string }) {
       const result = datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if (res?.token) {
+          const auxMessage = {...message};
+          auxMessage.message = 'Successful Registration';
+          setMessage(auxMessage);
           localStorage.setItem('mfx-token', res.token);
           replaceAppUser(res.user);
           setRedirect(true);
+        } else {
+          const auxMessage = {...message};
+          auxMessage.message = res.message;
+          auxMessage.color = 'red';
+          setMessage(auxMessage);
         }
       })
     }
   });
-
   if (redirect) {
     return <Redirect to="/profile-view" />
   }
@@ -131,6 +139,9 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                   values.recaptcha = '' + (event !== 'null' ? event : '');
                 }}
               />
+              <div><br/>
+                <span style={{color: message.color}}>&nbsp;&nbsp; {message.message}</span>
+              </div>
               <Form.Item>
                 <Button className="buttonLogin" block htmlType="submit" >
                   Sign Up
@@ -138,7 +149,6 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
               </Form.Item>
             </Form>
           </div>
-
         </div>
       </Col>
     </Row>

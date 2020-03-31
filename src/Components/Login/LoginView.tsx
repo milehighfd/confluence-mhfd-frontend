@@ -24,6 +24,7 @@ const validationSchema = Yup.object().shape({
 });
 export default ({replaceAppUser}: {replaceAppUser: Function}) => {
   const [redirect, setRedirect] = useState(false);
+  const [message, setMessage] = useState({message: '', color: '#28C499'});
   const { values, handleSubmit, handleChange } = useFormik({
     initialValues: {
       email: '',
@@ -34,11 +35,19 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
     onSubmit(values: {email: string, password: string, recaptcha: string}) {
       const result = datasets.postData(SERVER.LOGIN, values).then(res => {
         if(res?.token) {
+          const auxMessage = {...message};
+          auxMessage.message = 'Successful Connection';
+          setMessage(auxMessage);
           localStorage.setItem('mfx-token', res.token);
           setRedirect(true);
           datasets.getData(SERVER.ME, datasets.getToken()).then(result => {
             replaceAppUser(result);
           });
+        } else {
+          const auxMessage = {...message};
+          auxMessage.message = 'Could not connect, check your email and password';
+          auxMessage.color = 'red';
+          setMessage(auxMessage);
         }
       })
     }
@@ -95,6 +104,7 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
           }}
         />
       </div>
+          <span style={{color: message.color}}>&nbsp;&nbsp; {message.message}</span>
         <Button className="buttonLogin" block htmlType="submit">
             Login
         </Button>

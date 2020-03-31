@@ -12,7 +12,7 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
     <Menu className="js-mm-00 sign-menu"
       onClick={(event) => {
         const auxOption = { ...option };
-        const val = event.key !== 'x' ? event.item.props.children.props.children : ''
+        const val = event.key !== 'all' ? event.item.props.children.props.children : ''
         if (title === 'organization') {
           auxOption.organization = val;
         } else if (title === 'serviceArea') {
@@ -47,7 +47,7 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
       setOption(auxOption);
       search(auxOption);
     }}>
-    <Menu.Item key={"x"}>Organization - All</Menu.Item>
+    <Menu.Item key={"all"}>Organization - All</Menu.Item>
     <Menu.ItemGroup key="g1" title="Organization">
       {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}>{item}</Menu.Item>))}
     </Menu.ItemGroup>
@@ -93,7 +93,7 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
         <Dropdown overlay={menu(ROLES, 'designation', 'User Designation')}>
           <Button>
             {option.designation ? RADIO_ITEMS.filter(item => item.value === option.designation)[0].name : 'User Designation'}
-            <img src="Icons/icon-12.svg" alt="" />
+            <img src="/Icons/icon-12.svg" alt="" />
           </Button>
         </Dropdown>
       </div>

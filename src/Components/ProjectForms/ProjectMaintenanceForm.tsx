@@ -7,30 +7,11 @@ import { useLocation, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
 import { VALIDATION_PROJECT_DEBRIS, VALIDATION_PROJECT_VEGETATION, VALIDATION_PROJECT_SEDIMENT, VALIDATION_PROJECT_MINOR_REPAIR, VALIDATION_PROJECT_RESTORATION } from "../../constants/validation";
 import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
+import MenuTaskView from "../../Components/Shared/Project/DropdownMenu/MenuTaskView";
 import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
+
 const { Dragger } = Upload;
 const { TextArea } = Input;
-
-
-const menu = (
-  <Menu className="js-mm-00">
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        1st menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        2nd menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        3rd menu item
-      </a>
-    </Menu.Item>
-  </Menu>
-);
 
 const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm: Function }) => {
   const location = useLocation();
@@ -44,55 +25,37 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
   const [mainImage, setMainImage] = useState([]);
   const [listFiles, setListFiles ] = useState([]);
   const [title, setTitle] = useState<string>('');
-  const [tasks, setTasks] = useState<Array<Object>>([
-    <Col className="gutter-row" span={12}>
-      <Dropdown overlay={menu}>
-        <Button>
-          Tree Thinning <img src="/Icons/icon-12.svg" alt="" />
-        </Button>
-      </Dropdown>
-    </Col>
-    ]);
+  const [tasks, setTasks] = useState(['sedimentRemoval']);
   const { values, handleSubmit, handleChange } = useFormik({
       initialValues,
       validationSchema,
-      onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string}) {
+      onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string, tasks?: Array<string>}) {
+        if (cad[2] === 'restoration') {
+          const filterTask = tasks.filter( (task) => task !== '');
+          values.tasks = filterTask;
+        }
         createNewProjectForm(values, [...mainImage, ...listFiles]);
       }
   });
-  
   const dummyRequest = ({ onSuccess } : { onSuccess: Function}) => {
     setTimeout(() => onSuccess("ok"), 0);
   }  
-
-  const task = () => <>
-    <Col className="gutter-row" span={12}>
-      <Dropdown overlay={menu}>
-        <Button>
-          Tree Thinning <img src="/Icons/icon-12.svg" alt="" />
-        </Button>
-      </Dropdown>
-      <img className="img-maint" src="/Icons/icon-16.svg" alt="" onClick={() => {
-      }} />
-    </Col>
-  </>;
 
   const deleteTask = (pos: number) => {
     const auxTask = [...tasks];
     auxTask.splice(pos, 1);
     setTasks(auxTask);
   }
-  // console.log(tasks);
-  
 
   const addTask = () => {
     const auxTask = [...tasks];
-    auxTask.push(task());
+    auxTask.push('');
     setTasks(auxTask);
   }
+
   return <>
     <div className="count-01">
-      <ProjectsHeader route={values.requestName} />
+      <ProjectsHeader requestName={values.requestName} handleChange={handleChange} />
 
       <div className="head-m project-comp">
         <div className="project-comp-btn">
@@ -123,9 +86,19 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
             </div></>
         ) : (
             <><div className="gutter-example user-tab all-npf">
-              {tasks.map( (item: Object, index: number) => {
-                return <Row gutter={16} className="input-maint">
-                  {item}
+              {tasks.map( (item: string, index: number) => {
+                // return newTask(item, index)
+                return <Row key={index} gutter={16} className="input-maint">
+                  <Col className="gutter-row" span={12}>
+                    <Dropdown overlay={MenuTaskView(TASK, tasks, setTasks, index)}>
+                      <Button>
+                       {TASK.filter((subTask) => subTask.id === item)[0] ? TASK.filter((subTask) => subTask.id === tasks[index])[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                      </Button>
+                    </Dropdown>
+                    { index !== 0 && <img className="img-maint" src="/Icons/icon-16.svg" alt="" onClick={() => {
+                      deleteTask(index);
+                    }} />}
+                  </Col>
                 </Row>
               })}
             </div>
