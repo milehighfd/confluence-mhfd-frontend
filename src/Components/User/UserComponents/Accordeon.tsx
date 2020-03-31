@@ -80,7 +80,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
           <Switch className={'switch-options'} checked={user.activated} onChange={handleSwitchButton} />
         </div>
       </Col>
-      <Col span={1} style={{ textAlign: 'right' }}><img src="Icons/icon-20.svg" alt="" /></Col>
+      <Col span={1} style={{ textAlign: 'right' }}><img src="/Icons/icon-20.svg" alt="" /></Col>
     </Row>
   );
 
@@ -111,7 +111,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <Col className="gutter-row" span={12}>
                   <Dropdown overlay={MenuOrganizationView(values, setTitle)}>
                     <Button style={(errors.organization && touched.organization) ? {border: "solid red"}:{}}>
-                      {values.organization ? values.organization : 'Organization'}  <img src="Icons/icon-12.svg" alt="" />
+                      {values.organization ? values.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
                 </Col>
@@ -138,7 +138,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <Col className="gutter-row" span={12}>
                   <Dropdown overlay={MenuAreaView(CITIES, 'city', values, setTitle)}>
                     <Button style={(errors.city && touched.city && !values.city ) ? {border: "solid red"}:{}}>
-                      {values.city ? values.city : 'City'} <img src="Icons/icon-12.svg" alt="" />
+                      {values.city ? values.city : 'City'} <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
                 </Col>
@@ -146,7 +146,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <Col className="gutter-row" span={12}>
                   <Dropdown overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}>
                     <Button style={(errors.county && touched.county && !values.county ) ? {border: "solid red"}:{}}>
-                      {values.county ? values.county : 'County'}  <img src="Icons/icon-12.svg" alt="" />
+                      {values.county ? values.county : 'County'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
                 </Col>
@@ -156,7 +156,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <Col className="gutter-row" span={12}>
                   <Dropdown overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}>
                     <Button style={{border: (errors.serviceArea && touched.serviceArea && !values.serviceArea ) ? "solid red":""}}>
-                      {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="Icons/icon-12.svg" alt="" />
+                      {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
                 </Col>

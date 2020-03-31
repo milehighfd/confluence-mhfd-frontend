@@ -35,7 +35,7 @@ const menu = (
 );
 
 const genExtra = () => (
-  <img src="Icons/icon-20.svg" alt=""/>
+  <img src="/Icons/icon-20.svg" alt=""/>
 );
 
 const cardInformationProblems: Array<any> = [
@@ -209,7 +209,7 @@ export default () => {
                       <div>
                           <Dropdown overlay={menu}>
                             <Button className="profile-bystatus" >
-                                By Status <img src="Icons/icon-14.svg" alt=""/>
+                                By Status <img src="/Icons/icon-14.svg" alt=""/>
                             </Button>
                           </Dropdown>
                       </div>
@@ -232,7 +232,7 @@ export default () => {
                             <div>
                                 <Dropdown overlay={menu}>
                                   <Button className="profile-bystatus">
-                                      By Status <img src="Icons/icon-14.svg" alt=""/>
+                                      By Status <img src="/Icons/icon-14.svg" alt=""/>
                                   </Button>
                                 </Dropdown>
                             </div>

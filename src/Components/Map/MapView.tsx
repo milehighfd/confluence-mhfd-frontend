@@ -144,11 +144,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
           <Col style={{ textAlign: 'right' }} span={8}>
             <Dropdown overlay={SortMenuView}>
               <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                Sort by Cost <img src="Icons/icon-14.svg" alt="" />
+                Sort by Cost <img src="/Icons/icon-14.svg" alt="" />
               </a>
             </Dropdown>
             <Button onClick={handleToggle}>
-              <img src="Icons/icon-29.svg" alt="" /> Filters ({filterNames.length})
+              <img src="/Icons/icon-29.svg" alt="" /> Filters ({filterNames.length})
             </Button>
           </Col>
         </Row>

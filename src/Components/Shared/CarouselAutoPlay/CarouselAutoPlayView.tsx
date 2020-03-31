@@ -3,7 +3,7 @@ import { Col, Carousel } from "antd";
 export default () => {
     return <Col span={13}>
           <div className="logo-white"
-              style={{backgroundImage: 'url(Icons/logo-white.svg)'}}>
+              style={{backgroundImage: 'url(/Icons/logo-white.svg)'}}>
               <p>Protecting People, Property, and our Environment.</p>
           </div>
           <div className="contact01">

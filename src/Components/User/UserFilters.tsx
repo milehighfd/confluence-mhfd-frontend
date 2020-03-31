@@ -76,7 +76,7 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
       <div>
         <Dropdown overlay={MenuOrganization}>
           <Button>
-            {option.organization ? option.organization : 'Organization'}  <img src="Icons/icon-12.svg" alt="" />
+            {option.organization ? option.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
           </Button>
         </Dropdown>
       </div>
@@ -84,7 +84,7 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
         <Dropdown overlay={menu(SERVICE_AREA, 'serviceArea', 'Service Area')}>
           <Button>
             {option.serviceArea ? option.serviceArea : 'Service Area'}
-            <img src="Icons/icon-12.svg" alt="" />
+            <img src="/Icons/icon-12.svg" alt="" />
           </Button>
         </Dropdown>
       </div>
@@ -109,7 +109,7 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
         <Dropdown overlay={menu(SORT, '', '')}>
           <Button>
             {SORT_ITEMS.filter(item => item.value === option.sort)[0].name}
-            <img src="Icons/icon-14.svg" alt="" />
+            <img src="/Icons/icon-14.svg" alt="" />
           </Button>
         </Dropdown>
       </div>

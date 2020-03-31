@@ -35,7 +35,7 @@ export default () => {
 
   return <Header className="header">
     <div className="logo"
-      style={{ backgroundImage: 'url(Icons/logo.svg)' }}
+      style={{ backgroundImage: 'url(/Icons/logo.svg)' }}
     />
     <h6>Confluence   |   User Management</h6>
     <Menu
@@ -44,14 +44,14 @@ export default () => {
       defaultSelectedKeys={['0']}
       style={{ lineHeight: '58px', float: 'right' }}
     >
-      <Menu.Item><img src="Icons/icon-26.svg" alt="" /></Menu.Item>
+      <Menu.Item><img src="/Icons/icon-26.svg" alt="" /></Menu.Item>
       <label className="ll-0"></label>
       <Dropdown overlay={menu}>
         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
           <label className="ll-00">{initialName}</label> {name} <Icon type="caret-down" />
         </a>
       </Dropdown>
-      <Menu.Item><img src="Icons/icon-27.svg" alt="" /></Menu.Item>
+      <Menu.Item><img src="/Icons/icon-27.svg" alt="" /></Menu.Item>
     </Menu>
   </Header>
 

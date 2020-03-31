@@ -122,13 +122,13 @@ export default () => {
           <Collapse defaultActiveKey={['1']}>
             <Panel header="Mitigation Types" key="1" extra={genExtra()} >
               <Row>
-                <Col span={12}><img src="Icons/chart-01.png" alt="" height="333px"/></Col>
-                <Col span={12}><img src="Icons/chart-02.png" alt="" height="333px"/></Col>
+                <Col span={12}><img src="/Icons/chart-01.png" alt="" height="333px"/></Col>
+                <Col span={12}><img src="/Icons/chart-02.png" alt="" height="333px"/></Col>
               </Row>
             </Panel>
             <Panel header="Component & solutions" key="2" extra={genExtra()}>
             <Row className="solution-h">
-              <Col span={8}><Button>Component <img src="Icons/icon-14.svg" alt=""/></Button></Col>
+              <Col span={8}><Button>Component <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
               <Col span={4}><Button>Cost <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
               <Col span={4}><Button>Status <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
               <Col span={8}><Button>Solution Type <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
@@ -185,8 +185,8 @@ export default () => {
             </Panel>
             <Panel header="Attachments" key="4" extra={genExtra()}>
               <div className="data-00">
-                <div><img src="Icons/icon-63.svg" alt=""/> Little Dry Creek_image-1.jpg</div>
-                <div><img src="Icons/icon-63.svg" alt=""/> Little Dry Creek_image-2.jpg</div>
+                <div><img src="/Icons/icon-63.svg" alt=""/> Little Dry Creek_image-1.jpg</div>
+                <div><img src="/Icons/icon-63.svg" alt=""/> Little Dry Creek_image-2.jpg</div>
               </div>
             </Panel>
 
