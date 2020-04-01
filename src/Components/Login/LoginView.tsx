@@ -96,7 +96,8 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
         </Link>
         <Link to={'/reset-password'} style={{ float: 'right', color: '#11093C'}}>
             Forgot Password?
-        </Link> 
+        </Link>
+        <br/><br/>
         <ReCAPTCHA
           sitekey={"" + keyCaptcha}
           onChange={(event) => {

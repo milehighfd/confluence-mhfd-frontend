@@ -18,14 +18,14 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
         } else if (title === 'serviceArea') {
           auxOption.serviceArea = val;
         } else if (title === 'designation') {
-          auxOption.designation = event.key !== 'x' ? RADIO_ITEMS.filter(item => item.name === val)[0].value : '';
+          auxOption.designation = event.key !== 'all' ? RADIO_ITEMS.filter(item => item.name === val)[0].value : '';
         } else if (!title) {
           auxOption.sort = SORT_ITEMS.filter(item => item.name === val)[0].value;
         }
         setOption(auxOption);
         search(auxOption);
       }}>
-      {defaultValue ? <Menu.Item key="x">
+      {defaultValue ? <Menu.Item key="all">
         <a target="_blank" rel="noopener noreferrer">
           {defaultValue} - All
           </a>
@@ -42,7 +42,7 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
   const MenuOrganization = () => (<Menu className="js-mm sign-menu-organization"
     onClick={(event) => {
       const auxOption = { ...option };
-      const val = event.key !== 'x' ? event.item.props.children : ''
+      const val = event.key !== 'all' ? event.item.props.children : ''
       auxOption.organization = val;
       setOption(auxOption);
       search(auxOption);
