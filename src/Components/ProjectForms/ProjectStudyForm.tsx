@@ -73,7 +73,7 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm }:
   const numberWithCommas = (x : number) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-  const { values, handleSubmit, handleChange } = useFormik({
+  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues,
     validationSchema,
         onSubmit(values: {projectType: string, projectSubtype: string, sponsor: string, requestName: string, coSponsor: string, requestedStartyear: string, goal?: string}) {
@@ -110,17 +110,19 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm }:
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Sponsor<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input placeholder="Sponsor" name="sponsor" onChange={handleChange} /></Col>
+              <Input placeholder="Sponsor" name="sponsor" onChange={handleChange} 
+                style={(errors.sponsor && touched.sponsor ) ? {border: "solid red 1px"}:{}}/></Col>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Potential Co-Sponsor<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input placeholder="Potential Co-Sponsor" name="coSponsor" onChange={handleChange} /></Col>
+              <Input placeholder="Potential Co-Sponsor" name="coSponsor" onChange={handleChange} 
+                style={(errors.coSponsor && touched.coSponsor ) ? {border: "solid red 1px"}:{}}/></Col>
           </Row>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Requested Start Year<img src="/Icons/icon-19.svg" alt="" /></label>
               <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_START_YEAR} item={title} setItem={setTitle} field={'requestedStartyear'} />}>
-                <Button>
-                  {values.requestedStartyear ? REQUEST_START_YEAR.filter(element => element.id === (Number)(values.requestedStartyear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                <Button style={(errors.requestedStartyear && touched.requestedStartyear && !values.requestedStartyear) ? {border: "solid red 1px"}:{}}>
+                  {values.requestedStartyear ? REQUEST_START_YEAR.filter(element => element.id === +(values.requestedStartyear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>
             </Col>
@@ -128,7 +130,7 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm }:
               <Col className="gutter-row" span={12}>
                 <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt="" /></label>
                 <Dropdown overlay={<DropdownMenuView values={values} items={GOAL_STUDY} item={title} setItem={setTitle} field={'goal'} />}>
-                  <Button>
+                  <Button style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
                     {values.goal ? GOAL_STUDY.filter(element => element.id === values.goal)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>

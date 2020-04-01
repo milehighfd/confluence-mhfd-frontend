@@ -14,7 +14,7 @@ const ProjectAcdquisitionForm = ({ createNewProjectForm } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
 
-  const { values, handleSubmit, handleChange } = useFormik({
+  const { values, handleSubmit, handleChange, touched, errors } = useFormik({
     initialValues: {
       projectType: "propertyAcquisition",
       description: '',
@@ -43,17 +43,20 @@ const ProjectAcdquisitionForm = ({ createNewProjectForm } : any) => {
       <Form onSubmit={handleSubmit}>
         <div className="label-npf">
           <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt="" /></label>
-          <TextArea rows={4} required placeholder="Add description..." name="description" onChange={handleChange} />
+          <TextArea rows={4} placeholder="Add description..." name="description" onChange={handleChange} 
+            style={(errors.description && touched.description) ? {border: "solid red 1px"}:{}}/>
         </div>
         <br></br>
         <div className="gutter-example user-tab all-npf">
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">MHFD Dollars Request<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input type={"number"} required placeholder="Enter MHFD dollars" name="mhfdDollarRequest" onChange={handleChange} /></Col>
+              <Input type={"number"} placeholder="Enter MHFD dollars" name="mhfdDollarRequest" onChange={handleChange} 
+                style={(errors.mhfdDollarRequest && touched.mhfdDollarRequest) ? {border: "solid red 1px"}:{}}/></Col>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Local Dollars Contribution<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input type={"number"} required placeholder="Enter local government contribution" name="localDollarsContributed" onChange={handleChange} /></Col>
+              <Input type={"number"} placeholder="Enter local government contribution" name="localDollarsContributed" onChange={handleChange} 
+                style={(errors.localDollarsContributed && touched.localDollarsContributed) ? {border: "solid red 1px"}:{}}/></Col>
           </Row>
         </div>
         <div className="btn-footer" style={{ marginTop: '25px' }}>

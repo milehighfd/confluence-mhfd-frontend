@@ -174,7 +174,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
     }
   }, [selectedItems]);
 
-  const { values, handleSubmit, handleChange, errors } = useFormik({
+  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
       projectType: 'capital',
       description: '',
@@ -261,7 +261,8 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
       <Form onSubmit={handleSubmit}>
         <div className="label-npf">
           <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt="" /></label>
-          <TextArea rows={4} placeholder="Enter description" required name="description" onChange={handleChange} />
+          <TextArea rows={4} placeholder="Enter description" name="description" onChange={handleChange} 
+          style={(errors.description && touched.description) ? {border: "solid red 1px"}:{}} />
         </div>
         <br></br>
         <div className="gutter-example user-tab all-npf">
@@ -271,11 +272,13 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">MHFD Funding Request<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input placeholder="Enter MHFD funding request" required name="mhfdFundingRequest" onChange={handleChange} />
+              <Input placeholder="Enter MHFD funding request" name="mhfdFundingRequest" onChange={handleChange} 
+                style={(errors.mhfdFundingRequest && touched.mhfdFundingRequest) ? {border: "solid red 1px"}:{}} />
             </Col>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Local Dollars Contribution<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input placeholder="Enter local dollars" required type={"number"} name="localDollarsContributed" onChange={handleChange} />
+              <Input placeholder="Enter local dollars" type={"number"} name="localDollarsContributed" onChange={handleChange}
+                style={(errors.localDollarsContributed && touched.localDollarsContributed) ? {border: "solid red 1px"}:{}} />
             </Col>
           </Row>
           <br></br>
@@ -283,15 +286,15 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt="" /></label>
               <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_FUNDING_YEAR} item={title} setItem={setTitle} field={'requestFundingYear'} />}>
-                <Button>
-                  {values.requestFundingYear ? REQUEST_FUNDING_YEAR.filter(element => element.id === (Number)(values.requestFundingYear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                <Button style={(errors.requestFundingYear && touched.requestFundingYear && !values.requestFundingYear) ? {border: "solid red 1px"}:{}}>
+                  {values.requestFundingYear ? REQUEST_FUNDING_YEAR.filter(element => element.id === +(values.requestFundingYear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>
             </Col>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt="" /></label>
               <Dropdown overlay={<DropdownMenuView values={values} items={GOAL} item={title} setItem={setTitle} field={'goal'} />}>
-                <Button>
+                <Button style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
                   {values.goal ? GOAL.filter(element => element.id === (values.goal))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>

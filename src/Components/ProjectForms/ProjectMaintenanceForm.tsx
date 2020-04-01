@@ -25,8 +25,8 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
   const [mainImage, setMainImage] = useState([]);
   const [listFiles, setListFiles ] = useState([]);
   const [title, setTitle] = useState<string>('');
-  const [tasks, setTasks] = useState(['sedimentRemoval']);
-  const { values, handleSubmit, handleChange } = useFormik({
+  const [tasks, setTasks] = useState([ cad[2] === 'restoration' ? 'sedimentRemoval' : '']);
+  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
       initialValues,
       validationSchema,
       onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string, tasks?: Array<string>}) {
@@ -109,13 +109,15 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
         </div>
         <div className="label-npf">
           <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt="" /></label>
-          <TextArea rows={4} name="description" onChange={handleChange} />
+          <TextArea rows={4} name="description" onChange={handleChange}
+           style={(errors.description && touched.description) ? {border: "solid red 1px"}:{}} />
         </div>
         <div className="gutter-example user-tab all-npf">
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">MHFD Dollars Requested<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input type="number" placeholder="MHFD dollars" name="mhfdDollarRequest" onChange={handleChange} /></Col>
+              <Input type="number" placeholder="MHFD dollars" name="mhfdDollarRequest" onChange={handleChange} 
+                style={(errors.mhfdDollarRequest && touched.mhfdDollarRequest) ? {border: "solid red 1px"}:{}} /></Col>
             <Col className="gutter-row" span={12}>
               <div className="form01">
                 <div className="form01-02"><h3>Public Access / Ownership <img src="/Icons/icon-19.svg" alt="" /></h3></div>
@@ -134,7 +136,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
                 <Col className="gutter-row" span={12}>
                   <label className="label-new-form" htmlFor="">How is this site maintenance eligible?<img src="/Icons/icon-19.svg" alt="" /></label>
                   <Dropdown overlay={<DropdownMenuView values={values} items={MAINTENANCE_ELIGIBILITY} item={title} setItem={setTitle} field={'maintenanceEligility'} />}>
-                    <Button>
+                    <Button style={(errors.maintenanceEligility && touched.maintenanceEligility && !values.maintenanceEligility) ? {border: "solid red 1px"}:{}}>
                       {values.maintenanceEligility ? MAINTENANCE_ELIGIBILITY.filter(element => element.id === values.maintenanceEligility)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -143,7 +145,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
                   <Col className="gutter-row" span={12}>
                     <label className="label-new-form" htmlFor="">Recurrence<img src="/Icons/icon-19.svg" alt="" /></label>
                     <Dropdown overlay={<DropdownMenuView values={values} items={RECURRENCE} item={title} setItem={setTitle} field={'recurrence'} />}>
-                      <Button>
+                      <Button style={(errors.recurrence && touched.recurrence && !values.recurrence) ? {border: "solid red 1px"}:{}}>
                         {values.recurrence ? RECURRENCE.filter(element => element.id === values.recurrence)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                       </Button>
                     </Dropdown>
@@ -152,7 +154,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
               <Col className="gutter-row" span={12}>
                 <label className="label-new-form" htmlFor="">Frequency<img src="/Icons/icon-19.svg" alt="" /></label>
                 <Dropdown overlay={<DropdownMenuView values={values} items={FRECUENCY} item={title} setItem={setTitle} field={'frecuency'} />}>
-                  <Button>
+                  <Button style={(errors.frecuency && touched.frecuency && !values.frecuency) ? {border: "solid red 1px"}:{}}>
                     {values.frecuency ? FRECUENCY.filter(element => element.id === values.frecuency)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>
@@ -164,7 +166,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
               <Col className="gutter-row" span={12}>
                 <label className="label-new-form" htmlFor="">How is this site maintenance eligible?<img src="/Icons/icon-19.svg" alt="" /></label>
                 <Dropdown overlay={<DropdownMenuView values={values} items={MAINTENANCE_ELIGIBILITY} item={title} setItem={setTitle} field={'maintenanceEligility'} />}>
-                  <Button>
+                  <Button style={(errors.maintenanceEligility && touched.maintenanceEligility && !values.maintenanceEligility) ? {border: "solid red 1px"}:{}}>
                     {values.maintenanceEligility ? MAINTENANCE_ELIGIBILITY.filter(element => element.id === values.maintenanceEligility)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>

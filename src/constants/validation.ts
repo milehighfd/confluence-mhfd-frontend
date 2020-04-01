@@ -24,7 +24,7 @@ export const VALIDATION_PROJECT_CAPITAL = Yup.object().shape({
       .required('Required'),
   localDollarsContributed: Yup.number()
       .required('Required')
-      .min(0)
+      .min(1)
       .integer(),
   requestFundingYear: Yup.string()
     .min(2, 'Too Short!')
@@ -74,11 +74,11 @@ export const VALIDATION_PROJECT_ACQUISITION = Yup.object().shape({
     .required('Required'),
   localDollarsContributed: Yup.number()
     .required('Required')
-    .min(0)
+    .min(1)
     .integer(),
   mhfdDollarRequest: Yup.number()
     .required('Required')
-    .min(0)
+    .min(1)
     .integer()
 });
 
@@ -119,9 +119,9 @@ export const VALIDATION_PROJECT_STUDY_MASTER = Yup.object().shape({
       .max(50, 'Too Long!')
       .required('Required'),
   requestedStartyear: Yup.number()
-      .min(2, 'Too Short!')
-      .max(4, 'Too Long!')
       .required('Required')
+      .min(1)
+      .integer()
 });
 
 export const VALIDATION_PROJECT_DEBRIS = Yup.object().shape({
@@ -143,7 +143,7 @@ export const VALIDATION_PROJECT_DEBRIS = Yup.object().shape({
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')
-    .min(0)
+    .min(1)
     .integer(),
   publicAccess: Yup.boolean()
     .required('Required'),
@@ -175,7 +175,7 @@ export const VALIDATION_PROJECT_VEGETATION = Yup.object().shape({
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')
-    .min(0)
+    .min(1)
     .integer(),
   publicAccess: Yup.boolean()
     .required('Required'),
@@ -211,7 +211,7 @@ export const VALIDATION_PROJECT_SEDIMENT = Yup.object().shape({
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')
-    .min(0)
+    .min(1)
     .integer(),
   publicAccess: Yup.boolean()
     .required('Required'),
@@ -247,7 +247,7 @@ export const VALIDATION_PROJECT_MINOR_REPAIR = Yup.object().shape({
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')
-    .min(0)
+    .min(1)
     .integer(),
   publicAccess: Yup.boolean()
     .required('Required'),
@@ -275,7 +275,7 @@ export const VALIDATION_PROJECT_RESTORATION = Yup.object().shape({
     .required('Required'),
   mhfdDollarRequest: Yup.number()
     .required('Required')
-    .min(0)
+    .min(1)
     .integer(),
   publicAccess: Yup.boolean()
     .required('Required'),

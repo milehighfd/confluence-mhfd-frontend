@@ -14,7 +14,7 @@ const ProjectSpecialForm = ({ createNewProjectForm } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
 
-  const { values, handleSubmit, handleChange } = useFormik({
+  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
       projectType: "special",
       description: '',
@@ -40,7 +40,8 @@ const ProjectSpecialForm = ({ createNewProjectForm } : any) => {
         </div>
         <Form onSubmit={handleSubmit}>
           <div className="label-npf">
-            <TextArea rows={4} placeholder="Add description..." required name="description" onChange={handleChange}/>
+            <TextArea rows={4} placeholder="Add description..." name="description" onChange={handleChange}
+              style={(errors.description && touched.description) ? {border: "solid red 1px"}:{}}/>
           </div>
 
           <br></br>
