@@ -13,6 +13,10 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
         removeFilter(item);
     }
 
+    const numberWithCommas = (x : number) => {
+        return x?x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","):0;
+    }
+
     return <>
         <div className="hastag" style={{minHeight: 34}}>
             <h6> Showing {totalElements} {type}:</h6>
@@ -33,20 +37,23 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
                     <Col span={6}> Solution Status</Col>
                 </Row>
                 <Collapse accordion>
-                    {cardInformation.map((information: any, index: number) => (
-                        <Panel header="" key={index} extra={AccordionDisplayView(information)} >
-                            {information.components ? information.components.map((data: any) => {
-                                return <AccordionRowView data={data} />
-                            }) : ''}
-                        </Panel>
-                    ))}
+                    {cardInformation.map((information: any, index: number) => {
+                        const components = information.components ? (information.components.length ? JSON.parse(information.components[0]) : []) : [];
+                        return (
+                            <Panel header="" key={index} extra={AccordionDisplayView({information, numberWithCommas})}>
+                                {components.map((data: any) => {
+                                    return <AccordionRowView key={data.componentName} data={data} numberWithCommas={numberWithCommas} />
+                                })}
+                            </Panel>
+                        );
+                    })}
 
                 </Collapse> 
             </>
             :
             <Row className="card-map" gutter={[16, 16]}>
                 {cardInformation.map((data: any, index: number) => {
-                    return <CardInformationView key={index} data={data} type={type} />
+                    return <CardInformationView key={index} data={data} type={type} numberWithCommas={numberWithCommas} />
                 })}
             </Row>
         }

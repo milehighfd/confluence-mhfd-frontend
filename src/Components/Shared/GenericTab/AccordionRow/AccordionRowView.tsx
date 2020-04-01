@@ -1,24 +1,24 @@
 import * as React from "react";
 import { Row, Timeline, Col } from "antd";
 
-export default (props: any) => {
+export default ({data, numberWithCommas} : {data: any, numberWithCommas: Function}) => {
 
-    return <Row>
+    return <Row key={data.componentName}>
         <Col span={9}>
             <Timeline>
-                <Timeline.Item className="line-00" color={props.data.color}>
-                    <p><div className="line-02"></div> {props.data.componentName} <img className="img-h" src={props.data.image} alt="" /></p>
+                <Timeline.Item className="line-00" color={data.color}>
+                    <span><div className="line-02"></div> {data.componentName} <img className="img-h" src={data.image} alt="" /></span>
                 </Timeline.Item>
             </Timeline>
         </Col>
         <Col span={5}>
-            <p> {props.data.jurisdiction} </p>
+            <p> {data.jurisdiction} </p>
         </Col>
         <Col span={4}>
-            <p> {props.data.howCost} </p>
+            <p> ${numberWithCommas(data.howCost)} </p>
         </Col>
         <Col span={6}>
-            <p> {props.data.studyName} </p>
+            <p> {data.studyName} </p>
         </Col>
     </Row>
 }
