@@ -13,7 +13,7 @@ import TasksOrActivitiesView from "../Shared/Project/DropdownMenu/TasksOrActivit
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
-const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm: Function }) => {
+const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNewProjectForm: Function, polygonRef: any }) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const validationSchema = cad[2] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[2] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION :
@@ -53,7 +53,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
         <div className="project-comp-btn">
           <h5>ACTIVITY</h5>
           {/* <button><img src="/Icons/icon-08.svg" alt=""/></button> */}
-          <div id="polygon" />
+          <div ref={polygonRef} />
           <span>|</span>
           <div id="demo-2">
             <input type="search" placeholder="Search" />
@@ -62,7 +62,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
         </div>
       </div>
       <Form onSubmit={handleSubmit}>
-        <TasksOrActivitiesView key={'activity'} subType={values.projectSubtype} tasks={tasks} setTasks={setTasks} />
+        <TasksOrActivitiesView subType={values.projectSubtype} tasks={tasks} setTasks={setTasks} />
         <div className="label-new-form">
           <h3>PROJECT INFORMATION</h3>
         </div>

@@ -10,7 +10,7 @@ import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 const validationSchema = VALIDATION_PROJECT_SPECIAL;
 const { TextArea } = Input;
 
-const ProjectSpecialForm = ({ createNewProjectForm } : any) => {
+const ProjectSpecialForm = ({ createNewProjectForm, markerRef } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
 
@@ -33,7 +33,7 @@ const ProjectSpecialForm = ({ createNewProjectForm } : any) => {
         <div className="head-m project-comp">
           <div className="project-comp-btn">
               <h5>DESCRIPTION</h5>
-              <button id='marker'><img src="/Icons/icon-11.svg" style={{height: '19px'}} alt=""/></button>
+              <button ref={markerRef}><img src="/Icons/icon-11.svg" style={{height: '19px'}} alt=""/></button>
               <span>|</span>
               <button><img src="/Icons/icon-35.svg" alt=""/></button>
           </div>

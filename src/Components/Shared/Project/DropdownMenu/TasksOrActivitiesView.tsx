@@ -15,14 +15,14 @@ export default ({subType, tasks, setTasks} : {subType: string, tasks: Array<stri
         {subType !== 'restoration' ? (
           <div key={'tasks'} className="input-maint">
             {tasks.map( (item: string, index: number) => {
-              return <><label className="label-new-form" htmlFor="">#{index + 1}</label>
+              return <div key={index}><label className="label-new-form" htmlFor="">#{index + 1}</label>
                 <Input size={"large"} placeholder="" value={item} onChange={(event) => {
                   const auxItem = [...tasks];
                   auxItem[index] = event.target.value;
                   setTasks(auxItem);
                 }} />
                 { index !== 0 && <img className="img-maint" src="/Icons/icon-16.svg" alt="" onClick={() => { deleteTask(index); }} />}
-              </>
+              </div>
             })}
           </div>
         ) : (

@@ -22,8 +22,22 @@ let popup = new mapboxgl.Popup();
 // const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 
-const Map = ({ leftWidth, layers, problems, projects, components, setSelectedItems, selectedItems, setIsPolygon, getReverseGeocode, savePolygonCoordinates, saveMarkerCoordinates, getMapTables } : MapProps) => {
-    let mapRef = useRef<any>();
+const Map = ({ leftWidth, 
+            layers, 
+            problems, 
+            projects, 
+            components, 
+            setSelectedItems, 
+            selectedItems,
+            setIsPolygon, 
+            getReverseGeocode, 
+            savePolygonCoordinates, 
+            saveMarkerCoordinates, 
+            getMapTables,
+            markerRef,
+            polygonRef } : MapProps) => {
+
+    let geocoderRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
     const [selectedLayers, setSelectedLayers] = useState<Array<string>>([]);
 
@@ -42,34 +56,32 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
             placeholder: 'Search...',
             marker: false
         });
-        
-        const geo = document.getElementById('geocoder')!;
-        geo.appendChild(geocoder.onAdd(map));
+
+        geocoderRef.current.appendChild(geocoder.onAdd(map));
 
         // Uncomment to see coords when a position in map is clicked
         // map.on('click', (e : any) => console.log(e.lngLat));
 
-        const drawPolygon = document.getElementById('polygon');
-        if(drawPolygon) {
+        if(polygonRef.current) {
             const draw = new MapboxDraw({
                 displayControlsDefault: false,
                 controls: { polygon: true }
             });
             map.on('draw.create', () => replaceOldPolygon(draw));
             map.on('draw.update', () => replaceOldPolygon(draw));
-            drawPolygon.appendChild(draw.onAdd(map));
+            polygonRef.current.appendChild(draw.onAdd(map));
         }
 
         if(layers && layers.marker) {
-            const el = document.createElement('div');
-            el.className = 'marker';
-            el.style.backgroundImage = layers.acquisition?'url("/Icons/pin-house.svg")':'url("/Icons/pin-star.svg")';
+            const mapMarker = document.createElement('div');
+            mapMarker.className = 'marker';
+            mapMarker.style.backgroundImage = layers.acquisition?'url("/Icons/pin-house.svg")':'url("/Icons/pin-star.svg")';
 
-            document.getElementById('marker')!.onclick = () => {
+            markerRef.current!.onclick = () => {
                 map.getCanvas().style.cursor = 'pointer';
 
                 map.once('click', (e : any) => {
-                    const marker = new mapboxgl.Marker(el)
+                    const marker = new mapboxgl.Marker(mapMarker)
                         .setLngLat(e.lngLat)
                         .setDraggable(true)
                         .addTo(map);
@@ -325,10 +337,10 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
 
     return (
         <div className="map">
-            <div id="map" ref={mapRef} style={{width: '100%', height: '100%'}} />
+            <div id="map" style={{width: '100%', height: '100%'}} />
             <div className="m-head">
                 <div
-                    id="geocoder"
+                    ref={geocoderRef}
                     className="geocoder"
                     style={{width: '200px', height: '35px' }}
                     />

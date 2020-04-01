@@ -1,3 +1,5 @@
+import { Ref } from "yup"
+
 export type MapProps = {
     leftWidth: number,
     layers: MapLayersType,
@@ -10,7 +12,9 @@ export type MapProps = {
     getReverseGeocode: Function,
     savePolygonCoordinates: Function,
     saveMarkerCoordinates: Function,
-    getMapTables: Function
+    getMapTables: Function,
+    markerRef: any,
+    polygonRef: any
 }
 
 export type MapHOCProps = {

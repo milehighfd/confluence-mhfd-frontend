@@ -37,7 +37,7 @@ const columns01 = ({removeSelectedItem} : any) => [
 
 
 
-const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm }: {selectedItems : any, setSelectedItems: Function, saveNewStudyForm: Function}) => {
+const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, polygonRef }: {selectedItems : any, setSelectedItems: Function, saveNewStudyForm: Function, polygonRef: any}) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const validationSchema = cad[2] === 'masterPlan' ? VALIDATION_PROJECT_MASTER_PLAN_ONLY : VALIDATION_PROJECT_FHAD;
@@ -89,7 +89,7 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm }:
         <div className="project-comp-btn">
           <h5>SELECTED STREAMS</h5>
           {/* <button><img src="/Icons/icon-08.svg" alt=""/></button> */}
-          <div id="polygon" />
+          <div ref={polygonRef} />
           <span>|</span>
           <form id="demo-2">
             <input type="search" placeholder="Search" />

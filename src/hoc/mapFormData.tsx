@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import Map from '../Components/Map/Map';
 import NavbarView from "../Components/Shared/Navbar/NavbarView";
@@ -34,6 +34,9 @@ export default function (WrappedComponent : any, layers : any) {
         const [selectedItems, setSelectedItems] = useState([]);
         const [isPolygon, setIsPolygon] = useState(false);
         const [formatedProjects, setFormatedProjects] = useState<any>([]);
+
+        let markerRef = useRef();
+        let polygonRef = useRef();
 
         useEffect(() => {
           if(error) {
@@ -89,7 +92,9 @@ export default function (WrappedComponent : any, layers : any) {
                             getReverseGeocode={getReverseGeocode}
                             savePolygonCoordinates={savePolygonCoordinates}
                             saveMarkerCoordinates={saveMarkerCoordinates}
-                            getMapTables={getMapTables} />
+                            getMapTables={getMapTables}
+                            markerRef={markerRef}
+                            polygonRef={polygonRef} />
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
@@ -106,7 +111,9 @@ export default function (WrappedComponent : any, layers : any) {
                             getProjectWithFilters={getProjectWithFilters}
                             filters={filters}
                             removeFilter={removeFilter} 
-                            projects={projects} />
+                            projects={projects}
+                            markerRef={markerRef}
+                            polygonRef={polygonRef} />
                     </Col>
                 </Row>
               </Layout>

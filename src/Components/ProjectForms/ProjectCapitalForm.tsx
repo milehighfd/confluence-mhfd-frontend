@@ -145,7 +145,7 @@ const selectText = () => {
 const footer = FOOTER_PROJECT_CAPITAL;
 const validationSchema = VALIDATION_PROJECT_CAPITAL;
 
-const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNewCapitalForm } : any) => {
+const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNewCapitalForm, polygonRef } : any) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const [title, setTitle] = useState('');
@@ -191,8 +191,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   });
 
   const getPolygonButton = () => {
-    const div = document.getElementById('polygon');
-    const btn = div?.getElementsByTagName("button")[0];
+    const btn = polygonRef.current?.getElementsByTagName("button")[0];
     btn?.click();
   }
 
@@ -234,7 +233,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
       <div className="head-m project-comp table-ff">
         <div className="project-comp-btn">
           <h5>SELECTED STREAMS</h5>
-          <div id="polygon" />
+          <div ref={polygonRef} />
           <span>|</span>
           <div id="demo-2">
             <input type="search" placeholder="Search" />
