@@ -25,6 +25,11 @@ export const MAP_DROPDOWN_ITEMS = [
     }
 ];
 
+export const DENVER_LOCATION = {
+  center: <any>[-105.04, 39.805],
+  zoom: 10.8
+};
+
 export const LATITUDE_INDEX = 0;
 export const LONGITUDE_INDEX = 1;
 

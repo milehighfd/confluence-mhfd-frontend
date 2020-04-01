@@ -12,7 +12,7 @@ import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
 import { MapProps, ComponentType } from '../../Classes/MapTypes';
-import { MAP_DROPDOWN_ITEMS, MAPBOX_TOKEN, HERE_TOKEN, LATITUDE_INDEX, LONGITUDE_INDEX, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from "../../constants/constants";
+import { MAP_DROPDOWN_ITEMS, MAPBOX_TOKEN, HERE_TOKEN, LATITUDE_INDEX, LONGITUDE_INDEX, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, DENVER_LOCATION } from "../../constants/constants";
 
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -32,8 +32,7 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
         map = new mapboxgl.Map({
             container: 'map',
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
-            center: [-105.04, 39.805], // starting position
-            zoom: 10.8, // starting zoom
+            ...DENVER_LOCATION
         });
         const nav = new mapboxgl.NavigationControl({ showCompass: false });
         map.addControl(nav, 'bottom-right');
@@ -98,7 +97,7 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
     }, [selectedItems]);
 
     useEffect(() => {
-        if(map.isStyleLoaded()) {
+        if (map.isStyleLoaded()) {
             drawConstants.map((item : string) => {
                 drawItemsInMap(item);
             });
@@ -108,9 +107,13 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
     }, [projects]);
 
     /* https://github.com/mapbox/mapbox-gl-js/issues/2268 Mapbox issue when refreshing layers */
+    // remove
     const refreshPaintedComponents = () => {
-        if(map.isStyleLoaded()) setTimeout(refreshPaintedComponents, 500);
-        else paintSelectedComponents(selectedItems);
+        if (map.isStyleLoaded()) {
+            setTimeout(refreshPaintedComponents, 500);
+        } else {
+            paintSelectedComponents(selectedItems);
+        }
     }
 
     const paintSelectedComponents = (items? : Array<Object>) => {
@@ -149,51 +152,30 @@ const Map = ({ leftWidth, layers, problems, projects, components, setSelectedIte
             draw.delete(features[0].id);
         }
 
-        const points = getComponentsInPolygon(draw.getAll().features[0].geometry.coordinates[0]);
+        const polygon = draw.getAll().features[0].geometry.coordinates;
+        const polygonCoords = turf.polygon(polygon);
+
+        const { geometry } = turf.centroid(polygonCoords);
+        savePolygonCoordinates(polygon[0]);
+        getReverseGeocode(geometry?.coordinates[0], geometry?.coordinates[1], HERE_TOKEN);
 
         if(layers && layers.components) {
-            const polygonCoords = turf.polygon(draw.getAll().features[0].geometry.coordinates);
-            const turfPoints = points.map((point : any) => turf.point(point.coordinates));
-    
             const selectedItems : Array<[]> = [];
+            const turfPoints = components.map((point : any) => turf.point(point.coordinates));
             const values = turfPoints.map((turfPoint : any) => turf.inside(turfPoint, polygonCoords));
-            points.map((point : any, index : number) => { if(values[index]) selectedItems.push(point) });
+
+            components.map((point : any, index : number) => { 
+                if (values[index]) {
+                    selectedItems.push(point);
+                } 
+            });
     
             paintSelectedComponents(selectedItems);
             setSelectedItems(selectedItems);
             setIsPolygon(true);
         }
-
         /* Get the coords on Drawing */
         // console.log(draw.getAll().features[0].geometry.coordinates);
-    }
-
-    const getComponentsInPolygon = (polygon : Array<[]>) => {
-        const minMaxX = getMinMaxOf2DIndex(polygon, LATITUDE_INDEX);
-        const minMaxY = getMinMaxOf2DIndex(polygon, LONGITUDE_INDEX);
-
-        const minX = minMaxX.min;
-        const maxX = minMaxX.max;
-        const minY = minMaxY.min;
-        const maxY = minMaxY.max;
-
-        const points : Array<[]> = [];
-        components.map((point : any) => {
-            if(point.coordinates[0] >= minX && point.coordinates[0] <= maxX && point.coordinates[1] >= minY && point.coordinates[1] <= maxY){
-                points.push(point);
-            }
-        });
-
-        savePolygonCoordinates(polygon);
-        getReverseGeocode((maxX + minX) / 2, (maxY + minY) / 2, HERE_TOKEN);
-        return points;
-    }
-
-    const getMinMaxOf2DIndex = (arr : Array<[]>, ind : number) => {
-        return {
-            min: Math.min.apply(null, arr.map((e) => { return e[ind]})),
-            max: Math.max.apply(null, arr.map((e) => { return e[ind]}))
-        }
     }
 
     const addMapListeners = () => {
