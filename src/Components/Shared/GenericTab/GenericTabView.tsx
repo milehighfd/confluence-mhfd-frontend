@@ -38,7 +38,7 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
                 </Row>
                 <Collapse accordion>
                     {cardInformation.map((information: any, index: number) => {
-                        const components = information.components ? (information.components.length ? JSON.parse(information.components[0]) : []) : [];
+                        const components = information.components ? (information.components.length ? information.components : []) : [];
                         return (
                             <Panel header="" key={index} extra={AccordionDisplayView({information, numberWithCommas})}>
                                 {components.map((data: any) => {
