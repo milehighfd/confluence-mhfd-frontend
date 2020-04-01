@@ -3,12 +3,12 @@ import { Row, Col, Dropdown, Menu, Button, Switch, Tag, Input, Upload, Form } fr
 
 import { FRECUENCY, MAINTENANCE_ELIGIBILITY, RECURRENCE, PROJECT_MAINTENANCE_DEBRIS, PROJECT_MAINTENANCE_VEGETATION, PROJECT_MAINTENANCE_SEDIMENT, PROJECT_MAINTENANCE_MINOR_REPAIR, PROJECT_MAINTENANCE_RESTORATION, TASK } from "../../constants/constants";
 import mapFormContainer from "../../hoc/mapFormContainer";
-import { useLocation, Redirect } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import { VALIDATION_PROJECT_DEBRIS, VALIDATION_PROJECT_VEGETATION, VALIDATION_PROJECT_SEDIMENT, VALIDATION_PROJECT_MINOR_REPAIR, VALIDATION_PROJECT_RESTORATION } from "../../constants/validation";
 import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
-import MenuTaskView from "../../Components/Shared/Project/DropdownMenu/MenuTaskView";
 import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
+import TasksOrActivitiesView from "../Shared/Project/DropdownMenu/TasksOrActivitiesView";
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
@@ -29,11 +29,9 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
       initialValues,
       validationSchema,
-      onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string, tasks?: Array<string>}) {
-        if (cad[2] === 'restoration') {
-          const filterTask = tasks.filter( (task) => task !== '');
-          values.tasks = filterTask;
-        }
+      onSubmit(values: {projectType: string, projectSubtype: string, description: string, requestName: string, mhfdDollarRequest: number, publicAccess: boolean, frecuency?: string, maintenanceEligility: string, recurrence?: string, tasks: Array<string>}) {
+        const filterTask = tasks.filter( (task) => task !== '');
+        values.tasks = filterTask;
         createNewProjectForm(values, [...mainImage, ...listFiles]);
       }
   });
@@ -41,18 +39,12 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
     setTimeout(() => onSuccess("ok"), 0);
   }  
 
-  const deleteTask = (pos: number) => {
-    const auxTask = [...tasks];
-    auxTask.splice(pos, 1);
-    setTasks(auxTask);
-  }
-
   const addTask = () => {
     const auxTask = [...tasks];
     auxTask.push('');
     setTasks(auxTask);
   }
-
+  
   return <>
     <div className="count-01">
       <ProjectsHeader requestName={values.requestName} handleChange={handleChange} />
@@ -66,44 +58,11 @@ const ProjectMaintenanceForm = ({ createNewProjectForm }: { createNewProjectForm
           <div id="demo-2">
             <input type="search" placeholder="Search" />
           </div>
-          {values.projectSubtype === 'restoration' ? (<button onClick={() => {
-            addTask();
-          }}><img src="/Icons/icon-35.svg" alt="" /></button>
-          ): (<button><img src="/Icons/icon-35.svg" alt="" /></button>)}
-
+          <button onClick={() => { addTask(); }}><img src="/Icons/icon-35.svg" alt="" /></button>
         </div>
       </div>
       <Form onSubmit={handleSubmit}>
-
-        {values.projectSubtype !== 'restoration' ? (
-          <><div className="input-maint">
-            <label className="label-new-form" htmlFor="">#1</label>
-            <Input size={"large"} placeholder="" />
-          </div>
-            <div className="input-maint">
-              <label className="label-new-form" htmlFor="">#2</label>
-              <Input size={"large"} placeholder="" /><img className="img-maint" src="/Icons/icon-16.svg" alt="" />
-            </div></>
-        ) : (
-            <><div className="gutter-example user-tab all-npf">
-              {tasks.map( (item: string, index: number) => {
-                // return newTask(item, index)
-                return <Row key={index} gutter={16} className="input-maint">
-                  <Col className="gutter-row" span={12}>
-                    <Dropdown overlay={MenuTaskView(TASK, tasks, setTasks, index)}>
-                      <Button>
-                       {TASK.filter((subTask) => subTask.id === item)[0] ? TASK.filter((subTask) => subTask.id === tasks[index])[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
-                      </Button>
-                    </Dropdown>
-                    { index !== 0 && <img className="img-maint" src="/Icons/icon-16.svg" alt="" onClick={() => {
-                      deleteTask(index);
-                    }} />}
-                  </Col>
-                </Row>
-              })}
-            </div>
-            </>
-          )}
+        <TasksOrActivitiesView key={'activity'} subType={values.projectSubtype} tasks={tasks} setTasks={setTasks} />
         <div className="label-new-form">
           <h3>PROJECT INFORMATION</h3>
         </div>

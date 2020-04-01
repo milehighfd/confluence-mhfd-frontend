@@ -543,7 +543,8 @@ export const PROJECT_MAINTENANCE_DEBRIS= {
   mhfdDollarRequest: 0,
   publicAccess: false,
   frecuency: '',
-  maintenanceEligility: ''
+  maintenanceEligility: '',
+  tasks: ['']
 }
 
 export const PROJECT_MAINTENANCE_VEGETATION= {
@@ -555,7 +556,8 @@ export const PROJECT_MAINTENANCE_VEGETATION= {
   publicAccess: false,
   frecuency: '',
   maintenanceEligility: '',
-  recurrence: ''
+  recurrence: '',
+  tasks: ['']
 }
 
 export const PROJECT_MAINTENANCE_SEDIMENT= {
@@ -567,7 +569,8 @@ export const PROJECT_MAINTENANCE_SEDIMENT= {
   publicAccess: false,
   frecuency: '',
   maintenanceEligility: '',
-  recurrence: ''
+  recurrence: '',
+  tasks: ['']
 }
 
 export const PROJECT_MAINTENANCE_MINOR_REPAIR= {
@@ -577,7 +580,8 @@ export const PROJECT_MAINTENANCE_MINOR_REPAIR= {
   description: '',
   mhfdDollarRequest: 0,
   publicAccess: false,
-  maintenanceEligility: ''
+  maintenanceEligility: '',
+  tasks: ['']
 }
 
 export const PROJECT_MAINTENANCE_RESTORATION= {
@@ -588,7 +592,7 @@ export const PROJECT_MAINTENANCE_RESTORATION= {
   mhfdDollarRequest: 0,
   publicAccess: false,
   maintenanceEligility: '',
-  task: ['sedimentRemoval']
+  tasks: ['']
 }
 
 export const USER = {
