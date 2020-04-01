@@ -35,9 +35,9 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
                 <Collapse accordion>
                     {cardInformation.map((information: any, index: number) => (
                         <Panel header="" key={index} extra={AccordionDisplayView(information)} >
-                            {accordionRow.map((data: any) => {
+                            {information.components ? information.components.map((data: any) => {
                                 return <AccordionRowView data={data} />
-                            })}
+                            }) : ''}
                         </Panel>
                     ))}
 
