@@ -238,7 +238,7 @@ export default () => {
                             </div>
                           </div>
                           {cardInformationProjects.map((data: any, index: number) => {
-                            return <CardInformationView key={index} data={data} type={"Projects"} />
+                            return <CardInformationView key={index} data={data} type={"Projects"} numberWithCommas={() => {}} />
                           })}
                         </Row>
                       </TabPane>

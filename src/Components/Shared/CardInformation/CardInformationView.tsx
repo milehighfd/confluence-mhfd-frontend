@@ -17,7 +17,8 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
                 <h4>{data.requestName}</h4>
             </div>
             <h6>{data.jurisdiction?data.jurisdiction:'No County'}</h6>
-        <h5>${numberWithCommas!(data.finalCost?data.finalCost:data.estimatedCost)} <span style={{ float: 'right' }}><b>{ data.components ? (data.components.length ? '$' + JSON.parse(data.components[0]).length + 'Components' : '') : '' }</b> </span></h5>
+        {/* <h5>${numberWithCommas!(data.finalCost?data.finalCost:data.estimatedCost)} <span style={{ float: 'right' }}><b>{ data.components ? (data.components.length ? '$' + JSON.parse(data.components[0]).length + 'Components' : '') : '' }</b> </span></h5> */}
+        <h5>{data.finalCost}</h5>
             <hr />
             {type === 'Problems' ? (
                 <div style={{ display: 'flex', width: '100%' }}>
