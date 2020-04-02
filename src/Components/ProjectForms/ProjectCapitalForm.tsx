@@ -111,7 +111,7 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
       {/* 20% <img src="/Icons/icon-12.svg" alt=""/> */}
     </a>
     </Dropdown>,
-    Cost: <><span>$</span><span id="additionalCost" suppressContentEditableWarning contentEditable onBlur={(e) => updateCostsDescription(e)} onFocus={selectText}>{numberWithCommas(total.additional.additionalCost)}</span></>,
+    Cost: <><span>$</span><input id="additionalCost" value={numberWithCommas(total.additional.additionalCost)} onChange={(e) => updateCostsDescription(e)} className="input-span" style={{width: 80}} /></>,
     StudyName: <Input id='additionalCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
   {
@@ -134,13 +134,6 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
 
   },
 ];
-
-
-const selectText = () => {
-  setTimeout(() => {
-    document.execCommand('selectAll', false, '');
-  }, 0);
-}
 
 const footer = FOOTER_PROJECT_CAPITAL;
 const validationSchema = VALIDATION_PROJECT_CAPITAL;
@@ -211,10 +204,10 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
       const additional = {...total.additional, [event.target.id]: event.target.value}
       setTotal({...total, additional});
     } if(event.target.id === 'additionalCost') {
-      const value : any = document.getElementById(event.target.id)?.innerHTML;
-      const parsedValue = !isNaN(parseInt(value))?parseInt(value):0;
-      const additional = {...total.additional, [event.target.id]: parsedValue};
-      const newTotal = total.subtotal + parsedValue + total.overhead.overheadCost;
+      const parsedValue = event.target.value.split(',').join("");
+      const value = !isNaN(parseInt(parsedValue))?parseInt(parsedValue):0;
+      const additional = {...total.additional, [event.target.id]: value};
+      const newTotal = total.subtotal + value + total.overhead.overheadCost;
       setTotal({...total, total: newTotal, additional});
     } else if(event.target.id === 'overheadCostDescription') {
       const overhead = {...total.overhead, [event.target.id]: event.target.value};
