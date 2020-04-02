@@ -1506,7 +1506,29 @@ body{
   i{
     color: $opacity;
   }
+}
 
+.mapboxgl-ctrl-group button{
+  width: 25px !important;
+  height: 25px !important;
+}
+.mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+  background-image: url('/Icons/icon-35.svg') !important;
+  background-repeat: no-repeat;
+  background-size: 13px 13px;
+}
+.mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+  background-image: url('/Icons/icon-36.svg') !important;
+}
+.mapboxgl-ctrl-group:not(:empty) {
+  box-shadow: none !important;
+  border: 1px solid #d9d9d9;
+}
+.mapboxgl-ctrl-group button:focus {
+  box-shadow: none !important;
+}
+.mapboxgl-ctrl button:not(:disabled):hover {
+    background-color: transparent !important;
 }
 // CHECKBOXES
 .ant-checkbox-group{
