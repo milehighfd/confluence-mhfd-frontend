@@ -18,7 +18,7 @@ export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLay
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-235px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
           <Row gutter={[24, 16]} className="filter-map">
           <Checkbox.Group value={selectedLayers} onChange={(items) => selectCheckboxes(items)}>
-              <Col span={10}>
+              <Col span={9}>
                 <h6>HYDROLOGIC</h6>
                   <p><Checkbox value={FLOODPLAINS_FEMA_FILTERS}>Floodplains - FEMA SFHA</Checkbox></p>
                   <p><Checkbox value={FLOODPLAINS_NON_FEMA_FILTERS}>Floodplains - Non - FEMA</Checkbox></p>
@@ -32,7 +32,7 @@ export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLay
                 <p><Checkbox value={COUNTIES_FILTERS}>Counties</Checkbox></p>
                 <p><Checkbox value={MHFD_BOUNDARY_FILTERS}>MHFD Boundary</Checkbox></p>
               </Col>
-              <Col span={7}>
+              <Col span={8}>
                 <h6>MHFD DATA</h6>
                 <p><Checkbox value={PROBLEMS_TRIGGER}>Problem</Checkbox></p>
                 <p><Checkbox value={COMPONENTS_TRIGGER}>Components</Checkbox></p>

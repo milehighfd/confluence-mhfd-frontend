@@ -1377,7 +1377,7 @@ body{
     margin-bottom: 0px;
   }
   p{
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 0px;
   }
 }
@@ -1489,6 +1489,9 @@ body{
 
 }
 // CHECKBOXES
+.ant-checkbox-group{
+  width: 100%;
+}
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: $purple !important;
   border-color: $purple !important;
@@ -1505,7 +1508,8 @@ body{
 }
 .btn-footer{
   text-align: right;
-  .btn-00, .btn-00:hover{
+  margin: 10px 0px 5px 0px;
+  .btn-00, .btn-00:hover, .btn-00:focus, .btn-00:active, .btn-00.active{
     // width: 127px !important;
     height: 37px;
     border-radius: 4px;
@@ -1515,7 +1519,7 @@ body{
     font-size: 14px !important;
     margin-right: 15px;
   }
-  .btn-01, .btn-01:hover{
+  .btn-01, .btn-01:hover, .btn-01:focus, .btn-01:active, .btn-01.active{
     background-color: $purple;
     color: $white !important;
     font-size: 14px !important;
