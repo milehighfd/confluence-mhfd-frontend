@@ -10,7 +10,7 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
             style={{width: '100%'}}
             className="card-information"
             cover={
-                data.mainImage ? <img alt="example" src={data.mainImage} /> : <img alt="example" src="/Icons/eje.png" />
+                data.mainImage ? <img alt="example" src={data.mainImage} /> : <img alt="example" src="/Icons/default.png" />
             }
         >
             <div style={{height: 40}}>
