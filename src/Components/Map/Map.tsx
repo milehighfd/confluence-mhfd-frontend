@@ -33,6 +33,7 @@ const Map = ({ leftWidth,
             problems, 
             projects, 
             components, 
+            layerFilters,
             setSelectedItems, 
             selectedItems,
             setIsPolygon, 
@@ -104,7 +105,6 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         map.setStyle(dropdownItems.items[dropdownItems.default].style);
-        refreshPaintedComponents();
     }, [dropdownItems.items[dropdownItems.default].style]);
 
     useEffect(() => {
@@ -126,18 +126,37 @@ const Map = ({ leftWidth,
     }, [projects]);
 
     useEffect(() => {
-        selectedLayers.map((layer : string) => {
-            getMapTables(layer);
-        });
+        selectedLayers.map((layer : string) => getMapTables(layer));
     }, [selectedLayers]);
 
-    /* https://github.com/mapbox/mapbox-gl-js/issues/2268 Mapbox issue when refreshing layers */
-    // remove
-    const refreshPaintedComponents = () => {
-        if (map.isStyleLoaded()) {
-            setTimeout(refreshPaintedComponents, 500);
-        } else {
-            paintSelectedComponents(selectedItems);
+    useEffect(() => {
+        Object.keys(layerFilters).map((key : string) => {
+            const tiles = layerFilters[key];
+            /* Momentary Implementation Cause' 2 Filters Don't Have Enpoint */
+            if (tiles) {
+                addLayersSource(key, tiles);
+            }
+        })
+    }, [layerFilters]);
+
+    const addLayersSource = (key : string, tiles : Array<string>) => {
+        if (!map.getSource(key)) {
+            map.addSource(key, {
+                type: 'vector',
+                tiles: tiles
+            });
+
+            map.addLayer({
+                id: key,
+                type: 'line',
+                source: key,
+                'source-layer': 'layer0',
+                layout: {},
+                paint: {
+                    'line-color': '#00bfa5',
+                    'line-width': 2.5,
+                }
+              });
         }
     }
 

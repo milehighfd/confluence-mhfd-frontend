@@ -14,7 +14,8 @@ export default function (WrappedComponent : any, layers : any) {
     return ({ problems, 
               projects, 
               components, 
-              filters, 
+              filters,
+              layerFilters,
               saveNewCapitalForm, 
               saveNewStudyForm, 
               createNewProjectForm, 
@@ -86,6 +87,7 @@ export default function (WrappedComponent : any, layers : any) {
                             problems={problems}
                             projects={formatedProjects}
                             components={components}
+                            layerFilters={layerFilters}
                             setSelectedItems={setSelectedItems}
                             selectedItems={selectedItems}
                             setIsPolygon={setIsPolygon}

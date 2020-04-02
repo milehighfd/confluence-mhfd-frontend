@@ -1,4 +1,20 @@
-import { Ref } from "yup"
+import { 
+    PROBLEMS_TRIGGER,
+    PROJECTS_TRIGGER,
+    COMPONENTS_TRIGGER,
+    FLOODPLAINS_FEMA_FILTERS,
+    FLOODPLAINS_NON_FEMA_FILTERS,
+    WATERSHED_FILTERS,
+    STREAMS_FILTERS,
+    SERVICE_AREA_FILTERS,
+    MUNICIPALITIES_FILTERS,
+    COUNTIES_FILTERS,
+    MHFD_BOUNDARY_FILTERS,
+    MEP_PROJECTS,
+    ROUTINE_MAINTENANCE
+ } from "../constants/constants";
+
+
 
 export type MapProps = {
     leftWidth: number,
@@ -6,6 +22,7 @@ export type MapProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
+    layerFilters: any,
     setSelectedItems: Function,
     selectedItems: Array<ComponentType>,
     setIsPolygon: Function,
@@ -22,6 +39,7 @@ export type MapHOCProps = {
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
     filters: any,
+    layerFilters: any,
     saveNewCapitalForm: Function,
     saveNewStudyForm: Function,
     createNewProjectForm: Function,
@@ -94,4 +112,20 @@ export type TotalType = {
         overheadCostDescription: string
     }
     total: number
+}
+
+export type LayerFiltersType = {
+    [PROBLEMS_TRIGGER]?: Array<string>,
+    [PROJECTS_TRIGGER]?: Array<string>,
+    [COMPONENTS_TRIGGER]?: Array<string>,
+    [FLOODPLAINS_FEMA_FILTERS]?: Array<string>,
+    [FLOODPLAINS_NON_FEMA_FILTERS]?: Array<string>,
+    [WATERSHED_FILTERS]?: Array<string>,
+    [STREAMS_FILTERS]?: Array<string>,
+    [SERVICE_AREA_FILTERS]?: Array<string>,
+    [MUNICIPALITIES_FILTERS]?: Array<string>,
+    [COUNTIES_FILTERS]?: Array<string>,
+    [MHFD_BOUNDARY_FILTERS]?: Array<string>,
+    [MEP_PROJECTS]?: Array<string>,
+    [ROUTINE_MAINTENANCE]?: Array<string>
 }

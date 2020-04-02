@@ -21,6 +21,7 @@ const mapStateToProps = (state: any) => {
         projects: state.map.projects,
         components: state.map.components,
         filters: state.map.filters,
+        layerFilters: state.map.layers,
         error: state.map.error,
         redirect: state.map.redirect
     };
