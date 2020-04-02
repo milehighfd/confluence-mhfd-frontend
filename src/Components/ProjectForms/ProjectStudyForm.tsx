@@ -120,20 +120,26 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Requested Start Year<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_START_YEAR} item={title} setItem={setTitle} field={'requestedStartyear'} />}>
-                <Button style={(errors.requestedStartyear && touched.requestedStartyear && !values.requestedStartyear) ? {border: "solid red 1px"}:{}}>
-                  {values.requestedStartyear ? REQUEST_START_YEAR.filter(element => element.id === +(values.requestedStartyear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
-                </Button>
-              </Dropdown>
+              <div id="study-requested-start-year">
+                <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_START_YEAR} item={title} setItem={setTitle} field={'requestedStartyear'} />}
+                  getPopupContainer={() => document.getElementById("study-requested-start-year" ) as HTMLElement}>
+                  <Button style={(errors.requestedStartyear && touched.requestedStartyear && !values.requestedStartyear) ? {border: "solid red 1px"}:{}}>
+                    {values.requestedStartyear ? REQUEST_START_YEAR.filter(element => element.id === +(values.requestedStartyear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                  </Button>
+                </Dropdown>
+              </div>
             </Col>
             {values.projectSubtype === 'masterPlan' ? (
               <Col className="gutter-row" span={12}>
                 <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt="" /></label>
-                <Dropdown overlay={<DropdownMenuView values={values} items={GOAL_STUDY} item={title} setItem={setTitle} field={'goal'} />}>
-                  <Button style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
-                    {values.goal ? GOAL_STUDY.filter(element => element.id === values.goal)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
-                  </Button>
-                </Dropdown>
+                <div id="study-goal">
+                  <Dropdown overlay={<DropdownMenuView values={values} items={GOAL_STUDY} item={title} setItem={setTitle} field={'goal'} />}
+                    getPopupContainer={() => document.getElementById("study-goal" ) as HTMLElement}>
+                    <Button style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
+                      {values.goal ? GOAL_STUDY.filter(element => element.id === values.goal)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                    </Button>
+                  </Dropdown>
+                </div>
               </Col>
             ) : ''}
           </Row>

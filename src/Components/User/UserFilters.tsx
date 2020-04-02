@@ -6,7 +6,7 @@ import { OptionsFiltersUser } from '../../Classes/TypeList';
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation'];
 const SORT_ITEMS = [{ name: 'Name', value: 'name' }, { name: 'Organization', value: 'organization' }, { name: 'Service Area', value: 'serviceArea' }, { name: 'Designation', value: 'designation' }];
 const ROLES = ['MHFD Admin', 'MHFD Staff', 'Local Government Admin', 'Local Government', 'Consultant / Contractor', 'Other'];
-export default ({ option, setOption, search, reset }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function }) => {
+export default ({ option, setOption, search, reset, title }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function, title: string }) => {
   const { Search } = Input;
   const menu = (list: Array<string>, title: string, defaultValue: string) => (
     <Menu className="js-mm-00 sign-menu"
@@ -73,15 +73,16 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
         />
       </div>
 
-      <div>
-        <Dropdown overlay={MenuOrganization}>
+      <div id={"filter-organization" + title}>
+        <Dropdown overlay={MenuOrganization} getPopupContainer={() => document.getElementById("filter-organization" + title ) as HTMLElement}>
           <Button>
             {option.organization ? option.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
           </Button>
         </Dropdown>
       </div>
-      <div>
-        <Dropdown overlay={menu(SERVICE_AREA, 'serviceArea', 'Service Area')}>
+      <div id={"filter-service-area" + title}>
+        <Dropdown overlay={menu(SERVICE_AREA, 'serviceArea', 'Service Area')}
+          getPopupContainer={() => document.getElementById("filter-service-area" + title ) as HTMLElement}>
           <Button>
             {option.serviceArea ? option.serviceArea : 'Service Area'}
             <img src="/Icons/icon-12.svg" alt="" />
@@ -89,8 +90,9 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
         </Dropdown>
       </div>
 
-      <div>
-        <Dropdown overlay={menu(ROLES, 'designation', 'User Designation')}>
+      <div id={"filter-designation" + title}>
+        <Dropdown overlay={menu(ROLES, 'designation', 'User Designation')}
+          getPopupContainer={() => document.getElementById("filter-designation" + title ) as HTMLElement}>
           <Button>
             {option.designation ? RADIO_ITEMS.filter(item => item.value === option.designation)[0].name : 'User Designation'}
             <img src="/Icons/icon-12.svg" alt="" />
@@ -104,9 +106,9 @@ export default ({ option, setOption, search, reset }: { option: OptionsFiltersUs
         }}>Reset</Button>
       </div>
 
-      <div className="btn-r">
+      <div className="btn-r" id={"filter-sort" + title}>
         <label>Sort by:</label>
-        <Dropdown overlay={menu(SORT, '', '')}>
+        <Dropdown overlay={menu(SORT, '', '')} getPopupContainer={() => document.getElementById("filter-sort" + title ) as HTMLElement}>
           <Button>
             {SORT_ITEMS.filter(item => item.value === option.sort)[0].name}
             <img src="/Icons/icon-14.svg" alt="" />

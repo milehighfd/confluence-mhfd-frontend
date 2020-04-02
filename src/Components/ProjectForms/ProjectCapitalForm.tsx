@@ -106,22 +106,26 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
   {
     key: '1',
     Component: 'Additional Cost',
-    Jurisdiction: <Dropdown overlay={menu} trigger={['click']}>
-    <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-      {/* 20% <img src="/Icons/icon-12.svg" alt=""/> */}
-    </a>
-    </Dropdown>,
+    Jurisdiction: <div id="additional-cost">
+      <Dropdown overlay={menu} trigger={['click']} getPopupContainer={() => document.getElementById("additional-cost" ) as HTMLElement}>
+        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+          {/* 20% <img src="/Icons/icon-12.svg" alt=""/> */}
+        </a>
+      </Dropdown>
+    </div> ,
     Cost: <><span>$</span><input id="additionalCost" value={numberWithCommas(total.additional.additionalCost)} onChange={(e) => updateCostsDescription(e)} className="input-span" style={{width: 80}} /></>,
     StudyName: <Input id='additionalCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
   {
     key: '2',
     Component: 'Overhead Cost',
-    Jurisdiction: <Dropdown overlay={menu} trigger={['click']}>
-    <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-      20%<img src="/Icons/icon-12.svg" alt=""/>
-    </a>
-    </Dropdown>,
+    Jurisdiction:  <div id="overhead-cost">
+      <Dropdown overlay={menu} trigger={['click']} getPopupContainer={() => document.getElementById("overhead-cost" ) as HTMLElement}>
+        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+          20%<img src="/Icons/icon-12.svg" alt=""/>
+        </a>
+      </Dropdown>
+    </div>,
     Cost: <span>${numberWithCommas(total.overhead.overheadCost)}</span>,
     StudyName: <Input id='overheadCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
@@ -277,19 +281,27 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_FUNDING_YEAR} item={title} setItem={setTitle} field={'requestFundingYear'} />}>
-                <Button style={(errors.requestFundingYear && touched.requestFundingYear && !values.requestFundingYear) ? {border: "solid red 1px"}:{}}>
-                  {values.requestFundingYear ? REQUEST_FUNDING_YEAR.filter(element => element.id === +(values.requestFundingYear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
-                </Button>
-              </Dropdown>
+              <div id="capital-requested-funding-year">
+                <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_FUNDING_YEAR} item={title} setItem={setTitle} field={'requestFundingYear'} />}
+                  getPopupContainer={() => document.getElementById("capital-requested-funding-year" ) as HTMLElement}>
+                  <Button style={(errors.requestFundingYear && touched.requestFundingYear && !values.requestFundingYear) ? {border: "solid red 1px"}:{}}>
+                    {values.requestFundingYear ? REQUEST_FUNDING_YEAR.filter(element => element.id === +(values.requestFundingYear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                  </Button>
+                </Dropdown>
+              </div>
+              
             </Col>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Dropdown overlay={<DropdownMenuView values={values} items={GOAL} item={title} setItem={setTitle} field={'goal'} />}>
-                <Button style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
-                  {values.goal ? GOAL.filter(element => element.id === (values.goal))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
-                </Button>
-              </Dropdown>
+              <div id="capital-goal">
+                <Dropdown overlay={<DropdownMenuView values={values} items={GOAL} item={title} setItem={setTitle} field={'goal'} />}
+                  getPopupContainer={() => document.getElementById("capital-goal" ) as HTMLElement}>
+                  <Button style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
+                    {values.goal ? GOAL.filter(element => element.id === (values.goal))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
+                  </Button>
+                </Dropdown>
+              </div>
+              
             </Col>
           </Row>
         </div>

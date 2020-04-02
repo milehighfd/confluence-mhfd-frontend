@@ -29,8 +29,9 @@ export default ({subType, tasks, setTasks} : {subType: string, tasks: Array<stri
             <div key={'activities'} className="gutter-example user-tab all-npf">
               {tasks.map( (item: string, index: number) => {
                 return <Row key={index} gutter={16} className="input-maint">
-                  <Col className="gutter-row" span={12}>
-                    <Dropdown overlay={MenuTaskView(TASK, tasks, setTasks, index)}>
+                  <Col className="gutter-row" span={12} id={"task" + index}>
+                    <Dropdown overlay={MenuTaskView(TASK, tasks, setTasks, index)}
+                      getPopupContainer={() => document.getElementById("task" + index ) as HTMLElement}>
                       <Button>
                        {TASK.filter((subTask) => subTask.id === item)[0] ? TASK.filter((subTask) => subTask.id === tasks[index])[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                       </Button>

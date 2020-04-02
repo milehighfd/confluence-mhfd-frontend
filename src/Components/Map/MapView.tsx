@@ -106,8 +106,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
       {/*<Collapse accordion>
         <Panel header="" key="1">*/}
       <Row className="head-m">
-        <Col span={12}>
-          <Dropdown overlay={SortMenuView}>
+        <Col span={12} id="westminter">
+          <Dropdown overlay={SortMenuView} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
             <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
               Westminter, CO <img src="/Icons/icon-12.svg" alt="" />
             </a>
@@ -141,8 +141,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
               style={{ width: 200 }}
             />
           </Col>
-          <Col style={{ textAlign: 'right' }} span={8}>
-            <Dropdown overlay={SortMenuView}>
+          <Col style={{ textAlign: 'right' }} span={8} id="sort-map">
+            <Dropdown overlay={SortMenuView} getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
               <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                 Sort by Cost <img src="/Icons/icon-14.svg" alt="" />
               </a>

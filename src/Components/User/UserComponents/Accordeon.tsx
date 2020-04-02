@@ -108,8 +108,9 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                   <Input placeholder="Email" value={values.email} name="email" onChange={handleChange} 
                   style={(errors.email && touched.email) ? {border: "solid red"}:{}}/>
                 </Col>
-                <Col className="gutter-row" span={12}>
-                  <Dropdown overlay={MenuOrganizationView(values, setTitle)}>
+                <Col className="gutter-row" span={12} id={("organization" + values._id)}>
+                  <Dropdown overlay={MenuOrganizationView(values, setTitle)}
+                    getPopupContainer={() => document.getElementById(("organization" + values._id)) as HTMLElement}>
                     <Button style={(errors.organization && touched.organization) ? {border: "solid red"}:{}}>
                       {values.organization ? values.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
@@ -135,16 +136,18 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
             <div className="gutter-example">
               <h3>AREAS</h3>
               <Row gutter={16}>
-                <Col className="gutter-row" span={12}>
-                  <Dropdown overlay={MenuAreaView(CITIES, 'city', values, setTitle)}>
+                <Col className="gutter-row" span={12} id={("city" + values._id)}>
+                  <Dropdown overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
+                    getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
                     <Button style={(errors.city && touched.city && !values.city ) ? {border: "solid red"}:{}}>
                       {values.city ? values.city : 'City'} <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
                 </Col>
 
-                <Col className="gutter-row" span={12}>
-                  <Dropdown overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}>
+                <Col className="gutter-row" span={12} id={("county" + values._id)}>
+                  <Dropdown overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
+                    getPopupContainer={() => document.getElementById(("county" + values._id)) as HTMLElement}>
                     <Button style={(errors.county && touched.county && !values.county ) ? {border: "solid red"}:{}}>
                       {values.county ? values.county : 'County'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
@@ -153,8 +156,9 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
               </Row>
               <br></br>
               <Row gutter={16}>
-                <Col className="gutter-row" span={12}>
-                  <Dropdown overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}>
+                <Col className="gutter-row" span={12} id={("serviceArea" + values._id)}>
+                  <Dropdown overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
+                    getPopupContainer={() => document.getElementById(("serviceArea" + values._id)) as HTMLElement}>
                     <Button style={{border: (errors.serviceArea && touched.serviceArea && !values.serviceArea ) ? "solid red":""}}>
                       {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>

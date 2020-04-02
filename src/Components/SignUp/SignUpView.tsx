@@ -113,12 +113,15 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                 <label style={(values.email) ? {top: "-20px"}:{top: "10px"}}>Email</label>
               </div>
               <div className="group btn-up">
-                {values.designation !== 'other' ? <Dropdown overlay={menu}>
-                  <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} >
-                    {values.organization ? values.organization : targetButton === 'staff' ? 'Organization' : targetButton === 'government_staff' ? 'Jurisdiction' : 'Consultant/Contractor'}
-                    <img src="/Icons/icon-12.svg" alt="" />
-                  </Button>
-                </Dropdown> : (
+                {values.designation !== 'other' ? <div id="sign-up-organization">
+                  <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization" ) as HTMLElement}>
+                    <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} >
+                      {values.organization ? values.organization : targetButton === 'staff' ? 'Organization' : targetButton === 'government_staff' ? 'Jurisdiction' : 'Consultant/Contractor'}
+                      <img src="/Icons/icon-12.svg" alt="" />
+                    </Button>
+                </Dropdown>
+                </div>
+                 : (
                     <><input type="text"  name="organization" onChange={handleChange} 
                       style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                       <span className="highlight"></span>

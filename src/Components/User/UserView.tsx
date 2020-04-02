@@ -86,8 +86,8 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                 <Col span={24}>
                   <Tabs defaultActiveKey="1">
                     <TabPane tab="Approved Users" key="1">
-                      <UserFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated} reset={resetActivated}/>
-
+                      <UserFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated} 
+                        reset={resetActivated} title={'activated'}/>
                       {userActivatedState.map((user: User, index: number) => {
                         aprPos++;
                         return (
@@ -108,8 +108,8 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                     </TabPane>
 
                     <TabPane tab="Pending User Requests" key="2">
-                      <UserFilters option={optionUserPending} setOption={setOptionUserPending} search={searchUserPending} reset={resetPending}/>
-
+                      <UserFilters option={optionUserPending} setOption={setOptionUserPending} search={searchUserPending} 
+                        reset={resetPending} title={'pending'}/>
                       {userPendingState.map((user: User, index: number) => {
                         pndPos++;
                         return (
