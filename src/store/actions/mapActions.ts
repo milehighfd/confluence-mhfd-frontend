@@ -152,10 +152,15 @@ export const removeFilter = (item: any) => {
 }
 
 export const getMapTables = (trigger : string) => {
-    return (dispatch : Function) => {
-        const data = { table: trigger };
-        datasets.postData(SERVER.MAP_TABLES, data, datasets.getToken()).then(projects => {
-            // console.log(projects);
-        });
+    return (dispatch: Function, getState: Function) => {
+        const state = getState();
+        const layers = { ...state.map.layers };
+        
+        if(!layers[trigger]) {
+            const data = { table: trigger };
+            datasets.postData(SERVER.MAP_TABLES, data, datasets.getToken()).then(tiles => {
+                dispatch({ type: types.GET_MAP_LAYERS, data: { trigger, tiles } });
+            });
+        }
     }
 }

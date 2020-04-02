@@ -180,7 +180,8 @@ const initState = {
             coordinates: [-104.99997101031218, 39.84543449508365]
         }
     ],
-    filters: []
+    filters: [],
+    layers: {}
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -242,6 +243,14 @@ const mapReducer = (state = initState, action : any) => {
                 ...state,
                 filters: action.data.filters,
                 projects: action.data.projects
+            }
+        case types.GET_MAP_LAYERS: 
+            return {
+                ...state,
+                layers: {
+                    ...state.layers,
+                    [action.data.trigger]: action.data.tiles
+                }
             }
         default: 
             return state;

@@ -125,6 +125,12 @@ const Map = ({ leftWidth,
         addMapListeners();
     }, [projects]);
 
+    useEffect(() => {
+        selectedLayers.map((layer : string) => {
+            getMapTables(layer);
+        });
+    }, [selectedLayers]);
+
     /* https://github.com/mapbox/mapbox-gl-js/issues/2268 Mapbox issue when refreshing layers */
     // remove
     const refreshPaintedComponents = () => {
@@ -339,7 +345,6 @@ const Map = ({ leftWidth,
             });
         }
         setSelectedLayers(selectedItems);
-        getMapTables(selectedItem);
     }
 
     const handleSelectAll = () => {
