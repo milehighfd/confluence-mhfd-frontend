@@ -52,14 +52,21 @@ export const saveNewCapitalForm = (data : Object, components: Array<Object>, tot
     }
 }
 
-export const saveNewStudyForm = (data: Object) => {
+export const saveNewStudyForm = (data: any) => {
     return (dispatch : Function, getState : Function) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
         const coordinates = state.map.newProject.coordinates;
 
         if(coordinates.length) {
-            const result = datasets.postData(SERVER.CREATE_PROJECT, data, datasets.getToken()).then(res => {
+            const dataForm : any = new FormData;
+            for (const key in data) {
+                dataForm.append(key, '' + data[key]); 
+            }
+            
+            dataForm.append('jurisdiction', county);
+            dataForm.append('coordinates', JSON.stringify(coordinates));
+            const result = datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
                 if (res?._id) {
                     dispatch(setRouteRedirect(true));
                 }

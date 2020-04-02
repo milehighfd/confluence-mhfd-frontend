@@ -56,8 +56,6 @@ export default () => {
     datasets.logout();
     setRedirect(true);
   }
-  console.log(value);
-  
   const menu = (
     <Menu>
       <Menu.Item>

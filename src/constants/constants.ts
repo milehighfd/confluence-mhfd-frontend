@@ -662,7 +662,7 @@ export const ROUTERS = {
   PROJECT_STUDY_FHAD: 'fhad'
 };
 export const ROUTER_TITLE = {
-  PROFILE_VIEW:' User Profile',
+  PROFILE_VIEW:'Confluence   |   User Profile',
   MAP: 'Confluence   |   Map View', 
   NEW_PROJECT_TYPES: 'Confluence   |   Create a Project',
   WORK_REQUEST: 'Confluence   |   Work Request',
