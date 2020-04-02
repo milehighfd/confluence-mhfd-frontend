@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
 export default ({replaceAppUser}: {replaceAppUser: Function}) => {
   const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState({message: '', color: '#28C499'});
-  const { values, handleSubmit, handleChange } = useFormik({
+  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
       email: '',
       password: '',
@@ -78,16 +78,18 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
       </h1>
       <div style={{ marginTop: '30px' }}>
       <div className="group">
-        <input name="email" type="email" required onChange={handleChange} />
+        <input name="email" type="email" onChange={handleChange} 
+          style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
         <span className="highlight"></span>
         <span className="bar"></span>
-        <label>Email Address</label>
+        <label style={(values.email) ? {top: "-20px"}:{top: "10px"}}>Email Address</label>
       </div>
       <div className="group">
-        <input name="password" type="password" required  onChange={handleChange}/>
+        <input name="password" type="password"  onChange={handleChange}
+          style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
         <span className="highlight"></span>
         <span className="bar"></span>
-        <label>Enter Password</label>
+        <label style={(values.password) ? {top: "-20px"}:{top: "10px"}}>Enter Password</label>
       </div>
       <div className="marbot-4">
         <span>Don’t have an account?</span>
