@@ -643,6 +643,42 @@ export const ROLE = [
 export const ROUTERS_SIDEBAR = [
   '/profile-view', '/map', '/new-project-types', '/work-request', '/work-plan', '/user'
 ];
+export const ROUTERS = {
+  PROFILE_VIEW:'profile-view',
+  MAP: 'map', 
+  NEW_PROJECT_TYPES: 'new-project-types',
+  WORK_REQUEST: 'work-request',
+  WORK_PLAN: 'work-plan',
+  USER: 'user',
+  PROJECT_ACQUISITION: 'project-acquisition',
+  PROJECT_SPECIAL: 'project-special',
+  PROJECT_CAPITAL: 'project-capital',
+  PROJECT_MAINTENANCE_DEBRIS: 'debrisManagement',
+  PROJECT_MAINTENANCE_VEGETATION: 'vegetationManagement',
+  PROJECT_MAINTENANCE_MINOR_REPAIR: 'minorRepairs',
+  PROJECT_MAINTENANCE_SEDIMENT: 'sediment',
+  PROJECT_MAINTENANCE_RESTORATION: 'restoration',
+  PROJECT_STUDY_MASTER: 'masterPlan',
+  PROJECT_STUDY_FHAD: 'fhad'
+};
+export const ROUTER_TITLE = {
+  PROFILE_VIEW:' User Profile',
+  MAP: 'Confluence   |   Map View', 
+  NEW_PROJECT_TYPES: 'Confluence   |   Create a Project',
+  WORK_REQUEST: 'Confluence   |   Work Request',
+  WORK_PLAN: 'Confluence   |   Work Plan',
+  USER: 'Confluence   |   User Management',
+  PROJECT_MAINTENANCE_DEBRIS: 'Confluence   |   Create Project - Maintenance - Debris Management',
+  PROJECT_MAINTENANCE_VEGETATION: 'Confluence   |   Create Project - Maintenance - Vegetation Management',
+  PROJECT_MAINTENANCE_MINOR_REPAIR: 'Confluence   |   Create Project - Maintenance - Minor Repairs',
+  PROJECT_MAINTENANCE_SEDIMENT: 'Confluence   |   Create Project - Maintenance - Sediment',
+  PROJECT_MAINTENANCE_RESTORATION: 'Confluence   |   Create Project - Maintenance - Restoration',
+  PROJECT_STUDY_FHAD: 'Confluence   |   Create Project Study FHAD',
+  PROJECT_STUDY_MASTER: 'Confluence   |   Create Project - Study Master Plan ',
+  PROJECT_SPECIAL: 'Confluence   |   Create Project - Special',
+  PROJECT_ACQUISITION: 'Confluence   |   Create Project - Acquisition',
+  PROJECT_CAPITAL: 'Confluence   |   Create Project - Capital Type'
+}
 export const TASK = [
   {
     name: "Sediment Removal", 
