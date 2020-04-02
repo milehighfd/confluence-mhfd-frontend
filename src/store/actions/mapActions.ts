@@ -80,16 +80,10 @@ export const createNewProjectForm = (data: any, files: Array<any>) => {
         if(coordinates.length) {
             const dataForm : any = new FormData;
             for (const key in data) {
-                //if(key !== 'tasks') {
-                   dataForm.append(key, '' + data[key]); 
-                //}
+                dataForm.append(key, '' + data[key]); 
             }
             dataForm.append('jurisdiction', county);
             dataForm.append('coordinates', JSON.stringify(coordinates));
-            // if (data.tasks) {
-            //     dataForm.append('tasks', JSON.stringify(data.tasks));
-            //     console.log('tasks', JSON.stringify(data.tasks));
-            // }
             if(files) {
                 for (const file of files) {
                     dataForm.append('file', file.originFileObj);

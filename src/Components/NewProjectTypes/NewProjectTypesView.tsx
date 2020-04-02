@@ -11,7 +11,7 @@ export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, cl
   const [arrow, setArrow] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
   const [route, setRoute] = useState<string>('');
-  const [nameProject, setNameProject] = useState<string>('');
+  const [nameProject, setNameProject] = useState<string>(' ');
   const [create, setCreate] = useState(buttonsNewProject);
   const [title, setTitle] = useState('new');
 
@@ -21,6 +21,10 @@ export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, cl
 
   if(redirect) {
     return <Redirect to={route + "/" + nameProject} />
+  }
+  const inputStyle = {
+    width: '480px',
+
   }
   return <>
     <Layout>
@@ -40,7 +44,7 @@ export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, cl
               <h1>Create a {title} project</h1>
             </Col>
             <Col span={24}>
-              <Input size="large" style={{ width: '480px' }} placeholder="Name your project" onChange={(event) => {
+              <Input size="large" style={ !nameProject? {width: '480px', border: 'solid red 1px'}: { width: '480px' }} placeholder="Name your project" onChange={(event) => {
                 setNameProject(event.target.value);
               }} />
             </Col>

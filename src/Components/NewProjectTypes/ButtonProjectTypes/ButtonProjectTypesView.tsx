@@ -12,8 +12,8 @@ export default ({ buttons, setNameProject, setRedirect, nameProject, setRoute, s
     <span>{buttons.title}</span></Button></div>)
     :
     (<div><Button onClick={() => {
+      setNameProject(nameProject.trim());
       if (nameProject.trim().length > 0) {
-        setNameProject(nameProject.trim());
         setRedirect(true);
         setRoute(buttons.redirectRoute)
       }

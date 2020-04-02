@@ -93,34 +93,34 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
               </Row>
               <div className="group">
                 <input type="text" name="firstName" onChange={handleChange}
-                  style={(errors.firstName && touched.firstName) ? {border: "solid red 1px"}:{}}  />
+                  style={(errors.firstName && touched.firstName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}  />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label style={(values.firstName) ? {top: "-20px"}:{top: "10px"}}>First Name</label>
               </div>
               <div className="group">
                 <input type="text"  name="lastName" onChange={handleChange}
-                  style={(errors.lastName && touched.lastName) ? {border: "solid red 1px"}:{}} />
+                  style={(errors.lastName && touched.lastName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label style={(values.lastName) ? {top: "-20px"}:{top: "10px"}}>Last Name</label>
               </div>
               <div className="group">
                 <input type="email"  name="email" onChange={handleChange} 
-                  style={(errors.email && touched.email) ? {border: "solid red 1px"}:{}}/>
+                  style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label style={(values.email) ? {top: "-20px"}:{top: "10px"}}>Email</label>
               </div>
               <div className="group btn-up">
                 {values.designation !== 'other' ? <Dropdown overlay={menu}>
-                  <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? {border: "solid red 1px"}:{}} >
+                  <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} >
                     {values.organization ? values.organization : targetButton === 'staff' ? 'Organization' : targetButton === 'government_staff' ? 'Jurisdiction' : 'Consultant/Contractor'}
                     <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown> : (
                     <><input type="text"  name="organization" onChange={handleChange} 
-                      style={(errors.organization && touched.organization) ? {border: "solid red 1px"}:{}}/>
+                      style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                       <span className="highlight"></span>
                       <span className="bar"></span>
                       <label style={(values.organization) ? {top: "-20px"}:{top: "10px"}}>Organization</label></>
@@ -128,7 +128,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
               </div>
               <div className="group">
                 <input type="password"  name="password" onChange={handleChange} 
-                  style={(errors.password && touched.password) ? {border: "solid red 1px"}:{}}/>
+                  style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label style={(values.password) ? {top: "-20px"}:{top: "10px"}}>Password</label>

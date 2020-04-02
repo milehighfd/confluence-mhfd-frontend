@@ -5,29 +5,32 @@ import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayVie
 import * as Yup from "yup";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
-import { useFormik } from "formik";
+import { useFormik, ErrorMessage } from "formik";
 
 const validationSchema = Yup.object().shape({
-  password: Yup.string().required('Password is required'),
+  password: Yup.string()
+    .required('Password is required'),
   passwordConfirm: Yup.string()
-     .oneOf([Yup.ref('password'), null])
-     .required('Password confirm is required')
+    .oneOf([Yup.ref('password'), null])
+    .required('Password confirm is required')
 });
 export default () => {
   const [redirect, setRedirect] = useState(false);
 
   const location = useLocation().pathname;
   const url = location.split('/');
-  const { values, handleSubmit, handleChange } = useFormik({
+  const messagePasswordNoEquals = 'Passwords are not similar';
+  const message = 'Password confirm is required';
+  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
       id: url[2],
       password: '',
       passwordConfirm: ''
     },
     validationSchema,
-    onSubmit(values: {id: string, password: string, passwordConfirm: string}) {
+    onSubmit(values: { id: string, password: string, passwordConfirm: string }) {
       const result = datasets.postData(SERVER.RESET_PASSWORD, values).then(res => {
-        if(res) {
+        if (res) {
           setRedirect(true);
         }
       })
@@ -42,34 +45,40 @@ export default () => {
       <CarouselAutoPlayView />
       <Col span={11} className="login-hh">
         <div className="login-step01">
-          
-          <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit} >
-        <h1>
-            Reset your password
+
+          <Form style={{ width: '420px' }} className="login-form" onSubmit={handleSubmit} >
+            <h1>
+              Reset your password
         </h1>
-          <Row className="resetText">
-            <p>Enter a new password to reset the password for your account
+            <Row className="resetText">
+              <p>Enter a new password to reset the password for your account
               {/* ,<span> Shea Thomas</span> */}
               </p>
-          </Row>
-        <div className="group">
-          <input type="password" name="password" onChange={handleChange} required/>
-          <span className="highlight"></span>
-          <span className="bar"></span>
-          <label>New Password</label>
-        </div>
-        <div className="group">
-          <input type="password" name="passwordConfirm" onChange={handleChange} required/>
-          <span className="highlight"></span>
-          <span className="bar"></span>
-          <label>Confirm New Password</label>
-        </div>
-        <div>
-          <Button className="buttonLogin" block htmlType="submit">
-              Set New Password
+            </Row>
+            <div className="group">
+              <input type="password" name="password" onChange={handleChange} 
+                style={(errors.password && touched.password) ? {border: "solid red 1px", paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label style={(values.password) ? {top: "-20px"}:{top: "10px"}}>New Password</label>
+            </div>
+            <div className="group">
+              <input type="password" name="passwordConfirm" onChange={handleChange}
+               style={(errors.passwordConfirm && touched.passwordConfirm) ? {border: "solid red 1px", paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label style={(values.passwordConfirm) ? {top: "-20px"}:{top: "10px"}}>Confirm New Password</label>
+            </div>
+            <div><br/>
+              {/* <ErrorMessage name="passwordConfirm" /> */}
+              <span style={{color: 'red'}}>&nbsp;&nbsp; {errors.passwordConfirm === message ? message : errors.passwordConfirm ? messagePasswordNoEquals : errors.password }</span>
+            </div>
+            <div>
+              <Button className="buttonLogin" block htmlType="submit">
+                Set New Password
           </Button>
-        </div>
-        </Form>
+            </div>
+          </Form>
         </div>
       </Col>
     </Row>
