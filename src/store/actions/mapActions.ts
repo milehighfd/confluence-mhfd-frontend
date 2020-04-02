@@ -13,7 +13,7 @@ export const getReverseGeocode = (lat : any, lng : any, accessToken : string) =>
             .then(res => res.json())
             .then(data => {
                 const feature = data.items[0];
-                dispatch({ type: types.SET_REVERSE_GEOCODE, county: feature.address.county });
+                dispatch({ type: types.SET_REVERSE_GEOCODE, county: feature?feature.address.county:'' });
             })
             // .then(data => dispatch({ type: types.SET_REVERSE_GEOCODE, county: data.features[0].text }))
             .catch(err =>  dispatch({ type: types.GEOCODE_REQUEST_ERROR, err }));

@@ -154,7 +154,7 @@ const Map = ({ leftWidth,
                 layout: {},
                 paint: {
                     'line-color': '#00bfa5',
-                    'line-width': 2.5,
+                    'line-width': 1
                 }
               });
         }
