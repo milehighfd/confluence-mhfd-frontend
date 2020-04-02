@@ -74,14 +74,14 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       </div>
 
       <div id={"filter-organization" + title}>
-        <Dropdown overlay={MenuOrganization} getPopupContainer={() => document.getElementById("filter-organization" + title ) as HTMLElement}>
+        <Dropdown trigger={['click']} overlay={MenuOrganization} getPopupContainer={() => document.getElementById("filter-organization" + title ) as HTMLElement}>
           <Button>
             {option.organization ? option.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
           </Button>
         </Dropdown>
       </div>
       <div id={"filter-service-area" + title}>
-        <Dropdown overlay={menu(SERVICE_AREA, 'serviceArea', 'Service Area')}
+        <Dropdown trigger={['click']} overlay={menu(SERVICE_AREA, 'serviceArea', 'Service Area')}
           getPopupContainer={() => document.getElementById("filter-service-area" + title ) as HTMLElement}>
           <Button>
             {option.serviceArea ? option.serviceArea : 'Service Area'}
@@ -91,7 +91,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       </div>
 
       <div id={"filter-designation" + title}>
-        <Dropdown overlay={menu(ROLES, 'designation', 'User Designation')}
+        <Dropdown trigger={['click']} overlay={menu(ROLES, 'designation', 'User Designation')}
           getPopupContainer={() => document.getElementById("filter-designation" + title ) as HTMLElement}>
           <Button>
             {option.designation ? RADIO_ITEMS.filter(item => item.value === option.designation)[0].name : 'User Designation'}
@@ -108,7 +108,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
 
       <div className="btn-r" id={"filter-sort" + title}>
         <label>Sort by:</label>
-        <Dropdown overlay={menu(SORT, '', '')} getPopupContainer={() => document.getElementById("filter-sort" + title ) as HTMLElement}>
+        <Dropdown trigger={['click']} overlay={menu(SORT, '', '')} getPopupContainer={() => document.getElementById("filter-sort" + title ) as HTMLElement}>
           <Button>
             {SORT_ITEMS.filter(item => item.value === option.sort)[0].name}
             <img src="/Icons/icon-14.svg" alt="" />

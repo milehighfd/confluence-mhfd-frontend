@@ -153,14 +153,14 @@ export default () => {
                       style={{width: '200px', height: '35px' }}
                     />
                     {/*<Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
-                    <Dropdown overlay={MapFilterView} className="btn-02">
+                    <Dropdown overlay={MapFilterView} className="btn-02" trigger={['click']}>
                       <Button>
                         <img src="/Icons/icon-05.svg" alt=""/>
                       </Button>
                     </Dropdown>
                   </div>
 
-                  <Dropdown overlay={MapTypesView({dropdownItems, selectMapStyle})} className="btn-03">
+                  <Dropdown trigger={['click']} overlay={MapTypesView({dropdownItems, selectMapStyle})} className="btn-03">
                     <Button>
                       Dark Terrain <img src="/Icons/icon-12.svg" alt=""/>
                     </Button>

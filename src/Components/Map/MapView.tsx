@@ -107,7 +107,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
         <Panel header="" key="1">*/}
       <Row className="head-m">
         <Col span={12} id="westminter">
-          <Dropdown overlay={SortMenuView} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
+          <Dropdown trigger={['click']} overlay={SortMenuView} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
             <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
               Westminter, CO <img src="/Icons/icon-12.svg" alt="" />
             </a>
@@ -142,7 +142,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
             />
           </Col>
           <Col style={{ textAlign: 'right' }} span={8} id="sort-map">
-            <Dropdown overlay={SortMenuView} getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
+            <Dropdown trigger={['click']} overlay={SortMenuView} getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
               <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                 Sort by Cost <img src="/Icons/icon-14.svg" alt="" />
               </a>
@@ -154,7 +154,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
         </Row>
       </div>
 
-      {!toggleFilters ? 
+      {!toggleFilters ?
         <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map">
           {tabs.map((value : string, index : number) => {
             let totalElements = 0;
@@ -170,24 +170,24 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
 
             return (
               <TabPane tab={value} key={'' + index}>
-                <GenericTabView 
+                <GenericTabView
                       filterNames={filterNames}
-                      listDescription={listDescription} 
-                      type={value} 
-                      totalElements={totalElements} 
-                      cardInformation={cardInformation} 
+                      listDescription={listDescription}
+                      type={value}
+                      totalElements={totalElements}
+                      cardInformation={cardInformation}
                       accordionRow={accordionRow}
                       listFilters={filters}
                       removeFilter={removeFilter} />
               </TabPane>
             );
           })}
-        </Tabs> 
+        </Tabs>
           :
-        <FiltersProjectView 
+        <FiltersProjectView
             tabPosition={tabPosition}
             setTabPosition={setTabPosition}
-            filterNames={filterNames} 
+            filterNames={filterNames}
             setToggleFilters={setToggleFilters}
             handleOnSubmit={handleOnSubmit}
             setFilterNames={setFilterNames} />

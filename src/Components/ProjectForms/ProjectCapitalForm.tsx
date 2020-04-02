@@ -257,7 +257,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
       <Form onSubmit={handleSubmit}>
         <div className="label-npf">
           <label className="label-new-form" htmlFor="">Description<img src="/Icons/icon-19.svg" alt="" /></label>
-          <TextArea rows={4} placeholder="Enter description" name="description" onChange={handleChange} 
+          <TextArea rows={4} placeholder="Enter description" name="description" onChange={handleChange}
           style={(errors.description && touched.description) ? {border: "solid red 1px"}:{}} />
         </div>
         <br></br>
@@ -268,7 +268,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">MHFD Funding Request<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input placeholder="Enter MHFD funding request" name="mhfdFundingRequest" onChange={handleChange} 
+              <Input placeholder="Enter MHFD funding request" name="mhfdFundingRequest" onChange={handleChange}
                 style={(errors.mhfdFundingRequest && touched.mhfdFundingRequest) ? {border: "solid red 1px"}:{}} />
             </Col>
             <Col className="gutter-row" span={12}>
@@ -282,26 +282,26 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Requested Funding Year<img src="/Icons/icon-19.svg" alt="" /></label>
               <div id="capital-requested-funding-year">
-                <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_FUNDING_YEAR} item={title} setItem={setTitle} field={'requestFundingYear'} />}
+                <Dropdown trigger={['click']} overlay={<DropdownMenuView values={values} items={REQUEST_FUNDING_YEAR} item={title} setItem={setTitle} field={'requestFundingYear'} />}
                   getPopupContainer={() => document.getElementById("capital-requested-funding-year" ) as HTMLElement}>
                   <Button style={(errors.requestFundingYear && touched.requestFundingYear && !values.requestFundingYear) ? {border: "solid red 1px"}:{}}>
                     {values.requestFundingYear ? REQUEST_FUNDING_YEAR.filter(element => element.id === +(values.requestFundingYear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>
               </div>
-              
+
             </Col>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Goal<img src="/Icons/icon-19.svg" alt="" /></label>
               <div id="capital-goal">
-                <Dropdown overlay={<DropdownMenuView values={values} items={GOAL} item={title} setItem={setTitle} field={'goal'} />}
+                <Dropdown trigger={['click']} overlay={<DropdownMenuView values={values} items={GOAL} item={title} setItem={setTitle} field={'goal'} />}
                   getPopupContainer={() => document.getElementById("capital-goal" ) as HTMLElement}>
                   <Button style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
                     {values.goal ? GOAL.filter(element => element.id === (values.goal))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>
               </div>
-              
+
             </Col>
           </Row>
         </div>

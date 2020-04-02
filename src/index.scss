@@ -60,6 +60,10 @@ body{
 :focus {
     outline: none !important;
 }
+.ant-menu-root.ant-menu-vertical, .ant-menu-root.ant-menu-vertical-left, .ant-menu-root.ant-menu-vertical-right, .ant-menu-root.ant-menu-inline {
+  -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
 // margins
 .marbot-4 {
   margin-bottom: 20px;
@@ -829,15 +833,31 @@ body{
   }
 }
 .js-mm-00{
-  padding: 0px 20px 15px 20px !important;
+  padding: 0px 20px !important;
   font-size: 14px !important;
   color: $opacity !important;
 
-  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a{
-    padding: 10px 0px;
-    border-bottom: 1px solid $opacity01;
+  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a, .ant-menu-item > a{
     font-size: 14px;
     color: $purple00;
+  }
+  .ant-menu-item{
+    border-top: 1px solid $opacity01;
+    margin: 0px !important;
+    padding: 0px 0px !important;
+  }
+  .ant-menu-item > a:hover, .ant-menu-item > a:focus,
+  .ant-dropdown-menu-item > a:hover, .ant-dropdown-menu-item > a:focus {
+    color: $purple;
+    font-weight: 500;
+  }
+  .ant-dropdown-menu-item{
+    padding: 10px 0px !important;
+    border-bottom: 1px solid $opacity01;
+    text-align: left;
+  }
+  .ant-dropdown-menu-item:hover{
+    background: none;
   }
 }
 .sign-menu {
@@ -1631,6 +1651,11 @@ body{
     height: 35px;
     padding: 6px 11px;
     font-size: 14px;
+  }
+  .ant-input:focus, .ant-input:hover, .ant-input:active, .ant-input.active  {
+    border-color: $purple !important;
+    outline: 0;
+    box-shadow: none;
   }
   h1 {
    font-size: 28px;
@@ -3067,9 +3092,9 @@ body{
   cursor: pointer;
  }
 
- .switch-options {
-   z-index: 100000000000;
- }
+ // .switch-options {
+ //   z-index: 100000000000;
+ // }
 
  .button-dropdown {
   background-color: #28C499 !important;

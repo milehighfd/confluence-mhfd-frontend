@@ -12,12 +12,12 @@ import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
 import { MapProps, ComponentType } from '../../Classes/MapTypes';
-import { MAP_DROPDOWN_ITEMS, 
-        MAPBOX_TOKEN, HERE_TOKEN, 
-        PROBLEMS_TRIGGER, 
-        PROJECTS_TRIGGER, 
-        COMPONENTS_TRIGGER, 
-        DENVER_LOCATION, 
+import { MAP_DROPDOWN_ITEMS,
+        MAPBOX_TOKEN, HERE_TOKEN,
+        PROBLEMS_TRIGGER,
+        PROJECTS_TRIGGER,
+        COMPONENTS_TRIGGER,
+        DENVER_LOCATION,
         SELECT_ALL_FILTERS } from "../../constants/constants";
 
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
@@ -28,18 +28,18 @@ let popup = new mapboxgl.Popup();
 // const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 
-const Map = ({ leftWidth, 
-            layers, 
-            problems, 
-            projects, 
-            components, 
+const Map = ({ leftWidth,
+            layers,
+            problems,
+            projects,
+            components,
             layerFilters,
-            setSelectedItems, 
+            setSelectedItems,
             selectedItems,
-            setIsPolygon, 
-            getReverseGeocode, 
-            savePolygonCoordinates, 
-            saveMarkerCoordinates, 
+            setIsPolygon,
+            getReverseGeocode,
+            savePolygonCoordinates,
+            saveMarkerCoordinates,
             getMapTables,
             markerRef,
             polygonRef } : MapProps) => {
@@ -168,7 +168,7 @@ const Map = ({ leftWidth,
                     { hover: false }
                 );
             });
-    
+
             if(items && items.length) {
                 items.map((item : any) => {
                     map.setFeatureState(
@@ -208,12 +208,12 @@ const Map = ({ leftWidth,
             const turfPoints = components.map((point : any) => turf.point(point.coordinates));
             const values = turfPoints.map((turfPoint : any) => turf.inside(turfPoint, polygonCoords));
 
-            components.map((point : any, index : number) => { 
+            components.map((point : any, index : number) => {
                 if (values[index]) {
                     selectedItems.push(point);
-                } 
+                }
             });
-    
+
             paintSelectedComponents(selectedItems);
             setSelectedItems(selectedItems);
             setIsPolygon(true);
@@ -224,7 +224,7 @@ const Map = ({ leftWidth,
 
     const addMapListeners = () => {
         /* Add Listeners to the problems and Components */
-        drawConstants.map((trigger : string) => {            
+        drawConstants.map((trigger : string) => {
             map.on('load', () =>  drawItemsInMap(trigger));
             map.on('style.load', () => drawItemsInMap(trigger));
             map.on('click', trigger, (e : any) => {
@@ -249,10 +249,10 @@ const Map = ({ leftWidth,
 
     const popUpContent = (trigger : string, item : any) => ReactDOMServer.renderToStaticMarkup(
         <>
-            {trigger !== COMPONENTS_TRIGGER ? 
-                <MainPopup 
+            {trigger !== COMPONENTS_TRIGGER ?
+                <MainPopup
                     trigger={trigger}
-                    item={item} /> : 
+                    item={item} /> :
                 <ComponentPopup
                     item={item} />}
         </>
@@ -275,7 +275,7 @@ const Map = ({ leftWidth,
         const itemsFeatures = items.map((item : any) => {
             const nameConst = trigger.slice(0, -1);
             const id = item[nameConst + 'Id'];
-                
+
             return {
                 id: id,
                 type: 'Feature',
@@ -306,7 +306,7 @@ const Map = ({ leftWidth,
                 paint: {
                     'fill-color': '#088',
                     'fill-opacity': 0.3,
-                } 
+                }
             });
 
             map.addLayer({
@@ -388,7 +388,8 @@ const Map = ({ leftWidth,
                     visible={visibleDropdown}
                     onVisibleChange={(flag : boolean) => setVisibleDropdown(flag)}
                     overlay={MapFilterView({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLayers })}
-                    className="btn-02">
+                    className="btn-02"
+                    trigger={['click']}>
                     <Button>
                         <img src="/Icons/icon-05.svg" alt="" />
                     </Button>
@@ -397,7 +398,8 @@ const Map = ({ leftWidth,
 
             <Dropdown
                 overlay={MapTypesView({ dropdownItems, selectMapStyle })}
-                className="btn-03">
+                className="btn-03"
+                trigger={['click']}>
                 <Button>
                     {dropdownItems.items[dropdownItems.default].type} <img src="/Icons/icon-12.svg" alt="" />
                 </Button>

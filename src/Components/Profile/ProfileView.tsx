@@ -211,7 +211,7 @@ export default () => {
                           />
                       </div>
                       <div>
-                          <Dropdown overlay={menu}>
+                          <Dropdown overlay={menu} trigger={['click']}>
                             <Button className="profile-bystatus" >
                                 By Status <img src="/Icons/icon-14.svg" alt=""/>
                             </Button>
@@ -234,7 +234,7 @@ export default () => {
                                 />
                             </div>
                             <div>
-                                <Dropdown overlay={menu}>
+                                <Dropdown overlay={menu} trigger={['click']}>
                                   <Button className="profile-bystatus">
                                       By Status <img src="/Icons/icon-14.svg" alt=""/>
                                   </Button>
