@@ -10,15 +10,15 @@ import { FLOODPLAINS_FEMA_FILTERS,
         MHFD_BOUNDARY_FILTERS,
         PROBLEMS_TRIGGER,
         PROJECTS_TRIGGER,
-        COMPONENTS_TRIGGER, 
+        COMPONENTS_TRIGGER,
         MEP_PROJECTS,
         ROUTINE_MAINTENANCE} from '../../../constants/constants';
 
 export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLayers } : { selectCheckboxes : Function, handleSelectAll: Function, handleResetAll: Function, selectedLayers: Array<string> }) => {
-  return <Layout style={{ background: '#fff', width: '43.8vw', left: '-235px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
+  return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-235px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
           <Row gutter={[24, 16]} className="filter-map">
           <Checkbox.Group value={selectedLayers} onChange={(items) => selectCheckboxes(items)}>
-              <Col span={9}>
+              <Col span={10}>
                 <h6>HYDROLOGIC</h6>
                   <p><Checkbox value={FLOODPLAINS_FEMA_FILTERS}>Floodplains - FEMA SFHA</Checkbox></p>
                   <p><Checkbox value={FLOODPLAINS_NON_FEMA_FILTERS}>Floodplains - Non - FEMA</Checkbox></p>
@@ -32,7 +32,7 @@ export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLay
                 <p><Checkbox value={COUNTIES_FILTERS}>Counties</Checkbox></p>
                 <p><Checkbox value={MHFD_BOUNDARY_FILTERS}>MHFD Boundary</Checkbox></p>
               </Col>
-              <Col span={8}>
+              <Col span={7}>
                 <h6>MHFD DATA</h6>
                 <p><Checkbox value={PROBLEMS_TRIGGER}>Problem</Checkbox></p>
                 <p><Checkbox value={COMPONENTS_TRIGGER}>Components</Checkbox></p>
@@ -47,5 +47,5 @@ export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLay
             <Button className="btn-00" onClick={() => handleResetAll()}>Clear Map</Button>
             <Button className="btn-01" onClick={() => handleSelectAll()}>Apply All Layers</Button>
           </div>
-     </Layout>
+     </div>
 }
