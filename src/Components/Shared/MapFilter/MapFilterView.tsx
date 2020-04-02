@@ -10,12 +10,14 @@ import { FLOODPLAINS_FEMA_FILTERS,
         MHFD_BOUNDARY_FILTERS,
         PROBLEMS_TRIGGER,
         PROJECTS_TRIGGER,
-        COMPONENTS_TRIGGER } from '../../../constants/constants';
+        COMPONENTS_TRIGGER, 
+        MEP_PROJECTS,
+        ROUTINE_MAINTENANCE} from '../../../constants/constants';
 
-export default ({ selectCheckboxes } : { selectCheckboxes : Function}) => {
+export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLayers } : { selectCheckboxes : Function, handleSelectAll: Function, handleResetAll: Function, selectedLayers: Array<string> }) => {
   return <Layout style={{ background: '#fff', width: '43.8vw', left: '-235px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
           <Row gutter={[24, 16]} className="filter-map">
-          <Checkbox.Group onChange={(items) => selectCheckboxes(items)}>
+          <Checkbox.Group value={selectedLayers} onChange={(items) => selectCheckboxes(items)}>
               <Col span={9}>
                 <h6>HYDROLOGIC</h6>
                   <p><Checkbox value={FLOODPLAINS_FEMA_FILTERS}>Floodplains - FEMA SFHA</Checkbox></p>
@@ -35,15 +37,15 @@ export default ({ selectCheckboxes } : { selectCheckboxes : Function}) => {
                 <p><Checkbox value={PROBLEMS_TRIGGER}>Problem</Checkbox></p>
                 <p><Checkbox value={COMPONENTS_TRIGGER}>Components</Checkbox></p>
                 <p><Checkbox value={PROJECTS_TRIGGER}>Projects</Checkbox></p>
-                <p><Checkbox value={'mep'}>MEP Projects</Checkbox></p>
-                <p><Checkbox value={'routine'}>Routine Maintenance</Checkbox></p>
+                <p><Checkbox value={MEP_PROJECTS}>MEP Projects</Checkbox></p>
+                <p><Checkbox value={ROUTINE_MAINTENANCE}>Routine Maintenance</Checkbox></p>
               </Col>
             </Checkbox.Group>
           </Row>
 
           <div className="btn-footer">
-            <Button className="btn-00">Clear Map</Button>
-            <Button className="btn-01">Apply All Layers</Button>
+            <Button className="btn-00" onClick={() => handleResetAll()}>Clear Map</Button>
+            <Button className="btn-01" onClick={() => handleSelectAll()}>Apply All Layers</Button>
           </div>
      </Layout>
 }

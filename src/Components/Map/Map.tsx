@@ -12,7 +12,13 @@ import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
 import { MapProps, ComponentType } from '../../Classes/MapTypes';
-import { MAP_DROPDOWN_ITEMS, MAPBOX_TOKEN, HERE_TOKEN, LATITUDE_INDEX, LONGITUDE_INDEX, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, DENVER_LOCATION } from "../../constants/constants";
+import { MAP_DROPDOWN_ITEMS, 
+        MAPBOX_TOKEN, HERE_TOKEN, 
+        PROBLEMS_TRIGGER, 
+        PROJECTS_TRIGGER, 
+        COMPONENTS_TRIGGER, 
+        DENVER_LOCATION, 
+        SELECT_ALL_FILTERS } from "../../constants/constants";
 
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -40,6 +46,7 @@ const Map = ({ leftWidth,
     let geocoderRef = useRef<any>();
     const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
     const [selectedLayers, setSelectedLayers] = useState<Array<string>>([]);
+    const [visibleDropdown, setVisibleDropdown] = useState(false);
 
     useEffect(() => {
         (mapboxgl as any).accessToken = MAPBOX_TOKEN;
@@ -335,41 +342,55 @@ const Map = ({ leftWidth,
         getMapTables(selectedItem);
     }
 
+    const handleSelectAll = () => {
+        setSelectedLayers(SELECT_ALL_FILTERS);
+    }
+
+    const handleResetAll = () => {
+        setSelectedLayers([]);
+    }
+
     return (
         <div className="map">
-            <div id="map" style={{width: '100%', height: '100%'}} />
+            <div id="map" style={{ width: '100%', height: '100%' }} />
             <div className="m-head">
                 <div
                     ref={geocoderRef}
                     className="geocoder"
-                    style={{width: '200px', height: '35px' }}
-                    />
-                    {/*<Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
-                    <Dropdown overlay={MapFilterView({selectCheckboxes})} className="btn-02">
-                        <Button>
-                            <img src="/Icons/icon-05.svg" alt=""/>
-                        </Button>
-                    </Dropdown>
-                </div>
-
-                <Dropdown overlay={MapTypesView({dropdownItems, selectMapStyle})} className="btn-03">
+                    style={{ width: '200px', height: '35px' }}
+                />
+                {/*<Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
+                <Dropdown
+                    visible={visibleDropdown}
+                    onVisibleChange={(flag : boolean) => setVisibleDropdown(flag)}
+                    overlay={MapFilterView({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLayers })}
+                    className="btn-02">
                     <Button>
-                        {dropdownItems.items[dropdownItems.default].type} <img src="/Icons/icon-12.svg" alt=""/>
+                        <img src="/Icons/icon-05.svg" alt="" />
                     </Button>
                 </Dropdown>
+            </div>
 
-                <div className="m-footer">
-                    <h5>NFHL 100 year floodplain</h5>
-                    <hr/>
-                    <p><span style={{background:'#99C9FF'}} />6 - 12 inches</p>
-                    <p><span style={{background:'#4B9CFF'}} /> 12 - 18 inches</p>
-                    <p><span style={{background:'#4C81C4'}} /> 18 - 24 inches</p>
-                    <p><span style={{background:'#4A6A9C'}} /> +24 inches</p>
-                    <p><span style={{background:'#8FA7C8', height: '2px', marginTop: '7px'}} />Stream Channel</p>
-                    <p><span style={{background:'#ffffff', border: '1px dashed'}} />Service Area (Watershed)</p>
-                </div>
+            <Dropdown
+                overlay={MapTypesView({ dropdownItems, selectMapStyle })}
+                className="btn-03">
+                <Button>
+                    {dropdownItems.items[dropdownItems.default].type} <img src="/Icons/icon-12.svg" alt="" />
+                </Button>
+            </Dropdown>
 
-                {/* <div className="m-zoom">
+            <div className="m-footer">
+                <h5>NFHL 100 year floodplain</h5>
+                <hr />
+                <p><span style={{ background: '#99C9FF' }} />6 - 12 inches</p>
+                <p><span style={{ background: '#4B9CFF' }} /> 12 - 18 inches</p>
+                <p><span style={{ background: '#4C81C4' }} /> 18 - 24 inches</p>
+                <p><span style={{ background: '#4A6A9C' }} /> +24 inches</p>
+                <p><span style={{ background: '#8FA7C8', height: '2px', marginTop: '7px' }} />Stream Channel</p>
+                <p><span style={{ background: '#ffffff', border: '1px dashed' }} />Service Area (Watershed)</p>
+            </div>
+
+            {/* <div className="m-zoom">
                     <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt="" width="12px"/></Button>
                     <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>
                 </div> */}

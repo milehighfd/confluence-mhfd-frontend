@@ -30,9 +30,6 @@ export const DENVER_LOCATION = {
   zoom: 10.8
 };
 
-export const LATITUDE_INDEX = 0;
-export const LONGITUDE_INDEX = 1;
-
 export const PROBLEMS_TRIGGER = 'problems';
 export const PROJECTS_TRIGGER = 'projects';
 export const COMPONENTS_TRIGGER = 'components';
@@ -47,6 +44,23 @@ export const SERVICE_AREA_FILTERS = 'watershed_service_areas';
 export const MUNICIPALITIES_FILTERS = 'municipalities';
 export const COUNTIES_FILTERS = 'mhcounties';
 export const MHFD_BOUNDARY_FILTERS = 'district_boundary';
+
+export const MEP_PROJECTS = 'mep_projects';
+export const ROUTINE_MAINTENANCE = 'routine_maintenance';
+
+export const SELECT_ALL_FILTERS = [FLOODPLAINS_FEMA_FILTERS, 
+                                  FLOODPLAINS_NON_FEMA_FILTERS, 
+                                  WATERSHED_FILTERS, 
+                                  STREAMS_FILTERS, 
+                                  SERVICE_AREA_FILTERS, 
+                                  MUNICIPALITIES_FILTERS, 
+                                  COUNTIES_FILTERS,
+                                  MHFD_BOUNDARY_FILTERS, 
+                                  PROBLEMS_TRIGGER, 
+                                  PROJECTS_TRIGGER, 
+                                  COMPONENTS_TRIGGER,
+                                  MEP_PROJECTS, 
+                                  ROUTINE_MAINTENANCE];
 
 /* End of Map Constants */
 
