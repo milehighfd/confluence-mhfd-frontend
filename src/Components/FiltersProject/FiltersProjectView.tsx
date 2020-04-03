@@ -23,7 +23,7 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any)
   );
 }
 
-export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit} : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function}) => {
+export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit, handleReset} : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function, handleReset: Function}) => {
   let selectedFilters: Object = {};
 
   const handleRadioGroup = (event : any, id : string) => {
@@ -37,6 +37,11 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
   const handleAppliedChanges = () => {
     setToggleFilters(false);
     handleOnSubmit(selectedFilters);
+  }
+
+  const handleAppliedReset = () => {
+    setToggleFilters(false);
+    handleReset();
   }
 
   const deleteFilter = (index: number) => {
@@ -76,7 +81,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
       })}
     </Tabs>
     <div className="btn-footer" style={{ marginTop: '25px' }}>
-      <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
+      <Button style={{ width: '140px' }} onClick={handleAppliedReset} className="btn-00">Reset</Button>
       <Button style={{ width: '140px' }} onClick={handleAppliedChanges} className="btn-01">Apply</Button>
     </div>
   </>

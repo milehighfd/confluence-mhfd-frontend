@@ -71,6 +71,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
     getProjectWithFilters(filtersData);
   }
 
+  const handleReset = () => {
+    getProjectWithFilters([]);
+  }
+
   const handleToggle = () => {
     // Force coded cause' components tab doesn't exists on MapView
     if(tabPosition === "2") setTabPosition("0");
@@ -190,6 +194,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
             filterNames={filterNames}
             setToggleFilters={setToggleFilters}
             handleOnSubmit={handleOnSubmit}
+            handleReset={handleReset}
             setFilterNames={setFilterNames} />
       }
     </div>

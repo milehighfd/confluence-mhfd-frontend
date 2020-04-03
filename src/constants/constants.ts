@@ -724,8 +724,8 @@ export const CAPITAL_STATUS = 'capitalStatus';
 export const STUDY_STATUS = 'studyStatus';
 export const START_YEAR = 'startYear';
 export const COMPLETED_YEAR = 'completedYear';
-export const CAPITAL_GOAL = 'capitalGoal';
-export const STUDY_GOAL = 'studyGoal';
+export const CAPITAL_GOAL = 'goal';
+export const STUDY_GOAL = 'goal';
 export const MHFD_DOLLAR_REQUEST = 'mhfdDollarRequest';
 export const WORK_PLAN_YEAR = 'workPlanYear';
 
