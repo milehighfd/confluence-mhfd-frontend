@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Tabs, Tag } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
@@ -24,14 +24,29 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any)
 }
 
 export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit, handleReset} : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function, handleReset: Function}) => {
-  let selectedFilters: Object = {};
+  const [selectedFilters, setSelectedFilters] = useState({});
+
+  useEffect(() => {
+    let selected : any = {};
+    filterNames.forEach((filter : any) => {
+      const checkboxValue = filterNames.filter((value : any) => value.key === filter.key).length;
+      if (checkboxValue > 1) {
+        const checkboxArray = selected[filter.key]?selected[filter.key]:[];
+        checkboxArray.push(filter.type);
+        selected = { ...selected, [filter.key]: checkboxArray };
+      } else {
+        selected = { ...selected, [filter.key]: filter.type };
+      }
+    });
+    setSelectedFilters(selected);
+  }, [filterNames]);
 
   const handleRadioGroup = (event : any, id : string) => {
-    selectedFilters = { ...selectedFilters, [id]: event.target.value };
+    setSelectedFilters({...selectedFilters, [id]: event.target.value });
   }
 
   const handleCheckbox = (checkedValues : Array<string>, id : string) => {
-    selectedFilters = { ...selectedFilters, [id]: checkedValues };
+    setSelectedFilters({...selectedFilters, [id]: checkedValues });
   }
 
   const handleAppliedChanges = () => {
@@ -55,7 +70,8 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
       case FILTER_PROBLEMS_TRIGGER:
         return <ProblemsFilter />
       case FILTER_PROJECTS_TRIGGER:
-        return <ProjectsFilter 
+        return <ProjectsFilter
+                  selectedFilters={selectedFilters}
                   handleRadioGroup={handleRadioGroup} 
                   handleCheckbox={handleCheckbox} />
       case FILTER_COMPONENTS_TRIGGER:
