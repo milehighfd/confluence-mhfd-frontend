@@ -74,7 +74,8 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       </div>
 
       <div id={"filter-organization" + title}>
-        <Dropdown trigger={['click']} overlay={MenuOrganization} getPopupContainer={() => document.getElementById("filter-organization" + title ) as HTMLElement}>
+        <Dropdown trigger={['click']} overlay={MenuOrganization} getPopupContainer={() => document.getElementById("filter-organization" + title ) as HTMLElement}
+          overlayClassName="dropdown-special-bottomLeft">
           <Button>
             {option.organization ? option.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
           </Button>

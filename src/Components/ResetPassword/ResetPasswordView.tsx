@@ -17,17 +17,27 @@ const validationSchema = Yup.object().shape({
     .required()
 });
 export default () => {
+  const [message, setMessage] = useState({message: '', color: '#28C499'});
   const [redirect, setRedirect] = useState(false);
-  const { values, handleSubmit, handleChange } = useFormik({
+  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
       email: '',
       recaptcha: ''
     },
     validationSchema,
     onSubmit(values: {email: string, recaptcha: string}) {
+      const auxMessage = {...message};
+      auxMessage.message = 'The request was sent to reset your email password, this may take a few minutes';
+      auxMessage.color = '#28C499';
+      setMessage(auxMessage);
       const result = datasets.postData(SERVER.RECOVERY_PASSWORD, values).then(res => {
         if(res) {
           setRedirect(true);
+        } else {
+          const auxMessage = {...message};
+          auxMessage.message = 'This mail does not exist in the registers';
+          auxMessage.color = 'red';
+          setMessage(auxMessage);
         }
       })
     }
@@ -56,10 +66,11 @@ export default () => {
                 <p>Enter your email address below and we’ll send you a link to reset your password.</p>
               </Row>
               <div className="group">
-                <input type="email" required name="email" onChange={handleChange}/>
+                <input type="email" name="email" onChange={handleChange}
+                  style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 <span className="highlight"></span>
                 <span className="bar"></span>
-                <label>Email</label>
+                <label style={(values.email) ? {top: "-20px"}:{top: "10px"}}>Email</label>
               </div>
               <ReCAPTCHA
                 sitekey={"" + keyCaptcha}
@@ -67,6 +78,9 @@ export default () => {
                   values.recaptcha = '' + (event !== 'null' ? event : '');
                 }}
               />
+              <div style={{height: '35px'}}>
+                <span style={{color: message.color}}>&nbsp;&nbsp; {message.message}</span>
+              </div>
               <Form.Item>
                 <Button className="buttonLogin" block htmlType="submit">
                     Send Password Reset Email

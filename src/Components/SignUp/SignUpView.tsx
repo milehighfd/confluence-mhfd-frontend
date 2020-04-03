@@ -9,10 +9,11 @@ import { useFormik } from "formik";
 import { VALIDATION_SIGN_UP } from "../../constants/validation";
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
 
-const roles = ROLES;
-const validationSchema = VALIDATION_SIGN_UP;
-const keyCaptcha = SERVER.CAPTCHA;
+
 export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
+  const roles = ROLES;
+  const validationSchema = VALIDATION_SIGN_UP;
+  const keyCaptcha = SERVER.CAPTCHA;
   const [message, setMessage] = useState({message: '', color: '#28C499'});
   const [title, setTitle] = useState('');
   const [redirect, setRedirect] = useState(false);

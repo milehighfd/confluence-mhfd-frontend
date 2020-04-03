@@ -25,6 +25,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
   const [designation, setDesignation] = useState<string>(user.designation);
   const [title, setTitle] = useState<string>('');
   const [initialValues, setInitialValues] = useState(user);
+  const [activated, setActivated] = useState(0);
   useEffect(() => {
     const auxUser = { ...user };
     setInitialValues(auxUser);
@@ -69,7 +70,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     deleteUser(user._id);
   }
 
-  const genExtra = () => (
+  const genExtra = (index: number) => (
     <Row className="user-head" type="flex" justify="space-around" align="middle">
       <Col span={19}>
         <h6>{pos + '. ' + user.firstName + ' ' + user.lastName}</h6>
@@ -80,15 +81,19 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
           <Switch className={'switch-options'} checked={user.activated} onChange={handleSwitchButton} />
         </div>
       </Col>
-      <Col span={1} style={{ textAlign: 'right' }}><img src="/Icons/icon-20.svg" alt="" /></Col>
+      <Col span={1} style={{ textAlign: 'right' }}>
+        <img src={index !== 1 ? "/Icons/icon-20.svg": "/Icons/icon-21.svg"} alt="" />
+      </Col>
     </Row>
   );
 
   return (
     <>
-      <Collapse accordion className="user-tab">
+      <Collapse accordion className="user-tab" onChange={(accordion) => {
+        setActivated(+accordion);
+      }}>
 
-        <Panel header="" key="1" extra={genExtra()}>
+        <Panel header="" key="1" extra={genExtra(activated)}>
           <Form onSubmit={handleSubmit}>
             <div className="gutter-example">
               <h3>PROFILE</h3>
@@ -158,7 +163,8 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
               <Row gutter={16}>
                 <Col className="gutter-row" span={12} id={("serviceArea" + values._id)}>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
-                    getPopupContainer={() => document.getElementById(("serviceArea" + values._id)) as HTMLElement}>
+                    getPopupContainer={() => document.getElementById(("serviceArea" + values._id)) as HTMLElement}
+                    placement="bottomLeft">
                     <Button style={{border: (errors.serviceArea && touched.serviceArea && !values.serviceArea ) ? "solid red":""}}>
                       {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
