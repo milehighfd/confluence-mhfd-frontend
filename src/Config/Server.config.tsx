@@ -30,6 +30,8 @@ export const SERVER = (function () {
     const RESET_PASSWORD = 'reset-password';
     const LIST_USERS_ACTIVATED = 'list?';
     const LIST_USERS_PENDING = 'list?pending=false&';
+    const USER_CREATOR = 'creators';
+
     return {
         URL_BASE: URL_BASE.BASE,
         CAPTCHA: CAPTCHA,
@@ -56,5 +58,6 @@ export const SERVER = (function () {
         SIGN_UP: `${URL_BASE.BASE}/${USER}/${SIGN_UP}`,
         RECOVERY_PASSWORD: `${URL_BASE.BASE}/${USER}/${RECOVERY_PASSWORD}`,
         RESET_PASSWORD: `${URL_BASE.BASE}/${USER}/${RESET_PASSWORD}`,
+        FILTER_USERS: `${URL_BASE.BASE}/${USER}/${USER_CREATOR}`,
     }
 })();

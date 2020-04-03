@@ -23,7 +23,7 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any)
   );
 }
 
-export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit, handleReset} : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function, handleReset: Function}) => {
+export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit, handleReset, projectsLength, problemsLength} : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function, handleReset: Function, projectsLength: number, problemsLength: number}) => {
   const [selectedFilters, setSelectedFilters] = useState({});
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
             <FiltersHeader
               filterNames={filterNames}
               deleteFilter={deleteFilter}
-              totalElements={3}
+              totalElements={value === FILTER_PROJECTS_TRIGGER ? projectsLength : problemsLength}
               type={value} />
             {getFilterBody(value)}
           </TabPane>

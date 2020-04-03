@@ -195,7 +195,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter } : { 
             setToggleFilters={setToggleFilters}
             handleOnSubmit={handleOnSubmit}
             handleReset={handleReset}
-            setFilterNames={setFilterNames} />
+            setFilterNames={setFilterNames}
+            projectsLength={projects.length}
+            problemsLength={cardInformationProblems.length} />
       }
     </div>
   </>
