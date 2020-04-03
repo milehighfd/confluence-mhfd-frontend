@@ -22,10 +22,6 @@ export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, cl
   if(redirect) {
     return <Redirect to={route + "/" + nameProject} />
   }
-  const inputStyle = {
-    width: '480px',
-
-  }
   return <>
     <Layout>
       <NavbarView></NavbarView>

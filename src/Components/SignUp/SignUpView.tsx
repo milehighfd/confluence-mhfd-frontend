@@ -46,6 +46,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
     },
     validationSchema,
     onSubmit(values: { firstName: string, lastName: string, email: string, password: string, designation: string, organization: string, recaptcha: string }) {
+      setTitle(title);
       const result = datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if (res?.token) {
           const auxMessage = {...message};
@@ -56,7 +57,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
           setRedirect(true);
         } else {
           const auxMessage = {...message};
-          auxMessage.message = res.message;
+          auxMessage.message = res.error;
           auxMessage.color = 'red';
           setMessage(auxMessage);
         }

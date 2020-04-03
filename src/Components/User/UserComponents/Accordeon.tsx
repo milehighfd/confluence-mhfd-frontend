@@ -26,6 +26,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
   const [title, setTitle] = useState<string>('');
   const [initialValues, setInitialValues] = useState(user);
   const [activated, setActivated] = useState(0);
+  const [messageError, setMessageError] = useState({message: '', color: '#28C499'});
   useEffect(() => {
     const auxUser = { ...user };
     setInitialValues(auxUser);
@@ -53,6 +54,33 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     }
   });
 
+  const updateSuccessful = () => {
+    const auxMessageError = {...messageError};
+    auxMessageError.message = 'Updating user data was successful';
+    auxMessageError.color = '#28C499';
+    setMessageError(auxMessageError);
+    const timer = setTimeout(() => {
+      const auxMessageError = {...messageError};
+      auxMessageError.message = '';
+      auxMessageError.color = '#28C499';
+      setMessageError(auxMessageError);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }
+
+  const updateError = (error: string) => {
+    const auxMessageError = {...messageError};
+    auxMessageError.message = error;
+    auxMessageError.color = 'red';
+    setMessageError(auxMessageError);
+    const timer = setTimeout(() => {
+      const auxMessageError = {...messageError};
+      auxMessageError.message = '';
+      auxMessageError.color = '#28C499';
+      setMessageError(auxMessageError);
+    }, 10000);
+    return () => clearTimeout(timer);
+  }
   const result = () => {
     const auxState = {...visible};
     auxState.visible = false;
@@ -60,6 +88,9 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     datasets.putData(SERVER.EDIT_USER + '/' + user._id, values, datasets.getToken()).then(res => {
       if (res?._id) {
         saveUser();
+        updateSuccessful();
+      } else {
+        updateError(res.error);
       }
     });
   }
@@ -172,6 +203,8 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 </Col>
               </Row>
             </div>
+            <br/>
+            <span style={{color: messageError.color}}>&nbsp;&nbsp; {messageError.message}</span>
             <div className="user-footer">
               {values.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : <Button className="btn-d"></Button>}
               <Button style={{color: '#28C499'}} className="btn-s colorButton" block htmlType="submit">Save</Button>

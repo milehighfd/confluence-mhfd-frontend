@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Layout, Menu, Dropdown, Icon } from 'antd';
 import * as datasets from "../../../Config/datasets";
 import { Redirect, useLocation } from "react-router-dom";
-import { User } from "../../../Classes/User";
-import { replaceAppUser } from '../../../store/actions/appUser';
 import store from "../../../store";
 import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
 
-const { SubMenu } = Menu;
 const { Header } = Layout;
 
 
@@ -18,7 +15,6 @@ export default () => {
   const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
   const location = useLocation().pathname.split('/');
   let value = '';
-  const [title, setTitle] = useState('')
   if(location[1] === ROUTERS.PROFILE_VIEW && location.length === 2) {
     value = ROUTER_TITLE.PROFILE_VIEW;
   } else if (location[1] === ROUTERS.MAP && location.length === 2) {

@@ -31,11 +31,11 @@ export default () => {
       auxMessage.color = '#28C499';
       setMessage(auxMessage);
       const result = datasets.postData(SERVER.RECOVERY_PASSWORD, values).then(res => {
-        if(res) {
+        if(!res.error) {
           setRedirect(true);
         } else {
           const auxMessage = {...message};
-          auxMessage.message = 'This mail does not exist in the registers';
+          auxMessage.message = res.error;
           auxMessage.color = 'red';
           setMessage(auxMessage);
         }
