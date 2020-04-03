@@ -1,4 +1,6 @@
 import * as types from '../types/usersTypes';
+import { SERVER } from "../../Config/Server.config";
+import * as datasets from "../../Config/datasets";
 
 export const saveUserActivated = (users : any) => {
     return (dispatch : Function) => {
@@ -44,5 +46,15 @@ export const addUserPending = (user : any) => {
         const users = [...state.users.usersPending];
         users.push(user);
         dispatch({ type: types.DELETE_USER_PENDING, users });
+    }
+}
+
+export const filterUsers = (filters : any) => {
+    return (dispatch: Function) => {
+        const data = filters?filters:{};
+        datasets.postData(SERVER.FILTER_USERS, data, datasets.getToken()).then(users => {
+            // code
+            // console.log(users);
+        });
     }
 }
