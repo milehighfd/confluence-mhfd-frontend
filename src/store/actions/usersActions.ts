@@ -48,23 +48,3 @@ export const addUserPending = (user : any) => {
         dispatch({ type: types.DELETE_USER_PENDING, users });
     }
 }
-
-export const filterUsers = (filters : any) => {
-    return (dispatch: Function) => {
-        const data = filters?filters:{};
-        datasets.postData(SERVER.FILTER_USERS, data, datasets.getToken()).then(users => {
-            // code
-            console.log(users);
-        });
-    }
-}
-
-export const filterByFields = (field : string) => {
-    return (dispatch: Function) => {
-        datasets.getData(SERVER.FILTER_BY_FIELD + '/' + field, datasets.getToken()).then(
-            data => {
-                console.log(data);
-            }
-        )
-    }
-}

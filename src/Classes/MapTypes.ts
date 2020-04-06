@@ -52,7 +52,8 @@ export type MapHOCProps = {
     clearErrorMessage: Function,
     getProjectWithFilters: Function,
     removeFilter: Function,
-    getMapTables: Function
+    getMapTables: Function,
+    filterByFields: Function
 }
 
 export type NewProjectFormProps = {

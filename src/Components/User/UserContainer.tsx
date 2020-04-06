@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import UserView from './UserView';
 import { bindActionCreators } from 'redux';
 import { saveUserActivated, saveUserPending  } from '../../store/actions/usersActions';
-import { saveUserState, deleteUser } from '../../store/actions/userActions';
 
 
 const mapStateToProps = (state: any) => {

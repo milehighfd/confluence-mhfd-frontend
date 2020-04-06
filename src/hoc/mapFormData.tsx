@@ -26,7 +26,8 @@ export default function (WrappedComponent : any, layers : any) {
               setRouteRedirect, 
               error, 
               clearErrorMessage, 
-              getProjectWithFilters, removeFilter, getMapTables } : MapHOCProps) => {
+              getProjectWithFilters, 
+              removeFilter, getMapTables, filterByFields } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);

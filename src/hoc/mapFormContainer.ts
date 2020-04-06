@@ -9,9 +9,8 @@ import { getReverseGeocode,
         createNewProjectForm,
         clearErrorMessage,
         setRouteRedirect,
-        getProjectWithFilters,
-        removeFilter,
         getMapTables } from '../store/actions/mapActions';
+import { filterByFields, getProjectWithFilters, removeFilter } from '../store/actions/filterActions';
 
 import mapFormData from './mapFormData';
 
@@ -20,7 +19,7 @@ const mapStateToProps = (state: any) => {
         problems: state.map.problems,
         projects: state.map.projects,
         components: state.map.components,
-        filters: state.map.filters,
+        filters: state.filter.filters,
         layerFilters: state.map.layers,
         error: state.map.error,
         redirect: state.map.redirect
@@ -39,7 +38,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         setRouteRedirect,
         getProjectWithFilters,
         removeFilter,
-        getMapTables
+        getMapTables,
+        filterByFields
     }, dispatch)
 });
   
