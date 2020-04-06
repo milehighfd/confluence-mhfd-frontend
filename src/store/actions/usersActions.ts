@@ -54,7 +54,17 @@ export const filterUsers = (filters : any) => {
         const data = filters?filters:{};
         datasets.postData(SERVER.FILTER_USERS, data, datasets.getToken()).then(users => {
             // code
-            // console.log(users);
+            console.log(users);
         });
+    }
+}
+
+export const filterByFields = (field : string) => {
+    return (dispatch: Function) => {
+        datasets.getData(SERVER.FILTER_BY_FIELD + '/' + field, datasets.getToken()).then(
+            data => {
+                console.log(data);
+            }
+        )
     }
 }

@@ -31,6 +31,7 @@ export const SERVER = (function () {
     const LIST_USERS_ACTIVATED = 'list?';
     const LIST_USERS_PENDING = 'list?pending=false&';
     const USER_CREATOR = 'creators';
+    const FILTER_BY_FIELD = 'filter-by-field';
 
     return {
         URL_BASE: URL_BASE.BASE,
@@ -43,6 +44,7 @@ export const SERVER = (function () {
         UPLOAD_FILE: `${URL_BASE.BASE}/${ATTACHMENT}/${UPLOAD_FILE}`,
         PROJECT: `${URL_BASE.BASE}/${PROJECT}`,
         FILTER_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${FILTER_PROJECT}`,
+        FILTER_BY_FIELD: `${URL_BASE.BASE}/${PROJECT}/${FILTER_BY_FIELD}`,
         CREATE_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT}`,
         CREATE_PROJECT_DEBRIS: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_DEBRIS}`,
         CREATE_PROJECT_CAPITAL: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_CAPITAL}`,
@@ -58,6 +60,6 @@ export const SERVER = (function () {
         SIGN_UP: `${URL_BASE.BASE}/${USER}/${SIGN_UP}`,
         RECOVERY_PASSWORD: `${URL_BASE.BASE}/${USER}/${RECOVERY_PASSWORD}`,
         RESET_PASSWORD: `${URL_BASE.BASE}/${USER}/${RESET_PASSWORD}`,
-        FILTER_USERS: `${URL_BASE.BASE}/${USER}/${USER_CREATOR}`,
+        FILTER_USERS: `${URL_BASE.BASE}/${PROJECT}/${USER_CREATOR}`,
     }
 })();
