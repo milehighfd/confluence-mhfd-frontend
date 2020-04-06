@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Tabs, Tag } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, DROPDOWN_PROJECT_FILTERS } from '../../constants/constants';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
@@ -23,8 +23,12 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any)
   );
 }
 
-export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit, handleReset, projectsLength, problemsLength} : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function, handleReset: Function, projectsLength: number, problemsLength: number}) => {
+export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters} : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function, handleReset: Function, projectsLength: number, problemsLength: number, getDropdownFilters: Function}) => {
   const [selectedFilters, setSelectedFilters] = useState({});
+
+  useEffect(() => {
+    getDropdownFilters(DROPDOWN_PROJECT_FILTERS);
+  }, []);
 
   useEffect(() => {
     let selected : any = {};

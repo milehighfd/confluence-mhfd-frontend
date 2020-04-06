@@ -775,7 +775,12 @@ export const FILTER_TYPES = {
   peakFlowReduction: 'Peak Flow Reduction',
   waterQuality: 'Water Quality',
   guideDevelopment: 'Guide Development'
-}
+};
+
+export const DROPDOWN_PROJECT_FILTERS = [
+  'problemType', 'serviceArea', 'jurisidiction', 'county', 'lgManager', 
+  'requestedStartYear', 'streamName', 'mhfdDollarsRequested'
+];
 
 
 /* End of Filter Constants */

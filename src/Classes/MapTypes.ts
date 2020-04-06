@@ -53,7 +53,7 @@ export type MapHOCProps = {
     getProjectWithFilters: Function,
     removeFilter: Function,
     getMapTables: Function,
-    filterByFields: Function
+    getDropdownFilters: Function
 }
 
 export type NewProjectFormProps = {

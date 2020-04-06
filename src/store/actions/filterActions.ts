@@ -37,22 +37,25 @@ export const removeFilter = (item: any) => {
   }
 }
 
-export const filterUsers = (filters : any) => {
+export const getDropdownFilters = (items : Array<string>) => {
   return (dispatch: Function) => {
-      const data = filters?filters:{};
-      datasets.postData(SERVER.FILTER_USERS, data, datasets.getToken()).then(users => {
-          // code
-          console.log(users);
+    items.map((item : string) => dispatch(filterByFields(item)));
+    dispatch(filterProjectCreators());
+  }
+}
+
+export const filterProjectCreators = () => {
+  return (dispatch: Function) => {
+      datasets.getData(SERVER.FILTER_PROJECT_CREATORS, datasets.getToken()).then(data => {
+        dispatch({ type: types.SET_CREATOR_FILTER, data });
       });
   }
 }
 
 export const filterByFields = (field : string) => {
   return (dispatch: Function) => {
-      datasets.getData(SERVER.FILTER_BY_FIELD + '/' + field, datasets.getToken()).then(
-          data => {
-              console.log(data);
-          }
-      )
+      datasets.getData(SERVER.FILTER_BY_FIELD + '/' + field, datasets.getToken()).then(value => {
+        dispatch({ type: types.SET_DROPDOWN_FILTERS, data: { field, value }});
+      });
   }
 }

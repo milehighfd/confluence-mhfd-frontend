@@ -53,6 +53,8 @@ const Map = ({ leftWidth,
         (mapboxgl as any).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
+            dragRotate: false,
+            touchZoomRotate: false,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
             ...DENVER_LOCATION
         });
