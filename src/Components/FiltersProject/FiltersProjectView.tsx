@@ -3,17 +3,18 @@ import { Button, Tabs, Tag } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, DROPDOWN_PROJECT_FILTERS } from '../../constants/constants';
+import { FiltersProjectTypes, FilterNamesTypes } from "../../Classes/MapTypes";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
 const { TabPane } = Tabs;
 
-const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any) => {
+const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : { filterNames: Array<FilterNamesTypes>, deleteFilter: Function, totalElements: number, type: string}) => {
   return (
       <div className="hastag">
           <h6> Showing {totalElements} {type}:</h6>
           <div>
-              {filterNames.map((data: any, index: number) => {
+              {filterNames.map((data: FilterNamesTypes, index: number) => {
                   return <Tag key={index} closable onClose={() => deleteFilter(index)}>
                       {data.value}
                   </Tag>
@@ -23,7 +24,10 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any)
   );
 }
 
-export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters, dropdowns } : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function, handleReset: Function, projectsLength: number, problemsLength: number, getDropdownFilters: Function, dropdowns: any }) => {
+export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, 
+                handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters, 
+                dropdowns } : FiltersProjectTypes) => {
+                  
   const [selectedFilters, setSelectedFilters] = useState({});
 
   useEffect(() => {
@@ -32,8 +36,8 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
 
   useEffect(() => {
     let selected : any = {};
-    filterNames.forEach((filter : any) => {
-      const checkboxValue = filterNames.filter((value : any) => value.key === filter.key).length;
+    filterNames.forEach((filter : FilterNamesTypes) => {
+      const checkboxValue = filterNames.filter((value : FilterNamesTypes) => value.key === filter.key).length;
       if (checkboxValue > 1) {
         const checkboxArray = selected[filter.key]?selected[filter.key]:[];
         checkboxArray.push(filter.type);
@@ -45,8 +49,8 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
     setSelectedFilters(selected);
   }, [filterNames]);
 
-  const handleRadioGroup = (event : any, id : string) => {
-    setSelectedFilters({...selectedFilters, [id]: event.target.value });
+  const handleRadioGroup = (event : React.SyntheticEvent<EventTarget>, id : string) => {
+    setSelectedFilters({...selectedFilters, [id]: (event.target as HTMLButtonElement).value });
   }
 
   const handleCheckbox = (checkedValues : Array<string>, id : string) => {

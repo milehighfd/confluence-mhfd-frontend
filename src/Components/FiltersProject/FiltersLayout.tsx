@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Button, Tag, Checkbox, Select, Radio, Dropdown} from 'antd';
+import { Row, Col, Checkbox, Select, Radio } from 'antd';
 
 import { PROJECT_TYPE, 
         ESTIMATED_COST, 
@@ -12,6 +12,7 @@ import { PROJECT_TYPE,
         WORK_PLAN_YEAR, 
         STUDY_STATUS,
         CREATOR } from '../../constants/constants';
+import { DropdownDefaultTypes, FilterProjectTypes } from '../../Classes/MapTypes';
 
 const { Option } = Select;
 
@@ -127,7 +128,7 @@ export const ProblemsFilter = () => (
     </>
 );
 
-export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, handleCheckbox } : any) => (
+export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, handleCheckbox } : FilterProjectTypes) => (
     <>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
@@ -337,7 +338,7 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
             <Col span={12}>
                 <label>Creator</label>
                 <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    {dropdowns[CREATOR]?dropdowns[CREATOR].map((dropdown : any) => (
+                    {dropdowns[CREATOR]?dropdowns[CREATOR].map((dropdown : DropdownDefaultTypes) => (
                         <Option key={dropdown._id[0]._id} value={dropdown._id[0]._id}>
                             {dropdown._id[0].name}
                         </Option>
@@ -350,7 +351,7 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <label>MHFD Dollars Requestede</label>
+                <label>MHFD Dollars Requested</label>
                 <Select defaultValue="- Select -" style={{ width: '100%' }}>
                     <Option value="jack">Jack</Option>
                     <Option value="lucy">Lucy</Option>

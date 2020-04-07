@@ -44,13 +44,13 @@ const Map = ({ leftWidth,
             markerRef,
             polygonRef } : MapProps) => {
 
-    let geocoderRef = useRef<any>();
+    let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
     const [selectedLayers, setSelectedLayers] = useState<Array<string>>([]);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
 
     useEffect(() => {
-        (mapboxgl as any).accessToken = MAPBOX_TOKEN;
+        (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
             dragRotate: false,
@@ -67,12 +67,14 @@ const Map = ({ leftWidth,
             marker: false
         });
 
-        geocoderRef.current.appendChild(geocoder.onAdd(map));
+        if(geocoderRef.current) {
+            geocoderRef.current.appendChild(geocoder.onAdd(map));
+        }
 
         // Uncomment to see coords when a position in map is clicked
         // map.on('click', (e : any) => console.log(e.lngLat));
 
-        if(polygonRef.current) {
+        if(polygonRef && polygonRef.current) {
             const draw = new MapboxDraw({
                 displayControlsDefault: false,
                 controls: { polygon: true }

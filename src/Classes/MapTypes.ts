@@ -1,28 +1,10 @@
-import { 
-    PROBLEMS_TRIGGER,
-    PROJECTS_TRIGGER,
-    COMPONENTS_TRIGGER,
-    FLOODPLAINS_FEMA_FILTERS,
-    FLOODPLAINS_NON_FEMA_FILTERS,
-    WATERSHED_FILTERS,
-    STREAMS_FILTERS,
-    SERVICE_AREA_FILTERS,
-    MUNICIPALITIES_FILTERS,
-    COUNTIES_FILTERS,
-    MHFD_BOUNDARY_FILTERS,
-    MEP_PROJECTS,
-    ROUTINE_MAINTENANCE
- } from "../constants/constants";
-
-
-
 export type MapProps = {
     leftWidth: number,
     layers: MapLayersType,
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
-    layerFilters: any,
+    layerFilters: LayerFilterTypes,
     setSelectedItems: Function,
     selectedItems: Array<ComponentType>,
     setIsPolygon: Function,
@@ -30,17 +12,17 @@ export type MapProps = {
     savePolygonCoordinates: Function,
     saveMarkerCoordinates: Function,
     getMapTables: Function,
-    markerRef: any,
-    polygonRef: any
+    markerRef: React.RefObject<HTMLDivElement>,
+    polygonRef: React.RefObject<HTMLDivElement>
 }
 
 export type MapHOCProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
-    filters: any,
-    dropdowns: any,
-    layerFilters: any,
+    filters: FilterTypes,
+    dropdowns: DropdownFilterTypes,
+    layerFilters: LayerFilterTypes,
     saveNewCapitalForm: Function,
     saveNewStudyForm: Function,
     createNewProjectForm: Function,
@@ -57,15 +39,6 @@ export type MapHOCProps = {
     getDropdownFilters: Function
 }
 
-export type NewProjectFormProps = {
-    problems: Array<ProblemTypes>,
-    projects: Array<ProjectTypes>,
-    components: Array<ComponentType>,
-    getReverseGeocode: Function,
-    savePolygonCoordinates: Function,
-    saveNewCapitalForm: Function
-}
-
 export type ProblemTypes = {
     problemId: string
     problemName: string,
@@ -76,13 +49,7 @@ export type ProblemTypes = {
 }
 
 export type ProjectTypes = {
-    projectId: string,
-    projectName: string,
-    projectSubtype: string,
-    status: string,
-    finalCost: number,
-    jurisdiction: string,
-    coordinates: Array<[]>
+    [key: string]: string | Array<string>
 }
 
 export type ComponentType = {
@@ -116,18 +83,59 @@ export type TotalType = {
     total: number
 }
 
-export type LayerFiltersType = {
-    [PROBLEMS_TRIGGER]?: Array<string>,
-    [PROJECTS_TRIGGER]?: Array<string>,
-    [COMPONENTS_TRIGGER]?: Array<string>,
-    [FLOODPLAINS_FEMA_FILTERS]?: Array<string>,
-    [FLOODPLAINS_NON_FEMA_FILTERS]?: Array<string>,
-    [WATERSHED_FILTERS]?: Array<string>,
-    [STREAMS_FILTERS]?: Array<string>,
-    [SERVICE_AREA_FILTERS]?: Array<string>,
-    [MUNICIPALITIES_FILTERS]?: Array<string>,
-    [COUNTIES_FILTERS]?: Array<string>,
-    [MHFD_BOUNDARY_FILTERS]?: Array<string>,
-    [MEP_PROJECTS]?: Array<string>,
-    [ROUTINE_MAINTENANCE]?: Array<string>
+export type LayerHOCTypes = {
+    marker?: boolean,
+    polygons?: boolean,
+    components?: boolean,
+    acquisition?: boolean
 }
+
+export type LayerFilterTypes = {
+    [key : string]: Array<string>
+}
+
+export type FilterTypes = {
+    [key : string]: Array<string> | string
+}
+
+export type FiltersProjectTypes = {
+    tabPosition: string, 
+    setTabPosition: Function, 
+    filterNames : Array<FilterNamesTypes>, 
+    setFilterNames : Function, 
+    setToggleFilters: Function, 
+    handleOnSubmit: Function, 
+    handleReset: Function, 
+    projectsLength: number, 
+    problemsLength: number, 
+    getDropdownFilters: Function, 
+    dropdowns: DropdownFilterTypes
+};
+
+export type FilterNamesTypes = {
+    key: string,
+    type: string,
+    value: string
+};
+
+export type FilterProjectTypes = { 
+    dropdowns: DropdownFilterTypes, 
+    selectedFilters: SelectedFilterTypes, 
+    handleRadioGroup: Function, 
+    handleCheckbox: Function 
+};
+
+export type DropdownFilterTypes = {
+    [key : string] : Array<DropdownDefaultTypes>
+};
+
+export type DropdownDefaultTypes = {
+    _id: Array<{
+        _id: string,
+        name?: string
+    }>
+};
+
+export type SelectedFilterTypes = {
+    [key : string] : Array<string>
+};

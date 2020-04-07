@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FunctionComponent } from 'react';
 
 import Map from '../Components/Map/Map';
 import NavbarView from "../Components/Shared/Navbar/NavbarView";
@@ -8,9 +8,9 @@ import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../constants/const
 import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message } from 'antd';
-import { MapHOCProps } from '../Classes/MapTypes';
+import { MapHOCProps, ProjectTypes, LayerHOCTypes } from '../Classes/MapTypes';
 
-export default function (WrappedComponent : any, layers : any) {
+export default function (WrappedComponent : any, layers : LayerHOCTypes) {
     return ({ problems, 
               projects, 
               components, 
@@ -38,8 +38,8 @@ export default function (WrappedComponent : any, layers : any) {
         const [isPolygon, setIsPolygon] = useState(false);
         const [formatedProjects, setFormatedProjects] = useState<any>([]);
 
-        let markerRef = useRef();
-        let polygonRef = useRef();
+        let markerRef = useRef<HTMLDivElement>(null);
+        let polygonRef = useRef<HTMLDivElement>(null);
 
         useEffect(() => {
           if(error) {
@@ -49,10 +49,10 @@ export default function (WrappedComponent : any, layers : any) {
         }, [error]);
 
         useEffect(() => {
-          const newProjects = projects.filter((project : any) => project.projectType === 'maintenance')
-          .map((project : any) => {
-            const newProject : any = {...project};
-            newProject.coordinates = JSON.parse(project.coordinates);
+          const newProjects = projects.filter((project : ProjectTypes) => project.projectType === 'maintenance')
+          .map((project : ProjectTypes) => {
+            const newProject : ProjectTypes = {...project};
+            newProject.coordinates = JSON.parse(project.coordinates as string);
             return newProject;
           });
           setFormatedProjects(newProjects);
