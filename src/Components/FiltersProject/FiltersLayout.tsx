@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Button, Tag, Checkbox, Select, Radio} from 'antd';
+import { Row, Col, Button, Tag, Checkbox, Select, Radio, Dropdown} from 'antd';
 
 import { PROJECT_TYPE, 
         ESTIMATED_COST, 
@@ -10,7 +10,8 @@ import { PROJECT_TYPE,
         STUDY_GOAL, 
         MHFD_DOLLAR_REQUEST, 
         WORK_PLAN_YEAR, 
-        STUDY_STATUS } from '../../constants/constants';
+        STUDY_STATUS,
+        CREATOR } from '../../constants/constants';
 
 const { Option } = Select;
 
@@ -126,7 +127,7 @@ export const ProblemsFilter = () => (
     </>
 );
 
-export const ProjectsFilter = ({ selectedFilters, handleRadioGroup, handleCheckbox } : any) => (
+export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, handleCheckbox } : any) => (
     <>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
@@ -336,12 +337,14 @@ export const ProjectsFilter = ({ selectedFilters, handleRadioGroup, handleCheckb
             <Col span={12}>
                 <label>Creator</label>
                 <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
+                    {dropdowns[CREATOR]?dropdowns[CREATOR].map((dropdown : any) => (
+                        <Option key={dropdown._id[0]._id} value={dropdown._id[0]._id}>
+                            {dropdown._id[0].name}
+                        </Option>
+                    )) : 
                     <Option value="disabled" disabled>
-                        Disabled
-                  </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                        No Data Founded
+                    </Option> }
                 </Select>
             </Col>
         </Row>

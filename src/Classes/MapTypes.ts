@@ -39,6 +39,7 @@ export type MapHOCProps = {
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
     filters: any,
+    dropdowns: any,
     layerFilters: any,
     saveNewCapitalForm: Function,
     saveNewStudyForm: Function,

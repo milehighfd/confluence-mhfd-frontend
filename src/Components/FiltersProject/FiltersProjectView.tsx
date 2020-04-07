@@ -23,7 +23,7 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : any)
   );
 }
 
-export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters} : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function, handleReset: Function, projectsLength: number, problemsLength: number, getDropdownFilters: Function}) => {
+export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters, dropdowns } : {tabPosition: string, setTabPosition: Function, filterNames : any, setFilterNames : any, setToggleFilters: Function, handleOnSubmit: Function, handleReset: Function, projectsLength: number, problemsLength: number, getDropdownFilters: Function, dropdowns: any }) => {
   const [selectedFilters, setSelectedFilters] = useState({});
 
   useEffect(() => {
@@ -75,6 +75,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
         return <ProblemsFilter />
       case FILTER_PROJECTS_TRIGGER:
         return <ProjectsFilter
+                  dropdowns={dropdowns}
                   selectedFilters={selectedFilters}
                   handleRadioGroup={handleRadioGroup} 
                   handleCheckbox={handleCheckbox} />

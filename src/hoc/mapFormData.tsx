@@ -15,6 +15,7 @@ export default function (WrappedComponent : any, layers : any) {
               projects, 
               components, 
               filters,
+              dropdowns,
               layerFilters,
               saveNewCapitalForm, 
               saveNewStudyForm, 
@@ -114,6 +115,7 @@ export default function (WrappedComponent : any, layers : any) {
                             getProjectWithFilters={getProjectWithFilters}
                             getDropdownFilters={getDropdownFilters}
                             filters={filters}
+                            dropdowns={dropdowns}
                             removeFilter={removeFilter} 
                             projects={projects}
                             markerRef={markerRef}
