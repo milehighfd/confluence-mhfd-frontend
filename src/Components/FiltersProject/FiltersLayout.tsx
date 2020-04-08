@@ -8,7 +8,7 @@ import { PROJECT_TYPE,
         COMPLETED_YEAR, 
         CAPITAL_GOAL, 
         STUDY_GOAL, 
-        MHFD_DOLLAR_REQUEST, 
+        MHFD_DOLLARS_ALLOCATED, 
         WORK_PLAN_YEAR, 
         STUDY_STATUS,
         CREATOR,
@@ -137,7 +137,7 @@ export const ProblemsFilter = () => (
     </>
 );
 
-export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, handleCheckbox, handleSelect } : FilterProjectTypes) => (
+export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, handleRadioGroup, handleCheckbox, handleSelect } : FilterProjectTypes) => (
     <>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
@@ -165,7 +165,7 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
         <Row className="filt-00">
             <Col span={12}>
                 <h5>Capital Status <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <Checkbox.Group value={selectedFilters[CAPITAL_STATUS]} onChange={(items) => handleCheckbox(items, CAPITAL_STATUS)}>
+                <Checkbox.Group value={selectedFilters[CAPITAL_STATUS] as Array<string>} onChange={(items) => handleCheckbox(items, CAPITAL_STATUS)}>
                     <p><Checkbox value={'approved'}>Approved</Checkbox> <span className="filt-s">71</span></p>
                     <p><Checkbox value={'idle'}>Idle</Checkbox> <span className="filt-s">16</span></p>
                     <p><Checkbox value={'initiated'}>Initiated</Checkbox> <span className="filt-s">5</span></p>
@@ -177,7 +177,7 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
             </Col>
             <Col span={12}>
                 <h5>Study Status <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <Checkbox.Group value={selectedFilters[STUDY_STATUS]} onChange={(items) => handleCheckbox(items, STUDY_STATUS)}>
+                <Checkbox.Group value={selectedFilters[STUDY_STATUS] as Array<string>} onChange={(items) => handleCheckbox(items, STUDY_STATUS)}>
                     <p><Checkbox value={'approved'}>Approved</Checkbox> <span>1</span></p>
                     <p><Checkbox value={'idle'}>Idle</Checkbox> <span className="filt-s">1</span></p>
                     <p><Checkbox value={'initiated'}>Initiated</Checkbox> <span className="filt-s">1</span></p>
@@ -240,7 +240,7 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
         <Row className="filt-00">
             <Col span={12}>
                 <h5>MHFD Dollars Allocated <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group value={selectedFilters[MHFD_DOLLAR_REQUEST]} onChange={(e) => handleRadioGroup(e, MHFD_DOLLAR_REQUEST)}>
+                <Radio.Group value={selectedFilters[MHFD_DOLLARS_ALLOCATED]} onChange={(e) => handleRadioGroup(e, MHFD_DOLLARS_ALLOCATED)}>
                     <p><Radio value={'[0,5000000]'}>0-5M</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={'[5000000,10000000]'}>5M-10M</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={'[10000000,15000000]'}>10M-15M</Radio> <span className="filt-s">8</span></p>
@@ -287,7 +287,7 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Jurisdiction</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, JURIDICTION)}>
+                <Select value={getSelectValue(JURIDICTION)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, JURIDICTION)}>
                     {dropdowns[JURIDICTION]?dropdowns[JURIDICTION].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
                     )) : 
@@ -322,7 +322,7 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
             </Col>
             <Col span={12}>
                 <label>Requested Start Year</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, REQUESTED_START_YEAR)}>
+                <Select value={getSelectValue(REQUESTED_START_YEAR)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, REQUESTED_START_YEAR)}>
                     {dropdowns[REQUESTED_START_YEAR]?dropdowns[REQUESTED_START_YEAR].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
                     )) : 
@@ -346,7 +346,7 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
             </Col>
             <Col span={12}>
                 <label>Creator</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, CREATOR)}>
+                <Select value={getSelectValue(CREATOR)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, CREATOR)}>
                     {dropdowns[CREATOR]?dropdowns[CREATOR].map((dropdown : DropdownDefaultTypes) => (
                         <Option key={dropdown._id[0]._id} value={dropdown._id[0]._id + '|' + dropdown._id[0].firstName }>
                             {dropdown._id[0].name}
@@ -361,7 +361,7 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>MHFD Dollars Requested</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, MHFD_DOLLAR_REQUESTED)}>
+                <Select value={getSelectValue(MHFD_DOLLAR_REQUESTED)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, MHFD_DOLLAR_REQUESTED)}>
                     {dropdowns[MHFD_DOLLAR_REQUESTED]?dropdowns[MHFD_DOLLAR_REQUESTED].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
                     )) : 

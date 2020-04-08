@@ -123,6 +123,7 @@ export type FiltersProjectTypes = {
     problemsLength: number, 
     getDropdownFilters: Function, 
     dropdowns: DropdownFilterTypes,
+    userFiltered: { [_id: string]: string },
     getUserFilters: Function
 };
 
@@ -134,6 +135,7 @@ export type FilterNamesTypes = {
 
 export type FilterProjectTypes = { 
     dropdowns: DropdownFilterTypes, 
+    getSelectValue: Function,
     selectedFilters: SelectedFilterTypes, 
     handleRadioGroup: Function, 
     handleCheckbox: Function,
@@ -151,5 +153,5 @@ export type DropdownDefaultTypes = {
 };
 
 export type SelectedFilterTypes = {
-    [key : string] : Array<string>
+    [key : string] : string | Array<string>
 };

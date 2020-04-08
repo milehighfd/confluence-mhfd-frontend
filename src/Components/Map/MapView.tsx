@@ -203,6 +203,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             problemsLength={cardInformationProblems.length}
             getDropdownFilters={getDropdownFilters}
             dropdowns={dropdowns}
+            userFiltered={userFiltered}
             getUserFilters={getUserFilters} />
       }
     </div>

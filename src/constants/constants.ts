@@ -726,7 +726,7 @@ export const START_YEAR = 'startYear';
 export const COMPLETED_YEAR = 'completedYear';
 export const CAPITAL_GOAL = 'goal';
 export const STUDY_GOAL = 'goal';
-export const MHFD_DOLLAR_REQUEST = 'mhfdDollarRequest';
+export const MHFD_DOLLARS_ALLOCATED = 'mhfdDollarsAllocated';
 export const WORK_PLAN_YEAR = 'workPlanYear';
 
 export const PROBLEM_TYPE = 'problemType';

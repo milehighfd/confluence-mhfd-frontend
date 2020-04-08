@@ -26,9 +26,9 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : { fi
 
 export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, 
                 handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters, 
-                dropdowns, getUserFilters } : FiltersProjectTypes) => {
+                dropdowns, userFiltered, getUserFilters } : FiltersProjectTypes) => {
                   
-  const [selectedFilters, setSelectedFilters] = useState({});
+  const [selectedFilters, setSelectedFilters] = useState<{[key: string] : string | Array<string>}>({});
 
   useEffect(() => {
     getDropdownFilters(DROPDOWN_PROJECT_FILTERS);
@@ -85,6 +85,12 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
     setFilterNames(newFilters);
   }
 
+  const getSelectValue = (selectValue : string) => {
+    const selectId = selectedFilters[selectValue];
+    const markedValue = userFiltered[selectId as string] || selectedFilters[selectValue] || '- Select -';
+    return markedValue;
+  }
+
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
       case FILTER_PROBLEMS_TRIGGER:
@@ -92,6 +98,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
       case FILTER_PROJECTS_TRIGGER:
         return <ProjectsFilter
                   dropdowns={dropdowns}
+                  getSelectValue={getSelectValue}
                   selectedFilters={selectedFilters}
                   handleRadioGroup={handleRadioGroup} 
                   handleCheckbox={handleCheckbox}
