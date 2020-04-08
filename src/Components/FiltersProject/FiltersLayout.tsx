@@ -11,8 +11,17 @@ import { PROJECT_TYPE,
         MHFD_DOLLAR_REQUEST, 
         WORK_PLAN_YEAR, 
         STUDY_STATUS,
-        CREATOR } from '../../constants/constants';
+        CREATOR,
+        MHFD_DOLLAR_REQUESTED,
+        STREAM_NAME,
+        REQUESTED_START_YEAR,
+        LG_MANAGER,
+        COUNTY,
+        JURIDICTION,
+        SERVICE_AREA_VALUE,
+        PROBLEM_TYPE } from '../../constants/constants';
 import { DropdownDefaultTypes, FilterProjectTypes } from '../../Classes/MapTypes';
+
 
 const { Option } = Select;
 
@@ -128,7 +137,7 @@ export const ProblemsFilter = () => (
     </>
 );
 
-export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, handleCheckbox } : FilterProjectTypes) => (
+export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, handleCheckbox, handleSelect } : FilterProjectTypes) => (
     <>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
@@ -254,90 +263,90 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Problem Type</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
+                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: any) => handleSelect(value, PROBLEM_TYPE)}>
+                    {dropdowns[PROBLEM_TYPE]?dropdowns[PROBLEM_TYPE].map((dropdown : any) => (
+                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
+                    )) : 
                     <Option value="disabled" disabled>
-                        Disabled
-                    </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                        No Data Founded
+                    </Option>}
                 </Select>
             </Col>
             <Col span={12}>
                 <label>Watershed Manager / Service Area</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
+                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: any) => handleSelect(value, SERVICE_AREA_VALUE)}>
+                    {dropdowns[SERVICE_AREA_VALUE]?dropdowns[SERVICE_AREA_VALUE].map((dropdown : any) => (
+                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
+                    )) : 
                     <Option value="disabled" disabled>
-                        Disabled
-                  </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                        No Data Founded
+                    </Option>}
                 </Select>
             </Col>
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Jurisdiction</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
+                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: any) => handleSelect(value, JURIDICTION)}>
+                    {dropdowns[JURIDICTION]?dropdowns[JURIDICTION].map((dropdown : any) => (
+                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
+                    )) : 
                     <Option value="disabled" disabled>
-                        Disabled
-                    </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                        No Data Founded
+                    </Option>}
                 </Select>
             </Col>
             <Col span={12}>
                 <label>County</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
+                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: any) => handleSelect(value, COUNTY)}>
+                    {dropdowns[COUNTY]?dropdowns[COUNTY].map((dropdown : any) => (
+                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
+                    )) : 
                     <Option value="disabled" disabled>
-                        Disabled
-                  </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                        No Data Founded
+                    </Option>}
                 </Select>
             </Col>
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Local Government Manager</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
+                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: any) => handleSelect(value, REQUESTED_START_YEAR)}>
+                    {dropdowns[LG_MANAGER]?dropdowns[LG_MANAGER].map((dropdown : any) => (
+                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
+                    )) : 
                     <Option value="disabled" disabled>
-                        Disabled
-                    </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                        No Data Founded
+                    </Option>}
                 </Select>
             </Col>
             <Col span={12}>
                 <label>Requested Start Year</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
+                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: any) => handleSelect(value, REQUESTED_START_YEAR)}>
+                    {dropdowns[REQUESTED_START_YEAR]?dropdowns[REQUESTED_START_YEAR].map((dropdown : any) => (
+                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
+                    )) : 
                     <Option value="disabled" disabled>
-                        Disabled
-                  </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                        No Data Founded
+                    </Option>}
                 </Select>
             </Col>
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Stream Name</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
+                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: any) => handleSelect(value, STREAM_NAME)}>
+                    {dropdowns[STREAM_NAME]?dropdowns[STREAM_NAME].map((dropdown : any) => (
+                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
+                    )) : 
                     <Option value="disabled" disabled>
-                        Disabled
-                    </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                        No Data Founded
+                    </Option>}
                 </Select>
             </Col>
             <Col span={12}>
                 <label>Creator</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: any) => handleSelect(value, CREATOR)}>
                     {dropdowns[CREATOR]?dropdowns[CREATOR].map((dropdown : DropdownDefaultTypes) => (
                         <Option key={dropdown._id[0]._id} value={dropdown._id[0]._id}>
                             {dropdown._id[0].name}
@@ -352,13 +361,13 @@ export const ProjectsFilter = ({ dropdowns, selectedFilters, handleRadioGroup, h
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>MHFD Dollars Requested</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
+                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: any) => handleSelect(value, MHFD_DOLLAR_REQUESTED)}>
+                    {dropdowns[MHFD_DOLLAR_REQUESTED]?dropdowns[MHFD_DOLLAR_REQUESTED].map((dropdown : any) => (
+                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
+                    )) : 
                     <Option value="disabled" disabled>
-                        Disabled
-                    </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                        No Data Founded
+                    </Option>}
                 </Select>
             </Col>
         </Row>

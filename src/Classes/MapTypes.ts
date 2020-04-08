@@ -122,7 +122,8 @@ export type FilterProjectTypes = {
     dropdowns: DropdownFilterTypes, 
     selectedFilters: SelectedFilterTypes, 
     handleRadioGroup: Function, 
-    handleCheckbox: Function 
+    handleCheckbox: Function,
+    handleSelect: Function,
 };
 
 export type DropdownFilterTypes = {

@@ -57,6 +57,10 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
     setSelectedFilters({...selectedFilters, [id]: checkedValues });
   }
 
+  const handleSelect = (value: any, id : string) => {
+    setSelectedFilters({...selectedFilters, [id]: value})
+  }
+
   const handleAppliedChanges = () => {
     setToggleFilters(false);
     handleOnSubmit(selectedFilters);
@@ -82,7 +86,8 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                   dropdowns={dropdowns}
                   selectedFilters={selectedFilters}
                   handleRadioGroup={handleRadioGroup} 
-                  handleCheckbox={handleCheckbox} />
+                  handleCheckbox={handleCheckbox}
+                  handleSelect={handleSelect} />
       case FILTER_COMPONENTS_TRIGGER:
         return <ComponentsFilter />
       default:

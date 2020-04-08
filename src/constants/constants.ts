@@ -731,12 +731,12 @@ export const WORK_PLAN_YEAR = 'workPlanYear';
 
 export const PROBLEM_TYPE = 'problemType';
 export const SERVICE_AREA_VALUE = 'serviceArea';
-export const JURISIDICTION = 'jurisidiction';
+export const JURIDICTION = 'jurisdiction';
 export const COUNTY = 'county';
 export const LG_MANAGER = 'lgManager';
-export const REQUESTED_START_YEAR = 'requestedStartYear';
+export const REQUESTED_START_YEAR = 'requestedStartyear';
 export const STREAM_NAME = 'streamName';
-export const MHFD_DOLLAR_REQUESTED = 'mhfdDollarRequested';
+export const MHFD_DOLLAR_REQUESTED = 'mhfdDollarRequest';
 export const CREATOR = 'creator';
 
 export const FILTER_TYPES = {
@@ -790,7 +790,7 @@ export const FILTER_TYPES = {
 };
 
 export const DROPDOWN_PROJECT_FILTERS = [
-  PROBLEM_TYPE, SERVICE_AREA_VALUE, JURISIDICTION, COUNTY, LG_MANAGER, 
+  PROBLEM_TYPE, SERVICE_AREA_VALUE, JURIDICTION, COUNTY, LG_MANAGER, 
   REQUESTED_START_YEAR, STREAM_NAME, MHFD_DOLLAR_REQUESTED
 ];
 
