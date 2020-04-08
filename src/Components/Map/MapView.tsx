@@ -47,7 +47,8 @@ const accordionRow: Array<any> = [
   }
 ];
 
-const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters, dropdowns } : MapViewTypes) => {
+const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters, 
+                  dropdowns, userFiltered, getUserFilters } : MapViewTypes) => {
 
   const [listDescription, setListDescription] = useState(false);
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -101,7 +102,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     }
     const filterTypes : { [key : string]: string | number } = FILTER_TYPES;
     const getFilterNames = values.map((value : FilterNamesTypes) => {
-      return { key: value.key, type: value.value, value: filterTypes[value.value] }
+      const filterData = filterTypes[value.value] || userFiltered[value.value] || value.value;
+      return { key: value.key, type: value.value, value: filterData }
     });
     setFilterNames(getFilterNames);
   }
@@ -200,7 +202,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             projectsLength={projects.length}
             problemsLength={cardInformationProblems.length}
             getDropdownFilters={getDropdownFilters}
-            dropdowns={dropdowns} />
+            dropdowns={dropdowns}
+            getUserFilters={getUserFilters} />
       }
     </div>
   </>

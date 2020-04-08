@@ -26,7 +26,7 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : { fi
 
 export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, 
                 handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters, 
-                dropdowns } : FiltersProjectTypes) => {
+                dropdowns, getUserFilters } : FiltersProjectTypes) => {
                   
   const [selectedFilters, setSelectedFilters] = useState({});
 
@@ -57,8 +57,16 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
     setSelectedFilters({...selectedFilters, [id]: checkedValues });
   }
 
-  const handleSelect = (value: any, id : string) => {
-    setSelectedFilters({...selectedFilters, [id]: value})
+  const handleSelect = (value: string, id : string) => {
+    if (typeof value === 'string' && value.includes("|")) {
+      /* To store the user id at the position 0, and the user fistName to filter it*/
+      const userData = value.split("|");
+      const [userId, userName] = userData;
+      getUserFilters(userId, userName);
+      setSelectedFilters({...selectedFilters, [id]: userId});
+    } else {
+      setSelectedFilters({...selectedFilters, [id]: value});
+    }
   }
 
   const handleAppliedChanges = () => {

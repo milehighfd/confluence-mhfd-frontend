@@ -65,3 +65,9 @@ export const filterProjectCreators = () => {
       });
   }
 }
+
+export const getUserFilters = (id : string, userName: string) => {
+  return (dispatch : Function) => {
+    dispatch({ type: types.SET_USERS_DATA, data: { [id]: userName }});
+  }
+}

@@ -22,6 +22,7 @@ export type MapHOCProps = {
     components: Array<ComponentType>,
     filters: FilterTypes,
     dropdowns: DropdownFilterTypes,
+    userFiltered: { [_id: string]: string },
     layerFilters: LayerFilterTypes,
     saveNewCapitalForm: Function,
     saveNewStudyForm: Function,
@@ -36,7 +37,8 @@ export type MapHOCProps = {
     getProjectWithFilters: Function,
     removeFilter: Function,
     getMapTables: Function,
-    getDropdownFilters: Function
+    getDropdownFilters: Function,
+    getUserFilters: Function
 }
 
 export type MapViewTypes = { 
@@ -45,7 +47,9 @@ export type MapViewTypes = {
     getProjectWithFilters : Function, 
     removeFilter: Function, 
     getDropdownFilters: Function, 
-    dropdowns: DropdownFilterTypes 
+    dropdowns: DropdownFilterTypes,
+    userFiltered: { [_id: string]: string },
+    getUserFilters: Function
 }
 
 export type ProblemTypes = {
@@ -118,7 +122,8 @@ export type FiltersProjectTypes = {
     projectsLength: number, 
     problemsLength: number, 
     getDropdownFilters: Function, 
-    dropdowns: DropdownFilterTypes
+    dropdowns: DropdownFilterTypes,
+    getUserFilters: Function
 };
 
 export type FilterNamesTypes = {
@@ -141,8 +146,7 @@ export type DropdownFilterTypes = {
 
 export type DropdownDefaultTypes = {
     _id: Array<{
-        _id: string,
-        name?: string
+        [key : string]: string
     }>
 };
 

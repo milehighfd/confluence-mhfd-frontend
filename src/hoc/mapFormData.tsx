@@ -16,6 +16,7 @@ export default function (WrappedComponent : any, layers : LayerHOCTypes) {
               components, 
               filters,
               dropdowns,
+              userFiltered,
               layerFilters,
               saveNewCapitalForm, 
               saveNewStudyForm, 
@@ -28,7 +29,8 @@ export default function (WrappedComponent : any, layers : LayerHOCTypes) {
               error, 
               clearErrorMessage, 
               getProjectWithFilters, 
-              removeFilter, getMapTables, getDropdownFilters } : MapHOCProps) => {
+              removeFilter, 
+              getMapTables, getDropdownFilters, getUserFilters } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -116,6 +118,8 @@ export default function (WrappedComponent : any, layers : LayerHOCTypes) {
                             getDropdownFilters={getDropdownFilters}
                             filters={filters}
                             dropdowns={dropdowns}
+                            userFiltered={userFiltered}
+                            getUserFilters={getUserFilters}
                             removeFilter={removeFilter} 
                             projects={projects}
                             markerRef={markerRef}

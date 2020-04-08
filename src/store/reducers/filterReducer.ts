@@ -2,7 +2,8 @@ import * as types from '../types/filterTypes';
 
 const initState = {
   filters: {},
-  dropdowns: {}
+  dropdowns: {},
+  userFiltered: {}
 }
 
 const filterReducer = (state = initState, action : any) => {
@@ -26,6 +27,13 @@ const filterReducer = (state = initState, action : any) => {
           dropdowns: {
             ...state.dropdowns,
             creator: action.data
+          }
+        }
+      case types.SET_USERS_DATA: 
+        return {
+          ...state,
+          userFiltered: {
+            ...action.data
           }
         }
       default: 

@@ -775,6 +775,8 @@ export const FILTER_TYPES = {
   '2021': 2021,
   '2022': 2022,
   '2023': 2023,
+  '2024': 2024,
+  '2025': 2025,
 
   reduceFloodRiskStructures: 'Reduce Flood Risk to Structures',
   createSharedUsePathsRecreation: 'Shared-Use Paths and Recreation',
@@ -788,16 +790,6 @@ export const FILTER_TYPES = {
   peakFlowReduction: 'Peak Flow Reduction',
   waterQuality: 'Water Quality',
   guideDevelopment: 'Guide Development',
-
-  problemType: 'problemType',
-  serviceArea: 'serviceArea',
-  jurisdiction: 'jurisdiction',
-  county: 'county',
-  lgManager: 'lgManager',
-  requestedStartyear: 'requestedStartyear',
-  streamName: 'streamName',
-  mhfdDollarRequest: 'mhfdDollarRequest',
-  creator: 'creator',
 
   /* End of Project Filters */
 };
