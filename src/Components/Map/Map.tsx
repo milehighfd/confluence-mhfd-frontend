@@ -19,6 +19,7 @@ import { MAP_DROPDOWN_ITEMS,
         COMPONENTS_TRIGGER,
         DENVER_LOCATION,
         SELECT_ALL_FILTERS } from "../../constants/constants";
+import { Feature, Properties, Point } from '@turf/turf';
 
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -164,7 +165,7 @@ const Map = ({ leftWidth,
         }
     }
 
-    const paintSelectedComponents = (items? : Array<Object>) => {
+    const paintSelectedComponents = (items : Array<ComponentType>) => {
         if(map.getSource(COMPONENTS_TRIGGER)) {
             components.map((component : ComponentType) => {
                 map.setFeatureState(
@@ -174,7 +175,7 @@ const Map = ({ leftWidth,
             });
 
             if(items && items.length) {
-                items.map((item : any) => {
+                items.map((item : ComponentType) => {
                     map.setFeatureState(
                         { source: COMPONENTS_TRIGGER, id: item.componentId },
                         { hover: true }
@@ -208,11 +209,11 @@ const Map = ({ leftWidth,
         getReverseGeocode(geometry?.coordinates[0], geometry?.coordinates[1], HERE_TOKEN);
 
         if(layers && layers.components) {
-            const selectedItems : Array<[]> = [];
-            const turfPoints = components.map((point : any) => turf.point(point.coordinates));
-            const values = turfPoints.map((turfPoint : any) => turf.inside(turfPoint, polygonCoords));
+            const selectedItems : Array<ComponentType> = [];
+            const turfPoints = components.map((point : ComponentType) => turf.point(point.coordinates));
+            const values = turfPoints.map((turfPoint : Feature<Point, Properties>) => turf.inside(turfPoint, polygonCoords));
 
-            components.map((point : any, index : number) => {
+            components.map((point : ComponentType, index : number) => {
                 if (values[index]) {
                     selectedItems.push(point);
                 }

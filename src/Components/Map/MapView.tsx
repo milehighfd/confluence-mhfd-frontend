@@ -7,6 +7,7 @@ import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES } from '../../constants/constants';
+import { FilterTypes, FilterNamesTypes, MapViewTypes } from "../../Classes/MapTypes";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
@@ -46,7 +47,7 @@ const accordionRow: Array<any> = [
   }
 ];
 
-const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters, dropdowns } : { filters: any, projects: any, getProjectWithFilters : Function, removeFilter: Function, getDropdownFilters: Function, dropdowns: any }) => {
+const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters, dropdowns } : MapViewTypes) => {
 
   const [listDescription, setListDescription] = useState(false);
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -67,7 +68,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     getProjectWithFilters(requestData);
   }
 
-  const handleOnSubmit = (filtersData : any) => {
+  const handleOnSubmit = (filtersData : FilterTypes) => {
     getProjectWithFilters(filtersData);
   }
 
@@ -81,11 +82,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setToggleFilters(!toggleFilters);
   }
 
-  const setCurrentFilters = (filtersData : any) => {
-    const values : Array<any> = [];
+  const setCurrentFilters = (filtersData : FilterTypes) => {
+    const values : Array<{ key: string, value: string }> = [];
     for (const key in filtersData) {
       if(Array.isArray(filtersData[key])) {
-        filtersData[key].map((value : string) => {
+        (filtersData[key] as Array<string>).map((value : string) => {
           values.push({
             key: key,
             value: value
@@ -94,12 +95,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       } else {
         values.push({
           key: key,
-          value: filtersData[key]
+          value: filtersData[key] as string
         });
       }
     }
-    const filterTypes : any = FILTER_TYPES;
-    const getFilterNames = values.map((value : any) => {
+    const filterTypes : { [key : string]: string | number } = FILTER_TYPES;
+    const getFilterNames = values.map((value : FilterNamesTypes) => {
       return { key: value.key, type: value.value, value: filterTypes[value.value] }
     });
     setFilterNames(getFilterNames);

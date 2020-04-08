@@ -1,7 +1,7 @@
 import * as types from '../types/filterTypes';
 
 const initState = {
-  filters: [],
+  filters: {},
   dropdowns: {}
 }
 

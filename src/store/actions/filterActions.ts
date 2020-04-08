@@ -3,8 +3,9 @@ import * as datasets from "../../Config/datasets";
 
 import * as types from '../types/filterTypes';
 import { FILTER_PROJECTS } from '../types/mapTypes'; 
+import { FilterTypes, FilterNamesTypes } from "../../Classes/MapTypes";
 
-export const getProjectWithFilters = (filters : any) => {
+export const getProjectWithFilters = (filters : FilterTypes) => {
   return (dispatch : Function) => {
       const data = filters?filters:{};
       datasets.postData(SERVER.FILTER_PROJECT, data, datasets.getToken()).then(projects => {
@@ -15,7 +16,7 @@ export const getProjectWithFilters = (filters : any) => {
   } 
 }
 
-export const removeFilter = (item: any) => {
+export const removeFilter = (item : FilterNamesTypes) => {
   return (dispatch : Function, getState : Function) => {
       const state = getState();
       let newFilters = {...state.filter.filters};

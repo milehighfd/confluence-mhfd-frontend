@@ -39,6 +39,15 @@ export type MapHOCProps = {
     getDropdownFilters: Function
 }
 
+export type MapViewTypes = { 
+    filters: FilterTypes, 
+    projects: Array<ProjectTypes>, 
+    getProjectWithFilters : Function, 
+    removeFilter: Function, 
+    getDropdownFilters: Function, 
+    dropdowns: DropdownFilterTypes 
+}
+
 export type ProblemTypes = {
     problemId: string
     problemName: string,
@@ -60,7 +69,7 @@ export type ComponentType = {
     status: string,
     mitigationType: string,
     studyName: string,
-    coordinates: Array<[]>
+    coordinates: Array<number>
 }
 
 export type MapLayersType = {
@@ -114,7 +123,7 @@ export type FiltersProjectTypes = {
 
 export type FilterNamesTypes = {
     key: string,
-    type: string,
+    type?: string,
     value: string
 };
 

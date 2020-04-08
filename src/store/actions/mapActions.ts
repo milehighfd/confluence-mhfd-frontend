@@ -90,7 +90,7 @@ export const createNewProjectForm = (data: any, files: Array<any>) => {
             for (const key in data) {
                 dataForm.append(key, '' + data[key]); 
             }
-            dataForm.append('jurisdiction', county);
+            dataForm.append('county', county);
             dataForm.append('coordinates', JSON.stringify(coordinates));
             if(files) {
                 for (const file of files) {
