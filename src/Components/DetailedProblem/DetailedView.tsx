@@ -11,21 +11,15 @@ const genExtra = () => (
 );
 
 const menu = (
-  <Menu className="js-mm-00">
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        1st menu
-      </a>
+  <Menu className="no-links-dropdown">
+    <Menu.Item> 
+      <span className="menu-item-text">1st menu item</span>
     </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        2nd menu
-      </a>
+    <Menu.Item> 
+      <span className="menu-item-text">2nd menu item</span>
     </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        3rd menu
-      </a>
+    <Menu.Item> 
+      <span className="menu-item-text">3rd menu item</span>
     </Menu.Item>
   </Menu>
 );

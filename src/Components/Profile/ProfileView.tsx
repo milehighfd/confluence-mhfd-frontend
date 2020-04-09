@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Menu, Button, Tabs, Input, Table} from 'antd';
+import { Layout, Row, Col, Collapse, Dropdown, Menu, Button, Tabs, Input, Table } from 'antd';
 
 
 import NavbarView from "../Shared/Navbar/NavbarView";
@@ -12,21 +12,15 @@ const { TabPane } = Tabs;
 const { Search } = Input;
 
 const menu = (
-  <Menu className="js-mm-00">
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="/#">
-        1st menu item
-      </a>
+  <Menu className="no-links-dropdown">
+    <Menu.Item> 
+      <span className="menu-item-text">1st menu item</span>
     </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        2nd menu item
-      </a>
+    <Menu.Item> 
+      <span className="menu-item-text">2nd menu item</span>
     </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        3rd menu item
-      </a>
+    <Menu.Item> 
+      <span className="menu-item-text">3rd menu item</span>
     </Menu.Item>
   </Menu>
 );

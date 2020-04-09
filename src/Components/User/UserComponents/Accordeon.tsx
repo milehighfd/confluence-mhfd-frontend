@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu, Result } from 'antd';
+import React, { useState } from 'react';
+import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form } from 'antd';
 import { useFormik } from 'formik';
 
 import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS } from "../../../constants/constants";
@@ -11,6 +11,7 @@ import MenuAreaView from './MenuAreaView';
 import MenuOrganizationView from './MenuOrganizationView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
+import useCallbackEffect from '../../../hooks/useCallbackEffect';
 
 
 export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, saveUser: Function, deleteUser: Function}) => {
@@ -21,13 +22,14 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     visible: false
   };
   const [modal, setModal] = useState(visible);
-  const [switchTo, setSwitchTo] = useState<boolean>(user.activated);
+  const [, setSwitchTo] = useState<boolean>(user.activated);
   const [designation, setDesignation] = useState<string>(user.designation);
-  const [title, setTitle] = useState<string>('');
+  const [, setTitle] = useState<string>('');
   const [initialValues, setInitialValues] = useState(user);
   const [activated, setActivated] = useState(0);
   const [messageError, setMessageError] = useState({message: '', color: '#28C499'});
-  useEffect(() => {
+
+  useCallbackEffect(() => {
     const auxUser = { ...user };
     setInitialValues(auxUser);
     values._id = user._id;

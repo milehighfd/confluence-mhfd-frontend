@@ -1,13 +1,14 @@
 import * as React from 'react';
-import logo from './logo.svg';
 import './App.scss';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
+import * as datasets from "./Config/datasets"
+import { SERVER } from "./Config/Server.config";
+import store from './store';
+
 import LoginContainer from './Components/Login/LoginContainer';
-import NavbarContainer from './Components/Shared/Navbar/NavbarContainer';
 import ResetPasswordContainer from './Components/ResetPassword/ResetPasswordContainer';
 import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswordContainer';
-import SidebarContainer from './Components/Shared/Sidebar/SidebarContainer';
 import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
 import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
@@ -25,14 +26,11 @@ import ProjectAcquisitionForm from './Components/ProjectForms/ProjectAcquisition
 import MapView from './Components/Map/MapView';
 import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenanceForm';
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
-import * as datasets from "./Config/datasets"
-import { SERVER } from "./Config/Server.config";
-import { User } from './Classes/User';
-import store from './store';
+
 function App({ replaceAppUser }: any) {
   const appUser = store.getState().appUser;
   if(datasets.getToken() && appUser.email === '') {
-    const result = datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
+    datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
       if (res?._id) {
         replaceAppUser(res);
       }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "antd";
 
-export default ({values, items, item, setItem, field}: any) => {
+export default ({values, items, setItem, field}: any) => {
 
     return <> <Menu className="js-mm-00" onClick={(event) => {
         values[field] = event.item.props.children.props.rel;

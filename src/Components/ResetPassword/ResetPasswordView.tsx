@@ -30,7 +30,7 @@ export default () => {
       auxMessage.message = 'The request was sent to reset your email password, this may take a few minutes';
       auxMessage.color = '#28C499';
       setMessage(auxMessage);
-      const result = datasets.postData(SERVER.RECOVERY_PASSWORD, values).then(res => {
+      datasets.postData(SERVER.RECOVERY_PASSWORD, values).then(res => {
         if(!res.error) {
           setRedirect(true);
         } else {

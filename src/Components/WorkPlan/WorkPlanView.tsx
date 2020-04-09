@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Layout, Row, Col, Dropdown, Menu, Button, Tabs, Input, Drawer, Select } from 'antd';
-
+import { Link } from 'react-router-dom';
 
 import NavbarView from "../Shared/Navbar/NavbarView";
 import SidebarView from "../Shared/Sidebar/SidebarView";
@@ -24,19 +24,19 @@ const { Option } = Select;
 const menu = (
   <Menu className="menu-card">
     <Menu.Item style={{borderBottom: '1px solid rgba(61, 46, 138, 0.07)'}}>
-      <a target="_blank" rel="noopener noreferrer" href="">
+      <span className="menu-card-item">
         Edit
-      </a>
+      </span>
     </Menu.Item>
     <Menu.Item style={{borderBottom: '1px solid rgba(61, 46, 138, 0.07)'}}>
-      <a target="_blank" rel="noopener noreferrer" href="">
+      <span className="menu-card-item">
         Copy
-      </a>
+      </span>
     </Menu.Item>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="" style={{color: 'red'}}>
+      <span className="menu-card-item" style={{color: 'red'}}>
         Delete
-      </a>
+      </span>
     </Menu.Item>
   </Menu>
 );
@@ -157,9 +157,9 @@ export default () => {
                             <h6>$410,000</h6>
                             <p>Aurora <label>Draft</label></p>
                             <Dropdown overlay={menu} className="menu-wr">
-                              <a className="ant-dropdown-link">
+                              <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
                                  <img src="/Icons/icon-60.svg" alt=""/>
-                              </a>
+                              </span>
                             </Dropdown>
                           </div>
 
@@ -168,9 +168,9 @@ export default () => {
                             <h6>$410,000</h6>
                             <p>Aurora <label>Draft</label></p>
                             <Dropdown overlay={menu} className="menu-wr">
-                              <a className="ant-dropdown-link">
+                              <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
                                  <img src="/Icons/icon-60.svg" alt=""/>
-                              </a>
+                              </span>
                             </Dropdown>
                           </div>
 
@@ -179,9 +179,9 @@ export default () => {
                             <h6>$410,000</h6>
                             <p>Aurora <label>Draft</label></p>
                             <Dropdown overlay={menu} className="menu-wr">
-                              <a className="ant-dropdown-link">
+                              <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
                                  <img src="/Icons/icon-60.svg" alt=""/>
-                              </a>
+                              </span>
                             </Dropdown>
                           </div>
 
@@ -190,50 +190,50 @@ export default () => {
                             <h6>$410,000</h6>
                             <p>Aurora <label>Draft</label></p>
                             <Dropdown overlay={menu} className="menu-wr">
-                              <a className="ant-dropdown-link">
+                              <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
                                  <img src="/Icons/icon-60.svg" alt=""/>
-                              </a>
+                              </span>
                             </Dropdown>
                           </div>
                         </div>
                       </Col>
                       <Col span={3}>
                         <h3>2020</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr">
                         <div className="card-wr">
                           <h4>West Tollgate Creek GSB Drops </h4>
                           <h6>$410,000</h6>
                           <p>Aurora <label>Draft</label></p>
                           <Dropdown overlay={menu} className="menu-wr">
-                            <a className="ant-dropdown-link">
-                               <img src="/Icons/icon-60.svg" alt=""/>
-                            </a>
+                            <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
+                                <img src="/Icons/icon-60.svg" alt=""/>
+                            </span>
                           </Dropdown>
                         </div>
                         </div>
                       </Col>
                       <Col span={3}>
                         <h3>2021</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr">
                         </div>
                       </Col>
                       <Col span={3}>
                         <h3>2022</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr">
                         </div>
                       </Col>
                       <Col span={3}>
                         <h3>2023</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr">
                         </div>
                       </Col>
                       <Col span={3}>
                         <h3>2024</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr">
                         </div>
                       </Col>
@@ -310,31 +310,31 @@ export default () => {
                       </Col>
                       <Col span={4}>
                         <h3>2020</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr-01">
                         </div>
                       </Col>
                       <Col span={4}>
                         <h3>2021</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr-01">
                         </div>
                       </Col>
                       <Col span={4}>
                         <h3>2022</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr-01">
                         </div>
                       </Col>
                       <Col span={4}>
                         <h3>2023</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr-01">
                         </div>
                       </Col>
                       <Col span={4}>
                         <h3>2024</h3>
-                        <div style={{textAlign:'center'}}><a href="">View Map</a></div>
+                        <div style={{textAlign:'center'}}><Link to="/map" onClick={(e) => e.preventDefault()}>View Map</Link></div>
                         <div className="col-wr-01">
                         </div>
                       </Col>

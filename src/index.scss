@@ -866,7 +866,17 @@ body{
 .sign-menu {
   overflow-y: auto;
   max-height: 150px;
+
+  .organization-items {
+    padding: 10px 0px;
+
+    .organization-items-text {
+      font-size: 14px;
+      color: $purple00;
+    }
+  }
 }
+
 .sign-menu-organization {
   overflow-y: auto;
   max-height: 150px;
@@ -2242,7 +2252,7 @@ body{
   height: 140px;
   left: -120px;
 
-  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a{
+  .menu-card-item {
     color: $purple00;
     font-size: 13px;
   }
@@ -3160,4 +3170,30 @@ body{
  }
 .rr-tt{
   display: none;
+}
+
+.no-links-dropdown {
+  padding: 0px 20px !important;
+  font-size: 14px !important;
+  color: $opacity !important;
+
+  .menu-item-text {
+    font-size: 14px;
+    color: $purple00;
+  }
+
+  .menu-item-text:hover, .menu-item-text:focus {
+    color: $purple;
+    font-weight: 500;
+  }
+
+  .ant-dropdown-menu-item{
+    padding: 10px 0px !important;
+    border-bottom: 1px solid $opacity01;
+    text-align: left;
+  }
+
+  .ant-dropdown-menu-item:hover{
+    background: none;
+  }
 }

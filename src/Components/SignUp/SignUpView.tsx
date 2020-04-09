@@ -23,14 +23,14 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
     <Menu className="js-mm sign-menu">
       <label>CITY</label>
       {organization.map((organization: string, index: number) => {
-        return <Menu.Item key={index} onClick={() => {
+        return <Menu.Item key={index} className="organization-items" onClick={() => {
           values.organization = organization;
           const auxTitle = organization;
           setTitle(auxTitle);
         }}>
-          <a target="_blank" rel="noopener noreferrer">
+          <span className="organization-items-text">
             {organization}
-          </a>
+          </span>
         </Menu.Item>
       })}
     </Menu>);
