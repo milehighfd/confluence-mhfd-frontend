@@ -7,7 +7,7 @@ import { saveUserActivated, saveUserPending  } from '../../store/actions/usersAc
 
 const mapStateToProps = (state: any) => {
   return {
-    users: state.user.users
+    users: state.users.users
   };
 };
 

@@ -1,6 +1,6 @@
 import * as types from '../types/usersTypes';
-import { SERVER } from "../../Config/Server.config";
-import * as datasets from "../../Config/datasets";
+// import { SERVER } from "../../Config/Server.config";
+// import * as datasets from "../../Config/datasets";
 
 export const saveUserActivated = (users : any) => {
     return (dispatch : Function) => {

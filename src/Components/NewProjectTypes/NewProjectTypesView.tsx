@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Layout, Row, Col, Input, Button, } from 'antd';
 import NavbarView from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import { Redirect } from "react-router-dom";
 import ButtonProjectTypesView from "./ButtonProjectTypes/ButtonProjectTypesView";
 import { buttonsNewProject } from "../../constants/constants"
+import useCallbackEffect from "../../hooks/useCallbackEffect";
 
 
 export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, clearCoordinates : Function}) => {
@@ -15,8 +16,10 @@ export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, cl
   const [create, setCreate] = useState(buttonsNewProject);
   const [title, setTitle] = useState('new');
 
-  useEffect(() => {
-    if(coordinates.length) clearCoordinates();
+  useCallbackEffect(() => {
+    if (coordinates.length) {
+      clearCoordinates();
+    }
   }, []);
 
   if(redirect) {

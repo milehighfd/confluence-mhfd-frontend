@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, FunctionComponent } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import Map from '../Components/Map/Map';
 import NavbarView from "../Components/Shared/Navbar/NavbarView";

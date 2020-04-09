@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, Checkbox, Row, Col, Button } from 'antd';
+import { Checkbox, Row, Col, Button } from 'antd';
 import { FLOODPLAINS_FEMA_FILTERS,
         FLOODPLAINS_NON_FEMA_FILTERS,
         WATERSHED_FILTERS,

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Drawer } from 'antd';
+import { Layout, Row, Col, Dropdown, Menu, Button, Tabs, Input, Progress, Drawer } from 'antd';
 
 
 import NavbarView from "../Shared/Navbar/NavbarView";
@@ -8,24 +8,21 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MAP_DROPDOWN_ITEMS } from "../../constants/constants";
 
-const { Panel } = Collapse;
-const ButtonGroup = Button.Group;
-const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Search } = Input;
 
-const genExtra = () => (
-  <Row className="tab-head">
-    <Col span={9}>Piney Creek Channel Restoration</Col>
-    <Col span={5}>Westminster</Col>
-    <Col span={4}>$450,200</Col>
-    <Col span={4} style={{textAlign: 'center'}}>
-       <p>90%</p>
-      <Progress percent={90} showInfo={false} style={{height: '4px !important'}}/>
-    </Col>
-    <Col span={2}><img src="/Icons/icon-20.svg" alt=""/></Col>
-  </Row>
-);
+// const genExtra = () => (
+//   <Row className="tab-head">
+//     <Col span={9}>Piney Creek Channel Restoration</Col>
+//     <Col span={5}>Westminster</Col>
+//     <Col span={4}>$450,200</Col>
+//     <Col span={4} style={{textAlign: 'center'}}>
+//        <p>90%</p>
+//       <Progress percent={90} showInfo={false} style={{height: '4px !important'}}/>
+//     </Col>
+//     <Col span={2}><img src="/Icons/icon-20.svg" alt=""/></Col>
+//   </Row>
+// );
 
 const menu = (
   <Menu className="menu-card">

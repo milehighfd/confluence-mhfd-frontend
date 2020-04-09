@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Dropdown, Menu, Button, Input, Table, Form } from 'antd';
+import { Row, Col, Dropdown, Button, Input, Table, Form } from 'antd';
 import mapFormContainer from "../../hoc/mapFormContainer";
 import { NEW_PROJECT_FORM_COST, GOAL_STUDY, REQUEST_START_YEAR, PROJECT_STUDY_MASTER, PROJECT_STUDY_FHAD } from "../../constants/constants";
 import { ComponentType } from "../../Classes/MapTypes";
 import { useFormik } from "formik";
-import { useLocation, Redirect } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { VALIDATION_PROJECT_MASTER_PLAN_ONLY, VALIDATION_PROJECT_FHAD } from "../../constants/validation";
 import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
 import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";

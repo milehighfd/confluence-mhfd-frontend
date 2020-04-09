@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Layout, Alert,  Modal, Button  } from 'antd';
+import { Alert,  Modal, Button  } from 'antd';
 
 const stateValue = {
   visible: false

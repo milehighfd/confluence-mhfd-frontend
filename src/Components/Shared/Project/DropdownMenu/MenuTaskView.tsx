@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Button } from "antd";
+import { Menu } from "antd";
 
 export default (values: Array<{ name: string, id: string }>, items: Array<string>, setItem: Function, pos: number) => {
   return <> <Menu className="js-mm-00 sign-menu" onClick={(event) => {

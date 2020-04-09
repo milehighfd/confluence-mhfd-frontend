@@ -20,6 +20,7 @@ import { MAP_DROPDOWN_ITEMS,
         DENVER_LOCATION,
         SELECT_ALL_FILTERS } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
+import useCallbackEffect from '../../hooks/useCallbackEffect';
 
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -50,7 +51,7 @@ const Map = ({ leftWidth,
     const [selectedLayers, setSelectedLayers] = useState<Array<string>>([]);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
 
-    useEffect(() => {
+    useCallbackEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
@@ -108,7 +109,7 @@ const Map = ({ leftWidth,
         }
     }, []);
 
-    useEffect(() => {
+    useCallbackEffect(() => {
         map.setStyle(dropdownItems.items[dropdownItems.default].style);
     }, [dropdownItems.items[dropdownItems.default].style]);
 
@@ -116,13 +117,13 @@ const Map = ({ leftWidth,
         map.resize();
     }, [leftWidth]);
 
-    useEffect(() => {
+    useCallbackEffect(() => {
         paintSelectedComponents(selectedItems);
     }, [selectedItems]);
 
-    useEffect(() => {
+    useCallbackEffect(() => {
         if (map.isStyleLoaded()) {
-            drawConstants.map((item : string) => {
+            drawConstants.forEach((item : string) => {
                 drawItemsInMap(item);
             });
         }
@@ -130,12 +131,12 @@ const Map = ({ leftWidth,
         addMapListeners();
     }, [projects]);
 
-    useEffect(() => {
-        selectedLayers.map((layer : string) => getMapTables(layer));
+    useCallbackEffect(() => {
+        selectedLayers.forEach((layer : string) => getMapTables(layer));
     }, [selectedLayers]);
 
     useEffect(() => {
-        Object.keys(layerFilters).map((key : string) => {
+        Object.keys(layerFilters).forEach((key : string) => {
             const tiles = layerFilters[key];
             /* Momentary Implementation Cause' 2 Filters Don't Have Enpoint */
             if (tiles) {
@@ -167,7 +168,7 @@ const Map = ({ leftWidth,
 
     const paintSelectedComponents = (items : Array<ComponentType>) => {
         if(map.getSource(COMPONENTS_TRIGGER)) {
-            components.map((component : ComponentType) => {
+            components.forEach((component : ComponentType) => {
                 map.setFeatureState(
                     { source: COMPONENTS_TRIGGER, id: component.componentId },
                     { hover: false }
@@ -175,7 +176,7 @@ const Map = ({ leftWidth,
             });
 
             if(items && items.length) {
-                items.map((item : ComponentType) => {
+                items.forEach((item : ComponentType) => {
                     map.setFeatureState(
                         { source: COMPONENTS_TRIGGER, id: item.componentId },
                         { hover: true }
@@ -213,7 +214,7 @@ const Map = ({ leftWidth,
             const turfPoints = components.map((point : ComponentType) => turf.point(point.coordinates));
             const values = turfPoints.map((turfPoint : Feature<Point, Properties>) => turf.inside(turfPoint, polygonCoords));
 
-            components.map((point : ComponentType, index : number) => {
+            components.forEach((point : ComponentType, index : number) => {
                 if (values[index]) {
                     selectedItems.push(point);
                 }
@@ -229,7 +230,7 @@ const Map = ({ leftWidth,
 
     const addMapListeners = () => {
         /* Add Listeners to the problems and Components */
-        drawConstants.map((trigger : string) => {
+        drawConstants.forEach((trigger : string) => {
             map.on('load', () =>  drawItemsInMap(trigger));
             map.on('style.load', () => drawItemsInMap(trigger));
             map.on('click', trigger, (e : any) => {
@@ -356,18 +357,6 @@ const Map = ({ leftWidth,
     }
 
     const selectCheckboxes = (selectedItems : Array<string>) => {
-        let selectedItem = '';
-        if(selectedLayers.length < selectedItems.length) {
-            selectedItem = selectedItems[selectedItems.length - 1];
-        } else {
-            selectedLayers.forEach((item : string) => {
-                const index = selectedItems.indexOf(item);
-                if(index < 0) {
-                    selectedItem = item;
-                    return;
-                }
-            });
-        }
         setSelectedLayers(selectedItems);
     }
 

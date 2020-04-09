@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Layout, Row, Col, Tabs, Menu, Pagination } from 'antd';
+import React, { useState } from "react";
+import { Layout, Row, Col, Tabs, Pagination } from 'antd';
 import NavbarView from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import Accordeon from './UserComponents/Accordeon';
@@ -8,6 +8,7 @@ import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import { OptionsFiltersUser, User } from "../../Classes/TypeList";
 import { PAGE_USER } from "../../constants/constants";
+import useCallbackEffect from "../../hooks/useCallbackEffect";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -32,7 +33,7 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
   let pndPos = 0; // momentary forced adition until getting the DB Structure
   let aprPos = 0; // momentary forced adition until getting the DB Structure
 
-  useEffect(() => {
+  useCallbackEffect(() => {
     getAllUser();
   }, []);
 

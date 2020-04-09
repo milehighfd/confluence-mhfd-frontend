@@ -25,7 +25,7 @@ export const MAP_DROPDOWN_ITEMS = [
 ];
 
 export const DENVER_LOCATION = {
-  center: <any>[-105.04, 39.805],
+  center: [-105.04, 39.805] as any,
   zoom: 10.8
 };
 

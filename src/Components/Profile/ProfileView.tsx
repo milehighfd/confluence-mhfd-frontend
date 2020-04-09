@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, Row, Col, Collapse, Dropdown, Icon, Menu, Button, Tabs, Tag, Card, Input, Progress, Timeline,Checkbox, Select, Radio, Table} from 'antd';
+import { Layout, Row, Col, Collapse, Dropdown, Menu, Button, Tabs, Input, Table} from 'antd';
 
 
 import NavbarView from "../Shared/Navbar/NavbarView";
@@ -8,16 +8,13 @@ import CardInformationView from "../Shared/CardInformation/CardInformationView";
 
 
 const { Panel } = Collapse;
-const ButtonGroup = Button.Group;
-const { Meta } = Card;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const { Option } = Select;
 
 const menu = (
   <Menu className="js-mm-00">
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
+      <a target="_blank" rel="noopener noreferrer" href="/#">
         1st menu item
       </a>
     </Menu.Item>
