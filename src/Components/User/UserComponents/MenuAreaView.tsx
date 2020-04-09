@@ -3,7 +3,7 @@ import { Menu } from "antd";
 import { User } from "../../../Classes/TypeList";
 
 export default (items: Array<string>, fieldName: string, values: User, setTitle: Function) => (
-    <Menu className="js-mm sign-menu">
+    <Menu className="js-mm sign-menu no-links-dropdown">
         <label>{fieldName === 'city' ? 'City' : fieldName === 'county' ? 'County' : 'Service Area'}</label>
         {items.map((item: string, index: number) => {
             return <Menu.Item key={index} onClick={() => {
@@ -17,9 +17,9 @@ export default (items: Array<string>, fieldName: string, values: User, setTitle:
                 const auxTitle = item;
                 setTitle(auxTitle);
             }}>
-                <a target="_blank" rel="noopener noreferrer">
+                <span className="menu-item-text">
                     {item}
-                </a>
+                </span>
             </Menu.Item>
         })}
     </Menu>);

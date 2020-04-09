@@ -1,19 +1,23 @@
 import React from "react";
 import { Menu } from "antd";
 
-export default ({values, items, setItem, field}: any) => {
+export default ({ values, items, setItem, field }: any) => {
 
-    return <> <Menu className="js-mm-00" onClick={(event) => {
-        values[field] = event.item.props.children.props.rel;
-        const auxItem = event.item.props.children.props.children;
-        setItem(auxItem);
-    }}>
-        {items.map( (item: {name: Object, id: Object}, index: number) => {
-            return <Menu.Item key={index}>
-                <a target="_blank" rel={'' + item.id}>
-                    {item.name}
-                </a>
-            </Menu.Item>
-        })}
-  </Menu> </>
+  const getItemValues = (id: string, name: string) => {
+    values[field] = id;
+    const auxItem = name;
+    setItem(auxItem);
+  }
+
+  return (
+    <Menu className="js-mm-00 no-links-dropdown">
+      {items.map((item: { name: string, id: string }, index: number) => {
+        return <Menu.Item key={index} onClick={() => getItemValues(item.id, item.name)}>
+          <span className="menu-item-text">
+            {item.name}
+          </span>
+        </Menu.Item>
+      })}
+    </Menu>
+  );
 }

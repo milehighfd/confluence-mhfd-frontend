@@ -2,6 +2,7 @@ import { useEffect, useCallback } from 'react'
 
 export default (useFunctionChildren : EffectCallback, dependencies : DependencyList) => {
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   const initCallbackFunction = useCallback(() => {
     useFunctionChildren();
   }, dependencies);
