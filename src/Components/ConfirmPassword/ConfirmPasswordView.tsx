@@ -5,7 +5,7 @@ import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayVie
 import * as Yup from "yup";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
-import { useFormik, ErrorMessage } from "formik";
+import { useFormik } from "formik";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -29,7 +29,7 @@ export default () => {
     },
     validationSchema,
     onSubmit(values: { id: string, password: string, passwordConfirm: string }) {
-      const result = datasets.postData(SERVER.RESET_PASSWORD, values).then(res => {
+      datasets.postData(SERVER.RESET_PASSWORD, values).then(res => {
         if (res) {
           setRedirect(true);
         }

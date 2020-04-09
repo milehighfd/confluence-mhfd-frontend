@@ -4,6 +4,7 @@ import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayou
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, DROPDOWN_PROJECT_FILTERS } from '../../constants/constants';
 import { FiltersProjectTypes, FilterNamesTypes } from "../../Classes/MapTypes";
+import useCallbackEffect from "../../hooks/useCallbackEffect";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
@@ -30,7 +31,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                   
   const [selectedFilters, setSelectedFilters] = useState<{[key: string] : string | Array<string>}>({});
 
-  useEffect(() => {
+  useCallbackEffect(() => {
     getDropdownFilters(DROPDOWN_PROJECT_FILTERS);
   }, []);
 

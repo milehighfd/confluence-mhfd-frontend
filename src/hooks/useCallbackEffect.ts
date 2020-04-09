@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react'
 
 export default (useFunctionChildren : EffectCallback, dependencies : DependencyList) => {
+
   const initCallbackFunction = useCallback(() => {
     useFunctionChildren();
   }, dependencies);

@@ -1,40 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 
-import { Row, Col, Dropdown, Menu, Button, Tag, Input, Upload, Table, Form } from 'antd';
+import { Row, Col, Dropdown, Menu, Button, Input, Upload, Table, Form } from 'antd';
 import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
 
 import { VALIDATION_PROJECT_CAPITAL } from "../../constants/validation";
-import { NEW_PROJECT_FORM_COST, FOOTER_PROJECT_CAPITAL, GOAL, REQUEST_FUNDING_YEAR } from "../../constants/constants";
+import { NEW_PROJECT_FORM_COST, GOAL, REQUEST_FUNDING_YEAR } from "../../constants/constants";
 
 import { ComponentType } from "../../Classes/MapTypes";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
+import useCallbackEffect from "../../hooks/useCallbackEffect";
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
 
-const requestFundingYear = [ 2020, 2021, 2022, 2023];
-const goal = [ "Reduce flood risk to Structures", "Stream bank or bed stabilization", "Create shared-use paths and recreation", "Vegetation Enhancements", "Include permanent water quality BMP"];
+// const requestFundingYear = [ 2020, 2021, 2022, 2023];
+// const goal = [ "Reduce flood risk to Structures", "Stream bank or bed stabilization", "Create shared-use paths and recreation", "Vegetation Enhancements", "Include permanent water quality BMP"];
 
 const menu = (
-  <Menu className="js-mm-00">
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        1st menu item
-      </a>
+  <Menu className="no-links-dropdown">
+    <Menu.Item> 
+      <span className="menu-item-text">1st menu item</span>
     </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        2nd menu item
-      </a>
+    <Menu.Item> 
+      <span className="menu-item-text">2nd menu item</span>
     </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        3rd menu item
-      </a>
+    <Menu.Item> 
+      <span className="menu-item-text">3rd menu item</span>
     </Menu.Item>
   </Menu>
 );
@@ -68,7 +63,7 @@ const columns01 = ({removeSelectedItem} : any) => [
   {
     key: 'action',
     textAlign: 'right',
-    render: (text : any, record : any) => <a onClick={() => removeSelectedItem(record.key)}><img src="/Icons/icon-16.svg" alt=""/></a>,
+    render: (text : any, record : any) => <span style={{cursor: 'pointer'}} onClick={() => removeSelectedItem(record.key)}><img src="/Icons/icon-16.svg" alt=""/></span>,
   },
 ];
 
@@ -106,13 +101,7 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
   {
     key: '1',
     Component: 'Additional Cost',
-    Jurisdiction: <div id="additional-cost">
-      <Dropdown overlay={menu} trigger={['click']} getPopupContainer={() => document.getElementById("additional-cost" ) as HTMLElement}>
-        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-          {/* 20% <img src="/Icons/icon-12.svg" alt=""/> */}
-        </a>
-      </Dropdown>
-    </div> ,
+    Jurisdiction: <></>,
     Cost: <><span>$</span><input id="additionalCost" value={numberWithCommas(total.additional.additionalCost)} onChange={(e) => updateCostsDescription(e)} className="input-span" style={{width: 80}} /></>,
     StudyName: <Input id='additionalCostDescription' placeholder="Enter Description" onChange={(e) => updateCostsDescription(e)} />,
   },
@@ -121,9 +110,9 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
     Component: 'Overhead Cost',
     Jurisdiction:  <div id="overhead-cost">
       <Dropdown overlay={menu} trigger={['click']} getPopupContainer={() => document.getElementById("overhead-cost" ) as HTMLElement}>
-        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+        <span className="ant-dropdown-link" style={{cursor: 'pointer', color: '#11093c'}}>
           20%<img src="/Icons/icon-12.svg" alt=""/>
-        </a>
+        </span>
       </Dropdown>
     </div>,
     Cost: <span>${numberWithCommas(total.overhead.overheadCost)}</span>,
@@ -139,7 +128,6 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
   },
 ];
 
-const footer = FOOTER_PROJECT_CAPITAL;
 const validationSchema = VALIDATION_PROJECT_CAPITAL;
 
 const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNewCapitalForm, polygonRef } : any) => {
@@ -151,7 +139,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   const [mainImage, setMainImage] = useState([]);
   const [listFiles, setListFiles] = useState([]);
 
-  useEffect(() => {
+  useCallbackEffect(() => {
     const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
       return {...item, key: item.componentId, howCost: '$'+numberWithCommas(item.howCost)}
     });

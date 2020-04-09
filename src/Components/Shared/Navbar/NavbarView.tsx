@@ -54,11 +54,7 @@ export default () => {
   }
   const menu = (
     <Menu>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" onClick={logout}>
-          Logout
-        </a>
-      </Menu.Item>
+      <Menu.Item onClick={logout}>Logout</Menu.Item>
     </Menu>
   );
 
@@ -81,7 +77,7 @@ export default () => {
       <Menu.Item><img src="/Icons/icon-26.svg" alt="" /></Menu.Item>
       <label className="ll-0"></label>
       <Dropdown overlay={menu}>
-        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+        <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()}>
           <label className="ll-00">{initialName}</label> {name} <Icon type="caret-down" />
         </a>
       </Dropdown>

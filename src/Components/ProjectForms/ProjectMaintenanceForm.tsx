@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Dropdown, Button, Switch, Input, Upload, Form } from 'antd';
 
-import { FRECUENCY, MAINTENANCE_ELIGIBILITY, RECURRENCE, PROJECT_MAINTENANCE_DEBRIS, PROJECT_MAINTENANCE_VEGETATION, PROJECT_MAINTENANCE_SEDIMENT, PROJECT_MAINTENANCE_MINOR_REPAIR, PROJECT_MAINTENANCE_RESTORATION, TASK } from "../../constants/constants";
+import { FRECUENCY, MAINTENANCE_ELIGIBILITY, RECURRENCE, PROJECT_MAINTENANCE_DEBRIS, PROJECT_MAINTENANCE_VEGETATION, PROJECT_MAINTENANCE_SEDIMENT, PROJECT_MAINTENANCE_MINOR_REPAIR, PROJECT_MAINTENANCE_RESTORATION } from "../../constants/constants";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import { useLocation } from "react-router-dom";
 import { useFormik } from "formik";

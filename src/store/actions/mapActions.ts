@@ -60,14 +60,14 @@ export const saveNewStudyForm = (data: any) => {
         const coordinates = state.map.newProject.coordinates;
 
         if(coordinates.length) {
-            const dataForm : any = new FormData;
+            const dataForm : any = new FormData();
             for (const key in data) {
                 dataForm.append(key, '' + data[key]); 
             }
             
             dataForm.append('jurisdiction', county);
             dataForm.append('coordinates', JSON.stringify(coordinates));
-            const result = datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
+            datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
                 if (res?._id) {
                     dispatch(setRouteRedirect(true));
                 }
@@ -86,7 +86,7 @@ export const createNewProjectForm = (data: any, files: Array<any>) => {
         const coordinates = state.map.newProject.coordinates;
 
         if(coordinates.length) {
-            const dataForm : any = new FormData;
+            const dataForm : any = new FormData();
             for (const key in data) {
                 dataForm.append(key, '' + data[key]); 
             }
@@ -98,7 +98,7 @@ export const createNewProjectForm = (data: any, files: Array<any>) => {
                 }
             }
 
-            const result = datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
+            datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
                 if (res?._id) {
                     dispatch(setRouteRedirect(true));
                 }

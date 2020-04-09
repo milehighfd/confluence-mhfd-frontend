@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Layout, Row, Col, Form, Button, } from 'antd';
-import { Carousel } from 'antd';
 import { useFormik } from "formik";
 import * as datasets from "../../Config/datasets"
 import { SERVER } from "../../Config/Server.config";
@@ -33,7 +32,7 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
     },
     validationSchema,
     onSubmit(values: {email: string, password: string, recaptcha: string}) {
-      const result = datasets.postData(SERVER.LOGIN, values).then(res => {
+      datasets.postData(SERVER.LOGIN, values).then(res => {
         if(res?.token) {
           const auxMessage = {...message};
           auxMessage.message = 'Successful Connection';

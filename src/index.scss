@@ -875,6 +875,16 @@ body{
       color: $purple00;
     }
   }
+
+  .user-filter-items-text {
+    font-size: 14px;
+    color: $purple00;
+  }
+
+  .user-filter-items-text:hover {
+    color: $purple;
+    font-weight: 500;
+  }
 }
 
 .sign-menu-organization {
@@ -914,6 +924,11 @@ body{
   }
   a:hover {
     color: $purple00;
+  }
+  .span-header {
+    color: $purple00;
+    font-size: 22px;
+    cursor: pointer;
   }
   button{
     background: transparent;

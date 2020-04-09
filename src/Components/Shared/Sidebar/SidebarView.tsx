@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Layout, Menu } from 'antd';
 import { Link, useLocation } from "react-router-dom";
-import { User } from "../../../Classes/TypeList";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "../../../constants/constants";
 const {  Sider } = Layout;

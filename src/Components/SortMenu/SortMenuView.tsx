@@ -2,21 +2,17 @@ import * as React from "react";
 import { Menu } from "antd";
 
 export default () => {
-    return <Menu className="js-mm-00">
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="">
-                1st menu item
-      </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="">
-                2nd menu item
-      </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="">
-                3rd menu item
-      </a>
-        </Menu.Item>
+  return (
+    <Menu className="js-mm-00 no-links-dropdown">
+      <Menu.Item>
+        <span className="menu-item-text">1st menu item</span>
+      </Menu.Item>
+      <Menu.Item>
+        <span className="menu-item-text">2nd menu item</span>
+      </Menu.Item>
+      <Menu.Item>
+        <span className="menu-item-text">3rd menu item</span>
+      </Menu.Item>
     </Menu>
+  );
 }

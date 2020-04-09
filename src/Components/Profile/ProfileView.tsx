@@ -95,7 +95,6 @@ const columns01 = [
   },
 ];
 
-const pagination = { position: 'none' };
 const data01 = [
   {
     key: '1',

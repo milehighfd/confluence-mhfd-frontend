@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Row, Col, Dropdown, Button, Tabs, Input } from 'antd';
 
 import SortMenuView from "../SortMenu/SortMenuView";
@@ -8,6 +8,7 @@ import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes } from "../../Classes/MapTypes";
+import useCallbackEffect from "../../hooks/useCallbackEffect";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
@@ -55,12 +56,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('0');
 
-  useEffect(() => {
+  useCallbackEffect(() => {
     getProjectWithFilters();
   }, []);
 
-  useEffect(() => {
-    if(filters) setCurrentFilters(filters);
+  useCallbackEffect(() => {
+    if (filters) {
+      setCurrentFilters(filters);
+    }
   }, [filters]);
 
   const handleOnSearch = (data : string) => {
@@ -87,7 +90,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     const values : Array<{ key: string, value: string }> = [];
     for (const key in filtersData) {
       if(Array.isArray(filtersData[key])) {
-        (filtersData[key] as Array<string>).map((value : string) => {
+        (filtersData[key] as Array<string>).forEach((value : string) => {
           values.push({
             key: key,
             value: value
@@ -115,9 +118,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       <Row className="head-m">
         <Col span={12} id="westminter">
           <Dropdown trigger={['click']} overlay={SortMenuView} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
-            <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            <span className="ant-dropdown-link span-header">
               Westminter, CO <img src="/Icons/icon-12.svg" alt="" />
-            </a>
+            </span>
           </Dropdown>
         </Col>
         <Col style={{ textAlign: 'right' }} span={12}>
@@ -150,9 +153,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           </Col>
           <Col style={{ textAlign: 'right' }} span={8} id="sort-map">
             <Dropdown trigger={['click']} overlay={SortMenuView} getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
-              <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+              <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
                 Sort by Cost <img src="/Icons/icon-14.svg" alt="" />
-              </a>
+              </span>
             </Dropdown>
             <Button onClick={handleToggle}>
               <img src="/Icons/icon-29.svg" alt="" /> Filters ({filterNames.length})

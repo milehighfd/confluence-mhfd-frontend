@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Result, Button } from 'antd';
 import { getToken } from '../../Config/datasets'
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import store from "../../store";
+
 export default () => {
     const [redirect, setRedirect] = useState<boolean>(false);
-    const [second, setSecond] = useState<number>(10);
+    const [second, ] = useState<number>(10);
     const user = store.getState().appUser;
     useEffect(() => {
         const timer = setTimeout(() => {

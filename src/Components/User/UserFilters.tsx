@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown, Button, Input, Menu } from 'antd';
-import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, JURISDICTION, ROLE, RADIO_ITEMS } from "../../constants/constants";
+import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, JURISDICTION, RADIO_ITEMS } from "../../constants/constants";
 import { OptionsFiltersUser } from '../../Classes/TypeList';
 
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation'];
@@ -26,15 +26,15 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
         search(auxOption);
       }}>
       {defaultValue ? <Menu.Item key="all">
-        <a target="_blank" rel="noopener noreferrer">
+        <span className="user-filter-items-text">
           {defaultValue} - All
-          </a>
+          </span>
       </Menu.Item> : ''}
       {list.map((element: string, index: number) => {
         return <Menu.Item key={index}>
-          <a target="_blank" rel="noopener noreferrer">
+          <span className="user-filter-items-text">
             {element}
-          </a>
+          </span>
         </Menu.Item>
       })}
     </Menu>
