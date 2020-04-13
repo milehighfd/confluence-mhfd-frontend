@@ -28,6 +28,7 @@ import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenance
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 
 function App({ replaceAppUser }: any) {
+
   const appUser = store.getState().appUser;
   if(datasets.getToken() && appUser.email === '') {
     datasets.getData(SERVER.ME, datasets.getToken()).then(res => {

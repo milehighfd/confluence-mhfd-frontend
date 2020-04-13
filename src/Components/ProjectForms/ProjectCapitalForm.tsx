@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 
@@ -11,7 +11,9 @@ import { NEW_PROJECT_FORM_COST, GOAL, REQUEST_FUNDING_YEAR } from "../../constan
 import { ComponentType } from "../../Classes/MapTypes";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
-import useCallbackEffect from "../../hooks/useCallbackEffect";
+
+/* line to remove useEffect dependencies warning */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
@@ -139,7 +141,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
   const [mainImage, setMainImage] = useState([]);
   const [listFiles, setListFiles] = useState([]);
 
-  useCallbackEffect(() => {
+  useEffect(() => {
     const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
       return {...item, key: item.componentId, howCost: '$'+numberWithCommas(item.howCost)}
     });

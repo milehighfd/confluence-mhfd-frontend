@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Dropdown, Button, Input, Table, Form } from 'antd';
 import mapFormContainer from "../../hoc/mapFormContainer";
 import { NEW_PROJECT_FORM_COST, GOAL_STUDY, REQUEST_START_YEAR, PROJECT_STUDY_MASTER, PROJECT_STUDY_FHAD } from "../../constants/constants";
@@ -8,7 +8,9 @@ import { useLocation } from "react-router-dom";
 import { VALIDATION_PROJECT_MASTER_PLAN_ONLY, VALIDATION_PROJECT_FHAD } from "../../constants/validation";
 import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuView";
 import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
-import useCallbackEffect from "../../hooks/useCallbackEffect";
+
+/* line to remove useEffect dependencies warning */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 const columns01 = ({removeSelectedItem} : any) => [
   {
@@ -49,7 +51,7 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
   const [formatSelectedItems, setFormatSelectedItems] = useState([]);
   const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
 
-  useCallbackEffect(() => {
+  useEffect(() => {
     const selectedItemsCopy = selectedItems.map((item : ComponentType) => {
       return {...item, key: item.componentId, howCost: '$'+numberWithCommas(item.howCost)}
     });

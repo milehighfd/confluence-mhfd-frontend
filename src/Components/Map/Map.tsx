@@ -20,7 +20,6 @@ import { MAP_DROPDOWN_ITEMS,
         DENVER_LOCATION,
         SELECT_ALL_FILTERS } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
-import useCallbackEffect from '../../hooks/useCallbackEffect';
 
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -29,6 +28,9 @@ let map : any = null;
 let popup = new mapboxgl.Popup();
 // const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
+
+/* line to remove useEffect dependencies warning */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 const Map = ({ leftWidth,
             layers,
@@ -51,7 +53,7 @@ const Map = ({ leftWidth,
     const [selectedLayers, setSelectedLayers] = useState<Array<string>>([]);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
 
-    useCallbackEffect(() => {
+    useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
@@ -109,7 +111,7 @@ const Map = ({ leftWidth,
         }
     }, []);
 
-    useCallbackEffect(() => {
+    useEffect(() => {
         map.setStyle(dropdownItems.items[dropdownItems.default].style);
     }, [dropdownItems.items[dropdownItems.default].style]);
 
@@ -117,11 +119,11 @@ const Map = ({ leftWidth,
         map.resize();
     }, [leftWidth]);
 
-    useCallbackEffect(() => {
+    useEffect(() => {
         paintSelectedComponents(selectedItems);
     }, [selectedItems]);
 
-    useCallbackEffect(() => {
+    useEffect(() => {
         if (map.isStyleLoaded()) {
             drawConstants.forEach((item : string) => {
                 drawItemsInMap(item);
@@ -131,7 +133,7 @@ const Map = ({ leftWidth,
         addMapListeners();
     }, [projects]);
 
-    useCallbackEffect(() => {
+    useEffect(() => {
         selectedLayers.forEach((layer : string) => getMapTables(layer));
     }, [selectedLayers]);
 

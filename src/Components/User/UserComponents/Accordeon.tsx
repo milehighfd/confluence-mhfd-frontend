@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form } from 'antd';
 import { useFormik } from 'formik';
 
@@ -11,8 +11,9 @@ import MenuAreaView from './MenuAreaView';
 import MenuOrganizationView from './MenuOrganizationView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
-import useCallbackEffect from '../../../hooks/useCallbackEffect';
 
+/* line to remove useEffect dependencies warning */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, saveUser: Function, deleteUser: Function}) => {
   const validationSchema = VALIDATION_USER;
@@ -29,7 +30,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
   const [activated, setActivated] = useState(0);
   const [messageError, setMessageError] = useState({message: '', color: '#28C499'});
 
-  useCallbackEffect(() => {
+  useEffect(() => {
     const auxUser = { ...user };
     setInitialValues(auxUser);
     values._id = user._id;

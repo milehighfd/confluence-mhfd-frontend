@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Dropdown, Button, Tabs, Input } from 'antd';
 
 import SortMenuView from "../SortMenu/SortMenuView";
@@ -8,9 +8,11 @@ import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes } from "../../Classes/MapTypes";
-import useCallbackEffect from "../../hooks/useCallbackEffect";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
+
+/* line to remove useEffect dependencies warning */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -56,11 +58,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('0');
 
-  useCallbackEffect(() => {
+  useEffect(() => {
     getProjectWithFilters();
   }, []);
 
-  useCallbackEffect(() => {
+  useEffect(() => {
     if (filters) {
       setCurrentFilters(filters);
     }

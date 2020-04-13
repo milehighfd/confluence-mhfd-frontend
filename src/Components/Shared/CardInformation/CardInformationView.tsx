@@ -1,8 +1,20 @@
 import * as React from "react";
 import { Col, Card } from "antd";
+import { ComponentType } from "../../../Classes/MapTypes";
 
 export default ({ data, type, numberWithCommas }: { data: any, type: string, numberWithCommas: Function}) => {
     
+    const getComponentSizes = (components : Array<ComponentType>) => {
+        if (components && components.length) {
+            let sideText = ' Components';
+            if (components.length === 1) {
+                sideText = sideText.slice(0, -1);
+            } 
+            return components.length + sideText;
+        } else {
+            return '';
+        }
+    }
 
     return <Col span={8}>
         <Card
@@ -16,8 +28,8 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
             <div style={{height: 40}}>
                 <h4>{data.requestName}</h4>
             </div>
-            <h6>{data.jurisdiction?data.jurisdiction:'No County'}</h6>
-            <h5>${numberWithCommas(data.finalCost?data.finalCost:data.estimatedCost)} <span style={{ float: 'right' }}><b>{ data.components ? (data.components.length ? data.components.length + ' Components' : '') : '' }</b> </span></h5>
+            <h6>{data.county?data.county:'No County'}</h6>
+            <h5>${numberWithCommas(data.finalCost?data.finalCost:data.estimatedCost)} <span style={{ float: 'right' }}><b>{getComponentSizes(data.components)}</b> </span></h5>
             <hr />
             {type === 'Problems' ? (
                 <div style={{ display: 'flex', width: '100%' }}>

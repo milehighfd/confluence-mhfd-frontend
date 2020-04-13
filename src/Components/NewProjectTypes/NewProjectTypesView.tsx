@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Row, Col, Input, Button, } from 'antd';
 import NavbarView from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import { Redirect } from "react-router-dom";
 import ButtonProjectTypesView from "./ButtonProjectTypes/ButtonProjectTypesView";
-import { buttonsNewProject } from "../../constants/constants"
-import useCallbackEffect from "../../hooks/useCallbackEffect";
-
+import { buttonsNewProject } from "../../constants/constants";
 
 export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, clearCoordinates : Function}) => {
   const [arrow, setArrow] = useState<boolean>(false);
@@ -16,11 +14,11 @@ export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, cl
   const [create, setCreate] = useState(buttonsNewProject);
   const [title, setTitle] = useState('new');
 
-  useCallbackEffect(() => {
+  useEffect(() => {
     if (coordinates.length) {
       clearCoordinates();
     }
-  }, []);
+  }, [clearCoordinates, coordinates]);
 
   if(redirect) {
     return <Redirect to={route + "/" + nameProject} />

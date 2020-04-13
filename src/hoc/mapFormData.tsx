@@ -9,7 +9,6 @@ import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message } from 'antd';
 import { MapHOCProps, ProjectTypes, LayerHOCTypes } from '../Classes/MapTypes';
-import useCallbackEffect from '../hooks/useCallbackEffect';
 
 export default function (WrappedComponent : any, layers : LayerHOCTypes) {
     return ({ problems, 
@@ -44,12 +43,12 @@ export default function (WrappedComponent : any, layers : LayerHOCTypes) {
         let markerRef = useRef<HTMLDivElement>(null);
         let polygonRef = useRef<HTMLDivElement>(null);
 
-        useCallbackEffect(() => {
+        useEffect(() => {
           if(error) {
             message.error(error);
             clearErrorMessage();
           }
-        }, [error]);
+        }, [clearErrorMessage, error]);
 
         useEffect(() => {
           const newProjects = projects.filter((project : ProjectTypes) => project.projectType === 'maintenance')
