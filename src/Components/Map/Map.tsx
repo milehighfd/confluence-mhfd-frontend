@@ -46,7 +46,8 @@ const Map = ({ leftWidth,
             saveMarkerCoordinates,
             getMapTables,
             markerRef,
-            polygonRef } : MapProps) => {
+            polygonRef,
+            getPolygonStreams } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
@@ -205,27 +206,34 @@ const Map = ({ leftWidth,
         }
 
         const polygon = draw.getAll().features[0].geometry.coordinates;
-        const polygonCoords = turf.polygon(polygon);
+        const polygonTurfCoords = turf.polygon(polygon);
+        const polygonCoords = polygon[0];
 
-        const { geometry } = turf.centroid(polygonCoords);
-        savePolygonCoordinates(polygon[0]);
+        const { geometry } = turf.centroid(polygonTurfCoords);
+        savePolygonCoordinates(polygonCoords);
         getReverseGeocode(geometry?.coordinates[0], geometry?.coordinates[1], HERE_TOKEN);
 
-        if(layers && layers.components) {
-            const selectedItems : Array<ComponentType> = [];
-            const turfPoints = components.map((point : ComponentType) => turf.point(point.coordinates));
-            const values = turfPoints.map((turfPoint : Feature<Point, Properties>) => turf.inside(turfPoint, polygonCoords));
+        if(layers) {
+            if(layers.components) {
+                const selectedItems : Array<ComponentType> = [];
+                const turfPoints = components.map((point : ComponentType) => turf.point(point.coordinates));
+                const values = turfPoints.map((turfPoint : Feature<Point, Properties>) => turf.inside(turfPoint, polygonTurfCoords));
+    
+                components.forEach((point : ComponentType, index : number) => {
+                    if (values[index]) {
+                        selectedItems.push(point);
+                    }
+                });
+    
+                paintSelectedComponents(selectedItems);
+                setSelectedItems(selectedItems);
+                setIsPolygon(true);
+            } else if (layers.study) {
+                // getPolygonStreams(polygonTurfCoords.geometry);
+                getPolygonStreams(polygonCoords);
+            }
+        } 
 
-            components.forEach((point : ComponentType, index : number) => {
-                if (values[index]) {
-                    selectedItems.push(point);
-                }
-            });
-
-            paintSelectedComponents(selectedItems);
-            setSelectedItems(selectedItems);
-            setIsPolygon(true);
-        }
         /* Get the coords on Drawing */
         // console.log(draw.getAll().features[0].geometry.coordinates);
     }

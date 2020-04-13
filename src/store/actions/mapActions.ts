@@ -140,3 +140,20 @@ export const getMapTables = (trigger : string) => {
         }
     }
 }
+
+export const getPolygonStreams = (coordinates : Array<Array<number>>) => {
+    return (dispatch : Function) => {
+        /* https://postgis.net/docs/ST_GeomFromGeoJSON.html */
+        /* in this particular case uncomment the turf call in Map.tsx (line 232) */
+
+        /* https://postgis.net/docs/ST_GeomFromText.html */
+        let postGisQuery = "'POLYGON((";
+        coordinates.forEach((points : Array<number>) => {
+            points.forEach((point : number) => postGisQuery += (point + ','));
+        });
+        postGisQuery = postGisQuery.slice(0, -1) + "))'";
+
+        // console.log(coordinates);  --> for getting POSTGIS GEOJSON format
+        // console.log(postGisQuery); --> for getting the POSTGIS normal format
+    }
+}

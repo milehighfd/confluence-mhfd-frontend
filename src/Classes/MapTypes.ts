@@ -13,7 +13,8 @@ export type MapProps = {
     saveMarkerCoordinates: Function,
     getMapTables: Function,
     markerRef: React.RefObject<HTMLDivElement>,
-    polygonRef: React.RefObject<HTMLDivElement>
+    polygonRef: React.RefObject<HTMLDivElement>,
+    getPolygonStreams: Function
 }
 
 export type MapHOCProps = {
@@ -38,7 +39,8 @@ export type MapHOCProps = {
     removeFilter: Function,
     getMapTables: Function,
     getDropdownFilters: Function,
-    getUserFilters: Function
+    getUserFilters: Function,
+    getPolygonStreams: Function
 }
 
 export type MapViewTypes = { 
@@ -80,7 +82,8 @@ export type MapLayersType = {
     marker?: boolean,
     polygons?: boolean
     components?:boolean,
-    acquisition?:boolean
+    acquisition?:boolean,
+    study?: boolean
 }
 
 export type TotalType = {
@@ -94,13 +97,6 @@ export type TotalType = {
         overheadCostDescription: string
     }
     total: number
-}
-
-export type LayerHOCTypes = {
-    marker?: boolean,
-    polygons?: boolean,
-    components?: boolean,
-    acquisition?: boolean
 }
 
 export type LayerFilterTypes = {

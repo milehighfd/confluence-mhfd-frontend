@@ -8,9 +8,9 @@ import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../constants/const
 import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message } from 'antd';
-import { MapHOCProps, ProjectTypes, LayerHOCTypes } from '../Classes/MapTypes';
+import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
 
-export default function (WrappedComponent : any, layers : LayerHOCTypes) {
+export default function (WrappedComponent : any, layers : MapLayersType) {
     return ({ problems, 
               projects, 
               components, 
@@ -30,7 +30,8 @@ export default function (WrappedComponent : any, layers : LayerHOCTypes) {
               clearErrorMessage, 
               getProjectWithFilters, 
               removeFilter, 
-              getMapTables, getDropdownFilters, getUserFilters } : MapHOCProps) => {
+              getMapTables, 
+              getDropdownFilters, getUserFilters, getPolygonStreams } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -100,7 +101,8 @@ export default function (WrappedComponent : any, layers : LayerHOCTypes) {
                             saveMarkerCoordinates={saveMarkerCoordinates}
                             getMapTables={getMapTables}
                             markerRef={markerRef}
-                            polygonRef={polygonRef} />
+                            polygonRef={polygonRef}
+                            getPolygonStreams={getPolygonStreams} />
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

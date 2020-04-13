@@ -155,4 +155,9 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
     </div>
   </>
 }
-export default mapFormContainer(ProjectStudyForm, null);
+
+const layers = {
+  study: true
+}
+
+export default mapFormContainer(ProjectStudyForm, layers);
