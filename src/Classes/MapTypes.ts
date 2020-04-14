@@ -54,6 +54,22 @@ export type MapViewTypes = {
     getUserFilters: Function
 }
 
+export type CapitalTypes = {
+    selectedItems: Array<ComponentType>, 
+    isPolygon: boolean, 
+    setSelectedItems: Function, 
+    saveNewCapitalForm: Function, 
+    polygonRef: React.RefObject<HTMLDivElement>
+}
+
+export type StudyTypes = {
+    selectedItems : Array<ComponentType>, 
+    setSelectedItems: Function, 
+    saveNewStudyForm: Function, 
+    polygonRef: React.RefObject<HTMLDivElement>, 
+    isPolygon: boolean
+}
+
 export type ProblemTypes = {
     problemId: string
     problemName: string,
@@ -64,7 +80,7 @@ export type ProblemTypes = {
 }
 
 export type ProjectTypes = {
-    [key: string]: string | Array<string>
+    [key: string]: string | Array<string> | number
 }
 
 export type ComponentType = {
@@ -72,6 +88,18 @@ export type ComponentType = {
     componentName: string,
     jurisdiction: string,
     howCost: number,
+    status: string,
+    mitigationType: string,
+    studyName: string,
+    coordinates: Array<number>
+}
+
+export type ComponentCopyType = {
+    key: string,
+    componentId: string,
+    componentName: string,
+    jurisdiction: string,
+    howCost: string,
     status: string,
     mitigationType: string,
     studyName: string,

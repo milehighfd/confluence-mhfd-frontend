@@ -8,7 +8,7 @@ import DropdownMenuView from "../../Components/Shared/Project/DropdownMenu/MenuV
 import { VALIDATION_PROJECT_CAPITAL } from "../../constants/validation";
 import { NEW_PROJECT_FORM_COST, GOAL, REQUEST_FUNDING_YEAR } from "../../constants/constants";
 
-import { ComponentType } from "../../Classes/MapTypes";
+import { ComponentType, CapitalTypes, ComponentCopyType, TotalType } from "../../Classes/MapTypes";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 
@@ -36,7 +36,7 @@ const menu = (
   </Menu>
 );
 
-const columns01 = ({removeSelectedItem} : any) => [
+const columns01 = ({ removeSelectedItem } : { removeSelectedItem : Function}) => [
   {
     title: 'Component',
     dataIndex: 'componentName',
@@ -69,7 +69,7 @@ const columns01 = ({removeSelectedItem} : any) => [
   },
 ];
 
-const columns02 = ({ total, numberWithCommas } : any) => [
+const columns02 = ({ total, numberWithCommas } : { total : TotalType, numberWithCommas : Function}) => [
   {
     title: 'SUBTOTAL COST',
     dataIndex: 'Component',
@@ -99,7 +99,7 @@ const columns02 = ({ total, numberWithCommas } : any) => [
   },
 ];
 
-const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
+const data02 = ({ total, numberWithCommas, updateCostsDescription } : { total : TotalType, numberWithCommas : Function, updateCostsDescription : Function }) => [
   {
     key: '1',
     Component: 'Additional Cost',
@@ -132,11 +132,11 @@ const data02 = ({total, numberWithCommas, updateCostsDescription } : any) => [
 
 const validationSchema = VALIDATION_PROJECT_CAPITAL;
 
-const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNewCapitalForm, polygonRef } : any) => {
+const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNewCapitalForm, polygonRef } : CapitalTypes) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const [title, setTitle] = useState('');
-  const [formatSelectedItems, setFormatSelectedItems] = useState<Array<[]>>([]);
+  const [formatSelectedItems, setFormatSelectedItems] = useState<Array<ComponentCopyType>>([]);
   const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
   const [mainImage, setMainImage] = useState([]);
   const [listFiles, setListFiles] = useState([]);
@@ -184,7 +184,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
 
   const removeSelectedItem = (key : string) => {
     const items = [...selectedItems];
-    const index = items.findIndex((item : any) => item.componentId === key);
+    const index = items.findIndex((item : ComponentType) => item.componentId === key);
     items.splice(index, 1);
     setSelectedItems(items);
   }
@@ -193,7 +193,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  const updateCostsDescription = (event : any) => {
+  const updateCostsDescription = (event : React.ChangeEvent<HTMLInputElement>) => {
     if(event.target.id === 'additionalCostDescription') {
       const additional = {...total.additional, [event.target.id]: event.target.value}
       setTotal({...total, additional});

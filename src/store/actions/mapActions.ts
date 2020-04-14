@@ -3,9 +3,10 @@ import * as types from '../types/mapTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
-import { TotalType } from '../../Classes/MapTypes';
+import { TotalType, ProjectTypes } from '../../Classes/MapTypes';
+import { ComponentType } from 'react';
 
-export const getReverseGeocode = (lat : any, lng : any, accessToken : string) => {
+export const getReverseGeocode = (lat : number, lng : number, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/
     return (dispatch : Function) => {
         const url = "https://revgeocode.search.hereapi.com/v1/revgeocode?at=" + lng + "%2C" + lat + "&apiKey=" + accessToken;
@@ -33,10 +34,10 @@ export const saveMarkerCoordinates = (marker : Array<[]>) => {
     }
 }
 
-export const saveNewCapitalForm = (data : Object, components: Array<Object>, total: TotalType, files: Array<[]>) => {
+export const saveNewCapitalForm = (data : ProjectTypes, components: Array<ComponentType>, total: TotalType, files: Array<[]>) => {
     return (dispatch : Function) => {
         if(components.length) {
-            const newProject = {
+            const newProject : ProjectTypes = {
                 ...data,
                 finalCost: total ? total.total : 0, 
                 additionalCost: total ? total.additional?.additionalCost : 0, 
@@ -53,14 +54,14 @@ export const saveNewCapitalForm = (data : Object, components: Array<Object>, tot
     }
 }
 
-export const saveNewStudyForm = (data: any) => {
+export const saveNewStudyForm = (data: ProjectTypes) => {
     return (dispatch : Function, getState : Function) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
         const coordinates = state.map.newProject.coordinates;
 
         if(coordinates.length) {
-            const dataForm : any = new FormData();
+            const dataForm : FormData = new FormData();
             for (const key in data) {
                 dataForm.append(key, '' + data[key]); 
             }
@@ -79,14 +80,14 @@ export const saveNewStudyForm = (data: any) => {
     }
 }
 
-export const createNewProjectForm = (data: any, files: Array<any>) => {
+export const createNewProjectForm = (data: ProjectTypes, files: Array<any>) => {
     return (dispatch : Function, getState : Function) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
         const coordinates = state.map.newProject.coordinates;
 
         if(coordinates.length) {
-            const dataForm : any = new FormData();
+            const dataForm : FormData = new FormData();
             for (const key in data) {
                 dataForm.append(key, '' + data[key]); 
             }

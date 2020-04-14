@@ -13,7 +13,7 @@ import TasksOrActivitiesView from "../Shared/Project/DropdownMenu/TasksOrActivit
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
-const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNewProjectForm: Function, polygonRef: any }) => {
+const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNewProjectForm: Function, polygonRef: React.RefObject<HTMLDivElement> }) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const validationSchema = cad[2] === 'debrisManagement' ? VALIDATION_PROJECT_DEBRIS : cad[2] === 'vegetationManagement' ? VALIDATION_PROJECT_VEGETATION :

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Dropdown, Button, Input, Table, Form } from 'antd';
 import mapFormContainer from "../../hoc/mapFormContainer";
 import { NEW_PROJECT_FORM_COST, GOAL_STUDY, REQUEST_START_YEAR, PROJECT_STUDY_MASTER, PROJECT_STUDY_FHAD } from "../../constants/constants";
-import { ComponentType } from "../../Classes/MapTypes";
+import { ComponentType, StudyTypes, ComponentCopyType } from "../../Classes/MapTypes";
 import { useFormik } from "formik";
 import { useLocation } from "react-router-dom";
 import { VALIDATION_PROJECT_MASTER_PLAN_ONLY, VALIDATION_PROJECT_FHAD } from "../../constants/validation";
@@ -12,7 +12,7 @@ import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-const columns01 = ({removeSelectedItem} : any) => [
+const columns01 = ({ removeSelectedItem } : { removeSelectedItem : Function}) => [
   {
     title: 'Stream Name',
     dataIndex: 'componentName',
@@ -40,15 +40,16 @@ const columns01 = ({removeSelectedItem} : any) => [
 
 
 
-const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, polygonRef }: {selectedItems : any, setSelectedItems: Function, saveNewStudyForm: Function, polygonRef: any}) => {
+const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, polygonRef, isPolygon } : StudyTypes) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
   const validationSchema = cad[2] === 'masterPlan' ? VALIDATION_PROJECT_MASTER_PLAN_ONLY : VALIDATION_PROJECT_FHAD;
   const initialValues = cad[2] === 'masterPlan' ? PROJECT_STUDY_MASTER : PROJECT_STUDY_FHAD;
   initialValues.requestName = cad[3];
   initialValues.projectSubtype = cad[2];
+
   const [title, setTitle] = useState<string>('');
-  const [formatSelectedItems, setFormatSelectedItems] = useState([]);
+  const [formatSelectedItems, setFormatSelectedItems] = useState<Array<ComponentCopyType>>([]);
   const [total, setTotal] = useState(NEW_PROJECT_FORM_COST);
 
   useEffect(() => {
@@ -76,6 +77,12 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
   const numberWithCommas = (x : number) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
+  const getPolygonButton = () => {
+    const btn = polygonRef.current?.getElementsByTagName("button")[0];
+    btn?.click();
+  }
+
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues,
     validationSchema,
@@ -101,9 +108,16 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
         </div>
         <span>Total Estimated Cost: ${numberWithCommas(total.total)}</span>
       </div>
-      <div className="table-create-pro">
-        <Table columns={columns01({ removeSelectedItem })} dataSource={formatSelectedItems} pagination={false} />
-      </div>
+      {!isPolygon ? 
+        <div className="head-m draw-section">
+          <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt="" /></button>
+          <h6>Click on the icon above and draw a polygon to select streams</h6>
+        </div>
+        :
+        <div className="table-create-pro">
+          <Table columns={columns01({ removeSelectedItem })} dataSource={formatSelectedItems} pagination={false} />
+        </div>
+      }
 
       <Form onSubmit={handleSubmit}>
         <div className="gutter-example user-tab all-npf">

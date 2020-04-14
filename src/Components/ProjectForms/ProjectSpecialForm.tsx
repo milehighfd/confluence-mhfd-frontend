@@ -10,7 +10,7 @@ import ProjectsHeader from "../Shared/ProjectsHeader/ProjectsHeader";
 const validationSchema = VALIDATION_PROJECT_SPECIAL;
 const { TextArea } = Input;
 
-const ProjectSpecialForm = ({ createNewProjectForm, markerRef } : any) => {
+const ProjectSpecialForm = ({ createNewProjectForm, markerRef } : { createNewProjectForm : Function, markerRef: React.RefObject<HTMLButtonElement> }) => {
   const location = useLocation();
   const cad = location.pathname.split('/');
 
