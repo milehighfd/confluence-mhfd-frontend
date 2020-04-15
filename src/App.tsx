@@ -13,7 +13,6 @@ import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
 import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
 import WorkPlanContainer from './Components/WorkPlan/WorkPlanContainer';
-import WorkRequestContainer from './Components/WorkRequest/WorkRequestContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
@@ -26,6 +25,7 @@ import ProjectAcquisitionForm from './Components/ProjectForms/ProjectAcquisition
 import MapView from './Components/Map/MapView';
 import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenanceForm';
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
+import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 
 function App({ replaceAppUser }: any) {
 
@@ -79,7 +79,7 @@ function App({ replaceAppUser }: any) {
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && appUser.activated && <Route path={`/work-plan`} component={WorkPlanContainer} />}
       {(appUser.designation === 'government_admin' ||
-        appUser.designation === 'government_staff') && appUser.activated && <Route path={`/work-request`} component={WorkRequestContainer} />}
+        appUser.designation === 'government_staff') && appUser.activated && <Route path={`/work-request`} component={WorkRequestView} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/detailed-view`} component={DetailedContainer} />}
       <Route path={`/`} component={Unauthorized} />
   </Switch>

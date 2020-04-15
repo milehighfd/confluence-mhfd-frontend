@@ -802,6 +802,24 @@ export const DROPDOWN_PROJECT_FILTERS = [
 
 /* End of Filter Constants */
 
+
+
+
+
+/* Draft Panel Constants */
+
+const actualYear = new Date().getFullYear();
+export const DEFAULT_HEADERS = [actualYear, actualYear + 1, actualYear + 2, actualYear + 3];
+export const MAINTENANCE_HEADERS = ['DEBRIS', 'VEGETATION', 'SEDIMENT', 'MINOR REPAIRS', 'RESTORATION'];
+export const SPECIAL_HEADERS = [actualYear, actualYear + 1];
+
+/* End of Draft Panel Constants */
+
+
+
+
+
+
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11
     mapbox://styles/mapbox/outdoors-v11
