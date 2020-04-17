@@ -42,7 +42,7 @@ export type MapHOCProps = {
     getDropdownFilters: Function,
     getUserFilters: Function,
     getPolygonStreams: Function,
-    moveDraftCard: Function
+    saveDraftCard: Function
 }
 
 export type MapViewTypes = { 

@@ -33,7 +33,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               removeFilter, 
               getMapTables, 
               getDropdownFilters, 
-              getUserFilters, getPolygonStreams, moveDraftCard } : MapHOCProps) => {
+              getUserFilters, getPolygonStreams, saveDraftCard } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -122,7 +122,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getDropdownFilters={getDropdownFilters}
                             filters={filters}
                             panel={panel}
-                            moveDraftCard={moveDraftCard}
+                            saveDraftCard={saveDraftCard}
                             dropdowns={dropdowns}
                             userFiltered={userFiltered}
                             getUserFilters={getUserFilters}

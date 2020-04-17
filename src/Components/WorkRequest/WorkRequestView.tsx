@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Tabs, Input } from 'antd';
 
 import mapFormContainer from "../../hoc/mapFormContainer";
@@ -18,9 +18,16 @@ const getTabHeaders = (tabName : string) => {
   return header;
 }
 
-export const WorkRequest = ({ panel, moveDraftCard } : { panel : Array<ProjectTypes>, moveDraftCard : Function}) => {
+export const WorkRequest = ({ panel, saveDraftCard } : { panel : ProjectTypes, saveDraftCard : Function}) => {
   const [visible, setVisible] = useState(false);
+  const [panelState, setPanelState] = useState({});
   const [tabPosition, setTabPosition] = useState("0");
+
+  useEffect(() => {
+    if (panel && panel.workspace) {
+      setPanelState(panel);
+    }
+  }, [panel]);
 
   return <>
     <Chat visible={visible} setVisible={setVisible} />
@@ -39,7 +46,7 @@ export const WorkRequest = ({ panel, moveDraftCard } : { panel : Array<ProjectTy
           const header = getTabHeaders(tabName);
           return (
             <TabPane tab={tabName} key={'' + index}>
-              <DraftPanel panel={panel} headers={header} moveDraftCard={moveDraftCard} />
+              <DraftPanel panelState={panelState} setPanelState={setPanelState} headers={header} />
             </TabPane>
           );
         })}
@@ -66,7 +73,7 @@ export const WorkRequest = ({ panel, moveDraftCard } : { panel : Array<ProjectTy
         </Row>
         <Row style={{ padding: '0px 20px' }}>
           <Col span={24} style={{ textAlign: 'right' }}>
-            <Button>Submit to Admin</Button>
+            <Button onClick={() => saveDraftCard(panelState)}>Submit to Admin</Button>
           </Col>
         </Row>
       </div>

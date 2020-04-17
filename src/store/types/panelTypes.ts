@@ -1,1 +1,1 @@
-export const DRAFT_EXAMPLE = 'DRAFT_EXAMPLE';
+export const SAVE_DRAFT_PANEL = 'SAVE_DRAFT_PANEL';

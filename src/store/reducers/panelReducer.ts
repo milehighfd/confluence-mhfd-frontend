@@ -1,3 +1,5 @@
+import * as types from '../types/panelTypes';
+
 const initState = {
   projects: {
     workspace: [
@@ -47,8 +49,13 @@ const initState = {
 
 const panelReducer = (state = initState, action : any) => {
   switch(action.type) {
-      default: 
-          return state;
+    case types.SAVE_DRAFT_PANEL: 
+      return {
+        ...state,
+        projects: action.projects
+      }
+    default: 
+        return state;
   }
 }
 

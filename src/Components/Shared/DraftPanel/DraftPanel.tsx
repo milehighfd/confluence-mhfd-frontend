@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Dropdown, Menu } from 'antd';
 
-import { ReactSortable } from 'react-sortablejs';
+import { ReactSortable, ItemInterface } from 'react-sortablejs';
 import { ProjectTypes } from '../../../Classes/MapTypes';
 
-const menu = (
+const cardOptions = ({ index, header, handleCardDelete } : { index : number, header : string, handleCardDelete : Function }) => (
   <Menu className="menu-card">
     <Menu.Item style={{borderBottom: '1px solid rgba(61, 46, 138, 0.07)'}}>
       <span className="menu-card-item">
@@ -16,7 +16,7 @@ const menu = (
         Copy
       </span>
     </Menu.Item>
-    <Menu.Item>
+    <Menu.Item onClick={() => handleCardDelete(index, header)}>
       <span className="menu-card-item" style={{color: 'red'}}>
         Delete
       </span>
@@ -24,26 +24,15 @@ const menu = (
   </Menu>
 );
 
-export default ({ headers, panel, moveDraftCard } : { headers : Array<string | number>, panel : any, moveDraftCard : Function }) => {
+
+export default ({ headers, panelState, setPanelState } : { headers : Array<string>, panelState : any, setPanelState : Function }) => {
   const [dragged, setDragged] = useState({ id: '', parent: '' });
   const [isDragging, setIsDragging] = useState(false);
   const [containerClass, setContainerClass] = useState('col-wr');
-  const [panelState, setPanelState] = useState<any>({});
-
-  useEffect(() => {
-    if (panel && panel.workspace) {
-      setPanelState(panel);
-    }
-  }, [panel]);
 
   const handleDragEnter = (trigger : string) => {
     if (isDragging) {
-      setDragged({ ...dragged, parent: '' + trigger })
-    }
-  }
-
-  const handleDragLeave = (event : any) => {
-    if (isDragging) {
+      setDragged({ ...dragged, parent: trigger })
     }
   }
 
@@ -56,11 +45,11 @@ export default ({ headers, panel, moveDraftCard } : { headers : Array<string | n
 
   const handleEndDrag = (event : any, header : string) => {
     if (!event.pullMode && '' + header !== dragged.parent) {
-      const item : any = panelState[header].find((x : any) => x.id === dragged.id);
+      const item = panelState[header].find((x : ItemInterface) => x.id === dragged.id);
       const oldState = [...panelState[header]];
       const newState = [...panelState[dragged.parent]];
       newState.push(item);
-      oldState.splice(event.oldIndex, 1);
+      oldState.splice(event.newIndex, 1);
       setPanelState({ ...panelState, [dragged.parent]: newState, [header]: oldState });
     }
 
@@ -80,10 +69,16 @@ export default ({ headers, panel, moveDraftCard } : { headers : Array<string | n
   }
 
   const handleCardMove = (newState : Array<ProjectTypes>, header : string) => {
-    setPanelState({ ...panelState, [header] : newState});
+    setPanelState({ ...panelState, [header]: newState});
   }
 
-  const getSortableContent = (content: any, header: string) => {
+  const handleCardDelete = (index : number, header : string) => {
+    const updatedState = [...panelState[header]];
+    updatedState.splice(index, 1);
+    setPanelState({ ...panelState, [header]: updatedState });
+  }
+
+  const getSortableContent = (content: Array<ItemInterface>, header: string) => {
     if (content && content.length) {
       return (
         <ReactSortable
@@ -93,12 +88,12 @@ export default ({ headers, panel, moveDraftCard } : { headers : Array<string | n
           onStart={(e) => handleStartDrag(e, header)}
           onEnd={(e) => handleEndDrag(e, header)}
           group="capital" >
-          {panelState[header].map((item: any) => (
+          {content.map((item : ItemInterface, index : number) => (
             <div className="card-wr" key={item.id}>
               <h4>{item.requestName} </h4>
               <h6>{item.totalCost}</h6>
               <p>{item.county} <label>{item.status}</label></p>
-              <Dropdown overlay={menu} className="menu-wr">
+              <Dropdown overlay={cardOptions({index, header, handleCardDelete})} className="menu-wr">
                 <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
                   <img src="/Icons/icon-60.svg" alt="" />
                 </span>
@@ -114,15 +109,14 @@ export default ({ headers, panel, moveDraftCard } : { headers : Array<string | n
 
   return (
     <div className="work-request">
-      {headers.map((header: any, index: number) => (
+      {headers.map((header: string, index: number) => (
         <div key={index}>
           <h3>{header}</h3>
           <div
             className={"col-wr " + containerClass}
             style={getContainerStyle(header)}
             onDragOver={(e) => e.preventDefault()}
-            onDragEnter={() => handleDragEnter(header)}
-            onDragLeave={() => handleDragLeave(header)} >
+            onDragEnter={() => handleDragEnter(header)} >
             {getSortableContent(panelState[header], header)}
           </div>
         </div>
