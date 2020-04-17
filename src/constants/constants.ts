@@ -809,9 +809,9 @@ export const DROPDOWN_PROJECT_FILTERS = [
 /* Draft Panel Constants */
 
 const actualYear = new Date().getFullYear();
-export const DEFAULT_HEADERS = [actualYear, actualYear + 1, actualYear + 2, actualYear + 3];
+export const DEFAULT_HEADERS = ['workspace', '' + actualYear, '' + (actualYear + 1), '' + (actualYear + 2), '' + (actualYear + 3)];
 export const MAINTENANCE_HEADERS = ['DEBRIS', 'VEGETATION', 'SEDIMENT', 'MINOR REPAIRS', 'RESTORATION'];
-export const SPECIAL_HEADERS = [actualYear, actualYear + 1];
+export const PROJECT_TABS = ['Capital', 'Study', 'Maintenance'];
 
 /* End of Draft Panel Constants */
 

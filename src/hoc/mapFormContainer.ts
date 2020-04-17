@@ -12,6 +12,7 @@ import { getReverseGeocode,
         getMapTables,
         getPolygonStreams } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters } from '../store/actions/filterActions';
+import { moveDraftCard } from '../store/actions/panelActions';
 
 import mapFormData from './mapFormData';
 
@@ -21,6 +22,7 @@ const mapStateToProps = (state: any) => {
         projects: state.map.projects,
         components: state.map.components,
         filters: state.filter.filters,
+        panel: state.panel.projects,
         dropdowns: state.filter.dropdowns,
         userFiltered: state.filter.userFiltered,
         layerFilters: state.map.layers,
@@ -44,7 +46,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         getMapTables,
         getDropdownFilters,
         getUserFilters,
-        getPolygonStreams
+        getPolygonStreams,
+        moveDraftCard
     }, dispatch)
 });
   

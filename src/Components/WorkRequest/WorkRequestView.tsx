@@ -3,15 +3,24 @@ import { Row, Col, Button, Tabs, Input } from 'antd';
 
 import mapFormContainer from "../../hoc/mapFormContainer";
 import DraftPanel from '../Shared/DraftPanel/DraftPanel';
-
-import { DEFAULT_HEADERS, MAINTENANCE_HEADERS, SPECIAL_HEADERS } from '../../constants/constants'
 import Chat from "../Shared/Chat/Chat";
+
+import { DEFAULT_HEADERS, MAINTENANCE_HEADERS, PROJECT_TABS } from '../../constants/constants'
+import { ProjectTypes } from "../../Classes/MapTypes";
 
 const { TabPane } = Tabs;
 
-export const WorkRequest = () => {
+const getTabHeaders = (tabName : string) => {
+  let header = DEFAULT_HEADERS;
+  if (tabName === 'Maintenance') {
+    header = MAINTENANCE_HEADERS;
+  }
+  return header;
+}
+
+export const WorkRequest = ({ panel, moveDraftCard } : { panel : Array<ProjectTypes>, moveDraftCard : Function}) => {
   const [visible, setVisible] = useState(false);
-  const [tabPosition, setTabPosition] = useState("1");
+  const [tabPosition, setTabPosition] = useState("0");
 
   return <>
     <Chat visible={visible} setVisible={setVisible} />
@@ -26,21 +35,14 @@ export const WorkRequest = () => {
       </Row>
 
       <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map">
-        <TabPane tab="Capital" key="1">
-          <DraftPanel headers={DEFAULT_HEADERS} />
-        </TabPane>
-        <TabPane tab="Study" key="2">
-          <DraftPanel headers={DEFAULT_HEADERS} />
-        </TabPane>
-        <TabPane tab="Maintenance" key="3">
-          <DraftPanel headers={MAINTENANCE_HEADERS} />
-        </TabPane>
-        <TabPane tab="Acquisition" key="4">
-          <DraftPanel headers={SPECIAL_HEADERS} />
-        </TabPane>
-        <TabPane tab="Special" key="5">
-          <DraftPanel headers={SPECIAL_HEADERS} />
-        </TabPane>
+        {PROJECT_TABS.map((tabName : string, index : number) => {
+          const header = getTabHeaders(tabName);
+          return (
+            <TabPane tab={tabName} key={'' + index}>
+              <DraftPanel panel={panel} headers={header} moveDraftCard={moveDraftCard} />
+            </TabPane>
+          );
+        })}
       </Tabs>
 
       <div className="cost-wr">

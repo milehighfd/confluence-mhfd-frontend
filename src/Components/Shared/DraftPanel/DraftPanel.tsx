@@ -1,48 +1,8 @@
-import React, { useState } from 'react';
-import { Dropdown, Button, Menu } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Dropdown, Menu } from 'antd';
 
 import { ReactSortable } from 'react-sortablejs';
-
-const SORTABLE_ITEMS = [
-  {
-    id: 'kyei281238',
-    requestName: 'West Tollgate Creek GSB Drops',
-    totalCost: '$410,000',
-    county: 'Aurora',
-    status: 'Draft'
-  },
-  {
-    id: 'asd123c3t1',
-    requestName: 'Westminster Creek GSB Drops',
-    totalCost: '$410,000',
-    county: 'Aurora',
-    status: 'Draft'
-  },
-  {
-    id: 'xx2131ff12',
-    requestName: 'Denver River Fix',
-    totalCost: '$410,000',
-    county: 'Aurora',
-    status: 'Draft'
-  },
-  {
-    id: 'x12321e213',
-    requestName: 'Potato Town',
-    totalCost: '$410,000',
-    county: 'Aurora',
-    status: 'Draft'
-  }
-];
-
-const SELECTED_ITEMS = [
-  {
-    id: 'xasd2fg234',
-    requestName: 'Mac n Cheese',
-    totalCost: '$120,000',
-    county: 'Denver',
-    status: 'Draft'
-  }
-]
+import { ProjectTypes } from '../../../Classes/MapTypes';
 
 const menu = (
   <Menu className="menu-card">
@@ -64,14 +24,19 @@ const menu = (
   </Menu>
 );
 
-export default ({ headers } : { headers : Array<string | number> }) => {
-  const [state, setState] = useState(SORTABLE_ITEMS);
-  const [isDragging, setIsDragging] = useState(false);
-  const [selectedState, setSelectedState] = useState(SELECTED_ITEMS);
-  const [containerClass, setContainerClass] = useState('col-wr');
+export default ({ headers, panel, moveDraftCard } : { headers : Array<string | number>, panel : any, moveDraftCard : Function }) => {
   const [dragged, setDragged] = useState({ id: '', parent: '' });
+  const [isDragging, setIsDragging] = useState(false);
+  const [containerClass, setContainerClass] = useState('col-wr');
+  const [panelState, setPanelState] = useState<any>({});
 
-  const handleDragEnter = (trigger : string | number) => {
+  useEffect(() => {
+    if (panel && panel.workspace) {
+      setPanelState(panel);
+    }
+  }, [panel]);
+
+  const handleDragEnter = (trigger : string) => {
     if (isDragging) {
       setDragged({ ...dragged, parent: '' + trigger })
     }
@@ -82,41 +47,29 @@ export default ({ headers } : { headers : Array<string | number> }) => {
     }
   }
 
-  const handleStartDrag = (event : any, trigger : string | number) => {
+  const handleStartDrag = (event : any, parent : string) => {
     const index : number = event.oldIndex;
-    if (trigger === 'WORKSPACE') {
-      setDragged({id: state[index].id, parent: '' + trigger}); 
-    } else {
-      setDragged({id: selectedState[index].id, parent: '' + trigger});
-    }
-
+    setDragged({ id: panelState[parent][index].id, parent })
     setContainerClass('col-wr col-hovered');
     setIsDragging(true);
   }
 
-  const handleEndDrag = (event : any, trigger : string | number) => {
-    if (!event.pullMode && '' + trigger !== dragged.parent) {
-      if (trigger === 'WORKSPACE') {
-        const item : any = state.find((x : any) => x.id === dragged.id);
-        const newState = [...selectedState];
-        newState.push(item);
-        setSelectedState(newState);
-        state.splice(event.oldIndex, 1);
-      } else {
-        const item : any = selectedState.find((x : any) => x.id === dragged.id);
-        const newState = [...state];
-        newState.push(item);
-        setState(newState);
-        selectedState.splice(event.oldIndex, 1);
-      }
+  const handleEndDrag = (event : any, header : string) => {
+    if (!event.pullMode && '' + header !== dragged.parent) {
+      const item : any = panelState[header].find((x : any) => x.id === dragged.id);
+      const oldState = [...panelState[header]];
+      const newState = [...panelState[dragged.parent]];
+      newState.push(item);
+      oldState.splice(event.oldIndex, 1);
+      setPanelState({ ...panelState, [dragged.parent]: newState, [header]: oldState });
     }
 
     setContainerClass('col-wr');
     setIsDragging(false);
   }
 
-  const getContainerStyle = (header : string | number) => {
-    if ('' + header === dragged.parent && isDragging) {
+  const getContainerStyle = (header : string) => {
+    if (header === dragged.parent && isDragging) {
       return {
         borderColor: 'green',
         backgroundColor: '#12a80d25'
@@ -126,73 +79,51 @@ export default ({ headers } : { headers : Array<string | number> }) => {
     }
   }
 
+  const handleCardMove = (newState : Array<ProjectTypes>, header : string) => {
+    setPanelState({ ...panelState, [header] : newState});
+  }
+
+  const getSortableContent = (content: any, header: string) => {
+    if (content && content.length) {
+      return (
+        <ReactSortable
+          list={content}
+          setList={(newState) => handleCardMove(newState, header)}
+          animation={200}
+          onStart={(e) => handleStartDrag(e, header)}
+          onEnd={(e) => handleEndDrag(e, header)}
+          group="capital" >
+          {panelState[header].map((item: any) => (
+            <div className="card-wr" key={item.id}>
+              <h4>{item.requestName} </h4>
+              <h6>{item.totalCost}</h6>
+              <p>{item.county} <label>{item.status}</label></p>
+              <Dropdown overlay={menu} className="menu-wr">
+                <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
+                  <img src="/Icons/icon-60.svg" alt="" />
+                </span>
+              </Dropdown>
+            </div>
+          ))}
+        </ReactSortable>
+        );
+    } else {
+      return;
+    }
+  }
+
   return (
     <div className="work-request">
-      <div>
-        <h3>Workspace</h3>
-        <div 
-          className={containerClass}
-          style={getContainerStyle('WORKSPACE')}
-          onDragOver={(e) => e.preventDefault()}
-          onDragEnter={() => handleDragEnter('WORKSPACE')}
-          onDragLeave={() => handleDragLeave('WORKSPACE')} >
-          <Button className="btn-create"><img src="/Icons/icon-18.svg" alt="" /> Create Project</Button>
-          <ReactSortable 
-            list={state} 
-            setList={setState} 
-            animation={200}
-            onStart={(e) => handleStartDrag(e, 'WORKSPACE')}
-            onEnd={(e) => handleEndDrag(e, 'WORKSPACE')}
-            group="capital" >
-            {state.map((item : any) => (
-              <div className="card-wr" key={item.id}>
-                <h4>{item.requestName} </h4>
-                <h6>{item.totalCost}</h6>
-                <p>{item.county} <label>{item.status}</label></p>
-                <Dropdown overlay={menu} className="menu-wr">
-                  <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
-                    <img src="/Icons/icon-60.svg" alt="" />
-                  </span>
-                </Dropdown>
-              </div>
-            ))}
-          </ReactSortable>
-        </div>
-      </div>
-      
-      {headers.map((header: string | number, index: number) => (
+      {headers.map((header: any, index: number) => (
         <div key={index}>
           <h3>{header}</h3>
-          <div 
+          <div
             className={"col-wr " + containerClass}
             style={getContainerStyle(header)}
             onDragOver={(e) => e.preventDefault()}
             onDragEnter={() => handleDragEnter(header)}
             onDragLeave={() => handleDragLeave(header)} >
-            {header === headers[0] ?
-              <ReactSortable
-                list={selectedState}
-                setList={setSelectedState}
-                animation={200}
-                onStart={(e) => handleStartDrag(e, header)}
-                onEnd={(e) => handleEndDrag(e, header)}
-                group="capital" >
-                {selectedState.map((item : any) => (
-                  <div className="card-wr" key={item.id}>
-                    <h4>{item.requestName} </h4>
-                    <h6>{item.totalCost}</h6>
-                    <p>{item.county} <label>{item.status}</label></p>
-                    <Dropdown overlay={menu} className="menu-wr">
-                      <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
-                        <img src="/Icons/icon-60.svg" alt="" />
-                      </span>
-                    </Dropdown>
-                  </div>
-                ))}
-              </ReactSortable>
-              :
-              null
-            }
+            {getSortableContent(panelState[header], header)}
           </div>
         </div>
       ))}

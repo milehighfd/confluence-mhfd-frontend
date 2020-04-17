@@ -22,6 +22,7 @@ export type MapHOCProps = {
     projects: Array<ProjectTypes>,
     components: Array<ComponentType>,
     filters: FilterTypes,
+    panel: Array<ProjectTypes>,
     dropdowns: DropdownFilterTypes,
     userFiltered: { [_id: string]: string },
     layerFilters: LayerFilterTypes,
@@ -40,7 +41,8 @@ export type MapHOCProps = {
     getMapTables: Function,
     getDropdownFilters: Function,
     getUserFilters: Function,
-    getPolygonStreams: Function
+    getPolygonStreams: Function,
+    moveDraftCard: Function
 }
 
 export type MapViewTypes = { 
