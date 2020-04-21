@@ -2239,6 +2239,10 @@ body{
     position: relative;
     padding: 5px 5px;
     margin-bottom: 5px;
+    cursor: grab;
+  }
+  .card-wr:active {
+    cursor: grabbing;
   }
   h3{
     font-size: 16px;

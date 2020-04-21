@@ -20,6 +20,7 @@ export type MapProps = {
 export type MapHOCProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
+    projectsByType: ProjectsByTypes,
     components: Array<ComponentType>,
     filters: FilterTypes,
     panel: Array<ProjectTypes>,
@@ -42,7 +43,8 @@ export type MapHOCProps = {
     getDropdownFilters: Function,
     getUserFilters: Function,
     getPolygonStreams: Function,
-    saveDraftCard: Function
+    saveDraftCard: Function,
+    getUserProjects: Function
 }
 
 export type MapViewTypes = { 
@@ -83,6 +85,14 @@ export type ProblemTypes = {
 
 export type ProjectTypes = {
     [key: string]: string | Array<string> | number
+}
+
+export type ProjectsByTypes = {
+    capital: Array<ProjectTypes>,
+    maintenance: Array<ProjectTypes>,
+    study: Array<ProjectTypes>,
+    propertyAcquisition: Array<ProjectTypes>,
+    special: Array<ProjectTypes>
 }
 
 export type ComponentType = {

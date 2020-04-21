@@ -13,6 +13,7 @@ import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
 export default function (WrappedComponent : any, layers : MapLayersType) {
     return ({ problems, 
               projects, 
+              projectsByType,
               components, 
               filters,
               panel,
@@ -33,7 +34,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               removeFilter, 
               getMapTables, 
               getDropdownFilters, 
-              getUserFilters, getPolygonStreams, saveDraftCard } : MapHOCProps) => {
+              getUserFilters, 
+              getPolygonStreams, saveDraftCard, getUserProjects } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -47,6 +49,10 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         let polygonRef = useRef<HTMLDivElement>(null);
 
         useEffect(() => {
+          getProjectWithFilters();
+        }, [getProjectWithFilters]);
+
+        useEffect(() => {
           if(error) {
             message.error(error);
             clearErrorMessage();
@@ -54,14 +60,13 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         }, [clearErrorMessage, error]);
 
         useEffect(() => {
-          const newProjects = projects.filter((project : ProjectTypes) => project.projectType === 'maintenance')
-          .map((project : ProjectTypes) => {
-            const newProject : ProjectTypes = {...project};
+          const newProjects = projectsByType.maintenance.map((project : ProjectTypes) => {
+            const newProject : ProjectTypes = { ...project };
             newProject.coordinates = JSON.parse(project.coordinates as string);
             return newProject;
           });
           setFormatedProjects(newProjects);
-        }, [projects]);
+        }, [projectsByType]);
 
         const updateWidth = () => {
           if (leftWidth === MEDIUM_SCREEN) {
@@ -128,8 +133,10 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getUserFilters={getUserFilters}
                             removeFilter={removeFilter} 
                             projects={projects}
+                            projectsByType={projectsByType}
                             markerRef={markerRef}
-                            polygonRef={polygonRef} />
+                            polygonRef={polygonRef}
+                            getUserProjects={getUserProjects} />
                     </Col>
                 </Row>
               </Layout>

@@ -78,6 +78,13 @@ const initState = {
         }
     ],
     projects: [],
+    projectsByType: {
+        capital: [],
+        maintenance: [],
+        study: [],
+        propertyAcquisition: [],
+        special: [],
+    },
     components: [
         {
             componentId: '0905389549',
@@ -241,6 +248,11 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 projects: action.projects
+            }
+        case types.GET_PROJECTS_BY_TYPES:
+            return {
+                ...state,
+                projectsByType: action.filteredProjects
             }
         case types.GET_MAP_LAYERS: 
             return {

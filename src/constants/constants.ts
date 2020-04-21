@@ -63,6 +63,8 @@ export const SELECT_ALL_FILTERS = [FLOODPLAINS_FEMA_FILTERS,
 
 /* End of Map Constants */
 
+export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];
+
 export const NEW_PROJECT_FORM_COST = {
   subtotal: 0,
   additional: {
@@ -809,9 +811,42 @@ export const DROPDOWN_PROJECT_FILTERS = [
 /* Draft Panel Constants */
 
 const actualYear = new Date().getFullYear();
-export const DEFAULT_HEADERS = ['workspace', '' + actualYear, '' + (actualYear + 1), '' + (actualYear + 2), '' + (actualYear + 3)];
-export const MAINTENANCE_HEADERS = ['DEBRIS', 'VEGETATION', 'SEDIMENT', 'MINOR REPAIRS', 'RESTORATION'];
-export const PROJECT_TABS = ['Capital', 'Study', 'Maintenance'];
+const todaysYear = '' + actualYear;
+const nextYear = '' + (actualYear + 1); 
+const twoYears = '' + (actualYear + 2); 
+const threeYears = '' + (actualYear + 3);
+
+export const PROJECT_TABS = [
+  {
+    name: 'Capital',
+    drafts: ['workspace', todaysYear, nextYear, twoYears, threeYears],
+  }, 
+  {
+    name: 'Study',
+    drafts: ['workspace', todaysYear, nextYear, twoYears, threeYears],
+  },
+  {
+    name: 'Maintenance',
+    drafts: ['workspace', 'debrisManagement', 'vegetationManagement', 'sediment', 'minorRepairs', 'restoration']
+  }
+];
+
+export const MAINTENANCE_BODY = { 
+  workspace: [],
+  debrisManagement: [],
+  vegetationManagement: [],
+  sediment: [],
+  minorRepairs: [],
+  restoration: []
+}
+
+export const DEFAULT_BODY = {
+  workspace: [],
+  [todaysYear]: [], 
+  [nextYear]: [],
+  [twoYears]: [],
+  [threeYears]: [],
+}
 
 /* End of Draft Panel Constants */
 

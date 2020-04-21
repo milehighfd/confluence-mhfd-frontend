@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Dropdown, Menu } from 'antd';
 
-import { ReactSortable, ItemInterface } from 'react-sortablejs';
-import { ProjectTypes } from '../../../Classes/MapTypes';
+import { ReactSortable, ItemInterface, Sortable } from 'react-sortablejs';
 
 const cardOptions = ({ index, header, handleCardDelete } : { index : number, header : string, handleCardDelete : Function }) => (
   <Menu className="menu-card">
@@ -25,7 +24,7 @@ const cardOptions = ({ index, header, handleCardDelete } : { index : number, hea
 );
 
 
-export default ({ headers, panelState, setPanelState } : { headers : Array<string>, panelState : any, setPanelState : Function }) => {
+export default ({ headers, panelState, setPanelState } : { headers : any, panelState : any, setPanelState : Function }) => {
   const [dragged, setDragged] = useState({ id: '', parent: '' });
   const [isDragging, setIsDragging] = useState(false);
   const [containerClass, setContainerClass] = useState('col-wr');
@@ -36,8 +35,8 @@ export default ({ headers, panelState, setPanelState } : { headers : Array<strin
     }
   }
 
-  const handleStartDrag = (event : any, parent : string) => {
-    const index : number = event.oldIndex;
+  const handleStartDrag = (event : Sortable.SortableEvent, parent : string) => {
+    const index = event.oldIndex as number;
     setDragged({ id: panelState[parent][index].id, parent })
     setContainerClass('col-wr col-hovered');
     setIsDragging(true);
@@ -49,8 +48,19 @@ export default ({ headers, panelState, setPanelState } : { headers : Array<strin
       const oldState = [...panelState[header]];
       const newState = [...panelState[dragged.parent]];
       newState.push(item);
-      oldState.splice(event.newIndex, 1);
+      oldState.splice(event.newIndex as number, 1);
       setPanelState({ ...panelState, [dragged.parent]: newState, [header]: oldState });
+
+      const drag = document.getElementById(item.id)!;
+      const y = event.originalEvent.y;
+
+      /* TODO get exact translate animation by it's coords*/
+      drag.animate([
+        { transform: `translateY(${y/10}px)` }, 
+        { transform: `translateY(${0}px)` }
+      ], { 
+        duration: 150,
+      });
     }
 
     setContainerClass('col-wr');
@@ -68,7 +78,7 @@ export default ({ headers, panelState, setPanelState } : { headers : Array<strin
     }
   }
 
-  const handleCardMove = (newState : Array<ProjectTypes>, header : string) => {
+  const handleCardMove = (newState : Array<ItemInterface>, header : string) => {
     setPanelState({ ...panelState, [header]: newState});
   }
 
@@ -89,9 +99,9 @@ export default ({ headers, panelState, setPanelState } : { headers : Array<strin
           onEnd={(e) => handleEndDrag(e, header)}
           group="capital" >
           {content.map((item : ItemInterface, index : number) => (
-            <div className="card-wr" key={item.id}>
+            <div className="card-wr" key={item.id} id={'' + item.id}>
               <h4>{item.requestName} </h4>
-              <h6>{item.totalCost}</h6>
+              <h6>{item.estimatedCost}</h6>
               <p>{item.county} <label>{item.status}</label></p>
               <Dropdown overlay={cardOptions({index, header, handleCardDelete})} className="menu-wr">
                 <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
@@ -109,9 +119,9 @@ export default ({ headers, panelState, setPanelState } : { headers : Array<strin
 
   return (
     <div className="work-request">
-      {headers.map((header: string, index: number) => (
+      {headers.drafts.map((header: string, index: number) => (
         <div key={index}>
-          <h3>{header}</h3>
+          <h3>{header.replace(/([A-Z])/g, ' $1')}</h3>
           <div
             className={"col-wr " + containerClass}
             style={getContainerStyle(header)}

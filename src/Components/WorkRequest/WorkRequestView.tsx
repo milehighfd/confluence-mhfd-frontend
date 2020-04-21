@@ -5,29 +5,43 @@ import mapFormContainer from "../../hoc/mapFormContainer";
 import DraftPanel from '../Shared/DraftPanel/DraftPanel';
 import Chat from "../Shared/Chat/Chat";
 
-import { DEFAULT_HEADERS, MAINTENANCE_HEADERS, PROJECT_TABS } from '../../constants/constants'
-import { ProjectTypes } from "../../Classes/MapTypes";
+import { PROJECT_TABS } from '../../constants/constants'
+
+/* line to remove useEffect dependencies warning */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 const { TabPane } = Tabs;
 
-const getTabHeaders = (tabName : string) => {
-  let header = DEFAULT_HEADERS;
-  if (tabName === 'Maintenance') {
-    header = MAINTENANCE_HEADERS;
-  }
-  return header;
-}
-
-export const WorkRequest = ({ panel, saveDraftCard } : { panel : ProjectTypes, saveDraftCard : Function}) => {
+export const WorkRequest = ({ panel, saveDraftCard, getUserProjects, projectsByType } : { panel : any, saveDraftCard : Function, getUserProjects : Function, projectsByType : any}) => {
   const [visible, setVisible] = useState(false);
   const [panelState, setPanelState] = useState({});
   const [tabPosition, setTabPosition] = useState("0");
+  const [projectType, setProjectType] = useState("capital");
 
   useEffect(() => {
-    if (panel && panel.workspace) {
-      setPanelState(panel);
-    }
+    getUserProjects();
+  }, [projectsByType, getUserProjects]);
+
+  useEffect(() => {
+    getProjectsByType(projectType);
   }, [panel]);
+
+  useEffect(() => {
+    if (tabPosition === "0") {
+      getProjectsByType('capital');
+    } else if (tabPosition === "1") {
+      getProjectsByType('study');
+    } else if (tabPosition === "2") {
+      getProjectsByType('maintenance');
+    }
+  }, [tabPosition]);
+
+const getProjectsByType = (type: string) => {
+  if (panel && panel[type]) {
+    setPanelState(panel[type]);
+    setProjectType(type);
+  }
+}
 
   return <>
     <Chat visible={visible} setVisible={setVisible} />
@@ -42,11 +56,13 @@ export const WorkRequest = ({ panel, saveDraftCard } : { panel : ProjectTypes, s
       </Row>
 
       <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map">
-        {PROJECT_TABS.map((tabName : string, index : number) => {
-          const header = getTabHeaders(tabName);
+        {PROJECT_TABS.map((tab : any, index : number) => {
           return (
-            <TabPane tab={tabName} key={'' + index}>
-              <DraftPanel panelState={panelState} setPanelState={setPanelState} headers={header} />
+            <TabPane tab={tab.name} key={'' + index}>
+              <DraftPanel 
+                headers={tab}
+                panelState={panelState} 
+                setPanelState={setPanelState}  />
             </TabPane>
           );
         })}
@@ -73,7 +89,7 @@ export const WorkRequest = ({ panel, saveDraftCard } : { panel : ProjectTypes, s
         </Row>
         <Row style={{ padding: '0px 20px' }}>
           <Col span={24} style={{ textAlign: 'right' }}>
-            <Button onClick={() => saveDraftCard(panelState)}>Submit to Admin</Button>
+            <Button onClick={() => saveDraftCard(panelState, projectType)}>Submit to Admin</Button>
           </Col>
         </Row>
       </div>

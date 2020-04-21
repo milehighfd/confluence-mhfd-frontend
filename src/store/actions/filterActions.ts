@@ -2,18 +2,29 @@ import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 
 import * as types from '../types/filterTypes';
-import { FILTER_PROJECTS } from '../types/mapTypes'; 
+import { FILTER_PROJECTS, GET_PROJECTS_BY_TYPES } from '../types/mapTypes'; 
 import { FilterTypes, FilterNamesTypes } from "../../Classes/MapTypes";
+import { PROJECT_TYPES } from '../../constants/constants';
 
 export const getProjectWithFilters = (filters : FilterTypes) => {
   return (dispatch : Function) => {
       const data = filters?filters:{};
       datasets.postData(SERVER.FILTER_PROJECT, data, datasets.getToken()).then(projects => {
           if(data.hasOwnProperty('requestName')) delete data['requestName'];
+          const filteredProjects : any = {};
+          PROJECT_TYPES.forEach((type : string) => {
+            filteredProjects[type] = filterProjectsByType(projects, type);
+          });
+
           dispatch({ type: FILTER_PROJECTS, projects });
+          dispatch({ type: GET_PROJECTS_BY_TYPES, filteredProjects });
           dispatch({ type: types.SET_FILTERS, data });
       });
   } 
+}
+
+const filterProjectsByType = (projects : any, type : string) => {
+  return projects.filter((project : any) => project.projectType === type);
 }
 
 export const removeFilter = (item : FilterNamesTypes) => {

@@ -59,10 +59,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [tabPosition, setTabPosition] = useState('0');
 
   useEffect(() => {
-    getProjectWithFilters();
-  }, []);
-
-  useEffect(() => {
     if (filters) {
       setCurrentFilters(filters);
     }
