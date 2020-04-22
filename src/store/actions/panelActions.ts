@@ -1,16 +1,16 @@
 import * as types from '../types/panelTypes';
 import { MAINTENANCE_BODY, DEFAULT_BODY, PROJECT_TABS } from '../../constants/constants';
-import { ProjectTypes } from '../../Classes/MapTypes';
+import { ProjectTypes, PanelProjectTypes, ProjectTabTypes, PanelTriggerTypes } from '../../Classes/MapTypes';
 
 export const getUserProjects = () => {
   return (dispatch : Function, getState : Function) => {
     const state = getState();
     const panelProjects = { ...state.map.projectsByType };
-  
-    let projects : any = {};
-    PROJECT_TABS.forEach((type : any) => {
+    const projects : PanelProjectTypes = {};
+
+    PROJECT_TABS.forEach((type : ProjectTabTypes) => {
       const formatedType = type.name.toLowerCase();
-      const { newPanelProjects, panelTrigger } : any = getPanelTrigger(formatedType);
+      const { newPanelProjects, panelTrigger } : PanelTriggerTypes = getPanelTrigger(formatedType);
 
       if (panelProjects[formatedType]) {
         panelProjects[formatedType].forEach((project: ProjectTypes) => {
@@ -49,7 +49,7 @@ const getPanelTrigger = (formatedType : string) => {
   return { newPanelProjects, panelTrigger };
 }
 
-export const saveDraftCard = (projects : any, type : string) => {
+export const saveDraftCard = (projects : PanelProjectTypes, type : string) => {
   return (dispatch : Function) => {
       dispatch({ type: types.UPDATE_DRAFT_PANEL, data: { id: [type], projects }});
   }

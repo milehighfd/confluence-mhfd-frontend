@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Button, Tabs, Input } from 'antd';
+import { Row, Col, Button, Tabs } from 'antd';
 
 import mapFormContainer from "../../hoc/mapFormContainer";
 import DraftPanel from '../Shared/DraftPanel/DraftPanel';
 import Chat from "../Shared/Chat/Chat";
 
 import { PROJECT_TABS } from '../../constants/constants'
+import { ProjectTabTypes } from "../../Classes/MapTypes";
 
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -43,6 +44,10 @@ const getProjectsByType = (type: string) => {
   }
 }
 
+const handleSaveDraftCard = () => {
+  saveDraftCard(panelState, projectType);
+}
+
   return <>
     <Chat visible={visible} setVisible={setVisible} />
     <div className="count request">
@@ -56,46 +61,25 @@ const getProjectsByType = (type: string) => {
       </Row>
 
       <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map">
-        {PROJECT_TABS.map((tab : any, index : number) => {
+        {PROJECT_TABS.map((tab : ProjectTabTypes, index : number) => {
           return (
             <TabPane tab={tab.name} key={'' + index}>
               <DraftPanel 
                 headers={tab}
                 panelState={panelState} 
-                setPanelState={setPanelState}  />
+                setPanelState={setPanelState}
+                handleSaveDraftCard={handleSaveDraftCard}  />
             </TabPane>
           );
         })}
       </Tabs>
-
-      <div className="cost-wr">
-        <Row gutter={[16, 24]} style={{ padding: '0px 20px' }}>
-          <Col span={6}><h5>TOTAL REQUESTED</h5></Col>
-          <Col span={6}><Input placeholder="Total cost" /></Col>
-          <Col span={6}><Input placeholder="Total cost" /></Col>
-          <Col span={6}><Input placeholder="Total cost" /></Col>
-        </Row>
-        <Row gutter={[16, 24]} style={{ padding: '0px 20px' }}>
-          <Col span={6}><h5>Target Cost</h5></Col>
-          <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-          <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-          <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-        </Row>
-        <Row gutter={[16, 24]} style={{ padding: '0px 20px' }}>
-          <Col span={6}><h5>Differential</h5></Col>
-          <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
-          <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
-          <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
-        </Row>
-        <Row style={{ padding: '0px 20px' }}>
-          <Col span={24} style={{ textAlign: 'right' }}>
-            <Button onClick={() => saveDraftCard(panelState, projectType)}>Submit to Admin</Button>
-          </Col>
-        </Row>
-      </div>
-
     </div>
   </>
 }
 
-export default mapFormContainer(WorkRequest, null);
+const layers = {
+  polygons: true,
+  components: true
+}
+
+export default mapFormContainer(WorkRequest, layers);

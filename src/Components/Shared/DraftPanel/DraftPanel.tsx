@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, Menu, Button, Row, Col, Input } from 'antd';
 
 import { ReactSortable, ItemInterface, Sortable } from 'react-sortablejs';
+import { Link } from 'react-router-dom';
 
 const cardOptions = ({ index, header, handleCardDelete } : { index : number, header : string, handleCardDelete : Function }) => (
   <Menu className="menu-card">
@@ -23,8 +24,14 @@ const cardOptions = ({ index, header, handleCardDelete } : { index : number, hea
   </Menu>
 );
 
+const CostsRow = ({ children } : any) => (
+  <Row className="cost-rows">
+    {children}
+  </Row>
+);
 
-export default ({ headers, panelState, setPanelState } : { headers : any, panelState : any, setPanelState : Function }) => {
+
+export default ({ headers, panelState, setPanelState, handleSaveDraftCard } : { headers : any, panelState : any, setPanelState : Function, handleSaveDraftCard : Function }) => {
   const [dragged, setDragged] = useState({ id: '', parent: '' });
   const [isDragging, setIsDragging] = useState(false);
   const [containerClass, setContainerClass] = useState('col-wr');
@@ -81,18 +88,6 @@ export default ({ headers, panelState, setPanelState } : { headers : any, panelS
   
       setPanelState({ ...panelState, [dragged.parent]: newState, [oldId]: oldState });
     }
-
-    /* Drop animation
-    const drag = document.getElementById(item.id)!;
-    const y = event.originalEvent.y;
-
-    // TODO get exact translate animation by it's coords 
-    drag.animate([
-      { transform: `translateY(${y/10}px)` }, 
-      { transform: `translateY(${0}px)` }
-    ], { 
-      duration: 100,
-    }); */
   }
 
   const getContainerStyle = (header : string) => {
@@ -155,10 +150,45 @@ export default ({ headers, panelState, setPanelState } : { headers : any, panelS
             style={getContainerStyle(header)}
             onDragOver={(e) => e.preventDefault()}
             onDragEnter={() => handleDragEnter(header)} >
+
+            {header === 'workspace' &&
+              <Link to='/new-project-types'>
+                <Button className="btn-create">
+                  <img src="/Icons/icon-18.svg" alt="" />
+                  Create Project
+                </Button>
+              </Link>
+            }
+
             {getSortableContent(panelState[header], header)}
+          </div>
+
+          <div className="cost-wr">
+            {header === 'workspace' ?
+              <Col>
+                <CostsRow><h5>TOTAL REQUESTED</h5></CostsRow>
+                <CostsRow><h5>Target Cost</h5></CostsRow>
+                <CostsRow><h5>Differential</h5></CostsRow>
+              </Col>
+              :
+              <Col>
+                <CostsRow><Input placeholder="Enter target cost" /></CostsRow>
+                <CostsRow><Input className="input-pp" placeholder="Enter target cost" /></CostsRow>
+                <CostsRow><Input className="input-rr" placeholder="XXX Difference" /></CostsRow>
+              </Col>
+            }
+
+            {header === headers.drafts[headers.drafts.length - 1] &&
+              <Row>
+                <Button onClick={() => handleSaveDraftCard()} >
+                  Submit to Admin
+                  </Button>
+              </Row>
+            }
           </div>
         </div>
       ))}
+
     </div>
   )
 }

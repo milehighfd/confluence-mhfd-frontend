@@ -191,3 +191,29 @@ export type DropdownDefaultTypes = {
 export type SelectedFilterTypes = {
     [key : string] : string | Array<string>
 };
+
+
+
+
+
+/* Panel Types */
+
+export type PanelTypes = {
+    [key : string]: Array<ProjectTypes>
+}
+
+export type PanelProjectTypes = {
+    [key : string] : PanelTypes 
+};
+
+export type ProjectTabTypes = {
+    name: string,
+    drafts: Array<string>
+}
+
+export type PanelTriggerTypes = {
+    newPanelProjects: PanelTypes,
+    panelTrigger: string
+}
+
+/* End of Panel Types */
