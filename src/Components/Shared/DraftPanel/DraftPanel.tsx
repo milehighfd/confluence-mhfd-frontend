@@ -30,6 +30,9 @@ const CostsRow = ({ children } : any) => (
   </Row>
 );
 
+const numberWithCommas = (x : number) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 export default ({ headers, panelState, setPanelState, handleSaveDraftCard } : { headers : any, panelState : any, setPanelState : Function, handleSaveDraftCard : Function }) => {
   const [dragged, setDragged] = useState({ id: '', parent: '' });
@@ -124,7 +127,7 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard } : { 
           {content.map((item : ItemInterface, index : number) => (
             <div className="card-wr" key={item.id} id={'' + item.id}>
               <h4>{item.requestName} </h4>
-              <h6>{item.estimatedCost}</h6>
+              <h6>{'$' + numberWithCommas(item.estimatedCost)}</h6>
               <p>{item.county} <label>{item.status}</label></p>
               <Dropdown overlay={cardOptions({index, header, handleCardDelete})} className="menu-wr">
                 <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
