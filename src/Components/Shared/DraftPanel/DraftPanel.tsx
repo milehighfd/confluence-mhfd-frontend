@@ -42,29 +42,57 @@ export default ({ headers, panelState, setPanelState } : { headers : any, panelS
     setIsDragging(true);
   }
 
-  const handleEndDrag = (event : any, header : string) => {
-    if (!event.pullMode && '' + header !== dragged.parent) {
-      const item = panelState[header].find((x : ItemInterface) => x.id === dragged.id);
-      const oldState = [...panelState[header]];
-      const newState = [...panelState[dragged.parent]];
-      newState.push(item);
-      oldState.splice(event.newIndex as number, 1);
-      setPanelState({ ...panelState, [dragged.parent]: newState, [header]: oldState });
+  const handleEndDrag = (event : Sortable.SortableEvent, header : string) => {
+    /* Verifier if item already exists on array to avoid multiple equal values */
+    const stateValidator = panelState[dragged.parent].find((x : ItemInterface) => (
+      x.id === dragged.id
+    ));
 
-      const drag = document.getElementById(item.id)!;
-      const y = event.originalEvent.y;
+    if (header !== dragged.parent && !stateValidator) {
+      if (!event.pullMode) {
+        updatePanelStateOnDrag(header, event.newIndex as number);
+      } else {
+        const prevIndex = headers.drafts.indexOf(header);
+        const nextIndex = headers.drafts.indexOf(dragged.parent);
+        let selectedItemId = '';
 
-      /* TODO get exact translate animation by it's coords*/
-      drag.animate([
-        { transform: `translateY(${y/10}px)` }, 
-        { transform: `translateY(${0}px)` }
-      ], { 
-        duration: 150,
-      });
-    }
+        if (prevIndex < nextIndex) {
+          selectedItemId = headers.drafts[nextIndex - 1]
+        } else {
+          selectedItemId = headers.drafts[nextIndex + 1]
+        }
+
+        updatePanelStateOnDrag(selectedItemId, event.newIndex as number);
+      }
+    } 
 
     setContainerClass('col-wr');
     setIsDragging(false);
+  }
+
+  const updatePanelStateOnDrag = (oldId : string, oldIndex : number) => {
+    const selectedItem = panelState[oldId].find((x : ItemInterface) => x.id === dragged.id);
+
+    if (selectedItem) {
+      const oldState = [...panelState[oldId]];
+      const newState = [...panelState[dragged.parent]];
+      newState.push(selectedItem);
+      oldState.splice(oldIndex, 1);
+  
+      setPanelState({ ...panelState, [dragged.parent]: newState, [oldId]: oldState });
+    }
+
+    /* Drop animation
+    const drag = document.getElementById(item.id)!;
+    const y = event.originalEvent.y;
+
+    // TODO get exact translate animation by it's coords 
+    drag.animate([
+      { transform: `translateY(${y/10}px)` }, 
+      { transform: `translateY(${0}px)` }
+    ], { 
+      duration: 100,
+    }); */
   }
 
   const getContainerStyle = (header : string) => {
@@ -131,7 +159,6 @@ export default ({ headers, panelState, setPanelState } : { headers : any, panelS
           </div>
         </div>
       ))}
-
     </div>
   )
 }
