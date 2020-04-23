@@ -49,10 +49,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         let polygonRef = useRef<HTMLDivElement>(null);
 
         useEffect(() => {
-          getProjectWithFilters();
-        }, [getProjectWithFilters]);
-
-        useEffect(() => {
           if(error) {
             message.error(error);
             clearErrorMessage();

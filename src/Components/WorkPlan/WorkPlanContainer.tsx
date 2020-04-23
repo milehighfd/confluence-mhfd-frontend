@@ -1,16 +1,21 @@
 import { connect } from 'react-redux';
 
 import WorkPlanView from './WorkPlanView';
+import { bindActionCreators } from 'redux';
+import { saveDraftCard, getUserProjects } from '../../store/actions/panelActions';
 
-const mapStateToProps = (state: any): any => {
+const mapStateToProps = (state: any) => {
   return {
-    sample: state.sample
+    projectsByType: state.map.projectsByType,
+    panel: state.panel.projects,
   };
 };
 
-const mapDispatchToProps = (dispatch: Function): any => {
-  return {
-  };
-};
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators({
+    saveDraftCard,
+    getUserProjects
+  }, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkPlanView);

@@ -2273,6 +2273,25 @@ body{
   label{
     float: right;
   }
+
+  .ant-select-selection {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid $opacity01;
+    font-size: 16px;
+    color: $opacity;
+    width: 160px;
+  }
+  .ant-select-selection:hover {
+    border-color: $purple;
+  }
+  .ant-select-arrow{
+    color: $purple;
+    font-weight: bold;
+  }
+  .input-rr::placeholder{
+    color: $opacity;
+  }
 }
 .menu-card{
   width: 160px;
@@ -2550,7 +2569,7 @@ body{
   min-height: 687px;
   border-radius: 4px;
   background-color: $opacity00;
-  margin: 13px 3.5px 0px 3.5px;
+  margin: 0px 3.5px 0px 3.5px;
   padding: 20px;
   position: relative;
   overflow-y: auto;
@@ -2561,10 +2580,6 @@ body{
     font-size: 16px;
     color: $purple00;
   }
-}
-.work-pc-01{
-  height: 855px;
-  min-height: 855px;
 }
 .work-title{
   padding-left: 15px;

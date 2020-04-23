@@ -3,6 +3,7 @@ import { Dropdown, Menu, Button, Row, Col, Input } from 'antd';
 
 import { ReactSortable, ItemInterface, Sortable } from 'react-sortablejs';
 import { Link } from 'react-router-dom';
+import { DraftPanelTypes } from '../../../Classes/MapTypes';
 
 const cardOptions = ({ index, header, handleCardDelete } : { index : number, header : string, handleCardDelete : Function }) => (
   <Menu className="menu-card">
@@ -24,7 +25,7 @@ const cardOptions = ({ index, header, handleCardDelete } : { index : number, hea
   </Menu>
 );
 
-const CostsRow = ({ children } : any) => (
+const CostsRow = ({ children } : { children : React.ReactChild}) => (
   <Row className="cost-rows">
     {children}
   </Row>
@@ -34,7 +35,7 @@ const numberWithCommas = (x : number) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export default ({ headers, panelState, setPanelState, handleSaveDraftCard } : { headers : any, panelState : any, setPanelState : Function, handleSaveDraftCard : Function }) => {
+export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workPlanGraphs } : DraftPanelTypes) => {
   const [dragged, setDragged] = useState({ id: '', parent: '' });
   const [isDragging, setIsDragging] = useState(false);
   const [containerClass, setContainerClass] = useState('col-wr');
@@ -192,6 +193,7 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard } : { 
         </div>
       ))}
 
+      {workPlanGraphs}
     </div>
   )
 }

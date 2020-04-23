@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -27,8 +27,12 @@ import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenance
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 
-function App({ replaceAppUser }: any) {
+function App({ replaceAppUser, getProjectWithFilters } : { replaceAppUser : Function, getProjectWithFilters : Function }) {
 
+  useEffect(() => {
+    getProjectWithFilters();
+  }, [getProjectWithFilters]);
+  
   const appUser = store.getState().appUser;
   if(datasets.getToken() && appUser.email === '') {
     datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
@@ -37,6 +41,7 @@ function App({ replaceAppUser }: any) {
       }
     });
   }
+
   return <Switch>
       <Route path={`/login`} component={LoginContainer} />
       <Route path={`/sign-up`} component={SignUpContainer} />
