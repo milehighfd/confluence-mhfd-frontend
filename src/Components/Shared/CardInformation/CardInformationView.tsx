@@ -3,6 +3,7 @@ import { Col, Card } from "antd";
 import { ComponentType } from "../../../Classes/MapTypes";
 
 export default ({ data, type, numberWithCommas }: { data: any, type: string, numberWithCommas: Function}) => {
+    console.log('data: ', data);
     
     const getComponentSizes = (components : Array<ComponentType>) => {
         if (components && components.length) {

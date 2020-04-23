@@ -3,6 +3,7 @@ import {connectRouter} from 'connected-react-router';
 import users from './usersReducer';
 import appUser from './appUser';
 import debris from './debris';
+import profile from './ProfileReducer'
 
 import mapReducer from './mapReducer';
 import filterReducer from './filterReducer';
@@ -15,5 +16,6 @@ export default (history: any) => combineReducers({
   panel: panelReducer,
   appUser,
   debris,
-  users
+  users,
+  profile
 });
