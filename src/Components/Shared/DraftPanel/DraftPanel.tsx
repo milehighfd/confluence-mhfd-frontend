@@ -182,6 +182,14 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
               </Col>
             }
           </div>
+
+          {header === headers.drafts[headers.drafts.length - 1] &&
+              <Row>
+                <Button onClick={() => handleSaveDraftCard()} >
+                  Submit to Admin
+                  </Button>
+              </Row>
+            }
         </div>
       ))}
 
