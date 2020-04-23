@@ -24,7 +24,9 @@ export const getProjectWithFilters = (filters : FilterTypes) => {
 }
 
 const filterProjectsByType = (projects : any, type : string) => {
-  return projects.filter((project : any) => project.projectType === type);
+  if (projects && projects.length) {
+    return projects.filter((project : any) => project.projectType === type);
+  }
 }
 
 export const removeFilter = (item : FilterNamesTypes) => {

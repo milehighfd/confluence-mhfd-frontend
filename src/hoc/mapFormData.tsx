@@ -49,6 +49,10 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         let polygonRef = useRef<HTMLDivElement>(null);
 
         useEffect(() => {
+          getProjectWithFilters();
+        }, [getProjectWithFilters]);
+
+        useEffect(() => {
           if(error) {
             message.error(error);
             clearErrorMessage();
@@ -56,12 +60,14 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         }, [clearErrorMessage, error]);
 
         useEffect(() => {
-          const newProjects = projectsByType.maintenance.map((project : ProjectTypes) => {
-            const newProject : ProjectTypes = { ...project };
-            newProject.coordinates = JSON.parse(project.coordinates as string);
-            return newProject;
-          });
-          setFormatedProjects(newProjects);
+          if (projectsByType.maintenance && projectsByType.maintenance.length) {
+            const newProjects = projectsByType.maintenance.map((project : ProjectTypes) => {
+              const newProject : ProjectTypes = { ...project };
+              newProject.coordinates = JSON.parse(project.coordinates as string);
+              return newProject;
+            });
+            setFormatedProjects(newProjects);
+          }
         }, [projectsByType]);
 
         const updateWidth = () => {
