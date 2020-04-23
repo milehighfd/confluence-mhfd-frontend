@@ -74,9 +74,6 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
         }
 
         updatePanelStateOnDrag(selectedItemId, event.newIndex as number);
-        if (panelState[header].length === 1) {
-          setPanelState({ ...panelState, [header]: [] });
-        }
       }
     } 
 
