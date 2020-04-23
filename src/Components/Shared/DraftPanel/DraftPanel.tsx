@@ -181,15 +181,15 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
                 <CostsRow><Input className="input-rr" placeholder="XXX Difference" /></CostsRow>
               </Col>
             }
-          </div>
 
-          {header === headers.drafts[headers.drafts.length - 1] &&
+            {header === headers.drafts[headers.drafts.length - 1] &&
               <Row>
                 <Button onClick={() => handleSaveDraftCard()} >
                   Submit to Admin
                   </Button>
               </Row>
             }
+          </div>
         </div>
       ))}
 
