@@ -51,8 +51,6 @@ export default ({user, projects, getUserProjects } : { user: User, projects: Pro
   useEffect(() => {
     getUserProjects({})
   }, [getUserProjects]);
-  console.log('user: dsad', user);
-  
   return <>
         <Layout>
           <NavbarView></NavbarView>

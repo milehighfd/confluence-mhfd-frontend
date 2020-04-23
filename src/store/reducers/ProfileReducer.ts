@@ -2,7 +2,8 @@ import * as types from '../types/ProfileTypes';
 
 const initProfile = {
     userInformation: Object,
-    userProjects: []
+    userProjects: [],
+    userImage: ''
 }
 
 const profile = (state = initProfile, action: any) => {
@@ -16,6 +17,11 @@ const profile = (state = initProfile, action: any) => {
             return {
                 ...state,
                 userProjects: action.projects
+            }
+        case types.UPLOAD_PHOTO:
+            return {
+                ...state,
+                userImage: action.imageUrl
             }
         default: 
             return state;

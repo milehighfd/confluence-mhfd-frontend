@@ -19,3 +19,11 @@ export const getUserProjects = (options: { requestName?: string, status?: string
     });
   }
 }
+
+export const uploadImage = (urlImage: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.USER_UPLOAD_PHOTO, urlImage, datasets.getToken()).then( res => {
+      dispatch({ type: types.UPLOAD_PHOTO, res })
+    })
+  }
+}

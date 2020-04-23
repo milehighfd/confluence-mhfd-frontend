@@ -35,7 +35,6 @@ export default ({ type, datas, search }: { type: string, datas: Array<ProjectTyp
         <Search
           placeholder="Search by Name"
           onSearch={value => {
-            console.log(value);
             const auxOptions = { ...options };
             auxOptions.requestName = value;
             setOptions(auxOptions);
