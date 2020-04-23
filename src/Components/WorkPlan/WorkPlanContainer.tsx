@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 
 import WorkPlanView from './WorkPlanView';
 import { bindActionCreators } from 'redux';
+
+import { getProjectWithFilters } from '../../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../../store/actions/panelActions';
 
 const mapStateToProps = (state: any) => {
@@ -14,7 +16,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => ({
   ...bindActionCreators({
     saveDraftCard,
-    getUserProjects
+    getUserProjects,
+    getProjectWithFilters
   }, dispatch)
 });
 

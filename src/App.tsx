@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.scss';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -27,11 +27,7 @@ import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenance
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 
-function App({ replaceAppUser, getProjectWithFilters } : { replaceAppUser : Function, getProjectWithFilters : Function }) {
-
-  useEffect(() => {
-    getProjectWithFilters();
-  }, [getProjectWithFilters]);
+function App({ replaceAppUser } : { replaceAppUser : Function }) {
   
   const appUser = store.getState().appUser;
   if(datasets.getToken() && appUser.email === '') {

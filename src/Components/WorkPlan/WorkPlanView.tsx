@@ -15,7 +15,7 @@ import { ProjectTabTypes } from "../../Classes/MapTypes";
 const { TabPane } = Tabs;
 const { Option } = Select;
 
-const workPlanGraphs = (
+const workPlanGraphs = (saveDraftCard : Function) => (
   <Col span={6}>
     <div style={{ display: 'flex' }}>
       <h3 style={{ width: '50%' }}>Analysis</h3>
@@ -36,14 +36,29 @@ const workPlanGraphs = (
         <h5>Distribution Across Jurisdictions <img src="/Icons/icon-19.svg" alt="" /></h5>
       </div>
     </div>
+
+    <div className="cost-wr" style={{padding: '20px 0px' }}>
+      <Row>
+        <Col className="cost-rows" style={{paddingRight: 8}}>
+          <Button className="btn-00">Save Work Plan</Button>
+          <Button onClick={() => saveDraftCard()} >
+            Submit to Admin
+          </Button>
+        </Col>
+      </Row>
+    </div>
   </Col>
 );
 
-export default ({ panel, projectsByType, getUserProjects, saveDraftCard } : { panel : any, saveDraftCard : Function, getUserProjects : Function, projectsByType : any}) => {
+export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProjectWithFilters } : { panel : any, saveDraftCard : Function, getUserProjects : Function, projectsByType : any, getProjectWithFilters: Function}) => {
   const [visible, setVisible] = useState(false);
   const [panelState, setPanelState] = useState({});
   const [tabPosition, setTabPosition] = useState("0");
   const [projectType, setProjectType] = useState("capital");
+
+  useEffect(() => {
+    getProjectWithFilters();
+  }, [getProjectWithFilters]);
 
   useEffect(() => {
     getUserProjects();
@@ -73,6 +88,8 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard } : { pa
   const handleSaveDraftCard = () => {
     saveDraftCard(panelState, projectType);
   }
+
+  const workPlanGraphsCallback = workPlanGraphs(handleSaveDraftCard);
   
   return <>
     <Chat visible={visible} setVisible={setVisible} />
@@ -101,7 +118,7 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard } : { pa
                           headers={tab}
                           panelState={panelState}
                           setPanelState={setPanelState}
-                          workPlanGraphs={workPlanGraphs}
+                          workPlanGraphs={workPlanGraphsCallback}
                           handleSaveDraftCard={handleSaveDraftCard} />
                       </TabPane>
                     );

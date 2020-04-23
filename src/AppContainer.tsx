@@ -4,7 +4,6 @@ import App from './App';
 import { bindActionCreators } from 'redux';
 
 import { replaceAppUser } from './store/actions/appUser';
-import { getProjectWithFilters } from './store/actions/filterActions';
 
 const mapStateToProps = (state: any) => {
   return {
@@ -15,7 +14,6 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => ({
   ...bindActionCreators ({
     replaceAppUser,
-    getProjectWithFilters
     }, dispatch)
 });
 

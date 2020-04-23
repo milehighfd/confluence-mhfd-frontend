@@ -68,12 +68,15 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
         let selectedItemId = '';
 
         if (prevIndex < nextIndex) {
-          selectedItemId = headers.drafts[nextIndex - 1]
+          selectedItemId = headers.drafts[nextIndex - 1];
         } else {
-          selectedItemId = headers.drafts[nextIndex + 1]
+          selectedItemId = headers.drafts[nextIndex + 1];
         }
 
         updatePanelStateOnDrag(selectedItemId, event.newIndex as number);
+        if (panelState[header].length === 1) {
+          setPanelState({ ...panelState, [header]: [] });
+        }
       }
     } 
 
@@ -182,7 +185,7 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
               </Col>
             }
 
-            {header === headers.drafts[headers.drafts.length - 1] &&
+            {(!workPlanGraphs && header === headers.drafts[headers.drafts.length - 1]) &&
               <Row>
                 <Button onClick={() => handleSaveDraftCard()} >
                   Submit to Admin
