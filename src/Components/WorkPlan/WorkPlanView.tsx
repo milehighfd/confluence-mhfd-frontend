@@ -69,10 +69,6 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProj
   }, [panel]);
 
   useEffect(() => {
-    console.log(panelState);
-  },[panelState]);
-
-  useEffect(() => {
     if (tabPosition === "0") {
       getProjectsByType('capital');
     } else if (tabPosition === "1") {

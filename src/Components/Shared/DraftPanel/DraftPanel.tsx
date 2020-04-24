@@ -35,22 +35,22 @@ const numberWithCommas = (x : number) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+const WorkPlanWrapper = ({ children, workPlanWrapper } : { children : React.ReactNode, workPlanWrapper? : boolean }) => (
+  <>
+    {workPlanWrapper ?
+      <Col span={3}>
+        {children}
+      </Col> 
+        :
+    <>{children}</>
+    }
+  </>
+);
+
 export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workPlanGraphs, workPlanWrapper } : DraftPanelTypes) => {
   const [dragged, setDragged] = useState({ id: '', parent: '' });
   const [isDragging, setIsDragging] = useState(false);
   const [containerClass, setContainerClass] = useState('col-wr');
-
-  const WorkPlanWrapper = ({ children, key } : { children : React.ReactNode, key : number}) => (
-    <div key={key}>
-      {workPlanWrapper ?
-        <Col span={3}>
-          {children}
-        </Col> 
-          :
-      <>{children}</>
-      }
-    </div>
-  );
 
   const handleDragEnter = (trigger : string) => {
     if (isDragging) {
@@ -162,57 +162,59 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
   return (
     <>
       {headers.drafts.map((header: string, index: number) => (
-        <WorkPlanWrapper key={index}>
-          <div style={{height: 44}}>
-            <h3>
-              {header.replace(/([A-Z])/g, ' $1')}
-              {(header === 'workspace' && workPlanWrapper) &&
-                <>{' '}<img src="/Icons/icon-19.svg" alt=""/></>
-              }
-            </h3>
-          </div>
-          <div
-            className={"col-wr " + containerClass}
-            style={getContainerStyle(header)}
-            onDragOver={(e) => e.preventDefault()}
-            onDragEnter={() => handleDragEnter(header)} >
+        <div key={index}>
+          <WorkPlanWrapper workPlanWrapper={workPlanWrapper}>
+            <div style={{ height: 44 }}>
+              <h3>
+                {header.replace(/([A-Z])/g, ' $1')}
+                {(header === 'workspace' && workPlanWrapper) &&
+                  <>{' '}<img src="/Icons/icon-19.svg" alt="" /></>
+                }
+              </h3>
+            </div>
+            <div
+              className={"col-wr " + containerClass}
+              style={getContainerStyle(header)}
+              onDragOver={(e) => e.preventDefault()}
+              onDragEnter={() => handleDragEnter(header)} >
 
-            {header === 'workspace' &&
-              <Link to='/new-project-types'>
-                <Button className="btn-create">
-                  <img src="/Icons/icon-18.svg" alt="" />
+              {header === 'workspace' &&
+                <Link to='/new-project-types'>
+                  <Button className="btn-create">
+                    <img src="/Icons/icon-18.svg" alt="" />
                   Create Project
                 </Button>
-              </Link>
-            }
+                </Link>
+              }
 
-            {getSortableContent(panelState[header], header)}
-          </div>
+              {getSortableContent(panelState[header], header)}
+            </div>
 
-          <div className="cost-wr">
-            {header === 'workspace' ?
-              <Col>
-                <CostsRow><h5>TOTAL REQUESTED</h5></CostsRow>
-                <CostsRow><h5>Target Cost</h5></CostsRow>
-                <CostsRow><h5>Differential</h5></CostsRow>
-              </Col>
-              :
-              <Col>
-                <CostsRow><Input placeholder="Enter target cost" /></CostsRow>
-                <CostsRow><Input className="input-pp" placeholder="Enter target cost" /></CostsRow>
-                <CostsRow><Input className="input-rr" placeholder="XXX Difference" /></CostsRow>
-              </Col>
-            }
+            <div className="cost-wr">
+              {header === 'workspace' ?
+                <Col>
+                  <CostsRow><h5>TOTAL REQUESTED</h5></CostsRow>
+                  <CostsRow><h5>Target Cost</h5></CostsRow>
+                  <CostsRow><h5>Differential</h5></CostsRow>
+                </Col>
+                :
+                <Col>
+                  <CostsRow><Input placeholder="Enter target cost" /></CostsRow>
+                  <CostsRow><Input className="input-pp" placeholder="Enter target cost" /></CostsRow>
+                  <CostsRow><Input className="input-rr" placeholder="XXX Difference" /></CostsRow>
+                </Col>
+              }
 
-            {(!workPlanGraphs && header === headers.drafts[headers.drafts.length - 1]) &&
-              <Row>
-                <Button onClick={() => handleSaveDraftCard()} >
-                  Submit to Admin
+              {(!workPlanGraphs && header === headers.drafts[headers.drafts.length - 1]) &&
+                <Row>
+                  <Button onClick={() => handleSaveDraftCard()} >
+                    Submit to Admin
                   </Button>
-              </Row>
-            }
-          </div>
-        </WorkPlanWrapper>
+                </Row>
+              }
+            </div>
+          </WorkPlanWrapper>
+        </div>
       ))}
 
       {workPlanGraphs}
