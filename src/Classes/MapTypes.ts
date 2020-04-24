@@ -221,6 +221,8 @@ export type DraftPanelTypes = {
     panelState : any, 
     setPanelState : Function, 
     handleSaveDraftCard : Function, 
-    workPlanGraphs?: React.ReactNode }
+    workPlanGraphs?: React.ReactNode,
+    workPlanWrapper?: boolean
+}
 
 /* End of Panel Types */

@@ -64,11 +64,13 @@ const handleSaveDraftCard = () => {
         {PROJECT_TABS.map((tab : ProjectTabTypes, index : number) => {
           return (
             <TabPane tab={tab.name} key={'' + index}>
-              <DraftPanel 
-                headers={tab}
-                panelState={panelState} 
-                setPanelState={setPanelState}
-                handleSaveDraftCard={handleSaveDraftCard}  />
+              <div className="work-request">
+                <DraftPanel
+                  headers={tab}
+                  panelState={panelState}
+                  setPanelState={setPanelState}
+                  handleSaveDraftCard={handleSaveDraftCard} />
+              </div>
             </TabPane>
           );
         })}

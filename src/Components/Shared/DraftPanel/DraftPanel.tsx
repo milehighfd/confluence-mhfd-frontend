@@ -35,10 +35,22 @@ const numberWithCommas = (x : number) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workPlanGraphs } : DraftPanelTypes) => {
+export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workPlanGraphs, workPlanWrapper } : DraftPanelTypes) => {
   const [dragged, setDragged] = useState({ id: '', parent: '' });
   const [isDragging, setIsDragging] = useState(false);
   const [containerClass, setContainerClass] = useState('col-wr');
+
+  const WorkPlanWrapper = ({ children, key } : { children : React.ReactNode, key : number}) => (
+    <div key={key}>
+      {workPlanWrapper ?
+        <Col span={3}>
+          {children}
+        </Col> 
+          :
+      <>{children}</>
+      }
+    </div>
+  );
 
   const handleDragEnter = (trigger : string) => {
     if (isDragging) {
@@ -48,7 +60,7 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
 
   const handleStartDrag = (event : Sortable.SortableEvent, parent : string) => {
     const index = event.oldIndex as number;
-    setDragged({ id: panelState[parent][index].id, parent })
+    setDragged({ id: panelState[parent][index].id, parent });
     setContainerClass('col-wr col-hovered');
     setIsDragging(true);
   }
@@ -58,6 +70,8 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
     const stateValidator = panelState[dragged.parent].find((x : ItemInterface) => (
       x.id === dragged.id
     ));
+
+    setIsDragging(false);
 
     if (header !== dragged.parent && !stateValidator) {
       if (!event.pullMode) {
@@ -78,7 +92,6 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
     } 
 
     setContainerClass('col-wr');
-    setIsDragging(false);
   }
 
   const updatePanelStateOnDrag = (oldId : string, oldIndex : number) => {
@@ -89,7 +102,7 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
       const newState = [...panelState[dragged.parent]];
       newState.push(selectedItem);
       oldState.splice(oldIndex, 1);
-  
+      
       setPanelState({ ...panelState, [dragged.parent]: newState, [oldId]: oldState });
     }
   }
@@ -106,7 +119,9 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
   }
 
   const handleCardMove = (newState : Array<ItemInterface>, header : string) => {
-    setPanelState({ ...panelState, [header]: newState});
+    if (isDragging) {
+      setPanelState({ ...panelState, [header]: newState});
+    }
   }
 
   const handleCardDelete = (index : number, header : string) => {
@@ -145,10 +160,17 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
   }
 
   return (
-    <div className="work-request">
+    <>
       {headers.drafts.map((header: string, index: number) => (
-        <div key={index}>
-          <h3>{header.replace(/([A-Z])/g, ' $1')}</h3>
+        <WorkPlanWrapper key={index}>
+          <div style={{height: 44}}>
+            <h3>
+              {header.replace(/([A-Z])/g, ' $1')}
+              {(header === 'workspace' && workPlanWrapper) &&
+                <>{' '}<img src="/Icons/icon-19.svg" alt=""/></>
+              }
+            </h3>
+          </div>
           <div
             className={"col-wr " + containerClass}
             style={getContainerStyle(header)}
@@ -190,10 +212,10 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
               </Row>
             }
           </div>
-        </div>
+        </WorkPlanWrapper>
       ))}
 
       {workPlanGraphs}
-    </div>
+    </>
   )
 }

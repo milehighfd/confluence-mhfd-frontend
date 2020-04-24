@@ -815,15 +815,16 @@ const todaysYear = '' + actualYear;
 const nextYear = '' + (actualYear + 1); 
 const twoYears = '' + (actualYear + 2); 
 const threeYears = '' + (actualYear + 3);
+const fourYears = '' + (actualYear + 4);
 
 export const PROJECT_TABS = [
   {
     name: 'Capital',
-    drafts: ['workspace', todaysYear, nextYear, twoYears, threeYears],
+    drafts: ['workspace', todaysYear, nextYear, twoYears, threeYears, fourYears],
   }, 
   {
     name: 'Study',
-    drafts: ['workspace', todaysYear, nextYear, twoYears, threeYears],
+    drafts: ['workspace', todaysYear, nextYear, twoYears, threeYears, fourYears],
   },
   {
     name: 'Maintenance',

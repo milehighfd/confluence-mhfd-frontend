@@ -17,7 +17,7 @@ const { Option } = Select;
 
 const workPlanGraphs = (saveDraftCard : Function) => (
   <Col span={6}>
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', height: 58 }}>
       <h3 style={{ width: '50%' }}>Analysis</h3>
       <Select defaultValue="2021" style={{ width: '50%' }}>
         <Option value="2020">2020</Option>
@@ -69,6 +69,10 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProj
   }, [panel]);
 
   useEffect(() => {
+    console.log(panelState);
+  },[panelState]);
+
+  useEffect(() => {
     if (tabPosition === "0") {
       getProjectsByType('capital');
     } else if (tabPosition === "1") {
@@ -114,12 +118,15 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProj
                   {PROJECT_TABS.map((tab: ProjectTabTypes, index: number) => {
                     return (
                       <TabPane tab={tab.name} key={'' + index}>
-                        <DraftPanel
-                          headers={tab}
-                          panelState={panelState}
-                          setPanelState={setPanelState}
-                          workPlanGraphs={workPlanGraphsCallback}
-                          handleSaveDraftCard={handleSaveDraftCard} />
+                        <Row gutter={[8, 24]} className="work-plan">
+                          <DraftPanel
+                            headers={tab}
+                            panelState={panelState}
+                            setPanelState={setPanelState}
+                            workPlanGraphs={workPlanGraphsCallback}
+                            workPlanWrapper={true}
+                            handleSaveDraftCard={handleSaveDraftCard} />
+                        </Row>
                       </TabPane>
                     );
                   })}
