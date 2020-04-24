@@ -123,12 +123,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         </Col>
         <Col style={{ textAlign: 'right' }} span={12}>
           <ButtonGroup>
-            <Button className="btn-mm" onClick={() => {
+            {/* <Button className="btn-mm" onClick={() => {
               setListDescription(true);
             }}>
               <img className="img-h" src="/Icons/icon-30.svg" alt="" />
               <img className="img-a" src="/Icons/icon-32.svg" alt="" />
-            </Button>
+            </Button> */}
             <Button onClick={() => {
               setListDescription(false);
             }}>

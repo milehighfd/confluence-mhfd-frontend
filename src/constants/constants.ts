@@ -81,42 +81,49 @@ export const NEW_PROJECT_FORM_COST = {
 
 export const buttonsNewProject = [
     {
+      disabled: false,
       title: 'capital',
       route: 'new-project-form',
       icon1: '/Icons/icon-37.svg',
       icon2: '/Icons/icon-38.svg',
       redirectRoute: '/project-capital'
     }, {
+      disabled: false,
       title: 'maintenance',
       route: 'new-project-form',
       icon1: '/Icons/icon-39.svg',
       icon2: '/Icons/icon-40.svg',
       buttonExtra: [
         {
+          disabled: false,
           title: 'debris management',
           route: 'new-project-form',
           icon1: '/Icons/icon-47.svg',
           icon2: '/Icons/icon-48.svg',
           redirectRoute: '/project-maintenance/debrisManagement'
         }, {
+          disabled: true,
           title: 'vegetation management',
           route: 'new-project-form',
           icon1: '/Icons/icon-49.svg',
           icon2: '/Icons/icon-50.svg',
           redirectRoute: '/project-maintenance/vegetationManagement'
         }, {
+          disabled: true,
           title: 'sediment removal',
           route: 'new-project-form',
           icon1: '/Icons/icon-51.svg',
           icon2: '/Icons/icon-52.svg',
           redirectRoute: '/project-maintenance/sedimentRemoval'
         }, {
+          disabled: true,
           title: 'minor repairs',
           route: 'new-project-form',
           icon1: '/Icons/icon-53.svg',
           icon2: '/Icons/icon-54.svg',
           redirectRoute: '/project-maintenance/minorRepairs'
         }, {
+          disabled: true,
           title: 'restoration',
           route: 'new-project-form',
           icon1: '/Icons/icon-55.svg',
@@ -125,18 +132,21 @@ export const buttonsNewProject = [
         }
       ]
     }, {
+      disabled: false,
       title: 'study',
       route: 'new-project-form',
       icon1: '/Icons/icon-41.svg',
       icon2: '/Icons/icon-42.svg',
       buttonExtra: [
         {
+          disabled: false,
           title: 'master plan only',
           route: 'new-project-form',
           icon1: '/Icons/icon-57.svg',
           icon2: '/Icons/icon-68.svg',
           redirectRoute: '/project-study/masterPlan'
         }, {
+          disabled: true,
           title: 'fhad only',
           route: 'new-project-form',
           icon1: '/Icons/icon-58.svg',
@@ -145,12 +155,14 @@ export const buttonsNewProject = [
         }
       ]
     }, {
+      disabled: true,
       title: 'acquisition',
       route: 'new-project-form',
       icon1: '/Icons/icon-43.svg',
       icon2: '/Icons/icon-44.svg',
       redirectRoute: '/project-acquisition'
     }, {
+      disabled: true,
       title: 'special',
       route: 'new-project-form',
       icon1: '/Icons/icon-45.svg',
@@ -708,6 +720,45 @@ export const PAGE_USER = {
   designation: '',
   sort: 'name'
 }
+
+export const STATUS_PROJECT = [
+  {
+    name: "All",
+    id: ""
+  },
+  {
+    name: "Approved",
+    id: "approved"
+  },
+  {
+    name: "Construction",
+    id: "construction"
+  },
+  {
+    name: "Draft",
+    id: "draft"
+  },
+  {
+    name: "Final Design",
+    id: "finalDesign"
+  },
+  {
+    name: "Idle",
+    id: "idle"
+  },
+  {
+    name: "Initiated",
+    id: "initiated"
+  },
+  {
+    name: "Prelim Design",
+    id: "prelimDesign"
+  },
+  {
+    name: "Requested",
+    id: "requested"
+  },
+]
 
 /* Unselected Items on Maps Errors */
 export const NO_COMPONENTS_ERROR = 'Must select at least one map component.';

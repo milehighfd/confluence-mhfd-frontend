@@ -32,7 +32,8 @@ export const SERVER = (function () {
     const LIST_USERS_PENDING = 'list?pending=false&';
     const CREATORS = 'creators';
     const FILTER_BY_FIELD = 'filter-by-field';
-
+    const FILTER_BY_USER_CREATOR = 'filters-by-creator';
+    const UPLOAD_PHOTO = 'upload-photo';
     return {
         URL_BASE: URL_BASE.BASE,
         CAPTCHA: CAPTCHA,
@@ -61,5 +62,7 @@ export const SERVER = (function () {
         SIGN_UP: `${URL_BASE.BASE}/${USER}/${SIGN_UP}`,
         RECOVERY_PASSWORD: `${URL_BASE.BASE}/${USER}/${RECOVERY_PASSWORD}`,
         RESET_PASSWORD: `${URL_BASE.BASE}/${USER}/${RESET_PASSWORD}`,
+        USER_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${FILTER_BY_USER_CREATOR}`,
+        USER_UPLOAD_PHOTO: `${URL_BASE.BASE}/${USER}/${UPLOAD_PHOTO}`,
     }
 })();
