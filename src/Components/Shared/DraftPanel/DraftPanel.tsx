@@ -1,9 +1,8 @@
 import React from 'react';
 import { Dropdown, Menu, Button, Row, Col, Input } from 'antd';
 
-import { ItemInterface } from 'react-sortablejs';
 import { Link } from 'react-router-dom';
-import { DraftPanelTypes } from '../../../Classes/MapTypes';
+import { DraftPanelTypes, ProjectTypes } from '../../../Classes/MapTypes';
 
 import { DragDropContext, Droppable, Draggable, DropResult, DraggableLocation } from 'react-beautiful-dnd';
 
@@ -129,12 +128,12 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
     setPanelState({ ...panelState, [header]: updatedState });
   }
 
-  const getSortableContent = (content: Array<ItemInterface>, header: string) => (
+  const getSortableContent = (content: Array<ProjectTypes>, header: string) => (
     <>
-      {content && content.length ? content.map((item: ItemInterface, index: number) => (
+      {content && content.length ? content.map((item: ProjectTypes, index: number) => (
         <Draggable
-          key={'' + item.id}
-          draggableId={'' + item.id}
+          key={'' + item._id}
+          draggableId={'' + item._id}
           index={index} >
           {(provided, snapshot) => (
             <div
@@ -143,7 +142,7 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
               {...provided.draggableProps}
               {...provided.dragHandleProps} >
               <h4>{item.requestName} </h4>
-              <h6>{'$' + numberWithCommas(item.estimatedCost)}</h6>
+              <h6>{'$' + numberWithCommas(item.estimatedCost as number)}</h6>
               <p>{item.county} <label>{item.status}</label></p>
               <Dropdown overlay={cardOptions({ index, header, handleCardDelete })} className="menu-wr">
                 <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>

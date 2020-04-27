@@ -18,8 +18,6 @@ export const getUserProjects = () => {
           if (project[panelTrigger]) {
             panelId = '' + project[panelTrigger];
           } 
-          /* Add id field for the DnD library props */
-          project.id = project._id;
           newPanelProjects[panelId] = [...newPanelProjects[panelId], project];
         });
 
