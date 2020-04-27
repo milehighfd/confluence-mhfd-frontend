@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dropdown, Menu, Button, Row, Col, Input } from 'antd';
 
-import { ReactSortable, ItemInterface, Sortable } from 'react-sortablejs';
+import { ItemInterface } from 'react-sortablejs';
 import { Link } from 'react-router-dom';
 import { DraftPanelTypes } from '../../../Classes/MapTypes';
+
+import { DragDropContext, Droppable, Draggable, DropResult, DraggableLocation } from 'react-beautiful-dnd';
 
 const cardOptions = ({ index, header, handleCardDelete } : { index : number, header : string, handleCardDelete : Function }) => (
   <Menu className="menu-card">
@@ -47,177 +49,179 @@ const WorkPlanWrapper = ({ children, workPlanWrapper } : { children : React.Reac
   </>
 );
 
+const onCardSort = (list : Array<string>, startIndex : number, endIndex : number) => {
+  const result = [...list];
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+const onCardMove = (
+  source : Array<string>, 
+  destination : Array<string>, 
+  droppableSource : DraggableLocation, 
+  droppableDestination : DraggableLocation
+  ) => {
+
+  const sourceClone = [...source];
+  const destClone = [...destination];
+  const [removed] = sourceClone.splice(droppableSource.index, 1);
+
+  destClone.splice(droppableDestination.index, 0, removed);
+
+  const result : any = {};
+  result[droppableSource.droppableId] = sourceClone;
+  result[droppableDestination.droppableId] = destClone;
+
+  return result;
+};
+
+const getListStyle = (isDraggingOver: boolean) => (
+  isDraggingOver ? {
+    backgroundColor: '#12a80d25',
+    borderColor: 'green',
+  } : {}
+);
+
 export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workPlanGraphs, workPlanWrapper } : DraftPanelTypes) => {
-  const [dragged, setDragged] = useState({ id: '', parent: '' });
-  const [isDragging, setIsDragging] = useState(false);
-  const [containerClass, setContainerClass] = useState('col-wr');
 
-  const handleDragEnter = (trigger : string) => {
-    if (isDragging) {
-      setDragged({ ...dragged, parent: trigger })
+  const getList = (id : string) => panelState[id];
+
+  const onDragEnd = (result: DropResult) => {
+    const { source, destination } = result;
+
+    // dropped outside the list
+    if (!destination) {
+      return;
     }
-  }
 
-  const handleStartDrag = (event : Sortable.SortableEvent, parent : string) => {
-    const index = event.oldIndex as number;
-    setDragged({ id: panelState[parent][index].id, parent });
-    setContainerClass('col-wr col-hovered');
-    setIsDragging(true);
-  }
+    if (source.droppableId === destination.droppableId) {
+      const items = onCardSort(
+        getList(source.droppableId),
+        source.index,
+        destination.index
+      );
 
-  const handleEndDrag = (event : Sortable.SortableEvent, header : string) => {
-    /* Verifier if item already exists on array to avoid multiple equal values */
-    const stateValidator = panelState[dragged.parent].find((x : ItemInterface) => (
-      x.id === dragged.id
-    ));
-
-    setIsDragging(false);
-
-    if (header !== dragged.parent && !stateValidator) {
-      if (!event.pullMode) {
-        updatePanelStateOnDrag(header, event.newIndex as number);
-      } else {
-        const prevIndex = headers.drafts.indexOf(header);
-        const nextIndex = headers.drafts.indexOf(dragged.parent);
-        let selectedItemId = '';
-
-        if (prevIndex < nextIndex) {
-          selectedItemId = headers.drafts[nextIndex - 1];
-        } else {
-          selectedItemId = headers.drafts[nextIndex + 1];
-        }
-
-        updatePanelStateOnDrag(selectedItemId, event.newIndex as number);
-      }
-    } 
-
-    setContainerClass('col-wr');
-  }
-
-  const updatePanelStateOnDrag = (oldId : string, oldIndex : number) => {
-    const selectedItem = panelState[oldId].find((x : ItemInterface) => x.id === dragged.id);
-
-    if (selectedItem) {
-      const oldState = [...panelState[oldId]];
-      const newState = [...panelState[dragged.parent]];
-      newState.push(selectedItem);
-      oldState.splice(oldIndex, 1);
-      
-      setPanelState({ ...panelState, [dragged.parent]: newState, [oldId]: oldState });
-    }
-  }
-
-  const getContainerStyle = (header : string) => {
-    if (header === dragged.parent && isDragging) {
-      return {
-        borderColor: 'green',
-        backgroundColor: '#12a80d25'
-      };
+      setPanelState({ ...panelState, [source.droppableId]: items });
     } else {
-      return {};
+      const result = onCardMove(
+        getList(source.droppableId),
+        getList(destination.droppableId),
+        source,
+        destination
+      );
+
+      const oldState = result[source.droppableId];
+      const newState = result[destination.droppableId];
+
+      setPanelState({ 
+        ...panelState, 
+        [source.droppableId]: oldState, 
+        [destination.droppableId]: newState 
+      });
     }
   }
-
-  const handleCardMove = (newState : Array<ItemInterface>, header : string) => {
-    if (isDragging) {
-      setPanelState({ ...panelState, [header]: newState});
-    }
-  }
-
+  
   const handleCardDelete = (index : number, header : string) => {
     const updatedState = [...panelState[header]];
     updatedState.splice(index, 1);
     setPanelState({ ...panelState, [header]: updatedState });
   }
 
-  const getSortableContent = (content: Array<ItemInterface>, header: string) => {
-    if (content && content.length) {
-      return (
-        <ReactSortable
-          list={content}
-          setList={(newState) => handleCardMove(newState, header)}
-          animation={200}
-          onStart={(e) => handleStartDrag(e, header)}
-          onEnd={(e) => handleEndDrag(e, header)}
-          group="capital" >
-          {content.map((item : ItemInterface, index : number) => (
-            <div className="card-wr" key={item.id} id={'' + item.id}>
+  const getSortableContent = (content: Array<ItemInterface>, header: string) => (
+    <>
+      {content && content.length ? content.map((item: ItemInterface, index: number) => (
+        <Draggable
+          key={'' + item.id}
+          draggableId={'' + item.id}
+          index={index} >
+          {(provided, snapshot) => (
+            <div
+              className="card-wr"
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps} >
               <h4>{item.requestName} </h4>
               <h6>{'$' + numberWithCommas(item.estimatedCost)}</h6>
               <p>{item.county} <label>{item.status}</label></p>
-              <Dropdown overlay={cardOptions({index, header, handleCardDelete})} className="menu-wr">
+              <Dropdown overlay={cardOptions({ index, header, handleCardDelete })} className="menu-wr">
                 <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
                   <img src="/Icons/icon-60.svg" alt="" />
                 </span>
               </Dropdown>
             </div>
-          ))}
-        </ReactSortable>
-        );
-    } else {
-      return;
-    }
-  }
+          )}
+        </Draggable>
+      )): null }
+    </>
+  )
 
   return (
     <>
-      {headers.drafts.map((header: string, index: number) => (
-        <div key={index}>
-          <WorkPlanWrapper workPlanWrapper={workPlanWrapper}>
-            <div style={{ height: 44 }}>
-              <h3>
-                {header.replace(/([A-Z])/g, ' $1')}
-                {(header === 'workspace' && workPlanWrapper) &&
-                  <>{' '}<img src="/Icons/icon-19.svg" alt="" /></>
+      <DragDropContext onDragEnd={onDragEnd}>
+        {headers.drafts.map((header: string, index: number) => (
+          <div key={index}>
+            <WorkPlanWrapper workPlanWrapper={workPlanWrapper}>
+              <div style={{ height: 44 }}>
+                <h3>
+                  {header.replace(/([A-Z])/g, ' $1')}
+                  {(header === 'workspace' && workPlanWrapper) &&
+                    <>{' '}<img src="/Icons/icon-19.svg" alt="" /></>
+                  }
+                </h3>
+              </div>
+
+              <Droppable droppableId={header}>
+                {(provided, snapshot) => (
+                  <div
+                    className={snapshot.isDraggingOver ? "col-wr col-hovered" : "col-wr"}
+                    ref={provided.innerRef}
+                    style={getListStyle(snapshot.isDraggingOver)}
+                  >
+                    {header === 'workspace' &&
+                      <Link to='/new-project-types'>
+                        <Button className="btn-create">
+                          <img src="/Icons/icon-18.svg" alt="" />
+                            Create Project
+                          </Button>
+                      </Link>
+                    }
+
+                    {getSortableContent(panelState[header], header)}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+
+              <div className="cost-wr">
+                {header === 'workspace' ?
+                  <Col>
+                    <CostsRow><h5>TOTAL REQUESTED</h5></CostsRow>
+                    <CostsRow><h5>Target Cost</h5></CostsRow>
+                    <CostsRow><h5>Differential</h5></CostsRow>
+                  </Col>
+                  :
+                  <Col>
+                    <CostsRow><Input placeholder="Enter target cost" /></CostsRow>
+                    <CostsRow><Input className="input-pp" placeholder="Enter target cost" /></CostsRow>
+                    <CostsRow><Input className="input-rr" placeholder="XXX Difference" /></CostsRow>
+                  </Col>
                 }
-              </h3>
-            </div>
-            <div
-              className={"col-wr " + containerClass}
-              style={getContainerStyle(header)}
-              onDragOver={(e) => e.preventDefault()}
-              onDragEnter={() => handleDragEnter(header)} >
 
-              {header === 'workspace' &&
-                <Link to='/new-project-types'>
-                  <Button className="btn-create">
-                    <img src="/Icons/icon-18.svg" alt="" />
-                  Create Project
-                </Button>
-                </Link>
-              }
-
-              {getSortableContent(panelState[header], header)}
-            </div>
-
-            <div className="cost-wr">
-              {header === 'workspace' ?
-                <Col>
-                  <CostsRow><h5>TOTAL REQUESTED</h5></CostsRow>
-                  <CostsRow><h5>Target Cost</h5></CostsRow>
-                  <CostsRow><h5>Differential</h5></CostsRow>
-                </Col>
-                :
-                <Col>
-                  <CostsRow><Input placeholder="Enter target cost" /></CostsRow>
-                  <CostsRow><Input className="input-pp" placeholder="Enter target cost" /></CostsRow>
-                  <CostsRow><Input className="input-rr" placeholder="XXX Difference" /></CostsRow>
-                </Col>
-              }
-
-              {(!workPlanGraphs && header === headers.drafts[headers.drafts.length - 1]) &&
-                <Row>
-                  <Button onClick={() => handleSaveDraftCard()} >
-                    Submit to Admin
+                {(!workPlanGraphs && header === headers.drafts[headers.drafts.length - 1]) &&
+                  <Row>
+                    <Button onClick={() => handleSaveDraftCard()} >
+                      Submit to Admin
                   </Button>
-                </Row>
-              }
-            </div>
-          </WorkPlanWrapper>
-        </div>
-      ))}
-
-      {workPlanGraphs}
+                  </Row>
+                }
+              </div>
+            </WorkPlanWrapper>
+          </div>
+        ))}
+        {workPlanGraphs}
+      </DragDropContext>
     </>
   )
 }

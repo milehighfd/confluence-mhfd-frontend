@@ -898,6 +898,7 @@ export const DEFAULT_BODY = {
   [nextYear]: [],
   [twoYears]: [],
   [threeYears]: [],
+  [fourYears]: []
 }
 
 /* End of Draft Panel Constants */
