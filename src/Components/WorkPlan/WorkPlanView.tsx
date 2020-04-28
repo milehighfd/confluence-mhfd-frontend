@@ -5,6 +5,7 @@ import NavbarView from "../Shared/Navbar/NavbarView";
 import SidebarView from "../Shared/Sidebar/SidebarView";
 import Chat from "../Shared/Chat/Chat";
 import DraftPanel from "../Shared/DraftPanel/DraftPanel";
+import GraphRequestByJurisdiction from "./GraphRequestByJurisdiction";
 
 import { PROJECT_TABS } from '../../constants/constants'
 import { ProjectTabTypes } from "../../Classes/MapTypes";
@@ -28,14 +29,15 @@ const workPlanGraphs = (saveDraftCard : Function) => (
       </Select>
     </div>
 
-    <div className="work-pc">
+    {/* <div className="work-pc">
       <div className="wp-chart">
         <h5>Requests by Jurisdiction <img src="/Icons/icon-19.svg" alt="" /></h5>
       </div>
       <div className="wp-chart">
         <h5>Distribution Across Jurisdictions <img src="/Icons/icon-19.svg" alt="" /></h5>
       </div>
-    </div>
+    </div> */}
+    <GraphRequestByJurisdiction />
 
     <div className="cost-wr" style={{padding: '20px 0px' }}>
       <Row>

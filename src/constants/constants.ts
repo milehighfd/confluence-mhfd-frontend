@@ -760,6 +760,180 @@ export const STATUS_PROJECT = [
   },
 ]
 
+export const VALUE_GRAPH = [
+  {
+    name: "Unincorporated Adams County",
+    value: 10
+  },
+  {
+    name: "Unincorporated Arapahoe County",
+    value: 50
+  },
+  {
+    name: "Unincorporated Boulder County",
+    value: 80
+  },
+  {
+    name: "Unincorporated Douglas County",
+    value: 90
+  },
+  {
+    name: "Unincorporated Jefferson County",
+    value: 45
+  },
+  {
+    name: "Arvada",
+    value: 55
+  },
+  {
+    name: "Aurora",
+    value: 58
+  },
+  {
+    name: "Boulder, City",
+    value: 51
+  },
+  {
+    name: "Bow Mar",
+    value: 52
+  },
+  {
+    name: "Brighton",
+    value: 53
+  },
+  {
+    name: "Broomfield, City and County",
+    value: 50
+  },
+  {
+    name: "Castle Pines",
+    value: 87
+  },
+  {
+    name: "Centennial",
+    value: 8
+  },
+  {
+    name: "Cherry Hills Village",
+    value: 1
+  },
+  {
+    name: "Columbine Valley",
+    value: 44
+  },
+  {
+    name: "Commerce City",
+    value: 32
+  },
+  {
+    name: "Denver, City and County",
+    value: 100
+  },
+  {
+    name: "Edgewater",
+    value: 100
+  },
+  {
+    name: "Englewood",
+    value: 100
+  },
+  {
+    name: "Erie",
+    value: 100
+  },
+  {
+    name: "Federal Heights",
+    value: 50
+  },
+  {
+    name: "Foxfield",
+    value: 50
+  },
+  {
+    name: "Glendale",
+    value: 50
+  },
+  {
+    name: "Golden",
+    value: 50
+  },
+  {
+    name: "Greenwood Village",
+    value: 50
+  },
+  {
+    name: "Lafayette",
+    value: 50
+  },
+  {
+    name: "Lakeside",
+    value: 50
+  },
+  {
+    name: "Lakewood",
+    value: 50
+  },
+  {
+    name: "Littleton",
+    value: 50
+  },
+  {
+    name: "Lochbuie",
+    value: 50
+  },
+  {
+    name: "Lone Tree",
+    value: 50
+  },
+  {
+    name: "Louisville",
+    value: 50
+  },
+  {
+    name: "Morrison",
+    value: 50
+  },
+  {
+    name: "Mountain View",
+    value: 50
+  },
+  {
+    name: "Northglenn",
+    value: 50
+  },
+  {
+    name: "Parker",
+    value: 50
+  },
+  {
+    name: "Sheridan",
+    value: 50
+  },
+  {
+    name: "Superior",
+    value: 50
+  },
+  {
+    name: "Thornton",
+    value: 50
+  },
+  {
+    name: "Westminster",
+    value: 50
+  },
+  {
+    name: "Wheat Ridge",
+    value: 50
+  },
+  {
+    name: "SEMSWA",
+    value: 50
+  }
+]
+export const LINE = [
+  20, 40, 60, 80, 100
+]
+
 /* Unselected Items on Maps Errors */
 export const NO_COMPONENTS_ERROR = 'Must select at least one map component.';
 export const NO_POLYGON_ERROR = 'Must draw a polygon on the map to continue.';

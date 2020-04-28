@@ -2570,8 +2570,8 @@ body{
   }
 }
 .work-pc{
-  min-width: 100%;
-  width: 100%;
+  min-width: 380px;
+  width: 380px;
   height: 687px;
   min-height: 687px;
   border-radius: 4px;
@@ -2587,6 +2587,37 @@ body{
     font-size: 16px;
     color: $purple00;
   }
+}
+.text-font-title {
+  width: 53px;
+  height: 18px;
+  opacity: 0.6;
+  font-family: Ubuntu;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #11093c;
+}
+.text-font-percentage {
+  width: 33px;
+  height: 22px;
+  font-family: Ubuntu;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #11093c;
+}
+.line {
+  width: 1px;
+  height: 253px;
+  opacity: 0.1;
+  border: solid 1.3px #251863;
 }
 .work-title{
   padding-left: 15px;

@@ -24,6 +24,7 @@
     "apollo-client": "^2.6.8",
     "apollo-upload-client": "^12.1.0",
     "connected-react-router": "^6.7.0",
+    "d3": "^5.16.0",
     "formik": "^2.1.4",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
@@ -64,6 +65,11 @@
     ]
   },
   "devDependencies": {
+    "@types/d3": "^5.7.2",
+    "@types/d3-array": "^2.0.0",
+    "@types/d3-axis": "^1.0.12",
+    "@types/d3-scale": "^2.2.0",
+    "@types/d3-selection": "^1.4.1",
     "@types/react-google-recaptcha": "^1.1.1",
     "@types/yup": "^0.26.32",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
