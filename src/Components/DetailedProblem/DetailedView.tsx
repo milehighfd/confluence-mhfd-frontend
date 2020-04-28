@@ -24,12 +24,33 @@ const menu = (
   </Menu>
 );
 
-export default () => {
+const firstLetterUppercase = (text : string) => {
+  const formatedText = text[0].toUpperCase() + text.slice(1);
+  return formatedText;
+}
+
+export default ({ setVisible, data, numberWithCommas } : { setVisible : Function, data : any, numberWithCommas : Function }) => {
+
+  const { 
+    county,
+    priority,
+    finalCost,
+    requestName, 
+    projectType,
+    description,
+    estimatedCost,
+  } = data;
+
  return <div className="detailed">
     <Row className="detailed-h" gutter={[16, 8]}>
       <Col span={13}>
-        <h1>Little Dry Creek FloodPlain At Sheridan BLVD</h1>
-        <p><span>Capital Project</span>   •   <span>Arvada, CO</span>   •   <span>Jefferson County</span>   •   <span>West Service Area</span></p>
+        <h1>{requestName}</h1>
+        <p>
+          <span>{firstLetterUppercase(projectType)} </span>   •   
+          <span> Arvada, CO</span>   •   
+          <span> {county?county:'No'} County</span>   •   
+          <span> West Service Area</span>
+        </p>
       </Col>
       <Col span={5}>
         <div className="status-d">
@@ -39,12 +60,14 @@ export default () => {
         {/*<div className="nn-hh">Project Status: Hydrology</div>*/}
       </Col>
       <Col span={3} style={{textAlign: 'center'}}>
-        <div className="detailed-mm"><b>$1,230,500</b></div>
+        <div className="detailed-mm">
+          <b>${numberWithCommas(estimatedCost?estimatedCost:finalCost)}</b>
+        </div>
       </Col>
       <Col span={3} style={{textAlign: 'right'}}>
         <Button><img src="/Icons/icon-01.svg" alt=""/></Button>
         <Button><img src="/Icons/icon-06.svg" alt=""/></Button>
-        <Button><img src="/Icons/icon-62.svg" alt="" height="15px"/></Button>
+        <Button onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px"/></Button>
       </Col>
     </Row>
     <Row className="detailed-b">
@@ -76,7 +99,7 @@ export default () => {
               <label><i>Priority</i></label>
             </Col>
             <Col span={8}>
-              <p style={{color: 'red'}}>High Priority</p>
+              <p style={{color: 'red'}}>{firstLetterUppercase(priority)} Priority</p>
             </Col>
           </Row>
           <Row>
@@ -106,8 +129,7 @@ export default () => {
               <label><i>Description</i></label>
             </Col>
             <Col span={20}>
-              <p>Channel restoration to increase conveyance and stabilize Little Dry Creek from Alpha Street to city boundary.
-              Roadway crossing improvements at Alpha St, Beta Ave. Pedestrian crossing in park.</p>
+              <p>{description}</p>
             </Col>
           </Row>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dropdown, Menu, Button, Row, Col, Input } from 'antd';
 
 import { Link } from 'react-router-dom';
@@ -26,7 +26,7 @@ const cardOptions = ({ index, header, handleCardDelete } : { index : number, hea
   </Menu>
 );
 
-const CostsRow = ({ children } : { children : React.ReactChild}) => (
+const CostsRow = ({ children } : { children : React.ReactNode}) => (
   <Row className="cost-rows">
     {children}
   </Row>
@@ -84,6 +84,20 @@ const getListStyle = (isDraggingOver: boolean) => (
 );
 
 export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workPlanGraphs, workPlanWrapper } : DraftPanelTypes) => {
+
+  const [panelCosts, setPanelCosts] = useState<any>({});
+
+  useEffect(() => {
+    const headerCosts : any = {};
+    Object.keys(panelState).forEach((key : string) => {
+      let estimatedCosts = 0;
+      panelState[key].forEach((item : ProjectTypes) => {
+        estimatedCosts += item.estimatedCost as number;
+      });
+      headerCosts[key] = estimatedCosts;
+    });
+    setPanelCosts(headerCosts);
+  }, [panelState]);
 
   const getList = (id : string) => panelState[id];
 
@@ -202,7 +216,11 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
                   </Col>
                   :
                   <Col>
-                    <CostsRow><Input placeholder="Enter target cost" /></CostsRow>
+                    <CostsRow>
+                      <span>
+                        ${numberWithCommas(panelCosts[header] ?  panelCosts[header] : 0)}
+                      </span>
+                    </CostsRow>
                     <CostsRow><Input className="input-pp" placeholder="Enter target cost" /></CostsRow>
                     <CostsRow><Input className="input-rr" placeholder="XXX Difference" /></CostsRow>
                   </Col>
