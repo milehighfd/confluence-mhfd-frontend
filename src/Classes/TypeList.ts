@@ -9,7 +9,8 @@ export type User = {
     email: string,
     city: string,
     county: string,
-    serviceArea: string
+    serviceArea: string,
+    photo: string
 }
 
 export type OptionsFiltersUser = {

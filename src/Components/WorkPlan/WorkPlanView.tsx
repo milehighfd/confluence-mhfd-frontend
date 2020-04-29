@@ -37,7 +37,7 @@ const workPlanGraphs = (saveDraftCard : Function) => (
         <h5>Distribution Across Jurisdictions <img src="/Icons/icon-19.svg" alt="" /></h5>
       </div>
     </div> */}
-    <GraphRequestByJurisdiction />
+    <GraphRequestByJurisdiction key="valueKey" />
 
     <div className="cost-wr" style={{padding: '20px 0px' }}>
       <Row>

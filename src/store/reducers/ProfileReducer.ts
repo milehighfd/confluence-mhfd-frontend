@@ -29,6 +29,11 @@ const profile = (state = initProfile, action: any) => {
         ...state,
         countProjects: action.countProjects
       }
+    case types.GET_PHOTO:
+      return {
+        ...state,
+        userImage: action.userImage
+      }
     default:
       return state;
   }

@@ -34,18 +34,21 @@ const cardInformationProblems: Array<any> = [
   }
 ];
 
-export default ({user, projects, countProjects, getUserProjects, getCountProjects } : { user: User, projects: ProjectTypes[], countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function}) => {
+export default ({ user, projects, countProjects, getUserProjects, getCountProjects, uploadImage }:
+  {
+    user: User, projects: ProjectTypes[], countProjects: ProjectName[],
+    getUserProjects: Function, getCountProjects: Function, uploadImage: Function }) => {
   const searchProblem = () => {
     console.log('search problem');
   }
-  const searchProjects = (options: { requestName: string, status: string}) => {
+  const searchProjects = (options: { requestName: string, status: string }) => {
     getUserProjects(newOptions(options));
   }
 
-  const newOptions = (options: { requestName: string, status: string}) => {
+  const newOptions = (options: { requestName: string, status: string }) => {
     const newOption = (options.requestName.trim() && options.status) ? options :
-                      (options.requestName.trim()) ? { requestName: options.requestName } :
-                      (options.status) ? { status: options.status } : {}
+      (options.requestName.trim()) ? { requestName: options.requestName } :
+        (options.status) ? { status: options.status } : {}
     return newOption;
   }
   useEffect(() => {
@@ -55,31 +58,32 @@ export default ({user, projects, countProjects, getUserProjects, getCountProject
   useEffect(() => {
     getCountProjects()
   }, [getCountProjects]);
+  
   return <>
-        <Layout>
-          <NavbarView></NavbarView>
-          <Layout>
-            <SidebarView></SidebarView>
-            <Layout className="map-00 profile-00" style={{height: 'calc(100vh - 58px)', overflowY: 'scroll'}}>
-              <Row className="profile-header">
-                <UserInformationView key="userProfile" user={user}  countProjects={countProjects} />
-                <div className="profile-divider"></div>
-              </Row>
-              <Row >
-                <Col className="profile-tabs" span={17}>
-                  <Tabs style={{padding:'0 53px'}} defaultActiveKey="1" className="tabs-map">
-                      <TabPane tab="Problems" key="1">
-                        <TabPaneView type={"Problems"} datas={cardInformationProblems} search={searchProblem}/>
-                      </TabPane>
-                      <TabPane tab="Projects" key="2">
-                        <TabPaneView type={"Projects"} datas={projects} search={searchProjects} />
-                      </TabPane>
-                  </Tabs>
-                </Col>
-                <Collaborators />
-              </Row>
-            </Layout>
-          </Layout>
+    <Layout>
+      <NavbarView></NavbarView>
+      <Layout>
+        <SidebarView></SidebarView>
+        <Layout className="map-00 profile-00" style={{ height: 'calc(100vh - 58px)', overflowY: 'scroll' }}>
+          <Row className="profile-header">
+            <UserInformationView key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage}/>
+            <div className="profile-divider"></div>
+          </Row>
+          <Row >
+            <Col className="profile-tabs" span={17}>
+              <Tabs style={{ padding: '0 53px' }} defaultActiveKey="1" className="tabs-map">
+                <TabPane tab="Problems" key="1">
+                  <TabPaneView type={"Problems"} datas={cardInformationProblems} search={searchProblem} />
+                </TabPane>
+                <TabPane tab="Projects" key="2">
+                  <TabPaneView type={"Projects"} datas={projects} search={searchProjects} />
+                </TabPane>
+              </Tabs>
+            </Col>
+            <Collaborators />
+          </Row>
         </Layout>
-        </>
+      </Layout>
+    </Layout>
+  </>
 }

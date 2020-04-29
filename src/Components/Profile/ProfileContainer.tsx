@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 
 import ProfileView from './ProfileView';
-import { getUserProjects, getCountProjects } from '../../store/actions/ProfileActions';
+import { getUserProjects, getCountProjects, uploadImage, getUserPhoto } from '../../store/actions/ProfileActions';
 
 const mapStateToProps = (state: any): any => {
   return {
     projects: state.profile.userProjects,
     user: state.appUser,
-    countProjects: state.profile.countProjects
+    countProjects: state.profile.countProjects,
+    userImage: state.profile.userImage
   };
 };
 
@@ -19,6 +20,12 @@ const mapDispatchToProps = (dispatch: Function): any => {
     getCountProjects() {
       dispatch(getCountProjects())
     },
+    uploadImage(files: Array<any>) {
+      dispatch(uploadImage(files))
+    },
+    getUserPhoto() {
+      dispatch(getUserPhoto())
+    }
   };
 };
 

@@ -26,8 +26,6 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
 }
 
 export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity }: { saveUserActivated: Function, saveUserPending: Function, userActivity: any[], getUserActivity: Function }) => {
-  console.log(userActivity);
-  
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
