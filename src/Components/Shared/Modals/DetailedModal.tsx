@@ -11,6 +11,7 @@ export default ({ visible, setVisible, data, numberWithCommas } : { visible : bo
         style={{ top: 60 }}
         visible={visible}
         onCancel={() => setVisible(false)}
+        destroyOnClose
       >
         <DetailedView
           data={data}

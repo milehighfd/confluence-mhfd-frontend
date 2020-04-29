@@ -1,27 +1,15 @@
 import React from "react";
-import { Row, Col, Collapse, Dropdown, Menu, Button, Input, Progress, Carousel } from 'antd';
+import { Row, Col, Collapse, Button, Input, Progress, Carousel } from 'antd';
+import DetailedMap from "../Map/DetailedMap";
 
 
 const { Panel } = Collapse;
+
 const genExtra = () => (
 <div className="divider">
   <div className="line-01"></div>
   <img src="/Icons/icon-20.svg" alt=""/>
 </div>
-);
-
-const menu = (
-  <Menu className="no-links-dropdown">
-    <Menu.Item> 
-      <span className="menu-item-text">1st menu item</span>
-    </Menu.Item>
-    <Menu.Item> 
-      <span className="menu-item-text">2nd menu item</span>
-    </Menu.Item>
-    <Menu.Item> 
-      <span className="menu-item-text">3rd menu item</span>
-    </Menu.Item>
-  </Menu>
 );
 
 const firstLetterUppercase = (text : string) => {
@@ -38,6 +26,7 @@ export default ({ setVisible, data, numberWithCommas } : { setVisible : Function
     requestName, 
     projectType,
     description,
+    coordinates,
     estimatedCost,
   } = data;
 
@@ -182,21 +171,7 @@ export default ({ setVisible, data, numberWithCommas } : { setVisible : Function
             </Panel>
             <Panel header="Map" key="3" extra={genExtra()}>
               <div className="detailed-map">
-                <Dropdown overlay={menu} className="btn-03">
-                  <Button>
-                    Dark Terrain <img src="/Icons/icon-12.svg" alt=""/>
-                  </Button>
-                </Dropdown>
-
-                <div className="m-zoom">
-                  <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt="" width="12px"/></Button>
-                  <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>
-                </div>
-
-                <div className="m-foo">
-                  <p><div style={{background:'#29c499', marginRight:'5px'}}></div> Problems</p>
-                  <p><div style={{background:'#fac774', marginRight:'5px'}}></div> Projects</p>
-                </div>
+                <DetailedMap coordinates={JSON.parse(coordinates)} />
               </div>
             </Panel>
             <Panel header="Attachments" key="4" extra={genExtra()}>

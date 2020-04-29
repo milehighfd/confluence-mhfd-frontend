@@ -50,7 +50,7 @@ const Map = ({ leftWidth,
             getPolygonStreams } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
-    const [dropdownItems, setDropdownItems] = useState({default: 0, items: MAP_DROPDOWN_ITEMS});
+    const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
     const [selectedLayers, setSelectedLayers] = useState<Array<string>>([]);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
 

@@ -2787,7 +2787,7 @@ body{
   height: 650px;
   border-radius: 4px;
   box-shadow: $shadow;
-  background-image: url('/Icons/mapitash.png');
+  // background-image: url('/Icons/mapitash.png');
   position: relative;
 
   .btn-03, .btn-03:hover, .btn-03:focus, .btn-03:active, .btn-03.active {
@@ -2833,7 +2833,7 @@ body{
     color: $purple00;
     margin-bottom: 2px;
   }
-  p div{
+  p span {
     width:15px;
     height:5px;
     margin-top: 6px;

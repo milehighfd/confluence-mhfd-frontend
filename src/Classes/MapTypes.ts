@@ -17,6 +17,10 @@ export type MapProps = {
     getPolygonStreams: Function
 }
 
+export type DetailedMapProps = {
+    
+}
+
 export type MapHOCProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
