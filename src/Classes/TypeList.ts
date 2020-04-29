@@ -21,3 +21,8 @@ export type OptionsFiltersUser = {
         designation: string,
         sort: string
 }
+
+export type ProjectName = {
+    _id: string,
+    count: number
+}

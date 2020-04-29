@@ -8,7 +8,7 @@ import TabPaneView from "./ProfileComponents/TabPaneView";
 import UserInformationView from "./ProfileComponents/UserInformationView";
 
 import { ProjectTypes } from "../../Classes/MapTypes";
-import { User } from "../../Classes/TypeList";
+import { User, ProjectName } from "../../Classes/TypeList";
 
 const { TabPane } = Tabs;
 
@@ -34,7 +34,7 @@ const cardInformationProblems: Array<any> = [
   }
 ];
 
-export default ({user, projects, getUserProjects } : { user: User, projects: ProjectTypes[], getUserProjects: Function}) => {
+export default ({user, projects, countProjects, getUserProjects, getCountProjects } : { user: User, projects: ProjectTypes[], countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function}) => {
   const searchProblem = () => {
     console.log('search problem');
   }
@@ -51,6 +51,10 @@ export default ({user, projects, getUserProjects } : { user: User, projects: Pro
   useEffect(() => {
     getUserProjects({})
   }, [getUserProjects]);
+
+  useEffect(() => {
+    getCountProjects()
+  }, [getCountProjects]);
   return <>
         <Layout>
           <NavbarView></NavbarView>
@@ -58,10 +62,10 @@ export default ({user, projects, getUserProjects } : { user: User, projects: Pro
             <SidebarView></SidebarView>
             <Layout className="map-00 profile-00" style={{height: 'calc(100vh - 58px)', overflowY: 'scroll'}}>
               <Row className="profile-header">
-                <UserInformationView user={user} />
+                <UserInformationView key="userProfile" user={user}  countProjects={countProjects} />
                 <div className="profile-divider"></div>
               </Row>
-              <Row>
+              <Row >
                 <Col className="profile-tabs" span={17}>
                   <Tabs style={{padding:'0 53px'}} defaultActiveKey="1" className="tabs-map">
                       <TabPane tab="Problems" key="1">

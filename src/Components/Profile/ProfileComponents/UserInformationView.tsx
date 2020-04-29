@@ -1,86 +1,14 @@
 import React from 'react';
-import { Col, Button, Table } from 'antd';
-import { User } from '../../../Classes/TypeList';
+import { Col, Button } from 'antd';
+import { User, ProjectName } from '../../../Classes/TypeList';
+import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 
-const columns01 = [
-  {
-    title: '',
-    dataIndex: 'Comp',
-    key: 'Comp',
-    ellipsis: true,
-  },
-  {
-    title: 'Teams',
-    dataIndex: 'Teams',
-    key: 'Teams',
-    ellipsis: true,
-  },
-  {
-    title: 'Favorited',
-    dataIndex: 'Favorited',
-    key: 'Favorited',
-    ellipsis: true,
-  },
-
-  {
-    title: 'Jurisdiction',
-    dataIndex: 'Jurisdiction',
-    key: 'Jurisdiction',
-    ellipsis: true,
-  },
-  {
-    title: 'Drafts',
-    dataIndex: 'Drafts',
-    key: 'Drafts',
-    ellipsis: true,
-  },
-];
-
-const data01 = [
-  {
-    key: '1',
-    Comp: 'Capital',
-    Teams: '7',
-    Favorited: '3',
-    Jurisdiction: '4',
-    Drafts: '2',
-  },
-  {
-    key: '2',
-    Comp: 'Maintenance',
-    Teams: '7',
-    Favorited: '3',
-    Jurisdiction: '4',
-    Drafts: '2',
-    className: 'meh',
-  },
-  {
-    key: '3',
-    Comp: 'Study',
-    Teams: '7',
-    Favorited: '3',
-    Jurisdiction: '4',
-    Drafts: '2',
-  },
-  {
-    key: '4',
-    Comp: 'Acquisition',
-    Teams: '7',
-    Favorited: '3',
-    Jurisdiction: '4',
-    Drafts: '2',
-  },
-  {
-    key: '5',
-    Comp: 'Special',
-    Teams: '7',
-    Favorited: '3',
-    Jurisdiction: '4',
-    Drafts: '2',
-  },
-];
-
-export default ({user} : {user: User}) => {
+export default ({user, countProjects} : {user: User, countProjects: ProjectName[]}) => {
+  let total = 0;
+  countProjects.forEach(element => {
+    total += element.count
+  })
+  const typeProjects = PROJECT_TYPES_AND_NAME;
   return <> <Col span={13} className="profile-info">
     <div style={{ position: 'relative' }}><img className="profile-img" src="/Icons/icon-28.svg" alt="" />
       <div className="profile-change"><Button type="default" shape="circle" className="btn-edit-00"><img src="/Icons/icon-66.svg" alt="" /></Button></div>
@@ -110,9 +38,20 @@ export default ({user} : {user: User}) => {
 
     </div>
   </Col>
-    <Col span={11}>
-      <div className="profile-table">
-        <Table size={"small"} columns={columns01} dataSource={data01} pagination={false} />
+    <Col span={11} className="profile-project">
+      <div className="profile-table" style={{paddingLeft: "0px", paddingRight: "0px"}}>
+        <span className="text-profile-projects" >
+          {total}
+        </span> <span style={{paddingRight: "12px"}}> Total Projects </span> |
+        {typeProjects.map((element: {name: string, id: string}, index: number) => {
+          return <>
+          <span className="text-profile-projects" >
+            {countProjects.filter((project) => project._id === element.id)[0]?.count ? countProjects.filter((project) => project._id === element.id)[0].count : 0} 
+          </span>
+          <span style={{paddingRight: "12px"}}>
+            {element.name} 
+          </span> {(typeProjects.length - 1) !== index ? '|' : ''}</>
+        })}
       </div>
     </Col>
   </>

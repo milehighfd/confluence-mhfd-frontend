@@ -20,6 +20,14 @@ export const getUserProjects = (options: { requestName?: string, status?: string
   }
 }
 
+export const getCountProjects = () => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.COUNT_PROJECTS_BY_CREATOR, datasets.getToken()).then( countProjects => {
+      dispatch({ type: types.COUNT_PROJECTS, countProjects })
+    })
+  }
+}
+
 export const uploadImage = (urlImage: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.USER_UPLOAD_PHOTO, urlImage, datasets.getToken()).then( res => {

@@ -2630,6 +2630,20 @@ body{
   left: -18px;
   top: 50%;
 }
+.text-profile-projects {
+  width: 91px !important;
+  height: 24px !important;
+  font-family: Ubuntu !important;
+  font-size: 21.3px !important;
+  font-weight: 500 !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: normal !important;
+  letter-spacing: normal !important;
+  color: #29c499 !important;
+  padding-right: 7px;
+  padding-left: 12px;
+}
 .col-name-01{
   font-size: 18.7px;
   color: #11093c;
@@ -2917,6 +2931,10 @@ body{
 .profile-info {
   display: flex !important;
   padding: 53px !important;
+}
+.profile-project {
+  display: flex !important;
+  padding: 53px 0px 53px 0px !important;
 }
 .profile-dat {
   display: flex;

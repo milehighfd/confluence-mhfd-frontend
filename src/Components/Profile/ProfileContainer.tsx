@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 
 import ProfileView from './ProfileView';
-import { getUserProjects } from '../../store/actions/ProfileActions';
+import { getUserProjects, getCountProjects } from '../../store/actions/ProfileActions';
 
 const mapStateToProps = (state: any): any => {
   return {
     projects: state.profile.userProjects,
-    user: state.appUser
+    user: state.appUser,
+    countProjects: state.profile.countProjects
   };
 };
 
@@ -14,7 +15,10 @@ const mapDispatchToProps = (dispatch: Function): any => {
   return {
     getUserProjects(options: { requestName?: string, status?: string }) {
       dispatch(getUserProjects(options))
-    }
+    },
+    getCountProjects() {
+      dispatch(getCountProjects())
+    },
   };
 };
 
