@@ -34,6 +34,7 @@ export const SERVER = (function () {
     const FILTER_BY_FIELD = 'filter-by-field';
     const FILTER_BY_USER_CREATOR = 'filters-by-creator';
     const UPLOAD_PHOTO = 'upload-photo';
+    const USER_ACTIVITY = 'user-activity';
     return {
         URL_BASE: URL_BASE.BASE,
         CAPTCHA: CAPTCHA,
@@ -64,5 +65,6 @@ export const SERVER = (function () {
         RESET_PASSWORD: `${URL_BASE.BASE}/${USER}/${RESET_PASSWORD}`,
         USER_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${FILTER_BY_USER_CREATOR}`,
         USER_UPLOAD_PHOTO: `${URL_BASE.BASE}/${USER}/${UPLOAD_PHOTO}`,
+        USER_ACTIVITY: `${URL_BASE.BASE}/${USER}/${USER_ACTIVITY}`,
     }
 })();

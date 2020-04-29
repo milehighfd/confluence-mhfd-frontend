@@ -1,4 +1,6 @@
 import * as types from '../types/usersTypes';
+import * as datasets from "../../Config/datasets";
+import { SERVER } from "../../Config/Server.config";
 // import { SERVER } from "../../Config/Server.config";
 // import * as datasets from "../../Config/datasets";
 
@@ -47,4 +49,14 @@ export const addUserPending = (user : any) => {
         users.push(user);
         dispatch({ type: types.DELETE_USER_PENDING, users });
     }
+}
+
+export const getUserActivity = () => {
+    console.log('user activity');
+    
+    return (dispatch : Function) => {
+    datasets.getData(SERVER.USER_ACTIVITY, datasets.getToken()).then( projects => {
+      dispatch({ type: types.USER_ACTIVITY, projects });
+    });
+  }
 }

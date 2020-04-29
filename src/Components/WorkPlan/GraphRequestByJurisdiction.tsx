@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useMemo } from 'react';
-import * as d3 from 'd3-selection';
+import React, { useMemo } from 'react';
 import * as d3Scale from 'd3-scale';
 import { VALUE_GRAPH, LINE } from '../../constants/constants';
 

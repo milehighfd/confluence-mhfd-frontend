@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Row, Col, Tabs, Pagination } from 'antd';
+import { Layout, Row, Col, Tabs, Pagination, Button } from 'antd';
 import NavbarView from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import Accordeon from './UserComponents/Accordeon';
@@ -8,6 +8,7 @@ import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import { OptionsFiltersUser, User } from "../../Classes/TypeList";
 import { PAGE_USER } from "../../constants/constants";
+import ListUserActivity from "./ListUser/ListUserView";
 
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -24,7 +25,9 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
   });
 }
 
-export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Function, saveUserPending: Function }) => {
+export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity }: { saveUserActivated: Function, saveUserPending: Function, userActivity: any[], getUserActivity: Function }) => {
+  console.log(userActivity);
+  
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
@@ -38,6 +41,10 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
   useEffect(() => {
     getAllUser();
   }, []);
+  // useEffect(() => {
+  //   TODO
+  //   getUserActivity();
+  // })
 
   const getAllUser = () => {
     getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + urlOptions(optionUserActivated), setTotalUsersActivated);
@@ -132,7 +139,7 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                       </div>
                     </TabPane>
 
-                    {/* <TabPane tab="User Activity" key="3">
+                    <TabPane tab="User Activity" key="3">
                           <Button className="btn-down"><img src="/Icons/icon-15.svg" alt=""/></Button>
                           <Row className="activity-h">
                             <Col span={5}><Button>Data and Time <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
@@ -140,13 +147,13 @@ export default ({ saveUserActivated, saveUserPending }: { saveUserActivated: Fun
                             <Col span={5}><Button>City <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
                             <Col span={5}><Button>Change <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
                           </Row>
-                          {usersActivity.map((user: {date: String, name: String, city: String, change: String}, index: number) => {
-                            return <ListUser user={user} key={index}/>
+                          {userActivity.map((activity: any, index: number) => {
+                            return <ListUserActivity user={activity} key={index}/>
                           })}
                           <div className="pagi-00">
-                            <Pagination defaultCurrent={1} total={200} />
+                            <Pagination defaultCurrent={1} total={10} />
                           </div>
-                        </TabPane> */}
+                    </TabPane>
                   </Tabs>
                 </Col>
               </Row>
