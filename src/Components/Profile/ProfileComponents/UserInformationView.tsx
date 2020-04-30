@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Button, Upload } from 'antd';
 import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
@@ -7,10 +7,11 @@ export default ({ user, countProjects, uploadImage }: { user: User, countProject
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
   }
+  const [ fileImage, setFileImage ] = useState({ uid: ''});
   let total = 0;
   countProjects.forEach(element => {
     total += element.count
-  })
+  });
   const typeProjects = PROJECT_TYPES_AND_NAME;
   return <> <Col span={12} className="profile-info">
     <div style={{ position: 'relative' }}>
@@ -18,7 +19,10 @@ export default ({ user, countProjects, uploadImage }: { user: User, countProject
         <img className="profile-img" src="/Icons/icon-28.svg" alt="" />}
       <div className="profile-change">
         <Upload showUploadList={false} customRequest={dummyRequest} onChange={({ file }: any) => {
-          uploadImage([{ ...file }]);
+          if (fileImage.uid !== file.uid) {
+            setFileImage({...file});
+            uploadImage([{ ...file }]);
+          }
         }} >
           <Button type="default" shape="circle" className="btn-edit-00">
             <img src="/Icons/icon-66.svg" alt="" />

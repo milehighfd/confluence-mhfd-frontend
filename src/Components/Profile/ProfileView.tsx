@@ -34,10 +34,10 @@ const cardInformationProblems: Array<any> = [
   }
 ];
 
-export default ({ user, projects, countProjects, getUserProjects, getCountProjects, uploadImage }:
+export default ({ user, projects, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation }:
   {
     user: User, projects: ProjectTypes[], countProjects: ProjectName[],
-    getUserProjects: Function, getCountProjects: Function, uploadImage: Function }) => {
+    getUserProjects: Function, getCountProjects: Function, uploadImage: Function, getUserInformation: Function }) => {
   const searchProblem = () => {
     console.log('search problem');
   }
@@ -58,7 +58,9 @@ export default ({ user, projects, countProjects, getUserProjects, getCountProjec
   useEffect(() => {
     getCountProjects()
   }, [getCountProjects]);
-  
+  useEffect(() => {
+    getUserInformation();
+  }, [getUserInformation]);
   return <>
     <Layout>
       <NavbarView></NavbarView>

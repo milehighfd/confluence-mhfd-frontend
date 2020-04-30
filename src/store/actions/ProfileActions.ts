@@ -1,11 +1,14 @@
 import * as types from '../types/ProfileTypes';
-import { User } from '../../Classes/TypeList';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 
-export const getUserInormation = (appUser: User) => {
+export const getUserInformation = () => {
   return (dispatch: Function) => {
-    dispatch({ type: types.GET_USER_INFORMATION, appUser });
+    datasets.getData(SERVER.ME, datasets.getToken()).then(user => {
+      if (user?._id) {
+        dispatch({ type: types.GET_USER_INFORMATION, user });
+      }
+    });
   }
 }
 
@@ -36,23 +39,10 @@ export const uploadImage = (files: Array<any>) => {
         dataForm.append('file', file.originFileObj);
       }
     }
-    datasets.postDataMultipart(SERVER.USER_UPLOAD_PHOTO, dataForm, datasets.getToken()).then(res => {
-      getUserPhoto();
-      // dispatch({ type: types.UPLOAD_PHOTO, res })
-    })
-  }
-}
-
-export const getUserPhoto = () => {
-  console.log('dsadsad sda sad asd sadsads ad');
-  
-  return (dispatch: Function) => {
-    console.log('llego aqui no mames');
-    
-    datasets.getData(SERVER.ME, datasets.getToken()).then(user => {
-      const userImage = user.photo;
-      console.log('userImage: ', user);
-      dispatch({ type: types.GET_PHOTO, userImage })
+    datasets.postDataMultipart(SERVER.USER_UPLOAD_PHOTO, dataForm, datasets.getToken()).then(user => {
+      if (user?._id) {
+        dispatch({ type: types.GET_USER_INFORMATION, user });
+      }
     })
   }
 }
