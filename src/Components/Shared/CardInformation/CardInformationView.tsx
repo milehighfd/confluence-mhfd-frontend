@@ -3,7 +3,9 @@ import { Col, Card } from "antd";
 import { ComponentType } from "../../../Classes/MapTypes";
 import DetailedModal from "../Modals/DetailedModal";
 
-export default ({ data, type, numberWithCommas }: { data: any, type: string, numberWithCommas: Function}) => {
+import { numberWithCommas } from '../../../utils/utils';
+
+export default ({ data, type }: { data: any, type: string }) => {
     const [visible, setVisible] = useState(false);
     
     const getComponentSizes = (components : Array<ComponentType>) => {
@@ -25,7 +27,6 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
           data={data}
           visible={visible}
           setVisible={setVisible}
-          numberWithCommas={numberWithCommas}
         />
       }
 

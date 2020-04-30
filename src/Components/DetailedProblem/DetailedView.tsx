@@ -2,22 +2,26 @@ import React from "react";
 import { Row, Col, Collapse, Button, Input, Progress, Carousel } from 'antd';
 
 import DetailedMap from "../Map/DetailedMap";
+
 import { 
   getProjectBasics, 
   mitigationPanel, 
   componentSolutionsPanel, 
-  problemPanel, vendorsPanel, genExtra, firstLetterUppercase } from "../../utils/detailedUtils";
+  problemPanel, vendorsPanel, genExtra } from "../../utils/detailedUtils";
+import { firstLetterUppercase, numberWithCommas } from "../../utils/utils";
+
+import { ProjectTypes } from "../../Classes/MapTypes";
 
 const { Panel } = Collapse;
 
-const renderCapitalComponents = (component : React.ReactNode, projectType : string) => {
+const capitalComponentsContext = (component : Function, projectType : string) => {
   if (projectType === 'capital') {
     return component;
   }
   return;
 }
 
-export default ({ setVisible, data, numberWithCommas } : { setVisible : Function, data : any, numberWithCommas : Function }) => {
+export default ({ setVisible, data } : { setVisible : Function, data : ProjectTypes }) => {
 
   const { 
     county,
@@ -28,13 +32,17 @@ export default ({ setVisible, data, numberWithCommas } : { setVisible : Function
     estimatedCost,
   } = data;
 
+  const renderCapitalComponents = (component : Function) => {
+    return capitalComponentsContext(component(data), projectType as string);
+  }
+
   return (
     <div className="detailed">
       <Row className="detailed-h" gutter={[16, 8]}>
         <Col span={13}>
           <h1>{requestName}</h1>
           <p>
-            <span>{firstLetterUppercase(projectType)} </span>   •
+            <span>{firstLetterUppercase(projectType as string)} </span>   •
           <span> Arvada, CO</span>   •
           <span> {county ? county : 'No'} County</span>   •
           <span> West Service Area</span>
@@ -49,7 +57,7 @@ export default ({ setVisible, data, numberWithCommas } : { setVisible : Function
         </Col>
         <Col span={3} style={{ textAlign: 'center' }}>
           <div className="detailed-mm">
-            <b>${numberWithCommas(estimatedCost ? estimatedCost : finalCost)}</b>
+            <b>${numberWithCommas(estimatedCost ? estimatedCost : finalCost as any)}</b>
           </div>
         </Col>
         <Col span={3} style={{ textAlign: 'right' }}>
@@ -75,18 +83,18 @@ export default ({ setVisible, data, numberWithCommas } : { setVisible : Function
             </div>
           </Carousel>
 
-          {getProjectBasics(data)}
+          {getProjectBasics(data as any)}
 
           <div className="tabs-detailed">
             <Collapse defaultActiveKey={['1']}>
-              {renderCapitalComponents(mitigationPanel, projectType)}
-              {renderCapitalComponents(componentSolutionsPanel, projectType)}
-              {renderCapitalComponents(problemPanel, projectType)}
-              {renderCapitalComponents(vendorsPanel, projectType)}
+              {renderCapitalComponents(mitigationPanel)}
+              {renderCapitalComponents(componentSolutionsPanel)}
+              {renderCapitalComponents(problemPanel)}
+              {renderCapitalComponents(vendorsPanel)}
 
               <Panel header="Map" key="3" extra={genExtra()}>
                 <div className="detailed-map">
-                  <DetailedMap coordinates={JSON.parse(coordinates)} />
+                  <DetailedMap coordinates={JSON.parse(coordinates as string)} />
                 </div>
               </Panel>
               <Panel header="Attachments" key="4" extra={genExtra()}>

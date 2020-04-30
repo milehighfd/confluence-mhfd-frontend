@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'antd';
 import DetailedView from '../../DetailedProblem/DetailedView';
 
-export default ({ visible, setVisible, data, numberWithCommas } : { visible : boolean, setVisible: Function, data : any, numberWithCommas : Function }) => {
+export default ({ visible, setVisible, data } : { visible : boolean, setVisible: Function, data : any }) => {
 
   return (
     <>
@@ -15,9 +15,7 @@ export default ({ visible, setVisible, data, numberWithCommas } : { visible : bo
       >
         <DetailedView
           data={data}
-          setVisible={setVisible}
-          numberWithCommas={numberWithCommas}
-        />
+          setVisible={setVisible} />
       </Modal>
     </>
   )

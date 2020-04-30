@@ -17,10 +17,6 @@ export type MapProps = {
     getPolygonStreams: Function
 }
 
-export type DetailedMapProps = {
-    
-}
-
 export type MapHOCProps = {
     problems: Array<ProblemTypes>,
     projects: Array<ProjectTypes>,
@@ -108,6 +104,14 @@ export type ComponentType = {
     mitigationType: string,
     studyName: string,
     coordinates: Array<number>
+}
+
+export type DetailedMapProps = {
+    [key : string] : string,
+}
+
+export type SubDetailedProps = {
+    components: Array<string>
 }
 
 export type ComponentCopyType = {

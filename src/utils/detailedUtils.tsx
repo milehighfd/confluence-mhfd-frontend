@@ -1,26 +1,11 @@
 import React from 'react';
 import { Row, Col, Collapse, Button } from 'antd';
+import { DetailedMapProps, ComponentType } from '../Classes/MapTypes';
+import { firstLetterUppercase, spacingCamelCase, numberWithCommas } from './utils';
 
 const { Panel } = Collapse;
 
-export const firstLetterUppercase = (text : string) => {
-  if (text) {
-    const formatedText = text[0].toUpperCase() + text.slice(1);
-    return formatedText;
-  }
-  return '';
-}
-
-const spacingCamelCase = (text : string) => {
-  if (text) {
-    const spacedText = text.replace(/([A-Z])/g, ' $1').trim();
-    const formatedText = firstLetterUppercase(spacedText);
-    return formatedText;
-  }
-  return '';
-}
-
-const projectCapitalBasics = (data: any) => {
+const projectCapitalBasics = (data: DetailedMapProps) => {
   const { priority, description } = data;
 
   return (
@@ -49,7 +34,7 @@ const projectCapitalBasics = (data: any) => {
   );
 }
 
-const projectMaintenanceBasics = (data: any) => {
+const projectMaintenanceBasics = (data: DetailedMapProps) => {
   const { draft, projectSubtype, frecuency } = data;
   
   return (
@@ -71,7 +56,7 @@ const projectMaintenanceBasics = (data: any) => {
   );
 }
 
-const projectStudyBasics = (data: any) => {
+const projectStudyBasics = (data: DetailedMapProps) => {
   const { sponsor, coSponsor, requestedStartyear, projectSubtype } = data;
   
   return (
@@ -105,7 +90,7 @@ const FormField = ({ label, value, valueStyle, valueSpan } : { label : string, v
   </>
 );
 
-const projectDataSelector = ({ data, capital, maintenance, study } : { data : any, capital : Function, maintenance : Function, study : Function }) => {
+const projectDataSelector = ({ data, capital, maintenance, study } : { data : DetailedMapProps, capital : Function, maintenance : Function, study : Function }) => {
   switch (data.projectType) {
     case 'capital':
       return capital(data);
@@ -118,7 +103,7 @@ const projectDataSelector = ({ data, capital, maintenance, study } : { data : an
   }
 }
 
-export const getProjectBasics = (data: any) => {
+export const getProjectBasics = (data: DetailedMapProps) => {
   return (
     <div className="detailed-info">
       {projectDataSelector({
@@ -138,7 +123,7 @@ export const genExtra = () => (
   </div>
 );
 
-export const mitigationPanel = (
+export const mitigationPanel = (data : DetailedMapProps) => (
   <Panel header="Mitigation Types" key="1" extra={genExtra()} >
     <Row>
       <Col span={12}><img src="/Icons/chart-01.png" alt="" height="333px" /></Col>
@@ -147,47 +132,31 @@ export const mitigationPanel = (
   </Panel>
 );
 
-export const componentSolutionsPanel = (
-  <Panel header="Component & solutions" key="2" extra={genExtra()}>
-    <Row className="solution-h">
-      <Col span={8}><Button>Component <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-      <Col span={4}><Button>Cost <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-      <Col span={4}><Button>Status <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-      <Col span={8}><Button>Solution Type <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-    </Row>
+export const componentSolutionsPanel = (data : any) => {
+  const { components } = data;
 
-    <Row className="solution-b">
-      <Col span={8}>Alpha St culvert</Col>
-      <Col span={4}>$500,000</Col>
-      <Col span={4}>Active</Col>
-      <Col span={8}>Increased Conveyance - Crossing</Col>
-    </Row>
-    <Row className="solution-b">
-      <Col span={8}>Beta Ave culvert</Col>
-      <Col span={4}>$1,200,000</Col>
-      <Col span={4}>Active</Col>
-      <Col span={8}>Increased Conveyance - Crossing</Col>
-    </Row>
-    <Row className="solution-b">
-      <Col span={8}>Channel imp - LDC @Alpha St</Col>
-      <Col span={4}>$700,000</Col>
-      <Col span={4}>Active</Col>
-      <Col span={8}>Increased Conveyance - Crossing</Col>
-    </Row>
-    <Row className="solution-b">
-      <Col span={8}>Pedestrian bridge in park</Col>
-      <Col span={4}>$250,000</Col>
-      <Col span={4}>Active</Col>
-      <Col span={8}>Increased Conveyance - Crossing</Col>
-    </Row>
-    <Row className="solution-b">
-      <Col span={8}><b>Total Estimated Cost</b></Col>
-      <Col span={4}><b>$2,650,000</b></Col>
-    </Row>
-  </Panel>
-);
+  return (
+    <Panel header="Component & solutions" key="2" extra={genExtra()}>
+      <Row className="solution-h">
+        <Col span={8}><Button>Component <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
+        <Col span={4}><Button>Cost <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
+        <Col span={4}><Button>Status <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
+        <Col span={8}><Button>Solution Type <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
+      </Row>
 
-export const problemPanel = (
+      {components.map((component : ComponentType) => (
+        <Row className="solution-b" key={component.componentId}>
+          <Col span={8}>{component.componentName}</Col>
+          <Col span={4}>${numberWithCommas(component.howCost)}</Col>
+          <Col span={4}>{component.status}</Col>
+          <Col span={8}>{component.studyName}</Col>
+        </Row>
+      ))}
+    </Panel>
+  );
+};
+
+export const problemPanel = (data : DetailedMapProps) => (
   <Panel header="PROBLEM" key="5" extra={genExtra()}>
     <div className="detailed-info">
       <Row>
@@ -208,7 +177,7 @@ export const problemPanel = (
   </Panel>
 );
 
-export const vendorsPanel = (
+export const vendorsPanel = (data : DetailedMapProps) => (
   <Panel header="VENDORS" key="6" extra={genExtra()}>
     <div className="detailed-info">
       <Row>

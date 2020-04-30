@@ -4,6 +4,8 @@ import CardInformationView from "../CardInformation/CardInformationView";
 import AccordionRowView from "./AccordionRow/AccordionRowView";
 import AccordionDisplayView from "./AccordionDisplay/AccordionDisplayView";
 
+import { numberWithCommas } from '../../../utils/utils';
+
 const { Panel } = Collapse;
 
 export default ({ filterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter }: any) => {
@@ -11,10 +13,6 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
     const deleteFilter = (index: number) => {
         const item = filterNames[index];
         removeFilter(item);
-    }
-
-    const numberWithCommas = (x : number) => {
-        return x?x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","):0;
     }
 
     return <>
@@ -53,7 +51,7 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
             :
             <Row className="card-map" gutter={[16, 16]}>
                 {cardInformation.map((data: any, index: number) => {
-                    return <CardInformationView key={index} data={data} type={type} numberWithCommas={numberWithCommas} />
+                    return <CardInformationView key={index} data={data} type={type} />
                 })}
             </Row>
         }
