@@ -25,7 +25,8 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
   });
 }
 
-export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity }: { saveUserActivated: Function, saveUserPending: Function, userActivity: any[], getUserActivity: Function }) => {
+export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity, getAllUserActivity } : 
+  { saveUserActivated: Function, saveUserPending: Function, userActivity: any[], getUserActivity: Function, getAllUserActivity: Function }) => {
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
@@ -138,7 +139,11 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                     </TabPane>
 
                     <TabPane tab="User Activity" key="3">
-                          <Button className="btn-down"><img src="/Icons/icon-15.svg" alt=""/></Button>
+                          <Button className="btn-down" onClick={() => {
+                            getAllUserActivity();
+                          }}>
+                            <img src="/Icons/icon-15.svg" alt=""/>
+                          </Button>
                           <Row className="activity-h">
                             <Col span={5}><Button>Data and Time <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
                             <Col span={5}><Button>User <img src="/Icons/icon-14.svg" alt=""/></Button></Col>

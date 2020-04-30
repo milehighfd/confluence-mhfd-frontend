@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import UserView from './UserView';
 import { bindActionCreators } from 'redux';
-import { saveUserActivated, saveUserPending, getUserActivity } from '../../store/actions/usersActions';
+import { saveUserActivated, saveUserPending, getUserActivity, getAllUserActivity } from '../../store/actions/usersActions';
 
 
 const mapStateToProps = (state: any) => {
@@ -16,7 +16,8 @@ const mapDispatchToProps = (dispatch: any): any => ({
   ...bindActionCreators({
     saveUserActivated,
     saveUserPending,
-    getUserActivity
+    getUserActivity,
+    getAllUserActivity
   }, dispatch)
 });
 

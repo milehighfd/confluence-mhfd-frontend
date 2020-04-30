@@ -36,6 +36,7 @@ export const SERVER = (function () {
     const UPLOAD_PHOTO = 'upload-photo';
     const USER_ACTIVITY = 'user-activity';
     const COUNT_PROJECTS_BY_CREATOR = 'counter-projects-by-creator';
+    const USER_ACTIVITY_CSV = 'log-activity/csv';
     return {
         URL_BASE: URL_BASE.BASE,
         CAPTCHA: CAPTCHA,
@@ -67,6 +68,7 @@ export const SERVER = (function () {
         USER_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${FILTER_BY_USER_CREATOR}`,
         USER_UPLOAD_PHOTO: `${URL_BASE.BASE}/${USER}/${UPLOAD_PHOTO}`,
         USER_ACTIVITY: `${URL_BASE.BASE}/${USER}/${USER_ACTIVITY}`,
+        USER_ACTIVITY_CSV: `${URL_BASE.BASE}/${USER_ACTIVITY_CSV}`,
         COUNT_PROJECTS_BY_CREATOR: `${URL_BASE.BASE}/${PROJECT}/${COUNT_PROJECTS_BY_CREATOR}`,
     }
 })();

@@ -54,6 +54,27 @@ export const getData = (url: any, token?: any) => {
       console.log(err);
     });
 }
+
+export const getDataOctet = (url: any, token: any) => {
+    const headers = JSONOptions(token);
+    return fetch(url, {
+        method: 'GET',
+        headers
+    })
+    .then(response => {
+        const data = response.text().then( data1 => {
+                return data1;
+            }
+        );
+        return data;
+    }).then(data => {
+        return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 export const deleteData = (url: any, token?: any) => {
     const headers = token ? JSONOptions(token) : JSONDefault();
     return fetch(url, {
@@ -65,6 +86,16 @@ export const deleteData = (url: any, token?: any) => {
     .catch((err) => {
       console.log(err);
     });
+}
+
+export const JSONOptionsOctet = (token?: any) => {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/octet-stream');
+    headers.append('Accept', 'application/octet-stream');
+    if (token) {
+        headers.append('Authorization', 'Bearer ' + token);
+    }
+    return headers;
 }
 
 export const JSONOptions = (token?: any) => {
