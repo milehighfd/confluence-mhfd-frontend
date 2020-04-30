@@ -63,9 +63,9 @@ export const getAllUserActivity = () => {
   return (dispatch: Function) => {
     datasets.getDataOctet(SERVER.USER_ACTIVITY_CSV, datasets.getToken()).then(res => {
       const value = "" + res;
-      var csvData = new Blob([value], {type: 'text/csv;charset=utf-8;'});
-      var csvURL = window.URL.createObjectURL(csvData);
-      var tempLink = document.createElement('a');
+      let csvData = new Blob([value], {type: 'text/csv;charset=utf-8;'});
+      let csvURL = window.URL.createObjectURL(csvData);
+      let tempLink = document.createElement('a');
       tempLink.href = csvURL;
       tempLink.setAttribute('download', 'activity.csv');
       tempLink.click();
