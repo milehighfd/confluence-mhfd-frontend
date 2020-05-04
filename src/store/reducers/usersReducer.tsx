@@ -6,50 +6,18 @@ const initStateUsersActivated = {
     ],
     usersPending: [
     ],
-    userActivity: [
+    userActivity: { data: [
         {
             name: 'Johanna Maiani',
             date: new Date(),
             city: 'Westerminster',
             change: 'User Login'
         },
-        {
-            name: 'Kyle Mann',
-            date: new Date(),
-            city: 'Westerminster',
-            change: 'User Login'
-        },
-        {
-            name: 'Rosalie Russell',
-            date: new Date(),
-            city: 'Westerminster',
-            change: 'User Login'
-        },
-        {
-            name: 'Johanna Maiani',
-            date: new Date(),
-            city: 'Westerminster',
-            change: 'User Login'
-        },
-        {
-            name: 'Nora Osborne',
-            date: new Date(),
-            city: 'Westerminster',
-            change: 'User Login'
-        },
-        {
-            name: 'Lillie Munoz',
-            date: new Date(),
-            city: 'Westerminster',
-            change: 'User Login'
-        },
-        {
-            name: 'Jeanette Cruz',
-            date: new Date(),
-            city: 'Westerminster',
-            change: 'User Login'
-        },
-    ]
+        
+        ],
+        totalPages: 1,
+        currentPage: 1
+    }
 }
 
 const users = (state = initStateUsersActivated, action : any) => {
@@ -87,7 +55,7 @@ const users = (state = initStateUsersActivated, action : any) => {
         case types.USER_ACTIVITY:
             return {
                 ...state,
-                userActivity: action.userActivity
+                userActivity: action.res
             }
         default: 
             return state;

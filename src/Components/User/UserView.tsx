@@ -20,19 +20,23 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
     if (res.users) {
       saveUser(res.users);
       setUser(res.users);
-      setTotal(res.pages * 10);
+      setTotal(res.totalPages * 10);
     }
   });
 }
 
 export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity, getAllUserActivity } : 
-  { saveUserActivated: Function, saveUserPending: Function, userActivity: any[], getUserActivity: Function, getAllUserActivity: Function }) => {
+  { saveUserActivated: Function, saveUserPending: Function, userActivity: any, getUserActivity: Function, getAllUserActivity: Function }) => {
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
   const [userPendingState, setUserPendingState] = useState<Array<User>>([]);
   const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
+  const [ urlOptionsUserActivity, setUrlOptionsUserActivity ] = useState({
+    page: 1, limit: 20, sort: 'registerDate', sorttype: -1
+  })
+  // http://10.0.0.98:3000/admin/user-activity/get-all?page=1&limit=10&sort=registerDate&sorttype=1
   // const [title, setTitle] = useState('');
   let pndPos = 0; // momentary forced adition until getting the DB Structure
   let aprPos = 0; // momentary forced adition until getting the DB Structure
@@ -40,10 +44,13 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
   useEffect(() => {
     getAllUser();
   }, []);
-  // useEffect(() => {
-  //   TODO
-  //   getUserActivity();
-  // })
+  useEffect(() => {
+    getUserActivity(getUrlOptionsUserActivity(urlOptionsUserActivity));
+  }, [])
+
+  const getUrlOptionsUserActivity = (url: { page: number, limit: number, sort: string, sorttype: number }) => {
+    return 'page=' + url.page + '&limit=' + url.limit + '&sort=' + url.sort +'&sorttype=' + url.sorttype;
+  }
 
   const getAllUser = () => {
     getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + urlOptions(optionUserActivated), setTotalUsersActivated);
@@ -150,11 +157,16 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                             <Col span={5}><Button>City <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
                             <Col span={5}><Button>Change <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
                           </Row>
-                          {userActivity.map((activity: any, index: number) => {
+                          {userActivity.data.map((activity: any, index: number) => {
                             return <ListUserActivity user={activity} key={index}/>
                           })}
                           <div className="pagi-00">
-                            <Pagination defaultCurrent={1} total={10} />
+                            <Pagination defaultCurrent={1} total={userActivity.totalPages*10} onChange= {(page) => {
+                              const auxOption = {...urlOptionsUserActivity};
+                              auxOption.page = page;
+                              setUrlOptionsUserActivity(auxOption);
+                              getUserActivity(getUrlOptionsUserActivity(auxOption));
+                            }} />
                           </div>
                     </TabPane>
                   </Tabs>

@@ -51,10 +51,11 @@ export const addUserPending = (user: any) => {
   }
 }
 
-export const getUserActivity = () => {
+export const getUserActivity = ( url: string) => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.USER_ACTIVITY, datasets.getToken()).then(projects => {
-      dispatch({ type: types.USER_ACTIVITY, projects });
+    datasets.getData(SERVER.USER_ACTIVITY + url, datasets.getToken()).then(res => {
+      
+      dispatch({ type: types.USER_ACTIVITY, res });
     });
   }
 }
