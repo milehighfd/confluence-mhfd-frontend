@@ -27,3 +27,17 @@ export type ProjectName = {
     _id: string,
     count: number
 }
+
+export type UserActivities = {
+    currentPage: string
+    data: UserActivity[]
+    totalPages: number
+}
+export type UserActivity = {
+    firstName: string
+    lastName: string
+    registerDate: string
+    _id: string
+    city: string,
+    change: string
+}

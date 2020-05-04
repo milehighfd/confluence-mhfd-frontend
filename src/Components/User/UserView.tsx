@@ -6,7 +6,7 @@ import Accordeon from './UserComponents/Accordeon';
 import UserFilters from './UserFilters';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
-import { OptionsFiltersUser, User } from "../../Classes/TypeList";
+import { OptionsFiltersUser, User, UserActivities, UserActivity } from "../../Classes/TypeList";
 import { PAGE_USER } from "../../constants/constants";
 import ListUserActivity from "./ListUser/ListUserView";
 
@@ -26,7 +26,7 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
 }
 
 export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity, getAllUserActivity } : 
-  { saveUserActivated: Function, saveUserPending: Function, userActivity: any, getUserActivity: Function, getAllUserActivity: Function }) => {
+  { saveUserActivated: Function, saveUserPending: Function, userActivity: UserActivities, getUserActivity: Function, getAllUserActivity: Function }) => {
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
@@ -36,7 +36,6 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
   const [ urlOptionsUserActivity, setUrlOptionsUserActivity ] = useState({
     page: 1, limit: 20, sort: 'registerDate', sorttype: -1
   })
-  // http://10.0.0.98:3000/admin/user-activity/get-all?page=1&limit=10&sort=registerDate&sorttype=1
   // const [title, setTitle] = useState('');
   let pndPos = 0; // momentary forced adition until getting the DB Structure
   let aprPos = 0; // momentary forced adition until getting the DB Structure
@@ -89,6 +88,12 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
     searchUserPending(resetOptions);
   }
   
+  const sortOption = (column: string) => {
+    const auxOption = {...urlOptionsUserActivity};
+    auxOption.sort = column;
+    setUrlOptionsUserActivity(auxOption);
+    getUserActivity(getUrlOptionsUserActivity(auxOption));
+  }
   
   return <>
     <Layout>
@@ -152,12 +157,12 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                             <img src="/Icons/icon-15.svg" alt=""/>
                           </Button>
                           <Row className="activity-h">
-                            <Col span={5}><Button>Data and Time <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
-                            <Col span={5}><Button>User <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
-                            <Col span={5}><Button>City <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
-                            <Col span={5}><Button>Change <img src="/Icons/icon-14.svg" alt=""/></Button></Col>
+                            <Col span={5}><Button onClick={() => sortOption('registerDate')} >Data and Time <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
+                            <Col span={5}><Button onClick={() => sortOption('firstName')}>User <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
+                            <Col span={5}><Button onClick={() => sortOption('city')}>City <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
+                            <Col span={5}><Button onClick={() => sortOption('change')}>Change <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
                           </Row>
-                          {userActivity.data.map((activity: any, index: number) => {
+                          {userActivity.data.map((activity: UserActivity, index: number) => {
                             return <ListUserActivity user={activity} key={index}/>
                           })}
                           <div className="pagi-00">
