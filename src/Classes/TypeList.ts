@@ -39,5 +39,6 @@ export type UserActivity = {
     registerDate: string
     _id: string
     city: string,
-    change: string
+    change: string,
+    activityType: string
 }

@@ -8,6 +8,6 @@ export default ({user}: {user: UserActivity}) => {
         <Col span={5}>{moment(new Date('' + user.registerDate)).format('MM/DD/YYYY hh:mm A')}</Col>
         <Col span={5}>{user.firstName + ' ' + user.lastName}</Col>
         <Col span={5}>{user.city ? user.city : ''}</Col>
-        <Col span={5}><span className="user-Login"> {user.change ? user.change : ''} </span></Col>
+        <Col span={5}><span className="user-Login"> {user.activityType ? user.activityType : ''} </span></Col>
     </Row> </>
 }
