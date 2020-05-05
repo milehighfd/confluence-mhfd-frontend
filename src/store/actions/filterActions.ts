@@ -84,3 +84,13 @@ export const getUserFilters = (id : string, userName: string) => {
     dispatch({ type: types.SET_USERS_DATA, data: { [id]: userName }});
   }
 }
+
+export const sortProjects = (sortBy : string) => {
+  return (dispatch : Function) => {
+    const data = sortBy?{ requestName: sortBy }:{};
+
+    datasets.postData(SERVER.FILTER_PROJECT, data, datasets.getToken()).then(data => {
+      console.log(data);
+    });
+  }
+}

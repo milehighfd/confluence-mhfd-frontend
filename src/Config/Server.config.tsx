@@ -37,7 +37,8 @@ export const SERVER = (function () {
     const USER_ACTIVITY = 'user-activity';
     const COUNT_PROJECTS_BY_CREATOR = 'counter-projects-by-creator';
     const USER_ACTIVITY_CSV = 'user-activity/csv';
-    const GET_ALL = 'get-all?'
+    const GET_ALL = 'get-all?';
+
     return {
         URL_BASE: URL_BASE.BASE,
         CAPTCHA: CAPTCHA,

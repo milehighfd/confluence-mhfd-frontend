@@ -11,7 +11,7 @@ import { getReverseGeocode,
         setRouteRedirect,
         getMapTables,
         getPolygonStreams } from '../store/actions/mapActions';
-import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters } from '../store/actions/filterActions';
+import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
 
 import mapFormData from './mapFormData';
@@ -49,7 +49,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         getUserFilters,
         getPolygonStreams,
         saveDraftCard,
-        getUserProjects
+        getUserProjects,
+        sortProjects
     }, dispatch)
 });
   

@@ -1044,6 +1044,7 @@ export const DROPDOWN_PROJECT_FILTERS = [
   REQUESTED_START_YEAR, STREAM_NAME, MHFD_DOLLAR_REQUESTED
 ];
 
+export const SORTED_LIST = ['dateCreated', 'requestName', 'projectType', 'estimatedCost'];
 
 /* End of Filter Constants */
 

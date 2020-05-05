@@ -44,7 +44,8 @@ export type MapHOCProps = {
     getUserFilters: Function,
     getPolygonStreams: Function,
     saveDraftCard: Function,
-    getUserProjects: Function
+    getUserProjects: Function,
+    sortProjects: Function
 }
 
 export type MapViewTypes = { 
@@ -55,7 +56,8 @@ export type MapViewTypes = {
     getDropdownFilters: Function, 
     dropdowns: DropdownFilterTypes,
     userFiltered: { [_id: string]: string },
-    getUserFilters: Function
+    getUserFilters: Function,
+    sortProjects: Function
 }
 
 export type CapitalTypes = {

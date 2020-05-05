@@ -35,7 +35,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               getMapTables, 
               getDropdownFilters, 
               getUserFilters, 
-              getPolygonStreams, saveDraftCard, getUserProjects } : MapHOCProps) => {
+              getPolygonStreams, 
+              saveDraftCard, getUserProjects, sortProjects } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -138,7 +139,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             projectsByType={projectsByType}
                             markerRef={markerRef}
                             polygonRef={polygonRef}
-                            getUserProjects={getUserProjects} />
+                            getUserProjects={getUserProjects}
+                            sortProjects={sortProjects} />
                     </Col>
                 </Row>
               </Layout>

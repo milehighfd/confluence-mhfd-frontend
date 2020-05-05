@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Dropdown, Button, Tabs, Input } from 'antd';
 
-import SortMenuView from "../SortMenu/SortMenuView";
+import DropdownMenu from "../Shared/DropdownMenu/DropdownMenu";
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes } from "../../Classes/MapTypes";
+import { secondWordOfCamelCase } from "../../utils/utils";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
@@ -51,18 +52,25 @@ const accordionRow: Array<any> = [
 ];
 
 const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters, 
-                  dropdowns, userFiltered, getUserFilters } : MapViewTypes) => {
+                  dropdowns, userFiltered, getUserFilters, sortProjects } : MapViewTypes) => {
 
+  const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [listDescription, setListDescription] = useState(false);
   const [toggleFilters, setToggleFilters] = useState(false);
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('0');
+  const [sortableProjects, setSortableProjects] = useState(projects);
+  const [orderProjects, setOrderProjects] = useState(false);
 
   useEffect(() => {
     if (filters) {
       setCurrentFilters(filters);
     }
   }, [filters]);
+
+  useEffect(() => {
+    setSortableProjects(projects);
+  }, [projects]);
 
   const handleOnSearch = (data : string) => {
     const requestData = { requestName: '' };
@@ -84,6 +92,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setToggleFilters(!toggleFilters);
   }
 
+  const toggleProjectsOrder = () => {
+    const cloneProjects = [...sortableProjects];
+    setOrderProjects(!orderProjects);
+    setSortableProjects(cloneProjects.reverse());
+  }
+ 
   const setCurrentFilters = (filtersData : FilterTypes) => {
     const values : Array<{ key: string, value: string }> = [];
     for (const key in filtersData) {
@@ -115,7 +129,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <Panel header="" key="1">*/}
       <Row className="head-m">
         <Col span={12} id="westminter">
-          <Dropdown trigger={['click']} overlay={SortMenuView} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
+          <Dropdown trigger={['click']} overlay={DropdownMenu(SORTED_LIST, setSortBy)} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
             <span className="ant-dropdown-link span-header">
               Westminter, CO <img src="/Icons/icon-12.svg" alt="" />
             </span>
@@ -150,11 +164,21 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             />
           </Col>
           <Col style={{ textAlign: 'right' }} span={8} id="sort-map">
-            <Dropdown trigger={['click']} overlay={SortMenuView} getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
-              <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
-                Sort by Cost <img src="/Icons/icon-14.svg" alt="" />
+            <div className="sort-content">
+              <Dropdown trigger={['click']} overlay={DropdownMenu(SORTED_LIST, setSortBy)} getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
+                <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
+                  Sort by {secondWordOfCamelCase(sortBy.fieldSort)}
+                </span>
+              </Dropdown>
+              <span className="sort-buttons" onClick={() => toggleProjectsOrder()}>
+                {orderProjects ? 
+                  <img src="/Icons/icon-70.svg" alt="" />
+                    :
+                  <img src="/Icons/icon-69.svg" alt="" />
+                }
               </span>
-            </Dropdown>
+            </div>
+
             <Button onClick={handleToggle}>
               <img src="/Icons/icon-29.svg" alt="" /> Filters ({filterNames.length})
             </Button>
@@ -171,9 +195,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             if(value === FILTER_PROBLEMS_TRIGGER) {
               totalElements = cardInformationProblems.length;
               cardInformation = cardInformationProblems;
-            } else if (projects) {
-              totalElements = projects.length;
-              cardInformation = projects;
+            } else if (sortableProjects) {
+              totalElements = sortableProjects.length;
+              cardInformation = sortableProjects;
             }
 
             return (
@@ -200,7 +224,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             handleOnSubmit={handleOnSubmit}
             handleReset={handleReset}
             setFilterNames={setFilterNames}
-            projectsLength={projects.length}
+            projectsLength={sortableProjects.length}
             problemsLength={cardInformationProblems.length}
             getDropdownFilters={getDropdownFilters}
             dropdowns={dropdowns}

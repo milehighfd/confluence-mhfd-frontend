@@ -1014,6 +1014,16 @@ body{
     background-color: transparent;
     border-color: none;
   }
+
+  .sort-content {
+    display: inline-block;
+    margin-right: 5px;
+
+    .sort-buttons {
+     margin-left: 4px;
+     cursor: pointer;
+    }
+  }
 }
 .img-negative{
   background-image: url('/Icons/icon-21.svg') !important;
