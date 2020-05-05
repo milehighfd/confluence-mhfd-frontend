@@ -33,17 +33,17 @@ body{
   background: $purple;
   border-radius: 5px;
 }
-.col-wr::-webkit-scrollbar{
+.col-wr::-webkit-scrollbar, #graph::-webkit-scrollbar{
   width: 6px;
 }
-.col-wr::-webkit-scrollbar-thumb{
+.col-wr::-webkit-scrollbar-thumb, #graph::-webkit-scrollbar-thumb{
   background: #e9e7ef;
   border-radius: 5px;
 }
-.work-request::-webkit-scrollbar{
+.work-request::-webkit-scrollbar, #graph::-webkit-scrollbar{
   height: 4px;
 }
-.work-request::-webkit-scrollbar-thumb{
+.work-request::-webkit-scrollbar-thumb, #graph::-webkit-scrollbar-thumb{
   background: #e9e7ef;
   border-radius: 5px;
 }
@@ -2219,14 +2219,14 @@ body{
     position: relative;
     overflow-y: auto;
   }
-  
+
   .col-hovered {
     background-color: #2418631c;
     border-style: dashed;
     border-color: $purple;
     border-width: 3px;
   }
-  
+
   .btn-create, .btn-create:hover{
     background-color: transparent;
     border: none;
@@ -2319,7 +2319,7 @@ body{
   }
 }
 .cost-wr{
-  margin-top: 20px;
+  // margin-top: 20px;
   h5{
     font-size: 14px;
     color: $opacity;
@@ -2580,8 +2580,8 @@ body{
   }
 }
 .work-pc{
-  min-width: 380px;
-  width: 380px;
+  // min-width: 380px;
+  // width: 380px;
   height: 687px;
   min-height: 687px;
   border-radius: 4px;
@@ -2644,7 +2644,7 @@ body{
   width: 91px !important;
   height: 24px !important;
   font-family: Ubuntu !important;
-  font-size: 17px !important;
+  font-size: 16px !important;
   font-weight: 500 !important;
   font-stretch: normal !important;
   font-style: normal !important;
@@ -2652,7 +2652,7 @@ body{
   letter-spacing: normal !important;
   color: #29c499 !important;
   padding-right: 7px;
-  padding-left: 12px;
+  padding-left: 8px;
 }
 .col-name-01{
   font-size: 18.7px;
@@ -2953,11 +2953,11 @@ body{
 }
 .profile-info {
   display: flex !important;
-  padding: 53px !important;
+  padding: 50px 0px 50px 50px !important;
 }
 .profile-project {
   display: flex !important;
-  padding: 53px 0px 53px 0px !important;
+  padding: 50px 0px 50px 0px !important;
 }
 .profile-dat {
   display: flex;
@@ -2965,13 +2965,14 @@ body{
   justify-content: space-between;
 }
 .profile-name h3 {
-  font-size: 21.3px;
+  font-size:18px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
   color: $purple00;
+  margin-bottom: 2px;
 }
 .profile-contact button {
   height: 40px;
@@ -2981,13 +2982,29 @@ body{
 .profile-prot button,.profile-prot button:hover,
 .profile-prot button:focus, .profile-prot button:active,
 .profile-prot button.active {
-  margin: 0 6.5px;
+  margin: 0 6.5px 5px 6.5px;
   background-color: $opacity00;
   border: none;
   color: $purple00;
+  height: 30px;
+}
+.profile-prot{
+  padding-left: 10px;
+  .add-tag, .add-tag:hover, .add-tag:focus, .add-tag:active, .add-tag.active{
+    background: transparent;
+    color: $opacity;
+    box-shadow: none;
+    padding: 0px;
+  }
+  .add-tag img{
+    margin-right: 5px;
+    margin-top: -1px;
+  }
 }
 .profile-table {
-  padding: 20px 53px;
+  padding: 8px 20px 0px 0px !important;
+  width: 100%;
+  text-align: right;
   td {
     font-size: 14px;
     font-weight: normal;
@@ -3017,7 +3034,7 @@ body{
 }
 .profile-table{
   span {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
