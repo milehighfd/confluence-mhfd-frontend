@@ -3104,6 +3104,27 @@ body{
   color: $purple00;
   margin-bottom: 18px;
 }
+.sort-by{
+  .anticon + span, span + .anticon {
+    margin-left: 8px;
+    position: absolute !important;
+    font-size: 12px;
+    z-index: 1000;
+  }
+  .arrow-up{
+    top: 11px;
+  }
+  .arrow-down{
+    top: 18px;
+  }
+  .arrow-up:hover, .arrow-up:focus, .arrow-up:active, .arrow-up.active,
+  .arrow-down:hover, .arrow-down:focus, .arrow-down:active, .arrow-down.active{
+    color: $purple;
+  }
+  .anticon {
+    line-height: 0;
+  }
+}
 
 //  .pad-collab {
 //   padding: 2px 7px 2px 12px;

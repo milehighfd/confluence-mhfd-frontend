@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Row, Dropdown, Button, Menu } from 'antd';
-
+import {CaretUpOutlined, CaretDownOutlined} from '@ant-design/icons';
 import CardsView from "./CardsView";
 
 import { ProjectTypes } from '../../../Classes/MapTypes';
@@ -45,8 +45,10 @@ export default ({ type, datas, search }: { type: string, datas: Array<ProjectTyp
       </div>
       <div>
         <Dropdown overlay={menu()} trigger={['click']}>
-          <Button className="profile-bystatus" >
-            {options.status ? STATUS_PROJECT.filter(element => element.id === options.status)[0].name : 'By Status'}<img src="/Icons/icon-14.svg" alt="" />
+          <Button className="profile-bystatus sort-by" >
+            {options.status ? STATUS_PROJECT.filter(element => element.id === options.status)[0].name : 'By Status'}
+            <CaretUpOutlined className="arrow-up"/>
+            <CaretDownOutlined className="arrow-down" />
           </Button>
         </Dropdown>
       </div>
