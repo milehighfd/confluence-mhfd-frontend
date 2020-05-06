@@ -11,6 +11,7 @@ import {
 import { firstLetterUppercase, numberWithCommas } from "../../utils/utils";
 
 import { ProjectTypes } from "../../Classes/MapTypes";
+import { SERVER } from "../../Config/Server.config";
 
 const { Panel } = Collapse;
 
@@ -22,7 +23,8 @@ const capitalComponentsContext = (component : Function, projectType : string) =>
 }
 
 export default ({ setVisible, data } : { setVisible : Function, data : ProjectTypes }) => {
-
+  console.log('location', data);
+  
   const { 
     county,
     finalCost,
@@ -36,6 +38,15 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
     return capitalComponentsContext(component(data), projectType as string);
   }
 
+  const copyUrl = (id: string) => {
+    function handler (event: any){
+      event.clipboardData.setData('text/plain', SERVER.SHARE_MAP_PROJECT + '/' + id);
+      event.preventDefault();
+      document.removeEventListener('copy', handler, true);
+    }
+    document.addEventListener('copy', handler, true);
+    document.execCommand('copy');
+  }
   return (
     <div className="detailed">
       <Row className="detailed-h" gutter={[16, 8]}>
@@ -62,7 +73,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
         </Col>
         <Col span={3} style={{ textAlign: 'right' }}>
           <Button><img src="/Icons/icon-01.svg" alt="" /></Button>
-          <Button><img src="/Icons/icon-06.svg" alt="" /></Button>
+          <Button><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl(data._id as string)} /></Button>
           <Button onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
         </Col>
       </Row>

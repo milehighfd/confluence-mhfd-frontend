@@ -777,7 +777,51 @@ export const STATUS_PROJECT = [
     id: "requested"
   },
 ]
+export const VALUE_MITIGATION_TYPES_COL_1 = [
+  {
+    name: "Increased Conveyance - Crossing",
+    value: 50
+  },
+  {
+    name: "Increased Conveyance - Stream",
+    value: 15
+  },
+  {
+    name: "Increased Conveyance - Pipe",
+    value: 35
+  },
+  {
+    name: "Flow Reduction",
+    value: 50
+  },
+  {
+    name: "Stabilization - Vertical",
+    value: 15
+  }
+]
 
+export const VALUE_MITIGATION_TYPES_COL_2 = [
+  {
+    name: "",
+    value: 0
+  },
+  {
+    name: "Stabilization - Lateral",
+    value: 35
+  },
+  {
+    name: "Acquisition",
+    value: 50
+  },
+  {
+    name: "Stream Restoration",
+    value: 15
+  },
+  {
+    name: "Stream Management Corridor",
+    value: 35
+  }
+]
 export const VALUE_GRAPH = [
   {
     name: "Unincorporated Adams County",

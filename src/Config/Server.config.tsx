@@ -1,4 +1,5 @@
 const URL = process.env.REACT_APP_API_URI;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const CAPTCHA = process.env.REACT_APP_CAPTCHA;
 export const SERVER = (function () {
     const URL_BASE = {
@@ -41,6 +42,7 @@ export const SERVER = (function () {
 
     return {
         URL_BASE: URL_BASE.BASE,
+        SHARE_MAP_PROJECT: `${BASE_URL}/${MAP}`,
         CAPTCHA: CAPTCHA,
         USER: `${URL_BASE.BASE}/${USER}`,
         AUTH: `${URL_BASE.BASE}/${AUTH}`,

@@ -126,8 +126,8 @@ export const genExtra = () => (
 export const mitigationPanel = (data : DetailedMapProps) => (
   <Panel header="Mitigation Types" key="1" extra={genExtra()} >
     <Row>
-      <Col span={12}><img src="/Icons/chart-01.png" alt="" height="333px" /></Col>
-      <Col span={12}><img src="/Icons/chart-02.png" alt="" height="333px" /></Col>
+      <Col span={12}><img src="/Icons/chart-01.png" alt="" height="280px" width="320px" /></Col>
+      <Col span={12}><img src="/Icons/chart-02.png" alt="" height="280px" width="320px" /></Col>
     </Row>
   </Panel>
 );
