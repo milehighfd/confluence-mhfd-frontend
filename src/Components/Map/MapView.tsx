@@ -7,8 +7,10 @@ import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST } from '../../constants/constants';
-import { FilterTypes, FilterNamesTypes, MapViewTypes } from "../../Classes/MapTypes";
+import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../../Classes/MapTypes";
 import { secondWordOfCamelCase } from "../../utils/utils";
+import { useParams } from "react-router-dom";
+import DetailedModal from "../Shared/Modals/DetailedModal";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
@@ -55,12 +57,24 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   dropdowns, userFiltered, getUserFilters, sortProjects } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
-  const [listDescription, setListDescription] = useState(false);
-  const [toggleFilters, setToggleFilters] = useState(false);
+  const [modalProject, setModalProject] = useState<ProjectTypes>({});
+  const [modalVisible, setModalVisible] = useState(false);
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('0');
-  const [sortableProjects, setSortableProjects] = useState(projects);
+  const [toggleFilters, setToggleFilters] = useState(false);
   const [orderProjects, setOrderProjects] = useState(false);
+  const [listDescription, setListDescription] = useState(false);
+  const [sortableProjects, setSortableProjects] = useState(projects);
+
+  const { projectId } = useParams();
+
+  useEffect(() => {
+    /* Validate projectId in backend to show it! */
+    if (projectId === '5eb2cee46fc3881503d67288' && projects[0]) {
+      setModalProject(projects[0]);
+      setModalVisible(true);
+    }
+  }, [projectId, projects]);
 
   useEffect(() => {
     if (filters) {
@@ -125,8 +139,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   return <>
     <div className="count">
-      {/*<Collapse accordion>
-        <Panel header="" key="1">*/}
+      { modalVisible && 
+        <DetailedModal
+          visible={modalVisible}
+          setVisible={setModalVisible}
+          data={modalProject} />
+      }
       <Row className="head-m">
         <Col span={12} id="westminter">
           <Dropdown trigger={['click']} overlay={DropdownMenu(SORTED_LIST, setSortBy)} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
