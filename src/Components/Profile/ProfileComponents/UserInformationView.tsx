@@ -50,6 +50,7 @@ export default ({ user, countProjects, uploadImage }: { user: User, countProject
     <div className="profile-prot">
       <Button>Aurora</Button>
       <Button>Westminster</Button>
+      <Button className="add-tag"><img src="/Icons/icon-18.svg" alt="" height="18px" /> Add Tags</Button>
     </div>
     <div>
 
@@ -59,13 +60,13 @@ export default ({ user, countProjects, uploadImage }: { user: User, countProject
       <div className="profile-table" style={{ paddingLeft: "0px", paddingRight: "0px" }}>
         <span className="text-profile-projects" >
           {total}
-        </span> <span style={{ paddingRight: "12px" }}> Total Projects </span> |
+        </span> <span style={{ paddingRight: "8px" }}> Total Projects </span> |
         {typeProjects.map((element: { name: string, id: string }, index: number) => {
           return <span key={index}>
             <span className="text-profile-projects" >
               {countProjects.filter((project) => project._id === element.id)[0]?.count ? countProjects.filter((project) => project._id === element.id)[0].count : 0}
             </span>
-            <span style={{ paddingRight: "12px" }}>
+            <span style={{ paddingRight: "8px" }}>
               {element.name}
             </span> {(typeProjects.length - 1) !== index ? '|' : ''}
           </span>
