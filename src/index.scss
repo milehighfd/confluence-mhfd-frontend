@@ -3028,6 +3028,7 @@ body{
   font-size: 16px !important;
   font-weight: 400 !important;
   width: auto !important;
+  padding-right: 6px !important;
 }
 .profile-filter {
   justify-content: space-between;
@@ -3106,15 +3107,22 @@ body{
 }
 .sort-by{
   position: relative;
-  .anticon + span, span + .anticon {
+  border: none !important;
+  color: rgba(17, 9, 60, 0.5) !important;
+  font-size: 10px !important;
+  font-weight: 400 !important;
+  width: auto !important;
+  padding: 0px 6px !important;
+
+  .anticon + span, span + .antico, .anticon {
     margin-left: 8px;
     position: absolute !important;
-    font-size: 12px;
+    font-size: 10px;
     z-index: 1000;
     right: 0px;
   }
   .arrow-up{
-    top: 11px;
+    top: 12px;
   }
   .arrow-down{
     top: 18px;
@@ -3122,9 +3130,10 @@ body{
   .arrow-up:hover, .arrow-up:focus, .arrow-up:active, .arrow-up.active,
   .arrow-down:hover, .arrow-down:focus, .arrow-down:active, .arrow-down.active{
     color: $purple;
+    cursor: pointer;
   }
   .anticon {
-    line-height: 0;
+    line-height: 0 !important;
   }
 }
 

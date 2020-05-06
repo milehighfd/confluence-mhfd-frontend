@@ -43,14 +43,17 @@ export default ({ type, datas, search }: { type: string, datas: Array<ProjectTyp
           style={{ width: 240 }}
         />
       </div>
-      <div>
+      <div style={{display: 'flex'}}>
         <Dropdown overlay={menu()} trigger={['click']}>
-          <Button className="profile-bystatus sort-by" >
+          <Button className="profile-bystatus">
             {options.status ? STATUS_PROJECT.filter(element => element.id === options.status)[0].name : 'By Status'}
-            <CaretUpOutlined className="arrow-up"/>
-            <CaretDownOutlined className="arrow-down" />
           </Button>
         </Dropdown>
+
+        <label className="sort-by">
+          <CaretUpOutlined className="arrow-up"/>
+          <CaretDownOutlined className="arrow-down" />
+        </label>
       </div>
     </div>
     {datas.map((data: ProjectTypes, index: number) => {

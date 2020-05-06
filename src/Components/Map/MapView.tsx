@@ -53,7 +53,7 @@ const accordionRow: Array<any> = [
   }
 ];
 
-const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters, 
+const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters,
                   dropdowns, userFiltered, getUserFilters, sortProjects } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
@@ -111,7 +111,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setOrderProjects(!orderProjects);
     setSortableProjects(cloneProjects.reverse());
   }
- 
+
   const setCurrentFilters = (filtersData : FilterTypes) => {
     const values : Array<{ key: string, value: string }> = [];
     for (const key in filtersData) {
@@ -189,10 +189,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 </span>
               </Dropdown>
               <span className="sort-buttons" onClick={() => toggleProjectsOrder()}>
-                {orderProjects ? 
-                  <img src="/Icons/icon-70.svg" alt="" />
+                {orderProjects ?
+                  <img src="/Icons/icon-70.svg" alt="" height="10px"/>
                     :
-                  <img src="/Icons/icon-69.svg" alt="" />
+                  <img src="/Icons/icon-69.svg" alt="" height="10px"/>
                 }
               </span>
             </div>
