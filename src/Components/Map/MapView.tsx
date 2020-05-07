@@ -11,6 +11,7 @@ import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../..
 import { secondWordOfCamelCase } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import DetailedModal from "../Shared/Modals/DetailedModal";
+import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
@@ -106,10 +107,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setToggleFilters(!toggleFilters);
   }
 
-  const toggleProjectsOrder = () => {
-    const cloneProjects = [...sortableProjects];
-    setOrderProjects(!orderProjects);
-    setSortableProjects(cloneProjects.reverse());
+  const toggleProjectsOrder = (status : boolean) => {
+    if (status !== orderProjects) {
+      const cloneProjects = [...sortableProjects];
+      setSortableProjects(cloneProjects.reverse());
+    }
+    setOrderProjects(status);
   }
 
   const setCurrentFilters = (filtersData : FilterTypes) => {
@@ -188,12 +191,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   Sort by {secondWordOfCamelCase(sortBy.fieldSort)}
                 </span>
               </Dropdown>
-              <span className="sort-buttons" onClick={() => toggleProjectsOrder()}>
-                {orderProjects ?
-                  <img src="/Icons/icon-70.svg" alt="" height="10px"/>
-                    :
-                  <img src="/Icons/icon-69.svg" alt="" height="10px"/>
-                }
+              <span className="sort-buttons">
+                <CaretUpOutlined 
+                  className="arrow-up" 
+                  style={{opacity: orderProjects?'100%':'30%'}}
+                  onClick={() => toggleProjectsOrder(true)} />
+                <CaretDownOutlined 
+                  className="arrow-down" 
+                  style={{opacity: !orderProjects?'100%':'30%'}}
+                  onClick={() => toggleProjectsOrder(false)}/>
               </span>
             </div>
 
@@ -216,7 +222,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             } else if (sortableProjects) {
               totalElements = sortableProjects.length;
               cardInformation = sortableProjects;
-            }
+            } 
 
             return (
               <TabPane tab={value} key={'' + index}>

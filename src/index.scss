@@ -1017,14 +1017,33 @@ body{
 
   .sort-content {
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 14px;
 
     .sort-buttons {
      margin-left: 4px;
      cursor: pointer;
+     
+      .anticon + span, span + .antico, .anticon {
+        position: absolute !important;
+        font-size: 10px;
+        z-index: 1000;
+        color: $purple;
+        opacity: 30%;
+      }
+      .arrow-up{
+        top: 7.3px;
+      }
+      .arrow-down{
+        top: 14px;
+      }
+      .arrow-up:hover, .arrow-up:focus, .arrow-up:active, .arrow-up.active,
+      .arrow-down:hover, .arrow-down:focus, .arrow-down:active, .arrow-down.active{
+        opacity: 100%;
+      }
     }
   }
 }
+
 .img-negative{
   background-image: url('/Icons/icon-21.svg') !important;
 }
