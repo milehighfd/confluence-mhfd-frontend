@@ -3,6 +3,9 @@ import { Row, Col, Collapse, Button } from 'antd';
 import { DetailedMapProps, ComponentType } from '../Classes/MapTypes';
 import { firstLetterUppercase, spacingCamelCase, numberWithCommas } from './utils';
 
+import { VALUE_MITIGATION_TYPES_COL_1, VALUE_MITIGATION_TYPES_COL_2 } from '../constants/constants';
+import GraphOnD3View from '../Components/Shared/D3/GraphOnD3View';
+
 const { Panel } = Collapse;
 
 const projectCapitalBasics = (data: DetailedMapProps) => {
@@ -126,8 +129,12 @@ export const genExtra = () => (
 export const mitigationPanel = (data : DetailedMapProps) => (
   <Panel header="Mitigation Types" key="1" extra={genExtra()} >
     <Row>
-      <Col span={12}><img src="/Icons/chart-01.png" alt="" height="280px" width="320px" /></Col>
-      <Col span={12}><img src="/Icons/chart-02.png" alt="" height="280px" width="320px" /></Col>
+      <Col span={12}>
+        <GraphOnD3View data={VALUE_MITIGATION_TYPES_COL_1} option={"map"} />
+      </Col>
+      <Col span={12}>
+        <GraphOnD3View data={VALUE_MITIGATION_TYPES_COL_2} option={"map"} />
+      </Col>
     </Row>
   </Panel>
 );
