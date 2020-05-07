@@ -31,6 +31,18 @@ export const localComponents = {
   }
 };
 
+export const selectedComponents = {
+  type: 'circle',
+  layout: {},
+  paint: {
+      'circle-color': '#9e9d24',
+      'circle-stroke-color': '#f44336',
+      'circle-stroke-width': 1,
+      'circle-stroke-opacity': 0.75,
+      'circle-opacity': 1
+  }
+};
+
 export const polygonFill = {
   type: 'fill',
   layout: {},

@@ -26,6 +26,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
   const { 
     county,
     finalCost,
+    components,
     requestName, 
     projectType,
     coordinates,
@@ -103,7 +104,9 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
 
               <Panel header="Map" key="3" extra={genExtra()}>
                 <div className="detailed-map">
-                  <DetailedMap coordinates={JSON.parse(coordinates as string)} />
+                  <DetailedMap 
+                    coordinates={JSON.parse(coordinates as string)}
+                    components={components as any} />
                 </div>
               </Panel>
               <Panel header="Attachments" key="4" extra={genExtra()}>

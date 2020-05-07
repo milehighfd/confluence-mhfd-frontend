@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import MapTypesView from '../Shared/MapTypes/MapTypesView';
 
 import { Dropdown, Button } from 'antd';
@@ -9,9 +10,12 @@ import * as turf from '@turf/turf';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import { polygonFill, polygonStroke } from '../../constants/mapStyles';
+import { polygonFill, polygonStroke, selectedComponents } from '../../constants/mapStyles';
+import { MapStyleTypes, ComponentType } from '../../Classes/MapTypes';
+import { ComponentPopup } from './MapPopups';
 
 let map : any = null;
+let popup = new mapboxgl.Popup();
 type PolygonCoords = Array<Array<number>>;
 
 /* line to remove useEffect dependencies warning */
@@ -23,7 +27,7 @@ const getCenterCoordinates = (coordinates : PolygonCoords) => {
   return geometry?.coordinates as mapboxgl.LngLatLike;
 }
 
-export default ({ coordinates } : { coordinates : PolygonCoords }) => {
+export default ({ coordinates, components } : { coordinates : PolygonCoords, components : Array<ComponentType> }) => {
   const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
 
   useEffect(() => {
@@ -46,12 +50,31 @@ export default ({ coordinates } : { coordinates : PolygonCoords }) => {
     map.setStyle(dropdownItems.items[dropdownItems.default].style);
   }, [dropdownItems.items[dropdownItems.default].style]);
 
+  const addMapLayers = (id: string, style: MapStyleTypes) => {
+    const source = id;
+    if (style.type === 'line') {
+      id += '_stroke';
+    }
+
+    map.addLayer({
+      id,
+      source,
+      ...style
+    });
+  }    
+
   const selectMapStyle = (index: number) => {
     setDropdownItems({ ...dropdownItems, default: index });
   }
 
+  const popUpContent = (component : ComponentType) => ReactDOMServer.renderToStaticMarkup(
+    <ComponentPopup item={component} />
+  );
+
   const drawPolygon = () => {
-    map.addSource('polygon', {
+    const source = 'polygon';
+
+    map.addSource(source, {
       type: 'geojson',
       data: {
         type: 'Feature',
@@ -62,16 +85,59 @@ export default ({ coordinates } : { coordinates : PolygonCoords }) => {
       }
     });
 
-    map.addLayer({
-      id: 'polygon',
-      source: 'polygon',
-      ...polygonFill
+    addMapLayers(source, polygonFill);
+    addMapLayers(source, polygonStroke);
+
+    if (components) {
+      drawComponents();
+    }
+  }
+
+  const drawComponents = () => {
+    const source = 'components';
+
+    const componentItems = components.map((component : ComponentType) => ({
+      id: component.componentId,
+      type: 'Feature',
+      properties: {
+        description: popUpContent(component)
+      },
+      geometry: {
+        type: 'Point',
+        coordinates: component.coordinates
+      }
+    }));
+
+    map.addSource(source, {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: componentItems
+      }
     });
 
-    map.addLayer({
-        id: 'polygon_stroke',
-        source: 'polygon',
-        ...polygonStroke
+    addMapLayers(source, selectedComponents);
+    addComponentsListener(source);
+  }
+
+  const addComponentsListener = (trigger: string) => {
+    map.on('click', trigger, (e: any) => {
+      const description = e.features[0].properties.description;
+      popup.remove();
+      popup = new mapboxgl.Popup();
+      popup.setLngLat(e.lngLat)
+        .setHTML(description)
+        .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the states layer.
+    map.on('mouseenter', trigger, () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', trigger, () => {
+      map.getCanvas().style.cursor = '';
     });
   }
 
