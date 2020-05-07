@@ -1,5 +1,7 @@
 import React from 'react';
 import GraphOnD3View from '../Shared/D3/GraphOnD3View';
+import { VALUE_GRAPH } from '../../constants/constants';
+
 
 export default () => {
 
@@ -7,7 +9,7 @@ export default () => {
   return <div className="work-pc">
       <div className="wp-chart">
         <h5>Requests by Jurisdiction <img src="/Icons/icon-19.svg" alt="" /></h5>
-        <GraphOnD3View />
+        <GraphOnD3View data={VALUE_GRAPH} option={"work-plan"} />
       </div>
       <div className="wp-chart">
         <h5>Distribution Across Jurisdictions <img src="/Icons/icon-19.svg" alt="" /></h5>

@@ -28,7 +28,7 @@ export default () => {
           <span>Map View</span>
         </Link>
       </Menu.Item> : ''}
-      {(appUser.designation === 'admin' || 
+      {/* {(appUser.designation === 'admin' || 
         appUser.designation === 'staff'|| 
         appUser.designation === 'government_admin' || 
         appUser.designation === 'government_staff') && appUser.activated ? 
@@ -38,7 +38,7 @@ export default () => {
           <img className="img-a anticon" src="/Icons/menu-green-03.svg" alt="" width="18px" />
           <span>Create a Project</span>
         </Link>
-      </Menu.Item>: ''}
+      </Menu.Item>: ''} */}
       {(appUser.designation === 'government_admin' ||
         appUser.designation === 'government_staff') && appUser.activated ? 
       <Menu.Item key="3">

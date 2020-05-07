@@ -23,8 +23,6 @@ const capitalComponentsContext = (component : Function, projectType : string) =>
 }
 
 export default ({ setVisible, data } : { setVisible : Function, data : ProjectTypes }) => {
-  console.log('location', data);
-  
   const { 
     county,
     finalCost,
