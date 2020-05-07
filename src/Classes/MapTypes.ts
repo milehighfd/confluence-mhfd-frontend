@@ -157,6 +157,10 @@ export type FilterTypes = {
     [key : string]: Array<string> | string
 }
 
+export type MapStyleTypes = {
+    [key : string]: string | Object
+} 
+
 export type FiltersProjectTypes = {
     tabPosition: string, 
     setTabPosition: Function, 

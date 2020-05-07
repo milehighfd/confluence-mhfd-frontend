@@ -11,7 +11,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
-import { MapProps, ComponentType } from '../../Classes/MapTypes';
+import { MapProps, ComponentType, MapStyleTypes } from '../../Classes/MapTypes';
 import { MAP_DROPDOWN_ITEMS,
         MAPBOX_TOKEN, HERE_TOKEN,
         PROBLEMS_TRIGGER,
@@ -20,6 +20,7 @@ import { MAP_DROPDOWN_ITEMS,
         DENVER_LOCATION,
         SELECT_ALL_FILTERS } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
+import { localComponents, polygonFill, polygonStroke, tileStroke } from '../../constants/mapStyles';
 
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -148,6 +149,19 @@ const Map = ({ leftWidth,
         })
     }, [layerFilters]);
 
+    const addMapLayers = (id : string, style : MapStyleTypes) => {
+        const source = id;
+        if (style.type === 'line') {
+            id += '_stroke';
+        }
+
+        map.addLayer({
+            id,
+            source,
+            ...style
+        });
+    }    
+
     const addLayersSource = (key : string, tiles : Array<string>) => {
         if (!map.getSource(key)) {
             map.addSource(key, {
@@ -155,17 +169,7 @@ const Map = ({ leftWidth,
                 tiles: tiles
             });
 
-            map.addLayer({
-                id: key,
-                type: 'line',
-                source: key,
-                'source-layer': 'layer0',
-                layout: {},
-                paint: {
-                    'line-color': '#00bfa5',
-                    'line-width': 1
-                }
-              });
+            addMapLayers(key, tileStroke);
         }
     }
 
@@ -314,46 +318,12 @@ const Map = ({ leftWidth,
         });
 
         if(trigger !== COMPONENTS_TRIGGER) {
-            map.addLayer({
-                id: trigger,
-                type: 'fill',
-                source: trigger,
-                layout: {},
-                paint: {
-                    'fill-color': '#088',
-                    'fill-opacity': 0.3,
-                }
-            });
-
-            map.addLayer({
-                id: trigger + '_line',
-                type: 'line',
-                source: trigger,
-                layout: {},
-                paint: {
-                    'line-color': '#00bfa5',
-                    'line-width': 2.5,
-                }
-            });
+            /* Fill and Stroke of Polygons */
+            addMapLayers(trigger, polygonFill);
+            addMapLayers(trigger, polygonStroke);
         } else {
-            map.addLayer({
-                id: trigger,
-                type: 'circle',
-                source: trigger,
-                layout: {},
-                paint: {
-                    'circle-color': [
-                        'case',
-                        ['boolean', ['feature-state', 'hover'], false],
-                        '#9e9d24',
-                        '#ef5350'
-                    ],
-                    'circle-stroke-color': '#f44336',
-                    'circle-stroke-width': 1,
-                    'circle-stroke-opacity': 0.75,
-                    'circle-opacity': 1
-                }
-            });
+            /* Points represented as Components */
+            addMapLayers(trigger, localComponents);
         }
     }
 
@@ -361,7 +331,7 @@ const Map = ({ leftWidth,
         const mapSource = map.getSource(id);
         if(mapSource) {
             map.removeLayer(id);
-            if(id !== COMPONENTS_TRIGGER) map.removeLayer(id + '_line');
+            if(id !== COMPONENTS_TRIGGER) map.removeLayer(id + '_stroke');
             map.removeSource(id);
         }
     }

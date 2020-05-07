@@ -86,7 +86,7 @@ export const createNewProjectForm = (data: ProjectTypes, files: Array<any>) => {
         const county = state.map.newProject.jurisdiction;
         const coordinates = state.map.newProject.coordinates;
 
-        if(coordinates.length) {
+        if (coordinates.length) {
             const dataForm : FormData = new FormData();
             for (const key in data) {
                 dataForm.append(key, '' + data[key]); 
@@ -99,8 +99,8 @@ export const createNewProjectForm = (data: ProjectTypes, files: Array<any>) => {
                 }
             }
 
-            datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
-                if (res?._id) {
+            datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(project => {
+                if (project?._id) {
                     dispatch(setRouteRedirect(true));
                 }
             });

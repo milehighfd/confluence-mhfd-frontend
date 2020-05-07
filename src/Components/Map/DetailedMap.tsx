@@ -9,6 +9,7 @@ import * as turf from '@turf/turf';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
+import { polygonFill, polygonStroke } from '../../constants/mapStyles';
 
 let map : any = null;
 type PolygonCoords = Array<Array<number>>;
@@ -63,24 +64,14 @@ export default ({ coordinates } : { coordinates : PolygonCoords }) => {
 
     map.addLayer({
       id: 'polygon',
-      type: 'fill',
       source: 'polygon',
-      layout: {},
-      paint: {
-        'fill-color': '#088',
-        'fill-opacity': 0.3
-      }
+      ...polygonFill
     });
 
     map.addLayer({
         id: 'polygon_stroke',
-        type: 'line',
         source: 'polygon',
-        layout: {},
-        paint: {
-            'line-color': '#00bfa5',
-            'line-width': 2.5,
-        }
+        ...polygonStroke
     });
   }
 
