@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Row, Col, Tabs, Pagination, Button } from 'antd';
+import { Layout, Row, Col, Tabs, Pagination, Button, Table } from 'antd';
 import NavbarView from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import Accordeon from './UserComponents/Accordeon';
 import UserFilters from './UserFilters';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
-import { OptionsFiltersUser, User, UserActivities, UserActivity } from "../../Classes/TypeList";
-import { PAGE_USER } from "../../constants/constants";
-import ListUserActivity from "./ListUser/ListUserView";
+import { OptionsFiltersUser, User, UserActivities } from "../../Classes/TypeList";
+import { PAGE_USER, COLUMNS_USER_ACTIVITY } from "../../constants/constants";
 
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -33,10 +32,6 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
   const [userPendingState, setUserPendingState] = useState<Array<User>>([]);
   const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
-  const [ urlOptionsUserActivity, setUrlOptionsUserActivity ] = useState({
-    page: 1, limit: 20, sort: 'registerDate', sorttype: -1
-  })
-  // const [title, setTitle] = useState('');
   let pndPos = 0; // momentary forced adition until getting the DB Structure
   let aprPos = 0; // momentary forced adition until getting the DB Structure
 
@@ -44,12 +39,8 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
     getAllUser();
   }, []);
   useEffect(() => {
-    getUserActivity(getUrlOptionsUserActivity(urlOptionsUserActivity));
+    getUserActivity(getUrlOptionsUserActivity({current: 1, pageSize: 20}, {}));
   }, [])
-
-  const getUrlOptionsUserActivity = (url: { page: number, limit: number, sort: string, sorttype: number }) => {
-    return 'page=' + url.page + '&limit=' + url.limit + '&sort=' + url.sort +'&sorttype=' + url.sorttype;
-  }
 
   const getAllUser = () => {
     getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + urlOptions(optionUserActivated), setTotalUsersActivated);
@@ -69,7 +60,6 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
     getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + urlOptions(option), setTotalUsersPending);
   }
   const deleteUserActivated = (id: string) => {
-    // setTitle(id);
     datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {}, datasets.getToken()).then(res => {
       if (res?._id) {
         getAllUser();
@@ -87,14 +77,20 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
     setOptionUserPending(resetOptions);
     searchUserPending(resetOptions);
   }
-  
-  const sortOption = (column: string) => {
-    const auxOption = {...urlOptionsUserActivity};
-    auxOption.sort = column;
-    setUrlOptionsUserActivity(auxOption);
-    getUserActivity(getUrlOptionsUserActivity(auxOption));
+  userActivity.data.forEach(element => {
+    element.name = element.firstName + " " + element.lastName;
+  });
+  const pagination = {
+    current: + userActivity.currentPage,
+    pageSize: 20,
+    total: userActivity.totalPages*20
+  };
+  const handleTableChange = (pagination: any, filters: {}, sorter: any) => {
+    getUserActivity(getUrlOptionsUserActivity(pagination, sorter));
+  };
+  const getUrlOptionsUserActivity = (pagination: {current: number, pageSize: number}, sorter: {field?: string, order?: string}) => {
+    return 'page=' + pagination.current + '&limit=' + pagination.pageSize + (sorter?.order ? ('&sort=' + sorter.field + '&sorttype=' + (sorter.order === "descend" ? '-1': '1')): '&sort=registerDate&sorttype=-1')
   }
-  
   return <>
     <Layout>
       <NavbarView></NavbarView>
@@ -156,23 +152,8 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                           }}>
                             <img src="/Icons/icon-15.svg" alt=""/>
                           </Button>
-                          <Row className="activity-h">
-                            <Col span={5}><Button onClick={() => sortOption('registerDate')} >Data and Time <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-                            <Col span={5}><Button onClick={() => sortOption('firstName')}>User <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-                            <Col span={5}><Button onClick={() => sortOption('city')}>City <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-                            <Col span={5}><Button onClick={() => sortOption('change')}>Change <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-                          </Row>
-                          {userActivity.data.map((activity: UserActivity, index: number) => {
-                            return <ListUserActivity user={activity} key={index}/>
-                          })}
-                          <div className="pagi-00">
-                            <Pagination defaultCurrent={1} total={userActivity.totalPages*10} onChange= {(page) => {
-                              const auxOption = {...urlOptionsUserActivity};
-                              auxOption.page = page;
-                              setUrlOptionsUserActivity(auxOption);
-                              getUserActivity(getUrlOptionsUserActivity(auxOption));
-                            }} />
-                          </div>
+                          <Table columns={COLUMNS_USER_ACTIVITY} rowKey={record => record._id} dataSource={userActivity.data} 
+                            pagination={pagination} onChange={(pagination, filters ,sort) => handleTableChange(pagination, filters, sort)}/>
                     </TabPane>
                   </Tabs>
                 </Col>

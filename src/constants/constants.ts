@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const COMPLETE_SCREEN = 24;
 export const MEDIUM_SCREEN = 12;
 export const EMPTY_SCREEN = 0;
@@ -738,6 +740,43 @@ export const PAGE_USER = {
   designation: '',
   sort: 'name'
 }
+export const  COLUMNS_USER_ACTIVITY = [
+  {
+    title: "Data and Time",
+    dataIndex: "registerDate",
+    sorter: true,
+    className: "user-activity",
+    render: (registerDate: string) => moment(new Date('' + registerDate)).format('MM/DD/YYYY hh:mm A'),
+    width: "20%"
+  },
+  {
+    title: "User",
+    dataIndex: "name",
+    className: "user-activity",
+    sorter: true,
+    width: "25%"
+  },
+  {
+    title: "City",
+    dataIndex: "city",
+    className: "user-activity",
+    sorter: true,
+    width: "20%"
+  },
+  {
+    title: "Change",
+    dataIndex: "activityType",
+    sorter: true,
+    width: "20%",
+    className: "user-Login",
+    render: (activityType: string) => activityType ? `${activityType}`: ''
+  },
+  {
+    title: "",
+    dataIndex: "",
+    width: "15%"
+  },
+];
 
 export const STATUS_PROJECT = [
   {

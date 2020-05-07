@@ -29,15 +29,16 @@ export type ProjectName = {
 }
 
 export type UserActivities = {
-    currentPage: string
-    data: UserActivity[]
+    currentPage: string,
+    data: UserActivity[],
     totalPages: number
 }
 export type UserActivity = {
-    firstName: string
-    lastName: string
-    registerDate: string
-    _id: string
+    name: string,
+    firstName: string,
+    lastName: string,
+    registerDate: string,
+    _id: string,
     city: string,
     change: string,
     activityType: string
