@@ -49,7 +49,7 @@ export default () => {
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
-            </div>
+            </div> 
             <div onClick={() => {
               window.location.href = "https://mhfd.org/";
               }} >
