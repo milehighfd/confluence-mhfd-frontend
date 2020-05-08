@@ -54,6 +54,7 @@ const Map = ({ leftWidth,
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
     const [selectedLayers, setSelectedLayers] = useState<any>([]);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
+    const [recentSelection, setRecentSelection] = useState<any>('');
 
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
@@ -138,25 +139,46 @@ const Map = ({ leftWidth,
     useEffect(() => {
         selectedLayers.forEach((layer : any) => {
             if (typeof layer === 'object') {
-                layer.tiles.forEach((sublayer : string) => getMapTables(sublayer, layer.name));
-            } else {
-                getMapTables(layer);
-            }
-        });
-    }, [selectedLayers]);
-
-    useEffect(() => {
-        Object.keys(layerFilters).forEach((key : string) => {
-            const tiles = layerFilters[key];
-            /* Momentary Implementation Cause' 2 Filters Don't Have Enpoint */
-            if (tiles && Array.isArray(tiles)) {
-                addLayersSource(key, tiles);
-            } else if (tiles && typeof tiles === 'object') {
-                Object.keys(tiles).forEach((subKey : string) => {
-                    if (tiles[subKey]) {
+                layer.tiles.forEach((subKey : string) => {
+                    if (!layerFilters[layer.name]) {
+                        getMapTables(subKey, layer.name);
+                    } else {
+                        const tiles = layerFilters[layer.name] as any;
                         addLayersSource(subKey, tiles[subKey]);
                     }
                 });
+            } else {
+                if (!layerFilters[layer]) {
+                    getMapTables(layer); 
+                } else {
+                    addLayersSource(layer, layerFilters[layer]);
+                }
+            }
+        })
+    }, [selectedLayers]);
+
+    useEffect(() => {
+        if (recentSelection) {
+            if (typeof recentSelection === 'object') {
+                recentSelection.tiles.forEach((subKey : string) => {
+                    removeTileLayers(subKey);
+                });
+            } else {
+                removeTileLayers(recentSelection);
+            }
+        }
+    }, [recentSelection]);
+
+    useEffect(() => {
+        selectedLayers.forEach((layer : any) => {
+            /* Momentary Implementation Cause' 2 Filters Don't Have Enpoint */
+            if (typeof layer === 'object') {
+                layer.tiles.forEach((subKey : string) => {
+                    const tiles = layerFilters[layer.name] as any;
+                    addLayersSource(subKey, tiles[subKey]);
+                });
+            } else {
+                addLayersSource(layer, layerFilters[layer]);
             }
         })
     }, [layerFilters]);
@@ -175,7 +197,7 @@ const Map = ({ leftWidth,
     }    
 
     const addLayersSource = (key : string, tiles : Array<string>) => {
-        if (!map.getSource(key)) {
+        if (!map.getSource(key) && tiles) {
             map.addSource(key, {
                 type: 'vector',
                 tiles: tiles
@@ -364,6 +386,17 @@ const Map = ({ leftWidth,
     }
 
     const selectCheckboxes = (selectedItems : Array<string>) => {
+        if (selectedItems.length < selectedLayers.length) {
+            selectedLayers.forEach((layer : any) => {
+                const index = selectedItems.indexOf(layer);
+                if (index < 0) {
+                    setRecentSelection(layer);
+                }
+            });
+        } else {
+            setRecentSelection('');
+        }
+
         setSelectedLayers(selectedItems);
     }
 
