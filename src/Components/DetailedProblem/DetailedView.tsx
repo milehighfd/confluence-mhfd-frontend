@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Collapse, Button, Input, Progress, Carousel } from 'antd';
+import { Row, Col, Collapse, Button, Input, Progress, Carousel, message } from 'antd';
 
 import DetailedMap from "../Map/DetailedMap";
 
@@ -45,6 +45,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
     }
     document.addEventListener('copy', handler, true);
     document.execCommand('copy');
+    message.success('copied to clipboard!');
   }
   return (
     <div className="detailed">

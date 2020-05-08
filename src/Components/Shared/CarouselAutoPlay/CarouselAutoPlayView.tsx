@@ -23,22 +23,46 @@ export default () => {
               </div>
           </div>
       <Carousel autoplay>
-            <div>
-              <img src="/icons/banner.png" alt=""/>
+            <div onClick={() => {
+              window.location.href = "https://mhfd.org/";
+              }} >
+              <img src="/icons/banner/Low_drop.jpeg" className={"img-banner"} alt="" />
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
-            <div>
-            <img src="/icons/banner.png" alt=""/>
+            <div onClick={() => {
+              window.location.href = "https://mhfd.org/";
+              }} >
+            <img src="/icons/banner/Confluence_Park.jpg" className={"img-banner"} alt=""/>
              <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
               </div>
             </div>
-            <div>
-            <img src="/icons/banner.png" alt=""/>
+            <div onClick={() => {
+              window.location.href = "https://mhfd.org/";
+              }} >
+            <img src="/icons/banner/Drainageway.jpg" className={"img-banner"} alt=""/>
+              <div className="textContent">
+                <h2>What can I do with Confluence?</h2>
+                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+              </div>
+            </div>
+            <div onClick={() => {
+              window.location.href = "https://mhfd.org/";
+              }} >
+            <img src="/icons/banner/Eco_Park.jpg" className={"img-banner"} alt=""/>
+             <div className="textContent">
+                <h2>What can I do with Confluence?</h2>
+                <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+              </div>
+            </div>
+            <div onClick={() => {
+              window.location.href = "https://mhfd.org/";
+              }} >
+            <img src="/icons/banner/Westminster_Station.jpg" className={"img-banner"} alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>

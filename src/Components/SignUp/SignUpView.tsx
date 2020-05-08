@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Layout, Row, Col, Form, Button, Menu, Dropdown } from 'antd';
 import ReCAPTCHA from "react-google-recaptcha";
 import { ROLES } from "../../constants/constants";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import { useFormik } from "formik";
@@ -21,7 +21,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
   const [organization, setOrganization] = useState(ROLES[0].options);
   const menu = (
     <Menu className="js-mm sign-menu">
-      <label>CITY</label>
+      <label style={{paddingBottom: "4px"}}>CITY</label>
       {organization.map((organization: string, index: number) => {
         return <Menu.Item key={index} className="organization-items" onClick={() => {
           values.organization = organization;
@@ -152,6 +152,12 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                   Sign Up
                 </Button>
               </Form.Item>
+              <div className="marbot-4" style={{textAlign: "center"}}>
+                <span> I have an account</span>
+                <Link to={'/login'} className="login-form-forgot">
+                  Login
+                </Link>
+              </div>
             </Form>
           </div>
         </div>
