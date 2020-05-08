@@ -175,7 +175,9 @@ const Map = ({ leftWidth,
             if (typeof layer === 'object') {
                 layer.tiles.forEach((subKey : string) => {
                     const tiles = layerFilters[layer.name] as any;
-                    addLayersSource(subKey, tiles[subKey]);
+                    if (tiles) {
+                        addLayersSource(subKey, tiles[subKey]);
+                    }
                 });
             } else {
                 addLayersSource(layer, layerFilters[layer]);
