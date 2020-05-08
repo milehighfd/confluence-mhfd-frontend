@@ -142,7 +142,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   return <>
     <div className="count">
-      { modalVisible && 
+      { modalVisible &&
         <DetailedModal
           visible={modalVisible}
           setVisible={setModalVisible}
@@ -176,7 +176,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
       <div className="head-filter">
         <Row type="flex" justify="space-around" align="middle">
-          <Col span={16}>
+          <Col span={12}>
             <Search
               placeholder="Search..."
               onChange={(e) => handleOnSearch(e.target.value)}
@@ -184,7 +184,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               style={{ width: 200 }}
             />
           </Col>
-          <Col style={{ textAlign: 'right' }} span={8} id="sort-map">
+          <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
             <div className="sort-content">
               <Dropdown trigger={['click']} overlay={DropdownMenu(SORTED_LIST, setSortBy)} getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
                 <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
@@ -192,12 +192,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 </span>
               </Dropdown>
               <span className="sort-buttons">
-                <CaretUpOutlined 
-                  className="arrow-up" 
+                <CaretUpOutlined
+                  className="arrow-up"
                   style={{opacity: orderProjects?'100%':'30%'}}
                   onClick={() => toggleProjectsOrder(true)} />
-                <CaretDownOutlined 
-                  className="arrow-down" 
+                <CaretDownOutlined
+                  className="arrow-down"
                   style={{opacity: !orderProjects?'100%':'30%'}}
                   onClick={() => toggleProjectsOrder(false)}/>
               </span>
@@ -222,7 +222,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             } else if (sortableProjects) {
               totalElements = sortableProjects.length;
               cardInformation = sortableProjects;
-            } 
+            }
 
             return (
               <TabPane tab={value} key={'' + index}>
