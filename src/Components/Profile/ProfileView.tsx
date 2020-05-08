@@ -36,7 +36,7 @@ const cardInformationProblems: Array<any> = [
 
 export default ({ user, projects, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue }:
   {
-    user: User, projects: ProjectTypes[], countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function, 
+    user: User, projects: ProjectTypes[], countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function,
     uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function }) => {
   const searchProblem = () => {
     console.log('search problem');
@@ -73,12 +73,18 @@ export default ({ user, projects, countProjects, getUserProjects, getCountProjec
           </Row>
           <Row >
             <Col className="profile-tabs" span={17}>
-              <Tabs style={{ padding: '0 53px' }} defaultActiveKey="1" className="tabs-map">
+              <Tabs style={{ padding: '0 25px' }} defaultActiveKey="1" className="tabs-map">
                 <TabPane tab="Problems" key="1">
                   <TabPaneView type={"Problems"} datas={cardInformationProblems} search={searchProblem} />
                 </TabPane>
                 <TabPane tab="Projects" key="2">
                   <TabPaneView type={"Projects"} datas={projects} search={searchProjects} />
+                </TabPane>
+                <TabPane tab="Activity" key="3">
+                  Lorem
+                </TabPane>
+                <TabPane tab="Current Work Plan" key="4">
+                  Lorem
                 </TabPane>
               </Tabs>
             </Col>

@@ -11,10 +11,10 @@ import * as Yup from "yup";
 
 const keyCaptcha = SERVER.CAPTCHA;
 const validationSchema = Yup.object().shape({
-  email: Yup.string()      
+  email: Yup.string()
     .email()
     .required('Required'),
-  password: Yup.string()      
+  password: Yup.string()
     .min(2)
     .required('Required'),
   recaptcha: Yup.string()
@@ -77,7 +77,7 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
       </h1>
       <div style={{ marginTop: '30px' }}>
       <div className="group">
-        <input name="email" type="email" onChange={handleChange} 
+        <input name="email" type="email" onChange={handleChange}
           style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
         <span className="highlight"></span>
         <span className="bar"></span>

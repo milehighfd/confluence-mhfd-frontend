@@ -11,31 +11,31 @@ import { Layout, Row, Col, Button, message } from 'antd';
 import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
 
 export default function (WrappedComponent : any, layers : MapLayersType) {
-    return ({ problems, 
-              projects, 
+    return ({ problems,
+              projects,
               projectsByType,
-              components, 
+              components,
               filters,
               panel,
               dropdowns,
               userFiltered,
               layerFilters,
-              saveNewCapitalForm, 
-              saveNewStudyForm, 
-              createNewProjectForm, 
-              getReverseGeocode, 
-              savePolygonCoordinates, 
-              saveMarkerCoordinates, 
-              redirect, 
-              setRouteRedirect, 
-              error, 
-              clearErrorMessage, 
-              getProjectWithFilters, 
-              removeFilter, 
-              getMapTables, 
-              getDropdownFilters, 
-              getUserFilters, 
-              getPolygonStreams, 
+              saveNewCapitalForm,
+              saveNewStudyForm,
+              createNewProjectForm,
+              getReverseGeocode,
+              savePolygonCoordinates,
+              saveMarkerCoordinates,
+              redirect,
+              setRouteRedirect,
+              error,
+              clearErrorMessage,
+              getProjectWithFilters,
+              removeFilter,
+              getMapTables,
+              getDropdownFilters,
+              getUserFilters,
+              getPolygonStreams,
               saveDraftCard, getUserProjects, sortProjects } : MapHOCProps) => {
 
         const emptyStyle: React.CSSProperties = {};
@@ -83,11 +83,11 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
           }
         }
 
-        if(redirect) { 
+        if(redirect) {
           setRouteRedirect(false);
           return <Redirect to='/map' />
         }
-      
+
         return (
             <Layout>
             <NavbarView></NavbarView>
@@ -95,7 +95,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <SidebarView></SidebarView>
               <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
                 <Row>
-                    <Col span={leftWidth}>
+                    <Col style={{transition: 'all 0.2s'}} span={leftWidth}>
                         <Map
                             leftWidth={leftWidth}
                             layers={layers}
@@ -118,8 +118,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                         </Button>
                     </Col>
-                    <Col span={rightWidth}>
-                        <WrappedComponent 
+                    <Col style={{transition: 'all 0.2s'}} span={rightWidth}>
+                        <WrappedComponent
                             selectedItems={selectedItems}
                             isPolygon={isPolygon}
                             setSelectedItems={setSelectedItems}
@@ -134,7 +134,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             dropdowns={dropdowns}
                             userFiltered={userFiltered}
                             getUserFilters={getUserFilters}
-                            removeFilter={removeFilter} 
+                            removeFilter={removeFilter}
                             projects={projects}
                             projectsByType={projectsByType}
                             markerRef={markerRef}
@@ -148,4 +148,4 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
           </Layout>
         );
     }
-} 
+}

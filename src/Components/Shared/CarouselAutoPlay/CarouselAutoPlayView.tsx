@@ -2,10 +2,12 @@ import React from "react";
 import { Col, Carousel } from "antd";
 export default () => {
     return <Col span={13}>
-          <div className="logo-white"
-              style={{backgroundImage: 'url(/Icons/logo-white.svg)'}}>
-              <p>Protecting People, Property, and our Environment.</p>
-          </div>
+          <a href="https://mhfd.org/" target="_blank">
+            <div className="logo-white"
+                style={{backgroundImage: 'url(/Icons/logo-white.svg)'}}>
+                <p>Protecting People, Property, and our Environment.</p>
+            </div>
+          </a>
           <div className="contact01">
               <div className="icons-list">
                 <a href="/login" ><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
@@ -71,4 +73,3 @@ export default () => {
       </Carousel>
       </Col>
 }
-

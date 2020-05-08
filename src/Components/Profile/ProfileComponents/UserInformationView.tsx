@@ -32,7 +32,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue }: { us
             setFileImage({...file});
             spinValue(true);
             console.log('eta entrando aunque no quieras');
-            
+
             uploadImage([{ ...file }]);
           }
         }} >
@@ -63,9 +63,6 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue }: { us
       <Button>Aurora</Button>
       <Button>Westminster</Button>
       <Button className="add-tag"><img src="/Icons/icon-18.svg" alt="" height="18px" /> Add Tags</Button>
-    </div>
-    <div>
-
     </div>
   </Col>
     <Col span={12} className="profile-project">

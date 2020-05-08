@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Row, Col, Form, Button, Menu, Dropdown } from 'antd';
+import { Layout, Row, Col, Form, Button, Menu, Dropdown} from 'antd';
 import ReCAPTCHA from "react-google-recaptcha";
 import { ROLES } from "../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
@@ -21,7 +21,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
   const [organization, setOrganization] = useState(ROLES[0].options);
   const menu = (
     <Menu className="js-mm sign-menu">
-      <label style={{paddingBottom: "4px"}}>CITY</label>
+      <label className="label-sg">CITY</label>
       {organization.map((organization: string, index: number) => {
         return <Menu.Item key={index} className="organization-items" onClick={() => {
           values.organization = organization;
@@ -108,7 +108,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                 <label style={(values.lastName) ? {top: "-20px"}:{top: "10px"}}>Last Name</label>
               </div>
               <div className="group">
-                <input type="email"  name="email" onChange={handleChange} 
+                <input type="email"  name="email" onChange={handleChange}
                   style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 <span className="highlight"></span>
                 <span className="bar"></span>
@@ -124,7 +124,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                 </Dropdown>
                 </div>
                  : (
-                    <><input type="text"  name="organization" onChange={handleChange} 
+                    <><input type="text"  name="organization" onChange={handleChange}
                       style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                       <span className="highlight"></span>
                       <span className="bar"></span>
@@ -132,7 +132,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                   )}
               </div>
               <div className="group">
-                <input type="password"  name="password" onChange={handleChange} 
+                <input type="password"  name="password" onChange={handleChange}
                   style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 <span className="highlight"></span>
                 <span className="bar"></span>
@@ -151,6 +151,12 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                 <Button className="buttonLogin" block htmlType="submit" >
                   Sign Up
                 </Button>
+                <div style={{textAlign:'center'}}>
+                  <span>Already have an account?</span>
+                  <Link to={'/login'} className="login-form-forgot">
+                    Sign-In
+                  </Link>
+                </div>
               </Form.Item>
               <div className="marbot-4" style={{textAlign: "center"}}>
                 <span> I have an account</span>
