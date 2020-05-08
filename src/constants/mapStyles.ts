@@ -365,8 +365,8 @@ export const tileStyles = {
         'fill-opacity': 0.4
     }
   }], 
-  [PROBLEMS_TRIGGER]: {}, 
-  [PROJECTS_TRIGGER]: {}, 
+  [PROBLEMS_TRIGGER]: [{}], 
+  [PROJECTS_TRIGGER]: [{}], 
   ...COMPONENT_LAYERS_STYLE,
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES

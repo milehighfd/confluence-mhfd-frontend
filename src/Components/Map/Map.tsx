@@ -423,7 +423,10 @@ const Map = ({ leftWidth,
         styles[key].forEach((style : any, index : number) => {
             map.removeLayer(key + '_' + index);
         });
-        map.removeSource(key);
+        
+        if (map.getSource(key)) {
+            map.removeSource(key);
+        }
     };
 
     return (
