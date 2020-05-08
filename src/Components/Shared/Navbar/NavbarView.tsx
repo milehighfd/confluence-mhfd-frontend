@@ -78,7 +78,14 @@ export default () => {
       <label className="ll-0"></label>
       <Dropdown overlay={menu}>
         <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()}>
-          <label className="ll-00">{initialName}</label> {name} <Icon type="caret-down" />
+            {user.photo ? 
+              <img src={user.photo} className="ll-img" alt="profile" />
+              : 
+              <label className="ll-00">
+                {initialName}
+              </label> 
+            }
+            {name} <Icon type="caret-down" />
         </a>
       </Dropdown>
       <Menu.Item><img src="/Icons/icon-27.svg" alt="" /></Menu.Item>
