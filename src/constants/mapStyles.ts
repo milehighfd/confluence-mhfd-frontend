@@ -63,10 +63,10 @@ export const polygonStroke = {
 
 export const tileStroke = {
   type: 'line',
-  'source-layer': 'layer0',
+  'source-layer': 'pluto15v1',
   layout: {},
   paint: {
-      'line-color': '#00bfa5',
+      'line-color': '#FFFFFF',
       'line-width': 1
   }
 };
@@ -77,8 +77,8 @@ export const tileStyles = {
     'source-layer': 'layer0',
     layout: {},
     paint: {
-        'line-color': '#00bfa5',
-        'line-width': 1
+        'line-color': '#FF080',
+        'line-width': 10
     }
   },
   [FLOODPLAINS_NON_FEMA_FILTERS]: {}, 
