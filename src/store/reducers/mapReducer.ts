@@ -187,7 +187,7 @@ const initState = {
             coordinates: [-104.99997101031218, 39.84543449508365]
         }
     ],
-    layers: {}
+    layers: {} as any
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -262,6 +262,18 @@ const mapReducer = (state = initState, action : any) => {
                     [action.data.trigger]: action.data.tiles
                 }
             }
+        case types.GET_MAP_WITH_SUBLAYERS: {
+            return {
+                ...state,
+                layers: {
+                    ...state.layers,
+                    [action.data.name] : {
+                        ...state.layers[action.data.name],
+                        [action.data.trigger]: action.data.tiles
+                    }
+                }
+            }
+        }
         default: 
             return state;
     }

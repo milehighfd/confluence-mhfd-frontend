@@ -20,7 +20,7 @@ import { MAP_DROPDOWN_ITEMS,
         DENVER_LOCATION,
         SELECT_ALL_FILTERS } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
-import { localComponents, polygonFill, polygonStroke, tileStroke } from '../../constants/mapStyles';
+import { localComponents, polygonFill, polygonStroke, tileStyles } from '../../constants/mapStyles';
 
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -52,7 +52,7 @@ const Map = ({ leftWidth,
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
-    const [selectedLayers, setSelectedLayers] = useState<Array<string>>([]);
+    const [selectedLayers, setSelectedLayers] = useState<any>([]);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
 
     useEffect(() => {
@@ -136,15 +136,27 @@ const Map = ({ leftWidth,
     }, [projects]);
 
     useEffect(() => {
-        selectedLayers.forEach((layer : string) => getMapTables(layer));
+        selectedLayers.forEach((layer : any) => {
+            if (typeof layer === 'object') {
+                layer.tiles.forEach((sublayer : string) => getMapTables(sublayer, layer.name));
+            } else {
+                getMapTables(layer);
+            }
+        });
     }, [selectedLayers]);
 
     useEffect(() => {
         Object.keys(layerFilters).forEach((key : string) => {
             const tiles = layerFilters[key];
             /* Momentary Implementation Cause' 2 Filters Don't Have Enpoint */
-            if (tiles) {
+            if (tiles && Array.isArray(tiles)) {
                 addLayersSource(key, tiles);
+            } else if (tiles && typeof tiles === 'object') {
+                Object.keys(tiles).forEach((subKey : string) => {
+                    if (tiles[subKey]) {
+                        addLayersSource(subKey, tiles[subKey]);
+                    }
+                });
             }
         })
     }, [layerFilters]);
@@ -169,8 +181,23 @@ const Map = ({ leftWidth,
                 tiles: tiles
             });
 
-            addMapLayers(key, tileStroke);
+            addTilesLayers(key);
         }
+    }
+
+    const addTilesLayers = (key : string) => {
+        const styles = { ...tileStyles as any };
+        styles[key].forEach((style : any, index : number) => {
+            map.addLayer({
+                id: key + '_' + index,
+                source: key,
+                ...style
+            });
+        });
+        
+        drawConstants.forEach((item : string) => {
+            drawItemsInMap(item);
+        });
     }
 
     const paintSelectedComponents = (items : Array<ComponentType>) => {
@@ -345,8 +372,26 @@ const Map = ({ leftWidth,
     }
 
     const handleResetAll = () => {
+        selectedLayers.forEach((layer : any) => {
+            if (typeof layer === 'object') {
+                layer.tiles.forEach((subKey : string) => {
+                    removeTileLayers(subKey);
+                });
+            } else {
+                removeTileLayers(layer);
+            }
+        })
+
         setSelectedLayers([]);
     }
+
+    const removeTileLayers = (key : string) => {
+        const styles = { ...tileStyles as any };
+        styles[key].forEach((style : any, index : number) => {
+            map.removeLayer(key + '_' + index);
+        });
+        map.removeSource(key);
+    };
 
     return (
         <div className="map">

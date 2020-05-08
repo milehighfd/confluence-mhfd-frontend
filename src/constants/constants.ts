@@ -43,11 +43,76 @@ export const STREAMS_FILTERS = 'streams';
 
 export const SERVICE_AREA_FILTERS = 'watershed_service_areas';
 export const MUNICIPALITIES_FILTERS = 'municipalities';
-export const COUNTIES_FILTERS = 'mhcounties';
+export const COUNTIES_FILTERS = 'counties';
 export const MHFD_BOUNDARY_FILTERS = 'district_boundary';
 
-export const MEP_PROJECTS = 'mep_projects';
-export const ROUTINE_MAINTENANCE = 'routine_maintenance';
+/* Component Layers */
+export const GRADE_CONTROL_STRUCTURE = 'grade_control_structure';
+export const PIPE_APPURTENANCES = 'pipe_appurtenances';
+export const SPECIAL_ITEM_POINT = 'special_item_point';
+export const SPECIAL_ITEM_LINEAR = 'special_item_linear';
+export const SPECIAL_ITEM_AREA = 'special_item_area';
+export const CHANNEL_IMPROVEMENTS_LINEAR = 'channel_improvements_linear';
+export const CHANNEL_IMPROVEMENTS_AREA = 'channel_improvements_area';
+export const REMOVAL_LINE = 'removal_line';
+export const REMOVAL_AREA = 'removal_area';
+export const STORM_DRAIN = 'storm_drain';
+export const DETENTION_FACILITIES = 'detention_facilities';
+export const MAINTENANCE_TRAILS = 'maintenance_trails';
+export const LAND_ACQUISITION = 'land_acquisition';
+export const LANDSCAPING_AREA = 'landscaping_area';
+
+export const COMPONENT_LAYERS = {
+  name: 'components',
+  tiles: [
+    GRADE_CONTROL_STRUCTURE,
+    PIPE_APPURTENANCES,
+    SPECIAL_ITEM_POINT,
+    SPECIAL_ITEM_LINEAR,
+    SPECIAL_ITEM_AREA,
+    CHANNEL_IMPROVEMENTS_LINEAR,
+    CHANNEL_IMPROVEMENTS_AREA,
+    REMOVAL_LINE,
+    REMOVAL_AREA,
+    STORM_DRAIN,
+    DETENTION_FACILITIES,
+    MAINTENANCE_TRAILS,
+    LAND_ACQUISITION,
+    LANDSCAPING_AREA
+  ]
+};
+
+/* Mep Projects */
+export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
+export const MEP_PROJECTS_DETENTION_BASINS = 'mep_projects_detention_basins';
+export const MEP_PROJECTS_CHANNELS = 'mep_projects_channels';
+export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_projects_storm_outfalls';
+
+export const MEP_PROJECTS = {
+  name: 'mep_projects',
+  tiles: [
+    MEP_PROJECTS_TEMP_LOCATIONS,
+    MEP_PROJECTS_DETENTION_BASINS,
+    MEP_PROJECTS_CHANNELS,
+    MEP_PROJECTS_STORM_OUTFALLS
+  ]
+};
+
+/* Routine Maintenance */
+export const ROUTINE_NATURAL_AREAS = 'routine_natural_areas';
+export const ROUTINE_WEED_CONTROL = 'routine_weed_control';
+export const ROUTINE_DEBRIS_AREA = 'routine_debris_area';
+export const ROUTINE_DEBRIS_LINEAR = 'routine_debris_linear';
+
+export const ROUTINE_MAINTENANCE = {
+  name: 'routine_maintenance',
+  tiles: [
+    ROUTINE_NATURAL_AREAS,
+    ROUTINE_WEED_CONTROL,
+    ROUTINE_DEBRIS_AREA,
+    ROUTINE_DEBRIS_LINEAR
+  ]
+};
 
 export const SELECT_ALL_FILTERS = [FLOODPLAINS_FEMA_FILTERS, 
                                   FLOODPLAINS_NON_FEMA_FILTERS, 
@@ -59,7 +124,7 @@ export const SELECT_ALL_FILTERS = [FLOODPLAINS_FEMA_FILTERS,
                                   MHFD_BOUNDARY_FILTERS, 
                                   PROBLEMS_TRIGGER, 
                                   PROJECTS_TRIGGER, 
-                                  COMPONENTS_TRIGGER,
+                                  COMPONENT_LAYERS,
                                   MEP_PROJECTS, 
                                   ROUTINE_MAINTENANCE];
 

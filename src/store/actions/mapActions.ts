@@ -128,15 +128,17 @@ export const clearCoordinates = () => {
     }
 }
 
-export const getMapTables = (trigger : string) => {
+export const getMapTables = (trigger : string, name? : string) => {
     return (dispatch: Function, getState: Function) => {
         const state = getState();
         const layers = { ...state.map.layers };
         
         if(!layers[trigger]) {
-            const data = { table: trigger };
-            datasets.postData(SERVER.MAP_TABLES, data, datasets.getToken()).then(tiles => {
-                dispatch({ type: types.GET_MAP_LAYERS, data: { trigger, tiles } });
+            const requestData = { table: trigger };
+
+            datasets.postData(SERVER.MAP_TABLES, requestData, datasets.getToken()).then(tiles => {
+                if (name) dispatch({ type: types.GET_MAP_WITH_SUBLAYERS, data: { trigger, tiles, name } });
+                else dispatch({ type: types.GET_MAP_LAYERS, data: { trigger, tiles } });
             });
         }
     }
