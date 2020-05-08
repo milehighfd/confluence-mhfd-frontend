@@ -39,7 +39,7 @@ export default () => {
           <span>Create a Project</span>
         </Link>
       </Menu.Item>: ''} */}
-      {(appUser.designation === 'government_admin' ||
+      {/* {(appUser.designation === 'government_admin' ||
         appUser.designation === 'government_staff') && appUser.activated ? 
       <Menu.Item key="3">
         <Link to={'/work-request'}>
@@ -47,8 +47,8 @@ export default () => {
           <img className="img-a anticon" src="/Icons/menu-green-04.svg" alt="" width="18px" />
           <span>Work Request</span>
         </Link>
-      </Menu.Item>: ''}
-      {(appUser.designation === 'admin' ||
+      </Menu.Item>: ''} */}
+      {/* {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && appUser.activated ? 
       <Menu.Item key="4">
         <Link to={'/work-plan'}>
@@ -56,7 +56,7 @@ export default () => {
           <img className="img-a anticon" src="/Icons/menu-green-05.svg" alt="" width="18px" />
           <span>Work Plan</span>
         </Link>
-      </Menu.Item>: ''}
+      </Menu.Item>: ''} */}
       {(appUser.designation === 'admin' || 
         appUser.designation === 'staff') && appUser.activated ? 
       <Menu.Item key="5">

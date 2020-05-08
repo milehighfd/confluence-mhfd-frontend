@@ -30,6 +30,11 @@ export const getCountProjects = () => {
     })
   }
 }
+export const spinValue = (spin: boolean) => {
+  return (dispatch: Function) => {
+      dispatch({ type: types.SPIN, spin })
+  }
+}
 
 export const uploadImage = (files: Array<any>) => {
   return (dispatch: Function) => {
@@ -41,7 +46,9 @@ export const uploadImage = (files: Array<any>) => {
     }
     datasets.postDataMultipart(SERVER.USER_UPLOAD_PHOTO, dataForm, datasets.getToken()).then(user => {
       if (user?._id) {
-        dispatch({ type: types.GET_USER_INFORMATION, user });
+        setTimeout(() => {
+          dispatch({ type: types.GET_USER_INFORMATION, user });
+        }, 8000);
       }
     })
   }

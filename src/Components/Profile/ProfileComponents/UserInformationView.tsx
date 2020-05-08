@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Col, Button, Upload } from 'antd';
+import { Col, Button, Upload, Spin, message } from 'antd';
 import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 
-export default ({ user, countProjects, uploadImage }: { user: User, countProjects: ProjectName[], uploadImage: Function }) => {
+export default ({ user, countProjects, uploadImage, spinImage, spinValue }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function }) => {
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
   }
@@ -12,15 +12,27 @@ export default ({ user, countProjects, uploadImage }: { user: User, countProject
   countProjects.forEach(element => {
     total += element.count
   });
+  const beforeUpload = (file: any) => {
+    const isLt2M = file.size / 1024 / 1024 < 5;
+    if (!isLt2M) {
+      message.error('Image must smaller than 5MB!');
+    }
+    return isLt2M;
+  }
   const typeProjects = PROJECT_TYPES_AND_NAME;
   return <> <Col span={12} className="profile-info">
     <div style={{ position: 'relative' }}>
-      {user.photo ? <img className="profile-img" src={user.photo} alt="" /> :
+      <Spin spinning={spinImage} delay={500}>
+        {user.photo ? <img className="profile-img" src={user.photo} alt="" /> :
         <img className="profile-img" src="/Icons/icon-28.svg" alt="" />}
+      </Spin>
       <div className="profile-change">
-        <Upload showUploadList={false} customRequest={dummyRequest} onChange={({ file }: any) => {
+        <Upload showUploadList={false} beforeUpload={beforeUpload} customRequest={dummyRequest} onChange={({ file }: any) => {
           if (fileImage.uid !== file.uid) {
             setFileImage({...file});
+            spinValue(true);
+            console.log('eta entrando aunque no quieras');
+            
             uploadImage([{ ...file }]);
           }
         }} >

@@ -4,7 +4,8 @@ const initProfile = {
   userInformation: {},
   userProjects: [],
   userImage: '',
-  countProjects: []
+  countProjects: [],
+  spin: false
 }
 
 const profile = (state = initProfile, action: any) => {
@@ -12,7 +13,8 @@ const profile = (state = initProfile, action: any) => {
     case types.GET_USER_INFORMATION:
       return {
         ...state,
-        userInformation: action.user
+        userInformation: action.user,
+        spin: false
       }
     case types.GET_USER_PROJECTS:
       return {
@@ -33,6 +35,11 @@ const profile = (state = initProfile, action: any) => {
       return {
         ...state,
         userImage: action.userImage
+      }
+    case types.SPIN:
+      return {
+        ...state,
+        spin: action.spin
       }
     default:
       return state;
