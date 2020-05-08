@@ -26,7 +26,7 @@ export default () => {
             <div onClick={() => {
               window.location.href = "https://mhfd.org/";
               }} >
-              <img src="/Icons/banner/Low_drop.jpeg" className={"img-banner"} alt="" />
+              <img src="/Icons/banner.png" className={"img-banner"} alt="" />
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
