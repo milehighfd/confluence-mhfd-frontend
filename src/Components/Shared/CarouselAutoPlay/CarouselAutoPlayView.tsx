@@ -28,7 +28,7 @@ export default () => {
             <div onClick={() => {
               window.location.href = "https://mhfd.org/";
               }} >
-              <img src="/Icons/banner.png" className={"img-banner"} alt="" />
+              <img src="/Icons/banner/low.jpg" className={"img-banner"} alt="" />
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
@@ -37,7 +37,7 @@ export default () => {
             <div onClick={() => {
               window.location.href = "https://mhfd.org/";
               }} >
-            <img src="/Icons/banner/Confluence_Park.jpg" className={"img-banner"} alt=""/>
+            <img src="/Icons/banner/confluence.jpg" className={"img-banner"} alt=""/>
              <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
@@ -46,7 +46,7 @@ export default () => {
             <div onClick={() => {
               window.location.href = "https://mhfd.org/";
               }} >
-            <img src="/Icons/banner/Drainageway.jpg" className={"img-banner"} alt=""/>
+            <img src="/Icons/banner/drainageway_img.jpg" className={"img-banner"} alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
@@ -55,7 +55,7 @@ export default () => {
             <div onClick={() => {
               window.location.href = "https://mhfd.org/";
               }} >
-            <img src="/Icons/banner/Eco_Park.jpg" className={"img-banner"} alt=""/>
+            <img src="/Icons/banner/eco.jpg" className={"img-banner"} alt=""/>
              <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
@@ -64,7 +64,7 @@ export default () => {
             <div onClick={() => {
               window.location.href = "https://mhfd.org/";
               }} >
-            <img src="/Icons/banner/Westminster_Station.jpg" className={"img-banner"} alt=""/>
+            <img src="/Icons/banner/westminster.jpg" className={"img-banner"} alt=""/>
               <div className="textContent">
                 <h2>What can I do with Confluence?</h2>
                 <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>

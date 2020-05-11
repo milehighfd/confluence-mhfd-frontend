@@ -21,7 +21,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
   const [organization, setOrganization] = useState(ROLES[0].options);
   const menu = (
     <Menu className="js-mm sign-menu">
-      <label className="label-sg">CITY</label>
+      <label className="label-sg">{targetButton === 'staff' ? 'City' : targetButton === 'government_staff' ? 'Local Government' : 'Consultant/Contractor'}</label>
       {organization.map((organization: string, index: number) => {
         return <Menu.Item key={index} className="organization-items" onClick={() => {
           values.organization = organization;
@@ -151,12 +151,6 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                 <Button className="buttonLogin" block htmlType="submit" >
                   Sign Up
                 </Button>
-                <div style={{textAlign:'center'}}>
-                  <span>Already have an account?</span>
-                  <Link to={'/login'} className="login-form-forgot">
-                    Sign-In
-                  </Link>
-                </div>
               </Form.Item>
               <div className="marbot-4" style={{textAlign: "center"}}>
                 <span> I have an account</span>

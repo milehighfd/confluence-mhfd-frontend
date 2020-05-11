@@ -834,7 +834,7 @@ export const  COLUMNS_USER_ACTIVITY = [
     sorter: true,
     width: "20%",
     className: "user-Login",
-    render: (activityType: string) => activityType ? `${activityType}`: ''
+    render: (activityType: string) => activityType === 'user_login' ? 'User Login': ''
   },
   {
     title: "",
