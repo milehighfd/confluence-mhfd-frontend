@@ -98,21 +98,21 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                   style={(errors.firstName && touched.firstName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}  />
                 <span className="highlight"></span>
                 <span className="bar"></span>
-                <label style={(values.firstName) ? {top: "-20px"}:{top: "10px"}}>First Name</label>
+                <label className={values.firstName ? "login-field-top":"login-field-botton"}>First Name</label>
               </div>
               <div className="group">
                 <input type="text"  name="lastName" onChange={handleChange}
                   style={(errors.lastName && touched.lastName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
                 <span className="highlight"></span>
                 <span className="bar"></span>
-                <label style={(values.lastName) ? {top: "-20px"}:{top: "10px"}}>Last Name</label>
+                <label  className={values.lastName ? "login-field-top":"login-field-botton"} >Last Name</label>
               </div>
               <div className="group">
                 <input type="email"  name="email" onChange={handleChange}
                   style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 <span className="highlight"></span>
                 <span className="bar"></span>
-                <label style={(values.email) ? {top: "-20px"}:{top: "10px"}}>Email</label>
+                <label  className={values.email ? "login-field-top":"login-field-botton"} >Email</label>
               </div>
               <div className="group btn-up">
                 {values.designation !== 'other' ? <div id="sign-up-organization">
@@ -128,7 +128,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                       style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                       <span className="highlight"></span>
                       <span className="bar"></span>
-                      <label style={(values.organization) ? {top: "-20px"}:{top: "10px"}}>Organization</label></>
+                      <label  className={values.organization ? "login-field-top":"login-field-botton"}>Organization</label></>
                   )}
               </div>
               <div className="group">
@@ -136,7 +136,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                   style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 <span className="highlight"></span>
                 <span className="bar"></span>
-                <label style={(values.password) ? {top: "-20px"}:{top: "10px"}}>Password</label>
+                <label  className={values.password ? "login-field-top":"login-field-botton"}>Password</label>
               </div>
               <ReCAPTCHA
                 sitekey={"" + keyCaptcha}
