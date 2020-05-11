@@ -81,14 +81,14 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
           style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
         <span className="highlight"></span>
         <span className="bar"></span>
-        <label style={(values.email) ? {top: "-20px"}:{top: "10px"}}>Email Address</label>
+        <label className={values.email ? "login-field-top":"login-field-botton"}>Email Address</label>
       </div>
       <div className="group">
         <input name="password" type="password"  onChange={handleChange}
           style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
         <span className="highlight"></span>
         <span className="bar"></span>
-        <label style={(values.password) ? {top: "-20px"}:{top: "10px"}}>Enter Password</label>
+        <label className={values.password ? "login-field-top":"login-field-botton"}>Enter Password</label>
       </div>
       <div className="marbot-4">
         <span>Don’t have an account?</span>
