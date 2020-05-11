@@ -119,7 +119,12 @@ const Map = ({ leftWidth,
     }, [dropdownItems.items[dropdownItems.default].style]);
 
     useEffect(() => {
-        map.resize();
+        /* Due the addition of 200ms extend transition resizing the map 
+        every 25ms to add the transition effect within the map extension. */
+        const mapResize = () => map.resize();
+        for (let i = 0; i <= 200; i = i + 25) {
+            setTimeout(() => mapResize(), i);  
+        }
     }, [leftWidth]);
 
     useEffect(() => {
