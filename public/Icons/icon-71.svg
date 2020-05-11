@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Avatar" width="48" height="48" rx="24" fill="#fd0"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Avatar-2" data-name="Avatar" width="48" height="48" rx="24" fill="#443a79"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_5" data-name="Grupo 5" transform="translate(-2062.667 -718.5)">
+    <g id="Avatar-3" data-name="Avatar" transform="translate(2062.667 718.5)">
+      <rect id="Avatar-4" data-name="Avatar" width="48" height="48" rx="24" fill="#fd0"/>
+      <g id="Avatar-5" data-name="Avatar" clip-path="url(#clip-path)">
+        <g id="iconfinder_user_2561496" transform="translate(15.2 14.4)">
+          <path id="Path" d="M17.067,6.4V4.267A4.267,4.267,0,0,0,12.8,0H4.267A4.267,4.267,0,0,0,0,4.267V6.4" transform="translate(0 12.8)" fill="none" stroke="#251863" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+          <circle id="Oval" cx="4.267" cy="4.267" r="4.267" stroke-width="1.5" transform="translate(4.267 0)" stroke="#251863" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/>
+        </g>
+      </g>
+    </g>
+    <g id="Avatar-6" data-name="Avatar" transform="translate(2062.667 718.5)">
+      <rect id="Avatar-7" data-name="Avatar" width="48" height="48" rx="24" fill="#29c499"/>
+      <g id="Avatar-8" data-name="Avatar" clip-path="url(#clip-path-2)">
+        <g id="iconfinder_user_2561496-2" data-name="iconfinder_user_2561496" transform="translate(15.2 14.4)">
+          <path id="Path-2" data-name="Path" d="M17.067,6.4V4.267A4.267,4.267,0,0,0,12.8,0H4.267A4.267,4.267,0,0,0,0,4.267V6.4" transform="translate(0 12.8)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+          <circle id="Oval-2" data-name="Oval" cx="4.267" cy="4.267" r="4.267" transform="translate(4.267 0)" stroke-width="1.5" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

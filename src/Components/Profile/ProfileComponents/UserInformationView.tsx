@@ -1,8 +1,43 @@
 import React, { useState } from 'react';
-import { Col, Button, Upload, Spin, message } from 'antd';
+import { Col, Button, Upload, Spin, message, Modal } from 'antd';
 import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 
+{/*
+  class App extends React.Component {
+    state = {
+      ModalText: 'Content of the modal',
+      visible: false,
+      confirmLoading: false,
+    };
+
+    showModal = () => {
+      this.setState({
+        visible: true,
+      });
+    };
+
+    handleOk = () => {
+      this.setState({
+        ModalText: 'The modal will be closed after two seconds',
+        confirmLoading: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          visible: false,
+          confirmLoading: false,
+        });
+      }, 2000);
+    };
+
+    handleCancel = () => {
+      console.log('Clicked cancel button');
+      this.setState({
+        visible: false,
+      });
+    };
+  };
+*/}
 export default ({ user, countProjects, uploadImage, spinImage, spinValue }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function }) => {
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
@@ -81,6 +116,22 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue }: { us
           </span>
         })}
       </div>
+      {/*
+        <div>
+          <Button onClick={showModal}>
+            Open Modal with async logic
+          </Button>
+          <Modal
+            title="Title"
+            visible={visible}
+            onOk={this.handleOk}
+            confirmLoading={confirmLoading}
+            onCancel={this.handleCancel}
+          >
+            <p>{ModalText}</p>
+          </Modal>
+        </div>
+       */}
     </Col>
   </>
 }

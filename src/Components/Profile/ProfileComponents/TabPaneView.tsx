@@ -29,7 +29,7 @@ export default ({ type, datas, search }: { type: string, datas: Array<ProjectTyp
     </Menu>
   }
 
-  return <Row style={{ background: '#fff', marginTop: '20px' }} className="card-map" gutter={[16, 16]}>
+  return <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px'}} className="card-map" gutter={[16, 16]}>
     <div className="user-filter profile-filter">
       <div>
         <Search
