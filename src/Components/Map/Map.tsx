@@ -21,8 +21,8 @@ import { MAP_DROPDOWN_ITEMS,
         SELECT_ALL_FILTERS } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { localComponents, polygonFill, polygonStroke, tileStyles } from '../../constants/mapStyles';
+import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
 
-const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
 let map : any = null;
@@ -65,18 +65,10 @@ const Map = ({ leftWidth,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
             ...DENVER_LOCATION
         });
+
         const nav = new mapboxgl.NavigationControl({ showCompass: false });
         map.addControl(nav, 'bottom-right');
-
-        const geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            placeholder: 'Search...',
-            marker: false
-        });
-
-        if(geocoderRef.current) {
-            geocoderRef.current.appendChild(geocoder.onAdd(map));
-        }
+        addMapGeocoder(map, geocoderRef);
 
         // Uncomment to see coords when a position in map is clicked
         // map.on('click', (e : any) => console.log(e.lngLat));
@@ -91,6 +83,7 @@ const Map = ({ leftWidth,
             polygonRef.current.appendChild(draw.onAdd(map));
         }
 
+        /* Special and Acquisition Projects */
         if(layers && layers.marker) {
             const mapMarker = document.createElement('div');
             mapMarker.className = 'marker';
@@ -142,9 +135,19 @@ const Map = ({ leftWidth,
     }, [projects]);
 
     useEffect(() => {
-        selectedLayers.forEach((layer : any) => {
+        applyMapLayers();
+    }, [selectedLayers, layerFilters]);
+
+    useEffect(() => {
+        if (recentSelection) {
+            removeTilesHandler(recentSelection);
+        }
+    }, [recentSelection]);
+
+    const applyMapLayers = () => {
+        selectedLayers.forEach((layer: any) => {
             if (typeof layer === 'object') {
-                layer.tiles.forEach((subKey : string) => {
+                layer.tiles.forEach((subKey: string) => {
                     if (!layerFilters[layer.name]) {
                         getMapTables(subKey, layer.name);
                     } else {
@@ -154,54 +157,13 @@ const Map = ({ leftWidth,
                 });
             } else {
                 if (!layerFilters[layer]) {
-                    getMapTables(layer); 
+                    getMapTables(layer);
                 } else {
                     addLayersSource(layer, layerFilters[layer]);
                 }
             }
         })
-    }, [selectedLayers]);
-
-    useEffect(() => {
-        if (recentSelection) {
-            if (typeof recentSelection === 'object') {
-                recentSelection.tiles.forEach((subKey : string) => {
-                    removeTileLayers(subKey);
-                });
-            } else {
-                removeTileLayers(recentSelection);
-            }
-        }
-    }, [recentSelection]);
-
-    useEffect(() => {
-        selectedLayers.forEach((layer : any) => {
-            /* Momentary Implementation Cause' 2 Filters Don't Have Enpoint */
-            if (typeof layer === 'object') {
-                layer.tiles.forEach((subKey : string) => {
-                    const tiles = layerFilters[layer.name] as any;
-                    if (tiles) {
-                        addLayersSource(subKey, tiles[subKey]);
-                    }
-                });
-            } else {
-                addLayersSource(layer, layerFilters[layer]);
-            }
-        })
-    }, [layerFilters]);
-
-    const addMapLayers = (id : string, style : MapStyleTypes) => {
-        const source = id;
-        if (style.type === 'line') {
-            id += '_stroke';
-        }
-
-        map.addLayer({
-            id,
-            source,
-            ...style
-        });
-    }    
+    }
 
     const addLayersSource = (key : string, tiles : Array<string>) => {
         if (!map.getSource(key) && tiles) {
@@ -375,11 +337,11 @@ const Map = ({ leftWidth,
 
         if(trigger !== COMPONENTS_TRIGGER) {
             /* Fill and Stroke of Polygons */
-            addMapLayers(trigger, polygonFill);
-            addMapLayers(trigger, polygonStroke);
+            addMapLayers(map, trigger, polygonFill);
+            addMapLayers(map, trigger, polygonStroke);
         } else {
             /* Points represented as Components */
-            addMapLayers(trigger, localComponents);
+            addMapLayers(map, trigger, localComponents);
         }
     }
 
@@ -413,16 +375,20 @@ const Map = ({ leftWidth,
 
     const handleResetAll = () => {
         selectedLayers.forEach((layer : any) => {
-            if (typeof layer === 'object') {
-                layer.tiles.forEach((subKey : string) => {
-                    removeTileLayers(subKey);
-                });
-            } else {
-                removeTileLayers(layer);
-            }
+            removeTilesHandler(layer);
         })
 
         setSelectedLayers([]);
+    }
+
+    const removeTilesHandler = (selectedLayer : any) => {
+        if (typeof selectedLayer === 'object') {
+            selectedLayer.tiles.forEach((subKey : string) => {
+                removeTileLayers(subKey);
+            });
+        } else {
+            removeTileLayers(selectedLayer);
+        }
     }
 
     const removeTileLayers = (key : string) => {

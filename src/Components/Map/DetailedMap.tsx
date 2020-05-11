@@ -13,6 +13,7 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import { polygonFill, polygonStroke, selectedComponents } from '../../constants/mapStyles';
 import { MapStyleTypes, ComponentType } from '../../Classes/MapTypes';
 import { ComponentPopup } from './MapPopups';
+import { addMapLayers } from '../../utils/mapUtils';
 
 let map : any = null;
 let popup = new mapboxgl.Popup();
@@ -50,19 +51,6 @@ export default ({ coordinates, components } : { coordinates : PolygonCoords, com
     map.setStyle(dropdownItems.items[dropdownItems.default].style);
   }, [dropdownItems.items[dropdownItems.default].style]);
 
-  const addMapLayers = (id: string, style: MapStyleTypes) => {
-    const source = id;
-    if (style.type === 'line') {
-      id += '_stroke';
-    }
-
-    map.addLayer({
-      id,
-      source,
-      ...style
-    });
-  }    
-
   const selectMapStyle = (index: number) => {
     setDropdownItems({ ...dropdownItems, default: index });
   }
@@ -85,8 +73,8 @@ export default ({ coordinates, components } : { coordinates : PolygonCoords, com
       }
     });
 
-    addMapLayers(source, polygonFill);
-    addMapLayers(source, polygonStroke);
+    addMapLayers(map, source, polygonFill);
+    addMapLayers(map, source, polygonStroke);
 
     if (components) {
       drawComponents();
@@ -116,7 +104,7 @@ export default ({ coordinates, components } : { coordinates : PolygonCoords, com
       }
     });
 
-    addMapLayers(source, selectedComponents);
+    addMapLayers(map, source, selectedComponents);
     addComponentsListener(source);
   }
 
