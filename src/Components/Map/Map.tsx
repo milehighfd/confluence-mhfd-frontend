@@ -11,7 +11,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
-import { MapProps, ComponentType, MapStyleTypes } from '../../Classes/MapTypes';
+import { MapProps, ComponentType } from '../../Classes/MapTypes';
 import { MAP_DROPDOWN_ITEMS,
         MAPBOX_TOKEN, HERE_TOKEN,
         PROBLEMS_TRIGGER,
@@ -71,7 +71,7 @@ const Map = ({ leftWidth,
         addMapGeocoder(map, geocoderRef);
 
         // Uncomment to see coords when a position in map is clicked
-        // map.on('click', (e : any) => console.log(e.lngLat));
+        map.on('click', (e : any) => console.log(e.lngLat));
 
         if(polygonRef && polygonRef.current) {
             const draw = new MapboxDraw({

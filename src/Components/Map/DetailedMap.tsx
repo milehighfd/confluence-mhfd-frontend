@@ -11,7 +11,7 @@ import * as turf from '@turf/turf';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import { polygonFill, polygonStroke, selectedComponents } from '../../constants/mapStyles';
-import { MapStyleTypes, ComponentType } from '../../Classes/MapTypes';
+import { ComponentType } from '../../Classes/MapTypes';
 import { ComponentPopup } from './MapPopups';
 import { addMapLayers } from '../../utils/mapUtils';
 
