@@ -1,44 +1,53 @@
 import React, { useState } from 'react';
-import { Col, Button, Upload, Spin, message, Modal } from 'antd';
+import { Col, Button, Upload, Spin, message, Modal, Row, Input, Dropdown, Menu, Icon } from 'antd';
 import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 
-{/*
-  class App extends React.Component {
-    state = {
-      ModalText: 'Content of the modal',
-      visible: false,
-      confirmLoading: false,
-    };
+const menu = (
+  <Menu className="js-mm-00">
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+        1st menu item
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+        2nd menu item
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+        3rd menu item
+      </a>
+    </Menu.Item>
+  </Menu>
+);
 
-    showModal = () => {
-      this.setState({
-        visible: true,
-      });
-    };
-
-    handleOk = () => {
-      this.setState({
-        ModalText: 'The modal will be closed after two seconds',
-        confirmLoading: true,
-      });
-      setTimeout(() => {
-        this.setState({
-          visible: false,
-          confirmLoading: false,
-        });
-      }, 2000);
-    };
-
-    handleCancel = () => {
-      console.log('Clicked cancel button');
-      this.setState({
-        visible: false,
-      });
-    };
-  };
-*/}
 export default ({ user, countProjects, uploadImage, spinImage, spinValue }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function }) => {
+  const stateValue = {
+    visible: false
+  }
+  const [state, setState] = useState(stateValue);
+  const showModal = () => {
+    const auxState = {...state};
+    auxState.visible = true;
+    setState(auxState);
+  };
+
+  const handleOk = (e: any) => {
+    console.log(e);
+    const auxState = {...state};
+    auxState.visible = false;
+    setState(auxState);
+  };
+
+  const handleCancel = (e: any) => {
+    console.log(e);
+    const auxState = {...state};
+    auxState.visible = false;
+    setState(auxState);
+  };
+
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
   }
@@ -116,22 +125,97 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue }: { us
           </span>
         })}
       </div>
-      {/*
-        <div>
-          <Button onClick={showModal}>
-            Open Modal with async logic
-          </Button>
-          <Modal
-            title="Title"
-            visible={visible}
-            onOk={this.handleOk}
-            confirmLoading={confirmLoading}
-            onCancel={this.handleCancel}
-          >
-            <p>{ModalText}</p>
-          </Modal>
-        </div>
-       */}
+      <div className="edit-profile">
+        <Button  onClick={showModal}>
+          <img src="/Icons/icon-72.svg" alt="" height="18px" /> Edit Profile
+         </Button>
+         <Modal
+           centered
+           visible={state.visible}
+           onOk={handleOk}
+           onCancel={handleCancel}
+           className="modal-edit"
+           width="700px"
+         >
+
+         <h4>Edit Profile</h4>
+         <div className="gutter-example">
+            <h6>PERSONAL INFO</h6>
+            <Row gutter={16}>
+              <Col className="gutter-row" span={12}><Input placeholder="First Name" /></Col>
+              <Col className="gutter-row" span={12}><Input placeholder="Last Name" /></Col>
+            </Row>
+            <br></br>
+            <Row gutter={16}>
+              <Col className="gutter-row" span={12}><Input placeholder="Email" /></Col>
+              <Col className="gutter-row" span={12}><Input placeholder="Phone" /></Col>
+            </Row>
+          </div>
+
+          <hr></hr>
+
+          <div className="gutter-example">
+             <h6>USER DESIGNATION</h6>
+             <Row gutter={16}>
+               <Col className="gutter-row" span={12}><Input placeholder="Account Type" disabled /></Col>
+               <Col className="gutter-row" span={12}>
+               <Dropdown overlay={menu}>
+                 <Button>
+                   Organization <img src="icons/icon-12.svg" alt=""/>
+                 </Button>
+               </Dropdown>
+               </Col>
+             </Row>
+             <br></br>
+             <Row gutter={16}>
+               <Col className="gutter-row" span={12}><Input placeholder="Title" /></Col>
+               <Col className="gutter-row" span={12}><Input placeholder="Zip Code" /></Col>
+             </Row>
+           </div>
+
+          <hr></hr>
+
+          <div className="gutter-example">
+            <h6>Areas of Interest</h6>
+            <Row gutter={16}>
+              <Col className="gutter-row" span={12}>
+                <Dropdown overlay={menu}>
+                  <Button>
+                    City <img src="icons/icon-12.svg" alt=""/>
+                  </Button>
+                </Dropdown>
+              </Col>
+
+              <Col className="gutter-row" span={12}>
+                <Dropdown overlay={menu}>
+                  <Button>
+                    Contry <img src="icons/icon-12.svg" alt=""/>
+                  </Button>
+                </Dropdown>
+              </Col>
+            </Row>
+            <br></br>
+            <Row gutter={16}>
+              <Col className="gutter-row" span={12}>
+              <Dropdown overlay={menu}>
+                <Button>
+                  Service Area <img src="icons/icon-12.svg" alt=""/>
+                </Button>
+              </Dropdown>
+              </Col>
+            </Row>
+          </div>
+          <br></br>
+          <div className="gutter-example" style={{textAlign: 'center'}}>
+            <Row gutter={16}>
+              <Col className="gutter-row" span={24}>
+               <Button className="cancel">Cancel</Button>
+                <Button className="save">Save</Button>
+              </Col>
+            </Row>
+          </div>
+         </Modal>
+      </div>
     </Col>
   </>
 }
