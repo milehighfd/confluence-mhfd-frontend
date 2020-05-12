@@ -11,7 +11,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
 import { Dropdown, Button } from 'antd';
-import { MapProps, ComponentType } from '../../Classes/MapTypes';
+import { MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { MAP_DROPDOWN_ITEMS,
         MAPBOX_TOKEN, HERE_TOKEN,
         PROBLEMS_TRIGGER,
@@ -29,6 +29,8 @@ let map : any = null;
 let popup = new mapboxgl.Popup();
 // const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
+
+type LayersType = string | ObjectLayerType;
 
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -52,9 +54,9 @@ const Map = ({ leftWidth,
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
-    const [selectedLayers, setSelectedLayers] = useState<any>([]);
+    const [selectedLayers, setSelectedLayers] = useState<Array<LayersType>>([]);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
-    const [recentSelection, setRecentSelection] = useState<any>('');
+    const [recentSelection, setRecentSelection] = useState<LayersType>('');
 
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
@@ -71,7 +73,7 @@ const Map = ({ leftWidth,
         addMapGeocoder(map, geocoderRef);
 
         // Uncomment to see coords when a position in map is clicked
-        map.on('click', (e : any) => console.log(e.lngLat));
+        // map.on('click', (e : any) => console.log(e.lngLat));
 
         if(polygonRef && polygonRef.current) {
             const draw = new MapboxDraw({
@@ -145,7 +147,7 @@ const Map = ({ leftWidth,
     }, [recentSelection]);
 
     const applyMapLayers = () => {
-        selectedLayers.forEach((layer: any) => {
+        selectedLayers.forEach((layer: LayersType) => {
             if (typeof layer === 'object') {
                 layer.tiles.forEach((subKey: string) => {
                     if (!layerFilters[layer.name]) {
@@ -178,7 +180,7 @@ const Map = ({ leftWidth,
 
     const addTilesLayers = (key : string) => {
         const styles = { ...tileStyles as any };
-        styles[key].forEach((style : any, index : number) => {
+        styles[key].forEach((style : LayerStylesType, index : number) => {
             map.addLayer({
                 id: key + '_' + index,
                 source: key,
@@ -356,8 +358,8 @@ const Map = ({ leftWidth,
 
     const selectCheckboxes = (selectedItems : Array<string>) => {
         if (selectedItems.length < selectedLayers.length) {
-            selectedLayers.forEach((layer : any) => {
-                const index = selectedItems.indexOf(layer);
+            selectedLayers.forEach((layer : LayersType) => {
+                const index = selectedItems.indexOf(layer as string);
                 if (index < 0) {
                     setRecentSelection(layer);
                 }
@@ -370,18 +372,18 @@ const Map = ({ leftWidth,
     }
 
     const handleSelectAll = () => {
-        setSelectedLayers(SELECT_ALL_FILTERS);
+        setSelectedLayers(SELECT_ALL_FILTERS as Array<LayersType>);
     }
 
     const handleResetAll = () => {
-        selectedLayers.forEach((layer : any) => {
+        selectedLayers.forEach((layer : LayersType) => {
             removeTilesHandler(layer);
         })
 
         setSelectedLayers([]);
     }
 
-    const removeTilesHandler = (selectedLayer : any) => {
+    const removeTilesHandler = (selectedLayer : LayersType) => {
         if (typeof selectedLayer === 'object') {
             selectedLayer.tiles.forEach((subKey : string) => {
                 removeTileLayers(subKey);
@@ -392,8 +394,8 @@ const Map = ({ leftWidth,
     }
 
     const removeTileLayers = (key : string) => {
-        const styles = { ...tileStyles as any };
-        styles[key].forEach((style : any, index : number) => {
+        const styles = { ...tileStyles as any};
+        styles[key].forEach((style : LayerStylesType, index : number) => {
             map.removeLayer(key + '_' + index);
         });
         

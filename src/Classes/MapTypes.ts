@@ -136,6 +136,20 @@ export type MapLayersType = {
     study?: boolean
 }
 
+export type ObjectLayerType = {
+    name: string,
+    tiles: Array<string>
+}
+
+export type LayerStylesType = {
+    type: string,
+    layout: {},
+    'source-layer'?: string,
+    paint: {
+        [key : string]: string | number
+    }
+}
+
 export type TotalType = {
     subtotal: number,
     additional: {
