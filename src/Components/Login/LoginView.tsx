@@ -95,7 +95,7 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
         <Link to={'/sign-up'} className="login-form-forgot">
           Sign-Up
         </Link>
-        <Link to={'/reset-password'} style={{ float: 'right', color: '#11093C'}}>
+        <Link to={'/reset-password'} className="login-forgot">
             Forgot Password?
         </Link>
         <br/><br/>
