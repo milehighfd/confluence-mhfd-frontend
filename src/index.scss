@@ -815,58 +815,7 @@ body{
 	from { background:#5264AE; }
   to 	{ width:0; background:transparent; }
 }
-// MATERIAL
-.material-textbox {
-  position: relative;
-  margin-bottom: 18px;
-}
-.material-textbox .material-input {
-  width: 100%;
-  outline: none;
-  padding: 8px 0;
-  border: none;
-  border-bottom: 1px solid #778893;
-  background: transparent;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 400;
 
-  &:required {
-    background-image: url("/assets/images/redAsterisk2.png");
-    background-position: 98% 43%;
-    padding-right: 25px;
-    background-size: 7px 7px;
-    background-repeat: no-repeat;
-  }
-}
-.material-textbox .material-input:focus ~ .material-label,
-.material-textbox .material-input:valid ~ .material-label {
-  bottom: 32px;
-  font-size: 12px;
-  color: $purple;
-}
-.material-textbox .material-textbox:hover > input,
-.material-textbox .material-input:active,
-.material-textbox .material-input:focus {
-  border-bottom: 1px solid $purple;
-}
-.material-textbox .material-input:active,
-.material-textbox .material-input:focus {
-  cursor: text;
-}
-.material-textbox .material-label {
-  position: absolute;
-  display: block;
-  bottom: 8px;
-  transition: all 200ms;
-  font-size: 15px;
-  font-weight: 400 !important;
-  color: #535353;
-  z-index: -1;
-}
-#first-name-input {
-  width: 100%;
-}
 /* Sign up */
 .signup {
   margin: 15px 0 40px 0;

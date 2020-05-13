@@ -77,7 +77,7 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
       </h1>
       <div style={{ marginTop: '30px' }}>
       <div className="group">
-        <input name="email" type="email" onChange={handleChange}
+        <input  name="email" type="email" onChange={handleChange}
           style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
         <span className="highlight"></span>
         <span className="bar"></span>
