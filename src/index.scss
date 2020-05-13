@@ -669,8 +669,14 @@ body{
   margin: 0 0 50px 60px;
   font-size: 25px;
 }
-.icons-list a {
-  margin: 12px 26px 12px 0;
+.icons-list{
+  a {
+    margin: 12px 26px 12px 0;
+  }
+  a:hover{
+    position: relative;
+    top: -2px;
+  }
 }
 .social01 {
   ul {
@@ -684,6 +690,11 @@ body{
   a {
     color: $white;
     font-size: 14px;
+  }
+  a:hover {
+    color: $white;
+    position: relative;
+    top: -2px;
   }
   span {
     display: inline-block;
@@ -3066,7 +3077,7 @@ body{
 // profile
 .profile-header {
   background-color: $white;
-  min-height: 268px !important;
+  min-height: 240px !important;
 }
 .profile-img {
   height: 120px;
@@ -3108,6 +3119,8 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 170px;
+  width: 170px;
 }
 .profile-name h3 {
   font-size:18px;
@@ -3205,15 +3218,16 @@ body{
     padding: 0px 25px;
   }
 }
-.profile-divider {
-  background: #f0f2f5;
-  position: relative;
-  height: 13.3px;
-  bottom: -269px;
-  z-index: 10;
-}
+// .profile-divider {
+//   background: #f0f2f5;
+//   position: relative;
+//   height: 13.3px;
+//   bottom: -269px;
+//   z-index: 10;
+// }
 
 .profile-pad {
+  padding:20px;
   .ant-collapse-borderless > .ant-collapse-item {
     border-bottom: none;
     margin-bottom: 10px;
@@ -3291,9 +3305,6 @@ body{
 //  .pad-collab {
 //   padding: 2px 7px 2px 12px;
 // }
-.profile-pad {
-  padding: 40px 20px 20px 20px;
-}
 .error-404{
   text-align: center;
   color: $opacity;

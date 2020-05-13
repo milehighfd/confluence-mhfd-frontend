@@ -93,7 +93,6 @@ export default ({ user, projects, countProjects, getUserProjects, getCountProjec
         <Layout className="map-00 profile-00" style={{ height: 'calc(100vh - 58px)', overflowY: 'scroll' }}>
           <Row className="profile-header">
             <UserInformationView key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} spinImage={spinImage} spinValue={spinValue} />
-            <div className="profile-divider"></div>
           </Row>
           <Row >
             <Col className="profile-tabs" span={17}>

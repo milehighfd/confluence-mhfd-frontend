@@ -6,9 +6,9 @@ const genExtra = () => (
   );
 export default () => {
     const { Panel } = Collapse;
-    
+
     return <Col style={{paddingLeft: '15px', height: '100%'}} span={7}>
-    <Row style={{background: '#fff', height: '100%'}}>
+    <Row style={{background: '#fff', height: '100%', borderTop: '17px solid rgba(37, 24, 99, 0.06)'}}>
       <Col className="profile-pad">
         <h2>Project Collaborators</h2>
         <Collapse accordion
