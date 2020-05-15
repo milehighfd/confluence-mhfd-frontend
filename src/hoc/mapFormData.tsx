@@ -95,7 +95,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <SidebarView></SidebarView>
               <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
                 <Row>
-                    <Col style={{transition: 'all 0.2s'}} span={leftWidth}>
+                    <Col style={{transition: 'all 0.5s'}} span={leftWidth}>
                         <Map
                             leftWidth={leftWidth}
                             layers={layers}
@@ -118,7 +118,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                         </Button>
                     </Col>
-                    <Col style={{transition: 'all 0.2s'}} span={rightWidth}>
+                    <Col style={{transition: 'all 0.5s'}} span={rightWidth}>
                         <WrappedComponent
                             selectedItems={selectedItems}
                             isPolygon={isPolygon}

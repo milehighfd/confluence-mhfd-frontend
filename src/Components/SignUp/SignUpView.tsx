@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Row, Col, Form, Button, Menu, Dropdown} from 'antd';
+import { Layout, Row, Col, Form, Button, Menu, Dropdown, Input } from 'antd';
 import ReCAPTCHA from "react-google-recaptcha";
 import { ROLES } from "../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
@@ -8,6 +8,8 @@ import * as datasets from "../../Config/datasets";
 import { useFormik } from "formik";
 import { VALIDATION_SIGN_UP } from "../../constants/validation";
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
+import FloatLabel from "../Login/FloatLabel";
+import "../Login/Login.scss"
 
 
 export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
@@ -74,7 +76,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
       <Col span={11} className="login-hh">
         <div className="login-step01">
           <div>
-            <Form style={{ width: '420px' }} className="login-form" onSubmit={handleSubmit}>
+            <Form style={{ width: '420px' }} className="login-form" onSubmit={handleSubmit} autoComplete="off">
               <h1>
                 Sign Up!
               </h1>
@@ -93,52 +95,68 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                   })}
                 </Col>
               </Row>
-              <div className="group">
-                <input type="password" style={{display: 'none'}}/>
-                <input name="firstName" onChange={handleChange}
-                  style={(errors.firstName && touched.firstName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}  />
-                <span className="highlight"></span>
-                <span className="bar"></span>
-                <label className={values.firstName ? "login-field-top":"login-field-botton"}>First Name</label>
-              </div>
-              <div className="group">
-                <input name="lastName" onChange={handleChange}
-                  style={(errors.lastName && touched.lastName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
-                <span className="highlight"></span>
-                <span className="bar"></span>
-                <label  className={values.lastName ? "login-field-top":"login-field-botton"} >Last Name</label>
-              </div>
-              <div className="group">
-                <input name="email" onChange={handleChange}
-                  style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
-                <span className="highlight"></span>
-                <span className="bar"></span>
-                <label  className={values.email ? "login-field-top":"login-field-botton"} >Email</label>
-              </div>
-              <div className="group btn-up">
-                {values.designation !== 'other' ? <div id="sign-up-organization">
-                  <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization" ) as HTMLElement}>
-                    <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} >
-                      {values.organization ? values.organization : targetButton === 'staff' ? 'Organization' : targetButton === 'government_staff' ? 'Jurisdiction' : 'Consultant/Contractor'}
-                      <img src="/Icons/icon-12.svg" alt="" />
-                    </Button>
-                </Dropdown>
+                <FloatLabel label="First Name" name="firstname-label" value={values.firstName.length}>
+                  <input type="password" style={{display: 'none'}}/>
+                  <Input name="firstName" onChange={handleChange} />
+                </FloatLabel>
+                <FloatLabel label="Last Name" name="lastname-label" value={values.lastName.length}>
+                  <Input name="lastName" onChange={handleChange} />
+                </FloatLabel>
+                <FloatLabel label="Email" name="email-label" value={values.email.length}>
+                  <Input name="email" onChange={handleChange} />
+                </FloatLabel>
+                <div className="group btn-up" style={{margin: '10px 0px'}}>
+                  {values.designation !== 'other' ? <div id="sign-up-organization">
+                    <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization" ) as HTMLElement}>
+                      <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} >
+                        {values.organization ? values.organization : targetButton === 'staff' ? 'Organization' : targetButton === 'government_staff' ? 'Jurisdiction' : 'Consultant/Contractor'}
+                        <img src="/Icons/icon-12.svg" alt="" />
+                      </Button>
+                  </Dropdown>
+                  </div>
+                   : (
+                      <><input type="text"  name="organization" onChange={handleChange}
+                        style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                        <label  className={values.organization ? "login-field-top":"login-field-botton"}>Organization</label></>
+                    )}
                 </div>
-                 : (
-                    <><input type="text"  name="organization" onChange={handleChange}
-                      style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
-                      <span className="highlight"></span>
-                      <span className="bar"></span>
-                      <label  className={values.organization ? "login-field-top":"login-field-botton"}>Organization</label></>
-                  )}
-              </div>
-              <div className="group">
-                <input type="password"  name="password" onChange={handleChange}
-                  style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
-                <span className="highlight"></span>
-                <span className="bar"></span>
-                <label  className={values.password ? "login-field-top":"login-field-botton"}>Password</label>
-              </div>
+                <div style={{marginBottom: '20px'}}>
+                  <FloatLabel label="Password" name="password-label" value={values.password.length}>
+                    <Input autoComplete="new-password" type="password" name="password" onChange={handleChange} />
+                  </FloatLabel>
+                </div>
+                {/* <div className="group">
+                  <input type="password" style={{display: 'none'}}/>
+                  <input name="firstName" onChange={handleChange}
+                    style={(errors.firstName && touched.firstName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}  />
+                  <span className="highlight"></span>
+                  <span className="bar"></span>
+                  <label className={values.firstName ? "login-field-top":"login-field-botton"}>First Name</label>
+                </div>
+                <div className="group">
+                  <input name="lastName" onChange={handleChange}
+                    style={(errors.lastName && touched.lastName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
+                  <span className="highlight"></span>
+                  <span className="bar"></span>
+                  <label  className={values.lastName ? "login-field-top":"login-field-botton"} >Last Name</label>
+                </div>
+                <div className="group">
+                  <input name="email" onChange={handleChange}
+                    style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+                  <span className="highlight"></span>
+                  <span className="bar"></span>
+                  <label  className={values.email ? "login-field-top":"login-field-botton"} >Email</label>
+                </div>
+                <div className="group">
+                  <input type="password"  name="password" onChange={handleChange}
+                    style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+                  <span className="highlight"></span>
+                  <span className="bar"></span>
+                  <label  className={values.password ? "login-field-top":"login-field-botton"}>Password</label>
+                </div>
+                */}
               <ReCAPTCHA
                 sitekey={"" + keyCaptcha}
                 onChange={(event) => {
