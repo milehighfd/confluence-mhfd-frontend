@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Layout, Row, Col, Tabs, Button, Dropdown, Menu, Card, List, Avatar } from 'antd';
+import { Layout, Row, Col, Tabs, Button, Dropdown, Menu, List, Avatar } from 'antd';
 import {CaretUpOutlined, CaretDownOutlined} from '@ant-design/icons';
 
 import NavbarView from "../Shared/Navbar/NavbarView";
@@ -103,8 +103,7 @@ export default ({ user, projects, countProjects, getUserProjects, getCountProjec
                 <TabPane tab="Projects" key="2">
                   <TabPaneView type={"Projects"} datas={projects} search={searchProjects} />
                 </TabPane>
-                <TabPane tab="Activity" key="3">
-                 {/*TAB ACTIVITY*/}
+                {/* <TabPane tab="Activity" key="3">
                     <div className="tab-activity">
                       <div className="btn-sort">
                         <Dropdown overlay={menu} trigger={['click']}>
@@ -156,11 +155,10 @@ export default ({ user, projects, countProjects, getUserProjects, getCountProjec
                         </TabPane>
                       </Tabs>
                     </div>
-                   {/*TAB ACTIVITY*/}
                 </TabPane>
                 <TabPane tab="Current Work Plan" key="4">
                   Lorem
-                </TabPane>
+                </TabPane> */}
               </Tabs>
             </Col>
             <Collaborators />

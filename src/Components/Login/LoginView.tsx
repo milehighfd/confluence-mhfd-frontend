@@ -80,10 +80,12 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
       <div className="example">
         <FloatLabel label="Email Address" name="email-label" value={values.email.length}>
           <input type="password" style={{display: 'none'}}/>
-          <Input name="email" onChange={handleChange} />
+          <Input name="email" onChange={handleChange} 
+            style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
         </FloatLabel>
         <FloatLabel label="Enter Password" name="password-label" value={values.password.length}>
-          <Input autoComplete="new-password" type="password" name="password" onChange={handleChange} />
+          <Input autoComplete="new-password" type="password" name="password" onChange={handleChange} 
+            style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
         </FloatLabel>
       </div>
       <div className="marbot-4">

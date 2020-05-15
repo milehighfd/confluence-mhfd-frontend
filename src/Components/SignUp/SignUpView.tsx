@@ -97,13 +97,16 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
               </Row>
                 <FloatLabel label="First Name" name="firstname-label" value={values.firstName.length}>
                   <input type="password" style={{display: 'none'}}/>
-                  <Input name="firstName" onChange={handleChange} />
+                  <Input name="firstName" onChange={handleChange} 
+                    style={(errors.firstName && touched.firstName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
                 </FloatLabel>
                 <FloatLabel label="Last Name" name="lastname-label" value={values.lastName.length}>
-                  <Input name="lastName" onChange={handleChange} />
+                  <Input name="lastName" onChange={handleChange} 
+                    style={(errors.lastName && touched.lastName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
                 </FloatLabel>
                 <FloatLabel label="Email" name="email-label" value={values.email.length}>
-                  <Input name="email" onChange={handleChange} />
+                  <Input name="email" onChange={handleChange} 
+                    style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 </FloatLabel>
                 <div className="group btn-up" style={{margin: '10px 0px'}}>
                   {values.designation !== 'other' ? <div id="sign-up-organization">
@@ -124,7 +127,8 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                 </div>
                 <div style={{marginBottom: '20px'}}>
                   <FloatLabel label="Password" name="password-label" value={values.password.length}>
-                    <Input autoComplete="new-password" type="password" name="password" onChange={handleChange} />
+                    <Input autoComplete="new-password" type="password" name="password" onChange={handleChange} 
+                      style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                   </FloatLabel>
                 </div>
                 {/* <div className="group">

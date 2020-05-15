@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Button, Upload, Spin, message, Modal, Row, Input, Dropdown, Menu, Icon } from 'antd';
+import { Col, Button, Upload, Spin, message, Modal, Row, Input, Dropdown, Menu } from 'antd';
 import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 
