@@ -32,8 +32,8 @@ function App({ replaceAppUser } : { replaceAppUser : Function }) {
   const [ loading, setLoading ] = useState(false);
   const appUser = store.getState().appUser;
   useEffect(() => {
-    setLoading(true);
     if(datasets.getToken() && appUser.email === '') {
+      setLoading(true);
       datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
           if (res?._id) {
             replaceAppUser(res);
