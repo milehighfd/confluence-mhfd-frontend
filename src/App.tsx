@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -17,6 +17,7 @@ import ProfileContainer from './Components/Profile/ProfileContainer';
 import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import AlertContainer from './Components/Alerts/AlertContainer';
+import LoadingView from './Components/Loading/LoadingView';
 
 /* In use of Map/Form HOC */
 import ProjectCapitalForm from './Components/ProjectForms/ProjectCapitalForm';
@@ -28,16 +29,19 @@ import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 
 function App({ replaceAppUser } : { replaceAppUser : Function }) {
-  
+  const [ loading, setLoading ] = useState(false);
   const appUser = store.getState().appUser;
-  if(datasets.getToken() && appUser.email === '') {
-    datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
-      if (res?._id) {
-        replaceAppUser(res);
-      }
-    });
-  }
-
+  useEffect(() => {
+    setLoading(true);
+    if(datasets.getToken() && appUser.email === '') {
+      datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
+          if (res?._id) {
+            replaceAppUser(res);
+          }
+          setLoading(false);
+      });
+    }
+  }, []);
   return <Switch>
       <Route path={`/login`} component={LoginContainer} />
       <Route path={`/sign-up`} component={SignUpContainer} />
@@ -82,6 +86,7 @@ function App({ replaceAppUser } : { replaceAppUser : Function }) {
       {(appUser.designation === 'government_admin' ||
         appUser.designation === 'government_staff') && appUser.activated && <Route path={`/work-request`} component={WorkRequestView} />}
       {(appUser.designation === 'admin') && appUser.activated && <Route path={`/detailed-view`} component={DetailedContainer} />}
+      {(loading && <Route path={`/`} component={LoadingView} />)}
       <Route path={`/`} component={Unauthorized} />
   </Switch>
 
