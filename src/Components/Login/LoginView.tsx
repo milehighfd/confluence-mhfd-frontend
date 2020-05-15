@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Row, Col, Form, Button, } from 'antd';
+import { Layout, Row, Col, Form, Button, Input } from 'antd';
 import { useFormik } from "formik";
 import * as datasets from "../../Config/datasets"
 import { SERVER } from "../../Config/Server.config";
@@ -7,7 +7,8 @@ import { Redirect, Link } from "react-router-dom";
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
 import ReCAPTCHA from "react-google-recaptcha";
 import * as Yup from "yup";
-
+import FloatLabel from "./FloatLabel";
+import "./Login.scss"
 
 const keyCaptcha = SERVER.CAPTCHA;
 const validationSchema = Yup.object().shape({
@@ -71,24 +72,19 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
           </Col>
         </Row>
         </div>*/}
-        <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit}>
+        <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit} autoComplete="off">
       <h1>
         Welcome to MHFD's Confluence
       </h1>
       <div style={{ marginTop: '30px' }}>
-      <div className="group">
-        <input  name="email" type="email" onChange={handleChange}
-          style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
-        <span className="highlight"></span>
-        <span className="bar"></span>
-        <label className={values.email ? "login-field-top":"login-field-botton"}>Email Address</label>
-      </div>
-      <div className="group">
-        <input name="password" type="password"  onChange={handleChange}
-          style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
-        <span className="highlight"></span>
-        <span className="bar"></span>
-        <label className={values.password ? "login-field-top":"login-field-botton"}>Enter Password</label>
+      <div className="example">
+        <FloatLabel label="Email Address" name="email-label" value={values.email.length}>
+          <input type="password" style={{display: 'none'}}/>
+          <Input name="email" onChange={handleChange} />
+        </FloatLabel>
+        <FloatLabel label="Enter Password" name="password-label" value={values.password.length}>
+          <Input autoComplete="new-password" type="password" name="password" onChange={handleChange} />
+        </FloatLabel>
       </div>
       <div className="marbot-4">
         <span>Don’t have an account?</span>

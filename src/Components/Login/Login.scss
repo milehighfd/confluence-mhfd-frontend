@@ -1,0 +1,36 @@
+/* Force update ant style */
+.ant-input {
+  padding: 16px 12px 4px 11px;
+  height: 50px;
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px solid rgba(37, 24, 99, 0.06);
+  font-size: 14px !important;
+}
+.ant-input:hover, .ant-input:focus, .ant-input:active, .ant-input.active{
+  border-bottom: 1px solid #251863;
+  border-radius: 0px;
+  outline: none;
+  box-shadow: none;
+}
+.float-label {
+  position: relative;
+  margin-bottom: 12px;
+}
+.label {
+  font-size: 14px !important;
+  font-weight: normal !important;
+  position: absolute !important;
+  pointer-events: none !important;
+  left: 12px;
+  top: 18px;
+  transition: 0.2s ease all !important;
+  color: rgba(17, 9, 60, 0.5);
+}
+.label-float {
+  top: 0px;
+  font-size: 14px !important;
+}
+.example{
+  margin-bottom: 20px;
+}

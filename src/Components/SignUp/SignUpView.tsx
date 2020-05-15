@@ -94,21 +94,22 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                 </Col>
               </Row>
               <div className="group">
-                <input type="text" name="firstName" onChange={handleChange}
+                <input type="password" style={{display: 'none'}}/>
+                <input name="firstName" onChange={handleChange}
                   style={(errors.firstName && touched.firstName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}  />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label className={values.firstName ? "login-field-top":"login-field-botton"}>First Name</label>
               </div>
               <div className="group">
-                <input type="text"  name="lastName" onChange={handleChange}
+                <input name="lastName" onChange={handleChange}
                   style={(errors.lastName && touched.lastName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label  className={values.lastName ? "login-field-top":"login-field-botton"} >Last Name</label>
               </div>
               <div className="group">
-                <input type="email"  name="email" onChange={handleChange}
+                <input name="email" onChange={handleChange}
                   style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 <span className="highlight"></span>
                 <span className="bar"></span>
