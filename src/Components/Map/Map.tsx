@@ -18,7 +18,8 @@ import { MAP_DROPDOWN_ITEMS,
         PROJECTS_TRIGGER,
         COMPONENTS_TRIGGER,
         DENVER_LOCATION,
-        SELECT_ALL_FILTERS } from "../../constants/constants";
+        SELECT_ALL_FILTERS, 
+        MAP_RESIZABLE_TRANSITION} from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { localComponents, polygonFill, polygonStroke, tileStyles } from '../../constants/mapStyles';
 import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
@@ -117,7 +118,7 @@ const Map = ({ leftWidth,
         /* Due the addition of 200ms extend transition resizing the map 
         every 25ms to add the transition effect within the map extension. */
         const mapResize = () => map.resize();
-        for (let i = 0; i <= 200; i = i + 25) {
+        for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 1000; i = i + 25) {
             setTimeout(() => mapResize(), i);  
         }
     }, [leftWidth]);

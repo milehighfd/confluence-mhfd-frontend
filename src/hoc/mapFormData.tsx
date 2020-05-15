@@ -4,7 +4,7 @@ import Map from '../Components/Map/Map';
 import NavbarView from "../Components/Shared/Navbar/NavbarView";
 import SidebarView from "../Components/Shared/Sidebar/SidebarView";
 
-import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN } from "../constants/constants";
+import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION } from "../constants/constants";
 import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message } from 'antd';
@@ -95,7 +95,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <SidebarView></SidebarView>
               <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
                 <Row>
-                    <Col style={{transition: 'all 0.5s'}} span={leftWidth}>
+                    <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={leftWidth}>
                         <Map
                             leftWidth={leftWidth}
                             layers={layers}
@@ -118,7 +118,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                         </Button>
                     </Col>
-                    <Col style={{transition: 'all 0.5s'}} span={rightWidth}>
+                    <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={rightWidth}>
                         <WrappedComponent
                             selectedItems={selectedItems}
                             isPolygon={isPolygon}
