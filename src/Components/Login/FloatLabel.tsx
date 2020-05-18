@@ -14,7 +14,7 @@ const FloatLabel = (props:any) => {
       onFocus={() => setFocus(true)}
     >
       {children}
-      <label className={labelClass}>{label}</label>
+      {/* <label className={labelClass}>{label}</label> */}
     </div>
   );
 };
