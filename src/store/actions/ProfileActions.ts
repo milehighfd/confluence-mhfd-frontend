@@ -1,6 +1,8 @@
 import * as types from '../types/ProfileTypes';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
+import { User } from '../../Classes/TypeList';
+import { message } from 'antd';
 
 export const getUserInformation = () => {
   return (dispatch: Function) => {
@@ -49,6 +51,17 @@ export const uploadImage = (files: Array<any>) => {
         setTimeout(() => {
           dispatch({ type: types.GET_USER_INFORMATION, user });
         }, 8000);
+      }
+    })
+  }
+}
+
+export const updateUserInformation = (user: User) => {
+  return (dispatch: Function) => {
+    datasets.putData(SERVER.UPDATE_USER_INFORMATION, user, datasets.getToken()).then(user => {
+      if (user?._id) {
+        message.success('your data was successfully updated!');
+        dispatch({ type: types.UPDATE_USER_INFORMATION, user });
       }
     })
   }

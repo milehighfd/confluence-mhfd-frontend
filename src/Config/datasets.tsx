@@ -53,6 +53,7 @@ export const getData = (url: any, token?: any) => {
     .catch((err) => {
       console.log(err);
     });
+    
 }
 
 export const getDataOctet = (url: any, token: any) => {

@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 
 import ProfileView from './ProfileView';
-import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue } from '../../store/actions/ProfileActions';
+import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation } from '../../store/actions/ProfileActions';
+import { User } from '../../Classes/TypeList';
 
 const mapStateToProps = (state: any): any => {
   return {
@@ -29,6 +30,9 @@ const mapDispatchToProps = (dispatch: Function): any => {
     },
     spinValue(spin: boolean) {
       dispatch(spinValue(spin))
+    },
+    updateUserInformation(user: User) {
+      dispatch(updateUserInformation(user))
     }
   };
 };

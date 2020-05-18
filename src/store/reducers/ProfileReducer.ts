@@ -41,6 +41,11 @@ const profile = (state = initProfile, action: any) => {
         ...state,
         spin: action.spin
       }
+    case types.UPDATE_USER_INFORMATION:
+      return {
+        ...state,
+        userInformation: action.user
+      }
     default:
       return state;
   }

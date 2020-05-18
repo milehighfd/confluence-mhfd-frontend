@@ -1100,7 +1100,12 @@ export const VALUE_GRAPH = [
 export const LINE = [
   20, 40, 60, 80, 100
 ]
-
+export const ADMIN = "admin";
+export const STAFF = "staff";
+export const GOVERNMENT_ADMIN = "government_admin";
+export const GOVERNMENT_STAFF = "government_staff";
+export const CONSULTANT = "consultant";
+export const OTHER = "other";
 /* Unselected Items on Maps Errors */
 export const NO_COMPONENTS_ERROR = 'Must select at least one map component.';
 export const NO_POLYGON_ERROR = 'Must draw a polygon on the map to continue.';
