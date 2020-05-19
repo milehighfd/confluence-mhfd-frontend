@@ -56,11 +56,11 @@ export default () => {
               </p>
             </Row>
             <div className="group">
-              <input type="password" name="password" onChange={handleChange} 
-                style={(errors.password && touched.password) ? {border: "solid red 1px", paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+              <input placeholder="New Password" type="password" name="password" onChange={handleChange}
+                style={(errors.password && touched.password) ? {borderBottom: "solid red 1px", paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
               <span className="highlight"></span>
               <span className="bar"></span>
-              <label style={(values.password) ? {top: "-20px"}:{top: "10px"}}>New Password</label>
+              {/*<label style={(values.password) ? {top: "-20px"}:{top: "10px"}}>New Password</label>*/}
             </div>
             <div className="group">
               <input type="password" name="passwordConfirm" onChange={handleChange}

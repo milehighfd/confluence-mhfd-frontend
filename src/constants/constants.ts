@@ -4,7 +4,7 @@ export const COMPLETE_SCREEN = 24;
 export const MEDIUM_SCREEN = 12;
 export const EMPTY_SCREEN = 0;
 
-export const MAP_RESIZABLE_TRANSITION = 0.5;
+export const MAP_RESIZABLE_TRANSITION = 0.4;
 
 /* Map Constants */
 
@@ -17,7 +17,7 @@ export const MAP_DROPDOWN_ITEMS = [
         style: 'mapbox://styles/milehighfd/ck4k0tjln58h41cl4ixb8jsez'
     }, {
         type: 'Dark Road',
-        style: 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft' 
+        style: 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft'
     }, {
         type: 'Satellite',
         style: 'mapbox://styles/milehighfd/ck4jfl22r5ada1cqwix8gpjwp'
@@ -115,18 +115,18 @@ export const ROUTINE_MAINTENANCE = {
   ]
 };
 
-export const SELECT_ALL_FILTERS = [FLOODPLAINS_FEMA_FILTERS, 
-                                  FLOODPLAINS_NON_FEMA_FILTERS, 
-                                  WATERSHED_FILTERS, 
-                                  STREAMS_FILTERS, 
-                                  SERVICE_AREA_FILTERS, 
-                                  MUNICIPALITIES_FILTERS, 
+export const SELECT_ALL_FILTERS = [FLOODPLAINS_FEMA_FILTERS,
+                                  FLOODPLAINS_NON_FEMA_FILTERS,
+                                  WATERSHED_FILTERS,
+                                  STREAMS_FILTERS,
+                                  SERVICE_AREA_FILTERS,
+                                  MUNICIPALITIES_FILTERS,
                                   COUNTIES_FILTERS,
-                                  MHFD_BOUNDARY_FILTERS, 
-                                  PROBLEMS_TRIGGER, 
-                                  PROJECTS_TRIGGER, 
+                                  MHFD_BOUNDARY_FILTERS,
+                                  PROBLEMS_TRIGGER,
+                                  PROJECTS_TRIGGER,
                                   COMPONENT_LAYERS,
-                                  MEP_PROJECTS, 
+                                  MEP_PROJECTS,
                                   ROUTINE_MAINTENANCE];
 
 /* End of Map Constants */
@@ -519,7 +519,7 @@ export const FOOTER_PROJECT_CAPITAL = [
 
 export const GOAL = [
   {
-    name: "Reduce flood risk to Structures", 
+    name: "Reduce flood risk to Structures",
     id: "reduceFloodRiskStructures"
   }, {
     name: "Stream bank or bed stabilization",
@@ -538,7 +538,7 @@ export const GOAL = [
 
 export const GOAL_STUDY = [
   {
-    name: "Reduce flood risk to Structures", 
+    name: "Reduce flood risk to Structures",
     id: "reduceFloodRiskStructures"
   }, {
     name: "Stabilization",
@@ -563,7 +563,7 @@ export const GOAL_STUDY = [
 
 export const REQUEST_FUNDING_YEAR = [
   {
-    name: (new Date()).getFullYear(), 
+    name: (new Date()).getFullYear(),
     id: (new Date()).getFullYear()
   }, {
     name: (new Date()).getFullYear() + 1,
@@ -578,7 +578,7 @@ export const REQUEST_FUNDING_YEAR = [
 ]
 export const REQUEST_START_YEAR = [
   {
-    name: (new Date()).getFullYear(), 
+    name: (new Date()).getFullYear(),
     id: (new Date()).getFullYear()
   }, {
     name: (new Date()).getFullYear() + 1,
@@ -593,7 +593,7 @@ export const REQUEST_START_YEAR = [
 ];
 export const MAINTENANCE_ELIGIBILITY = [
   {
-    name: "Capital Project", 
+    name: "Capital Project",
     id: "capitalProject"
   }, {
     name: "MEP",
@@ -612,7 +612,7 @@ export const MAINTENANCE_ELIGIBILITY = [
 
 export const RECURRENCE = [
   {
-    name: "One Time", 
+    name: "One Time",
     id: "oneTime"
   }, {
     name: "Annually",
@@ -625,7 +625,7 @@ export const RECURRENCE = [
 
 export const FRECUENCY = [
   {
-    name: "Cycle per year", 
+    name: "Cycle per year",
     id: "cyclePerYear"
   }
 ];
@@ -745,7 +745,7 @@ export const ROUTERS_SIDEBAR = [
 ];
 export const ROUTERS = {
   PROFILE_VIEW:'profile-view',
-  MAP: 'map', 
+  MAP: 'map',
   NEW_PROJECT_TYPES: 'new-project-types',
   WORK_REQUEST: 'work-request',
   WORK_PLAN: 'work-plan',
@@ -763,7 +763,7 @@ export const ROUTERS = {
 };
 export const ROUTER_TITLE = {
   PROFILE_VIEW:'Confluence   |   User Profile',
-  MAP: 'Confluence   |   Map View', 
+  MAP: 'Confluence   |   Map View',
   NEW_PROJECT_TYPES: 'Confluence   |   Create a Project',
   WORK_REQUEST: 'Confluence   |   Work Request',
   WORK_PLAN: 'Confluence   |   Work Plan',
@@ -781,7 +781,7 @@ export const ROUTER_TITLE = {
 }
 export const TASK = [
   {
-    name: "Sediment Removal", 
+    name: "Sediment Removal",
     id: "sedimentRemoval"
   }, {
     name: "Tree Thinning",
@@ -1194,7 +1194,7 @@ export const FILTER_TYPES = {
 };
 
 export const DROPDOWN_PROJECT_FILTERS = [
-  PROBLEM_TYPE, SERVICE_AREA_VALUE, JURIDICTION, COUNTY, LG_MANAGER, 
+  PROBLEM_TYPE, SERVICE_AREA_VALUE, JURIDICTION, COUNTY, LG_MANAGER,
   REQUESTED_START_YEAR, STREAM_NAME, MHFD_DOLLAR_REQUESTED
 ];
 
@@ -1210,8 +1210,8 @@ export const SORTED_LIST = ['dateCreated', 'requestName', 'projectType', 'estima
 
 const actualYear = new Date().getFullYear();
 const todaysYear = '' + actualYear;
-const nextYear = '' + (actualYear + 1); 
-const twoYears = '' + (actualYear + 2); 
+const nextYear = '' + (actualYear + 1);
+const twoYears = '' + (actualYear + 2);
 const threeYears = '' + (actualYear + 3);
 const fourYears = '' + (actualYear + 4);
 
@@ -1219,7 +1219,7 @@ export const PROJECT_TABS = [
   {
     name: 'Capital',
     drafts: ['workspace', todaysYear, nextYear, twoYears, threeYears, fourYears],
-  }, 
+  },
   {
     name: 'Study',
     drafts: ['workspace', todaysYear, nextYear, twoYears, threeYears, fourYears],
@@ -1230,7 +1230,7 @@ export const PROJECT_TABS = [
   }
 ];
 
-export const MAINTENANCE_BODY = { 
+export const MAINTENANCE_BODY = {
   workspace: [],
   debrisManagement: [],
   vegetationManagement: [],
@@ -1241,7 +1241,7 @@ export const MAINTENANCE_BODY = {
 
 export const DEFAULT_BODY = {
   workspace: [],
-  [todaysYear]: [], 
+  [todaysYear]: [],
   [nextYear]: [],
   [twoYears]: [],
   [threeYears]: [],

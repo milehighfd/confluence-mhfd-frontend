@@ -9,7 +9,7 @@ import { SERVER } from "../../Config/Server.config";
 import ReCAPTCHA from "react-google-recaptcha";
 const keyCaptcha = SERVER.CAPTCHA;
 const validationSchema = Yup.object().shape({
-  email: Yup.string()      
+  email: Yup.string()
     .email()
     .required('Required'),
   recaptcha: Yup.string()
@@ -42,7 +42,7 @@ export default () => {
       })
     }
   });
-  
+
   if (redirect) {
     return <Redirect to="/login" />
   }
@@ -66,11 +66,11 @@ export default () => {
                 <p>Enter your email address below and we’ll send you a link to reset your password.</p>
               </Row>
               <div className="group">
-                <input type="email" name="email" onChange={handleChange}
-                  style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+                <input placeholder="Email" type="email" name="email" onChange={handleChange}
+                  style={(errors.email && touched.email) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                 <span className="highlight"></span>
                 <span className="bar"></span>
-                <label style={(values.email) ? {top: "-20px"}:{top: "10px"}}>Email</label>
+                {/*<label style={(values.email) ? {top: "-20px"}:{top: "10px"}}>Email</label>*/}
               </div>
               <ReCAPTCHA
                 sitekey={"" + keyCaptcha}
