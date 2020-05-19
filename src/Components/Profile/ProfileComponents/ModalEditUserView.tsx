@@ -113,7 +113,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <br></br>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
-              <Input placeholder="Email" value={values.email} name="email" onChange={handleChange}
+              <Input disabled placeholder="Email" value={values.email} name="email" onChange={handleChange}
                 style={(errors.email && touched.email) ? { border: "solid red 1px" } : {}} />
             </Col>
             <Col className="gutter-row" span={12}>
