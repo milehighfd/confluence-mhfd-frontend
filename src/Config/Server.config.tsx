@@ -40,6 +40,8 @@ export const SERVER = (function () {
     const USER_ACTIVITY_CSV = 'user-activity/csv';
     const GET_ALL = 'get-all?';
     const UPDATE = 'update';
+    const DRIVE = 'drive';
+    const GET_IMAGE_DRIVE = 'get-images-drive';
 
     return {
         URL_BASE: URL_BASE.BASE,
@@ -76,5 +78,6 @@ export const SERVER = (function () {
         USER_ACTIVITY_CSV: `${URL_BASE.BASE}/${ADMIN}/${USER_ACTIVITY_CSV}`,
         COUNT_PROJECTS_BY_CREATOR: `${URL_BASE.BASE}/${PROJECT}/${COUNT_PROJECTS_BY_CREATOR}`,
         UPDATE_USER_INFORMATION: `${URL_BASE.BASE}/${USER}/${UPDATE}`,
+        GET_IMAGE_DRIVE: `${URL_BASE.BASE}/${DRIVE}/${GET_IMAGE_DRIVE}`,
     }
 })();

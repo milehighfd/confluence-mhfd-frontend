@@ -4,7 +4,8 @@ import ResetPasswordView from './ResetPasswordView';
 
 const mapStateToProps = (state: any): any => {
   return {
-    sample: state.sample
+    sample: state.sample,
+    images: state.carouselImages.images
   };
 };
 

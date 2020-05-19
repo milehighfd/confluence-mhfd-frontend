@@ -28,9 +28,12 @@ import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenance
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 
-function App({ replaceAppUser, getUserInformation } : { replaceAppUser : Function, getUserInformation: Function }) {
+function App({ replaceAppUser, getUserInformation, getCarouselImages } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function }) {
   const [ loading, setLoading ] = useState(true);
   const appUser = store.getState().appUser;
+  useEffect(() => {
+    getCarouselImages();
+  }, [getCarouselImages]);
   useEffect(() => {
     if(datasets.getToken() && appUser.email === '') {
       datasets.getData(SERVER.ME, datasets.getToken()).then(res => {

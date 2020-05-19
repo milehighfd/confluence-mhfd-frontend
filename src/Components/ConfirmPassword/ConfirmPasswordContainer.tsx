@@ -4,7 +4,8 @@ import { changeToFor } from '../../store/actions/sample';
 
 const mapStateToProps = (state: any): any => {
   return {
-    sample: state.sample
+    sample: state.sample,
+    images: state.carouselImages.images
   };
 };
 
