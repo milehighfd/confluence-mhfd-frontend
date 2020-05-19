@@ -41,7 +41,7 @@ const WorkPlanWrapper = ({ children, workPlanWrapper } : { children : React.Reac
     {workPlanWrapper ?
       <Col span={3}>
         {children}
-      </Col> 
+      </Col>
         :
     <>{children}</>
     }
@@ -57,9 +57,9 @@ const onCardSort = (list : Array<string>, startIndex : number, endIndex : number
 };
 
 const onCardMove = (
-  source : Array<string>, 
-  destination : Array<string>, 
-  droppableSource : DraggableLocation, 
+  source : Array<string>,
+  destination : Array<string>,
+  droppableSource : DraggableLocation,
   droppableDestination : DraggableLocation
   ) => {
 
@@ -128,14 +128,14 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
       const oldState = result[source.droppableId];
       const newState = result[destination.droppableId];
 
-      setPanelState({ 
-        ...panelState, 
-        [source.droppableId]: oldState, 
-        [destination.droppableId]: newState 
+      setPanelState({
+        ...panelState,
+        [source.droppableId]: oldState,
+        [destination.droppableId]: newState
       });
     }
   }
-  
+
   const handleCardDelete = (index : number, header : string) => {
     const updatedState = [...panelState[header]];
     updatedState.splice(index, 1);

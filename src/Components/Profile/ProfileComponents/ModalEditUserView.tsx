@@ -50,7 +50,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
   });
 
   const menu = (
-    <Menu className="js-mm sign-menu">
+    <Menu className="js-mm-00 sign-menu">
       {organization.map((organization: string, index: number) => {
         return <Menu.Item key={index} className="organization-items" onClick={() => {
           values.organization = organization;

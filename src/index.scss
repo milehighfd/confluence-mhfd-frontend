@@ -130,6 +130,12 @@ body{
     top: 18px !important;
   }
 }
+.login-dropdown {
+  text-align: center;
+}
+.menu-login-dropdown {
+  border-radius: 0px !important;
+}
 // SIDEBAR
 .ant-layout-sider{
   background: $dark !important;
@@ -148,9 +154,9 @@ body{
 .dropdown-special-bottomLeft {
   top: 42px !important;
 }
-.ant-menu-root.ant-menu-vertical, .ant-menu-root.ant-menu-vertical-left, .ant-menu-root.ant-menu-vertical-right, .ant-menu-root.ant-menu-inline {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.0) !important;
-}
+// .ant-menu-root.ant-menu-vertical, .ant-menu-root.ant-menu-vertical-left, .ant-menu-root.ant-menu-vertical-right, .ant-menu-root.ant-menu-inline {
+//     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.0) !important;
+// }
 .ant-menu-dark.ant-menu-inline .ant-menu-item, .ant-menu-dark.ant-menu-vertical .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
@@ -204,7 +210,7 @@ body{
     border: solid 1.3px rgba(37, 24, 99, 0.1);
     background-color: $white;
     color: $purple00;
-    padding-bottom: 16px;
+    // padding-bottom: 16px;
   }
   .ant-btn {
     text-align: left;
@@ -725,7 +731,7 @@ body{
 // styles material input
 .group {
   position:relative;
-  margin-bottom:30px;
+  margin-bottom: 15px;
   input {
     font-size:14px;
     padding:10px 10px 10px 0;
@@ -740,26 +746,26 @@ body{
     outline:none;
   }
   input::placeholder{
-    color: red;
+    color: $opacity;
   }
   /* LABEL material*/
-  label{
-    color: $opacity;
-    font-size: 14px !important;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    top: 10px;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
-  }
-  input:focus ~ label, input:valid ~ label 		{
-    top:-20px;
-    font-size: 14px;
-    color: $opacity;
-    padding-left: 10px;
-  }
+  // label{
+  //   color: $opacity;
+  //   font-size: 14px !important;
+  //   font-weight: normal;
+  //   position: absolute;
+  //   pointer-events: none;
+  //   top: 10px;
+  //   transition:0.2s ease all;
+  //   -moz-transition:0.2s ease all;
+  //   -webkit-transition:0.2s ease all;
+  // }
+  // input:focus ~ label, input:valid ~ label 		{
+  //   top:-20px;
+  //   font-size: 14px;
+  //   color: $opacity;
+  //   padding-left: 10px;
+  // }
 }
 
 /* material bar bottom */
@@ -819,7 +825,7 @@ body{
 
 /* Sign up */
 .signup {
-  margin: 15px 0 40px 0;
+  margin: 15px 0;
   display: flex;
   height: 55px;
   justify-content: space-between;
@@ -878,6 +884,7 @@ body{
 }
 .ant-dropdown-menu-item-group-list {
   background-color: green($color: #000000);
+  margin: 0px !important;
 }
 .js-mm{
   padding: 15px 20px !important;
@@ -892,7 +899,6 @@ body{
   }
 }
 .js-mm-00{
-  padding: 0px 20px !important;
   font-size: 14px !important;
   color: $opacity !important;
 
@@ -911,26 +917,25 @@ body{
     font-weight: 500;
   }
   .ant-dropdown-menu-item{
-    padding: 10px 0px !important;
-    border-bottom: 1px solid $opacity01;
+    padding: 10px 20px 0px 20px !important;
     text-align: left;
   }
   .ant-dropdown-menu-item:hover{
     background: none;
     background-color: #e6f7ff !important;
   }
-}
-.ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
-  font-size: 14px;
-  color: #11093c !important;
-  border-bottom: solid 1px $opacity01;
-  font-family: "Ubuntu", sans-serif;
-  line-height: 22px;
-  padding: 10px 0px !important;
-}
-.ant-dropdown-menu-item:hover, .ant-dropdown-menu-submenu-title:hover {
-  color: $purple !important;
-  font-weight: 500 !important;
+  span{
+    font-size: 14px;
+    color: $purple00;
+    padding: 0px 0px 10px 0px;
+    border-bottom: 1px solid rgba(61, 46, 138, 0.07);
+    width: 100%;
+    display: inline-block;
+  }
+  span:hover{
+    color: #251863;
+    font-weight: 500;
+  }
 }
 .sign-menu {
   overflow-y: auto;
@@ -938,18 +943,7 @@ body{
 
   .organization-items {
     padding: 10px 0px;
-
-    .organization-items-text {
-      font-size: 14px;
-      color: $purple00;
-    }
   }
-
-  .user-filter-items-text {
-    font-size: 14px;
-    color: $purple00;
-  }
-
   .user-filter-items-text:hover {
     color: $purple;
     font-weight: 500;
@@ -960,7 +954,8 @@ body{
   max-height: 150px;
 }
 .label-sg{
-  margin-top: -4px;
+  margin: 10px 10px 0px 20px;
+  line-height: 25px;
 }
 .login-field-top {
   top: -20px !important;
@@ -1331,6 +1326,10 @@ body{
   background: $white;
   height: calc(100vh - 58px);
   overflow-y: auto;
+  .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+    border-right: none;
+    border-radius: 4px;
+  }
 }
 .btn-coll{
   border: none !important;
@@ -2205,6 +2204,9 @@ body{
     font-size: 12px;
     color: $opacity;
   }
+  .menu-item-text{
+    padding: 0px 20px;
+  }
 }
 // FILTERS MAP
 .filt-00{
@@ -2438,7 +2440,7 @@ body{
   }
   .ant-input {
     height: 32px;
-    padding: 16px 12px 16px 11px;
+    padding: 4px 11px;
     color: rgba(0, 0, 0, 0.65);
     font-size: 14px;
     line-height: 1.5;
@@ -3651,11 +3653,6 @@ body{
   height: 40px;
   cursor: pointer;
  }
-
- // .switch-options {
- //   z-index: 100000000000;
- // }
-
  .button-dropdown {
   background-color: #28C499 !important;
   color: #ffffff !important;
@@ -3667,7 +3664,7 @@ body{
 
  .text-button-dropdown {
   font-size: 14px !important;
-  padding: 10px 10px 10px 0 !important;
+  padding: 10px !important;
   display: block !important;
   width: 100% !important;
   border: none !important;
@@ -3676,8 +3673,8 @@ body{
  }
  .ant-dropdown-menu-item-group-title {
    color: #ff7600 !important;
-   margin-bottom: -3px !important;
-   padding: 5px 5px !important;
+   margin-bottom: -10px !important;
+   font-weight: bold;
  }
 
  .card-information {
@@ -3698,46 +3695,6 @@ body{
 .rr-tt{
   display: none;
 }
-
-.no-links-dropdown {
-  padding: 0px 20px !important;
-  font-size: 14px !important;
-  color: $opacity !important;
-
-  .menu-item-text {
-    font-size: 14px;
-    color: $purple00;
-  }
-
-  .menu-item-text:hover, .menu-item-text:focus {
-    color: $purple;
-    font-weight: 500;
-  }
-
-  .ant-dropdown-menu-item {
-    padding: 10px 0px !important;
-    border-bottom: 1px solid $opacity01 !important;
-    text-align: left;
-  }
-
-  .ant-dropdown-menu-item:hover{
-    background: none;
-    background-color: #e6f7ff;
-  }
-}
-
-.login-dropdown {
-  margin-left: 15px !important;
-  margin-right: 15px !important;
-}
-.menu-login-dropdown {
-  border-radius: 0px !important;
-  border-bottom: solid 0px !important;
-}
-
-
-
-
 /* -------------------- *\
     # DETAILED_MODAL
 \* -------------------- */

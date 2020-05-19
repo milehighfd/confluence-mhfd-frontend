@@ -3,7 +3,7 @@ import { Menu } from "antd";
 import { User } from "../../../Classes/TypeList";
 
 export default (items: Array<string>, fieldName: string, values: User, setTitle: Function) => (
-    <Menu className="js-mm sign-menu no-links-dropdown">
+    <Menu className="js-mm-00 sign-menu">
         {/* <label>{fieldName === 'city' ? 'City' : fieldName === 'county' ? 'County' : 'Service Area'}</label> */}
         {items.map((item: string, index: number) => {
             return <Menu.Item key={index} onClick={() => {

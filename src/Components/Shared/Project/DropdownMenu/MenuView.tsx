@@ -10,7 +10,7 @@ export default ({ values, items, setItem, field }: any) => {
   }
 
   return (
-    <Menu className="js-mm-00 no-links-dropdown">
+    <Menu className="js-mm-00">
       {items.map((item: { name: string, id: string }, index: number) => {
         return <Menu.Item key={index} onClick={() => getItemValues(item.id, item.name)}>
           <span className="menu-item-text">

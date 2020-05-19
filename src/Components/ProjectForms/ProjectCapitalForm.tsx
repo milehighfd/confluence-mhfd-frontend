@@ -23,14 +23,14 @@ const { TextArea } = Input;
 // const goal = [ "Reduce flood risk to Structures", "Stream bank or bed stabilization", "Create shared-use paths and recreation", "Vegetation Enhancements", "Include permanent water quality BMP"];
 
 const menu = (
-  <Menu className="no-links-dropdown">
-    <Menu.Item> 
+  <Menu className="js-mm-00">
+    <Menu.Item>
       <span className="menu-item-text">1st menu item</span>
     </Menu.Item>
-    <Menu.Item> 
+    <Menu.Item>
       <span className="menu-item-text">2nd menu item</span>
     </Menu.Item>
-    <Menu.Item> 
+    <Menu.Item>
       <span className="menu-item-text">3rd menu item</span>
     </Menu.Item>
   </Menu>

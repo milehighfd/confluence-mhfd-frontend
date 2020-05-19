@@ -22,7 +22,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
   const [targetButton, setTargetButton] = useState('staff');
   const [organization, setOrganization] = useState(ROLES[0].options);
   const menu = (
-    <Menu className="js-mm sign-menu">
+    <Menu className="js-mm-00 sign-menu">
       <label className="label-sg">{targetButton === 'staff' ? 'City' : targetButton === 'government_staff' ? 'Local Government' : 'Consultant/Contractor'}</label>
       {organization.map((organization: string, index: number) => {
         return <Menu.Item key={index} className="organization-items" onClick={() => {
@@ -80,7 +80,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
               <h1>
                 Sign Up!
               </h1>
-              <Row style={{ marginTop: '20px' }}>
+              <Row style={{ marginTop: '15px' }}>
                 <span className="loginLabels">Define your user role:</span>
                 <Col className="signup">
                   {roles.map((role: { value: string, style: string, title: string, options: Array<string> }, index: number) => {
@@ -95,23 +95,31 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                   })}
                 </Col>
               </Row>
-                <FloatLabel label="First Name" name="firstname-label" value={values.firstName.length}>
-                  <input type="password" style={{display: 'none'}}/>
-                  <Input placeholder="First Name" name="firstName" onChange={handleChange} 
-                    style={(errors.firstName && touched.firstName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
-                </FloatLabel>
-                <FloatLabel label="Last Name" name="lastname-label" value={values.lastName.length}>
-                  <Input placeholder="Last Name" name="lastName" onChange={handleChange} 
-                    style={(errors.lastName && touched.lastName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
-                </FloatLabel>
-                <FloatLabel label="Email" name="email-label" value={values.email.length}>
-                  <Input placeholder="Email" name="email" onChange={handleChange} 
-                    style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
-                </FloatLabel>
-                <div className="group btn-up" style={{margin: '10px 0px'}}>
+                <div className="group">
+                  <input  placeholder="First Name" type="text" name="firstName" onChange={handleChange}
+                    style={(errors.firstName && touched.firstName) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}  />
+                  <span className="highlight"></span>
+                  <span className="bar"></span>
+                  {/* <label className={values.firstName ? "login-field-top":"login-field-botton"}>First Name</label>*/}
+                </div>
+                <div className="group">
+                  <input placeholder="Last Name" type="text" name="lastName" onChange={handleChange}
+                    style={(errors.lastName && touched.lastName) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
+                  <span className="highlight"></span>
+                  <span className="bar"></span>
+                  {/*<label  className={values.lastName ? "login-field-top":"login-field-botton"} >Last Name</label>*/}
+                </div>
+                <div className="group">
+                  <input placeholder="Email" type="email" name="email" onChange={handleChange}
+                    style={(errors.email && touched.email) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+                  <span className="highlight"></span>
+                  <span className="bar"></span>
+                  {/*<label  className={values.email ? "login-field-top":"login-field-botton"} >Email</label>*/}
+                </div>
+                <div className="group btn-up">
                   {values.designation !== 'other' ? <div id="sign-up-organization">
                     <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization" ) as HTMLElement}>
-                      <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} >
+                      <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} >
                         {values.organization ? values.organization : targetButton === 'staff' ? 'Organization' : targetButton === 'government_staff' ? 'Jurisdiction' : 'Consultant/Contractor'}
                         <img src="/Icons/icon-12.svg" alt="" />
                       </Button>
@@ -119,64 +127,35 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                   </div>
                    : (
                       <><input placeholder="Organization" type="text"  name="organization" onChange={handleChange}
-                        style={(errors.organization && touched.organization) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+                        style={(errors.organization && touched.organization) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                         <span className="highlight"></span>
                         <span className="bar"></span>
                         {/* <label  className={values.organization ? "login-field-top":"login-field-botton"}>Organization</label> */}
                         </>
                     )}
                 </div>
-                <div style={{marginBottom: '20px'}}>
-                  <FloatLabel label="Password" name="password-label" value={values.password.length}>
-                    <Input placeholder="Password" autoComplete="new-password" type="password" name="password" onChange={handleChange} 
-                      style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
-                  </FloatLabel>
-                </div>
-                {/* <div className="group">
-                  <input type="password" style={{display: 'none'}}/>
-                  <input name="firstName" onChange={handleChange}
-                    style={(errors.firstName && touched.firstName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}  />
-                  <span className="highlight"></span>
-                  <span className="bar"></span>
-                  <label className={values.firstName ? "login-field-top":"login-field-botton"}>First Name</label>
-                </div>
                 <div className="group">
-                  <input name="lastName" onChange={handleChange}
-                    style={(errors.lastName && touched.lastName) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} />
+                  <input type="password" placeholder="Password"  name="password" onChange={handleChange}
+                    style={(errors.password && touched.password) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
                   <span className="highlight"></span>
                   <span className="bar"></span>
-                  <label  className={values.lastName ? "login-field-top":"login-field-botton"} >Last Name</label>
+                  {/*<label  className={values.password ? "login-field-top":"login-field-botton"}>Password</label>*/}
                 </div>
-                <div className="group">
-                  <input name="email" onChange={handleChange}
-                    style={(errors.email && touched.email) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
-                  <span className="highlight"></span>
-                  <span className="bar"></span>
-                  <label  className={values.email ? "login-field-top":"login-field-botton"} >Email</label>
-                </div>
-                <div className="group">
-                  <input type="password"  name="password" onChange={handleChange}
-                    style={(errors.password && touched.password) ? {border: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
-                  <span className="highlight"></span>
-                  <span className="bar"></span>
-                  <label  className={values.password ? "login-field-top":"login-field-botton"}>Password</label>
-                </div>
-                */}
               <ReCAPTCHA
                 sitekey={"" + keyCaptcha}
                 onChange={(event) => {
                   values.recaptcha = '' + (event !== 'null' ? event : '');
                 }}
               />
-              <div><br/>
+              <div>
                 <span style={{color: message.color}}>&nbsp;&nbsp; {message.message}</span>
               </div>
-              <Form.Item>
+              <Form.Item style={{marginBottom: '15px'}}>
                 <Button className="buttonLogin" block htmlType="submit" >
                   Sign Up
                 </Button>
               </Form.Item>
-              <div className="marbot-4" style={{textAlign: "center"}}>
+              <div style={{textAlign: "center"}}>
                 <span> I have an account</span>
                 <Link to={'/login'} className="login-form-forgot">
                   Login

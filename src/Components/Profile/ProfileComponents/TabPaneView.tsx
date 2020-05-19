@@ -20,7 +20,7 @@ export default ({ type, datas, search }: { type: string, datas: Array<ProjectTyp
     search(auxOptions);
   }
   const menu = () => {
-    return <Menu className="no-links-dropdown">
+    return <Menu className="js-mm-00">
       {STATUS_PROJECT.map((status: { name: string, id: string }, index: number) => {
         return <Menu.Item key={index} onClick={() => getItemValues(status.id, status.name)}>
           <span className="menu-item-text">{status.name}</span>

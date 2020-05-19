@@ -39,7 +39,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       })}
     </Menu>
   );
-  const MenuOrganization = () => (<Menu className="js-mm sign-menu-organization"
+  const MenuOrganization = () => (<Menu className="js-mm-00 sign-menu-organization"
     onClick={(event) => {
       const auxOption = { ...option };
       const val = event.key !== 'all' ? event.item.props.children : ''
@@ -47,15 +47,15 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       setOption(auxOption);
       search(auxOption);
     }}>
-    <Menu.Item key={"all"}>Organization - All</Menu.Item>
+    <Menu.Item key={"all"}><span>Organization - All</span></Menu.Item>
     <Menu.ItemGroup key="g1" title="Organization">
-      {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}>{item}</Menu.Item>))}
+      {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
     </Menu.ItemGroup>
     <Menu.ItemGroup key="g2" title="Consultant / Contractor">
-      {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g2"}>{item}</Menu.Item>))}
+      {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
     </Menu.ItemGroup>
     <Menu.ItemGroup key="g3" title="Jurisdiction">
-      {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g3"}>{item}</Menu.Item>))}
+      {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
     </Menu.ItemGroup>
   </Menu>);
   return (

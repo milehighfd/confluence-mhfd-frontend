@@ -53,8 +53,8 @@ export default () => {
     setRedirect(true);
   }
   const menu = (
-    <Menu>
-      <Menu.Item onClick={logout}>Logout</Menu.Item>
+    <Menu className="menu-login-dropdown ">
+      <Menu.Item className="login-dropdown" onClick={logout}>Logout</Menu.Item>
     </Menu>
   );
 
@@ -78,12 +78,12 @@ export default () => {
       <label className="ll-0"></label>
       <Dropdown overlay={menu}>
         <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()}>
-            {user.photo ? 
+            {user.photo ?
               <img src={user.photo} className="ll-img" alt="profile" />
-              : 
+              :
               <label className="ll-00">
                 {initialName}
-              </label> 
+              </label>
             }
             {name} <Icon type="caret-down" />
         </a>
