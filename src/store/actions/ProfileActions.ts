@@ -14,6 +14,12 @@ export const getUserInformation = () => {
   }
 }
 
+export const saveUserInformation = (user: User) => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.GET_USER_INFORMATION, user });
+  }
+}
+
 export const getUserProjects = (options: { requestName?: string, status?: string }) => {
   return (dispatch: Function) => {
     let body = {
@@ -48,9 +54,7 @@ export const uploadImage = (files: Array<any>) => {
     }
     datasets.postDataMultipart(SERVER.USER_UPLOAD_PHOTO, dataForm, datasets.getToken()).then(user => {
       if (user?._id) {
-        setTimeout(() => {
-          dispatch({ type: types.GET_USER_INFORMATION, user });
-        }, 8000);
+        dispatch({ type: types.GET_USER_INFORMATION, user });
       }
     })
   }

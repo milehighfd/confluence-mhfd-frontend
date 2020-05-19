@@ -10,7 +10,7 @@ const { Header } = Layout;
 
 export default () => {
   const [redirect, setRedirect] = useState(false);
-  const user = store.getState().appUser;
+  const user = store.getState().profile.userInformation;
   const name = user.firstName;
   const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
   const location = useLocation().pathname.split('/');
@@ -52,6 +52,7 @@ export default () => {
     datasets.logout();
     setRedirect(true);
   }
+  //  className="menu-login-dropdown" className="login-dropdown"
   const menu = (
     <Menu className="menu-login-dropdown ">
       <Menu.Item className="login-dropdown" onClick={logout}>Logout</Menu.Item>

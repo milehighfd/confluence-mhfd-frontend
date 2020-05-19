@@ -28,7 +28,7 @@ import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenance
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 
-function App({ replaceAppUser } : { replaceAppUser : Function }) {
+function App({ replaceAppUser, getUserInformation } : { replaceAppUser : Function, getUserInformation: Function }) {
   const [ loading, setLoading ] = useState(true);
   const appUser = store.getState().appUser;
   useEffect(() => {
@@ -36,6 +36,7 @@ function App({ replaceAppUser } : { replaceAppUser : Function }) {
       datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
           if (res?._id) {
             replaceAppUser(res);
+            getUserInformation();
           }
           setLoading(false);
       });

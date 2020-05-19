@@ -35,8 +35,6 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
     setRole(RADIO_ITEMS.filter(element => element.value === (user.designation))[0]? {...RADIO_ITEMS.filter(element => element.value === (user.designation))[0]} : { name: '', value: ''});
   }
   useEffect(() => {
-    // const auxUser = { ...user };
-    // setInitialValues(auxUser);
     asign();
   }, [user]);
   const validationSchema = VALIDATION_USER_PROFILE;
@@ -46,6 +44,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
     validationSchema,
     onSubmit(values: User) {
       updateUserInformation(values);
+      handleCancel();
     }
   });
 

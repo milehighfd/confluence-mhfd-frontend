@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Row, Col, Form, Button, Menu, Dropdown, Input } from 'antd';
+import { Layout, Row, Col, Form, Button, Menu, Dropdown } from 'antd';
 import ReCAPTCHA from "react-google-recaptcha";
 import { ROLES } from "../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
@@ -8,7 +8,6 @@ import * as datasets from "../../Config/datasets";
 import { useFormik } from "formik";
 import { VALIDATION_SIGN_UP } from "../../constants/validation";
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
-import FloatLabel from "../Login/FloatLabel";
 import "../Login/Login.scss"
 
 

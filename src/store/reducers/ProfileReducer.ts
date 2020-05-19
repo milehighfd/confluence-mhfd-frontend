@@ -1,7 +1,14 @@
 import * as types from '../types/ProfileTypes';
 
 const initProfile = {
-  userInformation: {},
+  userInformation: {
+    activated: false,
+    firstName: "",
+    lastName: "",
+    designation: "",
+    _id: "",
+    email: "",
+  },
   userProjects: [],
   userImage: '',
   countProjects: [],
