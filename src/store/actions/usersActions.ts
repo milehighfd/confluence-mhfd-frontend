@@ -54,8 +54,9 @@ export const addUserPending = (user: any) => {
 export const getUserActivity = ( url: string) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.USER_ACTIVITY + url, datasets.getToken()).then(res => {
-      
-      dispatch({ type: types.USER_ACTIVITY, res });
+      if(res?.data) {
+        dispatch({ type: types.USER_ACTIVITY, res });
+      }
     });
   }
 }
