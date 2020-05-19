@@ -89,7 +89,7 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
     getUserActivity(getUrlOptionsUserActivity(pagination, sorter));
   };
   const getUrlOptionsUserActivity = (pagination: {current: number, pageSize: number}, sorter: {field?: string, order?: string}) => {
-    return 'page=' + pagination.current + '&limit=' + pagination.pageSize + (sorter?.order ? ('&sort=' + sorter.field + '&sorttype=' + (sorter.order === "descend" ? '-1': '1')): '&sort=registerDate&sorttype=-1')
+    return 'page=' + pagination.current + '&limit=' + pagination.pageSize + (sorter?.order ? ('&sort=' + sorter.field + '&sorttype=' + (sorter.order === "descend" ? 'DESC': 'ASC')): '&sort=registerDate&sorttype=DESC')
   }
   return <>
     <Layout>
@@ -152,8 +152,8 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                           }}>
                             <img src="/Icons/icon-15.svg" alt=""/>
                           </Button>
-                          <Table columns={COLUMNS_USER_ACTIVITY} rowKey={record => record._id} dataSource={userActivity.data} 
-                            pagination={pagination} onChange={(pagination, filters ,sort) => handleTableChange(pagination, filters, sort)}/>
+                          <Table columns={COLUMNS_USER_ACTIVITY} rowKey={record => record.registerDate} dataSource={userActivity.data} 
+                            pagination={pagination} onChange={(pagination, filters, sort) => handleTableChange(pagination, filters, sort)}/>
                     </TabPane>
                   </Tabs>
                 </Col>
