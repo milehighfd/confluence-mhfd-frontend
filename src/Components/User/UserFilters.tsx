@@ -48,7 +48,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       search(auxOption);
     }}>
     <Menu.Item key={"all"}>Organization - All</Menu.Item>
-    <Menu.ItemGroup key="g1" title="Organization">
+    <Menu.ItemGroup className="herbert" key="g1" title="Organization">
       {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}>{item}</Menu.Item>))}
     </Menu.ItemGroup>
     <Menu.ItemGroup key="g2" title="Consultant / Contractor">
