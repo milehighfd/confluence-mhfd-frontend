@@ -93,7 +93,12 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
         saveUser();
         updateSuccessful();
       } else {
-        updateError(res.error);
+        if (res?.error) {
+          updateError(res.error);
+        }
+        else {
+          updateError(res);
+        }
       }
     });
   }
@@ -150,7 +155,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <Col className="gutter-row" span={12} id={("organization" + values._id)}>
                   <Dropdown trigger={['click']} overlay={MenuOrganizationView(values, setTitle)}
                     getPopupContainer={() => document.getElementById(("organization" + values._id)) as HTMLElement}>
-                    <Button style={(errors.organization && touched.organization) ? {border: "solid red"}:{}}>
+                    <Button>
                       {values.organization ? values.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -178,7 +183,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <Col className="gutter-row" span={12} id={("city" + values._id)}>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
                     getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
-                    <Button style={(errors.city && touched.city && !values.city ) ? {border: "solid red"}:{}}>
+                    <Button>
                       {values.city ? values.city : 'City'} <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -187,7 +192,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <Col className="gutter-row" span={12} id={("county" + values._id)}>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
                     getPopupContainer={() => document.getElementById(("county" + values._id)) as HTMLElement}>
-                    <Button style={(errors.county && touched.county && !values.county ) ? {border: "solid red"}:{}}>
+                    <Button >
                       {values.county ? values.county : 'County'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -199,7 +204,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                   <Dropdown trigger={['click']} overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
                     getPopupContainer={() => document.getElementById(("serviceArea" + values._id)) as HTMLElement}
                     placement="bottomLeft">
-                    <Button style={{border: (errors.serviceArea && touched.serviceArea && !values.serviceArea ) ? "solid red":""}}>
+                    <Button >
                       {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>

@@ -356,30 +356,8 @@ export const VALIDATION_USER = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-  activated: Yup.boolean()
-    .required('Required'),
-  organization: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  designation: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),  
   email: Yup.string()
     .email()
-    .required('Required'),
-  city: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  county: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),  
-  serviceArea: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
     .required('Required')
 });
 

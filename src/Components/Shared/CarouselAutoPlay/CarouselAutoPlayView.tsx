@@ -38,7 +38,7 @@ export default () => {
         </div>
       })}
     </Carousel> */}
-    <Carousel autoplay>
+    <Carousel autoplay autoplaySpeed={10000}>
       <div>
         <img src="/Icons/banner/low.jpg" className={"img-banner"} alt="" />
         <div className="textContent">
