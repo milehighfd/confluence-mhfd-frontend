@@ -82,6 +82,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
   const handleCancel = () => {
     const auxState = { ...state };
     auxState.visible = false;
+    asign();
     setState(auxState);
   };
   return <div className="edit-profile">
@@ -103,22 +104,21 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <Input placeholder="First Name" value={values.firstName} name="firstName" onChange={handleChange}
-                style={(errors.firstName && touched.firstName) ? { border: "solid red 1px" } : {}} />
+                style={(errors.firstName && touched.firstName && !values.firstName) ? { border: "solid red 1px" } : {}} />
             </Col>
             <Col className="gutter-row" span={12}>
               <Input placeholder="Last Name" value={values.lastName} name="lastName" onChange={handleChange}
-                style={(errors.lastName && touched.lastName) ? { border: "solid red 1px" } : {}} />
+                style={(errors.lastName && touched.lastName && !values.lastName) ? { border: "solid red 1px" } : {}} />
             </Col>
           </Row>
           <br></br>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <Input disabled placeholder="Email" value={values.email} name="email" onChange={handleChange}
-                style={(errors.email && touched.email) ? { border: "solid red 1px" } : {}} />
+                style={(errors.email && touched.email && !values.email) ? { border: "solid red 1px" } : {}} />
             </Col>
             <Col className="gutter-row" span={12}>
-              <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange}
-                style={(errors.phone && touched.phone) ? { border: "solid red 1px" } : {}} />
+              <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange}/>
             </Col>
           </Row>
         </div>
@@ -131,7 +131,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
             <Col className="gutter-row" span={12}>
               {values.designation !== OTHER ? <div id="sign-up-organization">
                 <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
-                  <Button style={(errors.organization && touched.organization) ? { border: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} >
+                  <Button style={{ paddingLeft: '10px' }} >
                     {values.organization ? values.organization : (values.designation === ADMIN || values.designation === STAFF) ? 'Organization' :
                           (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Jurisdiction' : 'Consultant/Contractor'}
                     <img src="/Icons/icon-12.svg" alt="" />
@@ -139,17 +139,14 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
                 </Dropdown>
               </div>
                 : (
-                  <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange}
-                    style={(errors.organization && touched.organization) ? { border: "solid red 1px" } : {}} />
+                  <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange}/>
                 )}
             </Col>
           </Row>
           <br></br>
           <Row gutter={16}>
-            <Col className="gutter-row" span={12}><Input placeholder="Title" value={values.title} name="title" onChange={handleChange}
-              style={(errors.title && touched.title) ? { border: "solid red 1px" } : {}} /></Col>
-            <Col className="gutter-row" span={12}><Input placeholder="Zip Code" value={values.zipCode} name="zipCode" onChange={handleChange}
-              style={(errors.zipCode && touched.zipCode) ? { border: "solid red 1px" } : {}} /></Col>
+            <Col className="gutter-row" span={12}><Input placeholder="Title" value={values.title} name="title" onChange={handleChange}/></Col>
+            <Col className="gutter-row" span={12}><Input placeholder="Zip Code" value={values.zipCode} name="zipCode" onChange={handleChange}/></Col>
           </Row>
         </div>
 
@@ -159,7 +156,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <Dropdown overlay={MenuAreaView(CITIES, 'city', values, setTitle)}>
-                <Button style={(errors.city && touched.city && !values.city) ? { border: "solid red 1px" } : {}}>
+                <Button>
                   {values.city ? values.city : 'City'} <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>
@@ -167,7 +164,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
 
             <Col className="gutter-row" span={12}>
               <Dropdown overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}>
-                <Button style={(errors.county && touched.county && !values.county) ? { border: "solid red 1px" } : {}}>
+                <Button>
                   {values.county ? values.county : 'County'}  <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>
@@ -179,7 +176,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
               <Dropdown overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
 
                 placement="bottomLeft">
-                <Button style={{ border: (errors.serviceArea && touched.serviceArea && !values.serviceArea) ? "solid red 1px" : "" }}>
+                <Button>
                   {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>
