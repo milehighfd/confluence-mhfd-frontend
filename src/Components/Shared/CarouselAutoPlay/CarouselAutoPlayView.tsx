@@ -27,7 +27,7 @@ export default () => {
         </ul>
       </div>
     </div>
-    <Carousel autoplay>
+    {/* <Carousel autoplay>
       {images.map((image: { image: string, name: string }, index: number) => {
         return <div key={index}>
           <img src={image.image} className={"img-banner"} alt="" />
@@ -37,6 +37,43 @@ export default () => {
           </div>
         </div>
       })}
+    </Carousel> */}
+    <Carousel autoplay>
+      <div>
+        <img src="/Icons/banner/low.jpg" className={"img-banner"} alt="" />
+        <div className="textContent">
+          <h2>What can I do with Confluence?</h2>
+          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+        </div>
+      </div>
+      <div>
+        <img src="/Icons/banner/confluence.jpg" className={"img-banner"} alt="" />
+        <div className="textContent">
+          <h2>What can I do with Confluence?</h2>
+          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+        </div>
+      </div>
+      <div>
+        <img src="/Icons/banner/drainageway_img.jpg" className={"img-banner"} alt="" />
+        <div className="textContent">
+          <h2>What can I do with Confluence?</h2>
+          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+        </div>
+      </div>
+      <div>
+        <img src="/Icons/banner/eco.jpg" className={"img-banner"} alt="" />
+        <div className="textContent">
+          <h2>What can I do with Confluence?</h2>
+          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+        </div>
+      </div>
+      <div>
+        <img src="/Icons/banner/westminster.jpg" className={"img-banner"} alt="" />
+        <div className="textContent">
+          <h2>What can I do with Confluence?</h2>
+          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+        </div>
+      </div>
     </Carousel>
   </Col>
 }
