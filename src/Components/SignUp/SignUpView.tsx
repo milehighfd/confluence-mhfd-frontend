@@ -116,10 +116,10 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
                   {/*<label  className={values.email ? "login-field-top":"login-field-botton"} >Email</label>*/}
                 </div>
                 <div className="group btn-up">
-                  {values.designation !== 'other' ? <div id="sign-up-organization">
+                  {values.designation === 'government_staff' || values.designation === 'consultant' ? <div id="sign-up-organization">
                     <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization" ) as HTMLElement}>
                       <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}} >
-                        {values.organization ? values.organization : targetButton === 'staff' ? 'Organization' : targetButton === 'government_staff' ? 'Jurisdiction' : 'Consultant/Contractor'}
+                        {values.organization ? values.organization : targetButton === 'government_staff' ? 'Organization' : 'Consultant/Contractor'}
                         <img src="/Icons/icon-12.svg" alt="" />
                       </Button>
                   </Dropdown>

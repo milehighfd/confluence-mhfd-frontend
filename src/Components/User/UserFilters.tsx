@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown, Button, Input, Menu } from 'antd';
-import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, JURISDICTION, RADIO_ITEMS } from "../../constants/constants";
+import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, RADIO_ITEMS } from "../../constants/constants";
 import { OptionsFiltersUser } from '../../Classes/TypeList';
 
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation'];
@@ -54,9 +54,9 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
     <Menu.ItemGroup key="g2" title="Consultant / Contractor">
       {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
     </Menu.ItemGroup>
-    <Menu.ItemGroup key="g3" title="Jurisdiction">
+    {/* <Menu.ItemGroup key="g3" title="Jurisdiction">
       {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
-    </Menu.ItemGroup>
+    </Menu.ItemGroup> */}
   </Menu>);
   return (
     <div className="user-filter">

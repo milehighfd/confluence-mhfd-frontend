@@ -3,7 +3,6 @@ import { Col, Carousel } from "antd";
 import store from "../../../store";
 export default () => {
   const images = store.getState().carouselImages.images;
-  console.log(images);
   return <Col span={13}>
     <a href="https://mhfd.org/" target="_blank">
       <div className="logo-white"

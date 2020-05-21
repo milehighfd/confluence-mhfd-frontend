@@ -6,7 +6,7 @@ import { User } from '../../../Classes/TypeList';
 import MenuAreaView from "../../User/UserComponents/MenuAreaView";
 
 import { VALIDATION_USER_PROFILE } from "../../../constants/validation";
-import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, OTHER, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS } from "../../../constants/constants";
+import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT } from "../../../constants/constants";
 
 
 export default ({ user, updateUserInformation }: { user: User, updateUserInformation: Function }) => {
@@ -129,11 +129,10 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <Row gutter={16}>
             <Col className="gutter-row" span={12}><Input placeholder="Account Type" value={role.name} disabled /></Col>
             <Col className="gutter-row" span={12}>
-              {values.designation !== OTHER ? <div id="sign-up-organization">
+              {(values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF || values.designation === CONSULTANT) ? <div id="sign-up-organization">
                 <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button style={{ paddingLeft: '10px' }} >
-                    {values.organization ? values.organization : (values.designation === ADMIN || values.designation === STAFF) ? 'Organization' :
-                          (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Jurisdiction' : 'Consultant/Contractor'}
+                    {values.organization ? values.organization : (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Organization' : 'Consultant/Contractor'}
                     <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>
