@@ -6,7 +6,7 @@ import { User } from '../../../Classes/TypeList';
 import MenuAreaView from "../../User/UserComponents/MenuAreaView";
 
 import { VALIDATION_USER_PROFILE } from "../../../constants/validation";
-import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, OTHER, ORGANIZATION, JURISDICTION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS } from "../../../constants/constants";
+import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, OTHER, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS } from "../../../constants/constants";
 
 
 export default ({ user, updateUserInformation }: { user: User, updateUserInformation: Function }) => {
@@ -29,8 +29,8 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
     values.phone = user.phone;
     values.title = user.title;
     values.zipCode = user.zipCode;
-    const auxOrganization = (values.designation === ADMIN || values.designation === STAFF) ? ORGANIZATION :
-                             (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF ) ? JURISDICTION : CONSULTANT_CONTRACTOR;
+    const auxOrganization = (values.designation === ADMIN || values.designation === STAFF) ? CITIES :
+                             (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF ) ? ORGANIZATION : CONSULTANT_CONTRACTOR;
     setOrganization([...auxOrganization]);
     setRole(RADIO_ITEMS.filter(element => element.value === (user.designation))[0]? {...RADIO_ITEMS.filter(element => element.value === (user.designation))[0]} : { name: '', value: ''});
   }
