@@ -187,7 +187,8 @@ const initState = {
             coordinates: [-104.99997101031218, 39.84543449508365]
         }
     ],
-    layers: {} as any
+    layers: {} as any,
+    initialMapView: {}
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -272,6 +273,12 @@ const mapReducer = (state = initState, action : any) => {
                         [action.data.trigger]: action.data.tiles
                     }
                 }
+            }
+        }
+        case types.GET_INITIAL_MAP_VIEW: {
+            return {
+                ...state,
+                initialMapView: action.initialMap
             }
         }
         default: 

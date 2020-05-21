@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Col, Carousel } from "antd";
-import store from "../../../store";
+// import store from "../../../store";
 export default () => {
-  const images = store.getState().carouselImages.images;
+  // const images = store.getState().carouselImages.images;
   return <Col span={13}>
     <a href="https://mhfd.org/" target="_blank">
       <div className="logo-white"

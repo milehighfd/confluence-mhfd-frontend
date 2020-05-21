@@ -27,6 +27,7 @@ import MapView from './Components/Map/MapView';
 import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenanceForm';
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
+import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function }) {
   const [ loading, setLoading ] = useState(true);
@@ -52,6 +53,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages } : { repla
       <Route path={`/reset-password`} component={ResetPasswordContainer} />
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
       <Route path={`/alert-view`} component={AlertContainer} />
+      <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />
       <Route exact path="/" render={() => (
           <Redirect to="/login"/>
       )}/>

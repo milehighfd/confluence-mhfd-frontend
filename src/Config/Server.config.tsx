@@ -42,6 +42,7 @@ export const SERVER = (function () {
     const UPDATE = 'update';
     const DRIVE = 'drive';
     const GET_IMAGE_DRIVE = 'get-images-drive';
+    const GET_POSITION = 'get-position';
 
     return {
         URL_BASE: URL_BASE.BASE,
@@ -79,5 +80,6 @@ export const SERVER = (function () {
         COUNT_PROJECTS_BY_CREATOR: `${URL_BASE.BASE}/${PROJECT}/${COUNT_PROJECTS_BY_CREATOR}`,
         UPDATE_USER_INFORMATION: `${URL_BASE.BASE}/${USER}/${UPDATE}`,
         GET_IMAGE_DRIVE: `${URL_BASE.BASE}/${DRIVE}/${GET_IMAGE_DRIVE}`,
+        GET_INITIAL_MAP_VIEW: `${URL_BASE.BASE}/${USER}/${GET_POSITION}`,
     }
 })();
