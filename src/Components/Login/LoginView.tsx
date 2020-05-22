@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
     .min(5)
     .required()
 });
-export default ({replaceAppUser}: {replaceAppUser: Function}) => {
+export default ({replaceAppUser, saveUserInformation}: {replaceAppUser: Function, saveUserInformation: Function}) => {
   const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState({message: '', color: '#28C499'});
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
@@ -40,6 +40,7 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
           localStorage.setItem('mfx-token', res.token);
           await datasets.getData(SERVER.ME, datasets.getToken()).then(result => {
             replaceAppUser(result);
+            saveUserInformation(result)
           });
           setRedirect(true);
         } else {
@@ -53,7 +54,7 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
   });
 
   if(redirect) {
-    return <Redirect to="/profile-view" />
+    return <Redirect to="/map" />
   }
 
   return <Layout style={{ background: '#fff' }}>

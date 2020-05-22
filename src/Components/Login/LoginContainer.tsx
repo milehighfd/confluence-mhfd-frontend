@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 
-import LoginView from './LoginView';
-import { replaceAppUser } from '../../store/actions/appUser';
 import { User } from '../../Classes/TypeList';
+import LoginView from './LoginView';
+
+import { replaceAppUser } from '../../store/actions/appUser';
+import { saveUserInformation } from '../../store/actions/ProfileActions';
 
 const mapStateToProps = (state: any): any => {
   return {
@@ -15,6 +17,9 @@ const mapDispatchToProps = (dispatch: Function): any => {
   return {
     replaceAppUser(appUser: User) {
       dispatch(replaceAppUser(appUser))
+    },
+    saveUserInformation(user: User) {
+      dispatch(saveUserInformation(user))
     }
   };
 };
