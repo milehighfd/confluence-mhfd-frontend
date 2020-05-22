@@ -27,7 +27,7 @@ export default () => {
         </ul>
       </div>
     </div>
-    <Carousel autoplay autoplaySpeed={10000}>
+    <Carousel autoplay autoplaySpeed={6000}>
       {images.map((image: { image: string, name: string }, index: number) => {
         return <div key={index}>
           <img src={image.image} className={"img-banner"} alt="" />
