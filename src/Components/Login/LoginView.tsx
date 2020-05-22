@@ -32,16 +32,16 @@ export default ({replaceAppUser}: {replaceAppUser: Function}) => {
     },
     validationSchema,
     onSubmit(values: {email: string, password: string, recaptcha: string}) {
-      datasets.postData(SERVER.LOGIN, values).then(res => {
+      datasets.postData(SERVER.LOGIN, values).then(async res => {
         if(res?.token) {
           const auxMessage = {...message};
           auxMessage.message = 'Successful Connection';
           setMessage(auxMessage);
           localStorage.setItem('mfx-token', res.token);
-          setRedirect(true);
-          datasets.getData(SERVER.ME, datasets.getToken()).then(result => {
+          await datasets.getData(SERVER.ME, datasets.getToken()).then(result => {
             replaceAppUser(result);
           });
+          setRedirect(true);
         } else {
           const auxMessage = {...message};
           auxMessage.message = 'Could not connect, check your email and password';

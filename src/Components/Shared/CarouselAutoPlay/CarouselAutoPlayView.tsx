@@ -1,8 +1,9 @@
 import React from "react";
 import { Col, Carousel } from "antd";
-// import store from "../../../store";
+import store from "../../../store";
+
 export default () => {
-  // const images = store.getState().carouselImages.images;
+  const images = store.getState().carouselImages.images;
   return <Col span={13}>
     <a href="https://mhfd.org/" target="_blank">
       <div className="logo-white"
@@ -26,7 +27,7 @@ export default () => {
         </ul>
       </div>
     </div>
-    {/* <Carousel autoplay>
+    <Carousel autoplay autoplaySpeed={10000}>
       {images.map((image: { image: string, name: string }, index: number) => {
         return <div key={index}>
           <img src={image.image} className={"img-banner"} alt="" />
@@ -36,8 +37,8 @@ export default () => {
           </div>
         </div>
       })}
-    </Carousel> */}
-    <Carousel autoplay autoplaySpeed={10000}>
+    </Carousel>
+    {/* <Carousel autoplay autoplaySpeed={10000}>
       <div>
         <img src="/Icons/banner/low.jpg" className={"img-banner"} alt="" />
         <div className="textContent">
@@ -73,6 +74,6 @@ export default () => {
           <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
         </div>
       </div>
-    </Carousel>
+    </Carousel> */}
   </Col>
 }

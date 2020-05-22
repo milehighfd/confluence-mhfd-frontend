@@ -32,9 +32,9 @@ import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttac
 function App({ replaceAppUser, getUserInformation, getCarouselImages } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function }) {
   const [ loading, setLoading ] = useState(true);
   const appUser = store.getState().appUser;
-  // useEffect(() => {
-  //   getCarouselImages();
-  // }, [getCarouselImages]);
+  useEffect(() => {
+    getCarouselImages();
+  }, [getCarouselImages]);
   useEffect(() => {
     if(datasets.getToken() && appUser.email === '') {
       datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
