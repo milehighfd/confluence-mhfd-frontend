@@ -318,9 +318,15 @@ export const tileStyles = {
     paint: {
         'fill-color': '#F29580',
         'fill-opacity': 0.35,
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
         'line-color': '#F2395C',
-        'line-width': 2,
-        'solid': true
+        'line-width': 2
     }
   }], 
   [STREAMS_FILTERS]: [{
@@ -338,7 +344,13 @@ export const tileStyles = {
     layout: {},
     paint: {
         'fill-color': '#B30415',
-        'fill-opacity': 0.35,
+        'fill-opacity': 0.35
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
         'line-color': '#B30415',
         'line-width': 5
     }
@@ -353,6 +365,14 @@ export const tileStyles = {
         'line-color': '#9B30FF',
         'line-width': 5
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#9B30FF',
+        'line-width': 5
+    }
   }], 
   [COUNTIES_FILTERS]: [{
     type: 'fill',
@@ -360,7 +380,13 @@ export const tileStyles = {
     layout: {},
     paint: {
         'fill-color': '#AB9400',
-        'fill-opacity': 0.35,
+        'fill-opacity': 0.35
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
         'line-color': '#AB9400',
         'line-width': 5
     }
@@ -370,8 +396,17 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#ffe082',
-        'fill-opacity': 0.4
+        'fill-color': '#FFCD19',
+        'fill-opacity': 0.4,
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#FFCD19',
+        'line-width': 8
     }
   }], 
   [PROBLEMS_TRIGGER]: [{}], 
