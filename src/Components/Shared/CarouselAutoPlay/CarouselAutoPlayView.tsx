@@ -13,17 +13,17 @@ export default () => {
     </a>
     <div className="contact01">
       <div className="icons-list">
-        <a href="/login" ><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
-        <a href="/login" ><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
-        <a href="/login" ><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
+        <a href="https://twitter.com/MHFloodDistrict" target="_blank"><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
+        <a href="https://www.facebook.com/MileHighFloodDistrict/" target="_blank"><img className="anticon" src="/Icons/facebook.svg" alt="" height="14px" /></a>
+        <a href="https://www.linkedin.com/company/milehighflooddistrict/" target="_blank"><img className="anticon" src="/Icons/link.svg" alt="" height="14px" /></a>
       </div>
       <div className="social01">
         <ul>
-          <li><a href="/login" >Contact</a></li>
+          <li><a href="https://mhfd.org/contact-us/" target="_blank">Contact</a></li>
           <span>|</span>
           <li><a href="/login" >©2020 Mile High Flood District</a></li>
           <span>|</span>
-          <li><a href="/login" >Privacy Policy</a></li>
+          <li><a href="https://mhfd.org/wp-content/uploads/2019/12/CORA_Policy_Website.pdf" target="_blank">Privacy Policy</a></li>
         </ul>
       </div>
     </div>
