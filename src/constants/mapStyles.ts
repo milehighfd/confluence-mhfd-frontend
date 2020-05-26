@@ -298,8 +298,8 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#e1f5fe',
-        'fill-opacity': 0.4
+        'fill-color': '#829FD9',
+        'fill-opacity': 0.5
     }
   }],
   [FLOODPLAINS_NON_FEMA_FILTERS]: [{
@@ -307,8 +307,8 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#e0f2f1',
-        'fill-opacity': 0.4
+        'fill-color': '#5C73F2',
+        'fill-opacity': 0.5
     }
   }], 
   [WATERSHED_FILTERS]: [{
@@ -316,8 +316,11 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#4dd0e1',
-        'fill-opacity': 0.4
+        'fill-color': '#F29580',
+        'fill-opacity': 0.35,
+        'line-color': '#F2395C',
+        'line-width': 2,
+        'solid': true
     }
   }], 
   [STREAMS_FILTERS]: [{
@@ -325,8 +328,8 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#a5d6a7',
-        'line-width': 1
+        'line-color': '#3E38F2',
+        'line-width': 3
     }
   }], 
   [SERVICE_AREA_FILTERS]: [{
@@ -334,8 +337,10 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#c5e1a5',
-        'fill-opacity': 0.4
+        'fill-color': '#B30415',
+        'fill-opacity': 0.35,
+        'line-color': '#B30415',
+        'line-width': 5
     }
   }], 
   [MUNICIPALITIES_FILTERS]: [{
@@ -343,8 +348,10 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#e6ee9c',
-        'fill-opacity': 0.4
+        'fill-color': '#9B30FF',
+        'fill-opacity': 0.35,
+        'line-color': '#9B30FF',
+        'line-width': 5
     }
   }], 
   [COUNTIES_FILTERS]: [{
@@ -352,8 +359,10 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#fff59d',
-        'fill-opacity': 0.4
+        'fill-color': '#AB9400',
+        'fill-opacity': 0.35,
+        'line-color': '#AB9400',
+        'line-width': 5
     }
   }],
   [MHFD_BOUNDARY_FILTERS]: [{
