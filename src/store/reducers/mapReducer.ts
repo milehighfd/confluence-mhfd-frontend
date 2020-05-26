@@ -188,8 +188,8 @@ const initState = {
         }
     ],
     layers: {} as any,
-    longitude: -104.9063129121965,
-    latitude: 39.768682416183
+    longitude: 0,
+    latitude: 0
 }
 
 const mapReducer = (state = initState, action : any) => {

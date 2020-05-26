@@ -10,7 +10,7 @@ import { getReverseGeocode,
         clearErrorMessage,
         setRouteRedirect,
         getMapTables,
-        getPolygonStreams } from '../store/actions/mapActions';
+        getPolygonStreams, getInitialMapView } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
 
@@ -28,7 +28,9 @@ const mapStateToProps = (state: any) => {
         userFiltered: state.filter.userFiltered,
         layerFilters: state.map.layers,
         error: state.map.error,
-        redirect: state.map.redirect
+        redirect: state.map.redirect,
+        latitude: state.map.latitude,
+        longitude: state.map.longitude
     };
 };
 
@@ -50,7 +52,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         getPolygonStreams,
         saveDraftCard,
         getUserProjects,
-        sortProjects
+        sortProjects,
+        getInitialMapView
     }, dispatch)
 });
   

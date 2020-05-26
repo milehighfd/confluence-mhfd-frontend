@@ -38,10 +38,10 @@ export default ({replaceAppUser, saveUserInformation, getInitialMapView }: {repl
           auxMessage.message = 'Successful Connection';
           setMessage(auxMessage);
           localStorage.setItem('mfx-token', res.token);
-          await datasets.getData(SERVER.ME, datasets.getToken()).then(result => {
+          await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
             replaceAppUser(result);
             saveUserInformation(result)
-            getInitialMapView();
+            await getInitialMapView();
           });
           setRedirect(true);
         } else {

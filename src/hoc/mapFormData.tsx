@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Map from '../Components/Map/Map';
 import NavbarView from "../Components/Shared/Navbar/NavbarView";
 import SidebarView from "../Components/Shared/Sidebar/SidebarView";
+import LoadingView from '../Components/Loading/LoadingView';
 
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION } from "../constants/constants";
 import { Redirect } from "react-router-dom";
@@ -29,6 +30,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               redirect,
               setRouteRedirect,
               error,
+              latitude,
+              longitude,
               clearErrorMessage,
               getProjectWithFilters,
               removeFilter,
@@ -36,8 +39,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               getDropdownFilters,
               getUserFilters,
               getPolygonStreams,
-              saveDraftCard, getUserProjects, sortProjects } : MapHOCProps) => {
-
+              saveDraftCard, getUserProjects, sortProjects, getInitialMapView } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -87,6 +89,9 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
           setRouteRedirect(false);
           return <Redirect to='/map' />
         }
+        useEffect (() => {
+          getInitialMapView();
+        })
 
         return (
             <Layout>
@@ -94,7 +99,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             <Layout>
               <SidebarView></SidebarView>
               <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
-                <Row>
+                {!longitude && !latitude && <LoadingView />}
+                { longitude && latitude &&  <Row>
                     <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={leftWidth}>
                         <Map
                             leftWidth={leftWidth}
@@ -103,6 +109,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             projects={formatedProjects}
                             components={components}
                             layerFilters={layerFilters}
+                            latitude={latitude}
+                            longitude={longitude}
                             setSelectedItems={setSelectedItems}
                             selectedItems={selectedItems}
                             setIsPolygon={setIsPolygon}
@@ -112,7 +120,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getMapTables={getMapTables}
                             markerRef={markerRef}
                             polygonRef={polygonRef}
-                            getPolygonStreams={getPolygonStreams} />
+                            getPolygonStreams={getPolygonStreams}/>
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
@@ -142,7 +150,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getUserProjects={getUserProjects}
                             sortProjects={sortProjects} />
                     </Col>
-                </Row>
+                </Row>}
               </Layout>
             </Layout>
           </Layout>

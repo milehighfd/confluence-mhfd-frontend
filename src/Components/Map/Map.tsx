@@ -23,7 +23,6 @@ import { MAP_DROPDOWN_ITEMS,
 import { Feature, Properties, Point } from '@turf/turf';
 import { localComponents, polygonFill, polygonStroke, tileStyles } from '../../constants/mapStyles';
 import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
-import store from '../../store';
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
@@ -42,6 +41,8 @@ const Map = ({ leftWidth,
             problems,
             projects,
             components,
+            latitude,
+            longitude,
             layerFilters,
             setSelectedItems,
             selectedItems,
@@ -59,7 +60,6 @@ const Map = ({ leftWidth,
     const [selectedLayers, setSelectedLayers] = useState<Array<LayersType>>([]);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
-
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
@@ -67,7 +67,7 @@ const Map = ({ leftWidth,
             dragRotate: false,
             touchZoomRotate: false,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
-            center: [ store.getState().map.longitude, store.getState().map.latitude],
+            center: [ longitude, latitude],
             zoom: 10.8
         });
 

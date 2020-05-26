@@ -9,7 +9,7 @@ import { VALIDATION_USER_PROFILE } from "../../../constants/validation";
 import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT } from "../../../constants/constants";
 
 
-export default ({ user, updateUserInformation }: { user: User, updateUserInformation: Function }) => {
+export default ({ user, updateUserInformation, getInitialMapView }: { user: User, updateUserInformation: Function, getInitialMapView: Function }) => {
   const initialValues ={...user};
   const [organization, setOrganization] = useState<Array<string>>([]);
   const [title, setTitle] = useState('');
@@ -42,8 +42,9 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit(values: User) {
-      updateUserInformation(values);
+    async onSubmit(values: User) {
+      await updateUserInformation(values);
+      await getInitialMapView()
       handleCancel();
     }
   });

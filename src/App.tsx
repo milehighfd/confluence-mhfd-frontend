@@ -37,10 +37,10 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, getInitial
   }, [getCarouselImages]);
   useEffect(() => {
     if(datasets.getToken() && appUser.email === '') {
-      datasets.getData(SERVER.ME, datasets.getToken()).then(async res => {
+      datasets.getData(SERVER.ME, datasets.getToken()).then( async res => {
           if (res?._id) {
-            await replaceAppUser(res);
-            await getUserInformation();
+            replaceAppUser(res);
+            getUserInformation();
             await getInitialMapView();
           }
           setLoading(false);
