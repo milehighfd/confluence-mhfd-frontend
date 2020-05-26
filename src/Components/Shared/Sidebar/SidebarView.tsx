@@ -3,7 +3,7 @@ import { Layout, Menu } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "../../../constants/constants";
-const {  Sider } = Layout;
+const { Sider } = Layout;
 
 export default () => {
   const [collapsed, setCollapsed] = useState<boolean>(true);
@@ -21,13 +21,13 @@ export default () => {
         </Link>
       </Menu.Item>
       {appUser.activated ?
-      <Menu.Item key="1">
-        <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="18px" />
-          <span>Map View</span>
-        </Link>
-      </Menu.Item> : ''}
+        <Menu.Item key="1">
+          <Link to={'/map'}>
+            <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="18px" />
+            <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="18px" />
+            <span>Map View</span>
+          </Link>
+        </Menu.Item> : ''}
       {/* {(appUser.designation === 'admin' ||
         appUser.designation === 'staff'||
         appUser.designation === 'government_admin' ||
@@ -57,22 +57,24 @@ export default () => {
           <span>Work Plan</span>
         </Link>
       </Menu.Item>: ''} */}
-      {/* <Menu.Item key="6">
-        <Link to={'/upload-attachment'}>
-          <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="18px" />
-          <span>Uploader</span>
-        </Link>
-      </Menu.Item>*/}
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && appUser.activated ?
-      <Menu.Item key="5">
-        <Link to={'/user'}>
-          <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="18px" />
-          <span>Settings</span>
-        </Link>
-      </Menu.Item>: ''}
+        <Menu.Item key="6">
+          <Link to={'/upload-attachment'}>
+            <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="18px" />
+            <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="18px" />
+            <span>Uploader</span>
+          </Link>
+        </Menu.Item> : ''}
+      {(appUser.designation === 'admin' ||
+        appUser.designation === 'staff') && appUser.activated ?
+        <Menu.Item key="5">
+          <Link to={'/user'}>
+            <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="18px" />
+            <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="18px" />
+            <span>Settings</span>
+          </Link>
+        </Menu.Item> : ''}
     </Menu>
   </Sider>
 };

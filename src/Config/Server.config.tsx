@@ -43,6 +43,7 @@ export const SERVER = (function () {
     const DRIVE = 'drive';
     const GET_IMAGE_DRIVE = 'get-images-drive';
     const GET_POSITION = 'get-position';
+    const GET_FILES = 'get-files';
 
     return {
         URL_BASE: URL_BASE.BASE,
@@ -81,5 +82,6 @@ export const SERVER = (function () {
         UPDATE_USER_INFORMATION: `${URL_BASE.BASE}/${USER}/${UPDATE}`,
         GET_IMAGE_DRIVE: `${URL_BASE.BASE}/${DRIVE}/${GET_IMAGE_DRIVE}`,
         GET_INITIAL_MAP_VIEW: `${URL_BASE.BASE}/${USER}/${GET_POSITION}`,
+        GET_ALL_ATTACHMENTS: `${URL_BASE.BASE}/${ATTACHMENT}/${GET_FILES}`,
     }
 })();

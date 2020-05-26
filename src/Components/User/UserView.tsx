@@ -24,8 +24,8 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
   });
 }
 
-export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity, getAllUserActivity } : 
-  { saveUserActivated: Function, saveUserPending: Function, userActivity: UserActivities, getUserActivity: Function, getAllUserActivity: Function }) => {
+export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity, getAllUserActivity, getUserInformation, user } : 
+  { saveUserActivated: Function, saveUserPending: Function, userActivity: UserActivities, getUserActivity: Function, getAllUserActivity: Function, getUserInformation: Function, user: User }) => {
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);

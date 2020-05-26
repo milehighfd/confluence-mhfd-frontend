@@ -9,6 +9,7 @@ import mapReducer from './mapReducer';
 import filterReducer from './filterReducer';
 import panelReducer from './panelReducer';
 import carouselImages from './carouselImagesReducer';
+import uploadAttachment from './uploadAttachmentReducer';
 
 export default (history: any) => combineReducers({
   router: connectRouter(history),
@@ -19,5 +20,6 @@ export default (history: any) => combineReducers({
   debris,
   users,
   profile,
-  carouselImages
+  carouselImages,
+  uploadAttachment
 });

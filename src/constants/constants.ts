@@ -28,7 +28,8 @@ export const MAP_DROPDOWN_ITEMS = [
 ];
 
 export const DENVER_LOCATION = {
-  center: [-105.04, 39.805] as any,
+  // center: [-105.04, 39.805] as any,
+  center: [-104.631476450172, 39.6965235213535] as any,
   zoom: 10.8
 };
 
@@ -741,7 +742,7 @@ export const ROLE = [
   'admin', 'staff', 'government_admin', 'government_staff', 'consultant', 'other'
 ];
 export const ROUTERS_SIDEBAR = [
-  '/profile-view', '/map', '/new-project-types', '/work-request', '/work-plan', '/user'
+  '/profile-view', '/map', '/new-project-types', '/work-request', '/work-plan', '/user', '/upload-attachment'
 ];
 export const ROUTERS = {
   PROFILE_VIEW:'profile-view',
