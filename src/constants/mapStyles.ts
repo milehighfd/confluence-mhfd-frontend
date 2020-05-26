@@ -259,8 +259,16 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#4caf50',
-        'fill-opacity': 0.4
+        'fill-color': '#D9CEBA',
+        'fill-opacity': 0.35
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#D9CEBA',
+        'line-width': 2
     }
   }],
   [ROUTINE_WEED_CONTROL]: [{
@@ -268,8 +276,16 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#66bb6a',
-        'fill-opacity': 0.4
+        'fill-color': '#A69B86',
+        'fill-opacity': 0.35
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-color': '#A69B86',
+      'line-width': 2
     }
   }],
   [ROUTINE_DEBRIS_AREA]: [{
@@ -277,8 +293,16 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#81c784',
-        'fill-opacity': 0.4
+        'fill-color': '#BEBDBF',
+        'fill-opacity': 0.35
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-color': '#BEBDBF',
+      'line-width': 2
     }
   }],
   [ROUTINE_DEBRIS_LINEAR]: [{
@@ -286,8 +310,8 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#a5d6a7',
-        'line-width': 1
+        'line-color': '#BEBDBF',
+        'line-width': 2
     }
   }]
 }
