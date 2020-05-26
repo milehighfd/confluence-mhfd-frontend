@@ -21,7 +21,7 @@ export const uploadFile = (files: Array<any>, url: string) => {
       }
     }
     datasets.postDataMultipart(SERVER.UPLOAD_FILE, dataForm, datasets.getToken()).then(result => {
-      if (result?.message === 'ok') {
+      if (result?.message === 'upload files') {
         dispatch(getAllAttachment(url));
       }
     });
