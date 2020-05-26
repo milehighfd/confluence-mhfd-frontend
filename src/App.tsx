@@ -29,7 +29,7 @@ import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 
-function App({ replaceAppUser, getUserInformation, getCarouselImages } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function }) {
+function App({ replaceAppUser, getUserInformation, getCarouselImages, getInitialMapView } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, getInitialMapView: Function }) {
   const [ loading, setLoading ] = useState(true);
   const appUser = store.getState().appUser;
   useEffect(() => {
@@ -37,10 +37,11 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages } : { repla
   }, [getCarouselImages]);
   useEffect(() => {
     if(datasets.getToken() && appUser.email === '') {
-      datasets.getData(SERVER.ME, datasets.getToken()).then(res => {
+      datasets.getData(SERVER.ME, datasets.getToken()).then(async res => {
           if (res?._id) {
-            replaceAppUser(res);
-            getUserInformation();
+            await replaceAppUser(res);
+            await getUserInformation();
+            await getInitialMapView();
           }
           setLoading(false);
       });
@@ -61,6 +62,8 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages } : { repla
       {appUser.activated && <Route path={`/map/:projectId?`} component={MapView} />}
       {(appUser.designation === 'admin' || 
         appUser.designation === 'staff') && appUser.activated && <Route path={`/user`} component={UserContainer} />}
+      {(appUser.designation === 'admin' || 
+        appUser.designation === 'staff') && appUser.activated && <Route path={`/upload-attachment`} component={UserContainer} />}
       {(appUser.designation === 'admin' || 
         appUser.designation === 'staff'|| 
         appUser.designation === 'government_admin' || 

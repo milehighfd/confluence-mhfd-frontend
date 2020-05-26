@@ -23,6 +23,7 @@ import { MAP_DROPDOWN_ITEMS,
 import { Feature, Properties, Point } from '@turf/turf';
 import { localComponents, polygonFill, polygonStroke, tileStyles } from '../../constants/mapStyles';
 import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
+import store from '../../store';
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
@@ -66,7 +67,8 @@ const Map = ({ leftWidth,
             dragRotate: false,
             touchZoomRotate: false,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
-            ...DENVER_LOCATION
+            center: [ store.getState().map.longitude, store.getState().map.latitude],
+            zoom: 10.8
         });
 
         const nav = new mapboxgl.NavigationControl({ showCompass: false });

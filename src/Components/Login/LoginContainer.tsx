@@ -5,6 +5,7 @@ import LoginView from './LoginView';
 
 import { replaceAppUser } from '../../store/actions/appUser';
 import { saveUserInformation } from '../../store/actions/ProfileActions';
+import { getInitialMapView } from '../../store/actions/mapActions';
 
 const mapStateToProps = (state: any): any => {
   return {
@@ -20,6 +21,9 @@ const mapDispatchToProps = (dispatch: Function): any => {
     },
     saveUserInformation(user: User) {
       dispatch(saveUserInformation(user))
+    },
+    getInitialMapView() {
+      dispatch(getInitialMapView())
     }
   };
 };

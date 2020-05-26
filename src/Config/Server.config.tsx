@@ -44,7 +44,7 @@ export const SERVER = (function () {
     const GET_IMAGE_DRIVE = 'get-images-drive';
     const GET_POSITION = 'get-position';
     const GET_FILES = 'get-files';
-
+    const REMOVE = 'remove'
     return {
         URL_BASE: URL_BASE.BASE,
         SHARE_MAP_PROJECT: `${BASE_URL}/${MAP}`,
@@ -83,5 +83,6 @@ export const SERVER = (function () {
         GET_IMAGE_DRIVE: `${URL_BASE.BASE}/${DRIVE}/${GET_IMAGE_DRIVE}`,
         GET_INITIAL_MAP_VIEW: `${URL_BASE.BASE}/${USER}/${GET_POSITION}`,
         GET_ALL_ATTACHMENTS: `${URL_BASE.BASE}/${ATTACHMENT}/${GET_FILES}`,
+        DELETE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${REMOVE}`
     }
 })();

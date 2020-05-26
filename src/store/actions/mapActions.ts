@@ -164,7 +164,7 @@ export const getPolygonStreams = (coordinates : Array<Array<number>>) => {
 export const getInitialMapView = () => {
     return (dispatch : Function) => {
         datasets.getData(SERVER.GET_INITIAL_MAP_VIEW, datasets.getToken()).then(res => {
-            
+            console.log(res);
         });
     }
 }

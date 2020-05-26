@@ -188,7 +188,8 @@ const initState = {
         }
     ],
     layers: {} as any,
-    initialMapView: {}
+    longitude: -104.9063129121965,
+    latitude: 39.768682416183
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -278,7 +279,8 @@ const mapReducer = (state = initState, action : any) => {
         case types.GET_INITIAL_MAP_VIEW: {
             return {
                 ...state,
-                initialMapView: action.initialMap
+                longitude: action.map.longitude,
+                latitude: action.map.latitude
             }
         }
         default: 

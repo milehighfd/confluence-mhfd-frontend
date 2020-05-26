@@ -27,3 +27,14 @@ export const uploadFile = (files: Array<any>, url: string) => {
     });
   }
 }
+
+
+export const removeAttachment = (id: string, url: string) => {
+  return (dispatch: Function) => {
+    datasets.deleteData(SERVER.DELETE_ATTACHMENT + '/' + id, datasets.getToken()).then(res => {
+      if (res?.message) {
+        dispatch(getAllAttachment(url));
+      }
+    });
+  }
+}

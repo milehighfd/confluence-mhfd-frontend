@@ -28,8 +28,7 @@ export const MAP_DROPDOWN_ITEMS = [
 ];
 
 export const DENVER_LOCATION = {
-  // center: [-105.04, 39.805] as any,
-  center: [-104.631476450172, 39.6965235213535] as any,
+  center: [-104.9063129121965, 39.768682416183],
   zoom: 10.8
 };
 

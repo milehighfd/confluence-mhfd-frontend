@@ -6,7 +6,7 @@ import SidebarView from '../Shared/Sidebar/SidebarView';
 import moment from 'moment';
 
 
-export default ({ attachments, uploadFile, getAllAttachment }: { attachments: any, uploadFile: Function, getAllAttachment: Function }) => {
+export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }: { attachments: any, uploadFile: Function, getAllAttachment: Function, removeAttachment: Function }) => {
   const { Content } = Layout;
   const { Dragger } = Upload;
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
@@ -44,10 +44,13 @@ export default ({ attachments, uploadFile, getAllAttachment }: { attachments: an
     {
       title: '',
       dataIndex: '_id',
-      render: (_id: string) => <Button><img alt="example" src="/Icons/icon-16.svg"/></Button>
+      render: (_id: string) => <Button onClick={() => remove(_id)}><img alt="example" src="/Icons/icon-16.svg"/></Button>
     },
   ];
 
+  const remove = (_id: string) => {
+    removeAttachment(_id, getUrlOptionsUserActivity({ current: 1, pageSize: 10 }, {}))
+  }
   const [mainImage, setMainImage] = useState([]);
   const onSubmit = async () => {
     await uploadFile(mainImage, getUrlOptionsUserActivity({ current: 1, pageSize: 10 }, {}));
