@@ -63,11 +63,11 @@ export default () => {
               {/*<label style={(values.password) ? {top: "-20px"}:{top: "10px"}}>New Password</label>*/}
             </div>
             <div className="group">
-              <input type="password" name="passwordConfirm" onChange={handleChange}
+              <input placeholder="Confirm New Password" type="password" name="passwordConfirm" onChange={handleChange}
                style={(errors.passwordConfirm && touched.passwordConfirm) ? {border: "solid red 1px", paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
               <span className="highlight"></span>
               <span className="bar"></span>
-              <label style={(values.passwordConfirm) ? {top: "-20px"}:{top: "10px"}}>Confirm New Password</label>
+              {/* <label style={(values.passwordConfirm) ? {top: "-20px"}:{top: "10px"}}>Confirm New Password</label>*/}
             </div>
             <div><br/>
               {/* <ErrorMessage name="passwordConfirm" /> */}

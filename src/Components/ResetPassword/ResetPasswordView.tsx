@@ -79,7 +79,7 @@ export default () => {
                 }}
               />
               <div style={{height: '35px'}}>
-                <span style={{color: message.color}}>&nbsp;&nbsp; {message.message}</span>
+                <span style={{color: message.color}}>{message.message}</span>
               </div>
               <Form.Item>
                 <Button className="buttonLogin" block htmlType="submit">
