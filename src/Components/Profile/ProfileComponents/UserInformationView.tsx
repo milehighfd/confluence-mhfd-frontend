@@ -24,7 +24,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
   }
   const typeProjects = PROJECT_TYPES_AND_NAME;
   return <> <Col span={12} className="profile-info">
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', minWidth: '135px', width: '135px', height: '120px' }}>
       <Spin spinning={spinImage} delay={500}>
         {user.photo ? <img className="profile-img" src={user.photo} alt="" /> :
         <img className="profile-img" src="/Icons/icon-28.svg" alt="" />}
