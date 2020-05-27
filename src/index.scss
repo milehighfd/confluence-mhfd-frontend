@@ -3682,7 +3682,27 @@ body{
       background: $green;
       border-color: $green;
     }
+    .ant-table-thead > tr > th {
+      background: transparent;
+      border-bottom: none;
+      padding: 0px 16px;
+      color: rgba(17, 9, 60, 0.5);
+      line-height: 10px;
+    }
+    .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-up.on,
+    .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-down.on {
+      color: #251863;
+    }
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover {
+      background: transparent;
+    }
+    .ant-table-placeholder {
+      border-radius: 0px;
+    }
   }
+}
+.ant-table-thead > tr > th .ant-table-header-column .ant-table-column-sorters:hover::before {
+    background: rgba(0, 0, 0, 0.0) !important;
 }
 // RESPONSIVE
 // MEDIA QUERIES

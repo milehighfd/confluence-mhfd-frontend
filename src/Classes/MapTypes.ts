@@ -6,8 +6,6 @@ export type MapProps = {
     components: Array<ComponentType>,
     layerFilters: LayerFilterTypes,
     setSelectedItems: Function,
-    latitude: number,
-    longitude: number,
     selectedItems: Array<ComponentType>,
     setIsPolygon: Function,
     getReverseGeocode: Function,
@@ -49,8 +47,7 @@ export type MapHOCProps = {
     getPolygonStreams: Function,
     saveDraftCard: Function,
     getUserProjects: Function,
-    sortProjects: Function,
-    getInitialMapView: Function
+    sortProjects: Function
 }
 
 export type MapViewTypes = { 

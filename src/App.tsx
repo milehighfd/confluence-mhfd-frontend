@@ -29,7 +29,7 @@ import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 
-function App({ replaceAppUser, getUserInformation, getCarouselImages, getInitialMapView } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, getInitialMapView: Function }) {
+function App({ replaceAppUser, getUserInformation, getCarouselImages } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function }) {
   const [ loading, setLoading ] = useState(true);
   const appUser = store.getState().appUser;
   useEffect(() => {
@@ -41,7 +41,6 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, getInitial
           if (res?._id) {
             replaceAppUser(res);
             getUserInformation();
-            await getInitialMapView();
           }
           setLoading(false);
       });

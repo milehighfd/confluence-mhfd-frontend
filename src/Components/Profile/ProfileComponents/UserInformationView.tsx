@@ -5,7 +5,7 @@ import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 import ModalEditUserView from './ModalEditUserView';
 
 
-export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, getInitialMapView }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function, updateUserInformation : Function, getInitialMapView: Function }) => {
+export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function, updateUserInformation : Function}) => {
 
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
@@ -24,7 +24,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
   }
   const typeProjects = PROJECT_TYPES_AND_NAME;
   return <> <Col span={12} className="profile-info">
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', minWidth: '135px', width: '135px', height: '120px' }}>
       <Spin spinning={spinImage} delay={500}>
         {user.photo ? <img className="profile-img" src={user.photo} alt="" /> :
         <img className="profile-img" src="/Icons/icon-28.svg" alt="" />}
@@ -84,7 +84,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
           </span>
         })}
       </div>
-      <ModalEditUserView getInitialMapView={getInitialMapView} updateUserInformation={updateUserInformation} user={user} />
+      <ModalEditUserView updateUserInformation={updateUserInformation} user={user} />
     </Col>
   </>
 }

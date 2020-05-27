@@ -86,106 +86,106 @@ const initState = {
         special: [],
     },
     components: [
-        {
-            componentId: '0905389549',
-            componentName: 'Grey River',
-            jurisdiction: 'Westminster',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Pedestrian Trail Restoration',
-            coordinates: [-105.05122872371193, 39.80646143706309]
-        },
-        {
-            componentId: '2768996948',
-            componentName: 'Bulls Town',
-            jurisdiction: 'Longway',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Pedestrian Trail Restoration',
-            coordinates: [-105.01923195503527, 39.82544787234704]
-        },
-        {
-            componentId: '7633852592',
-            componentName: 'Juarez Raven',
-            jurisdiction: 'Juarez',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Pedestrian Trail Restoration',
-            coordinates: [-105.01428824828696, 39.80793834790717]
-        },
-        {
-            componentId: '6359756738',
-            componentName: 'New Town',
-            jurisdiction: 'Westminster',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Pedestrian Trail Restoration',
-            coordinates: [-105.01047599435583, 39.8038520952569]
-        },
-        {
-            componentId: '4307207870',
-            componentName: 'La Vela',
-            jurisdiction: 'Riverdale',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Pedestrian Trail Restoration',
-            coordinates: [-105.0076262517371, 39.800932966936955]
-        },
-        {
-            componentId: '7760439066',
-            componentName: 'Washington Problem',
-            jurisdiction: 'Westminster',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Pedestrian Trail Restoration',
-            coordinates: [-105.01131479817568, 39.800875134035095]
-        },
-        {
-            componentId: '7307580223',
-            componentName: 'Aurora River',
-            jurisdiction: 'Westminster',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Pedestrian Trail Restoration',
-            coordinates: [-104.99181142130422, 39.85783623146801]
-        },
-        {
-            componentId: '5052707408',
-            componentName: 'New Fork Creek',
-            jurisdiction: 'Westminster',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Whitewater Section',
-            coordinates: [-104.98016051889145, 39.85096161845925]
-        },
-        {
-            componentId: '5341072622',
-            componentName: 'Poplar Branch',
-            jurisdiction: 'Boulder',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Channel Restoration',
-            coordinates: [-104.96092795632697, 39.87449627602601]
-        },
-        {
-            componentId: '1082247547',
-            componentName: 'Animas River',
-            jurisdiction: 'Longmont',
-            howCost: 1570000,
-            status: 'Active',
-            mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
-            studyName: 'Combination Bridge',
-            coordinates: [-104.99997101031218, 39.84543449508365]
-        }
+        // {
+        //     componentId: '0905389549',
+        //     componentName: 'Grey River',
+        //     jurisdiction: 'Westminster',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Pedestrian Trail Restoration',
+        //     coordinates: [-105.05122872371193, 39.80646143706309]
+        // },
+        // {
+        //     componentId: '2768996948',
+        //     componentName: 'Bulls Town',
+        //     jurisdiction: 'Longway',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Pedestrian Trail Restoration',
+        //     coordinates: [-105.01923195503527, 39.82544787234704]
+        // },
+        // {
+        //     componentId: '7633852592',
+        //     componentName: 'Juarez Raven',
+        //     jurisdiction: 'Juarez',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Pedestrian Trail Restoration',
+        //     coordinates: [-105.01428824828696, 39.80793834790717]
+        // },
+        // {
+        //     componentId: '6359756738',
+        //     componentName: 'New Town',
+        //     jurisdiction: 'Westminster',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Pedestrian Trail Restoration',
+        //     coordinates: [-105.01047599435583, 39.8038520952569]
+        // },
+        // {
+        //     componentId: '4307207870',
+        //     componentName: 'La Vela',
+        //     jurisdiction: 'Riverdale',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Pedestrian Trail Restoration',
+        //     coordinates: [-105.0076262517371, 39.800932966936955]
+        // },
+        // {
+        //     componentId: '7760439066',
+        //     componentName: 'Washington Problem',
+        //     jurisdiction: 'Westminster',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Pedestrian Trail Restoration',
+        //     coordinates: [-105.01131479817568, 39.800875134035095]
+        // },
+        // {
+        //     componentId: '7307580223',
+        //     componentName: 'Aurora River',
+        //     jurisdiction: 'Westminster',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Pedestrian Trail Restoration',
+        //     coordinates: [-104.99181142130422, 39.85783623146801]
+        // },
+        // {
+        //     componentId: '5052707408',
+        //     componentName: 'New Fork Creek',
+        //     jurisdiction: 'Westminster',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Whitewater Section',
+        //     coordinates: [-104.98016051889145, 39.85096161845925]
+        // },
+        // {
+        //     componentId: '5341072622',
+        //     componentName: 'Poplar Branch',
+        //     jurisdiction: 'Boulder',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Channel Restoration',
+        //     coordinates: [-104.96092795632697, 39.87449627602601]
+        // },
+        // {
+        //     componentId: '1082247547',
+        //     componentName: 'Animas River',
+        //     jurisdiction: 'Longmont',
+        //     howCost: 1570000,
+        //     status: 'Active',
+        //     mitigationType: 'Remove sediment and restore channel to natural condition while improving conveyance.',
+        //     studyName: 'Combination Bridge',
+        //     coordinates: [-104.99997101031218, 39.84543449508365]
+        // }
     ],
     layers: {} as any,
     longitude: 0,

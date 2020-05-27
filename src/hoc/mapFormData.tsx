@@ -39,7 +39,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               getDropdownFilters,
               getUserFilters,
               getPolygonStreams,
-              saveDraftCard, getUserProjects, sortProjects, getInitialMapView } : MapHOCProps) => {
+              saveDraftCard, getUserProjects, sortProjects} : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -89,9 +89,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
           setRouteRedirect(false);
           return <Redirect to='/map' />
         }
-        useEffect (() => {
-          getInitialMapView();
-        })
 
         return (
             <Layout>
@@ -109,8 +106,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             projects={formatedProjects}
                             components={components}
                             layerFilters={layerFilters}
-                            latitude={latitude}
-                            longitude={longitude}
                             setSelectedItems={setSelectedItems}
                             selectedItems={selectedItems}
                             setIsPolygon={setIsPolygon}

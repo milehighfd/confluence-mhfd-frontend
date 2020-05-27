@@ -58,10 +58,10 @@ const cardInformationProblems: Array<any> = [
   }
 ];
 
-export default ({ user, projects, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue, updateUserInformation, getInitialMapView }:
+export default ({ user, projects, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue, updateUserInformation }:
   {
     user: User, projects: ProjectTypes[], countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function,
-    uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function, updateUserInformation: Function, getInitialMapView: Function }) => {
+    uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function, updateUserInformation: Function }) => {
   const searchProblem = () => {
     console.log('search problem');
   }
@@ -92,7 +92,7 @@ export default ({ user, projects, countProjects, getUserProjects, getCountProjec
         <SidebarView></SidebarView>
         <Layout className="map-00 profile-00" style={{ height: 'calc(100vh - 58px)', overflowY: 'scroll' }}>
           <Row className="profile-header">
-            <UserInformationView getInitialMapView={getInitialMapView} updateUserInformation={updateUserInformation} key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} spinImage={spinImage} spinValue={spinValue} />
+            <UserInformationView updateUserInformation={updateUserInformation} key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} spinImage={spinImage} spinValue={spinValue} />
           </Row>
           <Row >
             <Col className="profile-tabs" span={17}>

@@ -13,7 +13,12 @@ export type User = {
     photo: string,
     phone: string,
     title: string,
-    zipCode: string
+    zipCode: string,
+    coordinates: {
+        latitude: number,
+        longitude: number
+    },
+    polygon: Array<Array<number>>
 }
 
 export type OptionsFiltersUser = {

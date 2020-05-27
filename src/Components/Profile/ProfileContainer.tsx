@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ProfileView from './ProfileView';
 import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation } from '../../store/actions/ProfileActions';
 import { User } from '../../Classes/TypeList';
-import { getInitialMapView } from '../../store/actions/mapActions';
 
 const mapStateToProps = (state: any): any => {
   return {
@@ -34,9 +33,6 @@ const mapDispatchToProps = (dispatch: Function): any => {
     },
     updateUserInformation(user: User) {
       dispatch(updateUserInformation(user))
-    },
-    getInitialMapView() {
-      dispatch(getInitialMapView())
     }
   };
 };

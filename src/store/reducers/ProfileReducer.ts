@@ -8,6 +8,11 @@ const initProfile = {
     designation: "",
     _id: "",
     email: "",
+    coordinates: {
+      latitude: 0,
+      longitude: 0
+    },
+    polygon: []
   },
   userProjects: [],
   userImage: '',

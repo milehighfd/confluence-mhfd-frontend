@@ -134,7 +134,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
         setActivated(+accordion);
       }}>
 
-        <Panel header="" key="1" extra={genExtra(activated)}>
+        <Panel  header="" key="1" extra={genExtra(activated)}>
           <Form onSubmit={handleSubmit}>
             <div className="gutter-example">
               <h3>PROFILE</h3>
