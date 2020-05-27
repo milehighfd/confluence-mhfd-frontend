@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import ReactDOMServer from 'react-dom/server';
+import store from '../../store';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -19,10 +20,12 @@ import { MAP_DROPDOWN_ITEMS,
         COMPONENTS_TRIGGER,
         DENVER_LOCATION,
         SELECT_ALL_FILTERS, 
-        MAP_RESIZABLE_TRANSITION} from "../../constants/constants";
+        MAP_RESIZABLE_TRANSITION,
+        ADMIN, STAFF, OTHER} from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
-import { localComponents, polygonFill, polygonStroke, tileStyles } from '../../constants/mapStyles';
+import { localComponents, polygonFill, polygonStroke, tileStyles, USER_POLYGON_FILL_STYLES, USER_POLYGON_LINE_STYLES } from '../../constants/mapStyles';
 import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
+
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
@@ -41,8 +44,6 @@ const Map = ({ leftWidth,
             problems,
             projects,
             components,
-            latitude,
-            longitude,
             layerFilters,
             setSelectedItems,
             selectedItems,
@@ -60,6 +61,24 @@ const Map = ({ leftWidth,
     const [selectedLayers, setSelectedLayers] = useState<Array<LayersType>>([]);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
+    const user = store.getState().profile.userInformation;
+    
+    const poligonUser = () => {
+        return map.on('load', function () {
+            map.addSource('maine', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': [user.polygon]
+                    }
+                }
+            });
+            map.addLayer(USER_POLYGON_FILL_STYLES);
+            map.addLayer(USER_POLYGON_LINE_STYLES);
+        });
+    }
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
@@ -67,7 +86,7 @@ const Map = ({ leftWidth,
             dragRotate: false,
             touchZoomRotate: false,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
-            center: [ longitude, latitude],
+            center: [ user.coordinates.longitude, user.coordinates.latitude],
             zoom: 10.8
         });
 
@@ -77,6 +96,9 @@ const Map = ({ leftWidth,
 
         // Uncomment to see coords when a position in map is clicked
         // map.on('click', (e : any) => console.log(e.lngLat));
+        if (user.polygon && user.designation !==  ADMIN && user.designation !== STAFF && user.designation !== OTHER) {
+            poligonUser();
+        }
 
         if(polygonRef && polygonRef.current) {
             const draw = new MapboxDraw({

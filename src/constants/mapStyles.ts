@@ -311,7 +311,8 @@ const ROUTINE_MAINTENANCE_STYLES = {
     layout: {},
     paint: {
         'line-color': '#BEBDBF',
-        'line-width': 2
+        'line-width': 2,
+        'line-dasharray': [2, 2]
     }
   }]
 }
@@ -385,9 +386,7 @@ export const tileStyles = {
     layout: {},
     paint: {
         'fill-color': '#9B30FF',
-        'fill-opacity': 0.35,
-        'line-color': '#9B30FF',
-        'line-width': 5
+        'fill-opacity': 0.35
     }
   },{
     type: 'line',
@@ -430,7 +429,8 @@ export const tileStyles = {
     layout: {},
     paint: {
         'line-color': '#FFCD19',
-        'line-width': 8
+        'line-width': 8,
+        'line-dasharray': [4, 2]
     }
   }], 
   [PROBLEMS_TRIGGER]: [{}], 
@@ -438,4 +438,25 @@ export const tileStyles = {
   ...COMPONENT_LAYERS_STYLE,
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES
-} 
+}
+
+export const USER_POLYGON_FILL_STYLES = {
+  'id': 'fill-maine',
+  'type': 'fill',
+  'source': 'maine',
+  'layout': {},
+  'paint': {
+      'fill-color': '#28c499',
+      'fill-opacity': 0.7
+  }
+}
+export const USER_POLYGON_LINE_STYLES = {
+  'id': 'line-maine',
+  'type': 'line',
+  'source': 'maine',
+  'layout': {},
+  'paint': {
+      'line-color': '#28c499',
+      'line-width': 3
+  }
+}

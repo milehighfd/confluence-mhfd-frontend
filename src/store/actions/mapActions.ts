@@ -160,13 +160,3 @@ export const getPolygonStreams = (coordinates : Array<Array<number>>) => {
         // console.log(postGisQuery); --> for getting the POSTGIS normal format
     }
 }
-
-export const getInitialMapView = () => {
-    return (dispatch : Function) => {
-        datasets.getData(SERVER.GET_INITIAL_MAP_VIEW, datasets.getToken()).then(map => {
-            if(map?.longitude && map?.latitude) {
-                dispatch({ type: types.GET_INITIAL_MAP_VIEW, map });
-            }
-        });
-    }
-}

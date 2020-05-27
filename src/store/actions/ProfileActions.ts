@@ -65,7 +65,7 @@ export const updateUserInformation = (user: User) => {
     datasets.putData(SERVER.UPDATE_USER_INFORMATION, user, datasets.getToken()).then(user => {
       if (user?._id) {
         message.success('your data was successfully updated!');
-        dispatch({ type: types.UPDATE_USER_INFORMATION, user });
+        dispatch(getUserInformation());
       }
     })
   }

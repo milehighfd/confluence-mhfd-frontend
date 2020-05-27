@@ -5,7 +5,7 @@ import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 import ModalEditUserView from './ModalEditUserView';
 
 
-export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, getInitialMapView }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function, updateUserInformation : Function, getInitialMapView: Function }) => {
+export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function, updateUserInformation : Function}) => {
 
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
@@ -84,7 +84,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
           </span>
         })}
       </div>
-      <ModalEditUserView getInitialMapView={getInitialMapView} updateUserInformation={updateUserInformation} user={user} />
+      <ModalEditUserView updateUserInformation={updateUserInformation} user={user} />
     </Col>
   </>
 }
