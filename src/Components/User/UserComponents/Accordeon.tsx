@@ -44,6 +44,8 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     values.city = user.city;
     values.county = user.county;
     values.serviceArea = user.serviceArea;
+    values.phone = user.phone;
+    values.title = user.title;
   }, [user]);
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
@@ -164,12 +166,14 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <br></br>
               <Row gutter={16}>
                 <Col className="gutter-row" span={12}>
-                  <Input placeholder="Phone" name="Phone"
-                  style={(errors.email && touched.email) ? {border: "solid red"}:{}}/>
+                  <Input placeholder="Phone" name="phone" onChange={handleChange}
+                  />
+                  {/* style={(errors.email && touched.email) ? {border: "solid red"}:{}} */}
                 </Col>
                 <Col className="gutter-row" span={12}>
-                  <Input placeholder="Title" name="Title"
-                  style={(errors.email && touched.email) ? {border: "solid red"}:{}}/>
+                  <Input placeholder="Title" name="title"  onChange={handleChange}
+                  />
+                  {/* style={(errors.email && touched.email) ? {border: "solid red"}:{}} */}
                 </Col>
               </Row>
             </div>

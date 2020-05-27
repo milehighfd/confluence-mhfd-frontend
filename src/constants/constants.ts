@@ -719,7 +719,9 @@ export const USER = {
   email: "",
   city: "",
   county: "",
-  serviceArea: ""
+  serviceArea: "",
+  phone: "",
+  title: ""
 }
 export const RADIO_ITEMS = [
   {
