@@ -166,14 +166,12 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <br></br>
               <Row gutter={16}>
                 <Col className="gutter-row" span={12}>
-                  <Input placeholder="Phone" name="phone" onChange={handleChange}
+                <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange}
                   />
-                  {/* style={(errors.email && touched.email) ? {border: "solid red"}:{}} */}
                 </Col>
                 <Col className="gutter-row" span={12}>
-                  <Input placeholder="Title" name="title"  onChange={handleChange}
+                  <Input placeholder="Title" value={values.title} name="title"  onChange={handleChange}
                   />
-                  {/* style={(errors.email && touched.email) ? {border: "solid red"}:{}} */}
                 </Col>
               </Row>
             </div>
