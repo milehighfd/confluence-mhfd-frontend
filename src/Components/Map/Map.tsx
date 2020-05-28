@@ -62,7 +62,7 @@ const Map = ({ leftWidth,
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const user = store.getState().profile.userInformation;
-    
+    const coor: any[][] = [];
     const poligonUser = () => {
         return map.on('load', function () {
             map.addSource('maine', {
@@ -79,6 +79,31 @@ const Map = ({ leftWidth,
             map.addLayer(USER_POLYGON_LINE_STYLES);
         });
     }
+    if(user.polygon) {
+        let menorLongitud = user.polygon[0][0];
+        let menorlatitud = user.polygon[0][1];
+        let mayorLongitud = user.polygon[0][0];
+        let mayorlatitud = user.polygon[0][1];
+        for (let index = 0; index < user.polygon.length; index++) {
+            const element = user.polygon[index];
+            if(menorLongitud > element[0]) {
+                menorLongitud = element[0];
+            }
+            if(mayorLongitud < element[0]) {
+                mayorLongitud = element[0];
+            }
+            if(menorlatitud > element[1]) {
+                menorlatitud = element[1];
+            }
+            if(mayorlatitud < element[1]) {
+                mayorlatitud = element[1];
+            }
+        }
+        coor.push([menorLongitud, menorlatitud]);
+        coor.push([mayorLongitud, mayorlatitud])
+    }
+    console.log("coor", coor);
+    
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
@@ -89,7 +114,10 @@ const Map = ({ leftWidth,
             center: [ user.coordinates.longitude, user.coordinates.latitude],
             zoom: 10.8
         });
-
+        if(coor) {
+            map.fitBounds(coor);
+        }
+        
         const nav = new mapboxgl.NavigationControl({ showCompass: false });
         map.addControl(nav, 'bottom-right');
         addMapGeocoder(map, geocoderRef);
@@ -162,9 +190,19 @@ const Map = ({ leftWidth,
     }, [projects]);
 
     useEffect(() => {
-        setTimeout(() => {
+        map.on('style.load', () => {
+            const waiting = () => {
+              if (!map.isStyleLoaded()) {
+                setTimeout(waiting, 50);
+              } else {
+                applyMapLayers();
+              }
+            };
+            waiting();
+          });
+        if(map.isStyleLoaded()) {
             applyMapLayers();
-        }, 100);
+        }
     }, [selectedLayers, layerFilters]);
 
     useEffect(() => {
