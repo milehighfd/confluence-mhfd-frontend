@@ -14,7 +14,8 @@ export type MapProps = {
     getMapTables: Function,
     markerRef: React.RefObject<HTMLDivElement>,
     polygonRef: React.RefObject<HTMLDivElement>,
-    getPolygonStreams: Function
+    getPolygonStreams: Function,
+    saveLayersCheck: Function
 }
 
 export type MapHOCProps = {
@@ -47,7 +48,8 @@ export type MapHOCProps = {
     getPolygonStreams: Function,
     saveDraftCard: Function,
     getUserProjects: Function,
-    sortProjects: Function
+    sortProjects: Function,
+    saveLayersCheck: Function
 }
 
 export type MapViewTypes = { 

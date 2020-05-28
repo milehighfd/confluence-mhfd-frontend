@@ -39,7 +39,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               getDropdownFilters,
               getUserFilters,
               getPolygonStreams,
-              saveDraftCard, getUserProjects, sortProjects} : MapHOCProps) => {
+              saveDraftCard, getUserProjects, sortProjects, saveLayersCheck} : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -89,7 +89,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
           setRouteRedirect(false);
           return <Redirect to='/map' />
         }
-
         return (
             <Layout>
             <NavbarView></NavbarView>
@@ -115,7 +114,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getMapTables={getMapTables}
                             markerRef={markerRef}
                             polygonRef={polygonRef}
-                            getPolygonStreams={getPolygonStreams}/>
+                            getPolygonStreams={getPolygonStreams}
+                            saveLayersCheck={saveLayersCheck}/>
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

@@ -10,7 +10,7 @@ import { getReverseGeocode,
         clearErrorMessage,
         setRouteRedirect,
         getMapTables,
-        getPolygonStreams } from '../store/actions/mapActions';
+        getPolygonStreams, saveLayersCheck } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
 
@@ -53,7 +53,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         getPolygonStreams,
         saveDraftCard,
         getUserProjects,
-        sortProjects
+        sortProjects,
+        saveLayersCheck
     }, dispatch)
 });
   

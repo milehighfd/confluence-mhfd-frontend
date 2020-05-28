@@ -189,7 +189,8 @@ const initState = {
     ],
     layers: {} as any,
     longitude: 0,
-    latitude: 0
+    latitude: 0,
+    selectedLayers: []
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -281,6 +282,12 @@ const mapReducer = (state = initState, action : any) => {
                 ...state,
                 longitude: action.map.longitude,
                 latitude: action.map.latitude
+            }
+        }
+        case types.SELECTED_LAYERS: {
+            return {
+                ...state,
+                selectedLayers: action.selectedLayer
             }
         }
         default: 

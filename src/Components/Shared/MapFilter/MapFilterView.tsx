@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Checkbox, Row, Col, Button } from 'antd';
 import { FLOODPLAINS_FEMA_FILTERS,
         FLOODPLAINS_NON_FEMA_FILTERS,

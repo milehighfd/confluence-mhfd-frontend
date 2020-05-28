@@ -54,11 +54,11 @@ const Map = ({ leftWidth,
             getMapTables,
             markerRef,
             polygonRef,
-            getPolygonStreams } : MapProps) => {
+            getPolygonStreams, saveLayersCheck } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
-    const [selectedLayers, setSelectedLayers] = useState<Array<LayersType>>([]);
+    const [selectedLayers, setSelectedLayers] = useState<Array<LayersType>>(store.getState().map.selectedLayers);
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const user = store.getState().profile.userInformation;
@@ -162,7 +162,9 @@ const Map = ({ leftWidth,
     }, [projects]);
 
     useEffect(() => {
-        applyMapLayers();
+        setTimeout(() => {
+            applyMapLayers();
+        }, 100);
     }, [selectedLayers, layerFilters]);
 
     useEffect(() => {
@@ -333,7 +335,6 @@ const Map = ({ leftWidth,
         } else if(trigger === COMPONENTS_TRIGGER && layers && layers.components) {
             items = components;
         }
-
         if(!items) return;
         refreshSourceLayers(trigger);
 
@@ -382,6 +383,7 @@ const Map = ({ leftWidth,
     }
 
     const selectCheckboxes = (selectedItems : Array<string>) => {
+        saveLayersCheck(selectedItems);
         if (selectedItems.length < selectedLayers.length) {
             selectedLayers.forEach((layer : LayersType) => {
                 const index = selectedItems.indexOf(layer as string);

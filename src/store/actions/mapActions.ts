@@ -160,3 +160,9 @@ export const getPolygonStreams = (coordinates : Array<Array<number>>) => {
         // console.log(postGisQuery); --> for getting the POSTGIS normal format
     }
 }
+
+export const saveLayersCheck = (selectedLayer: any) => {
+    return (dispatch : Function) => {
+        dispatch({ type: types.SELECTED_LAYERS, selectedLayer });
+    }
+}
