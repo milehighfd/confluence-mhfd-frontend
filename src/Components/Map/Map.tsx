@@ -79,7 +79,7 @@ const Map = ({ leftWidth,
             map.addLayer(USER_POLYGON_LINE_STYLES);
         });
     }
-    if(user.polygon) {
+    if(user?.polygon[0]) {
         let menorLongitud = user.polygon[0][0];
         let menorlatitud = user.polygon[0][1];
         let mayorLongitud = user.polygon[0][0];
@@ -102,8 +102,6 @@ const Map = ({ leftWidth,
         coor.push([menorLongitud, menorlatitud]);
         coor.push([mayorLongitud, mayorlatitud])
     }
-    console.log("coor", coor);
-    
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
@@ -114,7 +112,7 @@ const Map = ({ leftWidth,
             center: [ user.coordinates.longitude, user.coordinates.latitude],
             zoom: 10.8
         });
-        if(coor) {
+        if(coor[0] && coor[1]) {
             map.fitBounds(coor);
         }
         
