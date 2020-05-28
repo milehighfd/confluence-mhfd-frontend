@@ -27,7 +27,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
   const [designation, setDesignation] = useState<string>(user.designation);
   const [, setTitle] = useState<string>('');
   const [initialValues, setInitialValues] = useState(user);
-  const [activated, setActivated] = useState(0);
+  const [activated, setActivated] = useState(false);
   const [messageError, setMessageError] = useState({message: '', color: '#28C499'});
 
   useEffect(() => {
@@ -111,9 +111,12 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     deleteUser(user._id);
   }
 
-  const genExtra = (index: number) => (
-    <Row className="user-head" type="flex" justify="space-around" align="middle">
-      <Col span={19}>
+  const genExtra = () => (
+    <Row className="user-head" type="flex" justify="space-around" align="middle" style={{cursor: 'pointer'}}>
+      <Col span={19} onClick={() => {
+        console.log('click click');
+        setActivated(!activated);
+      }}>
         <h6>{pos + '. ' + user.firstName + ' ' + user.lastName}</h6>
         {/* <span>(Organization - Service Area - User Designation)</span> */}
       </Col>
@@ -122,19 +125,20 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
           <Switch className={'switch-options'} checked={user.activated} onChange={handleSwitchButton} />
         </div>
       </Col>
-      <Col span={1} style={{ textAlign: 'right' }}>
-        <img src={index !== 1 ? "/Icons/icon-20.svg": "/Icons/icon-21.svg"} alt="" />
+      <Col span={1} style={{ textAlign: 'right' }} onClick={() => {
+          console.log('se pudo hacer click');
+          setActivated(!activated);
+        }} >
+        <img src={activated ? "/Icons/icon-21.svg": "/Icons/icon-20.svg"} alt="" />
       </Col>
     </Row>
   );
 
   return (
     <>
-      <Collapse accordion className="user-tab" onChange={(accordion) => {
-        setActivated(+accordion);
-      }}>
+      <Collapse accordion={false} activeKey={activated ? 1 : 0} className="user-tab">
 
-        <Panel  header="" key="1" extra={genExtra(activated)}>
+        <Panel disabled={true} header="" key="1" extra={genExtra()}>
           <Form onSubmit={handleSubmit}>
             <div className="gutter-example">
               <h3>PROFILE</h3>

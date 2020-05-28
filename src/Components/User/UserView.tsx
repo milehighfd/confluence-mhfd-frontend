@@ -108,7 +108,7 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                       {userActivatedState.map((user: User, index: number) => {
                         aprPos++;
                         return (
-                          <div key={index} style={{ marginBottom: 10 }}>
+                          <div key={user._id} style={{ marginBottom: 10 }}>
                             <Accordeon user={user} pos={(((optionUserActivated.page - 1) * 10) + aprPos)} saveUser={getAllUser} deleteUser={deleteUserActivated} />
                           </div>
                         );
@@ -130,7 +130,7 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                       {userPendingState.map((user: User, index: number) => {
                         pndPos++;
                         return (
-                          <div key={index} style={{ marginBottom: 10 }}>
+                          <div key={user._id} style={{ marginBottom: 10 }}>
                             <Accordeon user={user} pos={((optionUserPending.page - 1) * 10) + pndPos} saveUser={getAllUser} deleteUser={deleteUserActivated} />
                           </div>
                         );
