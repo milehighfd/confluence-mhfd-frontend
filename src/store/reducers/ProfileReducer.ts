@@ -58,6 +58,10 @@ const profile = (state = initProfile, action: any) => {
         ...state,
         userInformation: action.user
       }
+    case types.RESET_PROFILE:
+      return {
+        ...initProfile
+      }
     default:
       return state;
   }

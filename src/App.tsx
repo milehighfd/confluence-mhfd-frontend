@@ -58,7 +58,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages } : { repla
           <Redirect to="/login"/>
       )}/>
       {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileContainer} />}
-      {appUser.activated && <Route path={`/map/:projectId?`} component={MapView} />}
+      {datasets.getToken() && appUser.email && <Route path={`/map/:projectId?`} component={MapView} />}
       {(appUser.designation === 'admin' || 
         appUser.designation === 'staff') && appUser.activated && <Route path={`/user`} component={UserContainer} />}
       {(appUser.designation === 'admin' || 

@@ -39,7 +39,10 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               getDropdownFilters,
               getUserFilters,
               getPolygonStreams,
-              saveDraftCard, getUserProjects, sortProjects, saveLayersCheck} : MapHOCProps) => {
+              saveDraftCard,
+              getUserProjects,
+              sortProjects,
+              saveLayersCheck} : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);

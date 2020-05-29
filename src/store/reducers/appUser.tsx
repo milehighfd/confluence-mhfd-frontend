@@ -7,6 +7,8 @@ const appUser = (state = new User(), action : any) => {
     switch(action.type) {
         case types.REPLACE_USER: 
             return {...action.appUser}
+        case types.RESET_APP_USER: 
+            return {...new User()}
         default: 
             return state;
     }

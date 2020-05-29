@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { User } from '../../Classes/TypeList';
 import LoginView from './LoginView';
 
-import { replaceAppUser } from '../../store/actions/appUser';
-import { saveUserInformation } from '../../store/actions/ProfileActions';
+import { replaceAppUser, resetAppUser } from '../../store/actions/appUser';
+import { saveUserInformation, resetProfile } from '../../store/actions/ProfileActions';
+import { resetMap } from '../../store/actions/mapActions';
 
 const mapStateToProps = (state: any): any => {
   return {
@@ -20,6 +21,15 @@ const mapDispatchToProps = (dispatch: Function): any => {
     },
     saveUserInformation(user: User) {
       dispatch(saveUserInformation(user))
+    },
+    resetAppUser() {
+      dispatch(resetAppUser())
+    },
+    resetProfile() {
+      dispatch(resetProfile())
+    },
+    resetMap() {
+      dispatch(resetMap())
     }
   };
 };

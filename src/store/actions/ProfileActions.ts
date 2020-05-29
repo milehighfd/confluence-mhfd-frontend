@@ -70,3 +70,9 @@ export const updateUserInformation = (user: User) => {
     })
   }
 }
+
+export const resetProfile = () => {
+  return (dispatch: Function) => {
+    dispatch({type: types.RESET_PROFILE});
+  }
+}

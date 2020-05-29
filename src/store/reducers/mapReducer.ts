@@ -290,6 +290,11 @@ const mapReducer = (state = initState, action : any) => {
                 selectedLayers: action.selectedLayer
             }
         }
+        case types.RESET_MAP: {
+            return {
+                ...initState
+            }
+        }
         default: 
             return state;
     }

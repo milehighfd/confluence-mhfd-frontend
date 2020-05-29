@@ -4,6 +4,7 @@ import { Layout, Row, Col, Upload, Tag, Table, Button } from 'antd';
 import NavbarView from '../Shared/Navbar/NavbarView';
 import SidebarView from '../Shared/Sidebar/SidebarView';
 import moment from 'moment';
+import { FilePdfOutlined, FileTextOutlined, FilePdfTwoTone, FileTwoTone } from '@ant-design/icons';
 
 
 export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }: { attachments: any, uploadFile: Function, getAllAttachment: Function, removeAttachment: Function }) => {
@@ -18,9 +19,10 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }:
     {
       title: 'Name',
       dataIndex: 'filename',
-      render: (filename: string) => {
+      render: (filename: { filename: string, mimetype: string, value: string}) => {
         return (<div style={{ display: 'flex' }}>
-          <div style={{ padding: '6px 0px' }}> {filename} </div></div>)
+          <div style={{ padding: '6px 0px' }}> {filename.mimetype.includes('image/') ? <img alt="example" className="img-up" src={filename.value} height="30px" />:
+           filename.mimetype === 'application/pdf' ? <FilePdfTwoTone /> : <FileTwoTone />}  {filename.filename} </div></div>)
       },
       sorter: true
     },
@@ -70,7 +72,6 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }:
   const getUrlOptionsUserActivity = (pagination: { current: number, pageSize: number }, sorter: { field?: string, order?: string }) => {
     return 'page=' + pagination.current + '&limit=' + pagination.pageSize + (sorter?.order ? ('&sort=' + sorter.field + '&sorttype=' + (sorter.order === "descend" ? 'DESC' : 'ASC')) : '&sort=updatedAt&sorttype=DESC')
   }
-  console.log(mainImage);
   return <>
     <Layout>
       <NavbarView></NavbarView>

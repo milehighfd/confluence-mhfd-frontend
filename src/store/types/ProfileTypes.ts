@@ -5,3 +5,4 @@ export const COUNT_PROJECTS = 'COUNT_PROJECTS';
 export const GET_PHOTO = 'GET_PHOTO';
 export const SPIN = 'SPIN';
 export const UPDATE_USER_INFORMATION = 'UPDATE_USER_INFORMATION';
+export const RESET_PROFILE = 'RESET_PROFILE';

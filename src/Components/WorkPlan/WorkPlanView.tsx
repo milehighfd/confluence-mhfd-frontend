@@ -41,7 +41,8 @@ const workPlanGraphs = (saveDraftCard : Function) => (
   </Col>
 );
 
-export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProjectWithFilters } : { panel : any, saveDraftCard : Function, getUserProjects : Function, projectsByType : any, getProjectWithFilters: Function}) => {
+export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProjectWithFilters } :
+   { panel : any, saveDraftCard : Function, getUserProjects : Function, projectsByType : any, getProjectWithFilters: Function }) => {
   const [visible, setVisible] = useState(false);
   const [panelState, setPanelState] = useState({});
   const [tabPosition, setTabPosition] = useState("0");

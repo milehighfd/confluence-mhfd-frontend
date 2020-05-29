@@ -166,3 +166,8 @@ export const saveLayersCheck = (selectedLayer: any) => {
         dispatch({ type: types.SELECTED_LAYERS, selectedLayer });
     }
 }
+export const resetMap = () => {
+    return (dispatch : Function) => {
+        dispatch({ type: types.RESET_MAP});
+    }
+}

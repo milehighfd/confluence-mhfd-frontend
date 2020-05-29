@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Row, Col, Form, Button, } from 'antd';
 import { useFormik } from "formik";
 import * as datasets from "../../Config/datasets"
@@ -21,9 +21,14 @@ const validationSchema = Yup.object().shape({
     .min(5)
     .required()
 });
-export default ({replaceAppUser, saveUserInformation,  }: {replaceAppUser: Function, saveUserInformation: Function }) => {
+export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser, resetMap }: {replaceAppUser: Function, saveUserInformation: Function, resetProfile: Function, resetAppUser: Function, resetMap: Function }) => {
   const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState({message: '', color: '#28C499'});
+  useEffect(() => {
+    resetAppUser();
+    resetProfile();
+    resetMap();
+  }, []);
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
       email: '',
