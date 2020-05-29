@@ -5,8 +5,8 @@ import { ORGANIZATION, CONSULTANT_CONTRACTOR } from "../../../constants/constant
 export default (values: User, setTitle: Function) => {
     return <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
-            values.organization = event.item.props.children;
-            setTitle(event.item.props.children);
+            values.organization = event.item.props.children.props.children;
+            setTitle(event.item.props.children.props.children);
         }}>
         <Menu.ItemGroup key="g3" title="Organization">
             {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}

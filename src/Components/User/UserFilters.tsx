@@ -42,7 +42,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
   const MenuOrganization = () => (<Menu className="js-mm-00 sign-menu-organization"
     onClick={(event) => {
       const auxOption = { ...option };
-      const val = event.key !== 'all' ? event.item.props.children : ''
+      const val = event.key !== 'all' ? event.item.props.children.props.children : ''
       auxOption.organization = val;
       setOption(auxOption);
       search(auxOption);
