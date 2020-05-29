@@ -489,14 +489,14 @@ const Map = ({ leftWidth,
                 </Dropdown>
             </div>
 
-            <Dropdown
+            {/* <Dropdown
                 overlay={MapTypesView({ dropdownItems, selectMapStyle })}
                 className="btn-03"
                 trigger={['click']}>
                 <Button>
                     {dropdownItems.items[dropdownItems.default].type} <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
-            </Dropdown>
+            </Dropdown> */}
 
             <div className="m-footer">
                 <h5>NFHL 100 year floodplain</h5>
