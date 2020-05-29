@@ -21,7 +21,7 @@ import { MAP_DROPDOWN_ITEMS,
         DENVER_LOCATION,
         SELECT_ALL_FILTERS, 
         MAP_RESIZABLE_TRANSITION,
-        ADMIN, STAFF, OTHER} from "../../constants/constants";
+        ADMIN, STAFF, OTHER, CONSULTANT} from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { localComponents, polygonFill, polygonStroke, tileStyles, USER_POLYGON_FILL_STYLES, USER_POLYGON_LINE_STYLES } from '../../constants/mapStyles';
 import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
@@ -110,7 +110,7 @@ const Map = ({ leftWidth,
             touchZoomRotate: false,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
             center: [ user.coordinates.longitude, user.coordinates.latitude],
-            zoom: 10.8
+            zoom: 8.9
         });
         if(coor[0] && coor[1]) {
             map.fitBounds(coor);
@@ -122,7 +122,7 @@ const Map = ({ leftWidth,
 
         // Uncomment to see coords when a position in map is clicked
         // map.on('click', (e : any) => console.log(e.lngLat));
-        if (user.polygon && user.designation !==  ADMIN && user.designation !== STAFF && user.designation !== OTHER) {
+        if (user.polygon && user.designation !== CONSULTANT && user.designation !==  ADMIN && user.designation !== STAFF && user.designation !== OTHER) {
             poligonUser();
         }
 
