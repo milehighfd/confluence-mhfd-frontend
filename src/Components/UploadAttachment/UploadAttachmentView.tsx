@@ -22,7 +22,7 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }:
       render: (filename: { filename: string, mimetype: string, value: string}) => {
         return (<div style={{ display: 'flex' }}>
           <div style={{ padding: '6px 0px' }}> {filename.mimetype.includes('image/') ? <img  className="img-up" src={filename.value} height="30px" width="30px" />:
-           filename.mimetype === 'application/pdf' ? <FilePdfTwoTone /> : <FileTwoTone />}  {filename.filename} </div></div>)
+           filename.mimetype === 'application/pdf' ? <FilePdfTwoTone /> : <FileTwoTone />} </div> <div style={{alignSelf: 'center'}}>{filename.filename} </div> </div>)
       },
       sorter: true
     },
