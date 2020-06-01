@@ -12,7 +12,8 @@ import { FLOODPLAINS_FEMA_FILTERS,
         PROJECTS_TRIGGER,
         COMPONENT_LAYERS,
         MEP_PROJECTS,
-        ROUTINE_MAINTENANCE} from '../../../constants/constants';
+        ROUTINE_MAINTENANCE,
+        PROJECTS_MAP_STYLES} from '../../../constants/constants';
 
 export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLayers } : { selectCheckboxes : Function, handleSelectAll: Function, handleResetAll: Function, selectedLayers: any }) => {
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-235px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
@@ -36,7 +37,7 @@ export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLay
                 <h6>MHFD DATA</h6>
                 <p><Checkbox value={PROBLEMS_TRIGGER}>Problem</Checkbox></p>
                 <p><Checkbox value={COMPONENT_LAYERS}>Components</Checkbox></p>
-                <p><Checkbox value={PROJECTS_TRIGGER}>Projects</Checkbox></p>
+                <p><Checkbox value={PROJECTS_MAP_STYLES}>Projects</Checkbox></p>
                 <p><Checkbox value={MEP_PROJECTS}>MEP Projects</Checkbox></p>
                 <p><Checkbox value={ROUTINE_MAINTENANCE}>Routine Maintenance</Checkbox></p>
               </Col>
