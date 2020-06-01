@@ -30,7 +30,9 @@ import {
   ROUTINE_NATURAL_AREAS,
   ROUTINE_WEED_CONTROL,
   ROUTINE_DEBRIS_AREA,
-  ROUTINE_DEBRIS_LINEAR
+  ROUTINE_DEBRIS_LINEAR,
+  PROJECTS_POLYGONS,
+  PROJECTS_LINE
 } from "./constants";
 
 export const localComponents = {
@@ -317,6 +319,35 @@ const ROUTINE_MAINTENANCE_STYLES = {
   }]
 }
 
+export const PROJECTS_STYLES = {
+  [PROJECTS_POLYGONS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'fill-color': '#0FA626',
+        'fill-opacity': 0.7,
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#0FA626',
+        'line-width': 3,
+    }
+  }],
+  [PROJECTS_LINE]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#0FA626',
+        'line-width': 3,
+    }
+  }]
+}
+
 export const tileStyles = {
   [FLOODPLAINS_FEMA_FILTERS]: [{
     type: 'fill',
@@ -419,7 +450,7 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#FFCD19',
+        'fill-color': '#F21B42',
         'fill-opacity': 0.4,
     }
   },
@@ -433,11 +464,28 @@ export const tileStyles = {
         'line-dasharray': [4, 2]
     }
   }], 
-  [PROBLEMS_TRIGGER]: [{}], 
-  [PROJECTS_TRIGGER]: [{}], 
+  [PROBLEMS_TRIGGER]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'fill-color': '#F21B42',
+        'fill-opacity': 0.35,
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#F21B42',
+        'line-width': 3,
+    }
+  }], 
   ...COMPONENT_LAYERS_STYLE,
   ...MEP_PROJECTS_STYLES,
-  ...ROUTINE_MAINTENANCE_STYLES
+  ...ROUTINE_MAINTENANCE_STYLES,
+  ...PROJECTS_STYLES
 }
 
 export const USER_POLYGON_FILL_STYLES = {

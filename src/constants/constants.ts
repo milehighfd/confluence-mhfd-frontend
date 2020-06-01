@@ -118,6 +118,18 @@ export const ROUTINE_MAINTENANCE = {
   ]
 };
 
+// Project Styles Filters
+export const PROJECTS_POLYGONS = 'projects_polygon_';
+export const PROJECTS_LINE = 'projects_line_1';
+
+export const PROJECTS_MAP_STYLES = {
+  name: 'projects',
+  tiles: [
+    PROJECTS_POLYGONS,
+    PROJECTS_LINE
+  ]
+}
+
 export const SELECT_ALL_FILTERS = [FLOODPLAINS_FEMA_FILTERS,
                                   FLOODPLAINS_NON_FEMA_FILTERS,
                                   WATERSHED_FILTERS,
@@ -127,7 +139,7 @@ export const SELECT_ALL_FILTERS = [FLOODPLAINS_FEMA_FILTERS,
                                   COUNTIES_FILTERS,
                                   MHFD_BOUNDARY_FILTERS,
                                   PROBLEMS_TRIGGER,
-                                  PROJECTS_TRIGGER,
+                                  PROJECTS_MAP_STYLES,
                                   COMPONENT_LAYERS,
                                   MEP_PROJECTS,
                                   ROUTINE_MAINTENANCE];
