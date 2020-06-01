@@ -66,7 +66,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
     }
   });
   if (redirect) {
-    return <Redirect to="/profile-view" />
+    return <Redirect to="/map" />
   }
 
   return <Layout style={{ background: '#fff' }}>
