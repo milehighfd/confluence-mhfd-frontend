@@ -4,6 +4,7 @@ import SignUpView from './SignUpView';
 import { replaceAppUser } from '../../store/actions/appUser';
 import { User } from '../../Classes/TypeList';
 import { getCarouselImages } from '../../store/actions/carouselImagesActions';
+import { getUserInformation } from '../../store/actions/ProfileActions';
 
 const mapStateToProps = (state: any): any => {
   return {
@@ -19,6 +20,9 @@ const mapDispatchToProps = (dispatch: Function): any => {
     },
     getCarouselImages() {
       dispatch(getCarouselImages())
+    },
+    getUserInformation() {
+      dispatch(getUserInformation())
     }
   };
 }; 

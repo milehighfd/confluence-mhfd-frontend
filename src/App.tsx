@@ -29,9 +29,8 @@ import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 
-function App({ replaceAppUser, getUserInformation, getCarouselImages } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function }) {
+function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any }) {
   const [ loading, setLoading ] = useState(true);
-  const appUser = store.getState().appUser;
   useEffect(() => {
     getCarouselImages();
   }, [getCarouselImages]);
