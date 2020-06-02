@@ -84,7 +84,7 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }:
               <Col span={24}>
                 <div className="img-npf">
                   <label className="label-new-form" htmlFor=""><h3>Upload Documents</h3><img src="/Icons/icon-19.svg" alt="" /></label>
-                  <Dragger customRequest={dummyRequest} fileList={mainImage} onChange={({ fileList }: any) => setMainImage(fileList)}>
+                  <Dragger multiple={true} customRequest={dummyRequest} fileList={mainImage} onChange={({ fileList }: any) => setMainImage(fileList)}>
                     <img src="/Icons/icon-17.svg" alt="" />
                     <p className="ant-upload-text">Drag and drop your documents/media files here</p>
                   </Dragger>
