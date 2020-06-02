@@ -7,13 +7,13 @@ import moment from 'moment';
 import { FilePdfOutlined, FileTextOutlined, FilePdfTwoTone, FileTwoTone } from '@ant-design/icons';
 
 
-export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }: { attachments: any, uploadFile: Function, getAllAttachment: Function, removeAttachment: Function }) => {
+export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, setLoading, loading }: { attachments: any, uploadFile: Function, getAllAttachment: Function, removeAttachment: Function, setLoading: Function, loading: boolean }) => {
   const { Content } = Layout;
   const { Dragger } = Upload;
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
   }
-// image to column filename
+// image to column filename src="/Icons/documents.png"
 {/* <img alt="example" className="img-up" src="/Icons/default.png" height="30px" /> */}
   const columns = [
     {
@@ -21,8 +21,8 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }:
       dataIndex: 'filename',
       render: (filename: { filename: string, mimetype: string, value: string}) => {
         return (<div style={{ display: 'flex' }}>
-          <div style={{ padding: '6px 0px' }}> {filename.mimetype.includes('image/') ? <a href={filename.value} target="_blank" ><img  className="img-up" src={filename.value} height="30px" width="30px" /></a> :
-           filename.mimetype === 'application/pdf' ? <a href={filename.value} target="_blank"><FilePdfTwoTone /> </a> : <a href={filename.value} target="_blank"><FileTwoTone /></a>} </div> <div style={{alignSelf: 'center'}}>{filename.filename} </div> </div>)
+          <div style={{ padding: '6px 0px' }}> {filename.mimetype.includes('image/') ? <a href={filename.value} target="_blank" ><img  className="img-up" src={filename.value} height="30px" width="30px" /></a> 
+          : <a href={filename.value} target="_blank" ><img  className="img-up" src="/Icons/documents.png" height="30px" width="30px" /></a> } </div> <div style={{alignSelf: 'center'}}>{filename.filename} </div> </div>)
       },
       sorter: true
     },
@@ -51,11 +51,12 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }:
   ];
 
   const remove = async (_id: string) => {
+    setLoading(true);
     await removeAttachment(_id, getUrlOptionsUserActivity({ current: 1, pageSize: 10 }, {}));
-    message.info('File removed succesfully');
   }
   const [mainImage, setMainImage] = useState([]);
   const onSubmit = async () => {
+    setLoading(true);
     await uploadFile(mainImage, getUrlOptionsUserActivity({ current: 1, pageSize: 10 }, {}));
     setMainImage([]);
   }
@@ -68,6 +69,7 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }:
     total: attachments.totalPages * 10
   };
   const handleTableChange = (pagination: any, filters: {}, sorter: any) => {
+    setLoading(true);
     getAllAttachment(getUrlOptionsUserActivity(pagination, sorter));
   };
   const getUrlOptionsUserActivity = (pagination: { current: number, pageSize: number }, sorter: { field?: string, order?: string }) => {
@@ -99,7 +101,7 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }:
               <Col span={24}>
                 {/* <Table columns={columns} rowKey={record => record._id} dataSource={userActivity.data}
                   pagination={pagination}/> */}
-                <Table columns={columns} rowKey={(record: any) => record._id} dataSource={attachments.data} pagination={pagination}
+                <Table loading={loading} columns={columns} rowKey={(record: any) => record._id} dataSource={attachments.data} pagination={pagination}
                   onChange={(pagination, filters, sort) => handleTableChange(pagination, filters, sort)} />
               </Col>
             </Row>

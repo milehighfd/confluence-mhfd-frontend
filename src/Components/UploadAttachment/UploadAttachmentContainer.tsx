@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 
 import UploadAttachmentView from './UploadAttachmentView';
-import { getAllAttachment, uploadFile, removeAttachment } from '../../store/actions/uploadAttachmentActions';
+import { getAllAttachment, uploadFile, removeAttachment, setLoading } from '../../store/actions/uploadAttachmentActions';
 
 const mapStateToProps = (state: any): any => {
   return {
     sample: state.sample,
     user: state.profile.userInformation,
-    attachments: state.uploadAttachment.attachments
+    attachments: state.uploadAttachment.attachments,
+    loading: state.uploadAttachment.loading
   };
 };
 
@@ -21,6 +22,9 @@ const mapDispatchToProps = (dispatch: Function): any => {
     },
     removeAttachment(id: string, url: string) {
       dispatch(removeAttachment(id, url))
+    },
+    setLoading(loading: boolean) {
+      dispatch(setLoading(loading))
     }
   };
 };

@@ -1,7 +1,8 @@
 import * as types from '../types/uploadAttachmentTypes';
 
 const initState = {
-  attachments: []
+  attachments: [],
+  loading: false
 };
 
 const attachmentReducer = (state = initState, action : any) => {
@@ -9,7 +10,13 @@ const attachmentReducer = (state = initState, action : any) => {
     case types.GET_FILES: 
       return {
         ...state,
-        attachments: action.attachments
+        attachments: action.attachments,
+        loading: false
+      }
+    case types.LOADING: 
+      return {
+        ...state,
+        loading: action.loading
       }
     default: 
         return state;
