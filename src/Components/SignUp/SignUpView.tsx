@@ -11,7 +11,7 @@ import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayVie
 import "../Login/Login.scss"
 
 
-export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
+export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Function, getUserInformation: Function }) => {
   const roles = ROLES;
   const validationSchema = VALIDATION_SIGN_UP;
   const keyCaptcha = SERVER.CAPTCHA;
@@ -55,6 +55,7 @@ export default ({ replaceAppUser }: { replaceAppUser: Function }) => {
           setMessage(auxMessage);
           localStorage.setItem('mfx-token', res.token);
           replaceAppUser(res.user);
+          getUserInformation();
           setRedirect(true);
         } else {
           const auxMessage = {...message};
