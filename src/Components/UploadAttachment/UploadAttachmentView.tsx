@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Row, Col, Upload, Tag, Table, Button } from 'antd';
+import { Layout, Row, Col, Upload, Tag, Table, Button, message } from 'antd';
 
 import NavbarView from '../Shared/Navbar/NavbarView';
 import SidebarView from '../Shared/Sidebar/SidebarView';
@@ -50,8 +50,9 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment }:
     },
   ];
 
-  const remove = (_id: string) => {
-    removeAttachment(_id, getUrlOptionsUserActivity({ current: 1, pageSize: 10 }, {}))
+  const remove = async (_id: string) => {
+    await removeAttachment(_id, getUrlOptionsUserActivity({ current: 1, pageSize: 10 }, {}));
+    message.info('File removed succesfully');
   }
   const [mainImage, setMainImage] = useState([]);
   const onSubmit = async () => {
