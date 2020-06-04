@@ -320,7 +320,8 @@ const ROUTINE_MAINTENANCE_STYLES = {
 }
 
 export const PROJECTS_STYLES = {
-  [PROJECTS_POLYGONS]: [{
+  [PROJECTS_POLYGONS]: [
+    /* {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -328,7 +329,8 @@ export const PROJECTS_STYLES = {
         'fill-color': '#0FA626',
         'fill-opacity': 0.7,
     }
-  },{
+  }, */
+  {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
