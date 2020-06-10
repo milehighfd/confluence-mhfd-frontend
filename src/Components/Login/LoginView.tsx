@@ -78,9 +78,10 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
         </Row>
         </div>*/}
         <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit}>
-      <h1>
+      {/* <h1>
         Welcome to MHFD's Confluence
-      </h1>
+      </h1>*/}
+      <img src="/Icons/Confluence-Color-Tagline.svg" alt="" width="248px" />
       <div style={{ marginTop: '20px' }}>
       <div className="group">
         <input placeholder="Email Address" type="email" name="email" onChange={handleChange}

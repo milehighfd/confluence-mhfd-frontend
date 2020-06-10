@@ -72,7 +72,7 @@ body{
 }
 // NAVBAR
 .logo {
-  width: 109px;
+  width: 303px;
   height: 38px;
   float: left;
   background-repeat: no-repeat;
@@ -446,6 +446,10 @@ body{
   }
   .ant-input:hover {
     border-color: $purple;
+  }
+  p{
+    margin-bottom: 2px;
+    color: $purple00;
   }
 }
 .img-banner {
@@ -3512,6 +3516,11 @@ body{
     border: none !important;
     text-align: center !important;
     font-weight: bold !important;
+  }
+  p{
+    margin-bottom: 2px;
+    color: $purple00;
+    font-size: 12px;
   }
 }
 // ALERTS AND MODALS
