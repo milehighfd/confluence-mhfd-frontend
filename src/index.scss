@@ -3054,6 +3054,46 @@ body{
   background-color: $purple;
   margin: 12px 8px;
 }
+.problem-t{
+  .ant-table-tbody > tr > td{
+    background: $opacity00;
+    padding: 14px 20px;
+    height: 50px;
+    min-height: 50px;
+    font-size: 14px;
+    font-weight:400;
+    margin-top: 10px;
+    color: $purple;
+    border-bottom: none;
+  }
+  .ant-table table {
+    border-collapse: separate !important;
+    border-spacing: 0px 5px !important;
+  }
+  .ant-table-tbody > tr{
+    border-radius: 4px;
+  }
+  .ant-table-thead > tr > th {
+    color: $opacity;
+    background: none;
+    border-bottom: none;
+  }
+  .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover{
+    background: none;
+  }
+  .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-up.on, .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-down.on {
+    color: $purple;
+  }
+  .ant-table-thead > tr > th.ant-table-column-sort {
+    background: none;
+  }
+  .ant-table-tbody > tr > td.ant-table-column-sort {
+    background: $opacity00;
+  }
+  .ant-table-pagination.ant-pagination{
+    display: none;
+  }
+}
 // profile
 .profile-header {
   background-color: $white;
