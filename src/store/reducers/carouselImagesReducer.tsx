@@ -1,7 +1,7 @@
 import * as types from '../types/carouselImagesTypes';
 
 const init = {
-    images: []
+    images: ['']
 }
 
 

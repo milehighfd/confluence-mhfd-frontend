@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Carousel } from "antd";
 import store from "../../../store";
+import { SERVER } from "../../../Config/Server.config";
 
 export default () => {
   const images = store.getState().carouselImages.images;
@@ -28,9 +29,9 @@ export default () => {
       </div>
     </div>
     <Carousel autoplay autoplaySpeed={6000}>
-      {images.map((image: { image: string, name: string }, index: number) => {
+      {images.map((image: string, index: number) => {
         return <div key={index}>
-          <img src={image.image} className={"img-banner"} alt="" />
+          <img src={SERVER.BASE_URL_IMAGES + image} className={"img-banner"} alt="" />
           <div className="textContent">
             <h2>What can I do with Confluence?</h2>
             <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>

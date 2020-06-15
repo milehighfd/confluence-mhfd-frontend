@@ -1,9 +1,11 @@
 const URL = process.env.REACT_APP_API_URI;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const CAPTCHA = process.env.REACT_APP_CAPTCHA;
+const BASE_URL_IMAGES = process.env.REACT_APP_IMAGES_URL;
 export const SERVER = (function () {
     const URL_BASE = {
-        BASE: URL
+        BASE: URL,
+        IMAGES: BASE_URL_IMAGES
     }
     const USER = 'users';
     const AUTH = 'auth';
@@ -47,6 +49,7 @@ export const SERVER = (function () {
     const REMOVE = 'remove'
     return {
         URL_BASE: URL_BASE.BASE,
+        BASE_URL_IMAGES: URL_BASE.IMAGES,
         SHARE_MAP_PROJECT: `${BASE_URL}/${MAP}`,
         CAPTCHA: CAPTCHA,
         USER: `${URL_BASE.BASE}/${USER}`,
