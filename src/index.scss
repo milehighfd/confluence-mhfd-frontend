@@ -3055,7 +3055,7 @@ body{
   margin: 12px 8px;
 }
 .problem-t{
-  margin-top: -25px;
+  margin-top: -15px;
   .ant-table-tbody > tr > td{
     background: $opacity00;
     padding: 14px 20px;
@@ -3080,6 +3080,7 @@ body{
     border-bottom: none;
     font-weight: normal;
     font-size: 16px;
+    padding: 0px 16px;
   }
   .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover{
     background: none;
