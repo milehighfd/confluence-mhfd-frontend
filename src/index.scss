@@ -3055,6 +3055,7 @@ body{
   margin: 12px 8px;
 }
 .problem-t{
+  margin-top: -25px;
   .ant-table-tbody > tr > td{
     background: $opacity00;
     padding: 14px 20px;
@@ -3849,7 +3850,7 @@ body{
   /* Body of the Modal */
   .ant-modal-body {
     padding: 0;
-    height: 800px;
+    // height: 800px;
   }
 
   /* Moldal's Footer */
