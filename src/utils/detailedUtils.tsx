@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Collapse, Button } from 'antd';
+import { Row, Col, Collapse, Button, Table } from 'antd';
 import { DetailedMapProps, ComponentType } from '../Classes/MapTypes';
 import { firstLetterUppercase, spacingCamelCase, numberWithCommas } from './utils';
 
@@ -7,6 +7,39 @@ import { VALUE_MITIGATION_TYPES_COL_1, VALUE_MITIGATION_TYPES_COL_2 } from '../c
 import GraphOnD3View from '../Components/Shared/D3/GraphOnD3View';
 
 const { Panel } = Collapse;
+
+const dataSource = [
+  {
+    key: '1',
+    name: '8 structures in LDC floodplain @Alpha St',
+    priority: 'High Priority',
+  },
+  {
+    key: '2',
+    name: '8 structures in LDC floodplain @Alpha St',
+    priority: 'High Priority',
+  },
+  {
+    key: '3',
+    name: '8 structures in LDC floodplain @Alpha St',
+    priority: 'High Priority',
+  },
+];
+
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    sorter: true,
+  },
+  {
+    title: 'Priority',
+    dataIndex: 'priority',
+    key: 'priority',
+    sorter: true,
+  },
+];
 
 const projectCapitalBasics = (data: DetailedMapProps) => {
   const { priority, description } = data;
@@ -39,7 +72,7 @@ const projectCapitalBasics = (data: DetailedMapProps) => {
 
 const projectMaintenanceBasics = (data: DetailedMapProps) => {
   const { draft, projectSubtype, frecuency } = data;
-  
+
   return (
     <>
       <Row>
@@ -61,7 +94,7 @@ const projectMaintenanceBasics = (data: DetailedMapProps) => {
 
 const projectStudyBasics = (data: DetailedMapProps) => {
   const { sponsor, coSponsor, requestedStartyear, projectSubtype } = data;
-  
+
   return (
     <>
       <Row>
@@ -165,7 +198,8 @@ export const componentSolutionsPanel = (data : any) => {
 
 export const problemPanel = (data : DetailedMapProps) => (
   <Panel header="PROBLEM" key="5" extra={genExtra()}>
-    <div className="detailed-info">
+  <Table dataSource={dataSource} columns={columns} />
+    {/*<div className="detailed-info">
       <Row>
         <Col span={4}>
           <label><i>Name</i></label>
@@ -180,7 +214,7 @@ export const problemPanel = (data : DetailedMapProps) => (
           <p>High Priority</p>
         </Col>
       </Row>
-    </div>
+    </div>*/}
   </Panel>
 );
 

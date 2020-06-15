@@ -3,10 +3,10 @@ import { Row, Col, Collapse, Button, Input, Progress, Carousel, message } from '
 
 import DetailedMap from "../Map/DetailedMap";
 
-import { 
-  getProjectBasics, 
-  mitigationPanel, 
-  componentSolutionsPanel, 
+import {
+  getProjectBasics,
+  mitigationPanel,
+  componentSolutionsPanel,
   problemPanel, vendorsPanel, genExtra } from "../../utils/detailedUtils";
 import { firstLetterUppercase, numberWithCommas } from "../../utils/utils";
 
@@ -23,11 +23,11 @@ const capitalComponentsContext = (component : Function, projectType : string) =>
 }
 
 export default ({ setVisible, data } : { setVisible : Function, data : ProjectTypes }) => {
-  const { 
+  const {
     county,
     finalCost,
     components,
-    requestName, 
+    requestName,
     projectType,
     coordinates,
     estimatedCost,
@@ -105,7 +105,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
 
               <Panel header="Map" key="3" extra={genExtra()}>
                 <div className="detailed-map">
-                  <DetailedMap 
+                  <DetailedMap
                     coordinates={JSON.parse(coordinates as string)}
                     components={components as any} />
                 </div>

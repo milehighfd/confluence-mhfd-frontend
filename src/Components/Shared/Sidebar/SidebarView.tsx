@@ -17,7 +17,7 @@ export default () => {
         <Link to={'/profile-view'}>
           <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="18px" />
           <img className="img-a anticon" src="/Icons/menu-green-01.svg" alt="" width="18px" />
-          <span>My SMS</span>
+          <span>My Confluence</span>
         </Link>
       </Menu.Item>
       <Menu.Item key="1">

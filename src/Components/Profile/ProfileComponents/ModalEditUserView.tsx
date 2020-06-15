@@ -50,6 +50,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
 
   const menu = (
     <Menu className="js-mm-00 sign-menu">
+      <label className="label-sg">{(values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF ) ? 'Local Government' : 'Consultant/Contractor'}</label>
       {organization.map((organization: string, index: number) => {
         return <Menu.Item key={index} className="organization-items" onClick={() => {
           values.organization = organization;
@@ -103,10 +104,12 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <h6>PERSONAL INFO</h6>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
+              <p>FIRST NAME</p>
               <Input placeholder="First Name" value={values.firstName} name="firstName" onChange={handleChange}
                 style={(errors.firstName && touched.firstName && !values.firstName) ? { border: "solid red 1px" } : {}} />
             </Col>
             <Col className="gutter-row" span={12}>
+              <p>LAST NAME</p>
               <Input placeholder="Last Name" value={values.lastName} name="lastName" onChange={handleChange}
                 style={(errors.lastName && touched.lastName && !values.lastName) ? { border: "solid red 1px" } : {}} />
             </Col>
@@ -114,10 +117,19 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <br></br>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
+              <p>EMAIL</p>
               <Input disabled placeholder="Email" value={values.email} name="email" onChange={handleChange}
                 style={(errors.email && touched.email && !values.email) ? { border: "solid red 1px" } : {}} />
             </Col>
             <Col className="gutter-row" span={12}>
+              <p>TITLE</p>
+              <Input placeholder="Title" value={values.title} name="title" onChange={handleChange}/>
+            </Col>
+          </Row>
+          <br></br>
+          <Row gutter={16}>
+            <Col className="gutter-row" span={12}>
+              <p>PHONE NUMBER</p>
               <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange}/>
             </Col>
           </Row>
@@ -127,7 +139,10 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
         <div className="gutter-example">
           <h6>USER DESIGNATION</h6>
           <Row gutter={16}>
-            <Col className="gutter-row" span={12}><Input placeholder="Account Type" value={role.name} disabled /></Col>
+            <Col className="gutter-row" span={12}>
+              <Input placeholder="Account Type" value={role.name} disabled />
+            </Col>
+            {/*
             <Col className="gutter-row" span={12}>
               {(values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF || values.designation === CONSULTANT) ? <div id="sign-up-organization">
                 <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
@@ -140,13 +155,13 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
                 : (
                   <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange}/>
                 )}
-            </Col>
+            </Col>*/}
           </Row>
-          <br></br>
+          {/* <br></br>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}><Input placeholder="Title" value={values.title} name="title" onChange={handleChange}/></Col>
             <Col className="gutter-row" span={12}><Input placeholder="Zip Code" value={values.zipCode} name="zipCode" onChange={handleChange}/></Col>
-          </Row>
+          </Row>*/}
         </div>
 
         <hr></hr>
@@ -154,6 +169,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <h6>Areas of Interest</h6>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
+              <p>CITY</p>
               <Dropdown overlay={MenuAreaView(CITIES, 'city', values, setTitle)}>
                 <Button>
                   {values.city ? values.city : 'City'} <img src="/Icons/icon-12.svg" alt="" />
@@ -162,6 +178,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
             </Col>
 
             <Col className="gutter-row" span={12}>
+              <p>COUNTY</p>
               <Dropdown overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}>
                 <Button>
                   {values.county ? values.county : 'County'}  <img src="/Icons/icon-12.svg" alt="" />
@@ -172,6 +189,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <br></br>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
+              <p>SERVICE AREA</p>
               <Dropdown overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
 
                 placement="bottomLeft">
@@ -179,6 +197,28 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
                   {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>
+            </Col>
+          </Row>
+        </div>
+        <hr></hr>
+        <div className="gutter-example">
+          <h3>DEFAULT MAP ZOOM AREA</h3>
+          <Row gutter={16}>
+            <Col className="gutter-row" span={12}>
+              <p>ORGANIZATION</p>
+
+                {(values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF || values.designation === CONSULTANT) ? <div id="sign-up-organization">
+                  <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                    <Button style={{ paddingLeft: '10px' }} >
+                      {values.organization ? values.organization : (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Organization' : 'Consultant/Contractor'}
+                      <img src="/Icons/icon-12.svg" alt="" />
+                    </Button>
+                  </Dropdown>
+                </div>
+                  : (
+                    <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange}/>
+                  )}
+
             </Col>
           </Row>
         </div>

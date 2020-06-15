@@ -9,7 +9,7 @@ export default () => {
     <a href="https://mhfd.org/" target="_blank">
       <div className="logo-white"
         style={{ backgroundImage: 'url(/Icons/logo-white.svg)' }}>
-        <p>Protecting People, Property, and our Environment.</p>
+        {/*<p>Protecting People, Property, and our Environment.</p>*/}
       </div>
     </a>
     <div className="contact01">

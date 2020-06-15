@@ -72,12 +72,12 @@ body{
 }
 // NAVBAR
 .logo {
-  width: 109px;
-  height: 38px;
+  width: 250px;
+  height: 25px;
   float: left;
   background-repeat: no-repeat;
   background-size: cover;
-  margin: 10px 0px;
+  margin: 16px 0px;
 }
 .header {
   height: 58px !important;
@@ -447,6 +447,10 @@ body{
   .ant-input:hover {
     border-color: $purple;
   }
+  p{
+    margin-bottom: 2px;
+    color: $purple00;
+  }
 }
 .img-banner {
   width: 1066px;
@@ -564,8 +568,8 @@ body{
 }
 // logo white
 .logo-white {
-  width: 162px;
-  height: 56px;
+  width: 130px;
+  height: 45px;
   float: left;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1505,7 +1509,7 @@ body{
   width: 210px;
   background-color: $white;
   position: absolute;
-  bottom: 20px;
+  bottom: 35px;
   left: 20px;
   padding: 15px;
   z-index: 10;
@@ -3050,6 +3054,46 @@ body{
   background-color: $purple;
   margin: 12px 8px;
 }
+.problem-t{
+  .ant-table-tbody > tr > td{
+    background: $opacity00;
+    padding: 14px 20px;
+    height: 50px;
+    min-height: 50px;
+    font-size: 14px;
+    font-weight:400;
+    margin-top: 10px;
+    color: $purple;
+    border-bottom: none;
+  }
+  .ant-table table {
+    border-collapse: separate !important;
+    border-spacing: 0px 5px !important;
+  }
+  .ant-table-tbody > tr{
+    border-radius: 4px;
+  }
+  .ant-table-thead > tr > th {
+    color: $opacity;
+    background: none;
+    border-bottom: none;
+  }
+  .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover{
+    background: none;
+  }
+  .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-up.on, .ant-table-thead > tr > th .ant-table-column-sorter .ant-table-column-sorter-inner .ant-table-column-sorter-down.on {
+    color: $purple;
+  }
+  .ant-table-thead > tr > th.ant-table-column-sort {
+    background: none;
+  }
+  .ant-table-tbody > tr > td.ant-table-column-sort {
+    background: $opacity00;
+  }
+  .ant-table-pagination.ant-pagination{
+    display: none;
+  }
+}
 // profile
 .profile-header {
   background-color: $white;
@@ -3513,6 +3557,11 @@ body{
     text-align: center !important;
     font-weight: bold !important;
   }
+  p{
+    margin-bottom: 2px;
+    color: $purple00;
+    font-size: 12px;
+  }
 }
 // ALERTS AND MODALS
 .alert-mm{
@@ -3762,9 +3811,9 @@ body{
   color: #11093c !important;
  }
  .ant-dropdown-menu-item-group-title {
-   color: #ff7600 !important;
+  //  color: #ff7600 !important;
    margin: 4px 0px -4px 0px!important;
-   font-weight: bold;
+  //  font-weight: bold;
  }
 
  .card-information {
