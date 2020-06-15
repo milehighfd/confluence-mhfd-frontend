@@ -8,10 +8,12 @@ export default (values: User, setTitle: Function) => {
             values.organization = event.item.props.children.props.children;
             setTitle(event.item.props.children.props.children);
         }}>
-        <Menu.ItemGroup key="g3" title="Organization">
+        <Menu.ItemGroup key="g3">
+            <label className="label-sg">{'Local Government'}</label>
             {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
         </Menu.ItemGroup>
-        <Menu.ItemGroup key="g2" title="Consultant / Contractor">
+        <Menu.ItemGroup key="g2">
+            <label className="label-sg">{'Consultant/Contractor'}</label>
             {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
         </Menu.ItemGroup>
         {/* <Menu.ItemGroup key="g1" title="Cities">

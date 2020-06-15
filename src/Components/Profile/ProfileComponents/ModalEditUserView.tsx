@@ -50,6 +50,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
 
   const menu = (
     <Menu className="js-mm-00 sign-menu">
+      <label className="label-sg">{(values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF ) ? 'Local Government' : 'Consultant/Contractor'}</label>
       {organization.map((organization: string, index: number) => {
         return <Menu.Item key={index} className="organization-items" onClick={() => {
           values.organization = organization;
