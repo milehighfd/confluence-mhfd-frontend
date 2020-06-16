@@ -171,3 +171,22 @@ export const resetMap = () => {
         dispatch({ type: types.RESET_MAP});
     }
 }
+
+
+export const getGalleryProblems = () => {
+    console.log('antes del return');
+    return (dispatch: Function) => {
+        console.log('estoy entrando');
+        datasets.getData(SERVER.GALLERY_PROBLEMS, datasets.getToken()).then(galleryProblems => {
+            dispatch({type: types.GALLERY_PROBLEMS, galleryProblems});
+        });
+    }
+}
+
+export const getGalleryProjects = () => {
+    return (dispatch: Function) => {
+        datasets.getData(SERVER.GALLERY_PROJECTS, datasets.getToken()).then(galleryProjects => {
+            dispatch({type: types.GALLERY_PROJECTS, galleryProjects});
+        });
+    }
+}

@@ -190,10 +190,13 @@ const initState = {
     layers: {} as any,
     longitude: 0,
     latitude: 0,
-    selectedLayers: []
+    selectedLayers: [],
+    galleryProblems: [],
+    galleryProjects: []
 }
 
 const mapReducer = (state = initState, action : any) => {
+    console.log(action);
     switch(action.type) {
         case types.SET_REVERSE_GEOCODE: 
             return {
@@ -293,6 +296,18 @@ const mapReducer = (state = initState, action : any) => {
         case types.RESET_MAP: {
             return {
                 ...initState
+            }
+        }
+        case types.GALLERY_PROBLEMS: {
+            return {
+                ...state,
+                galleryProblems: action.galleryProblems
+            }
+        }
+        case types.GALLERY_PROJECTS: {
+            return {
+                ...state, 
+                galleryProjects: action.galleryProjects
             }
         }
         default: 
