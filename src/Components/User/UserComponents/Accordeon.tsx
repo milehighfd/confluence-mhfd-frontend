@@ -12,7 +12,7 @@ import MenuOrganizationView from './MenuOrganizationView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
 
-export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, saveUser: Function, deleteUser: Function}) => {
+export default ({ user, pos, saveUser, deleteUser }: { user: User, pos: number, saveUser: Function, deleteUser: Function }) => {
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
 
@@ -21,41 +21,41 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
   };
   const menu = () => {
     return (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            // values, setTitle
-            values.organization = event.item.props.children.props.children;
-            const auxTitle = event.item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-          <Menu.ItemGroup key="g1">
-            <label className="label-sg">{'Regional Agency'}</label>
-            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g2">
-            <label className="label-sg">{'City'}</label>
-            {DROPDOWN_ORGANIZATION.CITY.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g3">
-            <label className="label-sg">{'City and County'}</label>
-            {DROPDOWN_ORGANIZATION.CITY_AND_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g4">
-            <label className="label-sg">{'Unincorporated County'}</label>
-            {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-        </Menu> : 
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            values.organization = event.item.props.children.props.children;
-            const auxTitle = event.item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-          <Menu.ItemGroup key="g1">
-            <label className="label-sg">{'Regional Agency'}</label>
-            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-        </Menu>
+      <Menu className="js-mm-00 sign-menu-organization"
+        onClick={(event) => {
+          // values, setTitle
+          values.organization = event.item.props.children.props.children;
+          const auxTitle = event.item.props.children.props.children;
+          setTitle(auxTitle);
+        }}>
+        <Menu.ItemGroup key="g1">
+          <label className="label-sg">{'Regional Agency'}</label>
+          {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+        </Menu.ItemGroup>
+        <Menu.ItemGroup key="g2">
+          <label className="label-sg">{'City'}</label>
+          {DROPDOWN_ORGANIZATION.CITY.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
+        </Menu.ItemGroup>
+        <Menu.ItemGroup key="g3">
+          <label className="label-sg">{'City and County'}</label>
+          {DROPDOWN_ORGANIZATION.CITY_AND_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
+        </Menu.ItemGroup>
+        <Menu.ItemGroup key="g4">
+          <label className="label-sg">{'Unincorporated County'}</label>
+          {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
+        </Menu.ItemGroup>
+      </Menu> :
+      <Menu className="js-mm-00 sign-menu-organization"
+        onClick={(event) => {
+          values.organization = event.item.props.children.props.children;
+          const auxTitle = event.item.props.children.props.children;
+          setTitle(auxTitle);
+        }}>
+        <Menu.ItemGroup key="g1">
+          <label className="label-sg">{'Regional Agency'}</label>
+          {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+        </Menu.ItemGroup>
+      </Menu>
   };
   const [modal, setModal] = useState(visible);
   const [, setSwitchTo] = useState<boolean>(user.activated);
@@ -63,7 +63,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
   const [, setTitle] = useState<string>('');
   const [initialValues, setInitialValues] = useState(user);
   const [activated, setActivated] = useState(false);
-  const [messageError, setMessageError] = useState({message: '', color: '#28C499'});
+  const [messageError, setMessageError] = useState({ message: '', color: '#28C499' });
 
   useEffect(() => {
     const auxUser = { ...user };
@@ -88,19 +88,19 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     validationSchema,
     onSubmit(values: User) {
       values.designation = designation;
-      const auxState = {...visible};
+      const auxState = { ...visible };
       auxState.visible = true;
       setModal(auxState);
     }
   });
 
   const updateSuccessful = () => {
-    const auxMessageError = {...messageError};
+    const auxMessageError = { ...messageError };
     auxMessageError.message = 'Updating user data was successful';
     auxMessageError.color = '#28C499';
     setMessageError(auxMessageError);
     const timer = setTimeout(() => {
-      const auxMessageError = {...messageError};
+      const auxMessageError = { ...messageError };
       auxMessageError.message = '';
       auxMessageError.color = '#28C499';
       setMessageError(auxMessageError);
@@ -109,12 +109,12 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
   }
 
   const updateError = (error: string) => {
-    const auxMessageError = {...messageError};
+    const auxMessageError = { ...messageError };
     auxMessageError.message = error;
     auxMessageError.color = 'red';
     setMessageError(auxMessageError);
     const timer = setTimeout(() => {
-      const auxMessageError = {...messageError};
+      const auxMessageError = { ...messageError };
       auxMessageError.message = '';
       auxMessageError.color = '#28C499';
       setMessageError(auxMessageError);
@@ -122,7 +122,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
     return () => clearTimeout(timer);
   }
   const result = () => {
-    const auxState = {...visible};
+    const auxState = { ...visible };
     auxState.visible = false;
     setModal(auxState);
     datasets.putData(SERVER.EDIT_USER + '/' + user._id, values, datasets.getToken()).then(res => {
@@ -147,7 +147,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
   }
 
   const genExtra = () => (
-    <Row className="user-head" type="flex" justify="space-around" align="middle" style={{cursor: 'pointer'}}>
+    <Row className="user-head" type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col span={19} onClick={() => {
         console.log('click click');
         setActivated(!activated);
@@ -160,10 +160,10 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
         </div>
       </Col>
       <Col span={1} style={{ textAlign: 'right' }} onClick={() => {
-          console.log('se pudo hacer click');
-          setActivated(!activated);
-        }} >
-        <img src={activated ? "/Icons/icon-21.svg": "/Icons/icon-20.svg"} alt="" />
+        console.log('se pudo hacer click');
+        setActivated(!activated);
+      }} >
+        <img src={activated ? "/Icons/icon-21.svg" : "/Icons/icon-20.svg"} alt="" />
       </Col>
     </Row>
   );
@@ -180,12 +180,12 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <Col className="gutter-row" span={12}>
                   <p>FIRST NAME</p>
                   <Input placeholder="First Name" value={values.firstName} name="firstName" onChange={handleChange}
-                    style={(errors.firstName && touched.firstName) ? {border: "solid red"}:{}} />
+                    style={(errors.firstName && touched.firstName) ? { border: "solid red" } : {}} />
                 </Col>
                 <Col className="gutter-row" span={12}>
                   <p>LAST NAME</p>
                   <Input placeholder="Last Name" value={values.lastName} name="lastName" onChange={handleChange}
-                    style={(errors.lastName && touched.lastName) ? {border: "solid red"}:{}}/>
+                    style={(errors.lastName && touched.lastName) ? { border: "solid red" } : {}} />
                 </Col>
               </Row>
               <br></br>
@@ -193,18 +193,18 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 <Col className="gutter-row" span={12}>
                   <p>EMAIL</p>
                   <Input placeholder="Email" value={values.email} name="email" onChange={handleChange}
-                  style={(errors.email && touched.email) ? {border: "solid red"}:{}}/>
+                    style={(errors.email && touched.email) ? { border: "solid red" } : {}} />
                 </Col>
                 <Col className="gutter-row" span={12}>
                   <p>TITLE</p>
-                  <Input placeholder="Title" value={values.title} name="title"  onChange={handleChange}/>
+                  <Input placeholder="Title" value={values.title} name="title" onChange={handleChange} />
                 </Col>
               </Row>
-                <br></br>
+              <br></br>
               <Row gutter={16}>
                 <Col className="gutter-row" span={12}>
                   <p>PHONE NUMBER</p>
-                  <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange}/>
+                  <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} />
                 </Col>
               </Row>
             </div>
@@ -275,11 +275,11 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                 </Col>
               </Row>
             </div>
-            <br/>
-            <span style={{color: messageError.color}}>&nbsp;&nbsp; {messageError.message}</span>
+            <br />
+            <span style={{ color: messageError.color }}>&nbsp;&nbsp; {messageError.message}</span>
             <div className="user-footer">
               {values.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : <Button className="btn-d"></Button>}
-              <Button style={{color: '#28C499'}} className="btn-s colorButton" block htmlType="submit">Save</Button>
+              <Button style={{ color: '#28C499' }} className="btn-s colorButton" block htmlType="submit">Save</Button>
             </div>
           </Form>
         </Panel>
