@@ -19,6 +19,8 @@ export const SERVER = (function () {
     const CREATE_PROJECT_SPECIAL = 'createSpecial';
     const CREATE_PROJECT_STUDY_MASTER = 'createStudyMasterPlan';
     const CREATE_PROJECT_STUDY_FHAD = 'createStudyFHAD';
+    const GALLERY_PROBLEMS = 'gallery?isproblem=true';
+    const GALLERY_PROJECTS = 'gallery';
     const GRAPHQL = 'graphql';
     const UPLOAD_FILE = 'upload-file';
     const ME = 'me';
@@ -69,6 +71,8 @@ export const SERVER = (function () {
         CREATE_PROJECT_SPECIAL: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_SPECIAL}`,
         CREATE_PROJECT_STUDY_MASTER: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_STUDY_MASTER}`,
         CREATE_PROJECT_STUDY_FHAD: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_STUDY_FHAD}`,
+        GALLERY_PROJECTS: `${URL_BASE.BASE}/${GALLERY_PROJECTS}`,
+        GALLERY_PROBLEMS: `${URL_BASE.BASE}/${GALLERY_PROBLEMS}`,
         MAP_TABLES: `${URL_BASE.BASE}/${MAP}`,
         LIST_USERS_ACTIVATED: `${URL_BASE.BASE}/${ADMIN}/${LIST_USERS_ACTIVATED}`,
         LIST_USERS_PENDING: `${URL_BASE.BASE}/${ADMIN}/${LIST_USERS_PENDING}`,

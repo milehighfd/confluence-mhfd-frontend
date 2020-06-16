@@ -55,7 +55,7 @@ const accordionRow: Array<any> = [
 ];
 
 const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters,
-                  dropdowns, userFiltered, getUserFilters, sortProjects } : MapViewTypes) => {
+                  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems, getGalleryProjects, galleryProblems, galleryProjects } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
@@ -68,7 +68,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [sortableProjects, setSortableProjects] = useState(projects);
 
   const { projectId } = useParams();
-
+    console.log(getGalleryProblems, getGalleryProjects);
+  useEffect(() =>{
+    getGalleryProblems();
+    getGalleryProjects();
+  }, [getGalleryProblems, getGalleryProjects]);
   useEffect(() => {
     /* Validate projectId in backend to show it! */
     if (projectId === '5eb2cee46fc3881503d67288' && projects[0]) {
@@ -215,13 +219,36 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           {tabs.map((value : string, index : number) => {
             let totalElements = 0;
             let cardInformation : Array<Object> = [];
-
+            console.log(value);
             if(value === FILTER_PROBLEMS_TRIGGER) {
-              totalElements = cardInformationProblems.length;
-              cardInformation = cardInformationProblems;
-            } else if (sortableProjects) {
-              totalElements = sortableProjects.length;
-              cardInformation = sortableProjects;
+              console.log(galleryProblems);
+              cardInformation = galleryProblems.map(problem => {
+                return {
+                  image: `gallery/${problem.problemtype}.jpg`,
+                  requestName: problem.problemname,
+                  jurisdiction: problem.jurisdiction,
+                  estimatedCost: problem.solutioncost,
+                  field4: 'X',
+                  field5: 'Components',
+                  priority: problem.problempriority,
+                  percentage: problem.solutionstatus
+                }
+              });
+              console.log(cardInformation);
+              totalElements = cardInformation.length;
+              console.log(cardInformation);
+            } else { 
+              cardInformation = galleryProjects.map(project => {
+                return {
+                  image: project.attachments,
+                  requestName:  project.projectname? project.projectname : project.requestedname,
+                  sponsor: project.sponsor,
+                  estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
+                  status: project.status,
+                  projecttype: project.projecttype
+                }
+              });
+              totalElements = cardInformation.length;
             }
 
             return (

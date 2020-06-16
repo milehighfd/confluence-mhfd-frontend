@@ -211,6 +211,7 @@ const Map = ({ leftWidth,
 
     const applyMapLayers = () => {
         selectedLayers.forEach((layer: LayersType) => {
+            console.log('my layer is ', layer);
             if (typeof layer === 'object') {
                 layer.tiles.forEach((subKey: string) => {
                     if (!layerFilters[layer.name]) {
@@ -224,6 +225,7 @@ const Map = ({ leftWidth,
                 if (!layerFilters[layer]) {
                     getMapTables(layer);
                 } else {
+                    console.log(layer, layerFilters[layer]);
                     addLayersSource(layer, layerFilters[layer]);
                 }
             }
