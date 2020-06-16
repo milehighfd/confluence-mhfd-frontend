@@ -22,13 +22,11 @@ export default ({ data, type }: { data: any, type: string }) => {
 
   return (
     <>
-      {type !== 'Problems' && 
         <DetailedModal 
           data={data}
           visible={visible}
           setVisible={setVisible}
         />
-      }
 
       <Col span={8}>
         <Card

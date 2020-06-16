@@ -72,7 +72,7 @@ body{
 }
 // NAVBAR
 .logo {
-  width: 250px;
+  width: 270px;
   height: 25px;
   float: left;
   background-repeat: no-repeat;
@@ -81,7 +81,7 @@ body{
 }
 .header {
   height: 58px !important;
-  padding: 0 27px !important;
+  padding: 0 20px !important;
   line-height: 58px !important;
   background: $dark !important;
 }
@@ -3030,7 +3030,7 @@ body{
   font-size: 14px;
   border-radius: 4px;
   font-weight:400;
-  margin-top: 10px;
+  margin-top: 5px;
   color: $purple;
 }
 .data-00{
@@ -3055,6 +3055,7 @@ body{
   margin: 12px 8px;
 }
 .problem-t{
+  margin-top: -15px;
   .ant-table-tbody > tr > td{
     background: $opacity00;
     padding: 14px 20px;
@@ -3077,6 +3078,9 @@ body{
     color: $opacity;
     background: none;
     border-bottom: none;
+    font-weight: normal;
+    font-size: 16px;
+    padding: 0px 16px;
   }
   .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover{
     background: none;
@@ -3849,7 +3853,7 @@ body{
   /* Body of the Modal */
   .ant-modal-body {
     padding: 0;
-    height: 800px;
+    // height: 800px;
   }
 
   /* Moldal's Footer */

@@ -34,8 +34,6 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
           if (fileImage.uid !== file.uid) {
             setFileImage({...file});
             spinValue(true);
-            console.log('eta entrando aunque no quieras');
-
             uploadImage([{ ...file }]);
           }
         }} >

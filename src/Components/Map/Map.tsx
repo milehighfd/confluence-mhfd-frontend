@@ -75,32 +75,32 @@ const Map = ({ leftWidth,
                     }
                 }
             });
-            map.addLayer(USER_POLYGON_FILL_STYLES);
-            map.addLayer(USER_POLYGON_LINE_STYLES);
+            // map.addLayer(USER_POLYGON_FILL_STYLES);
+            // map.addLayer(USER_POLYGON_LINE_STYLES);
         });
     }
     if(user?.polygon[0]) {
-        let menorLongitud = user.polygon[0][0];
-        let menorlatitud = user.polygon[0][1];
-        let mayorLongitud = user.polygon[0][0];
-        let mayorlatitud = user.polygon[0][1];
+        let bottomLongitude = user.polygon[0][0];
+        let bottomLatitude = user.polygon[0][1];
+        let topLongitude = user.polygon[0][0];
+        let topLatitude = user.polygon[0][1];
         for (let index = 0; index < user.polygon.length; index++) {
             const element = user.polygon[index];
-            if(menorLongitud > element[0]) {
-                menorLongitud = element[0];
+            if(bottomLongitude > element[0]) {
+                bottomLongitude = element[0];
             }
-            if(mayorLongitud < element[0]) {
-                mayorLongitud = element[0];
+            if(topLongitude < element[0]) {
+                topLongitude = element[0];
             }
-            if(menorlatitud > element[1]) {
-                menorlatitud = element[1];
+            if(bottomLatitude > element[1]) {
+                bottomLatitude = element[1];
             }
-            if(mayorlatitud < element[1]) {
-                mayorlatitud = element[1];
+            if(topLatitude < element[1]) {
+                topLatitude = element[1];
             }
         }
-        coor.push([menorLongitud, menorlatitud]);
-        coor.push([mayorLongitud, mayorlatitud])
+        coor.push([bottomLongitude, bottomLatitude]);
+        coor.push([topLongitude, topLatitude])
     }
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;

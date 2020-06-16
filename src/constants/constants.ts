@@ -180,6 +180,62 @@ export const NEW_PROJECT_FORM_COST = {
   total: 0
 }
 
+export const DROPDOWN_ORGANIZATION = {
+  REGIONAL_AGENCY_PUBLIC: [
+    'Mile High Flood Control District Boundary'
+  ],
+  REGIONAL_AGENCY: [
+    'SEMSWA Stormwater Service Area Boundary'
+  ],
+  CITY: [
+    'Arvada',
+    'Aurora',
+    'Boulder',
+    'Bow Mar',
+    'Brighton',
+    'Castle Pines',
+    'Centennial',
+    'Cherry Hills Village',
+    'Columbine Valley',
+    'Commerce City',
+    'Edgewater',
+    'Englewood',
+    'Erie',
+    'Federal Heights',
+    'Foxfield',
+    'Glendale',
+    'Golden',
+    'Greenwood Village',
+    'Lafayette',
+    'Lakeside',
+    'Lakewood',
+    'Littleton',
+    'Lochbuie',
+    'Lone Tree',
+    'Lousiville',
+    'Morrison',
+    'Mountain View',
+    'Northglenn',
+    'Parker',
+    'Sheridan',
+    'Superior',
+    'Thornton',
+    'Westminster',
+    'Wheat Ridge'
+  ],
+  CITY_AND_COUNTY: [
+    "Broomfield",
+    "Denver"
+  ],
+  UNINCORPORATED_COUNTY: [
+    "Adams County",
+    "Arapahoe County",
+    "Boulder County",
+    "Douglas County",
+    "Jefferson County"
+  ]
+}
+
 export const buttonsNewProject = [
     {
       disabled: false,

@@ -32,7 +32,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
     coordinates,
     estimatedCost,
   } = data;
-
+  
   const renderCapitalComponents = (component : Function) => {
     return capitalComponentsContext(component(data), projectType as string);
   }
@@ -99,15 +99,16 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
           <div className="tabs-detailed">
             <Collapse defaultActiveKey={['1']}>
               {renderCapitalComponents(mitigationPanel)}
-              {renderCapitalComponents(componentSolutionsPanel)}
+              {/* {renderCapitalComponents(componentSolutionsPanel)} */}
               {renderCapitalComponents(problemPanel)}
               {renderCapitalComponents(vendorsPanel)}
 
               <Panel header="Map" key="3" extra={genExtra()}>
                 <div className="detailed-map">
                   <DetailedMap
-                    coordinates={JSON.parse(coordinates as string)}
-                    components={components as any} />
+                    coordinates={JSON.parse((coordinates ? coordinates: '[[-104.9070096657899,39.88842619958655],[-104.72306671700684,39.93973005898144],[-104.71609918106799,39.80069322535405],[-104.95299540298578,39.774994077663706],[-104.9070096657899,39.88842619958655]]') as string)}
+                    components={components ? components: '' as any} 
+                    />
                 </div>
               </Panel>
               <Panel header="Attachments" key="4" extra={genExtra()}>

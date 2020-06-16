@@ -174,7 +174,6 @@ export const mitigationPanel = (data : DetailedMapProps) => (
 
 export const componentSolutionsPanel = (data : any) => {
   const { components } = data;
-
   return (
     <Panel header="Component & solutions" key="2" extra={genExtra()}>
       <Row className="solution-h">
@@ -184,14 +183,14 @@ export const componentSolutionsPanel = (data : any) => {
         <Col span={8}><Button>Solution Type <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
       </Row>
 
-      {components.map((component : ComponentType) => (
-        <Row className="solution-b" key={component.componentId}>
+      {components.map((component : ComponentType) => {
+        return <Row className="solution-b" key={component.componentId}>
           <Col span={8}>{component.componentName}</Col>
           <Col span={4}>${numberWithCommas(component.howCost)}</Col>
           <Col span={4}>{component.status}</Col>
           <Col span={8}>{component.studyName}</Col>
         </Row>
-      ))}
+      })}
     </Panel>
   );
 };
