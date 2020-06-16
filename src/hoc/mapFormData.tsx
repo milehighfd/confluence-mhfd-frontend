@@ -42,7 +42,12 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               saveDraftCard,
               getUserProjects,
               sortProjects,
-              saveLayersCheck} : MapHOCProps) => {
+              saveLayersCheck, 
+              getGalleryProblems,
+              getGalleryProjects,
+              galleryProblems,
+              galleryProjects
+            } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -146,7 +151,12 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             markerRef={markerRef}
                             polygonRef={polygonRef}
                             getUserProjects={getUserProjects}
-                            sortProjects={sortProjects} />
+                            sortProjects={sortProjects} 
+                            getGalleryProblems={getGalleryProblems}
+                            getGalleryProjects={getGalleryProjects}
+                            galleryProblems={galleryProblems}
+                            galleryProjects={galleryProjects}
+                      />
                     </Col>
                 </Row>}
               </Layout>

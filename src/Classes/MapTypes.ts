@@ -49,7 +49,11 @@ export type MapHOCProps = {
     saveDraftCard: Function,
     getUserProjects: Function,
     sortProjects: Function,
-    saveLayersCheck: Function
+    saveLayersCheck: Function,
+    getGalleryProblems: Function,
+    getGalleryProjects: Function,
+    galleryProblems: Array<any>,
+    galleryProjects: Array<any>
 }
 
 export type MapViewTypes = { 
@@ -61,7 +65,11 @@ export type MapViewTypes = {
     dropdowns: DropdownFilterTypes,
     userFiltered: { [_id: string]: string },
     getUserFilters: Function,
-    sortProjects: Function
+    sortProjects: Function,
+    getGalleryProblems: Function,
+    getGalleryProjects: Function,
+    galleryProblems: Array<any>,
+    galleryProjects: Array<any>
 }
 
 export type CapitalTypes = {

@@ -10,6 +10,8 @@ import { getReverseGeocode,
         clearErrorMessage,
         setRouteRedirect,
         getMapTables,
+        getGalleryProblems, 
+        getGalleryProjects,
         getPolygonStreams, saveLayersCheck } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
@@ -31,6 +33,8 @@ const mapStateToProps = (state: any) => {
         redirect: state.map.redirect,
         latitude: state.profile.userInformation.coordinates.latitude,
         longitude: state.profile.userInformation.coordinates.longitude,
+        galleryProblems: state.map.galleryProblems,
+        galleryProjects: state.map.galleryProjects
         // user: state.profile.userInformation
     };
 };
@@ -48,6 +52,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         getProjectWithFilters,
         removeFilter,
         getMapTables,
+        getGalleryProjects,
+        getGalleryProblems,
         getDropdownFilters,
         getUserFilters,
         getPolygonStreams,
