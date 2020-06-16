@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form } from 'antd';
+import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu } from 'antd';
 import { useFormik } from 'formik';
 
-import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS } from "../../../constants/constants";
+import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS, DROPDOWN_ORGANIZATION, GOVERNMENT_ADMIN, GOVERNMENT_STAFF } from "../../../constants/constants";
 import { VALIDATION_USER } from "../../../constants/validation";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from '../../../Config/Server.config';
@@ -12,15 +12,50 @@ import MenuOrganizationView from './MenuOrganizationView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
 
-/* line to remove useEffect dependencies warning */
-/* eslint-disable react-hooks/exhaustive-deps */
-
 export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, saveUser: Function, deleteUser: Function}) => {
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
 
   const visible = {
     visible: false
+  };
+  const menu = () => {
+    return (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
+        <Menu className="js-mm-00 sign-menu-organization"
+          onClick={(event) => {
+            // values, setTitle
+            values.organization = event.item.props.children.props.children;
+            const auxTitle = event.item.props.children.props.children;
+            setTitle(auxTitle);
+          }}>
+          <Menu.ItemGroup key="g1">
+            <label className="label-sg">{'Regional Agency'}</label>
+            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g2">
+            <label className="label-sg">{'City'}</label>
+            {DROPDOWN_ORGANIZATION.CITY.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g3">
+            <label className="label-sg">{'City and County'}</label>
+            {DROPDOWN_ORGANIZATION.CITY_AND_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g4">
+            <label className="label-sg">{'Unincorporated County'}</label>
+            {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+        </Menu> : 
+        <Menu className="js-mm-00 sign-menu-organization"
+          onClick={(event) => {
+            values.organization = event.item.props.children.props.children;
+            const auxTitle = event.item.props.children.props.children;
+            setTitle(auxTitle);
+          }}>
+          <Menu.ItemGroup key="g1">
+            <label className="label-sg">{'Regional Agency'}</label>
+            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+        </Menu>
   };
   const [modal, setModal] = useState(visible);
   const [, setSwitchTo] = useState<boolean>(user.activated);
@@ -118,7 +153,6 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
         setActivated(!activated);
       }}>
         <h6>{pos + '. ' + user.firstName + ' ' + user.lastName}</h6>
-        {/* <span>(Organization - Service Area - User Designation)</span> */}
       </Col>
       <Col span={3} style={{ textAlign: 'right' }}>
         <div>
@@ -161,14 +195,6 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
                   <Input placeholder="Email" value={values.email} name="email" onChange={handleChange}
                   style={(errors.email && touched.email) ? {border: "solid red"}:{}}/>
                 </Col>
-                {/*<Col className="gutter-row" span={12} id={("organization" + values._id)}>
-                  <Dropdown trigger={['click']} overlay={MenuOrganizationView(values, setTitle)}
-                    getPopupContainer={() => document.getElementById(("organization" + values._id)) as HTMLElement}>
-                    <Button>
-                      {values.organization ? values.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
-                    </Button>
-                  </Dropdown>
-                </Col>*/}
                 <Col className="gutter-row" span={12}>
                   <p>TITLE</p>
                   <Input placeholder="Title" value={values.title} name="title"  onChange={handleChange}/>
@@ -240,7 +266,7 @@ export default ({ user, pos, saveUser, deleteUser }: {user: User, pos: number, s
               <Row gutter={16}>
                 <Col className="gutter-row" span={12} id={("organization" + values._id)}>
                   <p>ORGANIZATION</p>
-                  <Dropdown trigger={['click']} overlay={MenuOrganizationView(values, setTitle)}
+                  <Dropdown trigger={['click']} overlay={menu}
                     getPopupContainer={() => document.getElementById(("organization" + values._id)) as HTMLElement}>
                     <Button>
                       {values.organization ? values.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />

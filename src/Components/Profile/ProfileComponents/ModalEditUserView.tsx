@@ -6,14 +6,14 @@ import { User } from '../../../Classes/TypeList';
 import MenuAreaView from "../../User/UserComponents/MenuAreaView";
 
 import { VALIDATION_USER_PROFILE } from "../../../constants/validation";
-import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT } from "../../../constants/constants";
+import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT, DROPDOWN_ORGANIZATION } from "../../../constants/constants";
 
 
 export default ({ user, updateUserInformation }: { user: User, updateUserInformation: Function }) => {
-  const initialValues ={...user};
+  const initialValues = { ...user };
   const [organization, setOrganization] = useState<Array<string>>([]);
   const [title, setTitle] = useState('');
-  const [ role, setRole ] = useState({ name: '', value: ''});
+  const [role, setRole] = useState({ name: '', value: '' });
   const asign = () => {
     values._id = user._id;
     values.firstName = user.firstName;
@@ -30,9 +30,9 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
     values.title = user.title;
     values.zipCode = user.zipCode;
     const auxOrganization = (values.designation === ADMIN || values.designation === STAFF) ? CITIES :
-                             (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF ) ? ORGANIZATION : CONSULTANT_CONTRACTOR;
+      (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? ORGANIZATION : CONSULTANT_CONTRACTOR;
     setOrganization([...auxOrganization]);
-    setRole(RADIO_ITEMS.filter(element => element.value === (user.designation))[0]? {...RADIO_ITEMS.filter(element => element.value === (user.designation))[0]} : { name: '', value: ''});
+    setRole(RADIO_ITEMS.filter(element => element.value === (user.designation))[0] ? { ...RADIO_ITEMS.filter(element => element.value === (user.designation))[0] } : { name: '', value: '' });
   }
   useEffect(() => {
     asign();
@@ -48,22 +48,43 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
     }
   });
 
-  const menu = (
-    <Menu className="js-mm-00 sign-menu">
-      <label className="label-sg">{(values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF ) ? 'Local Government' : 'Consultant/Contractor'}</label>
-      {organization.map((organization: string, index: number) => {
-        return <Menu.Item key={index} className="organization-items" onClick={() => {
-          values.organization = organization;
-          const auxTitle = organization;
-          console.log(title);
-          setTitle(auxTitle);
-        }}>
-          <span className="organization-items-text">
-            {organization}
-          </span>
-        </Menu.Item>
-      })}
-    </Menu>);
+  const menu = () => {
+    return (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
+        <Menu className="js-mm-00 sign-menu-organization"
+          onClick={(event) => {
+            values.organization = event.item.props.children.props.children;
+            const auxTitle = event.item.props.children.props.children;
+            setTitle(auxTitle);
+          }}>
+          <Menu.ItemGroup key="g1">
+            <label className="label-sg">{'Regional Agency'}</label>
+            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g2">
+            <label className="label-sg">{'City'}</label>
+            {DROPDOWN_ORGANIZATION.CITY.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g3">
+            <label className="label-sg">{'City and County'}</label>
+            {DROPDOWN_ORGANIZATION.CITY_AND_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g4">
+            <label className="label-sg">{'Unincorporated County'}</label>
+            {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+        </Menu> : 
+        <Menu className="js-mm-00 sign-menu-organization"
+          onClick={(event) => {
+            values.organization = event.item.props.children.props.children;
+            const auxTitle = event.item.props.children.props.children;
+            setTitle(auxTitle);
+          }}>
+          <Menu.ItemGroup key="g1">
+            <label className="label-sg">{'Regional Agency'}</label>
+            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+        </Menu>
+  };
   const stateValue = {
     visible: false
   }
@@ -123,14 +144,14 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
             </Col>
             <Col className="gutter-row" span={12}>
               <p>TITLE</p>
-              <Input placeholder="Title" value={values.title} name="title" onChange={handleChange}/>
+              <Input placeholder="Title" value={values.title} name="title" onChange={handleChange} />
             </Col>
           </Row>
           <br></br>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <p>PHONE NUMBER</p>
-              <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange}/>
+              <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} />
             </Col>
           </Row>
         </div>
@@ -142,26 +163,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
             <Col className="gutter-row" span={12}>
               <Input placeholder="Account Type" value={role.name} disabled />
             </Col>
-            {/*
-            <Col className="gutter-row" span={12}>
-              {(values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF || values.designation === CONSULTANT) ? <div id="sign-up-organization">
-                <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
-                  <Button style={{ paddingLeft: '10px' }} >
-                    {values.organization ? values.organization : (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Organization' : 'Consultant/Contractor'}
-                    <img src="/Icons/icon-12.svg" alt="" />
-                  </Button>
-                </Dropdown>
-              </div>
-                : (
-                  <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange}/>
-                )}
-            </Col>*/}
           </Row>
-          {/* <br></br>
-          <Row gutter={16}>
-            <Col className="gutter-row" span={12}><Input placeholder="Title" value={values.title} name="title" onChange={handleChange}/></Col>
-            <Col className="gutter-row" span={12}><Input placeholder="Zip Code" value={values.zipCode} name="zipCode" onChange={handleChange}/></Col>
-          </Row>*/}
         </div>
 
         <hr></hr>
@@ -206,19 +208,14 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <p>ORGANIZATION</p>
-
-                {(values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF || values.designation === CONSULTANT) ? <div id="sign-up-organization">
-                  <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
-                    <Button style={{ paddingLeft: '10px' }} >
-                      {values.organization ? values.organization : (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Organization' : 'Consultant/Contractor'}
-                      <img src="/Icons/icon-12.svg" alt="" />
-                    </Button>
-                  </Dropdown>
-                </div>
-                  : (
-                    <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange}/>
-                  )}
-
+              <div id="sign-up-organization">
+                <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                  <Button style={{ paddingLeft: '10px' }} >
+                    {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
+                    <img src="/Icons/icon-12.svg" alt="" />
+                  </Button>
+                </Dropdown>
+              </div>
             </Col>
           </Row>
         </div>
