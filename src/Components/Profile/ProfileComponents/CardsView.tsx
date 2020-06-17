@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Card } from 'antd'; 
+import { Col, Card } from 'antd';
 
 import { ComponentType } from '../../../Classes/MapTypes';
 
@@ -9,7 +9,7 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
             let sideText = ' Components';
             if (components.length === 1) {
                 sideText = sideText.slice(0, -1);
-            } 
+            }
             return components.length + sideText;
         } else {
             return '';
@@ -29,18 +29,18 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
         </div>
         {type === 'Problems' ? <h6>{data.county ? data.county : 'No County'}</h6> :
         <h6>{data.county ? data.county : 'No Sponsor'}</h6>}
-        
+
         <h5>${numberWithCommas(data.finalCost?data.finalCost:data.estimatedCost)} <span style={{ float: 'right' }}><b>{getComponentSizes(data.components)}</b> </span></h5>
         <hr />
         {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
-                <p style={{ color: 'red', width: '50%' }}>{data.priority} Priority</p>
-                <span style={{ textAlign: 'right', width: '50%' }}>{data.percentage}%</span>
+                <p style={{ color: 'red', width: '75%' }}>{data.priority} Priority</p>
+                <span style={{ textAlign: 'right', width: '25%' }}>{data.percentage}%</span>
             </div>
         ) : (
                 <div style={{ display: 'flex', width: '100%' }}>
-                    <p style={{ color: ' #11093c', width: '50%', opacity: '0.6' }}>{data.projecttype }</p>
-                    <span style={{ textAlign: 'right', width: '50%', color: ' #11093c', opacity: '0.6' }}>{data.status}</span>
+                    <p style={{ color: ' #11093c', width: '75%', opacity: '0.6' }}>{data.projecttype }</p>
+                    <span style={{ textAlign: 'right', width: '25%', color: ' #11093c', opacity: '0.6' }}>{data.status}</span>
                 </div>
             )}
     </Card>

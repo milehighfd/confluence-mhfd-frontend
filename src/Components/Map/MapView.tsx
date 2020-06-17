@@ -184,14 +184,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           data={modalProject} />
       }
       <Row className="head-m">
-        <Col span={12} id="westminter">
+        <Col span={20} id="westminter">
           <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
             <span className="ant-dropdown-link span-header">
               {area} <img src="/Icons/icon-12.svg" alt="" />
             </span>
           </Dropdown>
         </Col>
-        <Col style={{ textAlign: 'right' }} span={12}>
+        <Col style={{ textAlign: 'right' }} span={4}>
           <ButtonGroup>
             {/* <Button className="btn-mm" onClick={() => {
               setListDescription(true);
@@ -268,7 +268,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               console.log(cardInformation);
               totalElements = cardInformation.length;
               console.log(cardInformation);
-            } else { 
+            } else {
               cardInformation = galleryProjects.map(project => {
                 return {
                   image: project.attachments,

@@ -25,13 +25,13 @@ body{
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
 .ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollbar,
 .count-01::-webkit-scrollbar, .profile-00::-webkit-scrollbar, .sign-menu::-webkit-scrollbar, .sign-menu-organization::-webkit-scrollbar,
-.upload::-webkit-scrollbar{
+.upload::-webkit-scrollbar, .tabs-map .ant-tabs-tabpane-active::-webkit-scrollbar{
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thumb,
 .ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb,
 .count-01::-webkit-scrollbar-thumb, .profile-00::-webkit-scrollbar-thumb, .sign-menu::-webkit-scrollbar-thumb, .sign-menu-organization::-webkit-scrollbar-thumb,
-.upload::-webkit-scrollbar-thumb{
+.upload::-webkit-scrollbar-thumb, .tabs-map .ant-tabs-tabpane-active::-webkit-scrollbar-thumb{
   background: $purple;
   border-radius: 5px;
 }
@@ -1145,6 +1145,8 @@ body{
   background-image: url('/Icons/icon-21.svg') !important;
 }
 .tabs-map{
+  margin: 0px -20px !important;
+
   .ant-tabs-nav .ant-tabs-tab-active {
     color: $purple;
   }
@@ -1213,6 +1215,15 @@ body{
     border-left: 2px solid #e8e8e8;
     margin-top: -20px;
     padding-top: 26px;
+  }
+  .ant-tabs-bar {
+    margin: 0 20px 16px 20px;
+  }
+  .ant-tabs-tabpane-active{
+    padding-left: 20px ;
+    padding-right: 20px;
+    height: calc(100vh - 237px);
+    overflow-y: auto;
   }
 }
 .line-00{
@@ -1331,10 +1342,10 @@ body{
   padding:20px;
   background: $white;
   height: calc(100vh - 58px);
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 .count-01{
-  padding:25px 50px;
+  padding:25px;
   background: $white;
   height: calc(100vh - 58px);
   overflow-y: auto;

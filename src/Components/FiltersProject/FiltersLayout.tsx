@@ -1,15 +1,15 @@
 import React from 'react';
 import { Row, Col, Checkbox, Select, Radio } from 'antd';
 
-import { PROJECT_TYPE, 
-        ESTIMATED_COST, 
+import { PROJECT_TYPE,
+        ESTIMATED_COST,
         CAPITAL_STATUS,
-        START_YEAR, 
-        COMPLETED_YEAR, 
-        CAPITAL_GOAL, 
-        STUDY_GOAL, 
-        MHFD_DOLLARS_ALLOCATED, 
-        WORK_PLAN_YEAR, 
+        START_YEAR,
+        COMPLETED_YEAR,
+        CAPITAL_GOAL,
+        STUDY_GOAL,
+        MHFD_DOLLARS_ALLOCATED,
+        WORK_PLAN_YEAR,
         STUDY_STATUS,
         CREATOR,
         MHFD_DOLLAR_REQUESTED,
@@ -108,7 +108,7 @@ export const ProblemsFilter = () => (
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Problem Type</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                <Select defaultValue="- Select -" style={{ width: '100%', marginBottom: '15px' }}>
                     <Option value="jack">Jack</Option>
                     <Option value="lucy">Lucy</Option>
                     <Option value="disabled" disabled>
@@ -263,10 +263,10 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Problem Type</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, PROBLEM_TYPE)}>
+                <Select defaultValue="- Select -" style={{ width: '100%'}} onChange={(value: string) => handleSelect(value, PROBLEM_TYPE)}>
                     {dropdowns[PROBLEM_TYPE]?dropdowns[PROBLEM_TYPE].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) : 
+                    )) :
                     <Option value="disabled" disabled>
                         No Data Founded
                     </Option>}
@@ -277,7 +277,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, SERVICE_AREA_VALUE)}>
                     {dropdowns[SERVICE_AREA_VALUE]?dropdowns[SERVICE_AREA_VALUE].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) : 
+                    )) :
                     <Option value="disabled" disabled>
                         No Data Founded
                     </Option>}
@@ -290,7 +290,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 <Select value={getSelectValue(JURIDICTION)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, JURIDICTION)}>
                     {dropdowns[JURIDICTION]?dropdowns[JURIDICTION].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) : 
+                    )) :
                     <Option value="disabled" disabled>
                         No Data Founded
                     </Option>}
@@ -301,7 +301,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, COUNTY)}>
                     {dropdowns[COUNTY]?dropdowns[COUNTY].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) : 
+                    )) :
                     <Option value="disabled" disabled>
                         No Data Founded
                     </Option>}
@@ -314,7 +314,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, REQUESTED_START_YEAR)}>
                     {dropdowns[LG_MANAGER]?dropdowns[LG_MANAGER].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) : 
+                    )) :
                     <Option value="disabled" disabled>
                         No Data Founded
                     </Option>}
@@ -325,7 +325,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 <Select value={getSelectValue(REQUESTED_START_YEAR)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, REQUESTED_START_YEAR)}>
                     {dropdowns[REQUESTED_START_YEAR]?dropdowns[REQUESTED_START_YEAR].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) : 
+                    )) :
                     <Option value="disabled" disabled>
                         No Data Founded
                     </Option>}
@@ -338,7 +338,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, STREAM_NAME)}>
                     {dropdowns[STREAM_NAME]?dropdowns[STREAM_NAME].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) : 
+                    )) :
                     <Option value="disabled" disabled>
                         No Data Founded
                     </Option>}
@@ -351,7 +351,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                         <Option key={dropdown._id[0]._id} value={dropdown._id[0]._id + '|' + dropdown._id[0].firstName }>
                             {dropdown._id[0].name}
                         </Option>
-                    )) : 
+                    )) :
                     <Option value="disabled" disabled>
                         No Data Founded
                     </Option> }
@@ -361,10 +361,10 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>MHFD Dollars Requested</label>
-                <Select value={getSelectValue(MHFD_DOLLAR_REQUESTED)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, MHFD_DOLLAR_REQUESTED)}>
+                <Select value={getSelectValue(MHFD_DOLLAR_REQUESTED)} style={{ width: '100%', marginBottom: '15px' }} onChange={(value: string) => handleSelect(value, MHFD_DOLLAR_REQUESTED)}>
                     {dropdowns[MHFD_DOLLAR_REQUESTED]?dropdowns[MHFD_DOLLAR_REQUESTED].map((dropdown : any) => (
                         <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) : 
+                    )) :
                     <Option value="disabled" disabled>
                         No Data Founded
                     </Option>}
@@ -471,7 +471,7 @@ export const ComponentsFilter = () => (
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Stream Name</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                <Select defaultValue="- Select -" style={{ width: '100%', marginBottom: '15px' }}>
                     <Option value="jack">Jack</Option>
                     <Option value="lucy">Lucy</Option>
                     <Option value="disabled" disabled>

@@ -12,7 +12,7 @@ export default ({ data, type }: { data: any, type: string }) => {
           let sideText = ' Components';
           if (components.length === 1) {
               sideText = sideText.slice(0, -1);
-          } 
+          }
           return components.length + sideText;
       } else {
           return '0 Components';
@@ -20,7 +20,7 @@ export default ({ data, type }: { data: any, type: string }) => {
   }
   return (
     <>
-        <DetailedModal 
+        <DetailedModal
           data={data}
           visible={visible}
           setVisible={setVisible}
@@ -44,13 +44,13 @@ export default ({ data, type }: { data: any, type: string }) => {
           <hr />
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
-              <p style={{ color: 'red', width: '50%' }}>{data.priority} Priority</p>
-              <span style={{ textAlign: 'right', width: '50%' }}>{data.percentage}%</span>
+              <p style={{ color: 'red', width: '75%' }}>{data.priority} Priority</p>
+              <span style={{ textAlign: 'right', width: '25%' }}>{data.percentage}%</span>
             </div>
           ) : (
               <div style={{ display: 'flex', width: '100%' }}>
-                <p style={{ color: ' #11093c', width: '50%', opacity: '0.6' }}>{data.projecttype}</p>
-                <span style={{ textAlign: 'right', width: '50%', color: ' #11093c', opacity: '0.6' }}>{data.status}</span>
+                <p style={{ color: ' #11093c', width: '75%', opacity: '0.6' }}>{data.projecttype}</p>
+                <span style={{ textAlign: 'right', width: '25%', color: ' #11093c', opacity: '0.6' }}>{data.status}</span>
               </div>
             )}
         </Card>
