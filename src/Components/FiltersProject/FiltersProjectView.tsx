@@ -24,10 +24,10 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : { fi
   );
 }
 
-export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters, 
-                handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters, 
+export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters,
+                handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters,
                 dropdowns, userFiltered, getUserFilters } : FiltersProjectTypes) => {
-                  
+
   const [selectedFilters, setSelectedFilters] = useState<{[key: string] : string | Array<string>}>({});
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                   dropdowns={dropdowns}
                   getSelectValue={getSelectValue}
                   selectedFilters={selectedFilters}
-                  handleRadioGroup={handleRadioGroup} 
+                  handleRadioGroup={handleRadioGroup}
                   handleCheckbox={handleCheckbox}
                   handleSelect={handleSelect} />
       case FILTER_COMPONENTS_TRIGGER:
@@ -111,7 +111,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
   }
 
   return <>
-    <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map">
+    <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00">
       {tabs.map((value: string, index: number) => {
         return (
           <TabPane tab={value} key={'' + index}>

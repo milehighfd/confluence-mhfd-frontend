@@ -35,7 +35,7 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
         {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
                 <p style={{ color: 'red', width: '75%' }}>{data.priority} Priority</p>
-                <span style={{ textAlign: 'right', width: '25%' }}>{data.percentage}%</span>
+                <span style={{ textAlign: 'right', width: '25%' }}>{data.percentage}</span>
             </div>
         ) : (
                 <div style={{ display: 'flex', width: '100%' }}>

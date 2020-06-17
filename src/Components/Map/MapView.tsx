@@ -246,7 +246,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </div>
 
       {!toggleFilters ?
-        <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map">
+        <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00">
           {tabs.map((value : string, index : number) => {
             let totalElements = 0;
             let cardInformation : Array<Object> = [];
