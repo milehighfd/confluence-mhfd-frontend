@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Dropdown, Button, Tabs, Input } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu } from 'antd';
 
 import DropdownMenu from "../Shared/DropdownMenu/DropdownMenu";
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../../Classes/MapTypes";
 import { secondWordOfCamelCase } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import DetailedModal from "../Shared/Modals/DetailedModal";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
+import store from "../../store";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
@@ -55,7 +56,7 @@ const accordionRow: Array<any> = [
 ];
 
 const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters,
-                  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems, getGalleryProjects, galleryProblems, galleryProjects } : MapViewTypes) => {
+                  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems, getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
@@ -66,6 +67,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [orderProjects, setOrderProjects] = useState(false);
   const [listDescription, setListDescription] = useState(false);
   const [sortableProjects, setSortableProjects] = useState(projects);
+  const [area, setArea] = useState(store.getState().profile.userInformation.organization)
 
   const { projectId } = useParams();
     console.log(getGalleryProblems, getGalleryProjects);
@@ -143,7 +145,36 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     });
     setFilterNames(getFilterNames);
   }
-
+  const changeCenter = (item: {name: string, coordinates: Array<Array<number>>}) => {
+    const user = store.getState().profile.userInformation;
+    user.polygon = item.coordinates;
+    saveUserInformation(user);
+    setArea(item.name);
+  }
+  const menu = () => {
+    return <Menu className="js-mm-00 sign-menu-organization">
+      <Menu.ItemGroup key="g1">
+        <label className="label-sg">{'Regional Agency'}</label>
+        {ORGANIZATION_COORDINATES.REGIONAL_AGENCY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
+          <Menu.Item onClick={()=>changeCenter(item)} key={index + "g1"}><span>{item.name}</span></Menu.Item>))}
+      </Menu.ItemGroup>
+      <Menu.ItemGroup key="g2">
+        <label className="label-sg">{'City'}</label>
+        {ORGANIZATION_COORDINATES.CITY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
+          <Menu.Item onClick={()=>changeCenter(item)} key={index + "g2"}><span>{item.name}</span></Menu.Item>))}
+      </Menu.ItemGroup>
+      <Menu.ItemGroup key="g3">
+        <label className="label-sg">{'City and County'}</label>
+        {ORGANIZATION_COORDINATES.CITY_AND_COUNTY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
+          <Menu.Item onClick={()=>changeCenter(item)} key={index + "g3"}><span>{item.name}</span></Menu.Item>))}
+      </Menu.ItemGroup>
+      <Menu.ItemGroup key="g4">
+        <label className="label-sg">{'Unincorporated County'}</label>
+        {ORGANIZATION_COORDINATES.UNINCORPORATED_COUNTY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
+          <Menu.Item onClick={()=>changeCenter(item)} key={index + "g4"}><span>{item.name}</span></Menu.Item>))}
+      </Menu.ItemGroup>
+    </Menu>
+  };
   return <>
     <div className="count">
       { modalVisible &&
@@ -154,9 +185,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       }
       <Row className="head-m">
         <Col span={12} id="westminter">
-          <Dropdown trigger={['click']} overlay={DropdownMenu(SORTED_LIST, setSortBy)} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
+          <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
             <span className="ant-dropdown-link span-header">
-              Westminter, CO <img src="/Icons/icon-12.svg" alt="" />
+              {area} <img src="/Icons/icon-12.svg" alt="" />
             </span>
           </Dropdown>
         </Col>

@@ -17,6 +17,7 @@ import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
 
 import mapFormData from './mapFormData';
+import { saveUserInformation } from '../store/actions/ProfileActions';
 
 const mapStateToProps = (state: any) => {
     return {
@@ -34,8 +35,9 @@ const mapStateToProps = (state: any) => {
         latitude: state.profile.userInformation.coordinates.latitude,
         longitude: state.profile.userInformation.coordinates.longitude,
         galleryProblems: state.map.galleryProblems,
-        galleryProjects: state.map.galleryProjects
+        galleryProjects: state.map.galleryProjects,
         // user: state.profile.userInformation
+        polygon: state.profile.userInformation.polygon
     };
 };
 
@@ -60,6 +62,7 @@ const mapDispatchToProps = (dispatch: any) => ({
         saveDraftCard,
         getUserProjects,
         sortProjects,
+        saveUserInformation,
         saveLayersCheck
     }, dispatch)
 });

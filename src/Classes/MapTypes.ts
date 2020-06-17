@@ -15,6 +15,7 @@ export type MapProps = {
     markerRef: React.RefObject<HTMLDivElement>,
     polygonRef: React.RefObject<HTMLDivElement>,
     getPolygonStreams: Function,
+    polygon?: Array<Array<number>>,
     saveLayersCheck: Function
 }
 
@@ -53,6 +54,8 @@ export type MapHOCProps = {
     getGalleryProblems: Function,
     getGalleryProjects: Function,
     galleryProblems: Array<any>,
+    polygon: Array<Array<number>>,
+    saveUserInformation: Function,
     galleryProjects: Array<any>
 }
 
@@ -69,6 +72,7 @@ export type MapViewTypes = {
     getGalleryProblems: Function,
     getGalleryProjects: Function,
     galleryProblems: Array<any>,
+    saveUserInformation: Function,
     galleryProjects: Array<any>
 }
 

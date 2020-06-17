@@ -54,6 +54,7 @@ const Map = ({ leftWidth,
             getMapTables,
             markerRef,
             polygonRef,
+            polygon,
             getPolygonStreams, saveLayersCheck } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
@@ -63,22 +64,6 @@ const Map = ({ leftWidth,
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const user = store.getState().profile.userInformation;
     const coor: any[][] = [];
-    const poligonUser = () => {
-        return map.on('load', function () {
-            map.addSource('maine', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Polygon',
-                        'coordinates': [user.polygon]
-                    }
-                }
-            });
-            // map.addLayer(USER_POLYGON_FILL_STYLES);
-            // map.addLayer(USER_POLYGON_LINE_STYLES);
-        });
-    }
     if(user?.polygon[0]) {
         let bottomLongitude = user.polygon[0][0];
         let bottomLatitude = user.polygon[0][1];
@@ -122,9 +107,6 @@ const Map = ({ leftWidth,
 
         // Uncomment to see coords when a position in map is clicked
         // map.on('click', (e : any) => console.log(e.lngLat));
-        if (user.polygon && user.designation !== CONSULTANT && user.designation !==  ADMIN && user.designation !== STAFF && user.designation !== OTHER) {
-            poligonUser();
-        }
 
         if(polygonRef && polygonRef.current) {
             const draw = new MapboxDraw({
@@ -159,6 +141,10 @@ const Map = ({ leftWidth,
             }
         }
     }, []);
+
+    useEffect(() => {
+        map.fitBounds(coor);
+    }, [polygon])
 
     useEffect(() => {
         map.setStyle(dropdownItems.items[dropdownItems.default].style);

@@ -46,6 +46,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               getGalleryProblems,
               getGalleryProjects,
               galleryProblems,
+              saveUserInformation,
+              polygon,
               galleryProjects
             } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
@@ -58,7 +60,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
 
         let markerRef = useRef<HTMLDivElement>(null);
         let polygonRef = useRef<HTMLDivElement>(null);
-
         useEffect(() => {
           getProjectWithFilters();
         }, [getProjectWithFilters]);
@@ -92,7 +93,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             setRotationStyle(emptyStyle);
           }
         }
-
         if(redirect) {
           setRouteRedirect(false);
           return <Redirect to='/map' />
@@ -122,6 +122,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getMapTables={getMapTables}
                             markerRef={markerRef}
                             polygonRef={polygonRef}
+                            polygon={polygon}
                             getPolygonStreams={getPolygonStreams}
                             saveLayersCheck={saveLayersCheck}/>
 
@@ -156,6 +157,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getGalleryProjects={getGalleryProjects}
                             galleryProblems={galleryProblems}
                             galleryProjects={galleryProjects}
+                            saveUserInformation={saveUserInformation}
                       />
                     </Col>
                 </Row>}
