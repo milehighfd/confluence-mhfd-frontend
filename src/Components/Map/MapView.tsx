@@ -144,33 +144,33 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     });
     setFilterNames(getFilterNames);
   }
-  const changeCenter = (item: {name: string, coordinates: Array<Array<number>>}) => {
+  const changeCenter = (name: string, coordinates: Array<Array<number>>) => {
     const user = store.getState().profile.userInformation;
-    user.polygon = item.coordinates;
+    user.polygon = coordinates;
     saveUserInformation(user);
-    setArea(item.name);
+    setArea(name);
   }
   const menu = () => {
     return <Menu className="js-mm-00 sign-menu-organization">
       <Menu.ItemGroup key="g1">
         <label className="label-sg">{'Regional Agency'}</label>
         {ORGANIZATION_COORDINATES.REGIONAL_AGENCY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
-          <Menu.Item onClick={()=>changeCenter(item)} key={index + "g1"}><span>{item.name}</span></Menu.Item>))}
+          <Menu.Item onClick={()=>changeCenter(item.name, item.coordinates)} key={index + "g1"}><span>{item.name}</span></Menu.Item>))}
       </Menu.ItemGroup>
       <Menu.ItemGroup key="g2">
         <label className="label-sg">{'City'}</label>
         {ORGANIZATION_COORDINATES.CITY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
-          <Menu.Item onClick={()=>changeCenter(item)} key={index + "g2"}><span>{item.name}</span></Menu.Item>))}
+          <Menu.Item onClick={()=>changeCenter(item.name + ', CO', item.coordinates)} key={index + "g2"}><span>{item.name}</span></Menu.Item>))}
       </Menu.ItemGroup>
       <Menu.ItemGroup key="g3">
         <label className="label-sg">{'City and County'}</label>
         {ORGANIZATION_COORDINATES.CITY_AND_COUNTY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
-          <Menu.Item onClick={()=>changeCenter(item)} key={index + "g3"}><span>{item.name}</span></Menu.Item>))}
+          <Menu.Item onClick={()=>changeCenter(item.name + ', CO', item.coordinates)} key={index + "g3"}><span>{item.name}</span></Menu.Item>))}
       </Menu.ItemGroup>
       <Menu.ItemGroup key="g4">
         <label className="label-sg">{'Unincorporated County'}</label>
         {ORGANIZATION_COORDINATES.UNINCORPORATED_COUNTY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
-          <Menu.Item onClick={()=>changeCenter(item)} key={index + "g4"}><span>{item.name}</span></Menu.Item>))}
+          <Menu.Item onClick={()=>changeCenter(item.name + ', CO', item.coordinates)} key={index + "g4"}><span>{item.name}</span></Menu.Item>))}
       </Menu.ItemGroup>
     </Menu>
   };
