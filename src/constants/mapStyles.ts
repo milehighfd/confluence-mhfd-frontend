@@ -320,36 +320,27 @@ const ROUTINE_MAINTENANCE_STYLES = {
 }
 
 export const PROJECTS_STYLES = {
-  [PROJECTS_POLYGONS]: [
+  [PROJECTS_POLYGONS]: [  
     {
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'fill-color': '#0FA626',
-        'fill-opacity': 0.7,
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+          'line-color': '#0FA626',
+          'line-width': 3,
+      }
     }
-  },
-  {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'line-color': '#0FA626',
-        'line-width': 3,
-    }
-  }
 ],
   [PROJECTS_LINE]: [
-    // {
-    //   type: 'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {},
-    //   paint: {
-    //       'line-color': '#0FA626',
-    //       'line-width': 3,
-    //   }
-    // }
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+        'line-color': '#0FA626',
+        'line-width': 3,
+      }
+    }
   ]
 }
 
