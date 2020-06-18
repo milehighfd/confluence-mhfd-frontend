@@ -25,6 +25,7 @@ import { MAP_DROPDOWN_ITEMS,
 import { Feature, Properties, Point } from '@turf/turf';
 import { localComponents, polygonFill, polygonStroke, tileStyles, USER_POLYGON_FILL_STYLES, USER_POLYGON_LINE_STYLES } from '../../constants/mapStyles';
 import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
+import { AnyMxRecord } from 'dns';
 
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -165,16 +166,7 @@ const Map = ({ leftWidth,
         paintSelectedComponents(selectedItems);
     }, [selectedItems]);
 
-    useEffect(() => {
-        if (map.isStyleLoaded()) {
-            drawConstants.forEach((item : string) => {
-                drawItemsInMap(item);
-            });
-        }
-
-        addMapListeners();
-    }, [projects]);
-
+ 
     useEffect(() => {
         map.on('style.load', () => {
             const waiting = () => {
@@ -225,6 +217,7 @@ const Map = ({ leftWidth,
     }
 
     const addLayersSource = (key : string, tiles : Array<string>) => {
+        console.log('adding layer source ' , key , tiles);
         if (!map.getSource(key) && tiles) {
             map.addSource(key, {
                 type: 'vector',
@@ -237,6 +230,7 @@ const Map = ({ leftWidth,
 
     const addTilesLayers = (key : string) => {
         const styles = { ...tileStyles as any };
+        console.log('adding styles ', key, styles[key]);
         styles[key].forEach((style : LayerStylesType, index : number) => {
             map.addLayer({
                 id: key + '_' + index,
@@ -244,10 +238,8 @@ const Map = ({ leftWidth,
                 ...style
             });
         });
-        
-        drawConstants.forEach((item : string) => {
-            drawItemsInMap(item);
-        });
+        console.log('adding listener ', key, styles[key]);
+        addMapListeners(key);
     }
 
     const paintSelectedComponents = (items : Array<ComponentType>) => {
@@ -319,30 +311,62 @@ const Map = ({ leftWidth,
         // console.log(draw.getAll().features[0].geometry.coordinates);
     }
 
-    const addMapListeners = () => {
-        /* Add Listeners to the problems and Components */
-        drawConstants.forEach((trigger : string) => {
-            map.on('load', () =>  drawItemsInMap(trigger));
-            map.on('style.load', () => drawItemsInMap(trigger));
-            map.on('click', trigger, (e : any) => {
-                const description = e.features[0].properties.description;
-                popup.remove();
-                popup = new mapboxgl.Popup();
-                popup.setLngLat(e.lngLat)
-                     .setHTML(description)
-                     .addTo(map);
+    const addMapListeners = (key: string) => {
+        const styles = { ...tileStyles as any };
+        if (styles[key]) {
+            styles[key].forEach((style : LayerStylesType, index : number) => {
+                map.on('click', key + '_' + index, (e : any) => {
+                    let html: any = null;
+                    console.log('my key is  ', key);
+                    if (key === 'problems') {
+                        const item = {
+                            type: 'problems',
+                            title: e.features[0].properties.problemtype + ' Problem',
+                            name: e.features[0].properties.problemname,
+                            organization: e.features[0].properties.jurisdiction,
+                            value: e.features[0].properties.solutioncost,
+                            status: e.features[0].properties.solutionstatus + '%',
+                            priority: e.features[0].properties.problempriority
+                        };
+                        console.log(item);
+                        html = loadMainPopup(item);
+                    }
+                    if (key.includes('projects')) {
+                        const item = {
+                            type: 'projects',
+                            title: 'Project',
+                            name: e.features[0].properties.projectname ? e.features[0].properties.projectname : e.features[0].properties.requestedname,
+                            organization: e.features[0].properties.sponsor ? e.features[0].properties.sponsor : 'No sponsor',
+                            value: e.features[0].properties.finalCost ? e.features[0].properties.finalCost : e.features[0].properties.estimatedCost,
+                            status: e.features[0].properties.projecttype,
+                            projecctype: e.features[0].properties.projecctype
+                        };
+                        console.log(item);
+                        html = loadMainPopup(item);
+                    }
+                    const description = e.features[0].properties.description;
+                    if (html) { 
+                        popup.remove();
+                        popup = new mapboxgl.Popup();
+                        popup.setLngLat(e.lngLat)
+                             .setHTML(html)
+                             .addTo(map);
+                    }
+                });
             });
-            // Change the cursor to a pointer when the mouse is over the states layer.
-            map.on('mouseenter', trigger, () =>  {
+            map.on('mouseenter', key, () => {
                 map.getCanvas().style.cursor = 'pointer';
             });
-
-            // Change it back to a pointer when it leaves.
-            map.on('mouseleave', trigger, () => {
+            map.on('mouseleave', key, () => {
                 map.getCanvas().style.cursor = '';
-            });
-        });
+            })
+        }
     }
+    const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
+        <>
+            <MainPopup item={item}></MainPopup>
+        </>
+    );
 
     const popUpContent = (trigger : string, item : any) => ReactDOMServer.renderToStaticMarkup(
         <>
@@ -355,56 +379,11 @@ const Map = ({ leftWidth,
         </>
     );
 
-    const drawItemsInMap = (trigger : string) => {
-        let items : any = null;
 
-        if(trigger === PROBLEMS_TRIGGER && layers && layers.polygons) {
-            items = problems;
-        } else if(trigger === PROJECTS_TRIGGER && layers && layers.polygons) {
-            items = projects;
-        } else if(trigger === COMPONENTS_TRIGGER && layers && layers.components) {
-            items = components;
-        }
-        if(!items) return;
-        refreshSourceLayers(trigger);
-
-        const itemsFeatures = items.map((item : any) => {
-            const nameConst = trigger.slice(0, -1);
-            const id = item[nameConst + 'Id'];
-
-            return {
-                id: id,
-                type: 'Feature',
-                properties: {
-                    description: popUpContent(trigger, item)
-                },
-                geometry: {
-                    type: trigger !== COMPONENTS_TRIGGER ? 'Polygon' : 'Point',
-                    coordinates: trigger !== COMPONENTS_TRIGGER ? [item.coordinates] : item.coordinates
-                }
-            }
-        });
-
-        map.addSource(trigger, {
-            type: 'geojson',
-            data: {
-                type: 'FeatureCollection',
-                features: itemsFeatures
-            }
-        });
-
-        if(trigger !== COMPONENTS_TRIGGER) {
-            /* Fill and Stroke of Polygons */
-            addMapLayers(map, trigger, polygonFill);
-            addMapLayers(map, trigger, polygonStroke);
-        } else {
-            /* Points represented as Components */
-            addMapLayers(map, trigger, localComponents);
-        }
-    }
 
     const refreshSourceLayers = (id : string) => {
         const mapSource = map.getSource(id);
+        console.log(mapSource);
         if(mapSource) {
             map.removeLayer(id);
             if(id !== COMPONENTS_TRIGGER) map.removeLayer(id + '_stroke');
