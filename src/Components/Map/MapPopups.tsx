@@ -27,25 +27,30 @@ const capitalize = (s : string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export const MainPopup = ({ trigger, item } : any) => (
-    <div className="map-pop-00">
+export const MainPopup = ({ item } : any) => {
+    for (const key in item) {
+        if (!item[key]) {
+            item[key] = '-';
+        }
+    }
+    return <div className="map-pop-00">
       <Card hoverable>
         <div className="headmap">
-            {trigger === 'problems'?'PROBLEM':'PROJECT'}
+            {capitalize(item.title)}
         </div>
         <div className="bodymap">
-          <h4>{item.requestName}</h4>
-          <h6>{item.jurisdiction}</h6>
-          <h5>${numberWithCommas(item.estimatedCost)} <span style={{float: 'right'}}><b>5</b> Components</span></h5>
+          <h4>{item.name}</h4>
+          <h6>{item.organization}</h6>
+          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b>0</b> Components</span></h5>
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
-            <p style={trigger === 'problems'?problemStyle.status:projectStyle.status}>{trigger === 'problems'?'High Priority':capitalize(item.projectType)}</p>
-            <span style={{color: trigger!=='problems'?'#11093c':'', opacity: trigger !== 'problems'?'0.6':'', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{trigger === 'problems'?'80%':capitalize(item.status)}</span>
+            <p style={item.type === 'problems' ? problemStyle.status:projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>
+            <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? item.status : capitalize(item.status)}</span>
           </div>
         </div>
       </Card>
     </div>
-);
+};
 
 export const ComponentPopup = ({ item } : any) => (
     <div className="map-pop-01">
