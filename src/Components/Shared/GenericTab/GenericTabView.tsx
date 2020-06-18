@@ -75,12 +75,12 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
             </>
             :
             <Row className="card-map" gutter={[16, 16]}>
-                <InfiniteScroll 
+                <InfiniteScroll
                     dataLength={state.items.length}
                     next={fetchMoreData}
                     hasMore={state.hasMore}
                     loader={<h4>Loading...</h4>}
-                    height={window.innerHeight - 280}
+                    height={window.innerHeight - 260}
                     endMessage={''}>
                     {sw ? state.items.map((i, index: number) => {
                         return <CardInformationView key={index} data={cardInformation[index]} type={type} />

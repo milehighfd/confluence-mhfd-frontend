@@ -1219,16 +1219,16 @@ body{
 }
 .over-00{
   margin: 0px -20px !important;
-  
+
   .ant-tabs-bar {
     margin: 0 20px 16px 20px;
   }
-  .ant-tabs-tabpane-active{
-    padding-left: 20px ;
-    padding-right: 20px;
-    height: calc(100vh - 237px);
-    overflow-y: auto;
-  }
+  // .ant-tabs-tabpane-active{
+  //   padding-left: 20px ;
+  //   padding-right: 20px;
+  //   height: calc(100vh - 237px);
+  //   overflow-y: auto;
+  // }
 }
 .line-00{
   height: 7px;
@@ -1264,6 +1264,10 @@ body{
     margin-bottom: 0px;
   }
 }
+.infinite-scroll-component {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
 .list-h{
   display: flex;
   font-size: 14px;
@@ -1280,6 +1284,7 @@ body{
     margin-right: 10px;
     width: 147px;
     min-width: 147px;
+    margin-left: 20px;
   }
   .ant-tag {
     color: $opacity;
@@ -1321,6 +1326,10 @@ body{
     margin-bottom: 0px;
     line-height: 18px;
     margin-bottom: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   h6{
     font-size: 14px;
@@ -3840,6 +3849,7 @@ body{
      height: 20vh;
      object-fit: cover;
      width: 100%;
+     border-radius: 5px !important;
    }
  }
 
