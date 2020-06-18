@@ -1,3 +1,4 @@
+type LayersType = string | ObjectLayerType;
 export type MapProps = {
     leftWidth: number,
     layers: MapLayersType,
@@ -15,6 +16,7 @@ export type MapProps = {
     markerRef: React.RefObject<HTMLDivElement>,
     polygonRef: React.RefObject<HTMLDivElement>,
     getPolygonStreams: Function,
+    selectedLayers: Array<LayersType>,
     polygon?: Array<Array<number>>,
     saveLayersCheck: Function
 }
@@ -56,7 +58,8 @@ export type MapHOCProps = {
     galleryProblems: Array<any>,
     polygon: Array<Array<number>>,
     saveUserInformation: Function,
-    galleryProjects: Array<any>
+    galleryProjects: Array<any>,
+    selectedLayers: Array<LayersType>
 }
 
 export type MapViewTypes = { 

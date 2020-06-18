@@ -48,6 +48,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               galleryProblems,
               saveUserInformation,
               polygon,
+              selectedLayers,
               galleryProjects
             } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
@@ -123,6 +124,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             markerRef={markerRef}
                             polygonRef={polygonRef}
                             polygon={polygon}
+                            selectedLayers={selectedLayers}
                             getPolygonStreams={getPolygonStreams}
                             saveLayersCheck={saveLayersCheck}/>
 

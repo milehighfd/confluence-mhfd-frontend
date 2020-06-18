@@ -174,9 +174,7 @@ export const resetMap = () => {
 
 
 export const getGalleryProblems = () => {
-    console.log('antes del return');
     return (dispatch: Function) => {
-        console.log('estoy entrando');
         datasets.getData(SERVER.GALLERY_PROBLEMS, datasets.getToken()).then(galleryProblems => {
             dispatch({type: types.GALLERY_PROBLEMS, galleryProblems});
         });

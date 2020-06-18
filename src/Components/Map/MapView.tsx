@@ -70,7 +70,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [area, setArea] = useState(store.getState().profile.userInformation.organization)
 
   const { projectId } = useParams();
-    console.log(getGalleryProblems, getGalleryProjects);
   useEffect(() =>{
     getGalleryProblems();
     getGalleryProjects();
@@ -250,9 +249,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           {tabs.map((value : string, index : number) => {
             let totalElements = 0;
             let cardInformation : Array<Object> = [];
-            console.log(value);
             if(value === FILTER_PROBLEMS_TRIGGER) {
-              console.log(galleryProblems);
               cardInformation = galleryProblems.map(problem => {
                 return {
                   image: `gallery/${problem.problemtype}.jpg`,
@@ -265,10 +262,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   percentage: problem.solutionstatus
                 }
               });
-              console.log(cardInformation);
               totalElements = cardInformation.length;
-              console.log(cardInformation);
-            } else {
+              // console.log(cardInformation);
+            } else { 
               cardInformation = galleryProjects.map(project => {
                 return {
                   image: project.attachments,

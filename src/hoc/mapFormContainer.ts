@@ -37,7 +37,8 @@ const mapStateToProps = (state: any) => {
         galleryProblems: state.map.galleryProblems,
         galleryProjects: state.map.galleryProjects,
         // user: state.profile.userInformation
-        polygon: state.profile.userInformation.polygon
+        polygon: state.profile.userInformation.polygon,
+        selectedLayers: state.map.selectedLayers
     };
 };
 

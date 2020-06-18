@@ -54,12 +54,16 @@ const Map = ({ leftWidth,
             getMapTables,
             markerRef,
             polygonRef,
+            selectedLayers,
             polygon,
-            getPolygonStreams, saveLayersCheck } : MapProps) => {
+            getPolygonStreams,
+            saveLayersCheck } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
-    const [selectedLayers, setSelectedLayers] = useState<Array<LayersType>>(store.getState().map.selectedLayers);
+    // const [selectedLayers, setSelectedLayers] = useState<Array<LayersType>>(store.getState().map.selectedLayers);
+    console.log('selectedLayers::', selectedLayers);
+    
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const user = store.getState().profile.userInformation;
@@ -197,8 +201,10 @@ const Map = ({ leftWidth,
 
     const applyMapLayers = () => {
         selectedLayers.forEach((layer: LayersType) => {
-            console.log('my layer is ', layer);
+            // console.log('my layer is ', layer, 'layerFilters::', layerFilters);
             if (typeof layer === 'object') {
+                // console.log('object object');
+                
                 layer.tiles.forEach((subKey: string) => {
                     if (!layerFilters[layer.name]) {
                         getMapTables(subKey, layer.name);
@@ -208,10 +214,12 @@ const Map = ({ leftWidth,
                     }
                 });
             } else {
+                // console.log('string string ');
+                
                 if (!layerFilters[layer]) {
                     getMapTables(layer);
                 } else {
-                    console.log(layer, layerFilters[layer]);
+                    // console.log(layer, layerFilters[layer]);
                     addLayersSource(layer, layerFilters[layer]);
                 }
             }
@@ -419,19 +427,18 @@ const Map = ({ leftWidth,
             setRecentSelection('');
         }
 
-        setSelectedLayers(selectedItems);
+        saveLayersCheck(selectedItems);
     }
 
     const handleSelectAll = () => {
-        setSelectedLayers(SELECT_ALL_FILTERS as Array<LayersType>);
+        saveLayersCheck(SELECT_ALL_FILTERS as Array<LayersType>);
     }
 
     const handleResetAll = () => {
         selectedLayers.forEach((layer : LayersType) => {
             removeTilesHandler(layer);
         })
-
-        setSelectedLayers([]);
+        saveLayersCheck([]);
     }
 
     const removeTilesHandler = (selectedLayer : LayersType) => {
