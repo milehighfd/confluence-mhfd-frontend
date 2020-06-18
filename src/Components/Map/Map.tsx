@@ -61,8 +61,6 @@ const Map = ({ leftWidth,
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
-    // const [selectedLayers, setSelectedLayers] = useState<Array<LayersType>>(store.getState().map.selectedLayers);
-    console.log('selectedLayers::', selectedLayers);
     
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');

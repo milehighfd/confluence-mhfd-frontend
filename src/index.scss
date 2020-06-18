@@ -25,13 +25,15 @@ body{
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar,
 .ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollbar,
 .count-01::-webkit-scrollbar, .profile-00::-webkit-scrollbar, .sign-menu::-webkit-scrollbar, .sign-menu-organization::-webkit-scrollbar,
-.upload::-webkit-scrollbar, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar{
+.upload::-webkit-scrollbar, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar,
+.infinite-scroll-component::-webkit-scrollbar {
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thumb,
 .ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb,
 .count-01::-webkit-scrollbar-thumb, .profile-00::-webkit-scrollbar-thumb, .sign-menu::-webkit-scrollbar-thumb, .sign-menu-organization::-webkit-scrollbar-thumb,
-.upload::-webkit-scrollbar-thumb, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar-thumb{
+.upload::-webkit-scrollbar-thumb, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar-thumb,
+.infinite-scroll-component::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }

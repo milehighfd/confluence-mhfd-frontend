@@ -1,20 +1,45 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Row, Col, Collapse, Tag } from "antd";
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 import CardInformationView from "../CardInformation/CardInformationView";
 import AccordionRowView from "./AccordionRow/AccordionRowView";
 import AccordionDisplayView from "./AccordionDisplay/AccordionDisplayView";
-
 import { numberWithCommas } from '../../../utils/utils';
 
 const { Panel } = Collapse;
 
 export default ({ filterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter }: any) => {
-
+    let totalElement = cardInformation.length;
+    const size = 12;
+    let sw = false;
+    if(totalElement) {
+        sw = true;
+    }
     const deleteFilter = (index: number) => {
         const item = filterNames[index];
         removeFilter(item);
     }
-
+    const [state, setState] = useState({
+        items: Array.from({ length: size }),
+        hasMore: true
+    });
+    const fetchMoreData = () => {
+        if (state.items.length >= totalElement - size) {
+            const auxState = { ...state };
+            if (state.items.length !== totalElements) {
+                auxState.items = state.items.concat(Array.from({ length: totalElement - state.items.length }));
+            }
+            auxState.hasMore = false;
+            setState(auxState);
+            return;
+        }
+        setTimeout(() => {
+            const auxState = { ...state };
+            auxState.items = state.items.concat(Array.from({ length: size }));
+            setState(auxState);
+        }, 500);
+    };
     return <>
         <div className="hastag" style={{minHeight: 34}}>
             <h6> Showing {totalElements} {type}:</h6>
@@ -46,13 +71,22 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
                         );
                     })}
 
-                </Collapse> 
+                </Collapse>
             </>
             :
             <Row className="card-map" gutter={[16, 16]}>
-                {cardInformation.map((data: any, index: number) => {
-                    return <CardInformationView key={index} data={data} type={type} />
-                })}
+                <InfiniteScroll 
+                    dataLength={state.items.length}
+                    next={fetchMoreData}
+                    hasMore={state.hasMore}
+                    loader={<h4>Loading...</h4>}
+                    height={window.innerHeight - 280}
+                    endMessage={''}>
+                    {sw ? state.items.map((i, index: number) => {
+                        return <CardInformationView key={index} data={cardInformation[index]} type={type} />
+                    }) : ''}
+                </InfiniteScroll>
+
             </Row>
         }
     </>
