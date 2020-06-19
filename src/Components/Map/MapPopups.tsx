@@ -51,22 +51,28 @@ export const MainPopup = ({ item } : any) => {
       </Card>
     </div>
 };
-
-export const ComponentPopup = ({ item } : any) => (
-    <div className="map-pop-01">
+export const ComponentPopup = ({ item } : any) => {
+    return <div className="map-pop-01">
         <Card hoverable>
         <div className="headmap">
-            Component
+            {item.layer}
         </div>
         <div className="bodymap">
-            <h4>{item.componentName}</h4>
-            <p><i>Name:</i> 32nd Ave Culvert</p>
-            <p><i>Status:</i> Active</p>
-            <p><i>Estimated Cost:</i> $500,000</p>
-            <p><i>Study Name:</i> {item.studyName}</p>
-            <p><i>Jurisdiction:</i> {item.jurisdiction}</p>
-            <p><i>Remove sediment and restore channel to natural condition while improving conveyance.</i></p>
+            {item.subtype ? <h4><i>SubType:</i> {item.subtype}</h4> : ''}
+            {item.feature ? <h4>{item.feature}</h4> : ''}
+            {item.status ? <p><i>Status:</i> {item.status}</p> : ''}
+            {item.estimatedcost ? <p><i>Estimated Cost:</i> ${item.estimatedcost}</p> : ''}
+            {item.studyname ? <p><i>Study Name:</i> {item.studyname}</p> : ''}
+            {item.jurisdiction ? <p><i>Jurisdiction:</i> {item.jurisdiction}</p> : ''}
+            {item.problem ? <p><i>Problem:</i> {item.problem}</p> : ''}
+            {item.description ? <p><i>Description:</i> {item.description}</p> : ''}
+            
+            {item.projectno ? <p><i>Project Number:</i> {item.projectno}</p> : ''}
+            {item.mepstatus ? <p><i>MEP Status:</i> {item.mepstatus}</p> : ''}
+            {item.mepstatusdate ? <p><i>MEP Status Date:</i> {item.mepstatusdate}</p> : ''}
+            {item.notes ? <p><i>Notes/Comments:</i> {item.notes}</p> : ''}
+            {item.servicearea ? <p><i>Service Area:</i> {item.servicearea}</p> : ''}
         </div>
         </Card>
     </div>
-);
+};
