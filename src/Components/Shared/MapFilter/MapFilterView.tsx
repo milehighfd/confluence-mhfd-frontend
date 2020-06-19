@@ -26,19 +26,19 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers } : { sel
                 <h6>HYDROLOGIC</h6>
                   <p><Checkbox value={FLOODPLAINS_FEMA_FILTERS}>Floodplains - FEMA SFHA</Checkbox></p>
                   <p><Checkbox value={FLOODPLAINS_NON_FEMA_FILTERS}>Floodplains - Non - FEMA</Checkbox></p>
-                  <p><Checkbox value={WATERSHED_FILTERS}>Watershed</Checkbox></p>
+                  <p><Checkbox value={WATERSHED_FILTERS}>Watersheds</Checkbox></p>
                   <p><Checkbox value={STREAMS_FILTERS}>Streams</Checkbox></p>
               </Col>
               <Col span={7}>
                 <h6>BOUNDARIES</h6>
-                <p><Checkbox value={SERVICE_AREA_FILTERS}>Service Area</Checkbox></p>
+                <p><Checkbox value={SERVICE_AREA_FILTERS}>Service Areas</Checkbox></p>
                 <p><Checkbox value={MUNICIPALITIES_FILTERS}>Municipalities</Checkbox></p>
                 <p><Checkbox value={COUNTIES_FILTERS}>Counties</Checkbox></p>
                 <p><Checkbox value={MHFD_BOUNDARY_FILTERS}>MHFD Boundary</Checkbox></p>
               </Col>
               <Col span={8}>
                 <h6>MHFD DATA</h6>
-                <p><Checkbox value={PROBLEMS_TRIGGER}>Problem</Checkbox></p>
+                <p><Checkbox value={PROBLEMS_TRIGGER}>Problems</Checkbox></p>
                 <p><Checkbox value={COMPONENT_LAYERS}>Components</Checkbox></p>
                 <p><Checkbox value={PROJECTS_MAP_STYLES}>Projects</Checkbox></p>
                 <p><Checkbox value={MEP_PROJECTS}>MEP Projects</Checkbox></p>
