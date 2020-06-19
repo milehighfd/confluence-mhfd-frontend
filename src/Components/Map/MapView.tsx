@@ -201,7 +201,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             <Button onClick={() => {
               setListDescription(false);
             }}>
-              <img className="img-h" src="/Icons/icon-31.svg" alt="" />
+              {/* <img className="img-h" src="/Icons/icon-31.svg" alt="" /> */}
               <img className="img-a" src="/Icons/icon-33.svg" alt="" />
             </Button>
           </ButtonGroup>
