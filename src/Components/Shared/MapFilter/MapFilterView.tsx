@@ -15,7 +15,7 @@ import { FLOODPLAINS_FEMA_FILTERS,
         ROUTINE_MAINTENANCE,
         PROJECTS_MAP_STYLES} from '../../../constants/constants';
 
-export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLayers } : { selectCheckboxes : Function, handleSelectAll: Function, handleResetAll: Function, selectedLayers: any }) => {
+export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers } : { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any }) => {
   const [checkBoxes, setCheckboxes] = useState(selectedLayers);
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-235px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
           <Row gutter={[24, 16]} className="filter-map">
@@ -50,9 +50,13 @@ export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLay
           <div className="btn-footer">
             <Button className="btn-00" onClick={() => {
               setCheckboxes([]);
+              setVisibleDropdown(false);
               selectCheckboxes([]);
             }}>Clear Map</Button>
-            <Button className="btn-01" onClick={() => selectCheckboxes(checkBoxes)}>Apply</Button>
+            <Button className="btn-01" onClick={() => {
+              setVisibleDropdown(false);
+              selectCheckboxes(checkBoxes)
+            }}>Apply</Button>
           </div>
      </div>
 }

@@ -445,8 +445,8 @@ const Map = ({ leftWidth,
                 {/*<Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
                 <Dropdown
                     visible={visibleDropdown}
-                    onVisibleChange={(flag : boolean) => setVisibleDropdown(flag)}
-                    overlay={MapFilterView({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLayers })}
+                    onVisibleChange={(flag : boolean) => {setVisibleDropdown(flag)}}
+                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers })}
                     className="btn-02"
                     trigger={['click']}>
                     <Button>
