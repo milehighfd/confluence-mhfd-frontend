@@ -391,19 +391,13 @@ const Map = ({ leftWidth,
         }
     }
 
-    const selectCheckboxes = (selectedItems : Array<string>) => {
-        saveLayersCheck(selectedItems);
-        if (selectedItems.length < selectedLayers.length) {
-            selectedLayers.forEach((layer : LayersType) => {
-                const index = selectedItems.indexOf(layer as string);
-                if (index < 0) {
-                    setRecentSelection(layer);
-                }
-            });
-        } else {
-            setRecentSelection('');
-        }
+    
 
+    const selectCheckboxes = (selectedItems : Array<string>) => {
+        const deleteLayers = selectedLayers.filter(layer => !selectedItems.includes(layer as string));
+        deleteLayers.forEach((layer : LayersType) => {
+            removeTilesHandler(layer);
+        });
         saveLayersCheck(selectedItems);
     }
 

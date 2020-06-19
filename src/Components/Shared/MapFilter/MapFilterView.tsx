@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Checkbox, Row, Col, Button } from 'antd';
 import { FLOODPLAINS_FEMA_FILTERS,
         FLOODPLAINS_NON_FEMA_FILTERS,
@@ -16,9 +16,12 @@ import { FLOODPLAINS_FEMA_FILTERS,
         PROJECTS_MAP_STYLES} from '../../../constants/constants';
 
 export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLayers } : { selectCheckboxes : Function, handleSelectAll: Function, handleResetAll: Function, selectedLayers: any }) => {
+  const [checkBoxes, setCheckboxes] = useState(selectedLayers);
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-235px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
           <Row gutter={[24, 16]} className="filter-map">
-          <Checkbox.Group value={selectedLayers} onChange={(items) => selectCheckboxes(items)}>
+          <Checkbox.Group value={checkBoxes} onChange={(items) => {
+              setCheckboxes(items);
+            }}>
               <Col span={9}>
                 <h6>HYDROLOGIC</h6>
                   <p><Checkbox value={FLOODPLAINS_FEMA_FILTERS}>Floodplains - FEMA SFHA</Checkbox></p>
@@ -45,8 +48,11 @@ export default ({ selectCheckboxes, handleSelectAll, handleResetAll, selectedLay
           </Row>
 
           <div className="btn-footer">
-            <Button className="btn-00" onClick={() => handleResetAll()}>Clear Map</Button>
-            <Button className="btn-01" onClick={() => handleSelectAll()}>Apply All Layers</Button>
+            <Button className="btn-00" onClick={() => {
+              setCheckboxes([]);
+              selectCheckboxes([]);
+            }}>Clear Map</Button>
+            <Button className="btn-01" onClick={() => selectCheckboxes(checkBoxes)}>Apply</Button>
           </div>
      </div>
 }
