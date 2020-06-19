@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Checkbox, Select, Radio } from 'antd';
+import { Row, Col, Checkbox, Select, Radio, Button } from 'antd';
 
 import { PROJECT_TYPE,
         ESTIMATED_COST,
@@ -26,7 +26,7 @@ import { DropdownDefaultTypes, FilterProjectTypes } from '../../Classes/MapTypes
 const { Option } = Select;
 
 export const ProblemsFilter = () => (
-    <>
+    <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Solution Cost <img src="/Icons/icon-19.svg" alt="" /></h5>
@@ -130,15 +130,16 @@ export const ProblemsFilter = () => (
             </Col>
         </Row>
 
-        {/* <div className="btn-footer" style={{ marginTop: '25px' }}>
+        <div className="btn-footer" style={{ marginTop: '25px' }}>
             <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
             <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
-        </div> */}
+        </div>
+    </div>
     </>
 );
 
 export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, handleRadioGroup, handleCheckbox, handleSelect } : FilterProjectTypes) => (
-    <>
+    <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Project type <img src="/Icons/icon-19.svg" alt="" /></h5>
@@ -372,15 +373,16 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
             </Col>
         </Row>
 
-        {/* <div className="btn-footer" style={{ marginTop: '25px' }}>
+        <div className="btn-footer" style={{ marginTop: '25px' }}>
             <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
             <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
-        </div> */}
+        </div>
+        </div>
     </>
 )
 
 export const ComponentsFilter = () => (
-    <>
+    <>  <div className="scroll-filters" style={{height: window.innerHeight - 295}}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Component Type <img src="/Icons/icon-19.svg" alt="" /></h5>
@@ -482,9 +484,10 @@ export const ComponentsFilter = () => (
             </Col>
         </Row>
 
-        {/* <div className="btn-footer" style={{ marginTop: '25px' }}>
+        <div className="btn-footer" style={{ marginTop: '25px' }}>
             <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
             <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
-        </div> */}
+        </div>
+    </div>
     </>
 );
