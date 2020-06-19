@@ -34,13 +34,13 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
         <hr />
         {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
-                <p style={{ color: 'red', width: '65%' }}>{data.priority} Priority</p>
-                <span style={{ textAlign: 'right', width: '35%' }}>{data.percentage}</span>
+                <p style={{ color: 'red', width: '65%', fontSize: '13px' }}>{data.priority}</p>
+                <span style={{ textAlign: 'right', width: '35%', fontSize: '13px' }}>{data.percentage}</span>
             </div>
         ) : (
                 <div style={{ display: 'flex', width: '100%' }}>
-                    <p style={{ color: ' #11093c', width: '65%', opacity: '0.6' }}>{data.projecttype }</p>
-                    <span style={{ textAlign: 'right', width: '35%', color: ' #11093c', opacity: '0.6' }}>{data.status}</span>
+                    <p style={{ color: ' #11093c', width: '65%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype }</p>
+                    <span style={{ textAlign: 'right', width: '35%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
                 </div>
             )}
     </Card>

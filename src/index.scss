@@ -64,10 +64,6 @@ body{
 :focus {
     outline: none !important;
 }
-.ant-menu-root.ant-menu-vertical, .ant-menu-root.ant-menu-vertical-left, .ant-menu-root.ant-menu-vertical-right, .ant-menu-root.ant-menu-inline {
-  -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-}
 // margins
 .marbot-4 {
   margin-bottom: 10px;
@@ -158,9 +154,9 @@ body{
 .dropdown-special-bottomLeft {
   top: 42px !important;
 }
-// .ant-menu-root.ant-menu-vertical, .ant-menu-root.ant-menu-vertical-left, .ant-menu-root.ant-menu-vertical-right, .ant-menu-root.ant-menu-inline {
-//     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.0) !important;
-// }
+.ant-menu-root.ant-menu-vertical, .ant-menu-root.ant-menu-vertical-left, .ant-menu-root.ant-menu-vertical-right, .ant-menu-root.ant-menu-inline {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.0) !important;
+}
 .ant-menu-dark.ant-menu-inline .ant-menu-item, .ant-menu-dark.ant-menu-vertical .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
@@ -1267,6 +1263,7 @@ body{
 .infinite-scroll-component {
   overflow-y: auto !important;
   overflow-x: hidden !important;
+  padding-bottom: 15px;
 }
 .list-h{
   display: flex;
@@ -1282,8 +1279,8 @@ body{
     color: $purple;
     font-weight: 600;
     margin-right: 10px;
-    width: 147px;
-    min-width: 147px;
+    width: 200px;
+    min-width: 200px;
     margin-left: 20px;
   }
   .ant-tag {
@@ -1312,13 +1309,16 @@ body{
     border: none;
   }
   .ant-card{
-    background: none;
+    background: $white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    border-radius: 6px;
   }
   .ant-card-hoverable:hover {
-    box-shadow: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    border: none;
   }
   .ant-card-body {
-    padding: 10px 0px;
+    padding: 10px;
   }
   h4{
     font-size: 16px;
@@ -1349,6 +1349,9 @@ body{
   }
   hr{
     opacity: 0.5;
+  }
+  p{
+    margin-bottom: 0px;
   }
 }
 .count{
@@ -3849,7 +3852,7 @@ body{
      height: 20vh;
      object-fit: cover;
      width: 100%;
-     border-radius: 5px !important;
+     border-radius: 6px 6px 0px 0px !important;
    }
  }
 
