@@ -449,7 +449,7 @@ const Map = ({ leftWidth,
                         };
                         html = loadComponentPopup(item);
                     }
-                    if (key.includes('mep_projects')) {
+                    if (key === 'mep_projects_temp_locations') {
                         const item = {
                             layer: 'MEP Temporary Location',
                             feature: e.features[0].properties.proj_name,
@@ -461,6 +461,59 @@ const Map = ({ leftWidth,
                         }
                         html = loadComponentPopup(item);
                     }
+                    if (key === 'mep_projects_detention_basins') {
+                        const item = {
+                            layer: 'MEP Detention Basin',
+                            feature: e.features[0].properties.proj_name,
+                            projectno: e.features[0].properties.proj_no,
+                            mepstatus: e.features[0].properties.mep_status,
+                            mepstatusdate: e.features[0].properties.status_date,
+                            notes: e.features[0].properties.mhfd_notes,
+                            servicearea: e.features[0].properties.servicearea
+                        }
+                        html = loadComponentPopup(item);
+                    }
+                    if (key === 'mep_projects_channels') {
+                        const item = {
+                            layer: 'MEP Channel',
+                            feature: e.features[0].properties.proj_name,
+                            projectno: e.features[0].properties.proj_no,
+                            mepstatus: e.features[0].properties.mep_status,
+                            mepstatusdate: e.features[0].properties.status_date,
+                            notes: e.features[0].properties.mhfd_notes,
+                            servicearea: e.features[0].properties.servicearea
+                        }
+                        html = loadComponentPopup(item);
+                    }
+                    if (key === 'mep_projects_storm_outfalls') {
+                        const item = {
+                            layer: 'MEP Storm Outfall',
+                            feature: e.features[0].properties.proj_name,
+                            projectno: e.features[0].properties.proj_no,
+                            mepstatus: e.features[0].properties.mep_status,
+                            mepstatusdate: e.features[0].properties.status_date,
+                            notes: e.features[0].properties.mhfd_notes,
+                            servicearea: e.features[0].properties.servicearea
+                        }
+                        html = loadComponentPopup(item);
+                    }
+                    if (key === 'watershed_service_areas') {
+                        const item = {
+                            layer: 'Service Area',
+                            feature: e.features[0].properties.servicearea,
+                            watershedmanager: e.features[0].properties.watershedmanager,
+                            constructionmanagers: e.features[0].properties.constructionmanagers,
+                        }
+                        html = loadComponentPopup(item);
+                    }
+                    if (key === 'catchments' || key === 'basin') {
+                        const item = {
+                            layer: 'Watershed',
+                            feature: e.features[0].properties.str_name
+                        }
+                        html = loadComponentPopup(item);
+                    }
+                    
                     const description = e.features[0].properties.description;
                     if (html) { 
                         popup.remove();
