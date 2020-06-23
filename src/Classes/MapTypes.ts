@@ -1,3 +1,5 @@
+import { Detailed } from "../store/types/detailedTypes";
+
 type LayersType = string | ObjectLayerType;
 export type MapProps = {
     leftWidth: number,
@@ -59,7 +61,11 @@ export type MapHOCProps = {
     polygon: Array<Array<number>>,
     saveUserInformation: Function,
     galleryProjects: Array<any>,
-    selectedLayers: Array<LayersType>
+    selectedLayers: Array<LayersType>,
+    getDetailedPageProblem: Function,
+    getDetailedPageProject: Function,
+    detailed: Detailed,
+    loaderDetailedPage: boolean
 }
 
 export type MapViewTypes = { 
@@ -76,7 +82,11 @@ export type MapViewTypes = {
     getGalleryProjects: Function,
     galleryProblems: Array<any>,
     saveUserInformation: Function,
-    galleryProjects: Array<any>
+    galleryProjects: Array<any>,
+    getDetailedPageProblem: Function,
+    getDetailedPageProject: Function,
+    detailed: Detailed,
+    loaderDetailedPage: boolean
 }
 
 export type CapitalTypes = {

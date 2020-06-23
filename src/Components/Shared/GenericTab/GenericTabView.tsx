@@ -9,9 +9,9 @@ import { numberWithCommas } from '../../../utils/utils';
 
 const { Panel } = Collapse;
 
-export default ({ filterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter }: any) => {
+export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter, detailed, loaderDetailedPage }: any) => {
     let totalElement = cardInformation.length;
-    const size = 12;
+    const size = 6;
     let sw = false;
     if(totalElement) {
         sw = true;
@@ -83,7 +83,11 @@ export default ({ filterNames, totalElements, type, listDescription, cardInforma
                     height={window.innerHeight - 260}
                     endMessage={''}>
                     {sw ? state.items.map((i, index: number) => {
-                        return <CardInformationView key={index} data={cardInformation[index]} type={type} />
+                        return <CardInformationView key={index} data={cardInformation[index]} type={type} 
+                                getDetailedPageProblem={getDetailedPageProblem}
+                                getDetailedPageProject={getDetailedPageProject}
+                                detailed={detailed}
+                                loaderDetailedPage={loaderDetailedPage}/>
                     }) : ''}
                 </InfiniteScroll>
 

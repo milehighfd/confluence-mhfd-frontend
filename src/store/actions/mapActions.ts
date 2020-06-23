@@ -1,5 +1,6 @@
 import * as types from '../types/mapTypes';
 
+import * as detailedTypes from '../types/detailedTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
@@ -185,6 +186,23 @@ export const getGalleryProjects = () => {
     return (dispatch: Function) => {
         datasets.getData(SERVER.GALLERY_PROJECTS, datasets.getToken()).then(galleryProjects => {
             dispatch({type: types.GALLERY_PROJECTS, galleryProjects});
+        });
+    }
+}
+
+export const getDetailedPageProject = (id: number) => {
+    return (dispatch: Function) => {
+        dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})
+        datasets.getData(SERVER.PROJECT_BY_ID  + '/' + id, datasets.getToken()).then(detailed => {
+            dispatch({type: detailedTypes.REPLACE_DETAILED_PAGE, detailed});
+        });
+    }
+}
+export const getDetailedPageProblem = (id: string) => {
+    return (dispatch: Function) => {
+        dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})
+        datasets.getData(SERVER.PROBLEM_BY_ID + '/' + id, datasets.getToken()).then(detailed => {
+            dispatch({type: detailedTypes.REPLACE_DETAILED_PAGE, detailed});
         });
     }
 }

@@ -21,6 +21,7 @@ export const SERVER = (function () {
     const CREATE_PROJECT_STUDY_FHAD = 'createStudyFHAD';
     const GALLERY_PROBLEMS = 'gallery?isproblem=true';
     const GALLERY_PROJECTS = 'gallery';
+    const GALLERY = 'gallery';
     const GRAPHQL = 'graphql';
     const UPLOAD_FILE = 'upload-file';
     const ME = 'me';
@@ -49,6 +50,8 @@ export const SERVER = (function () {
     const GET_POSITION = 'get-position';
     const GET_FILES = 'get-files';
     const REMOVE = 'remove'
+    const PROBLEM_BY_ID = 'problem-by-id';
+    const PROJECT_BY_ID = 'project-by-id';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -90,6 +93,8 @@ export const SERVER = (function () {
         GET_IMAGE_DRIVE: `${URL_BASE.BASE}/${DRIVE}/${GET_IMAGE_DRIVE}`,
         GET_INITIAL_MAP_VIEW: `${URL_BASE.BASE}/${USER}/${GET_POSITION}`,
         GET_ALL_ATTACHMENTS: `${URL_BASE.BASE}/${ATTACHMENT}/${GET_FILES}`,
-        DELETE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${REMOVE}`
+        DELETE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${REMOVE}`,
+        PROBLEM_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROBLEM_BY_ID}`,
+        PROJECT_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROJECT_BY_ID}`
     }
 })();

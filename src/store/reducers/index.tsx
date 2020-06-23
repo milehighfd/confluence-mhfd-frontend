@@ -10,6 +10,7 @@ import filterReducer from './filterReducer';
 import panelReducer from './panelReducer';
 import carouselImages from './carouselImagesReducer';
 import uploadAttachment from './uploadAttachmentReducer';
+import detailedReducer from './detailedReducer';
 
 export default (history: any) => combineReducers({
   router: connectRouter(history),
@@ -21,5 +22,6 @@ export default (history: any) => combineReducers({
   users,
   profile,
   carouselImages,
-  uploadAttachment
+  uploadAttachment,
+  detailed: detailedReducer
 });

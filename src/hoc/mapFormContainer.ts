@@ -12,7 +12,9 @@ import { getReverseGeocode,
         getMapTables,
         getGalleryProblems, 
         getGalleryProjects,
-        getPolygonStreams, saveLayersCheck } from '../store/actions/mapActions';
+        getPolygonStreams, saveLayersCheck,
+        getDetailedPageProblem,
+        getDetailedPageProject } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
 
@@ -38,7 +40,9 @@ const mapStateToProps = (state: any) => {
         galleryProjects: state.map.galleryProjects,
         // user: state.profile.userInformation
         polygon: state.profile.userInformation.polygon,
-        selectedLayers: state.map.selectedLayers
+        selectedLayers: state.map.selectedLayers,
+        detailed: state.detailed.detailed,
+        loaderDetailedPage: state.detailed.spin
     };
 };
 
@@ -64,7 +68,9 @@ const mapDispatchToProps = (dispatch: any) => ({
         getUserProjects,
         sortProjects,
         saveUserInformation,
-        saveLayersCheck
+        saveLayersCheck,
+        getDetailedPageProblem,
+        getDetailedPageProject
     }, dispatch)
 });
   

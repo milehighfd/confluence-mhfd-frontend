@@ -49,8 +49,11 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               saveUserInformation,
               polygon,
               selectedLayers,
-              galleryProjects
-            } : MapHOCProps) => {
+              galleryProjects,
+              getDetailedPageProblem,
+              getDetailedPageProject,
+              detailed,
+              loaderDetailedPage  } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -160,6 +163,10 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             galleryProblems={galleryProblems}
                             galleryProjects={galleryProjects}
                             saveUserInformation={saveUserInformation}
+                            getDetailedPageProblem={getDetailedPageProblem}
+                            getDetailedPageProject={getDetailedPageProject}
+                            detailed={detailed}
+                            loaderDetailedPage={loaderDetailedPage}
                       />
                     </Col>
                 </Row>}

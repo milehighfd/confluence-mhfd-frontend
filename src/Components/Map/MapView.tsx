@@ -56,7 +56,9 @@ const accordionRow: Array<any> = [
 ];
 
 const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters,
-                  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems, getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation } : MapViewTypes) => {
+                  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems, 
+                  getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation,
+                  getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
@@ -174,14 +176,16 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </Menu.ItemGroup>
     </Menu>
   };
+  const [ searchProblem, setSearchProblem] = useState<string>('');
+  const [ searchProject, setSearchProject] = useState<string>('');
   return <>
     <div className="count">
-      { modalVisible &&
+      {/* { modalVisible &&
         <DetailedModal
           visible={modalVisible}
           setVisible={setModalVisible}
           data={modalProject} />
-      }
+      } */}
       <Row className="head-m">
         <Col span={20} id="westminter">
           <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
@@ -213,7 +217,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           <Col span={12}>
             <Search
               placeholder="Search..."
-              onChange={(e) => handleOnSearch(e.target.value)}
+              // value={valuesearch}
+              // onChange={(e)=> {
+              //   setSearch(e.target.value);
+              // }}
+              onSearch={(e) => {
+                console.log('dsadsadsa', e);
+                
+                // handleOnSearch(e.target.value)
+              }}
               // onSearch={handleOnSearch}
               style={{ width: 200 }}
             />
@@ -259,7 +271,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   field4: 'X',
                   field5: 'Components',
                   priority: problem.problempriority,
-                  percentage: problem.solutionstatus
+                  percentage: problem.solutionstatus,
+                  problemid: problem.problemid
                 }
               });
               totalElements = cardInformation.length;
@@ -272,7 +285,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   sponsor: project.sponsor,
                   estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
                   status: project.status,
-                  projecttype: project.projecttype
+                  projecttype: project.projecttype,
+                  objectid: project.objectid
                 }
               });
               totalElements = cardInformation.length;
@@ -281,6 +295,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             return (
               <TabPane tab={value} key={'' + index}>
                 <GenericTabView
+                      detailed={detailed}
+                      loaderDetailedPage={loaderDetailedPage}
+                      getDetailedPageProblem={getDetailedPageProblem}
+                      getDetailedPageProject={getDetailedPageProject}
                       filterNames={filterNames}
                       listDescription={listDescription}
                       type={value}

@@ -4,8 +4,10 @@ import { ComponentType } from "../../../Classes/MapTypes";
 import DetailedModal from "../Modals/DetailedModal";
 
 import { numberWithCommas } from '../../../utils/utils';
+import { Detailed } from "../../../store/types/detailedTypes";
 
-export default ({ data, type }: { data: any, type: string }) => {
+export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage }: 
+                { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean }) => {
   const [visible, setVisible] = useState(false);
   const getComponentSizes = (components : Array<ComponentType>) => {
       if (components && components.length) {
@@ -20,11 +22,16 @@ export default ({ data, type }: { data: any, type: string }) => {
   }
   return (
     <>
-        <DetailedModal
-          data={data}
-          visible={visible}
-          setVisible={setVisible}
-        />
+      {visible && <DetailedModal
+        detailed={detailed}
+        getDetailedPageProblem={getDetailedPageProblem}
+        getDetailedPageProject={getDetailedPageProject}
+        loaderDetailedPage={loaderDetailedPage}
+        type={type}
+        data={data}
+        visible={visible}
+        setVisible={setVisible}
+      />}
 
       <Col span={8}>
         <Card
