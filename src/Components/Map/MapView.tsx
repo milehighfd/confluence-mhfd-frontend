@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Dropdown, Button, Tabs, Input, Menu } from 'antd';
 
-import DropdownMenu from "../Shared/DropdownMenu/DropdownMenu";
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES, SORTED_PROBLEMS, SORTED_PROJECTS } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../../Classes/MapTypes";
-import { secondWordOfCamelCase } from "../../utils/utils";
 import { useParams } from "react-router-dom";
-import DetailedModal from "../Shared/Modals/DetailedModal";
+// import DetailedModal from "../Shared/Modals/DetailedModal";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import store from "../../store";
 
@@ -66,15 +64,30 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('0');
   const [toggleFilters, setToggleFilters] = useState(false);
-  const [orderProjects, setOrderProjects] = useState(false);
   const [listDescription, setListDescription] = useState(false);
   const [sortableProjects, setSortableProjects] = useState(projects);
   const [area, setArea] = useState(store.getState().profile.userInformation.organization)
   const [ tabActive, setTabActive] = useState('0');
   const { projectId } = useParams();
+
+  const [ optionsFilterProblems, setOptionFilterProblems] = useState({
+    keyword: '',
+    column: 'problemname',
+    order: 'asc'
+  });
+  const [ optionsFilterProjects, setOptionFilterProjects] = useState({
+    keyword: '',
+    column: 'streamname',
+    order: 'asc'
+  });
+  const options = (options: {keyword: string, column: string, order: string}) => {
+    return ((options.keyword ? ('name=' + options.keyword + '&') : '') + 'sortby=' + options.column + '&sorttype=' + options.order)
+  }
   useEffect(() =>{
-    getGalleryProblems('');
-    getGalleryProjects('');
+      getGalleryProblems( '&' + options(optionsFilterProblems));
+      getGalleryProjects(options(optionsFilterProjects));
+    // getGalleryProblems('');
+    // getGalleryProjects('');
   }, [getGalleryProblems, getGalleryProjects]);
   useEffect(() => {
     /* Validate projectId in backend to show it! */
@@ -94,12 +107,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setSortableProjects(projects);
   }, [projects]);
 
-  const handleOnSearch = (data : string) => {
-    const requestData = { requestName: '' };
-    requestData.requestName = data;
-    getProjectWithFilters(requestData);
-  }
-
   const handleOnSubmit = (filtersData : FilterTypes) => {
     getProjectWithFilters(filtersData);
   }
@@ -112,14 +119,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     // Force coded cause' components tab doesn't exists on MapView
     if(tabPosition === "2") setTabPosition("0");
     setToggleFilters(!toggleFilters);
-  }
-
-  const toggleProjectsOrder = (status : boolean) => {
-    if (status !== orderProjects) {
-      const cloneProjects = [...sortableProjects];
-      setSortableProjects(cloneProjects.reverse());
-    }
-    setOrderProjects(status);
   }
 
   const setCurrentFilters = (filtersData : FilterTypes) => {
@@ -176,8 +175,29 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </Menu.ItemGroup>
     </Menu>
   };
-  const [ searchProblem, setSearchProblem] = useState<string>('');
-  const [ searchProject, setSearchProject] = useState<string>('');
+  
+  const menuSort = (listSort: Array<{name: string, title: string}>) => {
+    return <Menu className="js-mm-00">
+      {listSort.map((item : {name: string, title: string}) => (
+        <Menu.Item key={item.name} 
+          onClick={() => {
+            if(tabActive === '0') {
+              const auxOptions = {...optionsFilterProblems};
+              auxOptions.column = item.name;
+              getGalleryProblems( '&' + options(auxOptions));
+              setOptionFilterProblems(auxOptions);
+            } else {
+              const auxOptions = {...optionsFilterProjects};
+              auxOptions.column = item.name;
+              getGalleryProjects(options(auxOptions));
+              setOptionFilterProblems(auxOptions);
+            }
+          }}>
+          <span className="menu-item-text">{item.title}</span>
+        </Menu.Item>
+      ))}
+  </Menu>
+  }
   
   return <>
     <div className="count">
@@ -218,20 +238,23 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           <Col span={12}>
             <Search
               placeholder="Search..."
-              value={tabActive === '0'? searchProblem: searchProject}
+              value={tabActive === '0'? optionsFilterProblems.keyword: optionsFilterProjects.keyword}
               onChange={(e)=> {
                 if(tabActive === '0') {
-                  setSearchProblem(e.target.value);
+                  const auxOptions = {...optionsFilterProblems};
+                  auxOptions.keyword = e.target.value;
+                  setOptionFilterProblems(auxOptions);
                 } else {
-                  setSearchProject(e.target.value);
+                  const auxOptions = {...optionsFilterProjects};
+                  auxOptions.keyword = e.target.value;
+                  setOptionFilterProjects(auxOptions);
                 }
               }}
               onSearch={(e) => {
-                console.log(e);
                 if(tabActive === '0') {
-                  getGalleryProblems(searchProblem ? ('&name=' + searchProblem) : '');
+                  getGalleryProblems( '&' + options(optionsFilterProblems));
                 } else {
-                  getGalleryProjects(searchProject ? ('name=' + searchProject) : '');
+                  getGalleryProjects(options(optionsFilterProjects));
                 }
               }}
               style={{ width: 200 }}
@@ -239,20 +262,39 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           </Col>
           <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
             <div className="sort-content">
-              <Dropdown trigger={['click']} overlay={DropdownMenu(SORTED_LIST, setSortBy)} getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
+              <Dropdown trigger={['click']} 
+                overlay={tabActive === '0'?
+                  menuSort(SORTED_PROBLEMS):
+                  menuSort(SORTED_PROJECTS)} 
+                getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
                 <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
-                  Sort by {secondWordOfCamelCase(sortBy.fieldSort)}
+                  Sort by {tabActive === '0'? SORTED_PROBLEMS.filter(element => element.name === optionsFilterProblems.column)[0]?.title :
+                     SORTED_PROJECTS.filter(element => element.name === optionsFilterProjects.column)[0]?.title}
                 </span>
               </Dropdown>
-              <span className="sort-buttons">
+              <span className="sort-buttons" onClick={() => {
+                if(tabActive === '0') {
+                  const auxOptions = {...optionsFilterProblems};
+                  auxOptions.order = optionsFilterProblems.order === 'asc' ? 'desc' : 'asc'
+                  setOptionFilterProblems(auxOptions);
+                  getGalleryProblems( '&' + options(auxOptions));
+                } else {
+                  const auxOptions = {...optionsFilterProjects};
+                  auxOptions.order = optionsFilterProjects.order === 'asc' ? 'desc' : 'asc'
+                  setOptionFilterProjects(auxOptions);
+                  getGalleryProjects(options(auxOptions));
+                }
+              }}>
                 <CaretUpOutlined
                   className="arrow-up"
-                  style={{opacity: orderProjects?'100%':'30%'}}
-                  onClick={() => toggleProjectsOrder(true)} />
+                  style={{opacity: tabActive === '0'? (optionsFilterProblems.order === 'asc' ? '100%':'30%') :
+                  (optionsFilterProjects.order === 'asc' ? '100%':'30%')}}
+                />
                 <CaretDownOutlined
                   className="arrow-down"
-                  style={{opacity: !orderProjects?'100%':'30%'}}
-                  onClick={() => toggleProjectsOrder(false)}/>
+                  style={{opacity: tabActive === '0'? (optionsFilterProblems.order === 'desc' ? '100%':'30%') :
+                  (optionsFilterProjects.order === 'desc' ? '100%':'30%')}}
+                />
               </span>
             </div>
 

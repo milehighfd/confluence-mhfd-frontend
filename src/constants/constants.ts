@@ -1587,6 +1587,27 @@ export const DROPDOWN_PROJECT_FILTERS = [
 
 export const SORTED_LIST = ['dateCreated', 'requestName', 'projectType', 'estimatedCost'];
 
+export const SORTED_PROBLEMS = [{
+  name: 'problemname',
+  title: 'Name'
+},{
+  name: 'problemtype',
+  title: 'Type'
+},{
+  name: 'solutioncost',
+  title: 'Cost'
+}];
+export const SORTED_PROJECTS = [{
+  name: 'streamname',
+  title: 'Name'
+},{
+  name: 'projecttype',
+  title: 'Type'
+},{
+  name: 'estimatedcost',
+  title: 'Cost'
+}];
+
 /* End of Filter Constants */
 
 
