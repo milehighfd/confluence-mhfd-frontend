@@ -20,7 +20,7 @@ export const SERVER = (function () {
     const CREATE_PROJECT_STUDY_MASTER = 'createStudyMasterPlan';
     const CREATE_PROJECT_STUDY_FHAD = 'createStudyFHAD';
     const GALLERY_PROBLEMS = 'gallery?isproblem=true';
-    const GALLERY_PROJECTS = 'gallery';
+    const GALLERY_PROJECTS = 'gallery?';
     const GALLERY = 'gallery';
     const GRAPHQL = 'graphql';
     const UPLOAD_FILE = 'upload-file';

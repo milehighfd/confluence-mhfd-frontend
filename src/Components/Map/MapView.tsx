@@ -70,11 +70,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [listDescription, setListDescription] = useState(false);
   const [sortableProjects, setSortableProjects] = useState(projects);
   const [area, setArea] = useState(store.getState().profile.userInformation.organization)
-
+  const [ tabActive, setTabActive] = useState('0');
   const { projectId } = useParams();
   useEffect(() =>{
-    getGalleryProblems();
-    getGalleryProjects();
+    getGalleryProblems('');
+    getGalleryProjects('');
   }, [getGalleryProblems, getGalleryProjects]);
   useEffect(() => {
     /* Validate projectId in backend to show it! */
@@ -178,6 +178,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   };
   const [ searchProblem, setSearchProblem] = useState<string>('');
   const [ searchProject, setSearchProject] = useState<string>('');
+  
   return <>
     <div className="count">
       {/* { modalVisible &&
@@ -217,16 +218,22 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           <Col span={12}>
             <Search
               placeholder="Search..."
-              // value={valuesearch}
-              // onChange={(e)=> {
-              //   setSearch(e.target.value);
-              // }}
-              onSearch={(e) => {
-                console.log('dsadsadsa', e);
-                
-                // handleOnSearch(e.target.value)
+              value={tabActive === '0'? searchProblem: searchProject}
+              onChange={(e)=> {
+                if(tabActive === '0') {
+                  setSearchProblem(e.target.value);
+                } else {
+                  setSearchProject(e.target.value);
+                }
               }}
-              // onSearch={handleOnSearch}
+              onSearch={(e) => {
+                console.log(e);
+                if(tabActive === '0') {
+                  getGalleryProblems(searchProblem ? ('&name=' + searchProblem) : '');
+                } else {
+                  getGalleryProjects(searchProject ? ('name=' + searchProject) : '');
+                }
+              }}
               style={{ width: 200 }}
             />
           </Col>
@@ -250,14 +257,20 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             </div>
 
             <Button onClick={handleToggle}>
-              <img src="/Icons/icon-29.svg" alt="" /> Filters ({filterNames.length})
+              <img src="/Icons/icon-29.svg" alt="" /> Filters ({filterNames.length}) {tabActive}
             </Button>
           </Col>
         </Row>
       </div>
 
       {!toggleFilters ?
-        <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00">
+        <Tabs onTabClick={(e: string) => {
+          if( e === '0') {
+            setTabActive('0');
+          } else {
+            setTabActive('1');
+          }
+        }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00">
           {tabs.map((value : string, index : number) => {
             let totalElements = 0;
             let cardInformation : Array<Object> = [];
@@ -276,7 +289,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 }
               });
               totalElements = cardInformation.length;
-              // console.log(cardInformation);
             } else { 
               cardInformation = galleryProjects.map(project => {
                 return {

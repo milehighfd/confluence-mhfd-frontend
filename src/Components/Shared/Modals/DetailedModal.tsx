@@ -61,7 +61,7 @@ const menu = (
 );
 export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage }:
   { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean }) => {
-  const [ spin, setSpin] = useState<boolean>(false);
+  // const [ spin, setSpin] = useState<boolean>(false);
     useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
@@ -69,9 +69,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       getDetailedPageProject(data.objectid);
     }
   }, []);
-  
   const detailedPage = detailed as any;
-  console.log(detailedPage);
   return (
     <>
       <Modal

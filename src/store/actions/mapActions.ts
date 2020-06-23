@@ -174,18 +174,22 @@ export const resetMap = () => {
 }
 
 
-export const getGalleryProblems = () => {
+export const getGalleryProblems = (options: string) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.GALLERY_PROBLEMS, datasets.getToken()).then(galleryProblems => {
-            dispatch({type: types.GALLERY_PROBLEMS, galleryProblems});
+        datasets.getData(SERVER.GALLERY_PROBLEMS + options , datasets.getToken()).then(galleryProblems => {
+            if (galleryProblems?.length >= 0) {
+                dispatch({type: types.GALLERY_PROBLEMS, galleryProblems});
+            }
         });
     }
 }
 
-export const getGalleryProjects = () => {
+export const getGalleryProjects = (options: string) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.GALLERY_PROJECTS, datasets.getToken()).then(galleryProjects => {
-            dispatch({type: types.GALLERY_PROJECTS, galleryProjects});
+        datasets.getData(SERVER.GALLERY_PROJECTS + options, datasets.getToken()).then(galleryProjects => {
+            if (galleryProjects?.length >= 0) {
+               dispatch({type: types.GALLERY_PROJECTS, galleryProjects}); 
+            }
         });
     }
 }

@@ -21,7 +21,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
         removeFilter(item);
     }
     const [state, setState] = useState({
-        items: Array.from({ length: size }),
+        items: Array.from({ length: size}),
         hasMore: true
     });
     const fetchMoreData = () => {
@@ -79,11 +79,11 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                     dataLength={state.items.length}
                     next={fetchMoreData}
                     hasMore={state.hasMore}
-                    loader={<h4>Loading...</h4>}
+                    loader={cardInformation.length ? <h4>Loading...</h4> : ''}
                     height={window.innerHeight - 260}
                     endMessage={''}>
                     {sw ? state.items.map((i, index: number) => {
-                        return <CardInformationView key={index} data={cardInformation[index]} type={type} 
+                        return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]} type={type} 
                                 getDetailedPageProblem={getDetailedPageProblem}
                                 getDetailedPageProject={getDetailedPageProject}
                                 detailed={detailed}
