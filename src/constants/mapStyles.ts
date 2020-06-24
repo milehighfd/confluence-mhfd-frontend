@@ -180,8 +180,9 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#1e88e5',
-        'line-width': 1
+        'line-color': '#c6cecf',
+        'line-width': 3,
+        'line-opacity': 1
     }
   }],
   [REMOVAL_AREA]: [{
