@@ -274,8 +274,17 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#e3f2fd',
-        'fill-opacity': 0.4
+        'fill-color': '#38bb45',
+        'fill-opacity': 0.9
+    }
+  }, {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#ffffff',
+        'line-opacity': 0.78,
+        'line-width': 1
     }
   }]
 }
