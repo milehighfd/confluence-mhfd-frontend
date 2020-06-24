@@ -568,8 +568,8 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#F21B42',
-        'fill-opacity': 0.4,
+        'fill-color': '#826dba',
+        'fill-opacity': 0
     }
   },
   {
@@ -577,9 +577,10 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#FFCD19',
-        'line-width': 8,
-        'line-dasharray': [4, 2]
+        'line-color': '#ffffff',
+        'line-width': 4,
+        'line-opacity': 1,
+        'line-dasharray': [4, 4, 4]
     }
   }], 
   [PROBLEMS_TRIGGER]: [{
