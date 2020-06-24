@@ -26,14 +26,14 @@ body{
 .ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollbar,
 .count-01::-webkit-scrollbar, .profile-00::-webkit-scrollbar, .sign-menu::-webkit-scrollbar, .sign-menu-organization::-webkit-scrollbar,
 .upload::-webkit-scrollbar, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar,
-.infinite-scroll-component::-webkit-scrollbar, .scroll-filters::-webkit-scrollbar {
+.infinite-scroll-component::-webkit-scrollbar, .scroll-filters::-webkit-scrollbar, .scroll-footer::-webkit-scrollbar {
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thumb,
 .ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb,
 .count-01::-webkit-scrollbar-thumb, .profile-00::-webkit-scrollbar-thumb, .sign-menu::-webkit-scrollbar-thumb, .sign-menu-organization::-webkit-scrollbar-thumb,
 .upload::-webkit-scrollbar-thumb, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar-thumb,
-.infinite-scroll-component::-webkit-scrollbar-thumb, .scroll-filters::-webkit-scrollbar-thumb {
+.infinite-scroll-component::-webkit-scrollbar-thumb, .scroll-filters::-webkit-scrollbar-thumb, .scroll-footer::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }
@@ -67,6 +67,18 @@ body{
 .scroll-filters {
   overflow-y: auto;
   overflow-x: hidden;
+}
+.color-footer-problem {
+  border-color: #f2552e !important
+}
+.color-footer-watershed {
+  border-color: #f2695c !important
+}
+.color-footer-service-area {
+  border-color: #826dba !important;
+}
+.color-footer-boundary {
+  border-color: #826dba !important;
 }
 // margins
 .marbot-4 {
@@ -1535,6 +1547,10 @@ body{
 .map .btn-03:active, .map .btn-03.active, .map .btn-03:hover, .map .btn-03:focus{
   color: $purple;
   border-color: $purple;
+}
+.scroll-footer {
+  height: 125px;
+  overflow-y: auto;
 }
 .map .m-footer{
   width: 210px;
