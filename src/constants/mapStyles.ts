@@ -326,7 +326,16 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       layout: {},
       paint: {
-          'line-color': '#0FA626',
+          'line-color': [
+            'match',
+            ['get', 'projecttype'],
+            'Maintenance',
+            '#29c499',
+            'Capital',
+            '#ffdd00',
+            'Study',
+            '#f2552e'
+          ],
           'line-width': 3,
       }
     }
@@ -337,9 +346,19 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       layout: {},
       paint: {
-        'line-color': '#0FA626',
+        'line-color': [
+          'match',
+          ['get', 'projecttype'],
+          'Maintenance',
+          '#29c499',
+          'Capital',
+          '#ffdd00',
+          'Study',
+          '#f2552e',
+          '#fff'
+        ],
         'line-width': 3,
-      }
+    }
     }
   ]
 }
