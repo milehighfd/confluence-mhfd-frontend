@@ -334,7 +334,8 @@ export const PROJECTS_STYLES = {
             'Capital',
             '#ffdd00',
             'Study',
-            '#f2552e'
+            '#f2552e',
+            '#fff'
           ],
           'line-width': 3,
       }
@@ -358,7 +359,7 @@ export const PROJECTS_STYLES = {
           '#fff'
         ],
         'line-width': 3,
-    }
+      }
     }
   ]
 }
@@ -484,8 +485,8 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#F21B42',
-        'fill-opacity': 0.35,
+        'fill-color': '#f2552e',
+        'fill-opacity': 0,
     }
   },
   {
@@ -493,8 +494,10 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#F21B42',
-        'line-width': 3,
+        'line-color': '#f2552e',
+        'line-width': 4,
+        'line-opacity': 1,
+        'line-dasharray': [2,2,2]
     }
   }], 
   ...COMPONENT_LAYERS_STYLE,
