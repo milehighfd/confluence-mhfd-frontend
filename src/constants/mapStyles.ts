@@ -514,16 +514,17 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#B30415',
-        'fill-opacity': 0.35
+        'fill-color': '#826dba',
+        'fill-opacity': 0
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#B30415',
-        'line-width': 5
+        'line-color': '#fd8b1a',
+        'line-width': 1,
+        'line-opacity': 1
     }
   }], 
   [MUNICIPALITIES_FILTERS]: [{
