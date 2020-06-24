@@ -256,8 +256,17 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#bbdefb',
-        'fill-opacity': 0.4
+        'fill-color': '#f2d852',
+        'fill-opacity': 0.9
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#FFFFFF',
+        'line-opacity': 0.5,
+        'line-width': 1.5
     }
   }],
   [LANDSCAPING_AREA]: [{
