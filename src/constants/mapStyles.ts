@@ -190,8 +190,19 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#2196f3',
+        'fill-color': '#c6cecf',
         'fill-opacity': 0.4
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-width': 4,
+      'line-color': '#c6cecf',
+      'line-opacity': 1,
+      'line-dasharray': [4, 4, 1]
     }
   }],
   [STORM_DRAIN]: [{
