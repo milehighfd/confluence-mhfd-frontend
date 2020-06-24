@@ -20,7 +20,8 @@ export type MapProps = {
     getPolygonStreams: Function,
     selectedLayers: Array<LayersType>,
     polygon?: Array<Array<number>>,
-    saveLayersCheck: Function
+    saveLayersCheck: Function,
+    setFilterCoordinates: Function
 }
 
 export type MapHOCProps = {
@@ -65,7 +66,13 @@ export type MapHOCProps = {
     getDetailedPageProblem: Function,
     getDetailedPageProject: Function,
     detailed: Detailed,
-    loaderDetailedPage: boolean
+    loaderDetailedPage: boolean,
+    setFilterCoordinates: Function,
+    filterProblemOptions: {keyword: string, column: string, order: string},
+    filterProjectOptions: {keyword: string, column: string, order: string},
+    filterCoordinates: string,
+    setFilterProblemOptions: Function,
+    setFilterProjectOptions: Function
 }
 
 export type MapViewTypes = { 
@@ -86,7 +93,12 @@ export type MapViewTypes = {
     getDetailedPageProblem: Function,
     getDetailedPageProject: Function,
     detailed: Detailed,
-    loaderDetailedPage: boolean
+    loaderDetailedPage: boolean,
+    filterProblemOptions: {keyword: string, column: string, order: string},
+    filterProjectOptions: {keyword: string, column: string, order: string},
+    filterCoordinates: string,
+    setFilterProblemOptions: Function,
+    setFilterProjectOptions: Function
 }
 
 export type CapitalTypes = {

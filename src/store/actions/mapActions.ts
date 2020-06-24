@@ -6,6 +6,7 @@ import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
 import { TotalType, ProjectTypes } from '../../Classes/MapTypes';
 import { ComponentType } from 'react';
+import store from '..';
 
 export const getReverseGeocode = (lat : number, lng : number, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/
@@ -173,10 +174,35 @@ export const resetMap = () => {
     }
 }
 
+const options = (options: {keyword: string, column: string, order: string}, coordinates: string) => {
+    return ((options.keyword ? ('name=' + options.keyword + '&') : '') + 'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
+}
 
-export const getGalleryProblems = (options: string) => {
+export const setFilterCoordinates = (coordinates: string) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.GALLERY_PROBLEMS + options , datasets.getToken()).then(galleryProblems => {
+        dispatch({type: types.SET_FILTER_COORDINATES, coordinates});
+        dispatch(getGalleryProblems());
+        dispatch(getGalleryProjects());
+    }
+}
+
+export const setFilterProblemOptions = (filters: {keyword: string, column: string, order: string}) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters});
+    }
+}
+
+export const setFilterProjectOptions = (filters: {keyword: string, column: string, order: string}) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters});
+    }
+}
+
+export const getGalleryProblems = () => {
+    const coordinates = store.getState().map.filterCoordinates;
+    const filterOptions = store.getState().map.filterProblemOptions;
+    return (dispatch: Function) => {
+        datasets.getData(SERVER.GALLERY_PROBLEMS + '&' + options(filterOptions, coordinates), datasets.getToken()).then(galleryProblems => {
             if (galleryProblems?.length >= 0) {
                 dispatch({type: types.GALLERY_PROBLEMS, galleryProblems});
             }
@@ -184,9 +210,11 @@ export const getGalleryProblems = (options: string) => {
     }
 }
 
-export const getGalleryProjects = (options: string) => {
+export const getGalleryProjects = () => {
+    const coordinates = store.getState().map.filterCoordinates;
+    const filterOptions = store.getState().map.filterProjectOptions;
     return (dispatch: Function) => {
-        datasets.getData(SERVER.GALLERY_PROJECTS + options, datasets.getToken()).then(galleryProjects => {
+        datasets.getData(SERVER.GALLERY_PROJECTS + options(filterOptions, coordinates), datasets.getToken()).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {
                dispatch({type: types.GALLERY_PROJECTS, galleryProjects}); 
             }

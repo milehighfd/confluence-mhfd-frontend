@@ -58,7 +58,8 @@ const Map = ({ leftWidth,
             selectedLayers,
             polygon,
             getPolygonStreams,
-            saveLayersCheck } : MapProps) => {
+            saveLayersCheck,
+            setFilterCoordinates } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
@@ -143,6 +144,20 @@ const Map = ({ leftWidth,
                 });
             }
         }
+        map.on('zoomend', () => {
+            const bounds = map.getBounds();
+            const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+            setFilterCoordinates(boundingBox);
+            console.log(boundingBox);
+            
+          });
+        map.on('dragend', () => {
+            const bounds = map.getBounds();
+            const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+            setFilterCoordinates(boundingBox);
+            console.log(boundingBox);
+            
+        });
     }, []);
 
     useEffect(() => {
@@ -166,7 +181,6 @@ const Map = ({ leftWidth,
         paintSelectedComponents(selectedItems);
     }, [selectedItems]);
 
- 
     useEffect(() => {
         map.on('style.load', () => {
             const waiting = () => {

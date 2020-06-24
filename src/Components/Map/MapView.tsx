@@ -56,7 +56,9 @@ const accordionRow: Array<any> = [
 const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters,
                   dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems, 
                   getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation,
-                  getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage } : MapViewTypes) => {
+                  getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
+                  filterProjectOptions, filterCoordinates, setFilterProblemOptions,
+                  setFilterProjectOptions } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
@@ -69,25 +71,23 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [area, setArea] = useState(store.getState().profile.userInformation.organization)
   const [ tabActive, setTabActive] = useState('0');
   const { projectId } = useParams();
-
-  const [ optionsFilterProblems, setOptionFilterProblems] = useState({
-    keyword: '',
-    column: 'problemname',
-    order: 'asc'
-  });
-  const [ optionsFilterProjects, setOptionFilterProjects] = useState({
-    keyword: '',
-    column: 'streamname',
-    order: 'asc'
-  });
-  const options = (options: {keyword: string, column: string, order: string}) => {
-    return ((options.keyword ? ('name=' + options.keyword + '&') : '') + 'sortby=' + options.column + '&sorttype=' + options.order)
-  }
+  
+  // const [ filterProblemOptions, setOptionFilterProblems] = useState({
+  //   keyword: '',
+  //   column: 'problemname',
+  //   order: 'asc'
+  // });
+  // const [ filterProjectOptions, setOptionFilterProjects] = useState({
+  //   keyword: '',
+  //   column: 'streamname',
+  //   order: 'asc'
+  // });
+  // const options = (options: {keyword: string, column: string, order: string}) => {
+  //   return ((options.keyword ? ('name=' + options.keyword + '&') : '') + 'sortby=' + options.column + '&sorttype=' + options.order)
+  // }
   useEffect(() =>{
-      getGalleryProblems( '&' + options(optionsFilterProblems));
-      getGalleryProjects(options(optionsFilterProjects));
-    // getGalleryProblems('');
-    // getGalleryProjects('');
+      getGalleryProblems();
+      getGalleryProjects();
   }, [getGalleryProblems, getGalleryProjects]);
   useEffect(() => {
     /* Validate projectId in backend to show it! */
@@ -182,15 +182,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <Menu.Item key={item.name} 
           onClick={() => {
             if(tabActive === '0') {
-              const auxOptions = {...optionsFilterProblems};
+              const auxOptions = {...filterProblemOptions};
               auxOptions.column = item.name;
-              getGalleryProblems( '&' + options(auxOptions));
-              setOptionFilterProblems(auxOptions);
+              setFilterProblemOptions(auxOptions);
+              getGalleryProblems();
             } else {
-              const auxOptions = {...optionsFilterProjects};
+              const auxOptions = {...filterProjectOptions};
               auxOptions.column = item.name;
-              getGalleryProjects(options(auxOptions));
-              setOptionFilterProblems(auxOptions);
+              setFilterProjectOptions(auxOptions);
+              getGalleryProjects();
             }
           }}>
           <span className="menu-item-text">{item.title}</span>
@@ -238,23 +238,23 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           <Col span={12}>
             <Search
               placeholder="Search..."
-              value={tabActive === '0'? optionsFilterProblems.keyword: optionsFilterProjects.keyword}
+              value={tabActive === '0'? filterProblemOptions.keyword: filterProjectOptions.keyword}
               onChange={(e)=> {
                 if(tabActive === '0') {
-                  const auxOptions = {...optionsFilterProblems};
+                  const auxOptions = {...filterProblemOptions};
                   auxOptions.keyword = e.target.value;
-                  setOptionFilterProblems(auxOptions);
+                  setFilterProblemOptions(auxOptions);
                 } else {
-                  const auxOptions = {...optionsFilterProjects};
+                  const auxOptions = {...filterProjectOptions};
                   auxOptions.keyword = e.target.value;
-                  setOptionFilterProjects(auxOptions);
+                  setFilterProjectOptions(auxOptions);
                 }
               }}
               onSearch={(e) => {
                 if(tabActive === '0') {
-                  getGalleryProblems( '&' + options(optionsFilterProblems));
+                  getGalleryProblems();
                 } else {
-                  getGalleryProjects(options(optionsFilterProjects));
+                  getGalleryProjects();
                 }
               }}
               style={{ width: 200 }}
@@ -268,32 +268,32 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   menuSort(SORTED_PROJECTS)} 
                 getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
                 <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
-                  Sort by {tabActive === '0'? SORTED_PROBLEMS.filter(element => element.name === optionsFilterProblems.column)[0]?.title :
-                     SORTED_PROJECTS.filter(element => element.name === optionsFilterProjects.column)[0]?.title}
+                  Sort by {tabActive === '0'? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
+                     SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
                 </span>
               </Dropdown>
               <span className="sort-buttons" onClick={() => {
                 if(tabActive === '0') {
-                  const auxOptions = {...optionsFilterProblems};
-                  auxOptions.order = optionsFilterProblems.order === 'asc' ? 'desc' : 'asc'
-                  setOptionFilterProblems(auxOptions);
-                  getGalleryProblems( '&' + options(auxOptions));
+                  const auxOptions = {...filterProblemOptions};
+                  auxOptions.order = filterProblemOptions.order === 'asc' ? 'desc' : 'asc';
+                  setFilterProblemOptions(auxOptions);
+                  getGalleryProblems();
                 } else {
-                  const auxOptions = {...optionsFilterProjects};
-                  auxOptions.order = optionsFilterProjects.order === 'asc' ? 'desc' : 'asc'
-                  setOptionFilterProjects(auxOptions);
-                  getGalleryProjects(options(auxOptions));
+                  const auxOptions = {...filterProjectOptions};
+                  auxOptions.order = filterProjectOptions.order === 'asc' ? 'desc' : 'asc';
+                  setFilterProjectOptions(auxOptions);
+                  getGalleryProjects();
                 }
               }}>
                 <CaretUpOutlined
                   className="arrow-up"
-                  style={{opacity: tabActive === '0'? (optionsFilterProblems.order === 'asc' ? '100%':'30%') :
-                  (optionsFilterProjects.order === 'asc' ? '100%':'30%')}}
+                  style={{opacity: tabActive === '0'? (filterProblemOptions.order === 'asc' ? '100%':'30%') :
+                  (filterProjectOptions.order === 'asc' ? '100%':'30%')}}
                 />
                 <CaretDownOutlined
                   className="arrow-down"
-                  style={{opacity: tabActive === '0'? (optionsFilterProblems.order === 'desc' ? '100%':'30%') :
-                  (optionsFilterProjects.order === 'desc' ? '100%':'30%')}}
+                  style={{opacity: tabActive === '0'? (filterProblemOptions.order === 'desc' ? '100%':'30%') :
+                  (filterProjectOptions.order === 'desc' ? '100%':'30%')}}
                 />
               </span>
             </div>

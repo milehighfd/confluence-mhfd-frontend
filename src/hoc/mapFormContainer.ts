@@ -14,7 +14,10 @@ import { getReverseGeocode,
         getGalleryProjects,
         getPolygonStreams, saveLayersCheck,
         getDetailedPageProblem,
-        getDetailedPageProject } from '../store/actions/mapActions';
+        getDetailedPageProject,
+        setFilterCoordinates,
+        setFilterProblemOptions,
+        setFilterProjectOptions } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
 
@@ -42,7 +45,10 @@ const mapStateToProps = (state: any) => {
         polygon: state.profile.userInformation.polygon,
         selectedLayers: state.map.selectedLayers,
         detailed: state.detailed.detailed,
-        loaderDetailedPage: state.detailed.spin
+        loaderDetailedPage: state.detailed.spin,
+        filterProblemOptions: state.map.filterProblemOptions,
+        filterProjectOptions: state.map.filterProjectOptions,
+        filterCoordinates: state.map.filterCoordinates
     };
 };
 
@@ -70,7 +76,10 @@ const mapDispatchToProps = (dispatch: any) => ({
         saveUserInformation,
         saveLayersCheck,
         getDetailedPageProblem,
-        getDetailedPageProject
+        getDetailedPageProject,
+        setFilterCoordinates,
+        setFilterProblemOptions,
+        setFilterProjectOptions
     }, dispatch)
 });
   

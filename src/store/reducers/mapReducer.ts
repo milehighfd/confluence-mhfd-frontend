@@ -92,7 +92,18 @@ const initState = {
     latitude: 0,
     selectedLayers: [PROJECTS_MAP_STYLES],
     galleryProblems: [],
-    galleryProjects: []
+    galleryProjects: [],
+    filterProblemOptions: {
+        keyword: '',
+        column: 'problemname',
+        order: 'asc'
+    },
+    filterProjectOptions: {
+        keyword: '',
+        column: 'streamname',
+        order: 'asc'
+    },
+    filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423'
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -207,6 +218,24 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state, 
                 galleryProjects: action.galleryProjects
+            }
+        }
+        case types.SET_FILTER_PROBLEM_OPTIONS: {
+            return {
+                ...state,
+                filterProblemOptions: action.filters
+            }
+        }
+        case types.SET_FILTER_PROJECT_OPTIONS: {
+            return {
+                ...state,
+                filterProjectOptions: action.filters
+            }
+        }
+        case types.SET_FILTER_COORDINATES: {
+            return {
+                ...state, 
+                filterCoordinates: action.coordinates
             }
         }
         default: 

@@ -53,7 +53,13 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               getDetailedPageProblem,
               getDetailedPageProject,
               detailed,
-              loaderDetailedPage  } : MapHOCProps) => {
+              loaderDetailedPage,
+              setFilterCoordinates,
+              filterProblemOptions,
+              filterProjectOptions,
+              filterCoordinates,
+              setFilterProblemOptions,
+              setFilterProjectOptions  } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -129,7 +135,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             polygon={polygon}
                             selectedLayers={selectedLayers}
                             getPolygonStreams={getPolygonStreams}
-                            saveLayersCheck={saveLayersCheck}/>
+                            saveLayersCheck={saveLayersCheck}
+                            setFilterCoordinates={setFilterCoordinates}/>
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
@@ -167,6 +174,11 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getDetailedPageProject={getDetailedPageProject}
                             detailed={detailed}
                             loaderDetailedPage={loaderDetailedPage}
+                            filterProblemOptions={filterProblemOptions}
+                            filterProjectOptions={filterProjectOptions}
+                            filterCoordinates={filterCoordinates}
+                            setFilterProblemOptions={setFilterProblemOptions}
+                            setFilterProjectOptions={setFilterProjectOptions}
                       />
                     </Col>
                 </Row>}
