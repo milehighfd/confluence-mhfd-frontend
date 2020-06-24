@@ -1,4 +1,5 @@
 import * as types from '../types/mapTypes';
+import { PROJECTS_MAP_STYLES } from '../../constants/constants';
 
 const initState = {
     error: '',
@@ -89,7 +90,7 @@ const initState = {
     layers: {} as any,
     longitude: 0,
     latitude: 0,
-    selectedLayers: [],
+    selectedLayers: [PROJECTS_MAP_STYLES],
     galleryProblems: [],
     galleryProjects: []
 }

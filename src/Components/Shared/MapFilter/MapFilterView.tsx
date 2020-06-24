@@ -20,6 +20,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers } : { sel
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-235px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
           <Row gutter={[24, 16]} className="filter-map">
           <Checkbox.Group value={checkBoxes} onChange={(items) => {
+            console.log('my items', items);
               setCheckboxes(items);
             }}>
               <Col span={9}>
@@ -40,7 +41,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers } : { sel
                 <h6>MHFD DATA</h6>
                 <p><Checkbox value={PROBLEMS_TRIGGER}>Problems</Checkbox></p>
                 <p><Checkbox value={COMPONENT_LAYERS}>Components</Checkbox></p>
-                <p><Checkbox value={PROJECTS_MAP_STYLES}>Projects</Checkbox></p>
+                <p><Checkbox defaultChecked={true} value={PROJECTS_MAP_STYLES}>PROJECTS</Checkbox></p>
                 <p><Checkbox value={MEP_PROJECTS}>MEP Projects</Checkbox></p>
                 <p><Checkbox value={ROUTINE_MAINTENANCE}>Routine Maintenance</Checkbox></p>
               </Col>
