@@ -24,7 +24,6 @@ import { MAP_DROPDOWN_ITEMS,
         MEP_PROJECTS,
         ROUTINE_MAINTENANCE,
         FLOODPLAINS_FEMA_FILTERS,
-        FLOODPLAINS_NON_FEMA_FILTERS,
         STREAMS_FILTERS,
         WATERSHED_FILTERS,
         SERVICE_AREA_FILTERS,
@@ -700,7 +699,7 @@ const Map = ({ leftWidth,
                         <p><span style={{ background: '#4cfca4', border: 'hidden' }} />Routine Weed Control</p>
                         <p><span style={{ background: '#434243', height: '3px', marginTop: '7px', border: 'hidden' }} />Debris</p>
                     </> : '' }
-                    {layerStrings.includes(FLOODPLAINS_FEMA_FILTERS) || layerStrings.includes(FLOODPLAINS_NON_FEMA_FILTERS) ? <>
+                    {layerStrings.includes(FLOODPLAINS_FEMA_FILTERS) ? <>
                         <p><span style={{ background: '#f7b532', border: 'hidden' }} />National Flood Hazard Layer</p>
                     </> : '' }
                     {layerStrings.includes(WATERSHED_FILTERS) ? <>

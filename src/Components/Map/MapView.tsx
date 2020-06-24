@@ -334,7 +334,16 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             } else { 
               cardInformation = galleryProjects.map(project => {
                 return {
-                  image: project.attachments,
+                  image: project.attachments ? project.attachments : (
+                    project.projecttype === 'Capital' ? '/projectImages/capital.png' :
+                    project.projecttype === 'Study' ? '/projectImages/study.png' :
+                    project.projecttype === 'Maintenance' ? 
+                      (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/maintenance_vegetationmanagement.png' :
+                      project.projectsubtype === 'Sediment Removal' ? '/projectImages/maintenance_sedimentremoval.png' :
+                      project.projectsubtype === 'Restoration' ? '/projectImages/maintenance_restoration.png' :
+                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/maintenance_minorrepairs.png' : 
+                      '/projectImages/maintenance_debrismanagement.png'): '/Icons/eje.png'
+                  ),
                   requestName:  project.projectname? project.projectname : project.requestedname,
                   sponsor: project.sponsor,
                   estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
