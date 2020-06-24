@@ -160,8 +160,19 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#1976d2',
-        'fill-opacity': 0.4
+        'fill-color': '#34b356',
+        'fill-opacity': 0.2
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-width': 4,
+      'line-color': '#34b356',
+      'line-opacity': 1,
+      'line-dasharray': [4, 4, 1]
     }
   }],
   [REMOVAL_LINE]: [{
