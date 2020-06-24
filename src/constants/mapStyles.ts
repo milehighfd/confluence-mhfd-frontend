@@ -220,8 +220,17 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#64b5f6',
-        'fill-opacity': 0.4
+        'fill-color': '#1f67f2',
+        'fill-opacity': 0.3
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#1f67f2',
+        'line-opacity': 1,
+        'line-width': 1.5
     }
   }],
   [MAINTENANCE_TRAILS]: [{
