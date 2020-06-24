@@ -485,8 +485,8 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#F29580',
-        'fill-opacity': 0.35,
+        'fill-color': '#f2695c',
+        'fill-opacity': 0,
     }
   },
   {
@@ -494,8 +494,9 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#F2395C',
-        'line-width': 2
+        'line-color': '#f55e50',
+        'line-width': 0.75,
+        'line-opacity': 1
     }
   }], 
   [STREAMS_FILTERS]: [{
