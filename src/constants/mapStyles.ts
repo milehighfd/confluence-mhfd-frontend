@@ -336,16 +336,17 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#D9CEBA',
-        'fill-opacity': 0.35
+        'fill-color': '#d9ceba',
+        'fill-opacity': 0.51
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#D9CEBA',
-        'line-width': 2
+        'line-color': '#d2b175',
+        'line-width': 2,
+        'line-opacity': 1
     }
   }],
   [ROUTINE_WEED_CONTROL]: [{
