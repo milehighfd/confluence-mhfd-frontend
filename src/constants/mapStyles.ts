@@ -372,16 +372,18 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#BEBDBF',
-        'fill-opacity': 0.35
+        'fill-color': '#bebdbf',
+        'fill-opacity': 0.9
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-      'line-color': '#BEBDBF',
-      'line-width': 2
+      'line-color': '#434243',
+      'line-width': 2,
+      'line-opacity': 1,
+      'line-dasharray': [2, 2, 2]
     }
   }],
   [ROUTINE_DEBRIS_LINEAR]: [{
