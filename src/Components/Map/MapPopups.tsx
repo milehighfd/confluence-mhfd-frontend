@@ -72,6 +72,8 @@ export const ComponentPopup = ({ item } : any) => {
             {item.mepstatusdate ? <p><i>MEP Status Date:</i> {item.mepstatusdate}</p> : ''}
             {item.notes ? <p><i>Notes/Comments:</i> {item.notes}</p> : ''}
             {item.servicearea ? <p><i>Service Area:</i> {item.servicearea}</p> : ''}
+            {item.watershedmanager ? <p><i>Watershed Manager:	Watershed Manager:</i> {item.watershedmanager}</p> : ''}
+            {item.constructionmanagers ? <p><i>Construction Managers:</i> {item.constructionmanagers}</p> : ''}
         </div>
         </Card>
     </div>
