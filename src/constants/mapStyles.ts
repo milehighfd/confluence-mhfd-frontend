@@ -550,16 +550,17 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#AB9400',
-        'fill-opacity': 0.35
+        'fill-color': '#115930',
+        'fill-opacity': 0
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#AB9400',
-        'line-width': 5
+        'line-color': '#7b2491',
+        'line-width': 4,
+        'line-opacity': 0.5
     }
   }],
   [MHFD_BOUNDARY_FILTERS]: [{
