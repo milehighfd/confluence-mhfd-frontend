@@ -391,9 +391,9 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#BEBDBF',
-        'line-width': 2,
-        'line-dasharray': [2, 2]
+        'line-color': '#0a0b0b',
+        'line-width': 3,
+        'line-dasharray': [2, 2, 2]
     }
   }]
 }
