@@ -225,12 +225,21 @@ const COMPONENT_LAYERS_STYLE = {
     }
   }],
   [MAINTENANCE_TRAILS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'fill-color': '#1f67f2',
+        'fill-opacity': 0.3
+    }
+  }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#90caf9',
-        'line-width': 1
+        'line-color': '#1f67f2',
+        'line-width': 1.5,
+        'line-opacity': 1
     }
   }],
   [LAND_ACQUISITION]: [{
