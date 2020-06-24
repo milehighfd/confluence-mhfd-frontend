@@ -504,8 +504,9 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#3E38F2',
-        'line-width': 3
+        'line-color': '#66d4ff',
+        'line-width': 4,
+        'line-opacity': 1
     }
   }], 
   [SERVICE_AREA_FILTERS]: [{
