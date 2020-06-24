@@ -449,8 +449,17 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#829FD9',
-        'fill-opacity': 0.5
+        'fill-color': '#f7b532',
+        'fill-opacity': 0.9
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': '#915e10',
+        'line-width': 0.5,
+        'line-opacity': 0.5
     }
   }],
   [FLOODPLAINS_NON_FEMA_FILTERS]: [{
