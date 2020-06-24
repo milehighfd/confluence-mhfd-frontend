@@ -210,8 +210,9 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#42a5f5',
-        'line-width': 1
+        'line-color': '#34b356',
+        'line-width': 2,
+        'line-opacity': 1
     }
   }],
   [DETENTION_FACILITIES]: [{
