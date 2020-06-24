@@ -149,8 +149,10 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#1565c0',
-        'line-width': 1
+        'line-color': '#34b356',
+        'line-width': 3.5,
+        'line-opacity': 1,
+        'line-dasharray': [4, 4, 1]
     }
   }],
   [CHANNEL_IMPROVEMENTS_AREA]: [{
