@@ -123,15 +123,27 @@ const COMPONENT_LAYERS_STYLE = {
         'line-opacity': 1
     }
   }],
-  [SPECIAL_ITEM_AREA]: [{
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'fill-color': '#0d47a1',
-        'fill-opacity': 0.4
+  [SPECIAL_ITEM_AREA]: [
+    {
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+          'fill-color': '#ffc700',
+          'fill-opacity': 0.53,
+      }
+    },
+    {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+          'line-color': '#ffc700',
+          'line-width': 2.5,
+          'line-opacity': 1
+      }
     }
-  }],
+  ],
   [CHANNEL_IMPROVEMENTS_LINEAR]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
