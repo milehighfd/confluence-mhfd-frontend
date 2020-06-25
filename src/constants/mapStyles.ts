@@ -84,34 +84,24 @@ export const polygonStroke = {
 
 const COMPONENT_LAYERS_STYLE = {
   [GRADE_CONTROL_STRUCTURE]: [{
-    type: 'circle',
+    type: 'symbol',
     'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'circle-color': '#2962ff',
-        'circle-radius': 2,
-        'circle-opacity': 1
-    }
+    layout: {
+      'icon-image': 'waterfall'
+    },
   }],
   [PIPE_APPURTENANCES]: [{
-    type: 'circle',
+    type: 'symbol',
     'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'circle-color': '#2979ff',
-        'circle-radius': 2,
-        'circle-opacity': 1
+    layout: {
+      'icon-image': 'outfall'
     }
   }],
   [SPECIAL_ITEM_POINT]: [{
-    type: 'circle',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'circle-color': '#448aff',
-        'circle-radius': 2,
-        'circle-opacity': 1
-    }
+    type: 'symbol',
+    layout: {
+      'icon-image': 'star'
+    },
   }],
   [SPECIAL_ITEM_LINEAR]: [{
     type: 'line',
@@ -278,7 +268,7 @@ const COMPONENT_LAYERS_STYLE = {
         'fill-opacity': 0.9
     }
   }, {
-    type: 'fill',
+    type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
@@ -319,13 +309,10 @@ const MEP_PROJECTS_STYLES = {
     }
   }],
   [MEP_PROJECTS_STORM_OUTFALLS]: [{
-    type: 'circle',
+    type: 'symbol',
     'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'circle-color': '#ffcdd2',
-        'circle-radius': 2,
-        'circle-opacity': 1
+    layout: {
+      'icon-image': 'construction'
     }
   }]
 }
