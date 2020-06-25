@@ -1,4 +1,5 @@
 import moment from "moment";
+import { SERVER } from "../Config/Server.config";
 
 export const COMPLETE_SCREEN = 24;
 export const MEDIUM_SCREEN = 12;
@@ -17,7 +18,7 @@ export const MAP_DROPDOWN_ITEMS = [
         style: 'mapbox://styles/milehighfd/ck4k0tjln58h41cl4ixb8jsez'
     }, {
       type: 'Optional style',
-      style: 'mapbox://styles/milehighfd/ckarchcyg0vjl1ipcm4kap2k0'
+      style: `${SERVER.URL_BASE}/style/ckarchcyg0vjl1ipcm4kap2k0/milehighfd/${MAPBOX_TOKEN}`,
     }, {
         type: 'Dark Road',
         style: 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft'
