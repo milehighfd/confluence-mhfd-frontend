@@ -104,7 +104,7 @@ export const MEP_PROJECTS = {
 };
 
 /* Routine Maintenance */
-export const ROUTINE_NATURAL_AREAS = 'routine_natural_areas';
+export const ROUTINE_NATURAL_AREAS = 'routine_natural_area';
 export const ROUTINE_WEED_CONTROL = 'routine_weed_control';
 export const ROUTINE_DEBRIS_AREA = 'routine_debris_area';
 export const ROUTINE_DEBRIS_LINEAR = 'routine_debris_linear';
