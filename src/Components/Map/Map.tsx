@@ -11,7 +11,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
-import { Dropdown, Button } from 'antd';
+import { Dropdown, Button, Spin } from 'antd';
 import { MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { MAP_DROPDOWN_ITEMS,
         MAPBOX_TOKEN, HERE_TOKEN,
@@ -77,6 +77,7 @@ const Map = ({ leftWidth,
     
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
+    const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
     const coor: any[][] = [];
     if(user?.polygon[0]) {
@@ -205,14 +206,15 @@ const Map = ({ leftWidth,
         }
     }, [selectedLayers, layerFilters]);
 
-    useEffect(() => {
-        if (recentSelection) {
-            removeTilesHandler(recentSelection);
-        }
-    }, [recentSelection]);
+    // useEffect(() => {
+    //     if (recentSelection) {
+    //         removeTilesHandler(recentSelection);
+    //     }
+    // }, [recentSelection]);
 
-    const applyMapLayers = () => {
-        selectedLayers.forEach((layer: LayersType) => {
+    
+    const applyMapLayers = async () => {
+        await selectedLayers.forEach((layer: LayersType) => {
             // console.log('my layer is ', layer, 'layerFilters::', layerFilters);
             if (typeof layer === 'object') {
                 // console.log('object object');
@@ -235,7 +237,10 @@ const Map = ({ leftWidth,
                     addLayersSource(layer, layerFilters[layer]);
                 }
             }
-        })
+        });
+        setTimeout(() => {
+            setSpinValue(false);
+        }, 2000);
     }
 
     const addLayersSource = (key : string, tiles : Array<string>) => {
@@ -632,8 +637,10 @@ const Map = ({ leftWidth,
     };
     const layerObjects: any = selectedLayers.filter( element => typeof element === 'object');
     const layerStrings = selectedLayers.filter( element => typeof element !== 'object');
+
     return (
-        <div className="map">
+        <Spin spinning={spinValue}>
+            <div className="map">
             <div id="map" style={{ width: '100%', height: '100%' }} />
             <div className="m-head">
                 <div
@@ -667,10 +674,6 @@ const Map = ({ leftWidth,
                 <h5>Legend</h5>
                 <hr />
                 <div className="scroll-footer">
-                    {/* <p><span style={{ background: '#99C9FF' }} />6 - 12 inches</p>
-                    <p><span style={{ background: '#4B9CFF' }} /> 12 - 18 inches</p>
-                    <p><span style={{ background: '#4C81C4' }} /> 18 - 24 inches</p>
-                    <p><span style={{ background: '#4A6A9C' }} /> +24 inches</p> */}
                     {layerObjects.filter((element: any)  => element.name === PROJECTS_MAP_STYLES.name ).length ? <>
                         <p><span style={{ background: '#ffdd00', border: 'hidden' }} />Projects - Capital</p>
                         <p><span style={{ background: '#29c499', border: 'hidden' }} />Projects - Maintenance</p>
@@ -729,6 +732,8 @@ const Map = ({ leftWidth,
                     <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>
                 </div> */}
         </div>
+        </Spin>
+        
     )
 }
 
