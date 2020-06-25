@@ -87,20 +87,23 @@ const COMPONENT_LAYERS_STYLE = {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
-      'icon-image': 'waterfall-01'
+      'icon-image': 'waterfall-01',
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
     },
   }],
   [PIPE_APPURTENANCES]: [{
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
-      'icon-image': 'outfall-01'
+      'icon-image': 'outfall-01',
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
     }
   }],
   [SPECIAL_ITEM_POINT]: [{
     type: 'symbol',
     layout: {
-      'icon-image': 'star-01'
+      'icon-image': 'star-01',
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
     },
   }],
   [SPECIAL_ITEM_LINEAR]: [{
@@ -312,7 +315,8 @@ const MEP_PROJECTS_STYLES = {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
-      'icon-image': 'construction-01'
+      'icon-image': 'construction-01',
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
     }
   }]
 }
