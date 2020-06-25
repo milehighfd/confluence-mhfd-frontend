@@ -87,20 +87,20 @@ const COMPONENT_LAYERS_STYLE = {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
-      'icon-image': 'waterfall'
+      'icon-image': 'waterfall-01'
     },
   }],
   [PIPE_APPURTENANCES]: [{
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
-      'icon-image': 'outfall'
+      'icon-image': 'outfall-01'
     }
   }],
   [SPECIAL_ITEM_POINT]: [{
     type: 'symbol',
     layout: {
-      'icon-image': 'star'
+      'icon-image': 'star-01'
     },
   }],
   [SPECIAL_ITEM_LINEAR]: [{
@@ -312,7 +312,7 @@ const MEP_PROJECTS_STYLES = {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
-      'icon-image': 'construction'
+      'icon-image': 'construction-01'
     }
   }]
 }
