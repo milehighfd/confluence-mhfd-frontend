@@ -28,12 +28,25 @@ import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenance
 import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
+import { SELECT_ALL_FILTERS } from './constants/constants';
 
-function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser } : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any }) {
+function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables } 
+          : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any, getMapTables: Function }) {
   const [ loading, setLoading ] = useState(true);
   useEffect(() => {
     getCarouselImages();
   }, [getCarouselImages]);
+  useEffect(() => {
+    SELECT_ALL_FILTERS.forEach((layer) => {
+      if (typeof layer === 'object') {
+        layer.tiles.forEach((subKey: string) => {
+          getMapTables(subKey, layer.name);
+        });
+      } else {
+          getMapTables(layer);
+      }
+    })
+  }, []);
   useEffect(() => {
     if(datasets.getToken() && appUser.email === '') {
       datasets.getData(SERVER.ME, datasets.getToken()).then( async res => {
