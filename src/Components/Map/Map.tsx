@@ -715,7 +715,7 @@ const Map = ({ leftWidth,
                         <p><span style={{ background: '#bc73ff', border: 'hidden' }} />Municipality</p>
                     </> : '' }
                     {layerStrings.includes(COUNTIES_FILTERS) ? <>
-                        <p><span style={{ background: '#115930', border: 'hidden' }} />County</p>
+                        <p><span style={{ background: '#7b2491', border: 'hidden' }} />County</p>
                     </> : '' }
                     {layerStrings.includes(MHFD_BOUNDARY_FILTERS) ? <>
                         <p><span className="color-footer-boundary" style={{ border: '1px dashed' }} />MHFD Boundary</p>

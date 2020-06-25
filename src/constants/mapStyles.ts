@@ -400,7 +400,7 @@ export const PROJECTS_STYLES = {
             'Capital',
             '#ffdd00',
             'Study',
-            '#f2552e',
+            '#951eba',
             '#fff'
           ],
           'line-width': 3,
