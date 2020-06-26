@@ -87,7 +87,7 @@ const COMPONENT_LAYERS_STYLE = {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
-      'icon-image': 'waterfall-01',
+      'icon-image': 'waterfall',
       'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
     },
   }],
@@ -95,14 +95,14 @@ const COMPONENT_LAYERS_STYLE = {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
-      'icon-image': 'outfall-01',
+      'icon-image': 'outfall',
       'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
     }
   }],
   [SPECIAL_ITEM_POINT]: [{
     type: 'symbol',
     layout: {
-      'icon-image': 'star-01',
+      'icon-image': 'star',
       'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
     },
   }],
@@ -284,13 +284,11 @@ const COMPONENT_LAYERS_STYLE = {
 
 const MEP_PROJECTS_STYLES = {
   [MEP_PROJECTS_TEMP_LOCATIONS]: [{
-    type: 'circle',
+    type: 'symbol',
     'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'circle-color': '#ef5350',
-        'circle-radius': 2,
-        'circle-opacity': 1
+    layout: {
+      'icon-image': 'construction-04',
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
     }
   }],
   [MEP_PROJECTS_DETENTION_BASINS]: [{
@@ -298,7 +296,7 @@ const MEP_PROJECTS_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#e57373',
+        'fill-color': '#60bde6',
         'fill-opacity': 0.4
     }
   }],
@@ -307,7 +305,7 @@ const MEP_PROJECTS_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#ef9a9a',
+        'line-color': '#968862',
         'line-width': 1
     }
   }],
