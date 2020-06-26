@@ -26,7 +26,7 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : { fi
 
 export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters,
                 handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters,
-                dropdowns, userFiltered, getUserFilters } : FiltersProjectTypes) => {
+                dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn } : FiltersProjectTypes) => {
 
   const [selectedFilters, setSelectedFilters] = useState<{[key: string] : string | Array<string>}>({});
 

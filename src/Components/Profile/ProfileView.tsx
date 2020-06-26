@@ -94,7 +94,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
       getUserProject({ keyword: '', column: 'streamname', order: 'asc' });
     }
   }, [user]);
-  console.log(projects, problems);
+  //console.log(projects, problems);
   
   return <>
     <Layout>
@@ -109,7 +109,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
             <Col className="profile-tabs" span={17}>
               <Tabs defaultActiveKey="1" className="tabs-map">
                 <TabPane tab="Problems" key="1">
-                  <TabPaneView type={"Problems"} datas={cardInformationProblems} search={searchProblem} />
+                  <TabPaneView type={"Problems"} datas={problems} search={searchProblem} />
                 </TabPane>
                 <TabPane tab="Projects" key="2">
                   <TabPaneView type={"Projects"} datas={projects} search={searchProjects} />

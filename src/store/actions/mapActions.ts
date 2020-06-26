@@ -7,6 +7,7 @@ import * as constants from '../../constants/constants';
 import { TotalType, ProjectTypes } from '../../Classes/MapTypes';
 import { ComponentType } from 'react';
 import store from '..';
+import { dispatch } from 'd3';
 
 export const getReverseGeocode = (lat : number, lng : number, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/
@@ -236,5 +237,16 @@ export const getDetailedPageProblem = (id: string) => {
         datasets.getData(SERVER.PROBLEM_BY_ID + '/' + id, datasets.getToken()).then(detailed => {
             dispatch({type: detailedTypes.REPLACE_DETAILED_PAGE, detailed});
         });
+    }
+}
+export const getValuesByGroupColumn = (table: string, column: string) => {
+    return (dispatch: Function) => {
+        const params = {
+            table: table,
+            column: column
+        }
+        datasets.postData(SERVER.GROUP_COLUMNS, params).then(data => {
+            dispatch({type: types.GET_VALUES_BY_GROUP_COLUMN, data});
+        } )
     }
 }

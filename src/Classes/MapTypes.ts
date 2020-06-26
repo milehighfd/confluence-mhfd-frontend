@@ -59,6 +59,7 @@ export type MapHOCProps = {
     getGalleryProblems: Function,
     getGalleryProjects: Function,
     galleryProblems: Array<any>,
+    getValuesByGroupColumn: Function,
     polygon: Array<Array<number>>,
     saveUserInformation: Function,
     galleryProjects: Array<any>,
@@ -88,6 +89,7 @@ export type MapViewTypes = {
     getGalleryProblems: Function,
     getGalleryProjects: Function,
     galleryProblems: Array<any>,
+    getValuesByGroupColumn: Function,
     saveUserInformation: Function,
     galleryProjects: Array<any>,
     getDetailedPageProblem: Function,
@@ -227,6 +229,7 @@ export type FiltersProjectTypes = {
     projectsLength: number, 
     problemsLength: number, 
     getDropdownFilters: Function, 
+    getValuesByGroupColumn: Function,
     dropdowns: DropdownFilterTypes,
     userFiltered: { [_id: string]: string },
     getUserFilters: Function

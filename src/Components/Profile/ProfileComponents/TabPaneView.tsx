@@ -7,12 +7,13 @@ import { ProjectTypes } from '../../../Classes/MapTypes';
 import { STATUS_PROJECT } from '../../../constants/constants';
 
 
-export default ({ type, datas, search }: { type: string, datas: Array<ProjectTypes>, search: Function }) => {
+export default ({ type, datas, search }: { type: string, datas: Array<any>, search: Function }) => {
   const { Search } = Input;
   const [options, setOptions] = useState({ requestName: '', status: '' });
   const numberWithCommas = (x: number) => {
     return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
   }
+  console.log(type, datas);
   const getItemValues = (id: string, name: string) => {
     const auxOptions = { ...options };
     auxOptions.status = id;
@@ -56,7 +57,7 @@ export default ({ type, datas, search }: { type: string, datas: Array<ProjectTyp
         </label>
       </div>
     </div>
-    {datas.map((data: ProjectTypes, index: number) => {
+    {datas.map((data: any, index: number) => {
       return <CardsView key={index} data={data} type={type} numberWithCommas={numberWithCommas} />
     })}
   </Row>

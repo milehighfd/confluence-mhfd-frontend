@@ -58,7 +58,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation,
                   getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
                   filterProjectOptions, filterCoordinates, setFilterProblemOptions,
-                  setFilterProjectOptions } : MapViewTypes) => {
+                  setFilterProjectOptions, getValuesByGroupColumn } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
@@ -388,7 +388,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             getDropdownFilters={getDropdownFilters}
             dropdowns={dropdowns}
             userFiltered={userFiltered}
-            getUserFilters={getUserFilters} />
+            getUserFilters={getUserFilters}
+            getValuesByGroupColumn={getValuesByGroupColumn} />
       }
     </div>
   </>
