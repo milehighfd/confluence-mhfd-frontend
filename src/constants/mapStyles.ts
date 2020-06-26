@@ -101,6 +101,7 @@ const COMPONENT_LAYERS_STYLE = {
   }],
   [SPECIAL_ITEM_POINT]: [{
     type: 'symbol',
+    'source-layer': 'pluto15v1',
     layout: {
       'icon-image': 'star',
       'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
@@ -494,7 +495,6 @@ export const tileStyles = {
     layout: {},
     paint: {
         'line-color': '#66d4ff',
-        // 'line-width': 4,
         'line-width': ['interpolate', ['linear'], ['get', 'cfs'], 0.11, 4, 0.451, 3.125, 0.81, 2.25, 1.151, 1.375, 1.51, 0.5],
         'line-opacity': 1
     }

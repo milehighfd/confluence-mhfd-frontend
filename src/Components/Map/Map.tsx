@@ -654,7 +654,7 @@ const Map = ({ leftWidth,
                     style={{ width: '200px', height: '35px' }}
                 />
                 {/*<Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
-                <Dropdown
+                <Dropdown overlayClassName="dropdown-map-layers"
                     visible={visibleDropdown}
                     onVisibleChange={(flag : boolean) => {
                         selectCheckboxes(selectedCheckBox);
