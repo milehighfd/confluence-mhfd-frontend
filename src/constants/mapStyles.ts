@@ -516,6 +516,18 @@ export const tileStyles = {
         'line-color': '#fd8b1a',
         'line-width': 1,
         'line-opacity': 1
+    }, 
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    layout: {
+      'text-field': ['get', 'servicearea'],
+      'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+      'text-radial-offset': 0.5,
+      'text-justify': 'auto'
+    },
+    paint: {
+      'text-color': '#FFF'
     }
   }], 
   [MUNICIPALITIES_FILTERS]: [{
