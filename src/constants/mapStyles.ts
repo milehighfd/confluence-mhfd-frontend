@@ -565,8 +565,8 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#115930',
-        'fill-opacity': 0
+        'fill-color': '#9265b9',
+        'fill-opacity': 0.5
     }
   },{
     type: 'line',
@@ -576,6 +576,18 @@ export const tileStyles = {
         'line-color': '#7b2491',
         'line-width': 4,
         'line-opacity': 0.5
+    }, 
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    layout: {
+      'text-field': ['get', 'county'],
+      'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+      'text-radial-offset': 0.5,
+      'text-justify': 'auto'
+    },
+    paint: {
+      'text-color': '#FFF'
     }
   }],
   [MHFD_BOUNDARY_FILTERS]: [{
