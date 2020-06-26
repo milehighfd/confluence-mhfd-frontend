@@ -206,12 +206,15 @@ const Map = ({ leftWidth,
         }
     }, [selectedLayers, layerFilters]);
 
-    // useEffect(() => {
-    //     if (recentSelection) {
-    //         removeTilesHandler(recentSelection);
-    //     }
-    // }, [recentSelection]);
+    useEffect(() => {
+        if (recentSelection) {
+            removeTilesHandler(recentSelection);
+        }
+    }, [recentSelection]);
 
+    const removePopup = () => {
+        popup.remove();
+    }
     
     const applyMapLayers = async () => {
         await selectedLayers.forEach((layer: LayersType) => {
@@ -554,7 +557,7 @@ const Map = ({ leftWidth,
             map.on('mouseenter', key, () => {
                 map.getCanvas().style.cursor = 'pointer';
             });
-            map.on('mouseleave', key, () => {
+            map.on('mouseleave', key, () => {     
                 map.getCanvas().style.cursor = '';
             })
         }
@@ -596,7 +599,9 @@ const Map = ({ leftWidth,
 
     
 
-    const selectCheckboxes = (selectedItems : Array<string>) => {
+    const selectCheckboxes = (selectedItems : Array<LayersType>) => {
+        console.log(selectedItems);
+        
         const deleteLayers = selectedLayers.filter(layer => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer : LayersType) => {
             removeTilesHandler(layer);
@@ -637,7 +642,7 @@ const Map = ({ leftWidth,
     };
     const layerObjects: any = selectedLayers.filter( element => typeof element === 'object');
     const layerStrings = selectedLayers.filter( element => typeof element !== 'object');
-
+    const [ selectedCheckBox, setSelectedCheckBox ] = useState(selectedLayers);
     return (
         <Spin spinning={spinValue}>
             <div className="map">
@@ -651,8 +656,11 @@ const Map = ({ leftWidth,
                 {/*<Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
                 <Dropdown
                     visible={visibleDropdown}
-                    onVisibleChange={(flag : boolean) => {setVisibleDropdown(flag)}}
-                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers })}
+                    onVisibleChange={(flag : boolean) => {
+                        selectCheckboxes(selectedCheckBox);
+                        setVisibleDropdown(flag);
+                    }}
+                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup })}
                     className="btn-02"
                     trigger={['click']}>
                     <Button>
