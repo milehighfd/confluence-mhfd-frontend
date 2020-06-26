@@ -693,6 +693,7 @@ const Map = ({ leftWidth,
                     {layerObjects.filter((element: any)  => element.name === COMPONENT_LAYERS.name ).length ? <>
                         <p><img src="/mapIcons/waterfall.svg" alt=""/> Grade Control Structure</p>
                         <p><img src="/mapIcons/outfall.svg" alt=""/> Pipe Appurtenances</p>
+                        <p><img src="/mapIcons/star.svg" alt=""/> Special Item</p>
                         <p><span style={{ background: '#ffc700', border: 'hidden' }} />Special Item</p>
                         <p><span style={{ background: '#8FA7C8', height: '3px', marginTop: '7px', border: 'hidden' }} />Channel Improvement</p>
                         <p><span style={{ background: '#c6cecf', height: '3px', marginTop: '7px', border: 'hidden' }} />Removal Line</p>
