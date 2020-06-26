@@ -54,7 +54,7 @@ const accordionRow: Array<any> = [
 ];
 
 const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters,
-                  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems, 
+                  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems,
                   getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation,
                   getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
                   filterProjectOptions, filterCoordinates, setFilterProblemOptions,
@@ -71,7 +71,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [area, setArea] = useState(store.getState().profile.userInformation.organization)
   const [ tabActive, setTabActive] = useState('0');
   const { projectId } = useParams();
-  
+
   // const [ filterProblemOptions, setOptionFilterProblems] = useState({
   //   keyword: '',
   //   column: 'problemname',
@@ -175,11 +175,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </Menu.ItemGroup>
     </Menu>
   };
-  
+
   const menuSort = (listSort: Array<{name: string, title: string}>) => {
     return <Menu className="js-mm-00">
       {listSort.map((item : {name: string, title: string}) => (
-        <Menu.Item key={item.name} 
+        <Menu.Item key={item.name}
           onClick={() => {
             if(tabActive === '0') {
               const auxOptions = {...filterProblemOptions};
@@ -198,7 +198,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       ))}
   </Menu>
   }
-  
+
   return <>
     <div className="count">
       {/* { modalVisible &&
@@ -226,7 +226,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             {/* <Button onClick={() => {
               setListDescription(false);
             }}>
-              <img className="img-h" src="/Icons/icon-31.svg" alt="" /> 
+              <img className="img-h" src="/Icons/icon-31.svg" alt="" />
               <img className="img-a" src="/Icons/icon-33.svg" alt="" />
             </Button> */}
           </ButtonGroup>
@@ -262,10 +262,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           </Col>
           <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
             <div className="sort-content">
-              <Dropdown trigger={['click']} 
+              <Dropdown trigger={['click']}
                 overlay={tabActive === '0'?
                   menuSort(SORTED_PROBLEMS):
-                  menuSort(SORTED_PROJECTS)} 
+                  menuSort(SORTED_PROJECTS)}
                 getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
                 <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
                   Sort by {tabActive === '0'? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
@@ -299,7 +299,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             </div>
 
             <Button onClick={handleToggle}>
-              <img src="/Icons/icon-29.svg" alt="" /> Filters ({filterNames.length}) {tabActive}
+              <img src="/Icons/icon-73.svg" alt="" /> Filters ({filterNames.length}) {tabActive}
             </Button>
           </Col>
         </Row>
@@ -331,17 +331,17 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 }
               });
               totalElements = cardInformation.length;
-            } else { 
+            } else {
               cardInformation = galleryProjects.map(project => {
                 return {
                   image: project.attachments ? project.attachments : (
                     project.projecttype === 'Capital' ? '/projectImages/capital.png' :
                     project.projecttype === 'Study' ? '/projectImages/study.png' :
-                    project.projecttype === 'Maintenance' ? 
+                    project.projecttype === 'Maintenance' ?
                       (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/maintenance_vegetationmanagement.png' :
                       project.projectsubtype === 'Sediment Removal' ? '/projectImages/maintenance_sedimentremoval.png' :
                       project.projectsubtype === 'Restoration' ? '/projectImages/maintenance_restoration.png' :
-                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/maintenance_minorrepairs.png' : 
+                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/maintenance_minorrepairs.png' :
                       '/projectImages/maintenance_debrismanagement.png'): '/Icons/eje.png'
                   ),
                   requestName:  project.projectname? project.projectname : project.requestedname,
