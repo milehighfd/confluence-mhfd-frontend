@@ -337,7 +337,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
     paint: {
         'line-color': '#d2b175',
         'line-width': 2,
-        'line-opacity': 1
+        'line-opacity': 0
     }
   }],
   [ROUTINE_WEED_CONTROL]: [{
@@ -355,7 +355,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
     paint: {
       'line-color': '#134e33',
       'line-width': 2,
-      'line-opacity': 1
+      'line-opacity': 0
     }
   }],
   [ROUTINE_DEBRIS_AREA]: [{
