@@ -499,6 +499,18 @@ export const tileStyles = {
         'line-width': 4,
         'line-opacity': 1
     }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    layout: {
+      'text-field': ['get', 'str_name'],
+      'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+      'text-radial-offset': 0.5,
+      'text-justify': 'auto'
+    },
+    paint: {
+      'text-color': '#FFF'
+    }
   }], 
   [SERVICE_AREA_FILTERS]: [{
     type: 'fill',
