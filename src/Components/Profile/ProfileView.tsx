@@ -10,6 +10,7 @@ import UserInformationView from "./ProfileComponents/UserInformationView";
 
 import { ProjectTypes } from "../../Classes/MapTypes";
 import { User, ProjectName } from "../../Classes/TypeList";
+import { problemPanel } from "../../utils/detailedUtils";
 
 const { TabPane } = Tabs;
 const data = [
@@ -58,10 +59,12 @@ const cardInformationProblems: Array<any> = [
   }
 ];
 
-export default ({ user, projects, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue, updateUserInformation }:
+export default ({ user, projects, problems, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue, updateUserInformation,
+    getUserProblem, getUserProject }:
   {
-    user: User, projects: ProjectTypes[], countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function,
-    uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function, updateUserInformation: Function }) => {
+    user: User, projects: any, problems: any, countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function,
+    uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function, updateUserInformation: Function,
+    getUserProblem: Function, getUserProject: Function }) => {
   const searchProblem = () => {
     console.log('search problem');
   }
@@ -76,7 +79,7 @@ export default ({ user, projects, countProjects, getUserProjects, getCountProjec
     return newOption;
   }
   useEffect(() => {
-    getUserProjects({})
+    getUserProjects({});
   }, [getUserProjects]);
 
   useEffect(() => {
@@ -85,6 +88,14 @@ export default ({ user, projects, countProjects, getUserProjects, getCountProjec
   useEffect(() => {
     getUserInformation();
   }, [getUserInformation]);
+  useEffect(() => {
+    if(user._id) {
+      getUserProblem({ keyword: '', column: 'problemname', order: 'asc' });
+      getUserProject({ keyword: '', column: 'streamname', order: 'asc' });
+    }
+  }, [user]);
+  console.log(projects, problems);
+  
   return <>
     <Layout>
       <NavbarView></NavbarView>

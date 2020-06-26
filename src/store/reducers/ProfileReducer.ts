@@ -15,6 +15,9 @@ const initProfile = {
     polygon: []
   },
   userProjects: [],
+  userProblems: [],
+  loaderCardProjects: false,
+  loaderCardProblems: false,
   userImage: '',
   countProjects: [],
   spin: false
@@ -31,7 +34,14 @@ const profile = (state = initProfile, action: any) => {
     case types.GET_USER_PROJECTS:
       return {
         ...state,
-        userProjects: action.projects
+        userProjects: action.projects,
+        loaderCardProjects: false
+      }
+    case types.GET_USER_PROBLEMS:
+      return {
+        ...state,
+        userProblems: action.problems,
+        loaderCardProblems: false
       }
     case types.UPLOAD_PHOTO:
       return {
@@ -52,6 +62,16 @@ const profile = (state = initProfile, action: any) => {
       return {
         ...state,
         spin: action.spin
+      }
+    case types.SET_VALUE_LOADER_PROJECT:
+      return {
+        ...state,
+        loaderCardProjects: action.spin
+      }
+    case types.SET_VALUE_LOADER_PROBLEM:
+      return {
+        ...state,
+        loaderCardProblems: action.spin
       }
     case types.UPDATE_USER_INFORMATION:
       return {

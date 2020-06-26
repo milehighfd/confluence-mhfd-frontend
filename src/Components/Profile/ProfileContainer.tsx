@@ -1,12 +1,15 @@
 import { connect } from 'react-redux';
 
 import ProfileView from './ProfileView';
-import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation } from '../../store/actions/ProfileActions';
+import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation, getUserProblem, getUserProject } from '../../store/actions/ProfileActions';
 import { User } from '../../Classes/TypeList';
 
 const mapStateToProps = (state: any): any => {
   return {
     projects: state.profile.userProjects,
+    problems: state.profile.userProblems,
+    loaderCardProblems: state.profile.loaderCardProjects,
+    loaderCardProjects: state.profile.loaderCardProjects,
     user: state.profile.userInformation,
     countProjects: state.profile.countProjects,
     userImage: state.profile.userImage,
@@ -33,6 +36,12 @@ const mapDispatchToProps = (dispatch: Function): any => {
     },
     updateUserInformation(user: User) {
       dispatch(updateUserInformation(user))
+    },
+    getUserProblem(options: { keyword: string, column: string, order: string }) {
+      dispatch(getUserProblem(options))
+    },
+    getUserProject(options: { keyword: string, column: string, order: string }) {
+      dispatch(getUserProject(options))
     }
   };
 };
