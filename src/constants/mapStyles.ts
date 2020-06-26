@@ -441,7 +441,7 @@ export const tileStyles = {
     layout: {},
     paint: {
         'fill-color': '#f7b532',
-        'fill-opacity': 0.9
+        'fill-opacity': 0.7
     }
   }, {
     type: 'line',
@@ -459,7 +459,7 @@ export const tileStyles = {
     layout: {},
     paint: {
         'fill-color': '#f7b532',
-        'fill-opacity': 0.9
+        'fill-opacity': 0.7
     }
   }, {
     type: 'line',
