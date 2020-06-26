@@ -539,7 +539,7 @@ const Map = ({ leftWidth,
                     if (key === 'catchments' || key === 'basin') {
                         const item = {
                             layer: 'Watershed',
-                            feature: e.features[0].properties.str_name
+                            feature: e.features[0].properties.str_name ? e.features[0].properties.str_name : 'No name'
                         }
                         html = loadComponentPopup(item);
                     }
