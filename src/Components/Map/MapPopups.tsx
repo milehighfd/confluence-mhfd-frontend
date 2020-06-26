@@ -58,7 +58,7 @@ export const ComponentPopup = ({ item } : any) => {
             {item.layer}
         </div>
         <div className="bodymap">
-            {item.subtype ? <h4><i>SubType:</i> {item.subtype}</h4> : ''}
+            {item.subtype ? <h4><i>{item.subtype}</i> </h4> : ''}
             {item.feature ? <h4>{item.feature}</h4> : ''}
             {item.status ? <p><i>Status:</i> {item.status}</p> : ''}
             {item.estimatedcost ? <p><i>Estimated Cost:</i> ${item.estimatedcost}</p> : ''}
@@ -72,7 +72,7 @@ export const ComponentPopup = ({ item } : any) => {
             {item.mepstatusdate ? <p><i>MEP Status Date:</i> {item.mepstatusdate}</p> : ''}
             {item.notes ? <p><i>Notes/Comments:</i> {item.notes}</p> : ''}
             {item.servicearea ? <p><i>Service Area:</i> {item.servicearea}</p> : ''}
-            {item.watershedmanager ? <p><i>Watershed Manager:	Watershed Manager:</i> {item.watershedmanager}</p> : ''}
+            {item.watershedmanager ? <p><i>Watershed Manager: </i> {item.watershedmanager}</p> : ''}
             {item.constructionmanagers ? <p><i>Construction Managers:</i> {item.constructionmanagers}</p> : ''}
         </div>
         </Card>
