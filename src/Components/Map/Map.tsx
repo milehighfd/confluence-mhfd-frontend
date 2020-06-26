@@ -352,12 +352,12 @@ const Map = ({ leftWidth,
                     if (key === 'problems') {
                         const item = {
                             type: 'problems',
-                            title: e.features[0].properties.problemtype + ' Problem',
-                            name: e.features[0].properties.problemname,
-                            organization: e.features[0].properties.jurisdiction,
-                            value: e.features[0].properties.solutioncost,
-                            status: e.features[0].properties.solutionstatus + '%',
-                            priority: e.features[0].properties.problempriority
+                            title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
+                            name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
+                            organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
+                            value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '-',
+                            status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
+                            priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority : '-'
                         };
                         console.log(item);
                         html = loadMainPopup(item);
@@ -366,11 +366,11 @@ const Map = ({ leftWidth,
                         const item = {
                             type: 'projects',
                             title: 'Project',
-                            name: e.features[0].properties.projectname ? e.features[0].properties.projectname : e.features[0].properties.requestedname,
+                            name: e.features[0].properties.projectname ? e.features[0].properties.projectname : e.features[0].properties.requestedname ? e.features[0].properties.requestedname : '-',
                             organization: e.features[0].properties.sponsor ? e.features[0].properties.sponsor : 'No sponsor',
-                            value: e.features[0].properties.finalCost ? e.features[0].properties.finalCost : e.features[0].properties.estimatedCost,
-                            status: e.features[0].properties.projecttype,
-                            projecctype: e.features[0].properties.projecctype
+                            value: e.features[0].properties.finalCost ? e.features[0].properties.finalCost : e.features[0].properties.estimatedCost ? e.features[0].properties.estimatedCost : '-',
+                            status: e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
+                            projecctype: e.features[0].properties.projecctype ? e.features[0].properties.projecctype : '-'
                         };
                         console.log(item);
                         html = loadMainPopup(item);
@@ -378,11 +378,11 @@ const Map = ({ leftWidth,
                     if (key === 'grade_control_structure') {
                         const item = {
                             layer: 'Components', 
-                            subtype: e.features[0].properties.type,
-                            status: e.features[0].properties.subtype,
-                            estimatedcost: e.features[0].properties.original_cost,
-                            studyname: e.features[0].properties.mdp_osp_study_name,
-                            jurisdiction: e.features[0].properties.jurisdiction,
+                            subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',
+                            status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
+                            estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
+                            studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
+                            jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
                             problem: 'Dataset in development'
                         };
                         html = loadComponentPopup(item);
@@ -391,7 +391,7 @@ const Map = ({ leftWidth,
                         const item = {
                             layer: 'Components',
                             feature: 'Pipe Appurtenances',
-                            description: e.features[0].properties.description
+                            description: e.features[0].properties.description ? e.features[0].properties.description: '-'
                         };
                         html = loadComponentPopup(item);
                     }
@@ -482,57 +482,57 @@ const Map = ({ leftWidth,
                     if (key === 'mep_projects_temp_locations') {
                         const item = {
                             layer: 'MEP Temporary Location',
-                            feature: e.features[0].properties.proj_name,
-                            projectno: e.features[0].properties.proj_no,
-                            mepstatus: e.features[0].properties.mep_status,
-                            mepstatusdate: e.features[0].properties.status_date,
-                            notes: e.features[0].properties.mhfd_notes,
-                            servicearea: e.features[0].properties.servicearea
+                            feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
+                            projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
+                            mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
+                            mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
+                            notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
+                            servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
                         }
                         html = loadComponentPopup(item);
                     }
                     if (key === 'mep_projects_detention_basins') {
                         const item = {
                             layer: 'MEP Detention Basin',
-                            feature: e.features[0].properties.proj_name,
-                            projectno: e.features[0].properties.proj_no,
-                            mepstatus: e.features[0].properties.mep_status,
-                            mepstatusdate: e.features[0].properties.status_date,
-                            notes: e.features[0].properties.mhfd_notes,
-                            servicearea: e.features[0].properties.servicearea
+                            feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
+                            projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
+                            mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
+                            mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
+                            notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
+                            servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
                         }
                         html = loadComponentPopup(item);
                     }
                     if (key === 'mep_projects_channels') {
                         const item = {
                             layer: 'MEP Channel',
-                            feature: e.features[0].properties.proj_name,
-                            projectno: e.features[0].properties.proj_no,
-                            mepstatus: e.features[0].properties.mep_status,
-                            mepstatusdate: e.features[0].properties.status_date,
-                            notes: e.features[0].properties.mhfd_notes,
-                            servicearea: e.features[0].properties.servicearea
+                            feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
+                            projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
+                            mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
+                            mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
+                            notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
+                            servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
                         }
                         html = loadComponentPopup(item);
                     }
                     if (key === 'mep_projects_storm_outfalls') {
                         const item = {
                             layer: 'MEP Storm Outfall',
-                            feature: e.features[0].properties.proj_name,
-                            projectno: e.features[0].properties.proj_no,
-                            mepstatus: e.features[0].properties.mep_status,
-                            mepstatusdate: e.features[0].properties.status_date,
-                            notes: e.features[0].properties.mhfd_notes,
-                            servicearea: e.features[0].properties.servicearea
+                            feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
+                            projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
+                            mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
+                            mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
+                            notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
+                            servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
                         }
                         html = loadComponentPopup(item);
                     }
                     if (key === 'watershed_service_areas') {
                         const item = {
                             layer: 'Service Area',
-                            feature: e.features[0].properties.servicearea,
-                            watershedmanager: e.features[0].properties.watershedmanager,
-                            constructionmanagers: e.features[0].properties.constructionmanagers,
+                            feature: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-',
+                            watershedmanager: e.features[0].properties.watershedmanager ? e.features[0].properties.watershedmanager : '-',
+                            constructionmanagers: e.features[0].properties.constructionmanagers ? e.features[0].properties.constructionmanagers : '-',
                         }
                         html = loadComponentPopup(item);
                     }
@@ -544,7 +544,7 @@ const Map = ({ leftWidth,
                         html = loadComponentPopup(item);
                     }
                     
-                    const description = e.features[0].properties.description;
+                    const description = e.features[0].properties.description ? e.features[0].properties.description : '-';
                     if (html) { 
                         popup.remove();
                         popup = new mapboxgl.Popup();
