@@ -405,7 +405,7 @@ export const PROJECTS_STYLES = {
             '#951eba',
             '#fff'
           ],
-          'line-width': 3,
+          'line-width': 2.5,
       }
     }
 ],
@@ -426,7 +426,7 @@ export const PROJECTS_STYLES = {
           '#f2552e',
           '#fff'
         ],
-        'line-width': 3,
+        'line-width': 2.5,
       }
     }
   ]
