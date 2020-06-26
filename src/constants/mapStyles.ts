@@ -536,7 +536,7 @@ export const tileStyles = {
     layout: {},
     paint: {
         'fill-color': '#bc73ff',
-        'fill-opacity': 0.95
+        'fill-opacity': 0.5
     }
   },{
     type: 'line',
@@ -546,6 +546,18 @@ export const tileStyles = {
         'line-color': '#41108c',
         'line-width': 1,
         'line-opacity': 0.5
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    layout: {
+      'text-field': ['get', 'city'],
+      'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+      'text-radial-offset': 0.5,
+      'text-justify': 'auto'
+    },
+    paint: {
+      'text-color': '#FFF'
     }
   }], 
   [COUNTIES_FILTERS]: [{
