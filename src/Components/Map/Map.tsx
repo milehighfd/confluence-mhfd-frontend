@@ -465,7 +465,7 @@ const Map = ({ leftWidth,
                         };
                         html = loadComponentPopup(item);
                     }
-                    if (key === 'land_acquisitions') {
+                    if (key === 'land_acquisition') {
                         const item = {
                             layer: 'Components',
                             feature: 'Land Acquisition',

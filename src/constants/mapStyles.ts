@@ -232,7 +232,7 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#1f67f2',
+        'fill-color': '#956557',
         'fill-opacity': 0.3
     }
   }, {
@@ -240,7 +240,7 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#1f67f2',
+        'line-color': '#956557',
         'line-width': 1.5,
         'line-opacity': 1
     }
