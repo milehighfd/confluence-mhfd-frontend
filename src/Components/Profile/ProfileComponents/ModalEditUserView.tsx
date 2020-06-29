@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form } from "antd";
+import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form, Popover  } from "antd";
 import { useFormik } from "formik";
 
 import { User } from '../../../Classes/TypeList';
@@ -8,6 +8,7 @@ import MenuAreaView from "../../User/UserComponents/MenuAreaView";
 import { VALIDATION_USER_PROFILE } from "../../../constants/validation";
 import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT, DROPDOWN_ORGANIZATION } from "../../../constants/constants";
 
+const content = (<div className="popoveer-00">Defines the Area-Of-Interest for the map and the respective projects and problems shown in the Map Gallery and My Confluence screens.</div>);
 
 export default ({ user, updateUserInformation }: { user: User, updateUserInformation: Function }) => {
   const initialValues = { ...user };
@@ -72,7 +73,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
             <label className="label-sg">{'Unincorporated County'}</label>
             {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
           </Menu.ItemGroup>
-        </Menu> : 
+        </Menu> :
         <Menu className="js-mm-00 sign-menu-organization"
           onClick={(event) => {
             values.organization = event.item.props.children.props.children;
@@ -204,7 +205,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
         </div>
         <hr></hr>
         <div className="gutter-example">
-          <h3>DEFAULT MAP ZOOM AREA</h3>
+          <h3>DEFAULT MAP ZOOM AREA <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h3>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <p>ORGANIZATION</p>

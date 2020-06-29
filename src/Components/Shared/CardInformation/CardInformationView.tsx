@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { Col, Card } from "antd";
+import { Col, Card, Popover } from "antd";
 import { ComponentType } from "../../../Classes/MapTypes";
 import DetailedModal from "../Modals/DetailedModal";
 
 import { numberWithCommas } from '../../../utils/utils';
 import { Detailed } from "../../../store/types/detailedTypes";
+
+const content = (<div className="popoveer-00">Project Sponsor</div>);
+const type = (<div className="popoveer-00">Project Type</div>);
+const status = (<div className="popoveer-00">Status</div>);
+const cost = (<div className="popoveer-00">Project Cost</div>);
+const total = (<div className="popoveer-00">Number Project</div>);
 
 export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage }:
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean }) => {
@@ -46,18 +52,28 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           <div style={{ height: 40 }}>
             <h4>{data.requestName}</h4>
           </div>
-          {type === 'Problems' ? <h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6> : <h6>{data.jurisdiction ? data.jurisdiction : 'No Sponsor'}</h6>}
-          <h5>${numberWithCommas(data.finalCost ? data.finalCost : data.estimatedCost)} <span style={{ float: 'right' }}><b>{getComponentSizes(data.components)}</b> </span></h5>
+          {type === 'Problems' ? <Popover placement="topLeft" content={content}><h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6></Popover> : <h6>{data.jurisdiction ? data.jurisdiction : 'No Sponsor'}</h6>}
+          <Popover placement="topLeft" content={cost}>
+           <h5>${numberWithCommas(data.finalCost ? data.finalCost : data.estimatedCost)} <Popover content={total}><span style={{ float: 'right' }}><b>{getComponentSizes(data.components)}</b></span></Popover> </h5>
+          </Popover>
           <hr />
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
+            <Popover placement="topLeft" content={type}>
               <p style={{ color: 'red', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p>
+            </Popover>
+            <Popover content={status}>
               <span style={{ textAlign: 'right', width: '42%', fontSize: '13px' }}>Solved {data.percentage}%</span>
+            </Popover>
             </div>
           ) : (
               <div style={{ display: 'flex', width: '100%' }}>
-                <p style={{ color: ' #11093c', width: '58%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
-                <span style={{ textAlign: 'right', width: '42%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
+               <Popover placement="topLeft" content={type}>
+                 <p style={{ color: ' #11093c', width: '58%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
+               </Popover>
+               <Popover content={status}>
+                  <span style={{ textAlign: 'right', width: '42%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
+                </Popover>
               </div>
             )}
         </Card>

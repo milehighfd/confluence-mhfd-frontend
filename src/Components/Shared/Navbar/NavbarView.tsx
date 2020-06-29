@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Layout, Menu, Dropdown, Icon } from 'antd';
+import { Layout, Menu, Dropdown, Icon, Popover } from 'antd';
 import * as datasets from "../../../Config/datasets";
 import { Redirect, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
 
 const { Header } = Layout;
-
+const content = (<div className="popoveer-00">Notifications (not active)</div>
+);
 
 export default () => {
   const [redirect, setRedirect] = useState(false);
@@ -75,7 +76,11 @@ export default () => {
       defaultSelectedKeys={['0']}
       style={{ lineHeight: '58px', float: 'right' }}
     >
-      <Menu.Item><img src="/Icons/icon-26.svg" alt="" /></Menu.Item>
+      <Menu.Item>
+       <Popover content={content}>
+         <img src="/Icons/icon-26.svg" alt="" />
+       </Popover>
+      </Menu.Item>
       <label className="ll-0"></label>
       <Dropdown overlay={menu}>
         <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()}>

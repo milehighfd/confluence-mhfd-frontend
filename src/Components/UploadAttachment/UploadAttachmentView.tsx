@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Row, Col, Upload, Tag, Table, Button, message, Tooltip } from 'antd';
+import { Layout, Row, Col, Upload, Tag, Table, Button, message, Popover } from 'antd';
 
 import NavbarView from '../Shared/Navbar/NavbarView';
 import SidebarView from '../Shared/Sidebar/SidebarView';
 import moment from 'moment';
 import { FilePdfOutlined, FileTextOutlined, FilePdfTwoTone, FileTwoTone } from '@ant-design/icons';
 
+const content = (<div className="popoveer-00">Upload media e.g. video, images, documents and other file types associated with problems or images. Max. size of 10MB per file.</div>);
 
 export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, setLoading, loading }: { attachments: any, uploadFile: Function, getAllAttachment: Function, removeAttachment: Function, setLoading: Function, loading: boolean }) => {
   const { Content } = Layout;
@@ -85,7 +86,7 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, s
             <Row className="head-up">
               <Col span={24}>
                 <div className="img-npf">
-                  <label className="label-new-form" htmlFor=""><h3>Upload Documents</h3><Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></label>
+                  <label className="label-new-form" htmlFor=""><h3>Upload Documents <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{margin:'0px', cursor: 'pointer', width:'15px', marginTop: '-1px'}} /></Popover> </h3></label>
                   <Dragger multiple={true} customRequest={dummyRequest} fileList={mainImage} onChange={({ fileList }: any) => setMainImage(fileList)}>
                     <img src="/Icons/icon-17.svg" alt="" />
                     <p className="ant-upload-text">Drag and drop your documents/media files here</p>

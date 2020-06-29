@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Layout, Row, Col, Tabs, Button, Dropdown, Menu, List, Avatar } from 'antd';
+import { Layout, Row, Col, Tabs, Button, Dropdown, Menu, List, Avatar, Popover } from 'antd';
 import {CaretUpOutlined, CaretDownOutlined} from '@ant-design/icons';
 
 import NavbarView from "../Shared/Navbar/NavbarView";
@@ -11,6 +11,9 @@ import UserInformationView from "./ProfileComponents/UserInformationView";
 import { ProjectTypes } from "../../Classes/MapTypes";
 import { User, ProjectName } from "../../Classes/TypeList";
 import { problemPanel } from "../../utils/detailedUtils";
+
+const content = (<div className="popoveer-00">View Problems within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
+const content00 = (<div className="popoveer-00">View Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
 
 const { TabPane } = Tabs;
 const data = [
@@ -91,13 +94,13 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   useEffect(() => {
     if(user._id) {
       console.log('volviendo gg');
-      
+
       getUserProblem({ keyword: '', column: 'problemname', order: 'asc' });
       getUserProject({ keyword: '', column: 'streamname', order: 'asc' });
     }
   }, [user]);
   //console.log(projects, problems);
-  
+
   return <>
     <Layout>
       <NavbarView></NavbarView>
@@ -110,10 +113,12 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
           <Row >
             <Col className="profile-tabs" span={17}>
               <Tabs defaultActiveKey="1" className="tabs-map">
-                <TabPane tab="Problems" key="1">
+
+                <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
                   <TabPaneView type={"Problems"} data={problems} search={getUserProblem} />
                 </TabPane>
-                <TabPane tab="Projects" key="2">
+
+                <TabPane key="2" tab={<span><Popover content={content00} placement="rightBottom">Projects</Popover> </span>}>
                   <TabPaneView type={"Projects"} data={projects} search={getUserProject} />
                 </TabPane>
                 {/* <TabPane tab="Activity" key="3">

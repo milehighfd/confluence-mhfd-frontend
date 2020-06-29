@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { Col, Button, Upload, Spin, message } from 'antd';
+import { Col, Button, Upload, Spin, message, Popover } from 'antd';
 import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 import ModalEditUserView from './ModalEditUserView';
 
+const phone = (<div style={{fontSize: '12px'}}>(PHONE NUMBER) FROM EDIT PROFILE</div>);
+const mail = (<div style={{fontSize: '12px'}}>(EMAIL) FROM EDIT PROFILE</div>);
+const county = (<div style={{fontSize: '12px'}}>(CITY), (COUNTY) FROM EDIT PROFILE</div>);
+const tag = (<div className="popoveer-00">Tags help to identify your area of interest. Add or remove tags to help focus your default content.</div>);
+const content = (<div className="popoveer-00">Number of Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
 
 export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function, updateUserInformation : Function}) => {
 
@@ -49,21 +54,29 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
       <span>{user.title ? user.title: ''}</span>
       </div>
       <div className="profile-contact">
-        <Button type="default" shape="circle">
-          <img src="/Icons/icon-65.svg" alt="" height="15px" />
-        </Button>
-        <Button type="default" shape="circle">
-          <img src="/Icons/icon-64.svg" alt="" height="15px" />
-        </Button>
-        <Button type="default" shape="circle">
-          <img src="/Icons/icon-67.svg" alt="" height="15px" />
-        </Button>
+        <Popover content={phone}>
+          <Button type="default" shape="circle">
+            <img src="/Icons/icon-65.svg" alt="" height="15px" />
+          </Button>
+        </Popover>
+        <Popover content={mail}>
+          <Button type="default" shape="circle">
+            <img src="/Icons/icon-64.svg" alt="" height="15px" />
+          </Button>
+        </Popover>
+        <Popover content={county}>
+          <Button type="default" shape="circle">
+            <img src="/Icons/icon-67.svg" alt="" height="15px" />
+          </Button>
+        </Popover>
       </div>
     </div>
     <div className="profile-prot">
       <Button>Aurora</Button>
       <Button>Westminster</Button>
-      <Button className="add-tag"><img src="/Icons/icon-18.svg" alt="" height="18px" /> Add Tags</Button>
+      <Popover content={tag} placement="bottom">
+        <Button className="add-tag"><img src="/Icons/icon-18.svg" alt="" height="18px" /> Add Tags</Button>
+      </Popover>
     </div>
   </Col>
     <Col span={12} className="profile-project">
@@ -81,6 +94,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
             </span> {(typeProjects.length - 1) !== index ? '|' : ''}
           </span>
         })}
+        <Popover content={content} placement="left"><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover>
       </div>
       <ModalEditUserView updateUserInformation={updateUserInformation} user={user} />
     </Col>

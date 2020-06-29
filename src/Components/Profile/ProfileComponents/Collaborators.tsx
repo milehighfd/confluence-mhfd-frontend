@@ -1,5 +1,7 @@
 import React from 'react';
-import { Col, Row, Collapse } from 'antd';
+import { Col, Row, Collapse, Popover } from 'antd';
+
+const content = (<div className="popoveer-00">View Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
 
 const genExtra = () => (
     <img src="/Icons/icon-20.svg" alt=""/>
@@ -10,7 +12,7 @@ export default () => {
     return <Col style={{paddingLeft: '15px', height: '100%'}} span={7}>
     <Row style={{background: '#fff', height: '100%', borderTop: '17px solid rgba(37, 24, 99, 0.06)'}}>
       <Col className="profile-pad">
-        <h2>Project Collaborators</h2>
+        <h2>Project Collaborators <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h2>
         <Collapse accordion
           bordered={false}
           defaultActiveKey={['1']}

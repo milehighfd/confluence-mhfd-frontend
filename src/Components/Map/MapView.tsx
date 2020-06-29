@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover } from 'antd';
 
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
@@ -20,7 +20,7 @@ const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Search } = Input;
-
+const content = (<div className="popoveer-00">Filter by Area</div>);
 const cardInformationProblems: Array<any> = [
   {
     image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
@@ -211,7 +211,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <Col span={20} id="westminter">
           <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
             <span className="ant-dropdown-link span-header">
-              {area} <img src="/Icons/icon-12.svg" alt="" />
+              {area}
+              <Popover content={content}>
+              <img src="/Icons/icon-12.svg" alt="" />
+              </Popover>
             </span>
           </Dropdown>
         </Col>
