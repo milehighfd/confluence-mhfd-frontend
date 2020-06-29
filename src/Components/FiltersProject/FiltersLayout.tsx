@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Checkbox, Select, Radio, Button } from 'antd';
+import { Row, Col, Checkbox, Select, Radio, Button,Tooltip } from 'antd';
 
 import { PROJECT_TYPE,
         ESTIMATED_COST,
@@ -29,21 +29,21 @@ export const ProblemsFilter = () => (
     <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5>Solution Cost <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Solution Cost <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <p><Radio>$20M-$25M</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>$10M-$15M</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>$5M-10M</Radio> <span className="filt-s">302</span></p>
                 <p><Radio>$1M-$10M</Radio> <span className="filt-s">109</span></p>
             </Col>
             <Col span={12}>
-                <h5>Priority <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Priority <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <p><Radio>High</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>Medium</Radio> <span className="filt-s">302</span></p>
                 <p><Radio>Low</Radio> <span className="filt-s">109</span></p>
             </Col>
         </Row>
 
-        <h5 className="filt-h5">Migration type <img src="/Icons/icon-19.svg" alt="" /></h5>
+        <h5 className="filt-h5">Migration type <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
         <Row className="filt-00">
             <Col span={12}>
                 <p><Checkbox>Increased Conveyance - Crossing</Checkbox> <span className="filt-s">71</span></p>
@@ -62,14 +62,14 @@ export const ProblemsFilter = () => (
 
         <Row className="filt-00">
             <Col span={12}>
-                <h5>Status <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Status <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <p><Radio>75%-100%</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>50%-75%</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>25%-50%</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>10%-25%</Radio> <span className="filt-s">208</span></p>
             </Col>
             <Col span={12}>
-                <h5>County <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>County <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <p><Checkbox>Adams</Checkbox><span className="filt-s">1</span></p>
                 <p><Checkbox>Arapahoe</Checkbox><span className="filt-s">1</span></p>
                 <p><Checkbox>Boulder</Checkbox><span className="filt-s">1</span></p>
@@ -80,7 +80,7 @@ export const ProblemsFilter = () => (
             </Col>
         </Row>
 
-        <h5 className="filt-h5">Additional filters <img src="/Icons/icon-19.svg" alt="" /></h5>
+        <h5 className="filt-h5">Additional filters <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Jurisdiction</label>
@@ -142,7 +142,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
     <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5>Project type <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Project type <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Radio.Group value={selectedFilters[PROJECT_TYPE]} onChange={(e) => handleRadioGroup(e, PROJECT_TYPE)}>
                     <p><Radio value={'capital'}>Capital</Radio> <span className="filt-s">13%</span></p>
                     <p><Radio value={'maintenance'}>Maintenance</Radio> <span className="filt-s">8%</span></p>
@@ -152,7 +152,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 </Radio.Group>
             </Col>
             <Col span={12}>
-                <h5>Estimated total cost <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Estimated total cost <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Radio.Group value={selectedFilters[ESTIMATED_COST]} onChange={(e) => handleRadioGroup(e, ESTIMATED_COST)}>
                     <p><Radio value={'[20000000,25000000]'}>20M-25M</Radio> <span className="filt-s">30</span></p>
                     <p><Radio value={'[15000000,20000000]'}>15M-20M</Radio> <span className="filt-s">30</span></p>
@@ -165,7 +165,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
 
         <Row className="filt-00">
             <Col span={12}>
-                <h5>Capital Status <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Capital Status <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Checkbox.Group value={selectedFilters[CAPITAL_STATUS] as Array<string>} onChange={(items) => handleCheckbox(items, CAPITAL_STATUS)}>
                     <p><Checkbox value={'approved'}>Approved</Checkbox> <span className="filt-s">71</span></p>
                     <p><Checkbox value={'idle'}>Idle</Checkbox> <span className="filt-s">16</span></p>
@@ -177,7 +177,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 </Checkbox.Group>
             </Col>
             <Col span={12}>
-                <h5>Study Status <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Study Status <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Checkbox.Group value={selectedFilters[STUDY_STATUS] as Array<string>} onChange={(items) => handleCheckbox(items, STUDY_STATUS)}>
                     <p><Checkbox value={'approved'}>Approved</Checkbox> <span>1</span></p>
                     <p><Checkbox value={'idle'}>Idle</Checkbox> <span className="filt-s">1</span></p>
@@ -192,7 +192,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
 
         <Row className="filt-00">
             <Col span={12}>
-                <h5>Start year <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Start year <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Radio.Group value={selectedFilters[START_YEAR]} onChange={(e) => handleRadioGroup(e, START_YEAR)}>
                     <p><Radio value={'2015'}>2015</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={'2017'}>2017</Radio> <span className="filt-s">8</span></p>
@@ -202,7 +202,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 </Radio.Group>
             </Col>
             <Col span={12}>
-                <h5>Completed year <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Completed year <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Radio.Group value={selectedFilters[COMPLETED_YEAR]} onChange={(e) => handleRadioGroup(e, COMPLETED_YEAR)}>
                     <p><Radio value={'2015'}>2015</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={'2017'}>2017</Radio> <span className="filt-s">8</span></p>
@@ -215,7 +215,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
 
         <Row className="filt-00">
             <Col span={12}>
-                <h5>Capital Goal <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Capital Goal <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Radio.Group value={selectedFilters[CAPITAL_GOAL]} onChange={(e) => handleRadioGroup(e, CAPITAL_GOAL)}>
                     <p><Radio value={'reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={'createSharedUsePathsRecreation'}>Shared-Use Paths and Recreation</Radio> <span className="filt-s">8</span></p>
@@ -225,7 +225,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 </Radio.Group>
             </Col>
             <Col span={12}>
-                <h5>Study goal - Master plan & Fhad <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Study goal - Master plan & Fhad <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Radio.Group value={selectedFilters[STUDY_GOAL]} onChange={(e) => handleRadioGroup(e, STUDY_GOAL)}>
                     <p><Radio value={'reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={'stabilization'}>Stabilization</Radio> <span className="filt-s">8</span></p>
@@ -240,7 +240,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
 
         <Row className="filt-00">
             <Col span={12}>
-                <h5>MHFD Dollars Allocated <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>MHFD Dollars Allocated <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Radio.Group value={selectedFilters[MHFD_DOLLARS_ALLOCATED]} onChange={(e) => handleRadioGroup(e, MHFD_DOLLARS_ALLOCATED)}>
                     <p><Radio value={'[0,5000000]'}>0-5M</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={'[5000000,10000000]'}>5M-10M</Radio> <span className="filt-s">8</span></p>
@@ -249,7 +249,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
                 </Radio.Group>
             </Col>
             <Col span={12}>
-                <h5>Work Plan Year <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Work Plan Year <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Radio.Group value={selectedFilters[WORK_PLAN_YEAR]} onChange={(e) => handleRadioGroup(e, WORK_PLAN_YEAR)}>
                     <p><Radio value={'2015'}>2015</Radio> <span className="filt-s">8</span></p>
                     <p><Radio value={'2017'}>2017</Radio> <span className="filt-s">8</span></p>
@@ -260,7 +260,7 @@ export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, han
             </Col>
         </Row>
 
-        <h5 className="filt-h5">Additional filters <img src="/Icons/icon-19.svg" alt="" /></h5>
+        <h5 className="filt-h5">Additional filters <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Problem Type</label>
@@ -385,7 +385,7 @@ export const ComponentsFilter = () => (
     <>  <div className="scroll-filters" style={{height: window.innerHeight - 295}}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5>Component Type <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Component Type <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <p><Radio>Grade Control Structure</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>Pipe Appurtenances</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>Special Item Point</Radio> <span className="filt-s">302</span></p>
@@ -394,7 +394,7 @@ export const ComponentsFilter = () => (
                 <p><Radio>Channel Improvements Linear</Radio> <span className="filt-s">109</span></p>
             </Col>
             <Col span={12}>
-                <h5>Component Status <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Component Status <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <p><Radio>Approved</Radio> <span className="filt-s">13%</span></p>
                 <p><Radio>Active</Radio> <span className="filt-s">13%</span></p>
                 <p><Radio>None</Radio> <span className="filt-s">13%</span></p>
@@ -404,7 +404,7 @@ export const ComponentsFilter = () => (
 
         <Row className="filt-00">
             <Col span={12}>
-                <h5>Year Of Study <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Year Of Study <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <p><Radio>1972</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>1984</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>1996</Radio> <span className="filt-s">208</span></p>
@@ -412,7 +412,7 @@ export const ComponentsFilter = () => (
                 <p><Radio>2020</Radio> <span className="filt-s">208</span></p>
             </Col>
             <Col span={12}>
-                <h5>Estimated Cost <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <h5>Estimated Cost <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <p><Radio>0</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>$2M</Radio> <span className="filt-s">208</span></p>
                 <p><Radio>$4M</Radio> <span className="filt-s">208</span></p>
@@ -421,7 +421,7 @@ export const ComponentsFilter = () => (
             </Col>
         </Row>
 
-        <h5 className="filt-h5">Additional filters <img src="/Icons/icon-19.svg" alt="" /></h5>
+        <h5 className="filt-h5">Additional filters <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Jurisdiction</label>

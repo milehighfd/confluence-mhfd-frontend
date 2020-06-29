@@ -66,7 +66,7 @@ export default () => {
 
   return <Header className="header">
     <div className="logo"
-      style={{ backgroundImage: 'url(/Icons/logo-01.svg)' }}
+      style={{ backgroundImage: 'url(/Icons/logo-02.svg)' }}
     />
     <h6>{value}</h6>
     <Menu

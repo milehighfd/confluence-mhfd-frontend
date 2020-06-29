@@ -21,8 +21,8 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
         style={{width: '100%'}}
         className="card-information"
         cover={
-            data.problemtype ? <img alt="example" src={`gallery/${data.problemtype}.jpg`} /> : 
-            
+            data.problemtype ? <img alt="example" src={`gallery/${data.problemtype}.jpg`} /> :
+
             data.attachments ? <img alt="example" src={data.attachments} />  : (
                 data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.png" /> :
                 data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.png" /> :
@@ -33,12 +33,12 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
                 data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/maintenance_minorrepairs.png" />  :
                 <img alt="example" src="projectImages/maintenance_debrismanagement.png" /> ): <img alt="example" src="Icons/eje.png" />
               )
-            
+
         }
     >
         <div style={{height: 40}}>
             {type === 'Problems' ? <h4>{data.problemname} </h4> : <h4>{data.projectname} </h4> }
-            
+
         </div>
         {type === 'Problems' ? <h6>{data.county ? data.county : 'No County'}</h6> :
         <h6>{data.county ? data.county : 'No Sponsor'}</h6>}
@@ -47,13 +47,13 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
         <hr />
         {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
-                <p style={{ color: 'red', width: '65%', fontSize: '13px' }}>{data.problempriority} Priority </p>
-                <span style={{ textAlign: 'right', width: '35%', fontSize: '13px' }}>{data.solutionstatus}% Solved</span>
+                <p style={{ color: 'red', width: '60%', fontSize: '13px' }}>{data.problempriority}</p>
+                <span style={{ textAlign: 'right', width: '40%', fontSize: '13px' }}>Solved {data.solutionstatus}%</span>
             </div>
         ) : (
                 <div style={{ display: 'flex', width: '100%' }}>
-                    <p style={{ color: ' #11093c', width: '65%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype }</p>
-                    <span style={{ textAlign: 'right', width: '35%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
+                    <p style={{ color: ' #11093c', width: '60%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype }</p>
+                    <span style={{ textAlign: 'right', width: '40%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
                 </div>
             )}
     </Card>

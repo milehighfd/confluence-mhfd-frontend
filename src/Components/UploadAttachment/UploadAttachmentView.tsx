@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Row, Col, Upload, Tag, Table, Button, message } from 'antd';
+import { Layout, Row, Col, Upload, Tag, Table, Button, message, Tooltip } from 'antd';
 
 import NavbarView from '../Shared/Navbar/NavbarView';
 import SidebarView from '../Shared/Sidebar/SidebarView';
@@ -21,7 +21,7 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, s
       dataIndex: 'filename',
       render: (filename: { filename: string, mimetype: string, value: string}) => {
         return (<div style={{ display: 'flex' }}>
-          <div style={{ padding: '6px 0px' }}> {filename.mimetype.includes('image/') ? <a href={filename.value} target="_blank" ><img  className="img-up" src={filename.value} height="30px" width="30px" /></a> 
+          <div style={{ padding: '6px 0px' }}> {filename.mimetype.includes('image/') ? <a href={filename.value} target="_blank" ><img  className="img-up" src={filename.value} height="30px" width="30px" /></a>
           : <a href={filename.value} target="_blank" ><img  className="img-up" src="/Icons/documents.png" height="30px" width="30px" /></a> } </div> <div style={{alignSelf: 'center'}}>{filename.filename} </div> </div>)
       },
       sorter: true
@@ -85,7 +85,7 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, s
             <Row className="head-up">
               <Col span={24}>
                 <div className="img-npf">
-                  <label className="label-new-form" htmlFor=""><h3>Upload Documents</h3><img src="/Icons/icon-19.svg" alt="" /></label>
+                  <label className="label-new-form" htmlFor=""><h3>Upload Documents</h3><Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></label>
                   <Dragger multiple={true} customRequest={dummyRequest} fileList={mainImage} onChange={({ fileList }: any) => setMainImage(fileList)}>
                     <img src="/Icons/icon-17.svg" alt="" />
                     <p className="ant-upload-text">Drag and drop your documents/media files here</p>

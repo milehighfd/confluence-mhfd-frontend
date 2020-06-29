@@ -6,7 +6,7 @@ import DetailedModal from "../Modals/DetailedModal";
 import { numberWithCommas } from '../../../utils/utils';
 import { Detailed } from "../../../store/types/detailedTypes";
 
-export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage }: 
+export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage }:
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean }) => {
   const [visible, setVisible] = useState(false);
   const getComponentSizes = (components : Array<ComponentType>) => {
@@ -51,13 +51,13 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           <hr />
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
-              <p style={{ color: 'red', width: '65%', fontSize: '13px' }}>{data.priority} Priority</p>
-              <span style={{ textAlign: 'right', width: '35%', fontSize: '13px' }}>{data.percentage}% Solved</span>
+              <p style={{ color: 'red', width: '60%', fontSize: '13px' }}>{data.priority} Priority</p>
+              <span style={{ textAlign: 'right', width: '40%', fontSize: '13px' }}>Solved {data.percentage}%</span>
             </div>
           ) : (
               <div style={{ display: 'flex', width: '100%' }}>
-                <p style={{ color: ' #11093c', width: '65%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
-                <span style={{ textAlign: 'right', width: '35%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
+                <p style={{ color: ' #11093c', width: '60%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
+                <span style={{ textAlign: 'right', width: '40%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
               </div>
             )}
         </Card>
