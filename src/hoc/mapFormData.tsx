@@ -59,7 +59,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               filterProjectOptions,
               filterCoordinates,
               setFilterProblemOptions,
-              setFilterProjectOptions  } : MapHOCProps) => {
+              setFilterProjectOptions,
+              paramFilters } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -179,6 +180,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             filterCoordinates={filterCoordinates}
                             setFilterProblemOptions={setFilterProblemOptions}
                             setFilterProjectOptions={setFilterProjectOptions}
+                            paramFilters={paramFilters}
                       />
                     </Col>
                 </Row>}

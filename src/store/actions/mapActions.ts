@@ -250,3 +250,10 @@ export const getValuesByGroupColumn = (table: string, column: string) => {
         } )
     }
 }
+export const getParamsFilter = () => {
+    return (dispatch: Function) => {
+        datasets.getData(SERVER.PARAM_FILTERS).then(params => {
+            dispatch({type: types.GET_PARAM_FILTERS, params});
+        })
+    }
+}

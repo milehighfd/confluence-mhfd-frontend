@@ -103,7 +103,11 @@ const initState = {
         column: 'streamname',
         order: 'asc'
     },
-    filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423'
+    filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423',
+    paramFilters : {
+        problems: {},
+        projects: {}
+    }
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -236,6 +240,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state, 
                 filterCoordinates: action.coordinates
+            }
+        }
+        case types.GET_PARAM_FILTERS: {
+            return {
+                ...state, 
+                paramFilters: action.params
             }
         }
         default: 

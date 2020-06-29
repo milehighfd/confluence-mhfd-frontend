@@ -30,13 +30,15 @@ import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 import { SELECT_ALL_FILTERS } from './constants/constants';
 
-function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables } 
-          : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any, getMapTables: Function }) {
+function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter } 
+          : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
+             getMapTables: Function, getParamsFilter: Function }) {
   const [ loading, setLoading ] = useState(true);
   useEffect(() => {
     getCarouselImages();
   }, [getCarouselImages]);
   useEffect(() => {
+    getParamsFilter();
     SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
         layer.tiles.forEach((subKey: string) => {

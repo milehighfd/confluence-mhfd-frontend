@@ -48,7 +48,8 @@ const mapStateToProps = (state: any) => {
         loaderDetailedPage: state.detailed.spin,
         filterProblemOptions: state.map.filterProblemOptions,
         filterProjectOptions: state.map.filterProjectOptions,
-        filterCoordinates: state.map.filterCoordinates
+        filterCoordinates: state.map.filterCoordinates,
+        paramFilters: state.map.paramFilters
     };
 };
 

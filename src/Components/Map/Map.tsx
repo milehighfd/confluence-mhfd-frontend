@@ -103,6 +103,7 @@ const Map = ({ leftWidth,
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude])
     }
+    
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({

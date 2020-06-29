@@ -73,7 +73,8 @@ export type MapHOCProps = {
     filterProjectOptions: {keyword: string, column: string, order: string},
     filterCoordinates: string,
     setFilterProblemOptions: Function,
-    setFilterProjectOptions: Function
+    setFilterProjectOptions: Function,
+    paramFilters: any
 }
 
 export type MapViewTypes = { 
@@ -100,7 +101,8 @@ export type MapViewTypes = {
     filterProjectOptions: {keyword: string, column: string, order: string},
     filterCoordinates: string,
     setFilterProblemOptions: Function,
-    setFilterProjectOptions: Function
+    setFilterProjectOptions: Function,
+    paramFilters: any
 }
 
 export type CapitalTypes = {
@@ -232,7 +234,8 @@ export type FiltersProjectTypes = {
     getValuesByGroupColumn: Function,
     dropdowns: DropdownFilterTypes,
     userFiltered: { [_id: string]: string },
-    getUserFilters: Function
+    getUserFilters: Function,
+    paramFilters: any
 };
 
 export type FilterNamesTypes = {
