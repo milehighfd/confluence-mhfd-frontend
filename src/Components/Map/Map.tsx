@@ -704,6 +704,8 @@ const Map = ({ leftWidth,
                         <p><span style={{ background: '#38bb45', border: 'hidden' }} />Landscaping Area</p>
                     </> : ''}
                     {layerObjects.filter((element: any)  => element.name === MEP_PROJECTS.name ).length ? <>
+                        <p><span style={{ background: '#968862', height: '3px', marginTop: '7px', border: 'hidden' }} />Channel</p>
+                        <p><span style={{ background: '#60bde6', border: 'hidden' }} />Detention Basin</p>
                         <p><img src="/mapIcons/construction.svg" alt=""/> MEP Project</p>
                     </> : '' }
                     {layerObjects.filter((element: any)  => element.name === ROUTINE_MAINTENANCE.name ).length ? <>

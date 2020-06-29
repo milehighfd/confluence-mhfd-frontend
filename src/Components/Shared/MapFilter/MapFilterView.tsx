@@ -51,6 +51,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
 
           <div className="btn-footer">
             <Button className="btn-00" onClick={() => {
+              setSelectedCheckBox([]);
               setCheckboxes([]);
               removePopup();
               setVisibleDropdown(false);

@@ -52,7 +52,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
               <p style={{ color: 'red', width: '65%', fontSize: '13px' }}>{data.priority} Priority</p>
-              <span style={{ textAlign: 'right', width: '35%', fontSize: '13px' }}>{data.percentage}%</span>
+              <span style={{ textAlign: 'right', width: '35%', fontSize: '13px' }}>{data.percentage}% Solved</span>
             </div>
           ) : (
               <div style={{ display: 'flex', width: '100%' }}>
