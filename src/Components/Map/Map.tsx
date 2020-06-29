@@ -205,6 +205,15 @@ const Map = ({ leftWidth,
           });
         if(map.isStyleLoaded()) {
             applyMapLayers();
+        } else {
+            const waiting = () => {
+                if (!map.isStyleLoaded()) {
+                  setTimeout(waiting, 50);
+                } else {
+                  applyMapLayers();
+                }
+              };
+            waiting();
         }
     }, [selectedLayers, layerFilters]);
 
@@ -219,7 +228,9 @@ const Map = ({ leftWidth,
     }
     
     const applyMapLayers = async () => {
-        SELECT_ALL_FILTERS.forEach((layer) => {
+        console.log('aqui esaseds adsa dsad sadsadas ddsa');
+        
+        await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
               layer.tiles.forEach((subKey: string) => {
                 const tiles = layerFilters[layer.name] as any;
@@ -250,7 +261,7 @@ const Map = ({ leftWidth,
     }
 
     const addLayersSource = (key : string, tiles : Array<string>) => {
-        console.log('adding layer source ' , key , tiles);
+        // console.log('adding layer source ' , key , tiles);
         if (!map.getSource(key) && tiles) {
             map.addSource(key, {
                 type: 'vector',
