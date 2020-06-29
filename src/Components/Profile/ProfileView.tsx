@@ -90,6 +90,8 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   }, [getUserInformation]);
   useEffect(() => {
     if(user._id) {
+      console.log('volviendo gg');
+      
       getUserProblem({ keyword: '', column: 'problemname', order: 'asc' });
       getUserProject({ keyword: '', column: 'streamname', order: 'asc' });
     }
@@ -109,10 +111,10 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
             <Col className="profile-tabs" span={17}>
               <Tabs defaultActiveKey="1" className="tabs-map">
                 <TabPane tab="Problems" key="1">
-                  <TabPaneView type={"Problems"} datas={problems} search={searchProblem} />
+                  <TabPaneView type={"Problems"} data={problems} search={getUserProblem} />
                 </TabPane>
                 <TabPane tab="Projects" key="2">
-                  <TabPaneView type={"Projects"} datas={projects} search={searchProjects} />
+                  <TabPaneView type={"Projects"} data={projects} search={getUserProject} />
                 </TabPane>
                 {/* <TabPane tab="Activity" key="3">
                     <div className="tab-activity">

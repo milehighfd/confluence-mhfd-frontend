@@ -47,8 +47,8 @@ export default ({ data, type, numberWithCommas }: { data: any, type: string, num
         <hr />
         {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
-                <p style={{ color: 'red', width: '65%', fontSize: '13px' }}>{data.problempriority}</p>
-                <span style={{ textAlign: 'right', width: '35%', fontSize: '13px' }}>{data.solutionstatus}</span>
+                <p style={{ color: 'red', width: '65%', fontSize: '13px' }}>{data.problempriority} Priority </p>
+                <span style={{ textAlign: 'right', width: '35%', fontSize: '13px' }}>{data.solutionstatus}% Solved</span>
             </div>
         ) : (
                 <div style={{ display: 'flex', width: '100%' }}>
