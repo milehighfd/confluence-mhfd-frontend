@@ -160,6 +160,7 @@ const Map = ({ leftWidth,
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setFilterCoordinates(boundingBox);
+            console.log(map);
           });
         map.on('dragend', () => {
             const bounds = map.getBounds();
@@ -217,28 +218,29 @@ const Map = ({ leftWidth,
     }
     
     const applyMapLayers = async () => {
+        SELECT_ALL_FILTERS.forEach((layer) => {
+            if (typeof layer === 'object') {
+              layer.tiles.forEach((subKey: string) => {
+                const tiles = layerFilters[layer.name] as any;
+                addLayersSource(subKey, tiles[subKey]);
+              });
+            } else {
+                addLayersSource(layer, layerFilters[layer]);
+            }
+        });
+        console.log('the selected layers are ', selectedLayers);
         await selectedLayers.forEach((layer: LayersType) => {
+            console.log('my layer is ', layer);
             // console.log('my layer is ', layer, 'layerFilters::', layerFilters);
             if (typeof layer === 'object') {
                 // console.log('object object');
                 
                 layer.tiles.forEach((subKey: string) => {
-                    if (!layerFilters[layer.name]) {
-                        getMapTables(subKey, layer.name);
-                    } else {
-                        const tiles = layerFilters[layer.name] as any;
-                        addLayersSource(subKey, tiles[subKey]);
-                    }
+                    showLayers(subKey);
                 });
             } else {
                 // console.log('string string ');
-                
-                if (!layerFilters[layer]) {
-                    getMapTables(layer);
-                } else {
-                    // console.log(layer, layerFilters[layer]);
-                    addLayersSource(layer, layerFilters[layer]);
-                }
+                showLayers(layer);
             }
         });
         setTimeout(() => {
@@ -260,17 +262,35 @@ const Map = ({ leftWidth,
 
     const addTilesLayers = (key : string) => {
         const styles = { ...tileStyles as any };
-        console.log('adding styles ', key, styles[key]);
+        console.log('adding styles ', key, styles[key]);    
+        console.log(map.getSource(key));
         styles[key].forEach((style : LayerStylesType, index : number) => {
+            console.log('my key is ', key + '_' + index, ' source ', key, ' style ', style);
             map.addLayer({
                 id: key + '_' + index,
                 source: key,
                 ...style
             });
+            map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         });
         console.log('adding listener ', key, styles[key]);
         addMapListeners(key);
     }
+
+    const showLayers = (key: string) => {
+        const styles = { ...tileStyles as any };
+        styles[key].forEach((style : LayerStylesType, index : number) => {
+            console.log('showing ', key + '_' + index);
+            map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        });
+    };
+
+    const hideLayers = (key: string) => {
+        const styles = { ...tileStyles as any };
+        styles[key].forEach((style : LayerStylesType, index : number) => {
+            map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+        });
+    };
 
     const paintSelectedComponents = (items : Array<ComponentType>) => {
         if(map.getSource(COMPONENTS_TRIGGER)) {
@@ -606,6 +626,7 @@ const Map = ({ leftWidth,
         deleteLayers.forEach((layer : LayersType) => {
             removeTilesHandler(layer);
         });
+        console.log(' my selected layers are ' , selectedLayers);
         saveLayersCheck(selectedItems);
     }
 
@@ -623,16 +644,17 @@ const Map = ({ leftWidth,
     const removeTilesHandler = (selectedLayer : LayersType) => {
         if (typeof selectedLayer === 'object') {
             selectedLayer.tiles.forEach((subKey : string) => {
-                removeTileLayers(subKey);
+                hideLayers(subKey);
             });
         } else {
-            removeTileLayers(selectedLayer);
+            hideLayers(selectedLayer);
         }
     }
 
     const removeTileLayers = (key : string) => {
         const styles = { ...tileStyles as any};
         styles[key].forEach((style : LayerStylesType, index : number) => {
+
             map.removeLayer(key + '_' + index);
         });
         

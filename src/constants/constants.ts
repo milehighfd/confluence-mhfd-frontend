@@ -70,20 +70,20 @@ export const LANDSCAPING_AREA = 'landscaping_area';
 export const COMPONENT_LAYERS = {
   name: 'components',
   tiles: [
+    LANDSCAPING_AREA,
+    LAND_ACQUISITION,
+    MAINTENANCE_TRAILS,
+    DETENTION_FACILITIES,
+    STORM_DRAIN,
+    REMOVAL_AREA,
+    REMOVAL_LINE,
+    CHANNEL_IMPROVEMENTS_AREA,
+    CHANNEL_IMPROVEMENTS_LINEAR,
+    SPECIAL_ITEM_AREA,
+    SPECIAL_ITEM_LINEAR,
+    SPECIAL_ITEM_POINT,
     GRADE_CONTROL_STRUCTURE,
     PIPE_APPURTENANCES,
-    SPECIAL_ITEM_POINT,
-    SPECIAL_ITEM_LINEAR,
-    SPECIAL_ITEM_AREA,
-    CHANNEL_IMPROVEMENTS_LINEAR,
-    CHANNEL_IMPROVEMENTS_AREA,
-    REMOVAL_LINE,
-    REMOVAL_AREA,
-    STORM_DRAIN,
-    DETENTION_FACILITIES,
-    MAINTENANCE_TRAILS,
-    LAND_ACQUISITION,
-    LANDSCAPING_AREA
   ]
 };
 
@@ -96,10 +96,10 @@ export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_projects_storm_outfalls';
 export const MEP_PROJECTS = {
   name: 'mep_projects',
   tiles: [
-    MEP_PROJECTS_TEMP_LOCATIONS,
-    MEP_PROJECTS_DETENTION_BASINS,
+    MEP_PROJECTS_STORM_OUTFALLS,
     MEP_PROJECTS_CHANNELS,
-    MEP_PROJECTS_STORM_OUTFALLS
+    MEP_PROJECTS_DETENTION_BASINS,
+    MEP_PROJECTS_TEMP_LOCATIONS,
   ]
 };
 
@@ -112,10 +112,10 @@ export const ROUTINE_DEBRIS_LINEAR = 'routine_debris_linear';
 export const ROUTINE_MAINTENANCE = {
   name: 'routine_maintenance',
   tiles: [
-    ROUTINE_NATURAL_AREAS,
-    ROUTINE_WEED_CONTROL,
+    ROUTINE_DEBRIS_LINEAR,
     ROUTINE_DEBRIS_AREA,
-    ROUTINE_DEBRIS_LINEAR
+    ROUTINE_WEED_CONTROL,
+    ROUTINE_NATURAL_AREAS
   ]
 };
 
@@ -131,19 +131,19 @@ export const PROJECTS_MAP_STYLES = {
   ]
 }
 
-export const SELECT_ALL_FILTERS = [FLOODPLAINS_FEMA_FILTERS,
-                                  FLOODPLAINS_NON_FEMA_FILTERS,
-                                  WATERSHED_FILTERS,
-                                  STREAMS_FILTERS,
-                                  SERVICE_AREA_FILTERS,
-                                  MUNICIPALITIES_FILTERS,
-                                  COUNTIES_FILTERS,
-                                  MHFD_BOUNDARY_FILTERS,
-                                  PROBLEMS_TRIGGER,
-                                  PROJECTS_MAP_STYLES,
-                                  COMPONENT_LAYERS,
-                                  MEP_PROJECTS,
-                                  ROUTINE_MAINTENANCE];
+export const SELECT_ALL_FILTERS = [STREAMS_FILTERS, 
+  WATERSHED_FILTERS,
+  FLOODPLAINS_FEMA_FILTERS,
+  FLOODPLAINS_NON_FEMA_FILTERS,
+  MHFD_BOUNDARY_FILTERS,
+  COUNTIES_FILTERS,
+  MUNICIPALITIES_FILTERS,
+  SERVICE_AREA_FILTERS,
+  ROUTINE_MAINTENANCE,
+  COMPONENT_LAYERS,
+  PROBLEMS_TRIGGER,
+  PROJECTS_MAP_STYLES,
+  MEP_PROJECTS];
 
 /* End of Map Constants */
 
