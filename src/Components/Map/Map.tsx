@@ -228,8 +228,6 @@ const Map = ({ leftWidth,
     }
     
     const applyMapLayers = async () => {
-        console.log('aqui esaseds adsa dsad sadsadas ddsa');
-        
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
               layer.tiles.forEach((subKey: string) => {

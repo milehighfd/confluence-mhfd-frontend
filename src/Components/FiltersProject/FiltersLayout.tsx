@@ -1,27 +1,5 @@
-import React from 'react';
-import { Row, Col, Checkbox, Select, Radio, Button, Popover} from 'antd';
-
-import { PROJECT_TYPE,
-        ESTIMATED_COST,
-        CAPITAL_STATUS,
-        START_YEAR,
-        COMPLETED_YEAR,
-        CAPITAL_GOAL,
-        STUDY_GOAL,
-        MHFD_DOLLARS_ALLOCATED,
-        WORK_PLAN_YEAR,
-        STUDY_STATUS,
-        CREATOR,
-        MHFD_DOLLAR_REQUESTED,
-        STREAM_NAME,
-        REQUESTED_START_YEAR,
-        LG_MANAGER,
-        COUNTY,
-        JURIDICTION,
-        SERVICE_AREA_VALUE,
-        PROBLEM_TYPE } from '../../constants/constants';
-import { DropdownDefaultTypes, FilterProjectTypes } from '../../Classes/MapTypes';
-
+import React, { useState } from 'react';
+import { Row, Col, Checkbox, Select, Radio, Button,Tooltip, Popover } from 'antd';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
@@ -44,58 +22,79 @@ const content16 = (<div className="popoveer-00"><b>Year of Study:</b> refers to 
 const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Estimated Cost of implementing or addressing a Component as part of a Capital or Maintenance project.</div>);
 const content18 = (<div className="popoveer-00"><b>Stream Name:</b> is the name of the Major Drainageway or Watershed where the Component is located.</div>);
 
-export const ProblemsFilter = () => (
-    <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
+export const ProblemsFilter = ({ paramProblems }: any) => {
+    const [checkBoxComponents, setCheckboxComponents] = useState<Array<string>>([]);
+    const [checkBoxStatus, setCheckboxStatus] = useState<Array<string>>([]);
+    const [checkBoxCounty, setCheckboxCounty] = useState<Array<string>>([]);
+    const [checkBoxSolutionCost, setCheckboxSolutionCost] = useState<Array<string>>([]);
+    const [checkBoxPriority, setCheckboxPriority] = useState<Array<string>>([]);
+    const firstSegmentComponents = paramProblems.components.slice(0, paramProblems.components.length / 2);
+    const secondSegmentComponents = paramProblems.components.slice(paramProblems.components.length / 2, paramProblems.components.length);
+    return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5>Solution Cost <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <p><Radio>$20M-$25M</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>$10M-$15M</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>$5M-10M</Radio> <span className="filt-s">302</span></p>
-                <p><Radio>$1M-$10M</Radio> <span className="filt-s">109</span></p>
+                <h5>Solution Cost <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+                <Checkbox.Group value={checkBoxSolutionCost} onChange={(items) => {
+                setCheckboxSolutionCost(items as Array<string>);
+                }}>
+                    <p><Radio>$20M-$25M</Radio></p>
+                    <p><Radio>$10M-$15M</Radio></p>
+                    <p><Radio>$5M-10M</Radio></p>
+                    <p><Radio>$1M-$10M</Radio></p>
+                </Checkbox.Group>
             </Col>
             <Col span={12}>
-                <h5>Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <p><Radio>High</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>Medium</Radio> <span className="filt-s">302</span></p>
-                <p><Radio>Low</Radio> <span className="filt-s">109</span></p>
-            </Col>
-        </Row>
-
-        <h5 className="filt-h5">Migration type <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-        <Row className="filt-00">
-            <Col span={12}>
-                <p><Checkbox>Increased Conveyance - Crossing</Checkbox> <span className="filt-s">71</span></p>
-                <p><Checkbox>Increased Conveyance - Streams</Checkbox> <span className="filt-s">16</span></p>
-                <p><Checkbox>Increased Conveyance - Pipe</Checkbox> <span className="filt-s">5</span></p>
-                <p><Checkbox>Flow Reduction</Checkbox> <span className="filt-s">4</span></p>
-                <p><Checkbox>Stabilization - Vertical</Checkbox> <span className="filt-s">1</span></p>
-            </Col>
-            <Col span={12}>
-                <p><Checkbox>Stabilization - Lateral</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Acquisition</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Municipalities</Checkbox> <span className="filt-s">1</span></p>
-                <p><Checkbox>Municipalities</Checkbox> <span className="filt-s">1</span></p>
+                <h5>Priority <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+                <Checkbox.Group value={checkBoxPriority} onChange={(items) => {
+                setCheckboxPriority(items as Array<string>);
+                }}>
+                    {paramProblems.priority.map((element: string, index: number) => {
+                    return <p key={index}><Radio>{element}</Radio></p>
+                })}
+                </Checkbox.Group>
             </Col>
         </Row>
 
+        <h5 className="filt-h5">Element Type <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
         <Row className="filt-00">
+            <Checkbox.Group value={checkBoxComponents} onChange={(items) => {
+                setCheckboxComponents(items as Array<string>);
+            }}>
+                <Col span={12}>
+                    {firstSegmentComponents.map((element: string, index: number) => {
+                        return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                    })}
+                </Col>
+                <Col span={12}>
+                    {secondSegmentComponents.map((element: string, index: number) => {
+                            return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                    })}
+                </Col>
+            </Checkbox.Group>
+            
+        </Row>
+
+        <Row className="filt-00">
+            <h5>Status <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
             <Col span={12}>
-                <h5>Status <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <p><Radio>75%-100%</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>50%-75%</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>25%-50%</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>10%-25%</Radio> <span className="filt-s">208</span></p>
+                <Checkbox.Group value={checkBoxStatus} onChange={(items) => {
+                setCheckboxStatus(items as Array<string>);
+                }}>
+                    <p><Radio>75%-100%</Radio></p>
+                    <p><Radio>50%-75%</Radio></p>
+                    <p><Radio>25%-50%</Radio></p>
+                    <p><Radio>10%-25%</Radio></p>
+                </Checkbox.Group>
             </Col>
             <Col span={12}>
-                <h5>County <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <p><Checkbox>Adams</Checkbox><span className="filt-s">1</span></p>
-                <p><Checkbox>Arapahoe</Checkbox><span className="filt-s">1</span></p>
-                <p><Checkbox>Boulder</Checkbox><span className="filt-s">1</span></p>
-                <p><Checkbox>Broomfield</Checkbox><span className="filt-s">1</span></p>
-                <p><Checkbox>Denver</Checkbox><span className="filt-s">1</span></p>
-                <p><Checkbox>Douglas</Checkbox><span className="filt-s">1</span></p>
-                <p><Checkbox>Jefferson</Checkbox><span className="filt-s">1</span></p>
+                <h5>County <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+                <Checkbox.Group value={checkBoxCounty} onChange={(items) => {
+                setCheckboxCounty(items as Array<string>);
+                }}>
+                    {paramProblems.county.map((element: string, index: number) => {
+                        return <p key={index} ><Checkbox value={element}>{element}</Checkbox></p>
+                    })}
+                </Checkbox.Group>
             </Col>
         </Row>
 
@@ -103,48 +102,45 @@ export const ProblemsFilter = () => (
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Jurisdiction</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
-                        </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                    console.log(e);
+                    
+                }}>
+                    {paramProblems.jurisdiction.map((element: string, index: number) =>{
+                        return <Option value={element}>{element}</Option>
+                    })}
                 </Select>
             </Col>
             <Col span={12}>
-                <label>MHFD Watershed Manager</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
-                      </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                <label>MHFD Manager</label>
+                <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                    console.log(e);
+                }}>
+                    {paramProblems.mhfdmanager.map((element: string, index: number) =>{
+                        return <Option value={element}>{element}</Option>
+                    })}
                 </Select>
             </Col>
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Problem Type</label>
-                <Select defaultValue="- Select -" style={{ width: '100%', marginBottom: '15px' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
-                        </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                <Select placeholder="- Select -" style={{ width: '100%', marginBottom: '15px' }} onChange={ (e) => {
+                    console.log(e);   
+                }}>
+                    {paramProblems.problemtype.map((element: string, index: number) =>{
+                        return <Option value={element}>{element}</Option>
+                    })}
                 </Select>
             </Col>
             <Col span={12}>
-                <label>Source <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
-                      </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
+                <label>Source</label>
+                <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                    console.log(e);   
+                }}>
+                    {paramProblems.source.map((element: string, index: number) =>{
+                        return <Option value={element}>{element}</Option>
+                    })}
                 </Select>
             </Col>
         </Row>
@@ -155,250 +151,187 @@ export const ProblemsFilter = () => (
         </div>
     </div>
     </>
-);
+}
+    
+    
 
-export const ProjectsFilter = ({ dropdowns, getSelectValue, selectedFilters, handleRadioGroup, handleCheckbox, handleSelect } : FilterProjectTypes) => (
-    <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
-        <Row className="filt-00" style={{ marginTop: '10px' }}>
-            <Col span={12}>
-                <h5>Project type <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group value={selectedFilters[PROJECT_TYPE]} onChange={(e) => handleRadioGroup(e, PROJECT_TYPE)}>
-                    <p><Radio value={'capital'}>Capital</Radio> <span className="filt-s">13%</span></p>
-                    <p><Radio value={'maintenance'}>Maintenance</Radio> <span className="filt-s">8%</span></p>
-                    <p><Radio value={'study'}>Study</Radio> <span className="filt-s">19%</span></p>
-                    <p><Radio value={'propertyAcquisition'}>Property Acquisition</Radio> <span className="filt-s">25%</span></p>
-                    <p><Radio value={'special'}>Special</Radio> <span className="filt-s">35%</span></p>
-                </Radio.Group>
-            </Col>
-            <Col span={12}>
-                <h5>Estimated total cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Radio.Group value={selectedFilters[ESTIMATED_COST]} onChange={(e) => handleRadioGroup(e, ESTIMATED_COST)}>
-                    <p><Radio value={'[20000000,25000000]'}>20M-25M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'[15000000,20000000]'}>15M-20M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'[5000000,10000000]'}>5M-10M</Radio> <span className="filt-s">30</span></p>
-                    <p><Radio value={'[0,5000000]'}>0-5M</Radio> <span className="filt-s">30</span></p>
-                </Radio.Group>
-            </Col>
-        </Row>
+export const ProjectsFilter = ({ paramProjects } : any) => {
+    const [checkBoxProjectType, setCheckboxProjectType] = useState<Array<string>>([]);
+    const [checkBoxTotalCost, setCheckboxTotalCost] = useState<Array<string>>([]);
+    const [checkBoxProjectStatus, setCheckboxProjectStatus] = useState<Array<string>>([]);
+    const [checkboxMHFDDollarsAllocated, setCheckboxMHFDDollarsAllocated] = useState<Array<string>>([]);
+    console.log(paramProjects);
+    
+    return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
+    <Row className="filt-00" style={{ marginTop: '10px' }}>
+        <Col span={12}>
+            <h5>Project type <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <Checkbox.Group value={checkBoxProjectType} onChange={(item) => {
+                setCheckboxProjectType(item as Array<string>);
+            }}>
+                <p><Checkbox value='Capital'>Capital</Checkbox></p>
+                <p><Checkbox value='Maintenance'>Maintenance</Checkbox></p>
+                <p><Checkbox value='Study'>Study</Checkbox></p>
+            </Checkbox.Group>
+        </Col>
+        <Col span={12}>
+            <h5>Total Cost <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <Checkbox.Group value={checkBoxTotalCost} onChange={(item) => {
+                setCheckboxTotalCost(item as Array<string>);
+            }}>
+                <p><Checkbox value={'20000000,25000000'}>20M-25M</Checkbox></p>
+                <p><Checkbox value={'15000000,20000000'}>15M-20M</Checkbox></p>
+                <p><Checkbox value={'5000000,10000000'}>5M-10M</Checkbox></p>
+                <p><Checkbox value={'0,5000000'}>0-5M</Checkbox></p>
+            </Checkbox.Group>
+        </Col>
+    </Row>
 
 
-        <Row className="filt-00">
+    <Row className="filt-00">
+        <Col span={12}>
+            <h5>Project Status <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <Checkbox.Group value={checkBoxProjectStatus} onChange={(item) => {
+                setCheckboxProjectStatus(item as Array<string>);
+            }}>
+                {paramProjects.status.map((element: string, index: number) => {
+                    return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                })}
+            </Checkbox.Group>
+        </Col>
+        <Col span={12}>
+            <h5>Year <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
             <Col span={12}>
-                <h5>Capital Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Checkbox.Group value={selectedFilters[CAPITAL_STATUS] as Array<string>} onChange={(items) => handleCheckbox(items, CAPITAL_STATUS)}>
-                    <p><Checkbox value={'approved'}>Approved</Checkbox> <span className="filt-s">71</span></p>
-                    <p><Checkbox value={'idle'}>Idle</Checkbox> <span className="filt-s">16</span></p>
-                    <p><Checkbox value={'initiated'}>Initiated</Checkbox> <span className="filt-s">5</span></p>
-                    <p><Checkbox value={'preliminaryDesign'}>Preliminary Design</Checkbox> <span className="filt-s">4</span></p>
-                    <p><Checkbox value={'finalDesign'}>Final Design</Checkbox> <span className="filt-s">1</span></p>
-                    <p><Checkbox value={'construction'}>Construction</Checkbox> <span className="filt-s">1</span></p>
-                    <p><Checkbox value={'monitoring'}>Monitoring</Checkbox> <span className="filt-s">1</span></p>
-                </Checkbox.Group>
+            <Select placeholder="- Start -" style={{ width: '100%' }} onChange={ (e) => {
+                    console.log(e);   
+                }}>
+                    {paramProjects.startyear.map((element: number, index: number) =>{
+                        return <Option value={element}>{element}</Option>
+                    })}
+            </Select>
             </Col>
             <Col span={12}>
-                <h5>Study Status <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <Checkbox.Group value={selectedFilters[STUDY_STATUS] as Array<string>} onChange={(items) => handleCheckbox(items, STUDY_STATUS)}>
-                    <p><Checkbox value={'approved'}>Approved</Checkbox> <span>1</span></p>
-                    <p><Checkbox value={'idle'}>Idle</Checkbox> <span className="filt-s">1</span></p>
-                    <p><Checkbox value={'initiated'}>Initiated</Checkbox> <span className="filt-s">1</span></p>
-                    <p><Checkbox value={'hydrology'}>Hydrology</Checkbox> <span className="filt-s">1</span></p>
-                    <p><Checkbox value={'floodplain'}>Floodplain</Checkbox> <span className="filt-s">1</span></p>
-                    <p><Checkbox value={'alternatives'}>Alternatives</Checkbox> <span className="filt-s">1</span></p>
-                    <p><Checkbox value={'conceptual'}>Conceptual</Checkbox> <span className="filt-s">1</span></p>
-                </Checkbox.Group>
+                <Select placeholder="- Completed -" style={{ width: '100%' }} onChange={ (e) => {
+                    console.log(e);   
+                }}>
+                    {paramProjects.completedyear.map((element: number, index: number) =>{
+                        return <Option value={element}>{element}</Option>
+                    })}
+                </Select>
             </Col>
-        </Row>
+        </Col>
+    </Row>
 
-        <Row className="filt-00">
-            <Col span={12}>
-                <h5>Start year <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Radio.Group value={selectedFilters[START_YEAR]} onChange={(e) => handleRadioGroup(e, START_YEAR)}>
-                    <p><Radio value={'2015'}>2015</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2017'}>2017</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2019'}>2019</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2021'}>2021</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2023'}>2023</Radio> <span className="filt-s">8</span></p>
-                </Radio.Group>
-            </Col>
-            <Col span={12}>
-                <h5>Completed year <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Radio.Group value={selectedFilters[COMPLETED_YEAR]} onChange={(e) => handleRadioGroup(e, COMPLETED_YEAR)}>
-                    <p><Radio value={'2015'}>2015</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2017'}>2017</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2019'}>2019</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2021'}>2021</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2023'}>2023</Radio> <span className="filt-s">8</span></p>
-                </Radio.Group>
-            </Col>
-        </Row>
+    <Row className="filt-00">
+        <Col span={12}>
+            <h5>MHFD Dollars Allocated <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <Checkbox.Group value={checkboxMHFDDollarsAllocated} onChange={(item) => {
+                setCheckboxMHFDDollarsAllocated(item as Array<string>);
+            }}>
+                {paramProjects.mhfddollarsallocated.map((element: string, index: number) => {
+                    return element !== null && <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                })}
+            </Checkbox.Group>
+        </Col>
+        <Col span={12}>
+            <h5>Work Plan Year <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <Checkbox.Group value={checkBoxProjectType} onChange={(item) => {
+                setCheckboxProjectType(item as Array<string>);
+            }}>
+                {paramProjects.workplanyear.map((element: string, index: number) => {
+                    return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                })}
+            </Checkbox.Group>
+        </Col>
+    </Row>
 
-        <Row className="filt-00">
-            <Col span={12}>
-                <h5>Capital Goal <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group value={selectedFilters[CAPITAL_GOAL]} onChange={(e) => handleRadioGroup(e, CAPITAL_GOAL)}>
-                    <p><Radio value={'reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'createSharedUsePathsRecreation'}>Shared-Use Paths and Recreation</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'includePermanentWaterQualityBMP'}>Include Permanent Water Quality BMP</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'streamBankBedStabilization'}>Stream Bank or Bed Stabilization</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'vegetationEnhancements'}>Vegetation Enhancements</Radio> <span className="filt-s">8</span></p>
-                </Radio.Group>
-            </Col>
-            <Col span={12}>
-                <h5>Study goal - Master plan & Fhad <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <Radio.Group value={selectedFilters[STUDY_GOAL]} onChange={(e) => handleRadioGroup(e, STUDY_GOAL)}>
-                    <p><Radio value={'reduceFloodRiskStructures'}>Reduce Flood Risk to Structures</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'stabilization'}>Stabilization</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'eliminateRoadwayOvertopping'}>Eliminate Roadway Overstopping</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'increasedConveyance'}>Increased Conveyance</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'peakFlowReduction'}>Peak Flow Reduction</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'waterQuality'}>Water Quality</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'guideDevelopment'}>Guide Development</Radio> <span className="filt-s">8</span></p>
-                </Radio.Group>
-            </Col>
-        </Row>
+    <h5 className="filt-h5">Additional filters <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+    <Row className="filt-00" gutter={[24, 16]}>
+        <Col span={12}>
+            <label>Problem Type</label>
+            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                console.log(e);   
+            }}>
+                {paramProjects.problemtype.map((element: string, index: number) =>{
+                    return <Option value={element}>{element}</Option>
+                })}
+            </Select>
+        </Col>
+        <Col span={12}>
+            <label>Watershed Manager</label>
+            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                console.log(e);   
+            }}>
+                {paramProjects.mhfdmanager.map((element: string, index: number) =>{
+                    return <Option value={element}>{element}</Option>
+                })}
+            </Select>
+        </Col>
+    </Row>
+    <Row className="filt-00" gutter={[24, 16]}>
+        <Col span={12}>
+            <label>Jurisdiction</label>
+            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                console.log(e);   
+            }}>
+                {paramProjects.jurisdiction.map((element: string, index: number) =>{
+                    return <Option value={element}>{element}</Option>
+                })}
+            </Select>
+        </Col>
+        <Col span={12}>
+            <label>County</label>
+            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                console.log(e);   
+            }}>
+                {paramProjects.county.map((element: string, index: number) =>{
+                    return <Option value={element}>{element}</Option>
+                })}
+            </Select>
+        </Col>
+    </Row>
+    <Row className="filt-00" gutter={[24, 16]}>
+        <Col span={12}>
+            <label>Local Government Manager</label>
+            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                console.log(e);   
+            }}>
+                {paramProjects.mhfdmanager.map((element: string, index: number) =>{
+                    return <Option value={element}>{element}</Option>
+                })}
+            </Select>
+        </Col>
+        <Col span={12}>
+            <label>Stream Name</label>
+            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                console.log(e);   
+            }}>
+                {paramProjects.mhfdmanager.map((element: string, index: number) =>{
+                    return <Option value={element}>{element}</Option>
+                })}
+            </Select>
+        </Col>
+    </Row>
+    <Row className="filt-00" gutter={[24, 16]}>
+        <Col span={12}>
+            <label>Stream Name</label>
+            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
+                console.log(e);   
+            }}>
+                {paramProjects.creator.map((element: string, index: number) =>{
+                    return <Option value={element}>{element}</Option>
+                })}
+            </Select>
+        </Col>
+    </Row>
 
-        <Row className="filt-00">
-            <Col span={12}>
-                <h5>MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Radio.Group value={selectedFilters[MHFD_DOLLARS_ALLOCATED]} onChange={(e) => handleRadioGroup(e, MHFD_DOLLARS_ALLOCATED)}>
-                    <p><Radio value={'[0,5000000]'}>0-5M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'[5000000,10000000]'}>5M-10M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'[10000000,15000000]'}>10M-15M</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'[15000000,20000000]'}>15M-20M</Radio> <span className="filt-s">8</span></p>
-                </Radio.Group>
-            </Col>
-            <Col span={12}>
-                <h5>Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Radio.Group value={selectedFilters[WORK_PLAN_YEAR]} onChange={(e) => handleRadioGroup(e, WORK_PLAN_YEAR)}>
-                    <p><Radio value={'2015'}>2015</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2017'}>2017</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2019'}>2019</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2020'}>2020</Radio> <span className="filt-s">8</span></p>
-                    <p><Radio value={'2023'}>2023</Radio> <span className="filt-s">8</span></p>
-                </Radio.Group>
-            </Col>
-        </Row>
-
-        <h5 className="filt-h5">Additional filters</h5>
-        <Row className="filt-00" gutter={[24, 16]}>
-            <Col span={12}>
-                <label>Problem Type <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px"/></Popover></label>
-                <Select defaultValue="- Select -" style={{ width: '100%'}} onChange={(value: string) => handleSelect(value, PROBLEM_TYPE)}>
-                    {dropdowns[PROBLEM_TYPE]?dropdowns[PROBLEM_TYPE].map((dropdown : any) => (
-                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) :
-                    <Option value="disabled" disabled>
-                        No Data Founded
-                    </Option>}
-                </Select>
-            </Col>
-            <Col span={12}>
-                <label>Watershed Manager / Service Area</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, SERVICE_AREA_VALUE)}>
-                    {dropdowns[SERVICE_AREA_VALUE]?dropdowns[SERVICE_AREA_VALUE].map((dropdown : any) => (
-                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) :
-                    <Option value="disabled" disabled>
-                        No Data Founded
-                    </Option>}
-                </Select>
-            </Col>
-        </Row>
-        <Row className="filt-00" gutter={[24, 16]}>
-            <Col span={12}>
-                <label>Jurisdiction</label>
-                <Select value={getSelectValue(JURIDICTION)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, JURIDICTION)}>
-                    {dropdowns[JURIDICTION]?dropdowns[JURIDICTION].map((dropdown : any) => (
-                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) :
-                    <Option value="disabled" disabled>
-                        No Data Founded
-                    </Option>}
-                </Select>
-            </Col>
-            <Col span={12}>
-                <label>County</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, COUNTY)}>
-                    {dropdowns[COUNTY]?dropdowns[COUNTY].map((dropdown : any) => (
-                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) :
-                    <Option value="disabled" disabled>
-                        No Data Founded
-                    </Option>}
-                </Select>
-            </Col>
-        </Row>
-        <Row className="filt-00" gutter={[24, 16]}>
-            <Col span={12}>
-                <label>Local Government Manager <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px"/></Popover></label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, REQUESTED_START_YEAR)}>
-                    {dropdowns[LG_MANAGER]?dropdowns[LG_MANAGER].map((dropdown : any) => (
-                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) :
-                    <Option value="disabled" disabled>
-                        No Data Founded
-                    </Option>}
-                </Select>
-            </Col>
-            <Col span={12}>
-                <label>Requested Start Year</label>
-                <Select value={getSelectValue(REQUESTED_START_YEAR)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, REQUESTED_START_YEAR)}>
-                    {dropdowns[REQUESTED_START_YEAR]?dropdowns[REQUESTED_START_YEAR].map((dropdown : any) => (
-                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) :
-                    <Option value="disabled" disabled>
-                        No Data Founded
-                    </Option>}
-                </Select>
-            </Col>
-        </Row>
-        <Row className="filt-00" gutter={[24, 16]}>
-            <Col span={12}>
-                <label>Stream Name</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, STREAM_NAME)}>
-                    {dropdowns[STREAM_NAME]?dropdowns[STREAM_NAME].map((dropdown : any) => (
-                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) :
-                    <Option value="disabled" disabled>
-                        No Data Founded
-                    </Option>}
-                </Select>
-            </Col>
-            <Col span={12}>
-                <label>Creator <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px"/></Popover></label>
-                <Select value={getSelectValue(CREATOR)} style={{ width: '100%' }} onChange={(value: string) => handleSelect(value, CREATOR)}>
-                    {dropdowns[CREATOR]?dropdowns[CREATOR].map((dropdown : DropdownDefaultTypes) => (
-                        <Option key={dropdown._id[0]._id} value={dropdown._id[0]._id + '|' + dropdown._id[0].firstName }>
-                            {dropdown._id[0].name}
-                        </Option>
-                    )) :
-                    <Option value="disabled" disabled>
-                        No Data Founded
-                    </Option> }
-                </Select>
-            </Col>
-        </Row>
-        <Row className="filt-00" gutter={[24, 16]}>
-            <Col span={12}>
-                <label>MHFD Dollars Requested</label>
-                <Select value={getSelectValue(MHFD_DOLLAR_REQUESTED)} style={{ width: '100%', marginBottom: '15px' }} onChange={(value: string) => handleSelect(value, MHFD_DOLLAR_REQUESTED)}>
-                    {dropdowns[MHFD_DOLLAR_REQUESTED]?dropdowns[MHFD_DOLLAR_REQUESTED].map((dropdown : any) => (
-                        <Option key={dropdown} value={dropdown}>{dropdown}</Option>
-                    )) :
-                    <Option value="disabled" disabled>
-                        No Data Founded
-                    </Option>}
-                </Select>
-            </Col>
-        </Row>
-
-        <div className="btn-footer" style={{ marginTop: '25px' }}>
-            <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
-            <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
-        </div>
-        </div>
-    </>
-)
+    <div className="btn-footer" style={{ marginTop: '25px' }}>
+        <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
+        <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
+    </div>
+    </div>
+</>
+}
 
 export const ComponentsFilter = () => (
     <>  <div className="scroll-filters" style={{height: window.innerHeight - 295}}>

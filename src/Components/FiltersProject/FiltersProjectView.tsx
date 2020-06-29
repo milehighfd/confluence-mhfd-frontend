@@ -29,7 +29,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters } : FiltersProjectTypes) => {
 
   const [selectedFilters, setSelectedFilters] = useState<{[key: string] : string | Array<string>}>({});
-
+  
   useEffect(() => {
     getDropdownFilters(DROPDOWN_PROJECT_FILTERS);
   }, [getDropdownFilters]);
@@ -94,22 +94,16 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
       case FILTER_PROBLEMS_TRIGGER:
-        return <ProblemsFilter />
+        return <ProblemsFilter paramProblems={paramFilters.problems} />
       case FILTER_PROJECTS_TRIGGER:
-        return <ProjectsFilter
-                  dropdowns={dropdowns}
-                  getSelectValue={getSelectValue}
-                  selectedFilters={selectedFilters}
-                  handleRadioGroup={handleRadioGroup}
-                  handleCheckbox={handleCheckbox}
-                  handleSelect={handleSelect} />
+        return <ProjectsFilter paramProjects={paramFilters.projects}/>
       case FILTER_COMPONENTS_TRIGGER:
         return <ComponentsFilter />
       default:
         return null;
     }
   }
-
+  
   return <>
     <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00">
       {tabs.map((value: string, index: number) => {
