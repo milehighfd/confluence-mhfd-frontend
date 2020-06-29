@@ -88,7 +88,7 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {
       'icon-image': 'waterfall',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
     },
   }],
   [PIPE_APPURTENANCES]: [{
@@ -96,7 +96,7 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {
       'icon-image': 'outfall',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
     }
   }],
   [SPECIAL_ITEM_POINT]: [{
@@ -104,7 +104,7 @@ const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {
       'icon-image': 'star',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
     },
   }],
   [SPECIAL_ITEM_LINEAR]: [{
@@ -289,7 +289,7 @@ const MEP_PROJECTS_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {
       'icon-image': 'construction-04',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
     }
   }],
   [MEP_PROJECTS_DETENTION_BASINS]: [{
@@ -315,7 +315,7 @@ const MEP_PROJECTS_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {
       'icon-image': 'construction-01',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 15, 1]
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
     }
   }]
 }
@@ -503,7 +503,6 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {
       'text-field': ['get', 'str_name'],
-      'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
       'text-radial-offset': 0.5,
       'text-justify': 'auto'
     },
