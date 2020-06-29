@@ -51,13 +51,13 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           <hr />
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
-              <p style={{ color: 'red', width: '60%', fontSize: '13px' }}>{data.priority} Priority</p>
-              <span style={{ textAlign: 'right', width: '40%', fontSize: '13px' }}>Solved {data.percentage}%</span>
+              <p style={{ color: 'red', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p>
+              <span style={{ textAlign: 'right', width: '42%', fontSize: '13px' }}>Solved {data.percentage}%</span>
             </div>
           ) : (
               <div style={{ display: 'flex', width: '100%' }}>
-                <p style={{ color: ' #11093c', width: '60%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
-                <span style={{ textAlign: 'right', width: '40%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
+                <p style={{ color: ' #11093c', width: '58%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
+                <span style={{ textAlign: 'right', width: '42%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
               </div>
             )}
         </Card>
