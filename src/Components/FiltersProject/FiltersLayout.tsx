@@ -296,7 +296,7 @@ export const ProjectsFilter = ({ paramProjects } : any) => {
             <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
                 console.log(e);   
             }}>
-                {paramProjects.mhfdmanager.map((element: string, index: number) =>{
+                {paramProjects.lgmanager.map((element: string, index: number) =>{
                     return <Option value={element}>{element}</Option>
                 })}
             </Select>
@@ -306,7 +306,7 @@ export const ProjectsFilter = ({ paramProjects } : any) => {
             <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
                 console.log(e);   
             }}>
-                {paramProjects.mhfdmanager.map((element: string, index: number) =>{
+                {paramProjects.streamname.map((element: string, index: number) =>{
                     return <Option value={element}>{element}</Option>
                 })}
             </Select>
@@ -314,7 +314,7 @@ export const ProjectsFilter = ({ paramProjects } : any) => {
     </Row>
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
-            <label>Stream Name</label>
+            <label>Creator</label>
             <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
                 console.log(e);   
             }}>
