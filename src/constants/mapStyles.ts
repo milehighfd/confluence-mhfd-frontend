@@ -4,8 +4,11 @@ import {
   WATERSHED_FILTERS,
   STREAMS_FILTERS,
   SERVICE_AREA_FILTERS,
+  SERVICE_AREA_POINTS,
   MUNICIPALITIES_FILTERS,
+  MUNICIPALITIES_POINTS,
   COUNTIES_FILTERS,
+  COUNTIES_POINTS,
   MHFD_BOUNDARY_FILTERS,
   PROBLEMS_TRIGGER,
   PROJECTS_TRIGGER,
@@ -527,7 +530,8 @@ export const tileStyles = {
         'line-width': 1,
         'line-opacity': 1
     }, 
-  }, {
+  }],
+  [SERVICE_AREA_POINTS]: [{
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
@@ -539,7 +543,7 @@ export const tileStyles = {
     paint: {
       'text-color': '#FFF'
     }
-  }], 
+  }],
   [MUNICIPALITIES_FILTERS]: [{
     type: 'fill',
     'source-layer': 'pluto15v1',
@@ -557,7 +561,8 @@ export const tileStyles = {
         'line-width': 1,
         'line-opacity': 0.5
     }
-  }, {
+  }], 
+  [MUNICIPALITIES_POINTS]: [{
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
@@ -569,7 +574,7 @@ export const tileStyles = {
     paint: {
       'text-color': '#FFF'
     }
-  }], 
+  }],
   [COUNTIES_FILTERS]: [{
     type: 'fill',
     'source-layer': 'pluto15v1',
@@ -587,7 +592,8 @@ export const tileStyles = {
         'line-width': 4,
         'line-opacity': 0.5
     }, 
-  }, {
+  }],
+  [COUNTIES_POINTS]: [{
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {

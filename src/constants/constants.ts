@@ -47,8 +47,11 @@ export const WATERSHED_FILTERS = 'catchments'; //'basins';
 export const STREAMS_FILTERS = 'streams';
 
 export const SERVICE_AREA_FILTERS = 'watershed_service_areas';
+export const SERVICE_AREA_POINTS = 'boundary_labels_service_area';
 export const MUNICIPALITIES_FILTERS = 'municipalities';
+export const MUNICIPALITIES_POINTS = 'boundary_labels_municipality';
 export const COUNTIES_FILTERS = 'counties';
+export const COUNTIES_POINTS = 'boundary_labels_county';
 export const MHFD_BOUNDARY_FILTERS = 'district_boundary';
 
 /* Component Layers */
@@ -87,6 +90,27 @@ export const COMPONENT_LAYERS = {
   ]
 };
 
+export const MUNICIPALITIES = {
+  name: 'municipalities',
+  tiles: [
+    MUNICIPALITIES_FILTERS,
+    MUNICIPALITIES_POINTS
+  ]
+};
+export const COUNTIES_LAYERS = {
+  name: 'counties',
+  tiles: [
+    COUNTIES_FILTERS,
+    COUNTIES_POINTS
+  ]
+};
+export const SERVICE_AREA_LAYERS = {
+  name: 'service_area',
+  tiles: [
+    SERVICE_AREA_FILTERS,
+    SERVICE_AREA_POINTS
+  ]
+};
 /* Mep Projects */
 export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
 export const MEP_PROJECTS_DETENTION_BASINS = 'mep_projects_detention_basins';
@@ -136,9 +160,9 @@ export const SELECT_ALL_FILTERS = [STREAMS_FILTERS,
   FLOODPLAINS_FEMA_FILTERS,
   FLOODPLAINS_NON_FEMA_FILTERS,
   MHFD_BOUNDARY_FILTERS,
-  COUNTIES_FILTERS,
-  MUNICIPALITIES_FILTERS,
-  SERVICE_AREA_FILTERS,
+  COUNTIES_LAYERS,
+  MUNICIPALITIES,
+  SERVICE_AREA_LAYERS,
   ROUTINE_MAINTENANCE,
   COMPONENT_LAYERS,
   PROBLEMS_TRIGGER,
