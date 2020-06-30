@@ -116,6 +116,10 @@ const initState = {
     paramFilters : {
         problems: {},
         projects: {}
+    },
+    highlighted: {
+        type: '',
+        value: ''
     }
 }
 
@@ -255,6 +259,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state, 
                 paramFilters: action.params
+            }
+        }
+        case types.GET_HIGHLIGHTED: {
+            return {
+                ...state,
+                highlighted: action.data
             }
         }
         default: 

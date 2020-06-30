@@ -262,3 +262,9 @@ export const getParamsFilter = () => {
         })
     }
 }
+
+export const setHighlighted = (data: any) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.GET_HIGHLIGHTED, data});
+    };
+}
