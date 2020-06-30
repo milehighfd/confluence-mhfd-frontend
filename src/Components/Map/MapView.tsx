@@ -71,20 +71,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [area, setArea] = useState(store.getState().profile.userInformation.organization)
   const [ tabActive, setTabActive] = useState('0');
   const { projectId } = useParams();
-
-  // const [ filterProblemOptions, setOptionFilterProblems] = useState({
-  //   keyword: '',
-  //   column: 'problemname',
-  //   order: 'asc'
-  // });
-  // const [ filterProjectOptions, setOptionFilterProjects] = useState({
-  //   keyword: '',
-  //   column: 'streamname',
-  //   order: 'asc'
-  // });
-  // const options = (options: {keyword: string, column: string, order: string}) => {
-  //   return ((options.keyword ? ('name=' + options.keyword + '&') : '') + 'sortby=' + options.column + '&sorttype=' + options.order)
-  // }
+  
   useEffect(() =>{
       getGalleryProblems();
       getGalleryProjects();
@@ -393,7 +380,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             userFiltered={userFiltered}
             getUserFilters={getUserFilters}
             getValuesByGroupColumn={getValuesByGroupColumn}
-            paramFilters={paramFilters} />
+            filterProblemOptions={filterProblemOptions}
+            setFilterProblemOptions={setFilterProblemOptions}
+            paramFilters={paramFilters}
+            getGalleryProblems={getGalleryProblems} />
       }
     </div>
   </>

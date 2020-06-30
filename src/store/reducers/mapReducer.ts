@@ -96,7 +96,16 @@ const initState = {
     filterProblemOptions: {
         keyword: '',
         column: 'problemname',
-        order: 'asc'
+        order: 'asc',
+        cost: '',
+        priority: '',
+        solutionstatus: '',
+        county: '',
+        jurisdiction: '',
+        mhfdmanager: '',
+        problemtype: '',
+        source: '',
+        components: ''
     },
     filterProjectOptions: {
         keyword: '',

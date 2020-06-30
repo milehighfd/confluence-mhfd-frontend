@@ -4,7 +4,7 @@ import * as detailedTypes from '../types/detailedTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
-import { TotalType, ProjectTypes } from '../../Classes/MapTypes';
+import { TotalType, ProjectTypes, OptionProblems } from '../../Classes/MapTypes';
 import { ComponentType } from 'react';
 import store from '..';
 import { dispatch } from 'd3';
@@ -175,8 +175,13 @@ export const resetMap = () => {
     }
 }
 
-const options = (options: {keyword: string, column: string, order: string}, coordinates: string) => {
-    return ((options.keyword ? ('name=' + options.keyword + '&') : '') + 'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
+const options = (options: OptionProblems, coordinates: string) => {
+    return ((options.keyword ? ('name=' + options.keyword + '&') : '') + (options.cost ? ('cost=' + options.cost + '&') : '') +
+        (options.priority ? ('priority=' + options.priority + '&') : '') + (options.solutionstatus ? ('solutionstatus=' + options.solutionstatus + '&') : '') +
+        (options.county ? ('county=' + options.county + '&') : '') + (options.jurisdiction ? ('jurisdiction=' + options.jurisdiction + '&') : '') +
+        (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') +
+        (options.source ? ('source=' + options.source + '&') : '') + (options.components ? ('components=' + options.components + '&') : '') + 
+        'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
 }
 
 export const setFilterCoordinates = (coordinates: string) => {
@@ -187,7 +192,7 @@ export const setFilterCoordinates = (coordinates: string) => {
     }
 }
 
-export const setFilterProblemOptions = (filters: {keyword: string, column: string, order: string}) => {
+export const setFilterProblemOptions = (filters: OptionProblems) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters});
     }

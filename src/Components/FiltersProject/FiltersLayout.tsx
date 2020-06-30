@@ -22,34 +22,101 @@ const content16 = (<div className="popoveer-00"><b>Year of Study:</b> refers to 
 const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Estimated Cost of implementing or addressing a Component as part of a Capital or Maintenance project.</div>);
 const content18 = (<div className="popoveer-00"><b>Stream Name:</b> is the name of the Major Drainageway or Watershed where the Component is located.</div>);
 
-export const ProblemsFilter = ({ paramProblems }: any) => {
-    const [checkBoxComponents, setCheckboxComponents] = useState<Array<string>>([]);
-    const [checkBoxStatus, setCheckboxStatus] = useState<Array<string>>([]);
-    const [checkBoxCounty, setCheckboxCounty] = useState<Array<string>>([]);
-    const [checkBoxSolutionCost, setCheckboxSolutionCost] = useState<Array<string>>([]);
-    const [checkBoxPriority, setCheckboxPriority] = useState<Array<string>>([]);
+export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterProblemOptions, getGalleryProblems }: any) => {
+    const [checkBoxComponents, setCheckboxComponents] = useState<Array<string>>(filterProblemOptions.components.split(','));
+    const [checkBoxStatus, setCheckboxStatus] = useState<Array<string>>(filterProblemOptions.solutionstatus.split(','));
+    const [checkBoxCounty, setCheckboxCounty] = useState<Array<string>>(filterProblemOptions.county.split(','));
+    const [checkBoxSolutionCost, setCheckboxSolutionCost] = useState<Array<string>>(filterProblemOptions.cost.split(','));
+    const [checkBoxPriority, setCheckboxPriority] = useState<Array<string>>(filterProblemOptions.priority.split(','));
+    const [jurisdiction, setJurisdiction] = useState(filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -');
+    const [mhfdManager, setMhfdManager] = useState(filterProblemOptions.mhfdmanager ? filterProblemOptions.jurisdiction : '- Select -');
+    const [problemType, setProblemType] = useState(filterProblemOptions.problemtype ? filterProblemOptions.jurisdiction : '- Select -');
+    const [source, setSource] = useState(filterProblemOptions.source ? filterProblemOptions.source : '- Select -');
     const firstSegmentComponents = paramProblems.components.slice(0, paramProblems.components.length / 2);
     const secondSegmentComponents = paramProblems.components.slice(paramProblems.components.length / 2, paramProblems.components.length);
+
+    const apply = () => {
+        let components = '';
+        for (let index = 0; index < checkBoxComponents.length; index++) {
+            const element = checkBoxComponents[index];
+            components = components ? (components + ',' + element): element;
+        }
+        let status = '';
+        for (let index = 0; index < checkBoxStatus.length; index++) {
+            const element = checkBoxStatus[index];
+            status = status ? (status + ',' + element): element;
+        }
+        let county = '';
+        for (let index = 0; index < checkBoxCounty.length; index++) {
+            const element = checkBoxCounty[index];
+            county = county ? (county + ',' + element): element;
+        }
+        let solutionCost = '';
+        for (let index = 0; index < checkBoxSolutionCost.length; index++) {
+            const element = checkBoxSolutionCost[index];
+            solutionCost = solutionCost ? (solutionCost + ',' + element): element;
+        }
+        let priority = '';
+        for (let index = 0; index < checkBoxPriority.length; index++) {
+            const element = checkBoxPriority[index];
+            priority = priority ? (priority + ',' + element): element;
+        }
+        const options = {...filterProblemOptions};
+        options.components = components;
+        options.solutionstatus = status;
+        options.county = county;
+        options.cost = solutionCost;
+        options.priority = priority;
+        options.jurisdiction = jurisdiction !== '- Select -'? jurisdiction: '';
+        options.mhfdmanager = mhfdManager !== '- Select -'? mhfdManager: '';
+        options.problemtype = problemType !== '- Select -'? problemType: '';
+        options.source = source !== '- Select -'? source: '';
+        setFilterProblemOptions(options);
+        getGalleryProblems();
+    }
+    const reset = () => {
+        const options = {...filterProblemOptions};
+        options.components = '';
+        options.solutionstatus = '';
+        options.county = '';
+        options.cost = '';
+        options.priority = '';
+        options.jurisdiction = '';
+        options.mhfdmanager =  '';
+        options.problemtype = '';
+        options.source = '';
+        setCheckboxComponents([]);
+        setCheckboxStatus([]);
+        setCheckboxCounty([]);
+        setCheckboxSolutionCost([]);
+        setCheckboxPriority([]);
+        setJurisdiction('- Select -');
+        setMhfdManager('- Select -');
+        setProblemType('- Select -');
+        setSource('- Select -');
+        setFilterProblemOptions(options);
+        getGalleryProblems();
+    }
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Solution Cost <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Checkbox.Group value={checkBoxSolutionCost} onChange={(items) => {
-                setCheckboxSolutionCost(items as Array<string>);
+                    setCheckboxSolutionCost(items as Array<string>);
                 }}>
-                    <p><Radio>$20M-$25M</Radio></p>
-                    <p><Radio>$10M-$15M</Radio></p>
-                    <p><Radio>$5M-10M</Radio></p>
-                    <p><Radio>$1M-$10M</Radio></p>
+                    <p><Checkbox value='20'>$20M-$25M</Checkbox></p>
+                    <p><Checkbox value='10'>$10M-$15M</Checkbox></p>
+                    <p><Checkbox value='5'>$5M-10M</Checkbox></p>
+                    <p><Checkbox value='1'>$1M-$10M</Checkbox></p>
                 </Checkbox.Group>
             </Col>
             <Col span={12}>
                 <h5>Priority <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Checkbox.Group value={checkBoxPriority} onChange={(items) => {
-                setCheckboxPriority(items as Array<string>);
+                    setCheckboxPriority(items as Array<string>);
                 }}>
                     {paramProblems.priority.map((element: string, index: number) => {
-                    return <p key={index}><Radio>{element}</Radio></p>
+                    return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
                 })}
                 </Checkbox.Group>
             </Col>
@@ -78,18 +145,18 @@ export const ProblemsFilter = ({ paramProblems }: any) => {
             <h5>Status <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
             <Col span={12}>
                 <Checkbox.Group value={checkBoxStatus} onChange={(items) => {
-                setCheckboxStatus(items as Array<string>);
+                    setCheckboxStatus(items as Array<string>);
                 }}>
-                    <p><Radio>75%-100%</Radio></p>
-                    <p><Radio>50%-75%</Radio></p>
-                    <p><Radio>25%-50%</Radio></p>
-                    <p><Radio>10%-25%</Radio></p>
+                    <p><Checkbox value='75'>75%-100%</Checkbox></p>
+                    <p><Checkbox value='50'>50%-75%</Checkbox></p>
+                    <p><Checkbox value='25'>25%-50%</Checkbox></p>
+                    <p><Checkbox value='0'>10%-25%</Checkbox></p>
                 </Checkbox.Group>
             </Col>
             <Col span={12}>
                 <h5>County <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
                 <Checkbox.Group value={checkBoxCounty} onChange={(items) => {
-                setCheckboxCounty(items as Array<string>);
+                    setCheckboxCounty(items as Array<string>);
                 }}>
                     {paramProblems.county.map((element: string, index: number) => {
                         return <p key={index} ><Checkbox value={element}>{element}</Checkbox></p>
@@ -102,22 +169,21 @@ export const ProblemsFilter = ({ paramProblems }: any) => {
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Jurisdiction</label>
-                <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                    console.log(e);
-                    
+                <Select placeholder="- Select -" value={jurisdiction} style={{ width: '100%' }} onChange={ (e: string) => {
+                    setJurisdiction(e);
                 }}>
                     {paramProblems.jurisdiction.map((element: string, index: number) =>{
-                        return <Option value={element}>{element}</Option>
+                        return <Option key={index} value={element}>{element}</Option>
                     })}
                 </Select>
             </Col>
             <Col span={12}>
                 <label>MHFD Manager</label>
-                <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                    console.log(e);
+                <Select placeholder="- Select -" value={mhfdManager} style={{ width: '100%' }} onChange={ (e: string) => {
+                    setMhfdManager(e);
                 }}>
                     {paramProblems.mhfdmanager.map((element: string, index: number) =>{
-                        return <Option value={element}>{element}</Option>
+                        return <Option key={index} value={element}>{element}</Option>
                     })}
                 </Select>
             </Col>
@@ -125,29 +191,29 @@ export const ProblemsFilter = ({ paramProblems }: any) => {
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Problem Type</label>
-                <Select placeholder="- Select -" style={{ width: '100%', marginBottom: '15px' }} onChange={ (e) => {
-                    console.log(e);   
+                <Select placeholder="- Select -" value={problemType} style={{ width: '100%', marginBottom: '15px' }} onChange={ (e: string) => {
+                    setProblemType(e);
                 }}>
                     {paramProblems.problemtype.map((element: string, index: number) =>{
-                        return <Option value={element}>{element}</Option>
+                        return <Option key={index} value={element}>{element}</Option>
                     })}
                 </Select>
             </Col>
             <Col span={12}>
                 <label>Source</label>
-                <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                    console.log(e);   
+                <Select placeholder="- Select -" value={source} style={{ width: '100%' }} onChange={ (e: string) => {
+                    setSource(e);
                 }}>
                     {paramProblems.source.map((element: string, index: number) =>{
-                        return <Option value={element}>{element}</Option>
+                        return <Option key={index} value={element}>{element}</Option>
                     })}
                 </Select>
             </Col>
         </Row>
 
         <div className="btn-footer" style={{ marginTop: '25px' }}>
-            <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
-            <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
+            <Button onClick={() => reset()} style={{ width: '140px' }} className="btn-00">Reset</Button>
+            <Button onClick={() => apply()} style={{ width: '140px' }} className="btn-01">Apply</Button>
         </div>
     </div>
     </>

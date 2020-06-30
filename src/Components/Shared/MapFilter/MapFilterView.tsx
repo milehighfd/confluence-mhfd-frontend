@@ -18,7 +18,6 @@ import { FLOODPLAINS_FEMA_FILTERS,
 export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup } : 
         { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function }) => {
   const [checkBoxes, setCheckboxes] = useState(selectedLayers);
-  console.log('checkBoxes:::', checkBoxes);
   
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-15px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
           <Row gutter={[24, 16]} className="filter-map">

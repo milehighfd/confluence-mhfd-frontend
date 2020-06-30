@@ -69,7 +69,7 @@ export type MapHOCProps = {
     detailed: Detailed,
     loaderDetailedPage: boolean,
     setFilterCoordinates: Function,
-    filterProblemOptions: {keyword: string, column: string, order: string},
+    filterProblemOptions: OptionProblems,
     filterProjectOptions: {keyword: string, column: string, order: string},
     filterCoordinates: string,
     setFilterProblemOptions: Function,
@@ -97,12 +97,26 @@ export type MapViewTypes = {
     getDetailedPageProject: Function,
     detailed: Detailed,
     loaderDetailedPage: boolean,
-    filterProblemOptions: {keyword: string, column: string, order: string},
+    filterProblemOptions: OptionProblems,
     filterProjectOptions: {keyword: string, column: string, order: string},
     filterCoordinates: string,
     setFilterProblemOptions: Function,
     setFilterProjectOptions: Function,
     paramFilters: any
+}
+export type OptionProblems = {
+    keyword: string,
+    column: string,
+    order: string,
+    cost: string,
+    priority: string,
+    solutionstatus: string,
+    county: string,
+    jurisdiction: string,
+    mhfdmanager: string,
+    problemtype: string,
+    source: string,
+    components: string
 }
 
 export type CapitalTypes = {
@@ -235,7 +249,10 @@ export type FiltersProjectTypes = {
     dropdowns: DropdownFilterTypes,
     userFiltered: { [_id: string]: string },
     getUserFilters: Function,
-    paramFilters: any
+    paramFilters: any,
+    filterProblemOptions: OptionProblems,
+    setFilterProblemOptions: Function,
+    getGalleryProblems: Function
 };
 
 export type FilterNamesTypes = {

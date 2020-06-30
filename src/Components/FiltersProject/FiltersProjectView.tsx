@@ -26,13 +26,15 @@ const FiltersHeader = ({ filterNames, deleteFilter, totalElements, type } : { fi
 
 export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters,
                 handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters,
-                dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters } : FiltersProjectTypes) => {
+                dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
+                setFilterProblemOptions, getGalleryProblems } : FiltersProjectTypes) => {
+                  
 
   const [selectedFilters, setSelectedFilters] = useState<{[key: string] : string | Array<string>}>({});
   
-  useEffect(() => {
-    getDropdownFilters(DROPDOWN_PROJECT_FILTERS);
-  }, [getDropdownFilters]);
+  // useEffect(() => {
+  //   getDropdownFilters(DROPDOWN_PROJECT_FILTERS);
+  // }, [getDropdownFilters]);
 
   useEffect(() => {
     let selected : any = {};
@@ -94,7 +96,10 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
       case FILTER_PROBLEMS_TRIGGER:
-        return <ProblemsFilter paramProblems={paramFilters.problems} />
+        return <ProblemsFilter paramProblems={paramFilters.problems} 
+                  filterProblemOptions={filterProblemOptions}
+                  setFilterProblemOptions={setFilterProblemOptions}
+                  getGalleryProblems={getGalleryProblems} />
       case FILTER_PROJECTS_TRIGGER:
         return <ProjectsFilter paramProjects={paramFilters.projects}/>
       case FILTER_COMPONENTS_TRIGGER:
