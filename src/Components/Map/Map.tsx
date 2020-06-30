@@ -770,7 +770,7 @@ const Map = ({ leftWidth,
                         <p><img src="/mapIcons/outfall.svg" alt=""/> Pipe Appurtenances</p>
                         <p><img src="/mapIcons/star.svg" alt=""/> Special Item</p>
                         <p><span style={{ background: '#ffc700', border: 'hidden' }} />Special Item</p>
-                        <p><span style={{ background: '#8FA7C8', height: '3px', marginTop: '7px', border: 'hidden' }} />Channel Improvement</p>
+                        <p><span style={{ background: '#34b356', height: '3px', marginTop: '7px', border: 'hidden' }} />Channel Improvement</p>
                         <p><span style={{ background: '#c6cecf', height: '3px', marginTop: '7px', border: 'hidden' }} />Removal Line</p>
                         <p><span style={{ background: '#34b356', height: '3px', marginTop: '7px', border: 'hidden' }} />Storm Drain</p>
                         <p><span style={{ background: '#1f67f2', border: 'hidden' }} />Detention Facility</p>
