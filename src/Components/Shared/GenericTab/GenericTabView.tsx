@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Collapse, Tag } from "antd";
+import { Row, Col, Collapse, Tag, Spin } from "antd";
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import CardInformationView from "../CardInformation/CardInformationView";
@@ -91,7 +91,6 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                                 setHighlighted={setHighlighted}/>
                     }) : ''}
                 </InfiniteScroll>
-
             </Row>
         }
     </>

@@ -8,7 +8,7 @@ import LoadingView from '../Components/Loading/LoadingView';
 import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION } from "../constants/constants";
 import { Redirect } from "react-router-dom";
 
-import { Layout, Row, Col, Button, message } from 'antd';
+import { Layout, Row, Col, Button, message, Spin } from 'antd';
 import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
 
 export default function (WrappedComponent : any, layers : MapLayersType) {
@@ -62,7 +62,11 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               setFilterProjectOptions,
               paramFilters,
               highlighted,
-              setHighlighted } : MapHOCProps) => {
+              setHighlighted,
+              spinFilter,
+              setFilterComponentOptions,
+              filterComponentOptions
+             } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -118,6 +122,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
+                  <Spin spinning={spinFilter}>
                     <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={leftWidth}>
                         <Map
                             leftWidth={leftWidth}
@@ -189,8 +194,11 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             setFilterProjectOptions={setFilterProjectOptions}
                             paramFilters={paramFilters}
                             setHighlighted={setHighlighted}
+                            setFilterComponentOptions={setFilterComponentOptions}
+                            filterComponentOptions={filterComponentOptions}
                       />
                     </Col>
+                  </Spin>
                 </Row>}
               </Layout>
             </Layout>

@@ -81,7 +81,10 @@ export type MapHOCProps = {
     setFilterProjectOptions: Function,
     paramFilters: any,
     highlighted: any,
-    setHighlighted: Function
+    setHighlighted: Function,
+    spinFilter: boolean,
+    filterComponentOptions: OptionComponents,
+    setFilterComponentOptions: Function
 }
 
 export type MapViewTypes = { 
@@ -110,7 +113,9 @@ export type MapViewTypes = {
     setFilterProblemOptions: Function,
     setFilterProjectOptions: Function,
     paramFilters: any,
-    setHighlighted: Function
+    setHighlighted: Function,
+    filterComponentOptions: OptionComponents,
+    setFilterComponentOptions: Function
 }
 export type OptionProblems = {
     keyword: string,
@@ -145,6 +150,15 @@ export type OptionProjects = {
     mhfdmanager: string,
     jurisdiction: string,
     county: string
+}
+export type OptionComponents = {
+    component_type: string,
+    status: string,
+    yearofstudy: string,
+    estimatedcost: string,
+    jurisdiction: string,
+    county: string,
+    watershed: string
 }
 
 export type CapitalTypes = {
@@ -283,7 +297,9 @@ export type FiltersProjectTypes = {
     getGalleryProblems: Function,
     filterProjectOptions: OptionProjects,
     setFilterProjectOptions: Function,
-    getGalleryProjects: Function
+    getGalleryProjects: Function,
+    filterComponentOptions: OptionComponents,
+    setFilterComponentOptions: Function
 };
 
 export type FilterNamesTypes = {

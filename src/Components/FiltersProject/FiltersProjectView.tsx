@@ -28,7 +28,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters,
                 dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
                 setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
-                getGalleryProjects } : FiltersProjectTypes) => {
+                getGalleryProjects, filterComponentOptions, setFilterComponentOptions } : FiltersProjectTypes) => {
                   
 
   const [selectedFilters, setSelectedFilters] = useState<{[key: string] : string | Array<string>}>({});
@@ -107,7 +107,11 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 setFilterProjectOptions={setFilterProjectOptions}
                 getGalleryProjects={getGalleryProjects} />
       case FILTER_COMPONENTS_TRIGGER:
-        return <ComponentsFilter />
+        return <ComponentsFilter paramProblems={paramFilters.components} 
+                filterComponentOptions={filterComponentOptions}
+                setFilterComponentOptions={setFilterComponentOptions} 
+                getGalleryProblems={getGalleryProblems}
+                getGalleryProjects={getGalleryProjects}/>
       default:
         return null;
     }

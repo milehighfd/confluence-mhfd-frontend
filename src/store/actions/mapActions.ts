@@ -4,7 +4,7 @@ import * as detailedTypes from '../types/detailedTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
-import { TotalType, ProjectTypes, OptionProblems, OptionProjects } from '../../Classes/MapTypes';
+import { TotalType, ProjectTypes, OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
 import { ComponentType } from 'react';
 import store from '..';
 import { dispatch } from 'd3';
@@ -210,9 +210,15 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
     }
 }
 
-export const setFilterProjectOptions = (filters: {keyword: string, column: string, order: string}) => {
+export const setFilterProjectOptions = (filters: OptionProjects) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters});
+    }
+}
+
+export const setFilterComponentOptions = (filters: OptionComponents) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_FILTER_COMPONENT_OPTIONS, filters});
     }
 }
 
@@ -269,9 +275,17 @@ export const getValuesByGroupColumn = (table: string, column: string) => {
 }
 export const getParamsFilter = () => {
     return (dispatch: Function) => {
+        dispatch(setSpinFilter(true));
         datasets.getData(SERVER.PARAM_FILTERS).then(params => {
+            dispatch(setSpinFilter(false));
             dispatch({type: types.GET_PARAM_FILTERS, params});
         })
+    }
+}
+
+export const setSpinFilter = (spin: boolean) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_SPIN_FILTER, spin })
     }
 }
 

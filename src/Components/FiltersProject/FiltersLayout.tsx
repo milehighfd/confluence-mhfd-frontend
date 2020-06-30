@@ -128,13 +128,13 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 setCheckboxComponents(items as Array<string>);
             }}>
                 <Col span={12}>
-                    {firstSegmentComponents.map((element: string, index: number) => {
-                        return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                    {firstSegmentComponents.map((element: { key:string, value: string }, index: number) => {
+                        return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
                     })}
                 </Col>
                 <Col span={12}>
-                    {secondSegmentComponents.map((element: string, index: number) => {
-                            return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                    {secondSegmentComponents.map((element:  { key:string, value: string }, index: number) => {
+                            return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
                     })}
                 </Col>
             </Checkbox.Group>
@@ -488,113 +488,115 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 </>
 }
 
-export const ComponentsFilter = () => (
-    <>  <div className="scroll-filters" style={{height: window.innerHeight - 295}}>
-        <Row className="filt-00" style={{ marginTop: '10px' }}>
-            <Col span={12}>
-                <h5>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <p><Radio>Grade Control Structure</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>Pipe Appurtenances</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>Special Item Point</Radio> <span className="filt-s">302</span></p>
-                <p><Radio>Special Item Linear</Radio> <span className="filt-s">109</span></p>
-                <p><Radio>Special Item Area</Radio> <span className="filt-s">109</span></p>
-                <p><Radio>Channel Improvements Linear</Radio> <span className="filt-s">109</span></p>
-            </Col>
-            <Col span={12}>
-                <h5>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <p><Radio>Approved</Radio> <span className="filt-s">13%</span></p>
-                <p><Radio>Active</Radio> <span className="filt-s">13%</span></p>
-                <p><Radio>None</Radio> <span className="filt-s">13%</span></p>
-                <p><Radio>Completed</Radio> <span className="filt-s">13%</span></p>
-            </Col>
-        </Row>
+export const ComponentsFilter = ({paramProblems, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects} : any) => {
+    return <>  <div className="scroll-filters" style={{height: window.innerHeight - 295}}>
+            <Row className="filt-00" style={{ marginTop: '10px' }}>
+                <Col span={12}>
+                    <h5>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <p><Radio>Grade Control Structure</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>Pipe Appurtenances</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>Special Item Point</Radio> <span className="filt-s">302</span></p>
+                    <p><Radio>Special Item Linear</Radio> <span className="filt-s">109</span></p>
+                    <p><Radio>Special Item Area</Radio> <span className="filt-s">109</span></p>
+                    <p><Radio>Channel Improvements Linear</Radio> <span className="filt-s">109</span></p>
+                </Col>
+                <Col span={12}>
+                    <h5>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <p><Radio>Approved</Radio> <span className="filt-s">13%</span></p>
+                    <p><Radio>Active</Radio> <span className="filt-s">13%</span></p>
+                    <p><Radio>None</Radio> <span className="filt-s">13%</span></p>
+                    <p><Radio>Completed</Radio> <span className="filt-s">13%</span></p>
+                </Col>
+            </Row>
 
-        <Row className="filt-00">
-            <Col span={12}>
-                <h5>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <p><Radio>1972</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>1984</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>1996</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>2008</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>2020</Radio> <span className="filt-s">208</span></p>
-            </Col>
-            <Col span={12}>
-                <h5>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <p><Radio>0</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>$2M</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>$4M</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>$6M</Radio> <span className="filt-s">208</span></p>
-                <p><Radio>$8M</Radio> <span className="filt-s">208</span></p>
-            </Col>
-        </Row>
+            <Row className="filt-00">
+                <Col span={12}>
+                    <h5>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <p><Radio>1972</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>1984</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>1996</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>2008</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>2020</Radio> <span className="filt-s">208</span></p>
+                </Col>
+                <Col span={12}>
+                    <h5>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <p><Radio>0</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>$2M</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>$4M</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>$6M</Radio> <span className="filt-s">208</span></p>
+                    <p><Radio>$8M</Radio> <span className="filt-s">208</span></p>
+                </Col>
+            </Row>
 
-        <h5 className="filt-h5">Additional filters</h5>
-        <Row className="filt-00" gutter={[24, 16]}>
-            <Col span={12}>
-                <label>Jurisdiction</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
+            <h5 className="filt-h5">Additional filters</h5>
+            <Row className="filt-00" gutter={[24, 16]}>
+                <Col span={12}>
+                    <label>Jurisdiction</label>
+                    <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                        <Option value="jack">Jack</Option>
+                        <Option value="lucy">Lucy</Option>
+                        <Option value="disabled" disabled>
+                            Disabled
+                                </Option>
+                        <Option value="Yiminghe">yiminghe</Option>
+                    </Select>
+                </Col>
+                <Col span={12}>
+                    <label>County</label>
+                    <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                        <Option value="jack">Jack</Option>
+                        <Option value="lucy">Lucy</Option>
+                        <Option value="disabled" disabled>
+                            Disabled
                             </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
-                </Select>
-            </Col>
-            <Col span={12}>
-                <label>County</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
-                          </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
-                </Select>
-            </Col>
-        </Row>
-        <Row className="filt-00" gutter={[24, 16]}>
-            <Col span={12}>
-                <label>MHFD Watershed Manager</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
+                        <Option value="Yiminghe">yiminghe</Option>
+                    </Select>
+                </Col>
+            </Row>
+            <Row className="filt-00" gutter={[24, 16]}>
+                <Col span={12}>
+                    <label>MHFD Watershed Manager</label>
+                    <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                        <Option value="jack">Jack</Option>
+                        <Option value="lucy">Lucy</Option>
+                        <Option value="disabled" disabled>
+                            Disabled
+                                </Option>
+                        <Option value="Yiminghe">yiminghe</Option>
+                    </Select>
+                </Col>
+                <Col span={12}>
+                    <label>Solution Type</label>
+                    <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                        <Option value="jack">Jack</Option>
+                        <Option value="lucy">Lucy</Option>
+                        <Option value="disabled" disabled>
+                            Disabled
                             </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
-                </Select>
-            </Col>
-            <Col span={12}>
-                <label>Solution Type</label>
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
-                          </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
-                </Select>
-            </Col>
-        </Row>
-        <Row className="filt-00" gutter={[24, 16]}>
-            <Col span={12}>
-                <label>Stream Name <Popover content={content18}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-                <Select defaultValue="- Select -" style={{ width: '100%', marginBottom: '15px' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
-                            </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
-                </Select>
-            </Col>
-        </Row>
+                        <Option value="Yiminghe">yiminghe</Option>
+                    </Select>
+                </Col>
+            </Row>
+            <Row className="filt-00" gutter={[24, 16]}>
+                <Col span={12}>
+                    <label>Stream Name <Popover content={content18}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
+                    <Select defaultValue="- Select -" style={{ width: '100%', marginBottom: '15px' }}>
+                        <Option value="jack">Jack</Option>
+                        <Option value="lucy">Lucy</Option>
+                        <Option value="disabled" disabled>
+                            Disabled
+                                </Option>
+                        <Option value="Yiminghe">yiminghe</Option>
+                    </Select>
+                </Col>
+            </Row>
 
-        <div className="btn-footer" style={{ marginTop: '25px' }}>
-            <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
-            <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
+            <div className="btn-footer" style={{ marginTop: '25px' }}>
+                <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
+                <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
+            </div>
         </div>
-    </div>
     </>
-);
+}
+    
+

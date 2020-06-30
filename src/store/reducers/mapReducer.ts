@@ -126,11 +126,22 @@ const initState = {
         jurisdiction: '',
         county: ''
     },
+    filterComponentOptions: {
+        component_type: '',
+        status: '',
+        yearofstudy: '',
+        estimatedcost: '',
+        jurisdiction: '',
+        county: '',
+        watershed: ''
+    },
     filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423',
     paramFilters : {
         problems: {},
-        projects: {}
+        projects: {},
+        components: {}
     },
+    spinFilters: false,
     highlighted: {
         type: '',
         value: ''
@@ -279,6 +290,18 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 highlighted: action.data
+            }
+        }
+        case types.SET_SPIN_FILTER: {
+            return {
+                ...state,
+                spinFilters: action.spin
+            }
+        }
+        case types.SET_FILTER_COMPONENT_OPTIONS: {
+            return {
+                ...state,
+                filterComponentOptions: action.filters
             }
         }
         default: 
