@@ -110,7 +110,21 @@ const initState = {
     filterProjectOptions: {
         keyword: '',
         column: 'streamname',
-        order: 'asc'
+        order: 'asc',
+        projecttype: '',
+        status: '',
+        startyear: '',
+        completedyear: '',
+        mhfddollarsallocated: '',
+        lgmanager: '',
+        streamname: '',
+        creator: '',
+        totalcost: '',
+        workplanyear: '',
+        problemtype: '',
+        mhfdmanager: '',
+        jurisdiction: '',
+        county: ''
     },
     filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423',
     paramFilters : {

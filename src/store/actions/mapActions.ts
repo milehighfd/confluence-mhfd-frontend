@@ -4,7 +4,7 @@ import * as detailedTypes from '../types/detailedTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
-import { TotalType, ProjectTypes, OptionProblems } from '../../Classes/MapTypes';
+import { TotalType, ProjectTypes, OptionProblems, OptionProjects } from '../../Classes/MapTypes';
 import { ComponentType } from 'react';
 import store from '..';
 import { dispatch } from 'd3';
@@ -183,6 +183,18 @@ const options = (options: OptionProblems, coordinates: string) => {
         (options.source ? ('source=' + options.source + '&') : '') + (options.components ? ('components=' + options.components + '&') : '') + 
         'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
 }
+const optionsProjects = (options: OptionProjects, coordinates: string) => {
+    return ((options.keyword ? ('name=' + options.keyword + '&') : '') + (options.projecttype ? ('projecttype=' + options.projecttype + '&') : '') +
+        (options.status ? ('status=' + options.status + '&') : '') + (options.startyear ? ('solutionstatus=' + options.startyear + '&') : '') +
+        (options.completedyear ? ('completedyear=' + options.completedyear + '&') : '') + (options.mhfddollarsallocated ? ('mhfddollarsallocated=' + options.mhfddollarsallocated + '&') : '') +
+        (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') +
+        (options.lgmanager ? ('lgmanager=' + options.lgmanager + '&') : '') + (options.streamname ? ('streamname=' + options.streamname + '&') : '') + 
+        (options.creator ? ('creator=' + options.creator + '&') : '') + (options.totalcost ? ('totalcost=' + options.totalcost + '&') : '') +
+        (options.workPlanYear ? ('workPlanYear=' + options.workPlanYear + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') + 
+        (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.jurisdiction ? ('jurisdiction=' + options.jurisdiction + '&') : '') +
+        (options.county ? ('county=' + options.county + '&') : '') + 
+        'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
+}
 
 export const setFilterCoordinates = (coordinates: string) => {
     return (dispatch: Function) => {
@@ -220,7 +232,7 @@ export const getGalleryProjects = () => {
     const coordinates = store.getState().map.filterCoordinates;
     const filterOptions = store.getState().map.filterProjectOptions;
     return (dispatch: Function) => {
-        datasets.getData(SERVER.GALLERY_PROJECTS + options(filterOptions, coordinates), datasets.getToken()).then(galleryProjects => {
+        datasets.getData(SERVER.GALLERY_PROJECTS + optionsProjects(filterOptions, coordinates), datasets.getToken()).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {
                dispatch({type: types.GALLERY_PROJECTS, galleryProjects}); 
             }

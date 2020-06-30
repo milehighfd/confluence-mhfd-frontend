@@ -221,13 +221,102 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
     
     
 
-export const ProjectsFilter = ({ paramProjects } : any) => {
-    const [checkBoxProjectType, setCheckboxProjectType] = useState<Array<string>>([]);
-    const [checkBoxTotalCost, setCheckboxTotalCost] = useState<Array<string>>([]);
-    const [checkBoxProjectStatus, setCheckboxProjectStatus] = useState<Array<string>>([]);
-    const [checkboxMHFDDollarsAllocated, setCheckboxMHFDDollarsAllocated] = useState<Array<string>>([]);
+export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects } : any) => {
     console.log(paramProjects);
     
+    const [checkBoxProjectType, setCheckboxProjectType] = useState<Array<string>>(filterProjectOptions.projecttype.split(','));
+    const [checkBoxTotalCost, setCheckboxTotalCost] = useState<Array<string>>(filterProjectOptions.totalcost.split(','));
+    const [checkBoxProjectStatus, setCheckboxProjectStatus] = useState<Array<string>>(filterProjectOptions.status.split(','));
+    const [checkboxMHFDDollarsAllocated, setCheckboxMHFDDollarsAllocated] = useState<Array<string>>(filterProjectOptions.mhfddollarsallocated.split(','));
+    const [checkboxWorkPlanYear, setCheckboxWorkPlanYear] = useState<Array<string>>(filterProjectOptions.workplanyear.split(','));
+    const [start, setStart] = useState(filterProjectOptions.startyear ? filterProjectOptions.startyear : '- Select -');
+    const [completed, setCompleted] = useState(filterProjectOptions.completedyear ? filterProjectOptions.completedyear : '- Select -');
+    const [problemType, setProblemType] = useState(filterProjectOptions.problemtype ? filterProjectOptions.problemtype : '- Select -');
+    const [mhfdmanager, setMhfdmanager] = useState(filterProjectOptions.mhfdmanager ? filterProjectOptions.mhfdmanager : '- Select -');
+    const [jurisdiction, setJurisdiction] = useState(filterProjectOptions.jurisdiction ? filterProjectOptions.jurisdiction : '- Select -');
+    const [streamname, setStreamname] = useState(filterProjectOptions.streamname ? filterProjectOptions.streamname : '- Select -');
+    const [county, setCounty] = useState(filterProjectOptions.county ? filterProjectOptions.county : '- Select -');
+    const [lgmanager, setLgmanager] = useState(filterProjectOptions.lgmanager ? filterProjectOptions.lgmanager : '- Select -');
+    const [creator, setCreator] = useState(filterProjectOptions.creator ? filterProjectOptions.creator : '- Select -');
+    const apply = () => {
+        let projecttype = '';
+        for (let index = 0; index < checkBoxProjectType.length; index++) {
+            const element = checkBoxProjectType[index];
+            projecttype = projecttype ? (projecttype + ',' + element): element;
+        }
+        let totalcost = '';
+        for (let index = 0; index < checkBoxTotalCost.length; index++) {
+            const element = checkBoxTotalCost[index];
+            totalcost = totalcost ? (totalcost + ',' + element): element;
+        }
+        let status = '';
+        for (let index = 0; index < checkBoxProjectStatus.length; index++) {
+            const element = checkBoxProjectStatus[index];
+            status = status ? (status + ',' + element): element;
+        }
+        let mhfddollarsallocated = '';
+        for (let index = 0; index < checkboxMHFDDollarsAllocated.length; index++) {
+            const element = checkboxMHFDDollarsAllocated[index];
+            mhfddollarsallocated = mhfddollarsallocated ? (mhfddollarsallocated + ',' + element): element;
+        }
+        let workplanyear = '';
+        for (let index = 0; index < checkboxWorkPlanYear.length; index++) {
+            const element = checkboxWorkPlanYear[index];
+            workplanyear = workplanyear ? (workplanyear + ',' + element): element;
+        }
+        const options = {...filterProjectOptions};
+        options.projecttype = projecttype;
+        options.totalcost = totalcost;
+        options.status = status;
+        options.mhfddollarsallocated = mhfddollarsallocated;
+        options.workplanyear = workplanyear;
+        options.startyear = start !== '- Select -'? start: '';
+        options.completedyear = completed !== '- Select -'? completed: '';
+        options.problemtype = problemType !== '- Select -'? problemType: '';
+        options.mhfdmanager = mhfdmanager !== '- Select -'? mhfdmanager: '';
+        options.jurisdiction = jurisdiction !== '- Select -'? jurisdiction: '';
+        options.streamname = streamname !== '- Select -'? streamname: '';
+        options.county = county !== '- Select -'? county: '';
+        options.lgmanager = lgmanager !== '- Select -'? lgmanager: '';
+        options.creator = creator !== '- Select -'? creator: '';
+        setFilterProjectOptions(options);
+        getGalleryProjects();
+    }
+    const reset = () => {
+        const options = {...filterProjectOptions};
+        options.projecttype = '';
+        options.totalcost = '';
+        options.status = '';
+        options.mhfddollarsallocated = '';
+        options.workplanyear = '';
+        options.startyear =  '';
+        options.completedyear = '';
+        options.problemtype = '';
+        options.mhfdmanager =  '';
+        options.jurisdiction =  '';
+        options.streamname = '';
+        options.county =  '';
+        options.lgmanager = '';
+        options.creator = '';
+        setCheckboxProjectType([]);
+        setCheckboxTotalCost([]);
+        setCheckboxProjectStatus([]);
+        setCheckboxMHFDDollarsAllocated([]);
+        setCheckboxWorkPlanYear([]);
+        setStart('- Select -');
+        setCompleted('- Select -');
+        setProblemType('- Select -');
+        setMhfdmanager('- Select -');
+        setJurisdiction('- Select -');
+        setStreamname('- Select -');
+        setCounty('- Select -');
+        setLgmanager('- Select -');
+        setCreator('- Select -');
+        setFilterProjectOptions(options);
+        getGalleryProjects();
+
+        
+    }
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
     <Row className="filt-00" style={{ marginTop: '10px' }}>
         <Col span={12}>
@@ -268,17 +357,17 @@ export const ProjectsFilter = ({ paramProjects } : any) => {
         <Col span={12}>
             <h5>Year <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
             <Col span={12}>
-            <Select placeholder="- Start -" style={{ width: '100%' }} onChange={ (e) => {
-                    console.log(e);   
+            <Select value={start} style={{ width: '100%' }} onChange={ (e: string) => {
+                    setStart(e);
                 }}>
                     {paramProjects.startyear.map((element: number, index: number) =>{
-                        return <Option value={element}>{element}</Option>
+                        return <Option key={index} value={element}>{element}</Option>
                     })}
             </Select>
             </Col>
             <Col span={12}>
-                <Select placeholder="- Completed -" style={{ width: '100%' }} onChange={ (e) => {
-                    console.log(e);   
+                <Select value={completed} style={{ width: '100%' }} onChange={ (e: string) => {
+                    setCompleted(e);
                 }}>
                     {paramProjects.completedyear.map((element: number, index: number) =>{
                         return <Option value={element}>{element}</Option>
@@ -301,8 +390,8 @@ export const ProjectsFilter = ({ paramProjects } : any) => {
         </Col>
         <Col span={12}>
             <h5>Work Plan Year <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
-            <Checkbox.Group value={checkBoxProjectType} onChange={(item) => {
-                setCheckboxProjectType(item as Array<string>);
+            <Checkbox.Group value={checkboxWorkPlanYear} onChange={(item) => {
+                setCheckboxWorkPlanYear(item as Array<string>);
             }}>
                 {paramProjects.workplanyear.map((element: string, index: number) => {
                     return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
@@ -315,21 +404,21 @@ export const ProjectsFilter = ({ paramProjects } : any) => {
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
             <label>Problem Type</label>
-            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                console.log(e);   
+            <Select value={problemType} style={{ width: '100%' }} onChange={ (e: string) => {
+                setProblemType(e);
             }}>
                 {paramProjects.problemtype.map((element: string, index: number) =>{
-                    return <Option value={element}>{element}</Option>
+                    return <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
         <Col span={12}>
             <label>Watershed Manager</label>
-            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                console.log(e);   
+            <Select value={mhfdmanager} style={{ width: '100%' }} onChange={ (e: string) => {
+                setMhfdmanager(e);  
             }}>
                 {paramProjects.mhfdmanager.map((element: string, index: number) =>{
-                    return <Option value={element}>{element}</Option>
+                    return <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
@@ -337,21 +426,21 @@ export const ProjectsFilter = ({ paramProjects } : any) => {
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
             <label>Jurisdiction</label>
-            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                console.log(e);   
+            <Select value={jurisdiction} style={{ width: '100%' }} onChange={ (e: string) => {
+                setJurisdiction(e);
             }}>
                 {paramProjects.jurisdiction.map((element: string, index: number) =>{
-                    return <Option value={element}>{element}</Option>
+                    return <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
         <Col span={12}>
             <label>County</label>
-            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                console.log(e);   
+            <Select value={county} style={{ width: '100%' }} onChange={ (e: string) => {
+                setCounty(e)
             }}>
                 {paramProjects.county.map((element: string, index: number) =>{
-                    return <Option value={element}>{element}</Option>
+                    return <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
@@ -359,21 +448,21 @@ export const ProjectsFilter = ({ paramProjects } : any) => {
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
             <label>Local Government Manager</label>
-            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                console.log(e);   
+            <Select value={lgmanager} style={{ width: '100%' }} onChange={ (e: string) => {
+                setLgmanager(e);  
             }}>
                 {paramProjects.lgmanager.map((element: string, index: number) =>{
-                    return <Option value={element}>{element}</Option>
+                    return <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
         <Col span={12}>
             <label>Stream Name</label>
-            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                console.log(e);   
+            <Select value={streamname} style={{ width: '100%' }} onChange={ (e: string) => {
+                setStreamname(e);
             }}>
                 {paramProjects.streamname.map((element: string, index: number) =>{
-                    return <Option value={element}>{element}</Option>
+                    return <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
@@ -381,19 +470,19 @@ export const ProjectsFilter = ({ paramProjects } : any) => {
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
             <label>Creator</label>
-            <Select placeholder="- Select -" style={{ width: '100%' }} onChange={ (e) => {
-                console.log(e);   
+            <Select value={creator} style={{ width: '100%' }} onChange={ (e: string) => {
+                setCreator(e);
             }}>
                 {paramProjects.creator.map((element: string, index: number) =>{
-                    return <Option value={element}>{element}</Option>
+                    return <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
     </Row>
 
     <div className="btn-footer" style={{ marginTop: '25px' }}>
-        <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
-        <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
+        <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
+        <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button>
     </div>
     </div>
 </>

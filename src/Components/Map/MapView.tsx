@@ -388,7 +388,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             filterProblemOptions={filterProblemOptions}
             setFilterProblemOptions={setFilterProblemOptions}
             paramFilters={paramFilters}
-            getGalleryProblems={getGalleryProblems} />
+            getGalleryProblems={getGalleryProblems}
+            filterProjectOptions={filterProjectOptions}
+            setFilterProjectOptions={setFilterProjectOptions}
+            getGalleryProjects={getGalleryProjects} />
       }
     </div>
   </>
