@@ -140,7 +140,11 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getPolygonStreams={getPolygonStreams}
                             saveLayersCheck={saveLayersCheck}
                             setFilterCoordinates={setFilterCoordinates}
-                            highlighted={highlighted}/>
+                            highlighted={highlighted}
+                            filterProblemOptions={filterProblemOptions}
+                            filterProjectOptions={filterProjectOptions}
+                            getGalleryProblems={getGalleryProblems}
+                            getGalleryProjects={getGalleryProjects}/>
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

@@ -22,7 +22,11 @@ export type MapProps = {
     polygon?: Array<Array<number>>,
     saveLayersCheck: Function,
     setFilterCoordinates: Function,
-    highlighted: any
+    highlighted: any,
+    filterProblemOptions: OptionProblems,
+    filterProjectOptions: OptionProjects,
+    getGalleryProblems: Function,
+    getGalleryProjects: Function
 }
 
 export type MapHOCProps = {

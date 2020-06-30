@@ -71,7 +71,12 @@ const Map = ({ leftWidth,
             getPolygonStreams,
             saveLayersCheck,
             setFilterCoordinates, 
-            highlighted } : MapProps) => {
+            highlighted,
+            filterProblemOptions,
+            filterProjectOptions,
+            getGalleryProblems,
+            getGalleryProjects
+             } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
