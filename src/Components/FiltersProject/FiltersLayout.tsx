@@ -100,7 +100,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5>Solution Cost <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+                <h5>Solution Cost <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 <Checkbox.Group value={checkBoxSolutionCost} onChange={(items) => {
                     setCheckboxSolutionCost(items as Array<string>);
                 }}>
@@ -111,7 +111,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 </Checkbox.Group>
             </Col>
             <Col span={12}>
-                <h5>Priority <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+                <h5>Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 <Checkbox.Group value={checkBoxPriority} onChange={(items) => {
                     setCheckboxPriority(items as Array<string>);
                 }}>
@@ -122,7 +122,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
         </Row>
 
-        <h5 className="filt-h5">Element Type <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+        <h5 className="filt-h5">Element Type <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
         <Row className="filt-00">
             <Checkbox.Group value={checkBoxComponents} onChange={(items) => {
                 setCheckboxComponents(items as Array<string>);
@@ -138,12 +138,12 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                     })}
                 </Col>
             </Checkbox.Group>
-            
+
         </Row>
 
         <Row className="filt-00">
-            <h5>Status <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
             <Col span={12}>
+              <h5>Status <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 <Checkbox.Group value={checkBoxStatus} onChange={(items) => {
                     setCheckboxStatus(items as Array<string>);
                 }}>
@@ -154,7 +154,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 </Checkbox.Group>
             </Col>
             <Col span={12}>
-                <h5>County <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+                <h5>County <img src="/Icons/icon-19.svg" alt="" /></h5>
                 <Checkbox.Group value={checkBoxCounty} onChange={(items) => {
                     setCheckboxCounty(items as Array<string>);
                 }}>
@@ -178,7 +178,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 </Select>
             </Col>
             <Col span={12}>
-                <label>MHFD Manager</label>
+                <label>MHFD Watershed Manager</label>
                 <Select placeholder="- Select -" value={mhfdManager} style={{ width: '100%' }} onChange={ (e: string) => {
                     setMhfdManager(e);
                 }}>
@@ -200,7 +200,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 </Select>
             </Col>
             <Col span={12}>
-                <label>Source</label>
+                <label>Source <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
                 <Select placeholder="- Select -" value={source} style={{ width: '100%' }} onChange={ (e: string) => {
                     setSource(e);
                 }}>
@@ -218,12 +218,12 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
     </div>
     </>
 }
-    
-    
+
+
 
 export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects } : any) => {
     console.log(paramProjects);
-    
+
     const [checkBoxProjectType, setCheckboxProjectType] = useState<Array<string>>(filterProjectOptions.projecttype.split(','));
     const [checkBoxTotalCost, setCheckboxTotalCost] = useState<Array<string>>(filterProjectOptions.totalcost.split(','));
     const [checkBoxProjectStatus, setCheckboxProjectStatus] = useState<Array<string>>(filterProjectOptions.status.split(','));
@@ -315,12 +315,12 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         setFilterProjectOptions(options);
         getGalleryProjects();
 
-        
+
     }
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
     <Row className="filt-00" style={{ marginTop: '10px' }}>
         <Col span={12}>
-            <h5>Project type <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <h5>Project type <img src="/Icons/icon-19.svg" alt="" /></h5>
             <Checkbox.Group value={checkBoxProjectType} onChange={(item) => {
                 setCheckboxProjectType(item as Array<string>);
             }}>
@@ -330,7 +330,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             </Checkbox.Group>
         </Col>
         <Col span={12}>
-            <h5>Total Cost <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <h5>Total Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
             <Checkbox.Group value={checkBoxTotalCost} onChange={(item) => {
                 setCheckboxTotalCost(item as Array<string>);
             }}>
@@ -345,7 +345,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 
     <Row className="filt-00">
         <Col span={12}>
-            <h5>Project Status <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <h5>Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
             <Checkbox.Group value={checkBoxProjectStatus} onChange={(item) => {
                 setCheckboxProjectStatus(item as Array<string>);
             }}>
@@ -355,7 +355,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             </Checkbox.Group>
         </Col>
         <Col span={12}>
-            <h5>Year <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <h5>Year <Popover content={content07}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
             <Col span={12}>
             <Select value={start} style={{ width: '100%' }} onChange={ (e: string) => {
                     setStart(e);
@@ -379,7 +379,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 
     <Row className="filt-00">
         <Col span={12}>
-            <h5>MHFD Dollars Allocated <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <h5>MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
             <Checkbox.Group value={checkboxMHFDDollarsAllocated} onChange={(item) => {
                 setCheckboxMHFDDollarsAllocated(item as Array<string>);
             }}>
@@ -389,7 +389,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             </Checkbox.Group>
         </Col>
         <Col span={12}>
-            <h5>Work Plan Year <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+            <h5>Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
             <Checkbox.Group value={checkboxWorkPlanYear} onChange={(item) => {
                 setCheckboxWorkPlanYear(item as Array<string>);
             }}>
@@ -400,10 +400,10 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         </Col>
     </Row>
 
-    <h5 className="filt-h5">Additional filters <Tooltip title="prompt text"><img src="/Icons/icon-19.svg" alt="" /></Tooltip></h5>
+    <h5 className="filt-h5">Additional filters</h5>
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
-            <label>Problem Type</label>
+            <label>Problem Type <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
             <Select value={problemType} style={{ width: '100%' }} onChange={ (e: string) => {
                 setProblemType(e);
             }}>
@@ -413,9 +413,9 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             </Select>
         </Col>
         <Col span={12}>
-            <label>Watershed Manager</label>
+            <label>MHFD Watershed Manager</label>
             <Select value={mhfdmanager} style={{ width: '100%' }} onChange={ (e: string) => {
-                setMhfdmanager(e);  
+                setMhfdmanager(e);
             }}>
                 {paramProjects.mhfdmanager.map((element: string, index: number) =>{
                     return <Option key={index} value={element}>{element}</Option>
@@ -447,9 +447,9 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     </Row>
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
-            <label>Local Government Manager</label>
+            <label>Local Government Manager <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
             <Select value={lgmanager} style={{ width: '100%' }} onChange={ (e: string) => {
-                setLgmanager(e);  
+                setLgmanager(e);
             }}>
                 {paramProjects.lgmanager.map((element: string, index: number) =>{
                     return <Option key={index} value={element}>{element}</Option>
@@ -469,7 +469,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     </Row>
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
-            <label>Creator</label>
+            <label>Creator <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
             <Select value={creator} style={{ width: '100%' }} onChange={ (e: string) => {
                 setCreator(e);
             }}>
