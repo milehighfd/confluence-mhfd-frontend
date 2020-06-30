@@ -21,7 +21,8 @@ export type MapProps = {
     selectedLayers: Array<LayersType>,
     polygon?: Array<Array<number>>,
     saveLayersCheck: Function,
-    setFilterCoordinates: Function
+    setFilterCoordinates: Function,
+    highlighted: any
 }
 
 export type MapHOCProps = {
@@ -74,7 +75,9 @@ export type MapHOCProps = {
     filterCoordinates: string,
     setFilterProblemOptions: Function,
     setFilterProjectOptions: Function,
-    paramFilters: any
+    paramFilters: any,
+    highlighted: any,
+    setHighlighted: Function
 }
 
 export type MapViewTypes = { 
@@ -102,7 +105,8 @@ export type MapViewTypes = {
     filterCoordinates: string,
     setFilterProblemOptions: Function,
     setFilterProjectOptions: Function,
-    paramFilters: any
+    paramFilters: any,
+    setHighlighted: Function
 }
 export type OptionProblems = {
     keyword: string,

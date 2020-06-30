@@ -60,7 +60,9 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               filterCoordinates,
               setFilterProblemOptions,
               setFilterProjectOptions,
-              paramFilters } : MapHOCProps) => {
+              paramFilters,
+              highlighted,
+              setHighlighted } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
@@ -137,7 +139,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             selectedLayers={selectedLayers}
                             getPolygonStreams={getPolygonStreams}
                             saveLayersCheck={saveLayersCheck}
-                            setFilterCoordinates={setFilterCoordinates}/>
+                            setFilterCoordinates={setFilterCoordinates}
+                            highlighted={highlighted}/>
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
@@ -181,6 +184,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             setFilterProblemOptions={setFilterProblemOptions}
                             setFilterProjectOptions={setFilterProjectOptions}
                             paramFilters={paramFilters}
+                            setHighlighted={setHighlighted}
                       />
                     </Col>
                 </Row>}

@@ -17,7 +17,9 @@ import { getReverseGeocode,
         getDetailedPageProject,
         setFilterCoordinates,
         setFilterProblemOptions,
-        setFilterProjectOptions } from '../store/actions/mapActions';
+        setFilterProjectOptions, 
+        setHighlighted,
+        } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
 
@@ -49,7 +51,8 @@ const mapStateToProps = (state: any) => {
         filterProblemOptions: state.map.filterProblemOptions,
         filterProjectOptions: state.map.filterProjectOptions,
         filterCoordinates: state.map.filterCoordinates,
-        paramFilters: state.map.paramFilters
+        paramFilters: state.map.paramFilters,
+        highlighted: state.map.highlighted
     };
 };
 
@@ -80,7 +83,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         getDetailedPageProject,
         setFilterCoordinates,
         setFilterProblemOptions,
-        setFilterProjectOptions
+        setFilterProjectOptions,
+        setHighlighted
     }, dispatch)
 });
   

@@ -12,8 +12,9 @@ const status = (<div className="popoveer-00">Status</div>);
 const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
 
-export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage }:
-                { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean }) => {
+export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted }:
+                { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean, 
+                setHighlighted: Function }) => {
   const [visible, setVisible] = useState(false);
   const getComponentSizes = (components : Array<ComponentType>) => {
       if (components && components.length) {
@@ -44,6 +45,8 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           hoverable
           style={{ width: '100%' }}
           onClick={() => setVisible(true)}
+          onMouseEnter={() =>  setHighlighted({type: data.type, value: data.value})}
+          onMouseLeave={()=> setHighlighted({type: '', value: ''})}
           className="card-information"
           cover={
             data.image ? <img alt="example" src={data.image} /> : <img alt="example" src="/Icons/default.png" />

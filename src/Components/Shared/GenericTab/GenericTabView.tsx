@@ -9,7 +9,7 @@ import { numberWithCommas } from '../../../utils/utils';
 
 const { Panel } = Collapse;
 
-export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter, detailed, loaderDetailedPage }: any) => {
+export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter, detailed, loaderDetailedPage, setHighlighted }: any) => {
     let totalElement = cardInformation.length;
     const size = 6;
     let sw = false;
@@ -87,7 +87,8 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                                 getDetailedPageProblem={getDetailedPageProblem}
                                 getDetailedPageProject={getDetailedPageProject}
                                 detailed={detailed}
-                                loaderDetailedPage={loaderDetailedPage}/>
+                                loaderDetailedPage={loaderDetailedPage}
+                                setHighlighted={setHighlighted}/>
                     }) : ''}
                 </InfiniteScroll>
 

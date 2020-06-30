@@ -58,7 +58,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation,
                   getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
                   filterProjectOptions, filterCoordinates, setFilterProblemOptions,
-                  setFilterProjectOptions, getValuesByGroupColumn, paramFilters } : MapViewTypes) => {
+                  setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
@@ -317,7 +317,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   field5: 'Components',
                   priority: problem.problempriority,
                   percentage: problem.solutionstatus,
-                  problemid: problem.problemid
+                  problemid: problem.problemid,
+                  type: problem.type,
+                  value: problem.cartodb_id
                 }
               });
               totalElements = cardInformation.length;
@@ -339,7 +341,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
                   status: project.status,
                   projecttype: project.projecttype,
-                  objectid: project.objectid
+                  objectid: project.objectid,
+                  type: project.type,
+                  value: project.cartodb_id
                 }
               });
               totalElements = cardInformation.length;
@@ -359,7 +363,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       cardInformation={cardInformation}
                       accordionRow={accordionRow}
                       listFilters={filters}
-                      removeFilter={removeFilter} />
+                      removeFilter={removeFilter}
+                      setHighlighted={setHighlighted} />
               </TabPane>
             );
           })}

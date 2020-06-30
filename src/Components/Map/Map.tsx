@@ -45,7 +45,7 @@ let map : any = null;
 let popup = new mapboxgl.Popup();
 // const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
-
+const highlightedLayers = ['problems', 'projects_line_1', 'projects_polygon_'];
 type LayersType = string | ObjectLayerType;
 
 /* line to remove useEffect dependencies warning */
@@ -70,7 +70,8 @@ const Map = ({ leftWidth,
             polygon,
             getPolygonStreams,
             saveLayersCheck,
-            setFilterCoordinates } : MapProps) => {
+            setFilterCoordinates, 
+            highlighted } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
@@ -103,7 +104,16 @@ const Map = ({ leftWidth,
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude])
     }
-    
+    useEffect(() => {
+        console.log(highlighted);
+        if (map) {
+            if (highlighted.type) {
+                showHighlighted(highlighted.type, highlighted.value);
+            } else {
+                hideHighlighted();
+            }
+        }
+    }, [highlighted]);
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
@@ -269,10 +279,27 @@ const Map = ({ leftWidth,
             addTilesLayers(key);
         }
     }
-
+    const showHighlighted = (key: string, cartodb_id: string) => {
+        const styles = { ...tileStyles as any };
+        styles[key].forEach((style : LayerStylesType, index : number) => {
+            if (map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+                map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+            }
+        });
+    };
+    const hideHighlighted = () => {
+        const styles = { ...tileStyles as any };
+        for (const key of highlightedLayers) {
+            styles[key].forEach((style : LayerStylesType, index : number) => {
+                if (map.getLayer(key + '_highlight_' + index)) {
+                    map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+                }
+            });
+        }
+    };
     const addTilesLayers = (key : string) => {
         const styles = { ...tileStyles as any };
-        console.log('adding styles ', key, styles[key]);    
+        console.log('adding styles ', key, styles[key]);
         console.log(map.getSource(key));
         styles[key].forEach((style : LayerStylesType, index : number) => {
             console.log('my key is ', key + '_' + index, ' source ', key, ' style ', style);
@@ -281,6 +308,22 @@ const Map = ({ leftWidth,
                 source: key,
                 ...style
             });
+            if (key.includes('problems') || key.includes('projects')) {
+                map.addLayer({
+                    id: key + '_highlight_' + index,
+                    source: key,
+                    type: 'line',
+                    'source-layer': 'pluto15v1',
+                    layout: {
+                        visibility: 'visible'
+                    },
+                    paint: {
+                        'line-color': '#fff',
+                        'line-width': 7,
+                    },
+                    filter: ['in', 'cartodb_id']
+                })
+            }
             map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         });
         console.log('adding listener ', key, styles[key]);
