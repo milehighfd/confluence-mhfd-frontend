@@ -13,7 +13,10 @@ import { FLOODPLAINS_FEMA_FILTERS,
         COMPONENT_LAYERS,
         MEP_PROJECTS,
         ROUTINE_MAINTENANCE,
-        PROJECTS_MAP_STYLES} from '../../../constants/constants';
+        PROJECTS_MAP_STYLES,
+        SERVICE_AREA_LAYERS,
+        MUNICIPALITIES,
+        COUNTIES_LAYERS} from '../../../constants/constants';
 
 export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup } : 
         { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function }) => {
@@ -34,9 +37,9 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
               </Col>
               <Col span={7}>
                 <h6>BOUNDARIES</h6>
-                <p><Checkbox value={SERVICE_AREA_FILTERS}>Service Areas</Checkbox></p>
-                <p><Checkbox value={MUNICIPALITIES_FILTERS}>Municipalities</Checkbox></p>
-                <p><Checkbox value={COUNTIES_FILTERS}>Counties</Checkbox></p>
+                <p><Checkbox value={SERVICE_AREA_LAYERS}>Service Areas</Checkbox></p>
+                <p><Checkbox value={MUNICIPALITIES}>Municipalities</Checkbox></p>
+                <p><Checkbox value={COUNTIES_LAYERS}>Counties</Checkbox></p>
                 <p><Checkbox value={MHFD_BOUNDARY_FILTERS}>MHFD Boundary</Checkbox></p>
               </Col>
               <Col span={8}>

@@ -47,11 +47,11 @@ export const WATERSHED_FILTERS = 'catchments'; //'basins';
 export const STREAMS_FILTERS = 'streams';
 
 export const SERVICE_AREA_FILTERS = 'watershed_service_areas';
-export const SERVICE_AREA_POINTS = 'boundary_labels_service_area';
+export const SERVICE_AREA_POINTS = 'labels_service_area';
 export const MUNICIPALITIES_FILTERS = 'municipalities';
-export const MUNICIPALITIES_POINTS = 'boundary_labels_municipality';
+export const MUNICIPALITIES_POINTS = 'labels_municipality';
 export const COUNTIES_FILTERS = 'counties';
-export const COUNTIES_POINTS = 'boundary_labels_county';
+export const COUNTIES_POINTS = 'labels_county';
 export const MHFD_BOUNDARY_FILTERS = 'district_boundary';
 
 /* Component Layers */

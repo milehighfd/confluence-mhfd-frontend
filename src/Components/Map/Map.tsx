@@ -245,6 +245,7 @@ const Map = ({ leftWidth,
     const applyMapLayers = async () => {
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
+              console.log(layerFilters, layer.name);
               layer.tiles.forEach((subKey: string) => {
                 const tiles = layerFilters[layer.name] as any;
                 addLayersSource(subKey, tiles[subKey]);
@@ -336,6 +337,7 @@ const Map = ({ leftWidth,
     }
 
     const showLayers = (key: string) => {
+
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
             console.log('showing ', key + '_' + index);

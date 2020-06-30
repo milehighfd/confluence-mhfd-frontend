@@ -535,7 +535,7 @@ export const tileStyles = {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     layout: {
-      'text-field': ['get', 'servicearea'],
+      'text-field': ['get', 'srvarea'],
       'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
       'text-radial-offset': 0.5,
       'text-justify': 'auto'
