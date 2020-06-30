@@ -120,6 +120,12 @@ const Map = ({ leftWidth,
         }
     }, [highlighted]);
     useEffect(() => {
+        if (map) {
+            console.log(filterProblemOptions);
+            applyFilters('problems');
+        }
+    }, [filterProblemOptions]);
+    useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
@@ -285,6 +291,13 @@ const Map = ({ leftWidth,
             addTilesLayers(key);
         }
     }
+    const applyFilters = (key: string) => {
+        const styles = { ...tileStyles as any };
+        styles[key].forEach((style : LayerStylesType, index : number) => {
+            console.log(filterProblemOptions.priority);
+            map.setFilter(key + '_' + index, ['all', ['in', 'problempriority', filterProblemOptions.priority], ['in', 'problemtype', 'Hydraulics']]);
+        });
+    };
     const showHighlighted = (key: string, cartodb_id: string) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
@@ -309,11 +322,6 @@ const Map = ({ leftWidth,
         console.log(map.getSource(key));
         styles[key].forEach((style : LayerStylesType, index : number) => {
             console.log('my key is ', key + '_' + index, ' source ', key, ' style ', style);
-            map.addLayer({
-                id: key + '_' + index,
-                source: key,
-                ...style
-            });
             if (key.includes('problems') || key.includes('projects')) {
                 map.addLayer({
                     id: key + '_highlight_' + index,
@@ -329,7 +337,13 @@ const Map = ({ leftWidth,
                     },
                     filter: ['in', 'cartodb_id']
                 })
-            }
+            } 
+            map.addLayer({
+                id: key + '_' + index,
+                source: key,
+                ...style
+            });
+           
             map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         });
         console.log('adding listener ', key, styles[key]);
