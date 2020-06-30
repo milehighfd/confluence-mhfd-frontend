@@ -205,8 +205,38 @@ export const setFilterCoordinates = (coordinates: string) => {
 }
 
 export const setFilterProblemOptions = (filters: OptionProblems) => {
+    const auxFilter = {
+        problemname: filters.keyword,
+        solutioncost: [''],
+        problempriority: filters.priority,
+        solutionstatus: [''],
+        county: filters.county,
+        jurisdiction: filters.jurisdiction,
+        mhfdmanager: filters.mhfdmanager,
+        problemtype: filters.problemtype,
+        source: filters.source,
+        components: filters.components
+    }
+    const solutioncost = filters.cost.split(',');
+    
+    const solutioncostLength = solutioncost.length;
+    const auxSolutionCost = [];
+    for (let index = 0; index < solutioncost.length; index++) {
+        const element = solutioncost[index];
+        auxSolutionCost.push(element === '1' ? '1000000,10000000' : ((element === '5')? '5000000,10000000': ((element === '10') ? '10000000,15000000' : '20000000,25000000')));
+    }
+    auxFilter.solutioncost = auxSolutionCost;
+    const solutionstatus = filters.solutionstatus.split(',');
+    const auxSolutionStatus = []
+    for (let index = 0; index < solutionstatus.length; index++) {
+        const element = solutionstatus[index];
+        auxSolutionStatus.push(element === '10' ? '10,25' : element === '25'? '25,50': element === '50' ? '50,75' : '75,100');
+    }
+    auxFilter.solutionstatus = auxSolutionStatus;
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters});
+        dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilter})
+        
     }
 }
 

@@ -150,7 +150,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                     <p><Checkbox value='75'>75%-100%</Checkbox></p>
                     <p><Checkbox value='50'>50%-75%</Checkbox></p>
                     <p><Checkbox value='25'>25%-50%</Checkbox></p>
-                    <p><Checkbox value='0'>10%-25%</Checkbox></p>
+                    <p><Checkbox value='10'>10%-25%</Checkbox></p>
                 </Checkbox.Group>
             </Col>
             <Col span={12}>

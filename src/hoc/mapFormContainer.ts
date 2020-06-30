@@ -55,7 +55,8 @@ const mapStateToProps = (state: any) => {
         paramFilters: state.map.paramFilters,
         highlighted: state.map.highlighted,
         spinFilter: state.map.spinFilters,
-        filterComponentOptions: state.map.filterComponentOptions
+        filterComponentOptions: state.map.filterComponentOptions,
+        filterProblems: state.map.filterProblems
     };
 };
 

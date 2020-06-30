@@ -135,6 +135,18 @@ const initState = {
         county: '',
         watershed: ''
     },
+    filterProblems: {
+        problemname: '',
+        solutioncost: [''],
+        problempriority: '',
+        solutionstatus: [''],
+        county: '',
+        jurisdiction: '',
+        mhfdmanager: '',
+        problemtype: '',
+        source: '',
+        components: ''
+    },
     filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423',
     paramFilters : {
         problems: {},
@@ -302,6 +314,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 filterComponentOptions: action.filters
+            }
+        }
+        case types.SET_FILTER_PROBLEMS: {
+            return {
+                ...state,
+                filterProblems: action.filters
             }
         }
         default: 

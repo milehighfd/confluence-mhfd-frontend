@@ -75,12 +75,10 @@ const Map = ({ leftWidth,
             filterProblemOptions,
             filterProjectOptions,
             getGalleryProblems,
-            getGalleryProjects
+            getGalleryProjects,
+            filterProblems
              } : MapProps) => {
-    console.log(filterProblemOptions,
-        filterProjectOptions,
-        getGalleryProblems,
-        getGalleryProjects);
+    console.log('filterProblems:::', filterProblems);
     
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
