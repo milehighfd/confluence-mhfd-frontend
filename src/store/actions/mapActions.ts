@@ -248,7 +248,7 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
 export const setFilterProjectOptions = (filters: OptionProjects) => {
     const auxFilter = {
         projectname: filters.keyword,
-        projecttype: filters.problemtype,
+        projecttype: filters.projecttype,
         status: filters.status,
         startyear: filters.startyear,
         completedyear: filters.completedyear,
