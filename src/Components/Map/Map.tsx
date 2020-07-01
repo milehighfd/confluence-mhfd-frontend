@@ -126,9 +126,16 @@ const Map = ({ leftWidth,
     useEffect(() => {
         if (map) {
             console.log(filterProblems);
-            applyFilters('problems');
+            applyFilters('problems', filterProblems);
         }
     }, [filterProblems]);
+    useEffect(() => {
+        if (map) {
+            console.log('fp ', filterProjects);
+            applyFilters('projects_line_1', filterProjects);
+            applyFilters('projects_polygon_', filterProjects);
+        }
+    }, [filterProjects]);
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
@@ -295,25 +302,27 @@ const Map = ({ leftWidth,
             addTilesLayers(key);
         }
     }
-    const applyFilters = (key: string) => {
+    const applyFilters = (key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
             const allFilters: any[] = ['all'];
-            for (const filterField in filterProblems) {
+            console.log('my key ', key);
+            for (const filterField in toFilter) {
                 if (filterField === 'components') {
                     continue;
                 }
                 if (filterField === 'problemname') {
                     continue;
                 }
-                const filters = filterProblems[filterField];
+                const filters = toFilter[filterField];
+                console.log('filtered ', filterField, filters);
                 if (filters && filters.length) {
                     const options: any[] = ['any'];
                     if (typeof filters === 'object') {
                         for (const range of filters) {
                             const [lower, upper] = range.split(',');
-                            const lowerArray: any[] = ['>=', filterField, +lower];
-                            const upperArray: any[] = ['<=', filterField, +upper];
+                            const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
+                            const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
                             const allFilter = ['all', lowerArray, upperArray];
                             options.push(allFilter);
                         }
@@ -322,7 +331,7 @@ const Map = ({ leftWidth,
                             if (isNaN(+filter)) {
                                 options.push(['==', filterField, filter]);
                             } else {
-                                const equalFilter: any[] = ['==', filterField, +filter];
+                                const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
                                 options.push(equalFilter);
                             }
                         }

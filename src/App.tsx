@@ -29,6 +29,7 @@ import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
 import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 import { SELECT_ALL_FILTERS } from './constants/constants';
+import Prueba from './Components/algo/Prueba';
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter } 
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
@@ -61,6 +62,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
     }
   }, []);
   return <Switch>
+      <Route path={'/prueba'} component={Prueba} />
       <Route path={`/login`} component={LoginContainer} />
       <Route path={`/sign-up`} component={SignUpContainer} />
       <Route path={'/404'} component={Unauthorized} />
