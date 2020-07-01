@@ -37,6 +37,7 @@ import { Feature, Properties, Point } from '@turf/turf';
 import { localComponents, polygonFill, polygonStroke, tileStyles, USER_POLYGON_FILL_STYLES, USER_POLYGON_LINE_STYLES } from '../../constants/mapStyles';
 import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
 import { AnyMxRecord } from 'dns';
+import { ProblemsFilter } from '../FiltersProject/FiltersLayout';
 
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -124,10 +125,10 @@ const Map = ({ leftWidth,
     }, [highlighted]);
     useEffect(() => {
         if (map) {
-            console.log(filterProblemOptions);
+            console.log(filterProblems);
             applyFilters('problems');
         }
-    }, [filterProblemOptions]);
+    }, [filterProblems]);
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
@@ -297,8 +298,40 @@ const Map = ({ leftWidth,
     const applyFilters = (key: string) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
-            console.log(filterProblemOptions.priority);
-            map.setFilter(key + '_' + index, ['all', ['in', 'problempriority', filterProblemOptions.priority], ['in', 'problemtype', 'Hydraulics']]);
+            const allFilters: any[] = ['all'];
+            for (const filterField in filterProblems) {
+                if (filterField === 'components') {
+                    continue;
+                }
+                if (filterField === 'problemname') {
+                    continue;
+                }
+                const filters = filterProblems[filterField];
+                if (filters && filters.length) {
+                    const options: any[] = ['any'];
+                    if (typeof filters === 'object') {
+                        for (const range of filters) {
+                            const [lower, upper] = range.split(',');
+                            const lowerArray: any[] = ['>=', filterField, +lower];
+                            const upperArray: any[] = ['<=', filterField, +upper];
+                            const allFilter = ['all', lowerArray, upperArray];
+                            options.push(allFilter);
+                        }
+                    } else {
+                        for (const filter of filters.split(',')) {
+                            if (isNaN(+filter)) {
+                                options.push(['==', filterField, filter]);
+                            } else {
+                                const equalFilter: any[] = ['==', filterField, +filter];
+                                options.push(equalFilter);
+                            }
+                        }
+                    }
+                    allFilters.push(options);
+                }
+            }
+            console.log(' my filters ' , JSON.stringify(allFilters)) ;
+            map.setFilter(key + '_' + index, allFilters);
         });
     };
     const showHighlighted = (key: string, cartodb_id: string) => {
