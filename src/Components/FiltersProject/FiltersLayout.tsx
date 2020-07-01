@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Checkbox, Select, Radio, Button,Tooltip, Popover } from 'antd';
+import { Row, Col, Checkbox, Select, Button, Popover } from 'antd';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
@@ -314,8 +314,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         setCreator('- Select -');
         setFilterProjectOptions(options);
         getGalleryProjects();
-
-
     }
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
     <Row className="filt-00" style={{ marginTop: '10px' }}>
@@ -383,9 +381,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={checkboxMHFDDollarsAllocated} onChange={(item) => {
                 setCheckboxMHFDDollarsAllocated(item as Array<string>);
             }}>
-                {paramProjects.mhfddollarsallocated.map((element: string, index: number) => {
-                    return element !== null && <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
-                })}
                 <p><Checkbox value={'20'}>20M-25M</Checkbox></p>
                 <p><Checkbox value={'15'}>15M-20M</Checkbox></p>
                 <p><Checkbox value={'10'}>10M-15M</Checkbox></p>
@@ -494,13 +489,74 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 }
 
 export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects} : any) => {
-    console.log(paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects);
     
+    const [checkBoxComponentType, setCheckboxComponentType] = useState<Array<string>>(filterComponentOptions.component_type.split(','));
+    const [checkBoxStatus, setCheckboxStatus] = useState<Array<string>>(filterComponentOptions.status.split(','));
+    const [checkBoxYearofStudy, setCheckboxYearofStudy] = useState<Array<string>>(filterComponentOptions.yearofstudy.split(','));
+    const [checkboxEstimatedcost, setCheckboxEstimatedcost] = useState<Array<string>>(filterComponentOptions.estimatedcost.split(','));
+    const [jurisdiction, setJurisdiction] = useState(filterComponentOptions.jurisdiction ? filterComponentOptions.jurisdiction : '- Select -');
+    const [county, setCounty] = useState(filterComponentOptions.county ? filterComponentOptions.county : '- Select -');
+    const [mhfdmanger, setWatershed] = useState(filterComponentOptions.mhfdmanger ? filterComponentOptions.mhfdmanger : '- Select -');
+    const apply = () => {
+        let componentType = '';
+        for (let index = 0; index < checkBoxComponentType.length; index++) {
+            const element = checkBoxComponentType[index];
+            componentType = componentType ? (componentType + ',' + element): element;
+        }
+        let status = '';
+        for (let index = 0; index < checkBoxStatus.length; index++) {
+            const element = checkBoxStatus[index];
+            status = status ? (status + ',' + element): element;
+        }
+        let yearOfStudy = '';
+        for (let index = 0; index < checkBoxYearofStudy.length; index++) {
+            const element = checkBoxYearofStudy[index];
+            yearOfStudy = yearOfStudy ? (yearOfStudy + ',' + element): element;
+        }
+        let estimatedCost = '';
+        for (let index = 0; index < checkboxEstimatedcost.length; index++) {
+            const element = checkboxEstimatedcost[index];
+            estimatedCost = estimatedCost ? (estimatedCost + ',' + element): element;
+        }
+        const options = {...filterComponentOptions};
+        options.component_type = componentType;
+        options.status = status;
+        options.yearofstudy = yearOfStudy;
+        options.estimatedcost = estimatedCost;
+        options.jurisdiction = jurisdiction !== '- Select -'? jurisdiction: '';
+        options.county = county !== '- Select -'? county: '';
+        options.mhfdmanger = mhfdmanger !== '- Select -'? mhfdmanger: '';
+        setFilterComponentOptions(options);
+        getGalleryProjects();
+        getGalleryProblems();
+    }
+    const reset = () => {
+        const options = {...filterComponentOptions};
+        options.component_type = '';
+        options.status = '';
+        options.yearofstudy = '';
+        options.estimatedcost = '';
+        options.jurisdiction = '';
+        options.county = '';
+        options.mhfdmanger = '';
+        setCheckboxComponentType([]);
+        setCheckboxStatus([]);
+        setCheckboxYearofStudy([]);
+        setCheckboxEstimatedcost([]);
+        setJurisdiction('- Select -');
+        setCounty('- Select -');
+        setWatershed('- Select -');
+        setFilterComponentOptions(options);
+        getGalleryProjects();
+        getGalleryProblems();
+    }
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 295}}>
             <Row className="filt-00" style={{ marginTop: '10px' }}>
                 <Col span={12}>
                     <h5>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <Checkbox.Group >
+                    <Checkbox.Group value={checkBoxComponentType} onChange={(item) => {
+                        setCheckboxComponentType(item as Array<string>);
+                    }}>
                         {paramComponents.component_type.map((element: { key: string, value: string }, index: number) => {
                             return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
                         })}
@@ -508,9 +564,11 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 </Col>
                 <Col span={12}>
                     <h5>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <Checkbox.Group>
+                    <Checkbox.Group value={checkBoxStatus} onChange={(item) => {
+                        setCheckboxStatus(item as Array<string>);
+                    }}>
                         {paramComponents.status.map((element: string, index: number) => {
-                            return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                            return element && <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
                         })}
                     </Checkbox.Group>
                     
@@ -520,24 +578,25 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
             <Row className="filt-00">
                 <Col span={12}>
                     <h5>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <Checkbox.Group>
-                        {paramComponents.yearofstudy}
-                        <p><Checkbox>1972</Checkbox> <span className="filt-s">208</span></p>
-                        <p><Checkbox>1984</Checkbox> <span className="filt-s">208</span></p>
-                        <p><Checkbox>1996</Checkbox> <span className="filt-s">208</span></p>
-                        <p><Checkbox>2008</Checkbox> <span className="filt-s">208</span></p>
-                        <p><Checkbox>2020</Checkbox> <span className="filt-s">208</span></p>
+                    <Checkbox.Group value={checkBoxYearofStudy} onChange={(item) => {
+                        setCheckboxYearofStudy(item as Array<string>);
+                    }}>
+                        {paramComponents.yearofstudy.map((element: string, index: number) => {
+                            return <p><Checkbox value={element}>{element}</Checkbox></p>
+                        })}
                     </Checkbox.Group>
                     
                 </Col>
                 <Col span={12}>
                     <h5>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <Checkbox.Group>
-                        <p><Checkbox>0</Checkbox> <span className="filt-s">208</span></p>
-                        <p><Checkbox>$2M</Checkbox> <span className="filt-s">208</span></p>
-                        <p><Checkbox>$4M</Checkbox> <span className="filt-s">208</span></p>
-                        <p><Checkbox>$6M</Checkbox> <span className="filt-s">208</span></p>
-                        <p><Checkbox>$8M</Checkbox> <span className="filt-s">208</span></p>
+                    <Checkbox.Group value={checkboxEstimatedcost} onChange={(item) => {
+                        setCheckboxEstimatedcost(item as Array<string>);
+                    }}>
+                        <p><Checkbox value={'8'}>8M-10M</Checkbox></p>
+                        <p><Checkbox value={'6'}>6M-8M</Checkbox></p>
+                        <p><Checkbox value={'4'}>4M-6M</Checkbox></p>
+                        <p><Checkbox value={'2'}>2M-4M</Checkbox></p>
+                        <p><Checkbox value={'0'}>0-2M</Checkbox></p>
                     </Checkbox.Group>
                 </Col>
             </Row>
@@ -546,68 +605,40 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
             <Row className="filt-00" gutter={[24, 16]}>
                 <Col span={12}>
                     <label>Jurisdiction</label>
-                    <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                        <Option value="disabled" disabled>
-                            Disabled
-                                </Option>
-                        <Option value="Yiminghe">yiminghe</Option>
+                    <Select value={jurisdiction} style={{ width: '100%' }} onChange={ (e: string) => {
+                        setJurisdiction(e);
+                    }}>
+                        {paramComponents.jurisdiction.map((element: string, index: number) =>{
+                            return <Option key={index} value={element}>{element}</Option>
+                        })}
                     </Select>
                 </Col>
                 <Col span={12}>
                     <label>County</label>
-                    <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                        <Option value="disabled" disabled>
-                            Disabled
-                            </Option>
-                        <Option value="Yiminghe">yiminghe</Option>
+                    <Select value={county} style={{ width: '100%' }} onChange={ (e: string) => {
+                        setCounty(e);
+                    }}>
+                        {paramComponents.county.map((element: string, index: number) =>{
+                            return <Option key={index} value={element}>{element}</Option>
+                        })}
                     </Select>
                 </Col>
             </Row>
             <Row className="filt-00" gutter={[24, 16]}>
                 <Col span={12}>
                     <label>MHFD Watershed Manager</label>
-                    <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                        <Option value="disabled" disabled>
-                            Disabled
-                                </Option>
-                        <Option value="Yiminghe">yiminghe</Option>
-                    </Select>
-                </Col>
-                <Col span={12}>
-                    <label>Solution Type</label>
-                    <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                        <Option value="disabled" disabled>
-                            Disabled
-                            </Option>
-                        <Option value="Yiminghe">yiminghe</Option>
+                    <Select value={mhfdmanger} style={{ width: '100%' }} onChange={ (e: string) => {
+                        setWatershed(e);
+                    }}>
+                        {paramComponents.watershed.map((element: string, index: number) =>{
+                            return <Option key={index} value={element}>{element}</Option>
+                        })}
                     </Select>
                 </Col>
             </Row>
-            <Row className="filt-00" gutter={[24, 16]}>
-                <Col span={12}>
-                    <label>Stream Name <Popover content={content18}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-                    <Select defaultValue="- Select -" style={{ width: '100%', marginBottom: '15px' }}>
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                        <Option value="disabled" disabled>
-                            Disabled
-                                </Option>
-                        <Option value="Yiminghe">yiminghe</Option>
-                    </Select>
-                </Col>
-            </Row>
-
             <div className="btn-footer" style={{ marginTop: '25px' }}>
-                <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
-                <Button style={{ width: '140px' }} className="btn-01">Apply</Button>
+                <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
+                <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button>
             </div>
         </div>
     </>

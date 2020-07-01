@@ -162,7 +162,7 @@ export type OptionComponents = {
     estimatedcost: string,
     jurisdiction: string,
     county: string,
-    watershed: string
+    mhfdmanager: string
 }
 
 export type CapitalTypes = {

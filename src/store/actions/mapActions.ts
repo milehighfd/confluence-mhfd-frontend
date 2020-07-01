@@ -175,15 +175,18 @@ export const resetMap = () => {
     }
 }
 
-const options = (options: OptionProblems, coordinates: string) => {
+const options = (options: OptionProblems, filterComponent: OptionComponents, coordinates: string) => {
     return ((options.keyword ? ('name=' + options.keyword + '&') : '') + (options.cost ? ('cost=' + options.cost + '&') : '') +
         (options.priority ? ('priority=' + options.priority + '&') : '') + (options.solutionstatus ? ('solutionstatus=' + options.solutionstatus + '&') : '') +
         (options.county ? ('county=' + options.county + '&') : '') + (options.jurisdiction ? ('jurisdiction=' + options.jurisdiction + '&') : '') +
         (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') +
         (options.source ? ('source=' + options.source + '&') : '') + (options.components ? ('components=' + options.components + '&') : '') + 
+        (filterComponent.component_type ? ('componenttype=' + filterComponent.component_type + '&') : '') + (filterComponent.status ? ('componentstatus=' + filterComponent.status + '&') : '') + 
+        (filterComponent.mhfdmanager ? ('watershed=' + options.mhfdmanager + '&') : '') + (filterComponent.jurisdiction ? ('jurisdictionComp=' + filterComponent.jurisdiction + '&') : '') + 
+        (filterComponent.county ? ('countyComp=' + filterComponent.county + '&') : '') + (filterComponent.yearofstudy ? ('yearofstudy=' + filterComponent.yearofstudy + '&') : '') +
         'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
 }
-const optionsProjects = (options: OptionProjects, coordinates: string) => {
+const optionsProjects = (options: OptionProjects, filterComponent: OptionComponents, coordinates: string) => {
     return ((options.keyword ? ('name=' + options.keyword + '&') : '') + (options.projecttype ? ('projecttype=' + options.projecttype + '&') : '') +
         (options.status ? ('status=' + options.status + '&') : '') + (options.startyear ? ('startyear=' + options.startyear + '&') : '') +
         (options.completedyear ? ('completedyear=' + options.completedyear + '&') : '') + (options.mhfddollarsallocated ? ('mhfddollarsallocated=' + options.mhfddollarsallocated + '&') : '') +
@@ -192,6 +195,9 @@ const optionsProjects = (options: OptionProjects, coordinates: string) => {
         (options.workplanyear ? ('workplanyear=' + options.workplanyear + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') + 
         (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.jurisdiction ? ('jurisdiction=' + options.jurisdiction + '&') : '') +
         (options.county ? ('county=' + options.county + '&') : '') + 
+        (filterComponent.component_type ? ('componenttype=' + filterComponent.component_type + '&') : '') + (filterComponent.status ? ('componentstatus=' + filterComponent.status + '&') : '') + 
+        (filterComponent.mhfdmanager ? ('watershed=' + options.mhfdmanager + '&') : '') + (filterComponent.jurisdiction ? ('jurisdictionComp=' + filterComponent.jurisdiction + '&') : '') + 
+        (filterComponent.county ? ('countyComp=' + filterComponent.county + '&') : '') + (filterComponent.yearofstudy ? ('yearofstudy=' + filterComponent.yearofstudy + '&') : '') +
         'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
 }
 
@@ -288,8 +294,9 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
 export const getGalleryProblems = () => {
     const coordinates = store.getState().map.filterCoordinates;
     const filterOptions = store.getState().map.filterProblemOptions;
+    const filterComponent = store.getState().map.filterComponentOptions;
     return (dispatch: Function) => {
-        datasets.getData(SERVER.GALLERY_PROBLEMS + '&' + options(filterOptions, coordinates), datasets.getToken()).then(galleryProblems => {
+        datasets.getData(SERVER.GALLERY_PROBLEMS + '&' + options(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProblems => {
             if (galleryProblems?.length >= 0) {
                 dispatch({type: types.GALLERY_PROBLEMS, galleryProblems});
             }
@@ -300,8 +307,9 @@ export const getGalleryProblems = () => {
 export const getGalleryProjects = () => {
     const coordinates = store.getState().map.filterCoordinates;
     const filterOptions = store.getState().map.filterProjectOptions;
+    const filterComponent = store.getState().map.filterComponentOptions;
     return (dispatch: Function) => {
-        datasets.getData(SERVER.GALLERY_PROJECTS + optionsProjects(filterOptions, coordinates), datasets.getToken()).then(galleryProjects => {
+        datasets.getData(SERVER.GALLERY_PROJECTS + optionsProjects(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {
                dispatch({type: types.GALLERY_PROJECTS, galleryProjects}); 
             }
