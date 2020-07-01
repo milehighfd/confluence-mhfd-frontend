@@ -334,10 +334,10 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={checkBoxTotalCost} onChange={(item) => {
                 setCheckboxTotalCost(item as Array<string>);
             }}>
-                <p><Checkbox value={'20000000,25000000'}>20M-25M</Checkbox></p>
-                <p><Checkbox value={'15000000,20000000'}>15M-20M</Checkbox></p>
-                <p><Checkbox value={'5000000,10000000'}>5M-10M</Checkbox></p>
-                <p><Checkbox value={'0,5000000'}>0-5M</Checkbox></p>
+                <p><Checkbox value={'20'}>20M-25M</Checkbox></p>
+                <p><Checkbox value={'15'}>15M-20M</Checkbox></p>
+                <p><Checkbox value={'5'}>5M-10M</Checkbox></p>
+                <p><Checkbox value={'0'}>0-5M</Checkbox></p>
             </Checkbox.Group>
         </Col>
     </Row>

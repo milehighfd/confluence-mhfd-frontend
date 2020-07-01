@@ -27,7 +27,8 @@ export type MapProps = {
     filterProjectOptions: OptionProjects,
     getGalleryProblems: Function,
     getGalleryProjects: Function,
-    filterProblems: any
+    filterProblems: any,
+    filterProjects: any
 }
 
 export type MapHOCProps = {
@@ -86,7 +87,8 @@ export type MapHOCProps = {
     spinFilter: boolean,
     filterComponentOptions: OptionComponents,
     setFilterComponentOptions: Function,
-    filterProblems: any
+    filterProblems: any,
+    filterProjects: any
 }
 
 export type MapViewTypes = { 
@@ -147,7 +149,7 @@ export type OptionProjects = {
     streamname: string,
     creator: string,
     totalcost: string,
-    workPlanYear: string,
+    workplanyear: string,
     problemtype: string,
     mhfdmanager: string,
     jurisdiction: string,

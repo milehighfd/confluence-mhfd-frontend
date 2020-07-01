@@ -56,7 +56,8 @@ const mapStateToProps = (state: any) => {
         highlighted: state.map.highlighted,
         spinFilter: state.map.spinFilters,
         filterComponentOptions: state.map.filterComponentOptions,
-        filterProblems: state.map.filterProblems
+        filterProblems: state.map.filterProblems,
+        filterProjects: state.map.filterProjects
     };
 };
 

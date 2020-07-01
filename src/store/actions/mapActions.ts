@@ -190,7 +190,7 @@ const optionsProjects = (options: OptionProjects, coordinates: string) => {
         (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') +
         (options.lgmanager ? ('lgmanager=' + options.lgmanager + '&') : '') + (options.streamname ? ('streamname=' + options.streamname + '&') : '') + 
         (options.creator ? ('creator=' + options.creator + '&') : '') + (options.totalcost ? ('totalcost=' + options.totalcost + '&') : '') +
-        (options.workPlanYear ? ('workPlanYear=' + options.workPlanYear + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') + 
+        (options.workplanyear ? ('workplanyear=' + options.workplanyear + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') + 
         (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.jurisdiction ? ('jurisdiction=' + options.jurisdiction + '&') : '') +
         (options.county ? ('county=' + options.county + '&') : '') + 
         'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
@@ -241,8 +241,36 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
 }
 
 export const setFilterProjectOptions = (filters: OptionProjects) => {
+    const auxFilter = {
+        projectname: filters.keyword,
+        projecttype: filters.problemtype,
+        status: filters.status,
+        startyear: filters.startyear,
+        completedyear: filters.completedyear,
+        mhfddollarsallocated: filters.mhfddollarsallocated,
+        lgmanager: filters.lgmanager,
+        streamname: filters.streamname,
+        creator: filters.creator,
+        estimatedcost: [''],
+        finalcost: [''],
+        workplanyr: filters.workplanyear, // workplanyr1, workplanyr2, workplanyr3, workplanyr4, workplanyr5
+        problemtype: filters.problemtype, // not exist in tables
+        mhfdmanager: filters.mhfdmanager,
+        jurisdiction: filters.jurisdiction,
+        county: filters.county
+    }
+    const totalcost = filters.totalcost.split(',');
+    
+    const auxCost = [];
+    for (let index = 0; index < totalcost.length; index++) {
+        const element = totalcost[index];
+        auxCost.push(element === '0' ? '0,5000000' : ((element === '5')? '5000000,10000000': ((element === '10') ? '10000000,20000000' : '20000000,25000000')));
+    }
+    auxFilter.estimatedcost = auxCost;
+    auxFilter.finalcost = auxCost
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters});
+        dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilter});
     }
 }
 

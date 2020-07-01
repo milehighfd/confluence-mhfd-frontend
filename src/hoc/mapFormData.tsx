@@ -66,7 +66,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               spinFilter,
               setFilterComponentOptions,
               filterComponentOptions,
-              filterProblems
+              filterProblems,
+              filterProjects
              } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -151,7 +152,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             filterProjectOptions={filterProjectOptions}
                             getGalleryProblems={getGalleryProblems}
                             getGalleryProjects={getGalleryProjects}
-                            filterProblems={filterProblems}/>
+                            filterProblems={filterProblems}
+                            filterProjects={filterProjects}/>
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

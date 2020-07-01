@@ -147,6 +147,24 @@ const initState = {
         source: '',
         components: ''
     },
+    filterProjects: {
+        projectname: '',
+        projecttype: '',
+        status: '',
+        startyear: '',
+        completedyear: '',
+        mhfddollarsallocated: '',
+        lgmanager: '',
+        streamname: '',
+        creator: '',
+        estimatedcost: [''],
+        finalcost: [''],
+        workplanyr: '', // workplanyr1, workplanyr2, workplanyr3, workplanyr4, workplanyr5
+        problemtype: '', // not exist in tables
+        mhfdmanager: '',
+        jurisdiction: '',
+        county: ''
+    },
     filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423',
     paramFilters : {
         problems: {},
@@ -320,6 +338,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 filterProblems: action.filters
+            }
+        }
+        case types.SET_FILTER_PROJECTS: {
+            return {
+                ...state,
+                filterProjects: action.filters
             }
         }
         default: 
