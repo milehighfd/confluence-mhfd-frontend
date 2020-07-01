@@ -55,6 +55,8 @@ const mapStateToProps = (state: any) => {
         paramFilters: state.map.paramFilters,
         highlighted: state.map.highlighted,
         spinFilter: state.map.spinFilters,
+        spinCardProblems: state.map.spinCardProblems,
+        spinCardProjects: state.map.spinCardProjects,
         filterComponentOptions: state.map.filterComponentOptions,
         filterProblems: state.map.filterProblems,
         filterProjects: state.map.filterProjects

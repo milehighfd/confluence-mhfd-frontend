@@ -67,7 +67,9 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               setFilterComponentOptions,
               filterComponentOptions,
               filterProblems,
-              filterProjects
+              filterProjects,
+              spinCardProblems,
+              spinCardProjects
              } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -124,7 +126,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
-                  <Spin spinning={spinFilter}>
+                  <Spin spinning={(spinFilter || spinCardProblems || spinCardProjects)}>
                     <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={leftWidth}>
                         <Map
                             leftWidth={leftWidth}

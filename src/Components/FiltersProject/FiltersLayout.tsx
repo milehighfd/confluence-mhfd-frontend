@@ -222,8 +222,6 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
 
 export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects } : any) => {
-    console.log(paramProjects);
-
     const [checkBoxProjectType, setCheckboxProjectType] = useState<Array<string>>(filterProjectOptions.projecttype.split(','));
     const [checkBoxTotalCost, setCheckboxTotalCost] = useState<Array<string>>(filterProjectOptions.totalcost.split(','));
     const [checkBoxProjectStatus, setCheckboxProjectStatus] = useState<Array<string>>(filterProjectOptions.status.split(','));
@@ -334,6 +332,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             }}>
                 <p><Checkbox value={'20'}>20M-25M</Checkbox></p>
                 <p><Checkbox value={'15'}>15M-20M</Checkbox></p>
+                <p><Checkbox value={'10'}>10M-15M</Checkbox></p>
                 <p><Checkbox value={'5'}>5M-10M</Checkbox></p>
                 <p><Checkbox value={'0'}>0-5M</Checkbox></p>
             </Checkbox.Group>
@@ -368,7 +367,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                     setCompleted(e);
                 }}>
                     {paramProjects.completedyear.map((element: number, index: number) =>{
-                        return <Option value={element}>{element}</Option>
+                        return <Option key={index} value={element}>{element}</Option>
                     })}
                 </Select>
             </Col>
@@ -582,7 +581,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                         setCheckboxYearofStudy(item as Array<string>);
                     }}>
                         {paramComponents.yearofstudy.map((element: string, index: number) => {
-                            return <p><Checkbox value={element}>{element}</Checkbox></p>
+                            return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
                         })}
                     </Checkbox.Group>
                     

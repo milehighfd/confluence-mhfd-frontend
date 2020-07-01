@@ -14,10 +14,10 @@ export class MapService {
   public styleUrl = 'mapbox://styles/milehighfd/ck4k0tjln58h41cl4ixb8jsez';
   public styleUrlSatelite = 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft';
   controller: boolean = false;
-  constructor() {
+  constructor( id: string) {
     (mapboxgl as any).accessToken = this.token;
     this.map = new Map({
-      container: 'map',
+      container: id,
       preserveDrawingBuffer: true,
       style: this.styleUrl,
       center: [-99, 39.20],

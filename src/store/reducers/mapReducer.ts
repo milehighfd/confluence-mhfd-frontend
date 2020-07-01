@@ -172,6 +172,8 @@ const initState = {
         components: {}
     },
     spinFilters: false,
+    spinCardProblems: false,
+    spinCardProjects: false,
     highlighted: {
         type: '',
         value: ''
@@ -326,6 +328,18 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 spinFilters: action.spin
+            }
+        }
+        case types.SET_SPIN_CARD_PROBLEMS: {
+            return {
+                ...state,
+                spinCardProblems: action.spin
+            }
+        }
+        case types.SET_SPIN_CARD_PROJECTS: {
+            return {
+                ...state,
+                spinCardProjects: action.spin
             }
         }
         case types.SET_FILTER_COMPONENT_OPTIONS: {

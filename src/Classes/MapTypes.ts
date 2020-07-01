@@ -85,6 +85,8 @@ export type MapHOCProps = {
     highlighted: any,
     setHighlighted: Function,
     spinFilter: boolean,
+    spinCardProblems: boolean,
+    spinCardProjects: boolean,
     filterComponentOptions: OptionComponents,
     setFilterComponentOptions: Function,
     filterProblems: any,

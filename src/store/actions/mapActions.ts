@@ -184,6 +184,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         (filterComponent.component_type ? ('componenttype=' + filterComponent.component_type + '&') : '') + (filterComponent.status ? ('componentstatus=' + filterComponent.status + '&') : '') + 
         (filterComponent.mhfdmanager ? ('watershed=' + options.mhfdmanager + '&') : '') + (filterComponent.jurisdiction ? ('jurisdictionComp=' + filterComponent.jurisdiction + '&') : '') + 
         (filterComponent.county ? ('countyComp=' + filterComponent.county + '&') : '') + (filterComponent.yearofstudy ? ('yearofstudy=' + filterComponent.yearofstudy + '&') : '') +
+        (filterComponent.estimatedcost ? ('estimatedcostComp=' + filterComponent.estimatedcost + '&') : '') +
         'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
 }
 const optionsProjects = (options: OptionProjects, filterComponent: OptionComponents, coordinates: string) => {
@@ -194,7 +195,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         (options.creator ? ('creator=' + options.creator + '&') : '') + (options.totalcost ? ('totalcost=' + options.totalcost + '&') : '') +
         (options.workplanyear ? ('workplanyear=' + options.workplanyear + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') + 
         (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.jurisdiction ? ('jurisdiction=' + options.jurisdiction + '&') : '') +
-        (options.county ? ('county=' + options.county + '&') : '') + 
+        (options.county ? ('county=' + options.county + '&') : '') + (filterComponent.estimatedcost ? ('estimatedcostComp=' + filterComponent.estimatedcost + '&') : '') +
         (filterComponent.component_type ? ('componenttype=' + filterComponent.component_type + '&') : '') + (filterComponent.status ? ('componentstatus=' + filterComponent.status + '&') : '') + 
         (filterComponent.mhfdmanager ? ('watershed=' + options.mhfdmanager + '&') : '') + (filterComponent.jurisdiction ? ('jurisdictionComp=' + filterComponent.jurisdiction + '&') : '') + 
         (filterComponent.county ? ('countyComp=' + filterComponent.county + '&') : '') + (filterComponent.yearofstudy ? ('yearofstudy=' + filterComponent.yearofstudy + '&') : '') +
@@ -268,7 +269,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
     const auxCost = [];
     for (let index = 0; index < totalcost.length && filters.totalcost.length; index++) {
         const element = totalcost[index];
-        auxCost.push(element === '0' ? '0,5000000' : ((element === '5')? '5000000,10000000': ((element === '10') ? '10000000,20000000' : '20000000,25000000')));
+        auxCost.push(element === '0' ? '0,5000000' : ((element === '5')? '5000000,10000000': ((element === '10') ? '10000000,15000000' : (element === '15') ? '15000000,20000000' :'20000000,25000000')));
     }
     auxFilter.estimatedcost = auxCost;
     auxFilter.finalcost = auxCost;
@@ -296,10 +297,12 @@ export const getGalleryProblems = () => {
     const filterOptions = store.getState().map.filterProblemOptions;
     const filterComponent = store.getState().map.filterComponentOptions;
     return (dispatch: Function) => {
+        dispatch({type: types.SET_SPIN_CARD_PROBLEMS, spin: true });
         datasets.getData(SERVER.GALLERY_PROBLEMS + '&' + options(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProblems => {
             if (galleryProblems?.length >= 0) {
                 dispatch({type: types.GALLERY_PROBLEMS, galleryProblems});
             }
+            dispatch({type: types.SET_SPIN_CARD_PROBLEMS, spin: false });
         });
     }
 }
@@ -309,10 +312,12 @@ export const getGalleryProjects = () => {
     const filterOptions = store.getState().map.filterProjectOptions;
     const filterComponent = store.getState().map.filterComponentOptions;
     return (dispatch: Function) => {
+        dispatch({type: types.SET_SPIN_CARD_PROJECTS, spin: true });
         datasets.getData(SERVER.GALLERY_PROJECTS + optionsProjects(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {
                dispatch({type: types.GALLERY_PROJECTS, galleryProjects}); 
             }
+            dispatch({type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         });
     }
 }

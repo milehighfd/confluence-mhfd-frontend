@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Collapse, Table, Row, Col, Button, Dropdown, Menu } from 'antd';
+import { MapService } from '../../../utils/MapService';
+
 
 const { Panel } = Collapse;
 export default () => {
+  const html = document.getElementById('map2');
+  if (html) {
+    const map = new MapService('map2');
+  }
     const dataSource = [
         {
           key: '1',
@@ -122,8 +128,10 @@ export default () => {
       </Panel>
 
       <Panel header="Map" key="4" extra={genExtra()}>
-        <div className="detailed-map">
-          <Dropdown overlay={menu} className="btn-03">
+        <div className="map">
+          <div id="map2" style={{height: '100%', width: '100%'}} ></div>
+          <div>-</div>
+          {/* <Dropdown overlay={menu} className="btn-03">
             <Button>
               Dark Terrain <img src="/Icons/icon-12.svg" alt="" />
             </Button>
@@ -137,7 +145,7 @@ export default () => {
           <div className="m-foo">
             <p><div style={{ background: '#29c499', marginRight: '5px' }}></div> Problems</p>
             <p><div style={{ background: '#fac774', marginRight: '5px' }}></div> Projects</p>
-          </div>
+          </div> */}
         </div>
       </Panel>
 
