@@ -137,9 +137,9 @@ const initState = {
     },
     filterProblems: {
         problemname: '',
-        solutioncost: [''],
+        solutioncost: [],
         problempriority: '',
-        solutionstatus: [''],
+        solutionstatus: [],
         county: '',
         jurisdiction: '',
         mhfdmanager: '',
@@ -153,12 +153,12 @@ const initState = {
         status: '',
         startyear: '',
         completedyear: '',
-        mhfddollarsallocated: '',
+        mhfddollarsallocated: [],
         lgmanager: '',
         streamname: '',
         creator: '',
-        estimatedcost: [''],
-        finalcost: [''],
+        estimatedcost: [],
+        finalcost: [],
         workplanyr: '', // workplanyr1, workplanyr2, workplanyr3, workplanyr4, workplanyr5
         problemtype: '', // not exist in tables
         mhfdmanager: '',

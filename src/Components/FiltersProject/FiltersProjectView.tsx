@@ -107,7 +107,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 setFilterProjectOptions={setFilterProjectOptions}
                 getGalleryProjects={getGalleryProjects} />
       case FILTER_COMPONENTS_TRIGGER:
-        return <ComponentsFilter paramProblems={paramFilters.components} 
+        return <ComponentsFilter paramComponents={paramFilters.components} 
                 filterComponentOptions={filterComponentOptions}
                 setFilterComponentOptions={setFilterComponentOptions} 
                 getGalleryProblems={getGalleryProblems}

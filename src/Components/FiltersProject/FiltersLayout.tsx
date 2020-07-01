@@ -386,6 +386,11 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 {paramProjects.mhfddollarsallocated.map((element: string, index: number) => {
                     return element !== null && <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
                 })}
+                <p><Checkbox value={'20'}>20M-25M</Checkbox></p>
+                <p><Checkbox value={'15'}>15M-20M</Checkbox></p>
+                <p><Checkbox value={'10'}>10M-15M</Checkbox></p>
+                <p><Checkbox value={'5'}>5M-10M</Checkbox></p>
+                <p><Checkbox value={'1'}>1M-5M</Checkbox></p>
             </Checkbox.Group>
         </Col>
         <Col span={12}>
@@ -488,43 +493,52 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 </>
 }
 
-export const ComponentsFilter = ({paramProblems, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects} : any) => {
+export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects} : any) => {
+    console.log(paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects);
+    
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 295}}>
             <Row className="filt-00" style={{ marginTop: '10px' }}>
                 <Col span={12}>
                     <h5>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <p><Radio>Grade Control Structure</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>Pipe Appurtenances</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>Special Item Point</Radio> <span className="filt-s">302</span></p>
-                    <p><Radio>Special Item Linear</Radio> <span className="filt-s">109</span></p>
-                    <p><Radio>Special Item Area</Radio> <span className="filt-s">109</span></p>
-                    <p><Radio>Channel Improvements Linear</Radio> <span className="filt-s">109</span></p>
+                    <Checkbox.Group >
+                        {paramComponents.component_type.map((element: { key: string, value: string }, index: number) => {
+                            return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
+                        })}
+                    </Checkbox.Group>
                 </Col>
                 <Col span={12}>
                     <h5>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <p><Radio>Approved</Radio> <span className="filt-s">13%</span></p>
-                    <p><Radio>Active</Radio> <span className="filt-s">13%</span></p>
-                    <p><Radio>None</Radio> <span className="filt-s">13%</span></p>
-                    <p><Radio>Completed</Radio> <span className="filt-s">13%</span></p>
+                    <Checkbox.Group>
+                        {paramComponents.status.map((element: string, index: number) => {
+                            return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                        })}
+                    </Checkbox.Group>
+                    
                 </Col>
             </Row>
 
             <Row className="filt-00">
                 <Col span={12}>
                     <h5>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <p><Radio>1972</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>1984</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>1996</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>2008</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>2020</Radio> <span className="filt-s">208</span></p>
+                    <Checkbox.Group>
+                        {paramComponents.yearofstudy}
+                        <p><Checkbox>1972</Checkbox> <span className="filt-s">208</span></p>
+                        <p><Checkbox>1984</Checkbox> <span className="filt-s">208</span></p>
+                        <p><Checkbox>1996</Checkbox> <span className="filt-s">208</span></p>
+                        <p><Checkbox>2008</Checkbox> <span className="filt-s">208</span></p>
+                        <p><Checkbox>2020</Checkbox> <span className="filt-s">208</span></p>
+                    </Checkbox.Group>
+                    
                 </Col>
                 <Col span={12}>
                     <h5>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <p><Radio>0</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>$2M</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>$4M</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>$6M</Radio> <span className="filt-s">208</span></p>
-                    <p><Radio>$8M</Radio> <span className="filt-s">208</span></p>
+                    <Checkbox.Group>
+                        <p><Checkbox>0</Checkbox> <span className="filt-s">208</span></p>
+                        <p><Checkbox>$2M</Checkbox> <span className="filt-s">208</span></p>
+                        <p><Checkbox>$4M</Checkbox> <span className="filt-s">208</span></p>
+                        <p><Checkbox>$6M</Checkbox> <span className="filt-s">208</span></p>
+                        <p><Checkbox>$8M</Checkbox> <span className="filt-s">208</span></p>
+                    </Checkbox.Group>
                 </Col>
             </Row>
 
