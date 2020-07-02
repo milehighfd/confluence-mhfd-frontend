@@ -141,7 +141,7 @@ const Map = ({ leftWidth,
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
-            dragRotate: false,
+            dragRotate: true,
             touchZoomRotate: false,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
             center: [ user.coordinates.longitude, user.coordinates.latitude],
@@ -319,6 +319,36 @@ const Map = ({ leftWidth,
                 console.log('filtered ', filterField, filters);
                 if (filters && filters.length) {
                     const options: any[] = ['any'];
+                    if (filterField === 'estimatedcost') {
+                        for (const range of filters) {
+                            const [lower, upper] = range.split(',');
+                            const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
+                            const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+                            const allFilter = ['all', lowerArray, upperArray];
+                            options.push(allFilter);
+                        }
+                        for (const range of toFilter['finalcost']) {
+                            const [lower, upper] = range.split(',');
+                            const lowerArray: any[] = ['>=', ['to-number', ['get', 'finalcost']], +lower];
+                            const upperArray: any[] = ['<=', ['to-number', ['get', 'finalcost']], +upper];
+                            const allFilter = ['all', lowerArray, upperArray];
+                            options.push(allFilter);
+                        }
+                        allFilters.push(options);
+                        continue;
+                    }
+                    if (filterField === 'finalcost') {
+                        continue;
+                    }
+                    if (filterField === 'startyear') {
+                        const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +filters];
+                        const upperArray: any[] = ['<=', ['to-number', ['get', 'completedyear']], +toFilter['completedyear']];
+                        allFilters.push(['all', lowerArray, upperArray]);
+                        continue;       
+                    }
+                    if (filterField === 'completedyear') {
+                        continue;
+                    }
                     if (typeof filters === 'object') {
                         for (const range of filters) {
                             const [lower, upper] = range.split(',');
