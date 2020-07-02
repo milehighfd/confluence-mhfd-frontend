@@ -221,11 +221,9 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
         mhfdmanager: filters.mhfdmanager,
         problemtype: filters.problemtype,
         source: filters.source,
-        components: filters.components
+        components: [] as any
     }
     const solutioncost = filters.cost.split(',');
-    console.log('size:::', filters.cost.length);
-    
     const auxSolutionCost = [];
     for (let index = 0; index < solutioncost.length && filters.cost.length; index++) {
         const element = solutioncost[index];
@@ -241,8 +239,13 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
     auxFilter.solutionstatus = auxSolutionStatus;
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters});
-        dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilter})
-        
+        const params = filters.components ? ('?tables=' + filters.components): '';
+        datasets.getData(SERVER.GET_FILTER_COMPONENTS_FOR_PROBLEMS + params, datasets.getToken()).then(tables => {
+            if (tables?.length >= 0) {
+                auxFilter.components = tables;
+                dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilter})
+            }
+        });
     }
 }
 

@@ -13,6 +13,7 @@ export const SERVER = (function () {
     const PROJECT = 'projects';
     const ATTACHMENT = 'attachments';
     const CREATE_PROJECT = 'create';
+    const FILTERS = 'filters';
     const CREATE_PROJECT_DEBRIS = 'createMaintenanceDebris';
     const CREATE_PROJECT_CAPITAL = 'createCapital';
     const CREATE_PROJECT_ACQUISITION = 'createAcquisition';
@@ -101,6 +102,7 @@ export const SERVER = (function () {
         PROJECT_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROJECT_BY_ID}`,
         PARAM_FILTERS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTERS}`,
         GROUP_COLUMNS: `${URL_BASE.BASE}/${GALLERY}/${GROUP_COLUMNS}`,
-        COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/${GALLERY}/${COMPONENTS_BY_PROBLEMID}`
+        COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/${GALLERY}/${COMPONENTS_BY_PROBLEMID}`,
+        GET_FILTER_COMPONENTS_FOR_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}`
     }
 })();
