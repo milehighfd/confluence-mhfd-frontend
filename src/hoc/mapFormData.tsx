@@ -207,6 +207,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             setFilterComponentOptions={setFilterComponentOptions}
                             filterComponentOptions={filterComponentOptions}
                             getComponentsByProblemId={getComponentsByProblemId}
+                            componentsOfProblems={componentsOfProblems}
                       />
                     </Col>
                   </Spin>

@@ -13,12 +13,12 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any }) => {
   // const [ spin, setSpin] = useState<boolean>(false);
   //console.log(' COMPONENTEEEEEES',getComponentsByProblemId);
-  console.log('componentsOfProblems:::', componentsOfProblems);
+  console.log('componentsOfProblems:::', componentsOfProblems, detailed);
   
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
-      getComponentsByProblemId(data.problemid);
+      getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
     } else {
       getDetailedPageProject(data.objectid);
     }

@@ -57,7 +57,7 @@ export const SERVER = (function () {
     const PROJECT_BY_ID = 'project-by-id';
     const GROUP_COLUMNS = 'group-by';
     const PARAM_FILTERS = 'params-filters';
-    const COMPONENTS_BY_PROBLEMID = 'components-by-problemid';
+    const COMPONENTS_BY_ENTITYID = 'components-by-entityid';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -104,7 +104,7 @@ export const SERVER = (function () {
         PROJECT_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROJECT_BY_ID}`,
         PARAM_FILTERS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTERS}`,
         GROUP_COLUMNS: `${URL_BASE.BASE}/${GALLERY}/${GROUP_COLUMNS}`,
-        COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/${GALLERY}/${COMPONENTS_BY_PROBLEMID}`,
+        COMPONENTS_BY_ENTITYID: `${URL_BASE.BASE}/${GALLERY}/${COMPONENTS_BY_ENTITYID}`,
         GET_FILTER_COMPONENTS_FOR_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}`,
         GET_FILTER_PROBLEMTYPE_FOR_PROJECTS: `${URL_BASE.BASE}/${FILTERS}/${PROJECT_FILTERS}`
     }

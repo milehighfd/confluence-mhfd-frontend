@@ -263,7 +263,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         estimatedcost: [] as string[],
         finalcost: [] as string[],
         workplanyr: filters.workplanyear, // workplanyr1, workplanyr2, workplanyr3, workplanyr4, workplanyr5
-        problemtype: filters.problemtype as any, // not exist in tables
+        // problemtype: filters.problemtype as any, // not exist in tables
         mhfdmanager: filters.mhfdmanager,
         jurisdiction: filters.jurisdiction,
         county: filters.county,
@@ -388,7 +388,7 @@ export const getParamsFilter = () => {
 }
 export const getComponentsByProblemId = (data: any) => {
     return (dispatch: Function) => {
-        datasets.postData(SERVER.COMPONENTS_BY_PROBLEMID, data, datasets.getToken()).then(params => {
+        datasets.postData(SERVER.COMPONENTS_BY_ENTITYID, data, datasets.getToken()).then(params => {
             dispatch({type: types.GET_COMPONENTS_BY_PROBLEMID, params});
         })
     }

@@ -180,7 +180,7 @@ const initState = {
         projects: {},
         components: {}
     },
-    componentsByProblemId: {},
+    componentsByProblemId: [],
     spinFilters: false,
     spinCardProblems: false,
     spinCardProjects: false,
