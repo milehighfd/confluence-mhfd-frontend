@@ -171,9 +171,7 @@ const initState = {
         projects: {},
         components: {}
     },
-    getComponentsByProblemId: {
-        components: []
-    },
+    getComponentsByProblemId: [],
     spinFilters: false,
     spinCardProblems: false,
     spinCardProjects: false,

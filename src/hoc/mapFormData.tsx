@@ -203,6 +203,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             setHighlighted={setHighlighted}
                             setFilterComponentOptions={setFilterComponentOptions}
                             filterComponentOptions={filterComponentOptions}
+                            getComponentsByProblemId={getComponentsByProblemId}
                       />
                     </Col>
                   </Spin>

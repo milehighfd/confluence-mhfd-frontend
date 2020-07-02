@@ -365,7 +365,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       accordionRow={accordionRow}
                       listFilters={filters}
                       removeFilter={removeFilter}
-                      setHighlighted={setHighlighted} />
+                      setHighlighted={setHighlighted}
+                      getComponentsByProblemId={getComponentsByProblemId} />
               </TabPane>
             );
           })}
