@@ -6,6 +6,8 @@ import { MapService } from '../../../utils/MapService';
 const { Panel } = Collapse;
 export default ({ type, data }: { type: string, data: any }) => {
   const html = document.getElementById('map2');
+  
+  const total = data.components.reduce((prev: any,next: any) => prev + next.estimated_cost,0);
   if (html) {
     const map = new MapService('map2');
   }
@@ -144,6 +146,10 @@ export default ({ type, data }: { type: string, data: any }) => {
                   <Col span={8}>{ new Intl.NumberFormat("en-EN").format(item.original_cost/data.solutioncost)}</Col>  
                 </Row>
         })}
+        <Row className="solution-b">
+          <Col span={8}><b>Total Estimated Cost</b></Col>
+      <Col span={4}><b>${ new Intl.NumberFormat("en-EN").format(total)}</b></Col>
+        </Row>
         {/* <Row className="solution-b">
           <Col span={8}>Alpha St culvert</Col>
           <Col span={4}>$500,000</Col>
