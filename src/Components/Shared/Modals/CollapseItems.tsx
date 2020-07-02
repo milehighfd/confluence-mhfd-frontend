@@ -8,8 +8,8 @@ const { Content } = Layout;
 export default ({ type, data }: { type: string, data: any }) => {
   const html = document.getElementById('map2');
   
-  const total = data.components.reduce((prev: any,next: any) => prev + next.estimated_cost,0);
-  console.log('data.components', data.components);
+  const total = data.reduce((prev: any,next: any) => prev + next.estimated_cost,0);
+  console.log('data.components', data);
   const columns = [
     {
       title: 'Solution Type',
@@ -145,7 +145,7 @@ export default ({ type, data }: { type: string, data: any }) => {
       <Panel header="Component & solutions" key="3" extra={genExtra()}>
         <Row className="table-up-modal">
           <Col span={24}>
-            <Table loading={false} columns={columns} rowKey={(record: any) => record.type} dataSource={data.components} pagination={false}
+            <Table loading={false} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
                   onChange={(pagination, filters, sort) => {
                     console.log('sorter:::', pagination, filters, sort);
                     

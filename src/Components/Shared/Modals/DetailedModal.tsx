@@ -89,7 +89,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               <DetailedInfo detailedPage={detailedPage} />
               {
                 detailedPage.problemid ? (
-                  <CollapseItems type={'problem'} data={detailedPage} />
+                  <CollapseItems type={'problem'} data={componentsOfProblems} />
                 ) : (
                     <CollapseItems type={'project'} data={detailedPage} />
                   )
