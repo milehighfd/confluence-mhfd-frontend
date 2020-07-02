@@ -349,7 +349,7 @@ const Map = ({ leftWidth,
                     if (filterField === 'startyear') {
                         const lowerArray: any[] = ['>=', filterField, +filters];
                         const upperArray: any[] = ['<=', 'completedyear', +toFilter['completedyear']];
-                        if (toFilter['completedyear']) {
+                        if (toFilter['completedyear'] !== 9999) {
                             allFilters.push(['all', lowerArray, upperArray]);
                         } else {
                             allFilters.push(lowerArray);
