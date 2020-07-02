@@ -14,6 +14,8 @@ export const SERVER = (function () {
     const ATTACHMENT = 'attachments';
     const CREATE_PROJECT = 'create';
     const FILTERS = 'filters';
+    const PROBLEMTYPE = 'projecttype';
+    const PROJECT_FILTERS = 'project-filter';
     const CREATE_PROJECT_DEBRIS = 'createMaintenanceDebris';
     const CREATE_PROJECT_CAPITAL = 'createCapital';
     const CREATE_PROJECT_ACQUISITION = 'createAcquisition';
@@ -103,6 +105,7 @@ export const SERVER = (function () {
         PARAM_FILTERS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTERS}`,
         GROUP_COLUMNS: `${URL_BASE.BASE}/${GALLERY}/${GROUP_COLUMNS}`,
         COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/${GALLERY}/${COMPONENTS_BY_PROBLEMID}`,
-        GET_FILTER_COMPONENTS_FOR_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}`
+        GET_FILTER_COMPONENTS_FOR_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}`,
+        GET_FILTER_PROBLEMTYPE_FOR_PROJECTS: `${URL_BASE.BASE}/${FILTERS}/${PROJECT_FILTERS}`
     }
 })();

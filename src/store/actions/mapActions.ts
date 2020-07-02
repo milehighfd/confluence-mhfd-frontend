@@ -263,7 +263,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         estimatedcost: [] as string[],
         finalcost: [] as string[],
         workplanyr: filters.workplanyear, // workplanyr1, workplanyr2, workplanyr3, workplanyr4, workplanyr5
-        problemtype: filters.problemtype, // not exist in tables
+        problemtype: [] as any, // not exist in tables
         mhfdmanager: filters.mhfdmanager,
         jurisdiction: filters.jurisdiction,
         county: filters.county
@@ -285,7 +285,14 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
     auxFilter.mhfddollarsallocated = auxmhfddollarsallocated;
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters});
-        dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilter});
+        const params = filters.problemtype ? ('?problemtype=' + filters.problemtype): '';
+        datasets.getData(SERVER.GET_FILTER_PROBLEMTYPE_FOR_PROJECTS + params, datasets.getToken()).then(tables => {
+            if (tables?.length >= 0) {
+                auxFilter.problemtype = tables;
+                dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilter});
+            }
+        });
+        
     }
 }
 

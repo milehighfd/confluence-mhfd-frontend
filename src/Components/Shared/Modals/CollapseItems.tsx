@@ -1,52 +1,78 @@
 import React, { useEffect, useState } from 'react';
-import { Collapse, Table, Row, Col, Button, Dropdown, Menu } from 'antd';
+import { Collapse, Table, Row, Col, Button, Dropdown, Menu, Layout } from 'antd';
 import { MapService } from '../../../utils/MapService';
 
 
 const { Panel } = Collapse;
+const { Content } = Layout;
 export default ({ type, data }: { type: string, data: any }) => {
   const html = document.getElementById('map2');
   
   const total = data.components.reduce((prev: any,next: any) => prev + next.estimated_cost,0);
+  console.log('data.components', data.components);
+  const columns = [
+    {
+      title: 'Solution Type',
+      dataIndex: 'type',
+      sorter: true
+    },
+    {
+      title: 'Cost',
+      dataIndex: 'estimated_cost',
+      render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
+      sorter: true
+    },
+    {
+      title: 'Percent',
+      dataIndex: 'percentage',
+      sorter: true
+    },
+    {
+      title: 'Total Cost',
+      dataIndex: 'original_cost',
+      sorter: true,
+      render: (original_cost: number) => new Intl.NumberFormat("en-EN").format(original_cost/data.solutioncost)
+    }
+  ];
   if (html) {
     const map = new MapService('map2');
   }
   //console.log('COLLAPSE',data);
-  const showComponent = (type: any) => {
-    if (type === 'project') {
-      return <Panel header="PROBLEM" key="1" extra={genExtra()}>
-        <div className="problem-t">
-          <Table dataSource={dataSource} columns={columns} />
-        </div>
-      </Panel>;
-    } else {
-      return '';
-    }
-  }
-  const showVendors = (type: any) => {
-    if (type === 'project') {
-      return <Panel header="VENDORS" key="2" extra={genExtra()}>
-        <div className="detailed-info">
-          <Row>
-            <Col span={4}>
-              <label><i>Contractor</i></label>
-            </Col>
-            <Col span={8}>
-              <p>Atkins</p>
-            </Col>
-            <Col span={4}>
-              <label><i>Consultant</i></label>
-            </Col>
-            <Col span={8}>
-              <p>Applegate Group</p>
-            </Col>
-          </Row>
-        </div>
-      </Panel>
-    } else {
-      return '';
-    }
-  }
+  // const showComponent = (type: any) => {
+  //   if (type === 'project') {
+  //     return <Panel header="PROBLEM" key="1" extra={genExtra()}>
+  //       <div className="problem-t">
+  //         <Table dataSource={dataSource} columns={columns} />
+  //       </div>
+  //     </Panel>;
+  //   } else {
+  //     return '';
+  //   }
+  // }
+  // const showVendors = (type: any) => {
+  //   if (type === 'project') {
+  //     return <Panel header="VENDORS" key="2" extra={genExtra()}>
+  //       <div className="detailed-info">
+  //         <Row>
+  //           <Col span={4}>
+  //             <label><i>Contractor</i></label>
+  //           </Col>
+  //           <Col span={8}>
+  //             <p>Atkins</p>
+  //           </Col>
+  //           <Col span={4}>
+  //             <label><i>Consultant</i></label>
+  //           </Col>
+  //           <Col span={8}>
+  //             <p>Applegate Group</p>
+  //           </Col>
+  //         </Row>
+  //       </div>
+  //     </Panel>
+  //   } else {
+  //     return '';
+  //   }
+  // }
   const dataSource = [
     {
       key: '1',
@@ -62,21 +88,6 @@ export default ({ type, data }: { type: string, data: any }) => {
       key: '3',
       name: '8 structures in LDC floodplain @Alpha St',
       priority: 'High Priority',
-    },
-  ];
-
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      sorter: true,
-    },
-    {
-      title: 'Priority',
-      dataIndex: 'priority',
-      key: 'priority',
-      sorter: true,
     },
   ];
 
@@ -102,10 +113,10 @@ export default ({ type, data }: { type: string, data: any }) => {
   );
   return <div className="tabs-detailed">
     <Collapse>
-      {
+      {/* {
         showComponent(type)
       }
-      { showVendors(type) }
+      { showVendors(type) } */}
       {/* <Panel header="PROBLEM" key="1" extra={genExtra()}>
         <div className="problem-t">
           <Table dataSource={dataSource} columns={columns} />
@@ -132,52 +143,20 @@ export default ({ type, data }: { type: string, data: any }) => {
       </Panel> */}
 
       <Panel header="Component & solutions" key="3" extra={genExtra()}>
-        <Row className="solution-h">
-          <Col span={8}><Button>Solution Type <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-          <Col span={4}><Button>Cost <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-          <Col span={4}><Button>Percent <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-          <Col span={8}><Button>Total Cost <img src="/Icons/icon-14.svg" alt="" /></Button></Col>
-        </Row>
-        {data.components.map( (item: {type: string, percentage: number, estimated_cost: number, original_cost: number}) => {
-          return <Row className="solution-b">
-                  <Col span={8}>{item.type}</Col>
-                  <Col span={4}>${ new Intl.NumberFormat("en-EN").format(item.estimated_cost)}</Col>
-                  <Col span={4}>{item.percentage}</Col> 
-                  <Col span={8}>{ new Intl.NumberFormat("en-EN").format(item.original_cost/data.solutioncost)}</Col>  
-                </Row>
-        })}
-        <Row className="solution-b">
-          <Col span={8}><b>Total Estimated Cost</b></Col>
-      <Col span={4}><b>${ new Intl.NumberFormat("en-EN").format(total)}</b></Col>
-        </Row>
-        {/* <Row className="solution-b">
-          <Col span={8}>Alpha St culvert</Col>
-          <Col span={4}>$500,000</Col>
-          <Col span={4}>Active</Col>
-          <Col span={8}>Increased Conveyance - Crossing</Col>
-        </Row>
-        <Row className="solution-b">
-          <Col span={8}>Beta Ave culvert</Col>
-          <Col span={4}>$1,200,000</Col>
-          <Col span={4}>Active</Col>
-          <Col span={8}>Increased Conveyance - Crossing</Col>
-        </Row>
-        <Row className="solution-b">
-          <Col span={8}>Channel imp - LDC @Alpha St</Col>
-          <Col span={4}>$700,000</Col>
-          <Col span={4}>Active</Col>
-          <Col span={8}>Increased Conveyance - Crossing</Col>
-        </Row>
-        <Row className="solution-b">
-          <Col span={8}>Pedestrian bridge in park</Col>
-          <Col span={4}>$250,000</Col>
-          <Col span={4}>Active</Col>
-          <Col span={8}>Increased Conveyance - Crossing</Col>
+        <Row className="table-up-modal">
+          <Col span={24}>
+            <Table loading={false} columns={columns} rowKey={(record: any) => record.type} dataSource={data.components} pagination={false}
+                  onChange={(pagination, filters, sort) => {
+                    console.log('sorter:::', pagination, filters, sort);
+                    
+                    // handleTableChange(pagination, filters, sort)
+            }} />
+          </Col>
         </Row>
         <Row className="solution-b">
           <Col span={8}><b>Total Estimated Cost</b></Col>
-          <Col span={4}><b>$2,650,000</b></Col>
-        </Row> */}
+          <Col span={4}><b>${ new Intl.NumberFormat("en-EN").format(total)}</b></Col>
+        </Row>
       </Panel>
 
       <Panel header="Map" key="4" extra={genExtra()}>
