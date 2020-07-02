@@ -150,9 +150,9 @@ const initState = {
     filterProjects: {
         projectname: '',
         projecttype: '',
-        status: '0',
-        startyear: '9999',
-        completedyear: '',
+        status: '',
+        startyear: '0',
+        completedyear: '9999',
         mhfddollarsallocated: [],
         lgmanager: '',
         streamname: '',
