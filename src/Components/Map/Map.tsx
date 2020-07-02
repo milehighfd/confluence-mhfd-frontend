@@ -309,16 +309,17 @@ const Map = ({ leftWidth,
             const allFilters: any[] = ['all'];
             console.log('my key ', key);
             for (const filterField in toFilter) {
-                if (filterField === 'components') {
-                    continue;
-                }
-                if (filterField === 'problemname') {
-                    continue;
-                }
                 const filters = toFilter[filterField];
                 console.log('filtered ', filterField, filters);
                 if (filters && filters.length) {
                     const options: any[] = ['any'];
+                    if (filterField === 'components') {
+                        allFilters.push(['in', 'problemid', ...filters]);
+                        continue;
+                    }
+                    if (filterField === 'problemname') {
+                        continue;
+                    }
                     if (filterField === 'estimatedcost') {
                         for (const range of filters) {
                             const [lower, upper] = range.split(',');
