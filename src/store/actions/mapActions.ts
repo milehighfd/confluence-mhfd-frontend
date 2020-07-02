@@ -358,6 +358,13 @@ export const getParamsFilter = () => {
         })
     }
 }
+export const getComponentsByProblemId = (data: any) => {
+    return (dispatch: Function) => {
+        datasets.postData(SERVER.COMPONENTS_BY_PROBLEMID, data).then(params => {
+            dispatch({type: types.GET_COMPONENTS_BY_PROBLEMID, params});
+        })
+    }
+}
 
 export const setSpinFilter = (spin: boolean) => {
     return (dispatch: Function) => {

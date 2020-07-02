@@ -171,6 +171,9 @@ const initState = {
         projects: {},
         components: {}
     },
+    getComponentsByProblemId: {
+        components: []
+    },
     spinFilters: false,
     spinCardProblems: false,
     spinCardProjects: false,
@@ -316,6 +319,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state, 
                 paramFilters: action.params
+            }
+        }
+        case types.GET_COMPONENTS_BY_PROBLEMID: {
+            return {
+                ...state,
+                componentsByProblemId: action.params
             }
         }
         case types.GET_HIGHLIGHTED: {

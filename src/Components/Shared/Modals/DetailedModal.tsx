@@ -8,16 +8,20 @@ import DetailedInfo from './DetailedInfo';
 import CollapseItems from './CollapseItems';
 import TeamCollaborator from './TeamCollaborator';
 
-export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage }:
-  { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean }) => {
+export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, getComponentsByProblemId }:
+  { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function }) => {
   // const [ spin, setSpin] = useState<boolean>(false);
-    useEffect(() => {
+  useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
     } else {
       getDetailedPageProject(data.objectid);
     }
   }, []);
+
+  /* useEffect(() => {
+    getComponentsByProblemId(data.problemid);
+  }, []); */
   const detailedPage = detailed as any;
   return (
     <>
@@ -34,21 +38,21 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
         {loaderDetailedPage && <div className="detailed">
           <Row className="detailed-h" gutter={[16, 8]}>
             <Col span={13}>
-              <h1> {detailedPage.problemname? detailedPage.problemname : detailedPage.projectname} </h1>
-              <p><span>{detailedPage.problemtype? (detailedPage.problemtype + ' Problem') : (detailedPage.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span>{ detailedPage.jurisdiction}, CO</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage.county} County </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage.servicearea} Service Area </span></p>
+              <h1> {detailedPage.problemname ? detailedPage.problemname : detailedPage.projectname} </h1>
+              <p><span>{detailedPage.problemtype ? (detailedPage.problemtype + ' Problem') : (detailedPage.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span>{detailedPage.jurisdiction}, CO</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span> {detailedPage.county} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span> {detailedPage.servicearea} </span></p>
             </Col>
             <Col span={5}>
               <div className="status-d">
-                <label>Solution Status <b>60%</b></label>
-                <Progress percent={50} size="small" status="active" />
+                <label>Solution Status <b>{detailedPage.solutionstatus}%</b></label>
+                <Progress percent={detailedPage.solutionstatus} size="small" status="active" />
               </div>
             </Col>
             <Col span={3} style={{ textAlign: 'center' }}>
               <div className="detailed-mm">
-                <b>${ new Intl.NumberFormat("en-EN").format(detailedPage.solutioncost ? detailedPage.solutioncost: detailedPage.estimatedcost) }</b>
+                <b>${new Intl.NumberFormat("en-EN").format(detailedPage.solutioncost ? detailedPage.solutioncost : detailedPage.estimatedcost)}</b>
               </div>
             </Col>
             <Col span={3} style={{ textAlign: 'right' }}>
@@ -61,24 +65,31 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
             <Col span={17} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }}>
               <Carousel autoplay>
                 <div>
-                  { detailedPage.problemid ? (
-                    <div className="detailed-c"> <img height={280} width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"}/> </div>
+                  {detailedPage.problemid ? (
+                    <div className="detailed-c"> <img height={280} width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
                   ) : (
-                    <div className="detailed-c"> <img height={280} width="100%" src={detailedPage.attachments ? detailedPage.attachments : (
-                      detailedPage.projecttype === 'Capital' ? '/projectImages/capital.png' :
-                      detailedPage.projecttype === 'Study' ? '/projectImages/study.png' :
-                      detailedPage.projecttype === 'Maintenance' ? 
-                        (detailedPage.projectsubtype === 'Vegetation Mangement' ? '/projectImages/maintenance_vegetationmanagement.png' :
-                        detailedPage.projectsubtype === 'Sediment Removal' ? '/projectImages/maintenance_sedimentremoval.png' :
-                        detailedPage.projectsubtype === 'Restoration' ? '/projectImages/maintenance_restoration.png' :
-                        detailedPage.projectsubtype === 'Minor Repairs' ? '/projectImages/maintenance_minorrepairs.png' : 
-                        '/projectImages/maintenance_debrismanagement.png'): '/Icons/eje.png'
-                    )}/> </div>
-                  )}
+                      <div className="detailed-c"> <img height={280} width="100%" src={detailedPage.attachments ? detailedPage.attachments : (
+                        detailedPage.projecttype === 'Capital' ? '/projectImages/capital.png' :
+                          detailedPage.projecttype === 'Study' ? '/projectImages/study.png' :
+                            detailedPage.projecttype === 'Maintenance' ?
+                              (detailedPage.projectsubtype === 'Vegetation Mangement' ? '/projectImages/maintenance_vegetationmanagement.png' :
+                                detailedPage.projectsubtype === 'Sediment Removal' ? '/projectImages/maintenance_sedimentremoval.png' :
+                                  detailedPage.projectsubtype === 'Restoration' ? '/projectImages/maintenance_restoration.png' :
+                                    detailedPage.projectsubtype === 'Minor Repairs' ? '/projectImages/maintenance_minorrepairs.png' :
+                                      '/projectImages/maintenance_debrismanagement.png') : '/Icons/eje.png'
+                      )} /> </div>
+                    )}
                 </div>
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
-              <CollapseItems />
+              {
+                detailedPage.problemid ? (
+                  <CollapseItems type={'problem'} data={detailedPage} />
+                ) : (
+                    <CollapseItems type={'project'} data={detailedPage} />
+                  )
+              }
+
             </Col>
             <Col span={7}>
               <TeamCollaborator />

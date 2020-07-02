@@ -82,6 +82,7 @@ export type MapHOCProps = {
     setFilterProblemOptions: Function,
     setFilterProjectOptions: Function,
     paramFilters: any,
+    getComponentsByProblemId: Function,
     highlighted: any,
     setHighlighted: Function,
     spinFilter: boolean,
@@ -121,7 +122,8 @@ export type MapViewTypes = {
     paramFilters: any,
     setHighlighted: Function,
     filterComponentOptions: OptionComponents,
-    setFilterComponentOptions: Function
+    setFilterComponentOptions: Function,
+    getComponentsByProblemId: Function
 }
 export type OptionProblems = {
     keyword: string,
