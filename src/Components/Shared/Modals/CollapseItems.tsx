@@ -7,33 +7,56 @@ const { Panel } = Collapse;
 const { Content } = Layout;
 export default ({ type, data }: { type: string, data: any }) => {
   const html = document.getElementById('map2');
+
+  const total = data.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
+  //console.log('data.components', data);
+  let columns = [];
+  if (type === 'project') {
+    columns = [
+      {
+        title: 'Solution Type',
+        dataIndex: 'type',
+        sorter: true
+      },
+      {
+        title: 'Cost',
+        dataIndex: 'estimated_cost',
+        render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
+        sorter: true
+      },
+      {
+        title: 'Percent',
+        dataIndex: 'percentage',
+        sorter: true
+      }
+    ];
+  } else {
+    columns = [
+      {
+        title: 'Solution Type',
+        dataIndex: 'type',
+        sorter: true
+      },
+      {
+        title: 'Cost',
+        dataIndex: 'estimated_cost',
+        render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
+        sorter: true
+      },
+      {
+        title: 'Percent',
+        dataIndex: 'percentage',
+        sorter: true
+      },
+      {
+        title: 'Total Cost',
+        dataIndex: 'original_cost',
+        sorter: true,
+        render: (original_cost: number) => new Intl.NumberFormat("en-EN").format(original_cost)
+      }
+    ];
+  }
   
-  const total = data.reduce((prev: any,next: any) => prev + next.estimated_cost,0);
-  console.log('data.components', data);
-  const columns = [
-    {
-      title: 'Solution Type',
-      dataIndex: 'type',
-      sorter: true
-    },
-    {
-      title: 'Cost',
-      dataIndex: 'estimated_cost',
-      render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
-      sorter: true
-    },
-    {
-      title: 'Percent',
-      dataIndex: 'percentage',
-      sorter: true
-    },
-    {
-      title: 'Total Cost',
-      dataIndex: 'original_cost',
-      sorter: true,
-      render: (original_cost: number) => new Intl.NumberFormat("en-EN").format(original_cost/data.solutioncost)
-    }
-  ];
   if (html) {
     const map = new MapService('map2');
   }
@@ -146,16 +169,16 @@ export default ({ type, data }: { type: string, data: any }) => {
         <Row className="table-up-modal">
           <Col span={24}>
             <Table loading={false} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
-                  onChange={(pagination, filters, sort) => {
-                    console.log('sorter:::', pagination, filters, sort);
-                    
-                    // handleTableChange(pagination, filters, sort)
-            }} />
+              onChange={(pagination, filters, sort) => {
+                console.log('sorter:::', pagination, filters, sort);
+
+                // handleTableChange(pagination, filters, sort)
+              }} />
           </Col>
         </Row>
         <Row className="solution-b">
           <Col span={8}><b>Total Estimated Cost</b></Col>
-          <Col span={4}><b>${ new Intl.NumberFormat("en-EN").format(total)}</b></Col>
+          <Col span={4}><b>${new Intl.NumberFormat("en-EN").format(total)}</b></Col>
         </Row>
       </Panel>
 
@@ -164,7 +187,7 @@ export default ({ type, data }: { type: string, data: any }) => {
           <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div>-</div>
           </div>
-          
+
           {/* <Dropdown overlay={menu} className="btn-03">
             <Button>
               Dark Terrain <img src="/Icons/icon-12.svg" alt="" />
