@@ -8,10 +8,12 @@ import DetailedInfo from './DetailedInfo';
 import CollapseItems from './CollapseItems';
 import TeamCollaborator from './TeamCollaborator';
 
-export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, getComponentsByProblemId }:
-  { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function }) => {
+export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, getComponentsByProblemId, componentsOfProblems }:
+  { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function,
+    detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any }) => {
   // const [ spin, setSpin] = useState<boolean>(false);
   //console.log(' COMPONENTEEEEEES',getComponentsByProblemId);
+  console.log('componentsOfProblems:::', componentsOfProblems);
   
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {

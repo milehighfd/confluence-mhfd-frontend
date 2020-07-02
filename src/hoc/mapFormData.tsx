@@ -71,7 +71,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               spinCardProblems,
               spinCardProjects,
               getComponentsByProblemId,
-              filterComponents
+              filterComponents,
+              componentsOfProblems
              } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);

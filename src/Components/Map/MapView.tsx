@@ -59,7 +59,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
                   filterProjectOptions, filterCoordinates, setFilterProblemOptions,
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
-                  setFilterComponentOptions, getComponentsByProblemId } : MapViewTypes) => {
+                  setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
@@ -375,7 +375,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       filterProblemOptions={filterProblemOptions}
                       filterProjectOptions={filterProjectOptions}
                       setFilterProblemOptions={setFilterProblemOptions}
-                      setFilterProjectOptions={setFilterProjectOptions}/>
+                      setFilterProjectOptions={setFilterProjectOptions}
+                      componentsOfProblems={componentsOfProblems}/>
               </TabPane>
             );
           })}

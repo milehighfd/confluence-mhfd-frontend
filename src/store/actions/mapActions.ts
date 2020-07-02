@@ -263,10 +263,11 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         estimatedcost: [] as string[],
         finalcost: [] as string[],
         workplanyr: filters.workplanyear, // workplanyr1, workplanyr2, workplanyr3, workplanyr4, workplanyr5
-        problemtype: [] as any, // not exist in tables
+        problemtype: filters.problemtype as any, // not exist in tables
         mhfdmanager: filters.mhfdmanager,
         jurisdiction: filters.jurisdiction,
-        county: filters.county
+        county: filters.county,
+        problemtypeProjects: [] as any
     }
     const totalcost = filters.totalcost.split(',');
     const auxCost = [];
@@ -288,7 +289,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         const params = filters.problemtype ? ('?problemtype=' + filters.problemtype): '';
         datasets.getData(SERVER.GET_FILTER_PROBLEMTYPE_FOR_PROJECTS + params, datasets.getToken()).then(tables => {
             if (tables?.length >= 0) {
-                auxFilter.problemtype = tables;
+                auxFilter.problemtypeProjects = tables;
                 dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilter});
             }
         });
@@ -387,7 +388,7 @@ export const getParamsFilter = () => {
 }
 export const getComponentsByProblemId = (data: any) => {
     return (dispatch: Function) => {
-        datasets.postData(SERVER.COMPONENTS_BY_PROBLEMID, data).then(params => {
+        datasets.postData(SERVER.COMPONENTS_BY_PROBLEMID, data, datasets.getToken()).then(params => {
             dispatch({type: types.GET_COMPONENTS_BY_PROBLEMID, params});
         })
     }

@@ -12,9 +12,9 @@ const status = (<div className="popoveer-00">Status</div>);
 const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
 
-export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId }:
+export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId, componentsOfProblems }:
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean, 
-                setHighlighted: Function, getComponentsByProblemId: Function }) => {
+                setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any }) => {
   const [visible, setVisible] = useState(false);
   const getComponentSizes = (components : Array<ComponentType>) => {
       if (components && components.length) {
@@ -39,6 +39,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
         data={data}
         visible={visible}
         setVisible={setVisible}
+        componentsOfProblems={componentsOfProblems}
       />}
 
       <Col span={8}>
