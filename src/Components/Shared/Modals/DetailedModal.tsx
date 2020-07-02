@@ -13,14 +13,15 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any }) => {
   // const [ spin, setSpin] = useState<boolean>(false);
   //console.log(' COMPONENTEEEEEES',getComponentsByProblemId);
-  console.log('componentsOfProblems:::', componentsOfProblems, detailed);
+  console.log('componentsOfProblems:::', componentsOfProblems, detailed, 'data:::', data);
   
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
       getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
     } else {
-      getDetailedPageProject(data.objectid);
+      getDetailedPageProject(data.objectid, data.value, data.type);
+      getComponentsByProblemId({id: data.objectid, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
     }
   }, []);
 
@@ -87,13 +88,11 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                 </div>
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
-              {
-                detailedPage.problemid ? (
+              {detailedPage.problemid ? (
                   <CollapseItems type={'problem'} data={componentsOfProblems} />
                 ) : (
-                    <CollapseItems type={'project'} data={detailedPage} />
-                  )
-              }
+                  <CollapseItems type={'project'} data={componentsOfProblems} />
+              )}
 
             </Col>
             <Col span={7}>

@@ -350,10 +350,10 @@ export const getGalleryProjects = () => {
     }
 }
 
-export const getDetailedPageProject = (id: number) => {
+export const getDetailedPageProject = (id: number, cartoid: number, type: string) => {
     return (dispatch: Function) => {
         dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})
-        datasets.getData(SERVER.PROJECT_BY_ID  + '/' + id, datasets.getToken()).then(detailed => {
+        datasets.getData(SERVER.PROJECT_BY_ID  + 's?cartoid=' + cartoid + '&objectid=' + id + '&type=' + type, datasets.getToken()).then(detailed => {
             dispatch({type: detailedTypes.REPLACE_DETAILED_PAGE, detailed});
         });
     }
