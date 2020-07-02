@@ -150,8 +150,8 @@ const initState = {
     filterProjects: {
         projectname: '',
         projecttype: '',
-        status: '',
-        startyear: '',
+        status: '0',
+        startyear: '9999',
         completedyear: '',
         mhfddollarsallocated: [],
         lgmanager: '',
