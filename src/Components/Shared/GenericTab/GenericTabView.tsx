@@ -9,21 +9,53 @@ import { numberWithCommas } from '../../../utils/utils';
 
 const { Panel } = Collapse;
 
-export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, totalElements, type, listDescription, cardInformation, accordionRow, removeFilter, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId }: any) => {
+export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, totalElements, type, listDescription,
+        cardInformation, accordionRow, removeFilter, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId, filterComponentOptions,
+        setFilterComponentOptions, getGalleryProjects, getGalleryProblems}: any) => {
+            console.log('tags::::',filterComponentOptions, setFilterComponentOptions);
+            
     let totalElement = cardInformation.length;
+    const valores = ['dsadsa','drw342','432432']
     const size = 6;
     let sw = false;
     if(totalElement) {
         sw = true;
     }
-    const deleteFilter = (index: number) => {
-        const item = filterNames[index];
-        removeFilter(item);
+    const deleteFilter = (tag: string, value: string) => {
+        const auxFilterComponents = {...filterComponentOptions};
+        const valueTag = filterComponentOptions[tag].split(',') as Array<string>;
+        const auxValueTag = [] as Array<string>;
+        for (let index = 0; index < valueTag.length; index++) {
+            const element = valueTag[index];
+            if(element !== value) {
+                auxValueTag.push(element);
+            }
+        }
+        let newValue = '';
+        for (let index = 0; index < auxValueTag.length; index++) {
+            const element = auxValueTag[index];
+            if(element !== '') {
+                newValue = newValue ? (newValue + ',' + element): element;
+            }
+        }
+        auxFilterComponents[tag] = newValue;
+        setFilterComponentOptions(auxFilterComponents);
+        getGalleryProjects();
+        getGalleryProblems();
     }
     const [state, setState] = useState({
         items: Array.from({ length: size}),
         hasMore: true
     });
+    const tagComponents = [] as any;
+    for (const key in filterComponentOptions) {
+       const tag = {
+           key,
+           values: filterComponentOptions[key].split(',')
+       }
+       tagComponents.push(tag);
+    }
+    
     const fetchMoreData = () => {
         if (state.items.length >= totalElement - size) {
             const auxState = { ...state };
@@ -44,10 +76,25 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
         <div className="hastag" style={{minHeight: 34}}>
             <h6> Showing {totalElements} {type}:</h6>
             <div style={{marginBottom: totalElements?0:5}}>
-                {filterNames.map((data: any, index: number) => {
+                {/* {valores.map((value: any, index: number) => {
                     return <Tag key={index} closable onClose={() => deleteFilter(index)}>
-                        {data.value}
+                        {value}
                     </Tag>
+                })} */}
+                {tagComponents.map((tag: {key: string, values: Array<string>}, index: number) => {
+                    return <>
+                        {tag.values.map((element: string) => {
+                            let value = '';
+                            if(tag.key === 'estimatedcost') {
+                                value = element === '0' ? '0 - 2M' : ((element === '2')? '2M - 4M': ((element === '4') ? '4M - 6M' : (element === '6') ? '6M - 8M' :'8M - 10M'));
+                            } else {
+                                value = element;
+                            }
+                            return element && <Tag key={index + element + tag.key} closable onClose={() => deleteFilter(tag.key, element )}>
+                            {value}
+                        </Tag>
+                        })}
+                    </>
                 })}
             </div>
         </div>

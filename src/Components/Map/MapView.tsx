@@ -307,6 +307,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           {tabs.map((value : string, index : number) => {
             let totalElements = 0;
             let cardInformation : Array<Object> = [];
+            let filterCard;
             if(value === FILTER_PROBLEMS_TRIGGER) {
               cardInformation = galleryProblems.map(problem => {
                 return {
@@ -366,7 +367,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       listFilters={filters}
                       removeFilter={removeFilter}
                       setHighlighted={setHighlighted}
-                      getComponentsByProblemId={getComponentsByProblemId} />
+                      getComponentsByProblemId={getComponentsByProblemId}
+                      filterComponentOptions={filterComponentOptions}
+                      setFilterComponentOptions={setFilterComponentOptions} 
+                      getGalleryProjects={getGalleryProjects}
+                      getGalleryProblems={getGalleryProblems}/>
               </TabPane>
             );
           })}

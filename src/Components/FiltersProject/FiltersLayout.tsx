@@ -510,7 +510,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         let yearOfStudy = '';
         for (let index = 0; index < checkBoxYearofStudy.length; index++) {
             const element = checkBoxYearofStudy[index];
-            yearOfStudy = yearOfStudy ? (yearOfStudy + ',' + element): element;
+            yearOfStudy = yearOfStudy ? (yearOfStudy + ',' + element): ('' + element);
         }
         let estimatedCost = '';
         for (let index = 0; index < checkboxEstimatedcost.length; index++) {
@@ -581,7 +581,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                         setCheckboxYearofStudy(item as Array<string>);
                     }}>
                         {paramComponents.yearofstudy.map((element: string, index: number) => {
-                            return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                            return <p key={index}><Checkbox value={''+element}>{element}</Checkbox></p>
                         })}
                     </Checkbox.Group>
                     
