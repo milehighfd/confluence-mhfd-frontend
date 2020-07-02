@@ -60,7 +60,8 @@ const mapStateToProps = (state: any) => {
         spinCardProjects: state.map.spinCardProjects,
         filterComponentOptions: state.map.filterComponentOptions,
         filterProblems: state.map.filterProblems,
-        filterProjects: state.map.filterProjects
+        filterProjects: state.map.filterProjects,
+        filterComponents: state.map.filterComponents
     };
 };
 

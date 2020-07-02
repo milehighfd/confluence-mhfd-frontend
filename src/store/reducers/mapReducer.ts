@@ -165,6 +165,15 @@ const initState = {
         jurisdiction: '',
         county: ''
     },
+    filterComponents: {
+        component_type: '',
+        status: '',
+        yearofstudy: '',
+        estimatedcost: [],
+        jurisdiction: '',
+        county: '',
+        mhfdmanger: ''
+    },
     filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423',
     paramFilters : {
         problems: {},
@@ -365,6 +374,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 filterProjects: action.filters
+            }
+        }
+        case types.SET_FILTER_COMPONENTS: {
+            return {
+                ...state,
+                filterComponents: action.filters
             }
         }
         default: 

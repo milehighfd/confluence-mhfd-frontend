@@ -287,8 +287,25 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
 }
 
 export const setFilterComponentOptions = (filters: OptionComponents) => {
+    const auxFilter = {
+        component_type: filters.component_type,
+        status: filters.status,
+        yearofstudy: filters.yearofstudy,
+        estimatedcost: [] as string[],
+        jurisdiction: filters.jurisdiction,
+        county: filters.county,
+        mhfdmanger: filters.mhfdmanager
+    }
+    const estimatedcost = filters.estimatedcost.split(',');
+    const auxCost = [];
+    for (let index = 0; index < estimatedcost.length && filters.estimatedcost.length; index++) {
+        const element = estimatedcost[index];
+        auxCost.push(element === '0' ? '0,2000000' : ((element === '2')? '2000000,4000000': ((element === '4') ? '4000000,6000000' : (element === '6') ? '6000000,8000000' :'8000000,10000000')));
+    }
+    auxFilter.estimatedcost = auxCost;
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_COMPONENT_OPTIONS, filters});
+        dispatch({type: types.SET_FILTER_COMPONENTS, filters: auxFilter});
     }
 }
 

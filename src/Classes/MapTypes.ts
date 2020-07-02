@@ -28,7 +28,8 @@ export type MapProps = {
     getGalleryProblems: Function,
     getGalleryProjects: Function,
     filterProblems: any,
-    filterProjects: any
+    filterProjects: any,
+    filterComponents: any
 }
 
 export type MapHOCProps = {
@@ -91,7 +92,8 @@ export type MapHOCProps = {
     filterComponentOptions: OptionComponents,
     setFilterComponentOptions: Function,
     filterProblems: any,
-    filterProjects: any
+    filterProjects: any,
+    filterComponents: any
 }
 
 export type MapViewTypes = { 
