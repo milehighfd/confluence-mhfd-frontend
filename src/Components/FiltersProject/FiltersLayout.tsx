@@ -22,7 +22,7 @@ const content16 = (<div className="popoveer-00"><b>Year of Study:</b> refers to 
 const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Estimated Cost of implementing or addressing a Component as part of a Capital or Maintenance project.</div>);
 const content18 = (<div className="popoveer-00"><b>Stream Name:</b> is the name of the Major Drainageway or Watershed where the Component is located.</div>);
 
-export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterProblemOptions, getGalleryProblems }: any) => {
+export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterProblemOptions, getGalleryProblems, setToggleFilters }: any) => {
     const [checkBoxComponents, setCheckboxComponents] = useState<Array<string>>(filterProblemOptions.components.split(','));
     const [checkBoxStatus, setCheckboxStatus] = useState<Array<string>>(filterProblemOptions.solutionstatus.split(','));
     const [checkBoxCounty, setCheckboxCounty] = useState<Array<string>>(filterProblemOptions.county.split(','));
@@ -72,6 +72,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         options.problemtype = problemType !== '- Select -'? problemType: '';
         options.source = source !== '- Select -'? source: '';
         setFilterProblemOptions(options);
+        setToggleFilters(false);
         getGalleryProblems();
     }
     const reset = () => {
@@ -95,6 +96,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         setProblemType('- Select -');
         setSource('- Select -');
         setFilterProblemOptions(options);
+        setToggleFilters(false);
         getGalleryProblems();
     }
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
@@ -221,7 +223,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
 
 
-export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects } : any) => {
+export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects, setToggleFilters } : any) => {
     const [checkBoxProjectType, setCheckboxProjectType] = useState<Array<string>>(filterProjectOptions.projecttype.split(','));
     const [checkBoxTotalCost, setCheckboxTotalCost] = useState<Array<string>>(filterProjectOptions.totalcost.split(','));
     const [checkBoxProjectStatus, setCheckboxProjectStatus] = useState<Array<string>>(filterProjectOptions.status.split(','));
@@ -278,6 +280,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         options.lgmanager = lgmanager !== '- Select -'? lgmanager: '';
         options.creator = creator !== '- Select -'? creator: '';
         setFilterProjectOptions(options);
+        setToggleFilters(false);
         getGalleryProjects();
     }
     const reset = () => {
@@ -311,6 +314,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         setLgmanager('- Select -');
         setCreator('- Select -');
         setFilterProjectOptions(options);
+        setToggleFilters(false);
         getGalleryProjects();
     }
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
@@ -487,7 +491,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 </>
 }
 
-export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects} : any) => {
+export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects, setToggleFilters} : any) => {
     
     const [checkBoxComponentType, setCheckboxComponentType] = useState<Array<string>>(filterComponentOptions.component_type.split(','));
     const [checkBoxStatus, setCheckboxStatus] = useState<Array<string>>(filterComponentOptions.status.split(','));
@@ -526,6 +530,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         options.county = county !== '- Select -'? county: '';
         options.mhfdmanger = mhfdmanger !== '- Select -'? mhfdmanger: '';
         setFilterComponentOptions(options);
+        setToggleFilters(false);
         getGalleryProjects();
         getGalleryProblems();
     }
@@ -546,6 +551,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         setCounty('- Select -');
         setWatershed('- Select -');
         setFilterComponentOptions(options);
+        setToggleFilters(false);
         getGalleryProjects();
         getGalleryProblems();
     }

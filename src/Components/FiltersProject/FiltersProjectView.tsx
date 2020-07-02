@@ -100,18 +100,21 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
         return <ProblemsFilter paramProblems={paramFilters.problems} 
                   filterProblemOptions={filterProblemOptions}
                   setFilterProblemOptions={setFilterProblemOptions}
-                  getGalleryProblems={getGalleryProblems} />
+                  getGalleryProblems={getGalleryProblems} 
+                  setToggleFilters={setToggleFilters} />
       case FILTER_PROJECTS_TRIGGER:
         return <ProjectsFilter paramProjects={paramFilters.projects}
                 filterProjectOptions={filterProjectOptions}
                 setFilterProjectOptions={setFilterProjectOptions}
-                getGalleryProjects={getGalleryProjects} />
+                getGalleryProjects={getGalleryProjects}
+                setToggleFilters={setToggleFilters} />
       case FILTER_COMPONENTS_TRIGGER:
         return <ComponentsFilter paramComponents={paramFilters.components} 
                 filterComponentOptions={filterComponentOptions}
                 setFilterComponentOptions={setFilterComponentOptions} 
                 getGalleryProblems={getGalleryProblems}
-                getGalleryProjects={getGalleryProjects}/>
+                getGalleryProjects={getGalleryProjects}
+                setToggleFilters={setToggleFilters}/>
       default:
         return null;
     }
