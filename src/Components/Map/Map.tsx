@@ -303,7 +303,7 @@ const Map = ({ leftWidth,
             addTilesLayers(key);
         }
     }
-    const applyFilters = (key: string, toFilter: any) => {
+    const applyFilters =  (key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
             const allFilters: any[] = ['all'];
@@ -315,6 +315,11 @@ const Map = ({ leftWidth,
                     const options: any[] = ['any'];
                     if (filterField === 'components') {
                         allFilters.push(['in', 'problemid', ...filters]);
+                        continue;
+                    }
+                    if (filterField === 'problemtypeProjects') {
+                        console.log(filterField, filters);
+                        allFilters.push(['in', 'projectid', ...filters]);
                         continue;
                     }
                     if (filterField === 'problemname') {
@@ -342,9 +347,13 @@ const Map = ({ leftWidth,
                         continue;
                     }
                     if (filterField === 'startyear') {
-                        const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +filters];
-                        const upperArray: any[] = ['<=', ['to-number', ['get', 'completedyear']], +toFilter['completedyear']];
-                        allFilters.push(['all', lowerArray, upperArray]);
+                        const lowerArray: any[] = ['>=', filterField, +filters];
+                        const upperArray: any[] = ['<=', 'completedyear', +toFilter['completedyear']];
+                        if (toFilter['completedyear']) {
+                            allFilters.push(['all', lowerArray, upperArray]);
+                        } else {
+                            allFilters.push(lowerArray);
+                        }
                         continue;       
                     }
                     if (filterField === 'completedyear') {
