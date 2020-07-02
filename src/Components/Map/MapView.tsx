@@ -371,7 +371,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       filterComponentOptions={filterComponentOptions}
                       setFilterComponentOptions={setFilterComponentOptions} 
                       getGalleryProjects={getGalleryProjects}
-                      getGalleryProblems={getGalleryProblems}/>
+                      getGalleryProblems={getGalleryProblems}
+                      filterProblemOptions={filterProblemOptions}
+                      filterProjectOptions={filterProjectOptions}
+                      setFilterProblemOptions={setFilterProblemOptions}
+                      setFilterProjectOptions={setFilterProjectOptions}/>
               </TabPane>
             );
           })}

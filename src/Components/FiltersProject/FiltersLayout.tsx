@@ -358,7 +358,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                     setStart(e);
                 }}>
                     {paramProjects.startyear.map((element: number, index: number) =>{
-                        return <Option key={index} value={element}>{element}</Option>
+                        return <Option key={index} value={''+element}>{element}</Option>
                     })}
             </Select>
             </Col>
@@ -367,7 +367,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                     setCompleted(e);
                 }}>
                     {paramProjects.completedyear.map((element: number, index: number) =>{
-                        return <Option key={index} value={element}>{element}</Option>
+                        return <Option key={index} value={''+element}>{element}</Option>
                     })}
                 </Select>
             </Col>
