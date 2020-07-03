@@ -340,6 +340,11 @@ const Map = ({ leftWidth,
                 if (filterField === 'component_type') {
                     showSelectedComponents(filters.split(','));
                 }
+                if (filterField === 'keyword') {
+                    if (filters[key]) {
+                        allFilters.push(['in', 'cartodb_id', ...filters[key]]);
+                    }
+                }
                 if (filters && filters.length) {
                     const options: any[] = ['any'];
                     if (filterField === 'component_type') {
