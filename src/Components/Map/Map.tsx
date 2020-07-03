@@ -114,6 +114,7 @@ const Map = ({ leftWidth,
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude])
     }
+    
     useEffect(() => {
         console.log(highlighted);
         if (map) {
@@ -124,12 +125,14 @@ const Map = ({ leftWidth,
             }
         }
     }, [highlighted]);
+    
     useEffect(() => {
         if (map) {
             console.log(filterProblems);
             applyFilters('problems', filterProblems);
         }
     }, [filterProblems]);
+    
     useEffect(() => {
         if (map) {
             console.log('fp ', filterProjects);
@@ -137,6 +140,16 @@ const Map = ({ leftWidth,
             applyFilters('projects_polygon_', filterProjects);
         }
     }, [filterProjects]);
+
+    useEffect(() => {
+        if (map) {
+            console.log(filterComponents);
+            for (const component of COMPONENT_LAYERS.tiles) {
+                applyFilters(component, filterComponents);
+            }    
+        }
+    }, [filterComponents]);
+
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
@@ -303,6 +316,20 @@ const Map = ({ leftWidth,
             addTilesLayers(key);
         }
     }
+
+    const showSelectedComponents = (components: string[]): void => {
+        const styles = { ...tileStyles as any };
+        for (const key of COMPONENT_LAYERS.tiles) {
+            styles[key].forEach((style : LayerStylesType, index : number) => {
+                if (!components.includes(key)) {
+                    map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+                } else {
+                    map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+                }
+            });
+        }
+    }
+
     const applyFilters =  (key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
@@ -310,9 +337,24 @@ const Map = ({ leftWidth,
             console.log('my key ', key);
             for (const filterField in toFilter) {
                 const filters = toFilter[filterField];
-                console.log('filtered ', filterField, filters);
+                if (filterField === 'component_type') {
+                    showSelectedComponents(filters.split(','));
+                }
                 if (filters && filters.length) {
                     const options: any[] = ['any'];
+                    if (filterField === 'component_type') {
+                        continue;
+                    }
+                    if (filterField === 'yearofstudy') {
+                        for (const years of filters.split(',')) {
+                            const lowerArray: any[] = ['>=', filterField, +years];
+                            const upperArray: any[] = ['<=', filterField, +years + 9];
+                            options.push(['all', lowerArray, upperArray]);
+                        
+                        }
+                        allFilters.push(options);
+                        continue;
+                    }
                     if (filterField === 'components') {
                         allFilters.push(['in', 'problemid', ...filters]);
                         continue;
@@ -381,7 +423,10 @@ const Map = ({ leftWidth,
                 }
             }
             console.log(' my filters ' , JSON.stringify(allFilters)) ;
-            map.setFilter(key + '_' + index, allFilters);
+            console.log(key + '_' + index, map);
+            if (map.getLayer(key + '_' + index)) {
+                map.setFilter(key + '_' + index, allFilters);
+            }
         });
     };
     const showHighlighted = (key: string, cartodb_id: string) => {
@@ -442,6 +487,9 @@ const Map = ({ leftWidth,
         styles[key].forEach((style : LayerStylesType, index : number) => {
             console.log('showing ', key + '_' + index);
             map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+            if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
+                showSelectedComponents(filterComponents.component_type);
+            }
         });
     };
 
