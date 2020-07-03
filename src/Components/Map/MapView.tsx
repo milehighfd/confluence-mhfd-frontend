@@ -59,7 +59,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
                   filterProjectOptions, filterCoordinates, setFilterProblemOptions,
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
-                  setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems } : MapViewTypes) => {
+                  setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
+                  setProjectKeyword } : MapViewTypes) => {
 
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
@@ -72,7 +73,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [area, setArea] = useState(store.getState().profile.userInformation.organization)
   const [ tabActive, setTabActive] = useState('0');
   const { projectId } = useParams();
-  
+  const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword? filterProblemOptions.keyword: '');
+  const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword? filterProjectOptions.keyword: '');
   useEffect(() =>{
       getGalleryProblems();
       getGalleryProjects();
@@ -229,22 +231,27 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           <Col span={12}>
             <Search
               placeholder="Search..."
-              value={tabActive === '0'? filterProblemOptions.keyword: filterProjectOptions.keyword}
+              value={tabActive === '0'? keywordProblem: keywordProject}
               onChange={(e)=> {
                 if(tabActive === '0') {
-                  const auxOptions = {...filterProblemOptions};
-                  auxOptions.keyword = e.target.value;
-                  setFilterProblemOptions(auxOptions);
+                  // const auxOptions = {...filterProblemOptions};
+                  // auxOptions.keyword = e.target.value;
+                  setKeywordProblem(e.target.value);
+                  // setFilterProblemOptions(auxOptions);
                 } else {
-                  const auxOptions = {...filterProjectOptions};
-                  auxOptions.keyword = e.target.value;
-                  setFilterProjectOptions(auxOptions);
+                  // const auxOptions = {...filterProjectOptions};
+                  // auxOptions.keyword = e.target.value;
+                  setKeywordProject(e.target.value)
+                  // setFilterProjectOptions(auxOptions);
                 }
               }}
               onSearch={(e) => {
+                
                 if(tabActive === '0') {
+                  setProblemKeyword(keywordProblem);
                   getGalleryProblems();
                 } else {
+                  setProjectKeyword(keywordProject);
                   getGalleryProjects();
                 }
               }}

@@ -7,9 +7,10 @@ const { Panel } = Collapse;
 export default ({ type, data, detailedPage }: { type: string, data: any, detailedPage: any }) => {
   let html = document.getElementById('map2');
   let map: any;
-  if (html) {
-    map = new MapService('map2');
-  }
+  // if (html) {
+  //   map = new MapService('map2');
+  //   map.create('map2');
+  // }
   useEffect(() => {
     const waiting = () => {
       html = document.getElementById('map2');
@@ -18,6 +19,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       } else {
         if(!map) {
           map = new MapService('map2');
+          map.create('map2');
         }
       }
     };

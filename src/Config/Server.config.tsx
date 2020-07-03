@@ -11,6 +11,7 @@ export const SERVER = (function () {
     const AUTH = 'auth';
     const LOGIN = 'login';
     const PROJECT = 'projects';
+    const PROBLEMS = 'problems';
     const ATTACHMENT = 'attachments';
     const CREATE_PROJECT = 'create';
     const FILTERS = 'filters';
@@ -58,6 +59,7 @@ export const SERVER = (function () {
     const GROUP_COLUMNS = 'group-by';
     const PARAM_FILTERS = 'params-filters';
     const COMPONENTS_BY_ENTITYID = 'components-by-entityid';
+    const SEARCH = 'search';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -106,6 +108,8 @@ export const SERVER = (function () {
         GROUP_COLUMNS: `${URL_BASE.BASE}/${GALLERY}/${GROUP_COLUMNS}`,
         COMPONENTS_BY_ENTITYID: `${URL_BASE.BASE}/${GALLERY}/${COMPONENTS_BY_ENTITYID}`,
         GET_FILTER_COMPONENTS_FOR_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}`,
-        GET_FILTER_PROBLEMTYPE_FOR_PROJECTS: `${URL_BASE.BASE}/${FILTERS}/${PROJECT_FILTERS}`
+        GET_FILTER_PROBLEMTYPE_FOR_PROJECTS: `${URL_BASE.BASE}/${FILTERS}/${PROJECT_FILTERS}`,
+        SEARCH_KEYWORD_PROJECTS: `${URL_BASE.BASE}/${FILTERS}/${SEARCH}/${PROJECT}`,
+        SEARCH_KEYWORD_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}/${SEARCH}/${PROBLEMS}`,
     }
 })();

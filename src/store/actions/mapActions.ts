@@ -211,6 +211,7 @@ export const setFilterCoordinates = (coordinates: string) => {
 }
 
 export const setFilterProblemOptions = (filters: OptionProblems) => {
+    const keyword = store.getState().map.filterProblems.keyword;
     const auxFilter = {
         problemname: filters.keyword,
         solutioncost: [] as string[],
@@ -221,7 +222,8 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
         mhfdmanager: filters.mhfdmanager,
         problemtype: filters.problemtype,
         source: filters.source,
-        components: [] as any
+        components: [] as any,
+        keyword
     }
     const solutioncost = filters.cost.split(',');
     const auxSolutionCost = [];
@@ -239,7 +241,7 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
     auxFilter.solutionstatus = auxSolutionStatus;
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters});
-        const params = filters.components ? ('?tables=' + filters.components): '';
+        const params = '?tables=' + filters.components;
         datasets.getData(SERVER.GET_FILTER_COMPONENTS_FOR_PROBLEMS + params, datasets.getToken()).then(tables => {
             if (tables?.length >= 0) {
                 auxFilter.components = tables;
@@ -250,6 +252,7 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
 }
 
 export const setFilterProjectOptions = (filters: OptionProjects) => {
+    const keyword = store.getState().map.filterProjects.keyword;
     const auxFilter = {
         projectname: filters.keyword,
         projecttype: filters.projecttype,
@@ -267,7 +270,8 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         mhfdmanager: filters.mhfdmanager,
         jurisdiction: filters.jurisdiction,
         county: filters.county,
-        problemtypeProjects: [] as any
+        problemtypeProjects: [] as any,
+        keyword
     }
     const totalcost = filters.totalcost.split(',');
     const auxCost = [];
@@ -286,7 +290,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
     auxFilter.mhfddollarsallocated = auxmhfddollarsallocated;
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters});
-        const params = filters.problemtype ? ('?problemtype=' + filters.problemtype): '';
+        const params = '?problemtype=' + filters.problemtype;
         datasets.getData(SERVER.GET_FILTER_PROBLEMTYPE_FOR_PROJECTS + params, datasets.getToken()).then(tables => {
             if (tables?.length >= 0) {
                 auxFilter.problemtypeProjects = tables;
@@ -297,15 +301,58 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
     }
 }
 
+export const setProblemKeyword = (keyword: string) => {
+    console.log('keyword:::::', keyword);
+    
+    const filterOptions = store.getState().map.filterProblemOptions;
+    const auxFilter = {...filterOptions};
+    const filterProblems = store.getState().map.filterProblems;
+    const auxFilterProblems = {...filterProblems};
+    auxFilter.keyword = keyword;
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters: auxFilter});
+        const params = '?field=' + keyword;
+        datasets.getData(SERVER.SEARCH_KEYWORD_PROBLEMS + params, datasets.getToken()).then(tables => {
+            if (tables?.problems.length >= 0) {
+                auxFilterProblems.keyword = tables;
+                console.log('tables:::::', tables);
+                dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems});
+            }
+        });
+        
+    }
+}
+
+export const setProjectKeyword = (keyword: string) => {
+    const filterOptions = store.getState().map.filterProjectOptions;
+    const auxFilter = {...filterOptions};
+    const filterProjects = store.getState().map.filterProjects;
+    const auxFilterProjects = {...filterProjects};
+    auxFilter.keyword = keyword;
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters: auxFilter});
+        const params = '?field=' + keyword;
+        datasets.getData(SERVER.SEARCH_KEYWORD_PROJECTS + params, datasets.getToken()).then(tables => {
+            if (tables?.projects_line_1?.length >= 0 || tables?.projects_polygon_?.length >= 0) {
+                auxFilterProjects.keyword = tables;
+                
+                
+                dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects});
+            }
+        });
+        
+    }
+}
+
 export const setFilterComponentOptions = (filters: OptionComponents) => {
     const auxFilter = {
         component_type: filters.component_type,
         status: filters.status,
-        yearofstudy: filters.yearofstudy,
-        estimatedcost: [] as string[],
+        year_of_study: filters.yearofstudy,
+        estimated_cost: [] as string[],
         jurisdiction: filters.jurisdiction,
         county: filters.county,
-        mhfdmanger: filters.mhfdmanager
+        mhfdmanager: filters.mhfdmanager
     }
     const estimatedcost = filters.estimatedcost.split(',');
     const auxCost = [];
@@ -313,7 +360,7 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
         const element = estimatedcost[index];
         auxCost.push(element === '0' ? '0,2000000' : ((element === '2')? '2000000,4000000': ((element === '4') ? '4000000,6000000' : (element === '6') ? '6000000,8000000' :'8000000,10000000')));
     }
-    auxFilter.estimatedcost = auxCost;
+    auxFilter.estimated_cost = auxCost;
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_COMPONENT_OPTIONS, filters});
         dispatch({type: types.SET_FILTER_COMPONENTS, filters: auxFilter});

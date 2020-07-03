@@ -94,7 +94,9 @@ export type MapHOCProps = {
     filterProblems: any,
     filterProjects: any,
     filterComponents: any,
-    componentsOfProblems: any
+    componentsOfProblems: any,
+    setProblemKeyword: Function,
+    setProjectKeyword: Function
 }
 
 export type MapViewTypes = { 
@@ -127,7 +129,9 @@ export type MapViewTypes = {
     filterComponentOptions: OptionComponents,
     setFilterComponentOptions: Function,
     getComponentsByProblemId: Function,
-    componentsOfProblems: Function
+    componentsOfProblems: Function,
+    setProblemKeyword: Function,
+    setProjectKeyword: Function
 }
 export type OptionProblems = {
     keyword: string,

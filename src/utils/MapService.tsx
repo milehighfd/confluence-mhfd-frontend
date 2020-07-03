@@ -22,7 +22,7 @@ export class MapService {
       preserveDrawingBuffer: true,
       style: this.styleUrl,
       center: [-99, 39.20],
-      zoom: 3,
+      zoom: 8.9,
       maxBounds: [[-180, -90], [180, 90]],
       minZoom: 2.4
     });
@@ -64,10 +64,10 @@ export class MapService {
           minY = coords && coords.latitudeSW ? +coords.latitudeSW : 25.82,
           maxX = coords && coords.longitudeNE ? +coords.longitudeNE : -66.94,
           maxY = coords && coords.latitudeNE ? +coords.latitudeNE : 49.38;
-    if (coords.role !== 'admin') {
-      this.map.setMaxBounds([[minX, minY], [maxX, maxY]]);
-    }
-    this.map.fitBounds([[minX, minY], [maxX, maxY]]);
+    // if (coords.role !== 'admin') {
+    //   this.map.setMaxBounds([[minX, minY], [maxX, maxY]]);
+    // }
+    this.map.fitBounds([[-105.3236683149282,39.274174328991904],[-104.48895750946532,40.26156304805423]]);
   }
   getDraw() {
     return this.draw;

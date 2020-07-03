@@ -499,7 +499,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
     const [checkboxEstimatedcost, setCheckboxEstimatedcost] = useState<Array<string>>(filterComponentOptions.estimatedcost.split(','));
     const [jurisdiction, setJurisdiction] = useState(filterComponentOptions.jurisdiction ? filterComponentOptions.jurisdiction : '- Select -');
     const [county, setCounty] = useState(filterComponentOptions.county ? filterComponentOptions.county : '- Select -');
-    const [mhfdmanger, setWatershed] = useState(filterComponentOptions.mhfdmanger ? filterComponentOptions.mhfdmanger : '- Select -');
+    const [mhfdmanager, setWatershed] = useState(filterComponentOptions.mhfdmanager ? filterComponentOptions.mhfdmanager : '- Select -');
     const apply = () => {
         let componentType = '';
         for (let index = 0; index < checkBoxComponentType.length; index++) {
@@ -528,7 +528,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         options.estimatedcost = estimatedCost;
         options.jurisdiction = jurisdiction !== '- Select -'? jurisdiction: '';
         options.county = county !== '- Select -'? county: '';
-        options.mhfdmanger = mhfdmanger !== '- Select -'? mhfdmanger: '';
+        options.mhfdmanager = mhfdmanager !== '- Select -'? mhfdmanager: '';
         setFilterComponentOptions(options);
         setToggleFilters(false);
         getGalleryProjects();
@@ -632,7 +632,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
             <Row className="filt-00" gutter={[24, 16]}>
                 <Col span={12}>
                     <label>MHFD Watershed Manager</label>
-                    <Select value={mhfdmanger} style={{ width: '100%' }} onChange={ (e: string) => {
+                    <Select value={mhfdmanager} style={{ width: '100%' }} onChange={ (e: string) => {
                         setWatershed(e);
                     }}>
                         {paramComponents.watershed.map((element: string, index: number) =>{

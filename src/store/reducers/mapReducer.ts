@@ -145,7 +145,10 @@ const initState = {
         mhfdmanager: '',
         problemtype: '',
         source: '',
-        components: ''
+        components: '',
+        keyword: {
+            problems: []
+        }
     },
     filterProjects: {
         projectname: '',
@@ -163,16 +166,20 @@ const initState = {
         problemtype: '', // not exist in tables
         mhfdmanager: '',
         jurisdiction: '',
-        county: ''
+        county: '',
+        keyword: {
+            projects_line_1: [],
+            projects_polygon_: []
+        }
     },
     filterComponents: {
         component_type: '',
         status: '',
-        yearofstudy: '',
-        estimatedcost: [],
+        year_of_study: '',
+        estimated_cost: [],
         jurisdiction: '',
         county: '',
-        mhfdmanger: ''
+        mhfdmanager: ''
     },
     filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423',
     paramFilters : {
