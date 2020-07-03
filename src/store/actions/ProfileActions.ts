@@ -45,7 +45,13 @@ export const spinValue = (spin: boolean) => {
   }
 }
 const options = (options: { keyword: string, column: string, order: string }, coordinates: string) => {
-  return ((options.keyword ? ('name=' + options.keyword + '&') : '') + 'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
+  // return ((options.keyword ? ('name=' + options.keyword + '&') : '') + 'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
+  return {
+    name: options.keyword,
+    sortby: options.column,
+    sorttype: options.order,
+    bounds: coordinates
+  }
 }
 const getUserCoordinates = () => {
   const user = store.getState().profile.userInformation;
@@ -76,7 +82,7 @@ export const getUserProblem = (option: { keyword: string, column: string, order:
   return async (dispatch: Function) => {
     dispatch({ type: types.SET_VALUE_LOADER_PROBLEM, spin: true });
     const coordinates = await getUserCoordinates();
-    datasets.getData(SERVER.GALLERY_PROBLEMS + '&' + options(option, coordinates), datasets.getToken()).then(problems => {
+    datasets.postData(SERVER.GALLERY_PROJECTS, options(option, coordinates), datasets.getToken()).then(problems => {
       if (problems?.length >= 0) {
         dispatch({ type: types.GET_USER_PROBLEMS, problems });
       }
@@ -88,7 +94,7 @@ export const getUserProject = (option: { keyword: string, column: string, order:
   return async (dispatch: Function) => {
     dispatch({ type: types.SET_VALUE_LOADER_PROJECT, spin: true });
     const coordinates = await getUserCoordinates();
-    datasets.getData(SERVER.GALLERY_PROJECTS + options(option, coordinates), datasets.getToken()).then(projects => {
+    datasets.postData(SERVER.GALLERY_PROJECTS, options(option, coordinates), datasets.getToken()).then(projects => {
       if (projects?.length >= 0) {
         dispatch({ type: types.GET_USER_PROJECTS, projects });
       }
