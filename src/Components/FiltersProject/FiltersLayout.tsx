@@ -130,14 +130,18 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 setCheckboxComponents(items as Array<string>);
             }}>
                 <Col span={12}>
+                 <div className="check-scroll">
                     {firstSegmentComponents.map((element: { key:string, value: string }, index: number) => {
                         return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
                     })}
+                 </div>
                 </Col>
                 <Col span={12}>
+                 <div className="check-scroll">
                     {secondSegmentComponents.map((element:  { key:string, value: string }, index: number) => {
                             return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
                     })}
+                 </div>
                 </Col>
             </Checkbox.Group>
 
@@ -357,7 +361,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         </Col>
         <Col span={12}>
             <h5>Year <Popover content={content07}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
-            <Col span={12}>
+            <label>Start</label>
             <Select value={start} style={{ width: '100%' }} onChange={ (e: string) => {
                     setStart(e);
                 }}>
@@ -365,16 +369,15 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                         return <Option key={index} value={''+element}>{element}</Option>
                     })}
             </Select>
-            </Col>
-            <Col span={12}>
-                <Select value={completed} style={{ width: '100%' }} onChange={ (e: string) => {
+            <br></br><br></br>
+            <label>Completed</label>
+            <Select value={completed} style={{ width: '100%' }} onChange={ (e: string) => {
                     setCompleted(e);
                 }}>
                     {paramProjects.completedyear.map((element: number, index: number) =>{
                         return <Option key={index} value={''+element}>{element}</Option>
                     })}
-                </Select>
-            </Col>
+             </Select>
         </Col>
     </Row>
 
@@ -492,7 +495,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 }
 
 export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects, setToggleFilters} : any) => {
-    
+
     const [checkBoxComponentType, setCheckboxComponentType] = useState<Array<string>>(filterComponentOptions.component_type.split(','));
     const [checkBoxStatus, setCheckboxStatus] = useState<Array<string>>(filterComponentOptions.status.split(','));
     const [checkBoxYearofStudy, setCheckboxYearofStudy] = useState<Array<string>>(filterComponentOptions.yearofstudy.split(','));
@@ -559,13 +562,15 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
             <Row className="filt-00" style={{ marginTop: '10px' }}>
                 <Col span={12}>
                     <h5>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <Checkbox.Group value={checkBoxComponentType} onChange={(item) => {
-                        setCheckboxComponentType(item as Array<string>);
-                    }}>
-                        {paramComponents.component_type.map((element: { key: string, value: string }, index: number) => {
-                            return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
-                        })}
-                    </Checkbox.Group>
+                      <div className="check-scroll">
+                      <Checkbox.Group value={checkBoxComponentType} onChange={(item) => {
+                          setCheckboxComponentType(item as Array<string>);
+                      }}>
+                          {paramComponents.component_type.map((element: { key: string, value: string }, index: number) => {
+                              return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
+                          })}
+                      </Checkbox.Group>
+                    </div>
                 </Col>
                 <Col span={12}>
                     <h5>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -576,21 +581,22 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                             return element && <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
                         })}
                     </Checkbox.Group>
-                    
+
                 </Col>
             </Row>
 
             <Row className="filt-00">
                 <Col span={12}>
                     <h5>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <Checkbox.Group value={checkBoxYearofStudy} onChange={(item) => {
-                        setCheckboxYearofStudy(item as Array<string>);
-                    }}>
-                        {paramComponents.yearofstudy.map((element: string, index: number) => {
-                            return <p key={index}><Checkbox value={''+element}>{element}</Checkbox></p>
-                        })}
-                    </Checkbox.Group>
-                    
+                    <div className="check-scroll">
+                      <Checkbox.Group value={checkBoxYearofStudy} onChange={(item) => {
+                          setCheckboxYearofStudy(item as Array<string>);
+                      }}>
+                          {paramComponents.yearofstudy.map((element: string, index: number) => {
+                              return <p key={index}><Checkbox value={''+element}>{element}</Checkbox></p>
+                          })}
+                      </Checkbox.Group>
+                    </div>
                 </Col>
                 <Col span={12}>
                     <h5>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -648,5 +654,3 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         </div>
     </>
 }
-    
-

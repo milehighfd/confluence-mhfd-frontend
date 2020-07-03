@@ -24,11 +24,11 @@ body{
  overflow-y: hidden;
 }
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar, .ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollbar, .count-01::-webkit-scrollbar, .profile-00::-webkit-scrollbar, .sign-menu::-webkit-scrollbar, .sign-menu-organization::-webkit-scrollbar,
-.upload::-webkit-scrollbar, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar,.infinite-scroll-component::-webkit-scrollbar, .scroll-filters::-webkit-scrollbar, .scroll-footer::-webkit-scrollbar, .tutorial .content::-webkit-scrollbar {
+.upload::-webkit-scrollbar, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar,.infinite-scroll-component::-webkit-scrollbar, .scroll-filters::-webkit-scrollbar, .scroll-footer::-webkit-scrollbar, .tutorial .content::-webkit-scrollbar, .check-scroll::-webkit-scrollbar {
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thumb, .ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb, .count-01::-webkit-scrollbar-thumb, .profile-00::-webkit-scrollbar-thumb, .sign-menu::-webkit-scrollbar-thumb, .sign-menu-organization::-webkit-scrollbar-thumb,
-.upload::-webkit-scrollbar-thumb, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar-thumb,.infinite-scroll-component::-webkit-scrollbar-thumb, .scroll-filters::-webkit-scrollbar-thumb, .scroll-footer::-webkit-scrollbar-thumb, .tutorial .content::-webkit-scrollbar-thumb {
+.upload::-webkit-scrollbar-thumb, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar-thumb,.infinite-scroll-component::-webkit-scrollbar-thumb, .scroll-filters::-webkit-scrollbar-thumb, .scroll-footer::-webkit-scrollbar-thumb, .tutorial .content::-webkit-scrollbar-thumb, .check-scroll::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }
@@ -1384,9 +1384,9 @@ body{
     color: $purple;
     font-weight: 600;
     margin-right: 10px;
-    width: 200px;
-    min-width: 200px;
+    min-width: 138px;
     margin-left: 20px;
+    max-width: 165px;
   }
   .ant-tag {
     color: $opacity;
@@ -1396,10 +1396,11 @@ body{
     background: transparent;
     border: none;
     border-radius: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    padding-left: 0px;
   }
  .ant-tag .anticon-close {
-    font-size: 10px;
+    font-size: 10px !important;
     background: $opacity;
     border-radius: 50%;
     padding: 4px;
@@ -1861,7 +1862,7 @@ body{
 }
 .btn-footer{
   text-align: right;
-  margin: 10px 0px 5px 0px;
+  margin: 10px 0px 15px 0px;
   .btn-00, .btn-00:hover, .btn-00:focus, .btn-00:active, .btn-00.active{
     // width: 127px !important;
     height: 37px;
@@ -2441,7 +2442,11 @@ body{
   font-size: 12px;
   max-width: 200px;
 }
-
+.check-scroll{
+  height: 120px;
+  overflow-y: auto;
+  margin-right: 20px;
+}
 // WORK REQUEST
 .request{
   h2{

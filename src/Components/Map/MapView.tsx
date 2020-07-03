@@ -203,7 +203,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             <span className="ant-dropdown-link span-header">
               {area}
               <Popover content={content}>
-              <img src="/Icons/icon-12.svg" alt="" />
+              <img src="/Icons/icon-12.svg" alt="" style={{marginLeft: '8px'}}/>
               </Popover>
             </span>
           </Dropdown>
@@ -246,7 +246,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 }
               }}
               onSearch={(e) => {
-                
+
                 if(tabActive === '0') {
                   setProblemKeyword(keywordProblem);
                   getGalleryProblems();
@@ -377,7 +377,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       setHighlighted={setHighlighted}
                       getComponentsByProblemId={getComponentsByProblemId}
                       filterComponentOptions={filterComponentOptions}
-                      setFilterComponentOptions={setFilterComponentOptions} 
+                      setFilterComponentOptions={setFilterComponentOptions}
                       getGalleryProjects={getGalleryProjects}
                       getGalleryProblems={getGalleryProblems}
                       filterProblemOptions={filterProblemOptions}
@@ -411,7 +411,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             getGalleryProblems={getGalleryProblems}
             filterProjectOptions={filterProjectOptions}
             setFilterProjectOptions={setFilterProjectOptions}
-            getGalleryProjects={getGalleryProjects} 
+            getGalleryProjects={getGalleryProjects}
             setFilterComponentOptions={setFilterComponentOptions}
             filterComponentOptions={filterComponentOptions}/>
       }
