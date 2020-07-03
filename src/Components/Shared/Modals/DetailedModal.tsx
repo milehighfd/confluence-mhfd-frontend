@@ -11,10 +11,6 @@ import TeamCollaborator from './TeamCollaborator';
 export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, getComponentsByProblemId, componentsOfProblems }:
   { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function,
     detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any }) => {
-  // const [ spin, setSpin] = useState<boolean>(false);
-  //console.log(' COMPONENTEEEEEES',getComponentsByProblemId);
-  console.log('componentsOfProblems:::', componentsOfProblems, detailed, 'data:::', data);
-  
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
@@ -24,10 +20,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       getComponentsByProblemId({id: data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
     }
   }, []);
-
-  /* useEffect(() => {
-    getComponentsByProblemId(data.problemid);
-  }, []); */
   const detailedPage = detailed as any;
   return (
     <>

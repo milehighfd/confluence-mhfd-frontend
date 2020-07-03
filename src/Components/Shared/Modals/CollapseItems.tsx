@@ -5,10 +5,25 @@ import { MapService } from '../../../utils/MapService';
 
 const { Panel } = Collapse;
 export default ({ type, data, detailedPage }: { type: string, data: any, detailedPage: any }) => {
-  const html = document.getElementById('map2');
-
+  let html = document.getElementById('map2');
+  let map: any;
+  if (html) {
+    map = new MapService('map2');
+  }
+  useEffect(() => {
+    const waiting = () => {
+      html = document.getElementById('map2');
+      if (!html) {
+        setTimeout(waiting, 50);
+      } else {
+        if(!map) {
+          map = new MapService('map2');
+        }
+      }
+    };
+    waiting();
+  }, []);
   const total = data.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
-  console.log('data.components', data, detailedPage);
   let columns = [];
   if (type === 'project') {
     columns = [
@@ -56,9 +71,6 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
     ];
   }
   
-  if (html) {
-    const map = new MapService('map2');
-  }
   const columnProblems = [
     {
       title: 'Name',
@@ -69,13 +81,17 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       dataIndex: 'problempriority'
     }
   ];
-
-  const genExtra = () => (
-    <div className="divider">
+  const genExtra = () => {
+    html = document.getElementById('map2');
+    return <div className="divider" onClick={() => {
+      if(map) {
+        map.resize();
+      }
+    }}>
       <div className="line-01"></div>
       <img src="/Icons/icon-20.svg" alt="" />
     </div>
-  );
+  };
 
   const menu = (
     <Menu className="no-links-dropdown">
@@ -91,7 +107,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
     </Menu>
   );
   return <div className="tabs-detailed">
-    <Collapse>
+    <Collapse defaultActiveKey={"4"}>
       {type === 'project' && <Panel header="PROBLEM" key="1" extra={genExtra()}>
         <Row className="table-up-modal">
             <Col span={24}>

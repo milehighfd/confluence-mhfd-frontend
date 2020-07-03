@@ -1,6 +1,7 @@
 import { Map, MapboxOptions, Popup } from 'mapbox-gl';
 import { MAPBOX_TOKEN } from '../constants/constants';
 import * as mapboxgl from 'mapbox-gl';
+import { SERVER } from '../Config/Server.config';
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 export class MapService {
@@ -11,7 +12,7 @@ export class MapService {
   public user = 'vizonomy';
   public style = 'cjge6kg6s000i2sox4zl3i1ur';
   public styleSatellite = 'cjge6lf7w000v2spxkflkhlau';
-  public styleUrl = 'mapbox://styles/milehighfd/ck4k0tjln58h41cl4ixb8jsez';
+  public styleUrl = `${SERVER.URL_BASE}/style/ckarchcyg0vjl1ipcm4kap2k0/milehighfd/${MAPBOX_TOKEN}`;
   public styleUrlSatelite = 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft';
   controller: boolean = false;
   constructor( id: string) {
