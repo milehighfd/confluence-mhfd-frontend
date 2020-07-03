@@ -38,20 +38,35 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
             <Col span={13}>
               <h1> {detailedPage.problemname ? detailedPage.problemname : detailedPage.projectname} </h1>
               <p><span>{detailedPage.problemtype ? (detailedPage.problemtype + ' Problem') : (detailedPage.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span>{detailedPage.jurisdiction}, CO</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span>{detailedPage.problemtype ? ( detailedPage.jurisdiction + ', CO' ) : (detailedPage.sponsor)}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage.county} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage.servicearea} </span></p>
             </Col>
             <Col span={5}>
-              <div className="status-d">
+              { 
+              detailedPage.problemtype ? (
+                <div className="status-d">
                 <label>Solution Status <b>{detailedPage.solutionstatus}%</b></label>
                 <Progress percent={detailedPage.solutionstatus} size="small" status="active" />
               </div>
+              ) : (
+                <div className="nn-hh">{detailedPage.status}</div>
+              )
+              }
+              
             </Col>
             <Col span={3} style={{ textAlign: 'center' }}>
-              <div className="detailed-mm">
-                <b>${new Intl.NumberFormat("en-EN").format(detailedPage.solutioncost ? detailedPage.solutioncost : detailedPage.estimatedcost)}</b>
-              </div>
+              {
+                detailedPage.problemtype ? (
+                  <div className="detailed-mm">
+                    <b>${new Intl.NumberFormat("en-EN").format(detailedPage.solutioncost ? detailedPage.solutioncost : detailedPage.estimatedcost)}</b>
+                  </div>
+                ) : (
+                  <div className="detailed-mm">
+                    <b>${new Intl.NumberFormat("en-EN").format(detailedPage.finalcost ? detailedPage.finalcost : detailedPage.estimatedcost)}</b>
+                  </div>
+                )
+              }
             </Col>
             <Col span={3} style={{ textAlign: 'right' }}>
               <Button><img src="/Icons/icon-01.svg" alt="" /></Button>

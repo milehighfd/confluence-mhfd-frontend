@@ -120,6 +120,25 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
             </Col>
           </Row>
       </Panel>}
+
+      {type ==='project' && <Panel header="VENDORS" key="2" extra={genExtra()}>
+        <div className="detailed-info">
+          <Row>
+            <Col span={4}>
+              <label><i>Contractor</i></label>
+            </Col>
+            <Col span={8}>
+              <p>{ detailedPage.contractor }</p>
+            </Col>
+            <Col span={4}>
+              <label><i>Consultant</i></label>
+            </Col>
+            <Col span={8}>
+              <p>{detailedPage.consultant }</p>
+            </Col>
+          </Row>
+        </div>
+      </Panel>}
       {/*
 
       <Panel header="VENDORS" key="2" extra={genExtra()}>
