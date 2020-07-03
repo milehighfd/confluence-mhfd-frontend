@@ -50,6 +50,15 @@ const options = (options: { keyword: string, column: string, order: string }, co
     name: options.keyword,
     sortby: options.column,
     sorttype: options.order,
+    bounds: coordinates,
+    isproblem: true
+  }
+}
+const optionsProject = (options: { keyword: string, column: string, order: string }, coordinates: string) => {
+  return {
+    name: options.keyword,
+    sortby: options.column,
+    sorttype: options.order,
     bounds: coordinates
   }
 }
@@ -94,7 +103,7 @@ export const getUserProject = (option: { keyword: string, column: string, order:
   return async (dispatch: Function) => {
     dispatch({ type: types.SET_VALUE_LOADER_PROJECT, spin: true });
     const coordinates = await getUserCoordinates();
-    datasets.postData(SERVER.GALLERY_PROJECTS, options(option, coordinates), datasets.getToken()).then(projects => {
+    datasets.postData(SERVER.GALLERY_PROJECTS, optionsProject(option, coordinates), datasets.getToken()).then(projects => {
       if (projects?.length >= 0) {
         dispatch({ type: types.GET_USER_PROJECTS, projects });
       }
