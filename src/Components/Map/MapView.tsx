@@ -345,7 +345,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   projecttype: project.projecttype,
                   objectid: project.objectid,
                   type: project.type,
-                  value: project.cartodb_id
+                  value: project.cartodb_id,
+                  id: project.projectid
                 }
               });
               totalElements = cardInformation.length;

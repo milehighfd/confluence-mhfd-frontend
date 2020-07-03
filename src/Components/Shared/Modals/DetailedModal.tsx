@@ -21,7 +21,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
     } else {
       getDetailedPageProject(data.objectid, data.value, data.type);
-      getComponentsByProblemId({id: data.objectid, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      getComponentsByProblemId({id: data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
     }
   }, []);
 
