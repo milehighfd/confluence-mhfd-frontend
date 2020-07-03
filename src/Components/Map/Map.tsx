@@ -347,6 +347,9 @@ const Map = ({ leftWidth,
                 }
                 if (filters && filters.length) {
                     const options: any[] = ['any'];
+                    if (filterField === 'keyword') {
+                        continue;
+                    }
                     if (filterField === 'component_type') {
                         continue;
                     }
