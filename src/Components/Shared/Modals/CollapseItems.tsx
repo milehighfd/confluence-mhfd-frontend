@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Collapse, Table, Row, Col, Button, Dropdown, Menu, Layout } from 'antd';
+import { Collapse, Table, Row, Col, Menu } from 'antd';
 import { MapService } from '../../../utils/MapService';
 
 
 const { Panel } = Collapse;
-const { Content } = Layout;
-export default ({ type, data }: { type: string, data: any }) => {
+export default ({ type, data, detailedPage }: { type: string, data: any, detailedPage: any }) => {
   const html = document.getElementById('map2');
 
   const total = data.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
-  //console.log('data.components', data);
+  console.log('data.components', data, detailedPage);
   let columns = [];
   if (type === 'project') {
     columns = [
@@ -60,58 +59,15 @@ export default ({ type, data }: { type: string, data: any }) => {
   if (html) {
     const map = new MapService('map2');
   }
-  //console.log('COLLAPSE',data);
-  // const showComponent = (type: any) => {
-  //   if (type === 'project') {
-  //     return <Panel header="PROBLEM" key="1" extra={genExtra()}>
-  //       <div className="problem-t">
-  //         <Table dataSource={dataSource} columns={columns} />
-  //       </div>
-  //     </Panel>;
-  //   } else {
-  //     return '';
-  //   }
-  // }
-  // const showVendors = (type: any) => {
-  //   if (type === 'project') {
-  //     return <Panel header="VENDORS" key="2" extra={genExtra()}>
-  //       <div className="detailed-info">
-  //         <Row>
-  //           <Col span={4}>
-  //             <label><i>Contractor</i></label>
-  //           </Col>
-  //           <Col span={8}>
-  //             <p>Atkins</p>
-  //           </Col>
-  //           <Col span={4}>
-  //             <label><i>Consultant</i></label>
-  //           </Col>
-  //           <Col span={8}>
-  //             <p>Applegate Group</p>
-  //           </Col>
-  //         </Row>
-  //       </div>
-  //     </Panel>
-  //   } else {
-  //     return '';
-  //   }
-  // }
-  const dataSource = [
+  const columnProblems = [
     {
-      key: '1',
-      name: '8 structures in LDC floodplain @Alpha St',
-      priority: 'High Priority',
+      title: 'Name',
+      dataIndex: 'problemname'
     },
     {
-      key: '2',
-      name: '8 structures in LDC floodplain @Alpha St',
-      priority: 'High Priority',
-    },
-    {
-      key: '3',
-      name: '8 structures in LDC floodplain @Alpha St',
-      priority: 'High Priority',
-    },
+      title: 'Priority',
+      dataIndex: 'problempriority'
+    }
   ];
 
   const genExtra = () => (
@@ -136,15 +92,19 @@ export default ({ type, data }: { type: string, data: any }) => {
   );
   return <div className="tabs-detailed">
     <Collapse>
-      {/* {
-        showComponent(type)
-      }
-      { showVendors(type) } */}
-      {/* <Panel header="PROBLEM" key="1" extra={genExtra()}>
-        <div className="problem-t">
-          <Table dataSource={dataSource} columns={columns} />
-        </div>
-      </Panel>
+      {type === 'project' && <Panel header="PROBLEM" key="1" extra={genExtra()}>
+        <Row className="table-up-modal">
+            <Col span={24}>
+              <Table loading={false} columns={columnProblems} rowKey={(record: any) => record.problemid} dataSource={detailedPage.problems} pagination={false}
+                onChange={(pagination, filters, sort) => {
+                  console.log('sorter:::', pagination, filters, sort);
+
+                  // handleTableChange(pagination, filters, sort)
+                }} />
+            </Col>
+          </Row>
+      </Panel>}
+      {/*
 
       <Panel header="VENDORS" key="2" extra={genExtra()}>
         <div className="detailed-info">
@@ -176,10 +136,10 @@ export default ({ type, data }: { type: string, data: any }) => {
               }} />
           </Col>
         </Row>
-        <Row className="solution-b">
+        {type === 'problem' && <Row className="solution-b">
           <Col span={8}><b>Total Estimated Cost</b></Col>
           <Col span={4}><b>${new Intl.NumberFormat("en-EN").format(total)}</b></Col>
-        </Row>
+        </Row>}
       </Panel>
 
       <Panel header="Map" key="4" extra={genExtra()}>
@@ -187,22 +147,6 @@ export default ({ type, data }: { type: string, data: any }) => {
           <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div>-</div>
           </div>
-
-          {/* <Dropdown overlay={menu} className="btn-03">
-            <Button>
-              Dark Terrain <img src="/Icons/icon-12.svg" alt="" />
-            </Button>
-          </Dropdown>
-
-          <div className="m-zoom">
-            <Button style={{ borderRadius: '4px 4px 0px 0px' }}><img src="/Icons/icon-35.svg" alt="" width="12px" /></Button>
-            <Button style={{ borderRadius: '0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)' }}><img src="/Icons/icon-36.svg" alt="" width="12px" /></Button>
-          </div>
-
-          <div className="m-foo">
-            <p><div style={{ background: '#29c499', marginRight: '5px' }}></div> Problems</p>
-            <p><div style={{ background: '#fac774', marginRight: '5px' }}></div> Projects</p>
-          </div> */}
         </div>
       </Panel>
 
@@ -213,12 +157,6 @@ export default ({ type, data }: { type: string, data: any }) => {
         </div>
       </Panel> */}
 
-      {/*<Panel header="Mitigation Types" key="1" extra={genExtra()} >
-  <Row>
-    <Col span={12}><img src="/Icons/chart-01.png" alt="" height="333px"/></Col>
-    <Col span={12}><img src="/Icons/chart-02.png" alt="" height="333px"/></Col>
-  </Row>
-</Panel>*/}
     </Collapse>
   </div>
 }

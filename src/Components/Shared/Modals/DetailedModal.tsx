@@ -89,9 +89,9 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
               {detailedPage.problemid ? (
-                  <CollapseItems type={'problem'} data={componentsOfProblems} />
+                  <CollapseItems type={'problem'} data={componentsOfProblems} detailedPage={detailedPage}/>
                 ) : (
-                  <CollapseItems type={'project'} data={componentsOfProblems} />
+                  <CollapseItems type={'project'} data={componentsOfProblems} detailedPage={detailedPage} />
               )}
 
             </Col>
