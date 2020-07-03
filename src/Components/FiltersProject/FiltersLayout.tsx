@@ -399,9 +399,14 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={checkboxWorkPlanYear} onChange={(item) => {
                 setCheckboxWorkPlanYear(item as Array<string>);
             }}>
-                {paramProjects.workplanyear.map((element: string, index: number) => {
+                <p><Checkbox value={'2019'}>2019</Checkbox></p>
+                <p><Checkbox value={'2020'}>2020</Checkbox></p>
+                <p><Checkbox value={'2021'}>2021</Checkbox></p>
+                <p><Checkbox value={'2022'}>2022</Checkbox></p>
+                <p><Checkbox value={'2023'}>2023</Checkbox></p>
+                {/* {paramProjects.workplanyear.map((element: string, index: number) => {
                     return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
-                })}
+                })} */}
             </Checkbox.Group>
         </Col>
     </Row>
@@ -533,7 +538,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         options.county = county !== '- Select -'? county: '';
         options.mhfdmanager = mhfdmanager !== '- Select -'? mhfdmanager: '';
         setFilterComponentOptions(options);
-        setToggleFilters(false);
+        // setToggleFilters(false);
         getGalleryProjects();
         getGalleryProblems();
     }
@@ -554,7 +559,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         setCounty('- Select -');
         setWatershed('- Select -');
         setFilterComponentOptions(options);
-        setToggleFilters(false);
+        // setToggleFilters(false);
         getGalleryProjects();
         getGalleryProblems();
     }
@@ -593,7 +598,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                           setCheckboxYearofStudy(item as Array<string>);
                       }}>
                           {paramComponents.yearofstudy.map((element: string, index: number) => {
-                              return <p key={index}><Checkbox value={''+element}>{element}</Checkbox></p>
+                              return <p key={index}><Checkbox value={''+element}>{element + 's'}</Checkbox></p>
                           })}
                       </Checkbox.Group>
                     </div>

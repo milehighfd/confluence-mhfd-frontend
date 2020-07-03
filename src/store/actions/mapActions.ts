@@ -176,30 +176,58 @@ export const resetMap = () => {
 }
 
 const options = (options: OptionProblems, filterComponent: OptionComponents, coordinates: string) => {
-    return ((options.keyword ? ('name=' + options.keyword + '&') : '') + (options.cost ? ('cost=' + options.cost + '&') : '') +
-        (options.priority ? ('priority=' + options.priority + '&') : '') + (options.solutionstatus ? ('solutionstatus=' + options.solutionstatus + '&') : '') +
-        (options.county ? ('county=' + options.county + '&') : '') + (options.jurisdiction ? ('jurisdiction=' + options.jurisdiction + '&') : '') +
-        (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') +
-        (options.source ? ('source=' + options.source + '&') : '') + (options.components ? ('components=' + options.components + '&') : '') + 
-        (filterComponent.component_type ? ('componenttype=' + filterComponent.component_type + '&') : '') + (filterComponent.status ? ('componentstatus=' + filterComponent.status + '&') : '') + 
-        (filterComponent.mhfdmanager ? ('watershed=' + options.mhfdmanager + '&') : '') + (filterComponent.jurisdiction ? ('jurisdictionComp=' + filterComponent.jurisdiction + '&') : '') + 
-        (filterComponent.county ? ('countyComp=' + filterComponent.county + '&') : '') + (filterComponent.yearofstudy ? ('yearofstudy=' + filterComponent.yearofstudy + '&') : '') +
-        (filterComponent.estimatedcost ? ('estimatedcostComp=' + filterComponent.estimatedcost + '&') : '') +
-        'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
+        return {
+            isproblem: true,
+            cost: options.cost,
+            priority: options.priority,
+            solutionstatus: options.solutionstatus,
+            county: options.county,
+            jurisdiction: options.jurisdiction,
+            mhfdmanager: options.mhfdmanager,
+            problemtype: options.problemtype,
+            source: options.source,
+            components: options.components,
+            componenttype: filterComponent.component_type,
+            componentstatus: filterComponent.status,
+            watershed: options.mhfdmanager,
+            jurisdictionComp: filterComponent.jurisdiction,
+            countyComp: filterComponent.county,
+            yearofstudy: filterComponent.yearofstudy,
+            estimatedcostComp: filterComponent.estimatedcost,
+            name: options.keyword,
+            sortby: options.column,
+            sorttype: options.order,
+            bounds: coordinates
+        }
 }
 const optionsProjects = (options: OptionProjects, filterComponent: OptionComponents, coordinates: string) => {
-    return ((options.keyword ? ('name=' + options.keyword + '&') : '') + (options.projecttype ? ('projecttype=' + options.projecttype + '&') : '') +
-        (options.status ? ('status=' + options.status + '&') : '') + (options.startyear ? ('startyear=' + options.startyear + '&') : '') +
-        (options.completedyear ? ('completedyear=' + options.completedyear + '&') : '') + (options.mhfddollarsallocated ? ('mhfddollarsallocated=' + options.mhfddollarsallocated + '&') : '') +
-        (options.lgmanager ? ('lgmanager=' + options.lgmanager + '&') : '') + (options.streamname ? ('streamname=' + options.streamname + '&') : '') + 
-        (options.creator ? ('creator=' + options.creator + '&') : '') + (options.totalcost ? ('totalcost=' + options.totalcost + '&') : '') +
-        (options.workplanyear ? ('workplanyear=' + options.workplanyear + '&') : '') + (options.problemtype ? ('problemtype=' + options.problemtype + '&') : '') + 
-        (options.mhfdmanager ? ('mhfdmanager=' + options.mhfdmanager + '&') : '') + (options.jurisdiction ? ('jurisdiction=' + options.jurisdiction + '&') : '') +
-        (options.county ? ('county=' + options.county + '&') : '') + (filterComponent.estimatedcost ? ('estimatedcostComp=' + filterComponent.estimatedcost + '&') : '') +
-        (filterComponent.component_type ? ('componenttype=' + filterComponent.component_type + '&') : '') + (filterComponent.status ? ('componentstatus=' + filterComponent.status + '&') : '') + 
-        (filterComponent.mhfdmanager ? ('watershed=' + options.mhfdmanager + '&') : '') + (filterComponent.jurisdiction ? ('jurisdictionComp=' + filterComponent.jurisdiction + '&') : '') + 
-        (filterComponent.county ? ('countyComp=' + filterComponent.county + '&') : '') + (filterComponent.yearofstudy ? ('yearofstudy=' + filterComponent.yearofstudy + '&') : '') +
-        'sortby=' + options.column + '&sorttype=' + options.order + '&bounds=' + coordinates);
+        return {
+            name: options.keyword,
+            projecttype: options.projecttype,
+            status: options.status,
+            startyear: options.startyear,
+            completedyear: options.completedyear,
+            mhfddollarsallocated: options.mhfddollarsallocated,
+            lgmanager: options.lgmanager,
+            streamname: options.streamname,
+            creator: options.creator,
+            totalcost: options.totalcost,
+            workplanyear: options.workplanyear,
+            problemtype: options.problemtype,
+            mhfdmanager: options.mhfdmanager,
+            jurisdiction: options.jurisdiction,
+            county: options.county,
+            estimatedcostComp: filterComponent.estimatedcost,
+            componenttype: filterComponent.component_type,
+            componentstatus: filterComponent.status,
+            watershed: options.mhfdmanager,
+            jurisdictionComp: filterComponent.jurisdiction,
+            countyComp: filterComponent.county,
+            yearofstudy: filterComponent.yearofstudy,
+            sortby: options.column,
+            sorttype: options.order,
+            bounds: coordinates
+        }
 }
 
 export const setFilterCoordinates = (coordinates: string) => {
@@ -302,8 +330,6 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
 }
 
 export const setProblemKeyword = (keyword: string) => {
-    console.log('keyword:::::', keyword);
-    
     const filterOptions = store.getState().map.filterProblemOptions;
     const auxFilter = {...filterOptions};
     const filterProblems = store.getState().map.filterProblems;
@@ -315,7 +341,6 @@ export const setProblemKeyword = (keyword: string) => {
         datasets.getData(SERVER.SEARCH_KEYWORD_PROBLEMS + params, datasets.getToken()).then(tables => {
             if (tables?.problems.length >= 0) {
                 auxFilterProblems.keyword = tables;
-                console.log('tables:::::', tables);
                 dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems});
             }
         });
@@ -373,7 +398,7 @@ export const getGalleryProblems = () => {
     const filterComponent = store.getState().map.filterComponentOptions;
     return (dispatch: Function) => {
         dispatch({type: types.SET_SPIN_CARD_PROBLEMS, spin: true });
-        datasets.getData(SERVER.GALLERY_PROBLEMS + '&' + options(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProblems => {
+        datasets.postData(SERVER.GALLERY_PROJECTS, options(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProblems => {
             if (galleryProblems?.length >= 0) {
                 dispatch({type: types.GALLERY_PROBLEMS, galleryProblems});
             }
@@ -388,7 +413,7 @@ export const getGalleryProjects = () => {
     const filterComponent = store.getState().map.filterComponentOptions;
     return (dispatch: Function) => {
         dispatch({type: types.SET_SPIN_CARD_PROJECTS, spin: true });
-        datasets.getData(SERVER.GALLERY_PROJECTS + optionsProjects(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProjects => {
+        datasets.postData(SERVER.GALLERY_PROJECTS, optionsProjects(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {
                dispatch({type: types.GALLERY_PROJECTS, galleryProjects}); 
             }

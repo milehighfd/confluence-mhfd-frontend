@@ -5,11 +5,14 @@ import { bindActionCreators } from 'redux';
 import { replaceAppUser } from './store/actions/appUser';
 import { getUserInformation } from './store/actions/ProfileActions';
 import { getCarouselImages } from './store/actions/carouselImagesActions';
-import { getMapTables, getParamsFilter } from './store/actions/mapActions';
+import { getMapTables, getParamsFilter, setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions } from './store/actions/mapActions';
 
 const mapStateToProps = (state: any) => {
   return {
-    appUser: state.appUser
+    appUser: state.appUser,
+    filterProblemOptions: state.map.filterProblemOptions,
+    filterProjectOptions: state.map.filterProjectOptions,
+    filterComponentOptions: state.map.filterComponentOptions
   };
 };
 
@@ -19,7 +22,10 @@ const mapDispatchToProps = (dispatch: any) => ({
     getUserInformation,
     getCarouselImages,
     getMapTables,
-    getParamsFilter
+    getParamsFilter,
+    setFilterProblemOptions, 
+    setFilterProjectOptions, 
+    setFilterComponentOptions
     }, dispatch)
 });
 

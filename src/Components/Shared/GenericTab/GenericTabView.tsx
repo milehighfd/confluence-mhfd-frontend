@@ -136,6 +136,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
         }, 500);
     };
     return <>
+        <div className="herbert">
         <div className="hastag" style={{ minHeight: 34 }}>
             <h6> Showing {totalElements} {type}:</h6>
             <div style={{ marginBottom: totalElements ? 0 : 5 }}>
@@ -238,5 +239,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                 </InfiniteScroll>
             </Row>
         }
+        </div>
+        
     </>
 }

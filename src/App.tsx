@@ -31,13 +31,20 @@ import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttac
 import { SELECT_ALL_FILTERS } from './constants/constants';
 import Prueba from './Components/algo/Prueba';
 
-function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter } 
+function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter, 
+          setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions, filterProjectOptions, filterComponentOptions } 
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
-             getMapTables: Function, getParamsFilter: Function }) {
+             getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
+             filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any }) {
   const [ loading, setLoading ] = useState(true);
   useEffect(() => {
     getCarouselImages();
   }, [getCarouselImages]);
+  useEffect(() => {
+    setFilterProblemOptions(filterProblemOptions);
+    setFilterProjectOptions(filterProjectOptions);
+    setFilterComponentOptions(filterComponentOptions);
+  }, []);
   useEffect(() => {
     getParamsFilter();
     SELECT_ALL_FILTERS.forEach((layer) => {
