@@ -328,7 +328,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   percentage: problem.solutionstatus,
                   problemid: problem.problemid,
                   type: problem.type,
-                  value: problem.cartodb_id
+                  value: problem.cartodb_id,
+                  totalComponents: problem.totalComponents
                 }
               });
               totalElements = cardInformation.length;
@@ -353,7 +354,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   objectid: project.objectid,
                   type: project.type,
                   value: project.cartodb_id,
-                  id: project.projectid
+                  id: project.projectid,
+                  totalComponents: project.totalComponents
                 }
               });
               totalElements = cardInformation.length;

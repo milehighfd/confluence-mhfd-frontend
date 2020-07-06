@@ -173,7 +173,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
               }} />
           </Col>
         </Row>
-        {type === 'problem' && <Row className="solution-b">
+        {total > 0 && <Row className="solution-b">
           <Col span={8}><b>Total Estimated Cost</b></Col>
           <Col span={4}><b>${new Intl.NumberFormat("en-EN").format(total)}</b></Col>
         </Row>}
