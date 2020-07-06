@@ -109,7 +109,7 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
     }
   return (
       <div className="hastag">
-          {type !== 'Components' && <h6> Showing {totalElements} {type}:</h6>}
+          {type !== 'Components' ? <h6> Showing {totalElements} {type}:</h6>: <h6> Showing  {type}:</h6>}
           <div style={{ marginBottom: totalElements ? 0 : 5 }}>
                 {type === FILTER_PROBLEMS_TRIGGER ? tagProblems.map((tag: { key: string, values: Array<string> }, index: number) => {
                     return <>
