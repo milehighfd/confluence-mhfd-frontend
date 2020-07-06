@@ -146,9 +146,7 @@ const initState = {
         problemtype: '',
         source: '',
         components: '',
-        keyword: {
-            problems: []
-        }
+        keyword: {}
     },
     filterProjects: {
         projectname: '',
@@ -167,10 +165,7 @@ const initState = {
         mhfdmanager: '',
         jurisdiction: '',
         county: '',
-        keyword: {
-            projects_line_1: [],
-            projects_polygon_: []
-        }
+        keyword: {}
     },
     filterComponents: {
         component_type: '',

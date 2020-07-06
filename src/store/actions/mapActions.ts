@@ -338,13 +338,20 @@ export const setProblemKeyword = (keyword: string) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters: auxFilter});
         const params = '?field=' + keyword;
-        datasets.getData(SERVER.SEARCH_KEYWORD_PROBLEMS + params, datasets.getToken()).then(tables => {
-            if (tables?.problems.length >= 0) {
-                auxFilterProblems.keyword = tables;
-                auxFilterProblems.problemname = keyword;
-                dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems});
-            }
-        });
+        if(keyword) {
+            datasets.getData(SERVER.SEARCH_KEYWORD_PROBLEMS + params, datasets.getToken()).then(tables => {
+                if (tables?.problems.length >= 0) {
+                    auxFilterProblems.keyword = tables;
+                    auxFilterProblems.problemname = keyword;
+                    dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems});
+                }
+            }); 
+        } else {
+            auxFilterProblems.keyword = {};
+            auxFilterProblems.problemname = keyword;
+            dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems});
+        }
+        
         
     }
 }
@@ -358,14 +365,19 @@ export const setProjectKeyword = (keyword: string) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters: auxFilter});
         const params = '?field=' + keyword;
-        datasets.getData(SERVER.SEARCH_KEYWORD_PROJECTS + params, datasets.getToken()).then(tables => {
-            if (tables?.projects_line_1?.length >= 0 || tables?.projects_polygon_?.length >= 0) {
-                auxFilterProjects.keyword = tables;
-                auxFilterProjects.projectname = keyword;
-                dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects});
-            }
-        });
-        
+        if(keyword) {
+            datasets.getData(SERVER.SEARCH_KEYWORD_PROJECTS + params, datasets.getToken()).then(tables => {
+                if (tables?.projects_line_1?.length >= 0 || tables?.projects_polygon_?.length >= 0) {
+                    auxFilterProjects.keyword = tables;
+                    auxFilterProjects.projectname = keyword;
+                    dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects});
+                }
+            });
+        } else {
+            auxFilterProjects.keyword = {};
+            auxFilterProjects.projectname = keyword;
+            dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects});
+        }
     }
 }
 
