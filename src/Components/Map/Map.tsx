@@ -79,7 +79,8 @@ const Map = ({ leftWidth,
             getGalleryProjects,
             filterProblems,
             filterProjects,
-            filterComponents
+            filterComponents,
+            setSpinValue
              } : MapProps) => {
     console.log('filterProblems:::', filterProblems, filterProjects, filterComponents);
     
@@ -88,7 +89,7 @@ const Map = ({ leftWidth,
     
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
-    const [ spinValue, setSpinValue] = useState(true);
+    // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
     const coor: any[][] = [];
     if(user?.polygon[0]) {
@@ -882,7 +883,6 @@ const Map = ({ leftWidth,
     const layerStrings = selectedLayers.filter( element => typeof element !== 'object');
     const [ selectedCheckBox, setSelectedCheckBox ] = useState(selectedLayers);
     return (
-        <Spin spinning={spinValue}>
             <div className="map">
             <div id="map" style={{ width: '100%', height: '100%' }} />
             <div className="m-head">
@@ -981,7 +981,6 @@ const Map = ({ leftWidth,
                     <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>
                 </div> */}
         </div>
-        </Spin>
         
     )
 }

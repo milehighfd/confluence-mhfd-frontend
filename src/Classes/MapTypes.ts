@@ -29,7 +29,8 @@ export type MapProps = {
     getGalleryProjects: Function,
     filterProblems: any,
     filterProjects: any,
-    filterComponents: any
+    filterComponents: any,
+    setSpinValue: Function
 }
 
 export type MapHOCProps = {

@@ -136,7 +136,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
         }, 500);
     };
     return <>
-        <div className="herbert">
+        <div className="scroll-cards" style={{height: window.innerHeight - 260, overflowY: 'auto'}}>
         <div className="hastag" style={{ minHeight: 34 }}>
             <h6> Showing {totalElements} {type}:</h6>
             <div style={{ marginBottom: totalElements ? 0 : 5 }}>
