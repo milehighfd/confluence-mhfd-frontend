@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Collapse, Dropdown, Menu, Button, Input, Progress, Carousel, Modal, Table } from 'antd';
+import { Row, Col, Collapse, Dropdown, Menu, Button, Input, Progress, Carousel, Modal, Table, message } from 'antd';
 
 import DetailedView from '../../DetailedProblem/DetailedView';
 import { FILTER_PROBLEMS_TRIGGER } from '../../../constants/constants';
+ import { SERVER } from "../../../Config/Server.config";
 import { Detailed } from '../../../store/types/detailedTypes';
 import DetailedInfo from './DetailedInfo';
 import CollapseItems from './CollapseItems';
@@ -20,6 +21,22 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       getComponentsByProblemId({id: data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
     }
   }, []);
+  const copyUrl = () => {
+    function handler (event: any){
+      let url = '';
+      if (type === FILTER_PROBLEMS_TRIGGER) {
+        url = `problemid=${data.problemid}`;
+      } else {
+        url = `objectid=${data.objectid}&cartid=${data.value}&type=${data.type}`;
+      }
+      event.clipboardData.setData('text/plain', SERVER.SHARE_MAP_PROJECT + '?' + url);
+      event.preventDefault();
+      document.removeEventListener('copy', handler, true);
+    }
+    document.addEventListener('copy', handler, true);
+    document.execCommand('copy');
+    message.success('copied to clipboard!');
+  }
   const detailedPage = detailed as any;
   return (
     <>
@@ -70,8 +87,9 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
             </Col>
             <Col span={3} style={{ textAlign: 'right' }}>
               <Button><img src="/Icons/icon-01.svg" alt="" /></Button>
-              <Button><img src="/Icons/icon-06.svg" alt="" /></Button>
-              <Button><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
+              {/* <Button><img src="/Icons/icon-06.svg" alt="" /></Button> */}
+              <Button><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl()} /></Button>
+              <Button onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
             </Col>
           </Row>
           <Row className="detailed-b">

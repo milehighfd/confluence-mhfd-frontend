@@ -283,6 +283,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         options.county = county !== '- Select -'? county: '';
         options.lgmanager = lgmanager !== '- Select -'? lgmanager: '';
         options.creator = creator !== '- Select -'? creator: '';
+        //console.log(options);
         setFilterProjectOptions(options);
         setToggleFilters(false);
         getGalleryProjects();
@@ -391,7 +392,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 <p><Checkbox value={'15'}>15M-20M</Checkbox></p>
                 <p><Checkbox value={'10'}>10M-15M</Checkbox></p>
                 <p><Checkbox value={'5'}>5M-10M</Checkbox></p>
-                <p><Checkbox value={'1'}>1M-5M</Checkbox></p>
+                <p><Checkbox value={'0'}>0M-5M</Checkbox></p>
             </Checkbox.Group>
         </Col>
         <Col span={12}>
