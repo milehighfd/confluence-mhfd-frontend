@@ -26,7 +26,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       } else {
         if(!map) {
           map = new MapService('map2');
-          map.isStyleLoaded(test());
+          map.isStyleLoaded(addLayer);
           
         }
       }
@@ -37,9 +37,17 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
   
   const addLayer = () => {
     if(map) {
-      map.addVectorSource('problems', layers.problems.tiles);
-      map.addLayer('problems', 'problems-layer', tileStyles.problems);
-      map.setFilter('problems-layer', ['in', 'cartodb_id', detailedPage.cartodb_id]);
+    console.log(layers);
+      console.log('my problems ', layers.problems, detailedPage.cartodb_id);
+      map.addVectorSource('problems', layers.problems);
+      console.log(tileStyles.problems);
+      let i = 0; // herbert fix that :v 
+      for (const problem of tileStyles.problems) {
+        map.addLayer('problems-layer_' + i, 'problems', problem);
+        map.setFilter('problems-layer_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+       // console.log('map get ', map.getFilter('problems-layer_' + i));
+        i++;
+      }
     }
   }
   const total = data.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
