@@ -343,7 +343,7 @@ const Map = ({ leftWidth,
                 }
                 if (filterField === 'keyword') {
                     if (filters[key]) {
-                        allFilters.push(['in', 'cartodb_id', ...filters[key]]);
+                        allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
                     }
                 }
                 if (filters && filters.length) {
@@ -356,8 +356,8 @@ const Map = ({ leftWidth,
                     }
                     if (filterField === 'yearofstudy') {
                         for (const years of filters.split(',')) {
-                            const lowerArray: any[] = ['>=', filterField, +years];
-                            const upperArray: any[] = ['<=', filterField, +years + 9];
+                            const lowerArray: any[] = ['>=',  ['get', filterField], +years];
+                            const upperArray: any[] = ['<=',  ['get', filterField], +years + 9];
                             options.push(['all', lowerArray, upperArray]);
                         
                         }
@@ -365,12 +365,12 @@ const Map = ({ leftWidth,
                         continue;
                     }
                     if (filterField === 'components') {
-                        allFilters.push(['in', 'problemid', ...filters]);
+                        allFilters.push(['in', ['get', 'problemid'], ['literal', [...filters]]]);
                         continue;
                     }
                     if (filterField === 'problemtypeProjects') {
                         console.log(filterField, filters);
-                        allFilters.push(['in', 'projectid', ...filters]);
+                        allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
                         continue;
                     }
                     if (filterField === 'problemname') {
@@ -398,12 +398,14 @@ const Map = ({ leftWidth,
                         continue;
                     }
                     if (filterField === 'startyear') {
-                        const lowerArray: any[] = ['>=', filterField, +filters];
-                        const upperArray: any[] = ['<=', 'completedyear', +toFilter['completedyear']];
-                        if (toFilter['completedyear'] !== 9999) {
+                        const lowerArray: any[] = ['>=', ['get', filterField], +filters];
+                        const upperArray: any[] = ['<=', ['get', 'completedyear'], +toFilter['completedyear']];
+                        if (+toFilter['completedyear'] !== 9999) {
                             allFilters.push(['all', lowerArray, upperArray]);
                         } else {
-                            allFilters.push(lowerArray);
+                            if (+filters) {
+                                allFilters.push(lowerArray);
+                            }
                         }
                         continue;       
                     }
@@ -421,7 +423,7 @@ const Map = ({ leftWidth,
                     } else {
                         for (const filter of filters.split(',')) {
                             if (isNaN(+filter)) {
-                                options.push(['==', filterField, filter]);
+                                options.push(['==', ['get', filterField], filter]);
                             } else {
                                 const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
                                 options.push(equalFilter);
