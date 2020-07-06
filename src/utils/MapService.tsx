@@ -21,7 +21,7 @@ export class MapService {
       container: id,
       preserveDrawingBuffer: true,
       style: this.styleUrl,
-      center: [-99, 39.20],
+      center: [-104.7236683149282,39.674174328991904],
       zoom: 8.9,
       maxBounds: [[-180, -90], [180, 90]],
       minZoom: 2.4
@@ -96,6 +96,12 @@ export class MapService {
       // New South Wales
       bbox: [minX, minY, maxX, maxY],
     }));
+  }
+  flyTo(coordinates: any) {
+    this.map.flyTo({center: coordinates});
+  }
+  fitBounds(coordinates: any) {
+    this.map.fitBounds(coordinates);
   }
   addDrawController() {
     if (!this.controller) {

@@ -116,7 +116,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               {detailedPage.problemid ? (
                   <CollapseItems type={'problem'} data={componentsOfProblems} detailedPage={detailedPage}/>
                 ) : (
-                  <CollapseItems type={'project'} data={componentsOfProblems} detailedPage={detailedPage} />
+                  <CollapseItems type={'project'} data={componentsOfProblems} detailedPage={detailedPage}/>
               )}
             </Col>
             <Col span={7}>
