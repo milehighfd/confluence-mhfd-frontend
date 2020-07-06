@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Collapse, Table, Row, Col, Menu } from 'antd';
 import { MapService } from '../../../utils/MapService';
+import store from '../../../store';
+import { PROBLEMS_TRIGGER } from '../../../constants/constants';
+import { tileStyles } from '../../../constants/mapStyles';
 
 
 const { Panel } = Collapse;
 export default ({ type, data, detailedPage }: { type: string, data: any, detailedPage: any }) => {
   let html = document.getElementById('map2');
   console.log('data::::', detailedPage);
+  const layers = store.getState().map.layers;
+  console.log('layers::::', layers);
   
   let map: any;
   // if (html) {
@@ -21,12 +26,30 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       } else {
         if(!map) {
           map = new MapService('map2');
-          map.create('map2');
+          map.isStyleLoaded(addLayer);
+          
         }
       }
     };
     waiting();
   }, []);
+  const test: Function = () => console.log('Addis');
+  
+  const addLayer = () => {
+    if(map) {
+    console.log(layers);
+      console.log('my problems ', layers.problems, detailedPage.cartodb_id);
+      map.addVectorSource('problems', layers.problems);
+      console.log(tileStyles.problems);
+      let i = 0; // herbert fix that :v 
+      for (const problem of tileStyles.problems) {
+        map.addLayer('problems-layer_' + i, 'problems', problem);
+        map.setFilter('problems-layer_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+       // console.log('map get ', map.getFilter('problems-layer_' + i));
+        i++;
+      }
+    }
+  }
   const total = data.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
   let columns = [];
   if (type === 'project') {

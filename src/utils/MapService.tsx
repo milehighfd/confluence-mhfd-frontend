@@ -114,12 +114,16 @@ export class MapService {
       this.map.setFilter(layer, filter);
     }
   }
-  isStyleLoaded(cb: Function) {
+  isStyleLoaded(cb: any) {
+    console.log('1', this.map.isStyleLoaded());
+    
     if (this.map && this.map.isStyleLoaded()) {
+      console.log('2', this.map.isStyleLoaded());
       cb();
       this.setOnMapLoad(cb);
     } else {
       setTimeout(() => {
+        console.log('3');
         this.isStyleLoaded(cb);
       }, 1000);
     }
@@ -166,10 +170,12 @@ export class MapService {
       source: sourceId
       , ...style
     };
+    console.log('add layer' , layer);
     if (!this.map.getLayer(id)) {
       this.map.addLayer(layer);
     }
   }
+  
   getLayers(): any {
     return this.map.getStyle().layers;
   }
