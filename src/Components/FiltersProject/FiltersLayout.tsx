@@ -360,10 +360,10 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 })}
             </Checkbox.Group>
         </Col>
-        <Col span={12}>
+        <Col span={12} className="filter-menu">
             <h5>Year <Popover content={content07}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
             <label>Start</label>
-            <Select value={start} style={{ width: '100%' }} onChange={ (e: string) => {
+            <Select dropdownClassName="filter-menu" value={start} style={{ width: '100%' }} onChange={ (e: string) => {
                     setStart(e);
                 }}>
                     {paramProjects.startyear.map((element: number, index: number) =>{
@@ -372,7 +372,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             </Select>
             <br></br><br></br>
             <label>Completed</label>
-            <Select value={completed} style={{ width: '100%' }} onChange={ (e: string) => {
+            <Select dropdownClassName="filter-menu" value={completed} style={{ width: '100%' }} onChange={ (e: string) => {
                     setCompleted(e);
                 }}>
                     {paramProjects.completedyear.map((element: number, index: number) =>{

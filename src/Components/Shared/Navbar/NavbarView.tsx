@@ -227,14 +227,18 @@ export default () => {
                 clicking on the icons on the upper right of the page. Clicking the “X” in the upper right or
                 just clicking outside of the popup window will close the Detail Page and bring you back to the Map View
                 </p>
-                <p>
-                  <h6>Uploader</h6>
-                  The Document Uploader (Up Arrow icon) is only available to system administrators,
-                  and allows photos and other files to be uploaded and associated with features in the system.
-                </p>
               </div>
             </TabPane>
-            <TabPane tab="Settings" key="6">
+            <TabPane tab="Uploader" key="6">
+             <img className="img-tuto" src="/Icons/tuto.png" alt="" width="485px" />
+             <div className="content">
+               <p>
+                 The Document Uploader (Up Arrow icon) is only available to system administrators,
+                 and allows photos and other files to be uploaded and associated with features in the system.
+               </p>
+             </div>
+            </TabPane>
+            <TabPane tab="Settings" key="7">
              <img className="img-tuto" src="/Icons/tuto.png" alt="" width="485px" />
              <div className="content">
                 <p>
@@ -244,7 +248,7 @@ export default () => {
                 </p>
              </div>
             </TabPane>
-            <TabPane tab="Future Modules" key="7">
+            <TabPane tab="Future Modules" key="8">
              <img className="img-tuto" src="/Icons/tuto.png" alt="" width="485px" />
              <div className="content">
                 <p>
