@@ -83,6 +83,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         const [selectedItems, setSelectedItems] = useState([]);
         const [isPolygon, setIsPolygon] = useState(false);
         const [formatedProjects, setFormatedProjects] = useState<any>([]);
+        const [spinValue, setSpinValue] = useState(true);
 
         let markerRef = useRef<HTMLDivElement>(null);
         let polygonRef = useRef<HTMLDivElement>(null);
@@ -131,7 +132,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
-                  <Spin spinning={(spinFilter || spinCardProblems || spinCardProjects)}>
+                  <Spin spinning={(spinFilter || spinCardProblems || spinCardProjects || spinValue)}>
                     <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={leftWidth}>
                         <Map
                             leftWidth={leftWidth}
@@ -161,7 +162,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             getGalleryProjects={getGalleryProjects}
                             filterProblems={filterProblems}
                             filterProjects={filterProjects}
-                            filterComponents={filterComponents}/>
+                            filterComponents={filterComponents}
+                            setSpinValue={setSpinValue}/>
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

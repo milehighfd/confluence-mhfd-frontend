@@ -268,8 +268,8 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
     <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00">
       {tabs.map((value: string, index: number) => {
         return (
-          <TabPane tab={value} key={'' + index}>
-            <FiltersHeader
+          <TabPane tab={value} key={'' + index} style={{height: window.innerHeight - 280,overflow: 'auto'}}>
+            <FiltersHeader 
               totalElements={value === FILTER_PROJECTS_TRIGGER ? projectsLength : problemsLength}
               type={value}
               filterProblemOptions={filterProblemOptions}
