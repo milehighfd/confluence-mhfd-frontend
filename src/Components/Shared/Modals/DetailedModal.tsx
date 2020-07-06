@@ -35,7 +35,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     }
     document.addEventListener('copy', handler, true);
     document.execCommand('copy');
-    message.success('copied to clipboard!');
+    message.success('Copied to Clipboard!');
   }
   const detailedPage = detailed as any;
   return (
