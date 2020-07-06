@@ -6,6 +6,8 @@ import { MapService } from '../../../utils/MapService';
 const { Panel } = Collapse;
 export default ({ type, data, detailedPage }: { type: string, data: any, detailedPage: any }) => {
   let html = document.getElementById('map2');
+  console.log('data::::', detailedPage);
+  
   let map: any;
   // if (html) {
   //   map = new MapService('map2');

@@ -234,15 +234,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               value={tabActive === '0'? keywordProblem: keywordProject}
               onChange={(e)=> {
                 if(tabActive === '0') {
-                  // const auxOptions = {...filterProblemOptions};
-                  // auxOptions.keyword = e.target.value;
                   setKeywordProblem(e.target.value);
-                  // setFilterProblemOptions(auxOptions);
                 } else {
-                  // const auxOptions = {...filterProjectOptions};
-                  // auxOptions.keyword = e.target.value;
-                  setKeywordProject(e.target.value)
-                  // setFilterProjectOptions(auxOptions);
+                  setKeywordProject(e.target.value);
                 }
               }}
               onSearch={(e) => {

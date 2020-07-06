@@ -118,7 +118,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                 ) : (
                   <CollapseItems type={'project'} data={componentsOfProblems} detailedPage={detailedPage} />
               )}
-
             </Col>
             <Col span={7}>
               <TeamCollaborator />
