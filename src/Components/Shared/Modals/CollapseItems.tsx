@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Collapse, Table, Row, Col, Menu } from 'antd';
 import { MapService } from '../../../utils/MapService';
+import store from '../../../store';
+import { PROBLEMS_TRIGGER } from '../../../constants/constants';
+import { tileStyles } from '../../../constants/mapStyles';
 
 
 const { Panel } = Collapse;
 export default ({ type, data, detailedPage }: { type: string, data: any, detailedPage: any }) => {
   let html = document.getElementById('map2');
   console.log('data::::', detailedPage);
+  const layers = store.getState().map.layers;
+  console.log('layers::::', layers);
   
   let map: any;
   // if (html) {
@@ -21,12 +26,22 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       } else {
         if(!map) {
           map = new MapService('map2');
-          map.create('map2');
+          map.isStyleLoaded(test());
+          
         }
       }
     };
     waiting();
   }, []);
+  const test: Function = () => console.log('Addis');
+  
+  const addLayer = () => {
+    if(map) {
+      map.addVectorSource('problems', layers.problems.tiles);
+      map.addLayer('problems', 'problems-layer', tileStyles.problems);
+      map.setFilter('problems-layer', ['in', 'cartodb_id', detailedPage.cartodb_id]);
+    }
+  }
   const total = data.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
   let columns = [];
   if (type === 'project') {
