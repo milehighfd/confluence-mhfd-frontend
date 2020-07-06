@@ -99,15 +99,15 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                   {detailedPage.problemid ? (
                     <div className="detailed-c"> <img height={280} width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
                   ) : (
-                      <div className="detailed-c"> <img height={280} width="100%" src={detailedPage.attachments ? detailedPage.attachments : (
-                        detailedPage.projecttype === 'Capital' ? '/projectImages/capital.png' :
-                          detailedPage.projecttype === 'Study' ? '/projectImages/study.png' :
+                      <div className="detailed-c"> <img height={280} width="100%" src={detailedPage.attachments.length > 0 ? detailedPage.attachments : (
+                        detailedPage.projecttype === 'Capital' ? 'projectImages/capital.png' :
+                          detailedPage.projecttype === 'Study' ? 'projectImages/study.png' :
                             detailedPage.projecttype === 'Maintenance' ?
-                              (detailedPage.projectsubtype === 'Vegetation Mangement' ? '/projectImages/maintenance_vegetationmanagement.png' :
-                                detailedPage.projectsubtype === 'Sediment Removal' ? '/projectImages/maintenance_sedimentremoval.png' :
-                                  detailedPage.projectsubtype === 'Restoration' ? '/projectImages/maintenance_restoration.png' :
-                                    detailedPage.projectsubtype === 'Minor Repairs' ? '/projectImages/maintenance_minorrepairs.png' :
-                                      '/projectImages/maintenance_debrismanagement.png') : '/Icons/eje.png'
+                              (detailedPage.projectsubtype === 'Vegetation Mangement' ? 'projectImages/maintenance_vegetationmanagement.png' :
+                                detailedPage.projectsubtype === 'Sediment Removal' ? 'projectImages/maintenance_sedimentremoval.png' :
+                                  detailedPage.projectsubtype === 'Restoration' ? 'projectImages/maintenance_restoration.png' :
+                                    detailedPage.projectsubtype === 'Minor Repairs' ? 'projectImages/maintenance_minorrepairs.png' :
+                                      'projectImages/maintenance_debrismanagement.png') : 'Icons/eje.png'
                       )} /> </div>
                     )}
                 </div>

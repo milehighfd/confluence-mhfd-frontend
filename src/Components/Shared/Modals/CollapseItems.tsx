@@ -45,6 +45,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       {
         title: 'Percent',
         dataIndex: 'percentage',
+        render: (percentage: number) => Math.round(percentage * 10) /10 + '%',
         sorter: true
       }
     ];
@@ -64,6 +65,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       {
         title: 'Percent',
         dataIndex: 'percentage',
+        render: (percentage: number) => Math.round(percentage * 10) /10 + '%',
         sorter: true
       },
       {
