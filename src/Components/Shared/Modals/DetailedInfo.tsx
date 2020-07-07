@@ -17,7 +17,7 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
           <label><i>Priority</i></label>
         </Col>
         <Col span={8}>
-          <p style={{ textAlign: 'right', width: '35%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}> {detailed.problempriority} </p>
+          <p style={{width: '35%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}> {detailed.problempriority} </p>
         </Col>
       </Row>
       <Row>
@@ -67,7 +67,7 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
         </Col>
         </>}
       </Row>
-      
+
       { detailed.projecttype === 'Maintenance' && <Row>
         <Col span={4}>
           <label><i>Project Status</i></label>

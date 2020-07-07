@@ -29,7 +29,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
     };
     waiting();
   }, []);
-  
+
   const addLayer = () => {
     if(map) {
       let i = 0;
@@ -84,7 +84,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
           }
         });
       }
-      
+
       const styles = {...tileStyles as any};
       for (const key in layers.components) {
           map.addVectorSource(key, layers.components[key]);
@@ -96,7 +96,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
               i++;
             }
           }
-          
+
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
       const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
@@ -110,7 +110,8 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       {
         title: 'Solution Type',
         dataIndex: 'type',
-        sorter: true
+        sorter: true,
+        width: 300
       },
       {
         title: 'Cost',
@@ -130,7 +131,8 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       {
         title: 'Solution Type',
         dataIndex: 'type',
-        sorter: true
+        sorter: true,
+        width: 300
       },
       {
         title: 'Cost',
@@ -152,7 +154,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       }
     ];
   }
-  
+
   const columnProblems = [
     {
       title: 'Name',
@@ -253,10 +255,10 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
               }} />
           </Col>
         </Row>
-        {total > 0 && <Row className="solution-b">
-          <Col span={8}><b>Total Estimated Cost</b></Col>
-          <Col span={4}><b>${new Intl.NumberFormat("en-EN").format(total)}</b></Col>
-        </Row>}
+        {total > 0 && <div className="solution-b" style={{display:'flex'}}>
+          <div style={{width:'284px'}}><b>Total Estimated Cost</b></div>
+          <div style={{padding: '0px 12.5px'}}><b>${new Intl.NumberFormat("en-EN").format(total)}</b></div>
+        </div>}
       </Panel>
 
       <Panel header="Map" key="4" extra={genExtra()}>
