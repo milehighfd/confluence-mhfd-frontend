@@ -78,7 +78,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               existDetailedPageProject,
               existDetailedPageProblem,
               displayModal,
-              componentDetailIds
+              componentDetailIds,
+              loaderTableCompoents
              } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -222,6 +223,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             existDetailedPageProject={existDetailedPageProject}
                             existDetailedPageProblem={existDetailedPageProblem}
                             displayModal={displayModal}
+                            loaderTableCompoents={loaderTableCompoents}
                       />
                     </Col>
                   </Spin>

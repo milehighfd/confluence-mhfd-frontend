@@ -102,7 +102,8 @@ export type MapHOCProps = {
     existDetailedPageProject: Function,
     existDetailedPageProblem: Function,
     displayModal: boolean,
-    componentDetailIds: any
+    componentDetailIds: any,
+    loaderTableCompoents: boolean
 }
 
 export type MapViewTypes = { 
@@ -140,7 +141,8 @@ export type MapViewTypes = {
     setProjectKeyword: Function,
     existDetailedPageProject: Function,
     existDetailedPageProblem: Function,
-    displayModal: boolean
+    displayModal: boolean,
+    loaderTableCompoents: boolean
 }
 export type OptionProblems = {
     keyword: string,

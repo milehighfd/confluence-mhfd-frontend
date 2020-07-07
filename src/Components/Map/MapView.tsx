@@ -61,7 +61,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   filterProjectOptions, filterCoordinates, setFilterProblemOptions,
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
-                  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal } : MapViewTypes) => {
+                  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents } : MapViewTypes) => {
   
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
@@ -237,6 +237,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         visible={visible}
         setVisible={setVisible}
         componentsOfProblems={componentsOfProblems}
+        loaderTableCompoents={loaderTableCompoents}
       />}
       <Row className="head-m">
         <Col span={20} id="westminter">
@@ -421,7 +422,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       filterProjectOptions={filterProjectOptions}
                       setFilterProblemOptions={setFilterProblemOptions}
                       setFilterProjectOptions={setFilterProjectOptions}
-                      componentsOfProblems={componentsOfProblems}/>
+                      componentsOfProblems={componentsOfProblems}
+                      loaderTableCompoents={loaderTableCompoents}/>
               </TabPane>
             );
           })}

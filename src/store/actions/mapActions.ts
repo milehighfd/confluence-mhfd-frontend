@@ -496,8 +496,10 @@ export const getParamsFilter = () => {
 }
 export const getComponentsByProblemId = (data: any) => {
     return (dispatch: Function) => {
+        dispatch({type: types.LOADER_TABLE_COMPONENTS, spin: true})
         datasets.postData(SERVER.COMPONENTS_BY_ENTITYID, data, datasets.getToken()).then(params => {
             dispatch({type: types.GET_COMPONENTS_BY_PROBLEMID, params});
+            dispatch({type: types.LOADER_TABLE_COMPONENTS, spin: false});
         })
     }
 }

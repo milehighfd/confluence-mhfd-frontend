@@ -190,7 +190,8 @@ const initState = {
         type: '',
         value: ''
     },
-    componentDetailIds: {}
+    componentDetailIds: {},
+    loaderTableCompoents: false
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -389,6 +390,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 componentDetailIds: action.filtersComponents
+            }
+        }
+        case types.LOADER_TABLE_COMPONENTS: {
+            return {
+                ...state,
+                loaderTableCompoents: action.spin
             }
         }
         default: 

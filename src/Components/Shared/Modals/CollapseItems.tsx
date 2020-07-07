@@ -7,7 +7,9 @@ import { tileStyles } from '../../../constants/mapStyles';
 
 
 const { Panel } = Collapse;
-export default ({ type, data, detailedPage }: { type: string, data: any, detailedPage: any }) => {
+export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents }:
+       { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string, loaderTableCompoents: boolean }) => {
+         
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
   let map: any;
@@ -197,9 +199,7 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
             <Col span={24}>
               <Table loading={false} columns={columnProblems} rowKey={(record: any) => record.problemid} dataSource={detailedPage.problems} pagination={false}
                 onChange={(pagination, filters, sort) => {
-                  console.log('sorter:::', pagination, filters, sort);
-
-                  // handleTableChange(pagination, filters, sort)
+                  
                 }} />
             </Col>
           </Row>
@@ -247,10 +247,9 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       <Panel header="Component & solutions" key="3" extra={genExtra()}>
         <Row className="table-up-modal">
           <Col span={24}>
-            <Table loading={false} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
+            <Table loading={loaderTableCompoents} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
               onChange={(pagination, filters, sort) => {
-                console.log('sorter:::', pagination, filters, sort);
-
+                getComponentsByProblemId({id, typeid, sortby: sort.columnKey, sorttype: (sort.order === 'descend' ? 'desc': 'asc')});
                 // handleTableChange(pagination, filters, sort)
               }} />
           </Col>

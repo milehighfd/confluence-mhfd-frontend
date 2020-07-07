@@ -9,11 +9,10 @@ import DetailedInfo from './DetailedInfo';
 import CollapseItems from './CollapseItems';
 import TeamCollaborator from './TeamCollaborator';
 
-export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, getComponentsByProblemId, componentsOfProblems }:
+export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, getComponentsByProblemId,
+    componentsOfProblems, loaderTableCompoents }:
   { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function,
-    detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any }) => {
-      console.log('data::::', data);
-      
+    detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean }) => {
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
@@ -116,9 +115,11 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
               {detailedPage.problemid ? (
-                  <CollapseItems type={'problem'} data={componentsOfProblems} detailedPage={detailedPage}/>
+                  <CollapseItems type={'problem'} data={componentsOfProblems} detailedPage={detailedPage} 
+                    getComponentsByProblemId={getComponentsByProblemId} id={data.problemid} typeid={'problemid'} loaderTableCompoents={loaderTableCompoents} />
                 ) : (
-                  <CollapseItems type={'project'} data={componentsOfProblems} detailedPage={detailedPage}/>
+                  <CollapseItems type={'project'} data={componentsOfProblems} detailedPage={detailedPage}
+                    getComponentsByProblemId={getComponentsByProblemId} id={data.id} typeid={'projectid'} loaderTableCompoents={loaderTableCompoents} />
               )}
             </Col>
             <Col span={7}>
