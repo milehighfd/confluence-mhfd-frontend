@@ -13,15 +13,27 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     componentsOfProblems, loaderTableCompoents }:
   { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function,
     detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean }) => {
+      
+  const [typeDetail, setTypeDetail] = useState('');
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
       getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
+      setTypeDetail(type);
     } else {
       getDetailedPageProject(data.objectid, data.value, data.type);
       getComponentsByProblemId({id: data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      setTypeDetail(type);
     }
   }, []);
+
+  const updateModal = (problemId: number) => {
+    //console.log('PROBLEM ID ', problemId);
+    setTypeDetail(FILTER_PROBLEMS_TRIGGER);
+    //console.log('CAMBIO DE TIPO ', typeDetail);
+    getDetailedPageProblem(problemId);
+    getComponentsByProblemId({id: problemId, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
+  }
   const copyUrl = () => {
     function handler (event: any){
       let url = '';
@@ -115,11 +127,13 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
               {detailedPage.problemid ? (
-                  <CollapseItems type={'problem'} data={componentsOfProblems} detailedPage={detailedPage} 
-                    getComponentsByProblemId={getComponentsByProblemId} id={data.problemid} typeid={'problemid'} loaderTableCompoents={loaderTableCompoents} />
+                  <CollapseItems type={typeDetail} data={componentsOfProblems} 
+                  getComponentsByProblemId={getComponentsByProblemId} id={data.problemid} typeid={'problemid'} loaderTableCompoents={loaderTableCompoents}
+                   detailedPage={detailedPage} updateModal={updateModal} />
                 ) : (
-                  <CollapseItems type={'project'} data={componentsOfProblems} detailedPage={detailedPage}
-                    getComponentsByProblemId={getComponentsByProblemId} id={data.id} typeid={'projectid'} loaderTableCompoents={loaderTableCompoents} />
+                  <CollapseItems type={typeDetail} data={componentsOfProblems} 
+                  getComponentsByProblemId={getComponentsByProblemId} id={data.id} typeid={'projectid'} loaderTableCompoents={loaderTableCompoents}
+                  detailedPage={detailedPage} updateModal={updateModal} />
               )}
             </Col>
             <Col span={7}>

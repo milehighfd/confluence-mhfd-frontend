@@ -10,7 +10,7 @@ import { FILTER_PROBLEMS_TRIGGER } from "../../../constants/constants";
 
 const { Panel } = Collapse;
 
-export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, totalElements, type, listDescription,
+export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, totalElements, type, setType, listDescription,
     cardInformation, accordionRow, removeFilter, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId,
     filterComponentOptions, setFilterComponentOptions, getGalleryProjects, getGalleryProblems, filterProblemOptions,
     filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, componentsOfProblems, loaderTableCompoents }: any) => {
@@ -226,10 +226,10 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                     height={window.innerHeight - 260}
                     endMessage={''}>
                     {sw ? state.items.map((i, index: number) => {
-                        return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]} type={type}
+                        return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}
                             getDetailedPageProblem={getDetailedPageProblem}
                             getDetailedPageProject={getDetailedPageProject}
-                            detailed={detailed}
+                            detailed={detailed} type={type} 
                             loaderDetailedPage={loaderDetailedPage}
                             setHighlighted={setHighlighted}
                             getComponentsByProblemId={getComponentsByProblemId}

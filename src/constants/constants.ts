@@ -38,6 +38,8 @@ export const DENVER_LOCATION = {
 
 export const PROBLEMS_TRIGGER = 'problems';
 export const PROJECTS_TRIGGER = 'projects';
+export const PROJECTS_MODAL = 'Projects';
+export const PROBLEMS_MODAL = 'Problems';
 export const COMPONENTS_TRIGGER = 'components';
 
 // Map Layer Filters
@@ -1623,7 +1625,7 @@ export const SORTED_PROBLEMS = [{
   title: 'Cost'
 }];
 export const SORTED_PROJECTS = [{
-  name: 'streamname',
+  name: 'projectname',
   title: 'Name'
 },{
   name: 'projecttype',

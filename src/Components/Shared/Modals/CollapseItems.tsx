@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Collapse, Table, Row, Col, Menu } from 'antd';
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_TRIGGER } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL } from '../../../constants/constants';
 import { tileStyles } from '../../../constants/mapStyles';
+// import DetailedModal from '../Modals/DetailedModal';
 
 
 const { Panel } = Collapse;
-export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents }:
-       { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string, loaderTableCompoents: boolean }) => {
-         
+
+export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal }:
+       { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string, 
+        loaderTableCompoents: boolean, updateModal: Function }) => {
+  
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
   let map: any;
@@ -35,7 +38,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   const addLayer = () => {
     if(map) {
       let i = 0;
-      if(type === 'problem') {
+      if(type === PROBLEMS_MODAL) {
         map.addVectorSource('problems', layers.problems);
         for (const problem of tileStyles.problems) {
           map.addLayer('problems-layer_' + i, 'problems', problem);
@@ -107,7 +110,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   }
   const total = data.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
   let columns = [];
-  if (type === 'project') {
+  if (type === PROJECTS_MODAL) {
     columns = [
       {
         title: 'Solution Type',
@@ -157,10 +160,18 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
     ];
   }
 
+  const openProblem = (problemname: string) => {
+    const problem = detailedPage.problems.filter((prob: any) => prob.problemname === problemname);
+    //problemid = problem[0].problemid;
+    //setProblemId(problemid);
+    updateModal(problem[0].problemid);
+  }
+  
   const columnProblems = [
     {
       title: 'Name',
-      dataIndex: 'problemname'
+      dataIndex: 'problemname',
+      render: (problemname: string) => <div onClick={() => {openProblem(problemname)}}>{problemname}</div>
     },
     {
       title: 'Priority',
@@ -194,7 +205,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   );
   return <div className="tabs-detailed">
     <Collapse defaultActiveKey={"4"}>
-      {type === 'project' && <Panel header="PROBLEM" key="1" extra={genExtra()}>
+      {type === PROJECTS_MODAL && <Panel header="PROBLEM" key="1" extra={genExtra()}>
         <Row className="table-up-modal">
             <Col span={24}>
               <Table loading={false} columns={columnProblems} rowKey={(record: any) => record.problemid} dataSource={detailedPage.problems} pagination={false}
@@ -205,7 +216,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
           </Row>
       </Panel>}
 
-      {type ==='project' && <Panel header="VENDORS" key="2" extra={genExtra()}>
+      {type === PROJECTS_MODAL && <Panel header="VENDORS" key="2" extra={genExtra()}>
         <div className="detailed-info">
           <Row>
             <Col span={4}>
