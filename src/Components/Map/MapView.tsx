@@ -7,10 +7,11 @@ import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES, SORTED_PROBLEMS, SORTED_PROJECTS } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../../Classes/MapTypes";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 // import DetailedModal from "../Shared/Modals/DetailedModal";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import store from "../../store";
+import DetailedModal from "../Shared/Modals/DetailedModal";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
@@ -75,6 +76,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const { projectId } = useParams();
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword? filterProblemOptions.keyword: '');
   const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword? filterProjectOptions.keyword: '');
+  const [visible, setVisible] = useState(false);
+  const location = useLocation().search;
+  console.log('location:::', location.replace('?',''));
+  
   useEffect(() =>{
       getGalleryProblems();
       getGalleryProjects();
@@ -188,15 +193,20 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       ))}
   </Menu>
   }
-
   return <>
     <div className="count">
-      {/* { modalVisible &&
-        <DetailedModal
-          visible={modalVisible}
-          setVisible={setModalVisible}
-          data={modalProject} />
-      } */}
+      {/* {visible && <DetailedModal
+        detailed={detailed}
+        getDetailedPageProblem={getDetailedPageProblem}
+        getDetailedPageProject={getDetailedPageProject}
+        loaderDetailedPage={loaderDetailedPage}
+        getComponentsByProblemId={getComponentsByProblemId}
+        type={type}
+        data={data}
+        visible={visible}
+        setVisible={setVisible}
+        componentsOfProblems={componentsOfProblems}
+      />} */}
       <Row className="head-m">
         <Col span={20} id="westminter">
           <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>

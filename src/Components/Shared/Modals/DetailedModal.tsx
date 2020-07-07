@@ -12,6 +12,8 @@ import TeamCollaborator from './TeamCollaborator';
 export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, getComponentsByProblemId, componentsOfProblems }:
   { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function,
     detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any }) => {
+      console.log('data::::', data);
+      
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
@@ -27,7 +29,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       if (type === FILTER_PROBLEMS_TRIGGER) {
         url = `problemid=${data.problemid}`;
       } else {
-        url = `objectid=${data.objectid}&cartid=${data.value}&type=${data.type}`;
+        url = `objectid=${data.objectid}&cartid=${data.value}&type=${data.type}&id=${data.id}`;
       }
       event.clipboardData.setData('text/plain', SERVER.SHARE_MAP_PROJECT + '?' + url);
       event.preventDefault();

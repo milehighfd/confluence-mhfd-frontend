@@ -2,7 +2,8 @@ import * as types from '../types/detailedTypes';
 const initState = {
   detailed: {
   },
-  spin: false
+  spin: false,
+  displayModal: false
 }
 
 const filterReducer = (state = initState, action: any) => {
@@ -17,6 +18,11 @@ const filterReducer = (state = initState, action: any) => {
       return {
         ...state,
         spin: false
+      }
+    case types.DISPLAY_MODAL:
+      return {
+        ...state,
+        spin: true
       }
     default:
       return state;

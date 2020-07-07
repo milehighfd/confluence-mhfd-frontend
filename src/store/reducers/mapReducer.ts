@@ -161,7 +161,7 @@ const initState = {
         estimatedcost: [],
         finalcost: [],
         workplanyr: '', // workplanyr1, workplanyr2, workplanyr3, workplanyr4, workplanyr5
-        problemtype: '', // not exist in tables
+        problemtypeProjects: '', // not exist in tables
         mhfdmanager: '',
         jurisdiction: '',
         county: '',
