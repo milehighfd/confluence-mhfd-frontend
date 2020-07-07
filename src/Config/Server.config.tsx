@@ -60,6 +60,8 @@ export const SERVER = (function () {
     const PARAM_FILTERS = 'params-filters';
     const COMPONENTS_BY_ENTITYID = 'components-by-entityid';
     const SEARCH = 'search';
+    const V2 = 'v2';
+    const BY_COMPONENTS = 'by-components';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -111,5 +113,6 @@ export const SERVER = (function () {
         GET_FILTER_PROBLEMTYPE_FOR_PROJECTS: `${URL_BASE.BASE}/${FILTERS}/${PROJECT_FILTERS}`,
         SEARCH_KEYWORD_PROJECTS: `${URL_BASE.BASE}/${FILTERS}/${SEARCH}/${PROJECT}`,
         SEARCH_KEYWORD_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}/${SEARCH}/${PROBLEMS}`,
+        FILTER_BY_COMPONENTS: `${URL_BASE.BASE}/${FILTERS}/${V2}/${BY_COMPONENTS}`,
     }
 })();

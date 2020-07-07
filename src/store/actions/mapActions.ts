@@ -401,6 +401,9 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_COMPONENT_OPTIONS, filters});
         dispatch({type: types.SET_FILTER_COMPONENTS, filters: auxFilter});
+        datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
+            dispatch({type: types.FILTER_BY_COMPONENTS, filtersComponents});
+        })
     }
 }
 

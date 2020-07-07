@@ -189,7 +189,8 @@ const initState = {
     highlighted: {
         type: '',
         value: ''
-    }
+    },
+    componentDetailIds: {}
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -382,6 +383,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 filterComponents: action.filters
+            }
+        }
+        case types.FILTER_BY_COMPONENTS: {
+            return {
+                ...state,
+                componentDetailIds: action.filtersComponents
             }
         }
         default: 

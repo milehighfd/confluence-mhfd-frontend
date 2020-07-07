@@ -67,7 +67,8 @@ const mapStateToProps = (state: any) => {
         filterProjects: state.map.filterProjects,
         filterComponents: state.map.filterComponents,
         componentsOfProblems: state.map.componentsByProblemId,
-        displayModal: state.detailed.displayModal
+        displayModal: state.detailed.displayModal,
+        componentDetailIds: state.map.componentDetailIds
     };
 };
 

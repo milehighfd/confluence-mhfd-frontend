@@ -30,7 +30,8 @@ export type MapProps = {
     filterProblems: any,
     filterProjects: any,
     filterComponents: any,
-    setSpinValue: Function
+    setSpinValue: Function,
+    componentDetailIds: any
 }
 
 export type MapHOCProps = {
@@ -100,7 +101,8 @@ export type MapHOCProps = {
     setProjectKeyword: Function,
     existDetailedPageProject: Function,
     existDetailedPageProblem: Function,
-    displayModal: boolean
+    displayModal: boolean,
+    componentDetailIds: any
 }
 
 export type MapViewTypes = { 
