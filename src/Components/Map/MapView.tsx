@@ -61,8 +61,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   filterProjectOptions, filterCoordinates, setFilterProblemOptions,
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
-                  setProjectKeyword } : MapViewTypes) => {
-
+                  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal } : MapViewTypes) => {
+  
   const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
   const [modalProject, setModalProject] = useState<ProjectTypes>({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -76,10 +76,41 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const { projectId } = useParams();
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword? filterProblemOptions.keyword: '');
   const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword? filterProjectOptions.keyword: '');
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(useLocation().search ? true: false);
   const location = useLocation().search;
-  console.log('location:::', location.replace('?',''));
-  
+  const [data, setData] = useState({
+    problemid: '',
+    id: '',
+    objectid: '',
+    value: '',
+    type: ''
+  });
+  useEffect(() => {
+    if(location.includes('problemid=')) {
+      const id = location.replace('?problemid=', '');
+      existDetailedPageProblem(id);
+      const auxData = {...data};
+      auxData.problemid = id;
+      setData(auxData);
+    }
+    if(location.includes('?objectid=') && location.includes('&cartoid=') && location.includes('&type=') && location.includes('&id=')) {
+      const params = location.split('&');
+      if(params.length === 4) {
+        const objectid = params[0].replace('?objectid=', '');
+        const cartoid = params[1].replace('cartoid=', '');
+        const type = params[2].replace('type=', '');
+        const id = params[3].replace('id=', '');
+        const url = 'objectid=' + objectid + '&cartoid=' + cartoid + '&type=' + type;
+        existDetailedPageProject(url);
+        const auxData = {...data};
+        auxData.objectid = objectid;
+        auxData.value = cartoid;
+        auxData.type = type;
+        auxData.id = id;
+        setData(auxData);
+      }
+    }
+  }, []);
   useEffect(() =>{
       getGalleryProblems();
       getGalleryProjects();
@@ -195,18 +226,18 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }
   return <>
     <div className="count">
-      {/* {visible && <DetailedModal
+      { displayModal && visible && <DetailedModal
         detailed={detailed}
         getDetailedPageProblem={getDetailedPageProblem}
         getDetailedPageProject={getDetailedPageProject}
         loaderDetailedPage={loaderDetailedPage}
         getComponentsByProblemId={getComponentsByProblemId}
-        type={type}
+        type={data.problemid ? FILTER_PROBLEMS_TRIGGER: FILTER_PROJECTS_TRIGGER}
         data={data}
         visible={visible}
         setVisible={setVisible}
         componentsOfProblems={componentsOfProblems}
-      />} */}
+      />}
       <Row className="head-m">
         <Col span={20} id="westminter">
           <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>

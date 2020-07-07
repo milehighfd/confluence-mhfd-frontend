@@ -22,7 +22,9 @@ import { getReverseGeocode,
         setFilterComponentOptions,
         getComponentsByProblemId,
         setProblemKeyword,
-        setProjectKeyword
+        setProjectKeyword,
+        existDetailedPageProject,
+        existDetailedPageProblem
         } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
@@ -101,7 +103,9 @@ const mapDispatchToProps = (dispatch: any) => ({
         setFilterComponentOptions,
         getComponentsByProblemId,
         setProblemKeyword,
-        setProjectKeyword
+        setProjectKeyword,
+        existDetailedPageProject,
+        existDetailedPageProblem
     }, dispatch)
 });
   

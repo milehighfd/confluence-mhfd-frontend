@@ -29,7 +29,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       if (type === FILTER_PROBLEMS_TRIGGER) {
         url = `problemid=${data.problemid}`;
       } else {
-        url = `objectid=${data.objectid}&cartid=${data.value}&type=${data.type}&id=${data.id}`;
+        url = `objectid=${data.objectid}&cartoid=${data.value}&type=${data.type}&id=${data.id ? data.id: ''}`;
       }
       event.clipboardData.setData('text/plain', SERVER.SHARE_MAP_PROJECT + '?' + url);
       event.preventDefault();

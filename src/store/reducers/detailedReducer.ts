@@ -22,7 +22,7 @@ const filterReducer = (state = initState, action: any) => {
     case types.DISPLAY_MODAL:
       return {
         ...state,
-        spin: true
+        displayModal: action.spin
       }
     default:
       return state;

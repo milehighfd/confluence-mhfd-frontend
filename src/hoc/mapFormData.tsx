@@ -74,7 +74,10 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               filterComponents,
               componentsOfProblems,
               setProblemKeyword,
-              setProjectKeyword
+              setProjectKeyword,
+              existDetailedPageProject,
+              existDetailedPageProblem,
+              displayModal
              } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -214,6 +217,9 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             componentsOfProblems={componentsOfProblems}
                             setProblemKeyword={setProblemKeyword}
                             setProjectKeyword={setProjectKeyword}
+                            existDetailedPageProject={existDetailedPageProject}
+                            existDetailedPageProblem={existDetailedPageProblem}
+                            displayModal={displayModal}
                       />
                     </Col>
                   </Spin>

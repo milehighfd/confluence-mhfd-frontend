@@ -450,6 +450,27 @@ export const getDetailedPageProblem = (id: string) => {
         });
     }
 }
+
+export const existDetailedPageProject = (url: string) => {
+    return (dispatch: Function) => {
+        dispatch({type: detailedTypes.DISPLAY_MODAL, spin: false});
+        datasets.getData(SERVER.PROJECT_BY_ID  + 's?' + url, datasets.getToken()).then(detailed => {
+            if(detailed?.cartodb_id) {
+                dispatch({type: detailedTypes.DISPLAY_MODAL, spin: true});
+            }
+        });
+    }
+}
+export const existDetailedPageProblem = (url: string) => {
+    return (dispatch: Function) => {
+        dispatch({type: detailedTypes.DISPLAY_MODAL, spin: false});
+        datasets.getData(SERVER.PROBLEM_BY_ID + '/' + url, datasets.getToken()).then(detailed => {
+            if(detailed?.cartodb_id) {
+                dispatch({type: detailedTypes.DISPLAY_MODAL, spin: true});
+            }
+        });
+    }
+}
 export const getValuesByGroupColumn = (table: string, column: string) => {
     return (dispatch: Function) => {
         const params = {

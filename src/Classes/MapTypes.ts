@@ -97,7 +97,10 @@ export type MapHOCProps = {
     filterComponents: any,
     componentsOfProblems: any,
     setProblemKeyword: Function,
-    setProjectKeyword: Function
+    setProjectKeyword: Function,
+    existDetailedPageProject: Function,
+    existDetailedPageProblem: Function,
+    displayModal: boolean
 }
 
 export type MapViewTypes = { 
@@ -132,7 +135,10 @@ export type MapViewTypes = {
     getComponentsByProblemId: Function,
     componentsOfProblems: Function,
     setProblemKeyword: Function,
-    setProjectKeyword: Function
+    setProjectKeyword: Function,
+    existDetailedPageProject: Function,
+    existDetailedPageProblem: Function,
+    displayModal: boolean
 }
 export type OptionProblems = {
     keyword: string,
