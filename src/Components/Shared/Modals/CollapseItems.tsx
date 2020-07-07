@@ -125,7 +125,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         title: 'Percent',
         dataIndex: 'percentage',
         render: (percentage: number) => Math.round(percentage * 10) /10 + '%',
-        sorter: true
+        sorter: false
       }
     ];
   } else {
@@ -146,7 +146,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         title: 'Percent',
         dataIndex: 'percentage',
         render: (percentage: number) => Math.round(percentage * 10) /10 + '%',
-        sorter: true
+        sorter: false,
       },
       {
         title: 'Total Cost',
