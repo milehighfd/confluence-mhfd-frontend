@@ -40,6 +40,24 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
           map.setFilter('problems-layer_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
           i++;
         }
+        detailedPage.components.forEach((element: any) => {
+          if(element.projectid) {
+            let i = 0;
+            map.addVectorSource('projects-line', layers.projects.projects_line_1);
+            for (const project of tileStyles.projects_line_1) {
+              map.addLayer('projects-line_' + i, 'projects-line', project);
+              map.setFilter('projects-line_' + i, ['in', 'projectid', element.projectid]);
+              i++;
+            }
+            map.addVectorSource('projects-polygon', layers.projects.projects_polygon_);
+            i = 0;
+            for (const project of tileStyles.projects_polygon_) {
+              map.addLayer('projects-polygon_' + i, 'projects-polygon', project);
+              map.setFilter('projects-polygon_' + i, ['in', 'projectid', element.projectid]);
+              i++;
+            }
+          }
+        });
       } else {
         map.addVectorSource('projects-line', layers.projects.projects_line_1);
         for (const project of tileStyles.projects_line_1) {
@@ -54,7 +72,19 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
           map.setFilter('projects-polygon_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
           i++;
         }
+        detailedPage.problems.forEach((element: any) => {
+          if(element.problemid) {
+            i = 0;
+            map.addVectorSource('problems', layers.problems);
+            for (const problem of tileStyles.problems) {
+              map.addLayer('problems-layer_' + i, 'problems', problem);
+              map.setFilter('problems-layer_' + i, ['in', 'problemid', element.problemid]);
+              i++;
+            }
+          }
+        });
       }
+      
       const styles = {...tileStyles as any};
       for (const key in layers.components) {
           map.addVectorSource(key, layers.components[key]);
