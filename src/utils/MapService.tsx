@@ -176,7 +176,6 @@ export class MapService {
       source: sourceId
       , ...style
     };
-    console.log('add layer' , layer);
     if (!this.map.getLayer(id)) {
       this.map.addLayer(layer);
     }

@@ -85,7 +85,7 @@ export const polygonStroke = {
   }
 };
 
-const COMPONENT_LAYERS_STYLE = {
+export const COMPONENT_LAYERS_STYLE = {
   [GRADE_CONTROL_STRUCTURE]: [{
     type: 'symbol',
     'source-layer': 'pluto15v1',

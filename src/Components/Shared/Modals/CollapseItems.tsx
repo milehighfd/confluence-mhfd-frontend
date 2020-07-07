@@ -10,7 +10,6 @@ const { Panel } = Collapse;
 export default ({ type, data, detailedPage }: { type: string, data: any, detailedPage: any }) => {
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
-  
   let map: any;
   // if (html) {
   //   map = new MapService('map2');
@@ -24,52 +23,53 @@ export default ({ type, data, detailedPage }: { type: string, data: any, detaile
       } else {
         if(!map) {
           map = new MapService('map2');
-          if(type === 'problem') {
-            map.isStyleLoaded(addLayer);
-          } else {
-            map.isStyleLoaded(addLayerProject);
-          }
+          map.isStyleLoaded(addLayer);
         }
       }
     };
     waiting();
   }, []);
-  const test: Function = () => console.log('Addis');
   
   const addLayer = () => {
     if(map) {
-      map.addVectorSource('problems', layers.problems);
       let i = 0;
-      for (const problem of tileStyles.problems) {
-        map.addLayer('problems-layer_' + i, 'problems', problem);
-        map.setFilter('problems-layer_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
-        i++;
+      if(type === 'problem') {
+        map.addVectorSource('problems', layers.problems);
+        for (const problem of tileStyles.problems) {
+          map.addLayer('problems-layer_' + i, 'problems', problem);
+          map.setFilter('problems-layer_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+          i++;
+        }
+      } else {
+        map.addVectorSource('projects-line', layers.projects.projects_line_1);
+        for (const project of tileStyles.projects_line_1) {
+          map.addLayer('projects-line_' + i, 'projects-line', project);
+          map.setFilter('projects-line_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+          i++;
+        }
+        map.addVectorSource('projects-polygon', layers.projects.projects_polygon_);
+        i = 0;
+        for (const project of tileStyles.projects_polygon_) {
+          map.addLayer('projects-polygon_' + i, 'projects-polygon', project);
+          map.setFilter('projects-polygon_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+          i++;
+        }
+      }
+      const styles = {...tileStyles as any};
+      for (const key in layers.components) {
+          map.addVectorSource(key, layers.components[key]);
+          i = 0;
+          if((detailedPage.problemid && type === 'problem') ||(detailedPage.projectid && type === 'project')) {
+            for (const component of styles[key] ) {
+              map.addLayer(key + i, key, component);
+              map.setFilter(key + i, ['in', type === 'problem' ? 'problemid': 'projectid',type === 'problem' ? detailedPage.problemid : detailedPage.projectid]);
+              i++;
+            }
+          }
+          
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
       const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
-      map.flyTo([coor[0]/detailedPage.coordinates[0].length,coor[1]/detailedPage.coordinates[0].length]);
-      map.fitBounds([detailedPage.coordinates[0][0],detailedPage.coordinates[0][2]]);
-    }
-  }
-  const addLayerProject = () => {
-    if(map) {
-      map.addVectorSource('projects-line', layers.projects.projects_line_1);
-      let i = 0;
-      for (const project of tileStyles.projects_line_1) {
-        map.addLayer('projects-line_' + i, 'projects-line', project);
-        map.setFilter('projects-line_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
-        i++;
-      }
-      map.addVectorSource('projects-polygon', layers.projects.projects_polygon_);
-      i = 0;
-      for (const project of tileStyles.projects_polygon_) {
-        map.addLayer('projects-polygon_' + i, 'projects-polygon', project);
-        map.setFilter('projects-polygon_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
-        i++;
-      }
-      const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
-      const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
-      map.flyTo([coor[0]/detailedPage.coordinates[0].length,coor[1]/detailedPage.coordinates[0].length]);
       map.fitBounds([detailedPage.coordinates[0][0],detailedPage.coordinates[0][2]]);
     }
   }
