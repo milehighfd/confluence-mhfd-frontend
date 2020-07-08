@@ -78,6 +78,13 @@ body{
 .color-footer-problem {
   border-color: #f2552e !important
 }
+.ant-spin-blur::after {
+  opacity: 0 !important;
+  pointer-events: auto;
+}
+.ant-spin-blur {
+  opacity: 1 !important;
+}
 .color-footer-watershed {
   border-color: #f2695c !important
 }
