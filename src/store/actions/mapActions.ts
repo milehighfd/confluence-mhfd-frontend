@@ -270,12 +270,16 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters});
         const params = '?tables=' + filters.components;
-        datasets.getData(SERVER.GET_FILTER_COMPONENTS_FOR_PROBLEMS + params, datasets.getToken()).then(tables => {
-            if (tables?.length >= 0) {
-                auxFilter.components = tables;
-                dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilter})
-            }
-        });
+        if(filters.components) {
+           datasets.getData(SERVER.GET_FILTER_COMPONENTS_FOR_PROBLEMS + params, datasets.getToken()).then(tables => {
+                if (tables?.length >= 0) {
+                    auxFilter.components = tables;
+                    dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilter})
+                }
+            }); 
+        } else {
+            dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilter})
+        }
     }
 }
 
@@ -319,12 +323,17 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters});
         const params = '?problemtype=' + filters.problemtype;
-        datasets.getData(SERVER.GET_FILTER_PROBLEMTYPE_FOR_PROJECTS + params, datasets.getToken()).then(tables => {
-            if (tables?.length >= 0) {
-                auxFilter.problemtypeProjects = tables;
-                dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilter});
-            }
-        });
+        if(filters.problemtype) {
+           datasets.getData(SERVER.GET_FILTER_PROBLEMTYPE_FOR_PROJECTS + params, datasets.getToken()).then(tables => {
+                if (tables?.length >= 0) {
+                    auxFilter.problemtypeProjects = tables;
+                    dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilter});
+                }
+            }); 
+        } else {
+            dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilter});
+        }
+        
         
     }
 }

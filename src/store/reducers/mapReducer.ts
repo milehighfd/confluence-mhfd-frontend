@@ -150,7 +150,7 @@ const initState = {
     },
     filterProjects: {
         projectname: '',
-        projecttype: [],
+        projecttype: '',
         status: '',
         startyear: '0',
         completedyear: '9999',
