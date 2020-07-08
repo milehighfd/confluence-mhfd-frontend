@@ -411,7 +411,12 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
         dispatch({type: types.SET_FILTER_COMPONENT_OPTIONS, filters});
         dispatch({type: types.SET_FILTER_COMPONENTS, filters: auxFilter});
         datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
-            dispatch({type: types.FILTER_BY_COMPONENTS, filtersComponents});
+            if(filtersComponents?.problems || filtersComponents?.projects_line_1 || filtersComponents?.projects_polygon_) {
+              dispatch({type: types.FILTER_BY_COMPONENTS, filtersComponents});  
+            } else {
+                dispatch({type: types.FILTER_BY_COMPONENTS, filtersComponents: {}});
+            }
+            
         })
     }
 }
