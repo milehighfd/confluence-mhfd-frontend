@@ -147,9 +147,9 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       },
       {
         title: 'Percent',
-        dataIndex: 'percentage',
-        render: (percentage: number) => Math.round(percentage * 10) /10 + '%',
-        sorter: false,
+        dataIndex: 'percen',
+        render: (percen: number) => Math.round(percen * 10) /10 + '%',
+        sorter: true,
       },
       {
         title: 'Total Cost',
