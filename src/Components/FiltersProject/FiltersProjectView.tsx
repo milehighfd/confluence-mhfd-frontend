@@ -4,6 +4,7 @@ import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayou
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, DROPDOWN_PROJECT_FILTERS } from '../../constants/constants';
 import { FiltersProjectTypes, FilterNamesTypes } from "../../Classes/MapTypes";
+import store from "../../store";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
@@ -13,6 +14,7 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
   setFilterComponentOptions, getGalleryProjects, getGalleryProblems, totalElements, type } 
   : { filterProblemOptions: any, filterProjectOptions: any, setFilterProblemOptions: Function, setFilterProjectOptions: Function, filterComponentOptions: any,
     setFilterComponentOptions: Function, getGalleryProjects: Function, getGalleryProblems: Function, totalElements: number, type: string}) => {
+    const params = store.getState().map.paramFilters;
     const deleteFilter = (tag: string, value: string) => {
       const auxFilterComponents = { ...filterComponentOptions };
       const valueTag = filterComponentOptions[tag].split(',') as Array<string>;
@@ -121,7 +123,12 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
                                 if (tag.key === 'solutionstatus') {
                                     value = element === '10' ? '10% - 25%' : element === '25'? '25% - 50%': element === '50' ? '50% - 75%' : '75% - 100%';
                                 } else {
-                                    value = element;
+                                  if (tag.key === 'components') {
+                                    value = (params.problems?.components?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ? 
+                                            params.problems?.components?.filter((elementComponent: any) => elementComponent.key === element)[0].value as any : ''
+                                  } else {
+                                      value = element;
+                                  }
                                 }
                             }
                             return element && <Tag key={index + element + tag.key} closable onClose={() => deleteTagProblem(tag.key, element)}>
@@ -155,7 +162,12 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
                             if (tag.key === 'estimatedcost') {
                                 value = element === '0' ? '0 - 2M' : ((element === '2') ? '2M - 4M' : ((element === '4') ? '4M - 6M' : (element === '6') ? '6M - 8M' : '8M - 10M'));
                             } else {
-                                value = element;
+                              if (tag.key === 'component_type') {
+                                value = (params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ? 
+                                          params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0].value as any : ''
+                              } else {
+                                  value = element;
+                              }
                             }
                             return element && <Tag key={index + element + tag.key} closable onClose={() => deleteFilter(tag.key, element)}>
                                 {value}
