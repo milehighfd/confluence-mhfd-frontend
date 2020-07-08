@@ -141,7 +141,7 @@ const Map = ({ leftWidth,
             applyFilters('projects_line_1', filterProjects);
             applyFilters('projects_polygon_', filterProjects);
         }
-    }, [filterProjects]);
+    }, [filterProjects, componentDetailIds]);
 
     useEffect(() => {
         if (map) {
@@ -150,7 +150,7 @@ const Map = ({ leftWidth,
                 applyFilters(component, filterComponents);
             }    
         }
-    }, [filterComponents]);
+    }, [filterComponents, componentDetailIds]);
 
     useEffect(() => {
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
@@ -436,6 +436,10 @@ const Map = ({ leftWidth,
             }
             console.log(' my filters ' , JSON.stringify(allFilters)) ;
             console.log(key + '_' + index, map);
+            if (componentDetailIds && componentDetailIds[key]) {
+                allFilters.push(['in', 'cartodb_id', ['literal', [...componentDetailIds[key]]]]);
+            }
+
             if (map.getLayer(key + '_' + index)) {
                 map.setFilter(key + '_' + index, allFilters);
             }
