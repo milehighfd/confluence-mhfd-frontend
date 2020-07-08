@@ -11,6 +11,7 @@ const content = (<div className="popoveer-00">Notifications (not active)</div>
 );
 
 export default () => {
+  const [ key, setKey] = useState('1');
   const stateValue = {
     visible: false
   }
@@ -130,11 +131,14 @@ export default () => {
            className="tutorial"
            width="750px"
         >
-          <Tabs defaultActiveKey="1" tabPosition="left">
+          <Tabs activeKey={key} tabPosition="left" onChange={(e) => {
+            console.log(e);
+            setKey('' + e);
+          }}>
             <div className="logo-00">
               <img src="/Icons/Confluence-Color-Tagline.svg" alt="" />
             </div>
-            <TabPane tab="Welcome!" key="1">
+            <TabPane  tab="Welcome!" key="1">
              <img className="img-tuto" src="/Icons/tuto.png" alt="" width="485px" />
                <div className="content">
                   <p>
@@ -271,7 +275,14 @@ export default () => {
                 </p>
              </div>
             </TabPane>
-            <Button className="next">Continue</Button>
+            <Button className="next" onClick={() => {
+              const auxKey = +key + 1;
+              if(auxKey === 9) {
+                setKey('1');
+              } else {
+                setKey('' + auxKey)
+              }
+            }} >Continue</Button>
           </Tabs>
         </Modal>
        </div>

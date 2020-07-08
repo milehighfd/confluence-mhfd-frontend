@@ -235,7 +235,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     const [checkboxWorkPlanYear, setCheckboxWorkPlanYear] = useState<Array<string>>(filterProjectOptions.workplanyear.split(','));
     const [start, setStart] = useState(filterProjectOptions.startyear ? filterProjectOptions.startyear : '- Select -');
     const [completed, setCompleted] = useState(filterProjectOptions.completedyear ? filterProjectOptions.completedyear : '- Select -');
-    const [problemType, setProblemType] = useState(filterProjectOptions.problemtype ? filterProjectOptions.problemtype : '- Select -');
+    const [problemType, setProblemType] = useState(filterProjectOptions.problemtype.split(',') );
     const [mhfdmanager, setMhfdmanager] = useState(filterProjectOptions.mhfdmanager ? filterProjectOptions.mhfdmanager : '- Select -');
     const [jurisdiction, setJurisdiction] = useState(filterProjectOptions.jurisdiction ? filterProjectOptions.jurisdiction : '- Select -');
     const [streamname, setStreamname] = useState(filterProjectOptions.streamname ? filterProjectOptions.streamname : '- Select -');
@@ -268,6 +268,11 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             const element = checkboxWorkPlanYear[index];
             workplanyear = workplanyear ? (workplanyear + ',' + element): element;
         }
+        let problems = '';
+        for (let index = 0; index < problemType.length; index++) {
+            const element = problemType[index];
+            problems = problems ? (problems + ',' + element): element;
+        }
         const options = {...filterProjectOptions};
         options.projecttype = projecttype;
         options.totalcost = totalcost;
@@ -276,7 +281,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         options.workplanyear = workplanyear;
         options.startyear = start !== '- Select -'? start: '';
         options.completedyear = completed !== '- Select -'? completed: '';
-        options.problemtype = problemType !== '- Select -'? problemType: '';
+        options.problemtype = problems;
         options.mhfdmanager = mhfdmanager !== '- Select -'? mhfdmanager: '';
         options.jurisdiction = jurisdiction !== '- Select -'? jurisdiction: '';
         options.streamname = streamname !== '- Select -'? streamname: '';
@@ -311,7 +316,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         setCheckboxWorkPlanYear([]);
         setStart('- Select -');
         setCompleted('- Select -');
-        setProblemType('- Select -');
+        setProblemType([]);
         setMhfdmanager('- Select -');
         setJurisdiction('- Select -');
         setStreamname('- Select -');
@@ -413,26 +418,16 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     </Row>
 
     <h5 className="filt-h5">Additional filters</h5>
-    <Row className="filt-00" gutter={[24, 16]}>
+    <Row className="filt-00">
         <Col span={12}>
-            <label>Problem Type <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-            <Select value={problemType} style={{ width: '100%' }} onChange={ (e: string) => {
-                setProblemType(e);
+            <label>Problem Type <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" /></Popover></label>
+            <Checkbox.Group value={problemType} onChange={(item) => {
+                setProblemType(item as Array<string>);
             }}>
                 {paramProjects.problemtype.map((element: string, index: number) =>{
-                    return <Option key={index} value={element}>{element}</Option>
+                    return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
                 })}
-            </Select>
-        </Col>
-        <Col span={12}>
-            <label>MHFD Watershed Manager</label>
-            <Select value={mhfdmanager} style={{ width: '100%' }} onChange={ (e: string) => {
-                setMhfdmanager(e);
-            }}>
-                {paramProjects.mhfdmanager.map((element: string, index: number) =>{
-                    return <Option key={index} value={element}>{element}</Option>
-                })}
-            </Select>
+            </Checkbox.Group>
         </Col>
     </Row>
     <Row className="filt-00" gutter={[24, 16]}>
@@ -486,6 +481,16 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 setCreator(e);
             }}>
                 {paramProjects.creator.map((element: string, index: number) =>{
+                    return <Option key={index} value={element}>{element}</Option>
+                })}
+            </Select>
+        </Col>
+        <Col span={12}>
+            <label>MHFD Watershed Manager</label>
+            <Select value={mhfdmanager} style={{ width: '100%' }} onChange={ (e: string) => {
+                setMhfdmanager(e);
+            }}>
+                {paramProjects.mhfdmanager.map((element: string, index: number) =>{
                     return <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
