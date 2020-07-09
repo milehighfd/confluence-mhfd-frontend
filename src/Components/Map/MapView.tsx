@@ -243,7 +243,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <Col span={20} id="westminter">
           <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
             <span className="ant-dropdown-link span-header">
-              {area}
+              {area ? (area.endsWith(', CO') ? area.replace(', CO', '') : area) : ''}
               <Popover content={content}>
               <img src="/Icons/icon-12.svg" alt="" style={{marginLeft: '8px'}}/>
               </Popover>
