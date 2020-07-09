@@ -30,6 +30,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
     values.phone = user.phone;
     values.title = user.title;
     values.zipCode = user.zipCode;
+    values.zoomarea = user.zoomarea;
     const auxOrganization = (values.designation === ADMIN || values.designation === STAFF) ? CITIES :
       (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? ORGANIZATION : CONSULTANT_CONTRACTOR;
     setOrganization([...auxOrganization]);
@@ -57,7 +58,11 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
             const auxTitle = event.item.props.children.props.children;
             setTitle(auxTitle);
           }}>
-          <Menu.ItemGroup key="g1">
+            <Menu.ItemGroup key="g1">
+              {/* <label className="label-sg">{'Regional Agency'}</label> */}
+              {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+            </Menu.ItemGroup>
+          {/* <Menu.ItemGroup key="g1">
             <label className="label-sg">{'Regional Agency'}</label>
             {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
           </Menu.ItemGroup>
@@ -72,6 +77,18 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <Menu.ItemGroup key="g4">
             <label className="label-sg">{'Unincorporated County'}</label>
             {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup> */}
+        </Menu> :
+        (values.designation === CONSULTANT) ? 
+        <Menu className="js-mm-00 sign-menu-organization"
+          onClick={(event) => {
+            values.organization = event.item.props.children.props.children;
+            const auxTitle = event.item.props.children.props.children;
+            setTitle(auxTitle);
+          }}>
+          <Menu.ItemGroup key="g1">
+            {/* <label className="label-sg">{'Regional Agency'}</label> */}
+            {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
           </Menu.ItemGroup>
         </Menu> :
         <Menu className="js-mm-00 sign-menu-organization"
@@ -81,10 +98,49 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
             setTitle(auxTitle);
           }}>
           <Menu.ItemGroup key="g1">
-            <label className="label-sg">{'Regional Agency'}</label>
+            {/* <label className="label-sg">{'Regional Agency'}</label> */}
             {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
           </Menu.ItemGroup>
         </Menu>
+  };
+  const menuZoom = () => {
+    // (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
+    return <Menu className="js-mm-00 sign-menu-organization"
+          onClick={(event) => {
+            values.zoomarea = event.item.props.children.props.children;
+            const auxTitle = event.item.props.children.props.children;
+            setTitle(auxTitle);
+          }}>
+          <Menu.ItemGroup key="g1">
+            <label className="label-sg">{'Regional Agency'}</label>
+            <Menu.Item key={'xxx' + "g1"}><span>{'Mile High Flood Control District Boundary'}</span></Menu.Item>
+            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g2">
+            <label className="label-sg">{'City'}</label>
+            {DROPDOWN_ORGANIZATION.CITY.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g3">
+            <label className="label-sg">{'City and County'}</label>
+            {DROPDOWN_ORGANIZATION.CITY_AND_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g4">
+            <label className="label-sg">{'Unincorporated County'}</label>
+            {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+        </Menu> 
+        // :
+        // <Menu className="js-mm-00 sign-menu-organization"
+        //   onClick={(event) => {
+        //     values.zoomarea = event.item.props.children.props.children;
+        //     const auxTitle = event.item.props.children.props.children;
+        //     setTitle(auxTitle);
+        //   }}>
+        //   <Menu.ItemGroup key="g1">
+        //     <label className="label-sg">{'Regional Agency'}</label>
+        //     {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+        //   </Menu.ItemGroup>
+        // </Menu>
   };
   const stateValue = {
     visible: false
@@ -162,7 +218,19 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <h6>USER DESIGNATION</h6>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
+              <p>ROLE</p>
               <Input placeholder="Account Type" value={role.name} disabled />
+            </Col>
+            <Col className="gutter-row" span={12}>
+              <p>ORGANIZATION</p>
+              <div id="sign-up-organization">
+                <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                  <Button style={{ paddingLeft: '10px' }} >
+                    {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
+                    <img src="/Icons/icon-12.svg" alt="" />
+                  </Button>
+                </Dropdown>
+              </div>
             </Col>
           </Row>
         </div>
@@ -208,15 +276,25 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
           <h3>DEFAULT MAP ZOOM AREA <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h3>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
-              <p>ORGANIZATION</p>
+              {/* <p>ORGANIZATION</p> */}
               <div id="sign-up-organization">
-                <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                <Dropdown overlay={menuZoom} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button style={{ paddingLeft: '10px' }} >
-                    {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
+                    {values.zoomarea ? values.zoomarea : 'Default map zoom area'}
                     <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>
+                
               </div>
+            </Col>
+            <Col className="gutter-row" span={3}>
+                <Button onClick={() => {
+                  values.zoomarea = 'Mile High Flood Control District Boundary';
+                  const auxTitle = 'Mile High Flood Control District Boundary';
+                  setTitle(auxTitle);
+                }} style={{padding: '0px', textAlignLast: 'center'}} >
+                  Default
+                </Button>
             </Col>
           </Row>
         </div>

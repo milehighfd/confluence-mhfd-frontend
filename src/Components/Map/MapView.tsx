@@ -71,7 +71,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [toggleFilters, setToggleFilters] = useState(false);
   const [listDescription, setListDescription] = useState(false);
   const [sortableProjects, setSortableProjects] = useState(projects);
-  const [area, setArea] = useState(store.getState().profile.userInformation.organization)
+  const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
   const [ tabActive, setTabActive] = useState('0');
   const { projectId } = useParams();
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword? filterProblemOptions.keyword: '');
@@ -243,7 +243,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <Col span={20} id="westminter">
           <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
             <span className="ant-dropdown-link span-header">
-              {area ? (area.endsWith(', CO') ? area.replace(', CO', '') : area) : ''}
+              {area ? (area.endsWith(', CO') ? area.replace(', CO', '') : area) : 'Mile High Flood Control District Boundary'}
               <Popover content={content}>
               <img src="/Icons/icon-12.svg" alt="" style={{marginLeft: '8px'}}/>
               </Popover>

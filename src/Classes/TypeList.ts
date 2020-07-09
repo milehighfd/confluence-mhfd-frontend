@@ -18,6 +18,7 @@ export type User = {
         latitude: number,
         longitude: number
     },
+    zoomarea: string,
     polygon: Array<Array<number>>
 }
 

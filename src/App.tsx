@@ -42,11 +42,6 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
     getCarouselImages();
   }, [getCarouselImages]);
   useEffect(() => {
-    setFilterProblemOptions(filterProblemOptions);
-    setFilterProjectOptions(filterProjectOptions);
-    setFilterComponentOptions(filterComponentOptions);
-  }, []);
-  useEffect(() => {
     getParamsFilter();
     SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {

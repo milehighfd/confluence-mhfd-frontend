@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Row, Col, Form, Button, Menu, Dropdown } from 'antd';
 import ReCAPTCHA from "react-google-recaptcha";
-import { ROLES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION } from "../../constants/constants";
+import { ROLES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, CONSULTANT_CONTRACTOR, ORGANIZATION } from "../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
@@ -28,7 +28,11 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
           const auxTitle = event.item.props.children.props.children;
           setTitle(auxTitle);
         }}>
-        <Menu.ItemGroup key="g1">
+          <Menu.ItemGroup key="g1">
+            {/* <label className="label-sg">{'Regional Agency'}</label> */}
+            {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+        {/* <Menu.ItemGroup key="g1">
           <label className="label-sg">{'Regional Agency'}</label>
           {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
         </Menu.ItemGroup>
@@ -43,6 +47,18 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
         <Menu.ItemGroup key="g4">
           <label className="label-sg">{'Unincorporated County'}</label>
           {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
+        </Menu.ItemGroup> */}
+      </Menu> : 
+      (values.designation === CONSULTANT) ? 
+      <Menu className="js-mm-00 sign-menu-organization"
+        onClick={(event) => {
+          values.organization = event.item.props.children.props.children;
+          const auxTitle = event.item.props.children.props.children;
+          setTitle(auxTitle);
+        }}>
+        <Menu.ItemGroup key="g1">
+          {/* <label className="label-sg">{'Regional Agency'}</label> */}
+          {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
         </Menu.ItemGroup>
       </Menu> :
       <Menu className="js-mm-00 sign-menu-organization"
@@ -52,7 +68,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
           setTitle(auxTitle);
         }}>
         <Menu.ItemGroup key="g1">
-          <label className="label-sg">{'Regional Agency'}</label>
+          {/* <label className="label-sg">{'Regional Agency'}</label> */}
           {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
         </Menu.ItemGroup>
       </Menu>
