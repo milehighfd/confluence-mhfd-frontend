@@ -106,10 +106,10 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 <Checkbox.Group value={checkBoxSolutionCost} onChange={(items) => {
                     setCheckboxSolutionCost(items as Array<string>);
                 }}>
-                    <p><Checkbox value='20'>$20M-$25M</Checkbox></p>
-                    <p><Checkbox value='10'>$10M-$15M</Checkbox></p>
-                    <p><Checkbox value='5'>$5M-10M</Checkbox></p>
                     <p><Checkbox value='1'>$1M-$10M</Checkbox></p>
+                    <p><Checkbox value='5'>$5M-10M</Checkbox></p>
+                    <p><Checkbox value='10'>$10M-$15M</Checkbox></p>
+                    <p><Checkbox value='20'>$20M-$25M</Checkbox></p>
                 </Checkbox.Group>
             </Col>
             <Col span={12}>
@@ -153,10 +153,10 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 <Checkbox.Group value={checkBoxStatus} onChange={(items) => {
                     setCheckboxStatus(items as Array<string>);
                 }}>
-                    <p><Checkbox value='75'>75%-100%</Checkbox></p>
-                    <p><Checkbox value='50'>50%-75%</Checkbox></p>
-                    <p><Checkbox value='25'>25%-50%</Checkbox></p>
                     <p><Checkbox value='10'>10%-25%</Checkbox></p>
+                    <p><Checkbox value='25'>25%-50%</Checkbox></p>
+                    <p><Checkbox value='50'>50%-75%</Checkbox></p>
+                    <p><Checkbox value='75'>75%-100%</Checkbox></p>
                 </Checkbox.Group>
             </Col>
             <Col span={12}>
@@ -344,11 +344,11 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={checkBoxTotalCost} onChange={(item) => {
                 setCheckboxTotalCost(item as Array<string>);
             }}>
-                <p><Checkbox value={'20'}>$20M-$25M</Checkbox></p>
-                <p><Checkbox value={'15'}>$15M-$20M</Checkbox></p>
-                <p><Checkbox value={'10'}>$10M-$15M</Checkbox></p>
-                <p><Checkbox value={'5'}>$5M-$10M</Checkbox></p>
                 <p><Checkbox value={'0'}>$0-$5M</Checkbox></p>
+                <p><Checkbox value={'5'}>$5M-$10M</Checkbox></p>
+                <p><Checkbox value={'10'}>$10M-$15M</Checkbox></p>
+                <p><Checkbox value={'15'}>$15M-$20M</Checkbox></p>
+                <p><Checkbox value={'20'}>$20M-$25M</Checkbox></p>
             </Checkbox.Group>
         </Col>
     </Row>
@@ -393,11 +393,11 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={checkboxMHFDDollarsAllocated} onChange={(item) => {
                 setCheckboxMHFDDollarsAllocated(item as Array<string>);
             }}>
-                <p><Checkbox value={'20'}>$20M-$25M</Checkbox></p>
-                <p><Checkbox value={'15'}>$15M-$20M</Checkbox></p>
-                <p><Checkbox value={'10'}>$10M-$15M</Checkbox></p>
+                <p><Checkbox value={'0'}>$1M-$5M</Checkbox></p>
                 <p><Checkbox value={'5'}>$5M-$10M</Checkbox></p>
-                <p><Checkbox value={'0'}>$0M-$5M</Checkbox></p>
+                <p><Checkbox value={'10'}>$10M-$15M</Checkbox></p>
+                <p><Checkbox value={'15'}>$15M-$20M</Checkbox></p>
+                <p><Checkbox value={'20'}>$20M-$25M</Checkbox></p>
             </Checkbox.Group>
         </Col>
         <Col span={12}>
