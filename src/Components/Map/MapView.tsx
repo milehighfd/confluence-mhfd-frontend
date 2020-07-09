@@ -333,7 +333,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             </div>
 
             <Button onClick={handleToggle}>
-              <img src="/Icons/icon-73.svg" alt="" /> Filters ({filterNames.length}) {tabActive}
+              <img src="/Icons/icon-73.svg" alt="" /> Filters ({filterNames.length}) 
             </Button>
           </Col>
         </Row>
