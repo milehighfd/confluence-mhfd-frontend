@@ -66,7 +66,10 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
             <Popover placement="topLeft" content={type}>
-              <p style={{ color: 'red', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p>
+              {data.priority === 'High' ? <p style={{ color: 'red', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p> :
+              data.priority === 'Low' ? <p style={{ color: '#28c499', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p> :
+              <p style={{ color: '#FFD300', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p> 
+              }
             </Popover>
             <Popover content={status}>
               <span style={{ textAlign: 'right', width: '42%', fontSize: '13px' }}>Solved {data.percentage}%</span>
