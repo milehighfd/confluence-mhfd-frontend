@@ -7,7 +7,7 @@ import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
-const content = (<div className="popoveer-00">Notifications (not active)</div>
+const content = (<div className="popoveer-00">Notifications (Under Construction)</div>
 );
 
 export default () => {
