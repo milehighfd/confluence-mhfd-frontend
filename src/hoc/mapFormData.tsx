@@ -42,7 +42,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               saveDraftCard,
               getUserProjects,
               sortProjects,
-              saveLayersCheck, 
+              saveLayersCheck,
               getGalleryProblems,
               getGalleryProjects,
               galleryProblems,
@@ -136,7 +136,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
-                  <Spin spinning={(spinFilter || spinCardProblems || spinCardProjects || spinValue)}>
+                  <Spin className="loading-01" spinning={(spinFilter || spinCardProblems || spinCardProjects || spinValue)}>
                     <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={leftWidth}>
                         <Map
                             leftWidth={leftWidth}
@@ -196,7 +196,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             markerRef={markerRef}
                             polygonRef={polygonRef}
                             getUserProjects={getUserProjects}
-                            sortProjects={sortProjects} 
+                            sortProjects={sortProjects}
                             getGalleryProblems={getGalleryProblems}
                             getGalleryProjects={getGalleryProjects}
                             galleryProblems={galleryProblems}
