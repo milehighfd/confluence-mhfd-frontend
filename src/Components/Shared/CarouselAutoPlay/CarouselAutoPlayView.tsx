@@ -34,7 +34,7 @@ export default () => {
           <img src={SERVER.BASE_URL_IMAGES + image} className={"img-banner"} alt="" />
           <div className="textContent">
             <h2>What can I do with Confluence?</h2>
-            <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
+            <h5>Explore your Streams, Check Project Info, View and Analyze Data</h5>
           </div>
         </div>
       })}
