@@ -27,6 +27,8 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
           <Checkbox.Group value={checkBoxes} onChange={(items) => {
               setSelectedCheckBox(items);
               setCheckboxes(items);
+              selectCheckboxes(items);
+              removePopup();
             }}>
               <Col span={9}>
                 <h6>HYDROLOGIC</h6>
@@ -61,11 +63,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
               setVisibleDropdown(false);
               selectCheckboxes([]);
             }}>Clear Map</Button>
-            <Button className="btn-01" onClick={() => {
-              selectCheckboxes(checkBoxes);
-              setVisibleDropdown(false);
-              removePopup();
-            }}>Apply</Button>
+            
           </div>
      </div>
 }
