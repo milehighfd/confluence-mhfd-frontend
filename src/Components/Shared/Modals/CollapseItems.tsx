@@ -126,9 +126,9 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       },
       {
         title: 'Percent',
-        dataIndex: 'percentage',
+        dataIndex: 'percen',
         render: (percentage: number) => Math.round(percentage * 10) /10 + '%',
-        sorter: false
+        sorter: true
       }
     ];
   } else {
