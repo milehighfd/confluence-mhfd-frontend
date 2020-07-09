@@ -113,6 +113,8 @@ const Map = ({ leftWidth,
                 topLatitude = element[1];
             }
         }
+        bottomLongitude -= 0.125;
+        topLongitude += 0.125;
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude])
     }
@@ -160,12 +162,11 @@ const Map = ({ leftWidth,
             touchZoomRotate: false,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
             center: [ user.coordinates.longitude, user.coordinates.latitude],
-            zoom: 8.9
+            zoom: 8
         });
         if(coor[0] && coor[1]) {
             map.fitBounds(coor);
         }
-        
         const nav = new mapboxgl.NavigationControl({ showCompass: false });
         map.addControl(nav, 'bottom-right');
         addMapGeocoder(map, geocoderRef);
@@ -209,6 +210,7 @@ const Map = ({ leftWidth,
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setFilterCoordinates(boundingBox);
+            console.log(map.getZoom());
             console.log(map);
           });
         map.on('dragend', () => {
