@@ -206,12 +206,16 @@ const Map = ({ leftWidth,
                 });
             }
         }
+        let value = 0;
         map.on('zoomend', () => {
-            const bounds = map.getBounds();
-            const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
-            setFilterCoordinates(boundingBox);
-            console.log(map.getZoom());
-            console.log(map);
+            value +=1;
+            if(value >= 2 ) {
+                const bounds = map.getBounds();
+                const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+                setFilterCoordinates(boundingBox);
+                console.log(map.getZoom());
+                console.log(map);
+            }
           });
         map.on('dragend', () => {
             const bounds = map.getBounds();

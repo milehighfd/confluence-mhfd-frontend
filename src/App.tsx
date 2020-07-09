@@ -33,10 +33,10 @@ import Prueba from './Components/algo/Prueba';
 import DetailedPageContainer from './Components/DetailedPage/DetailedPageContainer';
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter, 
-          setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions, filterProjectOptions, filterComponentOptions } 
+          setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions, filterProjectOptions, filterComponentOptions, replaceFilterCoordinates } 
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
              getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
-             filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any }) {
+             filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function }) {
   const [ loading, setLoading ] = useState(true);
   useEffect(() => {
     getCarouselImages();
@@ -57,6 +57,31 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
     if(datasets.getToken() && appUser.email === '') {
       datasets.getData(SERVER.ME, datasets.getToken()).then( async res => {
           if (res?._id) {
+            if(res.polygon) {
+              let bottomLongitude = res.polygon[0][0];
+              let bottomLatitude = res.polygon[0][1];
+              let topLongitude = res.polygon[0][0];
+              let topLatitude = res.polygon[0][1];
+              for (let index = 0; index < res.polygon.length; index++) {
+                  const element = res.polygon[index];
+                  if(bottomLongitude > element[0]) {
+                      bottomLongitude = element[0];
+                  }
+                  if(topLongitude < element[0]) {
+                      topLongitude = element[0];
+                  }
+                  if(bottomLatitude > element[1]) {
+                      bottomLatitude = element[1];
+                  }
+                  if(topLatitude < element[1]) {
+                      topLatitude = element[1];
+                  }
+              }
+              bottomLongitude -= 0.125;
+              topLongitude += 0.125;
+              const bounds = '' + bottomLongitude + ',' + bottomLatitude + ',' + topLongitude + ',' + topLatitude;
+              replaceFilterCoordinates(bounds);
+            }
             replaceAppUser(res);
             getUserInformation();
           }

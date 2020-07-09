@@ -102,7 +102,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             clearErrorMessage();
           }
         }, [clearErrorMessage, error]);
-
         useEffect(() => {
           if (projectsByType.maintenance && projectsByType.maintenance.length) {
             const newProjects = projectsByType.maintenance.map((project : ProjectTypes) => {

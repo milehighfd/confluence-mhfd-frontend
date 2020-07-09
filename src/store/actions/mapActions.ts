@@ -237,7 +237,11 @@ export const setFilterCoordinates = (coordinates: string) => {
         dispatch(getGalleryProjects());
     }
 }
-
+export const replaceFilterCoordinates = (coordinates: string) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_FILTER_COORDINATES, coordinates});
+    }
+}
 export const setFilterProblemOptions = (filters: OptionProblems) => {
     const keyword = store.getState().map.filterProblems.keyword;
     const auxFilter = {

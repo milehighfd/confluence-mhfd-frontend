@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { replaceAppUser } from './store/actions/appUser';
 import { getUserInformation } from './store/actions/ProfileActions';
 import { getCarouselImages } from './store/actions/carouselImagesActions';
-import { getMapTables, getParamsFilter, setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions } from './store/actions/mapActions';
+import { getMapTables, getParamsFilter, setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, replaceFilterCoordinates } from './store/actions/mapActions';
 
 const mapStateToProps = (state: any) => {
   return {
@@ -25,7 +25,8 @@ const mapDispatchToProps = (dispatch: any) => ({
     getParamsFilter,
     setFilterProblemOptions, 
     setFilterProjectOptions, 
-    setFilterComponentOptions
+    setFilterComponentOptions,
+    replaceFilterCoordinates
     }, dispatch)
 });
 

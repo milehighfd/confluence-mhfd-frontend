@@ -111,10 +111,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       }
     }
   }, []);
-  useEffect(() =>{
-      getGalleryProblems();
-      getGalleryProjects();
-  }, [getGalleryProblems, getGalleryProjects]);
   useEffect(() => {
     /* Validate projectId in backend to show it! */
     if (projectId === '5eb2cee46fc3881503d67288' && projects[0]) {
