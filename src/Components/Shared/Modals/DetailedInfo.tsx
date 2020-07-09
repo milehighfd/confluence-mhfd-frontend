@@ -11,13 +11,13 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
           <label><i>Stream</i></label>
         </Col>
         <Col span={8}>
-          <p>{detailed.streamname}</p>
+          <p>{detailed.streamname ? detailed.streamname : '-'}</p>
         </Col>
         <Col span={4}>
           <label><i>Priority</i></label>
         </Col>
         <Col span={8}>
-          <p style={{width: '35%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}> {detailed.problempriority} </p>
+          <p style={{width: '35%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}> {detailed.problempriority ? detailed.problempriority : '-'} </p>
         </Col>
       </Row>
       <Row>
@@ -25,13 +25,13 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
           <label><i>Source Name</i></label>
         </Col>
         <Col span={8}>
-          <p>{detailed.sourcename ? detailed.sourcename : ''}</p>
+          <p>{detailed.sourcename ? detailed.sourcename : '-'}</p>
         </Col>
         <Col span={4}>
           <label><i>Source</i></label>
         </Col>
         <Col span={8}>
-          <p>{detailed.source ? detailed.source : ''}</p>
+          <p>{detailed.source ? detailed.source : '-'}</p>
         </Col>
       </Row>
       <Row>
@@ -39,7 +39,7 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
           <label><i>Description</i></label>
         </Col>
         <Col span={20}>
-          <p>{detailed.problemdescription ? detailed.problemdescription : ''}</p>
+          <p>{detailed.problemdescription ? detailed.problemdescription : '-'}</p>
         </Col>
       </Row>
     </>}
@@ -73,7 +73,7 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
           <label><i>Project Status</i></label>
         </Col>
         <Col span={8}>
-          <p>{detailed.status ? detailed.status : ''}</p>
+          <p>{detailed.status ? detailed.status : '-'}</p>
         </Col>
         <Col span={4}>
           <label><i>Frequency</i></label>
@@ -141,13 +141,13 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
           <label><i>Start Year</i></label>
         </Col>
         <Col span={8}>
-          <p>{detailed.startyear ? detailed.startyear : ''}</p>
+          <p>{detailed.startyear ? detailed.startyear : '-'}</p>
         </Col>
         <Col span={4}>
           <label><i>Completed Year</i></label>
         </Col>
         <Col span={8}>
-          <p>{detailed.completedyear ? detailed.completedyear : ''}</p>
+          <p>{detailed.completedyear ? detailed.completedyear : '-'}</p>
         </Col>
       </Row> }
     </>}

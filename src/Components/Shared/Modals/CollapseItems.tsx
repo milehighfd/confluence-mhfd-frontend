@@ -127,7 +127,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       {
         title: 'Percent',
         dataIndex: 'percen',
-        render: (percentage: number) => Math.round(percentage * 10) /10 + '%',
+        render: (percen: number) => Math.round(percen * 10) /10 + '%',
         sorter: true
       }
     ];
@@ -155,7 +155,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         title: 'Total Cost',
         dataIndex: 'original_cost',
         sorter: true,
-        render: (original_cost: number) => new Intl.NumberFormat("en-EN").format(original_cost)
+        render: (original_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(original_cost)
       }
     ];
   }
@@ -223,13 +223,13 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
               <label><i>Contractor</i></label>
             </Col>
             <Col span={8}>
-              <p>{ detailedPage.contractor }</p>
+              <p>{ detailedPage.contractor ? detailedPage.contractor : '-' }</p>
             </Col>
             <Col span={4}>
               <label><i>Consultant</i></label>
             </Col>
             <Col span={8}>
-              <p>{detailedPage.consultant }</p>
+              <p>{detailedPage.consultant ? detailedPage.consultant : '-' }</p>
             </Col>
           </Row>
         </div>
