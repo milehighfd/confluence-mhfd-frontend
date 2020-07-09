@@ -148,7 +148,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                         {tag.values.map((element: string) => {
                             let value = '';
                             if (tag.key === 'cost') {
-                                value = element === '1' ? '1M - 10M' : ((element === '5')? '5M - 10M': ((element === '10') ? '10M - 15M' : '20 - 25M'));
+                                value = element === '1' ? '$1M - $10M' : ((element === '5')? '$5M - $10M': ((element === '10') ? '$10M - 15M' : '$20 - $25M'));
                             } else {
                                 if (tag.key === 'solutionstatus') {
                                     value = element === '10' ? '10% - 25%' : element === '25'? '25% - 50%': element === '50' ? '50% - 75%' : '75% - 100%';
@@ -171,10 +171,10 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                         {tag.values.map((element: string) => {
                             let value = '';
                             if (tag.key === 'totalcost') {
-                                value = element === '0' ? '0 - 5M' : ((element === '5')? '5M- 1M': ((element === '10') ? '1M - 15M' : (element === '15') ? '15M - 20M' :'20M - 25M'));
+                                value = element === '0' ? '$0 - $5M' : ((element === '5')? '$5M- $1M': ((element === '10') ? '$1M - $15M' : (element === '15') ? '$15M - $20M' :'$20M - $25M'));
                             } else {
                                 if (tag.key === 'mhfddollarsallocated') {
-                                    value = element === '1' ? '1M - 5M' : ((element === '5')? '5M - 10M': ((element === '10') ? '10M - 15M' : (element === '15') ? '15M - 20M' :'20M - 25M'));
+                                    value = element === '1' ? '$1M - $5M' : ((element === '5')? '$5M - $10M': ((element === '10') ? '$10M - $15M' : (element === '15') ? '$15M - $20M' :'$20M - $25M'));
                                 } else {
                                     value = element;
                                 }
@@ -190,7 +190,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                         {tag.values.map((element: string) => {
                             let value = '';
                             if (tag.key === 'estimatedcost') {
-                                value = element === '0' ? '0 - 2M' : ((element === '2') ? '2M - 4M' : ((element === '4') ? '4M - 6M' : (element === '6') ? '6M - 8M' : '8M - 10M'));
+                                value = element === '0' ? '$0 - $2M' : ((element === '2') ? '$2M - $4M' : ((element === '4') ? '$4M - $6M' : (element === '6') ? '$6M - $8M' : '$8M - $10M'));
                             } else {
                                 if (tag.key === 'component_type') {
                                     value = (params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ? 

@@ -344,11 +344,11 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={checkBoxTotalCost} onChange={(item) => {
                 setCheckboxTotalCost(item as Array<string>);
             }}>
-                <p><Checkbox value={'20'}>20M-25M</Checkbox></p>
-                <p><Checkbox value={'15'}>15M-20M</Checkbox></p>
-                <p><Checkbox value={'10'}>10M-15M</Checkbox></p>
-                <p><Checkbox value={'5'}>5M-10M</Checkbox></p>
-                <p><Checkbox value={'0'}>0-5M</Checkbox></p>
+                <p><Checkbox value={'20'}>$20M-$25M</Checkbox></p>
+                <p><Checkbox value={'15'}>$15M-$20M</Checkbox></p>
+                <p><Checkbox value={'10'}>$10M-$15M</Checkbox></p>
+                <p><Checkbox value={'5'}>$5M-$10M</Checkbox></p>
+                <p><Checkbox value={'0'}>$0-$5M</Checkbox></p>
             </Checkbox.Group>
         </Col>
     </Row>
@@ -393,11 +393,11 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={checkboxMHFDDollarsAllocated} onChange={(item) => {
                 setCheckboxMHFDDollarsAllocated(item as Array<string>);
             }}>
-                <p><Checkbox value={'20'}>20M-25M</Checkbox></p>
-                <p><Checkbox value={'15'}>15M-20M</Checkbox></p>
-                <p><Checkbox value={'10'}>10M-15M</Checkbox></p>
-                <p><Checkbox value={'5'}>5M-10M</Checkbox></p>
-                <p><Checkbox value={'0'}>0M-5M</Checkbox></p>
+                <p><Checkbox value={'20'}>$20M-$25M</Checkbox></p>
+                <p><Checkbox value={'15'}>$15M-$20M</Checkbox></p>
+                <p><Checkbox value={'10'}>$10M-$15M</Checkbox></p>
+                <p><Checkbox value={'5'}>$5M-$10M</Checkbox></p>
+                <p><Checkbox value={'0'}>$0M-$5M</Checkbox></p>
             </Checkbox.Group>
         </Col>
         <Col span={12}>
@@ -614,11 +614,11 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                     <Checkbox.Group value={checkboxEstimatedcost} onChange={(item) => {
                         setCheckboxEstimatedcost(item as Array<string>);
                     }}>
-                        <p><Checkbox value={'8'}>8M-10M</Checkbox></p>
-                        <p><Checkbox value={'6'}>6M-8M</Checkbox></p>
-                        <p><Checkbox value={'4'}>4M-6M</Checkbox></p>
-                        <p><Checkbox value={'2'}>2M-4M</Checkbox></p>
-                        <p><Checkbox value={'0'}>0-2M</Checkbox></p>
+                        <p><Checkbox value={'8'}>$8M-$10M</Checkbox></p>
+                        <p><Checkbox value={'6'}>$6M-$8M</Checkbox></p>
+                        <p><Checkbox value={'4'}>$4M-$6M</Checkbox></p>
+                        <p><Checkbox value={'2'}>$2M-$4M</Checkbox></p>
+                        <p><Checkbox value={'0'}>$0-$2M</Checkbox></p>
                     </Checkbox.Group>
                 </Col>
             </Row>
