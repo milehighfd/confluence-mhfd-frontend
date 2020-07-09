@@ -16,8 +16,6 @@ export default ({ type, data, search }: { type: string, data: Array<any>, search
     sw = true;
   }
   const valueDropdown = type === 'Problems' ? SORTED_PROBLEMS : SORTED_PROJECTS;
-  console.log(type, valueDropdown);
-
   const [options, setOptions] = useState({ keyword: "", column: type === 'Problems' ? 'problemname' : 'streamname', order: "asc" });
   const [state, setState] = useState({
     items: Array.from({ length: size }),
@@ -26,7 +24,6 @@ export default ({ type, data, search }: { type: string, data: Array<any>, search
   const numberWithCommas = (x: number) => {
     return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
   }
-  console.log(type, data);
   const menu = () => {
     return <Menu className="js-mm-00">
       {valueDropdown.map((item: { name: string, title: string }, index: number) => {

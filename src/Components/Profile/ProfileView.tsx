@@ -93,8 +93,6 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   }, [getUserInformation]);
   useEffect(() => {
     if(user._id) {
-      console.log('volviendo gg');
-
       getUserProblem({ keyword: '', column: 'problemname', order: 'asc' });
       getUserProject({ keyword: '', column: 'streamname', order: 'asc' });
     }

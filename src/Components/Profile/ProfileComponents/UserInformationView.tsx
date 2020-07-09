@@ -4,14 +4,15 @@ import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 import ModalEditUserView from './ModalEditUserView';
 
-const phone = (<div style={{fontSize: '12px'}}>(PHONE NUMBER) FROM EDIT PROFILE</div>);
-const mail = (<div style={{fontSize: '12px'}}>(EMAIL) FROM EDIT PROFILE</div>);
-const county = (<div style={{fontSize: '12px'}}>(CITY), (COUNTY) FROM EDIT PROFILE</div>);
-const tag = (<div className="popoveer-00">Tags help to identify your area of interest. Add or remove tags to help focus your default content.</div>);
-const content = (<div className="popoveer-00">Number of Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
+
 
 export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function, updateUserInformation : Function}) => {
 
+  const phone = (<div style={{fontSize: '12px'}}>{user.phone ? user.phone: '-'} FROM EDIT PROFILE</div>);
+  const mail = (<div style={{fontSize: '12px'}}>{user.email ? user.email: '-'} FROM EDIT PROFILE</div>);
+  const county = (<div style={{fontSize: '12px'}}>{user.city ? user.city: '-'}, {user.county ? user.county: '-'} FROM EDIT PROFILE</div>);
+  const tag = (<div className="popoveer-00">Tags help to identify your area of interest. Add or remove tags to help focus your default content.</div>);
+  const content = (<div className="popoveer-00">Number of Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
   }
@@ -27,6 +28,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
     }
     return isLt2M;
   }
+  
   const typeProjects = PROJECT_TYPES_AND_NAME;
   return <> <Col span={12} className="profile-info">
     <div style={{ position: 'relative', minWidth: '135px', width: '135px', height: '120px' }}>
@@ -82,7 +84,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
     <Col span={12} className="profile-project">
       <div className="profile-table" style={{ paddingLeft: "0px", paddingRight: "0px" }}>
         <span className="text-profile-projects" >
-          {total}
+          {total? total: 0}
         </span> <span style={{ paddingRight: "8px" }}> Total Projects </span> |
         {typeProjects.map((element: { name: string, id: string }, index: number) => {
           return <span key={index}>

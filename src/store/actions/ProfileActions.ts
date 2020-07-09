@@ -64,7 +64,6 @@ const optionsProject = (options: { keyword: string, column: string, order: strin
 }
 const getUserCoordinates = () => {
   const user = store.getState().profile.userInformation;
-  console.log(user);
   
   let bottomLongitude = user.polygon[0][0];
   let bottomLatitude = user.polygon[0][1];
