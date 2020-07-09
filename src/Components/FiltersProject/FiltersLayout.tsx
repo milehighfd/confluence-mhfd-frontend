@@ -614,11 +614,11 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                     <Checkbox.Group value={checkboxEstimatedcost} onChange={(item) => {
                         setCheckboxEstimatedcost(item as Array<string>);
                     }}>
-                        <p><Checkbox value={'8'}>$8M-$10M</Checkbox></p>
-                        <p><Checkbox value={'6'}>$6M-$8M</Checkbox></p>
-                        <p><Checkbox value={'4'}>$4M-$6M</Checkbox></p>
-                        <p><Checkbox value={'2'}>$2M-$4M</Checkbox></p>
                         <p><Checkbox value={'0'}>$0-$2M</Checkbox></p>
+                        <p><Checkbox value={'2'}>$2M-$4M</Checkbox></p>
+                        <p><Checkbox value={'4'}>$4M-$6M</Checkbox></p>
+                        <p><Checkbox value={'6'}>$6M-$8M</Checkbox></p>
+                        <p><Checkbox value={'8'}>$8M-$10M</Checkbox></p>
                     </Checkbox.Group>
                 </Col>
             </Row>
