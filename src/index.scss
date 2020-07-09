@@ -2994,6 +2994,19 @@ body{
   box-shadow: $shadow;
   background-color: $white;
   overflow-y: auto;
+
+  .ant-carousel .slick-list {
+      height: auto;
+  }
+  .ant-carousel .slick-dots {
+    display: block !important;
+    padding-left: 0px !important;
+    padding-bottom: 0px !important;
+  }
+  .ant-carousel .slick-slide img{
+    position: relative;
+    margin-top: -50px;
+  }
 }
 .detailed-h{
   height: 80px !important;

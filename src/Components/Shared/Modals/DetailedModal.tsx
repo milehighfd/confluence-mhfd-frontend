@@ -13,7 +13,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     componentsOfProblems, loaderTableCompoents }:
   { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function,
     detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean }) => {
-      
+
   const [typeDetail, setTypeDetail] = useState('');
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
@@ -73,7 +73,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               <span> Service Area {detailedPage.servicearea} </span></p>
             </Col>
             <Col span={5}>
-              { 
+              {
               detailedPage.problemtype ? (
                 <div className="status-d">
                 <label>Solution Status <b>{detailedPage.solutionstatus}%</b></label>
@@ -83,7 +83,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                 <div className="nn-hh">{detailedPage.status}</div>
               )
               }
-              
+
             </Col>
             <Col span={3} style={{ textAlign: 'center' }}>
               {
@@ -110,9 +110,9 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               <Carousel autoplay>
                 <div>
                   {detailedPage.problemid ? (
-                    <div className="detailed-c"> <img height={280} width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
+                    <div className="detailed-c"> <img width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
                   ) : (
-                      <div className="detailed-c"> <img height={280} width="100%" src={detailedPage.attachments.length > 0 ? detailedPage.attachments : (
+                      <div className="detailed-c"> <img width="100%" src={detailedPage.attachments.length > 0 ? detailedPage.attachments : (
                         detailedPage.projecttype === 'Capital' ? 'projectImages/capital.png' :
                           detailedPage.projecttype === 'Study' ? 'projectImages/study.png' :
                             detailedPage.projecttype === 'Maintenance' ?
@@ -127,11 +127,11 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
               {detailedPage.problemid ? (
-                  <CollapseItems type={typeDetail} data={componentsOfProblems} 
+                  <CollapseItems type={typeDetail} data={componentsOfProblems}
                   getComponentsByProblemId={getComponentsByProblemId} id={data.problemid} typeid={'problemid'} loaderTableCompoents={loaderTableCompoents}
                    detailedPage={detailedPage} updateModal={updateModal} />
                 ) : (
-                  <CollapseItems type={typeDetail} data={componentsOfProblems} 
+                  <CollapseItems type={typeDetail} data={componentsOfProblems}
                   getComponentsByProblemId={getComponentsByProblemId} id={data.id} typeid={'projectid'} loaderTableCompoents={loaderTableCompoents}
                   detailedPage={detailedPage} updateModal={updateModal} />
               )}

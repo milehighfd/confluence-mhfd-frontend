@@ -74,9 +74,9 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
     <div className="profile-prot">
       <Button>Aurora</Button>
       <Button>Westminster</Button>
-      <Popover content={tag} placement="bottom">
+      {/*<Popover content={tag} placement="bottom">
         <Button className="add-tag"><img src="/Icons/icon-18.svg" alt="" height="18px" /> Add Tags</Button>
-      </Popover>
+      </Popover>*/}
     </div>
   </Col>
     <Col span={12} className="profile-project">
