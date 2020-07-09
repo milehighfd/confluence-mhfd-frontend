@@ -113,7 +113,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   if (type === PROJECTS_MODAL) {
     columns = [
       {
-        title: 'Solution Type',
+        title: 'Solution Components',
         dataIndex: 'type',
         sorter: true,
         width: 300
@@ -125,7 +125,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         sorter: true
       },
       {
-        title: 'Percent',
+        title: '% Complete',
         dataIndex: 'percen',
         render: (percen: number) => Math.round(percen * 10) /10 + '%',
         sorter: true
@@ -152,7 +152,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         sorter: true,
       },
       {
-        title: 'Total Cost',
+        title: '% of Total Cost',
         dataIndex: 'original_cost',
         sorter: true,
         render: (original_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(original_cost)
