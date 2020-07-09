@@ -62,10 +62,11 @@ export const SERVER = (function () {
     const SEARCH = 'search';
     const V2 = 'v2';
     const BY_COMPONENTS = 'by-components';
+    const DETAILED_PAGE = 'detailed-page'
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
-        SHARE_MAP_PROJECT: `${BASE_URL}/${MAP}`,
+        SHARE_MAP_PROJECT: `${BASE_URL}/${DETAILED_PAGE}`,
         CAPTCHA: CAPTCHA,
         USER: `${URL_BASE.BASE}/${USER}`,
         AUTH: `${URL_BASE.BASE}/${AUTH}`,

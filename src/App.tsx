@@ -30,6 +30,7 @@ import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 import { SELECT_ALL_FILTERS } from './constants/constants';
 import Prueba from './Components/algo/Prueba';
+import DetailedPageContainer from './Components/DetailedPage/DetailedPageContainer';
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter, 
           setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions, filterProjectOptions, filterComponentOptions } 
@@ -77,6 +78,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
       <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />
+      <Route path={`/detailed-page`} component={DetailedPageContainer} />
       <Route exact path="/" render={() => (
           <Redirect to="/login"/>
       )}/>
