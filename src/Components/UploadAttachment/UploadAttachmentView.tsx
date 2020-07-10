@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Row, Col, Upload, Tag, Table, Button, message, Popover } from 'antd';
+import { Layout, Row, Col, Upload, Table, Button, Popover } from 'antd';
 
 import NavbarView from '../Shared/Navbar/NavbarView';
 import SidebarView from '../Shared/Sidebar/SidebarView';
 import moment from 'moment';
-import { FilePdfOutlined, FileTextOutlined, FilePdfTwoTone, FileTwoTone } from '@ant-design/icons';
 
 const content = (<div className="popoveer-00">Upload media e.g. video, images, documents and other file types associated with problems or images. Max. size of 10MB per file.</div>);
 
@@ -14,8 +13,6 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, s
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
   }
-// image to column filename src="/Icons/documents.png"
-{/* <img alt="example" className="img-up" src="/Icons/default.png" height="30px" /> */}
   const columns = [
     {
       title: 'Name',

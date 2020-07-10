@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Layout, Row, Col, Tabs, Button, Dropdown, Menu, List, Avatar, Popover } from 'antd';
-import {CaretUpOutlined, CaretDownOutlined} from '@ant-design/icons';
+import { Layout, Row, Col, Tabs, Popover } from 'antd';
 
 import NavbarView from "../Shared/Navbar/NavbarView";
 import SidebarView from "../Shared/Sidebar/SidebarView";
@@ -8,59 +7,12 @@ import Collaborators from "./ProfileComponents/Collaborators";
 import TabPaneView from "./ProfileComponents/TabPaneView";
 import UserInformationView from "./ProfileComponents/UserInformationView";
 
-import { ProjectTypes } from "../../Classes/MapTypes";
 import { User, ProjectName } from "../../Classes/TypeList";
-import { problemPanel } from "../../utils/detailedUtils";
 
 const content = (<div className="popoveer-00">View Problems within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
 const content00 = (<div className="popoveer-00">View Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
 
 const { TabPane } = Tabs;
-const data = [
-  {
-    title: 'West Tollgate Creek GSB Drops',
-  },
-];
-const menu = (
-  <Menu className="js-mm-00">
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-        1st menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        2nd menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
-        3rd menu item
-      </a>
-    </Menu.Item>
-  </Menu>
-);
-const cardInformationProblems: Array<any> = [
-  {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }
-];
 
 export default ({ user, projects, problems, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue, updateUserInformation,
     getUserProblem, getUserProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
@@ -71,19 +23,13 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
     getUserProblem: Function, getUserProject: Function, getDetailedPageProblem: Function, getDetailedPageProject: Function, 
     getComponentsByProblemId: Function, displayModal: any, 
     detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any }) => {
-  const searchProblem = () => {
-    console.log('search problem');
-  }
-  const searchProjects = (options: { requestName: string, status: string }) => {
-    getUserProjects(newOptions(options));
-  }
 
-  const newOptions = (options: { requestName: string, status: string }) => {
-    const newOption = (options.requestName.trim() && options.status) ? options :
-      (options.requestName.trim()) ? { requestName: options.requestName } :
-        (options.status) ? { status: options.status } : {}
-    return newOption;
-  }
+  // const newOptions = (options: { requestName: string, status: string }) => {
+  //   const newOption = (options.requestName.trim() && options.status) ? options :
+  //     (options.requestName.trim()) ? { requestName: options.requestName } :
+  //       (options.status) ? { status: options.status } : {}
+  //   return newOption;
+  // }
   useEffect(() => {
     getUserProjects({});
   }, [getUserProjects]);
@@ -100,7 +46,6 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
       getUserProject({ keyword: '', column: 'streamname', order: 'asc' });
     }
   }, [user]);
-  //console.log(projects, problems);
 
   return <>
     <Layout>

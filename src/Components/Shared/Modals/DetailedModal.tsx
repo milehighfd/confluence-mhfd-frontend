@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Collapse, Dropdown, Menu, Button, Input, Progress, Carousel, Modal, Table, message } from 'antd';
+import { Row, Col, Button, Progress, Carousel, Modal, message } from 'antd';
 
-import DetailedView from '../../DetailedProblem/DetailedView';
 import { FILTER_PROBLEMS_TRIGGER } from '../../../constants/constants';
  import { SERVER } from "../../../Config/Server.config";
 import { Detailed } from '../../../store/types/detailedTypes';

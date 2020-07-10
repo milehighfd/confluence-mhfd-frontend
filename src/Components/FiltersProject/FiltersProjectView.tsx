@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Button, Tabs, Tag } from 'antd';
+import React from "react";
+import { Tabs, Tag } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, DROPDOWN_PROJECT_FILTERS } from '../../constants/constants';
-import { FiltersProjectTypes, FilterNamesTypes } from "../../Classes/MapTypes";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER } from '../../constants/constants';
+import { FiltersProjectTypes } from "../../Classes/MapTypes";
 import store from "../../store";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
@@ -185,70 +185,6 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
                 setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
                 getGalleryProjects, filterComponentOptions, setFilterComponentOptions } : FiltersProjectTypes) => {
-                  
-
-  const [selectedFilters, setSelectedFilters] = useState<{[key: string] : string | Array<string>}>({});
-  
-  // useEffect(() => {
-  //   getDropdownFilters(DROPDOWN_PROJECT_FILTERS);
-  // }, [getDropdownFilters]);
-
-  useEffect(() => {
-    let selected : any = {};
-    filterNames.forEach((filter : FilterNamesTypes) => {
-      const checkboxValue = filterNames.filter((value : FilterNamesTypes) => value.key === filter.key).length;
-      if (checkboxValue > 1) {
-        const checkboxArray = selected[filter.key]?selected[filter.key]:[];
-        checkboxArray.push(filter.type);
-        selected = { ...selected, [filter.key]: checkboxArray };
-      } else {
-        selected = { ...selected, [filter.key]: filter.type };
-      }
-    });
-    setSelectedFilters(selected);
-  }, [filterNames]);
-
-  const handleRadioGroup = (event : React.SyntheticEvent<EventTarget>, id : string) => {
-    setSelectedFilters({...selectedFilters, [id]: (event.target as HTMLButtonElement).value });
-  }
-
-  const handleCheckbox = (checkedValues : Array<string>, id : string) => {
-    setSelectedFilters({...selectedFilters, [id]: checkedValues });
-  }
-
-  const handleSelect = (value: string, id : string) => {
-    if (typeof value === 'string' && value.includes("|")) {
-      /* To store the user id at the position 0, and the user fistName to filter it*/
-      const userData = value.split("|");
-      const [userId, userName] = userData;
-      getUserFilters(userId, userName);
-      setSelectedFilters({...selectedFilters, [id]: userId});
-    } else {
-      setSelectedFilters({...selectedFilters, [id]: value});
-    }
-  }
-
-  const handleAppliedChanges = () => {
-    setToggleFilters(false);
-    handleOnSubmit(selectedFilters);
-  }
-
-  const handleAppliedReset = () => {
-    setToggleFilters(false);
-    handleReset();
-  }
-
-  const deleteFilter = (index: number) => {
-    const newFilters = [...filterNames];
-    newFilters.splice(index, 1);
-    setFilterNames(newFilters);
-  }
-
-  const getSelectValue = (selectValue : string) => {
-    const selectId = selectedFilters[selectValue];
-    const markedValue = userFiltered[selectId as string] || selectedFilters[selectValue] || '- Select -';
-    return markedValue;
-  }
 
   const getFilterBody = (trigger : string) => {
     switch (trigger) {

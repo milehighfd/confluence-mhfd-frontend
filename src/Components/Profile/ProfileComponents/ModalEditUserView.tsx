@@ -36,8 +36,10 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
     setOrganization([...auxOrganization]);
     setRole(RADIO_ITEMS.filter(element => element.value === (user.designation))[0] ? { ...RADIO_ITEMS.filter(element => element.value === (user.designation))[0] } : { name: '', value: '' });
   }
+  
   useEffect(() => {
     asign();
+    console.log(title, organization.length);
   }, [user]);
   const validationSchema = VALIDATION_USER_PROFILE;
 

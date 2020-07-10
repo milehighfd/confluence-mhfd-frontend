@@ -8,7 +8,6 @@ import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES, SORTED_PROBLEMS, SORTED_PROJECTS } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../../Classes/MapTypes";
 import { useParams, useLocation } from "react-router-dom";
-// import DetailedModal from "../Shared/Modals/DetailedModal";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import store from "../../store";
 import DetailedModal from "../Shared/Modals/DetailedModal";
@@ -22,27 +21,6 @@ const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Search } = Input;
 const content = (<div className="popoveer-00">Filter by Area</div>);
-const cardInformationProblems: Array<any> = [
-  {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }, {
-    image: "/Icons/eje.png", requestName: "West Tollagate Creek GSB Drops", jurisdiction: "Westminster", estimatedCost: 400500,
-    field4: 5, field5: "Components", priority: "High Priority", percentage: "80%"
-  }
-];
 
 const accordionRow: Array<any> = [
   {
@@ -63,14 +41,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
                   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents } : MapViewTypes) => {
   
-  const [sortBy, setSortBy] = useState({ fieldSort: SORTED_LIST[0], sortType: true });
-  const [modalProject, setModalProject] = useState<ProjectTypes>({});
-  const [modalVisible, setModalVisible] = useState(false);
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('0');
   const [toggleFilters, setToggleFilters] = useState(false);
-  const [listDescription, setListDescription] = useState(false);
-  const [sortableProjects, setSortableProjects] = useState(projects);
+  // const [listDescription, setListDescription] = useState(false);
+  const listDescription = false;
   const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
   const [ tabActive, setTabActive] = useState('0');
   const { projectId } = useParams();
@@ -111,23 +86,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       }
     }
   }, []);
-  useEffect(() => {
-    /* Validate projectId in backend to show it! */
-    if (projectId === '5eb2cee46fc3881503d67288' && projects[0]) {
-      setModalProject(projects[0]);
-      setModalVisible(true);
-    }
-  }, [projectId, projects]);
 
   useEffect(() => {
     if (filters) {
       setCurrentFilters(filters);
     }
   }, [filters]);
-
-  useEffect(() => {
-    setSortableProjects(projects);
-  }, [projects]);
 
   const handleOnSubmit = (filtersData : FilterTypes) => {
     getProjectWithFilters(filtersData);
@@ -346,7 +310,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           {tabs.map((value : string, index : number) => {
             let totalElements = 0;
             let cardInformation : Array<Object> = [];
-            let filterCard;
             if(value === FILTER_PROBLEMS_TRIGGER) {
               cardInformation = galleryProblems.map(problem => {
                 return {
@@ -395,7 +358,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
             return (
               <TabPane tab={value} key={'' + index}>
-                <GenericTabView
+                <GenericTabView key={value + index}
                       detailed={detailed}
                       loaderDetailedPage={loaderDetailedPage}
                       getDetailedPageProblem={getDetailedPageProblem}
