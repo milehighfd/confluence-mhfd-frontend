@@ -264,10 +264,14 @@ const Map = ({ leftWidth,
     const applyMapLayers = async () => {
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
-              layer.tiles.forEach((subKey: string) => {
-                const tiles = layerFilters[layer.name] as any;
-                addLayersSource(subKey, tiles[subKey]);
-              });
+                if (layer.tiles) {
+                    layer.tiles.forEach((subKey: string) => {
+                      const tiles = layerFilters[layer.name] as any;
+                      if (tiles) {
+                          addLayersSource(subKey, tiles[subKey]);
+                      }
+                    });
+                }
             } else {
                 addLayersSource(layer, layerFilters[layer]);
             }
@@ -288,12 +292,11 @@ const Map = ({ leftWidth,
     }
 
     const addLayersSource = (key : string, tiles : Array<string>) => {
-        if (!map.getSource(key) && tiles) {
+        if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
             map.addSource(key, {
                 type: 'vector',
                 tiles: tiles
             });
-
             addTilesLayers(key);
         }
     }
@@ -314,6 +317,9 @@ const Map = ({ leftWidth,
     const applyFilters =  (key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
+            if (!map.getLayer(key + '_' + index)) {
+                return;
+            }
             const allFilters: any[] = ['all'];
             for (const filterField in toFilter) {
                 const filters = toFilter[filterField];
@@ -423,7 +429,7 @@ const Map = ({ leftWidth,
     const showHighlighted = (key: string, cartodb_id: string) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
-            if (map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+            if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
                 map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
             }
         });
@@ -472,9 +478,11 @@ const Map = ({ leftWidth,
 
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
-            map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-            if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
-                showSelectedComponents(filterComponents.component_type);
+            if (map.getLayer(key + '_' + index)) {
+                map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+                if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
+                    showSelectedComponents(filterComponents.component_type);
+                }
             }
         });
     };
@@ -482,7 +490,9 @@ const Map = ({ leftWidth,
     const hideLayers = (key: string) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
-            map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+            if (map.getLayer(key + '_' + index)) {
+                map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+            }
         });
     };
 
@@ -559,6 +569,9 @@ const Map = ({ leftWidth,
         const styles = { ...tileStyles as any };
         if (styles[key]) {
             styles[key].forEach((style : LayerStylesType, index : number) => {
+                if (!map.getLayer(key + '_' + index)) {
+                    return;
+                }
                 map.on('click', key + '_' + index, (e : any) => {
                     let html: any = null;
                     if (key === 'problems') {
