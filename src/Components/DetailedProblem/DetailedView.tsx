@@ -32,7 +32,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
     coordinates,
     estimatedCost,
   } = data;
-  
+
   const renderCapitalComponents = (component : Function) => {
     return capitalComponentsContext(component(data), projectType as string);
   }
@@ -72,7 +72,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
           </div>
         </Col>
         <Col span={3} style={{ textAlign: 'right' }}>
-          <Button><img src="/Icons/icon-01.svg" alt="" /></Button>
+          <Button className="disabled-btn"><img src="/Icons/icon-01.svg" alt="" /></Button>
           <Button><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl(data._id as string)} /></Button>
           <Button onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
         </Col>
@@ -107,7 +107,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
                 <div className="detailed-map">
                   <DetailedMap
                     coordinates={JSON.parse((coordinates ? coordinates: '[[-104.9070096657899,39.88842619958655],[-104.72306671700684,39.93973005898144],[-104.71609918106799,39.80069322535405],[-104.95299540298578,39.774994077663706],[-104.9070096657899,39.88842619958655]]') as string)}
-                    components={components ? components: '' as any} 
+                    components={components ? components: '' as any}
                     />
                 </div>
               </Panel>
@@ -129,7 +129,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
                 <img src="/Icons/icon-28.svg" alt="" height="35px" />
               </Col>
               <Col span={13}>
-                <h6>Jon Villines</h6>
+                <h6>TBD</h6>
                 <p>Project Manager</p>
               </Col>
               <Col span={7} style={{ textAlign: 'right' }}>
@@ -141,7 +141,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
                 <img src="/Icons/icon-28.svg" alt="" height="35px" />
               </Col>
               <Col span={13}>
-                <h6>Carolyn Roan</h6>
+                <h6>TBD</h6>
                 <p>Floodplain Administration</p>
               </Col>
               <Col span={7} style={{ textAlign: 'right' }}>
@@ -153,7 +153,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
                 <img src="/Icons/icon-28.svg" alt="" height="35px" />
               </Col>
               <Col span={13}>
-                <h6>Deb Ohlinger</h6>
+                <h6>TBD</h6>
                 <p>People Manager</p>
               </Col>
               <Col span={7} style={{ textAlign: 'right' }}>
@@ -165,7 +165,7 @@ export default ({ setVisible, data } : { setVisible : Function, data : ProjectTy
                 <img src="/Icons/icon-28.svg" alt="" height="35px" />
               </Col>
               <Col span={13}>
-                <h6>Amy Gabor</h6>
+                <h6>TBD</h6>
                 <p>Project Engineer</p>
               </Col>
               <Col span={7} style={{ textAlign: 'right' }}>

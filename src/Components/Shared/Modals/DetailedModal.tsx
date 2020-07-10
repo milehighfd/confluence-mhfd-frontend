@@ -99,7 +99,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               }
             </Col>
             <Col span={3} style={{ textAlign: 'right' }}>
-              <Button><img src="/Icons/icon-01.svg" alt="" /></Button>
+              <Button className="disabled-btn"><img src="/Icons/icon-01.svg" alt="" /></Button>
               {/* <Button><img src="/Icons/icon-06.svg" alt="" /></Button> */}
               <Button><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl()} /></Button>
               <Button onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
