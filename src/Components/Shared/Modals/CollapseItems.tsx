@@ -113,27 +113,6 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   if (type === PROJECTS_MODAL) {
     columns = [
       {
-        title: 'Solution Components',
-        dataIndex: 'type',
-        sorter: true,
-        width: 300
-      },
-      {
-        title: 'Cost',
-        dataIndex: 'estimated_cost',
-        render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
-        sorter: true
-      },
-      {
-        title: '% Complete',
-        dataIndex: 'percen',
-        render: (percen: number) => Math.round(percen * 10) /10 + '%',
-        sorter: true
-      }
-    ];
-  } else {
-    columns = [
-      {
         title: 'Solution Type',
         dataIndex: 'type',
         sorter: true,
@@ -147,6 +126,27 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       },
       {
         title: 'Percent',
+        dataIndex: 'percen',
+        render: (percen: number) => Math.round(percen * 10) /10 + '%',
+        sorter: true
+      }
+    ];
+  } else {
+    columns = [
+      {
+        title: 'Solution Components',
+        dataIndex: 'type',
+        sorter: true,
+        width: 300
+      },
+      {
+        title: 'Cost',
+        dataIndex: 'estimated_cost',
+        render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
+        sorter: true
+      },
+      {
+        title: '% Complete',
         dataIndex: 'percen',
         render: (percen: number) => Math.round(percen * 10) /10 + '%',
         sorter: true,
