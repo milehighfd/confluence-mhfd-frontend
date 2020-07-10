@@ -69,8 +69,8 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               <h1> {detailedPage.problemname ? detailedPage.problemname : detailedPage.projectname} </h1>
               <p><span>{detailedPage.problemtype ? (detailedPage.problemtype + ' Problem') : (detailedPage.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span>{detailedPage.problemtype ? ( detailedPage.jurisdiction + ', CO' ) : (detailedPage.sponsor)}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> County {detailedPage.county} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> Service Area {detailedPage.servicearea} </span></p>
+              <span> {detailedPage.county} County </span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span> {detailedPage.servicearea} Service Area </span></p>
             </Col>
             <Col span={5}>
               {
