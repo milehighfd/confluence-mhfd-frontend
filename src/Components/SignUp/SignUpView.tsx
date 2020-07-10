@@ -81,11 +81,13 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
       email: '',
       password: '',
       organization: '',
-      recaptcha: ''
+      recaptcha: '',
+      zoomarea: ''
     },
     validationSchema,
-    onSubmit(values: { firstName: string, lastName: string, email: string, password: string, designation: string, organization: string, recaptcha: string }) {
+    onSubmit(values: { firstName: string, lastName: string, email: string, password: string, designation: string, organization: string, recaptcha: string, zoomarea: string }) {
       setTitle(title);
+      values.zoomarea = values.designation === GOVERNMENT_STAFF? values.organization: 'Mile High Flood Control District Boundary';
       datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if (res?.token) {
           const auxMessage = { ...message };
