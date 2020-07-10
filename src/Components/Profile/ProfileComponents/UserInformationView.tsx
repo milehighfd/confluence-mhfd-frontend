@@ -8,9 +8,9 @@ import ModalEditUserView from './ModalEditUserView';
 
 export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function, updateUserInformation : Function}) => {
 
-  const phone = (<div style={{fontSize: '12px'}}>{user.phone ? user.phone: '-'} FROM EDIT PROFILE</div>);
-  const mail = (<div style={{fontSize: '12px'}}>{user.email ? user.email: '-'} FROM EDIT PROFILE</div>);
-  const county = (<div style={{fontSize: '12px'}}>{user.city ? user.city: '-'}, {user.county ? user.county: '-'} FROM EDIT PROFILE</div>);
+  const phone = (<div style={{fontSize: '12px'}}>{user.phone ? user.phone: '-'}</div>);
+  const mail = (<div style={{fontSize: '12px'}}>{user.email ? user.email: '-'}</div>);
+  const county = (<div style={{fontSize: '12px'}}>{user.city ? user.city: '-'}, {user.county ? user.county: '-'}</div>);
   const tag = (<div className="popoveer-00">Tags help to identify your area of interest. Add or remove tags to help focus your default content.</div>);
   const content = (<div className="popoveer-00">Number of Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
