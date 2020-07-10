@@ -8,7 +8,11 @@ import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
 
 const { Search } = Input;
 
-export default ({ type, data, search }: { type: string, data: Array<any>, search: Function }) => {
+export default ({ type, data, search, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
+        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents }:
+        { type: string, data: Array<any>, search: Function, 
+          getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any, 
+          detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any }) => {
   let totalElement = data.length;
   const size = 8;
   let sw = false;
@@ -104,7 +108,13 @@ export default ({ type, data, search }: { type: string, data: Array<any>, search
       height={window.innerHeight - 400}
       endMessage={''}>
       {sw ? state.items.map((i, index: number) => {
-        return data[index] && <CardsView key={index} data={data[index]} type={type} numberWithCommas={numberWithCommas} />
+        return data[index] && <CardsView key={index} data={data[index]} type={type} numberWithCommas={numberWithCommas}
+            getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
+            getComponentsByProblemId={getComponentsByProblemId}
+            displayModal={displayModal} detailed={detailed} 
+            loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
+            loaderTableCompoents={loaderTableCompoents}
+        />
       }) : ''}
     </InfiniteScroll>
   </Row>

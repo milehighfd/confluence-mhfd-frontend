@@ -94,10 +94,10 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       for (const key in layers.components) {
           map.addVectorSource(key, layers.components[key]);
           i = 0;
-          if((detailedPage.problemid && type === 'problem') ||(detailedPage.projectid && type === 'project')) {
+          if((detailedPage.problemid && type === PROBLEMS_MODAL) ||(detailedPage.projectid && type === PROJECTS_MODAL)) {
             for (const component of styles[key] ) {
               map.addLayer(key + i, key, component);
-              map.setFilter(key + i, ['in', type === 'problem' ? 'problemid': 'projectid',type === 'problem' ? detailedPage.problemid : detailedPage.projectid]);
+              map.setFilter(key + i, ['in', type === PROBLEMS_MODAL ? 'problemid': 'projectid',type === PROBLEMS_MODAL ? detailedPage.problemid : detailedPage.projectid]);
               i++;
             }
           }

@@ -63,11 +63,14 @@ const cardInformationProblems: Array<any> = [
 ];
 
 export default ({ user, projects, problems, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue, updateUserInformation,
-    getUserProblem, getUserProject }:
+    getUserProblem, getUserProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
+    displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents }:
   {
     user: User, projects: any, problems: any, countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function,
     uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function, updateUserInformation: Function,
-    getUserProblem: Function, getUserProject: Function }) => {
+    getUserProblem: Function, getUserProject: Function, getDetailedPageProblem: Function, getDetailedPageProject: Function, 
+    getComponentsByProblemId: Function, displayModal: any, 
+    detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any }) => {
   const searchProblem = () => {
     console.log('search problem');
   }
@@ -113,11 +116,21 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
               <Tabs defaultActiveKey="1" className="tabs-map">
 
                 <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
-                  <TabPaneView type={"Problems"} data={problems} search={getUserProblem} />
+                  <TabPaneView type={"Problems"} data={problems} search={getUserProblem}
+                    getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
+                    getComponentsByProblemId={getComponentsByProblemId}
+                    displayModal={displayModal} detailed={detailed} 
+                    loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
+                    loaderTableCompoents={loaderTableCompoents}/>
                 </TabPane>
 
                 <TabPane key="2" tab={<span><Popover content={content00} placement="rightBottom">Projects</Popover> </span>}>
-                  <TabPaneView type={"Projects"} data={projects} search={getUserProject} />
+                  <TabPaneView type={"Projects"} data={projects} search={getUserProject}
+                    getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
+                    getComponentsByProblemId={getComponentsByProblemId}
+                    displayModal={displayModal} detailed={detailed} 
+                    loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
+                    loaderTableCompoents={loaderTableCompoents} />
                 </TabPane>
                 {/* <TabPane tab="Activity" key="3">
                     <div className="tab-activity">
