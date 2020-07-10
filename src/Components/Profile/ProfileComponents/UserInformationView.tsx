@@ -28,7 +28,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
     }
     return isLt2M;
   }
-  
+
   const typeProjects = PROJECT_TYPES_AND_NAME;
   return <> <Col span={12} className="profile-info">
     <div style={{ position: 'relative', minWidth: '135px', width: '135px', height: '120px' }}>
@@ -73,13 +73,13 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
         </Popover>
       </div>
     </div>
-    <div className="profile-prot">
+    {/*<div className="profile-prot">
       <Button>Aurora</Button>
       <Button>Westminster</Button>
-      {/*<Popover content={tag} placement="bottom">
+      <Popover content={tag} placement="bottom">
         <Button className="add-tag"><img src="/Icons/icon-18.svg" alt="" height="18px" /> Add Tags</Button>
-      </Popover>*/}
-    </div>
+      </Popover>
+    </div>*/}
   </Col>
     <Col span={12} className="profile-project">
       <div className="profile-table" style={{ paddingLeft: "0px", paddingRight: "0px" }}>
