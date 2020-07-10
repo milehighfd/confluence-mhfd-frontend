@@ -134,7 +134,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   } else {
     columns = [
       {
-        title: 'Solution Components',
+        title: 'Solution Type',
         dataIndex: 'type',
         sorter: true,
         width: 300
@@ -242,7 +242,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         </div>
       </Panel> */}
 
-      <Panel header="Component & solutions" key="3" extra={genExtra()}>
+      <Panel header={type === PROBLEMS_MODAL ? 'Solution Components' : "Component & solutions"} key="3" extra={genExtra()}>
         <Row className="table-up-modal">
           <Col span={24}>
             <Table loading={loaderTableCompoents} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
