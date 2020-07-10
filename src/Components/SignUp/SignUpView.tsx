@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Row, Col, Form, Button, Menu, Dropdown } from 'antd';
 import ReCAPTCHA from "react-google-recaptcha";
-import { ROLES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, CONSULTANT_CONTRACTOR, ORGANIZATION } from "../../constants/constants";
+import { ROLES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, CONSULTANT_CONTRACTOR, ORGANIZATION, OTHER } from "../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
@@ -154,7 +154,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
                 <span className="bar"></span>
                 {/*<label  className={values.email ? "login-field-top":"login-field-botton"} >Email</label>*/}
               </div>
-              <div className="group btn-up">
+              {values.designation !== OTHER ? <div className="group btn-up">
                 <div id="sign-up-organization">
                   <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                     <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} >
@@ -163,7 +163,13 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
                     </Button>
                   </Dropdown>
                 </div>
-              </div>
+              </div>:
+              <div className="group">
+                <input placeholder="Organization" type="text" name="organization" onChange={handleChange}
+                  style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
+                <span className="highlight"></span>
+                <span className="bar"></span>
+              </div>}
               <div className="group">
                 <input type="password" placeholder="Password" name="password" onChange={handleChange}
                   style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />

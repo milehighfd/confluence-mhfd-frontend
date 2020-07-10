@@ -6,7 +6,7 @@ import { User } from '../../../Classes/TypeList';
 import MenuAreaView from "../../User/UserComponents/MenuAreaView";
 
 import { VALIDATION_USER_PROFILE } from "../../../constants/validation";
-import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT, DROPDOWN_ORGANIZATION } from "../../../constants/constants";
+import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT, DROPDOWN_ORGANIZATION, OTHER } from "../../../constants/constants";
 
 const content = (<div className="popoveer-00">Defines the Area-Of-Interest for the map and the respective projects and problems shown in the Map Gallery and My Confluence screens.</div>);
 
@@ -223,14 +223,15 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
             </Col>
             <Col className="gutter-row" span={12}>
               <p>ORGANIZATION</p>
-              <div id="sign-up-organization">
+              {values.designation !== OTHER ? <div id="sign-up-organization">
                 <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button style={{ paddingLeft: '10px' }} >
                     {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
                     <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>
-              </div>
+              </div> :
+              <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange} />}
             </Col>
           </Row>
         </div>
