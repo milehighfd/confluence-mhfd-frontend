@@ -1,4 +1,4 @@
-import { Map, MapboxOptions, Popup } from 'mapbox-gl';
+import { Map, Popup } from 'mapbox-gl';
 import { MAPBOX_TOKEN } from '../constants/constants';
 import * as mapboxgl from 'mapbox-gl';
 import { SERVER } from '../Config/Server.config';
@@ -60,10 +60,10 @@ export class MapService {
    
     this.map.dragRotate.disable();
     this.map.touchZoomRotate.disableRotation();
-    const minX = coords && coords.longitudeSW ? +coords.longitudeSW : -129.39,
-          minY = coords && coords.latitudeSW ? +coords.latitudeSW : 25.82,
-          maxX = coords && coords.longitudeNE ? +coords.longitudeNE : -66.94,
-          maxY = coords && coords.latitudeNE ? +coords.latitudeNE : 49.38;
+    // const minX = coords && coords.longitudeSW ? +coords.longitudeSW : -129.39,
+    //       minY = coords && coords.latitudeSW ? +coords.latitudeSW : 25.82,
+    //       maxX = coords && coords.longitudeNE ? +coords.longitudeNE : -66.94,
+    //       maxY = coords && coords.latitudeNE ? +coords.latitudeNE : 49.38;
     // if (coords.role !== 'admin') {
     //   this.map.setMaxBounds([[minX, minY], [maxX, maxY]]);
     // }

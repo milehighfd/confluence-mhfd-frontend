@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Collapse, Table, Row, Col, Menu } from 'antd';
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
@@ -104,7 +104,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
 
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
-      const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
+      // const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
       map.fitBounds([detailedPage.coordinates[0][0],detailedPage.coordinates[0][2]]);
     }
   }
@@ -190,19 +190,6 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
     </div>
   };
 
-  const menu = (
-    <Menu className="no-links-dropdown">
-      <Menu.Item>
-        <span className="menu-item-text">1st menu item</span>
-      </Menu.Item>
-      <Menu.Item>
-        <span className="menu-item-text">2nd menu item</span>
-      </Menu.Item>
-      <Menu.Item>
-        <span className="menu-item-text">3rd menu item</span>
-      </Menu.Item>
-    </Menu>
-  );
   return <div className="tabs-detailed">
     <Collapse defaultActiveKey={"4"}>
       {type === PROJECTS_MODAL && <Panel header="PROBLEM" key="1" extra={genExtra()}>

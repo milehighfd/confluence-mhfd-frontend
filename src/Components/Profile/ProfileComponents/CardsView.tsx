@@ -27,7 +27,6 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
         value: data.cartodb_id,
         type: data.type
       };
-      console.log('data:::', dataInformation);
       
     return <>
         {visible && <DetailedModal

@@ -9,16 +9,14 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
-import MapTypesView from "../Shared/MapTypes/MapTypesView";
 import { MainPopup, ComponentPopup } from './MapPopups';
-import { Dropdown, Button, Spin } from 'antd';
+import { Dropdown, Button } from 'antd';
 import { MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { MAP_DROPDOWN_ITEMS,
         MAPBOX_TOKEN, HERE_TOKEN,
         PROBLEMS_TRIGGER,
         PROJECTS_TRIGGER,
         COMPONENTS_TRIGGER,
-        DENVER_LOCATION,
         PROJECTS_MAP_STYLES,
         COMPONENT_LAYERS,
         MEP_PROJECTS,
@@ -31,20 +29,16 @@ import { MAP_DROPDOWN_ITEMS,
         COUNTIES_FILTERS,
         MHFD_BOUNDARY_FILTERS,
         SELECT_ALL_FILTERS, 
-        MAP_RESIZABLE_TRANSITION,
-        ADMIN, STAFF, OTHER, CONSULTANT} from "../../constants/constants";
+        MAP_RESIZABLE_TRANSITION} from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
-import { localComponents, polygonFill, polygonStroke, tileStyles, USER_POLYGON_FILL_STYLES, USER_POLYGON_LINE_STYLES } from '../../constants/mapStyles';
-import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
-import { AnyMxRecord } from 'dns';
-import { ProblemsFilter } from '../FiltersProject/FiltersLayout';
+import { tileStyles} from '../../constants/mapStyles';
+import { addMapGeocoder } from '../../utils/mapUtils';
 
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
 let map : any = null;
 let popup = new mapboxgl.Popup();
-// const drawConstants = [PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const highlightedLayers = ['problems', 'projects_line_1', 'projects_polygon_'];
 type LayersType = string | ObjectLayerType;
@@ -54,8 +48,6 @@ type LayersType = string | ObjectLayerType;
 
 const Map = ({ leftWidth,
             layers,
-            problems,
-            projects,
             components,
             layerFilters,
             setSelectedItems,
@@ -64,7 +56,6 @@ const Map = ({ leftWidth,
             getReverseGeocode,
             savePolygonCoordinates,
             saveMarkerCoordinates,
-            getMapTables,
             markerRef,
             polygonRef,
             selectedLayers,
@@ -73,17 +64,12 @@ const Map = ({ leftWidth,
             saveLayersCheck,
             setFilterCoordinates, 
             highlighted,
-            filterProblemOptions,
-            filterProjectOptions,
-            getGalleryProblems,
-            getGalleryProjects,
             filterProblems,
             filterProjects,
             filterComponents,
             setSpinValue,
             componentDetailIds
              } : MapProps) => {
-    console.log('filterProblems:::', filterProblems, filterProjects, filterComponents, componentDetailIds);
     
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
@@ -120,7 +106,6 @@ const Map = ({ leftWidth,
     }
     
     useEffect(() => {
-        console.log(highlighted);
         if (map) {
             if (highlighted.type) {
                 showHighlighted(highlighted.type, highlighted.value);
@@ -132,14 +117,12 @@ const Map = ({ leftWidth,
     
     useEffect(() => {
         if (map) {
-            console.log(filterProblems);
             applyFilters('problems', filterProblems);
         }
     }, [filterProblems]);
     
     useEffect(() => {
         if (map) {
-            console.log('fp ', filterProjects);
             applyFilters('projects_line_1', filterProjects);
             applyFilters('projects_polygon_', filterProjects);
         }
@@ -147,7 +130,6 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         if (map) {
-            console.log(filterComponents);
             for (const component of COMPONENT_LAYERS.tiles) {
                 applyFilters(component, filterComponents);
             }    
@@ -213,8 +195,6 @@ const Map = ({ leftWidth,
                 const bounds = map.getBounds();
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
                 setFilterCoordinates(boundingBox);
-                console.log(map.getZoom());
-                console.log(map);
             }
           });
         map.on('dragend', () => {
@@ -284,7 +264,6 @@ const Map = ({ leftWidth,
     const applyMapLayers = async () => {
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
-              console.log(layerFilters, layer.name);
               layer.tiles.forEach((subKey: string) => {
                 const tiles = layerFilters[layer.name] as any;
                 addLayersSource(subKey, tiles[subKey]);
@@ -295,16 +274,11 @@ const Map = ({ leftWidth,
         });
         console.log('the selected layers are ', selectedLayers);
         await selectedLayers.forEach((layer: LayersType) => {
-            console.log('my layer is ', layer);
-            // console.log('my layer is ', layer, 'layerFilters::', layerFilters);
             if (typeof layer === 'object') {
-                // console.log('object object');
-                
                 layer.tiles.forEach((subKey: string) => {
                     showLayers(subKey);
                 });
             } else {
-                // console.log('string string ');
                 showLayers(layer);
             }
         });
@@ -314,7 +288,6 @@ const Map = ({ leftWidth,
     }
 
     const addLayersSource = (key : string, tiles : Array<string>) => {
-        // console.log('adding layer source ' , key , tiles);
         if (!map.getSource(key) && tiles) {
             map.addSource(key, {
                 type: 'vector',
@@ -342,7 +315,6 @@ const Map = ({ leftWidth,
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
             const allFilters: any[] = ['all'];
-            console.log('my key ', key);
             for (const filterField in toFilter) {
                 const filters = toFilter[filterField];
                 if (filterField === 'component_type') {
@@ -376,7 +348,6 @@ const Map = ({ leftWidth,
                         continue;
                     }
                     if (filterField === 'problemtypeProjects') {
-                        console.log(filterField, filters);
                         allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
                         continue;
                     }
@@ -440,8 +411,6 @@ const Map = ({ leftWidth,
                     allFilters.push(options);
                 }
             }
-            console.log(' my filters ' , JSON.stringify(allFilters)) ;
-            console.log(key + '_' + index, map);
             if (componentDetailIds && componentDetailIds[key]) {
                 allFilters.push(['in', 'cartodb_id', ['literal', [...componentDetailIds[key]]]]);
             }
@@ -471,10 +440,7 @@ const Map = ({ leftWidth,
     };
     const addTilesLayers = (key : string) => {
         const styles = { ...tileStyles as any };
-        console.log('adding styles ', key, styles[key]);
-        console.log(map.getSource(key));
         styles[key].forEach((style : LayerStylesType, index : number) => {
-            console.log('my key is ', key + '_' + index, ' source ', key, ' style ', style);
             if (key.includes('problems') || key.includes('projects')) {
                 map.addLayer({
                     id: key + '_highlight_' + index,
@@ -499,7 +465,6 @@ const Map = ({ leftWidth,
            
             map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         });
-        console.log('adding listener ', key, styles[key]);
         addMapListeners(key);
     }
 
@@ -507,7 +472,6 @@ const Map = ({ leftWidth,
 
         const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
-            console.log('showing ', key + '_' + index);
             map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
             if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
                 showSelectedComponents(filterComponents.component_type);
@@ -594,11 +558,9 @@ const Map = ({ leftWidth,
     const addMapListeners = (key: string) => {
         const styles = { ...tileStyles as any };
         if (styles[key]) {
-            console.log('my style key is ', key);
             styles[key].forEach((style : LayerStylesType, index : number) => {
                 map.on('click', key + '_' + index, (e : any) => {
                     let html: any = null;
-                    console.log('my key is  ', key);
                     if (key === 'problems') {
                         const item = {
                             type: 'problems',
@@ -609,7 +571,6 @@ const Map = ({ leftWidth,
                             status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
                             priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority : '-'
                         };
-                        console.log(item);
                         html = loadMainPopup(item);
                     }
                     if (key.includes('projects') && !key.includes('mep')) {
@@ -622,7 +583,6 @@ const Map = ({ leftWidth,
                             status: e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
                             projecctype: e.features[0].properties.projecctype ? e.features[0].properties.projecctype : '-'
                         };
-                        console.log(item);
                         html = loadMainPopup(item);
                     }
                     if (key === 'grade_control_structure') {
@@ -839,7 +799,6 @@ const Map = ({ leftWidth,
 
     const refreshSourceLayers = (id : string) => {
         const mapSource = map.getSource(id);
-        console.log(mapSource);
         if(mapSource) {
             map.removeLayer(id);
             if(id !== COMPONENTS_TRIGGER) map.removeLayer(id + '_stroke');
@@ -850,13 +809,10 @@ const Map = ({ leftWidth,
     
 
     const selectCheckboxes = (selectedItems : Array<LayersType>) => {
-        console.log(selectedItems);
-        
         const deleteLayers = selectedLayers.filter(layer => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer : LayersType) => {
             removeTilesHandler(layer);
         });
-        console.log(' my selected layers are ' , selectedLayers);
         saveLayersCheck(selectedItems);
     }
 

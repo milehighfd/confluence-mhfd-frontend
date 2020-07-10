@@ -113,7 +113,7 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
           <p>{detailed.mhfdmanager ? detailed.mhfdmanager : '-'}</p>
         </Col>
       </Row>}
-      {detailed.problemtype || (detailed.projecttype === 'Capital') && <Row>
+      {(detailed.problemtype || (detailed.projecttype === 'Capital')) && <Row>
         <Col span={4}>
           <label><i>Description</i></label>
         </Col>

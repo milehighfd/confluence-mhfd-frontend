@@ -7,7 +7,6 @@ import { numberWithCommas } from '../../../utils/utils';
 import { Detailed } from "../../../store/types/detailedTypes";
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
-const type = (<div className="popoveer-00">Project Type</div>);
 const status = (<div className="popoveer-00">Status</div>);
 const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
@@ -16,17 +15,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean, 
                 setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean }) => {
   const [visible, setVisible] = useState(false);
-  const getComponentSizes = (components : Array<ComponentType>) => {
-      if (components && components.length) {
-          let sideText = ' Components';
-          if (components.length === 1) {
-              sideText = sideText.slice(0, -1);
-          }
-          return components.length + sideText;
-      } else {
-          return '0 Components';
-      }
-  }
   return (
     <>
       {visible && <DetailedModal

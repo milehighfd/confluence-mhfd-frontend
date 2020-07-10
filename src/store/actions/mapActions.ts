@@ -7,7 +7,6 @@ import * as constants from '../../constants/constants';
 import { TotalType, ProjectTypes, OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
 import { ComponentType } from 'react';
 import store from '..';
-import { dispatch } from 'd3';
 
 export const getReverseGeocode = (lat : number, lng : number, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/

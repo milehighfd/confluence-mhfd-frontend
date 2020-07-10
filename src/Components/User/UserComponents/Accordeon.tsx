@@ -8,7 +8,6 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from '../../../Config/Server.config';
 import RadioItemsView from './RadioItemsView';
 import MenuAreaView from './MenuAreaView';
-import MenuOrganizationView from './MenuOrganizationView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
 

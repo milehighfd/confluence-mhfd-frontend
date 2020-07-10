@@ -11,7 +11,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
   const phone = (<div style={{fontSize: '12px'}}>{user.phone ? user.phone: '-'}</div>);
   const mail = (<div style={{fontSize: '12px'}}>{user.email ? user.email: '-'}</div>);
   const county = (<div style={{fontSize: '12px'}}>{user.city ? user.city: '-'}, {user.county ? user.county: '-'}</div>);
-  const tag = (<div className="popoveer-00">Tags help to identify your area of interest. Add or remove tags to help focus your default content.</div>);
+  // const tag = (<div className="popoveer-00">Tags help to identify your area of interest. Add or remove tags to help focus your default content.</div>);
   const content = (<div className="popoveer-00">Number of Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
