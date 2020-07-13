@@ -292,7 +292,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
             </Col>
             <Col className="gutter-row" span={3}>
                 <Button onClick={() => {
-                  values.zoomarea = 'Mile High Flood Control District Boundary';
+                  values.zoomarea = (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? values.organization : 'Mile High Flood Control District Boundary';
                   const auxTitle = 'Mile High Flood Control District Boundary';
                   setTitle(auxTitle);
                 }} style={{padding: '0px', textAlignLast: 'center'}} >
