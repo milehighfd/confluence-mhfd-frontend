@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col, Upload, Table, Button, Popover } from 'antd';
 
-import NavbarView from '../Shared/Navbar/NavbarView';
+import Navbar from '../Shared/Navbar/NavbarContainer';
 import SidebarView from '../Shared/Sidebar/SidebarView';
 import moment from 'moment';
 
@@ -75,7 +75,7 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, s
   }
   return <>
     <Layout>
-      <NavbarView></NavbarView>
+      <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
         <Layout className="layout upload">

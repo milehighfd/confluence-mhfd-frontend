@@ -1,20 +1,18 @@
 import { connect } from 'react-redux';
 
 import NavbarView from './NavbarView';
-import { User } from '../../../Classes/TypeList';
+import { bindActionCreators } from 'redux';
 import { replaceAppUser } from '../../../store/actions/appUser';
-const mapStateToProps = (state: any): any => {
+
+const mapStateToProps = (state: any) => {
   return {
-    sample: state.sample
+    user: state.profile.userInformation,
   };
 };
 
-const mapDispatchToProps = (dispatch: Function): any => {
-  return {
-    replaceAppUser(appUser: User) {
-      dispatch(replaceAppUser(appUser))
-    }
-  };
-};
-
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators ({
+    replaceAppUser,
+    }, dispatch)
+});
 export default connect(mapStateToProps, mapDispatchToProps)(NavbarView);

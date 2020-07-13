@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Layout, Row, Col, Tabs, Popover } from 'antd';
 
-import NavbarView from "../Shared/Navbar/NavbarView";
+import Navbar from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarView";
 import Collaborators from "./ProfileComponents/Collaborators";
 import TabPaneView from "./ProfileComponents/TabPaneView";
@@ -49,7 +49,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
 
   return <>
     <Layout>
-      <NavbarView></NavbarView>
+      <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
         <Layout className="map-00 profile-00" style={{ height: 'calc(100vh - 58px)', overflowY: 'scroll' }}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Row, Col, Button, Tabs, Select } from 'antd';
 
-import NavbarView from "../Shared/Navbar/NavbarView";
+import Navbar from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarView";
 import Chat from "../Shared/Chat/Chat";
 import DraftPanel from "../Shared/DraftPanel/DraftPanel";
@@ -86,7 +86,7 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProj
   return <>
     <Chat visible={visible} setVisible={setVisible} />
     <Layout>
-      <NavbarView></NavbarView>
+      <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
         <Layout style={{ margin: '20px' }}>

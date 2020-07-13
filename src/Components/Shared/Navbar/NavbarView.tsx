@@ -4,13 +4,14 @@ import * as datasets from "../../../Config/datasets";
 import { Redirect, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
+import { User } from "../../../Classes/TypeList";
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
 const content = (<div className="popoveer-00">Notifications (Under Construction)</div>
 );
 
-export default () => {
+export default ({user}: {user: User}) => {
   const [ key, setKey] = useState('1');
   const stateValue = {
     visible: false
@@ -35,7 +36,7 @@ export default () => {
    };
 
   const [redirect, setRedirect] = useState(false);
-  const user = store.getState().profile.userInformation;
+  // const user = store.getState().profile.userInformation;
   const name = user.firstName;
   const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
   const location = useLocation().pathname.split('/');

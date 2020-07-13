@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import Map from '../Components/Map/Map';
-import NavbarView from "../Components/Shared/Navbar/NavbarView";
+import Navbar from "../Components/Shared/Navbar/NavbarContainer";
 import SidebarView from "../Components/Shared/Sidebar/SidebarView";
 import LoadingView from '../Components/Loading/LoadingView';
 
@@ -130,7 +130,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         }
         return (
             <Layout>
-            <NavbarView></NavbarView>
+            <Navbar/>
             <Layout>
               <SidebarView></SidebarView>
               <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>

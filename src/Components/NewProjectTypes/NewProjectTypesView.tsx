@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Row, Col, Input, Button, } from 'antd';
-import NavbarView from "../Shared/Navbar/NavbarContainer";
+import Navbar from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import { Redirect } from "react-router-dom";
 import ButtonProjectTypesView from "./ButtonProjectTypes/ButtonProjectTypesView";
@@ -25,7 +25,7 @@ export default ({ coordinates, clearCoordinates } : { coordinates: Array<[]>, cl
   }
   return <>
     <Layout>
-      <NavbarView></NavbarView>
+      <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
         <Layout className="content-create">

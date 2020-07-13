@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Row, Col, Tabs, Pagination, Button, Table } from 'antd';
-import NavbarView from "../Shared/Navbar/NavbarContainer";
+import Navbar from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarContainer";
 import Accordeon from './UserComponents/Accordeon';
 import UserFilters from './UserFilters';
@@ -93,7 +93,7 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
   }
   return <>
     <Layout>
-      <NavbarView></NavbarView>
+      <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
         <Layout className="layout user">
