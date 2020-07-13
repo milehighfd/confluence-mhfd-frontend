@@ -20,8 +20,8 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   {
     user: User, projects: any, problems: any, countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function,
     uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function, updateUserInformation: Function,
-    getUserProblem: Function, getUserProject: Function, getDetailedPageProblem: Function, getDetailedPageProject: Function, 
-    getComponentsByProblemId: Function, displayModal: any, 
+    getUserProblem: Function, getUserProject: Function, getDetailedPageProblem: Function, getDetailedPageProject: Function,
+    getComponentsByProblemId: Function, displayModal: any,
     detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any }) => {
 
   // const newOptions = (options: { requestName: string, status: string }) => {
@@ -52,7 +52,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
       <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
-        <Layout className="map-00 profile-00" style={{ height: 'calc(100vh - 58px)', overflowY: 'scroll' }}>
+        <Layout className="map-00 profile-00" style={{ height: 'calc(100vh - 53px)', overflowY: 'scroll' }}>
           <Row className="profile-header">
             <UserInformationView updateUserInformation={updateUserInformation} key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} spinImage={spinImage} spinValue={spinValue} />
           </Row>
@@ -64,7 +64,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                   <TabPaneView type={"Problems"} data={problems} search={getUserProblem}
                     getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
                     getComponentsByProblemId={getComponentsByProblemId}
-                    displayModal={displayModal} detailed={detailed} 
+                    displayModal={displayModal} detailed={detailed}
                     loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
                     loaderTableCompoents={loaderTableCompoents}/>
                 </TabPane>
@@ -73,7 +73,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                   <TabPaneView type={"Projects"} data={projects} search={getUserProject}
                     getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
                     getComponentsByProblemId={getComponentsByProblemId}
-                    displayModal={displayModal} detailed={detailed} 
+                    displayModal={displayModal} detailed={detailed}
                     loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
                     loaderTableCompoents={loaderTableCompoents} />
                 </TabPane>

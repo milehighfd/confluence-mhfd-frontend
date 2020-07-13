@@ -100,12 +100,12 @@ body{
 }
 // NAVBAR
 .logo {
-  width: 225px;
-  height: 30px;
+  width: 335px;
+  height: 45px;
   float: left;
   background-repeat: no-repeat;
   background-size: cover;
-  margin: 14px 0px;
+  margin: 6.5px 0px;
 }
 .header {
   height: 58px !important;
@@ -3005,10 +3005,6 @@ body{
     padding-left: 0px !important;
     padding-bottom: 0px !important;
   }
-  .ant-carousel .slick-slide img{
-    position: relative;
-    margin-top: -50px;
-  }
 }
 .detailed-h{
   height: 80px !important;
@@ -3111,6 +3107,10 @@ body{
   height: 280px;
   // background-image: url('/Icons/bg-00.png');
   background-size: cover;
+   img{
+    position: relative !important;
+    margin-top: -20%;
+  }
 }
 .detailed-info{
   padding: 20px 40px 0px 40px;

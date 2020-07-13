@@ -22,7 +22,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
         sw = true;
     }
     const params = store.getState().map.paramFilters;
-    
+
     const deleteFilter = (tag: string, value: string) => {
         const auxFilterComponents = { ...filterComponentOptions };
         const valueTag = filterComponentOptions[tag].split(',') as Array<string>;
@@ -139,7 +139,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
         }, 500);
     };
     return <>
-        <div className="scroll-cards" style={{height: window.innerHeight - 260, overflowY: 'auto'}}>
+        <div className="scroll-cards" style={{height: 'auto', overflowY: 'hidden'}}>
         <div className="hastag" style={{ minHeight: 34 }}>
             <h6> Showing {totalElements} {type}:</h6>
             <div style={{ marginBottom: totalElements ? 0 : 5 }}>
@@ -154,7 +154,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                                     value = element === '10' ? '10% - 25%' : element === '25'? '25% - 50%': element === '50' ? '50% - 75%' : '75% - 100%';
                                 } else {
                                     if (tag.key === 'components') {
-                                        value = (params.problems?.components?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ? 
+                                        value = (params.problems?.components?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ?
                                                 params.problems?.components?.filter((elementComponent: any) => elementComponent.key === element)[0].value as any : ''
                                     } else {
                                         value = element;
@@ -193,7 +193,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                                 value = element === '0' ? '$0 - $2M' : ((element === '2') ? '$2M - $4M' : ((element === '4') ? '$4M - $6M' : (element === '6') ? '$6M - $8M' : '$8M - $10M'));
                             } else {
                                 if (tag.key === 'component_type') {
-                                    value = (params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ? 
+                                    value = (params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ?
                                             params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0].value as any : ''
                                 } else {
                                     value = element;
@@ -242,7 +242,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                         return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}
                             getDetailedPageProblem={getDetailedPageProblem}
                             getDetailedPageProject={getDetailedPageProject}
-                            detailed={detailed} type={type} 
+                            detailed={detailed} type={type}
                             loaderDetailedPage={loaderDetailedPage}
                             setHighlighted={setHighlighted}
                             getComponentsByProblemId={getComponentsByProblemId}
@@ -254,6 +254,6 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
             </Row>
         }
         </div>
-        
+
     </>
 }
