@@ -293,9 +293,11 @@ const mapReducer = (state = initState, action : any) => {
         }
         case types.RESET_MAP: {
             const layers = state.layers;
+            const paramFilters = state.paramFilters;
             return {
                 ...initState,
-                layers
+                layers,
+                paramFilters
             }
         }
         case types.GALLERY_PROBLEMS: {

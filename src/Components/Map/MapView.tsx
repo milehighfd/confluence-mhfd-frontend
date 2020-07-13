@@ -44,6 +44,54 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('0');
   const [toggleFilters, setToggleFilters] = useState(false);
+  const [countFilterProblems, setCountFilterProblems] = useState(0);
+  const [countFilterComponents, setCountFilterComponents] = useState(0);
+  const [countFilterProjects, setCountFilterProjects] = useState(0);
+  useEffect(() => {
+    let countTagProblems = 0;
+    let countTagProjets = 0;
+    let countTagComponents = 0;
+    const filterComponents = {...filterComponentOptions} as any;
+    for (const key in filterComponentOptions) {
+        let c = 0;
+        const tag = filterComponents[key].split(',');
+        for (let index = 0; index < tag.length; index++) {
+            const element = tag[index];
+            if(element) {
+                countTagComponents+=1;
+            }
+        }
+    }
+    const filterProjects = {...filterProjectOptions} as any;
+    for (const key in filterProjectOptions) {
+        let c = 0;
+        const tag = filterProjects[key].split(',');
+        if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+            for (let index = 0; index < tag.length; index++) {
+                const element = tag[index];
+                if(element) {
+                    countTagProjets+=1;  
+                }
+            }
+        }
+    }
+    const filterProblems = {...filterProblemOptions} as any;
+    for (const key in filterProblemOptions) {
+        const tag = filterProblems[key].split(',');
+        if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+            for (let index = 0; index < tag.length; index++) {
+                const element = tag[index];
+                if(element) {
+                  countTagProblems+=1;  
+                }
+            }
+        }
+    }
+    setCountFilterComponents(countTagComponents);
+    setCountFilterProblems(countTagProblems);
+    setCountFilterProjects(countTagProjets);
+    
+}, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
   // const [listDescription, setListDescription] = useState(false);
   const listDescription = false;
   const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
@@ -293,7 +341,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             </div>
 
             <Button onClick={handleToggle}>
-              <img src="/Icons/icon-73.svg" alt="" /> Filters ({filterNames.length}) 
+              <img src="/Icons/icon-73.svg" alt="" /> Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
+                    tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents) }) 
             </Button>
           </Col>
         </Row>
@@ -411,7 +460,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             setFilterProjectOptions={setFilterProjectOptions}
             getGalleryProjects={getGalleryProjects}
             setFilterComponentOptions={setFilterComponentOptions}
-            filterComponentOptions={filterComponentOptions}/>
+            filterComponentOptions={filterComponentOptions}
+            setTabActive={setTabActive}/>
       }
     </div>
   </>

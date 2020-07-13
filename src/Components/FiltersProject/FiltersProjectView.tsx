@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, Tag } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
@@ -15,6 +15,7 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
   : { filterProblemOptions: any, filterProjectOptions: any, setFilterProblemOptions: Function, setFilterProjectOptions: Function, filterComponentOptions: any,
     setFilterComponentOptions: Function, getGalleryProjects: Function, getGalleryProblems: Function, totalElements: number, type: string}) => {
     const params = store.getState().map.paramFilters;
+    
     const deleteFilter = (tag: string, value: string) => {
       const auxFilterComponents = { ...filterComponentOptions };
       const valueTag = filterComponentOptions[tag].split(',') as Array<string>;
@@ -184,7 +185,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters,
                 dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
                 setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
-                getGalleryProjects, filterComponentOptions, setFilterComponentOptions } : FiltersProjectTypes) => {
+                getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions } : FiltersProjectTypes) => {
 
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
@@ -213,7 +214,17 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
   }
   
   return <>
-    <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00">
+    <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
+        if( e === '0') {
+            setTabActive('0');
+        } else {
+            if( e === '1') {
+                setTabActive('1');
+            } else {
+                setTabActive('2');
+            }
+          }
+        }} >
       {tabs.map((value: string, index: number) => {
         return (
           <TabPane tab={value} key={'' + index} style={{height: window.innerHeight - 280,overflow: 'auto'}}>
