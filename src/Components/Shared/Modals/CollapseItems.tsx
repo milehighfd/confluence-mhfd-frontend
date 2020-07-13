@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Collapse, Table, Row, Col, Menu } from 'antd';
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
@@ -12,7 +12,7 @@ const { Panel } = Collapse;
 export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal }:
        { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string, 
         loaderTableCompoents: boolean, updateModal: Function }) => {
-  
+  const [ active, setActive ] = useState(['4']);
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
   let map: any;
@@ -178,21 +178,24 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       dataIndex: 'problempriority'
     }
   ];
-  const genExtra = () => {
+  
+  const genExtra = (key: string) => {
     html = document.getElementById('map2');
-    return <div className="divider" onClick={() => {
+    return <div key={key} className="divider" onClick={() => {
       if(map) {
         map.resize();
       }
     }}>
       <div className="line-01"></div>
-      <img src="/Icons/icon-20.svg" alt="" />
+      {active.includes(key) ? <img src="/Icons/icon-21.svg" alt="" /> : <img src="/Icons/icon-20.svg" alt="" />}
     </div>
   };
 
   return <div className="tabs-detailed">
-    <Collapse defaultActiveKey={"4"}>
-      {type === PROJECTS_MODAL && <Panel header="PROBLEM" key="1" extra={genExtra()}>
+    <Collapse defaultActiveKey={"4"} onChange={(e: any) => {
+      setActive(e);
+    }}>
+      {type === PROJECTS_MODAL && <Panel header="PROBLEM" key="1" extra={genExtra('1')}>
         <Row className="table-up-modal">
             <Col span={24}>
               <Table loading={false} columns={columnProblems} rowKey={(record: any) => record.problemid} dataSource={detailedPage.problems} pagination={false}
@@ -203,7 +206,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
           </Row>
       </Panel>}
 
-      {type === PROJECTS_MODAL && <Panel header="VENDORS" key="2" extra={genExtra()}>
+      {type === PROJECTS_MODAL && <Panel header="VENDORS" key="2" extra={genExtra('2')}>
         <div className="detailed-info">
           <Row>
             <Col span={4}>
@@ -242,7 +245,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         </div>
       </Panel> */}
 
-      <Panel header={type === PROBLEMS_MODAL ? 'Solution Components' : "Component & solutions"} key="3" extra={genExtra()}>
+      <Panel header={type === PROBLEMS_MODAL ? 'Solution Components' : "Component & solutions"} key="3" extra={genExtra('3')}>
         <Row className="table-up-modal">
           <Col span={24}>
             <Table loading={loaderTableCompoents} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
@@ -258,7 +261,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         </div>}
       </Panel>
 
-      <Panel header="Map" key="4" extra={genExtra()}>
+      <Panel header="Map" key="4" extra={genExtra('4')}>
         <div className="map">
           <div id="map2" style={{ height: '80%', width: '100%' }} >
             <div></div>
