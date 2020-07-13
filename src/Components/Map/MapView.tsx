@@ -151,7 +151,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const handleToggle = () => {
     // Force coded cause' components tab doesn't exists on MapView
-    if(tabPosition === "2") setTabPosition("0");
+    if(tabPosition === '2') {
+      setTabPosition('0');
+      setTabActive('0')
+    }
     setToggleFilters(!toggleFilters);
   }
 
