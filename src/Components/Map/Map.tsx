@@ -302,13 +302,17 @@ const Map = ({ leftWidth,
     }
 
     const showSelectedComponents = (components: string[]): void => {
+        if (!components.length || components[0] === '') {
+            return;
+        }
         const styles = { ...tileStyles as any };
         for (const key of COMPONENT_LAYERS.tiles) {
             styles[key].forEach((style : LayerStylesType, index : number) => {
                 if (!components.includes(key)) {
-                    map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+                    console.log('watching here' , key);
+                    map.setFilter(key + '_' + index, ['in', 'cartodb_id', -1]);
                 } else {
-                    map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+                    map.setFilter(key + '_' + index, null);
                 }
             });
         }
@@ -481,7 +485,7 @@ const Map = ({ leftWidth,
             if (map.getLayer(key + '_' + index)) {
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
                 if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
-                    showSelectedComponents(filterComponents.component_type);
+                    showSelectedComponents(filterComponents.component_type.split(','));
                 }
             }
         });
