@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Row, Dropdown, Button, Menu } from 'antd';
+import { Input, Row, Dropdown, Button, Menu, Spin } from 'antd';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -9,10 +9,10 @@ import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
 const { Search } = Input;
 
 export default ({ type, data, search, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
-        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents }:
+        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, spinValue }:
         { type: string, data: Array<any>, search: Function, 
           getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any, 
-          detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any }) => {
+          detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, spinValue: boolean }) => {
   let totalElement = data.length;
   const size = 8;
   let sw = false;
@@ -59,7 +59,8 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
     }, 500);
   };
 
-  return <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px' }} className="card-map" gutter={[16, 16]}>
+  return <Spin spinning={spinValue} className="loading-01">
+    <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px' }} className="card-map" gutter={[16, 16]}>
     <div className="user-filter profile-filter">
       <div>
         <Search
@@ -118,4 +119,5 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
       }) : ''}
     </InfiniteScroll>
   </Row>
+  </Spin> 
 }

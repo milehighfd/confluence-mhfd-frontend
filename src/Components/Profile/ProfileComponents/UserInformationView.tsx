@@ -6,7 +6,9 @@ import ModalEditUserView from './ModalEditUserView';
 
 
 
-export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation }: { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function, updateUserInformation : Function}) => {
+export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, projects }: 
+      { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function,
+        updateUserInformation : Function, projects: Array<any>}) => {
 
   const phone = (<div style={{fontSize: '12px'}}>{user.phone ? user.phone: '-'}</div>);
   const mail = (<div style={{fontSize: '12px'}}>{user.email ? user.email: '-'}</div>);
@@ -84,12 +86,12 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
     <Col span={12} className="profile-project">
       <div className="profile-table" style={{ paddingLeft: "0px", paddingRight: "0px" }}>
         <span className="text-profile-projects" >
-          {total? total: 0}
+          {projects.length? projects.length: 0}
         </span> <span style={{ paddingRight: "8px" }}> Total Projects </span> |
         {typeProjects.map((element: { name: string, id: string }, index: number) => {
           return <span key={index}>
             <span className="text-profile-projects" >
-              {countProjects.filter((project) => project._id === element.id)[0]?.count ? countProjects.filter((project) => project._id === element.id)[0].count : 0}
+              {projects.filter((project) => project.projecttype === element.id).length}
             </span>
             <span style={{ paddingRight: "8px" }}>
               {element.name}

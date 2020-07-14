@@ -16,13 +16,15 @@ const { TabPane } = Tabs;
 
 export default ({ user, projects, problems, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue, updateUserInformation,
     getUserProblem, getUserProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
-    displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents }:
+    displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, loaderCardProblems,
+    loaderCardProjects }:
   {
     user: User, projects: any, problems: any, countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function,
     uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function, updateUserInformation: Function,
     getUserProblem: Function, getUserProject: Function, getDetailedPageProblem: Function, getDetailedPageProject: Function,
     getComponentsByProblemId: Function, displayModal: any,
-    detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any }) => {
+    detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, loaderCardProblems: boolean,
+    loaderCardProjects: boolean }) => {
 
   // const newOptions = (options: { requestName: string, status: string }) => {
   //   const newOption = (options.requestName.trim() && options.status) ? options :
@@ -54,7 +56,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
         <SidebarView></SidebarView>
         <Layout className="map-00 profile-00" style={{ height: 'calc(100vh - 53px)', overflowY: 'scroll' }}>
           <Row className="profile-header">
-            <UserInformationView updateUserInformation={updateUserInformation} key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} spinImage={spinImage} spinValue={spinValue} />
+            <UserInformationView projects={projects} updateUserInformation={updateUserInformation} key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} spinImage={spinImage} spinValue={spinValue} />
           </Row>
           <Row >
             <Col className="profile-tabs" span={17}>
@@ -66,7 +68,8 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                     getComponentsByProblemId={getComponentsByProblemId}
                     displayModal={displayModal} detailed={detailed}
                     loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
-                    loaderTableCompoents={loaderTableCompoents}/>
+                    loaderTableCompoents={loaderTableCompoents}
+                    spinValue={loaderCardProblems}/>
                 </TabPane>
 
                 <TabPane key="2" tab={<span><Popover content={content00} placement="rightBottom">Projects</Popover> </span>}>
@@ -75,7 +78,8 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                     getComponentsByProblemId={getComponentsByProblemId}
                     displayModal={displayModal} detailed={detailed}
                     loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
-                    loaderTableCompoents={loaderTableCompoents} />
+                    loaderTableCompoents={loaderTableCompoents}
+                    spinValue={loaderCardProjects} />
                 </TabPane>
                 {/* <TabPane tab="Activity" key="3">
                     <div className="tab-activity">

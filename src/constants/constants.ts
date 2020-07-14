@@ -177,20 +177,20 @@ export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquis
 
 export const PROJECT_TYPES_AND_NAME = [
   {
-    name: 'Capital', id: 'capital'
+    name: 'Capital', id: 'Capital'
   },
   {
-    name: 'Maintenance', id: 'maintenance'
+    name: 'Maintenance', id: 'Maintenance'
   },
   {
-    name: 'Study', id: 'study'
-  },
-  {
-    name: 'Acquisition', id: 'propertyAcquisition'
-  },
-  {
-    name: 'Special', id: 'special'
+    name: 'Study', id: 'Study'
   }
+  // {
+  //   name: 'Acquisition', id: 'propertyAcquisition'
+  // },
+  // {
+  //   name: 'Special', id: 'special'
+  // }
 ]
 
 export const NEW_PROJECT_FORM_COST = {
