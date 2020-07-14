@@ -133,7 +133,7 @@ const initState = {
         estimatedcost: '',
         jurisdiction: '',
         county: '',
-        mhfdmanger: ''
+        mhfdmanager: ''
     },
     filterProblems: {
         problemname: '',

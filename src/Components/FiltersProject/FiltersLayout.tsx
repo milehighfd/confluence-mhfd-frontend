@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Checkbox, Select, Button, Popover } from 'antd';
 
 const { Option } = Select;
@@ -23,56 +23,22 @@ const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Es
 // const content18 = (<div className="popoveer-00"><b>Stream Name:</b> is the name of the Major Drainageway or Watershed where the Component is located.</div>);
 
 export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterProblemOptions, getGalleryProblems, setToggleFilters }: any) => {
-    const [checkBoxComponents, setCheckboxComponents] = useState<Array<string>>(filterProblemOptions.components.split(','));
-    const [checkBoxStatus, setCheckboxStatus] = useState<Array<string>>(filterProblemOptions.solutionstatus.split(','));
-    const [checkBoxCounty, setCheckboxCounty] = useState<Array<string>>(filterProblemOptions.county.split(','));
-    const [checkBoxSolutionCost, setCheckboxSolutionCost] = useState<Array<string>>(filterProblemOptions.cost.split(','));
-    const [checkBoxPriority, setCheckboxPriority] = useState<Array<string>>(filterProblemOptions.priority.split(','));
-    const [jurisdiction, setJurisdiction] = useState(filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -');
-    const [mhfdManager, setMhfdManager] = useState(filterProblemOptions.mhfdmanager ? filterProblemOptions.jurisdiction : '- Select -');
-    const [problemType, setProblemType] = useState(filterProblemOptions.problemtype ? filterProblemOptions.jurisdiction : '- Select -');
-    const [source, setSource] = useState(filterProblemOptions.source ? filterProblemOptions.source : '- Select -');
     const firstSegmentComponents = paramProblems.components.slice(0, paramProblems.components.length / 2);
     const secondSegmentComponents = paramProblems.components.slice(paramProblems.components.length / 2, paramProblems.components.length);
 
-    const apply = () => {
-        let components = '';
-        for (let index = 0; index < checkBoxComponents.length; index++) {
-            const element = checkBoxComponents[index];
-            components = components ? (components + ',' + element): element;
-        }
-        let status = '';
-        for (let index = 0; index < checkBoxStatus.length; index++) {
-            const element = checkBoxStatus[index];
-            status = status ? (status + ',' + element): element;
-        }
-        let county = '';
-        for (let index = 0; index < checkBoxCounty.length; index++) {
-            const element = checkBoxCounty[index];
-            county = county ? (county + ',' + element): element;
-        }
-        let solutionCost = '';
-        for (let index = 0; index < checkBoxSolutionCost.length; index++) {
-            const element = checkBoxSolutionCost[index];
-            solutionCost = solutionCost ? (solutionCost + ',' + element): element;
-        }
-        let priority = '';
-        for (let index = 0; index < checkBoxPriority.length; index++) {
-            const element = checkBoxPriority[index];
-            priority = priority ? (priority + ',' + element): element;
-        }
+    const apply = (values: any, field: string) => {
         const options = {...filterProblemOptions};
-        options.components = components;
-        options.solutionstatus = status;
-        options.county = county;
-        options.cost = solutionCost;
-        options.priority = priority;
-        options.jurisdiction = jurisdiction !== '- Select -'? jurisdiction: '';
-        options.mhfdmanager = mhfdManager !== '- Select -'? mhfdManager: '';
-        options.problemtype = problemType !== '- Select -'? problemType: '';
-        options.source = source !== '- Select -'? source: '';
+        if('cost' === field || 'priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field) {
+            let newValue = '';
+            for (let index = 0; index < values.length; index++) {
+                const element = values[index];
+                newValue = newValue ? (newValue + ',' + element): element;
+            }
+            options[field] = newValue;
+        } else {
+            options[field] = values;
+        }
         setFilterProblemOptions(options);
-        setToggleFilters(false);
         getGalleryProblems();
     }
     const reset = () => {
@@ -86,15 +52,6 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         options.mhfdmanager =  '';
         options.problemtype = '';
         options.source = '';
-        setCheckboxComponents([]);
-        setCheckboxStatus([]);
-        setCheckboxCounty([]);
-        setCheckboxSolutionCost([]);
-        setCheckboxPriority([]);
-        setJurisdiction('- Select -');
-        setMhfdManager('- Select -');
-        setProblemType('- Select -');
-        setSource('- Select -');
         setFilterProblemOptions(options);
         setToggleFilters(false);
         getGalleryProblems();
@@ -103,8 +60,8 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Solution Cost <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Checkbox.Group value={checkBoxSolutionCost} onChange={(items) => {
-                    setCheckboxSolutionCost(items as Array<string>);
+                <Checkbox.Group value={filterProblemOptions.cost.split(',')} onChange={(items) => {
+                    apply(items, 'cost');
                 }}>
                     <p><Checkbox value='1'>$1M-$10M</Checkbox></p>
                     <p><Checkbox value='5'>$5M-10M</Checkbox></p>
@@ -114,8 +71,8 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
             <Col span={12}>
                 <h5>Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Checkbox.Group value={checkBoxPriority} onChange={(items) => {
-                    setCheckboxPriority(items as Array<string>);
+                <Checkbox.Group value={filterProblemOptions.priority.split(',')} onChange={(items) => {
+                    apply(items, 'priority');
                 }}>
                     {paramProblems.priority.map((element: string, index: number) => {
                     return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
@@ -126,8 +83,8 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
         <h5 className="filt-h5">Element Type <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
         <Row className="filt-00">
-            <Checkbox.Group value={checkBoxComponents} onChange={(items) => {
-                setCheckboxComponents(items as Array<string>);
+            <Checkbox.Group value={filterProblemOptions.components.split(',')} onChange={(items) => {
+                apply(items, 'components');
             }}>
                 <Col span={12}>
                  <div className="check-scroll">
@@ -150,8 +107,8 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         <Row className="filt-00">
             <Col span={12}>
               <h5>Status <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Checkbox.Group value={checkBoxStatus} onChange={(items) => {
-                    setCheckboxStatus(items as Array<string>);
+                <Checkbox.Group value={filterProblemOptions.solutionstatus.split(',')} onChange={(items) => {
+                    apply(items, 'solutionstatus');
                 }}>
                     <p><Checkbox value='10'>10%-25%</Checkbox></p>
                     <p><Checkbox value='25'>25%-50%</Checkbox></p>
@@ -161,8 +118,8 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
             <Col span={12}>
                 <h5>County <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <Checkbox.Group value={checkBoxCounty} onChange={(items) => {
-                    setCheckboxCounty(items as Array<string>);
+                <Checkbox.Group value={filterProblemOptions.county.split(',')} onChange={(items) => {
+                    apply(items, 'county');
                 }}>
                     {paramProblems.county.map((element: string, index: number) => {
                         return <p key={index} ><Checkbox value={element}>{element}</Checkbox></p>
@@ -175,8 +132,9 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Jurisdiction</label>
-                <Select placeholder="- Select -" value={jurisdiction} style={{ width: '100%' }} onChange={ (e: string) => {
-                    setJurisdiction(e);
+                <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'} 
+                    style={{ width: '100%' }} onChange={ (e: string) => {
+                    apply(e, 'jurisdiction');
                 }}>
                     {paramProblems.jurisdiction.map((element: string, index: number) =>{
                         return <Option key={index} value={element}>{element}</Option>
@@ -185,8 +143,9 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
             <Col span={12}>
                 <label>MHFD Watershed Manager</label>
-                <Select placeholder="- Select -" value={mhfdManager} style={{ width: '100%' }} onChange={ (e: string) => {
-                    setMhfdManager(e);
+                <Select placeholder="- Select -" value={filterProblemOptions.mhfdmanager ? filterProblemOptions.mhfdmanager : '- Select -'} 
+                    style={{ width: '100%' }} onChange={ (e: string) => {
+                    apply(e, 'mhfdmanager');
                 }}>
                     {paramProblems.mhfdmanager.map((element: string, index: number) =>{
                         return <Option key={index} value={element}>{element}</Option>
@@ -197,8 +156,9 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Problem Type</label>
-                <Select placeholder="- Select -" value={problemType} style={{ width: '100%', marginBottom: '15px' }} onChange={ (e: string) => {
-                    setProblemType(e);
+                <Select placeholder="- Select -" value={filterProblemOptions.problemtype ? filterProblemOptions.problemtype : '- Select -'} 
+                    style={{ width: '100%', marginBottom: '15px' }} onChange={ (e: string) => {
+                    apply(e, 'problemtype');
                 }}>
                     {paramProblems.problemtype.map((element: string, index: number) =>{
                         return <Option key={index} value={element}>{element}</Option>
@@ -207,8 +167,9 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
             <Col span={12}>
                 <label>Source <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-                <Select placeholder="- Select -" value={source} style={{ width: '100%' }} onChange={ (e: string) => {
-                    setSource(e);
+                <Select placeholder="- Select -" value={filterProblemOptions.source ? filterProblemOptions.source : '- Select -'} 
+                    style={{ width: '100%' }} onChange={ (e: string) => {
+                    apply(e, 'source');
                 }}>
                     {paramProblems.source.map((element: string, index: number) =>{
                         return <Option key={index} value={element}>{element}</Option>
@@ -219,7 +180,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
         <div className="btn-footer" style={{ marginTop: '25px' }}>
             <Button onClick={() => reset()} style={{ width: '140px' }} className="btn-00">Reset</Button>
-            <Button onClick={() => apply()} style={{ width: '140px' }} className="btn-01">Apply</Button>
+            {/* <Button onClick={() => apply()} style={{ width: '140px' }} className="btn-01">Apply</Button> */}
         </div>
     </div>
     </>
@@ -228,69 +189,19 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
 
 export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects, setToggleFilters } : any) => {
-    const [checkBoxProjectType, setCheckboxProjectType] = useState<Array<string>>(filterProjectOptions.projecttype.split(','));
-    const [checkBoxTotalCost, setCheckboxTotalCost] = useState<Array<string>>(filterProjectOptions.totalcost.split(','));
-    const [checkBoxProjectStatus, setCheckboxProjectStatus] = useState<Array<string>>(filterProjectOptions.status.split(','));
-    const [checkboxMHFDDollarsAllocated, setCheckboxMHFDDollarsAllocated] = useState<Array<string>>(filterProjectOptions.mhfddollarsallocated.split(','));
-    const [checkboxWorkPlanYear, setCheckboxWorkPlanYear] = useState<Array<string>>(filterProjectOptions.workplanyear.split(','));
-    const [start, setStart] = useState(filterProjectOptions.startyear ? filterProjectOptions.startyear : '- Select -');
-    const [completed, setCompleted] = useState(filterProjectOptions.completedyear ? filterProjectOptions.completedyear : '- Select -');
-    const [problemType, setProblemType] = useState(filterProjectOptions.problemtype.split(',') );
-    const [mhfdmanager, setMhfdmanager] = useState(filterProjectOptions.mhfdmanager ? filterProjectOptions.mhfdmanager : '- Select -');
-    const [jurisdiction, setJurisdiction] = useState(filterProjectOptions.jurisdiction ? filterProjectOptions.jurisdiction : '- Select -');
-    const [streamname, setStreamname] = useState(filterProjectOptions.streamname ? filterProjectOptions.streamname : '- Select -');
-    const [county, setCounty] = useState(filterProjectOptions.county ? filterProjectOptions.county : '- Select -');
-    const [lgmanager, setLgmanager] = useState(filterProjectOptions.lgmanager ? filterProjectOptions.lgmanager : '- Select -');
-    const [creator, setCreator] = useState(filterProjectOptions.creator ? filterProjectOptions.creator : '- Select -');
-    const apply = () => {
-        let projecttype = '';
-        for (let index = 0; index < checkBoxProjectType.length; index++) {
-            const element = checkBoxProjectType[index];
-            projecttype = projecttype ? (projecttype + ',' + element): element;
-        }
-        let totalcost = '';
-        for (let index = 0; index < checkBoxTotalCost.length; index++) {
-            const element = checkBoxTotalCost[index];
-            totalcost = totalcost ? (totalcost + ',' + element): element;
-        }
-        let status = '';
-        for (let index = 0; index < checkBoxProjectStatus.length; index++) {
-            const element = checkBoxProjectStatus[index];
-            status = status ? (status + ',' + element): element;
-        }
-        let mhfddollarsallocated = '';
-        for (let index = 0; index < checkboxMHFDDollarsAllocated.length; index++) {
-            const element = checkboxMHFDDollarsAllocated[index];
-            mhfddollarsallocated = mhfddollarsallocated ? (mhfddollarsallocated + ',' + element): element;
-        }
-        let workplanyear = '';
-        for (let index = 0; index < checkboxWorkPlanYear.length; index++) {
-            const element = checkboxWorkPlanYear[index];
-            workplanyear = workplanyear ? (workplanyear + ',' + element): element;
-        }
-        let problems = '';
-        for (let index = 0; index < problemType.length; index++) {
-            const element = problemType[index];
-            problems = problems ? (problems + ',' + element): element;
-        }
+    const apply = (values: any, field: string) => {
         const options = {...filterProjectOptions};
-        options.projecttype = projecttype;
-        options.totalcost = totalcost;
-        options.status = status;
-        options.mhfddollarsallocated = mhfddollarsallocated;
-        options.workplanyear = workplanyear;
-        options.startyear = start !== '- Select -'? start: '';
-        options.completedyear = completed !== '- Select -'? completed: '';
-        options.problemtype = problems;
-        options.mhfdmanager = mhfdmanager !== '- Select -'? mhfdmanager: '';
-        options.jurisdiction = jurisdiction !== '- Select -'? jurisdiction: '';
-        options.streamname = streamname !== '- Select -'? streamname: '';
-        options.county = county !== '- Select -'? county: '';
-        options.lgmanager = lgmanager !== '- Select -'? lgmanager: '';
-        options.creator = creator !== '- Select -'? creator: '';
-        //console.log(options);
+        if('projecttype' === field || 'totalcost' === field || 'status' === field || 'mhfddollarsallocated' === field || 'workplanyear' === field || 'problemtype' === field) {
+            let newValue = '';
+            for (let index = 0; index < values.length; index++) {
+                const element = values[index];
+                newValue = newValue ? (newValue + ',' + element): element;
+            }
+            options[field] = newValue;
+        } else {
+            options[field] = values;
+        }
         setFilterProjectOptions(options);
-        setToggleFilters(false);
         getGalleryProjects();
     }
     const reset = () => {
@@ -309,20 +220,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         options.county =  '';
         options.lgmanager = '';
         options.creator = '';
-        setCheckboxProjectType([]);
-        setCheckboxTotalCost([]);
-        setCheckboxProjectStatus([]);
-        setCheckboxMHFDDollarsAllocated([]);
-        setCheckboxWorkPlanYear([]);
-        setStart('- Select -');
-        setCompleted('- Select -');
-        setProblemType([]);
-        setMhfdmanager('- Select -');
-        setJurisdiction('- Select -');
-        setStreamname('- Select -');
-        setCounty('- Select -');
-        setLgmanager('- Select -');
-        setCreator('- Select -');
         setFilterProjectOptions(options);
         setToggleFilters(false);
         getGalleryProjects();
@@ -331,8 +228,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     <Row className="filt-00" style={{ marginTop: '10px' }}>
         <Col span={12}>
             <h5>Project type <img src="/Icons/icon-19.svg" alt="" /></h5>
-            <Checkbox.Group value={checkBoxProjectType} onChange={(item) => {
-                setCheckboxProjectType(item as Array<string>);
+            <Checkbox.Group value={filterProjectOptions.projecttype.split(',')} onChange={(item) => {
+                apply(item, 'projecttype');
             }}>
                 <p><Checkbox value='Capital'>Capital</Checkbox></p>
                 <p><Checkbox value='Maintenance'>Maintenance</Checkbox></p>
@@ -341,8 +238,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         </Col>
         <Col span={12}>
             <h5>Total Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-            <Checkbox.Group value={checkBoxTotalCost} onChange={(item) => {
-                setCheckboxTotalCost(item as Array<string>);
+            <Checkbox.Group value={filterProjectOptions.totalcost.split(',')} onChange={(item) => {
+                apply(item, 'totalcost');
             }}>
                 <p><Checkbox value={'0'}>$0-$5M</Checkbox></p>
                 <p><Checkbox value={'5'}>$5M-$10M</Checkbox></p>
@@ -357,8 +254,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     <Row className="filt-00">
         <Col span={12}>
             <h5>Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-            <Checkbox.Group value={checkBoxProjectStatus} onChange={(item) => {
-                setCheckboxProjectStatus(item as Array<string>);
+            <Checkbox.Group value={filterProjectOptions.status.split(',')} onChange={(item) => {
+                apply(item, 'status');
             }}>
                 {paramProjects.status.map((element: string, index: number) => {
                     return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
@@ -368,8 +265,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         <Col span={12} className="filter-menu">
             <h5>Year <Popover content={content07}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
             <label>Start</label>
-            <Select dropdownClassName="filter-menu" value={start} style={{ width: '100%' }} onChange={ (e: string) => {
-                    setStart(e);
+            <Select dropdownClassName="filter-menu" value={filterProjectOptions.startyear ? filterProjectOptions.startyear : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                    apply(e, 'startyear');
                 }}>
                     {paramProjects.startyear.map((element: number, index: number) =>{
                         return <Option key={index} value={''+element}>{element}</Option>
@@ -377,8 +274,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             </Select>
             <br></br><br></br>
             <label>Completed</label>
-            <Select dropdownClassName="filter-menu" value={completed} style={{ width: '100%' }} onChange={ (e: string) => {
-                    setCompleted(e);
+            <Select dropdownClassName="filter-menu" value={filterProjectOptions.completedyear ? filterProjectOptions.completedyear : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                    apply(e, 'completedyear');
                 }}>
                     {paramProjects.completedyear.map((element: number, index: number) =>{
                         return <Option key={index} value={''+element}>{element}</Option>
@@ -390,8 +287,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     <Row className="filt-00">
         <Col span={12}>
             <h5>MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
-            <Checkbox.Group value={checkboxMHFDDollarsAllocated} onChange={(item) => {
-                setCheckboxMHFDDollarsAllocated(item as Array<string>);
+            <Checkbox.Group value={filterProjectOptions.mhfddollarsallocated.split(',')} onChange={(item) => {
+                apply(item, 'mhfddollarsallocated');
             }}>
                 <p><Checkbox value={'0'}>$1M-$5M</Checkbox></p>
                 <p><Checkbox value={'5'}>$5M-$10M</Checkbox></p>
@@ -402,8 +299,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         </Col>
         <Col span={12}>
             <h5>Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
-            <Checkbox.Group value={checkboxWorkPlanYear} onChange={(item) => {
-                setCheckboxWorkPlanYear(item as Array<string>);
+            <Checkbox.Group value={filterProjectOptions.workplanyear.split(',')} onChange={(item) => {
+                apply(item, 'workplanyear');
             }}>
                 <p><Checkbox value={'2019'}>2019</Checkbox></p>
                 <p><Checkbox value={'2020'}>2020</Checkbox></p>
@@ -421,8 +318,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     <Row className="filt-00">
         <Col span={12}>
             <label>Problem Type <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" /></Popover></label>
-            <Checkbox.Group value={problemType} onChange={(item) => {
-                setProblemType(item as Array<string>);
+            <Checkbox.Group value={filterProjectOptions.problemtype.split(',')} onChange={(item) => {
+                apply(item, 'problemtype');
             }}>
                 {paramProjects.problemtype.map((element: string, index: number) =>{
                     return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
@@ -433,8 +330,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
             <label>Jurisdiction</label>
-            <Select value={jurisdiction} style={{ width: '100%' }} onChange={ (e: string) => {
-                setJurisdiction(e);
+            <Select value={filterProjectOptions.jurisdiction ? filterProjectOptions.jurisdiction : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                apply(e, 'jurisdiction');
             }}>
                 {paramProjects.jurisdiction.map((element: string, index: number) =>{
                     return <Option key={index} value={element}>{element}</Option>
@@ -443,8 +340,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         </Col>
         <Col span={12}>
             <label>County</label>
-            <Select value={county} style={{ width: '100%' }} onChange={ (e: string) => {
-                setCounty(e)
+            <Select value={filterProjectOptions.county ? filterProjectOptions.county : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                apply(e, 'county');
             }}>
                 {paramProjects.county.map((element: string, index: number) =>{
                     return <Option key={index} value={element}>{element}</Option>
@@ -455,8 +352,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
             <label>Local Government Manager <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-            <Select value={lgmanager} style={{ width: '100%' }} onChange={ (e: string) => {
-                setLgmanager(e);
+            <Select value={filterProjectOptions.lgmanager ? filterProjectOptions.lgmanager : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                apply(e, 'lgmanager');
             }}>
                 {paramProjects.lgmanager.map((element: string, index: number) =>{
                     return <Option key={index} value={element}>{element}</Option>
@@ -465,8 +362,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         </Col>
         <Col span={12}>
             <label>Stream Name</label>
-            <Select value={streamname} style={{ width: '100%' }} onChange={ (e: string) => {
-                setStreamname(e);
+            <Select value={filterProjectOptions.streamname ? filterProjectOptions.streamname : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                apply(e, 'streamname');
             }}>
                 {paramProjects.streamname.map((element: string, index: number) =>{
                     return <Option key={index} value={element}>{element}</Option>
@@ -477,8 +374,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
             <label>Creator <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-            <Select value={creator} style={{ width: '100%' }} onChange={ (e: string) => {
-                setCreator(e);
+            <Select value={filterProjectOptions.creator ? filterProjectOptions.creator : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                apply(e, 'creator');
             }}>
                 {paramProjects.creator.map((element: string, index: number) =>{
                     return <Option key={index} value={element}>{element}</Option>
@@ -487,8 +384,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         </Col>
         <Col span={12}>
             <label>MHFD Watershed Manager</label>
-            <Select value={mhfdmanager} style={{ width: '100%' }} onChange={ (e: string) => {
-                setMhfdmanager(e);
+            <Select value={filterProjectOptions.mhfdmanager ? filterProjectOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                apply(e, 'mhfdmanager');
             }}>
                 {paramProjects.mhfdmanager.map((element: string, index: number) =>{
                     return <Option key={index} value={element}>{element}</Option>
@@ -499,52 +396,26 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 
     <div className="btn-footer" style={{ marginTop: '25px' }}>
         <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
-        <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button>
+        {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button> */}
     </div>
     </div>
 </>
 }
 
 export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects, setToggleFilters} : any) => {
-
-    const [checkBoxComponentType, setCheckboxComponentType] = useState<Array<string>>(filterComponentOptions.component_type.split(','));
-    const [checkBoxStatus, setCheckboxStatus] = useState<Array<string>>(filterComponentOptions.status.split(','));
-    const [checkBoxYearofStudy, setCheckboxYearofStudy] = useState<Array<string>>(filterComponentOptions.yearofstudy.split(','));
-    const [checkboxEstimatedcost, setCheckboxEstimatedcost] = useState<Array<string>>(filterComponentOptions.estimatedcost.split(','));
-    const [jurisdiction, setJurisdiction] = useState(filterComponentOptions.jurisdiction ? filterComponentOptions.jurisdiction : '- Select -');
-    const [county, setCounty] = useState(filterComponentOptions.county ? filterComponentOptions.county : '- Select -');
-    const [mhfdmanager, setWatershed] = useState(filterComponentOptions.mhfdmanager ? filterComponentOptions.mhfdmanager : '- Select -');
-    const apply = () => {
-        let componentType = '';
-        for (let index = 0; index < checkBoxComponentType.length; index++) {
-            const element = checkBoxComponentType[index];
-            componentType = componentType ? (componentType + ',' + element): element;
-        }
-        let status = '';
-        for (let index = 0; index < checkBoxStatus.length; index++) {
-            const element = checkBoxStatus[index];
-            status = status ? (status + ',' + element): element;
-        }
-        let yearOfStudy = '';
-        for (let index = 0; index < checkBoxYearofStudy.length; index++) {
-            const element = checkBoxYearofStudy[index];
-            yearOfStudy = yearOfStudy ? (yearOfStudy + ',' + element): ('' + element);
-        }
-        let estimatedCost = '';
-        for (let index = 0; index < checkboxEstimatedcost.length; index++) {
-            const element = checkboxEstimatedcost[index];
-            estimatedCost = estimatedCost ? (estimatedCost + ',' + element): element;
-        }
+    const apply = (values: any, field: string) => {
         const options = {...filterComponentOptions};
-        options.component_type = componentType;
-        options.status = status;
-        options.yearofstudy = yearOfStudy;
-        options.estimatedcost = estimatedCost;
-        options.jurisdiction = jurisdiction !== '- Select -'? jurisdiction: '';
-        options.county = county !== '- Select -'? county: '';
-        options.mhfdmanager = mhfdmanager !== '- Select -'? mhfdmanager: '';
+        if('component_type' === field || 'status' === field || 'yearOfStudy' === field || 'estimatedCost' === field ) {
+            let newValue = '';
+            for (let index = 0; index < values.length; index++) {
+                const element = values[index];
+                newValue = newValue ? (newValue + ',' + element): element;
+            }
+            options[field] = newValue;
+        } else {
+            options[field] = values;
+        }
         setFilterComponentOptions(options);
-        // setToggleFilters(false);
         getGalleryProjects();
         getGalleryProblems();
     }
@@ -556,16 +427,8 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         options.estimatedcost = '';
         options.jurisdiction = '';
         options.county = '';
-        options.mhfdmanger = '';
-        setCheckboxComponentType([]);
-        setCheckboxStatus([]);
-        setCheckboxYearofStudy([]);
-        setCheckboxEstimatedcost([]);
-        setJurisdiction('- Select -');
-        setCounty('- Select -');
-        setWatershed('- Select -');
+        options.mhfdmanager = '';
         setFilterComponentOptions(options);
-        // setToggleFilters(false);
         getGalleryProjects();
         getGalleryProblems();
     }
@@ -574,8 +437,8 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 <Col span={12}>
                     <h5>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                       <div className="check-scroll">
-                      <Checkbox.Group value={checkBoxComponentType} onChange={(item) => {
-                          setCheckboxComponentType(item as Array<string>);
+                      <Checkbox.Group value={filterComponentOptions.component_type.split(',')} onChange={(item) => {
+                        apply(item, 'component_type');
                       }}>
                           {paramComponents.component_type.map((element: { key: string, value: string }, index: number) => {
                               return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
@@ -585,8 +448,8 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 </Col>
                 <Col span={12}>
                     <h5>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <Checkbox.Group value={checkBoxStatus} onChange={(item) => {
-                        setCheckboxStatus(item as Array<string>);
+                    <Checkbox.Group value={filterComponentOptions.status.split(',')} onChange={(item) => {
+                        apply(item, 'status');
                     }}>
                         {paramComponents.status.map((element: string, index: number) => {
                             return element && <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
@@ -600,8 +463,8 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 <Col span={12}>
                     <h5>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <div className="check-scroll">
-                      <Checkbox.Group value={checkBoxYearofStudy} onChange={(item) => {
-                          setCheckboxYearofStudy(item as Array<string>);
+                      <Checkbox.Group value={filterComponentOptions.yearofstudy.split(',')} onChange={(item) => {
+                        apply(item, 'yearofstudy');
                       }}>
                           {paramComponents.yearofstudy.map((element: string, index: number) => {
                               return <p key={index}><Checkbox value={''+element}>{element + 's'}</Checkbox></p>
@@ -611,8 +474,8 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 </Col>
                 <Col span={12}>
                     <h5>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <Checkbox.Group value={checkboxEstimatedcost} onChange={(item) => {
-                        setCheckboxEstimatedcost(item as Array<string>);
+                    <Checkbox.Group value={filterComponentOptions.estimatedcost.split(',')} onChange={(item) => {
+                        apply(item, 'estimatedcost');
                     }}>
                         <p><Checkbox value={'0'}>$0-$2M</Checkbox></p>
                         <p><Checkbox value={'2'}>$2M-$4M</Checkbox></p>
@@ -627,8 +490,8 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
             <Row className="filt-00" gutter={[24, 16]}>
                 <Col span={12}>
                     <label>Jurisdiction</label>
-                    <Select value={jurisdiction} style={{ width: '100%' }} onChange={ (e: string) => {
-                        setJurisdiction(e);
+                    <Select value={filterComponentOptions.jurisdiction ? filterComponentOptions.jurisdiction : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                        apply(e, 'jurisdiction');
                     }}>
                         {paramComponents.jurisdiction.map((element: string, index: number) =>{
                             return <Option key={index} value={element}>{element}</Option>
@@ -637,8 +500,8 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 </Col>
                 <Col span={12}>
                     <label>County</label>
-                    <Select value={county} style={{ width: '100%' }} onChange={ (e: string) => {
-                        setCounty(e);
+                    <Select value={filterComponentOptions.county ? filterComponentOptions.county : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                        apply(e, 'county');
                     }}>
                         {paramComponents.county.map((element: string, index: number) =>{
                             return <Option key={index} value={element}>{element}</Option>
@@ -649,8 +512,8 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
             <Row className="filt-00" gutter={[24, 16]}>
                 <Col span={12}>
                     <label>MHFD Watershed Manager</label>
-                    <Select value={mhfdmanager} style={{ width: '100%' }} onChange={ (e: string) => {
-                        setWatershed(e);
+                    <Select value={filterComponentOptions.mhfdmanager ? filterComponentOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                        apply(e, 'mhfdmanager');
                     }}>
                         {paramComponents.watershed.map((element: string, index: number) =>{
                             return <Option key={index} value={element}>{element}</Option>
@@ -660,7 +523,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
             </Row>
             <div className="btn-footer" style={{ marginTop: '25px' }}>
                 <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
-                <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button>
+                {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button> */}
             </div>
         </div>
     </>
