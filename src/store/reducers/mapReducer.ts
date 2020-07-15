@@ -1,5 +1,5 @@
 import * as types from '../types/mapTypes';
-import { PROJECTS_MAP_STYLES } from '../../constants/constants';
+import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER } from '../../constants/constants';
 
 const initState = {
     error: '',
@@ -90,7 +90,7 @@ const initState = {
     layers: {} as any,
     longitude: 0,
     latitude: 0,
-    selectedLayers: [PROJECTS_MAP_STYLES],
+    selectedLayers: [PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER],
     galleryProblems: [],
     galleryProjects: [],
     filterProblemOptions: {

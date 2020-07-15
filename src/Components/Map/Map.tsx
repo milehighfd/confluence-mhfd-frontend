@@ -61,14 +61,15 @@ const Map = ({ leftWidth,
             selectedLayers,
             polygon,
             getPolygonStreams,
-            saveLayersCheck,
-            setFilterCoordinates,
+            updateSelectedLayers,
+            setFilterCoordinates, 
             highlighted,
             filterProblems,
             filterProjects,
             filterComponents,
             setSpinValue,
-            componentDetailIds
+            componentDetailIds,
+            isExtendedView
              } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
@@ -227,6 +228,7 @@ const Map = ({ leftWidth,
     }, [selectedItems]);
 
     useEffect(() => {
+        console.log('enter here ', selectedLayers);
         map.on('style.load', () => {
             const waiting = () => {
               if (!map.isStyleLoaded()) {
@@ -238,6 +240,7 @@ const Map = ({ leftWidth,
             waiting();
           });
         if(map.isStyleLoaded()) {
+            console.log('the selected layers ', selectedLayers);
             applyMapLayers();
         } else {
             const waiting = () => {
@@ -836,18 +839,18 @@ const Map = ({ leftWidth,
         deleteLayers.forEach((layer : LayersType) => {
             removeTilesHandler(layer);
         });
-        saveLayersCheck(selectedItems);
+        updateSelectedLayers(selectedItems);
     }
 
     const handleSelectAll = () => {
-        saveLayersCheck(SELECT_ALL_FILTERS as Array<LayersType>);
+        updateSelectedLayers(SELECT_ALL_FILTERS as Array<LayersType>);
     }
 
     const handleResetAll = () => {
         selectedLayers.forEach((layer : LayersType) => {
             removeTilesHandler(layer);
         })
-        saveLayersCheck([]);
+        updateSelectedLayers([]);
     }
 
     const removeTilesHandler = (selectedLayer : LayersType) => {
@@ -890,7 +893,7 @@ const Map = ({ leftWidth,
                         selectCheckboxes(selectedCheckBox);
                         setVisibleDropdown(flag);
                     }}
-                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup })}
+                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
                     className="btn-02"
                     trigger={['click']}>
                     <Button>

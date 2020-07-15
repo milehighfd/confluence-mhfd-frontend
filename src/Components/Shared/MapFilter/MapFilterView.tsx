@@ -18,8 +18,8 @@ import { FLOODPLAINS_FEMA_FILTERS,
         MUNICIPALITIES,
         COUNTIES_LAYERS} from '../../../constants/constants';
 
-export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup } : 
-        { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function }) => {
+export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView } : 
+        { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean }) => {
   const [checkBoxes, setCheckboxes] = useState(selectedLayers);
   
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-15px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
@@ -46,9 +46,9 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
               </Col>
               <Col span={8}>
                 <h6>MHFD DATA</h6>
-                <p><Checkbox value={PROBLEMS_TRIGGER}>Problems</Checkbox></p>
+                <p><Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROBLEMS_TRIGGER}>Problems</Checkbox></p>
                 <p><Checkbox value={COMPONENT_LAYERS}>Components</Checkbox></p>
-                <p><Checkbox defaultChecked={true} value={PROJECTS_MAP_STYLES}>Projects</Checkbox></p>
+                <p><Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROJECTS_MAP_STYLES}>Projects</Checkbox></p>
                 <p><Checkbox value={MEP_PROJECTS}>MEP Projects</Checkbox></p>
                 <p><Checkbox value={ROUTINE_MAINTENANCE}>Routine Maintenance</Checkbox></p>
               </Col>
@@ -57,11 +57,17 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
 
           <div className="btn-footer">
             <Button className="btn-00" onClick={() => {
-              setSelectedCheckBox([]);
-              setCheckboxes([]);
+              if (isExtendedView) { 
+                setSelectedCheckBox([]);
+                setCheckboxes([]);
+                selectCheckboxes([]);
+              } else {
+                setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
+                setCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
+                selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
+              }
               removePopup();
               setVisibleDropdown(false);
-              selectCheckboxes([]);
             }}>Clear Map</Button>
             
           </div>

@@ -20,7 +20,7 @@ export type MapProps = {
     getPolygonStreams: Function,
     selectedLayers: Array<LayersType>,
     polygon?: Array<Array<number>>,
-    saveLayersCheck: Function,
+    updateSelectedLayers: Function,
     setFilterCoordinates: Function,
     highlighted: any,
     filterProblemOptions: OptionProblems,
@@ -31,7 +31,8 @@ export type MapProps = {
     filterProjects: any,
     filterComponents: any,
     setSpinValue: Function,
-    componentDetailIds: any
+    componentDetailIds: any,
+    isExtendedView: boolean
 }
 
 export type MapHOCProps = {
@@ -65,7 +66,7 @@ export type MapHOCProps = {
     saveDraftCard: Function,
     getUserProjects: Function,
     sortProjects: Function,
-    saveLayersCheck: Function,
+    updateSelectedLayers: Function,
     getGalleryProblems: Function,
     getGalleryProjects: Function,
     galleryProblems: Array<any>,

@@ -5,7 +5,7 @@ import Navbar from "../Components/Shared/Navbar/NavbarContainer";
 import SidebarView from "../Components/Shared/Sidebar/SidebarView";
 import LoadingView from '../Components/Loading/LoadingView';
 
-import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION } from "../constants/constants";
+import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES } from "../constants/constants";
 import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message, Spin } from 'antd';
@@ -42,7 +42,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               saveDraftCard,
               getUserProjects,
               sortProjects,
-              saveLayersCheck,
+              updateSelectedLayers,
               getGalleryProblems,
               getGalleryProjects,
               galleryProblems,
@@ -89,6 +89,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         const [isPolygon, setIsPolygon] = useState(false);
         const [formatedProjects, setFormatedProjects] = useState<any>([]);
         const [spinValue, setSpinValue] = useState(true);
+        const [isExtendedView, setCompleteView] = useState(false);
 
         let markerRef = useRef<HTMLDivElement>(null);
         let polygonRef = useRef<HTMLDivElement>(null);
@@ -122,7 +123,18 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             setLeftWidth(MEDIUM_SCREEN);
             setRightWitdh(MEDIUM_SCREEN);
             setRotationStyle(emptyStyle);
+            const copySelectedLayers = selectedLayers;
+            if (!copySelectedLayers.includes(PROBLEMS_TRIGGER)) {
+              copySelectedLayers.push(PROBLEMS_TRIGGER);
+            }
+            if (!copySelectedLayers.includes(PROJECTS_MAP_STYLES)) {
+              copySelectedLayers.push(PROJECTS_MAP_STYLES);
+            }
+            console.log('copyng layers ', copySelectedLayers, selectedLayers);
+            updateSelectedLayers(copySelectedLayers);
           }
+          console.log(selectedLayers);
+          setCompleteView(!isExtendedView);
         }
         if(redirect) {
           setRouteRedirect(false);
@@ -157,7 +169,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             polygon={polygon}
                             selectedLayers={selectedLayers}
                             getPolygonStreams={getPolygonStreams}
-                            saveLayersCheck={saveLayersCheck}
+                            updateSelectedLayers={updateSelectedLayers}
                             setFilterCoordinates={setFilterCoordinates}
                             highlighted={highlighted}
                             filterProblemOptions={filterProblemOptions}
@@ -168,7 +180,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             filterProjects={filterProjects}
                             filterComponents={filterComponents}
                             setSpinValue={setSpinValue}
-                            componentDetailIds={componentDetailIds}/>
+                            componentDetailIds={componentDetailIds}
+                            isExtendedView={isExtendedView}/>
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

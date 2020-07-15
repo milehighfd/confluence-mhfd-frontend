@@ -162,7 +162,7 @@ export const getPolygonStreams = (coordinates : Array<Array<number>>) => {
     }
 }
 
-export const saveLayersCheck = (selectedLayer: any) => {
+export const updateSelectedLayers = (selectedLayer: any) => {
     return (dispatch : Function) => {
         dispatch({ type: types.SELECTED_LAYERS, selectedLayer });
     }
