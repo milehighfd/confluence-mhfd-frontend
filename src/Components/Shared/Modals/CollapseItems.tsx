@@ -134,7 +134,8 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         title: '% of Total Cost',
         dataIndex: 'original_cost',
         sorter: true,
-        render: (original_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(original_cost)
+        render: (original_cost: number) => Math.round(original_cost * 10)/10 + '%'
+        /* new Intl.NumberFormat("en-EN").format(original_cost) + '%' */
       }
     ];
   } else {
@@ -161,7 +162,8 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         title: '% of Total Cost',
         dataIndex: 'original_cost',
         sorter: true,
-        render: (original_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(original_cost)
+        render: (original_cost: number) => Math.round(original_cost * 10)/10 + '%'
+        /* new Intl.NumberFormat("en-EN").format(original_cost) */
       }
     ];
   }
