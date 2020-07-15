@@ -129,6 +129,12 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         dataIndex: 'percen',
         render: (percen: number) => Math.round(percen * 10) /10 + '%',
         sorter: true
+      },
+      {
+        title: '% of Total Cost',
+        dataIndex: 'original_cost',
+        sorter: true,
+        render: (original_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(original_cost)
       }
     ];
   } else {
@@ -146,7 +152,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         sorter: true
       },
       {
-        title: '% Complete',
+        title: 'Percent',
         dataIndex: 'percen',
         render: (percen: number) => Math.round(percen * 10) /10 + '%',
         sorter: true,
@@ -213,13 +219,13 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
               <label><i>Contractor</i></label>
             </Col>
             <Col span={8}>
-              <p>{ detailedPage.contractor ? detailedPage.contractor : '-' }</p>
+              <p>{ detailedPage.contractor ? detailedPage.contractor : 'N/A' }</p>
             </Col>
             <Col span={4}>
               <label><i>Consultant</i></label>
             </Col>
             <Col span={8}>
-              <p>{detailedPage.consultant ? detailedPage.consultant : '-' }</p>
+              <p>{detailedPage.consultant ? detailedPage.consultant : 'N/A' }</p>
             </Col>
           </Row>
         </div>
@@ -245,7 +251,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         </div>
       </Panel> */}
 
-      <Panel header={type === PROBLEMS_MODAL ? 'Solution Components' : "Component & solutions"} key="3" extra={genExtra('3')}>
+      <Panel header={type === PROBLEMS_MODAL ? 'Component & solutions' : "Component & solutions"} key="3" extra={genExtra('3')}>
         <Row className="table-up-modal">
           <Col span={24}>
             <Table loading={loaderTableCompoents} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
