@@ -409,7 +409,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects, setToggleFilters} : any) => {
     const apply = (values: any, field: string) => {
         const options = {...filterComponentOptions};
-        if('component_type' === field || 'status' === field || 'yearOfStudy' === field) {
+        if('component_type' === field || 'status' === field || 'yearofstudy' === field) {
             let newValue = '';
             for (let index = 0; index < values.length; index++) {
                 const element = values[index];
