@@ -28,7 +28,7 @@ import { MAP_DROPDOWN_ITEMS,
         MUNICIPALITIES_FILTERS,
         COUNTIES_FILTERS,
         MHFD_BOUNDARY_FILTERS,
-        SELECT_ALL_FILTERS, 
+        SELECT_ALL_FILTERS,
         MAP_RESIZABLE_TRANSITION} from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles} from '../../constants/mapStyles';
@@ -62,7 +62,7 @@ const Map = ({ leftWidth,
             polygon,
             getPolygonStreams,
             saveLayersCheck,
-            setFilterCoordinates, 
+            setFilterCoordinates,
             highlighted,
             filterProblems,
             filterProjects,
@@ -70,10 +70,10 @@ const Map = ({ leftWidth,
             setSpinValue,
             componentDetailIds
              } : MapProps) => {
-    
+
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
-    
+
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     // const [ spinValue, setSpinValue] = useState(true);
@@ -104,7 +104,7 @@ const Map = ({ leftWidth,
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude])
     }
-    
+
     useEffect(() => {
         if (map) {
             if (highlighted.type) {
@@ -114,13 +114,13 @@ const Map = ({ leftWidth,
             }
         }
     }, [highlighted]);
-    
+
     useEffect(() => {
         if (map) {
             applyFilters('problems', filterProblems);
         }
     }, [filterProblems]);
-    
+
     useEffect(() => {
         if (map) {
             applyFilters('projects_line_1', filterProjects);
@@ -132,7 +132,7 @@ const Map = ({ leftWidth,
         if (map) {
             for (const component of COMPONENT_LAYERS.tiles) {
                 applyFilters(component, filterComponents);
-            }    
+            }
         }
     }, [filterComponents, componentDetailIds]);
 
@@ -201,7 +201,7 @@ const Map = ({ leftWidth,
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setFilterCoordinates(boundingBox);
-            
+
         });
     }, []);
 
@@ -214,11 +214,11 @@ const Map = ({ leftWidth,
     }, [dropdownItems.items[dropdownItems.default].style]);
 
     useEffect(() => {
-        /* Due the addition of 200ms extend transition resizing the map 
+        /* Due the addition of 200ms extend transition resizing the map
         every 25ms to add the transition effect within the map extension. */
         const mapResize = () => map.resize();
         for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 1000; i = i + 25) {
-            setTimeout(() => mapResize(), i);  
+            setTimeout(() => mapResize(), i);
         }
     }, [leftWidth]);
 
@@ -260,7 +260,7 @@ const Map = ({ leftWidth,
     const removePopup = () => {
         popup.remove();
     }
-    
+
     const applyMapLayers = async () => {
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
@@ -348,7 +348,7 @@ const Map = ({ leftWidth,
                             const lowerArray: any[] = ['>=',  ['get', filterField], +years];
                             const upperArray: any[] = ['<=',  ['get', filterField], +years + 9];
                             options.push(['all', lowerArray, upperArray]);
-                        
+
                         }
                         allFilters.push(options);
                         continue;
@@ -395,7 +395,7 @@ const Map = ({ leftWidth,
                                 allFilters.push(lowerArray);
                             }
                         }
-                        continue;       
+                        continue;
                     }
                     if (filterField === 'completedyear') {
                         continue;
@@ -466,13 +466,13 @@ const Map = ({ leftWidth,
                     },
                     filter: ['in', 'cartodb_id']
                 })
-            } 
+            }
             map.addLayer({
                 id: key + '_' + index,
                 source: key,
                 ...style
             });
-           
+
             map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         });
         addMapListeners(key);
@@ -549,13 +549,13 @@ const Map = ({ leftWidth,
                 const selectedItems : Array<ComponentType> = [];
                 const turfPoints = components.map((point : ComponentType) => turf.point(point.coordinates));
                 const values = turfPoints.map((turfPoint : Feature<Point, Properties>) => turf.inside(turfPoint, polygonTurfCoords));
-    
+
                 components.forEach((point : ComponentType, index : number) => {
                     if (values[index]) {
                         selectedItems.push(point);
                     }
                 });
-    
+
                 paintSelectedComponents(selectedItems);
                 setSelectedItems(selectedItems);
                 setIsPolygon(true);
@@ -563,7 +563,7 @@ const Map = ({ leftWidth,
                 // getPolygonStreams(polygonTurfCoords.geometry);
                 getPolygonStreams(polygonCoords);
             }
-        } 
+        }
 
         /* Get the coords on Drawing */
         // console.log(draw.getAll().features[0].geometry.coordinates);
@@ -604,7 +604,7 @@ const Map = ({ leftWidth,
                     }
                     if (key === 'grade_control_structure') {
                         const item = {
-                            layer: 'Components', 
+                            layer: 'Components',
                             subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',
                             status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
                             estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
@@ -770,9 +770,9 @@ const Map = ({ leftWidth,
                         }
                         html = loadComponentPopup(item);
                     }
-                    
+
                     const description = e.features[0].properties.description ? e.features[0].properties.description : '-';
-                    if (html) { 
+                    if (html) {
                         popup.remove();
                         popup = new mapboxgl.Popup();
                         popup.setLngLat(e.lngLat)
@@ -783,11 +783,16 @@ const Map = ({ leftWidth,
                 map.on('mouseenter', key + '_' + index, () => {
                     map.getCanvas().style.cursor = 'pointer';
                 });
-                map.on('mouseleave', key + '_' + index, () => {     
+                map.on('mouseleave', key + '_' + index, () => {
                     map.getCanvas().style.cursor = '';
                 })
             });
-
+            map.on('mouseenter', key, () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+            map.on('mouseleave', key, () => {
+                map.getCanvas().style.cursor = '';
+            })
         }
     }
     const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
@@ -824,7 +829,7 @@ const Map = ({ leftWidth,
         }
     }
 
-    
+
 
     const selectCheckboxes = (selectedItems : Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter(layer => !selectedItems.includes(layer as string));
@@ -861,7 +866,7 @@ const Map = ({ leftWidth,
 
             map.removeLayer(key + '_' + index);
         });
-        
+
         if (map.getSource(key)) {
             map.removeSource(key);
         }
@@ -960,7 +965,7 @@ const Map = ({ leftWidth,
                         <p><span className="color-footer-boundary" style={{ border: '1px dashed' }} />MHFD Boundary</p>
                     </> : '' }
                 </div>
-                
+
             </div>
 
             {/* <div className="m-zoom">
@@ -968,7 +973,7 @@ const Map = ({ leftWidth,
                     <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>
                 </div> */}
         </div>
-        
+
     )
 }
 
