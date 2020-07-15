@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import CardInformationView from "../CardInformation/CardInformationView";
 import AccordionRowView from "./AccordionRow/AccordionRowView";
 import AccordionDisplayView from "./AccordionDisplay/AccordionDisplayView";
-import { numberWithCommas } from '../../../utils/utils';
+import { numberWithCommas, elementCost } from '../../../utils/utils';
 import { FILTER_PROBLEMS_TRIGGER } from "../../../constants/constants";
 import store from "../../../store";
 
@@ -25,7 +25,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
 
     const deleteFilter = (tag: string, value: string) => {
         const auxFilterComponents = { ...filterComponentOptions };
-        const valueTag = filterComponentOptions[tag].split(',') as Array<string>;
+        const valueTag = tag === 'estimatedcost'?  filterComponentOptions[tag]: filterComponentOptions[tag].split(',');
         const auxValueTag = [] as Array<string>;
         for (let index = 0; index < valueTag.length; index++) {
             const element = valueTag[index];
@@ -40,14 +40,14 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                 newValue = newValue ? (newValue + ',' + element) : element;
             }
         }
-        auxFilterComponents[tag] = newValue;
+        auxFilterComponents[tag] = tag === 'estimatedcost'? auxValueTag: newValue;
         setFilterComponentOptions(auxFilterComponents);
         getGalleryProjects();
         getGalleryProblems();
     }
     const deleteTagProblem = (tag: string, value: string) => {
         const auxFilterProblems = { ...filterProblemOptions };
-        const valueTag = filterProblemOptions[tag].split(',') as Array<string>;
+        const valueTag = tag === 'cost'?  filterProblemOptions[tag]: filterProblemOptions[tag].split(',');
         const auxValueTag = [] as Array<string>;
         for (let index = 0; index < valueTag.length; index++) {
             const element = valueTag[index];
@@ -62,13 +62,13 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                 newValue = newValue ? (newValue + ',' + element) : element;
             }
         }
-        auxFilterProblems[tag] = newValue;
+        auxFilterProblems[tag] = tag === 'cost'? auxValueTag: newValue;
         setFilterProblemOptions(auxFilterProblems);
         getGalleryProblems();
     }
     const deleteTagProject = (tag: string, value: string) => {
         const auxFilterProjects = { ...filterProjectOptions };
-        const valueTag = filterProjectOptions[tag].split(',') as Array<string>;
+        const valueTag = (tag === 'mhfddollarsallocated' || tag === 'totalcost')?  filterProjectOptions[tag]: filterProjectOptions[tag].split(',');
         const auxValueTag = [] as Array<string>;
         for (let index = 0; index < valueTag.length; index++) {
             const element = valueTag[index];
@@ -83,7 +83,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                 newValue = newValue ? (newValue + ',' + element) : element;
             }
         }
-        auxFilterProjects[tag] = newValue;
+        auxFilterProjects[tag] = (tag === 'mhfddollarsallocated' || tag === 'totalcost')? auxValueTag: newValue;
         setFilterProjectOptions(auxFilterProjects);
         getGalleryProjects();
     }
@@ -95,7 +95,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
     for (const key in filterComponentOptions) {
         const tag = {
             key,
-            values: filterComponentOptions[key].split(',')
+            values: key === 'estimatedcost'?  filterComponentOptions[key]: filterComponentOptions[key].split(',')
         }
         tagComponents.push(tag);
     }
@@ -104,7 +104,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
     for (const key in filterProblemOptions) {
         const tag = {
             key,
-            values: filterProblemOptions[key].split(',')
+            values: key === 'cost'?  filterProblemOptions[key]: filterProblemOptions[key].split(',')
         }
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
             tagProblems.push(tag);
@@ -115,7 +115,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
     for (const key in filterProjectOptions) {
         const tag = {
             key,
-            values: filterProjectOptions[key].split(',')
+            values: (key === 'mhfddollarsallocated' || key === 'totalcost')?  filterProjectOptions[key]: filterProjectOptions[key].split(',')
         }
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
             tagProjects.push(tag);
@@ -148,7 +148,8 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                         {tag.values.map((element: string) => {
                             let value = '';
                             if (tag.key === 'cost') {
-                                value = element === '1' ? '$1M - $10M' : ((element === '5')? '$5M - $10M': ((element === '10') ? '$10M - 15M' : '$20 - $25M'));
+                                const tagValues = element.split(',');
+                                value = elementCost(+tagValues[0], +tagValues[1]);
                             } else {
                                 if (tag.key === 'solutionstatus') {
                                     value = element === '10' ? '10% - 25%' : element === '25'? '25% - 50%': element === '50' ? '50% - 75%' : '75% - 100%';
@@ -170,14 +171,11 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                     return <>
                         {tag.values.map((element: string) => {
                             let value = '';
-                            if (tag.key === 'totalcost') {
-                                value = element === '0' ? '$0 - $5M' : ((element === '5')? '$5M- $1M': ((element === '10') ? '$1M - $15M' : (element === '15') ? '$15M - $20M' :'$20M - $25M'));
+                            if (tag.key === 'totalcost' || tag.key === 'mhfddollarsallocated') {
+                                const tagValues = element.split(',');
+                                value = elementCost(+tagValues[0], +tagValues[1]);
                             } else {
-                                if (tag.key === 'mhfddollarsallocated') {
-                                    value = element === '1' ? '$1M - $5M' : ((element === '5')? '$5M - $10M': ((element === '10') ? '$10M - $15M' : (element === '15') ? '$15M - $20M' :'$20M - $25M'));
-                                } else {
-                                    value = element;
-                                }
+                                value = element;
                             }
                             return element && <Tag key={index + element + tag.key} closable onClose={() => deleteTagProject(tag.key, element)}>
                                 {value}
@@ -190,7 +188,8 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                         {tag.values.map((element: string) => {
                             let value = '';
                             if (tag.key === 'estimatedcost') {
-                                value = element === '0' ? '$0 - $2M' : ((element === '2') ? '$2M - $4M' : ((element === '4') ? '$4M - $6M' : (element === '6') ? '$6M - $8M' : '$8M - $10M'));
+                                const tagValues = element.split(',');
+                                value = elementCost(+tagValues[0], +tagValues[1]);
                             } else {
                                 if (tag.key === 'component_type') {
                                     value = (params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ?

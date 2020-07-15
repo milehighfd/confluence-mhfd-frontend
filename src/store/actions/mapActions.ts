@@ -244,7 +244,7 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
     const keyword = store.getState().map.filterProblems.keyword;
     const auxFilter = {
         problemname: filters.keyword,
-        solutioncost: [] as string[],
+        solutioncost: filters.cost,
         problempriority: filters.priority,
         solutionstatus: [] as string[],
         county: filters.county,
@@ -255,13 +255,6 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
         components: [] as any,
         keyword
     }
-    const solutioncost = filters.cost.split(',');
-    const auxSolutionCost = [];
-    for (let index = 0; index < solutioncost.length && filters.cost.length; index++) {
-        const element = solutioncost[index];
-        auxSolutionCost.push(element === '1' ? '1000000,10000000' : ((element === '5')? '5000000,10000000': ((element === '10') ? '10000000,15000000' : '20000000,25000000')));
-    }
-    auxFilter.solutioncost = auxSolutionCost;
     const solutionstatus = filters.solutionstatus.split(',');
     const auxSolutionStatus = []
     for (let index = 0; index < solutionstatus.length && filters.solutionstatus.length; index++) {
@@ -293,12 +286,12 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         status: filters.status,
         startyear: filters.startyear ? (''+ filters.startyear) : '0',
         completedyear: filters.completedyear ? (''+ filters.completedyear) : '9999',
-        mhfddollarsallocated: [] as string[],
+        mhfddollarsallocated: filters.mhfddollarsallocated,
         lgmanager: filters.lgmanager,
         streamname: filters.streamname,
         creator: filters.creator,
-        estimatedcost: [] as string[],
-        finalcost: [] as string[],
+        estimatedcost: filters.totalcost,
+        finalcost: filters.totalcost,
         workplanyr: filters.workplanyear, // workplanyr1, workplanyr2, workplanyr3, workplanyr4, workplanyr5
         // problemtype: filters.problemtype as any, // not exist in tables
         mhfdmanager: filters.mhfdmanager,
@@ -307,21 +300,6 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         problemtypeProjects: [] as any,
         keyword
     }
-    const totalcost = filters.totalcost.split(',');
-    const auxCost = [];
-    for (let index = 0; index < totalcost.length && filters.totalcost.length; index++) {
-        const element = totalcost[index];
-        auxCost.push(element === '0' ? '0,5000000' : ((element === '5')? '5000000,10000000': ((element === '10') ? '10000000,15000000' : (element === '15') ? '15000000,20000000' :'20000000,25000000')));
-    }
-    auxFilter.estimatedcost = auxCost;
-    auxFilter.finalcost = auxCost;
-    const mhfddollarsallocated = filters.mhfddollarsallocated.split(',');
-    const auxmhfddollarsallocated = [];
-    for (let index = 0; index < mhfddollarsallocated.length && filters.mhfddollarsallocated.length; index++) {
-        const element = mhfddollarsallocated[index];
-        auxmhfddollarsallocated.push(element === '1' ? '1000000,5000000' : ((element === '5')? '5000000,10000000': ((element === '10') ? '10000000,15000000' : (element === '15') ? '15000000,20000000' :'20000000,25000000')));
-    }
-    auxFilter.mhfddollarsallocated = auxmhfddollarsallocated;
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters});
         const params = '?problemtype=' + filters.problemtype;
@@ -397,18 +375,18 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
         component_type: filters.component_type,
         status: filters.status,
         year_of_study: filters.yearofstudy,
-        estimated_cost: [] as string[],
+        estimated_cost: filters.estimatedcost,
         jurisdiction: filters.jurisdiction,
         county: filters.county,
         mhfdmanager: filters.mhfdmanager
     }
-    const estimatedcost = filters.estimatedcost.split(',');
-    const auxCost = [];
-    for (let index = 0; index < estimatedcost.length && filters.estimatedcost.length; index++) {
-        const element = estimatedcost[index];
-        auxCost.push(element === '0' ? '0,2000000' : ((element === '2')? '2000000,4000000': ((element === '4') ? '4000000,6000000' : (element === '6') ? '6000000,8000000' :'8000000,10000000')));
-    }
-    auxFilter.estimated_cost = auxCost;
+    // const estimatedcost = filters.estimatedcost.split(',');
+    // const auxCost = [];
+    // for (let index = 0; index < estimatedcost.length && filters.estimatedcost.length; index++) {
+    //     const element = estimatedcost[index];
+    //     auxCost.push(element === '0' ? '0,2000000' : ((element === '2')? '2000000,4000000': ((element === '4') ? '4000000,6000000' : (element === '6') ? '6000000,8000000' :'8000000,10000000')));
+    // }
+    // auxFilter.estimated_cost = auxCost;
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_COMPONENT_OPTIONS, filters});
         dispatch({type: types.SET_FILTER_COMPONENTS, filters: auxFilter});

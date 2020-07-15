@@ -54,7 +54,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     const filterComponents = {...filterComponentOptions} as any;
     for (const key in filterComponentOptions) {
         let c = 0;
-        const tag = filterComponents[key].split(',');
+        const tag =  key === 'estimatedcost'?  filterComponents[key]: filterComponents[key].split(',');
         for (let index = 0; index < tag.length; index++) {
             const element = tag[index];
             if(element) {
@@ -65,7 +65,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     const filterProjects = {...filterProjectOptions} as any;
     for (const key in filterProjectOptions) {
         let c = 0;
-        const tag = filterProjects[key].split(',');
+        const tag = (key === 'mhfddollarsallocated' || key === 'totalcost')?  filterProjects[key]: filterProjects[key].split(',');
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
             for (let index = 0; index < tag.length; index++) {
                 const element = tag[index];
@@ -77,7 +77,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     }
     const filterProblems = {...filterProblemOptions} as any;
     for (const key in filterProblemOptions) {
-        const tag = filterProblems[key].split(',');
+        const tag = key === 'cost'?  filterProblems[key]: filterProblems[key].split(',');
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
             for (let index = 0; index < tag.length; index++) {
                 const element = tag[index];

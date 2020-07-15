@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Checkbox, Select, Button, Popover } from 'antd';
+import { elementCost } from '../../utils/utils';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
@@ -28,7 +29,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
     const apply = (values: any, field: string) => {
         const options = {...filterProblemOptions};
-        if('cost' === field || 'priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field) {
+        if('priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field) {
             let newValue = '';
             for (let index = 0; index < values.length; index++) {
                 const element = values[index];
@@ -46,7 +47,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         options.components = '';
         options.solutionstatus = '';
         options.county = '';
-        options.cost = '';
+        options.cost = [];
         options.priority = '';
         options.jurisdiction = '';
         options.mhfdmanager =  '';
@@ -60,13 +61,14 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5>Solution Cost <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <Checkbox.Group value={filterProblemOptions.cost.split(',')} onChange={(items) => {
+                <Checkbox.Group value={filterProblemOptions.cost} onChange={(items) => {
                     apply(items, 'cost');
                 }}>
-                    <p><Checkbox value='1'>$1M-$10M</Checkbox></p>
-                    <p><Checkbox value='5'>$5M-10M</Checkbox></p>
-                    <p><Checkbox value='10'>$10M-$15M</Checkbox></p>
-                    <p><Checkbox value='20'>$20M-$25M</Checkbox></p>
+                    {paramProblems.cost.map((element: {min: number, max: number, label: string}, index: number) => {
+                        return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
+                                {elementCost(element.min, element.max)}</Checkbox>
+                            </p>
+                    })}
                 </Checkbox.Group>
             </Col>
             <Col span={12}>
@@ -190,8 +192,10 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
 export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects, setToggleFilters } : any) => {
     const apply = (values: any, field: string) => {
+        console.log('filterProjectOptions:::', filterProjectOptions, paramProjects);
+        
         const options = {...filterProjectOptions};
-        if('projecttype' === field || 'totalcost' === field || 'status' === field || 'mhfddollarsallocated' === field || 'workplanyear' === field || 'problemtype' === field) {
+        if('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field) {
             let newValue = '';
             for (let index = 0; index < values.length; index++) {
                 const element = values[index];
@@ -207,9 +211,9 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     const reset = () => {
         const options = {...filterProjectOptions};
         options.projecttype = '';
-        options.totalcost = '';
+        options.totalcost = [];
         options.status = '';
-        options.mhfddollarsallocated = '';
+        options.mhfddollarsallocated = [];
         options.workplanyear = '';
         options.startyear =  '';
         options.completedyear = '';
@@ -238,14 +242,14 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         </Col>
         <Col span={12}>
             <h5>Total Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-            <Checkbox.Group value={filterProjectOptions.totalcost.split(',')} onChange={(item) => {
+            <Checkbox.Group value={filterProjectOptions.totalcost} onChange={(item) => {
                 apply(item, 'totalcost');
             }}>
-                <p><Checkbox value={'0'}>$0-$5M</Checkbox></p>
-                <p><Checkbox value={'5'}>$5M-$10M</Checkbox></p>
-                <p><Checkbox value={'10'}>$10M-$15M</Checkbox></p>
-                <p><Checkbox value={'15'}>$15M-$20M</Checkbox></p>
-                <p><Checkbox value={'20'}>$20M-$25M</Checkbox></p>
+                {paramProjects.estimatedCost.map((element: {min: number, max: number, label: string}, index: number) => {
+                    return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
+                        {elementCost(element.min, element.max)}</Checkbox>
+                    </p>
+                })}
             </Checkbox.Group>
         </Col>
     </Row>
@@ -287,14 +291,14 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     <Row className="filt-00">
         <Col span={12}>
             <h5>MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
-            <Checkbox.Group value={filterProjectOptions.mhfddollarsallocated.split(',')} onChange={(item) => {
+            <Checkbox.Group value={filterProjectOptions.mhfddollarsallocated} onChange={(item) => {
                 apply(item, 'mhfddollarsallocated');
             }}>
-                <p><Checkbox value={'0'}>$1M-$5M</Checkbox></p>
-                <p><Checkbox value={'5'}>$5M-$10M</Checkbox></p>
-                <p><Checkbox value={'10'}>$10M-$15M</Checkbox></p>
-                <p><Checkbox value={'15'}>$15M-$20M</Checkbox></p>
-                <p><Checkbox value={'20'}>$20M-$25M</Checkbox></p>
+                {paramProjects.mhfddollarsallocated.map((element: {min: number, max: number, label: string}, index: number) => {
+                    return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
+                        {elementCost(element.min, element.max)}</Checkbox>
+                    </p>
+                })}
             </Checkbox.Group>
         </Col>
         <Col span={12}>
@@ -405,7 +409,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects, setToggleFilters} : any) => {
     const apply = (values: any, field: string) => {
         const options = {...filterComponentOptions};
-        if('component_type' === field || 'status' === field || 'yearOfStudy' === field || 'estimatedCost' === field ) {
+        if('component_type' === field || 'status' === field || 'yearOfStudy' === field) {
             let newValue = '';
             for (let index = 0; index < values.length; index++) {
                 const element = values[index];
@@ -424,7 +428,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         options.component_type = '';
         options.status = '';
         options.yearofstudy = '';
-        options.estimatedcost = '';
+        options.estimatedcost = [];
         options.jurisdiction = '';
         options.county = '';
         options.mhfdmanager = '';
@@ -474,14 +478,14 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 </Col>
                 <Col span={12}>
                     <h5>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <Checkbox.Group value={filterComponentOptions.estimatedcost.split(',')} onChange={(item) => {
+                    <Checkbox.Group value={filterComponentOptions.estimatedcost} onChange={(item) => {
                         apply(item, 'estimatedcost');
                     }}>
-                        <p><Checkbox value={'0'}>$0-$2M</Checkbox></p>
-                        <p><Checkbox value={'2'}>$2M-$4M</Checkbox></p>
-                        <p><Checkbox value={'4'}>$4M-$6M</Checkbox></p>
-                        <p><Checkbox value={'6'}>$6M-$8M</Checkbox></p>
-                        <p><Checkbox value={'8'}>$8M-$10M</Checkbox></p>
+                        {paramComponents.estimatedcost.map((element: {min: number, max: number, label: string}, index: number) => {
+                            return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
+                                {elementCost(element.min, element.max)}</Checkbox>
+                            </p>
+                        })}
                     </Checkbox.Group>
                 </Col>
             </Row>
