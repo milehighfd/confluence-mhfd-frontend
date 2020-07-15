@@ -780,13 +780,14 @@ const Map = ({ leftWidth,
                              .addTo(map);
                     }
                 });
+                map.on('mouseenter', key + '_' + index, () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+                map.on('mouseleave', key + '_' + index, () => {     
+                    map.getCanvas().style.cursor = '';
+                })
             });
-            map.on('mouseenter', key, () => {
-                map.getCanvas().style.cursor = 'pointer';
-            });
-            map.on('mouseleave', key, () => {     
-                map.getCanvas().style.cursor = '';
-            })
+
         }
     }
     const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
