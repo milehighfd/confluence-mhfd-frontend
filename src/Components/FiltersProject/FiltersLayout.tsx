@@ -261,9 +261,11 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={filterProjectOptions.status.split(',')} onChange={(item) => {
                 apply(item, 'status');
             }}>
+                <div className="check-scroll">
                 {paramProjects.status.map((element: string, index: number) => {
                     return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
                 })}
+                </div>
             </Checkbox.Group>
         </Col>
         <Col span={12} className="filter-menu">
