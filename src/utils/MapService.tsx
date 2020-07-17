@@ -228,6 +228,9 @@ export class MapService {
   zoomIn() {
     this.map.zoomIn();
   }
+  getCanvas() {
+    return  this.map.getCanvas();
+  }
   zoomOut() {
     this.map.zoomOut();
   }

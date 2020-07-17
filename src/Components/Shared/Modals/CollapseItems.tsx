@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import { Collapse, Table, Row, Col, Menu } from 'antd';
+
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
 import { PROBLEMS_MODAL, PROJECTS_MODAL } from '../../../constants/constants';
 import { tileStyles } from '../../../constants/mapStyles';
+import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
+import { LayerStylesType } from '../../../Classes/MapTypes';
 // import DetailedModal from '../Modals/DetailedModal';
 
 
@@ -34,10 +38,34 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
     };
     waiting();
   }, []);
-
+  const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
+    <>
+        <ComponentPopup item={item}></ComponentPopup>
+    </>
+  );
+  const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
+      <>
+          <MainPopup item={item}></MainPopup>
+      </>
+  );
   const addLayer = () => {
     if(map) {
       let i = 0;
+      const styles = {...tileStyles as any};
+      for (const key in layers.components) {
+          map.addVectorSource(key, layers.components[key]);
+          i = 0;
+          if((detailedPage.problemid && type === PROBLEMS_MODAL) ||(detailedPage.projectid && type === PROJECTS_MODAL)) {
+            for (const component of styles[key] ) {
+              map.addLayer(key + i, key, component);
+              map.setFilter(key + i, ['in', type === PROBLEMS_MODAL ? 'problemid': 'projectid',type === PROBLEMS_MODAL ? detailedPage.problemid : detailedPage.projectid]);
+              i++;
+              
+            }
+            addMapListeners(key, key );
+          }
+
+      }
       if(type === PROBLEMS_MODAL) {
         map.addVectorSource('problems', layers.problems);
         for (const problem of tileStyles.problems) {
@@ -45,38 +73,30 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
           map.setFilter('problems-layer_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
           i++;
         }
+        addMapListeners('problems', 'problems-layer_');
+        let idProjectLine = 0;
+        let idProjectPolygon = 0;
         detailedPage.components.forEach((element: any) => {
           if(element.projectid) {
-            let i = 0;
+            // let i = 0;
             map.addVectorSource('projects-line', layers.projects.projects_line_1);
             for (const project of tileStyles.projects_line_1) {
-              map.addLayer('projects-line_' + i, 'projects-line', project);
-              map.setFilter('projects-line_' + i, ['in', 'projectid', element.projectid]);
-              i++;
+              map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
+              map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', element.projectid]);
+              idProjectLine++;
             }
             map.addVectorSource('projects-polygon', layers.projects.projects_polygon_);
-            i = 0;
+            // i = 0;
             for (const project of tileStyles.projects_polygon_) {
-              map.addLayer('projects-polygon_' + i, 'projects-polygon', project);
-              map.setFilter('projects-polygon_' + i, ['in', 'projectid', element.projectid]);
-              i++;
+              map.addLayer('projects-polygon_' + idProjectPolygon, 'projects-polygon', project);
+              map.setFilter('projects-polygon_' + idProjectPolygon, ['in', 'projectid', element.projectid]);
+              idProjectPolygon++;
             }
           }
         });
+        addMapListeners('projects_line_1', 'projects-line_');
+        addMapListeners('projects_polygon_', 'projects-polygon_');
       } else {
-        map.addVectorSource('projects-line', layers.projects.projects_line_1);
-        for (const project of tileStyles.projects_line_1) {
-          map.addLayer('projects-line_' + i, 'projects-line', project);
-          map.setFilter('projects-line_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
-          i++;
-        }
-        map.addVectorSource('projects-polygon', layers.projects.projects_polygon_);
-        i = 0;
-        for (const project of tileStyles.projects_polygon_) {
-          map.addLayer('projects-polygon_' + i, 'projects-polygon', project);
-          map.setFilter('projects-polygon_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
-          i++;
-        }
         detailedPage.problems.forEach((element: any) => {
           if(element.problemid) {
             i = 0;
@@ -88,26 +108,246 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
             }
           }
         });
-      }
-
-      const styles = {...tileStyles as any};
-      for (const key in layers.components) {
-          map.addVectorSource(key, layers.components[key]);
-          i = 0;
-          if((detailedPage.problemid && type === PROBLEMS_MODAL) ||(detailedPage.projectid && type === PROJECTS_MODAL)) {
-            for (const component of styles[key] ) {
-              map.addLayer(key + i, key, component);
-              map.setFilter(key + i, ['in', type === PROBLEMS_MODAL ? 'problemid': 'projectid',type === PROBLEMS_MODAL ? detailedPage.problemid : detailedPage.projectid]);
-              i++;
-            }
-          }
-
+        addMapListeners('problems', 'problems-layer_');
+        map.addVectorSource('projects-line', layers.projects.projects_line_1);
+        let idProjectLine = 0;
+        let idProjectPolygon = 0;
+        for (const project of tileStyles.projects_line_1) {
+          map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
+          map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+          idProjectLine++;
+        }
+        map.addVectorSource('projects-polygon', layers.projects.projects_polygon_);
+        i = 0;
+        for (const project of tileStyles.projects_polygon_) {
+          map.addLayer('projects-polygon_' + idProjectPolygon, 'projects-polygon', project);
+          map.setFilter('projects-polygon_' + idProjectPolygon, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+          idProjectPolygon++;
+        }
+        addMapListeners('projects_line_1', 'projects-line_');
+        addMapListeners('projects_polygon_', 'projects-polygon_');
+        
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
       // const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
       map.fitBounds([detailedPage.coordinates[0][0],detailedPage.coordinates[0][2]]);
     }
   }
+  const addMapListeners = (key: string, value: string) => {
+    const styles = { ...tileStyles as any };
+    if (styles[key]) {
+        styles[key].forEach((style : LayerStylesType, index : number) => {
+          let html: any = null;
+            if (!map.getLayer(value + index)) {
+                return;
+            }
+            map.addMouseEnter(value + index, () => {
+              map.getCanvas().style.cursor = 'pointer';
+            });
+            map.removeMouseEnter(value + index, () => {
+              map.getCanvas().style.cursor = '';
+            });
+            map.click(value + index, (e:any) => {
+              
+              if (key === 'problems') {
+                  const item = {
+                      type: 'problems',
+                      title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
+                      name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
+                      organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
+                      value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '-',
+                      status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
+                      priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority : '-'
+                  };
+                  html = loadMainPopup(item);
+              }
+              if (key.includes('projects') && !key.includes('mep')) {
+                  const item = {
+                      type: 'projects',
+                      title: 'Project',
+                      name: e.features[0].properties.projectname ? e.features[0].properties.projectname : e.features[0].properties.requestedname ? e.features[0].properties.requestedname : '-',
+                      organization: e.features[0].properties.sponsor ? e.features[0].properties.sponsor : 'No sponsor',
+                      value: e.features[0].properties.finalCost ? e.features[0].properties.finalCost : e.features[0].properties.estimatedCost ? e.features[0].properties.estimatedCost : '-',
+                      status: e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
+                      projecctype: e.features[0].properties.projecctype ? e.features[0].properties.projecctype : '-'
+                  };
+                  html = loadMainPopup(item);
+              }
+              if (key === 'grade_control_structure') {
+                  const item = {
+                      layer: 'Components',
+                      subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',
+                      status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
+                      estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
+                      studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
+                      jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
+                      problem: 'Dataset in development'
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'pipe_appurtenances') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Pipe Appurtenances',
+                      description: e.features[0].properties.description ? e.features[0].properties.description: '-'
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'special_item_point') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Special Item Point',
+                  };
+                  html = loadComponentPopup(item)
+              }
+              if (key === 'special_item_linear') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Special Item Linear',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'special_item_area') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Special Item Area',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'channel_improvements_linear') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Channel Improvements Linear',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'channel_improvements_area') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Channel Improvements Area',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'removal_line') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Removal Line',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'removal_area') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Removal Area',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'storm_drain') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Storm Drain',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'detention_facilities') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Detention Facilities',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'maintenance_trails') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Maintenance Trails',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'land_acquisition') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Land Acquisition',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'landscaping_area') {
+                  const item = {
+                      layer: 'Components',
+                      feature: 'Landscaping Area',
+                  };
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'mep_projects_temp_locations') {
+                  const item = {
+                      layer: 'MEP Temporary Location',
+                      feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
+                      projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
+                      mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
+                      mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
+                      notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
+                      servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
+                  }
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'mep_projects_detention_basins') {
+                  const item = {
+                      layer: 'MEP Detention Basin',
+                      feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
+                      projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
+                      mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
+                      mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
+                      notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
+                      servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
+                  }
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'mep_projects_channels') {
+                  const item = {
+                      layer: 'MEP Channel',
+                      feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
+                      projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
+                      mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
+                      mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
+                      notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
+                      servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
+                  }
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'mep_projects_storm_outfalls') {
+                  const item = {
+                      layer: 'MEP Storm Outfall',
+                      feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
+                      projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
+                      mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
+                      mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
+                      notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
+                      servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
+                  }
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'watershed_service_areas') {
+                  const item = {
+                      layer: 'Service Area',
+                      feature: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-',
+                      watershedmanager: e.features[0].properties.watershedmanager ? e.features[0].properties.watershedmanager : '-',
+                      constructionmanagers: e.features[0].properties.constructionmanagers ? e.features[0].properties.constructionmanagers : '-',
+                  }
+                  html = loadComponentPopup(item);
+              }
+              if (key === 'catchments' || key === 'basin') {
+                  const item = {
+                      layer: 'Watershed',
+                      feature: e.features[0].properties.str_name ? e.features[0].properties.str_name : 'No name'
+                  }
+                  html = loadComponentPopup(item);
+              }
+              if (html) {
+                map.addPopUp(e.lngLat, html);
+              }
+            });
+        });
+    }
+}
   const total = data.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
   let columns = [];
   if (type === PROJECTS_MODAL) {

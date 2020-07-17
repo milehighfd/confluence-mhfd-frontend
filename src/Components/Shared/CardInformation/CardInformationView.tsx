@@ -15,7 +15,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean, 
                 setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any }) => {
   const [visible, setVisible] = useState(false);
-  console.log('my data is ', data, selectedOnMap);
   return (
     <>
       {visible && <DetailedModal
