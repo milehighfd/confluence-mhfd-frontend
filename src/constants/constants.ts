@@ -44,7 +44,7 @@ export const COMPONENTS_TRIGGER = 'components';
 
 // Map Layer Filters
 export const FLOODPLAINS_FEMA_FILTERS = 'national_flood_hazard_layer';
-export const FLOODPLAINS_NON_FEMA_FILTERS = 'udfcd_fhad_floodplains';
+export const FLOODPLAINS_NON_FEMA_FILTERS = 'fema_flood_hazard_zones';
 export const WATERSHED_FILTERS = 'catchments'; //'basins';
 export const STREAMS_FILTERS = 'streams';
 

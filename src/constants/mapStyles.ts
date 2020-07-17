@@ -459,7 +459,7 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#f7b532',
+        'fill-color': 'red',
         'fill-opacity': 0.7
     }
   }, {
@@ -467,9 +467,9 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#915e10',
+        'line-color': 'red',
         'line-width': 0.5,
-        'line-opacity': 0.5
+        'line-opacity': 1
     }
   }], 
   [WATERSHED_FILTERS]: [{
