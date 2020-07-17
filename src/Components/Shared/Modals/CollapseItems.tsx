@@ -10,7 +10,7 @@ import { tileStyles } from '../../../constants/mapStyles';
 const { Panel } = Collapse;
 
 export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal }:
-       { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string, 
+       { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string,
         loaderTableCompoents: boolean, updateModal: Function }) => {
   const [ active, setActive ] = useState(['4']);
   let html = document.getElementById('map2');
@@ -174,7 +174,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
     //setProblemId(problemid);
     updateModal(problem[0].problemid);
   }
-  
+
   const columnProblems = [
     {
       title: 'Name',
@@ -186,7 +186,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       dataIndex: 'problempriority'
     }
   ];
-  
+
   const genExtra = (key: string) => {
     html = document.getElementById('map2');
     return <div key={key} className="divider" onClick={() => {
@@ -208,7 +208,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
             <Col span={24}>
               <Table loading={false} columns={columnProblems} rowKey={(record: any) => record.problemid} dataSource={detailedPage.problems} pagination={false}
                 onChange={(pagination, filters, sort) => {
-                  
+
                 }} />
             </Col>
           </Row>
@@ -270,8 +270,8 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       </Panel>
 
       <Panel header="Map" key="4" extra={genExtra('4')}>
-        <div className="map">
-          <div id="map2" style={{ height: '80%', width: '100%' }} >
+        <div className="map" style={{height:'725px !important'}}>
+          <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div></div>
           </div>
         </div>

@@ -924,7 +924,7 @@ const Map = ({ leftWidth,
             </Dropdown> */}
 
             <div className="m-footer">
-              <Collapse accordion >
+              <Collapse accordion defaultActiveKey={['1']}>
                 <Panel header="Legend" key="1" extra={genExtra()}>
                 <hr />
                 <div className="scroll-footer">
