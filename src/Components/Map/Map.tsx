@@ -10,7 +10,8 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { MainPopup, ComponentPopup } from './MapPopups';
-import { Dropdown, Button } from 'antd';
+import { Dropdown, Button, Collapse } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import { MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import { MAP_DROPDOWN_ITEMS,
         MAPBOX_TOKEN, HERE_TOKEN,
@@ -45,6 +46,10 @@ type LayersType = string | ObjectLayerType;
 
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
+const { Panel } = Collapse;
+const genExtra = () => (
+  <CloseOutlined />
+);
 
 const Map = ({ leftWidth,
             layers,
@@ -62,7 +67,7 @@ const Map = ({ leftWidth,
             polygon,
             getPolygonStreams,
             updateSelectedLayers,
-            setFilterCoordinates, 
+            setFilterCoordinates,
             highlighted,
             filterProblems,
             filterProjects,
@@ -919,7 +924,8 @@ const Map = ({ leftWidth,
             </Dropdown> */}
 
             <div className="m-footer">
-                <h5>Legend</h5>
+              <Collapse accordion >
+                <Panel header="Legend" key="1" extra={genExtra()}>
                 <hr />
                 <div className="scroll-footer">
                     {layerObjects.filter((element: any)  => element.name === PROJECTS_MAP_STYLES.name ).length ? <>
@@ -975,7 +981,8 @@ const Map = ({ leftWidth,
                         <p><span className="color-footer-boundary" style={{ border: '1px dashed' }} />MHFD Boundary</p>
                     </> : '' }
                 </div>
-
+                </Panel>
+              </Collapse>
             </div>
 
             {/* <div className="m-zoom">

@@ -82,6 +82,7 @@ export default ({user}: {user: User}) => {
   const menu = (
     <Menu className="menu-login-dropdown ">
       <Menu.Item className="login-dropdown" onClick={logout}>Logout</Menu.Item>
+      <Menu.Item className="login-dropdown">My Profile</Menu.Item>
     </Menu>
   );
 
