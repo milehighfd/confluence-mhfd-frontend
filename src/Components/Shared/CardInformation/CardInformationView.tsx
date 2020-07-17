@@ -34,7 +34,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
       <Col span={8}>
         <Card
           hoverable
-          style={{ width: '100%' }}
+          style={{ width: '100%', boxShadow: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? '0 2px 8px rgba(61, 46, 138, 0.8)' : '' }}
           onClick={() => setVisible(true)}
           onMouseEnter={() =>  setHighlighted({type: data.type, value: data.value})}
           onMouseLeave={()=> setHighlighted({type: '', value: ''})}
