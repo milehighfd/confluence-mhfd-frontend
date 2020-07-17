@@ -111,7 +111,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                   {detailedPage.problemid ? (
                     <div className="detailed-c"> <img width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
                   ) : (
-                      <div className="detailed-c"> <img width="100%" src={detailedPage.attachments.length > 0 ? detailedPage.attachments : (
+                      <div className="detailed-c"> <img width="100%" src={detailedPage.attachments ? detailedPage.attachments : (
                         detailedPage.projecttype === 'Capital' ? 'projectImages/capital.png' :
                           detailedPage.projecttype === 'Study' ? 'projectImages/study.png' :
                             detailedPage.projecttype === 'Maintenance' ?
