@@ -32,7 +32,8 @@ export type MapProps = {
     filterComponents: any,
     setSpinValue: Function,
     componentDetailIds: any,
-    isExtendedView: boolean
+    isExtendedView: boolean,
+    setSelectedOnMap: Function
 }
 
 export type MapHOCProps = {
@@ -104,7 +105,9 @@ export type MapHOCProps = {
     existDetailedPageProblem: Function,
     displayModal: boolean,
     componentDetailIds: any,
-    loaderTableCompoents: boolean
+    loaderTableCompoents: boolean,
+    selectedOnMap: any,
+    setSelectedOnMap: Function
 }
 
 export type MapViewTypes = { 
@@ -143,7 +146,9 @@ export type MapViewTypes = {
     existDetailedPageProject: Function,
     existDetailedPageProblem: Function,
     displayModal: boolean,
-    loaderTableCompoents: boolean
+    loaderTableCompoents: boolean,
+    selectedOnMap: any,
+    setSelectedOnMap: Function
 }
 export type OptionProblems = {
     keyword: string,

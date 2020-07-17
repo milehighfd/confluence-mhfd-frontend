@@ -3,6 +3,7 @@ import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER } from '../../constants/constants
 
 const initState = {
     error: '',
+    selectedOnMap: {id: -1, tab: ''},
     redirect: false,
     newProject: {
         jurisdiction: '',
@@ -400,6 +401,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 loaderTableCompoents: action.spin
+            }
+        }
+        case types.SET_SELECTED_ON_MAP: {
+            return {
+                ...state,
+                selectedOnMap: {id: action.id, tab: action.tab}
             }
         }
         default: 

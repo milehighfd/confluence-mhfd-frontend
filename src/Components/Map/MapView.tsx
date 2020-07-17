@@ -39,7 +39,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   filterProjectOptions, filterCoordinates, setFilterProblemOptions,
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
-                  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents } : MapViewTypes) => {
+                  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap } : MapViewTypes) => {
   
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
@@ -365,6 +365,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             if(value === FILTER_PROBLEMS_TRIGGER) {
               cardInformation = galleryProblems.map(problem => {
                 return {
+                  cartodb_id: problem.cartodb_id,
                   image: `gallery/${problem.problemtype}.jpg`,
                   requestName: problem.problemname,
                   jurisdiction: problem.jurisdiction,
@@ -383,6 +384,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             } else {
               cardInformation = galleryProjects.map(project => {
                 return {
+                  cartodb_id: project.cartodb_id,
                   image: project.attachments ? project.attachments : (
                     project.projecttype === 'Capital' ? '/projectImages/capital.png' :
                     project.projecttype === 'Study' ? '/projectImages/study.png' :
@@ -434,7 +436,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       setFilterProblemOptions={setFilterProblemOptions}
                       setFilterProjectOptions={setFilterProjectOptions}
                       componentsOfProblems={componentsOfProblems}
-                      loaderTableCompoents={loaderTableCompoents}/>
+                      loaderTableCompoents={loaderTableCompoents}
+                      selectedOnMap={selectedOnMap}/>
               </TabPane>
             );
           })}

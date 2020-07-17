@@ -14,7 +14,7 @@ const { Panel } = Collapse;
 export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, totalElements, type, setType, listDescription,
     cardInformation, accordionRow, removeFilter, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId,
     filterComponentOptions, setFilterComponentOptions, getGalleryProjects, getGalleryProblems, filterProblemOptions,
-    filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, componentsOfProblems, loaderTableCompoents }: any) => {
+    filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, componentsOfProblems, loaderTableCompoents, selectedOnMap }: any) => {
     let totalElement = cardInformation.length;
     const size = 6;
     let sw = false;
@@ -247,6 +247,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                             getComponentsByProblemId={getComponentsByProblemId}
                             componentsOfProblems={componentsOfProblems}
                             loaderTableCompoents={loaderTableCompoents}
+                            selectedOnMap={selectedOnMap}
                         />
                     }) : ''}
                 </InfiniteScroll>

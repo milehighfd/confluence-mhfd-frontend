@@ -509,3 +509,9 @@ export const setHighlighted = (data: any) => {
         dispatch({type: types.GET_HIGHLIGHTED, data});
     };
 }
+
+export const setSelectedOnMap = (id: number, tab: string) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_SELECTED_ON_MAP, id, tab });
+    };
+}

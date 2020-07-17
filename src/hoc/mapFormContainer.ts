@@ -24,7 +24,8 @@ import { getReverseGeocode,
         setProblemKeyword,
         setProjectKeyword,
         existDetailedPageProject,
-        existDetailedPageProblem
+        existDetailedPageProblem,
+        setSelectedOnMap
         } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
@@ -69,7 +70,8 @@ const mapStateToProps = (state: any) => {
         componentsOfProblems: state.map.componentsByProblemId,
         displayModal: state.detailed.displayModal,
         componentDetailIds: state.map.componentDetailIds,
-        loaderTableCompoents: state.map.loaderTableCompoents
+        loaderTableCompoents: state.map.loaderTableCompoent,
+        selectedOnMap: state.map.selectedOnMap
     };
 };
 
@@ -107,7 +109,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         setProblemKeyword,
         setProjectKeyword,
         existDetailedPageProject,
-        existDetailedPageProblem
+        existDetailedPageProblem,
+        setSelectedOnMap
     }, dispatch)
 });
   

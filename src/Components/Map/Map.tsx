@@ -69,7 +69,8 @@ const Map = ({ leftWidth,
             filterComponents,
             setSpinValue,
             componentDetailIds,
-            isExtendedView
+            isExtendedView,
+            setSelectedOnMap
              } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
@@ -783,11 +784,17 @@ const Map = ({ leftWidth,
                              .addTo(map);
                     }
                 });
-                map.on('mouseenter', key + '_' + index, () => {
+                map.on('mouseenter', key + '_' + index, (e: any) => {
                     map.getCanvas().style.cursor = 'pointer';
+                    if (key.includes('projects') || key === 'problems') {
+                        setSelectedOnMap(e.features[0].properties.cartodb_id, key);
+                    } else {
+                        setSelectedOnMap(-1, '');
+                    }
                 });
                 map.on('mouseleave', key + '_' + index, () => {
                     map.getCanvas().style.cursor = '';
+                    setSelectedOnMap(-1, '');
                 })
             });
             map.on('mouseenter', key, () => {
