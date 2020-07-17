@@ -112,7 +112,7 @@ const initState = {
         column: 'streamname',
         order: 'asc',
         projecttype: '',
-        status: '',
+        status: 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual',
         startyear: '',
         completedyear: '',
         mhfddollarsallocated: [],
@@ -151,7 +151,7 @@ const initState = {
     filterProjects: {
         projectname: '',
         projecttype: '',
-        status: '',
+        status: 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual',
         startyear: '0',
         completedyear: '9999',
         mhfddollarsallocated: [],
