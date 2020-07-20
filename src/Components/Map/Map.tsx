@@ -30,7 +30,7 @@ import { MAP_DROPDOWN_ITEMS,
         COUNTIES_FILTERS,
         MHFD_BOUNDARY_FILTERS,
         SELECT_ALL_FILTERS,
-        MAP_RESIZABLE_TRANSITION} from "../../constants/constants";
+        MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS} from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles} from '../../constants/mapStyles';
 import { addMapGeocoder } from '../../utils/mapUtils';
@@ -233,8 +233,6 @@ const Map = ({ leftWidth,
         paintSelectedComponents(selectedItems);
     }, [selectedItems]);
     useEffect(() => {
-        console.log('simio simio simio');
-
         map.on('style.load', () => {
             const waiting = () => {
               if (!map.isStyleLoaded()) {
@@ -326,7 +324,7 @@ const Map = ({ leftWidth,
     }
 
     const applyFilters =  (key: string, toFilter: any) => {
-        const styles = { ...tileStyles as any };
+        const styles = { ...tileStyles as any };        
         styles[key].forEach((style : LayerStylesType, index : number) => {
             if (!map.getLayer(key + '_' + index)) {
                 return;
@@ -960,6 +958,9 @@ const Map = ({ leftWidth,
                     </> : '' }
                     {layerStrings.includes(FLOODPLAINS_FEMA_FILTERS) ? <>
                         <p><span style={{ background: '#f7b532', border: 'hidden' }} />National Flood Hazard Layer</p>
+                    </> : '' }
+                    {layerStrings.includes(FLOODPLAINS_NON_FEMA_FILTERS) ? <>
+                        <p><span style={{ background: 'red', border: 'hidden' }} />FEMA NFHL</p>
                     </> : '' }
                     {layerStrings.includes(WATERSHED_FILTERS) ? <>
                         <p><span className="color-footer-watershed" style={{ border: '1px dashed' }} />Watershed</p>

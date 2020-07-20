@@ -459,7 +459,17 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': 'red',
+        'fill-color': [
+          'match',
+          ['get', 'fld_zone'],
+          'A',
+          'red',
+          'AE',
+          'red',
+          'AO',
+          'red',
+          'transparent'
+        ],
         'fill-opacity': 0.7
     }
   }, {
@@ -467,7 +477,17 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': 'red',
+        'line-color': [
+          'match',
+          ['get', 'fld_zone'],
+          'A',
+          'red',
+          'AE',
+          'red',
+          'AO',
+          'red',
+          'transparent'
+        ],
         'line-width': 0.5,
         'line-opacity': 1
     }
