@@ -1,5 +1,5 @@
 import * as types from '../types/mapTypes';
-import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER } from '../../constants/constants';
+import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS } from '../../constants/constants';
 
 const initState = {
     error: '',
@@ -91,7 +91,7 @@ const initState = {
     layers: {} as any,
     longitude: 0,
     latitude: 0,
-    selectedLayers: [PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER],
+    selectedLayers: [PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS],
     galleryProblems: [],
     galleryProjects: [],
     filterProblemOptions: {

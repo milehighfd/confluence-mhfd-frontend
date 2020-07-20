@@ -35,14 +35,14 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <p><Checkbox value={FLOODPLAINS_FEMA_FILTERS}>Floodplains</Checkbox></p>
                   <p><Checkbox value={FLOODPLAINS_NON_FEMA_FILTERS}>FEMA NFHL</Checkbox></p>
                   <p><Checkbox value={WATERSHED_FILTERS}>Watersheds</Checkbox></p>
-                  <p><Checkbox value={STREAMS_FILTERS}>Streams</Checkbox></p>
+                  <p style={{display: 'none'}}><Checkbox value={STREAMS_FILTERS}>Streams</Checkbox></p>
               </Col>
               <Col span={7}>
                 <h6>BOUNDARIES</h6>
                 <p><Checkbox value={SERVICE_AREA_LAYERS}>Service Areas</Checkbox></p>
                 <p><Checkbox value={MUNICIPALITIES}>Municipalities</Checkbox></p>
                 <p><Checkbox value={COUNTIES_LAYERS}>Counties</Checkbox></p>
-                <p><Checkbox value={MHFD_BOUNDARY_FILTERS}>MHFD Boundary</Checkbox></p>
+                <p style={{display: 'none'}}><Checkbox value={MHFD_BOUNDARY_FILTERS}>MHFD Boundary</Checkbox></p>
               </Col>
               <Col span={8}>
                 <h6>MHFD DATA</h6>
@@ -58,13 +58,13 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
           <div className="btn-footer">
             <Button className="btn-00" onClick={() => {
               if (isExtendedView) { 
-                setSelectedCheckBox([]);
+                setSelectedCheckBox([STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS]);
                 // setCheckboxes([]);
-                selectCheckboxes([]);
+                selectCheckboxes([STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS]);
               } else {
-                setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
+                setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS]);
                 // setCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
-                selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
+                selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS]);
               }
               removePopup();
               setVisibleDropdown(false);

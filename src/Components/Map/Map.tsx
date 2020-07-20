@@ -965,9 +965,9 @@ const Map = ({ leftWidth,
                     {layerStrings.includes(WATERSHED_FILTERS) ? <>
                         <p><span className="color-footer-watershed" style={{ border: '1px dashed' }} />Watershed</p>
                     </> : '' }
-                    {layerStrings.includes(STREAMS_FILTERS) ? <>
+                    {/* {layerStrings.includes(STREAMS_FILTERS) ? <>
                         <p><span style={{ background: '#66d4ff', height: '3px', marginTop: '7px', border: 'hidden' }} />Stream</p>
-                    </> : '' }
+                    </> : '' } */}
                     {layerStrings.includes(SERVICE_AREA_FILTERS) ? <>
                         <p><span className="color-footer-service-area" style={{ border: '1px dashed' }} />Service Area</p>
                     </> : '' }
@@ -977,9 +977,9 @@ const Map = ({ leftWidth,
                     {layerStrings.includes(COUNTIES_FILTERS) ? <>
                         <p><span style={{ background: '#7b2491', border: 'hidden' }} />County</p>
                     </> : '' }
-                    {layerStrings.includes(MHFD_BOUNDARY_FILTERS) ? <>
+                    {/* {layerStrings.includes(MHFD_BOUNDARY_FILTERS) ? <>
                         <p><span className="color-footer-boundary" style={{ border: '1px dashed' }} />MHFD Boundary</p>
-                    </> : '' }
+                    </> : '' } */}
                 </div>
                 </Panel>
               </Collapse>
