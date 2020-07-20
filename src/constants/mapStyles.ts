@@ -359,15 +359,17 @@ const ROUTINE_MAINTENANCE_STYLES = {
       'line-opacity': 0
     }
   }],
-  [ROUTINE_DEBRIS_AREA]: [{
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'fill-color': '#bebdbf',
-        'fill-opacity': 0.9
-    }
-  },{
+  [ROUTINE_DEBRIS_AREA]: [
+  //   {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   layout: {},
+  //   paint: {
+  //       'fill-color': '#bebdbf',
+  //       'fill-opacity': 0.9
+  //   }
+  // },
+  {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
