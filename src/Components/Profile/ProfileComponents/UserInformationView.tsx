@@ -31,6 +31,9 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
     return isLt2M;
   }
 
+  const hideProfile = () => {
+  }
+
   const typeProjects = PROJECT_TYPES_AND_NAME;
   return <> <Col span={12} className="profile-info">
     <div style={{ position: 'relative', minWidth: '135px', width: '135px', height: '120px' }}>
@@ -100,7 +103,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
         })}
         <Popover content={content} placement="left"><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover>
       </div>
-      <ModalEditUserView updateUserInformation={updateUserInformation} user={user} />
+      <ModalEditUserView updateUserInformation={updateUserInformation} user={user} isVisible={false} hideProfile={hideProfile} />
     </Col>
   </>
 }

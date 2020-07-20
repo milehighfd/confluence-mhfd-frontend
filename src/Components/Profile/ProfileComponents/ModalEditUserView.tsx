@@ -10,7 +10,7 @@ import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULT
 
 const content = (<div className="popoveer-00">Defines the Area-Of-Interest for the map and the respective projects and problems shown in the Map Gallery and My Confluence screens.</div>);
 
-export default ({ user, updateUserInformation }: { user: User, updateUserInformation: Function }) => {
+export default ({ user, updateUserInformation, isVisible, hideProfile }: { user: User, updateUserInformation: Function, isVisible: boolean, hideProfile: Function }) => {
   const initialValues = { ...user };
   const [organization, setOrganization] = useState<Array<string>>([]);
   const [title, setTitle] = useState('');
@@ -48,6 +48,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
     validationSchema,
     async onSubmit(values: User) {
       await updateUserInformation(values);
+      hideProfile();
       handleCancel();
     }
   });
@@ -145,7 +146,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
         // </Menu>
   };
   const stateValue = {
-    visible: false
+    visible: isVisible ? isVisible : false
   }
   const [state, setState] = useState(stateValue);
   const showModal = () => {
@@ -165,6 +166,7 @@ export default ({ user, updateUserInformation }: { user: User, updateUserInforma
     auxState.visible = false;
     asign();
     setState(auxState);
+    hideProfile();
   };
   return <div className="edit-profile">
     <Button onClick={showModal}>

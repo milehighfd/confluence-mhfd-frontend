@@ -5,14 +5,16 @@ import { Redirect, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
 import { User } from "../../../Classes/TypeList";
+import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
 const content = (<div className="popoveer-00">Notifications (Under Construction)</div>
 );
 
-export default ({user}: {user: User}) => {
+export default ({user, updateUserInformation}: {user: User, updateUserInformation : Function}) => {
   const [ key, setKey] = useState('1');
+  const [ openProfile, setOpenProfile] = useState(false);
   const stateValue = {
     visible: false
   }
@@ -78,14 +80,19 @@ export default ({user}: {user: User}) => {
     datasets.logout();
     setRedirect(true);
   }
+  const showProfile = () => {
+    setOpenProfile(true);
+  }
+  const hideProfile = () => {
+    setOpenProfile(false);
+  }
   //  className="menu-login-dropdown" className="login-dropdown"
   const menu = (
     <Menu className="menu-login-dropdown ">
-      <Menu.Item className="login-dropdown">My Profile</Menu.Item>
+      <Menu.Item className="login-dropdown" onClick={showProfile}>My Profile</Menu.Item>
       <Menu.Item className="login-dropdown" onClick={logout}>Logout</Menu.Item>
     </Menu>
   );
-
 
   if (redirect) {
     return <Redirect to="/login" />
@@ -95,6 +102,8 @@ export default ({user}: {user: User}) => {
     <div className="logo"
       style={{ backgroundImage: 'url(/Icons/logo-02.svg)' }}
     />
+    { openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user} 
+      isVisible={true} hideProfile={hideProfile} />}
     <h6>{value}</h6>
     <Menu
       theme="dark"
