@@ -46,7 +46,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           <div style={{ height: 40 }}>
             <h4>{data.requestName}</h4>
           </div>
-          {type === 'Problems' ? <Popover placement="topLeft" content={content}><h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6></Popover> : <h6>{data.jurisdiction ? data.jurisdiction : 'No Sponsor'}</h6>}
+          {type === 'Problems' ? <Popover placement="topLeft" content={content}><h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6></Popover> : <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>}
           <Popover placement="topLeft" content={cost}>
            <h5>${numberWithCommas(data.finalCost ? data.finalCost : data.estimatedCost)} <Popover content={total}><span style={{ float: 'right' }}><b>{data.totalComponents} Components</b></span></Popover> </h5>
           </Popover>

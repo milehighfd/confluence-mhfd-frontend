@@ -365,7 +365,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         sorter: true
       },
       {
-        title: 'Percent',
+        title: 'Complete',
         dataIndex: 'percen',
         render: (percen: number) => Math.round(percen * 10) /10 + '%',
         sorter: true
@@ -393,7 +393,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         sorter: true
       },
       {
-        title: 'Percent',
+        title: 'Complete',
         dataIndex: 'percen',
         render: (percen: number) => Math.round(percen * 10) /10 + '%',
         sorter: true,
@@ -493,7 +493,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         </div>
       </Panel> */}
 
-      <Panel header={type === PROBLEMS_MODAL ? 'Component & solutions' : "Component & solutions"} key="3" extra={genExtra('3')}>
+      <Panel header={type === PROBLEMS_MODAL ? 'Solution Components' : 'Solution Components'} key="3" extra={genExtra('3')}>
         <Row className="table-up-modal">
           <Col span={24}>
             <Table loading={loaderTableCompoents} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
