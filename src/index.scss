@@ -1417,6 +1417,8 @@ body{
     padding: 4px;
     color: $white;
     font-weight: 600;
+    top: -1px;
+    position: relative;
   }
 }
 .card-map{
@@ -1708,11 +1710,11 @@ body{
   .anticon-close{
     border: none;
   }
-  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
-    display: none;
-  }
   hr{
     margin-top: 0px;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow svg {
+    transform: rotate(270deg);
   }
 }
 .map .m-zoom{
@@ -3034,7 +3036,7 @@ body{
   }
 }
 .detailed-h{
-  height: 80px !important;
+  // height: 80px !important;
   min-height: 80px;
   background: $opacity00;
   padding: 10px 20px;
@@ -3044,9 +3046,11 @@ body{
     font-size: 21px;
     color: $purple00;
     margin-bottom: -5px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    // overflow: hidden;
+    line-height: 22px;
+    margin-bottom: 7px;
   }
   p{
     font-size: 14px;

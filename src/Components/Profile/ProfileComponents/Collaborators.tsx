@@ -17,7 +17,7 @@ export default () => {
           bordered={false}
           defaultActiveKey={['1']}
           className="site-collapse-custom-collapse">
-          <Panel header="West Tollgate Creek GSB Drops" key="1" className="site-collapse-custom-panel" extra={genExtra()}>
+          <Panel header="Project 1" key="1" className="site-collapse-custom-panel" extra={genExtra()}>
             <div className="chat-r pad-collab">
               <Row>
                 <Col span={3}>
@@ -33,7 +33,7 @@ export default () => {
               </Row>
             </div>
           </Panel>
-          <Panel header="Piney Creek Channel Restoration" key="2" className="site-collapse-custom-panel" extra={genExtra()}>
+          <Panel header="Project 2" key="2" className="site-collapse-custom-panel" extra={genExtra()}>
             <div className="chat-r pad-collab">
               <Row>
                 <Col span={3}>
@@ -49,7 +49,7 @@ export default () => {
               </Row>
             </div>
           </Panel>
-          <Panel header="Murphy Creek Bank Stabilization" key="3" className="site-collapse-custom-panel" extra={genExtra()}>
+          <Panel header="Project 3" key="3" className="site-collapse-custom-panel" extra={genExtra()}>
             <div className="chat-r pad-collab">
               <Row>
                 <Col span={3}>

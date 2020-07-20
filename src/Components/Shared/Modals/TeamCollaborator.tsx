@@ -22,10 +22,10 @@ export default () => {
       </Col>
       <Col span={13}>
         <h6>TBD</h6>
-        <p>Floodplain Administration</p>
+        <p>Project Manager</p>
       </Col>
       <Col span={7} style={{ textAlign: 'right' }}>
-        <span>City of Littleton</span>
+        <span>Sponsor</span>
       </Col>
     </Row>
     <Row>
@@ -34,10 +34,10 @@ export default () => {
       </Col>
       <Col span={13}>
         <h6>TBD</h6>
-        <p>People Manager</p>
+        <p>Project Manager</p>
       </Col>
       <Col span={7} style={{ textAlign: 'right' }}>
-        <span>Olsson</span>
+        <span>Consultant</span>
       </Col>
     </Row>
     <Row>
@@ -49,7 +49,7 @@ export default () => {
         <p>Project Engineer</p>
       </Col>
       <Col span={7} style={{ textAlign: 'right' }}>
-        <span>Olsson</span>
+        <span>Consultant</span>
       </Col>
     </Row>
     <div className="chat-00">

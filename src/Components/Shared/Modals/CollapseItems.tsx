@@ -60,7 +60,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
               map.addLayer(key + i, key, component);
               map.setFilter(key + i, ['in', type === PROBLEMS_MODAL ? 'problemid': 'projectid',type === PROBLEMS_MODAL ? detailedPage.problemid : detailedPage.projectid]);
               i++;
-              
+
             }
             addMapListeners(key, key );
           }
@@ -126,7 +126,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         }
         addMapListeners('projects_line_1', 'projects-line_');
         addMapListeners('projects_polygon_', 'projects-polygon_');
-        
+
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
       // const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
@@ -148,7 +148,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
               map.getCanvas().style.cursor = '';
             });
             map.click(value + index, (e:any) => {
-              
+
               if (key === 'problems') {
                   const item = {
                       type: 'problems',
@@ -510,7 +510,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       </Panel>
 
       <Panel header="Map" key="4" extra={genExtra('4')}>
-        <div className="map" style={{height:'725px !important'}}>
+        <div style={{height:'500px'}}>
           <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div></div>
           </div>

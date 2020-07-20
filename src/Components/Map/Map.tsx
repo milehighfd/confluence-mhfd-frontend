@@ -47,9 +47,9 @@ type LayersType = string | ObjectLayerType;
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
 const { Panel } = Collapse;
-const genExtra = () => (
+{/*const genExtra = () => (
   <CloseOutlined />
-);
+);*/}
 
 const Map = ({ leftWidth,
             layers,
@@ -234,7 +234,7 @@ const Map = ({ leftWidth,
     }, [selectedItems]);
     useEffect(() => {
         console.log('simio simio simio');
-        
+
         map.on('style.load', () => {
             const waiting = () => {
               if (!map.isStyleLoaded()) {
@@ -902,7 +902,7 @@ const Map = ({ leftWidth,
                     onVisibleChange={(flag : boolean) => {
                         // selectCheckboxes(selectedCheckBox);
                         setVisibleDropdown(flag);
-                        
+
                     }}
                     overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
                     className="btn-02"
@@ -923,8 +923,8 @@ const Map = ({ leftWidth,
             </Dropdown> */}
 
             <div className="m-footer">
-              <Collapse accordion defaultActiveKey={['1']}>
-                <Panel header="Legend" key="1" extra={genExtra()}>
+              <Collapse accordion defaultActiveKey={['1']} expandIconPosition="right">
+                <Panel header="Legend" key="1">
                 <hr />
                 <div className="scroll-footer">
                     {layerObjects.filter((element: any)  => element.name === PROJECTS_MAP_STYLES.name ).length ? <>
