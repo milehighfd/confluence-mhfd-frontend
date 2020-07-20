@@ -232,9 +232,9 @@ const Map = ({ leftWidth,
     useEffect(() => {
         paintSelectedComponents(selectedItems);
     }, [selectedItems]);
-
     useEffect(() => {
-        console.log('enter here ', selectedLayers);
+        console.log('simio simio simio');
+        
         map.on('style.load', () => {
             const waiting = () => {
               if (!map.isStyleLoaded()) {
@@ -246,7 +246,6 @@ const Map = ({ leftWidth,
             waiting();
           });
         if(map.isStyleLoaded()) {
-            console.log('the selected layers ', selectedLayers);
             applyMapLayers();
         } else {
             const waiting = () => {
@@ -258,7 +257,7 @@ const Map = ({ leftWidth,
               };
             waiting();
         }
-    }, [selectedLayers, layerFilters]);
+    }, [selectedLayers]);
 
     useEffect(() => {
         if (recentSelection) {
@@ -285,7 +284,6 @@ const Map = ({ leftWidth,
                 addLayersSource(layer, layerFilters[layer]);
             }
         });
-        console.log('the selected layers are ', selectedLayers);
         await selectedLayers.forEach((layer: LayersType) => {
             if (typeof layer === 'object') {
                 layer.tiles.forEach((subKey: string) => {
@@ -902,8 +900,9 @@ const Map = ({ leftWidth,
                 <Dropdown overlayClassName="dropdown-map-layers"
                     visible={visibleDropdown}
                     onVisibleChange={(flag : boolean) => {
-                        selectCheckboxes(selectedCheckBox);
+                        // selectCheckboxes(selectedCheckBox);
                         setVisibleDropdown(flag);
+                        
                     }}
                     overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
                     className="btn-02"

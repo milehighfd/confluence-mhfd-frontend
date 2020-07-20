@@ -20,13 +20,13 @@ import { FLOODPLAINS_FEMA_FILTERS,
 
 export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView } : 
         { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean }) => {
-  const [checkBoxes, setCheckboxes] = useState(selectedLayers);
+  // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
   
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-15px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
           <Row gutter={[24, 16]} className="filter-map">
-          <Checkbox.Group value={checkBoxes} onChange={(items) => {
+          <Checkbox.Group value={selectedLayers} onChange={(items) => {
               setSelectedCheckBox(items);
-              setCheckboxes(items);
+              // setCheckboxes(items);
               selectCheckboxes(items);
               removePopup();
             }}>
@@ -59,11 +59,11 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <Button className="btn-00" onClick={() => {
               if (isExtendedView) { 
                 setSelectedCheckBox([]);
-                setCheckboxes([]);
+                // setCheckboxes([]);
                 selectCheckboxes([]);
               } else {
                 setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
-                setCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
+                // setCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
                 selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
               }
               removePopup();

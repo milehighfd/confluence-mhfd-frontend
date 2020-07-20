@@ -125,7 +125,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             setLeftWidth(MEDIUM_SCREEN);
             setRightWitdh(MEDIUM_SCREEN);
             setRotationStyle(emptyStyle);
-            const copySelectedLayers = selectedLayers;
+            const copySelectedLayers = [...selectedLayers];
             if (!copySelectedLayers.includes(PROBLEMS_TRIGGER)) {
               copySelectedLayers.push(PROBLEMS_TRIGGER);
             }
