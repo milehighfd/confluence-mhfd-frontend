@@ -60,6 +60,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
         <h3>{user.name}</h3>
       <span>{user.title ? user.title: ''}</span>
       </div>
+      {console.log('MAIIIIIL',user)}
       <div className="profile-contact">
         <Popover content={phone}>
           <Button type="default" shape="circle">
@@ -68,14 +69,16 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
         </Popover>
         <Popover content={mail}>
           <Button type="default" shape="circle">
-            <img src="/Icons/icon-64.svg" alt="" height="15px" />
+            <a href={'mailto:'+user.email}>
+              <img src="/Icons/icon-64.svg" alt="" height="15px" />
+            </a>
           </Button>
         </Popover>
-        <Popover content={county}>
+        {/* <Popover content={county}>
           <Button type="default" shape="circle">
             <img src="/Icons/icon-67.svg" alt="" height="15px" />
           </Button>
-        </Popover>
+        </Popover> */}
       </div>
     </div>
     {/*<div className="profile-prot">
