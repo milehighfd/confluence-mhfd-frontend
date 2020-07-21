@@ -365,7 +365,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         sorter: true
       },
       {
-        title: 'Complete',
+        title: '% Complete',
         dataIndex: 'percen',
         render: (percen: number) => Math.round(percen * 10) /10 + '%',
         sorter: true
@@ -393,7 +393,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
         sorter: true
       },
       {
-        title: 'Complete',
+        title: '% Complete',
         dataIndex: 'percen',
         render: (percen: number) => Math.round(percen * 10) /10 + '%',
         sorter: true,
