@@ -92,6 +92,15 @@ export const COMPONENT_LAYERS_STYLE = {
       'icon-image': 'waterfall',
       'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
     },
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
+    }
   }],
   [PIPE_APPURTENANCES]: [{
     type: 'symbol',
@@ -99,6 +108,15 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {
       'icon-image': 'outfall',
       'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }],
   [SPECIAL_ITEM_POINT]: [{
@@ -108,6 +126,15 @@ export const COMPONENT_LAYERS_STYLE = {
       'icon-image': 'star',
       'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
     },
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
+    }
   }],
   [SPECIAL_ITEM_LINEAR]: [{
     type: 'line',
@@ -117,6 +144,15 @@ export const COMPONENT_LAYERS_STYLE = {
         'line-color': '#ffc700',
         'line-width': 2.5,
         'line-opacity': 1
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }],
   [SPECIAL_ITEM_AREA]: [
@@ -138,6 +174,15 @@ export const COMPONENT_LAYERS_STYLE = {
           'line-width': 2.5,
           'line-opacity': 1
       }
+    },{
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+          'line-color': 'red',
+          'line-width': 18,
+          'line-opacity': 0
+      }
     }
   ],
   [CHANNEL_IMPROVEMENTS_LINEAR]: [{
@@ -149,6 +194,15 @@ export const COMPONENT_LAYERS_STYLE = {
         'line-width': 3.5,
         'line-opacity': 1,
         'line-dasharray': [4, 4, 1]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }],
   [CHANNEL_IMPROVEMENTS_AREA]: [{
@@ -170,6 +224,15 @@ export const COMPONENT_LAYERS_STYLE = {
       'line-opacity': 1,
       'line-dasharray': [4, 4, 1]
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
+    }
   }],
   [REMOVAL_LINE]: [{
     type: 'line',
@@ -179,6 +242,15 @@ export const COMPONENT_LAYERS_STYLE = {
         'line-color': '#c6cecf',
         'line-width': 3,
         'line-opacity': 1
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }],
   [REMOVAL_AREA]: [{
@@ -200,6 +272,15 @@ export const COMPONENT_LAYERS_STYLE = {
       'line-opacity': 1,
       'line-dasharray': [4, 4, 1]
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
+    }
   }],
   [STORM_DRAIN]: [{
     type: 'line',
@@ -209,6 +290,15 @@ export const COMPONENT_LAYERS_STYLE = {
         'line-color': '#34b356',
         'line-width': 2,
         'line-opacity': 1
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }],
   [DETENTION_FACILITIES]: [{
@@ -228,6 +318,15 @@ export const COMPONENT_LAYERS_STYLE = {
         'line-opacity': 1,
         'line-width': 1.5
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
+    }
   }],
   [MAINTENANCE_TRAILS]: [{
     type: 'fill',
@@ -245,6 +344,15 @@ export const COMPONENT_LAYERS_STYLE = {
         'line-color': '#956557',
         'line-width': 1.5,
         'line-opacity': 1
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }],
   [LAND_ACQUISITION]: [{
@@ -264,6 +372,15 @@ export const COMPONENT_LAYERS_STYLE = {
         'line-opacity': 0.5,
         'line-width': 1.5
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
+    }
   }],
   [LANDSCAPING_AREA]: [{
     type: 'fill',
@@ -281,6 +398,15 @@ export const COMPONENT_LAYERS_STYLE = {
         'line-color': '#ffffff',
         'line-opacity': 0.78,
         'line-width': 1
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }]
 }
@@ -340,6 +466,15 @@ const ROUTINE_MAINTENANCE_STYLES = {
         'line-width': 2,
         'line-opacity': 0
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
+    }
   }],
   [ROUTINE_WEED_CONTROL]: [{
     type: 'fill',
@@ -357,6 +492,15 @@ const ROUTINE_MAINTENANCE_STYLES = {
       'line-color': '#134e33',
       'line-width': 2,
       'line-opacity': 0
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }],
   [ROUTINE_DEBRIS_AREA]: [
@@ -379,6 +523,15 @@ const ROUTINE_MAINTENANCE_STYLES = {
       'line-opacity': 1,
       'line-dasharray': [2, 2, 2]
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
+    }
   }],
   [ROUTINE_DEBRIS_LINEAR]: [{
     type: 'line',
@@ -388,6 +541,15 @@ const ROUTINE_MAINTENANCE_STYLES = {
         'line-color': '#0a0b0b',
         'line-width': 3,
         'line-dasharray': [2, 2, 2]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }]
 }
@@ -412,6 +574,15 @@ export const PROJECTS_STYLES = {
           ],
           'line-width': 2.25,
       }
+    },{
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+          'line-color': 'red',
+          'line-width': 18,
+          'line-opacity': 0
+      }
     }
 ],
   [PROJECTS_LINE]: [
@@ -432,6 +603,15 @@ export const PROJECTS_STYLES = {
           '#fff'
         ],
         'line-width': 2.25,
+      }
+    },{
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+          'line-color': 'red',
+          'line-width': 18,
+          'line-opacity': 0
       }
     }
   ]
@@ -665,6 +845,15 @@ export const tileStyles = {
         'line-width': 4,
         'line-opacity': 1,
         'line-dasharray': [2,2,2]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'line-color': 'red',
+        'line-width': 18,
+        'line-opacity': 0
     }
   }], 
   ...COMPONENT_LAYERS_STYLE,
