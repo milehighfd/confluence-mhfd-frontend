@@ -58,13 +58,13 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
           <div className="btn-footer">
             <Button className="btn-00" onClick={() => {
               if (isExtendedView) { 
-                setSelectedCheckBox([STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS]);
+                setSelectedCheckBox([MHFD_BOUNDARY_FILTERS]);
                 // setCheckboxes([]);
-                selectCheckboxes([STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS]);
+                selectCheckboxes([MHFD_BOUNDARY_FILTERS]);
               } else {
-                setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS]);
+                setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS]);
                 // setCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
-                selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS]);
+                selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS]);
               }
               removePopup();
               setVisibleDropdown(false);
