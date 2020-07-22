@@ -20,6 +20,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
   const [redirect, setRedirect] = useState(false);
   const [targetButton, setTargetButton] = useState('staff');
   const [organization, setOrganization] = useState(ROLES[0].options);
+  const [other, setOther] = useState({value: '', visible: false});
   const menu = () => {
     return (values.designation === GOVERNMENT_STAFF) ?
       <Menu className="js-mm-00 sign-menu-organization"
@@ -58,7 +59,17 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
         }}>
         <Menu.ItemGroup key="g1">
           {/* <label className="label-sg">{'Regional Agency'}</label> */}
-          {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item onClick={() => {
+            const auxOther = {...other};
+            auxOther.value = '';
+            auxOther.visible = false;
+            setOther(auxOther);
+          }} key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          <Menu.Item onClick={() => {
+            const auxOther = {...other};
+            auxOther.visible = true;
+            setOther(auxOther);
+          }} key={"other"}><span>Other</span></Menu.Item>
         </Menu.ItemGroup>
       </Menu> :
       <Menu className="js-mm-00 sign-menu-organization"
@@ -86,6 +97,12 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
     },
     validationSchema,
     onSubmit(values: { firstName: string, lastName: string, email: string, password: string, designation: string, organization: string, recaptcha: string, zoomarea: string }) {
+      if(values.designation === CONSULTANT && values.organization === 'Other'){
+        if(!other.value) {
+          return;
+        }
+        values.organization = other.value;
+      }
       setTitle(title);
       values.zoomarea = values.designation === GOVERNMENT_STAFF? values.organization: 'Mile High Flood Control District Boundary';
       datasets.postData(SERVER.SIGN_UP, values).then(res => {
@@ -131,6 +148,10 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
                       setTargetButton(role.value);
                       setOrganization(role.options);
                       setTitle(auxTitle);
+                      const auxOther = {...other};
+                      auxOther.value = '';
+                      auxOther.visible = false;
+                      setOther(auxOther);
                     }}>{role.title}</Button>
                   })}
                 </Col>
@@ -165,6 +186,12 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
                     </Button>
                   </Dropdown>
                 </div>
+                {other.visible && <input placeholder="Organization" type="text" onChange={(e) => {
+                  const auxOther = {...other};
+                  auxOther.value = e.target.value;
+                  setOther(auxOther);
+                }}
+                  style={(!other.value) ? { borderBottom: 'solid red 1px', paddingLeft: '10px'} : { paddingLeft: '10px' }} />}
               </div>:
               <div className="group">
                 <input placeholder="Organization" type="text" name="organization" onChange={handleChange}

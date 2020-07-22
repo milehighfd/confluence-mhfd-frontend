@@ -209,7 +209,7 @@ export const NEW_PROJECT_FORM_COST = {
 
 export const DROPDOWN_ORGANIZATION = {
   REGIONAL_AGENCY_PUBLIC: [
-    'Mile High Flood Control District Boundary'
+    'Mile High Flood Control District'
   ],
   REGIONAL_AGENCY: [
     'SEMSWA Stormwater Service Area Boundary'
