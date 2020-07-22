@@ -29,12 +29,15 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
+  const [totalUsersDeleted, setTotalUsersDeleted] = useState<number>(0);
   const [userPendingState, setUserPendingState] = useState<Array<User>>([]);
+  const [userDeleted, setUserDeleted] = useState<Array<User>>([]);
   const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
+  const [optionUserDeleted, setOptionUserDeteled] = useState<OptionsFiltersUser>(PAGE_USER);
   let pndPos = 0; // momentary forced adition until getting the DB Structure
   let aprPos = 0; // momentary forced adition until getting the DB Structure
-
+  let delPos = 0;
   useEffect(() => {
     getAllUser();
   }, []);
@@ -45,6 +48,7 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
   const getAllUser = () => {
     getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(optionUserActivated), setTotalUsersActivated); 
     getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + 'status=pending&' + urlOptions(optionUserPending), setTotalUsersPending);
+    getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(optionUserDeleted), setTotalUsersDeleted);
   }
 
   const urlOptions = (options: OptionsFiltersUser) => {
@@ -58,6 +62,9 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
   }
   const searchUserPending = (option: OptionsFiltersUser) => {
     getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + 'status=pending&' + urlOptions(option), setTotalUsersPending);
+  }
+  const searchUserDelete = (option: OptionsFiltersUser) => {
+    getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(option), setTotalUsersDeleted);
   }
   const deleteUserActivated = (id: string) => {
     datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {}, datasets.getToken()).then(res => {
@@ -76,6 +83,11 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
     const resetOptions = {...PAGE_USER};
     setOptionUserPending(resetOptions);
     searchUserPending(resetOptions);
+  }
+  const resetDeleted = () => {
+    const resetOptions = {...PAGE_USER};
+    setOptionUserDeteled(resetOptions);
+    searchUserDelete(resetOptions);
   }
   userActivity.data.forEach(element => {
     element.name = element.firstName + " " + element.lastName;
@@ -109,7 +121,8 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                         aprPos++;
                         return (
                           <div key={user._id} style={{ marginBottom: 10 }}>
-                            <Accordeon user={user} pos={(((optionUserActivated.page - 1) * 10) + aprPos)} saveUser={getAllUser} deleteUser={deleteUserActivated} />
+                            <Accordeon user={user} pos={(((optionUserActivated.page - 1) * 10) + aprPos)}
+                              saveUser={getAllUser} deleteUser={deleteUserActivated} type="/deleted" />
                           </div>
                         );
                       })}
@@ -131,7 +144,8 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                         pndPos++;
                         return (
                           <div key={user._id} style={{ marginBottom: 10 }}>
-                            <Accordeon user={user} pos={((optionUserPending.page - 1) * 10) + pndPos} saveUser={getAllUser} deleteUser={deleteUserActivated} />
+                            <Accordeon user={user} pos={((optionUserPending.page - 1) * 10) + pndPos} 
+                              saveUser={getAllUser} deleteUser={deleteUserActivated} type="/approved" />
                           </div>
                         );
                       })}
@@ -142,6 +156,28 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                           auxOption.page = page;
                           setOptionUserPending(auxOption);
                           searchUserPending(auxOption);
+                        }} />
+                      </div>
+                    </TabPane>
+                    <TabPane tab="Delete Users" key="4">
+                      <UserFilters option={optionUserDeleted} setOption={setOptionUserDeteled} search={searchUserDelete} 
+                        reset={resetDeleted} title={'deleted'}/>
+                      {userDeleted.map((user: User, index: number) => {
+                        delPos++;
+                        return (
+                          <div key={user._id} style={{ marginBottom: 10 }}>
+                            <Accordeon user={user} pos={((optionUserDeleted.page - 1) * 10) + delPos} 
+                              saveUser={getAllUser} deleteUser={deleteUserActivated} type="/approved" />
+                          </div>
+                        );
+                      })}
+
+                      <div className="pagi-00">
+                        <Pagination current={optionUserDeleted.page} total={totalUsersDeleted} onChange={(page, pageSize) => {
+                          const auxOption = {...optionUserDeleted};
+                          auxOption.page = page;
+                          setOptionUserDeteled(auxOption);
+                          searchUserDelete(auxOption);
                         }} />
                       </div>
                     </TabPane>

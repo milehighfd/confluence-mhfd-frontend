@@ -57,7 +57,7 @@ export default () => {
         </Link>
       </Menu.Item>: ''} */}
       {(appUser.designation === 'admin' ||
-        appUser.designation === 'staff') && appUser.activated ?
+        appUser.designation === 'staff') && (appUser.status === 'approved') ?
         <Menu.Item key="6">
           <Link to={'/upload-attachment'}>
             <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="18px" />
@@ -66,7 +66,7 @@ export default () => {
           </Link>
         </Menu.Item> : ''}
       {(appUser.designation === 'admin' ||
-        appUser.designation === 'staff') && appUser.activated ?
+        appUser.designation === 'staff') && (appUser.status === 'approved') ?
         <Menu.Item key="5">
           <Link to={'/user'}>
             <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="18px" />

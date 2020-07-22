@@ -14,6 +14,7 @@ export type User = {
     phone: string,
     title: string,
     zipCode: string,
+    status: string,
     coordinates: {
         latitude: number,
         longitude: number

@@ -11,7 +11,7 @@ import MenuAreaView from './MenuAreaView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
 
-export default ({ user, pos, saveUser, deleteUser }: { user: User, pos: number, saveUser: Function, deleteUser: Function }) => {
+export default ({ user, pos, saveUser, deleteUser, type }: { user: User, pos: number, saveUser: Function, deleteUser: Function, type: string }) => {
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
 
@@ -80,6 +80,7 @@ export default ({ user, pos, saveUser, deleteUser }: { user: User, pos: number, 
     values.serviceArea = user.serviceArea;
     values.phone = user.phone;
     values.title = user.title;
+    values.status = user.status;
   }, [user]);
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
@@ -142,7 +143,7 @@ export default ({ user, pos, saveUser, deleteUser }: { user: User, pos: number, 
   const handleSwitchButton = (checked: boolean) => {
     setSwitchTo(checked);
     setTitle(user._id);
-    deleteUser(user._id);
+    deleteUser(user._id + type);
   }
 
   const genExtra = () => (
@@ -155,11 +156,10 @@ export default ({ user, pos, saveUser, deleteUser }: { user: User, pos: number, 
       </Col>
       <Col span={3} style={{ textAlign: 'right' }}>
         <div>
-          <Switch className={'switch-options'} checked={user.activated} onChange={handleSwitchButton} />
+          <Switch className={'switch-options'} checked={user.status === 'approved' ? true: false} onChange={handleSwitchButton} />
         </div>
       </Col>
       <Col span={1} style={{ textAlign: 'right' }} onClick={() => {
-        console.log('se pudo hacer click');
         setActivated(!activated);
       }} >
         <img src={activated ? "/Icons/icon-21.svg" : "/Icons/icon-20.svg"} alt="" />
@@ -277,7 +277,7 @@ export default ({ user, pos, saveUser, deleteUser }: { user: User, pos: number, 
             <br />
             <span style={{ color: messageError.color }}>&nbsp;&nbsp; {messageError.message}</span>
             <div className="user-footer">
-              {values.activated ? <Button className="btn-d" onClick={() => deleteUser(user._id)}>Delete</Button> : <Button className="btn-d"></Button>}
+              {values.status === 'approved' ? <Button className="btn-d" onClick={() => deleteUser(user._id + "/deleted")}>Delete</Button> : <Button className="btn-d"></Button>}
               <Button style={{ color: '#28C499' }} className="btn-s colorButton" block htmlType="submit">Save</Button>
             </div>
           </Form>
