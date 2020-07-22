@@ -114,6 +114,7 @@ const Map = ({ leftWidth,
     }
 
     useEffect(() => {
+        console.log('watching here');
         if (map) {
             if (highlighted.type) {
                 showHighlighted(highlighted.type, highlighted.value);
@@ -133,6 +134,8 @@ const Map = ({ leftWidth,
         if (map) {
             applyFilters('projects_line_1', filterProjects);
             applyFilters('projects_polygon_', filterProjects);
+        } else {
+            console.log('no hay map');
         }
     }, [filterProjects, componentDetailIds]);
 
@@ -213,6 +216,7 @@ const Map = ({ leftWidth,
             getParamsFilter(boundingBox);
 
         });
+      
     }, []);
 
     useEffect(() => {
@@ -294,6 +298,9 @@ const Map = ({ leftWidth,
                 showLayers(layer);
             }
         });
+        applyFilters('problems', filterProblems);
+        applyFilters('projects_line_1', filterProjects);
+        applyFilters('projects_polygon_', filterProjects);
         setTimeout(() => {
             setSpinValue(false);
         }, 2000);
@@ -327,6 +334,7 @@ const Map = ({ leftWidth,
     }
 
     const applyFilters =  (key: string, toFilter: any) => {
+        console.log('enter here for ', key);
         const styles = { ...tileStyles as any };        
         styles[key].forEach((style : LayerStylesType, index : number) => {
             if (!map.getLayer(key + '_' + index)) {
