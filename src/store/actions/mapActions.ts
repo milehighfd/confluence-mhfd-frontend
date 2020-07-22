@@ -479,12 +479,14 @@ export const getValuesByGroupColumn = (table: string, column: string) => {
         } )
     }
 }
-export const getParamsFilter = () => {
+export const getParamsFilter = (bounds: string) => { 
     return (dispatch: Function) => {
         dispatch(setSpinFilter(true));
-        datasets.getData(SERVER.PARAM_FILTERS).then(params => {
+        datasets.getData(SERVER.PARAM_FILTERS + '?bounds=' + bounds).then(params => {
+            if(params.components && params.problems && params.projects) {
+               dispatch({type: types.GET_PARAM_FILTERS, params}); 
+            }
             dispatch(setSpinFilter(false));
-            dispatch({type: types.GET_PARAM_FILTERS, params});
         })
     }
 }

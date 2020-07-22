@@ -64,9 +64,10 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 <Checkbox.Group value={filterProblemOptions.cost} onChange={(items) => {
                     apply(items, 'cost');
                 }}>
-                    {paramProblems.cost.map((element: {min: number, max: number, label: string}, index: number) => {
+                    {paramProblems.cost.map((element: {min: number, max: number, label: string, counter: number}, index: number) => {
                         return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
                                 {elementCost(element.min, element.max)}</Checkbox>
+                                <span className="filt-s">{element.counter}</span>
                             </p>
                     })}
                 </Checkbox.Group>
@@ -76,8 +77,10 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 <Checkbox.Group value={filterProblemOptions.priority.split(',')} onChange={(items) => {
                     apply(items, 'priority');
                 }}>
-                    {paramProblems.priority.map((element: string, index: number) => {
-                    return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                    {paramProblems.priority.map((element: {value:string, count: number}, index: number) => {
+                    return <p key={index}><Checkbox value={element.value}>{element.value} </Checkbox>
+                        <span className="filt-s">{element.count}</span>
+                    </p>
                 })}
                 </Checkbox.Group>
             </Col>
@@ -90,15 +93,19 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             }}>
                 <Col span={12}>
                  <div className="check-scroll">
-                    {firstSegmentComponents.map((element: { key:string, value: string }, index: number) => {
-                        return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
+                    {firstSegmentComponents.map((element: { key:string, value: string, count: number }, index: number) => {
+                        return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox>
+                            <span className="filt-s">{element.count}</span>
+                        </p>
                     })}
                  </div>
                 </Col>
                 <Col span={12}>
                  <div className="check-scroll">
-                    {secondSegmentComponents.map((element:  { key:string, value: string }, index: number) => {
-                            return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
+                    {secondSegmentComponents.map((element:  { key:string, value: string, count: number }, index: number) => {
+                            return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox>
+                            <span className="filt-s">{element.count}</span>    
+                        </p>
                     })}
                  </div>
                 </Col>
@@ -112,10 +119,26 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 <Checkbox.Group value={filterProblemOptions.solutionstatus.split(',')} onChange={(items) => {
                     apply(items, 'solutionstatus');
                 }}>
-                    <p><Checkbox value='10'>10%-25%</Checkbox></p>
-                    <p><Checkbox value='25'>25%-50%</Checkbox></p>
-                    <p><Checkbox value='50'>50%-75%</Checkbox></p>
-                    <p><Checkbox value='75'>75%-100%</Checkbox></p>
+                    <p><Checkbox value='10'>10%-25%</Checkbox>
+                        <span className="filt-s">
+                            {paramProblems.solutionstatus.filter((element: any) => element.value === 0).length ? paramProblems.solutionstatus.filter((element: any) => element.value === 0)[0].count : '0'}
+                        </span>
+                    </p>
+                    <p><Checkbox value='25'>25%-50%</Checkbox>
+                        <span className="filt-s">
+                            {paramProblems.solutionstatus.filter((element: any) => element.value === 25).length ? paramProblems.solutionstatus.filter((element: any) => element.value === 25)[0].count : '0'}
+                        </span>
+                    </p>
+                    <p><Checkbox value='50'>50%-75%</Checkbox>
+                        <span className="filt-s">
+                            {paramProblems.solutionstatus.filter((element: any) => element.value === 50).length ? paramProblems.solutionstatus.filter((element: any) => element.value === 50)[0].count : '0'}
+                        </span>
+                    </p>
+                    <p><Checkbox value='75'>75%-100%</Checkbox>
+                        <span className="filt-s">
+                            {paramProblems.solutionstatus.filter((element: any) => element.value === 75).length ? paramProblems.solutionstatus.filter((element: any) => element.value === 75)[0].count : '0'}
+                        </span>
+                    </p>
                 </Checkbox.Group>
             </Col>
             <Col span={12}>
@@ -123,8 +146,10 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 <Checkbox.Group value={filterProblemOptions.county.split(',')} onChange={(items) => {
                     apply(items, 'county');
                 }}>
-                    {paramProblems.county.map((element: string, index: number) => {
-                        return <p key={index} ><Checkbox value={element}>{element}</Checkbox></p>
+                    {paramProblems.county.map((element: {value: string, counter: number}, index: number) => {
+                        return <p key={index} ><Checkbox value={element.value}>{element.value}</Checkbox>
+                            <span className="filt-s">{element.counter}</span>
+                        </p>
                     })}
                 </Checkbox.Group>
             </Col>
@@ -235,9 +260,15 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={filterProjectOptions.projecttype.split(',')} onChange={(item) => {
                 apply(item, 'projecttype');
             }}>
-                <p><Checkbox value='Capital'>Capital</Checkbox></p>
+                {paramProjects.projecttype.map((element: {value: string, counter: number}, index: number) => {
+                    return <p key={index}><Checkbox value={element.value}>
+                        {element.value}</Checkbox>
+                        <span className="filt-s">{element.counter}</span>
+                    </p>
+                })}
+                {/* <p><Checkbox value='Capital'>Capital</Checkbox></p>
                 <p><Checkbox value='Maintenance'>Maintenance</Checkbox></p>
-                <p><Checkbox value='Study'>Study</Checkbox></p>
+                <p><Checkbox value='Study'>Study</Checkbox></p> */}
             </Checkbox.Group>
         </Col>
         <Col span={12}>
@@ -245,9 +276,10 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={filterProjectOptions.totalcost} onChange={(item) => {
                 apply(item, 'totalcost');
             }}>
-                {paramProjects.estimatedCost.map((element: {min: number, max: number, label: string}, index: number) => {
+                {paramProjects.estimatedCost.map((element: {min: number, max: number, label: string, counter: number}, index: number) => {
                     return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
                         {elementCost(element.min, element.max)}</Checkbox>
+                        <span className="filt-s">{element.counter}</span>
                     </p>
                 })}
             </Checkbox.Group>
@@ -262,8 +294,10 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 apply(item, 'status');
             }}>
                 <div className="check-scroll">
-                {paramProjects.status.map((element: string, index: number) => {
-                    return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                {paramProjects.status.map((element: {value:string, counter: number}, index: number) => {
+                    return <p key={index}><Checkbox value={element.value}>{element.value}</Checkbox>
+                        <span className="filt-s">{element.counter}</span>
+                    </p>
                 })}
                 </div>
             </Checkbox.Group>
@@ -274,8 +308,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Select dropdownClassName="filter-menu" value={filterProjectOptions.startyear ? filterProjectOptions.startyear : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
                     apply(e, 'startyear');
                 }}>
-                    {paramProjects.startyear.map((element: number, index: number) =>{
-                        return <Option key={index} value={''+element}>{element}</Option>
+                    {paramProjects.startyear.map((element: {value: number, counter: number}, index: number) =>{
+                        return <Option key={index} value={''+element.value}>{element.value}</Option>
                     })}
             </Select>
             <br></br><br></br>
@@ -283,8 +317,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Select dropdownClassName="filter-menu" value={filterProjectOptions.completedyear ? filterProjectOptions.completedyear : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
                     apply(e, 'completedyear');
                 }}>
-                    {paramProjects.completedyear.map((element: number, index: number) =>{
-                        return <Option key={index} value={''+element}>{element}</Option>
+                    {paramProjects.completedyear.map((element: {value: number, counter: number}, index: number) =>{
+                        return <Option key={index} value={''+element.value}>{element.value}</Option>
                     })}
              </Select>
         </Col>
@@ -296,9 +330,10 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={filterProjectOptions.mhfddollarsallocated} onChange={(item) => {
                 apply(item, 'mhfddollarsallocated');
             }}>
-                {paramProjects.mhfddollarsallocated.map((element: {min: number, max: number, label: string}, index: number) => {
+                {paramProjects.mhfddollarsallocated.map((element: {min: number, max: number, label: string, counter: number}, index: number) => {
                     return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
                         {elementCost(element.min, element.max)}</Checkbox>
+                        <span className="filt-s">{element.counter}</span>
                     </p>
                 })}
             </Checkbox.Group>
@@ -308,14 +343,12 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={filterProjectOptions.workplanyear.split(',')} onChange={(item) => {
                 apply(item, 'workplanyear');
             }}>
-                <p><Checkbox value={'2019'}>2019</Checkbox></p>
-                <p><Checkbox value={'2020'}>2020</Checkbox></p>
-                <p><Checkbox value={'2021'}>2021</Checkbox></p>
-                <p><Checkbox value={'2022'}>2022</Checkbox></p>
-                <p><Checkbox value={'2023'}>2023</Checkbox></p>
-                {/* {paramProjects.workplanyear.map((element: string, index: number) => {
-                    return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
-                })} */}
+                {paramProjects.workplanyear.map((element: {value: number, counter: number}, index: number) => {
+                    return <p key={index}><Checkbox value={'' +element.value}>
+                        {element.value}</Checkbox>
+                        <span className="filt-s">{element.counter}</span>
+                    </p>
+                })}
             </Checkbox.Group>
         </Col>
     </Row>
@@ -327,8 +360,10 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={filterProjectOptions.problemtype.split(',')} onChange={(item) => {
                 apply(item, 'problemtype');
             }}>
-                {paramProjects.problemtype.map((element: string, index: number) =>{
-                    return <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                {paramProjects.problemtype.map((element: {value: string, counter: number}, index: number) =>{
+                    return <p key={index}><Checkbox value={element.value}>{element.value}</Checkbox>
+                        <span className="filt-s">{element.counter}</span>
+                    </p>
                 })}
             </Checkbox.Group>
         </Col>
@@ -340,7 +375,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 apply(e, 'jurisdiction');
             }}>
                 {paramProjects.jurisdiction.map((element: string, index: number) =>{
-                    return <Option key={index} value={element}>{element}</Option>
+                    return element && <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
@@ -350,7 +385,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 apply(e, 'county');
             }}>
                 {paramProjects.county.map((element: string, index: number) =>{
-                    return <Option key={index} value={element}>{element}</Option>
+                    return element && <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
@@ -362,7 +397,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 apply(e, 'lgmanager');
             }}>
                 {paramProjects.lgmanager.map((element: string, index: number) =>{
-                    return <Option key={index} value={element}>{element}</Option>
+                    return element && <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
@@ -372,7 +407,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 apply(e, 'streamname');
             }}>
                 {paramProjects.streamname.map((element: string, index: number) =>{
-                    return <Option key={index} value={element}>{element}</Option>
+                    return element && <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
@@ -384,7 +419,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 apply(e, 'creator');
             }}>
                 {paramProjects.creator.map((element: string, index: number) =>{
-                    return <Option key={index} value={element}>{element}</Option>
+                    return element && <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
@@ -394,7 +429,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                 apply(e, 'mhfdmanager');
             }}>
                 {paramProjects.mhfdmanager.map((element: string, index: number) =>{
-                    return <Option key={index} value={element}>{element}</Option>
+                    return element && <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
         </Col>
@@ -446,8 +481,10 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                       <Checkbox.Group value={filterComponentOptions.component_type.split(',')} onChange={(item) => {
                         apply(item, 'component_type');
                       }}>
-                          {paramComponents.component_type.map((element: { key: string, value: string }, index: number) => {
-                              return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox></p>
+                          {paramComponents.component_type.map((element: { key: string, value: string, counter: number }, index: number) => {
+                              return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox>
+                                <span className="filt-s">{element.counter}</span>
+                              </p>
                           })}
                       </Checkbox.Group>
                     </div>
@@ -457,8 +494,10 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                     <Checkbox.Group value={filterComponentOptions.status.split(',')} onChange={(item) => {
                         apply(item, 'status');
                     }}>
-                        {paramComponents.status.map((element: string, index: number) => {
-                            return element && <p key={index}><Checkbox value={element}>{element}</Checkbox></p>
+                        {paramComponents.status.map((element: {value: string, counter: number}, index: number) => {
+                            return element.value && <p key={index}><Checkbox value={element.value}>{element.value}</Checkbox>
+                                <span className="filt-s">{element.counter}</span>
+                            </p>
                         })}
                     </Checkbox.Group>
 
@@ -472,8 +511,10 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                       <Checkbox.Group value={filterComponentOptions.yearofstudy.split(',')} onChange={(item) => {
                         apply(item, 'yearofstudy');
                       }}>
-                          {paramComponents.yearofstudy.map((element: string, index: number) => {
-                              return <p key={index}><Checkbox value={''+element}>{element + 's'}</Checkbox></p>
+                          {paramComponents.yearofstudy.map((element: {value: number, count: number}, index: number) => {
+                              return element.value && <p key={index}><Checkbox value={''+element.value}>{element.value + 's'}</Checkbox>
+                                <span className="filt-s">{element.count}</span>
+                              </p>
                           })}
                       </Checkbox.Group>
                     </div>
@@ -483,9 +524,10 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                     <Checkbox.Group value={filterComponentOptions.estimatedcost} onChange={(item) => {
                         apply(item, 'estimatedcost');
                     }}>
-                        {paramComponents.estimatedcost.map((element: {min: number, max: number, label: string}, index: number) => {
+                        {paramComponents.estimatedcost.map((element: {min: number, max: number, label: string, counter: number}, index: number) => {
                             return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
                                 {elementCost(element.min, element.max)}</Checkbox>
+                                <span className="filt-s">{element.counter}</span>
                             </p>
                         })}
                     </Checkbox.Group>
@@ -500,7 +542,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                         apply(e, 'jurisdiction');
                     }}>
                         {paramComponents.jurisdiction.map((element: string, index: number) =>{
-                            return <Option key={index} value={element}>{element}</Option>
+                            return element && <Option key={index} value={element}>{element}</Option>
                         })}
                     </Select>
                 </Col>
@@ -510,7 +552,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                         apply(e, 'county');
                     }}>
                         {paramComponents.county.map((element: string, index: number) =>{
-                            return <Option key={index} value={element}>{element}</Option>
+                            return element && <Option key={index} value={element}>{element}</Option>
                         })}
                     </Select>
                 </Col>
@@ -522,7 +564,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                         apply(e, 'mhfdmanager');
                     }}>
                         {paramComponents.watershed.map((element: string, index: number) =>{
-                            return <Option key={index} value={element}>{element}</Option>
+                            return element && <Option key={index} value={element}>{element}</Option>
                         })}
                     </Select>
                 </Col>

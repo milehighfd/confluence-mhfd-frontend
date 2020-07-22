@@ -33,7 +33,8 @@ export type MapProps = {
     setSpinValue: Function,
     componentDetailIds: any,
     isExtendedView: boolean,
-    setSelectedOnMap: Function
+    setSelectedOnMap: Function,
+    getParamsFilter: Function
 }
 
 export type MapHOCProps = {
@@ -107,7 +108,8 @@ export type MapHOCProps = {
     componentDetailIds: any,
     loaderTableCompoents: boolean,
     selectedOnMap: any,
-    setSelectedOnMap: Function
+    setSelectedOnMap: Function,
+    getParamsFilter: Function
 }
 
 export type MapViewTypes = { 

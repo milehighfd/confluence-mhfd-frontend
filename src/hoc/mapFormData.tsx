@@ -81,7 +81,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               componentDetailIds,
               loaderTableCompoents,
               selectedOnMap,
-              setSelectedOnMap
+              setSelectedOnMap,
+              getParamsFilter
              } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -184,7 +185,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             setSpinValue={setSpinValue}
                             componentDetailIds={componentDetailIds}
                             isExtendedView={isExtendedView}
-                            setSelectedOnMap={setSelectedOnMap}/>
+                            setSelectedOnMap={setSelectedOnMap}
+                            getParamsFilter={getParamsFilter}/>
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

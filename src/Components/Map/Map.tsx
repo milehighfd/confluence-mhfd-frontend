@@ -75,7 +75,8 @@ const Map = ({ leftWidth,
             setSpinValue,
             componentDetailIds,
             isExtendedView,
-            setSelectedOnMap
+            setSelectedOnMap,
+            getParamsFilter
              } : MapProps) => {
 
     let geocoderRef = useRef<HTMLDivElement>(null);
@@ -202,12 +203,14 @@ const Map = ({ leftWidth,
                 const bounds = map.getBounds();
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
                 setFilterCoordinates(boundingBox);
+                getParamsFilter(boundingBox);
             }
           });
         map.on('dragend', () => {
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setFilterCoordinates(boundingBox);
+            getParamsFilter(boundingBox);
 
         });
     }, []);

@@ -42,7 +42,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
     getCarouselImages();
   }, [getCarouselImages]);
   useEffect(() => {
-    getParamsFilter();
+    // getParamsFilter();
     SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
         layer.tiles.forEach((subKey: string) => {
