@@ -159,7 +159,7 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                         }} />
                       </div>
                     </TabPane>
-                    <TabPane tab="Delete Users" key="4">
+                    <TabPane tab="Deleted Users" key="4">
                       <UserFilters option={optionUserDeleted} setOption={setOptionUserDeteled} search={searchUserDelete} 
                         reset={resetDeleted} title={'deleted'}/>
                       {userDeleted.map((user: User, index: number) => {
