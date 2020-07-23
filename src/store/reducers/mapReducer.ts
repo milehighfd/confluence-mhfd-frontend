@@ -110,7 +110,7 @@ const initState = {
     },
     filterProjectOptions: {
         keyword: '',
-        column: 'streamname',
+        column: 'projectname',
         order: 'asc',
         projecttype: '',
         status: 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual',
