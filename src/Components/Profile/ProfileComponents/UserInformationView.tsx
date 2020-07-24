@@ -60,7 +60,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
         <h3>{user.name}</h3>
       <span>{user.title ? user.title: ''}</span>
       </div>
-      {console.log('MAIIIIIL',user)}
+      
       <div className="profile-contact">
         <Popover content={phone}>
           <Button type="default" shape="circle">
