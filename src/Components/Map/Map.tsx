@@ -114,7 +114,6 @@ const Map = ({ leftWidth,
     }
 
     useEffect(() => {
-        console.log('watching here');
         if (map) {
             if (highlighted.type) {
                 showHighlighted(highlighted.type, highlighted.value);
@@ -134,8 +133,6 @@ const Map = ({ leftWidth,
         if (map) {
             applyFilters('projects_line_1', filterProjects);
             applyFilters('projects_polygon_', filterProjects);
-        } else {
-            console.log('no hay map');
         }
     }, [filterProjects, componentDetailIds]);
 
@@ -324,10 +321,7 @@ const Map = ({ leftWidth,
         for (const key of COMPONENT_LAYERS.tiles) {
             styles[key].forEach((style : LayerStylesType, index : number) => {
                 if (!components.includes(key)) {
-                    console.log('watching here' , key);
                     map.setFilter(key + '_' + index, ['in', 'cartodb_id', -1]);
-                } else {
-                    map.setFilter(key + '_' + index, null);
                 }
             });
         }
@@ -359,7 +353,7 @@ const Map = ({ leftWidth,
                     if (filterField === 'component_type') {
                         continue;
                     }
-                    if (filterField === 'yearofstudy') {
+                    if (filterField === 'year_of_study') {
                         for (const years of filters.split(',')) {
                             const lowerArray: any[] = ['>=',  ['get', filterField], +years];
                             const upperArray: any[] = ['<=',  ['get', filterField], +years + 9];
