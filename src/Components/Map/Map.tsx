@@ -328,7 +328,7 @@ const Map = ({ leftWidth,
     }
 
     const applyFilters =  (key: string, toFilter: any) => {
-        console.log('enter here for ', key);
+        // console.log('enter here for ', key);
         const styles = { ...tileStyles as any };        
         styles[key].forEach((style : LayerStylesType, index : number) => {
             if (!map.getLayer(key + '_' + index)) {
@@ -698,9 +698,9 @@ const Map = ({ leftWidth,
                              .addTo(map);
                     }
                 });
-                map.on('mouseenter', key + '_' + index, (e: any) => {
-                    map.getCanvas().style.cursor = 'pointer';
+                map.on('mousemove', key + '_' + index, (e: any) => {
                     if (key.includes('projects') || key === 'problems') {
+                        map.getCanvas().style.cursor = 'pointer';
                         setSelectedOnMap(e.features[0].properties.cartodb_id, key);
                     } else {
                         setSelectedOnMap(-1, '');

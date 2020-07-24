@@ -353,7 +353,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   if (type === PROJECTS_MODAL) {
     columns = [
       {
-        title: 'Solution Type',
+        title: 'Component Type',
         dataIndex: 'type',
         sorter: true,
         width: 300
@@ -381,7 +381,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   } else {
     columns = [
       {
-        title: 'Solution Type',
+        title: 'Component Type',
         dataIndex: 'type',
         sorter: true,
         width: 300

@@ -98,7 +98,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -115,7 +115,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -132,7 +132,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -151,7 +151,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -180,7 +180,7 @@ export const COMPONENT_LAYERS_STYLE = {
       layout: {},
       paint: {
           'line-color': 'red',
-          'line-width': 18,
+          'line-width': 12,
           'line-opacity': 0
       }
     }
@@ -201,7 +201,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -230,7 +230,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -249,7 +249,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -278,7 +278,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -297,7 +297,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -324,7 +324,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -351,7 +351,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -378,7 +378,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -405,7 +405,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }]
@@ -472,7 +472,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -499,7 +499,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -529,7 +529,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }],
@@ -548,7 +548,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }]
@@ -580,7 +580,7 @@ export const PROJECTS_STYLES = {
       layout: {},
       paint: {
           'line-color': 'red',
-          'line-width': 18,
+          'line-width': 12,
           'line-opacity': 0
       }
     }
@@ -610,7 +610,7 @@ export const PROJECTS_STYLES = {
       layout: {},
       paint: {
           'line-color': 'red',
-          'line-width': 18,
+          'line-width': 12,
           'line-opacity': 0
       }
     }
@@ -852,7 +852,7 @@ export const tileStyles = {
     layout: {},
     paint: {
         'line-color': 'red',
-        'line-width': 18,
+        'line-width': 12,
         'line-opacity': 0
     }
   }], 
