@@ -107,7 +107,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       {(appUser.designation === 'admin' || 
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserContainer} />}
       {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UserContainer} />}
+        appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />}
       {(appUser.designation === 'admin' || 
         appUser.designation === 'staff'|| 
         appUser.designation === 'government_admin' || 
