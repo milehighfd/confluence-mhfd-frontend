@@ -29,30 +29,30 @@ export default () => {
       </Menu.Item>
       <Menu.Item key="2">
         <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-08.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-08.svg" alt="" width="18px" />
-          <span>Watershed Story</span>
+          <img className="img-h anticon" src="/Icons/menu-white-08.svg" alt="" width="18px" style={{opacity: '0.2'}} />
+          <img className="img-a anticon" src="/Icons/menu-green-08.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <span>Watershed Story - Under Construction</span>
         </Link>
       </Menu.Item>
       <Menu.Item key="3">
         <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-09.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-09.svg" alt="" width="18px" />
-          <span>Work Plan</span>
+          <img className="img-h anticon" src="/Icons/menu-white-09.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <img className="img-a anticon" src="/Icons/menu-green-09.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <span>Work Plan - Under Construction</span>
         </Link>
       </Menu.Item>
       <Menu.Item key="4">
         <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-10.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-10.svg" alt="" width="18px" />
-          <span>Work Request</span>
+          <img className="img-h anticon" src="/Icons/menu-white-10.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <img className="img-a anticon" src="/Icons/menu-green-10.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <span>Work Request - Under Construction</span>
         </Link>
       </Menu.Item>
       <Menu.Item key="5">
         <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="18px" />
-          <span>Project Management</span>
+          <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <span>Project Management - Under Construction</span>
         </Link>
       </Menu.Item>
       {/* {(appUser.designation === 'admin' ||
@@ -95,9 +95,9 @@ export default () => {
         </Menu.Item> : ''}
         <Menu.Item key="7">
           <Link to={'/map'}>
-            <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" />
-            <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="18px" />
-            <span>Feedback</span>
+            <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" style={{opacity: '0.2'}} />
+            <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+            <span>Feedback - Under Construction</span>
           </Link>
         </Menu.Item>
       {(appUser.designation === 'admin' ||

@@ -225,6 +225,13 @@ body{
 .ant-menu-inline-collapsed{
   width: auto !important;
 }
+.ant-menu-dark .ant-menu-item,
+.ant-menu-dark .ant-menu-item-group-title,
+.ant-menu-dark .ant-menu-item > a{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .tutorial{
   .btn-question, .btn-question:hover,
   .btn-question:focus, .btn-question:active{
