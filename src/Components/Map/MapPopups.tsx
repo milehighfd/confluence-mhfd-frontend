@@ -61,7 +61,7 @@ export const ComponentPopup = ({ item } : any) => {
             {item.subtype ? <h4><i>{item.subtype}</i> </h4> : ''}
             {item.feature ? <h4>{item.feature}</h4> : ''}
             {item.status ? <p><i>Status:</i> {item.status}</p> : ''}
-            {item.estimatedcost ? <p><i>Estimated Cost:</i> ${item.estimatedcost}</p> : ''}
+            {item.estimatedcost ? <p><i>Estimated Cost:</i> ${numberWithCommas(item.estimatedcost)}</p> : ''}
             {item.studyname ? <p><i>Study Name:</i> {item.studyname}</p> : ''}
             {item.jurisdiction ? <p><i>Jurisdiction:</i> {item.jurisdiction}</p> : ''}
             {item.problem ? <p><i>Problem:</i> {item.problem}</p> : ''}

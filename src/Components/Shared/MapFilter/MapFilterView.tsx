@@ -39,9 +39,9 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
               </Col>
               <Col span={7}>
                 <h6>BOUNDARIES</h6>
-                <p><Checkbox value={SERVICE_AREA_LAYERS}>Service Areas</Checkbox></p>
+                {/* <p><Checkbox value={SERVICE_AREA_LAYERS}>Service Areas</Checkbox></p> */}
                 <p><Checkbox value={MUNICIPALITIES}>Municipalities</Checkbox></p>
-                <p><Checkbox value={COUNTIES_LAYERS}>Counties</Checkbox></p>
+                {/* <p><Checkbox value={COUNTIES_LAYERS}>Counties</Checkbox></p> */}
                 <p style={{display: 'none'}}><Checkbox value={MHFD_BOUNDARY_FILTERS}>MHFD Boundary</Checkbox></p>
               </Col>
               <Col span={8}>
