@@ -112,7 +112,7 @@ const initState = {
         keyword: '',
         column: 'projectname',
         order: 'asc',
-        projecttype: '',
+        projecttype: 'Maintenance,Capital',
         status: 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual',
         startyear: '',
         completedyear: '',
@@ -151,7 +151,7 @@ const initState = {
     },
     filterProjects: {
         projectname: '',
-        projecttype: '',
+        projecttype: 'Maintenance,Capital',
         status: 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual',
         startyear: '0',
         completedyear: '9999',

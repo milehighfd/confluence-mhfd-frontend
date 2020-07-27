@@ -30,10 +30,11 @@ import { MAP_DROPDOWN_ITEMS,
         COUNTIES_FILTERS,
         MHFD_BOUNDARY_FILTERS,
         SELECT_ALL_FILTERS,
-        MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS} from "../../constants/constants";
+        MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR} from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles} from '../../constants/mapStyles';
 import { addMapGeocoder } from '../../utils/mapUtils';
+import { numberWithCommas } from '../../utils/utils';
 
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -688,7 +689,53 @@ const Map = ({ leftWidth,
                         }
                         html = loadComponentPopup(item);
                     }
-
+                    if (key === ROUTINE_NATURAL_AREAS) {
+                        const item = {
+                            layer: 'Vegetation Management - Natural Area',
+                            feature: e.features[0].properties.work_item_name ? e.features[0].properties.work_item_name : '-',
+                            contract: e.features[0].properties.contract ? e.features[0].properties.contract : '-',
+                            contractor: e.features[0].properties.contractor ? e.features[0].properties.contractor : '-',
+                            local_gov: e.features[0].properties.local_gov ? e.features[0].properties.local_gov : '-',
+                            acreage: e.features[0].properties.acreage ? numberWithCommas(Math.round(e.features[0].properties.acreage*100)/100) : '-'
+                        }
+                        html = loadComponentPopup(item);
+                    }
+                    if (key === ROUTINE_WEED_CONTROL) {
+                        const item = {
+                            layer: 'Vegetation Management - Weed Control',
+                            feature: e.features[0].properties.work_item_name ? e.features[0].properties.work_item_name : '-',
+                            contract: e.features[0].properties.contract ? e.features[0].properties.contract : '-',
+                            contractor: e.features[0].properties.contractor ? e.features[0].properties.contractor : '-',
+                            local_gov: e.features[0].properties.local_gov ? e.features[0].properties.local_gov : '-',
+                            mow_frequency: e.features[0].properties.mow_frequency ? e.features[0].properties.mow_frequency : '-',
+                            acreage: e.features[0].properties.acreage ? numberWithCommas(Math.round(e.features[0].properties.acreage*100)/100) : '-'
+                        }
+                        html = loadComponentPopup(item);
+                    }
+                    if (key === ROUTINE_DEBRIS_AREA) {
+                        const item = {
+                            layer: 'Debris Management Area',
+                            feature: e.features[0].properties.work_item_name ? e.features[0].properties.work_item_name : '-',
+                            contract: e.features[0].properties.contract ? e.features[0].properties.contract : '-',
+                            contractor: e.features[0].properties.contractor ? e.features[0].properties.contractor : '-',
+                            local_gov: e.features[0].properties.local_gov ? e.features[0].properties.local_gov : '-',
+                            debris_frequency: e.features[0].properties.debris_frequency ? e.features[0].properties.debris_frequency : '-',
+                            acreage: e.features[0].properties.acreage ? numberWithCommas(Math.round(e.features[0].properties.acreage*100)/100) : '-'
+                        }
+                        html = loadComponentPopup(item);
+                    }
+                    if (key === ROUTINE_DEBRIS_LINEAR) {
+                        const item = {
+                            layer: 'Debris Management Linear',
+                            feature: e.features[0].properties.work_item_name ? e.features[0].properties.work_item_name : '-',
+                            contract: e.features[0].properties.contract ? e.features[0].properties.contract : '-',
+                            contractor: e.features[0].properties.contractor ? e.features[0].properties.contractor : '-',
+                            local_gov: e.features[0].properties.local_gov ? e.features[0].properties.local_gov : '-',
+                            debris_frequency: e.features[0].properties.debris_frequency ? e.features[0].properties.debris_frequency : '-',
+                            length: e.features[0].properties.length ? Math.round(e.features[0].properties.length) : '-'
+                        }
+                        html = loadComponentPopup(item);
+                    }
                     const description = e.features[0].properties.description ? e.features[0].properties.description : '-';
                     if (html) {
                         popup.remove();

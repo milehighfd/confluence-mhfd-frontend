@@ -66,6 +66,14 @@ export const ComponentPopup = ({ item } : any) => {
             {item.jurisdiction ? <p><i>Jurisdiction:</i> {item.jurisdiction}</p> : ''}
             {item.problem ? <p><i>Problem:</i> {item.problem}</p> : ''}
             {item.description ? <p><i>Description:</i> {item.description}</p> : ''}
+
+            {item.contract ? <p><i>Contract:</i> {item.contract}</p> : ''}
+            {item.contractor ? <p><i>Contractor:</i> {item.contractor}</p> : ''}
+            {item.local_gov ? <p><i>Local Government:</i> {item.local_gov}</p> : ''}
+            {item.mow_frequency ? <p><i>Frequency:</i> {item.mow_frequency}</p> : ''}
+            {item.debris_frequency ? <p><i>Frequency:</i> {item.debris_frequency}</p> : ''}
+            {item.acreage ? <p><i>Acreage:</i> {item.acreage}</p> : ''}
+            {item.length ? <p><i>Length:</i> {item.length}</p> : ''}
             
             {item.projectno ? <p><i>Project Number:</i> {item.projectno}</p> : ''}
             {item.mepstatus ? <p><i>MEP Status:</i> {item.mepstatus}</p> : ''}
