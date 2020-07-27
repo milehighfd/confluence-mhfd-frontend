@@ -7,7 +7,7 @@ export const EMPTY_SCREEN = 0;
 
 export const MAP_RESIZABLE_TRANSITION = 0.7;
 
-/* Map Constants */
+/* Map Constants mapbox://styles/milehighfd/ckd4lkry715mf1imadq67n7r5 ${SERVER.URL_BASE}/style/ckarchcyg0vjl1ipcm4kap2k0/milehighfd/${MAPBOX_TOKEN} */
 
 export const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
 export const HERE_TOKEN = 'aRgPPlNDstxfi9lnBVXAkAN5fUu5jC1D3fuZoDeyUFw';
@@ -18,7 +18,7 @@ export const MAP_DROPDOWN_ITEMS = [
         style: 'mapbox://styles/milehighfd/ck4k0tjln58h41cl4ixb8jsez'
     }, {
       type: 'Optional style',
-      style: `${SERVER.URL_BASE}/style/ckarchcyg0vjl1ipcm4kap2k0/milehighfd/${MAPBOX_TOKEN}`,
+      style: `mapbox://styles/milehighfd/ckd4lkry715mf1imadq67n7r5`,
     }, {
         type: 'Dark Road',
         style: 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft'
