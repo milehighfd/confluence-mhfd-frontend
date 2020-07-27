@@ -27,6 +27,34 @@ export default () => {
           <span>Map View</span>
         </Link>
       </Menu.Item>
+      <Menu.Item key="2">
+        <Link to={'/map'}>
+          <img className="img-h anticon" src="/Icons/menu-white-08.svg" alt="" width="18px" />
+          <img className="img-a anticon" src="/Icons/menu-green-08.svg" alt="" width="18px" />
+          <span>Watershed Story</span>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <Link to={'/map'}>
+          <img className="img-h anticon" src="/Icons/menu-white-09.svg" alt="" width="18px" />
+          <img className="img-a anticon" src="/Icons/menu-green-09.svg" alt="" width="18px" />
+          <span>Work Plan</span>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="4">
+        <Link to={'/map'}>
+          <img className="img-h anticon" src="/Icons/menu-white-10.svg" alt="" width="18px" />
+          <img className="img-a anticon" src="/Icons/menu-green-10.svg" alt="" width="18px" />
+          <span>Work Request</span>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="5">
+        <Link to={'/map'}>
+          <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="18px" />
+          <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="18px" />
+          <span>Project Management</span>
+        </Link>
+      </Menu.Item>
       {/* {(appUser.designation === 'admin' ||
         appUser.designation === 'staff'||
         appUser.designation === 'government_admin' ||
@@ -65,9 +93,16 @@ export default () => {
             <span>Uploader</span>
           </Link>
         </Menu.Item> : ''}
+        <Menu.Item key="7">
+          <Link to={'/map'}>
+            <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" />
+            <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="18px" />
+            <span>Feedback</span>
+          </Link>
+        </Menu.Item>
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') ?
-        <Menu.Item key="5">
+        <Menu.Item key="8">
           <Link to={'/user'}>
             <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="18px" />
             <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="18px" />
