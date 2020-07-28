@@ -85,21 +85,110 @@ export const polygonStroke = {
 };
 
 export const COMPONENT_LAYERS_STYLE = {
-  [GRADE_CONTROL_STRUCTURE]: [{
-    type: 'symbol',
+  [GRADE_CONTROL_STRUCTURE]: [
+  //   {
+  //   type: 'symbol',
+  //   'source-layer': 'pluto15v1',
+  //   layout: {
+  //     'icon-image': 'waterfall',
+  //     'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
+  //   },
+  // },{
+  //   type: 'line',
+  //   'source-layer': 'pluto15v1',
+  //   layout: {},
+  //   paint: {
+  //       'line-color': 'red',
+  //       'line-width': 12,
+  //       'line-opacity': 0
+  //   }
+  // }
+  {
+    type: 'circle',
     'source-layer': 'pluto15v1',
-    layout: {
-      'icon-image': 'waterfall',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
+    layout: { },
+    paint: {
+      "circle-color": [
+        "step",
+        ["zoom"],
+        "hsla(17, 86%, 49%, 0)",
+        13,
+        "hsla(17, 86%, 49%, 0.51)",
+        22,
+        "hsl(136, 86%, 49%)"
+      ],
+      "circle-stroke-color": [
+          "step",
+          ["zoom"],
+          "hsla(0, 4%, 88%, 0.01)",
+          13,
+          "hsl(0, 4%, 88%)",
+          22,
+          "hsl(0, 4%, 88%)"
+      ],
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          2,
+          22,
+          10
+      ],
+      "circle-stroke-width": ["step", ["zoom"], 0, 13, 4, 22, 10],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0.23,
+          14,
+          1,
+          22,
+          1
+      ]
     },
   },{
-    type: 'line',
+    type: 'circle',
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0
+      "circle-radius": ["step", ["zoom"], 0, 13, 5, 22, 5],
+      "circle-stroke-color": [
+          "step",
+          ["zoom"],
+          "hsla(0, 0%, 0%, 0.05)",
+          13,
+          "hsl(0, 0%, 0%)",
+          22,
+          "#000000"
+      ],
+      "circle-color": "hsl(0, 0%, 0%)"
+    }
+  },{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      "circle-radius": ["step", ["zoom"], 0, 13, 5, 22, 4],
+      "circle-color": "hsl(145, 97%, 59%)",
+      "circle-stroke-width": ["step", ["zoom"], 0, 13, 4, 22, 6],
+      "circle-stroke-color": "hsla(102, 43%, 27%, 0.55)",
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13,
+          0.69,
+          22,
+          1
+      ]
     }
   }],
   [PIPE_APPURTENANCES]: [{
@@ -190,10 +279,41 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#34b356',
-        'line-width': 3.5,
-        'line-opacity': 1,
-        'line-dasharray': [4, 4, 1]
+      "line-color": [
+        "step",
+        ["zoom"],
+        "hsla(127, 89%, 45%, 0)",
+        12,
+        "hsla(127, 89%, 45%, 0.52)",
+        22,
+        "hsl(127, 89%, 45%)"
+      ],
+      "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          10,
+          4,
+          22,
+          4
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      "line-color": [
+        "step",
+        ["zoom"],
+        "hsla(0, 0%, 0%, 0)",
+        13,
+        "hsl(183, 76%, 76%)",
+        22,
+        "hsl(0, 0%, 0%)"
+      ]
     }
   },{
     type: 'line',
@@ -287,9 +407,96 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#34b356',
-        'line-width': 2,
-        'line-opacity': 1
+      "line-color": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        "hsl(163, 76%, 45%)",
+        13,
+        "hsl(163, 76%, 37%)",
+        22,
+        "hsl(163, 73%, 51%)"
+      ],
+      "line-width": ["step", ["zoom"], 0, 12, 1.5, 14, 3, 22, 6]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      "circle-radius": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        9,
+        0.25,
+        11,
+        0.5,
+        12,
+        1,
+        13,
+        1.5,
+        14,
+        2.5
+      ],
+      "circle-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsl(0, 96%, 65%)",
+          14,
+          "hsl(176, 83%, 51%)"
+      ],
+      "circle-stroke-width": ["step", ["zoom"], 0, 13, 1.5, 22, 6],
+      "circle-stroke-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(176, 83%, 77%, 0)",
+          13,
+          "hsl(176, 83%, 77%)",
+          22,
+          "hsl(176, 83%, 77%)"
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      "circle-radius": ["step", ["zoom"], 0, 12, 1, 13, 1.5, 14, 2.5],
+      "circle-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsl(0, 96%, 65%)",
+          14,
+          "hsl(176, 83%, 51%)"
+      ],
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13,
+          1,
+          22,
+          4
+      ],
+      "circle-stroke-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsl(176, 3%, 20%)",
+          22,
+          "hsl(176, 4%, 20%)"
+      ]
     }
   },{
     type: 'line',
@@ -306,17 +513,48 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'fill-color': '#1f67f2',
-        'fill-opacity': 0.3
+      "fill-color": [
+        "step",
+        ["zoom"],
+        "hsla(181, 66%, 51%, 0)",
+        12,
+        "hsl(181, 66%, 51%)",
+        22,
+        "hsl(181, 66%, 51%)"
+      ]
     }
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-        'line-color': '#1f67f2',
-        'line-opacity': 1,
-        'line-width': 1.5
+      "line-color": [
+        "step",
+        ["zoom"],
+        "hsla(180, 76%, 84%, 0)",
+        12,
+        "hsla(180, 76%, 84%, 0.87)",
+        22,
+        "hsl(180, 76%, 84%)"
+      ],
+      "line-width": 4
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      "line-color": [
+        "step",
+        ["zoom"],
+        "hsla(180, 76%, 36%, 0.02)",
+        12,
+        "hsl(180, 76%, 35%)",
+        22,
+        "hsl(180, 76%, 36%)"
+      ],
+      "line-translate": [1, 1],
+      "line-width": 2
     }
   },{
     type: 'line',
