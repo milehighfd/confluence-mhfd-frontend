@@ -586,43 +586,56 @@ export const PROJECTS_STYLES = {
     }
 ],
   [PROJECTS_LINE]: [
-     {
+    {
       type: 'line',
       'source-layer': 'pluto15v1',
       layout: {},
       "paint": {
         "line-color": "#ffdd00",
-        "line-width": 6,
-        "line-blur": 6,
-        "line-gap-width": 6,
-        "line-opacity": [
-          "interpolate",
-          ["exponential", 1],
-          ["zoom"],
-          0,
-          0.4,
-          11,
-          0.5,
-          13,
-          0.22,
-          14.22,
-          1,
-          22,
-          1
-      ]
+                "line-width": 6,
+                "line-blur": 6,
+                "line-gap-width": 6,
+                "line-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    0,
+                    11,
+                    0,
+                    13,
+                    0.22,
+                    14.22,
+                    1,
+                    22,
+                    1
+                ]
       }
-    }, {
+    },{
       type: 'line',
       'source-layer': 'pluto15v1',
       layout: {},
       "paint": {
         "line-color": "hsl(303, 100%, 50%)",
-        "line-blur": 1,
-        "line-gap-width": 6,
-        "line-opacity": 1
-        
+                "line-blur": 1,
+                "line-gap-width": 6,
+                "line-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    0,
+                    11,
+                    0,
+                    13,
+                    0.22,
+                    14.22,
+                    1,
+                    22,
+                    1
+                ]
       }
-    },  {
+    }, {
       "type": "symbol",
       "source-layer": "pluto15v1",
       "layout": {
@@ -659,6 +672,15 @@ export const PROJECTS_STYLES = {
           ],
           "text-halo-width": 0.25,
           "text-halo-blur": 35
+      }
+    },{
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      paint: {
+          'line-color': 'red',
+          'line-width': 12,
+          'line-opacity': 0
       }
     }
   ]
