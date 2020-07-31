@@ -597,20 +597,21 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#f2d852',
-        'fill-opacity': 0.9
+    "paint": {
+      "line-color": "hsl(99, 88%, 69%)",
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          0.43,
+          22,
+          1
+      ]
     }
   }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'line-color': '#FFFFFF',
-        'line-opacity': 0.5,
-        'line-width': 1.5
-    }
-  },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
