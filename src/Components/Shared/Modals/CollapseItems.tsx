@@ -4,7 +4,7 @@ import { Collapse, Table, Row, Col, Menu } from 'antd';
 
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_MODAL, PROJECTS_MODAL } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS } from '../../../constants/constants';
 import { tileStyles } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
@@ -178,110 +178,18 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
                   };
                   html = loadMainPopup(item);
               }
-              if (key === 'grade_control_structure') {
-                  const item = {
-                      layer: 'Components',
-                      subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',
-                      status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
-                      estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
-                      studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
-                      jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                      problem: 'Dataset in development'
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'pipe_appurtenances') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Pipe Appurtenances',
-                      description: e.features[0].properties.description ? e.features[0].properties.description: '-'
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'special_item_point') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Special Item Point',
-                  };
-                  html = loadComponentPopup(item)
-              }
-              if (key === 'special_item_linear') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Special Item Linear',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'special_item_area') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Special Item Area',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'channel_improvements_linear') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Channel Improvements Linear',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'channel_improvements_area') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Channel Improvements Area',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'removal_line') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Removal Line',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'removal_area') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Removal Area',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'storm_drain') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Storm Drain',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'detention_facilities') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Detention Facilities',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'maintenance_trails') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Maintenance Trails',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'land_acquisition') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Land Acquisition',
-                  };
-                  html = loadComponentPopup(item);
-              }
-              if (key === 'landscaping_area') {
-                  const item = {
-                      layer: 'Components',
-                      feature: 'Landscaping Area',
-                  };
-                  html = loadComponentPopup(item);
-              }
+              if (COMPONENT_LAYERS.tiles.includes( key)) {
+                const item = {
+                    layer: 'Components',
+                    subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',
+                    status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
+                    estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
+                    studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
+                    jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
+                    problem: 'Dataset in development'
+                };
+                html = loadComponentPopup(item);
+            }
               if (key === 'mep_projects_temp_locations') {
                   const item = {
                       layer: 'MEP Temporary Location',
