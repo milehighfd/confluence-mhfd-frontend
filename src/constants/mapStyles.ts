@@ -624,18 +624,29 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#38bb45',
-        'fill-opacity': 0.9
+    "paint": {
+      "fill-color": "#76efd5",
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12.5,
+          0.42,
+          15,
+          0.39,
+          22,
+          0
+      ],
+      "fill-outline-color": "hsl(58, 94%, 51%)"
     }
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#ffffff',
-        'line-opacity': 0.78,
-        'line-width': 1
+    "paint": {
+      "line-color": "hsl(298, 87%, 84%)"
     }
   },{
     type: 'line',
