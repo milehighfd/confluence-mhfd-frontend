@@ -329,12 +329,11 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#34b356',
-        'fill-opacity': 0.2
+    "paint": {
+      "fill-color": "hsl(120, 76%, 22%)",
+      "fill-opacity": ["step", ["zoom"], 0, 12, 0.43, 22, 0]
     }
-  },
-  {
+  }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -344,14 +343,36 @@ export const COMPONENT_LAYERS_STYLE = {
       'line-opacity': 1,
       'line-dasharray': [4, 4, 1]
     }
-  },{
+  }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0
+    "paint": {
+      "line-dasharray": [1, 1],
+      "line-color": "hsl(32, 78%, 16%)",
+      "line-width": 4,
+      "line-translate": [1, 1],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-dasharray": [1, 1],
+      "line-color": "hsl(32, 87%, 61%)",
+      "line-width": 2,
+      "line-opacity": ["step", ["zoom"], 0, 12, 1, 22, 1]
     }
   }],
   [REMOVAL_LINE]: [{
