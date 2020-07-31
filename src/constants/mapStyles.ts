@@ -775,10 +775,44 @@ const ROUTINE_MAINTENANCE_STYLES = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#0a0b0b',
-        'line-width': 3,
-        'line-dasharray': [2, 2, 2]
+    "paint": {
+      "line-width": 5,
+      "line-color": "hsl(45, 92%, 55%)",
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0,
+          14,
+          1,
+          22,
+          1
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-width": 5,
+      "line-color": "hsl(45, 92%, 28%)",
+      "line-dasharray": [3, 3],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0,
+          14,
+          1,
+          22,
+          1
+      ]
     }
   },{
     type: 'line',
