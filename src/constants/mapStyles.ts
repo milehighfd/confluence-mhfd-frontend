@@ -249,21 +249,11 @@ export const COMPONENT_LAYERS_STYLE = {
       type: 'fill',
       'source-layer': 'pluto15v1',
       layout: {},
-      paint: {
-          'fill-color': '#ffc700',
-          'fill-opacity': 0.53,
+      "paint": {
+        "fill-color": "hsl(98, 50%, 51%)",
+        "fill-opacity": ["step", ["zoom"], 0, 12, 0.44, 22, 1]
       }
-    },
-    {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-          'line-color': '#ffc700',
-          'line-width': 2.5,
-          'line-opacity': 1
-      }
-    },{
+    }, {
       type: 'line',
       'source-layer': 'pluto15v1',
       layout: {},
