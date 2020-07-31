@@ -677,11 +677,129 @@ const MEP_PROJECTS_STYLES = {
     }
   }],
   [MEP_PROJECTS_STORM_OUTFALLS]: [{
-    type: 'symbol',
+    type: 'circle',
     'source-layer': 'pluto15v1',
-    layout: {
-      'icon-image': 'construction-01',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
+    "paint": {
+      "circle-color": "hsl(5, 43%, 16%)",
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          22,
+          4
+      ],
+      "circle-stroke-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(23, 76%, 64%, 0.13)",
+          22,
+          "hsla(23, 48%, 16%, 0.37)"
+      ],
+      "circle-translate": [3, 3],
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.5,
+          22,
+          5
+      ],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          10.5,
+          0,
+          11,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          10.5,
+          0,
+          11,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "circle-color": "hsl(42, 93%, 54%)",
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.3,
+          4,
+          22,
+          12
+      ],
+      "circle-stroke-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(23, 76%, 64%, 0)",
+          12,
+          "hsla(23, 89%, 47%, 0.15)",
+          18,
+          "hsla(23, 89%, 47%, 0.28)",
+          22,
+          "hsla(23, 89%, 47%, 0.59)"
+      ],
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          22,
+          2
+      ],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          10.5,
+          0,
+          11,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          10.5,
+          0,
+          11,
+          1,
+          22,
+          1
+      ]
     }
   }]
 }
