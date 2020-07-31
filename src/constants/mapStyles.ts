@@ -229,10 +229,10 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#ffc700',
-        'line-width': 2.5,
-        'line-opacity': 1
+    "paint": {
+      "line-color": "hsl(98, 65%, 48%)",
+      "line-opacity": ["step", ["zoom"], 0, 12, 1, 22, 1],
+      "line-width": ["interpolate", ["linear"], ["zoom"], 0, 1, 22, 4]
     }
   },{
     type: 'line',
