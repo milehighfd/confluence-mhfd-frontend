@@ -795,22 +795,35 @@ const ROUTINE_MAINTENANCE_STYLES = {
 export const PROJECTS_STYLES = {
   [PROJECTS_POLYGONS]: [  
     {
-      type: 'line',
+      type: 'fill',
       'source-layer': 'pluto15v1',
       layout: {},
-      paint: {
-          'line-color': [
-            'match',
-            ['get', 'projecttype'],
-            'Maintenance',
-            '#29c499',
-            'Capital',
-            '#ffdd00',
-            'Study',
-            '#951eba',
-            '#fff'
-          ],
-          'line-width': 2.25,
+      "paint": {
+        "fill-color": "#ffff00",
+        "fill-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            10,
+            0,
+            12,
+            1,
+            22,
+            0.1
+        ],
+        "fill-outline-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            "hsla(60, 100%, 50%, 0)",
+            9.5,
+            "hsla(60, 100%, 50%, 0)",
+            22,
+            "#ffff00"
+        ]
       }
     },{
       type: 'line',
