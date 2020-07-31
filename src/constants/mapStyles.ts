@@ -742,26 +742,15 @@ const ROUTINE_MAINTENANCE_STYLES = {
     }
   }],
   [ROUTINE_DEBRIS_AREA]: [
-  //   {
-  //   type: 'fill',
-  //   'source-layer': 'pluto15v1',
-  //   layout: {},
-  //   paint: {
-  //       'fill-color': '#bebdbf',
-  //       'fill-opacity': 0.9
-  //   }
-  // },
-  {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-      'line-color': '#434243',
-      'line-width': 2,
-      'line-opacity': 1,
-      'line-dasharray': [2, 2, 2]
-    }
-  },{
+    {
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsl(33, 54%, 43%)",
+        "fill-outline-color": "hsl(190, 86%, 71%)"
+      }
+    },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
