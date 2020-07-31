@@ -247,6 +247,9 @@ export class MapService {
     console.log(layer);
     this.map.on('click', layer, cb);
   }
+  clickOnMap(cb: any) {
+    this.map.on('click', cb);
+  }
   createDraw(cb: any) {
     this.map.on('draw.create', cb);
   }
