@@ -148,6 +148,7 @@ export const ROUTINE_MAINTENANCE = {
 // Project Styles Filters
 export const PROJECTS_POLYGONS = 'projects_polygon_';
 export const PROJECTS_LINE = 'projects_line_1';
+export const STUDIES = 'studies';
 
 export const PROJECTS_MAP_STYLES = {
   name: 'projects',
@@ -169,6 +170,7 @@ export const SELECT_ALL_FILTERS = [STREAMS_FILTERS,
   COMPONENT_LAYERS,
   PROBLEMS_TRIGGER,
   PROJECTS_MAP_STYLES,
+  STUDIES,
   MEP_PROJECTS];
 
 /* End of Map Constants */
