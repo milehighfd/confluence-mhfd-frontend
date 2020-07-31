@@ -598,6 +598,24 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
+      "fill-color": "hsl(283, 76%, 27%)",
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          0.51,
+          22,
+          0.51
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
       "line-color": "hsl(99, 88%, 69%)",
       "line-opacity": [
           "interpolate",
@@ -610,15 +628,6 @@ export const COMPONENT_LAYERS_STYLE = {
           22,
           1
       ]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0
     }
   }],
   [LANDSCAPING_AREA]: [{
