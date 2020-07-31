@@ -192,20 +192,65 @@ export const COMPONENT_LAYERS_STYLE = {
     }
   }],
   [PIPE_APPURTENANCES]: [{
-    type: 'symbol',
+    type: 'circle',
     'source-layer': 'pluto15v1',
-    layout: {
-      'icon-image': 'outfall',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
+    "paint": {
+      "circle-color": "hsl(182, 71%, 43%)",
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          0.5,
+          11,
+          1.5,
+          13,
+          2,
+          22,
+          7
+      ]
     }
   },{
-    type: 'line',
+    type: 'circle',
     'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0
+    layout: {}, 
+    "paint": {
+      "circle-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsl(303, 88%, 42%)",
+          22,
+          "hsl(104, 6%, 98%)"
+      ],
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9,
+          0,
+          11,
+          1,
+          13,
+          2,
+          16,
+          6,
+          22,
+          10
+      ],
+      "circle-stroke-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 21%, 26%, 0)",
+          9,
+          "hsla(0, 21%, 26%, 0)",
+          12,
+          "hsl(0, 21%, 26%)"
+      ],
+      "circle-stroke-width": 2
     }
   }],
   [SPECIAL_ITEM_POINT]: [{
