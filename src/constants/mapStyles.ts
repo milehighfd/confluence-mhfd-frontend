@@ -1596,22 +1596,58 @@ export const tileStyles = {
     }
   }], 
   [WATERSHED_FILTERS]: [{
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'fill-color': '#f2695c',
-        'fill-opacity': 0,
-    }
-  },
-  {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#f55e50',
-        'line-width': 0.75,
-        'line-opacity': 1
+    "paint": {
+      "line-color": [
+          "step",
+          ["zoom"],
+          "hsl(0, 2%, 99%)",
+          10,
+          "hsl(0, 2%, 99%)",
+          13,
+          "hsl(0, 2%, 99%)",
+          22,
+          "hsl(0, 2%, 99%)"
+      ],
+      "line-blur": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          4,
+          22,
+          2
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          10,
+          3,
+          22,
+          2
+      ]
+    }
+  },
+  {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": ["to-string", ["get", "servicearea"]],
+      "text-variable-anchor": ["bottom-right"],
+      "text-padding": 55,
+      "text-size": 18
+    },
+    "paint": {
+        "text-color": "hsl(234, 0%, 100%)",
+        "text-halo-width": 4,
+        "text-halo-color": "hsla(0, 2%, 100%, 0)"
     }
   }], 
   [STREAMS_FILTERS]: [{
