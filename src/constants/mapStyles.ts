@@ -718,18 +718,93 @@ const ROUTINE_MAINTENANCE_STYLES = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#4cfca4',
-        'fill-opacity': 0.7
+    "paint": {
+      "fill-outline-color": "hsl(32, 94%, 38%)",
+      "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(22, 92%, 52%, 0.56)",
+          22,
+          "hsla(22, 92%, 52%, 0.56)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          14,
+          1,
+          22,
+          0
+      ]
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-      'line-color': '#134e33',
-      'line-width': 2,
-      'line-opacity': 0
+    "paint": {
+      "line-color": "hsl(38, 68%, 19%)",
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14,
+          2,
+          22,
+          16
+      ],
+      "line-dasharray": [1, 1],
+      "line-translate": [1, 1],
+      "line-opacity": ["step", ["zoom"], 0, 14, 1, 22, 1]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(38, 68%, 46%, 0)",
+          14,
+          "hsl(38, 68%, 46%)",
+          22,
+          "hsl(38, 68%, 46%)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14,
+          2,
+          22,
+          16
+      ],
+      "line-dasharray": [1, 1],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          14,
+          1,
+          22,
+          1
+      ]
     }
   },{
     type: 'line',
