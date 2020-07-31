@@ -1729,23 +1729,22 @@ export const tileStyles = {
     }
   }],
   [MHFD_BOUNDARY_FILTERS]: [{
-    type: 'fill',
+    type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#826dba',
-        'fill-opacity': 0
+    "paint": {
+      "line-color": "hsl(0, 0%, 100%)", 
+      "line-width": 4
     }
   },
   {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#ffffff',
-        'line-width': 4,
-        'line-opacity': 1,
-        'line-dasharray': [4, 4, 4]
+    "paint": {
+      "line-color": "hsl(0, 3%, 39%)",
+      "line-dasharray": [5, 5],
+      "line-width": 2
     }
   }], 
   [PROBLEMS_TRIGGER]: [{
