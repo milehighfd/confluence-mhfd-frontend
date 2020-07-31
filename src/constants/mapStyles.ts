@@ -406,40 +406,25 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
+    "paint": {
       "line-color": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        0,
-        "hsl(163, 76%, 45%)",
-        13,
-        "hsl(163, 76%, 37%)",
-        22,
-        "hsl(163, 73%, 51%)"
+          "step",
+          ["zoom"],
+          "hsla(163, 76%, 45%, 0)",
+          13,
+          "hsl(163, 76%, 37%)",
+          22,
+          "hsl(163, 73%, 51%)"
       ],
-      "line-width": ["step", ["zoom"], 0, 12, 1.5, 14, 3, 22, 6]
+      "line-width": ["step", ["zoom"], 0, 13, 1.5, 14, 3, 22, 6],
+      "line-opacity": ["step", ["zoom"], 0, 13, 0, 22, 1]
     }
   },{
-    type: 'line',
+    type: 'circle',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-      "circle-radius": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        9,
-        0.25,
-        11,
-        0.5,
-        12,
-        1,
-        13,
-        1.5,
-        14,
-        2.5
-      ],
+    "paint": {
+      "circle-radius": ["step", ["zoom"], 0, 13, 1.5, 14, 2.5],
       "circle-color": [
           "interpolate",
           ["linear"],
@@ -463,11 +448,11 @@ export const COMPONENT_LAYERS_STYLE = {
       ]
     }
   },{
-    type: 'line',
+    type: 'circle',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-      "circle-radius": ["step", ["zoom"], 0, 12, 1, 13, 1.5, 14, 2.5],
+    "paint": {
+      "circle-radius": ["step", ["zoom"], 0, 13, 1.5, 14, 2.5],
       "circle-color": [
           "interpolate",
           ["linear"],
