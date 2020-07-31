@@ -34,7 +34,8 @@ import {
   ROUTINE_DEBRIS_AREA,
   ROUTINE_DEBRIS_LINEAR,
   PROJECTS_POLYGONS,
-  PROJECTS_LINE
+  PROJECTS_LINE,
+  STUDIES
 } from "./constants";
 
 export const localComponents = {
@@ -2074,6 +2075,100 @@ export const tileStyles = {
         'line-opacity': 0
     }
   }], 
+  [STUDIES]: [ {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Funding"],
+          "hsla(129, 1%, 63%, 0.47)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-outline-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Funding"],
+          "hsl(112, 3%, 97%)",
+          "hsla(112, 3%, 52%, 0)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13,
+          0.37,
+          22,
+          0
+      ]
+    }
+  },  {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "sstatus"],
+          ["In Progress"],
+          "hsla(131, 56%, 68%, 0.2)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-outline-color": [
+          "match",
+          ["get", "sstatus"],
+          ["In Progress"],
+          "hsl(124, 94%, 48%)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13,
+          0.56,
+          22,
+          0
+      ]
+    }
+  },  {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Design"],
+          "hsla(73, 66%, 66%, 0.24)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-outline-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Design"],
+          "hsl(61, 94%, 56%)",
+          "hsla(61, 94%, 56%, 0)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          1,
+          12.5,
+          0.38,
+          22,
+          0
+      ]
+    }
+  }],
   ...COMPONENT_LAYERS_STYLE,
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,
