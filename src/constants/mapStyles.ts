@@ -651,11 +651,138 @@ export const COMPONENT_LAYERS_STYLE = {
 
 const MEP_PROJECTS_STYLES = {
   [MEP_PROJECTS_TEMP_LOCATIONS]: [{
-    type: 'symbol',
+    type: 'circle',
     'source-layer': 'pluto15v1',
-    layout: {
-      'icon-image': 'construction-04',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
+    "paint": {
+      "circle-color": "#f19b32",
+      "circle-stroke-width": 10,
+      "circle-stroke-color": "hsla(0, 6%, 56%, 0.41)",
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          13.75,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          13.75,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "circle-color": "hsl(33, 87%, 57%)",
+      "circle-stroke-width": 2,
+      "circle-stroke-color": "hsla(0, 6%, 56%, 0.41)",
+      "circle-radius": 12,
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          13.75,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          13.75,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "circle-color": "hsl(33, 83%, 22%)",
+      "circle-translate": [1, 1],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          13.75,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          13.75,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "circle-color": "hsl(33, 3%, 96%)",
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          13.75,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.5,
+          0,
+          13.75,
+          1,
+          22,
+          1
+      ]
     }
   }],
   [MEP_PROJECTS_DETENTION_BASINS]: [{
