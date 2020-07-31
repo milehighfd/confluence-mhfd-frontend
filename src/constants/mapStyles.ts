@@ -1612,44 +1612,19 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "fill-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          [
-              "match",
-              ["get", "fld_zone"],
-              ["AE", "A", "AO", "AH"],
-              "hsl(0, 90%, 21%)",
-              "hsla(0, 0%, 100%, 0)"
-          ],
-          13,
-          [
-              "match",
-              ["get", "fld_zone"],
-              ["AE", "A", "AO", "AH"],
-              "hsl(0, 90%, 23%)",
-              "hsla(0, 0%, 100%, 0)"
-          ],
-          22,
-          [
-              "match",
-              ["get", "fld_zone"],
-              ["AE", "A", "AO", "AH"],
-              "hsla(0, 90%, 23%, 0.69)",
-              "hsla(0, 0%, 100%, 0)"
-          ]
-      ],
+      "fill-color": "hsl(226, 61%, 23%)",
+      "fill-outline-color": "hsl(235, 87%, 54%)",
       "fill-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
           0,
           1,
-          13,
-          0.76,
-          15,
+          12,
+          1,
+          14,
+          0.37,
+          16,
           0,
           22,
           0
@@ -1660,61 +1635,51 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": [
-          "match",
-          ["get", "fld_zone"],
-          ["A", "AE", "AO", "AH"],
-          "hsl(0, 94%, 25%)",
-          "hsla(0, 94%, 25%, 0)"
-      ],
-      "line-width": 3,
+      "line-width": 6,
       "line-opacity": [
+          "interpolate",
+          ["exponential", 1],
+          ["zoom"],
+          0,
+          0,
+          14,
+          0.33,
+          22,
+          1
+      ],
+      "line-color": [
           "interpolate",
           ["linear"],
           ["zoom"],
           0,
-          1,
+          "hsl(234, 61%, 19%)",
           14,
-          1,
+          "hsl(234, 63%, 18%)",
           22,
-          1
-      ]
+          "hsl(227, 65%, 23%)"
+      ],
+      "line-translate": [-2, -2]
     }
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": [
-          "match",
-          ["get", "fld_zone"],
-          ["AE", "A", "AO", "AH"],
-          "hsl(0, 0%, 100%)",
-          "hsla(0, 0%, 100%, 0)"
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0.5,
-          14,
-          0.5,
-          22,
-          3
-      ],
-      "line-dasharray": [3, 3],
+      "line-width": 2,
       "line-opacity": [
           "interpolate",
-          ["linear"],
+          ["exponential", 1],
           ["zoom"],
           0,
-          1,
-          11,
-          1,
+          0,
+          14,
+          0.33,
           22,
           1
-      ]
+      ],
+      "line-translate": [-2, -2],
+      "line-dasharray": [1, 1],
+      "line-color": "hsl(0, 0%, 100%)"
     }
   }],
   [FEMA_FLOOD_HAZARD]: [ {
