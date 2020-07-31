@@ -512,30 +512,30 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
+    "paint": {
       "fill-color": [
-        "step",
-        ["zoom"],
-        "hsla(181, 66%, 51%, 0)",
-        12,
-        "hsl(181, 66%, 51%)",
-        22,
-        "hsl(181, 66%, 51%)"
+          "step",
+          ["zoom"],
+          "hsla(181, 66%, 51%, 0)",
+          12,
+          "hsl(181, 66%, 51%)",
+          22,
+          "hsl(181, 66%, 51%)"
       ]
     }
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
+    "paint": {
       "line-color": [
-        "step",
-        ["zoom"],
-        "hsla(180, 76%, 84%, 0)",
-        12,
-        "hsla(180, 76%, 84%, 0.87)",
-        22,
-        "hsl(180, 76%, 84%)"
+          "step",
+          ["zoom"],
+          "hsla(180, 76%, 84%, 0)",
+          12,
+          "hsla(180, 76%, 84%, 0.87)",
+          22,
+          "hsl(180, 76%, 84%)"
       ],
       "line-width": 4
     }
@@ -543,15 +543,15 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
+    "paint": {
       "line-color": [
-        "step",
-        ["zoom"],
-        "hsla(180, 76%, 36%, 0.02)",
-        12,
-        "hsl(180, 76%, 35%)",
-        22,
-        "hsl(180, 76%, 36%)"
+          "step",
+          ["zoom"],
+          "hsla(180, 76%, 36%, 0.02)",
+          12,
+          "hsl(180, 76%, 35%)",
+          22,
+          "hsl(180, 76%, 36%)"
       ],
       "line-translate": [1, 1],
       "line-width": 2
