@@ -691,18 +691,57 @@ const ROUTINE_MAINTENANCE_STYLES = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#d9ceba',
-        'fill-opacity': 0.51
+    "paint": {
+      "fill-color": "hsl(38, 68%, 46%)",
+      "fill-outline-color": "#c58b26",
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0,
+          14,
+          1,
+          19,
+          0,
+          22,
+          0
+      ]
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#d2b175',
-        'line-width': 2,
-        'line-opacity': 0
+    "paint": {
+      "line-gap-width": 4,
+      "line-width": 8,
+      "line-blur": 8,
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(38, 68%, 46%, 0)",
+          13,
+          "hsla(38, 68%, 46%, 0)",
+          22,
+          "hsl(38, 68%, 46%)"
+      ],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0,
+          14,
+          1,
+          22,
+          1
+      ]
     }
   },{
     type: 'line',
