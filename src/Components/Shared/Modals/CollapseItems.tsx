@@ -147,8 +147,13 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
             map.removeMouseEnter(value + index, () => {
               map.getCanvas().style.cursor = '';
             });
+            map.clickOnMap((e:any) => {
+              if (!e.defaultPrevented) {
+                map.removePopUp();
+              }
+            });
             map.click(value + index, (e:any) => {
-
+              e.preventDefault();
               if (key === 'problems') {
                   const item = {
                       type: 'problems',
@@ -342,6 +347,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
                   html = loadComponentPopup(item);
               }
               if (html) {
+                map.removePopUp();
                 map.addPopUp(e.lngLat, html);
               }
             });
