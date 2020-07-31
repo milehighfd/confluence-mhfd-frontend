@@ -1670,31 +1670,115 @@ export const tileStyles = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#bc73ff',
-        'fill-opacity': 0.5
+    "paint": {
+      "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          [
+              "interpolate",
+              ["linear"],
+              ["get", "cartodb_id"],
+              0,
+              "hsl(0, 97%, 52%)",
+              6,
+              "hsl(179, 93%, 50%)",
+              9,
+              "#406370",
+              19,
+              "#8a9cd5",
+              29,
+              "#9d613a",
+              39,
+              "#febc66",
+              49,
+              "#aa492e",
+              59,
+              "#406370"
+          ],
+          10.5,
+          [
+              "interpolate",
+              ["linear"],
+              ["get", "cartodb_id"],
+              0,
+              "hsl(0, 97%, 52%)",
+              6,
+              "hsl(179, 93%, 50%)",
+              9,
+              "#406370",
+              19,
+              "#8a9cd5",
+              29,
+              "#9d613a",
+              39,
+              "#febc66",
+              49,
+              "#aa492e",
+              59,
+              "#406370"
+          ],
+          22,
+          [
+              "interpolate",
+              ["linear"],
+              ["get", "cartodb_id"],
+              0,
+              "hsl(0, 97%, 52%)",
+              6,
+              "hsl(179, 93%, 50%)",
+              9,
+              "#406370",
+              19,
+              "#8a9cd5",
+              29,
+              "#9d613a",
+              39,
+              "#febc66",
+              49,
+              "#aa492e",
+              59,
+              "#406370"
+          ]
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          10,
+          0.48,
+          12,
+          0,
+          22,
+          0
+      ],
+      "fill-outline-color": "hsl(0, 4%, 96%)"
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#41108c',
-        'line-width': 1,
-        'line-opacity': 0.5
+    "paint": {
+      "line-color": "hsla(0, 4%, 78%, 0.54)",
+      "line-dasharray": [2, 1],
+      "line-width": 2
     }
   }], 
   [MUNICIPALITIES_POINTS]: [{
     type: 'symbol',
     'source-layer': 'pluto15v1',
-    layout: {
-      'text-field': ['get', 'city'],
-      'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
-      'text-radial-offset': 0.5,
-      'text-justify': 'auto'
+    "layout": {
+      "text-field": ["to-string", ["get", "city"]],
+      "symbol-placement": "line",
+      "symbol-spacing": 500,
+      "text-justify": "auto",
+      "text-offset": [0, 1]
     },
-    paint: {
-      'text-color': '#FFF'
+    "paint": {
+      "text-color": "hsl(0, 4%, 94%)"
     }
   }],
   [COUNTIES_FILTERS]: [{
