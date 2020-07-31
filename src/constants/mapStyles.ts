@@ -1561,38 +1561,110 @@ export const tileStyles = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': [
-          'match',
-          ['get', 'fld_zone'],
-          'A',
-          'red',
-          'AE',
-          'red',
-          'AO',
-          'red',
-          'transparent'
-        ],
-        'fill-opacity': 0.7
+    "paint": {
+      "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          [
+              "match",
+              ["get", "fld_zone"],
+              ["AE", "A", "AO", "AH"],
+              "hsl(0, 90%, 21%)",
+              "hsla(0, 0%, 100%, 0)"
+          ],
+          13,
+          [
+              "match",
+              ["get", "fld_zone"],
+              ["AE", "A", "AO", "AH"],
+              "hsl(0, 90%, 23%)",
+              "hsla(0, 0%, 100%, 0)"
+          ],
+          22,
+          [
+              "match",
+              ["get", "fld_zone"],
+              ["AE", "A", "AO", "AH"],
+              "hsla(0, 90%, 23%, 0.69)",
+              "hsla(0, 0%, 100%, 0)"
+          ]
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13,
+          0.76,
+          15,
+          0,
+          22,
+          0
+      ]
     }
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': [
-          'match',
-          ['get', 'fld_zone'],
-          'A',
-          'red',
-          'AE',
-          'red',
-          'AO',
-          'red',
-          'transparent'
-        ],
-        'line-width': 0.5,
-        'line-opacity': 1
+    "paint": {
+      "line-color": [
+          "match",
+          ["get", "fld_zone"],
+          ["A", "AE", "AO", "AH"],
+          "hsl(0, 94%, 25%)",
+          "hsla(0, 94%, 25%, 0)"
+      ],
+      "line-width": 3,
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          14,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "match",
+          ["get", "fld_zone"],
+          ["AE", "A", "AO", "AH"],
+          "hsl(0, 0%, 100%)",
+          "hsla(0, 0%, 100%, 0)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.5,
+          14,
+          0.5,
+          22,
+          3
+      ],
+      "line-dasharray": [3, 3],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          11,
+          1,
+          22,
+          1
+      ]
     }
   }], 
   [WATERSHED_FILTERS]: [{
