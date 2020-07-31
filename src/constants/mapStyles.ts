@@ -662,9 +662,67 @@ const MEP_PROJECTS_STYLES = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#60bde6',
-        'fill-opacity': 0.4
+    "paint": {
+      "fill-color": "hsl(0, 8%, 97%)",
+      "fill-outline-color": "hsl(46, 93%, 52%)",
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0,
+          14.25,
+          1,
+          16,
+          0.28,
+          22,
+          0
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(0, 3%, 25%)",
+      "line-width": 3,
+      "line-translate": [2, 2],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0,
+          14,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(44, 84%, 36%)",
+      "line-width": 3,
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0,
+          14,
+          1,
+          22,
+          1
+      ]
     }
   }],
   [MEP_PROJECTS_CHANNELS]: [{
