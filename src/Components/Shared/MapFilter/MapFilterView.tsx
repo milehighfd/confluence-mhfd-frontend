@@ -17,7 +17,9 @@ import { FLOODPLAINS_FEMA_FILTERS,
         SERVICE_AREA_LAYERS,
         MUNICIPALITIES,
         COUNTIES_LAYERS,
-        STUDIES} from '../../../constants/constants';
+        STUDIES,
+        FLOODPLAINS,
+        FEMA_FLOOD_HAZARD} from '../../../constants/constants';
 
 export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView } : 
         { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean }) => {
@@ -33,8 +35,8 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             }}>
               <Col span={9}>
                 <h6>HYDROLOGIC</h6>
-                  <p><Checkbox value={FLOODPLAINS_FEMA_FILTERS}>Floodplains</Checkbox></p>
-                  <p><Checkbox value={FLOODPLAINS_NON_FEMA_FILTERS}>FEMA NFHL</Checkbox></p>
+                  <p><Checkbox value={FLOODPLAINS}>Floodplains</Checkbox></p>
+                  <p><Checkbox value={FEMA_FLOOD_HAZARD}>FEMA NFHL</Checkbox></p>
                   <p><Checkbox value={WATERSHED_FILTERS}>Watersheds</Checkbox></p>
                   <p style={{display: 'none'}}><Checkbox value={STREAMS_FILTERS}>Streams</Checkbox></p>
               </Col>
