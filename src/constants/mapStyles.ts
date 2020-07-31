@@ -278,15 +278,15 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
+    "paint": {
       "line-color": [
-        "step",
-        ["zoom"],
-        "hsla(127, 89%, 45%, 0)",
-        12,
-        "hsla(127, 89%, 45%, 0.52)",
-        22,
-        "hsl(127, 89%, 45%)"
+          "step",
+          ["zoom"],
+          "hsla(127, 89%, 45%, 0)",
+          12,
+          "hsla(127, 89%, 45%, 0.52)",
+          22,
+          "hsl(127, 89%, 45%)"
       ],
       "line-gap-width": [
           "interpolate",
@@ -304,15 +304,15 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
+    "paint": {
       "line-color": [
-        "step",
-        ["zoom"],
-        "hsla(0, 0%, 0%, 0)",
-        13,
-        "hsl(183, 76%, 76%)",
-        22,
-        "hsl(0, 0%, 0%)"
+          "step",
+          ["zoom"],
+          "hsla(0, 0%, 0%, 0)",
+          13,
+          "hsl(183, 76%, 76%)",
+          22,
+          "hsl(0, 0%, 0%)"
       ]
     }
   },{
