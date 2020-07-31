@@ -43,8 +43,9 @@ export const PROBLEMS_MODAL = 'Problems';
 export const COMPONENTS_TRIGGER = 'components';
 
 // Map Layer Filters
-export const FLOODPLAINS_FEMA_FILTERS = 'national_flood_hazard_layer';
-export const FLOODPLAINS_NON_FEMA_FILTERS = 'fema_flood_hazard_zones';
+export const FLOODPLAINS_FEMA_FILTERS = 'floodplains_fema_sfha';
+export const FLOODPLAINS_NON_FEMA_FILTERS = 'floodplains_non_fema';
+export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
 export const WATERSHED_FILTERS = 'catchments'; //'basins';
 export const STREAMS_FILTERS = 'streams';
 
@@ -72,6 +73,13 @@ export const MAINTENANCE_TRAILS = 'maintenance_trails';
 export const LAND_ACQUISITION = 'land_acquisition';
 export const LANDSCAPING_AREA = 'landscaping_area';
 
+export const FLOODPLAINS = {
+  name: 'floodplains',
+  tiles: [
+    FLOODPLAINS_FEMA_FILTERS,
+    FLOODPLAINS_NON_FEMA_FILTERS
+  ]
+}
 export const COMPONENT_LAYERS = {
   name: 'components',
   tiles: [
@@ -158,10 +166,11 @@ export const PROJECTS_MAP_STYLES = {
   ]
 }
 
-export const SELECT_ALL_FILTERS = [STREAMS_FILTERS, 
+export const SELECT_ALL_FILTERS = [
+  STREAMS_FILTERS, 
   WATERSHED_FILTERS,
-  FLOODPLAINS_FEMA_FILTERS,
-  FLOODPLAINS_NON_FEMA_FILTERS,
+  FLOODPLAINS,
+  FEMA_FLOOD_HAZARD,
   MHFD_BOUNDARY_FILTERS,
   COUNTIES_LAYERS,
   MUNICIPALITIES,
