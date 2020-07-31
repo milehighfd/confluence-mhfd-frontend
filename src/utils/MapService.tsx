@@ -10,9 +10,9 @@ export class MapService {
   public draw: any;
   public popup: Popup;
   public user = 'vizonomy';
-  public style = 'cjge6kg6s000i2sox4zl3i1ur';
+  public style = 'ckd9o19kq0e9x1ipdm8zdq98m';
   public styleSatellite = 'cjge6lf7w000v2spxkflkhlau';
-  public styleUrl = `${SERVER.URL_BASE}/style/ckarchcyg0vjl1ipcm4kap2k0/milehighfd/${MAPBOX_TOKEN}`;
+  public styleUrl = `${SERVER.URL_BASE}/style/${this.style}/milehighfd/${MAPBOX_TOKEN}`;
   public styleUrlSatelite = 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft';
   controller: boolean = false;
   constructor( id: string) {
