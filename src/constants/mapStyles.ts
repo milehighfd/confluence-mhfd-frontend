@@ -85,37 +85,31 @@ export const polygonStroke = {
 };
 
 export const COMPONENT_LAYERS_STYLE = {
-  [GRADE_CONTROL_STRUCTURE]: [
-  //   {
-  //   type: 'symbol',
-  //   'source-layer': 'pluto15v1',
-  //   layout: {
-  //     'icon-image': 'waterfall',
-  //     'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
-  //   },
-  // },{
-  //   type: 'line',
-  //   'source-layer': 'pluto15v1',
-  //   layout: {},
-  //   paint: {
-  //       'line-color': 'red',
-  //       'line-width': 12,
-  //       'line-opacity': 0
-  //   }
-  // }
-  {
+  [GRADE_CONTROL_STRUCTURE]: [{
     type: 'circle',
     'source-layer': 'pluto15v1',
     layout: { },
-    paint: {
+    "paint": {
+      "circle-stroke-width": ["step", ["zoom"], 0, 13, 4, 22, 10],
+      "circle-stroke-color": "hsl(0, 3%, 100%)",
+      "circle-color": "hsl(0, 4%, 98%)",
+      "circle-stroke-opacity": 0,
+      "circle-radius": 11,
+      "circle-opacity": ["step", ["zoom"], 0, 14, 0.44, 15, 1]
+    }
+  },{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
       "circle-color": [
-        "step",
-        ["zoom"],
-        "hsla(17, 86%, 49%, 0)",
-        13,
-        "hsla(17, 86%, 49%, 0.51)",
-        22,
-        "hsl(136, 86%, 49%)"
+          "step",
+          ["zoom"],
+          "hsla(17, 86%, 49%, 0)",
+          13,
+          "hsla(17, 86%, 49%, 0.51)",
+          22,
+          "hsl(136, 86%, 49%)"
       ],
       "circle-stroke-color": [
           "step",
@@ -151,12 +145,12 @@ export const COMPONENT_LAYERS_STYLE = {
           22,
           1
       ]
-    },
+    }
   },{
     type: 'circle',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
+    "paint": {
       "circle-radius": ["step", ["zoom"], 0, 13, 5, 22, 5],
       "circle-stroke-color": [
           "step",
@@ -169,11 +163,11 @@ export const COMPONENT_LAYERS_STYLE = {
       ],
       "circle-color": "hsl(0, 0%, 0%)"
     }
-  },{
+  }, {
     type: 'circle',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
+    "paint": {
       "circle-radius": ["step", ["zoom"], 0, 13, 5, 22, 4],
       "circle-color": "hsl(145, 97%, 59%)",
       "circle-stroke-width": ["step", ["zoom"], 0, 13, 4, 22, 6],
