@@ -567,23 +567,35 @@ export const COMPONENT_LAYERS_STYLE = {
     }
   }],
   [MAINTENANCE_TRAILS]: [{
-    type: 'fill',
+    type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#956557',
-        'fill-opacity': 0.3
+    "paint": {
+      "line-color": "hsl(137, 82%, 55%)",
+      "line-gap-width": 3,
+      "line-blur": 8,
+      "line-width": 6
     }
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#956557',
-        'line-width': 1.5,
-        'line-opacity': 1
+    "paint": {
+      "line-color": "hsl(51, 82%, 22%)",
+      "line-dasharray": [6, 1],
+      "line-width": 3,
+      "line-translate": [1, 1]
     }
-  },{
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(51, 82%, 51%)",
+      "line-dasharray": [6, 1],
+      "line-width": 3
+    }
+  }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
