@@ -209,20 +209,16 @@ export const COMPONENT_LAYERS_STYLE = {
     }
   }],
   [SPECIAL_ITEM_POINT]: [{
-    type: 'symbol',
-    'source-layer': 'pluto15v1',
-    layout: {
-      'icon-image': 'star',
-      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.35, 15, 0.7]
-    },
-  },{
-    type: 'line',
+    type: 'circle',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0
+    "paint": {
+      "circle-color": "hsl(98, 80%, 53%)",
+      "circle-stroke-width": 2,
+      "circle-stroke-color": "hsl(295, 88%, 40%)",
+      "circle-opacity": ["step", ["zoom"], 0, 12, 0.41, 22, 1],
+      "circle-stroke-opacity": ["step", ["zoom"], 0, 12, 0.37, 22, 1],
+      "circle-radius": 3
     }
   }],
   [SPECIAL_ITEM_LINEAR]: [{
