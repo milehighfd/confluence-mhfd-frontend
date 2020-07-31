@@ -671,10 +671,106 @@ const MEP_PROJECTS_STYLES = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#968862',
-        'line-width': 1
+    "paint": {
+      "line-color": "hsl(0, 6%, 16%)",
+      "line-width": 5,
+      "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14,
+          66,
+          14.25,
+          5,
+          22,
+          66
+      ],
+      "line-translate": [1.5, 1.5],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14,
+          0,
+          14.25,
+          1,
+          22,
+          1
+      ]
     }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(0, 6%, 52%)",
+      "line-width": 5,
+      "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14,
+          66,
+          14.25,
+          5,
+          22,
+          66
+      ],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14,
+          0,
+          14.25,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "#f19b32",
+      "line-width": 3,
+      "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14,
+          66,
+          14.25,
+          5,
+          22,
+          66
+      ],
+      "line-dasharray": [1, 1],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14,
+          0,
+          14.25,
+          1,
+          22,
+          1
+      ]
+  }
   }],
   [MEP_PROJECTS_STORM_OUTFALLS]: [{
     type: 'circle',
