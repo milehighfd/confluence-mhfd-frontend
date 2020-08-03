@@ -1455,6 +1455,34 @@ export const PROJECTS_STYLES = {
             ["zoom"],
             0,
             0,
+            10.13,
+            0.21,
+            13,
+            0.62,
+            14.22,
+            1,
+            22,
+            1
+        ]
+      }
+    },{
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {"circle-color": "hsla(60, 100%, 50%, 0.48)"}
+    }, {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "paint": {
+        "line-color": "hsl(303, 100%, 50%)",
+        "line-blur": 1,
+        "line-gap-width": 6,
+        "line-opacity": [
+            "interpolate",
+            ["exponential", 1],
+            ["zoom"],
+            0,
+            0,
             11,
             0,
             13,
@@ -1490,8 +1518,8 @@ export const PROJECTS_STYLES = {
         ]
       }
     }, {
-      "type": "symbol",
-      "source-layer": "pluto15v1",
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
       "layout": {
         "text-field": ["to-string", ["get", "projectname"]],
         "text-justify": "auto",
@@ -1525,9 +1553,10 @@ export const PROJECTS_STYLES = {
               "hsla(0, 0%, 0%, 0.61)"
           ],
           "text-halo-width": 0.25,
-          "text-halo-blur": 35
+          "text-halo-blur": 35,
+          "text-opacity": ["step", ["zoom"], 0, 14, 1, 22, 1]
       }
-    },{
+    }, {
       type: 'line',
       'source-layer': 'pluto15v1',
       layout: {},
