@@ -40,7 +40,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
                   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap } : MapViewTypes) => {
-  
+
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -70,7 +70,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             for (let index = 0; index < tag.length; index++) {
                 const element = tag[index];
                 if(element) {
-                    countTagProjets+=1;  
+                    countTagProjets+=1;
                 }
             }
         }
@@ -82,7 +82,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             for (let index = 0; index < tag.length; index++) {
                 const element = tag[index];
                 if(element) {
-                  countTagProblems+=1;  
+                  countTagProblems+=1;
                 }
             }
         }
@@ -90,7 +90,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setCountFilterComponents(countTagComponents);
     setCountFilterProblems(countTagProblems);
     setCountFilterProjects(countTagProjets);
-    
+
 }, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
   // const [listDescription, setListDescription] = useState(false);
   const listDescription = false;
@@ -281,7 +281,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
       <div className="head-filter">
         <Row type="flex" justify="space-around" align="middle">
-          <Col span={12}>
+          <Col span={14}>
             <Search
               placeholder="Search..."
               value={tabActive === '0'? keywordProblem: keywordProject}
@@ -304,8 +304,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}
               style={{ width: 200 }}
             />
+            <Button style={{ width: '80px' }} className="btn-00">Clear</Button>
           </Col>
-          <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
+          <Col style={{ textAlign: 'right' }} span={10} id="sort-map">
             <div className="sort-content">
               <Dropdown trigger={['click']}
                 overlay={tabActive === '0'?
@@ -345,7 +346,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
             <Button onClick={handleToggle}>
               <img src="/Icons/icon-73.svg" alt="" /> Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
-                    tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents) }) 
+                    tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents) })
             </Button>
           </Col>
         </Row>

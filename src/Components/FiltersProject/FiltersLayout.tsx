@@ -104,7 +104,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                  <div className="check-scroll">
                     {secondSegmentComponents.map((element:  { key:string, value: string, count: number }, index: number) => {
                             return <p key={index}><Checkbox value={element.key}>{element.value}</Checkbox>
-                            <span className="filt-s">{element.count}</span>    
+                            <span className="filt-s">{element.count}</span>
                         </p>
                     })}
                  </div>
@@ -159,7 +159,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Jurisdiction</label>
-                <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'} 
+                <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'}
                     style={{ width: '100%' }} onChange={ (e: string) => {
                     apply(e, 'jurisdiction');
                 }}>
@@ -170,7 +170,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
             <Col span={12}>
                 <label>MHFD Watershed Manager</label>
-                <Select placeholder="- Select -" value={filterProblemOptions.mhfdmanager ? filterProblemOptions.mhfdmanager : '- Select -'} 
+                <Select placeholder="- Select -" value={filterProblemOptions.mhfdmanager ? filterProblemOptions.mhfdmanager : '- Select -'}
                     style={{ width: '100%' }} onChange={ (e: string) => {
                     apply(e, 'mhfdmanager');
                 }}>
@@ -183,7 +183,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <label>Problem Type</label>
-                <Select placeholder="- Select -" value={filterProblemOptions.problemtype ? filterProblemOptions.problemtype : '- Select -'} 
+                <Select placeholder="- Select -" value={filterProblemOptions.problemtype ? filterProblemOptions.problemtype : '- Select -'}
                     style={{ width: '100%', marginBottom: '15px' }} onChange={ (e: string) => {
                     apply(e, 'problemtype');
                 }}>
@@ -194,7 +194,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
             <Col span={12}>
                 <label>Source <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-                <Select placeholder="- Select -" value={filterProblemOptions.source ? filterProblemOptions.source : '- Select -'} 
+                <Select placeholder="- Select -" value={filterProblemOptions.source ? filterProblemOptions.source : '- Select -'}
                     style={{ width: '100%' }} onChange={ (e: string) => {
                     apply(e, 'source');
                 }}>
@@ -218,7 +218,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects, setToggleFilters } : any) => {
     const apply = (values: any, field: string) => {
         console.log('filterProjectOptions:::', filterProjectOptions, paramProjects);
-        
+
         const options = {...filterProjectOptions};
         if('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field) {
             let newValue = '';
@@ -570,7 +570,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 </Col>
             </Row>
             <div className="btn-footer" style={{ marginTop: '25px' }}>
-                <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
+                // <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
                 {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button> */}
             </div>
         </div>
