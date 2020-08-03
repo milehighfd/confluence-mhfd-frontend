@@ -424,7 +424,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       </Panel>
 
       <Panel header="Map" key="4" extra={genExtra('4')}>
-        <div style={{height:'500px'}}>
+        <div className="map" style={{height:'500px'}}>
           <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div></div>
           </div>
