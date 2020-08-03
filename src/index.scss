@@ -1519,7 +1519,15 @@ body{
   border-radius: 10px 0px 0px 10px !important;
   z-index: 1000;
 }
-
+.test-style {
+  background-color: transparent;
+  position: absolute;
+  color: yellow;
+  bottom: 0px;
+  text-align: -webkit-right;
+  z-index: 10;
+  right: 320px;
+}
 .map{
   height: calc(100vh - 69px);
   margin: 5px;

@@ -256,4 +256,10 @@ export class MapService {
   updateDraw(cb: any) {
     this.map.on('draw.update', cb);
   }
+  getLoadZoom(cb: any) {
+    this.map.on('load', cb);
+  }
+  getMoveZoom(cb: any) {
+    this.map.on('move', cb);
+  }
 }

@@ -17,6 +17,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
        { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string,
         loaderTableCompoents: boolean, updateModal: Function }) => {
   const [ active, setActive ] = useState(['4']);
+  const [ zoomValue, setZoomValue] = useState(0);
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
   let map: any;
@@ -48,6 +49,10 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
           <MainPopup item={item}></MainPopup>
       </>
   );
+  const updateZoom = () => {
+    const zoom = map.getZoom().toFixed(2);
+    setZoomValue(zoom);
+}
   const addLayer = () => {
     if(map) {
       let i = 0;
@@ -131,6 +136,8 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
       // const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
       map.fitBounds([detailedPage.coordinates[0][0],detailedPage.coordinates[0][2]]);
+      map.getLoadZoom(updateZoom);
+      map.getMoveZoom(updateZoom);
     }
   }
   const addMapListeners = (key: string, value: string) => {
@@ -352,6 +359,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       {active.includes(key) ? <img src="/Icons/icon-21.svg" alt="" /> : <img src="/Icons/icon-20.svg" alt="" />}
     </div>
   };
+  
 
   return <div className="tabs-detailed">
     <Collapse defaultActiveKey={"4"} onChange={(e: any) => {
@@ -428,6 +436,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
           <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div></div>
           </div>
+          <div className="test-style"> Zoom: {zoomValue}</div>
         </div>
       </Panel>
 

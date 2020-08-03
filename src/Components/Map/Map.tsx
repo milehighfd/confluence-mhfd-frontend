@@ -85,6 +85,7 @@ const Map = ({ leftWidth,
 
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
+    const [ zoomValue, setZoomValue] = useState(0);
     // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
     const coor: any[][] = [];
@@ -214,6 +215,13 @@ const Map = ({ leftWidth,
             getParamsFilter(boundingBox);
 
         });
+
+        const updateZoom = () => {
+            const zoom = map.getZoom().toFixed(2);
+            setZoomValue(zoom);
+        }
+        map.on('load', updateZoom);
+        map.on('move', updateZoom);
       
     }, []);
 
@@ -845,6 +853,7 @@ const Map = ({ leftWidth,
     const layerObjects: any = selectedLayers.filter( element => typeof element === 'object');
     const layerStrings = selectedLayers.filter( element => typeof element !== 'object');
     const [ selectedCheckBox, setSelectedCheckBox ] = useState(selectedLayers);
+    
     return (
             <div className="map">
             <div id="map" style={{ width: '100%', height: '100%' }} />
@@ -944,6 +953,7 @@ const Map = ({ leftWidth,
                 </Panel>
               </Collapse>
             </div>
+            <div className="test-style"> Zoom: {zoomValue}</div>
 
             {/* <div className="m-zoom">
                     <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt="" width="12px"/></Button>
