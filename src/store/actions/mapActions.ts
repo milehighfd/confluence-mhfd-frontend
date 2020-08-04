@@ -517,3 +517,11 @@ export const setSelectedOnMap = (id: number, tab: string) => {
         dispatch({type: types.SET_SELECTED_ON_MAP, id, tab });
     };
 }
+
+export const mapSearchQuery = (query: string) => {
+    return (dispatch: Function) => {
+        datasets.getData(SERVER.MAP_SEARCH + '/' + query, datasets.getToken()).then(search => {
+            dispatch({type: types.GET_COMPONENTS_BY_PROBLEMID, search});
+        })
+    }
+}

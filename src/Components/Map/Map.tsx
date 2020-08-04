@@ -77,9 +77,12 @@ const Map = ({ leftWidth,
             componentDetailIds,
             isExtendedView,
             setSelectedOnMap,
-            getParamsFilter
+            getParamsFilter,
+            mapSearchQuery,
+            mapSearch
              } : MapProps) => {
-
+    console.log(mapSearchQuery, mapSearch);
+    
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
 

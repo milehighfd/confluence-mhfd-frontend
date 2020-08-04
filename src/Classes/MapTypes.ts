@@ -34,7 +34,9 @@ export type MapProps = {
     componentDetailIds: any,
     isExtendedView: boolean,
     setSelectedOnMap: Function,
-    getParamsFilter: Function
+    getParamsFilter: Function,
+    mapSearchQuery: Function,
+    mapSearch: any
 }
 
 export type MapHOCProps = {
@@ -109,7 +111,9 @@ export type MapHOCProps = {
     loaderTableCompoents: boolean,
     selectedOnMap: any,
     setSelectedOnMap: Function,
-    getParamsFilter: Function
+    getParamsFilter: Function,
+    mapSearchQuery: Function,
+    mapSearch: any
 }
 
 export type MapViewTypes = { 

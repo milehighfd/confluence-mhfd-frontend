@@ -192,7 +192,8 @@ const initState = {
         value: ''
     },
     componentDetailIds: {},
-    loaderTableCompoents: false
+    loaderTableCompoents: false,
+    mapSearch: []
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -407,6 +408,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 selectedOnMap: {id: action.id, tab: action.tab}
+            }
+        }
+        case types.MAP_SEARCH_QUERY: {
+            return {
+                ...state,
+                mapSearch: action.search
             }
         }
         default: 
