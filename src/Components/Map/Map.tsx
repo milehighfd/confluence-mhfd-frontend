@@ -877,7 +877,8 @@ const Map = ({ leftWidth,
     const onSelect = (value: any) => {
       console.log('onSelect:::', value);
       const keyword = value.split('?');
-      const coor = keyword[0];
+      const coord = keyword[0].split(',');
+      map.flyTo({center: coord, zoom: 15});
       const placeName = keyword[1];
       setKeyword(placeName); 
     };
