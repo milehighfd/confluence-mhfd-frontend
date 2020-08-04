@@ -858,23 +858,28 @@ const Map = ({ leftWidth,
     //geocoder
     const renderOption = (item:any) => {
         return (
-            <Option key={item.center[0] + '.' + item.center[1]}>
+            <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + ' ' + item.place_name}>
             <div className="global-search-item">
-                <h1>{item.text}</h1>
-                <h1>{item.place_name}</h1>
+                <h5>{item.text}</h5>
+                <h5>{item.place_name}</h5>
             </div>
             </Option>
         );
       }
-      
+    const [keyword, setKeyword] = useState('');
     const [options, setOptions] = useState<Array<any>>([]);
 
     const handleSearch = (value: string) => {
+      setKeyword(value)
       mapSearchQuery(value);
     };
   
     const onSelect = (value: any) => {
-      console.log('onSelect', value);
+      console.log('onSelect:::', value);
+      const keyword = value.split('?');
+      const coor = keyword[0];
+      const placeName = keyword[1];
+      setKeyword(placeName); 
     };
     //end geocoder
 
@@ -893,9 +898,9 @@ const Map = ({ leftWidth,
                     dataSource={mapSearch.map(renderOption)}
                     onSelect={onSelect}
                     onSearch={handleSearch}
-                    
+                    value={keyword}
                     >
-                    <Input.Search size="large" placeholder="input here" enterButton />
+                    <Input.Search size="large" placeholder="input here" enterButton/>
                 </AutoComplete>
                 </div>
                 <div
