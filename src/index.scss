@@ -24,11 +24,11 @@ body{
  overflow-y: hidden;
 }
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar, .ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollbar, .count-01::-webkit-scrollbar, .profile-00::-webkit-scrollbar, .sign-menu::-webkit-scrollbar, .sign-menu-organization::-webkit-scrollbar,
-.upload::-webkit-scrollbar, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar,.infinite-scroll-component::-webkit-scrollbar, .scroll-filters::-webkit-scrollbar, .scroll-footer::-webkit-scrollbar, .tutorial .content::-webkit-scrollbar, .check-scroll::-webkit-scrollbar, .scroll-cards::-webkit-scrollbar, .filter-menu .ant-select-dropdown-menu::-webkit-scrollbar  {
+.upload::-webkit-scrollbar, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar,.infinite-scroll-component::-webkit-scrollbar, .scroll-filters::-webkit-scrollbar, .scroll-footer::-webkit-scrollbar, .tutorial .content::-webkit-scrollbar, .check-scroll::-webkit-scrollbar, .scroll-cards::-webkit-scrollbar, .filter-menu .ant-select-dropdown-menu::-webkit-scrollbar, .ant-select-dropdown-menu::-webkit-scrollbar {
   width: 6px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thumb, .ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb, .count-01::-webkit-scrollbar-thumb, .profile-00::-webkit-scrollbar-thumb, .sign-menu::-webkit-scrollbar-thumb, .sign-menu-organization::-webkit-scrollbar-thumb,
-.upload::-webkit-scrollbar-thumb, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar-thumb,.infinite-scroll-component::-webkit-scrollbar-thumb, .scroll-filters::-webkit-scrollbar-thumb, .scroll-footer::-webkit-scrollbar-thumb, .tutorial .content::-webkit-scrollbar-thumb, .check-scroll::-webkit-scrollbar-thumb, .scroll-cards::-webkit-scrollbar-thumb, .filter-menu .ant-select-dropdown-menu::-webkit-scrollbar-thumb {
+.upload::-webkit-scrollbar-thumb, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar-thumb,.infinite-scroll-component::-webkit-scrollbar-thumb, .scroll-filters::-webkit-scrollbar-thumb, .scroll-footer::-webkit-scrollbar-thumb, .tutorial .content::-webkit-scrollbar-thumb, .check-scroll::-webkit-scrollbar-thumb, .scroll-cards::-webkit-scrollbar-thumb, .filter-menu .ant-select-dropdown-menu::-webkit-scrollbar-thumb, .ant-select-dropdown-menu::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }
@@ -1643,7 +1643,7 @@ body{
     top: 7px;
   }
   button{
-    top: -1px;
+    // top: -1px;
     height: 35px;
     border: none;
     width: 35px;
@@ -1658,6 +1658,49 @@ body{
   }
   .ant-input-search-icon{
     color: $purple;
+  }
+  .ant-select-auto-complete.ant-select .ant-input {
+    line-height: 1.5;
+    border-width: 1px;
+    font: inherit;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    height: 35px;
+    color: #404040;
+    padding: 6px 36px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: $white;
+    box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+    margin-top: -2px;
+  }
+  .ant-input-affix-wrapper .ant-input-suffix {
+    left: 12px;
+    font-weight: bolder;
+  }
+}
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled),.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: #f3f3f3 !important;
+}
+.global-search-item{
+  h6{
+    font-size: 13px !important;
+    font-weight: 500;
+    margin-bottom: 0px;
+    color: #404040;
+    white-space: nowrap;
+   text-overflow: ellipsis;
+   overflow: hidden;
+  }
+  p{
+    font-size: 14px;
+    margin-bottom: 0px;
+    color: #404040;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 .map .btn-03{

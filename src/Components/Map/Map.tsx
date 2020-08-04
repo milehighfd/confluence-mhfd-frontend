@@ -84,7 +84,7 @@ const Map = ({ leftWidth,
             mapSearch
              } : MapProps) => {
     console.log( mapSearch);
-    
+
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
 
@@ -227,7 +227,7 @@ const Map = ({ leftWidth,
         }
         map.on('load', updateZoom);
         map.on('move', updateZoom);
-      
+
     }, []);
 
     useEffect(() => {
@@ -343,7 +343,7 @@ const Map = ({ leftWidth,
 
     const applyFilters =  (key: string, toFilter: any) => {
         // console.log('enter here for ', key);
-        const styles = { ...tileStyles as any };        
+        const styles = { ...tileStyles as any };
         styles[key].forEach((style : LayerStylesType, index : number) => {
             if (!map.getLayer(key + '_' + index)) {
                 return;
@@ -860,8 +860,8 @@ const Map = ({ leftWidth,
         return (
             <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + ' ' + item.place_name}>
             <div className="global-search-item">
-                <h5>{item.text}</h5>
-                <h5>{item.place_name}</h5>
+                <h6>{item.text}</h6>
+                <p>{item.place_name}</p>
             </div>
             </Option>
         );
@@ -873,43 +873,42 @@ const Map = ({ leftWidth,
       setKeyword(value)
       mapSearchQuery(value);
     };
-  
+
     const onSelect = (value: any) => {
       console.log('onSelect:::', value);
       const keyword = value.split('?');
       const coord = keyword[0].split(',');
       map.flyTo({center: coord, zoom: 15});
       const placeName = keyword[1];
-      setKeyword(placeName); 
+      setKeyword(placeName);
     };
     //end geocoder
 
     const layerObjects: any = selectedLayers.filter( element => typeof element === 'object');
     const layerStrings = selectedLayers.filter( element => typeof element !== 'object');
     const [ selectedCheckBox, setSelectedCheckBox ] = useState(selectedLayers);
-    
+
     return (
             <div className="map">
             <div id="map" style={{ width: '100%', height: '100%' }} />
             <div className="m-head">
-                <div>
                 <AutoComplete
                     dropdownMatchSelectWidth={true}
-                    style={{ width: 300 }}
+                    style={{ width: 200 }}
                     dataSource={mapSearch.map(renderOption)}
                     onSelect={onSelect}
                     onSearch={handleSearch}
                     value={keyword}
                     >
-                    <Input.Search size="large" placeholder="input here" enterButton/>
+                    <Input.Search size="large" placeholder="Search..."/>
                 </AutoComplete>
-                </div>
-                <div
+
+                {/*<div
                     ref={geocoderRef}
                     className="geocoder"
                     style={{ width: '200px', height: '35px' }}
                 />
-                {/*<Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
+                <Button className="btn-01"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
                 <Dropdown overlayClassName="dropdown-map-layers"
                     visible={visibleDropdown}
                     onVisibleChange={(flag : boolean) => {
