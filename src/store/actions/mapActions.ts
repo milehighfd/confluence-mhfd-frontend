@@ -520,8 +520,12 @@ export const setSelectedOnMap = (id: number, tab: string) => {
 
 export const mapSearchQuery = (query: string) => {
     return (dispatch: Function) => {
+        if (!query) {
+            dispatch({type: types.MAP_SEARCH_QUERY, search: []});
+            return;
+        }
         datasets.getData(SERVER.MAP_SEARCH + '/' + query, datasets.getToken()).then(search => {
-            dispatch({type: types.GET_COMPONENTS_BY_PROBLEMID, search});
+            dispatch({type: types.MAP_SEARCH_QUERY, search});
         })
     }
 }

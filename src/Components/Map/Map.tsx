@@ -35,7 +35,9 @@ import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles} from '../../constants/mapStyles';
 import { addMapGeocoder } from '../../utils/mapUtils';
 import { numberWithCommas } from '../../utils/utils';
-
+import { Input, AutoComplete } from 'antd';
+import { SelectProps } from 'antd/es/select';
+const { Option } = AutoComplete;
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
 
@@ -81,7 +83,7 @@ const Map = ({ leftWidth,
             mapSearchQuery,
             mapSearch
              } : MapProps) => {
-    console.log(mapSearchQuery, mapSearch);
+    console.log( mapSearch);
     
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
@@ -853,6 +855,29 @@ const Map = ({ leftWidth,
             map.removeSource(key);
         }
     };
+    //geocoder
+    const renderOption = (item:any) => {
+        return (
+            <Option key={item.center[0] + '.' + item.center[1]}>
+            <div className="global-search-item">
+                <h1>{item.text}</h1>
+                <h1>{item.place_name}</h1>
+            </div>
+            </Option>
+        );
+      }
+      
+    const [options, setOptions] = useState<Array<any>>([]);
+
+    const handleSearch = (value: string) => {
+      mapSearchQuery(value);
+    };
+  
+    const onSelect = (value: any) => {
+      console.log('onSelect', value);
+    };
+    //end geocoder
+
     const layerObjects: any = selectedLayers.filter( element => typeof element === 'object');
     const layerStrings = selectedLayers.filter( element => typeof element !== 'object');
     const [ selectedCheckBox, setSelectedCheckBox ] = useState(selectedLayers);
@@ -861,6 +886,18 @@ const Map = ({ leftWidth,
             <div className="map">
             <div id="map" style={{ width: '100%', height: '100%' }} />
             <div className="m-head">
+                <div>
+                <AutoComplete
+                    dropdownMatchSelectWidth={true}
+                    style={{ width: 300 }}
+                    dataSource={mapSearch.map(renderOption)}
+                    onSelect={onSelect}
+                    onSearch={handleSearch}
+                    
+                    >
+                    <Input.Search size="large" placeholder="input here" enterButton />
+                </AutoComplete>
+                </div>
                 <div
                     ref={geocoderRef}
                     className="geocoder"
