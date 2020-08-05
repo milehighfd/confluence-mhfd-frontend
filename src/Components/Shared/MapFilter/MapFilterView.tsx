@@ -53,7 +53,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                 <p><Checkbox value={COMPONENT_LAYERS}>Components</Checkbox></p>
                 <p><Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROJECTS_MAP_STYLES}>Projects</Checkbox></p>
                 <p><Checkbox value={STUDIES}>Studies</Checkbox></p>
-                <p><Checkbox value={MEP_PROJECTS}>MEP Projects</Checkbox></p>
+                <p><Checkbox value={MEP_PROJECTS}>MEP Referrals</Checkbox></p>
                 <p><Checkbox value={ROUTINE_MAINTENANCE}>Routine Maintenance</Checkbox></p>
               </Col>
             </Checkbox.Group>
