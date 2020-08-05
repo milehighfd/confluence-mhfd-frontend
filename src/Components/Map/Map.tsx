@@ -602,6 +602,9 @@ const Map = ({ leftWidth,
                 }
                 map.on('click', key + '_' + index, (e : any) => {
                     let html: any = null;
+                    if ( map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
+                        return;
+                    }
                     if (key === 'problems') {
                         const item = {
                             type: 'problems',
@@ -878,6 +881,7 @@ const Map = ({ leftWidth,
       console.log('onSelect:::', value);
       const keyword = value.split('?');
       const coord = keyword[0].split(',');
+      console.log('my coord is ', coord);
       map.flyTo({center: coord, zoom: 15});
       const placeName = keyword[1];
       setKeyword(placeName);

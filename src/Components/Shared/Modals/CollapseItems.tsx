@@ -161,6 +161,9 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
             });
             map.click(value + index, (e:any) => {
               e.preventDefault();
+              if ( map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
+                return;
+              }
               if (key === 'problems') {
                   const item = {
                       type: 'problems',

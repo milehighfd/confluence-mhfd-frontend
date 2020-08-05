@@ -137,6 +137,9 @@ export class MapService {
   setOnMapLoad(cb: any) {
     this.map.on('style.load', cb);
   }
+  getLayoutProperty(layer: string, propertie: string) {
+    return this.map.getLayoutProperty(layer, propertie);
+  }
   offEvent(propertie: string, cb: any) {
     this.map.off(propertie, cb);
   }
