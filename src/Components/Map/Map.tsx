@@ -904,7 +904,7 @@ const Map = ({ leftWidth,
                     onSearch={handleSearch}
                     value={keyword}
                     >
-                    <Input.Search size="large" placeholder="Search..."/>
+                    <Input.Search size="large" placeholder="Stream or Location"/>
                 </AutoComplete>
 
                 {/*<div
