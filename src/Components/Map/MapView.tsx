@@ -304,7 +304,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}
               style={{ width: 200 }}
             />
-            <Button style={{ width: '80px' }} className="btn-00">Clear</Button>
+            <Button onClick={e => {
+              setKeywordProject('');
+              setProjectKeyword('');
+            }} style={{ width: '80px' }} className="btn-00">Clear</Button>
           </Col>
           <Col style={{ textAlign: 'right' }} span={10} id="sort-map">
             <div className="sort-content">
