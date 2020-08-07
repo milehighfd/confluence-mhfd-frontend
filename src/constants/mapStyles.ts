@@ -1365,8 +1365,18 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-width": 5,
-      "line-color": "hsl(45, 92%, 55%)",
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          13,
+          6,
+          16,
+          18,
+          22,
+          18
+      ],
+      "line-color": "hsl(308, 92%, 55%)",
       "line-opacity": [
           "interpolate",
           ["linear"],
@@ -1376,6 +1386,39 @@ const ROUTINE_MAINTENANCE_STYLES = {
           13,
           0,
           14,
+          0.2,
+          22,
+          0.23
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(308, 92%, 55%)",
+      "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9,
+          4,
+          13.57,
+          4,
+          16,
+          24,
+          22,
+          60
+      ],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14.5,
+          0,
+          15,
           1,
           22,
           1
@@ -1386,22 +1429,71 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-width": 5,
-      "line-color": "hsl(45, 92%, 28%)",
-      "line-dasharray": [3, 3],
+      "line-color": "hsla(308, 26%, 77%, 0.82)",
+      "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9,
+          4,
+          13.57,
+          4,
+          16,
+          24,
+          22,
+          60
+      ],
       "line-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
           0,
           0,
-          13,
+          14.5,
           0,
-          14,
+          15,
           1,
           22,
           1
-      ]
+      ],
+      "line-dasharray": [2, 1, 0.5],
+      "line-width": 6,
+      "line-translate": [-1, -1]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsla(308, 93%, 11%, 0.82)",
+      "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9,
+          4,
+          13.57,
+          4,
+          16,
+          24,
+          22,
+          60
+      ],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14.5,
+          0,
+          15,
+          1,
+          22,
+          1
+      ],
+      "line-dasharray": [2, 1, 0.5],
+      "line-width": 6
     }
   },{
     type: 'line',
