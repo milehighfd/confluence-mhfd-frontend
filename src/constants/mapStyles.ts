@@ -2502,6 +2502,32 @@ export const tileStyles = {
       ]
     }
   },  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Funding"],
+          "hsl(0, 3%, 54%)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          1,
+          15.475,
+          5,
+          17,
+          10,
+          22,
+          12
+      ]
+    }
+  },  {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -2532,7 +2558,33 @@ export const tileStyles = {
           0
       ]
     }
-  },  {
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "match",
+          ["get", "sstatus"],
+          ["In Progress"],
+          "#80db90",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          1,
+          15.475,
+          5,
+          17,
+          10,
+          22,
+          12
+      ]
+    }
+  },{
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -2561,6 +2613,32 @@ export const tileStyles = {
           0.38,
           22,
           0
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Design"],
+          "#c9e26f",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          1,
+          15.475,
+          5,
+          17,
+          10,
+          22,
+          12
       ]
     }
   }],
