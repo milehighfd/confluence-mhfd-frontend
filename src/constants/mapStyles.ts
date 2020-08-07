@@ -2138,9 +2138,95 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": "hsla(0, 4%, 78%, 0.54)",
-      "line-dasharray": [2, 1],
-      "line-width": 2
+      "line-color": "hsl(0, 4%, 100%)",
+      "line-width": 4,
+      "line-translate": [1, 1]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(0, 4%, 98%)",
+      "line-dasharray": [4, 1, 1, 1, 4],
+      "line-translate": [-1, -1],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0,
+          13.5,
+          1,
+          22,
+          1
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13.5,
+          3,
+          22,
+          16
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(0, 8%, 14%)",
+      "line-dasharray": [4, 1, 1, 1, 4],
+      "line-translate": [0, 0],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13,
+          0,
+          13.5,
+          1,
+          22,
+          1
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13.5,
+          3,
+          22,
+          16
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(0, 4%, 100%)",
+      "line-translate": [0, 0],
+      "line-dasharray": [4, 2],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13.5,
+          1,
+          14,
+          0
+      ]
     }
   }], 
   [MUNICIPALITIES_POINTS]: [{
@@ -2153,9 +2239,7 @@ export const tileStyles = {
       "text-justify": "auto",
       "text-offset": [0, 1]
     },
-    "paint": {
-      "text-color": "hsl(0, 4%, 94%)"
-    }
+    "paint": {"text-color": "hsl(0, 4%, 94%)"}
   }],
   [COUNTIES_FILTERS]: [{
     type: 'fill',
