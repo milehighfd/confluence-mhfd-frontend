@@ -1339,8 +1339,16 @@ const ROUTINE_MAINTENANCE_STYLES = {
       'source-layer': 'pluto15v1',
       layout: {},
       "paint": {
-        "fill-color": "hsl(33, 54%, 43%)",
-        "fill-outline-color": "hsl(190, 86%, 71%)"
+        "fill-color": "hsla(288, 54%, 18%, 0.44)",
+        "fill-outline-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            "hsla(190, 86%, 71%, 0)",
+            22,
+            "hsl(190, 86%, 71%)"
+        ]
       }
     },{
     type: 'line',
