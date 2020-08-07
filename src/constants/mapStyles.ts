@@ -1178,7 +1178,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "fill-color": "hsl(38, 68%, 46%)",
+      "fill-color": "hsl(283, 68%, 46%)",
       "fill-outline-color": "#c58b26",
       "fill-opacity": [
           "interpolate",
