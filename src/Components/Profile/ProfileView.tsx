@@ -60,7 +60,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
           </Row>
           <Row >
             <Col className="profile-tabs" span={17}>
-              <Tabs defaultActiveKey="1" className="tabs-map">
+              <Tabs defaultActiveKey="2" className="tabs-map">
 
                 <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
                   <TabPaneView type={"Problems"} data={problems} search={getUserProblem}
