@@ -278,18 +278,28 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": "hsl(98, 65%, 48%)",
-      "line-opacity": ["step", ["zoom"], 0, 12, 1, 22, 1],
-      "line-width": ["interpolate", ["linear"], ["zoom"], 0, 1, 22, 4]
+      "line-color": "hsl(137, 82%, 55%)",
+      "line-width": 6,
+      "line-gap-width": 3,
+      "line-blur": 8
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0
+    "paint": {
+      "line-color": "hsl(51, 82%, 22%)",
+      "line-width": 3,
+      "line-dasharray": [6, 1]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(51, 82%, 51%)",
+      "line-width": 3,
+      "line-dasharray": [6, 1]
     }
   }],
   [SPECIAL_ITEM_AREA]: [
