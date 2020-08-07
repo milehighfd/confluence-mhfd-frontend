@@ -1898,21 +1898,156 @@ export const tileStyles = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#66d4ff',
-        'line-width': ['interpolate', ['linear'], ['get', 'cfs'], 0.11, 4, 0.451, 3.125, 0.81, 2.25, 1.151, 1.375, 1.51, 0.5],
-        'line-opacity': 1
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 0%, 0.12)",
+          10.5,
+          "hsla(210, 69%, 51%, 0.34)",
+          11,
+          "hsla(210, 71%, 35%, 0.67)",
+          12,
+          "hsl(210, 71%, 37%)",
+          12.58,
+          "hsl(210, 69%, 62%)",
+          22,
+          "hsl(210, 69%, 77%)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          0.5,
+          640,
+          1,
+          6400,
+          4,
+          1131411.35931,
+          12
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 0%, 0.12)",
+          10.5,
+          "hsla(210, 69%, 51%, 0.34)",
+          11,
+          "hsla(210, 71%, 35%, 0.67)",
+          12,
+          "hsl(210, 71%, 37%)",
+          12.58,
+          "hsl(210, 69%, 62%)",
+          22,
+          "hsl(210, 69%, 77%)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          0.5,
+          640,
+          1,
+          6400,
+          4,
+          1131411.35931,
+          12
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 0%, 0.12)",
+          10.5,
+          "hsla(210, 69%, 51%, 0.34)",
+          11,
+          "hsla(210, 71%, 35%, 0.67)",
+          12,
+          "hsl(210, 71%, 37%)",
+          12.58,
+          "hsl(210, 69%, 62%)",
+          22,
+          "hsl(210, 69%, 77%)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          0.5,
+          640,
+          1,
+          6400,
+          4,
+          1131411.35931,
+          12
+      ]
     }
   }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
-    layout: {
-      'text-field': ['get', 'str_name'],
-      'text-radial-offset': 0.5,
-      'text-justify': 'auto'
+    "layout": {
+      "text-size": 12,
+      "text-variable-anchor": ["center"],
+      "text-max-angle": 0,
+      "symbol-spacing": 550,
+      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
+      "symbol-placement": "line-center",
+      "text-justify": "auto",
+      "text-padding": 1,
+      "text-rotation-alignment": "map",
+      "text-field": [
+          "coalesce",
+          ["get", "name_en"],
+          ["get", "name"],
+          ["get", "str_name"]
+      ],
+      "text-max-width": 111
     },
-    paint: {
-      'text-color': '#FFF'
+    "paint": {
+        "text-color": "hsl(0, 0%, 100%)",
+        "text-translate": [10, 0],
+        "text-translate-anchor": "viewport"
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-size": 12,
+      "text-variable-anchor": ["center"],
+      "text-max-angle": 0,
+      "symbol-spacing": 550,
+      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
+      "symbol-placement": "line-center",
+      "text-justify": "auto",
+      "text-padding": 1,
+      "text-rotation-alignment": "map",
+      "text-field": ["to-string", ["get", "str_name"]],
+      "text-max-width": 111
+    },
+    "paint": {
+        "text-color": "hsl(0, 0%, 100%)",
+        "text-translate": [10, 0],
+        "text-translate-anchor": "viewport"
     }
   }], 
   [SERVICE_AREA_FILTERS]: [{
