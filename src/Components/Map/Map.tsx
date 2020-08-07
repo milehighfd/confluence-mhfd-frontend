@@ -883,7 +883,7 @@ const Map = ({ leftWidth,
       const keyword = value.split('?');
       const coord = keyword[0].split(',');
       console.log('my coord is ', coord);
-      map.flyTo({center: coord, zoom: 15});
+      map.flyTo({center: coord, zoom: 14.5});
       const placeName = keyword[1];
       setKeyword(placeName);
     };
