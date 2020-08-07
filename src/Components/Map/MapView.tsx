@@ -350,7 +350,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             </div>
 
             <Button onClick={handleToggle}>
-              <img src="/Icons/icon-73.svg" alt="" /> Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
+              <img  className="img-filter" alt="" /> Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
                     tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents) })
             </Button>
           </Col>

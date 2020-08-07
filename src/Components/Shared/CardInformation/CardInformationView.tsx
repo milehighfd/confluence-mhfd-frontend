@@ -12,7 +12,7 @@ const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
 
 export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId, componentsOfProblems, loaderTableCompoents, selectedOnMap }:
-                { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean, 
+                { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean,
                 setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any }) => {
   const [visible, setVisible] = useState(false);
   return (
@@ -34,7 +34,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
       <Col span={8}>
         <Card
           hoverable
-          style={{ width: '100%', boxShadow: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? '0 2px 8px #1890ff' : '' }}
+          style={{ width: '100%', boxShadow: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? '0 2px 8px #28c499' : '' }}
           onClick={() => setVisible(true)}
           onMouseEnter={() =>  setHighlighted({type: data.type, value: data.value})}
           onMouseLeave={()=> setHighlighted({type: '', value: ''})}
@@ -56,7 +56,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
             <Popover placement="topLeft" content={type}>
               {data.priority === 'High' ? <p style={{ color: 'red', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p> :
               data.priority === 'Low' ? <p style={{ color: '#28c499', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p> :
-              <p style={{ color: '#FFD300', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p> 
+              <p style={{ color: '#FFD300', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p>
               }
             </Popover>
             <Popover content={status}>

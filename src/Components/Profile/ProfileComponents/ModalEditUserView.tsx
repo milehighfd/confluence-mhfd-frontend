@@ -36,7 +36,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile }: { user:
     setOrganization([...auxOrganization]);
     setRole(RADIO_ITEMS.filter(element => element.value === (user.designation))[0] ? { ...RADIO_ITEMS.filter(element => element.value === (user.designation))[0] } : { name: '', value: '' });
   }
-  
+
   useEffect(() => {
     asign();
     console.log(title, organization.length);
@@ -82,7 +82,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile }: { user:
             {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
           </Menu.ItemGroup> */}
         </Menu> :
-        (values.designation === CONSULTANT) ? 
+        (values.designation === CONSULTANT) ?
         <Menu className="js-mm-00 sign-menu-organization"
           onClick={(event) => {
             values.organization = event.item.props.children.props.children;
@@ -131,7 +131,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile }: { user:
             <label className="label-sg">{'Unincorporated County'}</label>
             {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
           </Menu.ItemGroup>
-        </Menu> 
+        </Menu>
         // :
         // <Menu className="js-mm-00 sign-menu-organization"
         //   onClick={(event) => {
@@ -283,13 +283,13 @@ export default ({ user, updateUserInformation, isVisible, hideProfile }: { user:
             <Col className="gutter-row" span={12}>
               {/* <p>ORGANIZATION</p> */}
               <div id="sign-up-organization">
-                <Dropdown overlay={menuZoom} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                <Dropdown placement="topCenter" overlay={menuZoom} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button style={{ paddingLeft: '10px' }} >
                     {values.zoomarea ? values.zoomarea : 'Default map zoom area'}
                     <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>
-                
+
               </div>
             </Col>
             <Col className="gutter-row" span={3}>

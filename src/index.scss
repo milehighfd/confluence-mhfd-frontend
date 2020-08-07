@@ -1230,9 +1230,27 @@ body{
     background-color: transparent;
     border-color: none;
   }
-  .ant-btn:hover > img, .ant-btn:focus > img, .ant-btn:active > img, .ant-btn.active > img{
-    opacity: 1;
+  button .img-filter{
+    -webkit-mask: url('/Icons/icon-73.svg') no-repeat center;
+    height: 18px;
+    width: 18px;
+    background: $opacity;
   }
+  // .ant-btn:hover > .img-filter, .ant-btn:focus > .img-filter{
+  //   opacity: 1;
+  //   -webkit-mask: url('/Icons/icon-73.svg') no-repeat center;
+  //   height: 18px;
+  //   width: 18px;
+  //   background: $purple;
+  // }
+  .ant-btn:hover > .img-filter, .ant-btn:focus > .img-filter, .ant-btn:active > .img-filter, .ant-btn.active > .img-filter, .ant-btn:not([disabled]):active > .img-filter{
+    opacity: 1;
+    -webkit-mask: url('/Icons/icon-73.svg') no-repeat center;
+    height: 18px;
+    width: 18px;
+    background: $green;
+  }
+
   .sort-content {
     display: inline-block;
     margin-right: 14px;
