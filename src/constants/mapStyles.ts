@@ -1843,56 +1843,17 @@ export const tileStyles = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    "paint": {
-      "line-color": [
-          "step",
-          ["zoom"],
-          "hsl(0, 2%, 99%)",
-          10,
-          "hsl(0, 2%, 99%)",
-          13,
-          "hsl(0, 2%, 99%)",
-          22,
-          "hsl(0, 2%, 99%)"
-      ],
-      "line-blur": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          12,
-          4,
-          22,
-          2
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          10,
-          3,
-          22,
-          2
-      ]
-    }
+    "paint": {"line-color": "hsl(0, 13%, 100%)"}
   },
   {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
       "text-field": ["to-string", ["get", "servicearea"]],
-      "text-variable-anchor": ["bottom-right"],
-      "text-padding": 55,
-      "text-size": 18
+      "text-justify": "auto",
+      "text-offset": [0, 0]
     },
-    "paint": {
-        "text-color": "hsl(234, 0%, 100%)",
-        "text-halo-width": 4,
-        "text-halo-color": "hsla(0, 2%, 100%, 0)"
-    }
+    "paint": {"text-color": "hsl(180, 65%, 88%)"}
   }], 
   [STREAMS_FILTERS]: [{
     type: 'line',
