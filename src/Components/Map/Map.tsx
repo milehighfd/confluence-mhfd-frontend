@@ -385,7 +385,7 @@ const Map = ({ leftWidth,
                         allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
                         continue;
                     }
-                    if (filterField === 'problemname') {
+                    if (filterField === 'problemname' || filterField === 'projectname') {
                         continue;
                     }
                     if (filterField === 'estimatedcost') {
@@ -450,6 +450,7 @@ const Map = ({ leftWidth,
             }
 
             if (map.getLayer(key + '_' + index)) {
+                console.log(key , allFilters);
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
