@@ -1245,15 +1245,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
     layout: {},
     "paint": {
       "fill-outline-color": "hsl(32, 94%, 38%)",
-      "fill-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          "hsla(22, 92%, 52%, 0.56)",
-          22,
-          "hsla(22, 92%, 52%, 0.56)"
-      ],
+      "fill-color": "hsla(278, 92%, 52%, 0.56)",
       "fill-opacity": [
           "interpolate",
           ["linear"],
@@ -1263,7 +1255,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
           13.5,
           0,
           14,
-          1,
+          0.5,
           22,
           0
       ]
