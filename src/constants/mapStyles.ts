@@ -96,7 +96,7 @@ export const COMPONENT_LAYERS_STYLE = {
       "circle-stroke-color": "hsl(0, 3%, 100%)",
       "circle-color": "hsl(0, 4%, 98%)",
       "circle-stroke-opacity": 0,
-      "circle-radius": 11,
+      "circle-radius": 10,
       "circle-opacity": ["step", ["zoom"], 0, 14, 0.44, 15, 1]
     }
   },{
@@ -134,19 +134,7 @@ export const COMPONENT_LAYERS_STYLE = {
           10
       ],
       "circle-stroke-width": ["step", ["zoom"], 0, 13, 4, 22, 10],
-      "circle-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          13,
-          0.23,
-          14,
-          1,
-          22,
-          1
-      ]
+      "circle-opacity": ["step", ["zoom"], 0, 14, 0.44, 15, 1]
     }
   },{
     type: 'circle',
@@ -163,7 +151,8 @@ export const COMPONENT_LAYERS_STYLE = {
           22,
           "#000000"
       ],
-      "circle-color": "hsl(0, 0%, 0%)"
+      "circle-color": "hsl(0, 0%, 0%)",
+      "circle-opacity": ["step", ["zoom"], 0, 14, 0.44, 15, 1]
     }
   }, {
     type: 'circle',
@@ -174,17 +163,39 @@ export const COMPONENT_LAYERS_STYLE = {
       "circle-color": "hsl(145, 97%, 59%)",
       "circle-stroke-width": ["step", ["zoom"], 0, 13, 4, 22, 6],
       "circle-stroke-color": "hsla(102, 43%, 27%, 0.55)",
-      "circle-opacity": [
+      "circle-opacity": ["step", ["zoom"], 0, 14, 0.44, 15, 1]
+    }
+  }, {
+    type: 'symbol',
+    "layout": {
+      "icon-image": ["step", ["zoom"], "Frame13a", 22, "Frame13a"],
+      "icon-rotation-alignment": "viewport",
+      "icon-size": [
           "interpolate",
           ["linear"],
           ["zoom"],
           0,
-          1,
+          0.01,
           13,
-          0.69,
+          0.1,
+          20,
+          0.2,
           22,
-          1
+          0.5
       ]
+    },
+    "paint": {
+        "icon-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            13,
+            0.25,
+            13.5,
+            1,
+            22,
+            1
+        ]
     }
   }],
   [PIPE_APPURTENANCES]: [{
