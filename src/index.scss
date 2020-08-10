@@ -1211,6 +1211,7 @@ body{
     color: $purple00;
     font-size: 12px;
     box-shadow: none;
+    transition: all 0s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
   button img{
     margin-right: 5px;
@@ -1226,7 +1227,7 @@ body{
     border-color: $purple;
   }
   .ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
-    color: $purple;
+    color: $green;
     background-color: transparent;
     border-color: none;
   }
