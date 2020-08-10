@@ -217,7 +217,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
 export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects, setToggleFilters } : any) => {
     const apply = (values: any, field: string) => {
-        console.log('filterProjectOptions:::', filterProjectOptions, paramProjects);
+        //console.log('filterProjectOptions:::', filterProjectOptions, paramProjects);
 
         const options = {...filterProjectOptions};
         if('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field) {
@@ -228,7 +228,13 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             }
             options[field] = newValue;
         } else {
-            options[field] = values;
+            if('completedyear' === field) {
+                let newValue = options['status'] + ',Complete';
+                options['status'] = newValue;
+                options[field] = values;
+            } else {
+                options[field] = values;
+            }
         }
         setFilterProjectOptions(options);
         getGalleryProjects();
