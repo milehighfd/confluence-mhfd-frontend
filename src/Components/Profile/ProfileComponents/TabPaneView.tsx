@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Row, Dropdown, Button, Menu, Spin } from 'antd';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -29,6 +29,11 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
   const numberWithCommas = (x: number) => {
     return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
   }
+  useEffect(() => {
+    const auxState = { ...state };
+    auxState.hasMore = true;
+    setState(auxState);
+  }, [totalElement])
   const menu = () => {
     return <Menu className="js-mm-00">
       {valueDropdown.map((item: { name: string, title: string }, index: number) => {
