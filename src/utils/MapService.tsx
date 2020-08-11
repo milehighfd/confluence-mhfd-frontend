@@ -30,6 +30,7 @@ export class MapService {
       closeButton: false,
       closeOnClick: false
      });
+     this.map.addControl(new mapboxgl.NavigationControl());
   }
   create(mapId: string, coords?: any) {
     this.draw = new MapboxDraw({

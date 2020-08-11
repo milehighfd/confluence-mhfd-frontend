@@ -166,6 +166,7 @@ const Map = ({ leftWidth,
         }
         const nav = new mapboxgl.NavigationControl({ showCompass: false });
         map.addControl(nav, 'bottom-right');
+        map.addControl(new mapboxgl.NavigationControl());
         addMapGeocoder(map, geocoderRef);
 
         // Uncomment to see coords when a position in map is clicked
