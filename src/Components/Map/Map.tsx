@@ -612,7 +612,7 @@ const Map = ({ leftWidth,
                             title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
                             name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
                             organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                            value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '-',
+                            value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
                             status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
                             priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority : '-'
                         };
@@ -624,9 +624,9 @@ const Map = ({ leftWidth,
                             title: 'Project',
                             name: e.features[0].properties.projectname ? e.features[0].properties.projectname : e.features[0].properties.requestedname ? e.features[0].properties.requestedname : '-',
                             organization: e.features[0].properties.sponsor ? e.features[0].properties.sponsor : 'No sponsor',
-                            value: e.features[0].properties.finalCost ? e.features[0].properties.finalCost : e.features[0].properties.estimatedCost ? e.features[0].properties.estimatedCost : '-',
-                            status: e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
-                            projecctype: e.features[0].properties.projecctype ? e.features[0].properties.projecctype : '-'
+                            value: e.features[0].properties.finalcost ? e.features[0].properties.finalcost : e.features[0].properties.estimatedcost ? e.features[0].properties.estimatedcost : '0',
+                            projecctype: e.features[0].properties.projectsubtype ? e.features[0].properties.projectsubtype :  e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
+                            status: e.features[0].properties.status ? e.features[0].properties.status : '-'
                         };
                         html = loadMainPopup(item);
                     }
