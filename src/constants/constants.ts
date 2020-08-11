@@ -681,6 +681,7 @@ export const buttonsNewProject = [
   ];
 
 export const CITIES = [
+    "None",
     "Arvada",
     "Aurora",
     "Boulder",
@@ -895,6 +896,7 @@ export const ROLES = [
 ]
 
 export const SERVICE_AREA = [
+  "None",
   "Boulder Service Area",
   "Cherry Creek Service Area",
   "North Service Area",
@@ -907,6 +909,7 @@ export const SERVICE_AREA = [
 ];
 
 export const COUNTIES = [
+  "None",
   "Adams",
   "Arapahoe",
   "Boulder",
