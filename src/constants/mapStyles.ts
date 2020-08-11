@@ -1854,23 +1854,97 @@ export const tileStyles = {
       ]
     }
   }], 
-  [WATERSHED_FILTERS]: [{
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'fill-color': '#f2695c',
-        'fill-opacity': 0,
-    }
-  },
+  [WATERSHED_FILTERS]: [
   {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#f55e50',
-        'line-width': 0.75,
-        'line-opacity': 1
+    "paint": {
+      "line-blur": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          4,
+          22,
+          2
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          5,
+          10,
+          5,
+          22,
+          6
+      ],
+      "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [1, 1]],
+          22,
+          ["literal", [0, 0]]
+      ],
+      "line-opacity": 0.88,
+      "line-color": "hsl(126, 5%, 98%)"
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "servicearea"]],
+          "Service Area"
+      ],
+      "text-variable-anchor": ["bottom-right"],
+      "text-padding": 22,
+      "text-size": 24,
+      "text-offset": [0, 0],
+      "symbol-spacing": 100
+    },
+    "paint": {
+        "text-color": "hsla(105, 68%, 34%, 0.7)",
+        "text-halo-color": "hsl(218, 8%, 94%)",
+        "text-halo-width": 0.5,
+        "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            1,
+            10,
+            0.19,
+            22,
+            0.08
+        ]
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "servicearea"]],
+          "Service Area"
+      ],
+      "text-variable-anchor": ["bottom-right"],
+      "text-padding": 55,
+      "text-size": 18,
+      "text-justify": "auto",
+      "text-offset": [2, 2],
+      "text-radial-offset": 2,
+      "symbol-placement": "line-center"
+  },
+    "paint": {
+        "text-color": "hsl(234, 0%, 100%)",
+        "text-halo-width": 4,
+        "text-halo-color": "hsla(0, 2%, 100%, 0)",
+        "text-translate": [22, 0]
     }
   }
   ], 
