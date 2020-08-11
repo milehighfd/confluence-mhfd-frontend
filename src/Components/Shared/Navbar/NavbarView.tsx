@@ -12,7 +12,8 @@ const { Header } = Layout;
 const content = (<div className="popoveer-00">Notifications (Under Construction)</div>
 );
 
-export default ({user, updateUserInformation}: {user: User, updateUserInformation : Function}) => {
+export default ({user, updateUserInformation, groupOrganization, getGroupOrganization}: 
+  {user: User, updateUserInformation : Function, groupOrganization: [], getGroupOrganization: Function}) => {
   const [ key, setKey] = useState('1');
   const [ openProfile, setOpenProfile] = useState(false);
   const stateValue = {
@@ -103,7 +104,7 @@ export default ({user, updateUserInformation}: {user: User, updateUserInformatio
       style={{ backgroundImage: 'url(/Icons/logo-02.svg)' }}
     />
     { openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user} 
-      isVisible={true} hideProfile={hideProfile} />}
+      isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
     <Menu
       theme="dark"

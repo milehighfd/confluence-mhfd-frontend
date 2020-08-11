@@ -20,7 +20,8 @@ const initProfile = {
   loaderCardProblems: false,
   userImage: '',
   countProjects: [],
-  spin: false
+  spin: false,
+  groupOrganization: []
 }
 
 const profile = (state = initProfile, action: any) => {
@@ -81,6 +82,11 @@ const profile = (state = initProfile, action: any) => {
     case types.RESET_PROFILE:
       return {
         ...initProfile
+      }
+    case types.GET_GROUP_ORGANIZATION:
+      return {
+        ...state,
+        groupOrganization: action.data
       }
     default:
       return state;

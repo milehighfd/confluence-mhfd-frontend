@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import ProfileView from './ProfileView';
-import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation, getUserProblem, getUserProject } from '../../store/actions/ProfileActions';
+import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation, getUserProblem, getUserProject, getGroupOrganization } from '../../store/actions/ProfileActions';
 import { User } from '../../Classes/TypeList';
 import { getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } from '../../store/actions/mapActions';
 const mapStateToProps = (state: any): any => {
@@ -18,7 +18,8 @@ const mapStateToProps = (state: any): any => {
     detailed: state.detailed.detailed,
     loaderDetailedPage: state.detailed.spin,
     componentsOfProblems: state.map.componentsByProblemId,
-    loaderTableCompoents: state.map.loaderTableCompoents
+    loaderTableCompoents: state.map.loaderTableCompoents,
+    groupOrganization: state.profile.groupOrganization
   };
 };
 
@@ -56,6 +57,9 @@ const mapDispatchToProps = (dispatch: Function): any => {
     },
     getComponentsByProblemId(data: any) {
       dispatch(getComponentsByProblemId(data))
+    },
+    getGroupOrganization() {
+      dispatch(getGroupOrganization());
     },
   };
 };

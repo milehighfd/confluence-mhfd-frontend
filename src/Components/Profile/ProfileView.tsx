@@ -17,14 +17,14 @@ const { TabPane } = Tabs;
 export default ({ user, projects, problems, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue, updateUserInformation,
     getUserProblem, getUserProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
     displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, loaderCardProblems,
-    loaderCardProjects }:
+    loaderCardProjects, groupOrganization, getGroupOrganization }:
   {
     user: User, projects: any, problems: any, countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function,
     uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function, updateUserInformation: Function,
     getUserProblem: Function, getUserProject: Function, getDetailedPageProblem: Function, getDetailedPageProject: Function,
     getComponentsByProblemId: Function, displayModal: any,
     detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, loaderCardProblems: boolean,
-    loaderCardProjects: boolean }) => {
+    loaderCardProjects: boolean, groupOrganization: [], getGroupOrganization: Function }) => {
 
   // const newOptions = (options: { requestName: string, status: string }) => {
   //   const newOption = (options.requestName.trim() && options.status) ? options :
@@ -56,7 +56,10 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
         <SidebarView></SidebarView>
         <Layout className="map-00 profile-00" style={{ height: 'calc(100vh - 53px)', overflowY: 'scroll' }}>
           <Row className="profile-header">
-            <UserInformationView projects={projects} updateUserInformation={updateUserInformation} key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} spinImage={spinImage} spinValue={spinValue} />
+            <UserInformationView projects={projects} updateUserInformation={updateUserInformation} 
+              key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} 
+              spinImage={spinImage} spinValue={spinValue} groupOrganizacion={groupOrganization} 
+              getGroupOrganization={getGroupOrganization} />
           </Row>
           <Row >
             <Col className="profile-tabs" span={17}>

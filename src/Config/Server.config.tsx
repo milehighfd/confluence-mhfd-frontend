@@ -62,7 +62,8 @@ export const SERVER = (function () {
     const SEARCH = 'search';
     const V2 = 'v2';
     const BY_COMPONENTS = 'by-components';
-    const DETAILED_PAGE = 'detailed-page'
+    const DETAILED_PAGE = 'detailed-page';
+    const GROUP_ORGANIZATION = 'group-organization';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -116,5 +117,6 @@ export const SERVER = (function () {
         SEARCH_KEYWORD_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}/${SEARCH}/${PROBLEMS}`,
         FILTER_BY_COMPONENTS: `${URL_BASE.BASE}/${FILTERS}/${V2}/${BY_COMPONENTS}`,
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
+        GROUP_ORGANIZATION: `${URL_BASE.BASE}/${GALLERY}/${GROUP_ORGANIZATION}`,
     }
 })();

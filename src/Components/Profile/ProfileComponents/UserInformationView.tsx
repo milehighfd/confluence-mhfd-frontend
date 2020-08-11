@@ -4,11 +4,9 @@ import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 import ModalEditUserView from './ModalEditUserView';
 
-
-
-export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, projects }: 
+export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, projects, groupOrganizacion, getGroupOrganization }: 
       { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function,
-        updateUserInformation : Function, projects: Array<any>}) => {
+        updateUserInformation : Function, projects: Array<any>, groupOrganizacion: [], getGroupOrganization: Function}) => {
 
   const phone = (<div style={{fontSize: '12px'}}>{user.phone ? user.phone: '-'}</div>);
   const mail = (<div style={{fontSize: '12px'}}>{user.email ? user.email: '-'}</div>);
@@ -106,7 +104,8 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
         })}
         <Popover content={content} placement="left"><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover>
       </div>
-      <ModalEditUserView updateUserInformation={updateUserInformation} user={user} isVisible={false} hideProfile={hideProfile} />
+      <ModalEditUserView updateUserInformation={updateUserInformation} user={user} isVisible={false} 
+        hideProfile={hideProfile} groupOrganization={groupOrganizacion} getGroupOrganization={getGroupOrganization} />
     </Col>
   </>
 }
