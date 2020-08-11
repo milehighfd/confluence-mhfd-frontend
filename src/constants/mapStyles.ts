@@ -1932,21 +1932,25 @@ export const tileStyles = {
     }
   }], 
   [WATERSHED_FILTERS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'fill-color': '#f2695c',
+        'fill-opacity': 0,
+    }
+  },
+  {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    "paint": {"line-color": "hsl(0, 13%, 100%)"}
-  },
-  {
-    type: 'symbol',
-    'source-layer': 'pluto15v1',
-    "layout": {
-      "text-field": ["to-string", ["get", "servicearea"]],
-      "text-justify": "auto",
-      "text-offset": [0, 0]
-    },
-    "paint": {"text-color": "hsl(180, 65%, 88%)"}
-  }], 
+    paint: {
+        'line-color': '#f55e50',
+        'line-width': 0.75,
+        'line-opacity': 1
+    }
+  }
+  ], 
   [STREAMS_FILTERS]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
@@ -2104,35 +2108,20 @@ export const tileStyles = {
     }
   }], 
   [SERVICE_AREA_FILTERS]: [{
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'fill-color': '#826dba',
-        'fill-opacity': 0
-    }
-  },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#fd8b1a',
-        'line-width': 1,
-        'line-opacity': 1
-    }, 
+    paint: {"line-color": "hsl(0, 13%, 100%)"}
   }],
   [SERVICE_AREA_POINTS]: [{
     type: 'symbol',
     'source-layer': 'pluto15v1',
-    layout: {
-      'text-field': ['get', 'srvarea'],
-      'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
-      'text-radial-offset': 0.5,
-      'text-justify': 'auto'
+    "layout": {
+      "text-field": ["to-string", ["get", "servicearea"]],
+      "text-justify": "auto",
+      "text-offset": [0, 0]
     },
-    paint: {
-      'text-color': '#FFF'
-    }
+    "paint": {"text-color": "hsl(180, 65%, 88%)"}
   }],
   [MUNICIPALITIES_FILTERS]: [{
     type: 'fill',
