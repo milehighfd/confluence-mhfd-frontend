@@ -110,7 +110,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   });
   const gray = 'rgba(17, 9, 60, 0.5)';
   const green = '#28C499';
-  const [filterStyle, setFilterStyle] = useState<string>(gray);
+  const purple = '#11093c';
+  const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
+  const [textStyle, setTextStyle] = useState<string>(purple);
   useEffect(() => {
     if(location.includes('problemid=')) {
       const id = location.replace('?problemid=', '');
@@ -158,18 +160,27 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       setTabPosition('0');
       setTabActive('0');
     }
-    if (filterStyle === gray) {
-      setFilterStyle(green);
-    } else {
-      setFilterStyle(gray);
-    }
     setToggleFilters(!toggleFilters);
+    if (backgroundStyle === gray) {
+      setBackgroundStyle(green);
+      setTextStyle(green);
+    } else {
+      setBackgroundStyle(gray);
+      setTextStyle(purple);
+    }
   }
   const enterToggle = () => {
-    setFilterStyle(green);
+    setBackgroundStyle(green);
+    setTextStyle(green);
   }
   const exitToggle = () => {
-    setFilterStyle(gray);
+    if (!toggleFilters) {
+      setBackgroundStyle(gray);
+      setTextStyle(purple);
+    } else {
+      setBackgroundStyle(green);
+      setTextStyle(green);
+    }
   }
   const setCurrentFilters = (filtersData : FilterTypes) => {
     const values : Array<{ key: string, value: string }> = [];
@@ -362,9 +373,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               </span>
             </div>
 
-            <Button style={{color: filterStyle}} onClick={handleToggle} onMouseOver={enterToggle} onMouseOut={exitToggle}>
-              <img style={{background: filterStyle}} className="img-filter" alt="" /> Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
-                    tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents) })
+            <Button onClick={handleToggle} >
+              <img style={{background: backgroundStyle}} className="img-filter" alt="" /><span style={{color: textStyle}} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
+                    tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents) })</span>
             </Button>
           </Col>
         </Row>
