@@ -74,7 +74,8 @@ const mapStateToProps = (state: any) => {
         componentDetailIds: state.map.componentDetailIds,
         loaderTableCompoents: state.map.loaderTableCompoent,
         selectedOnMap: state.map.selectedOnMap,
-        mapSearch: state.map.mapSearch
+        mapSearch: state.map.mapSearch,
+        groupOrganization: state.profile.groupOrganization
     };
 };
 

@@ -113,7 +113,8 @@ export type MapHOCProps = {
     setSelectedOnMap: Function,
     getParamsFilter: Function,
     mapSearchQuery: Function,
-    mapSearch: any
+    mapSearch: any,
+    groupOrganization: []
 }
 
 export type MapViewTypes = { 
@@ -154,7 +155,8 @@ export type MapViewTypes = {
     displayModal: boolean,
     loaderTableCompoents: boolean,
     selectedOnMap: any,
-    setSelectedOnMap: Function
+    setSelectedOnMap: Function,
+    groupOrganization: []
 }
 export type OptionProblems = {
     keyword: string,

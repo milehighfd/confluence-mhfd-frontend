@@ -35,11 +35,8 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
     const auxOrganization = (values.designation === ADMIN || values.designation === STAFF) ? CITIES :
       (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? ORGANIZATION : CONSULTANT_CONTRACTOR;
     setOrganization([...auxOrganization]);
-    getGroupOrganization();
-    console.log('PRUEBASAAAAAA', groupOrganization);
     setRole(RADIO_ITEMS.filter(element => element.value === (user.designation))[0] ? { ...RADIO_ITEMS.filter(element => element.value === (user.designation))[0] } : { name: '', value: '' });
   }
-
   useEffect(() => {
     asign();
     console.log(title, organization.length);
@@ -111,43 +108,19 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
         </Menu>
   };
   const menuZoom = () => {
-    // (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
     return <Menu className="js-mm-00 sign-menu-organization"
           onClick={(event) => {
             values.zoomarea = event.item.props.children.props.children;
             const auxTitle = event.item.props.children.props.children;
             setTitle(auxTitle);
           }}>
-          <Menu.ItemGroup key="g1">
-            <label className="label-sg">{'Regional Agency'}</label>
-            <Menu.Item key={'xxx' + "g1"}><span>{'Mile High Flood Control District Boundary'}</span></Menu.Item>
-            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g2">
-            <label className="label-sg">{'City'}</label>
-            {DROPDOWN_ORGANIZATION.CITY.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g3">
-            <label className="label-sg">{'City and County'}</label>
-            {DROPDOWN_ORGANIZATION.CITY_AND_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g4">
-            <label className="label-sg">{'Unincorporated County'}</label>
-            {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
+          {groupOrganization.map((item: {type: string, values: Array<{name: string}>}, index: number) => {
+            return <Menu.ItemGroup key={index}>
+              <label className="label-sg">{item.type}</label>
+              {item.values.map((element: {name: string}, index: number) => (<Menu.Item key={index + item.type + element.name}><span>{element.name}</span></Menu.Item>))}
+            </Menu.ItemGroup>
+          })}
         </Menu>
-        // :
-        // <Menu className="js-mm-00 sign-menu-organization"
-        //   onClick={(event) => {
-        //     values.zoomarea = event.item.props.children.props.children;
-        //     const auxTitle = event.item.props.children.props.children;
-        //     setTitle(auxTitle);
-        //   }}>
-        //   <Menu.ItemGroup key="g1">
-        //     <label className="label-sg">{'Regional Agency'}</label>
-        //     {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-        //   </Menu.ItemGroup>
-        // </Menu>
   };
   const stateValue = {
     visible: isVisible ? isVisible : false
