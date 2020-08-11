@@ -1961,6 +1961,11 @@ body{
 }
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
   background-image: url('/Icons/icon-36.svg') !important;
+  background-position: 52%;
+}
+.mapboxgl-ctrl button.mapboxgl-ctrl-compass .mapboxgl-ctrl-icon {
+    background-image: url('/Icons/icon-74.svg') !important;
+    background-size: 7px !important;
 }
 .mapboxgl-ctrl-group:not(:empty) {
   box-shadow: none !important;
