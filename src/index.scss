@@ -1215,7 +1215,7 @@ body{
   }
   button img{
     margin-right: 5px;
-    opacity: 0.5;
+    // opacity: 0.5;
   }
   .ant-input:hover {
     border-color: $purple;
@@ -1226,10 +1226,13 @@ body{
   .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
     border-color: $purple;
   }
-  .ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
-    color: $green;
+  .ant-btn:hover > span, .ant-btn:hover{
+    color: $green !important;
     background-color: transparent;
     border-color: none;
+  }
+  .ant-btn:focus{
+    background: transparent;
   }
   button .img-filter{
     -webkit-mask: url('/Icons/icon-73.svg') no-repeat center;
@@ -1244,12 +1247,12 @@ body{
   //   width: 18px;
   //   background: $purple;
   // }
-  .ant-btn:hover > .img-filter, .ant-btn:focus > .img-filter, .ant-btn:active > .img-filter, .ant-btn.active > .img-filter, .ant-btn:not([disabled]):active > .img-filter{
+  .ant-btn:hover > .img-filter{
     opacity: 1;
     -webkit-mask: url('/Icons/icon-73.svg') no-repeat center;
     height: 18px;
     width: 18px;
-    background: $green;
+    background: $green !important;
   }
 
   .sort-content {
