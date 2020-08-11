@@ -4,9 +4,10 @@ import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 import ModalEditUserView from './ModalEditUserView';
 
-export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, projects, groupOrganizacion, getGroupOrganization }: 
+export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, projects, groupOrganizacion, getGroupOrganization, setFilter }: 
       { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function,
-        updateUserInformation : Function, projects: Array<any>, groupOrganizacion: [], getGroupOrganization: Function}) => {
+        updateUserInformation : Function, projects: Array<any>, groupOrganizacion: [], getGroupOrganization: Function,
+        setFilter: Function }) => {
 
   const phone = (<div style={{fontSize: '12px'}}>{user.phone ? user.phone: '-'}</div>);
   const mail = (<div style={{fontSize: '12px'}}>{user.email ? user.email: '-'}</div>);
@@ -89,11 +90,18 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
   </Col>
     <Col span={12} className="profile-project">
       <div className="profile-table" style={{ paddingLeft: "0px", paddingRight: "0px" }}>
-        <span className="text-profile-projects" >
-          {projects.length? projects.length: 0}
-        </span> <span style={{ paddingRight: "8px" }}> Total Projects </span> |
+        <span className="cursor-pointer-span" onClick={() => {
+            setFilter('');
+          }}>
+          <span className="text-profile-projects" >
+            {projects.length? projects.length: 0}
+          </span> <span style={{ paddingRight: "8px" }}> Total Projects </span>
+        </span>
+         |
         {typeProjects.map((element: { name: string, id: string }, index: number) => {
-          return <span key={index}>
+          return <span className="cursor-pointer-span" key={index} onClick={() => {
+            setFilter(element.id);
+          }}>
             <span className="text-profile-projects" >
               {projects.filter((project) => project.projecttype === element.id).length}
             </span>

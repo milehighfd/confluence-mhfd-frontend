@@ -3,6 +3,7 @@ import { Col, Card } from 'antd';
 
 import { ComponentType } from '../../../Classes/MapTypes';
 import DetailedModal from '../../Shared/Modals/DetailedModal';
+import { AnyAaaaRecord } from 'dns';
 
 export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
         displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents }: { data: any, type: string, numberWithCommas: Function,
@@ -71,7 +72,7 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
                 {type === 'Problems' ? <h6>{data.county ? data.county : 'No County'}</h6> :
                     <h6>{data.county ? data.county : 'No Sponsor'}</h6>}
 
-                <h5>${numberWithCommas(data.solutioncost ? data.solutioncost : data.estimatedCost)} <span style={{ float: 'right' }}><b>{getComponentSizes(data.components)}</b> </span></h5>
+                <h5>${numberWithCommas(data.solutioncost ? data.solutioncost : data.estimatedcost)}<span style={{ float: 'right' }}><b>{getComponentSizes(data.components)}</b> </span></h5>
                 <hr />
                 {type === 'Problems' ? (
                     <div style={{ display: 'flex', width: '100%' }}>

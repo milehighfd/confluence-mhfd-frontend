@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 
 import ProfileView from './ProfileView';
-import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation, getUserProblem, getUserProject, getGroupOrganization } from '../../store/actions/ProfileActions';
+import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation,
+   getUserProblem, getUserProject, getGroupOrganization, getAllUserProjects } from '../../store/actions/ProfileActions';
 import { User } from '../../Classes/TypeList';
 import { getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } from '../../store/actions/mapActions';
 const mapStateToProps = (state: any): any => {
@@ -61,6 +62,9 @@ const mapDispatchToProps = (dispatch: Function): any => {
     getGroupOrganization() {
       dispatch(getGroupOrganization());
     },
+    getAllUserProjects() {
+      dispatch(getAllUserProjects());
+    }
   };
 };
 

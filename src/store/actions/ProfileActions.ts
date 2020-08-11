@@ -54,13 +54,19 @@ const options = (options: { keyword: string, column: string, order: string }, co
     isproblem: true
   }
 }
-const optionsProject = (options: { keyword: string, column: string, order: string }, coordinates: string) => {
-  return {
-    name: options.keyword,
-    sortby: options.column,
-    sorttype: options.order,
-    bounds: coordinates
-  }
+const optionsProject = (options: { keyword: string, column: string, order: string, projecttype?: String }, coordinates: string, projecttype?: String ) => {
+  return projecttype? {
+      name: options.keyword,
+      sortby: options.column,
+      sorttype: options.order,
+      bounds: coordinates,
+      projecttype
+    }:{
+      name: options.keyword,
+      sortby: options.column,
+      sorttype: options.order,
+      bounds: coordinates
+    } 
 }
 const getUserCoordinates = () => {
   const user = store.getState().profile.userInformation;
@@ -98,15 +104,27 @@ export const getUserProblem = (option: { keyword: string, column: string, order:
     });
   }
 }
-export const getUserProject = (option: { keyword: string, column: string, order: string }) => {
+export const getUserProject = (option: { keyword: string, column: string, order: string }, projecttype?: string ) => {
   return async (dispatch: Function) => {
     dispatch({ type: types.SET_VALUE_LOADER_PROJECT, spin: true });
     const coordinates = await getUserCoordinates();
-    datasets.postData(SERVER.GALLERY_PROJECTS, optionsProject(option, coordinates), datasets.getToken()).then(projects => {
+    datasets.postData(SERVER.GALLERY_PROJECTS, optionsProject(option, coordinates, projecttype), datasets.getToken()).then(projects => {
       if (projects?.length >= 0) {
         dispatch({ type: types.GET_USER_PROJECTS, projects });
       }
       dispatch({ type: types.SET_VALUE_LOADER_PROJECT, spin: false });
+    });
+  }
+}
+export const getAllUserProjects = () => {
+  return async (dispatch: Function) => {
+    dispatch({ type: types.SET_VALUE_LOADER_ALL, spin: true });
+    const coordinates = await getUserCoordinates();
+    datasets.postData(SERVER.GALLERY_PROJECTS, { bounds: coordinates}, datasets.getToken()).then(projects => {
+      if (projects?.length >= 0) {
+        dispatch({ type: types.GET_ALL_USER_PROJECTS, projects });
+      }
+      dispatch({ type: types.SET_VALUE_LOADER_ALL, spin: false });
     });
   }
 }

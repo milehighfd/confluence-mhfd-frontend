@@ -9,18 +9,19 @@ import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
 const { Search } = Input;
 
 export default ({ type, data, search, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
-        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, spinValue }:
+        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, spinValue, filter }:
         { type: string, data: Array<any>, search: Function, 
           getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any, 
-          detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, spinValue: boolean }) => {
+          detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, spinValue: boolean, filter: string }) => {
   let totalElement = data.length;
+  const datas = (type === 'Problems' || (type === 'Projects' && !filter)) ? data:  data.filter(element => element.projecttype === filter);
   const size = 8;
   let sw = false;
   if (totalElement) {
     sw = true;
   }
   const valueDropdown = type === 'Problems' ? SORTED_PROBLEMS : SORTED_PROJECTS;
-  const [options, setOptions] = useState({ keyword: "", column: type === 'Problems' ? 'problemname' : 'streamname', order: "asc" });
+  const [options, setOptions] = useState({ keyword: "", column: type === 'Problems' ? 'problemname' : 'projectname', order: "asc" });
   const [state, setState] = useState({
     items: Array.from({ length: size }),
     hasMore: true
@@ -105,11 +106,11 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
       dataLength={state.items.length}
       next={fetchMoreData}
       hasMore={state.hasMore}
-      loader={data.length ? <h4>Loading...</h4> : ''}
+      loader={datas.length ? <h4>Loading...</h4> : ''}
       height={window.innerHeight - 400}
       endMessage={''}>
       {sw ? state.items.map((i, index: number) => {
-        return data[index] && <CardsView key={index} data={data[index]} type={type} numberWithCommas={numberWithCommas}
+        return datas[index] && <CardsView key={index} data={datas[index]} type={type} numberWithCommas={numberWithCommas}
             getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
             getComponentsByProblemId={getComponentsByProblemId}
             displayModal={displayModal} detailed={detailed} 

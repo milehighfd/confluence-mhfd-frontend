@@ -18,10 +18,12 @@ const initProfile = {
   userProblems: [],
   loaderCardProjects: false,
   loaderCardProblems: false,
+  laoderAllProjects: false,
   userImage: '',
   countProjects: [],
   spin: false,
-  groupOrganization: []
+  groupOrganization: [],
+  allUserProjects: []
 }
 
 const profile = (state = initProfile, action: any) => {
@@ -87,6 +89,16 @@ const profile = (state = initProfile, action: any) => {
       return {
         ...state,
         groupOrganization: action.data
+      }
+    case types.GET_ALL_USER_PROJECTS:
+      return {
+        ...state,
+        allUserProjects: action.projects
+      }
+    case types.SET_VALUE_LOADER_ALL:
+      return {
+        ...state,
+        laoderAllProjects: action.spin
       }
     default:
       return state;

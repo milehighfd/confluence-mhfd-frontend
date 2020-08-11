@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Row, Col, Tabs, Popover } from 'antd';
 
 import Navbar from "../Shared/Navbar/NavbarContainer";
@@ -32,6 +32,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   //       (options.status) ? { status: options.status } : {}
   //   return newOption;
   // }
+  const [ filter, setFilter] = useState('');
   useEffect(() => {
     getUserProjects({});
   }, [getUserProjects]);
@@ -45,7 +46,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   useEffect(() => {
     if(user._id) {
       getUserProblem({ keyword: '', column: 'problemname', order: 'asc' });
-      getUserProject({ keyword: '', column: 'streamname', order: 'asc' });
+      getUserProject({ keyword: '', column: 'projectname', order: 'asc' });
     }
   }, [user]);
 
@@ -59,7 +60,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
             <UserInformationView projects={projects} updateUserInformation={updateUserInformation} 
               key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} 
               spinImage={spinImage} spinValue={spinValue} groupOrganizacion={groupOrganization} 
-              getGroupOrganization={getGroupOrganization} />
+              getGroupOrganization={getGroupOrganization} setFilter={setFilter} />
           </Row>
           <Row >
             <Col className="profile-tabs" span={17}>
@@ -72,7 +73,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                     displayModal={displayModal} detailed={detailed}
                     loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
                     loaderTableCompoents={loaderTableCompoents}
-                    spinValue={loaderCardProblems}/>
+                    spinValue={loaderCardProblems} filter={filter}/>
                 </TabPane>
 
                 <TabPane key="2" tab={<span><Popover content={content00} placement="rightBottom">Projects</Popover> </span>}>
@@ -82,7 +83,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                     displayModal={displayModal} detailed={detailed}
                     loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
                     loaderTableCompoents={loaderTableCompoents}
-                    spinValue={loaderCardProjects} />
+                    spinValue={loaderCardProjects} filter={filter} />
                 </TabPane>
                 {/* <TabPane tab="Activity" key="3">
                     <div className="tab-activity">
