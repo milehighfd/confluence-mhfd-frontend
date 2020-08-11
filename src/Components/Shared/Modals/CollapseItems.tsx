@@ -428,7 +428,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
               }} />
           </Col>
         </Row>
-        {total > 0 && <div className="solution-b" style={{display:'flex'}}>
+        {data.length > 0 && <div className="solution-b" style={{display:'flex'}}>
           <div style={{width:'284px'}}><b>Total Estimated Cost</b></div>
           <div style={{padding: '0px 12.5px'}}><b>${new Intl.NumberFormat("en-EN").format(total)}</b></div>
         </div>}
