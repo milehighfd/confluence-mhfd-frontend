@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, CSSProperties } from "react";
 import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover } from 'antd';
 
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
@@ -108,6 +108,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     value: '',
     type: ''
   });
+  const gray = 'rgba(17, 9, 60, 0.5)';
+  const green = '#28C499';
+  const [filterStyle, setFilterStyle] = useState<string>(gray);
   useEffect(() => {
     if(location.includes('problemid=')) {
       const id = location.replace('?problemid=', '');
@@ -153,7 +156,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     // Force coded cause' components tab doesn't exists on MapView
     if(tabPosition === '2') {
       setTabPosition('0');
-      setTabActive('0')
+      setTabActive('0');
+    }
+    if (filterStyle === gray) {
+      setFilterStyle(green);
+    } else {
+      setFilterStyle(gray);
     }
     setToggleFilters(!toggleFilters);
   }
@@ -349,8 +357,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               </span>
             </div>
 
-            <Button onClick={handleToggle}>
-              <img  className="img-filter" alt="" /> Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
+            <Button style={{color: filterStyle}} onClick={handleToggle}>
+              <img style={{background: filterStyle}} className="img-filter" alt="" /> Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
                     tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents) })
             </Button>
           </Col>
