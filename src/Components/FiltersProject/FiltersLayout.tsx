@@ -222,6 +222,11 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         const options = {...filterProjectOptions};
         if('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field) {
             let newValue = '';
+            //console.log('STATUS',options['status']);
+            if ('workplanyear' === field) {
+                options['status'] = options['status'] + ',Complete';
+            }
+            
             for (let index = 0; index < values.length; index++) {
                 const element = values[index];
                 newValue = newValue ? (newValue + ',' + element): element;
