@@ -165,7 +165,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     }
     setToggleFilters(!toggleFilters);
   }
-
+  const enterToggle = () => {
+    setFilterStyle(green);
+  }
+  const exitToggle = () => {
+    setFilterStyle(gray);
+  }
   const setCurrentFilters = (filtersData : FilterTypes) => {
     const values : Array<{ key: string, value: string }> = [];
     for (const key in filtersData) {
@@ -357,7 +362,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               </span>
             </div>
 
-            <Button style={{color: filterStyle}} onClick={handleToggle}>
+            <Button style={{color: filterStyle}} onClick={handleToggle} onMouseOver={enterToggle} onMouseOut={exitToggle}>
               <img style={{background: filterStyle}} className="img-filter" alt="" /> Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
                     tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents) })
             </Button>
