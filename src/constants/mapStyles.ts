@@ -88,85 +88,8 @@ export const polygonStroke = {
 
 export const COMPONENT_LAYERS_STYLE = {
   [GRADE_CONTROL_STRUCTURE]: [{
-    type: 'circle',
-    'source-layer': 'pluto15v1',
-    layout: { },
-    "paint": {
-      "circle-stroke-width": ["step", ["zoom"], 0, 13, 4, 22, 10],
-      "circle-stroke-color": "hsl(0, 3%, 100%)",
-      "circle-color": "hsl(0, 4%, 98%)",
-      "circle-stroke-opacity": 0,
-      "circle-radius": 10,
-      "circle-opacity": ["step", ["zoom"], 0, 14, 0.44, 15, 1]
-    }
-  },{
-    type: 'circle',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "circle-color": [
-          "step",
-          ["zoom"],
-          "hsla(17, 86%, 49%, 0)",
-          13,
-          "hsla(17, 86%, 49%, 0.51)",
-          22,
-          "hsl(136, 86%, 49%)"
-      ],
-      "circle-stroke-color": [
-          "step",
-          ["zoom"],
-          "hsla(0, 4%, 88%, 0.01)",
-          13,
-          "hsl(0, 4%, 88%)",
-          22,
-          "hsl(0, 4%, 88%)"
-      ],
-      "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          13,
-          2,
-          22,
-          10
-      ],
-      "circle-stroke-width": ["step", ["zoom"], 0, 13, 4, 22, 10],
-      "circle-opacity": ["step", ["zoom"], 0, 14, 0.44, 15, 1]
-    }
-  },{
-    type: 'circle',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "circle-radius": ["step", ["zoom"], 0, 13, 5, 22, 5],
-      "circle-stroke-color": [
-          "step",
-          ["zoom"],
-          "hsla(0, 0%, 0%, 0.05)",
-          13,
-          "hsl(0, 0%, 0%)",
-          22,
-          "#000000"
-      ],
-      "circle-color": "hsl(0, 0%, 0%)",
-      "circle-opacity": ["step", ["zoom"], 0, 14, 0.44, 15, 1]
-    }
-  }, {
-    type: 'circle',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "circle-radius": ["step", ["zoom"], 0, 13, 5, 22, 4],
-      "circle-color": "hsl(145, 97%, 59%)",
-      "circle-stroke-width": ["step", ["zoom"], 0, 13, 4, 22, 6],
-      "circle-stroke-color": "hsla(102, 43%, 27%, 0.55)",
-      "circle-opacity": ["step", ["zoom"], 0, 14, 0.44, 15, 1]
-    }
-  }, {
     type: 'symbol',
+    'source-layer': 'pluto15v1',
     "layout": {
       "icon-image": ["step", ["zoom"], "Frame13a", 22, "Frame13a"],
       "icon-rotation-alignment": "viewport",
@@ -177,27 +100,27 @@ export const COMPONENT_LAYERS_STYLE = {
           0,
           0.01,
           13,
-          0.1,
+          0.03,
           20,
           0.2,
           22,
           0.5
+      ],
+      "text-field": ["step", ["zoom"], "", 22, ""]
+  },
+  "paint": {
+      "icon-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          13,
+          0.25,
+          13.5,
+          1,
+          22,
+          1
       ]
-    },
-    "paint": {
-        "icon-opacity": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            13,
-            0.25,
-            13.5,
-            1,
-            22,
-            1
-        ]
-    }
-  }],
+  }}],
   [PIPE_APPURTENANCES]: [{
     type: 'circle',
     'source-layer': 'pluto15v1',
