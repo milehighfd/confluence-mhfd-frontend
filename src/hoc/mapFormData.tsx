@@ -85,7 +85,9 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               getParamsFilter,
               mapSearchQuery,
               mapSearch,
-              groupOrganization
+              groupOrganization,
+              applyFilter,
+              setApplyFilter
              } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -248,6 +250,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             loaderTableCompoents={loaderTableCompoents}
                             selectedOnMap={selectedOnMap}
                             groupOrganization={groupOrganization}
+                            applyFilter={applyFilter}
+                            setApplyFilter={setApplyFilter}
                       />
                     </Col>
                   </Spin>

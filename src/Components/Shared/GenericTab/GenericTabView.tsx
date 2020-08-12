@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Collapse, Tag } from "antd";
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -100,6 +100,11 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
         tagComponents.push(tag);
     }
 
+    useEffect(() => {
+        const auxState = { ...state };
+        auxState.hasMore = true;
+        setState(auxState); 
+    }, [totalElement])
     const tagProblems = [] as any;
     for (const key in filterProblemOptions) {
         const tag = {

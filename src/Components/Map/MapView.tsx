@@ -1,5 +1,5 @@
 import React, { useState, useEffect, CSSProperties } from "react";
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox } from 'antd';
 
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
@@ -11,6 +11,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import store from "../../store";
 import DetailedModal from "../Shared/Modals/DetailedModal";
+import { genExtra } from "../../utils/detailedUtils";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
@@ -40,7 +41,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
                   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
-                  groupOrganization } : MapViewTypes) => {
+                  groupOrganization, applyFilter,
+                  setApplyFilter } : MapViewTypes) => {
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -245,6 +247,18 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     </Menu>
   };
 
+  const genExtra = () => (
+    <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+      <Col >
+        Apply current map view to filters 
+        <Checkbox style={{paddingLeft: 6}} checked={applyFilter} onChange={() => {
+          setApplyFilter(!applyFilter)
+          getGalleryProblems();
+          getGalleryProjects();
+        }}></Checkbox>
+      </Col>
+    </Row>
+  );
   const menuSort = (listSort: Array<{name: string, title: string}>) => {
     return <Menu className="js-mm-00">
       {listSort.map((item : {name: string, title: string}) => (
@@ -286,7 +300,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <Col span={20} id="westminter">
           <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
             <span className="ant-dropdown-link span-header">
-              {area ? (area.endsWith(', CO') ? area.replace(', CO', '') : area) : 'Mile High Flood Control District Boundary'}
+              {area ? (area.endsWith(', CO') ? area.replace(', CO', '') : area) : 'Mile High Flood District'}
               <Popover content={content}>
               <img src="/Icons/icon-12.svg" alt="" style={{marginLeft: '8px'}}/>
               </Popover>
@@ -396,7 +410,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           } else {
             setTabActive('1');
           }
-        }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00">
+        }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00"  tabBarExtraContent={genExtra()}>
           {tabs.map((value : string, index : number) => {
             let totalElements = 0;
             let cardInformation : Array<Object> = [];

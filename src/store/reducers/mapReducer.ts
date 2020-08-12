@@ -193,7 +193,8 @@ const initState = {
     },
     componentDetailIds: {},
     loaderTableCompoents: false,
-    mapSearch: []
+    mapSearch: [],
+    applyFilter: true
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -414,6 +415,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 mapSearch: action.search
+            }
+        }
+        case types.SET_APPLY_FILTERS: {
+            return {
+                ...state,
+                applyFilter: action.applyFilter
             }
         }
         default: 

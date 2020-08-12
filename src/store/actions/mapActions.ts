@@ -7,6 +7,7 @@ import * as constants from '../../constants/constants';
 import { TotalType, ProjectTypes, OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
 import { ComponentType } from 'react';
 import store from '..';
+import { dispatch } from 'd3';
 
 export const getReverseGeocode = (lat : number, lng : number, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/
@@ -174,58 +175,106 @@ export const resetMap = () => {
 }
 
 const options = (options: OptionProblems, filterComponent: OptionComponents, coordinates: string) => {
-        return {
-            isproblem: true,
-            cost: options.cost,
-            priority: options.priority,
-            solutionstatus: options.solutionstatus,
-            county: options.county,
-            jurisdiction: options.jurisdiction,
-            mhfdmanager: options.mhfdmanager,
-            problemtype: options.problemtype,
-            source: options.source,
-            components: options.components,
-            componenttype: filterComponent.component_type,
-            componentstatus: filterComponent.status,
-            watershed: options.mhfdmanager,
-            jurisdictionComp: filterComponent.jurisdiction,
-            countyComp: filterComponent.county,
-            yearofstudy: filterComponent.yearofstudy,
-            estimatedcostComp: filterComponent.estimatedcost,
-            name: options.keyword,
-            sortby: options.column,
-            sorttype: options.order,
-            bounds: coordinates
-        }
+    const applyFilter = store.getState().map.applyFilter;
+    return applyFilter ? {
+        isproblem: true,
+        cost: options.cost,
+        priority: options.priority,
+        solutionstatus: options.solutionstatus,
+        county: options.county,
+        jurisdiction: options.jurisdiction,
+        mhfdmanager: options.mhfdmanager,
+        problemtype: options.problemtype,
+        source: options.source,
+        components: options.components,
+        componenttype: filterComponent.component_type,
+        componentstatus: filterComponent.status,
+        watershed: options.mhfdmanager,
+        jurisdictionComp: filterComponent.jurisdiction,
+        countyComp: filterComponent.county,
+        yearofstudy: filterComponent.yearofstudy,
+        estimatedcostComp: filterComponent.estimatedcost,
+        name: options.keyword,
+        sortby: options.column,
+        sorttype: options.order,
+        bounds: coordinates
+    }: {
+        isproblem: true,
+        cost: options.cost,
+        priority: options.priority,
+        solutionstatus: options.solutionstatus,
+        county: options.county,
+        jurisdiction: options.jurisdiction,
+        mhfdmanager: options.mhfdmanager,
+        problemtype: options.problemtype,
+        source: options.source,
+        components: options.components,
+        componenttype: filterComponent.component_type,
+        componentstatus: filterComponent.status,
+        watershed: options.mhfdmanager,
+        jurisdictionComp: filterComponent.jurisdiction,
+        countyComp: filterComponent.county,
+        yearofstudy: filterComponent.yearofstudy,
+        estimatedcostComp: filterComponent.estimatedcost,
+        name: options.keyword,
+        sortby: options.column,
+        sorttype: options.order
+    }
 }
 const optionsProjects = (options: OptionProjects, filterComponent: OptionComponents, coordinates: string) => {
-        return {
-            name: options.keyword,
-            projecttype: options.projecttype,
-            status: options.status,
-            startyear: options.startyear,
-            completedyear: options.completedyear,
-            mhfddollarsallocated: options.mhfddollarsallocated,
-            lgmanager: options.lgmanager,
-            streamname: options.streamname,
-            creator: options.creator,
-            totalcost: options.totalcost,
-            workplanyear: options.workplanyear,
-            problemtype: options.problemtype,
-            mhfdmanager: options.mhfdmanager,
-            jurisdiction: options.jurisdiction,
-            county: options.county,
-            estimatedcostComp: filterComponent.estimatedcost,
-            componenttype: filterComponent.component_type,
-            componentstatus: filterComponent.status,
-            watershed: options.mhfdmanager,
-            jurisdictionComp: filterComponent.jurisdiction,
-            countyComp: filterComponent.county,
-            yearofstudy: filterComponent.yearofstudy,
-            sortby: options.column,
-            sorttype: options.order,
-            bounds: coordinates
-        }
+    const applyFilter = store.getState().map.applyFilter;
+    return applyFilter? {
+        name: options.keyword,
+        projecttype: options.projecttype,
+        status: options.status,
+        startyear: options.startyear,
+        completedyear: options.completedyear,
+        mhfddollarsallocated: options.mhfddollarsallocated,
+        lgmanager: options.lgmanager,
+        streamname: options.streamname,
+        creator: options.creator,
+        totalcost: options.totalcost,
+        workplanyear: options.workplanyear,
+        problemtype: options.problemtype,
+        mhfdmanager: options.mhfdmanager,
+        jurisdiction: options.jurisdiction,
+        county: options.county,
+        estimatedcostComp: filterComponent.estimatedcost,
+        componenttype: filterComponent.component_type,
+        componentstatus: filterComponent.status,
+        watershed: options.mhfdmanager,
+        jurisdictionComp: filterComponent.jurisdiction,
+        countyComp: filterComponent.county,
+        yearofstudy: filterComponent.yearofstudy,
+        sortby: options.column,
+        sorttype: options.order,
+        bounds: coordinates
+    } : {
+        name: options.keyword,
+        projecttype: options.projecttype,
+        status: options.status,
+        startyear: options.startyear,
+        completedyear: options.completedyear,
+        mhfddollarsallocated: options.mhfddollarsallocated,
+        lgmanager: options.lgmanager,
+        streamname: options.streamname,
+        creator: options.creator,
+        totalcost: options.totalcost,
+        workplanyear: options.workplanyear,
+        problemtype: options.problemtype,
+        mhfdmanager: options.mhfdmanager,
+        jurisdiction: options.jurisdiction,
+        county: options.county,
+        estimatedcostComp: filterComponent.estimatedcost,
+        componenttype: filterComponent.component_type,
+        componentstatus: filterComponent.status,
+        watershed: options.mhfdmanager,
+        jurisdictionComp: filterComponent.jurisdiction,
+        countyComp: filterComponent.county,
+        yearofstudy: filterComponent.yearofstudy,
+        sortby: options.column,
+        sorttype: options.order
+    }
 }
 
 export const setFilterCoordinates = (coordinates: string) => {
@@ -527,5 +576,11 @@ export const mapSearchQuery = (query: string) => {
         datasets.getData(SERVER.MAP_SEARCH + '/' + query, datasets.getToken()).then(search => {
             dispatch({type: types.MAP_SEARCH_QUERY, search});
         })
+    }
+}
+
+export const setApplyFilter = (applyFilter: boolean) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_APPLY_FILTERS, applyFilter });
     }
 }
