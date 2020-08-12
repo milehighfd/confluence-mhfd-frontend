@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import App from './App';
 import { bindActionCreators } from 'redux';
 import { replaceAppUser } from './store/actions/appUser';
-import { getUserInformation } from './store/actions/ProfileActions';
+import { getUserInformation, getGroupOrganization } from './store/actions/ProfileActions';
 import { getCarouselImages } from './store/actions/carouselImagesActions';
 import { getMapTables, getParamsFilter, setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, replaceFilterCoordinates } from './store/actions/mapActions';
 
@@ -26,7 +26,8 @@ const mapDispatchToProps = (dispatch: any) => ({
     setFilterProblemOptions, 
     setFilterProjectOptions, 
     setFilterComponentOptions,
-    replaceFilterCoordinates
+    replaceFilterCoordinates,
+    getGroupOrganization
     }, dispatch)
 });
 

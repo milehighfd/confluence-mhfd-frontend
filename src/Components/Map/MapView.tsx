@@ -39,8 +39,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   filterProjectOptions, filterCoordinates, setFilterProblemOptions,
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
-                  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap } : MapViewTypes) => {
-
+                  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
+                  groupOrganization } : MapViewTypes) => {
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -214,7 +214,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }
   const menu = () => {
     return <Menu className="js-mm-00 sign-menu-organization">
-      <Menu.ItemGroup key="g1">
+      {groupOrganization.map((item: {type: string, values: Array<{name: string, coordinates: Array<Array<Array<number>>>}>}, index: number) => {
+            return <Menu.ItemGroup key={index + item.type}>
+              <label className="label-sg">{item.type}</label>
+              {item.values.map((element: {name: string, coordinates: Array<Array<Array<number>>>}) => (
+                <Menu.Item onClick={()=>changeCenter(element.name, element.coordinates[0])} key={index + item.type + element.name + "g1"}><span>{element.name}</span></Menu.Item>
+              ))}
+            </Menu.ItemGroup>
+      })}
+      {/* <Menu.ItemGroup key="g1">
         <label className="label-sg">{'Regional Agency'}</label>
         {ORGANIZATION_COORDINATES.REGIONAL_AGENCY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
           <Menu.Item onClick={()=>changeCenter(item.name, item.coordinates)} key={index + "g1"}><span>{item.name}</span></Menu.Item>))}
@@ -233,7 +241,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <label className="label-sg">{'Unincorporated County'}</label>
         {ORGANIZATION_COORDINATES.UNINCORPORATED_COUNTY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
           <Menu.Item onClick={()=>changeCenter(item.name + ', CO', item.coordinates)} key={index + "g4"}><span>{item.name}</span></Menu.Item>))}
-      </Menu.ItemGroup>
+      </Menu.ItemGroup> */}
     </Menu>
   };
 

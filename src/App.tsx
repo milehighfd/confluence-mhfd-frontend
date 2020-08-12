@@ -33,16 +33,17 @@ import Prueba from './Components/algo/Prueba';
 import DetailedPageContainer from './Components/DetailedPage/DetailedPageContainer';
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter, 
-          setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions, filterProjectOptions, filterComponentOptions, replaceFilterCoordinates } 
+          setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions,
+          filterProjectOptions, filterComponentOptions, replaceFilterCoordinates, getGroupOrganization } 
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
              getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
-             filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function }) {
+             filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function, getGroupOrganization: Function }) {
   const [ loading, setLoading ] = useState(true);
   useEffect(() => {
     getCarouselImages();
   }, [getCarouselImages]);
   useEffect(() => {
-    // getParamsFilter();
+    getGroupOrganization();
     SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
         layer.tiles.forEach((subKey: string) => {
