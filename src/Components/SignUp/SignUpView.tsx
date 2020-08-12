@@ -104,7 +104,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
         values.organization = other.value;
       }
       setTitle(title);
-      values.zoomarea = values.designation === GOVERNMENT_STAFF? values.organization: 'Mile High Flood Control District Boundary';
+      values.zoomarea = values.designation === GOVERNMENT_STAFF? values.organization: 'Mile High Flood District';
       datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if (res?.token) {
           const auxMessage = { ...message };
