@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Card, Popover } from "antd";
+import { Col, Card, Popover, Menu, Dropdown, Button } from "antd";
 import { ComponentType } from "../../../Classes/MapTypes";
 import DetailedModal from "../Modals/DetailedModal";
 
@@ -10,6 +10,24 @@ const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
 const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
+const menu = (
+  <Menu className="js-mm-00">
+    <div className="card-arrow-menu" ></div>
+    <div className="drop-head">LIST ACTIONS</div>
+    <Menu.Item>
+      <span className="menu-item-text" style={{opacity:'0.5'}}>Zoom to Feature</span>
+    </Menu.Item>
+    <Menu.Item>
+      <span className="menu-item-text" style={{opacity:'0.5'}}>Favorite Card</span>
+    </Menu.Item>
+    <Menu.Item>
+      <span className="menu-item-text" style={{opacity:'0.5'}}>Comment</span>
+    </Menu.Item>
+    <Menu.Item>
+      <span className="menu-item-text" style={{opacity:'0.5'}}>Add Team Member</span>
+    </Menu.Item>
+  </Menu>
+);
 
 export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId, componentsOfProblems, loaderTableCompoents, selectedOnMap, componentCounter,
   getComponentCounter }:
@@ -47,6 +65,9 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
             data.image ? <img alt="example" src={data.image} /> : <img alt="example" src="/Icons/default.png" />
           }
         >
+          <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
+            <Button className="btn-card">...</Button>
+          </Dropdown>
           <div style={{ height: 40 }}>
             <h4>{data.requestName}</h4>
           </div>
