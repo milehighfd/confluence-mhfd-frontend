@@ -26,6 +26,7 @@ export const SERVER = (function () {
     const GALLERY_PROBLEMS = 'gallery?isproblem=true';
     const GALLERY_PROJECTS = 'gallery?';
     const GALLERY = 'gallery';
+    const COMPONENT_COUNTER = 'component-counter';
     const GRAPHQL = 'graphql';
     const UPLOAD_FILE = 'upload-file';
     const ME = 'me';
@@ -69,6 +70,7 @@ export const SERVER = (function () {
         BASE_URL_IMAGES: URL_BASE.IMAGES,
         SHARE_MAP_PROJECT: `${BASE_URL}/${DETAILED_PAGE}`,
         CAPTCHA: CAPTCHA,
+        COMPONENT_COUNTER: `${URL_BASE.BASE}/${GALLERY}/${COMPONENT_COUNTER}`,
         USER: `${URL_BASE.BASE}/${USER}`,
         AUTH: `${URL_BASE.BASE}/${AUTH}`,
         LOGIN: `${URL_BASE.BASE}/${AUTH}/${LOGIN}`,
