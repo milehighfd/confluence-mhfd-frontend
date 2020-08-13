@@ -1,3 +1,4 @@
+//mapactions
 import * as types from '../types/mapTypes';
 
 import * as detailedTypes from '../types/detailedTypes';
@@ -582,5 +583,12 @@ export const mapSearchQuery = (query: string) => {
 export const setApplyFilter = (applyFilter: boolean) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_APPLY_FILTERS, applyFilter });
+    }
+}
+export const getComponentCounter = (id: number, type: string) => {
+    return (dispatch: Function) => {
+        datasets.postData(SERVER.COMPONENT_COUNTER, {value: id, column: type}, datasets.getToken()).then(components => {
+            dispatch({type: types.GET_COMPONENTS_COUNTER, components});
+        })
     }
 }

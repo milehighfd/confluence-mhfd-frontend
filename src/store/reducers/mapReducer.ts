@@ -9,6 +9,7 @@ const initState = {
         jurisdiction: '',
         coordinates: [],
     },
+    componentCounter: 0,
     problems: [
         {
             problemId: 'MJBPJCMTHH',
@@ -421,6 +422,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 applyFilter: action.applyFilter
+            }
+        }
+        case types.GET_COMPONENTS_COUNTER: {
+            return {
+                ...state,
+                componentCounter: action.components.componentes
             }
         }
         default: 
