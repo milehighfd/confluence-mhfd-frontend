@@ -9,10 +9,13 @@ import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
 const { Search } = Input;
 
 export default ({ type, data, search, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
-        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, spinValue, filter }:
+        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, spinValue, filter, componentCounter,
+        getComponentCounter }:
         { type: string, data: Array<any>, search: Function, 
           getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any, 
-          detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, spinValue: boolean, filter: string }) => {
+          detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, spinValue: boolean, filter: string,
+          componentCounter: number,
+          getComponentCounter: Function }) => {
   let totalElement = data.length;
   const datas = (type === 'Problems' || (type === 'Projects' && !filter)) ? data:  data.filter(element => element.projecttype === filter);
   const size = 8;
@@ -121,6 +124,8 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
             displayModal={displayModal} detailed={detailed} 
             loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
             loaderTableCompoents={loaderTableCompoents}
+            componentCounter={componentCounter}
+            getComponentCounter={getComponentCounter}
         />
       }) : ''}
     </InfiniteScroll>

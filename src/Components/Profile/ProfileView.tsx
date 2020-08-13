@@ -17,14 +17,16 @@ const { TabPane } = Tabs;
 export default ({ user, projects, problems, countProjects, getUserProjects, getCountProjects, uploadImage, getUserInformation, spinImage, spinValue, updateUserInformation,
     getUserProblem, getUserProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
     displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, loaderCardProblems,
-    loaderCardProjects, groupOrganization, getGroupOrganization }:
+    loaderCardProjects, groupOrganization, getGroupOrganization, componentCounter,
+    getComponentCounter }:
   {
     user: User, projects: any, problems: any, countProjects: ProjectName[], getUserProjects: Function, getCountProjects: Function,
     uploadImage: Function, getUserInformation: Function, spinImage: boolean, spinValue: Function, updateUserInformation: Function,
     getUserProblem: Function, getUserProject: Function, getDetailedPageProblem: Function, getDetailedPageProject: Function,
     getComponentsByProblemId: Function, displayModal: any,
     detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, loaderCardProblems: boolean,
-    loaderCardProjects: boolean, groupOrganization: [], getGroupOrganization: Function }) => {
+    loaderCardProjects: boolean, groupOrganization: [], getGroupOrganization: Function, componentCounter: number,
+    getComponentCounter: Function }) => {
 
   // const newOptions = (options: { requestName: string, status: string }) => {
   //   const newOption = (options.requestName.trim() && options.status) ? options :
@@ -73,7 +75,10 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                     displayModal={displayModal} detailed={detailed}
                     loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
                     loaderTableCompoents={loaderTableCompoents}
-                    spinValue={loaderCardProblems} filter={filter}/>
+                    spinValue={loaderCardProblems} filter={filter}
+                    componentCounter={componentCounter}
+                    getComponentCounter={getComponentCounter}
+                  />
                 </TabPane>
 
                 <TabPane key="2" tab={<span><Popover content={content00} placement="rightBottom">Projects</Popover> </span>}>
@@ -83,7 +88,10 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                     displayModal={displayModal} detailed={detailed}
                     loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
                     loaderTableCompoents={loaderTableCompoents}
-                    spinValue={loaderCardProjects} filter={filter} />
+                    spinValue={loaderCardProjects} filter={filter}
+                    componentCounter={componentCounter}
+                    getComponentCounter={getComponentCounter}
+                  />
                 </TabPane>
                 {/* <TabPane tab="Activity" key="3">
                     <div className="tab-activity">

@@ -295,6 +295,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         setVisible={setVisible}
         componentsOfProblems={componentsOfProblems}
         loaderTableCompoents={loaderTableCompoents}
+        componentCounter={componentCounter}
+        getComponentCounter={getComponentCounter}
       />}
       <Row className="head-m">
         <Col span={20} id="westminter">
@@ -489,7 +491,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       setFilterProjectOptions={setFilterProjectOptions}
                       componentsOfProblems={componentsOfProblems}
                       loaderTableCompoents={loaderTableCompoents}
-                      selectedOnMap={selectedOnMap}/>
+                      selectedOnMap={selectedOnMap}
+                      componentCounter={componentCounter}
+                      getComponentCounter={getComponentCounter}
+                      />
               </TabPane>
             );
           })}

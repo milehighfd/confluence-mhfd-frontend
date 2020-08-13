@@ -150,14 +150,24 @@ const Map = ({ leftWidth,
             }
         }
     }, [highlighted]);
+    let [clickedPopup, setClickedPopup] = useState(false);
+    const [counterPopup, setCounterPopup] = useState(0);
+    useEffect(() => {
+        console.log(componentCounter, clickedPopup);
+        if (clickedPopup) {
+            console.log('update counter popup ', componentCounter);
+            setCounterPopup(componentCounter);
+            setClickedPopup(false);
+        }
+    }, [componentCounter]);
 
     useEffect(() => {
         const div = document.getElementById('popup');
         if (div != null) {
             div.innerHTML = `${componentCounter}`;
         }
-    }, [componentCounter])
-
+    }, [counterPopup]);
+    console.log('counter popup ', counterPopup);
     useEffect(() => {
         if (map) {
             applyFilters('problems', filterProblems);
@@ -634,6 +644,7 @@ const Map = ({ leftWidth,
         
         
     }
+
     const addMapListeners = (key: string) => {
         const styles = { ...tileStyles as any };
         if (styles[key]) {
@@ -648,6 +659,7 @@ const Map = ({ leftWidth,
                     }
                     let itemValue;
                     if (key === 'problems') {
+                        setClickedPopup(true);
                         getComponentCounter(e.features[0].properties.problemid || 0, 'problemid');
                         const item = {
                             type: 'problems',
@@ -657,12 +669,14 @@ const Map = ({ leftWidth,
                             value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
                             status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
                             priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-',
-                            problemid: e.features[0].properties.problemid
+                            problemid: e.features[0].properties.problemid,
+                            popupId: 'popup'
                         };
                         itemValue = {...item};
                         html = loadMainPopup(item, test);
                     }
                     if (key.includes('projects') && !key.includes('mep')) {
+                        setClickedPopup(true);
                         getComponentCounter(e.features[0].properties.projectid || 0, 'projectid');
                         const item = {
                             type: key,
@@ -674,7 +688,8 @@ const Map = ({ leftWidth,
                             status: e.features[0].properties.status ? e.features[0].properties.status : '-',
                             objectid: e.features[0].properties.objectid,
                             valueid: e.features[0].properties.cartodb_id,
-                            id: e.features[0].properties.projectid
+                            id: e.features[0].properties.projectid,
+                            popupId: 'popup'
                         };
                         itemValue = {...item};
                         itemValue.value = item.valueid;
@@ -959,6 +974,8 @@ const Map = ({ leftWidth,
                     setVisible={setVisible}
                     componentsOfProblems={componentsOfProblems}
                     loaderTableCompoents={loaderTableCompoents}
+                    componentCounter={componentCounter}
+                    getComponentCounter={getComponentCounter}
                 />}
             <div id="map" style={{ width: '100%', height: '100%' }} />
             <div className="m-head">

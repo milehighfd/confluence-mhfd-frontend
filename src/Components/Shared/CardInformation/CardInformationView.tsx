@@ -11,9 +11,11 @@ const status = (<div className="popoveer-00">Status</div>);
 const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
 
-export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId, componentsOfProblems, loaderTableCompoents, selectedOnMap }:
+export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId, componentsOfProblems, loaderTableCompoents, selectedOnMap, componentCounter,
+  getComponentCounter }:
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean,
-                setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any }) => {
+                setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any, componentCounter: number,
+                getComponentCounter: Function }) => {
   const [visible, setVisible] = useState(false);
   return (
     <>
@@ -29,6 +31,8 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
         setVisible={setVisible}
         componentsOfProblems={componentsOfProblems}
         loaderTableCompoents={loaderTableCompoents}
+        componentCounter={componentCounter}
+        getComponentCounter={getComponentCounter}
       />}
 
       <Col span={8}>

@@ -9,9 +9,11 @@ import CollapseItems from './CollapseItems';
 import TeamCollaborator from './TeamCollaborator';
 
 export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, getComponentsByProblemId,
-    componentsOfProblems, loaderTableCompoents }:
+    componentsOfProblems, loaderTableCompoents, componentCounter,
+    getComponentCounter }:
   { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function,
-    detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean }) => {
+    detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, componentCounter: number,
+    getComponentCounter: Function }) => {
 
   const [typeDetail, setTypeDetail] = useState('');
   useEffect(() => {
@@ -132,11 +134,15 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               {detailedPage.problemid ? (
                   <CollapseItems type={typeDetail} data={componentsOfProblems}
                   getComponentsByProblemId={getComponentsByProblemId} id={data.problemid} typeid={'problemid'} loaderTableCompoents={loaderTableCompoents}
-                   detailedPage={detailedPage} updateModal={updateModal} />
+                   detailedPage={detailedPage} updateModal={updateModal}
+                   componentCounter={componentCounter}
+                   getComponentCounter={getComponentCounter} />
                 ) : (
                   <CollapseItems type={typeDetail} data={componentsOfProblems}
                   getComponentsByProblemId={getComponentsByProblemId} id={data.id} typeid={'projectid'} loaderTableCompoents={loaderTableCompoents}
-                  detailedPage={detailedPage} updateModal={updateModal} />
+                  detailedPage={detailedPage} updateModal={updateModal}
+                  componentCounter={componentCounter}
+                  getComponentCounter={getComponentCounter} />
               )}
             </Col>
             <Col span={7}>

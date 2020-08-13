@@ -6,9 +6,11 @@ import DetailedModal from '../../Shared/Modals/DetailedModal';
 import { AnyAaaaRecord } from 'dns';
 
 export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
-        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents }: { data: any, type: string, numberWithCommas: Function,
+        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, componentCounter,
+        getComponentCounter }: { data: any, type: string, numberWithCommas: Function,
         getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any, 
-        detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any }) => {
+        detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, componentCounter: number,
+        getComponentCounter: Function }) => {
     const [visible, setVisible] = useState(false);
     const getComponentSizes = (components: Array<ComponentType>) => {
         if (components && components.length) {
@@ -42,6 +44,9 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
             setVisible={setVisible}
             componentsOfProblems={componentsOfProblems}
             loaderTableCompoents={loaderTableCompoents}
+            componentCounter={componentCounter}
+            getComponentCounter={getComponentCounter}
+
         />}
         <Col span={6}>
             <Card

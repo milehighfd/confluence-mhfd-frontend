@@ -6,7 +6,7 @@ import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from '../../constant
 import { isNull } from "util";
 
 export default ({displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents ,getDetailedPageProblem,
-    getDetailedPageProject, getComponentsByProblemId, existDetailedPageProject, existDetailedPageProblem} : any) => {
+    getDetailedPageProject, getComponentsByProblemId, existDetailedPageProject, existDetailedPageProblem, componentCounter, getComponentCounter} : any) => {
     const [visible, setVisibleModal] = useState(useLocation().search ? true: false);
     const location = useLocation().search;
     const setVisible = () => {
@@ -58,6 +58,8 @@ export default ({displayModal, detailed, loaderDetailedPage, componentsOfProblem
         setVisible={setVisible}
         componentsOfProblems={componentsOfProblems}
         loaderTableCompoents={loaderTableCompoents}
+        componentCounter={componentCounter}
+        getComponentCounter={getComponentCounter}
       />}
     </>
 }

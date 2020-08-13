@@ -4,7 +4,7 @@ import ProfileView from './ProfileView';
 import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation,
    getUserProblem, getUserProject, getGroupOrganization, getAllUserProjects } from '../../store/actions/ProfileActions';
 import { User } from '../../Classes/TypeList';
-import { getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } from '../../store/actions/mapActions';
+import { getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getComponentCounter } from '../../store/actions/mapActions';
 const mapStateToProps = (state: any): any => {
   return {
     projects: state.profile.userProjects,
@@ -20,7 +20,8 @@ const mapStateToProps = (state: any): any => {
     loaderDetailedPage: state.detailed.spin,
     componentsOfProblems: state.map.componentsByProblemId,
     loaderTableCompoents: state.map.loaderTableCompoents,
-    groupOrganization: state.profile.groupOrganization
+    groupOrganization: state.profile.groupOrganization,
+    componentCounter: state.map.componentCounter
   };
 };
 
@@ -64,6 +65,9 @@ const mapDispatchToProps = (dispatch: Function): any => {
     },
     getAllUserProjects() {
       dispatch(getAllUserProjects());
+    },
+    getComponentCounter(id: number, type: string) {
+      dispatch(getComponentCounter(id, type));
     }
   };
 };

@@ -13,14 +13,15 @@ import { LayerStylesType } from '../../../Classes/MapTypes';
 
 const { Panel } = Collapse;
 
-export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal }:
+export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal, componentCounter, getComponentCounter }:
        { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string,
-        loaderTableCompoents: boolean, updateModal: Function }) => {
+        loaderTableCompoents: boolean, updateModal: Function, componentCounter: number, getComponentCounter: Function }) => {
   const [ active, setActive ] = useState(['4']);
   const [ zoomValue, setZoomValue] = useState(0);
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
   let map: any;
+  console.log(componentCounter, getComponentCounter);
   // if (html) {
   //   map = new MapService('map2');
   //   map.create('map2');
@@ -39,6 +40,12 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
     };
     waiting();
   }, []);
+  useEffect(() => {
+    const div = document.getElementById('popup-detailed-page');
+    if (div != null) {
+        div.innerHTML = `${componentCounter}`;
+    }
+}, [componentCounter]);
   const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
     <>
         <ComponentPopup item={item}></ComponentPopup>
@@ -165,26 +172,30 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
                 return;
               }
               if (key === 'problems') {
-                  const item = {
-                      type: 'problems',
-                      title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
-                      name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
-                      organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                      value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '-',
-                      status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
-                      priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority : '-'
-                  };
-                  html = loadMainPopup(item);
+                getComponentCounter(e.features[0].properties.problemid || 0, 'problemid');
+                const item = {
+                    type: 'problems',
+                    title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
+                    name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
+                    organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
+                    value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
+                    status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
+                    priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-',
+                    popupId: 'popup-detailed-page'
+                };
+                html = loadMainPopup(item);
               }
               if (key.includes('projects') && !key.includes('mep')) {
+                  getComponentCounter(e.features[0].properties.projectid || 0, 'projectid');
                   const item = {
                       type: 'projects',
                       title: 'Project',
                       name: e.features[0].properties.projectname ? e.features[0].properties.projectname : e.features[0].properties.requestedname ? e.features[0].properties.requestedname : '-',
                       organization: e.features[0].properties.sponsor ? e.features[0].properties.sponsor : 'No sponsor',
-                      value: e.features[0].properties.finalCost ? e.features[0].properties.finalCost : e.features[0].properties.estimatedCost ? e.features[0].properties.estimatedCost : '-',
-                      status: e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
-                      projecctype: e.features[0].properties.projecctype ? e.features[0].properties.projecctype : '-'
+                      value: e.features[0].properties.finalcost ? e.features[0].properties.finalcost : e.features[0].properties.estimatedcost ? e.features[0].properties.estimatedcost : '0',
+                      projecctype: e.features[0].properties.projectsubtype ? e.features[0].properties.projectsubtype :  e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
+                      status: e.features[0].properties.status ? e.features[0].properties.status : '-',
+                      popupId: 'popup-detailed-page'
                   };
                   html = loadMainPopup(item);
               }

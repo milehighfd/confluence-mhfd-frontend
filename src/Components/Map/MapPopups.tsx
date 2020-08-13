@@ -59,7 +59,7 @@ export const MainPopup = ({ item, test, sw } : any) => {
         <div className="bodymap">
           <h4>{item.name}</h4>
           <h6>{item.organization}</h6>
-          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b id='popup'>0</b> Components</span></h5>
+          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b id={item.popupId}>0</b> Components</span></h5>
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={item.type === 'problems' ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>

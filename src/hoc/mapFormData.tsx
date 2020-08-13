@@ -267,6 +267,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             groupOrganization={groupOrganization}
                             applyFilter={applyFilter}
                             setApplyFilter={setApplyFilter}
+                            componentCounter={componentCounter}
+                            getComponentCounter={getComponentCounter}
                       />
                     </Col>
                   </Spin>
