@@ -194,7 +194,7 @@ const initState = {
     componentDetailIds: {},
     loaderTableCompoents: false,
     mapSearch: [],
-    applyFilter: true
+    applyFilter: false
 }
 
 const mapReducer = (state = initState, action : any) => {
