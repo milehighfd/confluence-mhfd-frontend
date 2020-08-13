@@ -29,7 +29,8 @@ import { getReverseGeocode,
         getParamsFilter,
         mapSearchQuery,
         setApplyFilter,
-        getComponentCounter
+        getComponentCounter,
+        setZoomProjectOrProblem
         } from '../store/actions/mapActions';
 import { getProjectWithFilters, removeFilter, getDropdownFilters, getUserFilters, sortProjects } from '../store/actions/filterActions';
 import { saveDraftCard, getUserProjects } from '../store/actions/panelActions';
@@ -79,7 +80,8 @@ const mapStateToProps = (state: any) => {
         mapSearch: state.map.mapSearch,
         groupOrganization: state.profile.groupOrganization,
         applyFilter: state.map.applyFilter,
-        componentCounter: state.map.componentCounter
+        componentCounter: state.map.componentCounter,
+        zoom: state.map.zoomProblemOrProject
     };
 };
 
@@ -122,7 +124,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         getParamsFilter,
         mapSearchQuery,
         setApplyFilter,
-        getComponentCounter
+        getComponentCounter,
+        setZoomProjectOrProblem
     }, dispatch)
 });
   

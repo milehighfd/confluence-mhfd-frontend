@@ -94,7 +94,8 @@ const Map = ({ leftWidth,
             displayModal,
             detailed,
             existDetailedPageProblem,
-            existDetailedPageProject
+            existDetailedPageProject,
+            zoom
              } : MapProps) => {
     // console.log( mapSearch);
 
@@ -266,6 +267,12 @@ const Map = ({ leftWidth,
         map.on('move', updateZoom);
 
     }, []);
+
+    useEffect(() => {
+        if(zoom.length > 0) {
+            map.fitBounds([zoom[0],zoom[2]]);
+        }
+    }, [zoom]);
 
     useEffect(() => {
         map.fitBounds(coor);

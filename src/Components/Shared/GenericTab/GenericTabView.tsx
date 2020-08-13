@@ -15,7 +15,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
     cardInformation, accordionRow, removeFilter, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId,
     filterComponentOptions, setFilterComponentOptions, getGalleryProjects, getGalleryProblems, filterProblemOptions,
     filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, componentsOfProblems, loaderTableCompoents, selectedOnMap, componentCounter,
-    getComponentCounter }: any) => {
+    getComponentCounter, setZoomProjectOrProblem }: any) => {
     let totalElement = cardInformation.length;
     const size = 6;
     let sw = false;
@@ -256,6 +256,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                             selectedOnMap={selectedOnMap}
                             componentCounter={componentCounter}
                             getComponentCounter={getComponentCounter}
+                            setZoomProjectOrProblem={setZoomProjectOrProblem}
                         />
                     }) : ''}
                 </InfiniteScroll>

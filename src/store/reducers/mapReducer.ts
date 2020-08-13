@@ -195,7 +195,8 @@ const initState = {
     componentDetailIds: {},
     loaderTableCompoents: false,
     mapSearch: [],
-    applyFilter: false
+    applyFilter: false,
+    zoomProblemOrProject: [],
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -428,6 +429,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 componentCounter: action.components.componentes
+            }
+        }
+        case types.ZOOM_PROJECT_OR_PROBLEMS: {
+            return {
+                ...state,
+                zoomProblemOrProject: action.zoom
             }
         }
         default: 

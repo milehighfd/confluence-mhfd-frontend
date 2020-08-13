@@ -592,3 +592,9 @@ export const getComponentCounter = (id: number, type: string) => {
         })
     }
 }
+
+export const setZoomProjectOrProblem = (zoom: any) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.ZOOM_PROJECT_OR_PROBLEMS, zoom});
+    }
+}

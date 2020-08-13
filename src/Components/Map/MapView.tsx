@@ -42,7 +42,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
                   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
                   groupOrganization, applyFilter,
-                  setApplyFilter, componentCounter, getComponentCounter  } : MapViewTypes) => {
+                  setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem  } : MapViewTypes) => {
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -431,7 +431,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   problemid: problem.problemid,
                   type: problem.type,
                   value: problem.cartodb_id,
-                  totalComponents: problem.totalComponents
+                  totalComponents: problem.totalComponents,
+                  coordinates: problem.coordinates[0]
                 }
               });
               totalElements = cardInformation.length;
@@ -458,7 +459,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   type: project.type,
                   value: project.cartodb_id,
                   id: project.projectid,
-                  totalComponents: project.totalComponents
+                  totalComponents: project.totalComponents,
+                  coordinates: project.coordinates[0]
                 }
               });
               totalElements = cardInformation.length;
@@ -494,6 +496,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       selectedOnMap={selectedOnMap}
                       componentCounter={componentCounter}
                       getComponentCounter={getComponentCounter}
+                      setZoomProjectOrProblem={setZoomProjectOrProblem}
                       />
               </TabPane>
             );

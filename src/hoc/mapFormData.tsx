@@ -89,7 +89,9 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               applyFilter,
               setApplyFilter,
               componentCounter,
-              getComponentCounter
+              getComponentCounter,
+              setZoomProjectOrProblem,
+              zoom
              } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
@@ -208,6 +210,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             detailed={detailed}
                             existDetailedPageProject={existDetailedPageProject}
                             existDetailedPageProblem={existDetailedPageProblem}
+                            zoom={zoom}
                             />
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
@@ -269,6 +272,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             setApplyFilter={setApplyFilter}
                             componentCounter={componentCounter}
                             getComponentCounter={getComponentCounter}
+                            setZoomProjectOrProblem={setZoomProjectOrProblem}
                       />
                     </Col>
                   </Spin>

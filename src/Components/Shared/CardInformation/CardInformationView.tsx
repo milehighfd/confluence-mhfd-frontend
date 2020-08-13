@@ -10,31 +10,36 @@ const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
 const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
-const menu = (
-  <Menu className="js-mm-00">
-    <div className="card-arrow-menu" ></div>
-    <div className="drop-head">LIST ACTIONS</div>
-    <Menu.Item>
-      <span className="menu-item-text" style={{opacity:'0.5'}}>Zoom to Feature</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span className="menu-item-text" style={{opacity:'0.5'}}>Favorite Card</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span className="menu-item-text" style={{opacity:'0.5'}}>Comment</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span className="menu-item-text" style={{opacity:'0.5'}}>Add Team Member</span>
-    </Menu.Item>
-  </Menu>
-);
+
 
 export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId, componentsOfProblems, loaderTableCompoents, selectedOnMap, componentCounter,
-  getComponentCounter }:
+  getComponentCounter, setZoomProjectOrProblem }:
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean,
                 setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any, componentCounter: number,
-                getComponentCounter: Function }) => {
+                getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
   const [visible, setVisible] = useState(false);
+  const changeCenter = () => {
+    setZoomProjectOrProblem(data.coordinates);
+  }
+  const menu = (
+    <Menu className="js-mm-00" >
+      {/* <div className="card-arrow-menu" ></div> */}
+      <div className="drop-head">LIST ACTIONS</div>
+      <Menu.Item onClick={(e: any) => {changeCenter()}}>
+        <span className="menu-item-text" style={{opacity:'0.5'}}>Zoom to Feature</span>
+      </Menu.Item>
+      <Menu.Item disabled={true}>
+        <span className="menu-item-text" style={{opacity:'0.5'}}>Favorite Card</span>
+      </Menu.Item>
+      <Menu.Item disabled={true}>
+        <span className="menu-item-text" style={{opacity:'0.5'}}>Comment</span>
+      </Menu.Item>
+      <Menu.Item disabled={true}>
+        <span className="menu-item-text" style={{opacity:'0.5'}}>Add Team Member</span>
+      </Menu.Item>
+    </Menu>
+  );
+  
   return (
     <>
       {visible && <DetailedModal
@@ -65,9 +70,9 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
             data.image ? <img alt="example" src={data.image} /> : <img alt="example" src="/Icons/default.png" />
           }
         >
-          <Dropdown overlay={menu} placement="bottomLeft" trigger={['click']}>
-            <Button className="btn-card">...</Button>
-          </Dropdown>
+          <Popover content={menu} placement="bottomLeft" trigger="click">
+            <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}>...</Button>
+          </Popover>
           <div style={{ height: 40 }}>
             <h4>{data.requestName}</h4>
           </div>

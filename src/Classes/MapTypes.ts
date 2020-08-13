@@ -50,6 +50,7 @@ export type MapProps = {
     detailed: Detailed,
     existDetailedPageProject: Function,
     existDetailedPageProblem: Function,
+    zoom: any
 }
 
 export type MapHOCProps = {
@@ -131,7 +132,9 @@ export type MapHOCProps = {
     applyFilter: boolean,
     setApplyFilter: Function
     componentCounter: number,
-    getComponentCounter: Function
+    getComponentCounter: Function,
+    setZoomProjectOrProblem: Function,
+    zoom: any
 }
 
 export type MapViewTypes = { 
@@ -177,7 +180,8 @@ export type MapViewTypes = {
     applyFilter: boolean,
     setApplyFilter: Function
     componentCounter: number,
-    getComponentCounter: Function
+    getComponentCounter: Function,
+    setZoomProjectOrProblem: Function
 }
 export type OptionProblems = {
     keyword: string,
