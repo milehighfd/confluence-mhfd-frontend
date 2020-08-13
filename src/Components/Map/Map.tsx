@@ -165,8 +165,7 @@ const Map = ({ leftWidth,
             map.fitBounds(coor);
         }
         const nav = new mapboxgl.NavigationControl({ showCompass: false });
-        map.addControl(nav, 'bottom-right');
-        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         addMapGeocoder(map, geocoderRef);
 
         // Uncomment to see coords when a position in map is clicked
