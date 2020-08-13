@@ -30,7 +30,7 @@ export class MapService {
       closeButton: false,
       closeOnClick: false
      });
-     this.map.addControl(new mapboxgl.NavigationControl());
+     this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   }
   create(mapId: string, coords?: any) {
     this.draw = new MapboxDraw({
