@@ -30,13 +30,14 @@ import { MAP_DROPDOWN_ITEMS,
         COUNTIES_FILTERS,
         MHFD_BOUNDARY_FILTERS,
         SELECT_ALL_FILTERS,
-        MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR} from "../../constants/constants";
+        MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER} from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles} from '../../constants/mapStyles';
 import { addMapGeocoder } from '../../utils/mapUtils';
 import { numberWithCommas } from '../../utils/utils';
 import { Input, AutoComplete } from 'antd';
 import { SelectProps } from 'antd/es/select';
+import DetailedModal from '../Shared/Modals/DetailedModal';
 const { Option } = AutoComplete;
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -83,9 +84,19 @@ const Map = ({ leftWidth,
             mapSearchQuery,
             mapSearch,
             componentCounter,
-            getComponentCounter
+            getComponentCounter,
+            getDetailedPageProblem,
+            getDetailedPageProject,
+            getComponentsByProblemId,
+            loaderDetailedPage,
+            componentsOfProblems,
+            loaderTableCompoents,
+            displayModal,
+            detailed,
+            existDetailedPageProblem,
+            existDetailedPageProject
              } : MapProps) => {
-    console.log( mapSearch);
+    // console.log( mapSearch);
 
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
@@ -95,7 +106,15 @@ const Map = ({ leftWidth,
     const [ zoomValue, setZoomValue] = useState(0);
     // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
+    const [visible, setVisible] = useState(true);
     const coor: any[][] = [];
+    const [data, setData] = useState({
+        problemid: '',
+        id: '',
+        objectid: '',
+        value: '',
+        type: ''
+      });
     if(user?.polygon[0]) {
         let bottomLongitude = user.polygon[0][0];
         let bottomLatitude = user.polygon[0][1];
@@ -601,7 +620,20 @@ const Map = ({ leftWidth,
         /* Get the coords on Drawing */
         // console.log(draw.getAll().features[0].geometry.coordinates);
     }
-
+    const test = (item: any) => {
+        console.log('item::::', item);
+        
+        setVisible(true);
+        setData(item);
+        if(item.problemid) {
+            existDetailedPageProblem(item.problemid); 
+        }else {
+            const url = 'objectid=' + item.objectid + '&cartoid=' + item.valueid + '&type=' + item.type;
+            existDetailedPageProject(url); 
+        }
+        
+        
+    }
     const addMapListeners = (key: string) => {
         const styles = { ...tileStyles as any };
         if (styles[key]) {
@@ -614,6 +646,7 @@ const Map = ({ leftWidth,
                     if ( map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
                         return;
                     }
+                    let itemValue;
                     if (key === 'problems') {
                         getComponentCounter(e.features[0].properties.problemid || 0, 'problemid');
                         const item = {
@@ -623,22 +656,29 @@ const Map = ({ leftWidth,
                             organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
                             value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
                             status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
-                            priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-'
+                            priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-',
+                            problemid: e.features[0].properties.problemid
                         };
-                        html = loadMainPopup(item);
+                        itemValue = {...item};
+                        html = loadMainPopup(item, test);
                     }
                     if (key.includes('projects') && !key.includes('mep')) {
                         getComponentCounter(e.features[0].properties.projectid || 0, 'projectid');
                         const item = {
-                            type: 'projects',
+                            type: key,
                             title: 'Project',
                             name: e.features[0].properties.projectname ? e.features[0].properties.projectname : e.features[0].properties.requestedname ? e.features[0].properties.requestedname : '-',
                             organization: e.features[0].properties.sponsor ? e.features[0].properties.sponsor : 'No sponsor',
                             value: e.features[0].properties.finalcost ? e.features[0].properties.finalcost : e.features[0].properties.estimatedcost ? e.features[0].properties.estimatedcost : '0',
                             projecctype: e.features[0].properties.projectsubtype ? e.features[0].properties.projectsubtype :  e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
-                            status: e.features[0].properties.status ? e.features[0].properties.status : '-'
+                            status: e.features[0].properties.status ? e.features[0].properties.status : '-',
+                            objectid: e.features[0].properties.objectid,
+                            valueid: e.features[0].properties.cartodb_id,
+                            id: e.features[0].properties.projectid
                         };
-                        html = loadMainPopup(item);
+                        itemValue = {...item};
+                        itemValue.value = item.valueid;
+                        html = loadMainPopup(item, test);
                     }
                     if (COMPONENT_LAYERS.tiles.includes( key)) {
                         const item = {
@@ -770,6 +810,7 @@ const Map = ({ leftWidth,
                         popup.setLngLat(e.lngLat)
                              .setHTML(html)
                              .addTo(map);
+                        document.getElementById('pop-up')?.addEventListener('click', test.bind(itemValue, itemValue));
                     }
                 });
                 map.on('mousemove', key + '_' + index, (e: any) => {
@@ -793,9 +834,10 @@ const Map = ({ leftWidth,
             })
         }
     }
-    const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
+    
+    const loadMainPopup = (item: any, test: Function) => ReactDOMServer.renderToStaticMarkup (
         <>
-            <MainPopup item={item}></MainPopup>
+            <MainPopup item={item} test={test} sw={true}></MainPopup>
         </>
     );
 
@@ -902,9 +944,22 @@ const Map = ({ leftWidth,
     const layerObjects: any = selectedLayers.filter( element => typeof element === 'object');
     const layerStrings = selectedLayers.filter( element => typeof element !== 'object');
     const [ selectedCheckBox, setSelectedCheckBox ] = useState(selectedLayers);
-
+    
     return (
             <div className="map">
+                { displayModal && visible && <DetailedModal
+                    detailed={detailed}
+                    getDetailedPageProblem={getDetailedPageProblem}
+                    getDetailedPageProject={getDetailedPageProject}
+                    loaderDetailedPage={loaderDetailedPage}
+                    getComponentsByProblemId={getComponentsByProblemId}
+                    type={data.problemid ? FILTER_PROBLEMS_TRIGGER: FILTER_PROJECTS_TRIGGER}
+                    data={data}
+                    visible={visible}
+                    setVisible={setVisible}
+                    componentsOfProblems={componentsOfProblems}
+                    loaderTableCompoents={loaderTableCompoents}
+                />}
             <div id="map" style={{ width: '100%', height: '100%' }} />
             <div className="m-head">
                 <AutoComplete

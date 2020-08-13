@@ -17,11 +17,15 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
-      getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
+      if(data.problemId){
+        getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
+      }
       setTypeDetail(type);
     } else {
       getDetailedPageProject(data.objectid, data.value, data.type);
-      getComponentsByProblemId({id: data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      if(data.id){
+        getComponentsByProblemId({id: data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      }
       setTypeDetail(type);
     }
   }, []);
@@ -65,9 +69,9 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
         {loaderDetailedPage && <div className="detailed">
           <Row className="detailed-h" gutter={[16, 8]}>
             <Col span={13}>
-              <h1> {detailedPage.problemname ? detailedPage.problemname : detailedPage.projectname} </h1>
-              <p><span>{detailedPage.problemtype ? (detailedPage.problemtype + ' Problem') : (detailedPage.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span>{detailedPage.problemtype ? ( detailedPage.jurisdiction + ', CO' ) : (detailedPage.sponsor)}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <h1> {detailedPage?.problemname ? detailedPage?.problemname : detailedPage?.projectname} </h1>
+              <p><span>{detailedPage?.problemtype ? (detailedPage.problemtype + ' Problem') : (detailedPage.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span>{detailedPage?.problemtype ? ( detailedPage.jurisdiction + ', CO' ) : (detailedPage.sponsor)}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage.county} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage.servicearea} </span></p>
             </Col>

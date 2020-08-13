@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'antd';
+import { Card, Button } from 'antd';
 
 const problemStyle: any = {
     status: {
@@ -41,7 +41,7 @@ const capitalize = (s : string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export const MainPopup = ({ item } : any) => {
+export const MainPopup = ({ item, test, sw } : any) => {
     for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
@@ -66,9 +66,13 @@ export const MainPopup = ({ item } : any) => {
             <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? item.status : capitalize(item.status)}</span>
           </div>
         </div>
+        { sw && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499'}}>
+            <Button id="pop-up" style={{ width: '100%', color: '#28C499' }} onClick={() => test()} className="btn-00">See Details</Button>
+        </div>}
       </Card>
     </div>
 };
+
 export const ComponentPopup = ({ item } : any) => {
     return <div className="map-pop-01">
         <Card hoverable>

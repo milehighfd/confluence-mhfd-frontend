@@ -198,7 +198,17 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             mapSearch={mapSearch}
                             componentCounter={componentCounter}
                             getComponentCounter={getComponentCounter}
-                          />
+                            getDetailedPageProblem={getDetailedPageProblem}
+                            getDetailedPageProject={getDetailedPageProject}
+                            getComponentsByProblemId={getComponentsByProblemId}
+                            loaderDetailedPage={loaderDetailedPage}
+                            componentsOfProblems={componentsOfProblems}
+                            loaderTableCompoents={loaderTableCompoents}
+                            displayModal={displayModal}
+                            detailed={detailed}
+                            existDetailedPageProject={existDetailedPageProject}
+                            existDetailedPageProblem={existDetailedPageProblem}
+                            />
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>

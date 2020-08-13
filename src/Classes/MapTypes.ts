@@ -40,6 +40,16 @@ export type MapProps = {
     mapSearch: any,
     componentCounter: number,
     getComponentCounter: Function
+    getDetailedPageProblem: Function,
+    getDetailedPageProject: Function,
+    getComponentsByProblemId: Function,
+    loaderDetailedPage: boolean,
+    componentsOfProblems: any,
+    loaderTableCompoents: boolean,
+    displayModal: boolean,
+    detailed: Detailed,
+    existDetailedPageProject: Function,
+    existDetailedPageProblem: Function,
 }
 
 export type MapHOCProps = {
