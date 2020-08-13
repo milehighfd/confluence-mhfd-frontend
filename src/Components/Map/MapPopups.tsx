@@ -1,11 +1,25 @@
 import React from 'react';
 import { Card } from 'antd';
 
-const problemStyle = {
+const problemStyle: any = {
     status: {
-        color: 'red',
-        width:'50%', 
-        marginBottom:'0px'
+        'Low': {
+            color: '#28c499',
+            width:'50%', 
+            marginBottom:'0px'
+        }, 'Medium': {
+            color: '#FFD300',
+            width:'50%', 
+            marginBottom:'0px'
+        }, 'High': {
+            color: 'red',
+            width:'50%', 
+            marginBottom:'0px'
+        }, '-': {
+            color: 'black',
+            width:'50%', 
+            marginBottom:'0px'
+        }
     }
 };
 
@@ -33,6 +47,10 @@ export const MainPopup = ({ item } : any) => {
             item[key] = '-';
         }
     }
+    let priorityType: string = '';
+    if (item.priority) {
+        priorityType = item.priority.split(' ')[0];
+    }
     return <div className="map-pop-00">
       <Card hoverable>
         <div className="headmap">
@@ -41,10 +59,10 @@ export const MainPopup = ({ item } : any) => {
         <div className="bodymap">
           <h4>{item.name}</h4>
           <h6>{item.organization}</h6>
-          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b>0</b> Components</span></h5>
+          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b id='popup'>0</b> Components</span></h5>
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
-            <p style={item.type === 'problems' ? problemStyle.status:projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>
+            <p style={item.type === 'problems' ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>
             <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? item.status : capitalize(item.status)}</span>
           </div>
         </div>

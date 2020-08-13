@@ -42,7 +42,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
                   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
                   groupOrganization, applyFilter,
-                  setApplyFilter } : MapViewTypes) => {
+                  setApplyFilter, componentCounter, getComponentCounter  } : MapViewTypes) => {
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);

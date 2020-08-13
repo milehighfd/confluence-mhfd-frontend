@@ -1,3 +1,4 @@
+//MAPTYPES
 import { Detailed } from "../store/types/detailedTypes";
 
 type LayersType = string | ObjectLayerType;
@@ -36,7 +37,9 @@ export type MapProps = {
     setSelectedOnMap: Function,
     getParamsFilter: Function,
     mapSearchQuery: Function,
-    mapSearch: any
+    mapSearch: any,
+    componentCounter: number,
+    getComponentCounter: Function
 }
 
 export type MapHOCProps = {
@@ -117,6 +120,8 @@ export type MapHOCProps = {
     groupOrganization: [],
     applyFilter: boolean,
     setApplyFilter: Function
+    componentCounter: number,
+    getComponentCounter: Function
 }
 
 export type MapViewTypes = { 
@@ -161,6 +166,8 @@ export type MapViewTypes = {
     groupOrganization: [],
     applyFilter: boolean,
     setApplyFilter: Function
+    componentCounter: number,
+    getComponentCounter: Function
 }
 export type OptionProblems = {
     keyword: string,

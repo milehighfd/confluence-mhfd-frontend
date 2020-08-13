@@ -81,7 +81,9 @@ const Map = ({ leftWidth,
             setSelectedOnMap,
             getParamsFilter,
             mapSearchQuery,
-            mapSearch
+            mapSearch,
+            componentCounter,
+            getComponentCounter
              } : MapProps) => {
     console.log( mapSearch);
 
@@ -119,7 +121,7 @@ const Map = ({ leftWidth,
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude])
     }
-
+    
     useEffect(() => {
         if (map) {
             if (highlighted.type) {
@@ -129,6 +131,13 @@ const Map = ({ leftWidth,
             }
         }
     }, [highlighted]);
+
+    useEffect(() => {
+        const div = document.getElementById('popup');
+        if (div != null) {
+            div.innerHTML = `${componentCounter}`;
+        }
+    }, [componentCounter])
 
     useEffect(() => {
         if (map) {
@@ -164,7 +173,6 @@ const Map = ({ leftWidth,
         if(coor[0] && coor[1]) {
             map.fitBounds(coor);
         }
-        const nav = new mapboxgl.NavigationControl({ showCompass: false });
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         addMapGeocoder(map, geocoderRef);
 
@@ -607,6 +615,7 @@ const Map = ({ leftWidth,
                         return;
                     }
                     if (key === 'problems') {
+                        getComponentCounter(e.features[0].properties.problemid || 0, 'problemid');
                         const item = {
                             type: 'problems',
                             title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
@@ -614,11 +623,12 @@ const Map = ({ leftWidth,
                             organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
                             value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
                             status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
-                            priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority : '-'
+                            priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-'
                         };
                         html = loadMainPopup(item);
                     }
                     if (key.includes('projects') && !key.includes('mep')) {
+                        getComponentCounter(e.features[0].properties.projectid || 0, 'projectid');
                         const item = {
                             type: 'projects',
                             title: 'Project',
