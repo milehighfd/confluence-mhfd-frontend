@@ -102,7 +102,7 @@ export class MapService {
     this.map.flyTo({center: coordinates});
   }
   fitBounds(coordinates: any) {
-    this.map.fitBounds(coordinates);
+    this.map.fitBounds(coordinates, {padding: 100});
   }
   addDrawController() {
     if (!this.controller) {

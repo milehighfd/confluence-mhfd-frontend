@@ -260,7 +260,7 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         if(zoom.length > 0) {
-            map.fitBounds([zoom[0],zoom[2]]);
+            map.fitBounds([zoom[0],zoom[2]], {padding: 100});
         }
     }, [zoom]);
 
