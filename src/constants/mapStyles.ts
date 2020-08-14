@@ -1172,18 +1172,18 @@ const MEP_PROJECTS_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "fill-color": "hsl(0, 8%, 97%)",
-      "fill-outline-color": "hsl(46, 93%, 52%)",
+      "fill-color": "#f7c78d",
+      "fill-outline-color": "#f6c113",
       "fill-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
           0,
           0,
-          13,
-          0,
+          9,
+          0.49,
           14.25,
-          1,
+          0.5,
           16,
           0.28,
           22,
@@ -1204,9 +1204,9 @@ const MEP_PROJECTS_STYLES = {
           ["zoom"],
           0,
           0,
-          13,
+          9,
           0,
-          14,
+          14.25,
           1,
           22,
           1
@@ -1217,7 +1217,7 @@ const MEP_PROJECTS_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": "hsl(44, 84%, 36%)",
+      "line-color": "hsl(44, 84%, 75%)",
       "line-width": 3,
       "line-opacity": [
           "interpolate",
@@ -1225,9 +1225,31 @@ const MEP_PROJECTS_STYLES = {
           ["zoom"],
           0,
           0,
-          13,
+          9,
           0,
-          14,
+          14.25,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(44, 56%, 13%)",
+      "line-width": 3,
+      "line-dasharray": [4, 4],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          9,
+          0,
+          14.25,
           1,
           22,
           1
