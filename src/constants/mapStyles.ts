@@ -974,11 +974,18 @@ export const COMPONENT_LAYERS_STYLE = {
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round", "line-round-limit": 0.5},
     "paint": {
-      "line-color": "hsl(298, 87%, 84%)"
+        "line-color": "hsl(298, 87%, 84%)",
+        "line-blur": 12,
+        "line-width": 12
     }
   },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {"line-join": "round", "line-round-limit": 0.5},
+    "paint": {"line-color": "hsl(123, 87%, 40%)", "line-width": 2}
+  },,{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
