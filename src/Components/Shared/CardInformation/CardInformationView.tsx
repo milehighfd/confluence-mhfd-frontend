@@ -19,12 +19,18 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
   const [visible, setVisible] = useState(false);
   const changeCenter = () => {
+    
     setZoomProjectOrProblem(data.coordinates);
   }
   const menu = (
     <Menu>
       <div className="drop-head">LIST ACTIONS</div>
-      <Menu.Item onClick={(e: any) => {changeCenter()}}>
+      <Menu.Item onClick={(e: any) => {
+        console.log('event ', e);
+         e.domEvent.stopPropagation();
+         e.domEvent.nativeEvent.stopImmediatePropagation();
+        changeCenter();
+      }}>
         <span className="menu-item-text">Zoom to Feature</span>
       </Menu.Item>
       <Menu.Item disabled={true}>
