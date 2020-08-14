@@ -91,36 +91,41 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
-      "icon-image": ["step", ["zoom"], "Frame13a", 22, "Frame13a"],
-      "icon-rotation-alignment": "viewport",
+      "icon-image": "Frame21C",
       "icon-size": [
           "interpolate",
           ["linear"],
           ["zoom"],
           0,
-          0.01,
+          0,
+          11,
+          0,
           13,
-          0.03,
-          20,
-          0.2,
+          0.1,
+          15,
+          0.4,
+          17,
+          0.5,
           22,
-          0.5
+          0.4
       ],
-      "text-field": ["step", ["zoom"], "", 22, ""]
-  },
-  "paint": {
-      "icon-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          13,
-          0.25,
-          13.5,
-          1,
-          22,
-          1
-      ]
-  }}],
+      "symbol-avoid-edges": true,
+      "icon-rotation-alignment": "viewport"
+    },
+    "paint": {
+        "icon-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            12,
+            0,
+            22,
+            1
+        ]
+    }  
+  }],
   [PIPE_APPURTENANCES]: [{
     type: 'circle',
     'source-layer': 'pluto15v1',
