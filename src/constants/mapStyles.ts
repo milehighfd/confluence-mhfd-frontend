@@ -1270,7 +1270,7 @@ const MEP_PROJECTS_STYLES = {
           0,
           0,
           14,
-          66,
+          6,
           14.25,
           5,
           22,
@@ -1283,8 +1283,10 @@ const MEP_PROJECTS_STYLES = {
           ["zoom"],
           0,
           0,
-          14,
+          9,
           0,
+          12,
+          0.2,
           14.25,
           1,
           22,
@@ -1296,7 +1298,7 @@ const MEP_PROJECTS_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": "hsl(0, 6%, 52%)",
+      "line-color": "hsl(0, 6%, 16%)",
       "line-width": 5,
       "line-gap-width": [
           "interpolate",
@@ -1305,7 +1307,7 @@ const MEP_PROJECTS_STYLES = {
           0,
           0,
           14,
-          66,
+          6,
           14.25,
           5,
           22,
@@ -1317,8 +1319,10 @@ const MEP_PROJECTS_STYLES = {
           ["zoom"],
           0,
           0,
-          14,
+          9,
           0,
+          12,
+          0.2,
           14.25,
           1,
           22,
@@ -1330,7 +1334,7 @@ const MEP_PROJECTS_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": "#f19b32",
+      "line-color": "#f7c78d",
       "line-width": 3,
       "line-gap-width": [
           "interpolate",
@@ -1339,7 +1343,7 @@ const MEP_PROJECTS_STYLES = {
           0,
           0,
           14,
-          66,
+          6,
           14.25,
           5,
           22,
@@ -1352,14 +1356,16 @@ const MEP_PROJECTS_STYLES = {
           ["zoom"],
           0,
           0,
-          14,
+          9,
           0,
+          12,
+          0.2,
           14.25,
           1,
           22,
           1
       ]
-  }
+    }
   }],
   [MEP_PROJECTS_STORM_OUTFALLS]: [{
     type: 'circle',
