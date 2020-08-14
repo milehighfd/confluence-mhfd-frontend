@@ -527,6 +527,28 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
+      "line-width": [
+          "step",
+          ["zoom"],
+          0,
+          12,
+          1,
+          13,
+          1.5,
+          14,
+          4,
+          22,
+          12
+      ],
+      "line-opacity": ["step", ["zoom"], 0, 12, 0, 13, 1, 22, 1],
+      "line-translate": [0.5, 0.5],
+      "line-color": "hsl(0, 0%, 0%)"
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
       "line-color": [
           "step",
           ["zoom"],
@@ -536,8 +558,20 @@ export const COMPONENT_LAYERS_STYLE = {
           22,
           "hsl(163, 73%, 51%)"
       ],
-      "line-width": ["step", ["zoom"], 0, 13, 1.5, 14, 3, 22, 6],
-      "line-opacity": ["step", ["zoom"], 0, 13, 0, 22, 1]
+      "line-width": [
+          "step",
+          ["zoom"],
+          0,
+          12,
+          0,
+          13,
+          1.5,
+          14,
+          4,
+          22,
+          12
+      ],
+      "line-opacity": ["step", ["zoom"], 0, 12, 0, 13, 1, 22, 1]
     }
   },{
     type: 'circle',
@@ -554,7 +588,7 @@ export const COMPONENT_LAYERS_STYLE = {
           14,
           "hsl(176, 83%, 51%)"
       ],
-      "circle-stroke-width": ["step", ["zoom"], 0, 13, 1.5, 22, 6],
+      "circle-stroke-width": ["step", ["zoom"], 0, 13, 1, 22, 12],
       "circle-stroke-color": [
           "interpolate",
           ["linear"],
@@ -565,6 +599,30 @@ export const COMPONENT_LAYERS_STYLE = {
           "hsl(176, 83%, 77%)",
           22,
           "hsl(176, 83%, 77%)"
+      ],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0,
+          13,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          0,
+          13,
+          1,
+          22,
+          1
       ]
     }
   },{
@@ -572,7 +630,7 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "circle-radius": ["step", ["zoom"], 0, 13, 1.5, 14, 2.5],
+      "circle-radius": ["step", ["zoom"], 0, 13, 3, 14, 4, 22, 12],
       "circle-color": [
           "interpolate",
           ["linear"],
@@ -589,9 +647,62 @@ export const COMPONENT_LAYERS_STYLE = {
           0,
           1,
           13,
+          0.5,
+          22,
+          6
+      ],
+      "circle-stroke-color": "hsl(0, 3%, 91%)",
+      "circle-translate": [-1, -1],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0,
+          13,
           1,
           22,
-          4
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          0,
+          13,
+          1,
+          22,
+          1
+      ]
+    }
+  },{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-radius": ["step", ["zoom"], 0, 13, 3, 14, 4, 22, 12],
+      "circle-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsl(0, 96%, 65%)",
+          14,
+          "hsl(176, 83%, 51%)"
+      ],
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13,
+          0.5,
+          22,
+          6
       ],
       "circle-stroke-color": [
           "interpolate",
@@ -601,6 +712,30 @@ export const COMPONENT_LAYERS_STYLE = {
           "hsl(176, 3%, 20%)",
           22,
           "hsl(176, 4%, 20%)"
+      ],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0,
+          13,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          0,
+          13,
+          1,
+          22,
+          1
       ]
     }
   },{
