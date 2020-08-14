@@ -1647,7 +1647,7 @@ export const tileStyles = {
               "match",
               ["get", "fld_zone"],
               ["AE", "A", "AO", "AH"],
-              "hsl(0, 90%, 21%)",
+              "#17285e",
               "hsla(0, 0%, 100%, 0)"
           ],
           13,
@@ -1655,7 +1655,7 @@ export const tileStyles = {
               "match",
               ["get", "fld_zone"],
               ["AE", "A", "AO", "AH"],
-              "hsl(0, 90%, 23%)",
+              "#17285e",
               "hsla(0, 0%, 100%, 0)"
           ],
           22,
@@ -1663,7 +1663,7 @@ export const tileStyles = {
               "match",
               ["get", "fld_zone"],
               ["AE", "A", "AO", "AH"],
-              "hsla(0, 90%, 23%, 0.69)",
+              "#17285e",
               "hsla(0, 0%, 100%, 0)"
           ]
       ],
@@ -1689,7 +1689,7 @@ export const tileStyles = {
           "match",
           ["get", "fld_zone"],
           ["A", "AE", "AO", "AH"],
-          "hsl(0, 94%, 25%)",
+          "#17285e",
           "hsla(0, 94%, 25%, 0)"
       ],
       "line-width": 3,
@@ -1711,9 +1711,9 @@ export const tileStyles = {
     "paint": {
       "line-color": [
           "match",
-          ["get", "fld_zone"],
-          ["AE", "A", "AO", "AH"],
-          "hsl(0, 0%, 100%)",
+          ["get", "zone_subty"],
+          ["FLOODWAY"],
+          "#17285e",
           "hsla(0, 0%, 100%, 0)"
       ],
       "line-width": [
@@ -1727,7 +1727,6 @@ export const tileStyles = {
           22,
           3
       ],
-      "line-dasharray": [3, 3],
       "line-opacity": [
           "interpolate",
           ["linear"],
@@ -1738,8 +1737,116 @@ export const tileStyles = {
           1,
           22,
           1
+      ],
+      "line-dasharray": [2, 2]
+    }
+  }, {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "fill-opacity": 0.57,
+      "fill-color": [
+          "match",
+          ["get", "fld_zone"],
+          ["AREA WITH REDUCED FLOOD RISK DUE TO LEVEE", "AE"],
+          "hsl(192, 79%, 57%)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-outline-color": "hsla(0, 0%, 0%, 0.48)"
+    }
+  }, {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "fill-opacity": 0.5,
+      "fill-color": [
+          "match",
+          ["get", "zone_subty"],
+          ["0.2 PCT ANNUAL CHANCE FLOOD HAZARD"],
+          "hsl(40, 90%, 56%)",
+          "hsla(0, 0%, 0%, 0)"
       ]
     }
+  }, {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "fill-opacity": 0.53,
+      "fill-color": [
+          "match",
+          ["get", "fld_zone"],
+          ["AREA WITH REDUCED FLOOD RISK DUE TO LEVEE", "AE"],
+          "hsl(176, 79%, 57%)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-pattern": [
+          "match",
+          ["get", "zone_subty"],
+          ["FLOODWAY"],
+          "Untitled",
+          ""
+      ],
+      "fill-antialias": false
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "icon-image": [
+          "match",
+          ["get", "zone_subty"],
+          ["FLOODWAY"],
+          ["to-string", ["get", "zone_subty"]],
+          ["to-string", ["get", "zone_subty"]]
+      ],
+      "text-field": [
+          "match",
+          ["get", "zone_subty"],
+          ["FLOODWAY"],
+          ["to-string", ["get", "zone_subty"]],
+          ["to-string", ["get", "fld_zone"]]
+      ],
+      "symbol-placement": "line",
+      "text-justify": "auto",
+      "text-rotation-alignment": "viewport",
+      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
+    },
+    "paint": {
+        "text-color": "hsl(189, 78%, 12%)",
+        "text-halo-color": "hsla(0, 3%, 97%, 0.72)",
+        "text-halo-width": 1
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "icon-image": [
+          "match",
+          ["get", "zone_subty"],
+          ["FLOODWAY"],
+          ["to-string", ["get", "zone_subty"]],
+          ["to-string", ["get", "zone_subty"]]
+      ],
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "fld_zone"]],
+          ["get", "zone_subty"]
+      ],
+      "symbol-placement": "line",
+      "text-justify": "auto",
+      "text-rotation-alignment": "viewport",
+      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
+    },
+    "paint": {
+        "text-color": "hsl(189, 78%, 12%)",
+        "text-halo-color": "hsla(0, 3%, 97%, 0.72)",
+        "text-halo-width": 1
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {"symbol-placement": "line"},
+    "paint": {"text-color": "hsl(286, 81%, 86%)"}
   }], 
   [WATERSHED_FILTERS]: [
   {
