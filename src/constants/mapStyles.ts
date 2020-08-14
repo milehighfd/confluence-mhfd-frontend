@@ -442,19 +442,9 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-      'line-width': 4,
-      'line-color': '#34b356',
-      'line-opacity': 1,
-      'line-dasharray': [4, 4, 1]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
     "paint": {
       "line-dasharray": [1, 1],
-      "line-color": "hsl(32, 78%, 16%)",
+      "line-color": "hsl(128, 78%, 16%)",
       "line-width": 4,
       "line-translate": [1, 1],
       "line-opacity": [
@@ -464,6 +454,10 @@ export const COMPONENT_LAYERS_STYLE = {
           0,
           0,
           12,
+          0,
+          12.5,
+          0.41,
+          13,
           1,
           22,
           1
@@ -475,7 +469,7 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     "paint": {
       "line-dasharray": [1, 1],
-      "line-color": "hsl(32, 87%, 61%)",
+      "line-color": "hsl(120, 49%, 50%)",
       "line-width": 2,
       "line-opacity": ["step", ["zoom"], 0, 12, 1, 22, 1]
     }
