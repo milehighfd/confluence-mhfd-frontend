@@ -238,10 +238,39 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          2,
+          22,
+          6
+      ],
+      "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          12.07,
+          3,
+          22,
+          3
+      ],
+      "line-blur": 8,
       "line-color": "hsl(137, 82%, 55%)",
-      "line-width": 6,
-      "line-gap-width": 3,
-      "line-blur": 8
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0,
+          13,
+          1,
+          22,
+          1
+      ]
     }
   },{
     type: 'line',
@@ -250,16 +279,48 @@ export const COMPONENT_LAYERS_STYLE = {
     "paint": {
       "line-color": "hsl(51, 82%, 22%)",
       "line-width": 3,
-      "line-dasharray": [6, 1]
+      "line-dasharray": [6, 1],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0,
+          13,
+          1,
+          22,
+          1
+      ]
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": "hsl(51, 82%, 51%)",
-      "line-width": 3,
-      "line-dasharray": [6, 1]
+      "line-color": "hsl(87, 82%, 51%)",
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.5,
+          12,
+          1,
+          22,
+          3
+      ],
+      "line-dasharray": [6, 2],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0,
+          13,
+          1,
+          22,
+          1
+      ]
     }
   }],
   [SPECIAL_ITEM_AREA]: [
