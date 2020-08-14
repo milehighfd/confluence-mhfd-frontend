@@ -1409,7 +1409,7 @@ const MEP_PROJECTS_STYLES = {
           10.5,
           0,
           11,
-          1,
+          0.5,
           22,
           1
       ],
@@ -1463,7 +1463,7 @@ const MEP_PROJECTS_STYLES = {
           0,
           1,
           22,
-          2
+          4
       ],
       "circle-opacity": [
           "interpolate",
