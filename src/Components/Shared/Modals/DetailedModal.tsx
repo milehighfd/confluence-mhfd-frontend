@@ -19,15 +19,11 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
-      if(data.problemId){
-        getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
-      }
+      getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     } else {
       getDetailedPageProject(data.objectid, data.value, data.type);
-      if(data.id){
-        getComponentsByProblemId({id: data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
-      }
+      getComponentsByProblemId({id: data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
   }, []);
