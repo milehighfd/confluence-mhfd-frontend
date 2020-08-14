@@ -1677,23 +1677,7 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "fill-color": "hsl(226, 61%, 23%)",
-      "fill-outline-color": "hsl(235, 87%, 54%)",
-      "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          12,
-          1,
-          14,
-          0.37,
-          16,
-          0,
-          22,
-          0
-      ]
+      "fill-color": "hsla(213, 94%, 43%, 0.6)"
     }
   }, {
     type: 'line',
