@@ -125,35 +125,6 @@ export const COMPONENT_LAYERS_STYLE = {
     type: 'circle',
     'source-layer': 'pluto15v1',
     "paint": {
-      "circle-color": "hsl(182, 71%, 43%)",
-      "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          10,
-          0.5,
-          11,
-          1.5,
-          13,
-          2,
-          22,
-          7
-      ]
-    }
-  },{
-    type: 'circle',
-    'source-layer': 'pluto15v1',
-    layout: {}, 
-    "paint": {
-      "circle-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          "hsl(303, 88%, 42%)",
-          22,
-          "hsl(104, 6%, 98%)"
-      ],
       "circle-radius": [
           "interpolate",
           ["linear"],
@@ -161,26 +132,50 @@ export const COMPONENT_LAYERS_STYLE = {
           9,
           0,
           11,
-          1,
+          0,
           13,
-          2,
+          1,
           16,
           6,
           22,
           10
       ],
-      "circle-stroke-color": [
+      "circle-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          "hsl(100, 88%, 42%)",
+          22,
+          "hsl(183, 88%, 42%)"
+      ],
+      "circle-stroke-width": 1,
+      "circle-stroke-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
           0,
-          "hsla(0, 21%, 26%, 0)",
-          9,
-          "hsla(0, 21%, 26%, 0)",
+          0,
           12,
-          "hsl(0, 21%, 26%)"
+          0,
+          13,
+          1,
+          22,
+          1
       ],
-      "circle-stroke-width": 2
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          0,
+          13,
+          1,
+          22,
+          1
+      ]
     }
   }],
   [SPECIAL_ITEM_POINT]: [{
