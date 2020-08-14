@@ -1673,16 +1673,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
             "hsl(190, 86%, 71%)"
         ]
       }
-    },{
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0
-    }
-  }],
+    }],
   [ROUTINE_DEBRIS_LINEAR]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
