@@ -1888,12 +1888,37 @@ export const PROJECTS_STYLES = {
     {
       type: 'line',
       'source-layer': 'pluto15v1',
-      layout: {},
+      layout: {
+        "line-miter-limit": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9,
+          0,
+          22,
+          2
+        ]
+      },
       "paint": {
-        "line-color": "#ffdd00",
-        "line-width": 6,
-        "line-blur": 6,
-        "line-gap-width": 6,
+        "line-color": "hsl(52, 100%, 50%)",
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8,
+            4,
+            22,
+            6
+        ],
+        "line-gap-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            9,
+            1,
+            22,
+            6
+        ],
         "line-opacity": [
             "interpolate",
             ["exponential", 1],
@@ -1910,40 +1935,81 @@ export const PROJECTS_STYLES = {
             1
         ]
       }
-    },{
-      type: 'circle',
-      'source-layer': 'pluto15v1',
-      layout: {},
-      "paint": {"circle-color": "hsla(60, 100%, 50%, 0.48)"}
     }, {
-      "type": "line",
-      "source-layer": "pluto15v1",
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        "line-join": "round",
+        "line-round-limit": 1
+      },
       "paint": {
-        "line-color": "hsl(303, 100%, 50%)",
-        "line-blur": 1,
-        "line-gap-width": 6,
+        "line-color": [
+          "match",
+          ["get", "projecttype"],
+          ["Study"],
+          "hsl(52, 100%, 29%)",
+          "hsla(281, 100%, 50%, 0)"
+        ],
+        "line-width": 6,
+        "line-blur": 6,
+        "line-gap-width": 30,
         "line-opacity": [
             "interpolate",
             ["exponential", 1],
             ["zoom"],
             0,
             0,
-            11,
-            0,
+            10.13,
+            0.21,
             13,
-            0.22,
+            0.62,
             14.22,
             1,
             22,
             1
         ]
       }
-    },{
-      type: 'line',
+    }, {
+      type: 'heatmap',
       'source-layer': 'pluto15v1',
       layout: {},
       "paint": {
-        "line-color": "hsl(303, 100%, 50%)",
+        "heatmap-radius": 3,
+        "heatmap-color": [
+            "interpolate",
+            ["linear"],
+            ["heatmap-density"],
+            0,
+            "rgba(0, 0, 255, 0)",
+            0.1,
+            "#ffdd00",
+            0.3,
+            "#ffdd00",
+            0.5,
+            "#ffdd00",
+            0.7,
+            "#ffdd00",
+            1,
+            "#ffdd00"
+        ],
+        "heatmap-intensity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8,
+            1,
+            12,
+            0
+        ]
+      }
+    }, {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      layout: {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "hsl(65, 100%, 50%)",
         "line-blur": 1,
         "line-gap-width": 6,
         "line-opacity": [
@@ -1960,7 +2026,33 @@ export const PROJECTS_STYLES = {
             1,
             22,
             1
-        ]
+        ],
+        "line-width": 0.5
+      }
+    }, {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "line-color": "hsl(69, 100%, 50%)",
+        "line-blur": 1,
+        "line-gap-width": 6,
+        "line-opacity": [
+            "interpolate",
+            ["exponential", 1],
+            ["zoom"],
+            0,
+            0,
+            11,
+            0,
+            13,
+            0.22,
+            14.22,
+            1,
+            22,
+            1
+        ],
+        "line-width": 0.5
       }
     }, {
       type: 'symbol',
@@ -1973,42 +2065,117 @@ export const PROJECTS_STYLES = {
         "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
       },
       "paint": {
-          "text-color": [
-              "interpolate",
-              ["exponential", 1],
-              ["zoom"],
-              0,
-              "hsla(0, 0%, 100%, 0)",
-              12.66,
-              "hsla(0, 0%, 100%, 0)",
-              13,
-              "hsla(0, 0%, 100%, 0.74)",
-              22,
-              "hsl(0, 0%, 100%)"
-          ],
-          "text-halo-color": [
-              "step",
-              ["zoom"],
-              "hsla(0, 0%, 0%, 0)",
-              13,
-              "hsla(0, 0%, 0%, 0.25)",
-              15,
-              "hsl(0, 0%, 0%)",
-              22,
-              "hsla(0, 0%, 0%, 0.61)"
-          ],
-          "text-halo-width": 0.25,
-          "text-halo-blur": 35,
-          "text-opacity": ["step", ["zoom"], 0, 14, 1, 22, 1]
+        "text-color": [
+          "interpolate",
+          ["exponential", 1],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 100%, 0)",
+          12.66,
+          "hsla(0, 0%, 100%, 0)",
+          13,
+          "hsla(0, 0%, 100%, 0.74)",
+          22,
+          "hsl(0, 0%, 100%)"
+        ],
+        "text-halo-color": [
+            "step",
+            ["zoom"],
+            "hsla(0, 0%, 0%, 0)",
+            13,
+            "hsla(0, 0%, 0%, 0.25)",
+            15,
+            "hsl(0, 0%, 0%)",
+            22,
+            "hsla(0, 0%, 0%, 0.61)"
+        ],
+        "text-halo-width": 0.25,
+        "text-halo-blur": 35,
+        "text-opacity": ["step", ["zoom"], 0, 14, 1, 22, 1]
       }
     }, {
-      type: 'line',
+      type: 'symbol',
       'source-layer': 'pluto15v1',
-      layout: {},
-      paint: {
-          'line-color': 'red',
-          'line-width': 12,
-          'line-opacity': 0
+      "layout": {
+        "text-field": [
+          "match",
+          ["get", "status"],
+          ["Initiated"],
+          [
+              "concat",
+              ["to-string", ["get", "projectname"]],
+              "      Initiated"
+          ],
+          ""
+        ],
+        "text-rotation-alignment": "map",
+        "text-offset": [3, 3],
+        "text-font": [
+            "Open Sans SemiBold Italic",
+            "Arial Unicode MS Regular"
+        ],
+        "symbol-placement": "line"
+      },
+      "paint": {
+        "text-color": "hsl(52, 0%, 100%)",
+        "text-halo-color": "hsl(52, 100%, 31%)",
+        "text-halo-width": 5
+      }
+    }, {
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "layout": {
+        "text-field": [
+          "match",
+          ["get", "status"],
+          ["Requested"],
+          [
+              "concat",
+              ["to-string", ["get", "projectname"]],
+              "      Requested"
+          ],
+          ""
+        ],
+        "text-rotation-alignment": "map",
+        "text-offset": [3, 3],
+        "text-font": [
+            "Open Sans SemiBold Italic",
+            "Arial Unicode MS Regular"
+        ],
+        "symbol-placement": "line"
+      },
+      "paint": {
+        "text-color": "hsl(52, 0%, 100%)",
+        "text-halo-color": "hsl(52, 100%, 31%)",
+        "text-halo-width": 5
+      }
+    }, {
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "layout": {
+        "text-field": [
+          "match",
+          ["get", "status"],
+          ["Preliminary Design"],
+          [
+              "concat",
+              ["to-string", ["get", "projectname"]],
+              "       Preliminary Design"
+          ],
+          ""
+        ],
+        "text-rotation-alignment": "map",
+        "text-offset": [3, 3],
+        "text-font": [
+            "Open Sans SemiBold Italic",
+            "Arial Unicode MS Regular"
+        ],
+        "symbol-placement": "line"
+      },
+      "paint": {
+        "text-color": "hsl(52, 0%, 100%)",
+        "text-halo-color": "hsl(52, 100%, 31%)",
+        "text-halo-width": 5
       }
     }
   ]
