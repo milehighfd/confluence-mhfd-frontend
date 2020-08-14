@@ -850,7 +850,7 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "fill-color": "hsl(283, 76%, 27%)",
+      "fill-color": "#85bb65",
       "fill-opacity": [
           "interpolate",
           ["linear"],
@@ -858,17 +858,22 @@ export const COMPONENT_LAYERS_STYLE = {
           0,
           0,
           12,
-          0.51,
+          0,
+          13,
+          0,
+          15,
+          0.2,
           22,
-          0.51
-      ]
+          0.57
+      ],
+      "fill-pattern": "dollar"
     }
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": "hsl(99, 88%, 69%)",
+      "line-color": "hsl(99, 88%, 10%)",
       "line-opacity": [
           "interpolate",
           ["linear"],
@@ -876,9 +881,72 @@ export const COMPONENT_LAYERS_STYLE = {
           0,
           0,
           12,
-          0.43,
+          0,
+          13,
+          0,
+          15,
+          0.2,
           22,
           1
+      ],
+      "line-width": 2
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "#85bb65",
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          0,
+          13,
+          0,
+          15,
+          0.2,
+          22,
+          1
+      ],
+      "line-dasharray": [2, 4]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(20, 91%, 72%)",
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          0,
+          13,
+          0,
+          15,
+          1,
+          22,
+          1
+      ],
+      "line-dasharray": [2, 4],
+      "line-translate": [-1, -1],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12,
+          1,
+          22,
+          3
       ]
     }
   }],
