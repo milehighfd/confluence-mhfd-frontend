@@ -330,7 +330,7 @@ export const COMPONENT_LAYERS_STYLE = {
       layout: {},
       "paint": {
         "fill-color": "hsl(98, 50%, 51%)",
-        "fill-opacity": ["step", ["zoom"], 0, 12, 0.44, 22, 1]
+        "fill-opacity": ["step", ["zoom"], 0, 12, 0.25, 22, 1]
       }
     }, {
       type: 'line',
