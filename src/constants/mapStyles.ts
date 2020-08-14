@@ -1679,57 +1679,6 @@ export const tileStyles = {
     "paint": {
       "fill-color": "hsla(213, 94%, 43%, 0.6)"
     }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-width": 6,
-      "line-opacity": [
-          "interpolate",
-          ["exponential", 1],
-          ["zoom"],
-          0,
-          0,
-          14,
-          0.33,
-          22,
-          1
-      ],
-      "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          "hsl(234, 61%, 19%)",
-          14,
-          "hsl(234, 63%, 18%)",
-          22,
-          "hsl(227, 65%, 23%)"
-      ],
-      "line-translate": [-2, -2]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-width": 2,
-      "line-opacity": [
-          "interpolate",
-          ["exponential", 1],
-          ["zoom"],
-          0,
-          0,
-          14,
-          0.33,
-          22,
-          1
-      ],
-      "line-translate": [-2, -2],
-      "line-dasharray": [1, 1],
-      "line-color": "hsl(0, 0%, 100%)"
-    }
   }],
   [FEMA_FLOOD_HAZARD]: [ {
     type: 'fill',
