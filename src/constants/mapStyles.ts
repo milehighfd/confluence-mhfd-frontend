@@ -1833,43 +1833,55 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       layout: {},
       "paint": {
-        "fill-color": "#ffff00",
-        "fill-opacity": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            0,
-            10,
-            0,
-            12,
-            1,
-            22,
-            0.1
-        ],
-        "fill-outline-color": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            "hsla(60, 100%, 50%, 0)",
-            9.5,
-            "hsla(60, 100%, 50%, 0)",
-            22,
-            "#ffff00"
+        "fill-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "hsla(52, 100%, 50%, 0.1)",
+            "hsla(0, 0%, 0%, 0)"
         ]
       }
     },{
       type: 'line',
       'source-layer': 'pluto15v1',
       layout: {},
-      paint: {
-          'line-color': 'red',
-          'line-width': 12,
-          'line-opacity': 0
+      "paint": {
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            1,
+            10.37,
+            8,
+            22,
+            24
+        ],
+        "line-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "hsl(52, 100%, 50%)",
+            "hsla(52, 100%, 50%, 0)"
+        ],
+        "line-blur": 22
       }
+    },{
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "layout": {
+        "text-field": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            ["to-string", ["get", "projectname"]],
+            ""
+        ],
+        "symbol-avoid-edges": true,
+        "text-padding": 66
+      },
+      "paint": {"text-color": "#ffdd00"}
     }
-
 ],
   [PROJECTS_LINE]: [
     {
