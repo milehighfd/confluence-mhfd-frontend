@@ -2371,186 +2371,69 @@ export const tileStyles = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
+    "paint": {"fill-color": "hsl(0, 0%, 0%)"}
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
     "paint": {
-      "fill-color": [
+      "line-dasharray": [1],
+      "line-width": [
           "interpolate",
           ["linear"],
           ["zoom"],
           0,
-          [
-              "interpolate",
-              ["linear"],
-              ["get", "cartodb_id"],
-              0,
-              "hsl(0, 97%, 52%)",
-              6,
-              "hsl(179, 93%, 50%)",
-              9,
-              "#406370",
-              19,
-              "#8a9cd5",
-              29,
-              "#9d613a",
-              39,
-              "#febc66",
-              49,
-              "#aa492e",
-              59,
-              "#406370"
-          ],
-          10.5,
-          [
-              "interpolate",
-              ["linear"],
-              ["get", "cartodb_id"],
-              0,
-              "hsl(0, 97%, 52%)",
-              6,
-              "hsl(179, 93%, 50%)",
-              9,
-              "#406370",
-              19,
-              "#8a9cd5",
-              29,
-              "#9d613a",
-              39,
-              "#febc66",
-              49,
-              "#aa492e",
-              59,
-              "#406370"
-          ],
-          22,
-          [
-              "interpolate",
-              ["linear"],
-              ["get", "cartodb_id"],
-              0,
-              "hsl(0, 97%, 52%)",
-              6,
-              "hsl(179, 93%, 50%)",
-              9,
-              "#406370",
-              19,
-              "#8a9cd5",
-              29,
-              "#9d613a",
-              39,
-              "#febc66",
-              49,
-              "#aa492e",
-              59,
-              "#406370"
-          ]
-      ],
-      "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
+          0.5,
           10,
-          0.48,
-          12,
-          0,
-          22,
-          0
-      ],
-      "fill-outline-color": "hsl(0, 4%, 96%)"
-    }
-  },{
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-color": "hsl(0, 4%, 100%)",
-      "line-width": 4,
-      "line-translate": [1, 1]
-    }
-  },{
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-color": "hsl(0, 4%, 98%)",
-      "line-dasharray": [4, 1, 1, 1, 4],
-      "line-translate": [-1, -1],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          13,
-          0,
-          13.5,
-          1,
-          22,
-          1
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          13.5,
-          3,
-          22,
-          16
-      ]
-    }
-  },{
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-color": "hsl(0, 8%, 14%)",
-      "line-dasharray": [4, 1, 1, 1, 4],
-      "line-translate": [0, 0],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          13,
-          0,
-          13.5,
-          1,
-          22,
-          1
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          13.5,
-          3,
-          22,
-          16
-      ]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-color": "hsl(0, 4%, 100%)",
-      "line-translate": [0, 0],
-      "line-dasharray": [4, 2],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          13.5,
-          1,
+          0.5,
           14,
-          0
+          1,
+          22,
+          6
+      ],
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsl(0, 3%, 75%)",
+          10,
+          "hsl(0, 3%, 75%)",
+          13,
+          "hsl(0, 0%, 100%)",
+          22,
+          "hsl(0, 0%, 100%)"
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12.5,
+          "hsl(0, 0%, 75%)",
+          15,
+          "hsl(0, 0%, 0%)",
+          17,
+          "hsl(0, 0%, 0%)",
+          22,
+          "hsl(0, 0%, 0%)"
+      ],
+      "line-dasharray": [1, 1],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.5,
+          9.89,
+          1,
+          22,
+          6
       ]
     }
   }], 
@@ -2560,11 +2443,16 @@ export const tileStyles = {
     "layout": {
       "text-field": ["to-string", ["get", "city"]],
       "symbol-placement": "line",
-      "symbol-spacing": 500,
       "text-justify": "auto",
-      "text-offset": [0, 1]
+      "text-offset": [1, 1],
+      "text-pitch-alignment": "viewport"
     },
-    "paint": {"text-color": "hsl(0, 4%, 94%)"}
+    "paint": {
+        "text-color": "hsl(227, 100%, 100%)",
+        "text-halo-color": "hsla(196, 0%, 31%, 0.57)",
+        "text-halo-width": 3,
+        "text-halo-blur": 1
+    }
   }],
   [COUNTIES_FILTERS]: [{
     type: 'fill',
