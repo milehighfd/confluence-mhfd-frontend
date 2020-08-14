@@ -19,7 +19,8 @@ import { FLOODPLAINS_FEMA_FILTERS,
         COUNTIES_LAYERS,
         STUDIES,
         FLOODPLAINS,
-        FEMA_FLOOD_HAZARD} from '../../../constants/constants';
+        FEMA_FLOOD_HAZARD,
+        XSTREAMS} from '../../../constants/constants';
 
 export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView } : 
         { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean }) => {
@@ -62,13 +63,13 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
           <div className="btn-footer">
             <Button className="btn-00" onClick={() => {
               if (isExtendedView) { 
-                setSelectedCheckBox([MHFD_BOUNDARY_FILTERS]);
+                setSelectedCheckBox([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, XSTREAMS]);
                 // setCheckboxes([]);
-                selectCheckboxes([MHFD_BOUNDARY_FILTERS]);
+                selectCheckboxes([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, XSTREAMS]);
               } else {
-                setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS]);
+                setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, XSTREAMS]);
                 // setCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
-                selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS]);
+                selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, XSTREAMS]);
               }
               removePopup();
               setVisibleDropdown(false);

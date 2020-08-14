@@ -48,6 +48,7 @@ export const FLOODPLAINS_NON_FEMA_FILTERS = 'floodplains_non_fema';
 export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
 export const WATERSHED_FILTERS = 'catchments'; //'basins';
 export const STREAMS_FILTERS = 'streams';
+export const XSTREAMS = 'xstreams';
 
 export const SERVICE_AREA_FILTERS = 'watershed_service_areas';
 export const SERVICE_AREA_POINTS = 'labels_service_area';

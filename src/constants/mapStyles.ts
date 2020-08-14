@@ -36,7 +36,8 @@ import {
   PROJECTS_POLYGONS,
   PROJECTS_LINE,
   STUDIES,
-  FEMA_FLOOD_HAZARD
+  FEMA_FLOOD_HAZARD,
+  XSTREAMS
 } from "./constants";
 
 export const localComponents = {
@@ -2755,6 +2756,26 @@ export const tileStyles = {
         "text-translate-anchor": "viewport"
     }
   }], 
+  [XSTREAMS]: [{
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": ["to-string", ["get", "str_name"]],
+      "symbol-placement": "line",
+      "text-font": ["Open Sans SemiBold", "Arial Unicode MS Regular"]
+    },
+    "paint": {
+        "text-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8,
+            "hsl(227, 63%, 76%)",
+            22,
+            "hsl(227, 0%, 100%)"
+        ]
+    }
+  }],
   [SERVICE_AREA_FILTERS]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
