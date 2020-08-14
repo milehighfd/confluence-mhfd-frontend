@@ -2351,7 +2351,11 @@ export const tileStyles = {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {"line-color": "hsl(0, 13%, 100%)"}
+    "paint": {
+      "line-width": 2,
+      "line-color": "hsl(0, 3%, 97%)",
+      "line-dasharray": [2, 2]
+    }
   }],
   [SERVICE_AREA_POINTS]: [{
     type: 'symbol',
