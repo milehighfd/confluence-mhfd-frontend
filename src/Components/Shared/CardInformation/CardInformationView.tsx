@@ -22,24 +22,23 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     setZoomProjectOrProblem(data.coordinates);
   }
   const menu = (
-    <Menu className="js-mm-00" >
-      {/* <div className="card-arrow-menu" ></div> */}
+    <Menu>
       <div className="drop-head">LIST ACTIONS</div>
       <Menu.Item onClick={(e: any) => {changeCenter()}}>
-        <span className="menu-item-text" style={{opacity:'0.5'}}>Zoom to Feature</span>
+        <span className="menu-item-text">Zoom to Feature</span>
       </Menu.Item>
       <Menu.Item disabled={true}>
-        <span className="menu-item-text" style={{opacity:'0.5'}}>Favorite Card</span>
+        <span className="menu-item-text">Favorite Card</span>
       </Menu.Item>
       <Menu.Item disabled={true}>
-        <span className="menu-item-text" style={{opacity:'0.5'}}>Comment</span>
+        <span className="menu-item-text">Comment</span>
       </Menu.Item>
       <Menu.Item disabled={true}>
-        <span className="menu-item-text" style={{opacity:'0.5'}}>Add Team Member</span>
+        <span className="menu-item-text">Add Team Member</span>
       </Menu.Item>
     </Menu>
   );
-  
+
   return (
     <>
       {visible && <DetailedModal
@@ -70,7 +69,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
             data.image ? <img alt="example" src={data.image} /> : <img alt="example" src="/Icons/default.png" />
           }
         >
-          <Popover content={menu} placement="bottomLeft" trigger="click">
+          <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click">
             <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}>...</Button>
           </Popover>
           <div style={{ height: 40 }}>
