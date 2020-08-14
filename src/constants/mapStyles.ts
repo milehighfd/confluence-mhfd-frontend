@@ -2455,36 +2455,24 @@ export const tileStyles = {
     }
   }],
   [COUNTIES_FILTERS]: [{
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'fill-color': '#9265b9',
-        'fill-opacity': 0.5
-    }
-  },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'line-color': '#7b2491',
-        'line-width': 4,
-        'line-opacity': 0.5
-    }, 
-  }],
-  [COUNTIES_POINTS]: [{
-    type: 'symbol',
-    'source-layer': 'pluto15v1',
-    layout: {
-      'text-field': ['get', 'county'],
-      'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
-      'text-radial-offset': 0.5,
-      'text-justify': 'auto'
-    },
-    paint: {
-      'text-color': '#FFF'
+    "paint": {
+      "line-color": "hsl(0, 3%, 96%)",
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          0.5,
+          22,
+          5
+      ],
+      "line-dasharray": [5, 2, 3, 2, 5]
     }
   }],
+  [COUNTIES_POINTS]: [],
   [MHFD_BOUNDARY_FILTERS]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
