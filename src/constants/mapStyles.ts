@@ -366,7 +366,29 @@ export const COMPONENT_LAYERS_STYLE = {
           10,
           4,
           22,
-          4
+          16
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          13,
+          1,
+          22,
+          6
+      ],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12.5,
+          0,
+          13,
+          1,
+          22,
+          1
       ]
     }
   },{
@@ -374,15 +396,29 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": [
-          "step",
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
           ["zoom"],
-          "hsla(0, 0%, 0%, 0)",
+          0,
+          0,
+          12.5,
+          0,
           13,
-          "hsl(183, 76%, 76%)",
+          1,
           22,
-          "hsl(0, 0%, 0%)"
-      ]
+          1
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          22,
+          4
+      ],
+      "line-color": "#93ecf0"
     }
   },{
     type: 'line',
