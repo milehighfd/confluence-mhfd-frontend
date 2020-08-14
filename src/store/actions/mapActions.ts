@@ -585,10 +585,12 @@ export const setApplyFilter = (applyFilter: boolean) => {
         dispatch({type: types.SET_APPLY_FILTERS, applyFilter });
     }
 }
-export const getComponentCounter = (id: number, type: string) => {
+export const getComponentCounter = (id: number, type: string, setCountComponents: Function) => {
     return (dispatch: Function) => {
         datasets.postData(SERVER.COMPONENT_COUNTER, {value: id, column: type}, datasets.getToken()).then(components => {
-            dispatch({type: types.GET_COMPONENTS_COUNTER, components});
+            const auxComponent = {...components}
+            setCountComponents(auxComponent);
+            // dispatch({type: types.GET_COMPONENTS_COUNTER, components});
         })
     }
 }

@@ -40,12 +40,14 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
     };
     waiting();
   }, []);
+  const [counterPopup, setCounterPopup] = useState({componentes: 0});
+
   useEffect(() => {
     const div = document.getElementById('popup-detailed-page');
     if (div != null) {
-        div.innerHTML = `${componentCounter}`;
+        div.innerHTML = `${counterPopup.componentes}`;
     }
-}, [componentCounter]);
+}, [counterPopup]);
   const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
     <>
         <ComponentPopup item={item}></ComponentPopup>
@@ -172,7 +174,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
                 return;
               }
               if (key === 'problems') {
-                getComponentCounter(e.features[0].properties.problemid || 0, 'problemid');
+                getComponentCounter(e.features[0].properties.problemid || 0, 'problemid', setCounterPopup);
                 const item = {
                     type: 'problems',
                     title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
@@ -186,7 +188,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
                 html = loadMainPopup(item);
               }
               if (key.includes('projects') && !key.includes('mep')) {
-                  getComponentCounter(e.features[0].properties.projectid || 0, 'projectid');
+                  getComponentCounter(e.features[0].properties.projectid || 0, 'projectid', setCounterPopup);
                   const item = {
                       type: 'projects',
                       title: 'Project',

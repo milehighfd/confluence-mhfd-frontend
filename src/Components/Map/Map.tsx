@@ -151,24 +151,14 @@ const Map = ({ leftWidth,
             }
         }
     }, [highlighted]);
-    let [clickedPopup, setClickedPopup] = useState(false);
-    const [counterPopup, setCounterPopup] = useState(0);
-    useEffect(() => {
-        console.log(componentCounter, clickedPopup);
-        if (clickedPopup) {
-            console.log('update counter popup ', componentCounter);
-            setCounterPopup(componentCounter);
-            setClickedPopup(false);
-        }
-    }, [componentCounter]);
-
+    const [counterPopup, setCounterPopup] = useState({componentes: 0});
+    
     useEffect(() => {
         const div = document.getElementById('popup');
         if (div != null) {
-            div.innerHTML = `${componentCounter}`;
+            div.innerHTML = `${counterPopup.componentes}`;
         }
     }, [counterPopup]);
-    console.log('counter popup ', counterPopup);
     useEffect(() => {
         if (map) {
             applyFilters('problems', filterProblems);
@@ -666,8 +656,7 @@ const Map = ({ leftWidth,
                     }
                     let itemValue;
                     if (key === 'problems') {
-                        setClickedPopup(true);
-                        getComponentCounter(e.features[0].properties.problemid || 0, 'problemid');
+                        getComponentCounter(e.features[0].properties.problemid || 0, 'problemid', setCounterPopup);
                         const item = {
                             type: 'problems',
                             title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
@@ -683,8 +672,7 @@ const Map = ({ leftWidth,
                         html = loadMainPopup(item, test);
                     }
                     if (key.includes('projects') && !key.includes('mep')) {
-                        setClickedPopup(true);
-                        getComponentCounter(e.features[0].properties.projectid || 0, 'projectid');
+                        getComponentCounter(e.features[0].properties.projectid || 0, 'projectid', setCounterPopup);
                         const item = {
                             type: key,
                             title: 'Project',

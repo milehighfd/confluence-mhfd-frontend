@@ -66,8 +66,8 @@ const mapDispatchToProps = (dispatch: Function): any => {
     getAllUserProjects() {
       dispatch(getAllUserProjects());
     },
-    getComponentCounter(id: number, type: string) {
-      dispatch(getComponentCounter(id, type));
+    getComponentCounter(id: number, type: string, setCounterComponents: Function) {
+      dispatch(getComponentCounter(id, type, setCounterComponents));
     }
   };
 };
