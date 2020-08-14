@@ -1611,61 +1611,15 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "fill-color": "hsl(0, 97%, 13%)",
-      "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          13,
-          0,
-          22,
-          0
-      ]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-color": "hsl(0, 95%, 20%)",
-      "line-width": 6,
-      "line-blur": 5,
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          13,
-          1,
-          22,
-          0
-      ]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-color": "hsl(0, 63%, 97%)",
-      "line-dasharray": [1, 1],
-      "line-width": 1.5
+      "fill-color": "hsla(192, 84%, 71%, 0.55)",
+      "fill-outline-color": "hsla(0, 0%, 0%, 0)"
     }
   }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
-      "text-field": [
-          "step",
-          ["zoom"],
-          ["to-string", ["get", "fld_zone"]],
-          0,
-          ["to-string", ["get", "fld_zone"]],
-          22,
-          ["to-string", ["get", "fld_zone"]]
-      ]
+      "text-field": ["to-string", ["get", "fld_zone"]],
+      "symbol-placement": "line"
     },
     "paint": {
         "text-color": "hsl(0, 4%, 98%)",
