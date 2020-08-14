@@ -184,11 +184,53 @@ export const COMPONENT_LAYERS_STYLE = {
     layout: {},
     "paint": {
       "circle-color": "hsl(98, 80%, 53%)",
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          12,
+          1,
+          14,
+          2,
+          22,
+          2
+      ],
+      "circle-stroke-color": "hsl(295, 88%, 40%)",
+      "circle-opacity": ["step", ["zoom"], 0, 12, 0.41, 13, 1, 22, 1],
+      "circle-radius": 3,
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          11,
+          0,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "hsl(98, 80%, 53%)",
       "circle-stroke-width": 2,
       "circle-stroke-color": "hsl(295, 88%, 40%)",
-      "circle-opacity": ["step", ["zoom"], 0, 12, 0.41, 22, 1],
+      "circle-opacity": ["step", ["zoom"], 0, 12, 0.41, 13, 1, 22, 1],
       "circle-stroke-opacity": ["step", ["zoom"], 0, 12, 0.37, 22, 1],
-      "circle-radius": 3
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          3,
+          12,
+          2,
+          22,
+          3
+      ]
     }
   }],
   [SPECIAL_ITEM_LINEAR]: [{
