@@ -2644,7 +2644,7 @@ export const tileStyles = {
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
       "line-opacity": [
           "interpolate",
@@ -2674,7 +2674,7 @@ export const tileStyles = {
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
       "line-color": [
           "step",
@@ -2702,7 +2702,7 @@ export const tileStyles = {
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
       "line-color": [
           "step",
@@ -2730,7 +2730,7 @@ export const tileStyles = {
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
       "line-color": "hsl(24, 72%, 49%)",
       "line-opacity": [
@@ -2750,7 +2750,7 @@ export const tileStyles = {
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
       "line-color": "hsl(24, 72%, 49%)",
       "line-opacity": [
