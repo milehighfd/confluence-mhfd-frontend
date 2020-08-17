@@ -46,7 +46,7 @@ export const COMPONENTS_TRIGGER = 'components';
 export const FLOODPLAINS_FEMA_FILTERS = 'floodplains_fema_sfha';
 export const FLOODPLAINS_NON_FEMA_FILTERS = 'floodplains_non_fema';
 export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
-export const WATERSHED_FILTERS = 'catchments'; //'basins';
+export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1'; //'basins';
 export const STREAMS_FILTERS = 'streams';
 export const XSTREAMS = 'xstreams';
 
