@@ -2359,7 +2359,7 @@ export const tileStyles = {
           "match",
           ["get", "zone_subty"],
           ["FLOODWAY"],
-          "Untitled",
+          "fema-floodway",
           ""
       ],
       "fill-antialias": false
