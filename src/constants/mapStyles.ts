@@ -1685,7 +1685,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
   [ROUTINE_DEBRIS_LINEAR]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
       "line-width": [
           "interpolate",
@@ -1705,18 +1705,18 @@ const ROUTINE_MAINTENANCE_STYLES = {
           ["zoom"],
           0,
           0,
-          13,
+          11,
           0,
-          14,
-          0.2,
+          14.5,
+          1,
           22,
-          0.23
+          0.1
       ]
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
       "line-color": "hsl(308, 92%, 55%)",
       "line-gap-width": [
@@ -1738,9 +1738,9 @@ const ROUTINE_MAINTENANCE_STYLES = {
           ["zoom"],
           0,
           0,
-          14.5,
+          11,
           0,
-          15,
+          14.56,
           1,
           22,
           1
@@ -1749,73 +1749,73 @@ const ROUTINE_MAINTENANCE_STYLES = {
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
-      "line-color": "hsla(308, 26%, 77%, 0.82)",
-      "line-gap-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          9,
-          4,
-          13.57,
-          4,
-          16,
-          24,
-          22,
-          60
-      ],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          14.5,
-          0,
-          15,
-          1,
-          22,
-          1
-      ],
-      "line-dasharray": [2, 1, 0.5],
-      "line-width": 6,
-      "line-translate": [-1, -1]
+        "line-color": "hsla(308, 26%, 77%, 0.82)",
+        "line-gap-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            9,
+            4,
+            13.57,
+            4,
+            16,
+            24,
+            22,
+            60
+        ],
+        "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            11,
+            0,
+            14.56,
+            1,
+            22,
+            1
+        ],
+        "line-dasharray": [2, 1, 0.5],
+        "line-width": 6,
+        "line-translate": [-1, -1]
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
-      "line-color": "hsla(308, 93%, 11%, 0.82)",
-      "line-gap-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          9,
-          4,
-          13.57,
-          4,
-          16,
-          24,
-          22,
-          60
-      ],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          14.5,
-          0,
-          15,
-          1,
-          22,
-          1
-      ],
-      "line-dasharray": [2, 1, 0.5],
-      "line-width": 6
+        "line-color": "hsla(308, 93%, 11%, 0.82)",
+        "line-gap-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            9,
+            4,
+            13.57,
+            4,
+            16,
+            24,
+            22,
+            60
+        ],
+        "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            11,
+            0,
+            14.56,
+            1,
+            22,
+            1
+        ],
+        "line-dasharray": [2, 1, 0.5],
+        "line-width": 6
     }
   },{
     type: 'line',
