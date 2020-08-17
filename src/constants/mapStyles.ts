@@ -2982,7 +2982,155 @@ export const tileStyles = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    "paint": {"fill-color": "hsl(0, 0%, 0%)"}
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "city"],
+          ["Aurora"],
+          "hsl(212, 50%, 56%)",
+          ["Denver"],
+          "#ae3727",
+          ["Glendale"],
+          "#487920",
+          ["Lone Tree"],
+          "hsl(0, 93%, 72%)",
+          ["Englewood"],
+          "hsl(103, 38%, 28%)",
+          ["Lakeside"],
+          "hsl(312, 85%, 58%)",
+          ["Bow Mar"],
+          "hsl(253, 88%, 55%)",
+          ["Lafayette"],
+          "hsl(66, 83%, 62%)",
+          ["Golden"],
+          "hsl(48, 89%, 56%)",
+          ["Federal Heights"],
+          "hsl(189, 78%, 58%)",
+          ["Erie"],
+          "hsl(0, 94%, 53%)",
+          ["Columbine Valley"],
+          "hsl(288, 79%, 55%)",
+          ["Lousiville"],
+          "hsl(114, 63%, 66%)",
+          ["Sheridan"],
+          "hsl(43, 96%, 37%)",
+          ["Foxfield"],
+          "hsl(0, 13%, 52%)",
+          ["Morrison"],
+          "hsl(360, 86%, 37%)",
+          ["Castle Rock"],
+          "hsl(125, 78%, 70%)",
+          ["Boulder"],
+          "hsl(17, 83%, 41%)",
+          ["Commerce City"],
+          "hsl(0, 24%, 46%)",
+          ["Superior"],
+          "hsl(211, 89%, 82%)",
+          ["Westminster"],
+          "hsl(281, 79%, 46%)",
+          ["Wheat Ridge"],
+          "hsl(62, 71%, 73%)",
+          ["Lochbuie"],
+          "hsl(128, 88%, 53%)",
+          ["Parker"],
+          "hsl(242, 83%, 45%)",
+          ["Cherry Hills Village"],
+          "#d40c2b",
+          ["Centennial"],
+          "hsl(188, 67%, 24%)",
+          ["Mountain View"],
+          "hsl(202, 89%, 81%)",
+          ["Arvada"],
+          "hsl(168, 81%, 63%)",
+          ["Brighton"],
+          "hsl(237, 53%, 38%)",
+          ["Edgewater"],
+          "hsl(183, 83%, 56%)",
+          ["Northglenn"],
+          "hsl(130, 93%, 40%)",
+          ["Castle Pines"],
+          "hsl(97, 48%, 24%)",
+          ["Greenwood Village"],
+          "hsl(39, 84%, 75%)",
+          ["Lakewood"],
+          "hsl(219, 93%, 31%)",
+          ["Thornton"],
+          "hsl(0, 91%, 68%)",
+          ["Littleton"],
+          "hsl(47, 85%, 38%)",
+          ["Broomfield"],
+          "hsl(36, 84%, 45%)",
+          "hsl(0, 0%, 0%)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.45,
+          12,
+          0.45,
+          14,
+          0,
+          22,
+          0
+      ],
+      "fill-outline-color": "hsla(0, 0%, 0%, 0)"
+    }
+    }, {
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "layout": {
+        "text-field": [
+            "match",
+            ["get", "city"],
+            [
+                "Broomfield",
+                "Littleton",
+                "Aurora",
+                "Boulder",
+                "Denver",
+                "Parker",
+                "Lakewood",
+                "Golden",
+                "Brighton"
+            ],
+            ["to-string", ["get", "city"]],
+            ""
+        ],
+        "text-offset": [1, 1],
+        "text-pitch-alignment": "viewport",
+        "text-padding": 111,
+        "symbol-avoid-edges": true,
+        "text-justify": "auto"
+      },
+      "paint": {
+          "text-color": "hsl(227, 100%, 100%)",
+          "text-halo-color": "hsla(196, 0%, 31%, 0.57)",
+          "text-halo-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              13.19,
+              0,
+              22,
+              3
+          ],
+          "text-halo-blur": 1,
+          "text-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              12,
+              1,
+              13,
+              0,
+              22,
+              0
+          ]
+      }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
@@ -3027,14 +3175,14 @@ export const tileStyles = {
           ["zoom"],
           12.5,
           "hsl(0, 0%, 75%)",
-          15,
+          14,
           "hsl(0, 0%, 0%)",
           17,
           "hsl(0, 0%, 0%)",
           22,
           "hsl(0, 0%, 0%)"
       ],
-      "line-dasharray": [1, 1],
+      "line-dasharray": [2, 1],
       "line-width": [
           "interpolate",
           ["linear"],
@@ -3047,24 +3195,109 @@ export const tileStyles = {
           6
       ]
     }
-  }], 
-  [MUNICIPALITIES_POINTS]: [{
+  }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
-      "text-field": ["to-string", ["get", "city"]],
+      "text-field": [
+          "step",
+          ["zoom"],
+          [
+              "match",
+              ["get", "city"],
+              [
+                  "Broomfield",
+                  "Littleton",
+                  "Aurora",
+                  "Boulder",
+                  "Denver",
+                  "Parker",
+                  "Lakewood",
+                  "Golden",
+                  "Brighton"
+              ],
+              ["to-string", ["get", "city"]],
+              ["to-string", ["get", "city"]]
+          ],
+          13,
+          ["to-string", ["get", "city"]],
+          22,
+          [
+              "match",
+              ["get", "city"],
+              [
+                  "Broomfield",
+                  "Littleton",
+                  "Aurora",
+                  "Boulder",
+                  "Denver",
+                  "Parker",
+                  "Lakewood",
+                  "Golden",
+                  "Brighton"
+              ],
+              ["to-string", ["get", "city"]],
+              ["to-string", ["get", "city"]]
+          ]
+      ],
       "symbol-placement": "line",
-      "text-justify": "auto",
       "text-offset": [1, 1],
-      "text-pitch-alignment": "viewport"
+      "text-pitch-alignment": "viewport",
+      "symbol-spacing": 500,
+      "symbol-avoid-edges": true,
+      "text-font": ["Open Sans SemiBold", "Arial Unicode MS Regular"]
     },
     "paint": {
-        "text-color": "hsl(227, 100%, 100%)",
-        "text-halo-color": "hsla(196, 0%, 31%, 0.57)",
-        "text-halo-width": 3,
-        "text-halo-blur": 1
+        "text-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            "hsl(227, 100%, 100%)",
+            13.5,
+            "hsl(227, 95%, 100%)",
+            14,
+            "hsl(227, 100%, 0%)",
+            22,
+            "hsl(227, 100%, 0%)"
+        ],
+        "text-halo-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            "hsla(196, 0%, 31%, 0.57)",
+            22,
+            "hsla(196, 4%, 97%, 0.57)"
+        ],
+        "text-halo-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            13.15,
+            0,
+            22,
+            2
+        ],
+        "text-halo-blur": 1,
+        "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            12.5,
+            0,
+            14.08,
+            1,
+            22,
+            1
+        ]
     }
-  }],
+  }], 
+  [MUNICIPALITIES_POINTS]: [],
   [COUNTIES_FILTERS]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
