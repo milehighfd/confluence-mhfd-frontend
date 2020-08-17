@@ -1574,15 +1574,17 @@ const ROUTINE_MAINTENANCE_STYLES = {
     layout: {},
     "paint": {
       "fill-outline-color": "hsl(32, 94%, 38%)",
-      "fill-color": "hsla(278, 92%, 52%, 0.56)",
+      "fill-color": "hsla(278, 80%, 46%, 0.56)",
       "fill-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
           0,
           0,
+          12,
+          0.5,
           13.5,
-          0,
+          0.84,
           14,
           0.5,
           22,
@@ -1594,7 +1596,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": "hsl(38, 68%, 19%)",
+      "line-color": "hsl(38, 68%, 15%)",
       "line-width": [
           "interpolate",
           ["linear"],
@@ -1607,7 +1609,7 @@ const ROUTINE_MAINTENANCE_STYLES = {
           16
       ],
       "line-dasharray": [1, 1],
-      "line-translate": [1, 1],
+      "line-translate": [2, 2],
       "line-opacity": ["step", ["zoom"], 0, 14, 1, 22, 1]
     }
   },{
