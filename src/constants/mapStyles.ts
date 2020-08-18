@@ -2652,10 +2652,12 @@ export const tileStyles = {
           ["zoom"],
           0,
           0,
-          12,
-          0,
           12.5,
-          0.93,
+          0,
+          13,
+          0.25,
+          15,
+          1,
           22,
           1
       ],
@@ -2667,7 +2669,7 @@ export const tileStyles = {
           13,
           1,
           22,
-          4
+          6
       ],
       "line-color": "hsl(0, 0%, 0%)"
     }
@@ -2691,36 +2693,12 @@ export const tileStyles = {
           ["zoom"],
           0,
           0,
-          12,
-          0.19,
-          22,
-          1
-      ],
-      "line-offset": 1,
-      "line-width": 4
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    "layout": {"line-join": "round"},
-    "paint": {
-      "line-color": [
-          "step",
-          ["zoom"],
-          "hsla(24, 72%, 49%, 0)",
+          12.5,
+          0,
           13,
-          "hsla(24, 44%, 83%, 0.32)",
-          22,
-          "hsl(24, 30%, 85%)"
-      ],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          14,
-          0.1,
+          0.25,
+          15,
+          1,
           22,
           1
       ],
@@ -2739,13 +2717,51 @@ export const tileStyles = {
           ["zoom"],
           0,
           0,
-          14,
-          0.1,
+          12.5,
+          0,
+          13,
+          0.25,
+          15,
+          1,
           22,
           1
       ],
       "line-dasharray": [2, 2],
       "line-offset": 1
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {"line-join": "round"},
+    "paint": {
+      "line-color": "hsl(24, 72%, 49%)",
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12.5,
+          0,
+          13,
+          0.25,
+          15,
+          1,
+          22,
+          1
+      ],
+      "line-dasharray": [2, 2],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          14.28,
+          2,
+          22,
+          3
+      ]
     }
   }, {
     type: 'line',
