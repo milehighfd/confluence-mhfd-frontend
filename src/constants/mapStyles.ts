@@ -3355,45 +3355,45 @@ export const tileStyles = {
   [PROBLEMS_TRIGGER]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
-      "line-color": [
-          "step",
-          ["zoom"],
-          "hsla(0, 86%, 56%, 0)",
-          11,
-          "hsla(0, 86%, 56%, 0.15)",
-          11.5,
-          "hsla(0, 86%, 56%, 0.51)",
-          13,
-          "hsla(0, 86%, 56%, 0.29)",
-          22,
-          "hsla(0, 86%, 56%, 0.29)"
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          9,
-          12,
-          10,
-          22,
-          13,
-          3,
-          15,
-          4,
-          22,
-          22
-      ],
-      "line-gap-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          14,
-          1,
-          22,
-          0
-      ]
+        "line-color": [
+            "step",
+            ["zoom"],
+            "hsla(0, 86%, 56%, 0)",
+            9,
+            "hsla(0, 86%, 56%, 0.15)",
+            11.5,
+            "hsla(0, 86%, 56%, 0.51)",
+            13,
+            "hsla(0, 86%, 56%, 0.29)",
+            22,
+            "hsla(0, 86%, 56%, 0.29)"
+        ],
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            9,
+            3,
+            10,
+            12,
+            13,
+            3,
+            15,
+            4,
+            22,
+            22
+        ],
+        "line-gap-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            14,
+            1,
+            22,
+            0
+        ]
     }
   }, {
     type: 'fill',
