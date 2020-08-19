@@ -2763,40 +2763,6 @@ export const tileStyles = {
           3
       ]
     }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    "layout": {"line-join": "round"},
-    "paint": {
-      "line-color": "hsl(24, 72%, 49%)",
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0.4,
-          14,
-          0.43,
-          15,
-          1,
-          22,
-          1
-      ],
-      "line-dasharray": [2, 2],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          14.28,
-          2,
-          22,
-          3
-      ]
-    }
   }], 
   [STREAMS_FILTERS]: [{
     type: 'line',
