@@ -2278,30 +2278,6 @@ export const tileStyles = {
     "paint": {
       "line-color": [
           "match",
-          ["get", "fld_zone"],
-          ["A", "AE", "AO", "AH"],
-          "#17285e",
-          "hsla(0, 94%, 25%, 0)"
-      ],
-      "line-width": 3,
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          14,
-          1,
-          22,
-          1
-      ]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    "paint": {
-      "line-color": [
-          "match",
           ["get", "zone_subty"],
           ["FLOODWAY"],
           "#17285e",
@@ -2379,65 +2355,6 @@ export const tileStyles = {
       ],
       "fill-antialias": false
     }
-  }, {
-    type: 'symbol',
-    'source-layer': 'pluto15v1',
-    "layout": {
-      "icon-image": [
-          "match",
-          ["get", "zone_subty"],
-          ["FLOODWAY"],
-          ["to-string", ["get", "zone_subty"]],
-          ["to-string", ["get", "zone_subty"]]
-      ],
-      "text-field": [
-          "match",
-          ["get", "zone_subty"],
-          ["FLOODWAY"],
-          ["to-string", ["get", "zone_subty"]],
-          ["to-string", ["get", "fld_zone"]]
-      ],
-      "symbol-placement": "line",
-      "text-justify": "auto",
-      "text-rotation-alignment": "viewport",
-      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
-    },
-    "paint": {
-        "text-color": "hsl(189, 78%, 12%)",
-        "text-halo-color": "hsla(0, 3%, 97%, 0.72)",
-        "text-halo-width": 1
-    }
-  }, {
-    type: 'symbol',
-    'source-layer': 'pluto15v1',
-    "layout": {
-      "icon-image": [
-          "match",
-          ["get", "zone_subty"],
-          ["FLOODWAY"],
-          ["to-string", ["get", "zone_subty"]],
-          ["to-string", ["get", "zone_subty"]]
-      ],
-      "text-field": [
-          "concat",
-          ["to-string", ["get", "fld_zone"]],
-          ["get", "zone_subty"]
-      ],
-      "symbol-placement": "line",
-      "text-justify": "auto",
-      "text-rotation-alignment": "viewport",
-      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
-    },
-    "paint": {
-        "text-color": "hsl(189, 78%, 12%)",
-        "text-halo-color": "hsla(0, 3%, 97%, 0.72)",
-        "text-halo-width": 1
-    }
-  }, {
-    type: 'symbol',
-    'source-layer': 'pluto15v1',
-    "layout": {"symbol-placement": "line"},
-    "paint": {"text-color": "hsl(286, 81%, 86%)"}
   }], 
   [WATERSHED_FILTERS]: [{
     type: 'fill',
