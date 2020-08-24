@@ -877,7 +877,7 @@ export const COMPONENT_LAYERS_STYLE = {
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
       "line-color": "hsl(99, 88%, 10%)",
       "line-opacity": [
@@ -900,60 +900,60 @@ export const COMPONENT_LAYERS_STYLE = {
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
-      "line-color": "#85bb65",
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          12,
-          0,
-          13,
-          0,
-          15,
-          0.2,
-          22,
-          1
-      ],
-      "line-dasharray": [2, 4]
+        "line-color": "#85bb65",
+        "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            12,
+            0,
+            13,
+            0,
+            15,
+            0.2,
+            22,
+            1
+        ],
+        "line-dasharray": [2, 4]
     }
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    "layout": {"line-join": "round"},
     "paint": {
-      "line-color": "hsl(20, 91%, 72%)",
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          12,
-          0,
-          13,
-          0,
-          15,
-          1,
-          22,
-          1
-      ],
-      "line-dasharray": [2, 4],
-      "line-translate": [-1, -1],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          12,
-          1,
-          22,
-          3
-      ]
+        "line-color": "hsl(20, 91%, 72%)",
+        "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            12,
+            0,
+            13,
+            0,
+            15,
+            1,
+            22,
+            1
+        ],
+        "line-dasharray": [2, 4],
+        "line-translate": [-1, -1],
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            12,
+            1,
+            22,
+            3
+        ]
     }
   }],
   [LANDSCAPING_AREA]: [{
