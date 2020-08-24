@@ -2975,7 +2975,7 @@ export const tileStyles = {
           0
       ],
       "fill-outline-color": "hsla(0, 0%, 0%, 0)"
-    }
+      }
     }, {
       type: 'symbol',
       'source-layer': 'pluto15v1',
