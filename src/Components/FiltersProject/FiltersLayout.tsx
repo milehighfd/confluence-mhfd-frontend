@@ -267,7 +267,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
     <Row className="filt-00" style={{ marginTop: '10px' }}>
         <Col span={12}>
-            <h5>Project type <img src="/Icons/icon-19.svg" alt="" /></h5>
+            <h5>Project type </h5>
             <Checkbox.Group value={filterProjectOptions.projecttype.split(',')} onChange={(item) => {
                 apply(item, 'projecttype');
             }}>
