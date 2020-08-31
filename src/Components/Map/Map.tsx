@@ -1022,57 +1022,14 @@ const Map = ({ leftWidth,
                 <hr />
                 <div className="scroll-footer">
                     {layerObjects.filter((element: any)  => element.name === PROJECTS_MAP_STYLES.name ).length ? <>
-                        <p><span style={{ background: '#ffdd00', border: 'hidden' }} />Projects - Capital</p>
-                        <p><span style={{ background: '#29c499', border: 'hidden' }} />Projects - Maintenance</p>
-                        <p><span style={{ background: '#951eba', border: 'hidden' }} />Projects - Study</p>
+                        <p><span style={{ background: '#FF342F', border: 'hidden' }} />Projects</p>
                     </> : ''}
                     {layerStrings.includes(PROBLEMS_TRIGGER) ? <>
                     <p><span className="color-footer-problem" style={{ border: '1px dashed' }} />Problems</p>
                     </> : ''}
                     {layerObjects.filter((element: any)  => element.name === COMPONENT_LAYERS.name ).length ? <>
-                        <p><img src="/mapIcons/waterfall.svg" alt=""/> Grade Control Structure</p>
-                        <p><img src="/mapIcons/outfall.svg" alt=""/> Pipe Appurtenances</p>
-                        <p><img src="/mapIcons/star.svg" alt=""/> Special Item</p>
-                        <p><span style={{ background: '#ffc700', border: 'hidden' }} />Special Item</p>
-                        <p><span style={{ background: '#34b356', height: '3px', marginTop: '7px', border: 'hidden' }} />Channel Improvement</p>
-                        <p><span style={{ background: '#c6cecf', height: '3px', marginTop: '7px', border: 'hidden' }} />Removal Line</p>
-                        <p><span style={{ background: '#34b356', height: '3px', marginTop: '7px', border: 'hidden' }} />Storm Drain</p>
-                        <p><span style={{ background: '#1f67f2', border: 'hidden' }} />Detention Facility</p>
-                        <p><span style={{ background: '#956557', height: '3px', marginTop: '7px', border: 'hidden' }} />Maintenance Trail</p>
-                        <p><span style={{ background: '#f2d852', border: 'hidden' }} />Land Acquisition</p>
-                        <p><span style={{ background: '#38bb45', border: 'hidden' }} />Landscaping Area</p>
+                        <p><span style={{ background: '#3EE135', border: 'hidden' }} />Components</p>
                     </> : ''}
-                    {layerObjects.filter((element: any)  => element.name === MEP_PROJECTS.name ).length ? <>
-                        <p><span style={{ background: '#968862', height: '3px', marginTop: '7px', border: 'hidden' }} />Channel</p>
-                        <p><span style={{ background: '#60bde6', border: 'hidden' }} />Detention Basin</p>
-                        <p><img src="/mapIcons/construction.svg" alt=""/> MEP Project</p>
-                    </> : '' }
-                    {layerObjects.filter((element: any)  => element.name === ROUTINE_MAINTENANCE.name ).length ? <>
-                        <p><span style={{ background: '#d9ceba', border: 'hidden' }} />Routine Natural Area</p>
-                        <p><span style={{ background: '#4cfca4', border: 'hidden' }} />Routine Weed Control</p>
-                        <p><span style={{ background: '#434243', height: '3px', marginTop: '7px', border: 'hidden' }} />Debris</p>
-                    </> : '' }
-                    {layerStrings.includes(FLOODPLAINS_FEMA_FILTERS) ? <>
-                        <p><span style={{ background: '#f7b532', border: 'hidden' }} />National Flood Hazard Layer</p>
-                    </> : '' }
-                    {layerStrings.includes(FLOODPLAINS_NON_FEMA_FILTERS) ? <>
-                        <p><span style={{ background: 'red', border: 'hidden' }} />FEMA NFHL</p>
-                    </> : '' }
-                    {layerStrings.includes(WATERSHED_FILTERS) ? <>
-                        <p><span className="color-footer-watershed" style={{ border: '1px dashed' }} />Watershed</p>
-                    </> : '' }
-                    {/* {layerStrings.includes(STREAMS_FILTERS) ? <>
-                        <p><span style={{ background: '#66d4ff', height: '3px', marginTop: '7px', border: 'hidden' }} />Stream</p>
-                    </> : '' } */}
-                    {layerStrings.includes(SERVICE_AREA_FILTERS) ? <>
-                        <p><span className="color-footer-service-area" style={{ border: '1px dashed' }} />Service Area</p>
-                    </> : '' }
-                    {layerStrings.includes(MUNICIPALITIES_FILTERS) ? <>
-                        <p><span style={{ background: '#bc73ff', border: 'hidden' }} />Municipality</p>
-                    </> : '' }
-                    {layerStrings.includes(COUNTIES_FILTERS) ? <>
-                        <p><span style={{ background: '#7b2491', border: 'hidden' }} />County</p>
-                    </> : '' }
                     {/* {layerStrings.includes(MHFD_BOUNDARY_FILTERS) ? <>
                         <p><span className="color-footer-boundary" style={{ border: '1px dashed' }} />MHFD Boundary</p>
                     </> : '' } */}
