@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import ReactGA from 'react-ga';
+import { useHistory } from 'react-router-dom'
+
+import {initGA} from './index';
+
 
 import * as datasets from "./Config/datasets"
 import { SERVER } from "./Config/Server.config";
@@ -42,6 +47,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
   useEffect(() => {
     getCarouselImages();
   }, [getCarouselImages]);
+  useEffect(() => { initGA(); }, []);
   useEffect(() => {
     getGroupOrganization();
     SELECT_ALL_FILTERS.forEach((layer) => {
@@ -90,6 +96,13 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       });
     }
   }, []);
+  const history = useHistory()
+
+  useEffect(() => {
+      return history.listen((location) => {
+        ReactGA.pageview(location.pathname);
+      })
+  },[history]);
   return <Switch>
       <Route path={'/prueba'} component={Prueba} />
       <Route path={`/login`} component={LoginContainer} />

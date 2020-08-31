@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
+import ReactGA  from 'react-ga';
+
 import {ConnectedRouter} from 'connected-react-router';
 
 import './index.scss';
@@ -14,6 +16,9 @@ import App from './AppContainer';
 
 
 
+export const initGA = () => {       
+  ReactGA.initialize('UA-176723071-1'); 
+};
 
 ReactDOM.render(
   <Provider store={store}>
