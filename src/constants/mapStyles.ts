@@ -2866,17 +2866,131 @@ export const tileStyles = {
       "line-color": "hsl(0, 3%, 97%)",
       "line-dasharray": [2, 2]
     }
-  }],
-  [SERVICE_AREA_POINTS]: [{
+  }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
-      "text-field": ["to-string", ["get", "servicearea"]],
-      "text-justify": "auto",
-      "text-offset": [0, 0]
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "servicearea"]],
+          " ",
+          "Service Area"
+      ],
+      "text-size": 22,
+      "text-padding": 44,
+      "symbol-avoid-edges": true,
+      "text-rotation-alignment": "viewport"
     },
-    "paint": {"text-color": "hsl(180, 65%, 88%)"}
+    "paint": {
+        "text-color": "hsl(163, 2%, 96%)",
+        "text-halo-width": 120,
+        "text-halo-color": "hsla(250, 61%, 24%, 0.46)",
+        "text-halo-blur": 12,
+        "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            1,
+            12,
+            1,
+            13.5,
+            0,
+            22,
+            0
+        ]
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-size": 22,
+      "symbol-avoid-edges": true,
+      "symbol-spacing": 25,
+      "text-justify": "auto",
+      "text-padding": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          60,
+          11,
+          120,
+          12,
+          180,
+          22,
+          180
+      ],
+      "text-offset": [1, 1],
+      "text-rotation-alignment": "viewport",
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "servicearea"]],
+          " ",
+          "Service Area"
+      ]
+    },
+    "paint": {
+        "text-color": "hsl(163, 2%, 94%)",
+        "text-halo-width": 24,
+        "text-halo-color": "hsla(250, 61%, 24%, 0.52)",
+        "text-halo-blur": 24,
+        "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            1,
+            12,
+            1,
+            13.5,
+            0,
+            22,
+            0
+        ]
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-size": 18,
+      "symbol-avoid-edges": true,
+      "symbol-spacing": 555,
+      "text-font": ["Open Sans Regular", "Arial Unicode MS Regular"],
+      "symbol-placement": "line",
+      "text-justify": "auto",
+      "text-padding": 0,
+      "text-offset": [2, 2],
+      "text-rotation-alignment": "map",
+      "text-pitch-alignment": "viewport",
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "servicearea"]],
+          " ",
+          "Service Area"
+      ],
+      "text-max-width": 36
+    },
+    "paint": {
+        "text-color": "hsl(163, 0%, 99%)",
+        "text-halo-width": 12,
+        "text-halo-color": "hsla(250, 61%, 24%, 0.35)",
+        "text-halo-blur": 24,
+        "text-translate": [0, 0],
+        "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            12,
+            0,
+            13.5,
+            1,
+            22,
+            1
+        ]
+    }
   }],
+  [SERVICE_AREA_POINTS]: [],
   [MUNICIPALITIES_FILTERS]: [{
     type: 'fill',
     'source-layer': 'pluto15v1',
