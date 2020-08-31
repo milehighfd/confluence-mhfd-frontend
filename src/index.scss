@@ -1555,17 +1555,23 @@ body{
   }
   .btn-card, .btn-card:hover, .btn-card:focus, .btn-card:active, .btn-card.active{
     border: none;
-    background: none;
+    background: rgba(0, 0, 0, 0.5);
     box-shadow: none;
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 5px;
+    top: 5px;
     color: white;
     font-size: 20px;
     height: 20px;
     line-height: 10px;
     opacity: 0.8;
     z-index: 9;
+    width: 20px;
+    padding: 0px 0px;
+  }
+  .btn-card label{
+    position: relative;
+    top: -5px;
   }
 }
 .count{
@@ -3278,14 +3284,14 @@ body{
 .detailed-b{
   .ant-carousel .slick-slide {
     text-align: center;
-    height: 280px;
+    height: 450px;
     overflow: hidden;
   }
   .ant-carousel .slick-slide h3 {
     color: #fff;
   }
   .ant-carousel{
-    height: 280px;
+    height: 450px;
   }
   .chat-r{
     padding: 20px 25px;

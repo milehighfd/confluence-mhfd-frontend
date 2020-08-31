@@ -19,7 +19,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
   const [visible, setVisible] = useState(false);
   const changeCenter = () => {
-    
+
     setZoomProjectOrProblem(data.coordinates);
   }
   const stopModal = (e: any) => {
@@ -31,7 +31,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
       <Menu.Item className="drop-head" style={{cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)'}}  onClick={(e: any) => stopModal(e)}>
         LIST ACTIONS
       </Menu.Item>
-      
+
       <Menu.Item onClick={(e: any) => {
          e.domEvent.stopPropagation();
          e.domEvent.nativeEvent.stopImmediatePropagation();
@@ -82,7 +82,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           }
         >
           <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click">
-            <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}>...</Button>
+            <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}><label>...</label></Button>
           </Popover>
           <div style={{ height: 40 }}>
             <h4>{data.requestName}</h4>
