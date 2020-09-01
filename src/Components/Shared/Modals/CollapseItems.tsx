@@ -8,6 +8,7 @@ import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS } from '../../../const
 import { tileStyles } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
+import { CloseOutlined } from '@ant-design/icons';
 // import DetailedModal from '../Modals/DetailedModal';
 
 
@@ -452,7 +453,20 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
           <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div></div>
           </div>
-          <div className="test-style"> Zoom: {zoomValue}</div>
+          {/* <div className="test-style"> Zoom: {zoomValue}</div> */}
+              
+          <div className="m-footer icon-legend">
+            <Collapse accordion defaultActiveKey={['1']} expandIconPosition="right">
+              <Panel header="Legend" key="1">
+              <hr />
+              <div className="scroll-footer">
+                  <p><span style={{ background: '#ffdd00', border: 'hidden' }} />Projects</p>
+                  <p><span className="color-footer-problem" style={{ border: '1px solid', borderColor: '#FF342F' }} />Problems</p>
+                  <p><span style={{ background: '#3EE135', border: 'hidden' }} />Components</p>
+              </div>
+              </Panel>
+            </Collapse>
+          </div>
         </div>
       </Panel>
 

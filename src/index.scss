@@ -76,7 +76,7 @@ body{
   overflow-x: hidden;
 }
 .color-footer-problem {
-  border-color: #f2552e !important
+  border-color: #FF342F !important
 }
 .ant-spin-blur::after {
   opacity: 0 !important;
@@ -4442,4 +4442,8 @@ body{
     top: 50% !important;
     left: -12.5% !important;
   }
+}
+
+.icon-legend .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+  display: block;
 }
