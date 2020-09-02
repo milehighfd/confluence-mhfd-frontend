@@ -109,22 +109,31 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
           <Row className="detailed-b">
             <Col span={17} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }}>
               <Carousel autoplay>
-                <div>
+                {/* <div> */}
+                {console.log(detailedPage)}
                   {detailedPage.problemid ? (
                     <div className="detailed-c"> <img width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
                   ) : (
-                      <div className="detailed-c"> <img width="100%" src={detailedPage.attachments ? detailedPage.attachments : (
-                        detailedPage.projecttype === 'Capital' ? 'projectImages/capital.png' :
-                          detailedPage.projecttype === 'Study' ? 'projectImages/study.png' :
-                            detailedPage.projecttype === 'Maintenance' ?
-                              (detailedPage.projectsubtype === 'Vegetation Mangement' ? 'projectImages/maintenance_vegetationmanagement.png' :
-                                detailedPage.projectsubtype === 'Sediment Removal' ? 'projectImages/maintenance_sedimentremoval.png' :
-                                  detailedPage.projectsubtype === 'Restoration' ? 'projectImages/maintenance_restoration.png' :
-                                    detailedPage.projectsubtype === 'Minor Repairs' ? 'projectImages/maintenance_minorrepairs.png' :
-                                      'projectImages/maintenance_debrismanagement.png') : 'Icons/eje.png'
-                      )} /> </div>
+                      detailedPage.attachments.length == 0 ? (
+                        <div className="detailed-c"> <img width="100%" src={detailedPage.projecttype === 'Capital' ? 'projectImages/capital.png' :
+                            detailedPage.projecttype === 'Study' ? 'projectImages/study.png' :
+                              detailedPage.projecttype === 'Maintenance' ?
+                                (detailedPage.projectsubtype === 'Vegetation Mangement' ? 'projectImages/maintenance_vegetationmanagement.png' :
+                                  detailedPage.projectsubtype === 'Sediment Removal' ? 'projectImages/maintenance_sedimentremoval.png' :
+                                    detailedPage.projectsubtype === 'Restoration' ? 'projectImages/maintenance_restoration.png' :
+                                      detailedPage.projectsubtype === 'Minor Repairs' ? 'projectImages/maintenance_minorrepairs.png' :
+                                        'projectImages/maintenance_debrismanagement.png') : 'Icons/eje.png'
+                        } /> </div>
+                      ) : (
+                        detailedPage.attachments.map((image: string, index: number) => {
+                          return <div key={index} className="detailed-c">
+                            <img width="100%" height="100%" src={image} alt="" />
+                          </div>
+                        })
+                      )
+                      
                     )}
-                </div>
+                {/* </div> */}
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
               {detailedPage.problemid ? (
