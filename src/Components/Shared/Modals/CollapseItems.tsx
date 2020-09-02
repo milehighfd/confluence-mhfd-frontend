@@ -461,7 +461,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
               <hr />
               <div className="scroll-footer">
                   <p><span style={{ background: '#ffdd00', border: 'hidden' }} />Projects</p>
-                  <p><span className="color-footer-problem" style={{ border: '1px solid', borderColor: '#FF342F' }} />Problems</p>
+                  <p><span className="color-footer-problem" style={{ background: '#FF342F', border: 'hidden'   }} />Problems</p>
                   <p><span style={{ background: '#3EE135', border: 'hidden' }} />Components</p>
               </div>
               </Panel>

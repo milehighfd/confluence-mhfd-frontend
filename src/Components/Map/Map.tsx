@@ -1025,7 +1025,7 @@ const Map = ({ leftWidth,
                         <p><span style={{ background: '#ffdd00', border: 'hidden' }} />Projects</p>
                     </> : ''}
                     {layerStrings.includes(PROBLEMS_TRIGGER) ? <>
-                    <p><span className="color-footer-problem" style={{ border: '1px solid', borderColor: '#FF342F' }} />Problems</p>
+                    <p><span className="color-footer-problem" style={{ background: '#FF342F', border: 'hidden'   }} />Problems</p>
                     </> : ''}
                     {layerObjects.filter((element: any)  => element.name === COMPONENT_LAYERS.name ).length ? <>
                         <p><span style={{ background: '#3EE135', border: 'hidden' }} />Components</p>
