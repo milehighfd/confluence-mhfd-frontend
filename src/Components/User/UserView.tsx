@@ -74,6 +74,11 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
     });
 
   }
+  const deleteUserDatabase = (id: String) => {
+    datasets.deleteData(SERVER.DELETE_USER + '/' + id, datasets.getToken()).then(res => {
+      getAllUser();
+    })
+  }
   const resetActivated = () => {
     const resetOptions = {...PAGE_USER};
     setOptionUserActivated(resetOptions);
@@ -122,7 +127,8 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                         return (
                           <div key={user._id} style={{ marginBottom: 10 }}>
                             <Accordeon user={user} pos={(((optionUserActivated.page - 1) * 10) + aprPos)}
-                              saveUser={getAllUser} deleteUser={deleteUserActivated} type="/deleted" />
+                              saveUser={getAllUser} deleteUser={deleteUserActivated} type="/deleted"
+                              deleteUserDatabase={deleteUserDatabase} />
                           </div>
                         );
                       })}
@@ -145,7 +151,8 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                         return (
                           <div key={user._id} style={{ marginBottom: 10 }}>
                             <Accordeon user={user} pos={((optionUserPending.page - 1) * 10) + pndPos} 
-                              saveUser={getAllUser} deleteUser={deleteUserActivated} type="/approved" />
+                              saveUser={getAllUser} deleteUser={deleteUserActivated} type="/approved"
+                              deleteUserDatabase={deleteUserDatabase} />
                           </div>
                         );
                       })}
@@ -167,7 +174,8 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                         return (
                           <div key={user._id} style={{ marginBottom: 10 }}>
                             <Accordeon user={user} pos={((optionUserDeleted.page - 1) * 10) + delPos} 
-                              saveUser={getAllUser} deleteUser={deleteUserActivated} type="/approved" />
+                              saveUser={getAllUser} deleteUser={deleteUserActivated} type="/approved"
+                              deleteUserDatabase={deleteUserDatabase} />
                           </div>
                         );
                       })}

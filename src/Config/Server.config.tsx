@@ -65,6 +65,7 @@ export const SERVER = (function () {
     const BY_COMPONENTS = 'by-components';
     const DETAILED_PAGE = 'detailed-page';
     const GROUP_ORGANIZATION = 'group-organization';
+    const DELETE_USER = 'delete-user';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -120,5 +121,6 @@ export const SERVER = (function () {
         FILTER_BY_COMPONENTS: `${URL_BASE.BASE}/${FILTERS}/${V2}/${BY_COMPONENTS}`,
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
         GROUP_ORGANIZATION: `${URL_BASE.BASE}/${GALLERY}/${GROUP_ORGANIZATION}`,
+        DELETE_USER: `${URL_BASE.BASE}/${ADMIN}/${DELETE_USER}`,
     }
 })();

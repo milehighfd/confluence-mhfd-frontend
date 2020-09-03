@@ -11,7 +11,7 @@ import MenuAreaView from './MenuAreaView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
 
-export default ({ user, pos, saveUser, deleteUser, type }: { user: User, pos: number, saveUser: Function, deleteUser: Function, type: string }) => {
+export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: { user: User, pos: number, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
 
@@ -57,6 +57,7 @@ export default ({ user, pos, saveUser, deleteUser, type }: { user: User, pos: nu
       </Menu>
   };
   const [modal, setModal] = useState(visible);
+  const [modalDelete, setModalDelete] = useState(visible);
   const [, setSwitchTo] = useState<boolean>(user.activated);
   const [designation, setDesignation] = useState<string>(user.designation);
   const [, setTitle] = useState<string>('');
@@ -140,6 +141,7 @@ export default ({ user, pos, saveUser, deleteUser, type }: { user: User, pos: nu
     });
   }
   const message = 'Are you sure you want to update the user ' + values.firstName + ' ' + values.lastName + '?';
+  const messageDelete = 'Are you sure you want to delete the user' + values.firstName + ' ' + values.lastName + '?';
   const handleSwitchButton = (checked: boolean) => {
     setSwitchTo(checked);
     setTitle(user._id);
@@ -277,13 +279,18 @@ export default ({ user, pos, saveUser, deleteUser, type }: { user: User, pos: nu
             <br />
             <span style={{ color: messageError.color }}>&nbsp;&nbsp; {messageError.message}</span>
             <div className="user-footer">
-              {values.status === 'approved' ? <Button className="btn-d" onClick={() => deleteUser(user._id + "/deleted")}>Delete</Button> : <Button className="btn-d"></Button>}
+              {values.status === 'approved' ? <Button className="btn-d" onClick={() => deleteUser(user._id + "/deleted")}>Delete</Button> : 
+               values.status === 'deleted' ? <Button className="btn-d" onClick={() => {
+                 console.log('USER',user._id);
+                 deleteUserDatabase(user._id);
+               } }>Delete</Button> : <Button className="btn-d"></Button> }
               <Button style={{ color: '#28C499' }} className="btn-s colorButton" block htmlType="submit">Save</Button>
             </div>
           </Form>
         </Panel>
       </Collapse>
       <Alert save={result} visible={modal} setVisible={setModal} message={message} />
+      {/* <Alert save={deleteUserDatabase(user._id)} visible={modalDelete} setVisible={setModalDelete} message={messageDelete} /> */}
     </>
   )
 }
