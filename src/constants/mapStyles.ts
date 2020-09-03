@@ -2878,7 +2878,6 @@ export const tileStyles = {
       ],
       "text-size": 22,
       "text-padding": 44,
-      "symbol-avoid-edges": true,
       "text-rotation-alignment": "viewport"
     },
     "paint": {
