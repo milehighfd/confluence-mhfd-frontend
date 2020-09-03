@@ -102,6 +102,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword? filterProblemOptions.keyword: '');
   const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword? filterProjectOptions.keyword: '');
   const [visible, setVisible] = useState(useLocation().search ? true: false);
+  const [counterComponents, setCounterComponents] = useState(0);
   const location = useLocation().search;
   const [data, setData] = useState({
     problemid: '',
@@ -115,6 +116,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const purple = '#11093c';
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
+  
   useEffect(() => {
     if(location.includes('problemid=')) {
       const id = location.replace('?problemid=', '');
@@ -147,6 +149,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       setCurrentFilters(filters);
     }
   }, [filters]);
+
+  useEffect(() => {
+    let counter = galleryProblems.reduce((prev: any, next: any) => prev + next.totalComponents, 0);
+    counter += galleryProjects.reduce((prev: any, next: any) => prev + next.totalComponents, 0);
+    setCounterComponents(counter);
+  })
 
   const handleOnSubmit = (filtersData : FilterTypes) => {
     getProjectWithFilters(filtersData);
@@ -506,6 +514,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <FiltersProjectView
             tabPosition={tabPosition}
             setTabPosition={setTabPosition}
+            componentsTotal={counterComponents}
             filterNames={filterNames}
             setToggleFilters={setToggleFilters}
             handleOnSubmit={handleOnSubmit}

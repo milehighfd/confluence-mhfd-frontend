@@ -366,7 +366,8 @@ export type FiltersProjectTypes = {
     getGalleryProjects: Function,
     filterComponentOptions: OptionComponents,
     setFilterComponentOptions: Function,
-    setTabActive: Function
+    setTabActive: Function,
+    componentsTotal: number
 };
 
 export type FilterNamesTypes = {

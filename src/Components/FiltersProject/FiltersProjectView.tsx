@@ -12,9 +12,9 @@ const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENT
 const { TabPane } = Tabs;
 
 const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, filterComponentOptions,
-  setFilterComponentOptions, getGalleryProjects, getGalleryProblems, totalElements, type } 
+  setFilterComponentOptions, getGalleryProjects, getGalleryProblems, totalElements, type, totalComponents } 
   : { filterProblemOptions: any, filterProjectOptions: any, setFilterProblemOptions: Function, setFilterProjectOptions: Function, filterComponentOptions: any,
-    setFilterComponentOptions: Function, getGalleryProjects: Function, getGalleryProblems: Function, totalElements: number, type: string}) => {
+    setFilterComponentOptions: Function, getGalleryProjects: Function, getGalleryProblems: Function, totalElements: number, type: string, totalComponents: number}) => {
     const params = store.getState().map.paramFilters;
     
     const deleteFilter = (tag: string, value: string) => {
@@ -115,7 +115,7 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
     }
   return (
       <div className="hastag">
-          {type !== 'Components' ? <h6> Showing {totalElements} {type}:</h6>: <h6> Showing  {type}:</h6>}
+          {type !== 'Components' ? <h6> Showing {totalElements} {type}:</h6>: <h6> Showing {totalComponents} {type}:</h6>}
           <div style={{ marginBottom: totalElements ? 0 : 5 }}>
                 {type === FILTER_PROBLEMS_TRIGGER ? tagProblems.map((tag: { key: string, values: Array<string> }, index: number) => {
                     return <>
@@ -187,7 +187,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters,
                 dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
                 setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
-                getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions } : FiltersProjectTypes) => {
+                getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal } : FiltersProjectTypes) => {
 
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
@@ -232,6 +232,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
           <TabPane tab={value} key={'' + index} style={{height: window.innerHeight - 280,overflow: 'auto'}}>
             <FiltersHeader 
               totalElements={value === FILTER_PROJECTS_TRIGGER ? projectsLength : problemsLength}
+              totalComponents={componentsTotal}
               type={value}
               filterProblemOptions={filterProblemOptions}
               filterProjectOptions={filterProjectOptions}
