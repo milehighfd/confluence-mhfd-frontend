@@ -480,11 +480,10 @@ const Map = ({ leftWidth,
                 }
             }
             if (componentDetailIds && componentDetailIds[key]) {
-                allFilters.push(['in', 'cartodb_id', ['literal', [...componentDetailIds[key]]]]);
+                allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
 
             if (map.getLayer(key + '_' + index)) {
-                console.log(key , allFilters);
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
