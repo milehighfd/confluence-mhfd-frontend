@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Checkbox, Select, Button, Popover } from 'antd';
-import { elementCost } from '../../utils/utils';
+import { elementCost, elementCostLastPosition } from '../../utils/utils';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
@@ -64,9 +64,9 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 <Checkbox.Group value={filterProblemOptions.cost} onChange={(items) => {
                     apply(items, 'cost');
                 }}>
-                    {paramProblems.cost.map((element: {min: number, max: number, label: string, counter: number}, index: number) => {
+                    {paramProblems.cost.map((element: {min: number, max: number, label: string, counter: number, last: boolean}, index: number) => {
                         return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
-                                {elementCost(element.min, element.max)}</Checkbox>
+                                {elementCostLastPosition(element.min, element.max, element.last)}</Checkbox>
                                 <span className="filt-s">{element.counter}</span>
                             </p>
                     })}
@@ -287,9 +287,9 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={filterProjectOptions.totalcost} onChange={(item) => {
                 apply(item, 'totalcost');
             }}>
-                {paramProjects.estimatedCost.map((element: {min: number, max: number, label: string, counter: number}, index: number) => {
+                {paramProjects.estimatedCost.map((element: {min: number, max: number, label: string, counter: number, last: boolean}, index: number) => {
                     return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
-                        {elementCost(element.min, element.max)}</Checkbox>
+                        {elementCostLastPosition(element.min, element.max, element.last)}</Checkbox>
                         <span className="filt-s">{element.counter}</span>
                     </p>
                 })}
@@ -341,9 +341,9 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             <Checkbox.Group value={filterProjectOptions.mhfddollarsallocated} onChange={(item) => {
                 apply(item, 'mhfddollarsallocated');
             }}>
-                {paramProjects.mhfddollarsallocated.map((element: {min: number, max: number, label: string, counter: number}, index: number) => {
+                {paramProjects.mhfddollarsallocated.map((element: {min: number, max: number, label: string, counter: number, last: boolean}, index: number) => {
                     return <p key={index}><Checkbox value={'' + element.min + ',' + element.max}>
-                        {elementCost(element.min, element.max)}</Checkbox>
+                        {elementCostLastPosition(element.min, element.max, element.last)}</Checkbox>
                         <span className="filt-s">{element.counter}</span>
                     </p>
                 })}
