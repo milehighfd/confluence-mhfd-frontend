@@ -181,7 +181,9 @@ export type MapViewTypes = {
     setApplyFilter: Function
     componentCounter: number,
     getComponentCounter: Function,
-    setZoomProjectOrProblem: Function
+    setZoomProjectOrProblem: Function,
+    selectedLayers: Array<LayersType>,
+    updateSelectedLayers: Function,
 }
 export type OptionProblems = {
     keyword: string,
@@ -367,7 +369,9 @@ export type FiltersProjectTypes = {
     filterComponentOptions: OptionComponents,
     setFilterComponentOptions: Function,
     setTabActive: Function,
-    componentsTotal: number
+    componentsTotal: number,
+    selectedLayers: Array<LayersType>,
+    updateSelectedLayers: Function
 };
 
 export type FilterNamesTypes = {

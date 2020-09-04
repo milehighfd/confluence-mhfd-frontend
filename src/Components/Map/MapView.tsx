@@ -42,7 +42,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
                   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
                   groupOrganization, applyFilter,
-                  setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem  } : MapViewTypes) => {
+                  setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem, selectedLayers, updateSelectedLayers  } : MapViewTypes) => {
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -536,7 +536,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             getGalleryProjects={getGalleryProjects}
             setFilterComponentOptions={setFilterComponentOptions}
             filterComponentOptions={filterComponentOptions}
-            setTabActive={setTabActive}/>
+            setTabActive={setTabActive}
+            selectedLayers={selectedLayers}
+            updateSelectedLayers={updateSelectedLayers}
+            />
       }
     </div>
   </>

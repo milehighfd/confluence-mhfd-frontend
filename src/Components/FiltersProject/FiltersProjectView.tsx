@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Tabs, Tag } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, COMPONENT_LAYERS } from '../../constants/constants';
 import { FiltersProjectTypes } from "../../Classes/MapTypes";
 import store from "../../store";
 import { elementCost } from "../../utils/utils";
@@ -187,7 +187,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters,
                 dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
                 setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
-                getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal } : FiltersProjectTypes) => {
+                getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal, selectedLayers, updateSelectedLayers } : FiltersProjectTypes) => {
 
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
@@ -224,6 +224,12 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 setTabActive('1');
             } else {
                 setTabActive('2');
+                const copySelectedLayers = [...selectedLayers];
+                if (!copySelectedLayers.includes(COMPONENT_LAYERS)) {
+                    copySelectedLayers.push(COMPONENT_LAYERS);
+                    updateSelectedLayers(copySelectedLayers);
+                }
+                
             }
           }
         }} >

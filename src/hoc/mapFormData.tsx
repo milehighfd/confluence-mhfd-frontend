@@ -273,6 +273,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             componentCounter={componentCounter}
                             getComponentCounter={getComponentCounter}
                             setZoomProjectOrProblem={setZoomProjectOrProblem}
+                            selectedLayers={selectedLayers}
+                            updateSelectedLayers={updateSelectedLayers}
                       />
                     </Col>
                   </Spin>
