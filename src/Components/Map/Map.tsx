@@ -177,6 +177,9 @@ const Map = ({ leftWidth,
             for (const component of COMPONENT_LAYERS.tiles) {
                 applyFilters(component, filterComponents);
             }
+            applyFilters('projects_line_1', filterProjects);
+            applyFilters('projects_polygon_', filterProjects);
+            applyFilters('problems', filterProblems);
         }
     }, [filterComponents, componentDetailIds]);
 
