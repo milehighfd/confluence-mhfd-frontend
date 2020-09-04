@@ -440,6 +440,12 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_COMPONENT_OPTIONS, filters});
         dispatch({type: types.SET_FILTER_COMPONENTS, filters: auxFilter});
+        if(!auxFilter.component_type) {
+            auxFilter.component_type = "grade_control_structure,pipe_appurtenances,special_item_point," +
+                                        "special_item_linear,special_item_area,channel_improvements_linear,"+
+                                        "channel_improvements_area,removal_line,removal_area,storm_drain,"+
+                                        "detention_facilities,maintenance_trails,land_acquisition,landscaping_area"
+        }
         datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
             if(filtersComponents?.problems || filtersComponents?.projects_line_1 || filtersComponents?.projects_polygon_) {
               dispatch({type: types.FILTER_BY_COMPONENTS, filtersComponents});  
