@@ -18,7 +18,7 @@ export const MAP_DROPDOWN_ITEMS = [
         style: 'mapbox://styles/milehighfd/ck4k0tjln58h41cl4ixb8jsez'
     }, {
       type: 'Optional style',
-      style: `mapbox://styles/milehighfd/ckeuaazrw9tpm19mgqbo6vutp`,
+      style: `${SERVER.URL_BASE}/style/ckeuaazrw9tpm19mgqbo6vutp/milehighfd/${MAPBOX_TOKEN}`,
     }, {
         type: 'Dark Road',
         style: 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft'
