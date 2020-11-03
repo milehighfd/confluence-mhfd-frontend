@@ -254,9 +254,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     }
     const reset = () => {
         const options = {...filterProjectOptions};
-        options.projecttype = '';
-        options.totalcost = [];
-        options.status = '';
+        options.projecttype = 'Maintenance,Capital';
+        options.status = 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual';
         options.mhfddollarsallocated = [];
         options.workplanyear = '';
         options.startyear =  '';
