@@ -55,17 +55,17 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
                 style={{ width: '100%' }}
                 className="card-information"
                 cover={
-                    data.problemtype ? <img alt="example" src={`gallery/${data.problemtype}.jpg`} /> :
+                    data.problemtype ? <img alt="example" height="100%" src={`gallery/${data.problemtype}.jpg`} /> :
 
                         data.attachments ? <img alt="example" src={data.attachments} /> : (
-                            data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.png" /> :
-                                data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.png" /> :
+                            data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.jpg" /> :
+                                data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.jpg" /> :
                                     data.projecttype === 'Maintenance' ?
-                                        (data.projectsubtype === 'Vegetation Mangement' ? <img alt="example" src="projectImages/maintenance_vegetationmanagement.png" /> :
-                                            data.projectsubtype === 'Sediment Removal' ? <img alt="example" src="projectImages/maintenance_sedimentremoval.png" /> :
-                                                data.projectsubtype === 'Restoration' ? <img alt="example" src="projectImages/maintenance_restoration.png" /> :
-                                                    data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/maintenance_minorrepairs.png" /> :
-                                                        <img alt="example" src="projectImages/maintenance_debrismanagement.png" />) : <img alt="example" src="Icons/eje.png" />
+                                        (data.projectsubtype === 'Vegetation Mangement' ? <img alt="example" src="projectImages/vegetation_management.jpg" /> :
+                                            data.projectsubtype === 'Sediment Removal' ? <img alt="example" src="projectImages/sediment_removal.jpg" /> :
+                                                data.projectsubtype === 'Restoration' ? <img alt="example" src="projectImages/restoration.jpg" /> :
+                                                    data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/minor_repairs.jpg" /> :
+                                                        <img alt="example" src="projectImages/debris_management.jpg" />) : <img alt="example" src="Icons/eje.png" />
                         )
 
                 }

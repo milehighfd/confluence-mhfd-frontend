@@ -115,14 +115,14 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                     <div className="detailed-c"> <img width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
                   ) : (
                       detailedPage.attachments.length == 0 ? (
-                        <div className="detailed-c"> <img width="100%" src={detailedPage.projecttype === 'Capital' ? 'projectImages/capital.png' :
-                            detailedPage.projecttype === 'Study' ? 'projectImages/study.png' :
+                        <div className="detailed-c"> <img width="100%" src={detailedPage.projecttype === 'Capital' ? 'projectImages/capital.jpg' :
+                            detailedPage.projecttype === 'Study' ? 'projectImages/study.jpg' :
                               detailedPage.projecttype === 'Maintenance' ?
-                                (detailedPage.projectsubtype === 'Vegetation Mangement' ? 'projectImages/maintenance_vegetationmanagement.png' :
-                                  detailedPage.projectsubtype === 'Sediment Removal' ? 'projectImages/maintenance_sedimentremoval.png' :
-                                    detailedPage.projectsubtype === 'Restoration' ? 'projectImages/maintenance_restoration.png' :
-                                      detailedPage.projectsubtype === 'Minor Repairs' ? 'projectImages/maintenance_minorrepairs.png' :
-                                        'projectImages/maintenance_debrismanagement.png') : 'Icons/eje.png'
+                                (detailedPage.projectsubtype === 'Vegetation Mangement' ? 'projectImages/vegetation_management.jpg' :
+                                  detailedPage.projectsubtype === 'Sediment Removal' ? 'projectImages/sediment_removal.jpg' :
+                                    detailedPage.projectsubtype === 'Restoration' ? 'projectImages/restoration.jpg' :
+                                      detailedPage.projectsubtype === 'Minor Repairs' ? 'projectImages/minor_repairs.jpg' :
+                                        'projectImages/debris_management.jpg') : 'Icons/eje.png'
                         } /> </div>
                       ) : (
                         detailedPage.attachments.map((image: string, index: number) => {

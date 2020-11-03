@@ -3,8 +3,8 @@ import { Dropdown, Button, Input, Menu } from 'antd';
 import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, RADIO_ITEMS } from "../../constants/constants";
 import { OptionsFiltersUser } from '../../Classes/TypeList';
 
-const SORT = ['Name', 'Organization', 'Service Area', 'Designation'];
-const SORT_ITEMS = [{ name: 'Name', value: 'name' }, { name: 'Organization', value: 'organization' }, { name: 'Service Area', value: 'serviceArea' }, { name: 'Designation', value: 'designation' }];
+const SORT = ['Name', 'Organization', 'Service Area', 'Designation', 'Date Registered'];
+const SORT_ITEMS = [{ name: 'Name', value: 'name' }, { name: 'Organization', value: 'organization' }, { name: 'Service Area', value: 'serviceArea' }, { name: 'Designation', value: 'designation' }, { name: 'Date Registered', value: 'createdAt' }];
 const ROLES = ['MHFD Admin', 'MHFD Staff', 'Local Government Admin', 'Local Government', 'Consultant / Contractor', 'Other'];
 export default ({ option, setOption, search, reset, title }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function, title: string }) => {
   const { Search } = Input;

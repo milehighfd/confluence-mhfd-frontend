@@ -449,14 +449,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 return {
                   cartodb_id: project.cartodb_id,
                   image: project.attachments ? project.attachments : (
-                    project.projecttype === 'Capital' ? '/projectImages/capital.png' :
-                    project.projecttype === 'Study' ? '/projectImages/study.png' :
+                    project.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
+                    project.projecttype === 'Study' ? '/projectImages/study.jpg' :
                     project.projecttype === 'Maintenance' ?
-                      (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/maintenance_vegetationmanagement.png' :
-                      project.projectsubtype === 'Sediment Removal' ? '/projectImages/maintenance_sedimentremoval.png' :
-                      project.projectsubtype === 'Restoration' ? '/projectImages/maintenance_restoration.png' :
-                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/maintenance_minorrepairs.png' :
-                      '/projectImages/maintenance_debrismanagement.png'): '/Icons/eje.png'
+                      (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
+                      project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
+                      project.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
+                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
+                      '/projectImages/debris_management.png'): '/Icons/eje.png'
                   ),
                   requestName:  project.projectname? project.projectname : project.requestedname,
                   sponsor: project.sponsor,
