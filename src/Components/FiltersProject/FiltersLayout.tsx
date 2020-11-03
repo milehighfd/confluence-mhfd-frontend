@@ -54,7 +54,6 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         options.problemtype = '';
         options.source = '';
         setFilterProblemOptions(options);
-        setToggleFilters(false);
         getGalleryProblems();
     }
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
@@ -261,7 +260,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         options.lgmanager = '';
         options.creator = '';
         setFilterProjectOptions(options);
-        setToggleFilters(false);
         getGalleryProjects();
     }
     return <>  <div className="scroll-filters" style={{height: window.innerHeight - 280}}>
