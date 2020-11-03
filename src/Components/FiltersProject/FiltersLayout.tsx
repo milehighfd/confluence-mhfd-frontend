@@ -157,7 +157,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         <h5 className="filt-h5">Additional filters</h5>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <label>Jurisdiction</label>
+                <label>Jurisdiction </label>
                 <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'}
                     style={{ width: '100%' }} onChange={ (e: string) => {
                     apply(e, 'jurisdiction');
@@ -168,12 +168,32 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                 </Select>
             </Col>
             <Col span={12}>
+                <label>Watershed Service Area</label>
+                <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                </Select>
+            </Col>
+        </Row>
+        <Row className="filt-00" gutter={[24, 16]}>
+            <Col span={12}>
                 <label>MHFD Watershed Manager</label>
                 <Select placeholder="- Select -" value={filterProblemOptions.mhfdmanager ? filterProblemOptions.mhfdmanager : '- Select -'}
                     style={{ width: '100%' }} onChange={ (e: string) => {
                     apply(e, 'mhfdmanager');
                 }}>
                     {paramProblems.mhfdmanager.map((element: string, index: number) =>{
+                        return <Option key={index} value={element}>{element}</Option>
+                    })}
+                </Select>
+            </Col>
+            <Col span={12}>
+                <label>Source <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
+                <Select placeholder="- Select -" value={filterProblemOptions.source ? filterProblemOptions.source : '- Select -'}
+                    style={{ width: '100%' }} onChange={ (e: string) => {
+                    apply(e, 'source');
+                }}>
+                    {paramProblems.source.map((element: string, index: number) =>{
                         return <Option key={index} value={element}>{element}</Option>
                     })}
                 </Select>
@@ -187,17 +207,6 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                     apply(e, 'problemtype');
                 }}>
                     {paramProblems.problemtype.map((element: string, index: number) =>{
-                        return <Option key={index} value={element}>{element}</Option>
-                    })}
-                </Select>
-            </Col>
-            <Col span={12}>
-                <label>Source <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-                <Select placeholder="- Select -" value={filterProblemOptions.source ? filterProblemOptions.source : '- Select -'}
-                    style={{ width: '100%' }} onChange={ (e: string) => {
-                    apply(e, 'source');
-                }}>
-                    {paramProblems.source.map((element: string, index: number) =>{
                         return <Option key={index} value={element}>{element}</Option>
                     })}
                 </Select>
@@ -225,7 +234,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
             if ('workplanyear' === field) {
                 options['status'] = options['status'] + ',Complete';
             }
-            
+
             for (let index = 0; index < values.length; index++) {
                 const element = values[index];
                 newValue = newValue ? (newValue + ',' + element): element;
