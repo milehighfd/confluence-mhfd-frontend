@@ -196,7 +196,12 @@ const Map = ({ leftWidth,
         if(coor[0] && coor[1]) {
             map.fitBounds(coor);
         }
+        
+        map.addControl(new mapboxgl.ScaleControl({
+            unit: 'metric'
+        }), 'bottom-right');
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+        
         addMapGeocoder(map, geocoderRef);
 
         // Uncomment to see coords when a position in map is clicked
@@ -487,6 +492,7 @@ const Map = ({ leftWidth,
             }
 
             if (map.getLayer(key + '_' + index)) {
+                console.log(key + '_' + index, allFilters);
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
