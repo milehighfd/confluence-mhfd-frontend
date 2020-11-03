@@ -588,7 +588,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 </Col>
             </Row>
             <div className="btn-footer" style={{ marginTop: '25px' }}>
-                // <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
+                 <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
                 {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button> */}
             </div>
         </div>
