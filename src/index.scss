@@ -714,6 +714,9 @@ body{
   img {
    position: absolute;
    z-index: -1;
+   width: auto;
+   height: 100%;
+   display: inherit !important;
  }
  h5 {
    color: $white;
