@@ -100,8 +100,7 @@ export default () => {
             <span>Feedback - Under Construction</span>
           </Link>
         </Menu.Item>
-      {(appUser.designation === 'admin' ||
-        appUser.designation === 'staff') && (appUser.status === 'approved') ?
+      {(appUser.designation === 'admin') && (appUser.status === 'approved') ?
         <Menu.Item key="8">
           <Link to={'/user'}>
             <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="18px" />
