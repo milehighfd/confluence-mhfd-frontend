@@ -714,9 +714,6 @@ body{
   img {
    position: absolute;
    z-index: -1;
-   width: auto;
-   height: 100%;
-   display: inherit !important;
  }
  h5 {
    color: $white;
@@ -3290,6 +3287,11 @@ body{
     text-align: center;
     height: 450px;
     overflow: hidden;
+  }
+  .ant-carousel .slick-slide img{
+    width: auto;
+    height: 100%;
+    display: inherit !important;
   }
   .ant-carousel .slick-slide h3 {
     color: #fff;
