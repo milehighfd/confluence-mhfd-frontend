@@ -10,6 +10,7 @@ import RadioItemsView from './RadioItemsView';
 import MenuAreaView from './MenuAreaView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
+import moment from 'moment';
 
 export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: { user: User, pos: number, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
   const validationSchema = VALIDATION_USER;
@@ -82,6 +83,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
     values.phone = user.phone;
     values.title = user.title;
     values.status = user.status;
+    values.createdAt = user.createdAt;
   }, [user]);
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
@@ -273,6 +275,15 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
                       {values.organization ? values.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
+                </Col>
+              </Row>
+            </div>
+            <br />
+            <div className="gutter-example">
+              <Row gutter={16}>
+                <Col className="gutter-row" span={16}>
+                <p><i><b>DATE REGISTERED:</b>&nbsp;
+                { moment(values.createdAt).format("LL").toUpperCase() } AT {moment(values.createdAt).format("LT")}</i></p>
                 </Col>
               </Row>
             </div>

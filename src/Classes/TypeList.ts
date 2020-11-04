@@ -20,7 +20,8 @@ export type User = {
         longitude: number
     },
     zoomarea: string,
-    polygon: Array<Array<number>>
+    polygon: Array<Array<number>>,
+    createdAt: Date
 }
 
 export type OptionsFiltersUser = {
