@@ -198,7 +198,7 @@ const Map = ({ leftWidth,
         }
         
         map.addControl(new mapboxgl.ScaleControl({
-            unit: 'metric'
+            unit: 'imperial'
         }), 'bottom-right');
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         

@@ -195,7 +195,7 @@ const initState = {
     componentDetailIds: {},
     loaderTableCompoents: false,
     mapSearch: [],
-    applyFilter: false,
+    applyFilter: true,
     zoomProblemOrProject: [],
 }
 

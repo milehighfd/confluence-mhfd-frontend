@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tabs, Tag } from 'antd';
+import { Tabs, Tag, Row, Col, Checkbox } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, COMPONENT_LAYERS } from '../../constants/constants';
@@ -10,13 +10,20 @@ import { elementCost } from "../../utils/utils";
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
 const { TabPane } = Tabs;
-
+const genExtra = () => (
+  <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+    <Col >
+      Apply current map view to filters
+      <Checkbox style={{paddingLeft: 6}}></Checkbox>
+    </Col>
+  </Row>
+);
 const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, filterComponentOptions,
-  setFilterComponentOptions, getGalleryProjects, getGalleryProblems, totalElements, type, totalComponents } 
+  setFilterComponentOptions, getGalleryProjects, getGalleryProblems, totalElements, type, totalComponents }
   : { filterProblemOptions: any, filterProjectOptions: any, setFilterProblemOptions: Function, setFilterProjectOptions: Function, filterComponentOptions: any,
     setFilterComponentOptions: Function, getGalleryProjects: Function, getGalleryProblems: Function, totalElements: number, type: string, totalComponents: number}) => {
     const params = store.getState().map.paramFilters;
-    
+
     const deleteFilter = (tag: string, value: string) => {
       const auxFilterComponents = { ...filterComponentOptions };
       const valueTag = tag === 'estimatedcost'?  filterComponentOptions[tag]: filterComponentOptions[tag].split(',');
@@ -79,7 +86,7 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
       }
       auxFilterProjects[tag] = (tag === 'mhfddollarsallocated' || tag === 'totalcost')? auxValueTag: newValue;
       console.log(auxFilterProjects[tag]);
-      
+
       setFilterProjectOptions(auxFilterProjects);
       getGalleryProjects();
   }
@@ -129,7 +136,7 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
                                     value = element === '10' ? '10% - 25%' : element === '25'? '25% - 50%': element === '50' ? '50% - 75%' : '75% - 100%';
                                 } else {
                                   if (tag.key === 'components') {
-                                    value = (params.problems?.components?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ? 
+                                    value = (params.problems?.components?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ?
                                             params.problems?.components?.filter((elementComponent: any) => elementComponent.key === element)[0].value as any : ''
                                   } else {
                                       value = element;
@@ -166,7 +173,7 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
                                 value = elementCost(+tagValues[0], +tagValues[1]);
                             } else {
                               if (tag.key === 'component_type') {
-                                value = (params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ? 
+                                value = (params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0] as any) ?
                                           params.components?.component_type?.filter((elementComponent: any) => elementComponent.key === element)[0].value as any : ''
                               } else {
                                   value = element;
@@ -192,10 +199,10 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
       case FILTER_PROBLEMS_TRIGGER:
-        return <ProblemsFilter paramProblems={paramFilters.problems} 
+        return <ProblemsFilter paramProblems={paramFilters.problems}
                   filterProblemOptions={filterProblemOptions}
                   setFilterProblemOptions={setFilterProblemOptions}
-                  getGalleryProblems={getGalleryProblems} 
+                  getGalleryProblems={getGalleryProblems}
                   setToggleFilters={setToggleFilters} />
       case FILTER_PROJECTS_TRIGGER:
         return <ProjectsFilter paramProjects={paramFilters.projects}
@@ -204,9 +211,9 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 getGalleryProjects={getGalleryProjects}
                 setToggleFilters={setToggleFilters} />
       case FILTER_COMPONENTS_TRIGGER:
-        return <ComponentsFilter paramComponents={paramFilters.components} 
+        return <ComponentsFilter paramComponents={paramFilters.components}
                 filterComponentOptions={filterComponentOptions}
-                setFilterComponentOptions={setFilterComponentOptions} 
+                setFilterComponentOptions={setFilterComponentOptions}
                 getGalleryProblems={getGalleryProblems}
                 getGalleryProjects={getGalleryProjects}
                 setToggleFilters={setToggleFilters}/>
@@ -214,9 +221,9 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
         return null;
     }
   }
-  
+
   return <>
-    <Tabs activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
+    <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
         if( e === '0') {
             setTabActive('0');
         } else {
@@ -229,14 +236,14 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                     copySelectedLayers.push(COMPONENT_LAYERS);
                     updateSelectedLayers(copySelectedLayers);
                 }
-                
+
             }
           }
         }} >
       {tabs.map((value: string, index: number) => {
         return (
-          <TabPane tab={value} key={'' + index} style={{height: window.innerHeight - 280,overflow: 'auto'}}>
-            <FiltersHeader 
+          <TabPane tab={value} key={'' + index} style={{height: window.innerHeight - 240,overflow: 'auto'}}  >
+            <FiltersHeader
               totalElements={value === FILTER_PROJECTS_TRIGGER ? projectsLength : problemsLength}
               totalComponents={componentsTotal}
               type={value}
@@ -247,8 +254,9 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
               filterComponentOptions={filterComponentOptions}
               setFilterComponentOptions={setFilterComponentOptions}
               getGalleryProblems={getGalleryProblems}
-              getGalleryProjects={getGalleryProjects} />
+              getGalleryProjects={getGalleryProjects}/>
             {getFilterBody(value)}
+
           </TabPane>
         );
       })}

@@ -31,7 +31,7 @@ export class MapService {
       closeOnClick: false
      });
      this.map.addControl(new mapboxgl.ScaleControl({
-      unit: 'metric'
+      unit: 'imperial'
   }), 'bottom-right');
      this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
   }
