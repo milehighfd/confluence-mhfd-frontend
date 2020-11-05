@@ -217,7 +217,9 @@ export type OptionProjects = {
     problemtype: string,
     mhfdmanager: string,
     jurisdiction: string,
-    county: string
+    county: string,
+    consultant: string,
+    contractor: string
 }
 export type OptionComponents = {
     component_type: string,

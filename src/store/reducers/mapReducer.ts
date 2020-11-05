@@ -126,7 +126,9 @@ const initState = {
         problemtype: '',
         mhfdmanager: '',
         jurisdiction: '',
-        county: ''
+        county: '',
+        consultant: '',
+        constractor: ''
     },
     filterComponentOptions: {
         component_type: '',

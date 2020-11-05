@@ -249,7 +249,9 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         yearofstudy: filterComponent.yearofstudy,
         sortby: options.column,
         sorttype: options.order,
-        bounds: coordinates
+        bounds: coordinates,
+        consultant: options.consultant,
+        contractor: options.contractor
     } : {
         name: options.keyword,
         projecttype: options.projecttype,
@@ -273,6 +275,8 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         jurisdictionComp: filterComponent.jurisdiction,
         countyComp: filterComponent.county,
         yearofstudy: filterComponent.yearofstudy,
+        consultant: options.consultant,
+        contractor: options.contractor,
         sortby: options.column,
         sorttype: options.order
     }
@@ -348,6 +352,8 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         jurisdiction: filters.jurisdiction,
         county: filters.county,
         problemtypeProjects: [] as any,
+        consultant: filters.consultant,
+        contractor: filters.contractor,
         keyword
     }
     return (dispatch: Function) => {
@@ -476,6 +482,8 @@ export const getGalleryProjects = () => {
     const coordinates = store.getState().map.filterCoordinates;
     const filterOptions = store.getState().map.filterProjectOptions;
     const filterComponent = store.getState().map.filterComponentOptions;
+    console.log('filterOptions', filterOptions);
+    console.log('filterComponents', filterComponent);
     return (dispatch: Function) => {
         dispatch({type: types.SET_SPIN_CARD_PROJECTS, spin: true });
         datasets.postData(SERVER.GALLERY_PROJECTS, optionsProjects(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProjects => {

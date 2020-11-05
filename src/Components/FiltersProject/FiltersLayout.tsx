@@ -279,6 +279,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         options.creator = '';
         //options.servicearea = '';
         options.problemtype = '';
+        options.consultant = '';
+        options.contractor = '';
         setFilterProjectOptions(options);
         getGalleryProjects();
     }
@@ -395,6 +397,28 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                     </p>
                 })}
             </Checkbox.Group>
+        </Col>
+    </Row>
+    <Row className="filt-00" gutter={[24, 16]}>
+        <Col span={12}>
+            <label>Vendor</label>
+            <Select value={filterProjectOptions.consultant ? filterProjectOptions.consultant : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                apply(e, 'consultant');
+            }}>
+                {paramProjects.consultant.map((element: string, index: number) =>{
+                    return element && <Option key={index} value={element}>{element}</Option>
+                })}
+            </Select>
+        </Col>
+        <Col span={12}>
+            <label>Contractor</label>
+            <Select value={filterProjectOptions.contractor ? filterProjectOptions.contractor : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                apply(e, 'contractor');
+            }}>
+                {paramProjects.contractor.map((element: string, index: number) =>{
+                    return element && <Option key={index} value={element}>{element}</Option>
+                })}
+            </Select>
         </Col>
     </Row>
     <Row className="filt-00" gutter={[24, 16]}>
