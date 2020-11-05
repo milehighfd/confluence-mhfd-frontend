@@ -539,6 +539,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             setTabActive={setTabActive}
             selectedLayers={selectedLayers}
             updateSelectedLayers={updateSelectedLayers}
+            applyFilter={applyFilter}
+            setApplyFilter={setApplyFilter}
             />
       }
     </div>

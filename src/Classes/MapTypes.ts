@@ -371,7 +371,9 @@ export type FiltersProjectTypes = {
     setTabActive: Function,
     componentsTotal: number,
     selectedLayers: Array<LayersType>,
-    updateSelectedLayers: Function
+    updateSelectedLayers: Function,
+    applyFilter: boolean,
+    setApplyFilter: Function
 };
 
 export type FilterNamesTypes = {

@@ -10,14 +10,7 @@ import { elementCost } from "../../utils/utils";
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
 const { TabPane } = Tabs;
-const genExtra = () => (
-  <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-    <Col >
-      Apply current map view to filters
-      <Checkbox style={{paddingLeft: 6}}></Checkbox>
-    </Col>
-  </Row>
-);
+
 const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, filterComponentOptions,
   setFilterComponentOptions, getGalleryProjects, getGalleryProblems, totalElements, type, totalComponents }
   : { filterProblemOptions: any, filterProjectOptions: any, setFilterProblemOptions: Function, setFilterProjectOptions: Function, filterComponentOptions: any,
@@ -194,8 +187,20 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters,
                 dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
                 setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
-                getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal, selectedLayers, updateSelectedLayers } : FiltersProjectTypes) => {
-
+                getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal, selectedLayers, updateSelectedLayers,  applyFilter,
+                setApplyFilter } : FiltersProjectTypes) => {
+    const genExtra = () => (
+        <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+            <Col >
+            Apply current map view to filters
+            <Checkbox style={{paddingLeft: 6}} checked={applyFilter} onChange={() => {
+          setApplyFilter(!applyFilter)
+          getGalleryProblems();
+          getGalleryProjects();
+        }}></Checkbox>
+            </Col>
+        </Row>
+    );
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
       case FILTER_PROBLEMS_TRIGGER:
