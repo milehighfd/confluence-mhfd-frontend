@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Button, Progress, Carousel, Modal, message } from 'antd';
+import { Row, Col, Button, Progress, Carousel, Modal, message, Tooltip } from 'antd';
 
 import { FILTER_PROBLEMS_TRIGGER } from '../../../constants/constants';
  import { SERVER } from "../../../Config/Server.config";
@@ -100,10 +100,16 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               }
             </Col>
             <Col span={3} style={{ textAlign: 'right' }}>
-              <Button className="disabled-btn"><img src="/Icons/icon-01.svg" alt="" /></Button>
+              <Tooltip title="Download PDF">
+                <Button className="disabled-btn"><img src="/Icons/icon-01.svg" alt="" /></Button>
+              </Tooltip>
               {/* <Button><img src="/Icons/icon-06.svg" alt="" /></Button> */}
-              <Button><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl()} /></Button>
-              <Button onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
+              <Tooltip title="Copy URL">
+                <Button><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl()} /></Button>
+              </Tooltip>
+              <Tooltip title="Close Window">
+                <Button onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
+              </Tooltip>
             </Col>
           </Row>
           <Row className="detailed-b">
