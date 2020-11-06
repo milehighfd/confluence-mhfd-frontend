@@ -170,7 +170,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
             <Col span={12}>
                 <label>Watershed Service Area</label>
-                {/* <Select defaultValue="- Select -" value={filterProblemOptions.servicearea ? filterProblemOptions.servicearea : '- Select -' } 
+                {/* <Select defaultValue="- Select -" value={filterProblemOptions.servicearea ? filterProblemOptions.servicearea : '- Select -' }
                     style={{ width: '100%' }} onChange={ (e: string) => {
                         apply(e, 'servicearea');
                     }}>
@@ -624,26 +624,30 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                 </Col>
             </Row>
             <Row className="filt-00" gutter={[24, 16]}>
-                <Col span={12}>
-                    <label>MHFD Watershed Manager</label>
-                    <Select value={filterComponentOptions.mhfdmanager ? filterComponentOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
-                        apply(e, 'mhfdmanager');
-                    }}>
-                        {paramComponents.watershed.map((element: string, index: number) =>{
-                            return element && <Option key={index} value={element}>{element}</Option>
-                        })}
-                    </Select>
-                </Col>
-                {/* <Col span={12}>
-                    <label>Watershed Service Area</label>
-                    <Select value={filterComponentOptions.servicearea ? filterComponentOptions.servicearea : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
-                        apply(e, 'servicearea');
-                    }}>
-                        {paramComponents.servicearea.map((element: string, index: number) =>{
-                            return element && <Option key={index} value={element}>{element}</Option>
-                        })}
-                    </Select>
-                </Col> */}
+               <Col span={12}>
+                  <label>Watershed Service Area</label>
+                    {/*<Select value={filterComponentOptions.servicearea ? filterComponentOptions.servicearea : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                      apply(e, 'servicearea');
+                  }}>
+                      {paramComponents.servicearea.map((element: string, index: number) =>{
+                          return element && <Option key={index} value={element}>{element}</Option>
+                      })}
+                  </Select> */}
+                  <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                    <Option value="jack">Jack</Option>
+                    <Option value="lucy">Lucy</Option>
+                  </Select>
+              </Col>
+              <Col span={12}>
+                  <label>MHFD Watershed Manager</label>
+                  <Select value={filterComponentOptions.mhfdmanager ? filterComponentOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                      apply(e, 'mhfdmanager');
+                  }}>
+                      {paramComponents.watershed.map((element: string, index: number) =>{
+                          return element && <Option key={index} value={element}>{element}</Option>
+                      })}
+                  </Select>
+              </Col>
             </Row>
             <div className="btn-footer" style={{ marginTop: '25px' }}>
                  <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
