@@ -90,7 +90,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   //  className="menu-login-dropdown" className="login-dropdown"
   const menu = (
     <Menu className="menu-login-dropdown ">
-      <Menu.Item className="login-dropdown" onClick={showProfile}>My Profile</Menu.Item>
+      {user.designation !== 'guest' ? <Menu.Item className="login-dropdown" onClick={showProfile}>My Profile</Menu.Item> : '' }
       <Menu.Item className="login-dropdown" onClick={logout}>Logout</Menu.Item>
     </Menu>
   );

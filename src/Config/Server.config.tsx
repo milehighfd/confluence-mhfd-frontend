@@ -10,6 +10,7 @@ export const SERVER = (function () {
     const USER = 'users';
     const AUTH = 'auth';
     const LOGIN = 'login';
+    const GUEST = 'guest';
     const PROJECT = 'projects';
     const PROBLEMS = 'problems';
     const ATTACHMENT = 'attachments';
@@ -75,6 +76,7 @@ export const SERVER = (function () {
         USER: `${URL_BASE.BASE}/${USER}`,
         AUTH: `${URL_BASE.BASE}/${AUTH}`,
         LOGIN: `${URL_BASE.BASE}/${AUTH}/${LOGIN}`,
+        GUEST: `${URL_BASE.BASE}/${AUTH}/${GUEST}`,
         ME: `${URL_BASE.BASE}/${USER}/${ME}`,
         GRAPHQL:`${URL_BASE.BASE}/${GRAPHQL}`, 
         UPLOAD_FILE: `${URL_BASE.BASE}/${ATTACHMENT}/${UPLOAD_FILE}`,

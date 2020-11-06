@@ -13,13 +13,14 @@ export default () => {
 
   return <Sider collapsedWidth="58" collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
     <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline" >
+      {(appUser.designation !== 'guest') ? 
       <Menu.Item key="0">
         <Link to={'/profile-view'}>
           <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="18px" />
           <img className="img-a anticon" src="/Icons/menu-green-01.svg" alt="" width="18px" />
           <span>My Confluence</span>
         </Link>
-      </Menu.Item>
+      </Menu.Item> : ''}
       <Menu.Item key="1">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="18px" />
@@ -27,34 +28,38 @@ export default () => {
           <span>Map View</span>
         </Link>
       </Menu.Item>
+      {(appUser.designation !== 'guest') ? 
       <Menu.Item key="2">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="18px" style={{opacity: '0.2'}} />
           <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <span>Watershed Story - Under Construction</span>
         </Link>
-      </Menu.Item>
+      </Menu.Item> : ''}
+      {(appUser.designation !== 'guest') ? 
       <Menu.Item key="3">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <span>Work Plan - Under Construction</span>
         </Link>
-      </Menu.Item>
+      </Menu.Item> : ''}
+      {(appUser.designation !== 'guest') ? 
       <Menu.Item key="4">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-14.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-14.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <span>Work Request - Under Construction</span>
         </Link>
-      </Menu.Item>
+      </Menu.Item> : ''}
+      {(appUser.designation !== 'guest') ? 
       <Menu.Item key="5">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <span>Project Management - Under Construction</span>
         </Link>
-      </Menu.Item>
+      </Menu.Item> : ''}
       {/* {(appUser.designation === 'admin' ||
         appUser.designation === 'staff'||
         appUser.designation === 'government_admin' ||
@@ -93,13 +98,14 @@ export default () => {
             <span>Uploader</span>
           </Link>
         </Menu.Item> : ''}
+        {(appUser.designation !== 'guest') ? 
         <Menu.Item key="7">
           <Link to={'/map'}>
             <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" style={{opacity: '0.2'}} />
             <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
             <span>Feedback - Under Construction</span>
           </Link>
-        </Menu.Item>
+        </Menu.Item> : ''}
       {(appUser.designation === 'admin') && (appUser.status === 'approved') ?
         <Menu.Item key="8">
           <Link to={'/user'}>

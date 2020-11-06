@@ -29,6 +29,24 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
     resetProfile();
     resetMap();
   }, []);
+  const redirectGuest = () => {
+    console.log('redirect');
+    datasets.getData(SERVER.GUEST).then(async res => {
+      if (res?.token) {
+        localStorage.setItem('mfx-token', res.token);
+        await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
+          replaceAppUser(result);
+          saveUserInformation(result)
+        });
+        setRedirect(true);
+      } else {
+        const auxMessage = {...message};
+        auxMessage.message = 'Could not connect, check your email and password';
+        auxMessage.color = 'red';
+        setMessage(auxMessage);
+      }
+    })
+  }
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
       email: '',
@@ -67,16 +85,16 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
       <CarouselAutoPlayView />
       <Col span={11} className="login-hh">
       <div className="login-step01">
-        {/*<div>
+        <div>
         <Row className="returnText">
           <Col span={12}>
-          <Button shape="circle" icon="arrow-left" /><span>Back</span>
+          {/* <Button shape="circle" icon="arrow-left" /><span>Back</span> */}
           </Col>
           <Col span={12} style={{ textAlign: 'right' }}>
-          <span>Continue as Guest</span><Button shape="circle" icon="arrow-right" />
+          <span>Continue as Guest</span><Button shape="circle" onClick={() => redirectGuest()} icon="arrow-right" />
           </Col>
         </Row>
-        </div>*/}
+        </div>
         <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit}>
       {/* <h1>
         Welcome to MHFD's Confluence
