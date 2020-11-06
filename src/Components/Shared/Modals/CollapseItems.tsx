@@ -17,12 +17,22 @@ const { Panel } = Collapse;
 export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal, componentCounter, getComponentCounter }:
        { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string,
         loaderTableCompoents: boolean, updateModal: Function, componentCounter: number, getComponentCounter: Function }) => {
-  const [ active, setActive ] = useState(['1','2','3','4']);
+  
+  let sections = ['4'];
+  if (detailedPage.problems && detailedPage.problems.length > 0) {
+    sections.push('1');
+  }
+  if (detailedPage.consultant || detailedPage.contractor) {
+    sections.push('2');
+  }
+  if (detailedPage.components.length > 0) {
+    sections.push('3');
+  }
+  const [ active, setActive ] = useState(sections);
   const [ zoomValue, setZoomValue] = useState(0);
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
   let map: any;
-  console.log(componentCounter, getComponentCounter);
   // if (html) {
   //   map = new MapService('map2');
   //   map.create('map2');
@@ -379,7 +389,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   
 
   return <div className="tabs-detailed">
-    <Collapse defaultActiveKey={['1','2','3','4']} onChange={(e: any) => {
+    <Collapse defaultActiveKey={active} onChange={(e: any) => {
       setActive(e);
     }}>
       {type === PROJECTS_MODAL && <Panel header="PROBLEM" key="1" extra={genExtra('1')}>
