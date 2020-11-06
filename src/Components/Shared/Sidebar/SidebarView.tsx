@@ -100,9 +100,9 @@ export default () => {
         </Menu.Item> : ''}
         {(appUser.designation !== 'guest') ? 
         <Menu.Item key="7">
-          <Link to={'/map'}>
-            <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" style={{opacity: '0.2'}} />
-            <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <Link to={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'}>
+            <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" />
+            <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="18px" />
             <span>Feedback - Under Construction</span>
           </Link>
         </Menu.Item> : ''}
