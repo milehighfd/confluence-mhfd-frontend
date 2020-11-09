@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tabs, Tag, Row, Col, Checkbox } from 'antd';
+import { Tabs, Tag, Row, Col, Checkbox, Popover } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, COMPONENT_LAYERS } from '../../constants/constants';
@@ -10,6 +10,9 @@ import { elementCost } from "../../utils/utils";
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
 const { TabPane } = Tabs;
+const content = (<div className="popoveer-00">Problems: Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>);
+{/*const content = (<div className="popoveer-00">Projects: Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>);
+const content = (<div className="popoveer-00">Components: Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>);*/}
 
 const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, filterComponentOptions,
   setFilterComponentOptions, getGalleryProjects, getGalleryProblems, totalElements, type, totalComponents }
@@ -247,7 +250,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
         }} >
       {tabs.map((value: string, index: number) => {
         return (
-          <TabPane tab={value} key={'' + index} style={{height: window.innerHeight - 240,overflow: 'auto'}}  >
+          <TabPane key={'' + index} style={{height: window.innerHeight - 240,overflow: 'auto'}} tab={<span><Popover content={content} placement="rightBottom">Projects</Popover> </span>}>
             <FiltersHeader
               totalElements={value === FILTER_PROJECTS_TRIGGER ? projectsLength : problemsLength}
               totalComponents={componentsTotal}
