@@ -107,7 +107,8 @@ const initState = {
         mhfdmanager: '',
         problemtype: '',
         source: '',
-        components: ''
+        components: '',
+        servicearea: ''
     },
     filterProjectOptions: {
         keyword: '',
@@ -128,7 +129,8 @@ const initState = {
         jurisdiction: '',
         county: '',
         consultant: '',
-        constractor: ''
+        constractor: '',
+        servicearea: ''
     },
     filterComponentOptions: {
         component_type: '',
@@ -137,7 +139,8 @@ const initState = {
         estimatedcost: [],
         jurisdiction: '',
         county: '',
-        mhfdmanager: ''
+        mhfdmanager: '',
+        servicearea: ''
     },
     filterProblems: {
         problemname: '',
@@ -178,7 +181,8 @@ const initState = {
         estimated_cost: [],
         jurisdiction: '',
         county: '',
-        mhfdmanager: ''
+        mhfdmanager: '',
+        servicearea: ''
     },
     filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423',
     paramFilters : {

@@ -197,7 +197,8 @@ export type OptionProblems = {
     mhfdmanager: string,
     problemtype: string,
     source: string,
-    components: string
+    components: string,
+    servicearea: string
 }
 
 export type OptionProjects = {
@@ -219,7 +220,8 @@ export type OptionProjects = {
     jurisdiction: string,
     county: string,
     consultant: string,
-    contractor: string
+    contractor: string,
+    servicearea: string
 }
 export type OptionComponents = {
     component_type: string,
@@ -228,7 +230,8 @@ export type OptionComponents = {
     estimatedcost: string,
     jurisdiction: string,
     county: string,
-    mhfdmanager: string
+    mhfdmanager: string,
+    servicearea: string
 }
 
 export type CapitalTypes = {

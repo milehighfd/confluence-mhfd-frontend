@@ -53,7 +53,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         options.mhfdmanager =  '';
         options.problemtype = '';
         options.source = '';
-        //options.servicearea = '';
+        options.servicearea = '';
         setFilterProblemOptions(options);
         getGalleryProblems();
     }
@@ -170,17 +170,13 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
             <Col span={12}>
                 <label>Watershed Service Area</label>
-                {/* <Select defaultValue="- Select -" value={filterProblemOptions.servicearea ? filterProblemOptions.servicearea : '- Select -' }
+                <Select defaultValue="- Select -" value={filterProblemOptions.servicearea ? filterProblemOptions.servicearea : '- Select -' }
                     style={{ width: '100%' }} onChange={ (e: string) => {
                         apply(e, 'servicearea');
                     }}>
                     {paramProblems.servicearea.map((element: string, index: number) => {
                         return <Option key={index} value={element}>{element}</Option>
                     })}
-                </Select> */}
-                <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
                 </Select>
             </Col>
         </Row>
@@ -281,6 +277,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         options.problemtype = '';
         options.consultant = '';
         options.contractor = '';
+        options.servicearea = '';
         setFilterProjectOptions(options);
         getGalleryProjects();
     }
@@ -490,17 +487,17 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
      <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
             <label>Watershed Service Area <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-            {/*<Select value={filterProjectOptions.servicearea ? filterProjectOptions.servicearea : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+            <Select value={filterProjectOptions.servicearea ? filterProjectOptions.servicearea : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
                 apply(e, 'servicearea');
             }}>
                 {paramProjects.servicearea.map((element: string, index: number) =>{
                     return element && <Option key={index} value={element}>{element}</Option>
                 })}
-            </Select>*/}
-            <Select defaultValue="- Select -" style={{ width: '100%' }}>
+            </Select>
+            {/* <Select defaultValue="- Select -" style={{ width: '100%' }}>
               <Option value="jack">Jack</Option>
               <Option value="lucy">Lucy</Option>
-            </Select>
+            </Select> */}
         </Col>
     </Row>
 
@@ -538,7 +535,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         options.jurisdiction = '';
         options.county = '';
         options.mhfdmanager = '';
-        //options.servicearea = '';
+        options.servicearea = '';
         setFilterComponentOptions(options);
         getGalleryProjects();
         getGalleryProblems();
@@ -630,17 +627,17 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
             <Row className="filt-00" gutter={[24, 16]}>
                <Col span={12}>
                   <label>Watershed Service Area</label>
-                    {/*<Select value={filterComponentOptions.servicearea ? filterComponentOptions.servicearea : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
+                    <Select value={filterComponentOptions.servicearea ? filterComponentOptions.servicearea : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
                       apply(e, 'servicearea');
-                  }}>
-                      {paramComponents.servicearea.map((element: string, index: number) =>{
-                          return element && <Option key={index} value={element}>{element}</Option>
-                      })}
-                  </Select> */}
-                  <Select defaultValue="- Select -" style={{ width: '100%' }}>
+                    }}>
+                        {paramComponents.servicearea.map((element: string, index: number) =>{
+                            return element && <Option key={index} value={element}>{element}</Option>
+                        })}
+                    </Select>
+                  {/* <Select defaultValue="- Select -" style={{ width: '100%' }}>
                     <Option value="jack">Jack</Option>
                     <Option value="lucy">Lucy</Option>
-                  </Select>
+                  </Select> */}
               </Col>
               <Col span={12}>
                   <label>MHFD Watershed Manager</label>

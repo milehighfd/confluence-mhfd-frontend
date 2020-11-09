@@ -196,6 +196,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         yearofstudy: filterComponent.yearofstudy,
         estimatedcostComp: filterComponent.estimatedcost,
         name: options.keyword,
+        servicearea: options.servicearea,
         sortby: options.column,
         sorttype: options.order,
         bounds: coordinates
@@ -218,6 +219,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         yearofstudy: filterComponent.yearofstudy,
         estimatedcostComp: filterComponent.estimatedcost,
         name: options.keyword,
+        servicearea: options.servicearea,
         sortby: options.column,
         sorttype: options.order
     }
@@ -251,7 +253,8 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         sorttype: options.order,
         bounds: coordinates,
         consultant: options.consultant,
-        contractor: options.contractor
+        contractor: options.contractor,
+        servicearea: options.servicearea
     } : {
         name: options.keyword,
         projecttype: options.projecttype,
@@ -277,6 +280,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         yearofstudy: filterComponent.yearofstudy,
         consultant: options.consultant,
         contractor: options.contractor,
+        servicearea: options.servicearea,
         sortby: options.column,
         sorttype: options.order
     }
@@ -354,6 +358,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         problemtypeProjects: [] as any,
         consultant: filters.consultant,
         contractor: filters.contractor,
+        servicearea: filters.servicearea,
         keyword
     }
     return (dispatch: Function) => {
@@ -434,7 +439,8 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
         estimated_cost: filters.estimatedcost,
         jurisdiction: filters.jurisdiction,
         county: filters.county,
-        mhfdmanager: filters.mhfdmanager
+        mhfdmanager: filters.mhfdmanager,
+        servicearea: filters.servicearea
     }
     // const estimatedcost = filters.estimatedcost.split(',');
     // const auxCost = [];
