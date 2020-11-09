@@ -11,6 +11,10 @@ const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENT
 
 const { TabPane } = Tabs;
 const content = (<div className="popoveer-00">Problems: Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>);
+let contents: any = [];
+contents.push((<div className="popoveer-00">Problems: Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
+contents.push((<div className="popoveer-00">Projects: Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
+contents.push((<div className="popoveer-00">Components: Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>));
 {/*const content = (<div className="popoveer-00">Projects: Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>);
 const content = (<div className="popoveer-00">Components: Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>);*/}
 
@@ -250,7 +254,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
         }} >
       {tabs.map((value: string, index: number) => {
         return (
-          <TabPane key={'' + index} style={{height: window.innerHeight - 240,overflow: 'auto'}} tab={<span><Popover content={content} placement="rightBottom">Projects</Popover> </span>}>
+          <TabPane key={'' + index} style={{height: window.innerHeight - 240,overflow: 'auto'}} tab={<span><Popover content={contents[index]} placement="rightBottom">{value} </Popover> </span>}>
             <FiltersHeader
               totalElements={value === FILTER_PROJECTS_TRIGGER ? projectsLength : problemsLength}
               totalComponents={componentsTotal}
