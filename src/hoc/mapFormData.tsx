@@ -211,6 +211,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             existDetailedPageProject={existDetailedPageProject}
                             existDetailedPageProblem={existDetailedPageProblem}
                             zoom={zoom}
+                            applyFilter={applyFilter}
                             />
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>

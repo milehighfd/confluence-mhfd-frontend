@@ -50,7 +50,8 @@ export type MapProps = {
     detailed: Detailed,
     existDetailedPageProject: Function,
     existDetailedPageProblem: Function,
-    zoom: any
+    zoom: any,
+    applyFilter: boolean
 }
 
 export type MapHOCProps = {

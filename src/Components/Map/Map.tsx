@@ -95,10 +95,10 @@ const Map = ({ leftWidth,
             detailed,
             existDetailedPageProblem,
             existDetailedPageProject,
-            zoom
+            zoom,
+            applyFilter
              } : MapProps) => {
-    // console.log( mapSearch);
-
+    // console.log( mapSearch);=
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
 
@@ -108,6 +108,8 @@ const Map = ({ leftWidth,
     // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
     const [visible, setVisible] = useState(true);
+    const [zoomEndCounter, setZoomEndCounter] = useState(0);
+    const [dragEndCounter, setDragEndCounter] = useState(0);
     const coor: any[][] = [];
     const [data, setData] = useState({
         problemid: '',
@@ -240,32 +242,60 @@ const Map = ({ leftWidth,
             }
         }
         let value = 0;
-        map.on('zoomend', () => {
+       
+        map.once('zoomend', () => {
             value +=1;
             if(value >= 2 ) {
                 const bounds = map.getBounds();
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+                console.log(applyFilter);
+                if (applyFilter) {
+                    setFilterCoordinates(boundingBox);
+                    getParamsFilter(boundingBox);
+                }
+            }
+            });
+        map.once('dragend', () => {
+            const bounds = map.getBounds();
+            const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+            console.log(applyFilter);
+            if (applyFilter) {
                 setFilterCoordinates(boundingBox);
                 getParamsFilter(boundingBox);
             }
-          });
-        map.on('dragend', () => {
-            const bounds = map.getBounds();
-            const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
-            setFilterCoordinates(boundingBox);
-            getParamsFilter(boundingBox);
 
         });
-
         const updateZoom = () => {
             const zoom = map.getZoom().toFixed(2);
             setZoomValue(zoom);
         }
+        let _ = 0;
+        map.on('zoomend', () => {
+            setZoomEndCounter(_ ++);
+            console.log(zoomEndCounter);
+        });
+        let __ = 0;// #good practices
+        map.on('dragend', () => {
+            setDragEndCounter(__++);
+        });
         map.on('load', updateZoom);
         map.on('move', updateZoom);
 
     }, []);
 
+    
+    useEffect(() => {
+        console.log('my apply filter ', applyFilter, zoomEndCounter);
+        const bounds = map.getBounds();
+        const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+        console.log(applyFilter);
+        if (applyFilter) {
+            setFilterCoordinates(boundingBox);
+            getParamsFilter(boundingBox);
+        }
+        
+        
+    }, [applyFilter, zoomEndCounter, dragEndCounter]);
     useEffect(() => {
         if(zoom.length > 0) {
             map.fitBounds([zoom[0],zoom[2]], {padding: 100});
