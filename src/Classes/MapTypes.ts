@@ -164,6 +164,7 @@ export type MapViewTypes = {
     setFilterProblemOptions: Function,
     setFilterProjectOptions: Function,
     paramFilters: any,
+    getParamsFilter: Function,
     setHighlighted: Function,
     filterComponentOptions: OptionComponents,
     setFilterComponentOptions: Function,
@@ -185,6 +186,9 @@ export type MapViewTypes = {
     setZoomProjectOrProblem: Function,
     selectedLayers: Array<LayersType>,
     updateSelectedLayers: Function,
+    spinFilter: boolean,
+    toggleModalFilter: boolean , 
+    //setToggleFilters: Function
 }
 export type OptionProblems = {
     keyword: string,
@@ -379,7 +383,8 @@ export type FiltersProjectTypes = {
     selectedLayers: Array<LayersType>,
     updateSelectedLayers: Function,
     applyFilter: boolean,
-    setApplyFilter: Function
+    setApplyFilter: Function,
+    spinFilter: boolean
 };
 
 export type FilterNamesTypes = {

@@ -551,6 +551,7 @@ export const getValuesByGroupColumn = (table: string, column: string) => {
 }
 export const getParamsFilter = (bounds: string) => { 
     return (dispatch: Function) => {
+        console.log('paraaams');
         dispatch(setSpinFilter(true));
         datasets.getData(SERVER.PARAM_FILTERS + '?bounds=' + bounds).then(params => {
             if(params.components && params.problems && params.projects) {

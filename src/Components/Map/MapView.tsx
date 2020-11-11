@@ -41,14 +41,18 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
                   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
-                  groupOrganization, applyFilter,
+                  groupOrganization, applyFilter, getParamsFilter, spinFilter, toggleModalFilter,
                   setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem, selectedLayers, updateSelectedLayers  } : MapViewTypes) => {
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
+  //toggleFilters = false;
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
+  /* console.log('filter components', filterComponentOptions);
+  console.log('filter project', filterProjectOptions);
+  console.log('filter problem', filterProblemOptions); */
   useEffect(() => {
     let countTagProblems = 0;
     let countTagProjets = 0;
@@ -166,11 +170,17 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const handleToggle = () => {
     // Force coded cause' components tab doesn't exists on MapView
+    console.log('coordinates', filterCoordinates);
+    
     if(tabPosition === '2') {
       setTabPosition('0');
       setTabActive('0');
     }
     setToggleFilters(!toggleFilters);
+    toggleModalFilter = toggleFilters;
+    if (!toggleFilters) {
+      getParamsFilter(filterCoordinates);
+    }
     if (backgroundStyle === gray) {
       setBackgroundStyle(green);
       setTextStyle(green);
@@ -541,6 +551,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             updateSelectedLayers={updateSelectedLayers}
             applyFilter={applyFilter}
             setApplyFilter={setApplyFilter}
+            spinFilter={spinFilter}
             />
       }
     </div>

@@ -276,6 +276,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             setZoomProjectOrProblem={setZoomProjectOrProblem}
                             selectedLayers={selectedLayers}
                             updateSelectedLayers={updateSelectedLayers}
+                            getParamsFilter={getParamsFilter}
+                            spinFilter={spinFilter}
                       />
                     </Col>
                   </Spin>

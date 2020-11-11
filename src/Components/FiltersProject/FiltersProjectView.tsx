@@ -195,7 +195,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
                 setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
                 getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal, selectedLayers, updateSelectedLayers,  applyFilter,
-                setApplyFilter } : FiltersProjectTypes) => {
+                setApplyFilter, spinFilter } : FiltersProjectTypes) => {
     const genExtra = () => (
         <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col >
@@ -235,7 +235,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
   }
 
   return <>
-    <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
+    {!spinFilter && <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
         if( e === '0') {
             setTabActive('0');
         } else {
@@ -272,6 +272,6 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
           </TabPane>
         );
       })}
-    </Tabs>
+    </Tabs>}
   </>
 }
