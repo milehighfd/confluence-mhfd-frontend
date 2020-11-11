@@ -10,13 +10,10 @@ import { elementCost } from "../../utils/utils";
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
 const { TabPane } = Tabs;
-const content = (<div className="popoveer-00">Problems: Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>);
 let contents: any = [];
 contents.push((<div className="popoveer-00">Problems: Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00">Projects: Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 contents.push((<div className="popoveer-00">Components: Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>));
-{/*const content = (<div className="popoveer-00">Projects: Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>);
-const content = (<div className="popoveer-00">Components: Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>);*/}
 
 const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, filterComponentOptions,
   setFilterComponentOptions, getGalleryProjects, getGalleryProblems, totalElements, type, totalComponents }
@@ -201,7 +198,6 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
             <Col >
             Apply current map view to filters
             <Checkbox style={{paddingLeft: 6}} checked={applyFilter} onChange={() => {
-        console.log("negado 1");
           setApplyFilter(!applyFilter);
           getGalleryProblems();
           getGalleryProjects();
