@@ -201,7 +201,8 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
             <Col >
             Apply current map view to filters
             <Checkbox style={{paddingLeft: 6}} checked={applyFilter} onChange={() => {
-          setApplyFilter(!applyFilter)
+        console.log("negado 1");
+          setApplyFilter(!applyFilter);
           getGalleryProblems();
           getGalleryProjects();
         }}></Checkbox>
