@@ -74,7 +74,7 @@ export default () => {
               <span style={{color: 'red'}}>&nbsp;&nbsp; {errors.passwordConfirm === message ? message : errors.passwordConfirm ? messagePasswordNoEquals : errors.password }</span>
             </div>
             <div>
-              <Button className="buttonLogin" block htmlType="submit">
+              <Button className="btn-purple" block htmlType="submit">
                 Set New Password
           </Button>
             </div>

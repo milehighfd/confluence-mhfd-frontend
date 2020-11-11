@@ -119,7 +119,7 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProj
                           <div className="cost-wr" style={{padding: '20px 0px 0px 0px' }}>
                             <Row>
                               <Col className="cost-rows" style={{paddingRight: '8px', textAlign: 'right', marginTop: '-30px'}}>
-                                <Button style={{marginTop: '0px'}} className="btn-00">Save Work Plan</Button>
+                                <Button style={{marginTop: '0px'}} className="btn-borde">Save Work Plan</Button>
                                 <Button style={{marginTop: '0px'}} onClick={() => saveDraftCard()} >
                                   Submit to Admin
                                 </Button>

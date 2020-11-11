@@ -49,8 +49,8 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
           <label className="label-sg">{'Unincorporated County'}</label>
           {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
         </Menu.ItemGroup> */}
-      </Menu> : 
-      (values.designation === CONSULTANT) ? 
+      </Menu> :
+      (values.designation === CONSULTANT) ?
       <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
           values.organization = event.item.props.children.props.children;
@@ -215,7 +215,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
                 <span style={{ color: message.color }}>&nbsp;&nbsp; {message.message}</span>
               </div>
               <Form.Item style={{ marginBottom: '15px' }}>
-                <Button className="buttonLogin" block htmlType="submit" >
+                <Button className="btn-purple" block htmlType="submit" >
                   Sign Up
                 </Button>
               </Form.Item>

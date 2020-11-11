@@ -82,7 +82,7 @@ export default () => {
                 <span style={{color: message.color}}>{message.message}</span>
               </div>
               <Form.Item>
-                <Button className="buttonLogin" block htmlType="submit">
+                <Button className="btn-purple" block htmlType="submit">
                     Send Password Reset Email
                 </Button>
               </Form.Item>

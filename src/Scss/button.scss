@@ -1,0 +1,118 @@
+@import "styles.scss";
+@use 'styles';
+
+// BUTTON PURPLE
+.btn-purple, .btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active{
+  background-color: $purple !important;
+  color: $white !important;
+  border-radius: 4px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+// BUTTON BORDE
+.btn-borde{
+  border-radius: 4px !important;
+  border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
+  background-color: #ffffff !important;
+  color: $opacity !important;
+  box-shadow: none !important;
+}
+.btn-borde:hover, .btn-borde:focus, .btn-borde:active, .btn-borde.active{
+  color: $purple00 !important;
+  background-color: $white !important;
+  border-color: $purple00 !important;
+}
+
+// BUTTON OPACITY
+.btn-opacity, .btn-opacity:hover, .btn-opacity:focus, .btn-opacity:active, .btn-opacity.active{
+  background-color: $opacity00 !important;
+  border: none !important;
+  color: $purple00 !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+}
+
+// BUTTON TRANSPARENT
+.btn-transparent{
+  border: none !important;
+  background-color: transparent !important;
+  color: $purple00 !important;
+  box-shadow: none !important;
+}
+.btn-transparent:hover, .btn-transparent:focus, .btn-transparent:active, .btn-transparent.active {
+  color: $purple !important;
+}
+.profile-bystatus {
+  border: none !important;
+  color: $opacity !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  width: auto !important;
+  padding-right: 6px !important;
+}
+
+// OTHER BUTTONS
+.f-btn{
+  background: $black !important;
+  color: $white !important;
+  width: 69px !important;
+  height: 38px !important;
+  border: none !important;
+}
+.f-btn:hover{
+  background: $black !important;
+  color: $white !important;
+  width: 69px !important;
+  border: none;
+}
+.btn-coll{
+  border: none !important;
+  background: white;
+  box-shadow: none !important;
+  position: absolute !important;
+  top: calc(50% - 27px);
+  right: 0px;
+  padding: 0px !important;
+  width: 50px;
+  height: 55px !important;
+  border-radius: 10px 0px 0px 10px !important;
+  z-index: 1000;
+}
+
+// CHECKBOXES
+.ant-checkbox-group{
+  width: 100%;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: $purple !important;
+  border-color: $purple !important;
+}
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: $purple !important;
+}
+.ant-checkbox-wrapper {
+  color: $purple !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+}
+
+// buttons-creation
+.input-maint {
+  margin: 20px 0;
+  position: relative;
+  .ant-input-lg{
+    height: 36px;
+  }
+  .label-new-form{
+    color: $opacity;
+    font-size: 12px;
+  }
+  .ant-input:hover, .ant-input:focus {
+    border-color: $purple;
+    border-right-width: 1px !important;
+    box-shadow: none;
+  }
+}

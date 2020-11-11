@@ -76,7 +76,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       <div id={"filter-organization" + title}>
         <Dropdown trigger={['click']} overlay={MenuOrganization} getPopupContainer={() => document.getElementById("filter-organization" + title ) as HTMLElement}
           overlayClassName="dropdown-special-bottomLeft">
-          <Button>
+          <Button className="btn-borde">
             {option.organization ? option.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
           </Button>
         </Dropdown>
@@ -84,7 +84,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       <div id={"filter-service-area" + title}>
         <Dropdown trigger={['click']} overlay={menu(SERVICE_AREA, 'serviceArea', 'Service Area')}
           getPopupContainer={() => document.getElementById("filter-service-area" + title ) as HTMLElement}>
-          <Button>
+          <Button className="btn-borde">
             {option.serviceArea ? option.serviceArea : 'Service Area'}
             <img src="/Icons/icon-12.svg" alt="" />
           </Button>
@@ -94,7 +94,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       <div id={"filter-designation" + title}>
         <Dropdown trigger={['click']} overlay={menu(ROLES, 'designation', 'User Designation')}
           getPopupContainer={() => document.getElementById("filter-designation" + title ) as HTMLElement}>
-          <Button>
+          <Button className="btn-borde">
             {option.designation ? RADIO_ITEMS.filter(item => item.value === option.designation)[0].name : 'User Designation'}
             <img src="/Icons/icon-12.svg" alt="" />
           </Button>
@@ -110,7 +110,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
       <div className="btn-r" id={"filter-sort" + title}>
         <label>Sort by:</label>
         <Dropdown trigger={['click']} overlay={menu(SORT, '', '')} getPopupContainer={() => document.getElementById("filter-sort" + title ) as HTMLElement}>
-          <Button>
+          <Button className="btn-borde"> 
             {SORT_ITEMS.filter(item => item.value === option.sort)[0].name}
             <img src="/Icons/icon-14.svg" alt="" />
           </Button>

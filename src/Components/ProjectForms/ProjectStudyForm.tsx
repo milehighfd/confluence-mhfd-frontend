@@ -162,8 +162,8 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
           </Row>
         </div>
         <div className="btn-footer" style={{ marginTop: '25px' }}>
-          <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
-          <Button style={{ width: '140px' }} block htmlType="submit" className="btn-01">Apply</Button>
+          <Button style={{ width: '140px' }} className="btn-borde">Reset</Button>
+          <Button style={{ width: '140px' }} block htmlType="submit" className="btn-purple">Apply</Button>
         </div>
       </Form>
     </div>

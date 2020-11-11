@@ -365,7 +365,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               setProjectKeyword('');
               getGalleryProjects();
               getGalleryProblems();
-            }} style={{ width: '80px' }} className="btn-00">Clear</Button>
+            }} style={{ width: '80px' }} className="btn-borde">Clear</Button>
           </Col>
           <Col style={{ textAlign: 'right' }} span={10} id="sort-map">
             <div className="sort-content">

@@ -1,0 +1,426 @@
+@import "styles.scss";
+@use 'styles';
+
+// LOGIN
+.login-hh{
+  height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
+.login-step01 {
+  transform: translate(-50%,-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  .btn-purple {
+    height: 50px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}
+.anticon.anticon-loading{
+  display: none;
+}
+.anticon.anticon-paper-clip {
+  display: none;
+}
+.login-form h1 {
+  color: $purple00;
+  font-size: 32px;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 400;
+  margin: 0;
+}
+// footer carousel
+.contact01 {
+  position: fixed;
+  z-index: 3;
+  color: white;
+  bottom: 0;
+  margin: 0 0 50px 60px;
+  font-size: 25px;
+}
+.icons-list{
+  a {
+    margin: 12px 26px 12px 0;
+  }
+  a:hover{
+    position: relative;
+    top: -2px;
+  }
+}
+.social01 {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    display: inline;
+  }
+  a {
+    color: $white;
+    font-size: 14px;
+  }
+  a:hover {
+    color: $white;
+    position: relative;
+    top: -2px;
+  }
+  span {
+    display: inline-block;
+    width: 45px;
+    text-align: center;
+    font-weight: 100;
+    font-size: 16px;
+  }
+}
+// login_material style
+.returnText {
+  top: 10%;
+  // width: 533px;
+  align-items: center;
+  font-size: 1rem;
+  justify-content: center;
+  margin-bottom: 40px;
+  span {
+    margin: 0 11px;
+  }
+  Button, Button:hover, Button:focus, Button:active, Button.active {
+   color: #251863;
+   border: 1px solid #251863;
+ }
+}
+// END LOGIN
+
+/* Sign up */
+.signup {
+  margin: 15px 0;
+  display: flex;
+  height: 55px;
+  justify-content: space-between;
+}
+.signup button {
+  border: $white;
+  white-space: inherit;
+  padding: 9px 20px 7px 20px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
+  font-size: 13px;
+  line-height: 16px;
+  color: $purple00;
+}
+.signup button:hover, .signup .ant-btn:active, .signup .ant-btn.active,
+.signup .ant-btn:hover, .signup .ant-btn:focus{
+  background-color: $green;
+  color: $white;
+  border: $green;
+  white-space: inherit;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 3px 13px 0 rgba(68, 58, 121, 0.12);
+}
+.btn-up{
+  .ant-btn {
+    box-shadow: none;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 0px;
+    color: $opacity;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid rgba(61, 46, 138, 0.07);
+  }
+  .ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
+    box-shadow: none;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 0px;
+    color: $opacity;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid $purple;
+    background: transparent;
+  }
+  img{
+    float: right;
+    margin-top: 6px;
+  }
+}
+.ant-dropdown-menu-item-group-list {
+  background-color: green($color: #000000);
+  margin: 0px !important;
+}
+.js-mm{
+  padding: 15px 20px !important;
+  font-size: 14px !important;
+  color: $opacity !important;
+
+  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a{
+    padding: 10px 0px;
+    border-bottom: 1px solid $opacity01;
+    font-size: 14px;
+    color: $purple00;
+  }
+}
+.js-mm-00{
+  font-size: 14px !important;
+  color: $opacity !important;
+
+  .ant-dropdown-menu-item > a, .ant-dropdown-menu-submenu-title > a, .ant-menu-item > a{
+    font-size: 14px;
+    color: $purple00;
+  }
+  .ant-menu-item{
+    border-top: 1px solid $opacity01;
+    margin: 0px !important;
+    padding: 0px 0px !important;
+  }
+  .ant-menu-item > a:hover, .ant-menu-item > a:focus,
+  .ant-dropdown-menu-item > a:hover, .ant-dropdown-menu-item > a:focus {
+    color: $purple;
+    font-weight: 500;
+  }
+  .ant-dropdown-menu-item{
+    padding: 10px 20px 0px 20px !important;
+    text-align: left;
+  }
+  .ant-dropdown-menu-item:hover{
+    background: none;
+    background-color: #e6f7ff !important;
+  }
+  span{
+    font-size: 14px;
+    color: $purple00;
+    padding: 0px 0px 10px 0px;
+    border-bottom: 1px solid rgba(61, 46, 138, 0.07);
+    width: 100%;
+    display: inline-block;
+  }
+  span:hover{
+    color: #251863;
+    font-weight: 500;
+  }
+}
+.sign-menu {
+  overflow-y: auto;
+  max-height: 150px;
+
+  .organization-items {
+    padding: 10px 0px;
+  }
+  .user-filter-items-text:hover {
+    color: $purple;
+    font-weight: 500;
+  }
+}
+.sign-menu-organization {
+  overflow-y: auto;
+  max-height: 150px;
+}
+.label-sg{
+  margin: 10px 10px 0px 20px;
+  line-height: 25px;
+}
+.login-field-top {
+  top: -20px !important;
+}
+.login-field-botton {
+  top: 10px !important;
+}
+/* END Sign up */
+
+// Reset password
+.resetText {
+  margin: 20px 0 20px 0;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: $opacity;
+}
+// END Reset password
+
+// login-labels
+.loginLabels {
+  font-size: 16px;
+  color: $purple00;
+  opacity: 50%;
+}
+.login-form-forgot {
+  color: $green;
+  margin-left: 5px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid;
+}
+.login-form-forgot:hover{
+  top: -2px;
+  position: relative;
+  color: $green;
+}
+.login-forgot{
+  float: right;
+  color: $purple;
+}
+.login-forgot:hover{
+  top: -2px;
+  position: relative;
+  color: $purple;
+}
+// END login-labels
+
+// carousel
+.ant-carousel .slick-slide {
+  text-align: center;
+  overflow: hidden;
+  img {
+   position: absolute;
+   z-index: -1;
+ }
+ h5 {
+   color: $white;
+   margin: 0;
+   font-size: 16px;
+   font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: 1.11;
+   letter-spacing: normal;
+ }
+ h2 {
+   color: $white;
+   margin: 0 0 12px 0;
+   font-size: 28px;
+   font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: normal;
+   letter-spacing: normal;
+ }
+}
+.ant-carousel .slick-list {
+  height: 100vh;
+}
+.ant-carousel .slick-dots {
+  display: flex !important;
+  padding-left: 60px !important;
+  padding-bottom: 120px !important;
+}
+.ant-carousel .slick-slide .textContent {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  height: 80vh;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-left: 58px;
+}
+// END carousel
+
+// logo white
+.logo-white {
+  width: 130px;
+  height: 45px;
+  float: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 50px 0 0 50px;
+  position: absolute;
+  z-index: 5;
+  color: white;
+  font-size: 11px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.18;
+  letter-spacing: normal;
+
+  p {
+   position: relative;
+   top: 65px;
+ }
+}
+// END logo white
+
+// styles material input
+.group {
+  position:relative;
+  margin-bottom: 15px;
+  input {
+    font-size:14px;
+    padding:10px 10px 10px 0;
+    display:block;
+    width:100%;
+    border:none;
+    // opacity: 15%;
+    border-bottom:1px solid $opacity01;
+    color: $purple00;
+  }
+  input:focus{
+    outline:none;
+  }
+  input::placeholder{
+    color: $opacity;
+  }
+}
+/* material bar bottom */
+.bar 	{ position:relative; display:block; width:100%; }
+.bar:before, .bar:after 	{
+  content:'';
+  height:1px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#5264AE;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%;
+}
+/* active state */
+.group input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+.highlight {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+/* active state */
+.group input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+/* transition material*/
+@-webkit-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}

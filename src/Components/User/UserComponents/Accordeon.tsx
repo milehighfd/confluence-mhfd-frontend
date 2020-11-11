@@ -233,7 +233,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
                   <p>AREAS</p>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
                     getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
-                    <Button>
+                    <Button className="btn-borde">
                       {values.city ? values.city : 'City'} <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -243,7 +243,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
                   <p>COUNTY</p>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
                     getPopupContainer={() => document.getElementById(("county" + values._id)) as HTMLElement}>
-                    <Button >
+                    <Button className="btn-borde">
                       {values.county ? values.county : 'County'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -256,7 +256,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
                   <Dropdown trigger={['click']} overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
                     getPopupContainer={() => document.getElementById(("serviceArea" + values._id)) as HTMLElement}
                     placement="bottomLeft">
-                    <Button >
+                    <Button className="btn-borde">
                       {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -271,7 +271,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
                   <p>ORGANIZATION</p>
                   <Dropdown trigger={['click']} overlay={menu}
                     getPopupContainer={() => document.getElementById(("organization" + values._id)) as HTMLElement}>
-                    <Button>
+                    <Button className="btn-borde">
                       {values.organization ? values.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -290,7 +290,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
             <br />
             <span style={{ color: messageError.color }}>&nbsp;&nbsp; {messageError.message}</span>
             <div className="user-footer">
-              {values.status === 'approved' ? <Button className="btn-d" onClick={() => deleteUser(user._id + "/deleted")}>Delete</Button> : 
+              {values.status === 'approved' ? <Button className="btn-d" onClick={() => deleteUser(user._id + "/deleted")}>Delete</Button> :
                values.status === 'deleted' ? <Button className="btn-d" onClick={() => {
                  console.log('USER',user._id);
                  deleteUserDatabase(user._id);

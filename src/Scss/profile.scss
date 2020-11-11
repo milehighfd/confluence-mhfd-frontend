@@ -1,0 +1,299 @@
+@import "styles.scss";
+@import "button.scss";
+@use 'styles';
+@use 'button';
+
+// profile
+.profile-header {
+  background-color: $white;
+  min-height: 240px !important;
+}
+.profile-img {
+  height: 120px;
+  width: 120px;
+  margin-right: 15px;
+  border-radius: 90px;
+}
+.user-Login {
+  width: 93px;
+  height: 24px;
+  font-family: Ubuntu;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: 0.27px;
+  color: #0079ff;
+}
+.profile-change {
+  position: absolute;
+  right: 25px;
+  bottom: 3px;
+}
+.btn-edit-00 {
+  background: transparent;
+  border: none !important;
+}
+.profile-info {
+  display: flex !important;
+  padding: 50px 0px 50px 20px !important;
+}
+.profile-project {
+  display: flex !important;
+  padding: 50px 0px 50px 0px !important;
+  height: 100%;
+}
+.profile-dat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 170px;
+  width: 170px;
+}
+.profile-name h3 {
+  font-size:18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $purple00;
+  margin-bottom: 2px;
+}
+.profile-contact button {
+  height: 40px;
+  width: 40px;
+  margin-right: 15px;
+}
+.profile-prot button,.profile-prot button:hover,
+.profile-prot button:focus, .profile-prot button:active,
+.profile-prot button.active {
+  margin: 0 5px 5px 0px;
+  background-color: $opacity00;
+  border: none;
+  color: $purple00;
+  height: 30px;
+  font-size: 12px;
+  padding: 0px 15px;
+}
+.profile-prot{
+  padding-left: 10px;
+  .add-tag, .add-tag:hover, .add-tag:focus, .add-tag:active, .add-tag.active{
+    background: transparent;
+    color: $opacity;
+    box-shadow: none;
+    padding: 0px;
+  }
+  .add-tag img{
+    margin-right: 5px;
+    margin-top: -1px;
+  }
+}
+.profile-table {
+  padding: 8px 20px 0px 0px !important;
+  width: 100%;
+  text-align: right;
+  td {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $purple00;
+  }
+  tr:nth-child(2), tr:nth-child(4){
+    background-color: $opacity00;
+  }
+  .ant-table-small > .ant-table-content > .ant-table-body {
+      margin: 0px;
+    }
+}
+.profile-bystatus {
+  border: none !important;
+  color: $opacity !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  width: auto !important;
+  padding-right: 6px !important;
+}
+.profile-filter {
+  justify-content: space-between;
+}
+.profile-table{
+  span {
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $purple00;
+  }
+  th {
+    text-align: center !important;
+  }
+}
+.profile-tabs {
+  position: relative !important;
+  top: -38px !important;
+  margin-bottom: -38px;
+
+  .ant-tabs-bar{
+    padding: 0px 25px;
+  }
+  .ant-tabs-bar{
+    border-bottom: none;
+  }
+}
+.profile-pad {
+  opacity: 0.5;
+  pointer-events:none;
+  padding:20px;
+  .ant-collapse-borderless > .ant-collapse-item {
+    border-bottom: none;
+    margin-bottom: 10px;
+    background: #f7f8f8;
+  }
+  .ant-collapse {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum', "tnum";
+    background-color: transparent;
+    border: none;
+    border-bottom: 0;
+    border-radius: 4px;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+    display: none;
+  }
+  .ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content {
+    background-color: transparent;
+    border-top: 1px solid $opacity01;
+  }
+  .ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+    padding-top: 18px;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding-left: 20px;
+    color: $purple00;
+  }
+}
+.profile-pad h2 {
+  font-size: 18px;
+  color: $purple00;
+  margin-bottom: 18px;
+}
+.card-information {
+  img {
+    height: 20vh;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 6px 6px 0px 0px !important;
+  }
+}
+.edit-profile{
+  .btn-opacity{
+    height: 40px;
+    position: absolute;
+    bottom: 50px;
+    right: 20px;
+  }
+  button img{
+    margin-right: 10px;
+  }
+}
+.modal-edit{
+  h4{
+    font-size: 18px;
+    color: $purple00;
+    font-weight: 600;
+  }
+  h6{
+    font-size: 14px;
+    color: $purple00;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .ant-input {
+    height: 38px;
+    padding: 4px 11px;
+    color: $opacity;
+    font-size: 12px;
+    line-height: 1.5;
+    background-color: $white;
+    border: solid 1.3px rgba(37, 24, 99, 0.1);
+    font-weight: lighter;
+  }
+  hr{
+    border-bottom: dashed 1.3px #251863;
+    border-width: 1px;
+    opacity: 0.3;
+    border-top: none;
+    margin: 25px 0px;
+  }
+  .btn-borde {
+    text-align: left;
+    width: 100%;
+    height: 38px;
+    padding: 0 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: $opacity;
+    border: solid 1.3px rgba(37, 24, 99, 0.1);
+    background: $white;
+    font-weight: lighter;
+    box-shadow: none;
+  }
+  .ant-btn:hover, .ant-btn:focus {
+    color: $purple00;
+    background-color: $white;
+    border-color: $purple00;
+  }
+  .ant-btn img{
+    float: right;
+    margin-top: 6px;
+  }
+  .ant-input:hover {
+    border-color: $purple;
+  }
+  .ant-modal-footer{
+    display: none;
+  }
+  .ant-modal-body {
+    padding: 20px 25px;
+  }
+  .footer-modal{
+    .cancel {
+      width: 130px !important;
+      height: 45px !important;
+      margin-right: 15px !important;
+      text-align: center !important;
+      font-weight: bold !important;
+    }
+    .btn-purple {
+      width: 130px !important;
+      height: 45px !important;
+      margin-top: 10px !important;
+      font-weight: bold !important;
+      text-align: center;
+    }
+  }
+  p{
+    margin-bottom: 2px;
+    color: $purple00;
+    font-size: 12px;
+  }
+}
+// END PROFILE

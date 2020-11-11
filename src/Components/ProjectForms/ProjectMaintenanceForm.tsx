@@ -174,8 +174,8 @@ const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNe
           </div>
         </div>
         <div className="btn-footer" style={{ marginTop: '25px' }}>
-          <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
-          <Button style={{ width: '140px' }} block htmlType="submit" className="btn-01">Create Project</Button>
+          <Button style={{ width: '140px' }} className="btn-borde">Reset</Button>
+          <Button style={{ width: '140px' }} block htmlType="submit" className="btn-purple">Create Project</Button>
         </div>
       </Form>
 

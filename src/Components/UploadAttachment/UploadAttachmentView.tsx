@@ -89,7 +89,7 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, s
                     <p className="ant-upload-text">Drag and drop your documents/media files here</p>
                   </Dragger>
                   <div className="btn-footer" style={{ marginTop: '25px' }}>
-                    <Button disabled={!mainImage.length ? true : false} style={{ width: '140px' }} className="btn-01" onClick={onSubmit} >Save</Button>
+                    <Button disabled={!mainImage.length ? true : false} style={{ width: '140px' }} className="btn-purple" onClick={onSubmit} >Save</Button>
                   </div>
                 </div>
               </Col>

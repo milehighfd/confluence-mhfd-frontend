@@ -46,8 +46,8 @@ const ProjectSpecialForm = ({ createNewProjectForm, markerRef } : { createNewPro
 
           <br></br>
           <div className="btn-footer" style={{marginTop: '25px'}}>
-              <Button style={{width: '140px'}} className="btn-00">Reset</Button>
-              <Button style={{width: '140px'}} className="btn-01" block htmlType="submit" >Apply</Button>
+              <Button style={{width: '140px'}} className="btn-borde">Reset</Button>
+              <Button style={{width: '140px'}} className="btn-purple" block htmlType="submit" >Apply</Button>
           </div>
         </Form>
       </div>
