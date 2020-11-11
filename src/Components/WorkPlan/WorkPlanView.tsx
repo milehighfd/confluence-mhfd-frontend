@@ -89,10 +89,10 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProj
       <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
-        <Layout style={{ margin: '20px' }}>
+        <Layout className="work-p">
           <Row>
             <Col span={24}>
-              <div className="count request" style={{ paddingBottom: '20px', height: 'calc(100vh - 78px)' }}>
+              <div className="request" style={{ paddingBottom: '20px', background:'#fff', padding: '20px'}}>
                 <Row>
                   <Col span={14}><h2 style={{ display: 'inline-block' }}>Boulder County Work Plan</h2> <Button className="btn-comment-01"><img src="/Icons/icon-09.svg" alt="" /> Invite</Button></Col>
                   <Col span={10} style={{ textAlign: 'right' }}>
