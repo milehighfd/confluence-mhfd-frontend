@@ -207,6 +207,9 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
             </Col>
         </Row>
     );
+    /* console.log('FILTER PROJECTS',filterProjectOptions);
+    console.log('FILTER PROBLEMS', filterProblemOptions);
+    console.log('FILTER COMPONENTS', filterComponentOptions); */
     const { setFilterTabNumber, getParamFilterComponents, 
         getParamFilterProblems, getParamFilterProjects } = useMapDispatch();
     const { boundsMap } = useMapState();
@@ -241,16 +244,22 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
         if( e === '0') {
             setTabActive('0');
             setFilterTabNumber(PROBLEMS_TRIGGER);
-            getParamFilterProblems(boundsMap);
+            if (JSON.stringify(paramFilters.problems) === '{}') {
+                getParamFilterProblems(boundsMap);
+            }
         } else {
             if( e === '1') {
                 setTabActive('1');
                 setFilterTabNumber(PROJECTS_TRIGGER);
-                getParamFilterProjects(boundsMap);
+                if (JSON.stringify(paramFilters.projects) === '{}') {
+                    getParamFilterProjects(boundsMap);
+                }
             } else {
                 setTabActive('2');
                 setFilterTabNumber(COMPONENTS_TRIGGER);
-                getParamFilterComponents(boundsMap);
+                if (JSON.stringify(paramFilters.components) === '{}') {
+                    getParamFilterComponents(boundsMap);
+                }
                 const copySelectedLayers = [...selectedLayers];
                 if (!copySelectedLayers.includes(COMPONENT_LAYERS)) {
                     copySelectedLayers.push(COMPONENT_LAYERS);

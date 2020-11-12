@@ -187,11 +187,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     if (!toggleFilters) {
       //getParamsFilter(filterCoordinates);
       getParamFilterProjects(filterCoordinates);
-      /* getParamFilterProblems(filterCoordinates);
-      getParamFilterComponents(filterCoordinates); */
-      /* 
-      getParamFilterProblems(filterCoordinates);
-      getParamFilterComponents(filterCoordinates); */
     }
     if (backgroundStyle === gray) {
       setBackgroundStyle(green);

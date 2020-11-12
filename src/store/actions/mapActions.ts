@@ -583,10 +583,8 @@ export const getParamFilterByPositionTab = (bounds: string, position: number) =>
 export const getParamFilterProjects = (bounds: string) => {
     return (dispatch: Function) => {
         dispatch(setSpinFilter(true));
-        //console.log('PROJECT', SERVER.PARAM_FILTER_PROJECTS, bounds);
         datasets.getData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds).then(params => {
             if (params) {
-                console.log('DATA PROJECT', params);
                 dispatch({type: types.GET_PARAM_FILTER_PROJECTS, params});
             }
             dispatch(setSpinFilter(false));
@@ -596,10 +594,8 @@ export const getParamFilterProjects = (bounds: string) => {
 export const getParamFilterProblems = (bounds: string) => {
     return (dispatch: Function) => {
         dispatch(setSpinFilter(true));
-        //console.log('PROBLEMS', SERVER.PARAM_FILTER_PROBLEMS, bounds);
         datasets.getData(SERVER.PARAM_FILTER_PROBLEMS + '?bounds=' + bounds).then(params => {
             if (params) {
-                console.log('DATA PROBLEM', params);
                 dispatch({type: types.GET_PARAM_FILTER_PROBLEMS, params});
             }
             dispatch(setSpinFilter(false));
@@ -609,10 +605,8 @@ export const getParamFilterProblems = (bounds: string) => {
 export const getParamFilterComponents = (bounds: string) => {
     return (dispatch: Function) => {
         dispatch(setSpinFilter(true));
-        //console.log('COMPONENTS', SERVER.PARAM_FILTER_COMPONENTS);
         datasets.getData(SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds).then(params => {
             if (params) {
-                console.log('DATA COMPONENT', params);
                 dispatch({type: types.GET_PARAM_FILTER_COMPONENTS, params});
             }
             dispatch(setSpinFilter(false));
