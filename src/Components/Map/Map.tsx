@@ -38,6 +38,7 @@ import { numberWithCommas } from '../../utils/utils';
 import { Input, AutoComplete } from 'antd';
 import { SelectProps } from 'antd/es/select';
 import DetailedModal from '../Shared/Modals/DetailedModal';
+import { useMapState } from '../../hook/mapHook';
 const { Option } = AutoComplete;
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -101,7 +102,8 @@ const Map = ({ leftWidth,
     // console.log( mapSearch);=
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
-
+    const { toggleModalFilter } = useMapState();
+    
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const [ zoomValue, setZoomValue] = useState(0);
@@ -251,7 +253,9 @@ const Map = ({ leftWidth,
                 console.log(applyFilter);
                 if (applyFilter) {
                     setFilterCoordinates(boundingBox);
-                    getParamsFilter(boundingBox);
+                    if (toggleModalFilter) {
+                        getParamsFilter(boundingBox);
+                    }
                 }
             }
             });
@@ -261,7 +265,9 @@ const Map = ({ leftWidth,
             console.log(applyFilter);
             if (applyFilter) {
                 setFilterCoordinates(boundingBox);
-                getParamsFilter(boundingBox);
+                if (toggleModalFilter) {
+                    getParamsFilter(boundingBox);
+                }
             }
 
         });
@@ -291,7 +297,9 @@ const Map = ({ leftWidth,
         console.log(applyFilter);
         if (applyFilter) {
             setFilterCoordinates(boundingBox);
-            getParamsFilter(boundingBox);
+            if (toggleModalFilter) {
+                getParamsFilter(boundingBox);
+            }
         }
         
         
@@ -522,7 +530,7 @@ const Map = ({ leftWidth,
             }
 
             if (map.getLayer(key + '_' + index)) {
-                console.log(key + '_' + index, allFilters);
+                //console.log(key + '_' + index, allFilters);
                 map.setFilter(key + '_' + index, allFilters);
             }
         });

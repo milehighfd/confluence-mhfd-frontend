@@ -12,6 +12,7 @@ import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import store from "../../store";
 import DetailedModal from "../Shared/Modals/DetailedModal";
 import { genExtra } from "../../utils/detailedUtils";
+import { useMapDispatch, useMapState } from "../../hook/mapHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 
@@ -41,11 +42,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
                   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
                   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
-                  groupOrganization, applyFilter, getParamsFilter, spinFilter, toggleModalFilter,
+                  groupOrganization, applyFilter, getParamsFilter, spinFilter, 
                   setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem, selectedLayers, updateSelectedLayers  } : MapViewTypes) => {
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
+  const { setToggleModalFilter, getParamFilterProjects, getParamFilterComponents,
+          getParamFilterProblems, setTabCards } = useMapDispatch();
+  const { tabCards } = useMapState();
+  
   //toggleFilters = false;
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
@@ -177,9 +182,16 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       setTabActive('0');
     }
     setToggleFilters(!toggleFilters);
-    toggleModalFilter = toggleFilters;
+    setToggleModalFilter(!toggleFilters);
+    
     if (!toggleFilters) {
-      getParamsFilter(filterCoordinates);
+      //getParamsFilter(filterCoordinates);
+      getParamFilterProjects(filterCoordinates);
+      /* getParamFilterProblems(filterCoordinates);
+      getParamFilterComponents(filterCoordinates); */
+      /* 
+      getParamFilterProblems(filterCoordinates);
+      getParamFilterComponents(filterCoordinates); */
     }
     if (backgroundStyle === gray) {
       setBackgroundStyle(green);
@@ -427,8 +439,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <Tabs onTabClick={(e: string) => {
           if( e === '0') {
             setTabActive('0');
+            setTabCards(0);
           } else {
             setTabActive('1');
+            setTabCards(1);
           }
         }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00"  tabBarExtraContent={genExtra()}>
           {tabs.map((value : string, index : number) => {

@@ -12,7 +12,7 @@ import carouselImages from './carouselImagesReducer';
 import uploadAttachment from './uploadAttachmentReducer';
 import detailedReducer from './detailedReducer';
 
-export default (history: any) => combineReducers({
+const appReducer = (history: any) => combineReducers({
   router: connectRouter(history),
   map: mapReducer,
   filter: filterReducer,
@@ -25,3 +25,6 @@ export default (history: any) => combineReducers({
   uploadAttachment,
   detailed: detailedReducer
 });
+
+export type RootState = ReturnType<typeof appReducer>;
+export default appReducer;

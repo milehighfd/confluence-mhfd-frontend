@@ -67,6 +67,9 @@ export const SERVER = (function () {
     const DETAILED_PAGE = 'detailed-page';
     const GROUP_ORGANIZATION = 'group-organization';
     const DELETE_USER = 'delete-user';
+    const PARAM_FILTER_PROJECTS = 'params-filter-projects';
+    const PARAM_FILTER_PROBLEMS = 'params-filter-problems';
+    const PARAM_FILTER_COMPONENTS = 'params-filter-components';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -124,5 +127,8 @@ export const SERVER = (function () {
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
         GROUP_ORGANIZATION: `${URL_BASE.BASE}/${GALLERY}/${GROUP_ORGANIZATION}`,
         DELETE_USER: `${URL_BASE.BASE}/${ADMIN}/${DELETE_USER}`,
+        PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROJECTS}`,
+        PARAM_FILTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROBLEMS}`,
+        PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS}`,
     }
 })();

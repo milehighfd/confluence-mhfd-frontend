@@ -187,8 +187,6 @@ export type MapViewTypes = {
     selectedLayers: Array<LayersType>,
     updateSelectedLayers: Function,
     spinFilter: boolean,
-    toggleModalFilter: boolean , 
-    //setToggleFilters: Function
 }
 export type OptionProblems = {
     keyword: string,
