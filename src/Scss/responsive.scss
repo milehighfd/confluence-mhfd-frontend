@@ -1,0 +1,32 @@
+@import "styles.scss";
+@import "button.scss";
+@use 'styles';
+@use 'button';
+
+// RESPONSIVE
+// MEDIA QUERIES
+@media (min-width: 1600px) {
+  .btn-creation01 div {
+    width: 293px;
+    height: 267px;
+    margin: 30px;
+  }
+  .btn-creation01 Button{
+    font-size: 18px;
+  }
+  .btn-creation01 button span {
+    margin: 45px 0;
+  }
+  .btn-creation01 {
+    padding: 30px 15% 20px 15%;
+  }
+  .content-new01 h1 {
+    font-size: 40px;
+    margin-top: 40px;
+  }
+  .content-new01 .ant-input-lg {
+    height: 40px;
+    padding: 6px 11px;
+    font-size: 16px;
+  }
+ }

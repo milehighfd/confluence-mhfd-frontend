@@ -60,7 +60,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
           </Row>
 
           <div className="btn-footer">
-            <Button className="btn-00" onClick={() => {
+            <Button className="btn-borde" onClick={() => {
               if (isExtendedView) { 
                 setSelectedCheckBox([MHFD_BOUNDARY_FILTERS, XSTREAMS]);
                 // setCheckboxes([]);

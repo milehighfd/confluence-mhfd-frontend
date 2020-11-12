@@ -219,8 +219,8 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
         </Row>
 
         <div className="btn-footer" style={{ marginTop: '25px' }}>
-            <Button onClick={() => reset()} style={{ width: '140px' }} className="btn-00">Reset</Button>
-            {/* <Button onClick={() => apply()} style={{ width: '140px' }} className="btn-01">Apply</Button> */}
+            <Button onClick={() => reset()} style={{ width: '140px' }} className="btn-borde">Reset</Button>
+            {/* <Button onClick={() => apply()} style={{ width: '140px' }} className="btn-purple">Apply</Button> */}
         </div>
     </div>
     </>
@@ -502,8 +502,8 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     </Row>
 
     <div className="btn-footer" style={{ marginTop: '25px' }}>
-        <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
-        {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button> */}
+        <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-borde">Reset</Button>
+        {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-purple">Apply</Button> */}
     </div>
     </div>
 </>
@@ -651,8 +651,8 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
               </Col>
             </Row>
             <div className="btn-footer" style={{ marginTop: '25px' }}>
-                 <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-00">Reset</Button>
-                {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-01">Apply</Button> */}
+                 <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-borde">Reset</Button>
+                {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-purple">Apply</Button> */}
             </div>
         </div>
     </>

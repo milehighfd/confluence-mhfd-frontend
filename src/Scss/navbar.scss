@@ -1,0 +1,149 @@
+@import "styles.scss";
+@use 'styles';
+// NAVBAR
+.logo {
+  width: 225px;
+  height: 30px;
+  float: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 14px 0px;
+}
+.header {
+  height: 58px !important;
+  padding: 0 20px !important;
+  line-height: 58px !important;
+  background: $dark !important;
+}
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub{
+  background: $dark !important;
+}
+.header{
+  .ll-00{
+    color: $white;
+    background: $green;
+    border-radius: 50%;
+    padding: 5px 5.23px;
+    margin-right: 5px;
+  }
+  .ll-img {
+    height: 26px;
+    width: 26px;
+    border-radius: 15px;
+    margin-right: 5px;
+  }
+  .ll-0{
+    background: $white;
+    padding: 8px 0.5px;
+    opacity: 0.5;
+    margin-right: 18px;
+  }
+  a{
+    color: $white;
+    padding: 18px 0px;
+  }
+  a:hover{
+    color: $white;
+  }
+  .anticon{
+    color: $white;
+    opacity: 0.5;
+    font-size: 10px;
+  }
+  h6{
+    color: white;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    left: 50%;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  .ant-dropdown-menu {
+    top: 18px !important;
+  }
+}
+.login-dropdown {
+  text-align: center;
+}
+.menu-login-dropdown {
+  border-radius: 0px !important;
+}
+
+.tutorial{
+  .btn-question, .btn-question:hover,
+  .btn-question:focus, .btn-question:active{
+    background: transparent;
+    border: none;
+    padding: 0px;
+  }
+  .logo-00{
+    position: absolute;
+    left: 0px;
+    margin-bottom: 30px;
+    padding-left: 24px;
+
+    img{
+      width: 140px;
+    }
+  }
+  .ant-modal-footer{
+    display: none;
+  }
+  p{
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: $purple00;
+  }
+  .ant-tabs-nav{
+    padding-top: 25px;
+  }
+  .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
+    left: 0px;
+    width: 5px !important;
+  }
+  .ant-tabs-ink-bar{
+    background-color: $green;
+  }
+  .ant-modal-body{
+    padding-left: 0px;
+  }
+  .ant-tabs .ant-tabs-left-bar .ant-tabs-tab {
+    text-align: left;
+  }
+  .ant-tabs .ant-tabs-left-bar .ant-tabs-tab, .ant-tabs .ant-tabs-right-bar .ant-tabs-tab {
+    margin: 0px 0 8px 0;
+  }
+  .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-nav .ant-tabs-tab:hover {
+    color: $purple00;
+  }
+  .ant-tabs{
+    color: $opacity;
+  }
+  .ant-tabs .ant-tabs-left-content {
+    padding-left: 35px;
+  }
+  .content{
+    height: 160px;
+    overflow-y: auto;
+    margin: 15px 0px;
+  }
+  h6{
+    font-size: 16px;
+    color: $purple00;
+  }
+  .btn-purple{
+    width: 140px;
+    padding: 10px 0px;
+    height: 40px;
+  }
+  .ant-modal-close-x {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    line-height: 40px;
+    color: $purple00;
+  }
+  .ant-tabs .ant-tabs-left-bar .ant-tabs-nav-scroll, .ant-tabs .ant-tabs-right-bar .ant-tabs-nav-scroll {
+    width: 192px;
+  }
+}

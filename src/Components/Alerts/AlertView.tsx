@@ -42,8 +42,8 @@ export default () => {
                  width="400px"
                >
                  <h2>Are you sure want to submit the draft project?</h2>
-                 <button className="btn-cancel">Cancel</button>
-                 <button className="btn-submit">Submit</button>
+                 <button className="btn-borde">Cancel</button>
+                 <button className="btn-purple">Submit</button>
                </Modal>
             </div>
          </div>

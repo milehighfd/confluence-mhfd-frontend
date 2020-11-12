@@ -6,13 +6,14 @@ import store from "../../../store";
 import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
 import { User } from "../../../Classes/TypeList";
 import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
+import '../../../Scss/navbar.scss';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
 const content = (<div className="popoveer-00">Notifications (Under Construction)</div>
 );
 
-export default ({user, updateUserInformation, groupOrganization, getGroupOrganization}: 
+export default ({user, updateUserInformation, groupOrganization, getGroupOrganization}:
   {user: User, updateUserInformation : Function, groupOrganization: [], getGroupOrganization: Function}) => {
   const [ key, setKey] = useState('1');
   const [ openProfile, setOpenProfile] = useState(false);
@@ -103,7 +104,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     <div className="logo"
       style={{ backgroundImage: 'url(/Icons/logo-02.svg)' }}
     />
-    { openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user} 
+    { openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
     <Menu
@@ -287,7 +288,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
                 </p>
              </div>
             </TabPane>
-            <Button className="next" onClick={() => {
+            <Button className="btn-purple" onClick={() => {
               const auxKey = +key + 1;
               if(auxKey === 9) {
                 setKey('1');

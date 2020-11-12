@@ -89,16 +89,16 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProj
       <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
-        <Layout style={{ margin: '20px' }}>
+        <Layout className="work-p">
           <Row>
             <Col span={24}>
-              <div className="count request" style={{ paddingBottom: '20px', height: 'calc(100vh - 78px)' }}>
+              <div className="request" style={{ paddingBottom: '20px', background:'#fff', padding: '20px'}}>
                 <Row>
-                  <Col span={14}><h2 style={{ display: 'inline-block' }}>Boulder County Work Plan</h2> <Button className="btn-comment-01"><img src="/Icons/icon-09.svg" alt="" /> Invite</Button></Col>
+                  <Col span={14}><h2 style={{ display: 'inline-block' }}>Boulder County Work Plan</h2> <Button className="btn-opacity"><img src="/Icons/icon-09.svg" alt="" /> Invite</Button></Col>
                   <Col span={10} style={{ textAlign: 'right' }}>
-                    <Button className="btn-request"><img src="/Icons/icon-01.svg" alt="" /></Button>
-                    <Button className="btn-request"><img src="/Icons/icon-06.svg" alt="" /></Button>
-                    <Button className="btn-comment" onClick={() => { setVisible(true); console.log('click ', visible); }}><img src="/Icons/icon-03.svg" alt="" /> Comments</Button>
+                    <Button className="btn-transparent"><img src="/Icons/icon-01.svg" alt="" /></Button>
+                    <Button className="btn-transparent"><img src="/Icons/icon-06.svg" alt="" /></Button>
+                    <Button className="btn-opacity" onClick={() => { setVisible(true); console.log('click ', visible); }}><img src="/Icons/icon-03.svg" alt="" /> Comments</Button>
                   </Col>
                 </Row>
 
@@ -119,8 +119,8 @@ export default ({ panel, projectsByType, getUserProjects, saveDraftCard, getProj
                           <div className="cost-wr" style={{padding: '20px 0px 0px 0px' }}>
                             <Row>
                               <Col className="cost-rows" style={{paddingRight: '8px', textAlign: 'right', marginTop: '-30px'}}>
-                                <Button style={{marginTop: '0px'}} className="btn-00">Save Work Plan</Button>
-                                <Button style={{marginTop: '0px'}} onClick={() => saveDraftCard()} >
+                                <Button style={{marginTop: '0px'}} className="btn-borde">Save Work Plan</Button>
+                                <Button className="btn-purple" style={{marginTop: '0px'}} onClick={() => saveDraftCard()} >
                                   Submit to Admin
                                 </Button>
                               </Col>

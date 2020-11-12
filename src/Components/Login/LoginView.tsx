@@ -132,7 +132,7 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
         />
       </div>
           <span style={{color: message.color}}>&nbsp;&nbsp; {message.message}</span>
-        <Button className="buttonLogin" block htmlType="submit">
+        <Button className="btn-purple" block htmlType="submit">
             Login
         </Button>
       </div>

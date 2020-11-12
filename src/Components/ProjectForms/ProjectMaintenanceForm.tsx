@@ -37,14 +37,14 @@ const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNe
   });
   const dummyRequest = ({ onSuccess } : { onSuccess: Function}) => {
     setTimeout(() => onSuccess("ok"), 0);
-  }  
+  }
 
   const addTask = () => {
     const auxTask = [...tasks];
     auxTask.push('');
     setTasks(auxTask);
   }
-  
+
   return <>
     <div className="count-01">
       <ProjectsHeader requestName={values.requestName} handleChange={handleChange} />
@@ -75,7 +75,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNe
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">MHFD Dollars Requested<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input type="number" placeholder="MHFD dollars" name="mhfdDollarRequest" onChange={handleChange} 
+              <Input type="number" placeholder="MHFD dollars" name="mhfdDollarRequest" onChange={handleChange}
                 style={(errors.mhfdDollarRequest && touched.mhfdDollarRequest) ? {border: "solid red 1px"}:{}} /></Col>
             <Col className="gutter-row" span={12}>
               <div className="form01">
@@ -97,12 +97,12 @@ const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNe
                   <div id="maintenance-eligility">
                     <Dropdown overlay={<DropdownMenuView values={values} items={MAINTENANCE_ELIGIBILITY} item={title} setItem={setTitle} field={'maintenanceEligility'} />}
                       getPopupContainer={() => document.getElementById("maintenance-eligility" ) as HTMLElement}>
-                      <Button style={(errors.maintenanceEligility && touched.maintenanceEligility && !values.maintenanceEligility) ? {border: "solid red 1px"}:{}}>
+                      <Button className="btn-borde" style={(errors.maintenanceEligility && touched.maintenanceEligility && !values.maintenanceEligility) ? {border: "solid red 1px"}:{}}>
                         {values.maintenanceEligility ? MAINTENANCE_ELIGIBILITY.filter(element => element.id === values.maintenanceEligility)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                       </Button>
                     </Dropdown>
                   </div>
-                  
+
                 </Col>
               ) : (
                   <Col className="gutter-row" span={12}>
@@ -110,12 +110,12 @@ const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNe
                     <div id="maintenance-recurrence">
                       <Dropdown overlay={<DropdownMenuView values={values} items={RECURRENCE} item={title} setItem={setTitle} field={'recurrence'} />}
                         getPopupContainer={() => document.getElementById("maintenance-recurrence" ) as HTMLElement}>
-                        <Button style={(errors.recurrence && touched.recurrence && !values.recurrence) ? {border: "solid red 1px"}:{}}>
+                        <Button className="btn-borde" style={(errors.recurrence && touched.recurrence && !values.recurrence) ? {border: "solid red 1px"}:{}}>
                           {values.recurrence ? RECURRENCE.filter(element => element.id === values.recurrence)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                         </Button>
                       </Dropdown>
                     </div>
-                    
+
                   </Col>
                 )}
               <Col className="gutter-row" span={12}>
@@ -123,12 +123,12 @@ const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNe
                 <div id="maintenance-frecuency">
                   <Dropdown overlay={<DropdownMenuView values={values} items={FRECUENCY} item={title} setItem={setTitle} field={'frecuency'} />}
                     getPopupContainer={() => document.getElementById("maintenance-frecuency" ) as HTMLElement}>
-                    <Button style={(errors.frecuency && touched.frecuency && !values.frecuency) ? {border: "solid red 1px"}:{}}>
+                    <Button className="btn-borde" style={(errors.frecuency && touched.frecuency && !values.frecuency) ? {border: "solid red 1px"}:{}}>
                       {values.frecuency ? FRECUENCY.filter(element => element.id === values.frecuency)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
                 </div>
-                
+
               </Col>
             </Row>
           )}
@@ -144,7 +144,7 @@ const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNe
                     </Button>
                   </Dropdown>
                 </div>
-                
+
               </Col>
             </Row>
           ) : ''}
@@ -174,8 +174,8 @@ const ProjectMaintenanceForm = ({ createNewProjectForm, polygonRef }: { createNe
           </div>
         </div>
         <div className="btn-footer" style={{ marginTop: '25px' }}>
-          <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
-          <Button style={{ width: '140px' }} block htmlType="submit" className="btn-01">Create Project</Button>
+          <Button style={{ width: '140px' }} className="btn-borde">Reset</Button>
+          <Button style={{ width: '140px' }} block htmlType="submit" className="btn-purple">Create Project</Button>
         </div>
       </Form>
 

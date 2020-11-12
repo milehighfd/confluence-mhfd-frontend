@@ -10,7 +10,7 @@ import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULT
 
 const content = (<div className="popoveer-00">Defines the Area-Of-Interest for the map and the respective projects and problems shown in the Map Gallery and My Confluence screens.</div>);
 
-export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrganization, getGroupOrganization }: 
+export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrganization, getGroupOrganization }:
   { user: User, updateUserInformation: Function, isVisible: boolean, hideProfile: Function, groupOrganization: [], getGroupOrganization: Function }) => {
   const initialValues = { ...user };
   const [organization, setOrganization] = useState<Array<string>>([]);
@@ -146,7 +146,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
     hideProfile();
   };
   return <div className="edit-profile">
-    <Button onClick={showModal}>
+    <Button className="btn-opacity" onClick={showModal}>
       <img src="/Icons/icon-72.svg" alt="" height="18px" /> Edit Profile
      </Button>
     <Modal
@@ -206,7 +206,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
               <p>ORGANIZATION</p>
               {values.designation !== OTHER ? <div id="sign-up-organization">
                 <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
-                  <Button style={{ paddingLeft: '10px' }} >
+                  <Button style={{ paddingLeft: '10px' }} className="btn-borde" >
                     {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
                     <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
@@ -224,7 +224,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
             <Col className="gutter-row" span={12}>
               <p>CITY</p>
               <Dropdown overlay={MenuAreaView(CITIES, 'city', values, setTitle)}>
-                <Button>
+                <Button className="btn-borde">
                   {values.city ? values.city : 'City'} <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>
@@ -233,7 +233,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
             <Col className="gutter-row" span={12}>
               <p>COUNTY</p>
               <Dropdown overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}>
-                <Button>
+                <Button className="btn-borde">
                   {values.county ? values.county : 'County'}  <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>
@@ -246,7 +246,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
               <Dropdown overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
 
                 placement="bottomLeft">
-                <Button>
+                <Button className="btn-borde">
                   {values.serviceArea ? values.serviceArea : 'Service Area'}  <img src="/Icons/icon-12.svg" alt="" />
                 </Button>
               </Dropdown>
@@ -261,7 +261,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
               {/* <p>ORGANIZATION</p> */}
               <div id="sign-up-organization">
                 <Dropdown placement="topCenter" overlay={menuZoom} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
-                  <Button style={{ paddingLeft: '10px' }} >
+                  <Button className="btn-borde" style={{ paddingLeft: '10px' }} >
                     {values.zoomarea ? values.zoomarea : 'Default map zoom area'}
                     <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
@@ -270,7 +270,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
               </div>
             </Col>
             <Col className="gutter-row" span={3}>
-                <Button onClick={() => {
+                <Button className="btn-borde" onClick={() => {
                   values.zoomarea = (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? values.organization : 'Mile High Flood Control District Boundary';
                   const auxTitle = 'Mile High Flood Control District Boundary';
                   setTitle(auxTitle);
@@ -281,11 +281,11 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
           </Row>
         </div>
         <br></br>
-        <div className="gutter-example" style={{ textAlign: 'center' }}>
+        <div className="gutter-example footer-modal" style={{ textAlign: 'center' }}>
           <Row gutter={16}>
             <Col className="gutter-row" span={24}>
-              <Button className="cancel" onClick={handleCancel}>Cancel</Button>
-              <Button className="save" block htmlType="submit">Save</Button>
+              <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
+              <Button className="btn-purple" block htmlType="submit">Save</Button>
             </Col>
           </Row>
         </div>

@@ -111,6 +111,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/reset-password`} component={ResetPasswordContainer} />
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
       <Route path={`/alert-view`} component={AlertContainer} />
+      <Route path={`/work-request`} component={WorkRequestView} />
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />
       <Route exact path="/" render={() => (
@@ -149,8 +150,6 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
         && (appUser.status === 'approved') && <Route path={`/new-project-types`} component={NewProjectTypesContainer} />}
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/work-plan`} component={WorkPlanContainer} />}
-      {(appUser.designation === 'government_admin' ||
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/work-request`} component={WorkRequestView} />}
       {(appUser.designation === 'admin') && (appUser.status === 'approved') && <Route path={`/detailed-view`} component={DetailedContainer} />}
       {(loading && <Route path={`/`} component={LoadingView} />)}
       <Route path={`/`} component={Unauthorized} />

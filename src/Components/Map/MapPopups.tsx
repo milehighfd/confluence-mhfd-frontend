@@ -67,7 +67,7 @@ export const MainPopup = ({ item, test, sw } : any) => {
           </div>
         </div>
         { sw && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499'}}>
-            <Button id="pop-up" style={{ width: '100%', color: '#28C499' }} onClick={() => test()} className="btn-00">See Details</Button>
+            <Button id="pop-up" style={{ width: '100%', color: '#28C499' }} onClick={() => test()} className="btn-borde">See Details</Button>
         </div>}
       </Card>
     </div>

@@ -3,6 +3,7 @@ import { Layout, Menu } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "../../../constants/constants";
+import '../../../Scss/sidebar.scss';
 const { Sider } = Layout;
 
 export default () => {
@@ -13,7 +14,7 @@ export default () => {
 
   return <Sider collapsedWidth="58" collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
     <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline" >
-      {(appUser.designation !== 'guest') ? 
+      {(appUser.designation !== 'guest') ?
       <Menu.Item key="0">
         <Link to={'/profile-view'}>
           <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="18px" />
@@ -28,7 +29,7 @@ export default () => {
           <span>Map View</span>
         </Link>
       </Menu.Item>
-      {(appUser.designation !== 'guest') ? 
+      {(appUser.designation !== 'guest') ?
       <Menu.Item key="2">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="18px" style={{opacity: '0.2'}} />
@@ -36,7 +37,7 @@ export default () => {
           <span>Watershed Story - Under Construction</span>
         </Link>
       </Menu.Item> : ''}
-      {(appUser.designation !== 'guest') ? 
+      {(appUser.designation !== 'guest') ?
       <Menu.Item key="3">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
@@ -44,7 +45,7 @@ export default () => {
           <span>Work Plan - Under Construction</span>
         </Link>
       </Menu.Item> : ''}
-      {(appUser.designation !== 'guest') ? 
+      {(appUser.designation !== 'guest') ?
       <Menu.Item key="4">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-14.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
@@ -52,7 +53,7 @@ export default () => {
           <span>Work Request - Under Construction</span>
         </Link>
       </Menu.Item> : ''}
-      {(appUser.designation !== 'guest') ? 
+      {(appUser.designation !== 'guest') ?
       <Menu.Item key="5">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
@@ -98,7 +99,7 @@ export default () => {
             <span>Uploader</span>
           </Link>
         </Menu.Item> : ''}
-        {(appUser.designation !== 'guest') ? 
+        {(appUser.designation !== 'guest') ?
         <Menu.Item key="7">
           <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
             <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" />

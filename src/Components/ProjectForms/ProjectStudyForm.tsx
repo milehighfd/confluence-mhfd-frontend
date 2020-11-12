@@ -90,7 +90,7 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
           saveNewStudyForm(values);
         }
   });
-  
+
   return <>
     <div className="count-01">
       <ProjectsHeader requestName={values.requestName} handleChange={handleChange} />
@@ -108,7 +108,7 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
         </div>
         <span>Total Estimated Cost: ${numberWithCommas(total.total)}</span>
       </div>
-      {!isPolygon ? 
+      {!isPolygon ?
         <div className="head-m draw-section">
           <button onClick={getPolygonButton}><img src="/Icons/icon-08.svg" alt="" /></button>
           <h6>Click on the icon above and draw a polygon to select streams</h6>
@@ -127,11 +127,11 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Sponsor<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input placeholder="Sponsor" name="sponsor" onChange={handleChange} 
+              <Input placeholder="Sponsor" name="sponsor" onChange={handleChange}
                 style={(errors.sponsor && touched.sponsor ) ? {border: "solid red 1px"}:{}}/></Col>
             <Col className="gutter-row" span={12}>
               <label className="label-new-form" htmlFor="">Potential Co-Sponsor<img src="/Icons/icon-19.svg" alt="" /></label>
-              <Input placeholder="Potential Co-Sponsor" name="coSponsor" onChange={handleChange} 
+              <Input placeholder="Potential Co-Sponsor" name="coSponsor" onChange={handleChange}
                 style={(errors.coSponsor && touched.coSponsor ) ? {border: "solid red 1px"}:{}}/></Col>
           </Row>
           <Row gutter={16}>
@@ -140,7 +140,7 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
               <div id="study-requested-start-year">
                 <Dropdown overlay={<DropdownMenuView values={values} items={REQUEST_START_YEAR} item={title} setItem={setTitle} field={'requestedStartyear'} />}
                   getPopupContainer={() => document.getElementById("study-requested-start-year" ) as HTMLElement}>
-                  <Button style={(errors.requestedStartyear && touched.requestedStartyear && !values.requestedStartyear) ? {border: "solid red 1px"}:{}}>
+                  <Button className="btn-borde" style={(errors.requestedStartyear && touched.requestedStartyear && !values.requestedStartyear) ? {border: "solid red 1px"}:{}}>
                     {values.requestedStartyear ? REQUEST_START_YEAR.filter(element => element.id === +(values.requestedStartyear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>
@@ -152,7 +152,7 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
                 <div id="study-goal">
                   <Dropdown overlay={<DropdownMenuView values={values} items={GOAL_STUDY} item={title} setItem={setTitle} field={'goal'} />}
                     getPopupContainer={() => document.getElementById("study-goal" ) as HTMLElement}>
-                    <Button style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
+                    <Button className="btn-borde" style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
                       {values.goal ? GOAL_STUDY.filter(element => element.id === values.goal)[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
@@ -162,8 +162,8 @@ const ProjectStudyForm = ({ selectedItems, setSelectedItems, saveNewStudyForm, p
           </Row>
         </div>
         <div className="btn-footer" style={{ marginTop: '25px' }}>
-          <Button style={{ width: '140px' }} className="btn-00">Reset</Button>
-          <Button style={{ width: '140px' }} block htmlType="submit" className="btn-01">Apply</Button>
+          <Button style={{ width: '140px' }} className="btn-borde">Reset</Button>
+          <Button style={{ width: '140px' }} block htmlType="submit" className="btn-purple">Apply</Button>
         </div>
       </Form>
     </div>
