@@ -203,6 +203,9 @@ const initState = {
     mapSearch: [],
     applyFilter: true,
     zoomProblemOrProject: [],
+    toggleModalFilter: false,
+    tabCards: 1,
+    filterTabNumber: 1
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -441,6 +444,51 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 zoomProblemOrProject: action.zoom
+            }
+        }
+        case types.SET_TOOGLE_MODAL: {
+            return {
+                ...state,
+                toggleModalFilter: action.toggle
+            }
+        }
+        case types.SET_FILTER_TAB_NUMBER: {
+            return {
+                ...state,
+                filterTabNumber: action.tab
+            }
+        }
+        case types.SET_TAB_CARDS: {
+            return {
+                ...state,
+                tabCards: action.tab
+            }
+        }
+        case types.GET_PARAM_FILTER_PROJECTS: {
+            return {
+                ...state,
+                paramFilters: {
+                    ...state.paramFilters,
+                    projects: action.params
+                }
+            }
+        }
+        case types.GET_PARAM_FILTER_PROBLEMS: {
+            return {
+                ...state,
+                paramFilters: {
+                    ...state.paramFilters,
+                    problems: action.params
+                }
+            }
+        }
+        case types.GET_PARAM_FILTER_COMPONENTS: {
+            return {
+                ...state,
+                paramFilters: {
+                    ...state.paramFilters,
+                    components: action.params
+                }
             }
         }
         default: 

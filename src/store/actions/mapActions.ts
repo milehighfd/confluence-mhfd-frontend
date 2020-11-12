@@ -488,8 +488,6 @@ export const getGalleryProjects = () => {
     const coordinates = store.getState().map.filterCoordinates;
     const filterOptions = store.getState().map.filterProjectOptions;
     const filterComponent = store.getState().map.filterComponentOptions;
-    console.log('filterOptions', filterOptions);
-    console.log('filterComponents', filterComponent);
     return (dispatch: Function) => {
         dispatch({type: types.SET_SPIN_CARD_PROJECTS, spin: true });
         datasets.postData(SERVER.GALLERY_PROJECTS, optionsProjects(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProjects => {
@@ -551,10 +549,71 @@ export const getValuesByGroupColumn = (table: string, column: string) => {
 }
 export const getParamsFilter = (bounds: string) => { 
     return (dispatch: Function) => {
+        console.log('paraaams');
         dispatch(setSpinFilter(true));
         datasets.getData(SERVER.PARAM_FILTERS + '?bounds=' + bounds).then(params => {
             if(params.components && params.problems && params.projects) {
                dispatch({type: types.GET_PARAM_FILTERS, params}); 
+            }
+            dispatch(setSpinFilter(false));
+        })
+    }
+}
+/*
+export const getParamFilterByPositionTab = (bounds: string, position: number) => {
+    return (dispatch: Function) => {
+        dispatch(setSpinFilter(true));
+        console.log('PROJECT', SERVER.PARAM_FILTER_PROJECTS, bounds);
+        let URL = '';
+        if (position === 0) {
+            URL = SERVER.PARAM_FILTER_PROJECTS;
+        } if (position === 1) {
+            URL = SERVER.PARAM_FILTER_PROBLEMS;
+        } else {
+            URL = SERVER.PARAM_FILTER_COMPONENTS;
+        }
+        datasets.getData(URL + '?bounds=' + bounds).then(params => {
+            if (params) {
+                dispatch({type: types.GET_PARAM_FILTER_BY_POSITION_TAB, params});
+            }
+            dispatch(setSpinFilter(false));
+        })
+    }
+}*/
+export const getParamFilterProjects = (bounds: string) => {
+    return (dispatch: Function) => {
+        dispatch(setSpinFilter(true));
+        //console.log('PROJECT', SERVER.PARAM_FILTER_PROJECTS, bounds);
+        datasets.getData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds).then(params => {
+            if (params) {
+                console.log('DATA PROJECT', params);
+                dispatch({type: types.GET_PARAM_FILTER_PROJECTS, params});
+            }
+            dispatch(setSpinFilter(false));
+        })
+    }
+}
+export const getParamFilterProblems = (bounds: string) => {
+    return (dispatch: Function) => {
+        dispatch(setSpinFilter(true));
+        //console.log('PROBLEMS', SERVER.PARAM_FILTER_PROBLEMS, bounds);
+        datasets.getData(SERVER.PARAM_FILTER_PROBLEMS + '?bounds=' + bounds).then(params => {
+            if (params) {
+                console.log('DATA PROBLEM', params);
+                dispatch({type: types.GET_PARAM_FILTER_PROBLEMS, params});
+            }
+            dispatch(setSpinFilter(false));
+        })
+    }
+}
+export const getParamFilterComponents = (bounds: string) => {
+    return (dispatch: Function) => {
+        dispatch(setSpinFilter(true));
+        //console.log('COMPONENTS', SERVER.PARAM_FILTER_COMPONENTS);
+        datasets.getData(SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds).then(params => {
+            if (params) {
+                console.log('DATA COMPONENT', params);
+                dispatch({type: types.GET_PARAM_FILTER_COMPONENTS, params});
             }
             dispatch(setSpinFilter(false));
         })
@@ -582,6 +641,21 @@ export const setSpinFilter = (spin: boolean) => {
     }
 }
 
+export const setToggleModalFilter = (toggle: boolean) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_TOOGLE_MODAL, toggle })
+    }
+} 
+export const setFilterTabNumber = (tab: number) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_FILTER_TAB_NUMBER, tab})
+    }
+}
+export const setTabCards = (tab: number) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_TAB_CARDS, tab});
+    }
+}
 export const setHighlighted = (data: any) => {
     return (dispatch: Function) => {
         dispatch({type: types.GET_HIGHLIGHTED, data});

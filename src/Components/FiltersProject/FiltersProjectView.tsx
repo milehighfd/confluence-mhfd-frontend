@@ -6,6 +6,7 @@ import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRI
 import { FiltersProjectTypes } from "../../Classes/MapTypes";
 import store from "../../store";
 import { elementCost } from "../../utils/utils";
+import { useMapDispatch } from "../../hook/mapHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
@@ -14,6 +15,7 @@ let contents: any = [];
 contents.push((<div className="popoveer-00">Problems: Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00">Projects: Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 contents.push((<div className="popoveer-00">Components: Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>));
+
 
 const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, filterComponentOptions,
   setFilterComponentOptions, getGalleryProjects, getGalleryProblems, totalElements, type, totalComponents }
@@ -192,7 +194,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
                 dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
                 setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
                 getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal, selectedLayers, updateSelectedLayers,  applyFilter,
-                setApplyFilter } : FiltersProjectTypes) => {
+                setApplyFilter, spinFilter } : FiltersProjectTypes) => {
     const genExtra = () => (
         <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col >
@@ -205,6 +207,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
             </Col>
         </Row>
     );
+    const { setFilterTabNumber } = useMapDispatch();
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
       case FILTER_PROBLEMS_TRIGGER:
@@ -232,14 +235,17 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
   }
 
   return <>
-    <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
+    {!spinFilter && <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
         if( e === '0') {
             setTabActive('0');
+            setFilterTabNumber(0);
         } else {
             if( e === '1') {
                 setTabActive('1');
+                setFilterTabNumber(1);
             } else {
                 setTabActive('2');
+                setFilterTabNumber(2);
                 const copySelectedLayers = [...selectedLayers];
                 if (!copySelectedLayers.includes(COMPONENT_LAYERS)) {
                     copySelectedLayers.push(COMPONENT_LAYERS);
@@ -269,6 +275,6 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
           </TabPane>
         );
       })}
-    </Tabs>
+    </Tabs>}
   </>
 }
