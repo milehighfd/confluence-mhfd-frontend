@@ -299,5 +299,154 @@
 .cursor-pointer-span {
   cursor: pointer;
 }
+.sort-by{
+  position: relative;
+  border: none !important;
+  color: rgba(17, 9, 60, 0.5) !important;
+  font-size: 10px !important;
+  font-weight: 400 !important;
+  width: auto !important;
+  padding: 0px 6px !important;
+
+  .anticon + span, span + .anticon, .anticon {
+    margin-left: 8px;
+    position: absolute !important;
+    font-size: 10px;
+    z-index: 1000;
+    right: 0px;
+  }
+  .arrow-up{
+    top: 12px;
+  }
+  .arrow-down{
+    top: 18px;
+  }
+  .arrow-up:hover, .arrow-up:focus, .arrow-up:active, .arrow-up.active,
+  .arrow-down:hover, .arrow-down:focus, .arrow-down:active, .arrow-down.active{
+    color: $purple;
+    cursor: pointer;
+  }
+  .anticon {
+    line-height: 0 !important;
+  }
+}
+.tab-activity{
+  position: relative;
+
+  .btn-sort{
+    display: flex;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 1000;
+
+    button{
+      box-shadow: none;
+      background: none;
+    }
+    .sort-by .arrow-up {
+      top: 10px;
+    }
+    .sort-by .arrow-down {
+      top: 16px;
+    }
+  }
+  .ant-tabs-bar{
+    float: right;
+    margin-right: 125px;
+  }
+  .card{
+    .card-head{
+      display: flex;
+    }
+  }
+  .ant-tabs{
+    padding: 20px;
+  }
+  .ant-tabs-nav .ant-tabs-tab {
+    padding: 5px 0px 8px 0px !important;
+  }
+  .ant-tabs-bar{
+    border-bottom: none;
+  }
+  .comp{
+    width: 270px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    display: flex;
+     div{
+       width: 50%;
+     }
+    .img-00{
+      z-index: 5;
+      position: relative;
+      border: 1px solid $white;
+    }
+    .img-01{
+      margin-left: -15px;
+      z-index: 4;
+      position: relative;
+      border: 1px solid $white;
+    }
+    .img-02{
+      margin-left: -15px;
+      z-index: 3;
+      position: relative;
+      border: 1px solid $white;
+    }
+    span{
+      margin-left: 5px;
+      font-size: 14px;
+      color: $purple;
+    }
+    h6{
+      font-size: 16px;
+      float: right;
+      margin-bottom: 0px;
+      line-height: 30px;
+    }
+  }
+  .list-comment{
+    background: $white;
+    margin-left: -20px;
+    padding: 20px 20px 0px 20px;
+
+    .ant-avatar{
+      height: 35px;
+      width: 35px;
+    }
+    .ant-list-item-meta-title, .ant-list-item-meta-title > a{
+      font-size: 16px;
+      color: $purple;
+    }
+  }
+  .ant-list-item-meta-description {
+    color: $opacity;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .comment{
+    background: $opacity01;
+    margin-left: -20px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+
+    img{
+      margin-right: 15px;
+    }
+    input{
+      background: none;
+      border: none;
+      box-shadow: none;
+      color: $purple;
+      font-size: 14px;
+      width: 90%;
+    }
+    input::placeholder{
+      color: $opacity;
+    }
+  }
+}
 
 // END PROFILE

@@ -274,7 +274,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
               <div id="capital-requested-funding-year">
                 <Dropdown trigger={['click']} overlay={<DropdownMenuView values={values} items={REQUEST_FUNDING_YEAR} item={title} setItem={setTitle} field={'requestFundingYear'} />}
                   getPopupContainer={() => document.getElementById("capital-requested-funding-year" ) as HTMLElement}>
-                  <Button style={(errors.requestFundingYear && touched.requestFundingYear && !values.requestFundingYear) ? {border: "solid red 1px"}:{}}>
+                  <Button className="btn-borde" style={(errors.requestFundingYear && touched.requestFundingYear && !values.requestFundingYear) ? {border: "solid red 1px"}:{}}>
                     {values.requestFundingYear ? REQUEST_FUNDING_YEAR.filter(element => element.id === +(values.requestFundingYear))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>
@@ -286,7 +286,7 @@ const ProjectCapitalForm = ({ selectedItems, isPolygon, setSelectedItems, saveNe
               <div id="capital-goal">
                 <Dropdown trigger={['click']} overlay={<DropdownMenuView values={values} items={GOAL} item={title} setItem={setTitle} field={'goal'} />}
                   getPopupContainer={() => document.getElementById("capital-goal" ) as HTMLElement}>
-                  <Button style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
+                  <Button className="btn-borde" style={(errors.goal && touched.goal && !values.goal) ? {border: "solid red 1px"}:{}}>
                     {values.goal ? GOAL.filter(element => element.id === (values.goal))[0].name : '- Select -'} <img src="/Icons/icon-12.svg" alt="" />
                   </Button>
                 </Dropdown>

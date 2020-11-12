@@ -228,7 +228,7 @@ export default ({ headers, panelState, setPanelState, handleSaveDraftCard, workP
 
                 {(!workPlanGraphs && header === headers.drafts[headers.drafts.length - 1]) &&
                   <Row>
-                    <Button onClick={() => handleSaveDraftCard()} >
+                    <Button className="btn-purple" onClick={() => handleSaveDraftCard()} >
                       Submit to Admin
                   </Button>
                   </Row>

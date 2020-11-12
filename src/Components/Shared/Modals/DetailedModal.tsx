@@ -81,7 +81,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                 <Progress percent={detailedPage.solutionstatus} size="small" status="active" />
               </div>
               ) : (
-                <div className="nn-hh">{detailedPage.status}</div>
+                <div className="btn-opacity">{detailedPage.status}</div>
               )
               }
 
@@ -101,14 +101,13 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
             </Col>
             <Col span={3} style={{ textAlign: 'right' }}>
               <Tooltip title="Download PDF">
-                <Button className="disabled-btn"><img src="/Icons/icon-01.svg" alt="" /></Button>
+                <Button className="disabled-btn btn-transparent"><img src="/Icons/icon-01.svg" alt="" /></Button>
               </Tooltip>
-              {/* <Button><img src="/Icons/icon-06.svg" alt="" /></Button> */}
               <Tooltip title="Copy URL">
-                <Button><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl()} /></Button>
+                <Button className="btn-transparent"><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl()} /></Button>
               </Tooltip>
               <Tooltip title="Close Window">
-                <Button onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
+                <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
               </Tooltip>
             </Col>
           </Row>
@@ -137,7 +136,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                           </div>
                         })
                       )
-                      
+
                     )}
                 {/* </div> */}
               </Carousel>

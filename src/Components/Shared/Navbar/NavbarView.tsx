@@ -288,7 +288,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
                 </p>
              </div>
             </TabPane>
-            <Button className="next" onClick={() => {
+            <Button className="btn-purple" onClick={() => {
               const auxKey = +key + 1;
               if(auxKey === 9) {
                 setKey('1');

@@ -267,23 +267,8 @@ body{
   }
 }
 // END INPUT COLLAPSE
-.count{
-  padding:20px;
-  background: $white;
-  height: calc(100vh - 58px);
-  overflow-y: hidden;
-}
-.count-01{
-  padding:25px;
-  background: $white;
-  height: calc(100vh - 58px);
-  overflow-y: auto;
-  .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
-    border-right: none;
-    border-radius: 4px;
-  }
-}
-// END INPUT COLLAPSE
+
+
 
 // DETAILED MODAL
 .detailed-modal {
@@ -753,6 +738,7 @@ body{
   label{
     font-size: 12px;
     color: $opacity;
+    margin-top: 10px;
   }
   .menu-item-text{
     padding: 0px 20px;
@@ -761,32 +747,43 @@ body{
 //END CREATE A NEW PROJECT
 
 // WORK REQUEST
+.draw-section {
+  width: 100%;
+  height: 110px;
+  border-radius: 3px;
+  border: solid 1.8px $opacity01;
+  border-style: dashed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h6 {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.23px;
+    text-align: center;
+    color: $purple00;
+    opacity: 0.6;
+  }
+  img {
+    height: 27px;
+    margin: 12px 13px;
+  }
+}
 .request{
   h2{
     font-size: 22px;
     color: $purple00;
     margin-bottom: 0px;
   }
-  .btn-request{
-    background: transparent;
-    border: none;
-    box-shadow: none;
-  }
-  .btn-comment, .btn-comment:hover, .btn-comment:active, .btn-comment.active{
-    height: 40px;
-    border-radius: 4px;
-    background-color: $opacity00;
-    border: none;
-    color: $purple00;
-    font-size: 14px;
-    margin-left: 10px;
-    padding: 0px 15px;
-  }
   .btn-comment img{
     margin-right: 5px;
   }
-  .btn-comment-01, .btn-comment-01:hover, .btn-comment-01:active, .btn-comment-01.active{
-    width: 80px;
+  .btn-opacity{
     height: 40px;
     border-radius: 4px;
     background-color: $opacity00;
@@ -795,7 +792,7 @@ body{
     font-size: 14px;
     margin-left: 10px;
   }
-  .btn-comment-01 img{
+  .btn-opacity img{
     margin-right: 6px;
     height: 12px;
     margin-top: -2px;
@@ -957,19 +954,17 @@ body{
   .input-rr::placeholder{
     color: $red;
   }
-  button, button:hover, button.active, button:focus, button:active{
+  .btn-purple{
     width: 170px;
     height: 45px;
-    border-radius: 4px;
-    background-color: #251863;
-    font-size: 14px;
-    color: $white;
     margin-top: 10px;
-    border: none;
+    float: right;
   }
   .btn-borde{
     margin-top: 20px;
     margin-right: 20px;
+    width: 170px;
+    height: 45px;
   }
 
   .cost-rows {
@@ -1074,7 +1069,26 @@ body{
     margin: 2px 0px;
   }
 }
+.count{
+  padding:20px;
+  background: $white;
+  height: calc(100vh - 58px);
+  overflow-y: auto;
+}
+.count-01{
+  padding:25px;
+  background: $white;
+  height: calc(100vh - 58px);
+  overflow-y: auto;
+
+  .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+    border-right: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  }
+}
 // END WORK REQUEST
+
 // WORK PLAN
 .work-p{
   padding: 20px;
@@ -1327,14 +1341,21 @@ body{
     color: $opacity;
     margin-bottom: 0px;
   }
-  button, button:hover, button:focus, button:active, button.active{
-    background: transparent;
-    border: none;
-    box-shadow: none;
+  .btn-transparent{
     padding: 0px 12px;
     margin: 8px 0px;
   }
-
+  .btn-opacity{
+    height: 40px;
+    font-size: 13px;
+    border-radius: 2px;
+    text-align: center;
+    padding: 11px 0px;
+    margin-top: 6px;
+    width: 120px;
+    min-width: 120px;
+    float: right;
+  }
 }
 .disabled-btn{
   opacity: 0.5;
@@ -1366,20 +1387,6 @@ body{
   .ant-progress-inner {
     background-color: $opacity01;
   }
-}
-.nn-hh{
-  height: 40px;
-  font-size: 13px;
-  color: $purple;
-  background: $opacity01;
-  border-radius: 2px;
-  text-align: center;
-  padding: 11px 0px;
-  font-weight: 500;
-  margin-top: 6px;
-  width: 120px;
-  min-width: 120px;
-  float: right;
 }
 .detailed-mm{
   font-size: 14px;
@@ -1616,169 +1623,7 @@ body{
     display: none;
   }
 }
-.sort-by{
-  position: relative;
-  border: none !important;
-  color: rgba(17, 9, 60, 0.5) !important;
-  font-size: 10px !important;
-  font-weight: 400 !important;
-  width: auto !important;
-  padding: 0px 6px !important;
-
-  .anticon + span, span + .anticon, .anticon {
-    margin-left: 8px;
-    position: absolute !important;
-    font-size: 10px;
-    z-index: 1000;
-    right: 0px;
-  }
-  .arrow-up{
-    top: 12px;
-  }
-  .arrow-down{
-    top: 18px;
-  }
-  .arrow-up:hover, .arrow-up:focus, .arrow-up:active, .arrow-up.active,
-  .arrow-down:hover, .arrow-down:focus, .arrow-down:active, .arrow-down.active{
-    color: $purple;
-    cursor: pointer;
-  }
-  .anticon {
-    line-height: 0 !important;
-  }
-}
-
-//  .pad-collab {
-//   padding: 2px 7px 2px 12px;
-// }
-.error-404{
-  text-align: center;
-  color: $opacity;
-}
-.btn-error, .btn-error:hover, .btn-error:focus, .btn-error:active, .btn-error.active{
-  background: $purple !important;
-  color: $white !important;
-  border: none !important;
-  border-radius: 4px !important;
-}
-.tab-activity{
-  position: relative;
-
-  .btn-sort{
-    display: flex;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    z-index: 1000;
-
-    button{
-      box-shadow: none;
-      background: none;
-    }
-    .sort-by .arrow-up {
-      top: 10px;
-    }
-    .sort-by .arrow-down {
-      top: 16px;
-    }
-  }
-  .ant-tabs-bar{
-    float: right;
-    margin-right: 125px;
-  }
-  .card{
-    .card-head{
-      display: flex;
-    }
-  }
-  .ant-tabs{
-    padding: 20px;
-  }
-  .ant-tabs-nav .ant-tabs-tab {
-    padding: 5px 0px 8px 0px !important;
-  }
-  .ant-tabs-bar{
-    border-bottom: none;
-  }
-  .comp{
-    width: 270px;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    display: flex;
-     div{
-       width: 50%;
-     }
-    .img-00{
-      z-index: 5;
-      position: relative;
-      border: 1px solid $white;
-    }
-    .img-01{
-      margin-left: -15px;
-      z-index: 4;
-      position: relative;
-      border: 1px solid $white;
-    }
-    .img-02{
-      margin-left: -15px;
-      z-index: 3;
-      position: relative;
-      border: 1px solid $white;
-    }
-    span{
-      margin-left: 5px;
-      font-size: 14px;
-      color: $purple;
-    }
-    h6{
-      font-size: 16px;
-      float: right;
-      margin-bottom: 0px;
-      line-height: 30px;
-    }
-  }
-  .list-comment{
-    background: $white;
-    margin-left: -20px;
-    padding: 20px 20px 0px 20px;
-
-    .ant-avatar{
-      height: 35px;
-      width: 35px;
-    }
-    .ant-list-item-meta-title, .ant-list-item-meta-title > a{
-      font-size: 16px;
-      color: $purple;
-    }
-  }
-  .ant-list-item-meta-description {
-    color: $opacity;
-    font-size: 14px;
-    line-height: 22px;
-  }
-  .comment{
-    background: $opacity01;
-    margin-left: -20px;
-    padding: 10px 20px;
-    margin-bottom: 15px;
-
-    img{
-      margin-right: 15px;
-    }
-    input{
-      background: none;
-      border: none;
-      box-shadow: none;
-      color: $purple;
-      font-size: 14px;
-      width: 90%;
-    }
-    input::placeholder{
-      color: $opacity;
-    }
-  }
-}
+// END DETAILED PROBLEM
 
 // OTHERS
 .ant-table-thead > tr > th .ant-table-header-column .ant-table-column-sorters:hover::before {
@@ -1834,5 +1679,9 @@ body{
   margin-top: 11px;
   height: 24px;
   width: 21px;
+}
+.error-404{
+  text-align: center;
+  color: $opacity;
 }
 // OTHERS END

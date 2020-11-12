@@ -54,9 +54,9 @@ const handleSaveDraftCard = () => {
       <Row>
         <Col span={14}><h2>Boulder County Work Request</h2></Col>
         <Col span={10} style={{ textAlign: 'right' }}>
-          <Button className="btn-request"><img src="/Icons/icon-01.svg" alt="" /></Button>
-          <Button className="btn-request"><img src="/Icons/icon-02.svg" alt="" /></Button>
-          <Button className="btn-comment" onClick={() => setVisible(true)}><img src="/Icons/icon-03.svg" alt="" /> Comments</Button>
+          <Button className="btn-transparent"><img src="/Icons/icon-01.svg" alt="" /></Button>
+          <Button className="btn-transparent"><img src="/Icons/icon-02.svg" alt="" /></Button>
+          <Button className="btn-opacity" onClick={() => setVisible(true)}><img src="/Icons/icon-03.svg" alt="" /> Comments</Button>
         </Col>
       </Row>
 
