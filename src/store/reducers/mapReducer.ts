@@ -204,8 +204,8 @@ const initState = {
     applyFilter: true,
     zoomProblemOrProject: [],
     toggleModalFilter: false,
-    tabCards: 1,
-    filterTabNumber: 1,
+    tabCards: "projects",
+    filterTabNumber: "projects_filter",
     boundsMap: ''
 }
 

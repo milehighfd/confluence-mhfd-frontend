@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Tabs, Tag, Row, Col, Checkbox, Popover } from 'antd';
 import { ProblemsFilter, ProjectsFilter, ComponentsFilter } from "./FiltersLayout";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, COMPONENT_LAYERS } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, COMPONENT_LAYERS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from '../../constants/constants';
 import { FiltersProjectTypes } from "../../Classes/MapTypes";
 import store from "../../store";
 import { elementCost } from "../../utils/utils";
@@ -240,15 +240,17 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
     {!spinFilter && <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
         if( e === '0') {
             setTabActive('0');
-            setFilterTabNumber(0);
-            //getParamFilterProblems()
+            setFilterTabNumber(PROBLEMS_TRIGGER);
+            getParamFilterProblems(boundsMap);
         } else {
             if( e === '1') {
                 setTabActive('1');
-                setFilterTabNumber(1);
+                setFilterTabNumber(PROJECTS_TRIGGER);
+                getParamFilterProjects(boundsMap);
             } else {
                 setTabActive('2');
-                setFilterTabNumber(2);
+                setFilterTabNumber(COMPONENTS_TRIGGER);
+                getParamFilterComponents(boundsMap);
                 const copySelectedLayers = [...selectedLayers];
                 if (!copySelectedLayers.includes(COMPONENT_LAYERS)) {
                     copySelectedLayers.push(COMPONENT_LAYERS);

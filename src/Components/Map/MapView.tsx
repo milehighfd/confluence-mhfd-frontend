@@ -5,7 +5,7 @@ import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES, SORTED_PROBLEMS, SORTED_PROJECTS } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../../Classes/MapTypes";
 import { useParams, useLocation } from "react-router-dom";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
@@ -439,10 +439,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <Tabs onTabClick={(e: string) => {
           if( e === '0') {
             setTabActive('0');
-            setTabCards(0);
+            setTabCards(PROBLEMS_TRIGGER);
           } else {
             setTabActive('1');
-            setTabCards(1);
+            setTabCards(PROJECTS_TRIGGER);
           }
         }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00"  tabBarExtraContent={genExtra()}>
           {tabs.map((value : string, index : number) => {

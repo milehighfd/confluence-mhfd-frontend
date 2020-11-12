@@ -6,15 +6,15 @@ import { setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
 
 const selectMapStates: ParametricSelector<RootState, undefined, {
   toggleModalFilter: boolean,
-  tabCards: number,
-  filterTabNumber: number,
+  tabCards: string,
+  filterTabNumber: string,
   boundsMap: string
 }> =
-  createSelector<any, boolean, number, number, string,
+  createSelector<any, boolean, string, string, string,
     {
       toggleModalFilter: boolean,
-      tabCards: number,
-      filterTabNumber: number,
+      tabCards: string,
+      filterTabNumber: string,
       boundsMap: string,
     }>
     (
@@ -46,10 +46,10 @@ export const useMapDispatch = () => {
     getParamFilterComponents: (bounds: string) => {
       dispatch(getParamFilterComponents(bounds));
     },
-    setTabCards: (tab: number) => {
+    setTabCards: (tab: string) => {
       dispatch(setTabCards(tab));
     },
-    setFilterTabNumber: (tab: number) => {
+    setFilterTabNumber: (tab: string) => {
       dispatch(setFilterTabNumber(tab));
     },
     setBoundMap: (bounds: string) => {

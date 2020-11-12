@@ -646,12 +646,12 @@ export const setToggleModalFilter = (toggle: boolean) => {
         dispatch({type: types.SET_TOOGLE_MODAL, toggle })
     }
 } 
-export const setFilterTabNumber = (tab: number) => {
+export const setFilterTabNumber = (tab: string) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_TAB_NUMBER, tab})
     }
 }
-export const setTabCards = (tab: number) => {
+export const setTabCards = (tab: string) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_TAB_CARDS, tab});
     }
