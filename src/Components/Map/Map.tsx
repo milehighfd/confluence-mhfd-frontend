@@ -103,7 +103,7 @@ const Map = ({ leftWidth,
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
     const { toggleModalFilter, boundsMap, tabCards, filterTabNumber } = useMapState();
-    const { setBoundMap } = useMapDispatch();
+    const { setBoundMap, getParamFilterComponents, getParamFilterProblems, getParamFilterProjects } = useMapDispatch();
     
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
@@ -303,7 +303,13 @@ const Map = ({ leftWidth,
         console.log(applyFilter);
         if (applyFilter) {
             if (toggleModalFilter) {
-                getParamsFilter(boundingBox);
+                if (filterTabNumber === PROJECTS_TRIGGER) {
+                    getParamFilterProjects(boundingBox);
+                } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+                    getParamFilterProblems(boundingBox);
+                } else {
+                    getParamFilterComponents(boundingBox);
+                }
             } else {
                 setFilterCoordinates(boundingBox, tabCards);
             }
