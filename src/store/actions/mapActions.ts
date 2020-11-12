@@ -286,11 +286,14 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
     }
 }
 
-export const setFilterCoordinates = (coordinates: string) => {
+export const setFilterCoordinates = (coordinates: string, tab: string) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_COORDINATES, coordinates});
-        dispatch(getGalleryProblems());
-        dispatch(getGalleryProjects());
+        if (tab === constants.PROBLEMS_TRIGGER) {
+            dispatch(getGalleryProblems());
+        } else {
+            dispatch(getGalleryProjects());
+        }
     }
 }
 export const replaceFilterCoordinates = (coordinates: string) => {
