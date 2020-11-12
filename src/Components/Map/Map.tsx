@@ -102,7 +102,7 @@ const Map = ({ leftWidth,
     // console.log( mapSearch);=
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
-    const { toggleModalFilter, boundsMap } = useMapState();
+    const { toggleModalFilter, boundsMap, tabCards, filterTabNumber } = useMapState();
     const { setBoundMap } = useMapDispatch();
     
     const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -254,9 +254,10 @@ const Map = ({ leftWidth,
                 setBoundMap(boundingBox);
                 console.log(applyFilter);
                 if (applyFilter) {
-                    setFilterCoordinates(boundingBox);
                     if (toggleModalFilter) {
                         getParamsFilter(boundingBox);
+                    } else {
+                        setFilterCoordinates(boundingBox, tabCards);
                     }
                 }
             }
@@ -267,9 +268,10 @@ const Map = ({ leftWidth,
             setBoundMap(boundingBox);
             console.log(applyFilter);
             if (applyFilter) {
-                setFilterCoordinates(boundingBox);
                 if (toggleModalFilter) {
                     getParamsFilter(boundingBox);
+                } else {
+                    setFilterCoordinates(boundingBox, tabCards);
                 }
             }
 
@@ -300,9 +302,10 @@ const Map = ({ leftWidth,
         setBoundMap(boundingBox);
         console.log(applyFilter);
         if (applyFilter) {
-            setFilterCoordinates(boundingBox);
             if (toggleModalFilter) {
                 getParamsFilter(boundingBox);
+            } else {
+                setFilterCoordinates(boundingBox, tabCards);
             }
         }
         
