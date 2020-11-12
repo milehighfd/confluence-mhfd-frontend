@@ -656,6 +656,11 @@ export const setTabCards = (tab: number) => {
         dispatch({type: types.SET_TAB_CARDS, tab});
     }
 }
+export const setBoundMap = (bounds: string) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_BOUNDS_MAP, bounds});
+    }
+}
 export const setHighlighted = (data: any) => {
     return (dispatch: Function) => {
         dispatch({type: types.GET_HIGHLIGHTED, data});

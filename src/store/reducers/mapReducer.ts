@@ -205,7 +205,8 @@ const initState = {
     zoomProblemOrProject: [],
     toggleModalFilter: false,
     tabCards: 1,
-    filterTabNumber: 1
+    filterTabNumber: 1,
+    boundsMap: ''
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -450,6 +451,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 toggleModalFilter: action.toggle
+            }
+        }
+        case types.SET_BOUNDS_MAP: {
+            return {
+                ...state,
+                boundsMap: action.bounds
             }
         }
         case types.SET_FILTER_TAB_NUMBER: {

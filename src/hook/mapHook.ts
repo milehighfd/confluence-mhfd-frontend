@@ -2,25 +2,28 @@ import {ParametricSelector, createSelector} from 'reselect';
 import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
-         getParamFilterComponents, setTabCards, setFilterTabNumber } from '../store/actions/mapActions';
+         getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap } from '../store/actions/mapActions';
 
 const selectMapStates: ParametricSelector<RootState, undefined, {
   toggleModalFilter: boolean,
   tabCards: number,
-  filterTabNumber: number
+  filterTabNumber: number,
+  boundsMap: string
 }> =
-  createSelector<any, boolean, number, number, 
+  createSelector<any, boolean, number, number, string,
     {
       toggleModalFilter: boolean,
       tabCards: number,
       filterTabNumber: number,
+      boundsMap: string,
     }>
     (
       state => state.map.toggleModalFilter,
       state => state.map.tabCards,
       state => state.map.filterTabNumber,
-      (toggleModalFilter, tabCards, filterTabNumber) => ({
-        toggleModalFilter, tabCards, filterTabNumber
+      state => state.map.boundsMap,
+      (toggleModalFilter, tabCards, filterTabNumber, boundsMap) => ({
+        toggleModalFilter, tabCards, filterTabNumber, boundsMap
       })
     );
 
@@ -48,6 +51,9 @@ export const useMapDispatch = () => {
     },
     setFilterTabNumber: (tab: number) => {
       dispatch(setFilterTabNumber(tab));
+    },
+    setBoundMap: (bounds: string) => {
+      dispatch(setBoundMap(bounds));
     }
   }
 }

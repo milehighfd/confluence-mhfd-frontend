@@ -38,7 +38,7 @@ import { numberWithCommas } from '../../utils/utils';
 import { Input, AutoComplete } from 'antd';
 import { SelectProps } from 'antd/es/select';
 import DetailedModal from '../Shared/Modals/DetailedModal';
-import { useMapState } from '../../hook/mapHook';
+import { useMapState, useMapDispatch } from '../../hook/mapHook';
 const { Option } = AutoComplete;
 
 const MapboxDraw= require('@mapbox/mapbox-gl-draw');
@@ -102,7 +102,8 @@ const Map = ({ leftWidth,
     // console.log( mapSearch);=
     let geocoderRef = useRef<HTMLDivElement>(null);
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
-    const { toggleModalFilter } = useMapState();
+    const { toggleModalFilter, boundsMap } = useMapState();
+    const { setBoundMap } = useMapDispatch();
     
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
@@ -250,6 +251,7 @@ const Map = ({ leftWidth,
             if(value >= 2 ) {
                 const bounds = map.getBounds();
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+                setBoundMap(boundingBox);
                 console.log(applyFilter);
                 if (applyFilter) {
                     setFilterCoordinates(boundingBox);
@@ -262,6 +264,7 @@ const Map = ({ leftWidth,
         map.once('dragend', () => {
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+            setBoundMap(boundingBox);
             console.log(applyFilter);
             if (applyFilter) {
                 setFilterCoordinates(boundingBox);
@@ -294,6 +297,7 @@ const Map = ({ leftWidth,
         console.log('my apply filter ', applyFilter, zoomEndCounter);
         const bounds = map.getBounds();
         const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+        setBoundMap(boundingBox);
         console.log(applyFilter);
         if (applyFilter) {
             setFilterCoordinates(boundingBox);

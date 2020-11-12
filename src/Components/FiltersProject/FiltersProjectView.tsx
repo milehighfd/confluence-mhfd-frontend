@@ -6,7 +6,7 @@ import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRI
 import { FiltersProjectTypes } from "../../Classes/MapTypes";
 import store from "../../store";
 import { elementCost } from "../../utils/utils";
-import { useMapDispatch } from "../../hook/mapHook";
+import { useMapDispatch, useMapState } from "../../hook/mapHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
@@ -207,7 +207,9 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
             </Col>
         </Row>
     );
-    const { setFilterTabNumber } = useMapDispatch();
+    const { setFilterTabNumber, getParamFilterComponents, 
+        getParamFilterProblems, getParamFilterProjects } = useMapDispatch();
+    const { boundsMap } = useMapState();
   const getFilterBody = (trigger : string) => {
     switch (trigger) {
       case FILTER_PROBLEMS_TRIGGER:
@@ -239,6 +241,7 @@ export default ({tabPosition, setTabPosition, filterNames, setFilterNames, setTo
         if( e === '0') {
             setTabActive('0');
             setFilterTabNumber(0);
+            //getParamFilterProblems()
         } else {
             if( e === '1') {
                 setTabActive('1');
