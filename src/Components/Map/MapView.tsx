@@ -50,14 +50,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const { setToggleModalFilter, getParamFilterProjects, getParamFilterComponents,
     getParamFilterProblems, setTabCards } = useMapDispatch();
   const { tabCards } = useMapState();
-
-  //toggleFilters = false;
+  
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
-  /* console.log('filter components', filterComponentOptions);
-  console.log('filter project', filterProjectOptions);
-  console.log('filter problem', filterProblemOptions); */
+  
   useEffect(() => {
     let countTagProblems = 0;
     let countTagProjets = 0;
@@ -184,8 +181,13 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setToggleModalFilter(!toggleFilters);
 
     if (!toggleFilters) {
-      //getParamsFilter(filterCoordinates);
       getParamFilterProjects(filterCoordinates);
+    } else {
+      if (tabActive === '0') {
+        getGalleryProblems();
+      } else {
+        getGalleryProjects();
+      }
     }
     if (backgroundStyle === gray) {
       setBackgroundStyle(green);

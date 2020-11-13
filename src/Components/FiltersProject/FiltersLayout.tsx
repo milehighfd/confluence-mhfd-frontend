@@ -24,7 +24,6 @@ const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Es
 // const content18 = (<div className="popoveer-00"><b>Stream Name:</b> is the name of the Major Drainageway or Watershed where the Component is located.</div>);
 
 export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterProblemOptions, getGalleryProblems, setToggleFilters }: any) => {
-    console.log('PARAM PROBLEMS',paramProblems);
     const firstSegmentComponents = paramProblems.components.slice(0, paramProblems.components.length / 2);
     const secondSegmentComponents = paramProblems.components.slice(paramProblems.components.length / 2, paramProblems.components.length);
 
@@ -236,7 +235,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         const options = {...filterProjectOptions};
         if('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field) {
             let newValue = '';
-            //console.log('STATUS',options['status']);
             if ('workplanyear' === field) {
                 options['status'] = options['status'] + ',Complete';
             }
@@ -274,7 +272,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
         options.county =  '';
         options.lgmanager = '';
         options.creator = '';
-        //options.servicearea = '';
         options.problemtype = '';
         options.consultant = '';
         options.contractor = '';
@@ -495,10 +492,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                     return element && <Option key={index} value={element}>{element}</Option>
                 })}
             </Select>
-            {/* <Select defaultValue="- Select -" style={{ width: '100%' }}>
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-            </Select> */}
         </Col>
     </Row>
 
@@ -635,10 +628,6 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
                             return element && <Option key={index} value={element}>{element}</Option>
                         })}
                     </Select>
-                  {/* <Select defaultValue="- Select -" style={{ width: '100%' }}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                  </Select> */}
               </Col>
               <Col span={12}>
                   <label>MHFD Watershed Manager</label>
