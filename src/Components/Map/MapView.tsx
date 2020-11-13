@@ -35,22 +35,22 @@ const accordionRow: Array<any> = [
 ];
 
 const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters,
-                  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems,
-                  getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation,
-                  getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
-                  filterProjectOptions, filterCoordinates, setFilterProblemOptions,
-                  setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
-                  setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
-                  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
-                  groupOrganization, applyFilter, getParamsFilter, spinFilter, 
-                  setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem, selectedLayers, updateSelectedLayers  } : MapViewTypes) => {
+  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems,
+  getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation,
+  getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
+  filterProjectOptions, filterCoordinates, setFilterProblemOptions,
+  setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
+  setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
+  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
+  groupOrganization, applyFilter, getParamsFilter, spinFilter,
+  setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem, selectedLayers, updateSelectedLayers }: MapViewTypes) => {
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProjects, getParamFilterComponents,
-          getParamFilterProblems, setTabCards } = useMapDispatch();
+    getParamFilterProblems, setTabCards } = useMapDispatch();
   const { tabCards } = useMapState();
-  
+
   //toggleFilters = false;
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
@@ -62,55 +62,55 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     let countTagProblems = 0;
     let countTagProjets = 0;
     let countTagComponents = 0;
-    const filterComponents = {...filterComponentOptions} as any;
+    const filterComponents = { ...filterComponentOptions } as any;
     for (const key in filterComponentOptions) {
-        let c = 0;
-        const tag =  key === 'estimatedcost'?  filterComponents[key]: filterComponents[key].split(',');
-        for (let index = 0; index < tag.length; index++) {
-            const element = tag[index];
-            if(element) {
-                countTagComponents+=1;
-            }
+      let c = 0;
+      const tag = key === 'estimatedcost' ? filterComponents[key] : filterComponents[key].split(',');
+      for (let index = 0; index < tag.length; index++) {
+        const element = tag[index];
+        if (element) {
+          countTagComponents += 1;
         }
+      }
     }
-    const filterProjects = {...filterProjectOptions} as any;
+    const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
-        let c = 0;
-        const tag = (key === 'mhfddollarsallocated' || key === 'totalcost')?  filterProjects[key]: filterProjects[key].split(',');
-        if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-            for (let index = 0; index < tag.length; index++) {
-                const element = tag[index];
-                if(element) {
-                    countTagProjets+=1;
-                }
-            }
+      let c = 0;
+      const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+      if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+        for (let index = 0; index < tag.length; index++) {
+          const element = tag[index];
+          if (element) {
+            countTagProjets += 1;
+          }
         }
+      }
     }
-    const filterProblems = {...filterProblemOptions} as any;
+    const filterProblems = { ...filterProblemOptions } as any;
     for (const key in filterProblemOptions) {
-        const tag = key === 'cost'?  filterProblems[key]: filterProblems[key].split(',');
-        if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-            for (let index = 0; index < tag.length; index++) {
-                const element = tag[index];
-                if(element) {
-                  countTagProblems+=1;
-                }
-            }
+      const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
+      if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+        for (let index = 0; index < tag.length; index++) {
+          const element = tag[index];
+          if (element) {
+            countTagProblems += 1;
+          }
         }
+      }
     }
     setCountFilterComponents(countTagComponents);
     setCountFilterProblems(countTagProblems);
     setCountFilterProjects(countTagProjets);
 
-}, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
+  }, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
   // const [listDescription, setListDescription] = useState(false);
   const listDescription = false;
   const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
-  const [ tabActive, setTabActive] = useState('1');
+  const [tabActive, setTabActive] = useState('1');
   const { projectId } = useParams();
-  const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword? filterProblemOptions.keyword: '');
-  const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword? filterProjectOptions.keyword: '');
-  const [visible, setVisible] = useState(useLocation().search ? true: false);
+  const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword ? filterProblemOptions.keyword : '');
+  const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword ? filterProjectOptions.keyword : '');
+  const [visible, setVisible] = useState(useLocation().search ? true : false);
   const [counterComponents, setCounterComponents] = useState(0);
   const location = useLocation().search;
   const [data, setData] = useState({
@@ -125,25 +125,25 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const purple = '#11093c';
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
-  
+
   useEffect(() => {
-    if(location.includes('problemid=')) {
+    if (location.includes('problemid=')) {
       const id = location.replace('?problemid=', '');
       existDetailedPageProblem(id);
-      const auxData = {...data};
+      const auxData = { ...data };
       auxData.problemid = id;
       setData(auxData);
     }
-    if(location.includes('?objectid=') && location.includes('&cartoid=') && location.includes('&type=') && location.includes('&id=')) {
+    if (location.includes('?objectid=') && location.includes('&cartoid=') && location.includes('&type=') && location.includes('&id=')) {
       const params = location.split('&');
-      if(params.length === 4) {
+      if (params.length === 4) {
         const objectid = params[0].replace('?objectid=', '');
         const cartoid = params[1].replace('cartoid=', '');
         const type = params[2].replace('type=', '');
         const id = params[3].replace('id=', '');
         const url = 'objectid=' + objectid + '&cartoid=' + cartoid + '&type=' + type;
         existDetailedPageProject(url);
-        const auxData = {...data};
+        const auxData = { ...data };
         auxData.objectid = objectid;
         auxData.value = cartoid;
         auxData.type = type;
@@ -165,7 +165,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setCounterComponents(counter);
   })
 
-  const handleOnSubmit = (filtersData : FilterTypes) => {
+  const handleOnSubmit = (filtersData: FilterTypes) => {
     getProjectWithFilters(filtersData);
   }
 
@@ -175,15 +175,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const handleToggle = () => {
     // Force coded cause' components tab doesn't exists on MapView
-    console.log('coordinates', filterCoordinates);
-    
-    if(tabPosition === '2') {
+
+    if (tabPosition === '2') {
       setTabPosition('0');
       setTabActive('0');
     }
     setToggleFilters(!toggleFilters);
     setToggleModalFilter(!toggleFilters);
-    
+
     if (!toggleFilters) {
       //getParamsFilter(filterCoordinates);
       getParamFilterProjects(filterCoordinates);
@@ -209,11 +208,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       setTextStyle(green);
     }
   }
-  const setCurrentFilters = (filtersData : FilterTypes) => {
-    const values : Array<{ key: string, value: string }> = [];
+  const setCurrentFilters = (filtersData: FilterTypes) => {
+    const values: Array<{ key: string, value: string }> = [];
     for (const key in filtersData) {
-      if(Array.isArray(filtersData[key])) {
-        (filtersData[key] as Array<string>).forEach((value : string) => {
+      if (Array.isArray(filtersData[key])) {
+        (filtersData[key] as Array<string>).forEach((value: string) => {
           values.push({
             key: key,
             value: value
@@ -226,12 +225,23 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         });
       }
     }
-    const filterTypes : { [key : string]: string | number } = FILTER_TYPES;
-    const getFilterNames = values.map((value : FilterNamesTypes) => {
+    const filterTypes: { [key: string]: string | number } = FILTER_TYPES;
+    const getFilterNames = values.map((value: FilterNamesTypes) => {
       const filterData = filterTypes[value.value] || userFiltered[value.value] || value.value;
       return { key: value.key, type: value.value, value: filterData }
     });
     setFilterNames(getFilterNames);
+  }
+  const clearSearch = () => {
+    if (tabActive === '0') {
+      setProblemKeyword('');
+      setKeywordProblem('');
+      getGalleryProblems();
+    } else {
+      setProjectKeyword('');
+      setKeywordProject('');
+      getGalleryProjects();
+    }
   }
   const changeCenter = (name: string, coordinates: Array<Array<number>>) => {
     const user = store.getState().profile.userInformation;
@@ -239,15 +249,16 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     saveUserInformation(user);
     setArea(name);
   }
+
   const menu = () => {
     return <Menu className="js-mm-00 sign-menu-organization">
-      {groupOrganization.map((item: {type: string, values: Array<{name: string, coordinates: Array<Array<Array<number>>>}>}, index: number) => {
-            return <Menu.ItemGroup key={index + item.type}>
-              <label className="label-sg">{item.type}</label>
-              {item.values.map((element: {name: string, coordinates: Array<Array<Array<number>>>}) => (
-                <Menu.Item onClick={()=>changeCenter(element.name, element.coordinates[0])} key={index + item.type + element.name + "g1"}><span>{element.name}</span></Menu.Item>
-              ))}
-            </Menu.ItemGroup>
+      {groupOrganization.map((item: { type: string, values: Array<{ name: string, coordinates: Array<Array<Array<number>>> }> }, index: number) => {
+        return <Menu.ItemGroup key={index + item.type}>
+          <label className="label-sg">{item.type}</label>
+          {item.values.map((element: { name: string, coordinates: Array<Array<Array<number>>> }) => (
+            <Menu.Item onClick={() => changeCenter(element.name, element.coordinates[0])} key={index + item.type + element.name + "g1"}><span>{element.name}</span></Menu.Item>
+          ))}
+        </Menu.ItemGroup>
       })}
       {/* <Menu.ItemGroup key="g1">
         <label className="label-sg">{'Regional Agency'}</label>
@@ -275,8 +286,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col >
-        Apply current map view to filters 
-        <Checkbox style={{paddingLeft: 6}} checked={applyFilter} onChange={() => {
+        Apply current map view to filters
+        <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
           setApplyFilter(!applyFilter)
           getGalleryProblems();
           getGalleryProjects();
@@ -284,18 +295,18 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </Col>
     </Row>
   );
-  const menuSort = (listSort: Array<{name: string, title: string}>) => {
+  const menuSort = (listSort: Array<{ name: string, title: string }>) => {
     return <Menu className="js-mm-00">
-      {listSort.map((item : {name: string, title: string}) => (
+      {listSort.map((item: { name: string, title: string }) => (
         <Menu.Item key={item.name}
           onClick={() => {
-            if(tabActive === '0') {
-              const auxOptions = {...filterProblemOptions};
+            if (tabActive === '0') {
+              const auxOptions = { ...filterProblemOptions };
               auxOptions.column = item.name;
               setFilterProblemOptions(auxOptions);
               getGalleryProblems();
             } else {
-              const auxOptions = {...filterProjectOptions};
+              const auxOptions = { ...filterProjectOptions };
               auxOptions.column = item.name;
               setFilterProjectOptions(auxOptions);
               getGalleryProjects();
@@ -304,17 +315,17 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           <span className="menu-item-text">{item.title}</span>
         </Menu.Item>
       ))}
-  </Menu>
+    </Menu>
   }
   return <>
     <div className="count">
-      { displayModal && visible && <DetailedModal
+      {displayModal && visible && <DetailedModal
         detailed={detailed}
         getDetailedPageProblem={getDetailedPageProblem}
         getDetailedPageProject={getDetailedPageProject}
         loaderDetailedPage={loaderDetailedPage}
         getComponentsByProblemId={getComponentsByProblemId}
-        type={data.problemid ? FILTER_PROBLEMS_TRIGGER: FILTER_PROJECTS_TRIGGER}
+        type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
         data={data}
         visible={visible}
         setVisible={setVisible}
@@ -325,11 +336,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       />}
       <Row className="head-m">
         <Col span={20} id="westminter">
-          <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter" ) as HTMLElement}>
+          <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
             <span className="ant-dropdown-link span-header">
               {area ? (area.endsWith(', CO') ? area.replace(', CO', '') : area) : 'Mile High Flood District'}
               <Popover content={content}>
-              <img src="/Icons/icon-12.svg" alt="" style={{marginLeft: '8px'}}/>
+                <img src="/Icons/icon-12.svg" alt="" style={{ marginLeft: '8px' }} />
               </Popover>
             </span>
           </Dropdown>
@@ -357,9 +368,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           <Col span={14}>
             <Search
               placeholder="Search..."
-              value={tabActive === '0'? keywordProblem: keywordProject}
-              onChange={(e)=> {
-                if(tabActive === '0') {
+              value={tabActive === '0' ? keywordProblem : keywordProject}
+              onChange={(e) => {
+                if (tabActive === '0') {
                   setKeywordProblem(e.target.value);
                 } else {
                   setKeywordProject(e.target.value);
@@ -367,7 +378,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}
               onSearch={(e) => {
 
-                if(tabActive === '0') {
+                if (tabActive === '0') {
                   setProblemKeyword(keywordProblem);
                   getGalleryProblems();
                 } else {
@@ -378,32 +389,29 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               style={{ width: 200 }}
             />
             <Button onClick={e => {
-              setKeywordProject('');
-              setProjectKeyword('');
-              getGalleryProjects();
-              getGalleryProblems();
+              clearSearch();
             }} style={{ width: '80px' }} className="btn-borde">Clear</Button>
           </Col>
           <Col style={{ textAlign: 'right' }} span={10} id="sort-map">
             <div className="sort-content">
               <Dropdown trigger={['click']}
-                overlay={tabActive === '0'?
-                  menuSort(SORTED_PROBLEMS):
+                overlay={tabActive === '0' ?
+                  menuSort(SORTED_PROBLEMS) :
                   menuSort(SORTED_PROJECTS)}
-                getPopupContainer={() => document.getElementById("sort-map" ) as HTMLElement}>
-                <span className="ant-dropdown-link" style={{cursor: 'pointer'}}>
-                  Sort by {tabActive === '0'? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
-                     SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
+                getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
+                <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
+                  Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
+                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
                 </span>
               </Dropdown>
               <span className="sort-buttons" onClick={() => {
-                if(tabActive === '0') {
-                  const auxOptions = {...filterProblemOptions};
+                if (tabActive === '0') {
+                  const auxOptions = { ...filterProblemOptions };
                   auxOptions.order = filterProblemOptions.order === 'asc' ? 'desc' : 'asc';
                   setFilterProblemOptions(auxOptions);
                   getGalleryProblems();
                 } else {
-                  const auxOptions = {...filterProjectOptions};
+                  const auxOptions = { ...filterProjectOptions };
                   auxOptions.order = filterProjectOptions.order === 'asc' ? 'desc' : 'asc';
                   setFilterProjectOptions(auxOptions);
                   getGalleryProjects();
@@ -411,20 +419,24 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}>
                 <CaretUpOutlined
                   className="arrow-up"
-                  style={{opacity: tabActive === '0'? (filterProblemOptions.order === 'asc' ? '100%':'30%') :
-                  (filterProjectOptions.order === 'asc' ? '100%':'30%')}}
+                  style={{
+                    opacity: tabActive === '0' ? (filterProblemOptions.order === 'asc' ? '100%' : '30%') :
+                      (filterProjectOptions.order === 'asc' ? '100%' : '30%')
+                  }}
                 />
                 <CaretDownOutlined
                   className="arrow-down"
-                  style={{opacity: tabActive === '0'? (filterProblemOptions.order === 'desc' ? '100%':'30%') :
-                  (filterProjectOptions.order === 'desc' ? '100%':'30%')}}
+                  style={{
+                    opacity: tabActive === '0' ? (filterProblemOptions.order === 'desc' ? '100%' : '30%') :
+                      (filterProjectOptions.order === 'desc' ? '100%' : '30%')
+                  }}
                 />
               </span>
             </div>
 
             <Button onClick={handleToggle} >
-              <img style={{background: backgroundStyle}} className="img-filter" alt="" /><span style={{color: textStyle}} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems):
-                    tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents) })</span>
+              <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
+                tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
             </Button>
           </Col>
         </Row>
@@ -432,18 +444,18 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
       {!toggleFilters ?
         <Tabs onTabClick={(e: string) => {
-          if( e === '0') {
+          if (e === '0') {
             setTabActive('0');
             setTabCards(PROBLEMS_TRIGGER);
           } else {
             setTabActive('1');
             setTabCards(PROJECTS_TRIGGER);
           }
-        }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00"  tabBarExtraContent={genExtra()}>
-          {tabs.map((value : string, index : number) => {
+        }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" tabBarExtraContent={genExtra()}>
+          {tabs.map((value: string, index: number) => {
             let totalElements = 0;
-            let cardInformation : Array<Object> = [];
-            if(value === FILTER_PROBLEMS_TRIGGER) {
+            let cardInformation: Array<Object> = [];
+            if (value === FILTER_PROBLEMS_TRIGGER) {
               cardInformation = galleryProblems.map(problem => {
                 return {
                   cartodb_id: problem.cartodb_id,
@@ -469,15 +481,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   cartodb_id: project.cartodb_id,
                   image: project.attachments ? project.attachments : (
                     project.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
-                    project.projecttype === 'Study' ? '/projectImages/study.jpg' :
-                    project.projecttype === 'Maintenance' ?
-                      (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
-                      project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
-                      project.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
-                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                      '/projectImages/debris_management.png'): '/Icons/eje.png'
+                      project.projecttype === 'Study' ? '/projectImages/study.jpg' :
+                        project.projecttype === 'Maintenance' ?
+                          (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
+                            project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
+                              project.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
+                                project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
+                                  '/projectImages/debris_management.png') : '/Icons/eje.png'
                   ),
-                  requestName:  project.projectname? project.projectname : project.requestedname,
+                  requestName: project.projectname ? project.projectname : project.requestedname,
                   sponsor: project.sponsor,
                   estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
                   status: project.status,
@@ -496,72 +508,72 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             return (
               <TabPane tab={value} key={'' + index}>
                 <GenericTabView key={value + index}
-                      detailed={detailed}
-                      loaderDetailedPage={loaderDetailedPage}
-                      getDetailedPageProblem={getDetailedPageProblem}
-                      getDetailedPageProject={getDetailedPageProject}
-                      filterNames={filterNames}
-                      listDescription={listDescription}
-                      type={value}
-                      totalElements={totalElements}
-                      cardInformation={cardInformation}
-                      accordionRow={accordionRow}
-                      listFilters={filters}
-                      removeFilter={removeFilter}
-                      setHighlighted={setHighlighted}
-                      getComponentsByProblemId={getComponentsByProblemId}
-                      filterComponentOptions={filterComponentOptions}
-                      setFilterComponentOptions={setFilterComponentOptions}
-                      getGalleryProjects={getGalleryProjects}
-                      getGalleryProblems={getGalleryProblems}
-                      filterProblemOptions={filterProblemOptions}
-                      filterProjectOptions={filterProjectOptions}
-                      setFilterProblemOptions={setFilterProblemOptions}
-                      setFilterProjectOptions={setFilterProjectOptions}
-                      componentsOfProblems={componentsOfProblems}
-                      loaderTableCompoents={loaderTableCompoents}
-                      selectedOnMap={selectedOnMap}
-                      componentCounter={componentCounter}
-                      getComponentCounter={getComponentCounter}
-                      setZoomProjectOrProblem={setZoomProjectOrProblem}
-                      />
+                  detailed={detailed}
+                  loaderDetailedPage={loaderDetailedPage}
+                  getDetailedPageProblem={getDetailedPageProblem}
+                  getDetailedPageProject={getDetailedPageProject}
+                  filterNames={filterNames}
+                  listDescription={listDescription}
+                  type={value}
+                  totalElements={totalElements}
+                  cardInformation={cardInformation}
+                  accordionRow={accordionRow}
+                  listFilters={filters}
+                  removeFilter={removeFilter}
+                  setHighlighted={setHighlighted}
+                  getComponentsByProblemId={getComponentsByProblemId}
+                  filterComponentOptions={filterComponentOptions}
+                  setFilterComponentOptions={setFilterComponentOptions}
+                  getGalleryProjects={getGalleryProjects}
+                  getGalleryProblems={getGalleryProblems}
+                  filterProblemOptions={filterProblemOptions}
+                  filterProjectOptions={filterProjectOptions}
+                  setFilterProblemOptions={setFilterProblemOptions}
+                  setFilterProjectOptions={setFilterProjectOptions}
+                  componentsOfProblems={componentsOfProblems}
+                  loaderTableCompoents={loaderTableCompoents}
+                  selectedOnMap={selectedOnMap}
+                  componentCounter={componentCounter}
+                  getComponentCounter={getComponentCounter}
+                  setZoomProjectOrProblem={setZoomProjectOrProblem}
+                />
               </TabPane>
             );
           })}
         </Tabs>
-          :
+        :
         <FiltersProjectView
-            tabPosition={tabPosition}
-            setTabPosition={setTabPosition}
-            componentsTotal={counterComponents}
-            filterNames={filterNames}
-            setToggleFilters={setToggleFilters}
-            handleOnSubmit={handleOnSubmit}
-            handleReset={handleReset}
-            setFilterNames={setFilterNames}
-            projectsLength={galleryProjects.length}
-            problemsLength={galleryProblems.length}
-            getDropdownFilters={getDropdownFilters}
-            dropdowns={dropdowns}
-            userFiltered={userFiltered}
-            getUserFilters={getUserFilters}
-            getValuesByGroupColumn={getValuesByGroupColumn}
-            filterProblemOptions={filterProblemOptions}
-            setFilterProblemOptions={setFilterProblemOptions}
-            paramFilters={paramFilters}
-            getGalleryProblems={getGalleryProblems}
-            filterProjectOptions={filterProjectOptions}
-            setFilterProjectOptions={setFilterProjectOptions}
-            getGalleryProjects={getGalleryProjects}
-            setFilterComponentOptions={setFilterComponentOptions}
-            filterComponentOptions={filterComponentOptions}
-            setTabActive={setTabActive}
-            selectedLayers={selectedLayers}
-            updateSelectedLayers={updateSelectedLayers}
-            applyFilter={applyFilter}
-            setApplyFilter={setApplyFilter}
-            spinFilter={spinFilter}
-            />
+          tabPosition={tabPosition}
+          setTabPosition={setTabPosition}
+          componentsTotal={counterComponents}
+          filterNames={filterNames}
+          setToggleFilters={setToggleFilters}
+          handleOnSubmit={handleOnSubmit}
+          handleReset={handleReset}
+          setFilterNames={setFilterNames}
+          projectsLength={galleryProjects.length}
+          problemsLength={galleryProblems.length}
+          getDropdownFilters={getDropdownFilters}
+          dropdowns={dropdowns}
+          userFiltered={userFiltered}
+          getUserFilters={getUserFilters}
+          getValuesByGroupColumn={getValuesByGroupColumn}
+          filterProblemOptions={filterProblemOptions}
+          setFilterProblemOptions={setFilterProblemOptions}
+          paramFilters={paramFilters}
+          getGalleryProblems={getGalleryProblems}
+          filterProjectOptions={filterProjectOptions}
+          setFilterProjectOptions={setFilterProjectOptions}
+          getGalleryProjects={getGalleryProjects}
+          setFilterComponentOptions={setFilterComponentOptions}
+          filterComponentOptions={filterComponentOptions}
+          setTabActive={setTabActive}
+          selectedLayers={selectedLayers}
+          updateSelectedLayers={updateSelectedLayers}
+          applyFilter={applyFilter}
+          setApplyFilter={setApplyFilter}
+          spinFilter={spinFilter}
+        />
       }
     </div>
   </>
