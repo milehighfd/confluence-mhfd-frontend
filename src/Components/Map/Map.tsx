@@ -269,7 +269,13 @@ const Map = ({ leftWidth,
             console.log(applyFilter);
             if (applyFilter) {
                 if (toggleModalFilter) {
-                    getParamsFilter(boundingBox);
+                    if (filterTabNumber === PROJECTS_TRIGGER) {
+                        getParamFilterProjects(boundingBox);
+                    } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+                        getParamFilterProblems(boundingBox);
+                    } else {
+                        getParamFilterComponents(boundingBox);
+                    }
                 } else {
                     setFilterCoordinates(boundingBox, tabCards);
                 }
@@ -277,6 +283,7 @@ const Map = ({ leftWidth,
 
         });
         const updateZoom = () => {
+            console.log('update zoom')
             const zoom = map.getZoom().toFixed(2);
             setZoomValue(zoom);
         }

@@ -449,9 +449,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           if (e === '0') {
             setTabActive('0');
             setTabCards(PROBLEMS_TRIGGER);
+            getGalleryProblems();
           } else {
             setTabActive('1');
             setTabCards(PROJECTS_TRIGGER);
+            getGalleryProjects();
           }
         }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" tabBarExtraContent={genExtra()}>
           {tabs.map((value: string, index: number) => {
@@ -587,3 +589,4 @@ const layers = {
 }
 
 export default mapFormContainer(MapView, layers);
+
