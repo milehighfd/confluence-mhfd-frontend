@@ -196,7 +196,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         yearofstudy: filterComponent.yearofstudy,
         estimatedcostComp: filterComponent.estimatedcost,
         name: options.keyword,
-        servicearea: options.servicearea,
+        servicearea: filterComponent.servicearea,
         sortby: options.column,
         sorttype: options.order,
         bounds: coordinates
@@ -219,7 +219,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         yearofstudy: filterComponent.yearofstudy,
         estimatedcostComp: filterComponent.estimatedcost,
         name: options.keyword,
-        servicearea: options.servicearea,
+        servicearea: filterComponent.servicearea,
         sortby: options.column,
         sorttype: options.order
     }
@@ -254,7 +254,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         bounds: coordinates,
         consultant: options.consultant,
         contractor: options.contractor,
-        servicearea: options.servicearea
+        servicearea: filterComponent.servicearea
     } : {
         name: options.keyword,
         projecttype: options.projecttype,
@@ -280,7 +280,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         yearofstudy: filterComponent.yearofstudy,
         consultant: options.consultant,
         contractor: options.contractor,
-        servicearea: options.servicearea,
+        servicearea: filterComponent.servicearea,
         sortby: options.column,
         sorttype: options.order
     }
