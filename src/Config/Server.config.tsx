@@ -27,6 +27,7 @@ export const SERVER = (function () {
     const GALLERY_PROBLEMS = 'gallery?isproblem=true';
     const GALLERY_PROJECTS = 'gallery?';
     const GALLERY = 'gallery';
+    const ZOOMAREA = 'zoomarea'
     const COMPONENT_COUNTER = 'component-counter';
     const GRAPHQL = 'graphql';
     const UPLOAD_FILE = 'upload-file';
@@ -125,7 +126,8 @@ export const SERVER = (function () {
         SEARCH_KEYWORD_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}/${SEARCH}/${PROBLEMS}`,
         FILTER_BY_COMPONENTS: `${URL_BASE.BASE}/${FILTERS}/${V2}/${BY_COMPONENTS}`,
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
-        GROUP_ORGANIZATION: `${URL_BASE.BASE}/${GALLERY}/${GROUP_ORGANIZATION}`,
+        // GROUP_ORGANIZATION: `${URL_BASE.BASE}/${GALLERY}/${GROUP_ORGANIZATION}`,
+        GROUP_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}`,
         DELETE_USER: `${URL_BASE.BASE}/${ADMIN}/${DELETE_USER}`,
         PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROJECTS}`,
         PARAM_FILTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROBLEMS}`,

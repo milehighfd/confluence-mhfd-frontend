@@ -102,7 +102,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
   // const [listDescription, setListDescription] = useState(false);
   const listDescription = false;
-  const [designation, SetDesignation] = useState(store.getState().profile.userInformation.designation)
   const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
   const [tabActive, setTabActive] = useState('1');
   const { projectId } = useParams();
@@ -123,9 +122,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const purple = '#11093c';
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
-  if (designation === 'guest') {
-    setApplyFilter(false);
-  }
 
   useEffect(() => {
     if (location.includes('problemid=')) {
@@ -258,14 +254,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const menu = () => {
     return <Menu className="js-mm-00 sign-menu-organization">
-      {groupOrganization.map((item: { type: string, values: Array<{ name: string, coordinates: Array<Array<Array<number>>> }> }, index: number) => {
-        return <Menu.ItemGroup key={index + item.type}>
-          <label className="label-sg">{item.type}</label>
-          {item.values.map((element: { name: string, coordinates: Array<Array<Array<number>>> }) => (
-            <Menu.Item onClick={() => changeCenter(element.name, element.coordinates[0])} key={index + item.type + element.name + "g1"}><span>{element.name}</span></Menu.Item>
-          ))}
-        </Menu.ItemGroup>
-      })}
+      {groupOrganization.map((item: { aoi: string, coordinates: Array<Array<Array<number>>> }) => (
+        <Menu.Item onClick={() => changeCenter(item.aoi, item.coordinates[0])} key={item.aoi + "g1"}><span>{item.aoi}</span></Menu.Item>
+      ))}
       {/* <Menu.ItemGroup key="g1">
         <label className="label-sg">{'Regional Agency'}</label>
         {ORGANIZATION_COORDINATES.REGIONAL_AGENCY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
