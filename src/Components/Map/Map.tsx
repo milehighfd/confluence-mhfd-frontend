@@ -292,7 +292,7 @@ const Map = ({ leftWidth,
             setZoomEndCounter(_ ++);
             console.log(zoomEndCounter);
         });
-        let __ = 0;// #good practices
+        let __ = 1;// #good practices
         map.on('dragend', () => {
             setDragEndCounter(__++);
         });
