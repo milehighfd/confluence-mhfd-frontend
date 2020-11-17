@@ -294,6 +294,7 @@ const Map = ({ leftWidth,
         });
         let __ = 1;// #good practices
         map.on('dragend', () => {
+            console.log('move end')
             setDragEndCounter(__++);
         });
         map.on('load', updateZoom);
