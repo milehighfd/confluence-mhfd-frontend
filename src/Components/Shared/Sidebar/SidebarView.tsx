@@ -99,14 +99,13 @@ export default () => {
             <span>Uploader</span>
           </Link>
         </Menu.Item> : ''}
-        {(appUser.designation !== 'guest') ?
         <Menu.Item key="7">
           <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
             <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" />
             <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="18px" />
             <span>Feedback</span>
           </a>
-        </Menu.Item> : ''}
+        </Menu.Item>
       {(appUser.designation === 'admin') && (appUser.status === 'approved') ?
         <Menu.Item key="8">
           <Link to={'/user'}>
