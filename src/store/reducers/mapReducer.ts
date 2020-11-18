@@ -153,6 +153,7 @@ const initState = {
         problemtype: '',
         source: '',
         components: '',
+        servicearea: '',
         keyword: {}
     },
     filterProjects: {
@@ -172,6 +173,7 @@ const initState = {
         mhfdmanager: '',
         jurisdiction: '',
         county: '',
+        servicearea: '',
         keyword: {}
     },
     filterComponents: {

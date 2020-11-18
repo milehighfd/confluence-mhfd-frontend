@@ -177,6 +177,14 @@ export const resetMap = () => {
 
 const options = (options: OptionProblems, filterComponent: OptionComponents, coordinates: string) => {
     const applyFilter = store.getState().map.applyFilter;
+    let servicearea = '';
+    if (options.servicearea) {
+        servicearea = options.servicearea;
+    } else {
+        if (filterComponent.servicearea) {
+            servicearea = filterComponent.servicearea;
+        }
+    }
     return applyFilter ? {
         isproblem: true,
         cost: options.cost,
@@ -196,7 +204,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         yearofstudy: filterComponent.yearofstudy,
         estimatedcostComp: filterComponent.estimatedcost,
         name: options.keyword,
-        servicearea: filterComponent.servicearea,
+        servicearea: servicearea,
         sortby: options.column,
         sorttype: options.order,
         bounds: coordinates
@@ -219,13 +227,21 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         yearofstudy: filterComponent.yearofstudy,
         estimatedcostComp: filterComponent.estimatedcost,
         name: options.keyword,
-        servicearea: filterComponent.servicearea,
+        servicearea: servicearea,
         sortby: options.column,
         sorttype: options.order
     }
 }
 const optionsProjects = (options: OptionProjects, filterComponent: OptionComponents, coordinates: string) => {
     const applyFilter = store.getState().map.applyFilter;
+    let servicearea = '';
+    if (options.servicearea) {
+        servicearea = options.servicearea;
+    } else {
+        if (filterComponent.servicearea) {
+            servicearea = filterComponent.servicearea;
+        }
+    }
     return applyFilter? {
         name: options.keyword,
         projecttype: options.projecttype,
@@ -254,7 +270,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         bounds: coordinates,
         consultant: options.consultant,
         contractor: options.contractor,
-        servicearea: filterComponent.servicearea
+        servicearea: servicearea //options.servicearea
     } : {
         name: options.keyword,
         projecttype: options.projecttype,
@@ -280,7 +296,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         yearofstudy: filterComponent.yearofstudy,
         consultant: options.consultant,
         contractor: options.contractor,
-        servicearea: filterComponent.servicearea,
+        servicearea: servicearea, // filterComponent.servicearea,
         sortby: options.column,
         sorttype: options.order
     }
@@ -314,6 +330,7 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
         problemtype: filters.problemtype,
         source: filters.source,
         components: [] as any,
+        servicearea: filters.servicearea,
         keyword
     }
     const solutionstatus = filters.solutionstatus.split(',');
