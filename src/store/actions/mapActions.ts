@@ -539,6 +539,13 @@ export const existDetailedPageProblem = (url: string) => {
         });
     }
 }
+export const getZoomAreaFilter = () => {
+    return (dispatch: Function) => {
+        datasets.getData(SERVER.GET_ZOOMAREA_FILTER).then(data => {
+            dispatch({type: types.GET_ZOOMAREA_FILTER, data});
+        })
+    }
+}
 export const getValuesByGroupColumn = (table: string, column: string) => {
     return (dispatch: Function) => {
         const params = {
@@ -552,7 +559,6 @@ export const getValuesByGroupColumn = (table: string, column: string) => {
 }
 export const getParamsFilter = (bounds: string) => { 
     return (dispatch: Function) => {
-        console.log('paraaams');
         dispatch(setSpinFilter(true));
         datasets.getData(SERVER.PARAM_FILTERS + '?bounds=' + bounds).then(params => {
             if(params.components && params.problems && params.projects) {

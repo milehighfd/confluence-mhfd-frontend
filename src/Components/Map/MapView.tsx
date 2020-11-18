@@ -102,6 +102,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
   // const [listDescription, setListDescription] = useState(false);
   const listDescription = false;
+  const [designation, SetDesignation] = useState(store.getState().profile.userInformation.designation);
   const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
   const [tabActive, setTabActive] = useState('1');
   const { projectId } = useParams();
@@ -122,6 +123,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const purple = '#11093c';
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
+  if (designation === 'guest') {
+    setApplyFilter(false);
+  }
 
   useEffect(() => {
     if (location.includes('problemid=')) {

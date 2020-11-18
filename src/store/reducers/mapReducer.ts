@@ -206,7 +206,9 @@ const initState = {
     toggleModalFilter: false,
     tabCards: "projects",
     filterTabNumber: "projects",
-    boundsMap: ''
+    boundsMap: '',
+    zoomareaFilter: {},
+    zoomarea: []
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -487,6 +489,12 @@ const mapReducer = (state = initState, action : any) => {
                     ...state.paramFilters,
                     problems: action.params
                 }
+            }
+        }
+        case types.GET_ZOOMAREA_FILTER: {
+            return {
+                ...state,
+                zoomareaFilter: action.data
             }
         }
         case types.GET_PARAM_FILTER_COMPONENTS: {

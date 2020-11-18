@@ -143,6 +143,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
             </Col>
             <Col span={12}>
                 <h5>County <img src="/Icons/icon-19.svg" alt="" /></h5>
+                <div className="check-scroll">
                 <Checkbox.Group value={filterProblemOptions.county.split(',')} onChange={(items) => {
                     apply(items, 'county');
                 }}>
@@ -152,6 +153,7 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
                         </p>
                     })}
                 </Checkbox.Group>
+                </div>
             </Col>
         </Row>
 

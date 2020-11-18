@@ -2,7 +2,8 @@ import {ParametricSelector, createSelector} from 'reselect';
 import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
-         getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap } from '../store/actions/mapActions';
+         getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
+         getZoomAreaFilter } from '../store/actions/mapActions';
 
 const selectMapStates: ParametricSelector<RootState, undefined, {
   toggleModalFilter: boolean,
@@ -54,6 +55,9 @@ export const useMapDispatch = () => {
     },
     setBoundMap: (bounds: string) => {
       dispatch(setBoundMap(bounds));
-    }
+    },
+    getZoomAreaFilter: () => {
+      dispatch(getZoomAreaFilter());
+    },
   }
 }
