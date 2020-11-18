@@ -15,6 +15,9 @@ import { genExtra } from "../../utils/detailedUtils";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
+let contents: any = [];
+contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
+contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -509,7 +512,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             }
 
             return (
-              <TabPane tab={value} key={'' + index}>
+              <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value} </Popover> </span>} key={'' + index}>
                 <GenericTabView key={value + index}
                   detailed={detailed}
                   loaderDetailedPage={loaderDetailedPage}
