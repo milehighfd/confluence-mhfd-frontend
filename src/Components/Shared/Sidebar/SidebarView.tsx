@@ -104,7 +104,7 @@ export default () => {
           <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
             <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" />
             <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="18px" />
-            <span>Feedback - Under Construction</span>
+            <span>Feedback</span>
           </a>
         </Menu.Item> : ''}
       {(appUser.designation === 'admin') && (appUser.status === 'approved') ?
