@@ -257,10 +257,57 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     user.polygon = coordinates;
     saveUserInformation(user);
     setArea(name);
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === name).map((element: any) => {
+      return {
+        aoi: element.aoi,
+        filter: element.filter
+      }
+    });
+    
+    if (zoomareaSelected.length > 0) {
+      const optionsProblem = {...filterProblemOptions};
+      const optionsProject = {...filterProjectOptions};
+      
+      switch(zoomareaSelected[0].filter) {
+        case 'County':
+          optionsProblem['county'] = name;
+          optionsProject['county'] = name;
+          optionsProblem['jurisdiction'] = '';
+          optionsProject['jurisdiction'] = '';
+          optionsProblem['servicearea'] = '';
+          optionsProject['servicearea'] = '';
+          break;
+        case 'Jurisdiction':
+          optionsProblem['jurisdiction'] = name;
+          optionsProject['jurisdiction'] = name;
+          optionsProblem['county'] = '';
+          optionsProject['county'] = '';
+          optionsProblem['servicearea'] = '';
+          optionsProject['servicearea'] = '';
+          break;
+        case 'Service Area':
+          optionsProblem['servicearea'] = name;
+          optionsProject['servicearea'] = name;
+          optionsProblem['county'] = '';
+          optionsProject['county'] = '';
+          optionsProblem['jurisdiction'] = '';
+          optionsProject['jurisdiction'] = '';
+          break;
+        default:
+          optionsProblem['servicearea'] = '';
+          optionsProject['servicearea'] = '';
+          optionsProblem['county'] = '';
+          optionsProject['county'] = '';
+          optionsProblem['jurisdiction'] = '';
+          optionsProject['jurisdiction'] = '';
+      }
+      setFilterProblemOptions(optionsProblem);
+      setFilterProjectOptions(optionsProject);
+    }
   }
 
   const menu = () => {
-    return <Menu className="js-mm-00 sign-menu-organization">
+    return <Menu className="js-mm-00 sign-menu-organization2x">
       {groupOrganization.map((item: { aoi: string, coordinates: Array<Array<Array<number>>> }) => (
         <Menu.Item onClick={() => changeCenter(item.aoi, item.coordinates[0])} key={item.aoi + "g1"}><span>{item.aoi}</span></Menu.Item>
       ))}
