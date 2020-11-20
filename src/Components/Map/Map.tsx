@@ -104,7 +104,7 @@ const Map = ({ leftWidth,
     const [dropdownItems, setDropdownItems] = useState({default: 1, items: MAP_DROPDOWN_ITEMS});
     const { toggleModalFilter, boundsMap, tabCards, filterTabNumber } = useMapState();
     const { setBoundMap, getParamFilterComponents, getParamFilterProblems, getParamFilterProjects } = useMapDispatch();
-    
+
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const [ zoomValue, setZoomValue] = useState(0);
@@ -146,7 +146,7 @@ const Map = ({ leftWidth,
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude])
     }
-    
+
     useEffect(() => {
         if (map) {
             if (highlighted.type) {
@@ -157,7 +157,7 @@ const Map = ({ leftWidth,
         }
     }, [highlighted]);
     const [counterPopup, setCounterPopup] = useState({componentes: 0});
-    
+
     useEffect(() => {
         const div = document.getElementById('popup');
         if (div != null) {
@@ -201,12 +201,12 @@ const Map = ({ leftWidth,
         if(coor[0] && coor[1]) {
             map.fitBounds(coor);
         }
-        
+
         map.addControl(new mapboxgl.ScaleControl({
             unit: 'imperial'
         }), 'bottom-right');
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-        
+
         addMapGeocoder(map, geocoderRef);
 
         // Uncomment to see coords when a position in map is clicked
@@ -245,7 +245,7 @@ const Map = ({ leftWidth,
             }
         }
         let value = 0;
-       
+
         map.once('zoomend', () => {
             value +=1;
             if(value >= 2 ) {
@@ -302,7 +302,7 @@ const Map = ({ leftWidth,
 
     }, []);
 
-    
+
     useEffect(() => {
         console.log('my apply filter ', applyFilter, zoomEndCounter);
         const bounds = map.getBounds();
@@ -322,8 +322,8 @@ const Map = ({ leftWidth,
                 setFilterCoordinates(boundingBox, tabCards);
             }
         }
-        
-        
+
+
     }, [applyFilter, zoomEndCounter, dragEndCounter]);
     useEffect(() => {
         if(zoom.length > 0) {
@@ -696,17 +696,17 @@ const Map = ({ leftWidth,
     }
     const test = (item: any) => {
         console.log('item::::', item);
-        
+
         setVisible(true);
         setData(item);
         if(item.problemid) {
-            existDetailedPageProblem(item.problemid); 
+            existDetailedPageProblem(item.problemid);
         }else {
             const url = 'objectid=' + item.objectid + '&cartoid=' + item.valueid + '&type=' + item.type;
-            existDetailedPageProject(url); 
+            existDetailedPageProject(url);
         }
-        
-        
+
+
     }
 
     const addMapListeners = (key: string) => {
@@ -911,7 +911,7 @@ const Map = ({ leftWidth,
             })
         }
     }
-    
+
     const loadMainPopup = (item: any, test: Function) => ReactDOMServer.renderToStaticMarkup (
         <>
             <MainPopup item={item} test={test} sw={true}></MainPopup>
@@ -1021,7 +1021,7 @@ const Map = ({ leftWidth,
     const layerObjects: any = selectedLayers.filter( element => typeof element === 'object');
     const layerStrings = selectedLayers.filter( element => typeof element !== 'object');
     const [ selectedCheckBox, setSelectedCheckBox ] = useState(selectedLayers);
-    
+
     return (
             <div className="map">
                 { displayModal && visible && <DetailedModal
@@ -1041,6 +1041,20 @@ const Map = ({ leftWidth,
                 />}
             <div id="map" style={{ width: '100%', height: '100%' }} />
             <div className="m-head">
+                <Dropdown overlayClassName="dropdown-map-layers"
+                    visible={visibleDropdown}
+                    onVisibleChange={(flag : boolean) => {
+                        // selectCheckboxes(selectedCheckBox);
+                        setVisibleDropdown(flag);
+
+                    }}
+                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
+                    className="btn-02"
+                    trigger={['click']}>
+                    <Button>
+                        <img src="/Icons/icon-05.svg" alt="" />
+                    </Button>
+                </Dropdown>
                 <AutoComplete
                     dropdownMatchSelectWidth={true}
                     style={{ width: 200 }}
@@ -1058,20 +1072,7 @@ const Map = ({ leftWidth,
                     style={{ width: '200px', height: '35px' }}
                 />
                 <Button className="btn-purple"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
-                <Dropdown overlayClassName="dropdown-map-layers"
-                    visible={visibleDropdown}
-                    onVisibleChange={(flag : boolean) => {
-                        // selectCheckboxes(selectedCheckBox);
-                        setVisibleDropdown(flag);
 
-                    }}
-                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
-                    className="btn-02"
-                    trigger={['click']}>
-                    <Button>
-                        <img src="/Icons/icon-05.svg" alt="" />
-                    </Button>
-                </Dropdown>
             </div>
 
             {/* <Dropdown
@@ -1083,7 +1084,7 @@ const Map = ({ leftWidth,
                 </Button>
             </Dropdown> */}
 
-            <div className="m-footer">
+            {/*<div className="m-footer">
               <Collapse accordion defaultActiveKey={['1']} expandIconPosition="right">
                 <Panel header="Legend" key="1">
                 <hr />
@@ -1097,18 +1098,19 @@ const Map = ({ leftWidth,
                     {layerObjects.filter((element: any)  => element.name === COMPONENT_LAYERS.name ).length ? <>
                         <p><span style={{ background: '#3EE135', border: 'hidden' }} />Components</p>
                     </> : ''}
-                    {/* {layerStrings.includes(MHFD_BOUNDARY_FILTERS) ? <>
+                     {layerStrings.includes(MHFD_BOUNDARY_FILTERS) ? <>
                         <p><span className="color-footer-boundary" style={{ border: '1px dashed' }} />MHFD Boundary</p>
-                    </> : '' } */}
+                    </> : '' }
                 </div>
                 </Panel>
               </Collapse>
-            </div>
-            
-            {/* <div className="m-zoom">
-                    <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt="" width="12px"/></Button>
-                    <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>
-                </div> */}
+
+            </div>*/}
+
+            <div className="m-zoom">
+              <Button style={{borderRadius:'4px'}}><img className="img-icon"/></Button>
+              {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
+          </div>
         </div>
 
     )

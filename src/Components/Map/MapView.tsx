@@ -53,11 +53,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const { setToggleModalFilter, getParamFilterProjects, getParamFilterComponents,
     getParamFilterProblems, setTabCards } = useMapDispatch();
   const { tabCards } = useMapState();
-  
+
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
-  
+
   useEffect(() => {
     let countTagProblems = 0;
     let countTagProjets = 0;
@@ -263,11 +263,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         filter: element.filter
       }
     });
-    
+
     if (zoomareaSelected.length > 0) {
       const optionsProblem = {...filterProblemOptions};
       const optionsProject = {...filterProjectOptions};
-      
+
       switch(zoomareaSelected[0].filter) {
         case 'County':
           optionsProblem['county'] = name;
@@ -336,7 +336,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-      <Col >
+      <Col  style={{fontSize: '12px'}}>
         Apply current map view to filters
         <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
           setApplyFilter(!applyFilter)
@@ -416,7 +416,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
       <div className="head-filter">
         <Row type="flex" justify="space-around" align="middle">
-          <Col span={14}>
+          <Col span={12}>
             <Search
               placeholder="Search..."
               value={tabActive === '0' ? keywordProblem : keywordProject}
@@ -439,11 +439,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}
               style={{ width: 200 }}
             />
-            <Button onClick={e => {
+            {/*<Button onClick={e => {
               clearSearch();
-            }} style={{ width: '80px' }} className="btn-borde">Clear</Button>
+            }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
-          <Col style={{ textAlign: 'right' }} span={10} id="sort-map">
+          <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
             <div className="sort-content">
               <Dropdown trigger={['click']}
                 overlay={tabActive === '0' ?
@@ -638,4 +638,3 @@ const layers = {
 }
 
 export default mapFormContainer(MapView, layers);
-

@@ -199,7 +199,7 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
     setApplyFilter, spinFilter }: FiltersProjectTypes) => {
     const genExtra = () => (
         <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-            <Col >
+            <Col style={{fontSize: '12px'}}>
                 Apply current map view to filters
             <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
                     setApplyFilter(!applyFilter);

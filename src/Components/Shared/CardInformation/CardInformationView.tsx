@@ -69,7 +69,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
         getComponentCounter={getComponentCounter}
       />}
 
-      <Col span={8}>
+      <Col span={12}>
         <Card
           hoverable
           style={{ width: '100%', boxShadow: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? '0 2px 8px #28c499' : '' }}
