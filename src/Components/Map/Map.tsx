@@ -452,7 +452,6 @@ const Map = ({ leftWidth,
             const allFilters: any[] = ['all'];
             for (const filterField in toFilter) {
                 const filters = toFilter[filterField];
-                console.log(filterField, filters);
                 if (filterField === 'component_type') {
                     showSelectedComponents(filters.split(','));
                 }
