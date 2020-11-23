@@ -336,13 +336,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-      <Col  style={{fontSize: '12px'}}>
-        Apply current map view to filters
-        <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
-          setApplyFilter(!applyFilter)
-          getGalleryProblems();
-          getGalleryProjects();
-        }}></Checkbox>
+      <Col style={{fontSize: '12px'}}>
+        <div className="apply-filter">
+          Apply map view to filters
+          <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
+            setApplyFilter(!applyFilter)
+            getGalleryProblems();
+            getGalleryProjects();
+          }}></Checkbox>
+        </div>
       </Col>
     </Row>
   );
@@ -369,7 +371,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     </Menu>
   }
   return <>
-    <div className="count">
+    <div className="count" style={{paddingBottom: '0px'}}>
       {displayModal && visible && <DetailedModal
         detailed={detailed}
         getDetailedPageProblem={getDetailedPageProblem}
@@ -444,6 +446,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
           <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
+            <Button onClick={handleToggle} >
+              <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
+                tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
+            </Button>
             <div className="sort-content">
               <Dropdown trigger={['click']}
                 overlay={tabActive === '0' ?
@@ -451,7 +457,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   menuSort(SORTED_PROJECTS)}
                 getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
                 <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
-                  Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
+                  {/*<img className="img-filter00" alt="" />*/} Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
                     SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
                 </span>
               </Dropdown>
@@ -484,11 +490,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 />
               </span>
             </div>
-
-            <Button onClick={handleToggle} >
-              <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
-                tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
-            </Button>
           </Col>
         </Row>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Checkbox, Row, Col, Button } from 'antd';
+import { Checkbox, Row, Col, Button, Collapse, Popover, Switch} from 'antd';
 import { FLOODPLAINS_FEMA_FILTERS,
         FLOODPLAINS_NON_FEMA_FILTERS,
         WATERSHED_FILTERS,
@@ -22,46 +22,219 @@ import { FLOODPLAINS_FEMA_FILTERS,
         FEMA_FLOOD_HAZARD,
         XSTREAMS} from '../../../constants/constants';
 
-export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView } : 
+const { Panel } = Collapse;
+export const genExtra = () => (
+    <div className="filter-coll-header">
+      <div><img src="/Icons/icon-77.svg" alt=""/> HYDROLOGIC </div>
+      <Switch size="small"/>
+    </div>
+  );
+export const genExtra01 = () => (
+  <div className="filter-coll-header">
+    <div><img src="/Icons/icon-78.svg" alt=""/> BOUNDARIES</div>
+    <Switch size="small"/>
+  </div>
+
+  );
+export const genExtra02 = () => (
+  <div className="filter-coll-header">
+    <div><img src="/Icons/icon-79.svg" alt=""/> MHFD DATA </div>
+    <Switch size="small" />
+  </div>
+
+  );
+export const genExtra03 = () => (
+  <div className="filter-coll-header">
+    <div><img src="/Icons/icon-80.svg" alt=""/> OTHER LAYERS</div>
+    <Switch size="small"/>
+  </div>
+
+  );
+const content = (<div className="popoveer-00"><i>Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</i></div>);
+
+export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView } :
         { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean }) => {
   // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
-  
-  return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '43.8vw', left: '-15px', margin:'0px 20px', padding:'15px 15px 10px 15px' }}>
-          <Row gutter={[24, 16]} className="filter-map">
+
+  return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '250px', left: '-12px', margin:'0px 20px', paddingTop: '0px'}}>
+          <div className="filter-map">
           <Checkbox.Group value={selectedLayers} onChange={(items) => {
               setSelectedCheckBox(items);
               // setCheckboxes(items);
               selectCheckboxes(items);
               removePopup();
             }}>
-              <Col span={9}>
-                <h6>HYDROLOGIC</h6>
-                  <p><Checkbox value={FLOODPLAINS}>Floodplains</Checkbox></p>
-                  <p><Checkbox value={FEMA_FLOOD_HAZARD}>FEMA NFHL</Checkbox></p>
-                  <p><Checkbox value={WATERSHED_FILTERS}>Watersheds</Checkbox></p>
-                  <p style={{display: 'none'}}><Checkbox value={STREAMS_FILTERS}>Streams</Checkbox></p>
-              </Col>
-              <Col span={7}>
-                <h6>BOUNDARIES</h6>
-                <p><Checkbox value={SERVICE_AREA_LAYERS}>Service Areas</Checkbox></p>
-                <p><Checkbox value={MUNICIPALITIES}>Municipalities</Checkbox></p>
-                <p><Checkbox value={COUNTIES_LAYERS}>Counties</Checkbox></p>
-                <p style={{display: 'none'}}><Checkbox value={MHFD_BOUNDARY_FILTERS}>MHFD Boundary</Checkbox></p>
-              </Col>
-              <Col span={8}>
-                <h6>MHFD DATA</h6>
-                <p><Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROBLEMS_TRIGGER}>Problems</Checkbox></p>
-                <p><Checkbox value={COMPONENT_LAYERS}>Components</Checkbox></p>
-                <p><Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROJECTS_MAP_STYLES}>Projects</Checkbox></p>
-                <p><Checkbox value={MEP_PROJECTS}>MEP Referrals</Checkbox></p>
-                <p><Checkbox value={ROUTINE_MAINTENANCE}>Routine Maintenance</Checkbox></p>
-              </Col>
-            </Checkbox.Group>
-          </Row>
+            <Collapse defaultActiveKey={['1']} expandIconPosition="right">
+              <Panel header="" key="1" extra={genExtra()}>
+                <p>
+                  <img src="/Icons/icon-75.svg" alt=""/>
+                  Floodplains
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover> <Switch size="small"/>
+                </p> {/* <Checkbox value={FLOODPLAINS}></Checkbox>*/}
 
-          <div className="btn-footer">
+                <p>
+                  <img src="/Icons/icon-76.svg" alt=""/>
+                  FEMA NFHL
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
+
+                <p>
+                  <img src="/Icons/icon-75.svg" alt=""/>
+                  Watersheds
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
+
+                <p style={{display: 'none'}}>
+                  <img src="/Icons/icon-77.svg" alt=""/>
+                  Streams
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small" />
+                  </p> {/*<Checkbox value={STREAMS_FILTERS}></Checkbox>*/}
+              </Panel>
+
+              <Panel header="" key="2" extra={genExtra01()}>
+                <p>
+                  <img src="/Icons/icon-76.svg" alt=""/>
+                  Service Areas
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/*<Checkbox value={SERVICE_AREA_LAYERS}></Checkbox>*/}
+
+                <p>
+                  <img src="/Icons/icon-75.svg" alt=""/>
+                  Municipalities
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/*<Checkbox value={MUNICIPALITIES}></Checkbox>*/}
+
+                <p>
+                  <img src="/Icons/icon-76.svg" alt=""/>
+                  Counties
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/*<Checkbox value={COUNTIES_LAYERS}></Checkbox>*/}
+
+                <p style={{display: 'none'}}>
+                  MHFD Boundary <Switch size="small" defaultChecked />
+                </p>{/*<Checkbox value={MHFD_BOUNDARY_FILTERS}></Checkbox>*/}
+              </Panel>
+
+              <Panel header="" key="3" extra={genExtra02()}>
+                <p>
+                  <img src="/Icons/icon-75.svg" alt=""/>
+                  Problems
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/*<Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROBLEMS_TRIGGER}></Checkbox>*/}
+
+                <p>
+                  <img src="/Icons/icon-76.svg" alt=""/>
+                  Components
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/*<Checkbox value={COMPONENT_LAYERS}></Checkbox>*/}
+
+                <p>
+                  <img src="/Icons/icon-75.svg" alt=""/>
+                  Projects
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/*<Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROJECTS_MAP_STYLES}></Checkbox>*/}
+
+                <p>
+                  <img src="/Icons/icon-76.svg" alt=""/>
+                  MEP Referrals
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/* <Checkbox value={MEP_PROJECTS}></Checkbox>*/}
+
+                <p>
+                  <img src="/Icons/icon-75.svg" alt=""/>
+                  Routine Maintenance
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
+                  </Popover>
+                  <Switch size="small"/>
+                </p> {/* <Checkbox value={ROUTINE_MAINTENANCE}></Checkbox>*/}
+              </Panel>
+
+              <Panel header="" key="4" extra={genExtra03()}>
+                <p>
+                  <img src="/Icons/icon-76.svg" alt=""/>
+                  Species
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
+                  </Popover>
+                  <Switch size="small"/>
+                </p>
+
+                <p>
+                  <img src="/Icons/icon-75.svg" alt=""/>
+                  Research/Monitoring
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small"/>
+                </p>
+
+                <p>
+                  <img src="/Icons/icon-76.svg" alt=""/>
+                  Climb to Safety
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt=""  style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small"/>
+                </p>
+
+                <p>
+                  <img src="/Icons/icon-75.svg" alt=""/>
+                  Dam Safety
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small"/>
+                </p>
+
+                <p>
+                  <img src="/Icons/icon-76.svg" alt=""/>
+                  Stream Mang. Corridors
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
+                    <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
+                  </Popover>
+                  <Switch size="small"/>
+                </p>
+              </Panel>
+            </Collapse>
+          </Checkbox.Group>
+        </div>
+
+          <div className="btn-footer-02">
             <Button className="btn-borde" onClick={() => {
-              if (isExtendedView) { 
+              if (isExtendedView) {
                 setSelectedCheckBox([MHFD_BOUNDARY_FILTERS, XSTREAMS]);
                 // setCheckboxes([]);
                 selectCheckboxes([MHFD_BOUNDARY_FILTERS, XSTREAMS]);
@@ -72,8 +245,8 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
               }
               removePopup();
               setVisibleDropdown(false);
-            }}>Clear Map</Button>
-            
+            }}>Clear</Button>
+
           </div>
      </div>
 }

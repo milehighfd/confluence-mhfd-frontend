@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Card, Popover, Menu, Dropdown, Button } from "antd";
+import { Col, Card, Popover, Menu, Dropdown, Button, Icon } from "antd";
 import { ComponentType } from "../../../Classes/MapTypes";
 import DetailedModal from "../Modals/DetailedModal";
 
@@ -78,12 +78,20 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           onMouseLeave={()=> setHighlighted({type: '', value: ''})}
           className="card-information"
           cover={
-            data.image ? <img alt="example" src={data.image} /> : <img alt="example" src="/Icons/default.png" />
-          }
+            <div className="card-button-hover">
+              {data.image ? <img className="" alt="example" src={data.image} /> : <img alt="example" src="/Icons/default.png" />}
+              <div className="middle">
+                <Button>See Details</Button>
+              </div>
+           </div>
+         }
         >
-          <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click">
+          <div className="like-btn">
+            <Button><div className="like-img"></div></Button>
+          </div>
+          {/*<Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click">
             <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}><label>...</label></Button>
-          </Popover>
+          </Popover>*/}
           <div style={{ height: 40 }}>
             <h4>{data.requestName}</h4>
           </div>

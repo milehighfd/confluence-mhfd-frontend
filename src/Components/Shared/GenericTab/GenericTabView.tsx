@@ -104,7 +104,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
     useEffect(() => {
         const auxState = { ...state };
         auxState.hasMore = true;
-        setState(auxState); 
+        setState(auxState);
     }, [totalElement])
     const tagProblems = [] as any;
     for (const key in filterProblemOptions) {
@@ -241,7 +241,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                     next={fetchMoreData}
                     hasMore={state.hasMore}
                     loader={cardInformation.length ? <h4>Loading...</h4> : ''}
-                    height={window.innerHeight - 260}
+                    height={window.innerHeight - 335}
                     endMessage={''}>
                     {sw ? state.items.map((i, index: number) => {
                         return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}
