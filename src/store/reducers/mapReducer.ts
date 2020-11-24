@@ -210,7 +210,9 @@ const initState = {
     filterTabNumber: "projects",
     boundsMap: '',
     zoomareaFilter: {},
-    zoomarea: []
+    zoomarea: [],
+    opacityLayer: false,
+    coordinatesJurisdiction: [],
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -497,6 +499,18 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 zoomareaFilter: action.data
+            }
+        }
+        case types.SET_OPACITY_LAYER: {
+            return {
+                ...state,
+                opacityLayer: action.value
+            }
+        }
+        case types.SET_COORDINATES_JURISDICTION: {
+            return {
+                ...state,
+                coordinatesJurisdiction: action.coordinates
             }
         }
         case types.GET_PARAM_FILTER_COMPONENTS: {

@@ -5,6 +5,7 @@ import DetailedModal from "../Modals/DetailedModal";
 
 import { numberWithCommas } from '../../../utils/utils';
 import { Detailed } from "../../../store/types/detailedTypes";
+import { useMapDispatch } from "../../../hook/mapHook";
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
@@ -19,9 +20,9 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
   const [visible, setVisible] = useState(false);
   const changeCenter = () => {
-
     setZoomProjectOrProblem(data.coordinates);
   }
+  const { setOpacityLayer } = useMapDispatch();
   const stopModal = (e: any) => {
     e.domEvent.stopPropagation();
     e.domEvent.nativeEvent.stopImmediatePropagation();
@@ -51,6 +52,11 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     </Menu>
   );
 
+  const setValuesMap = (type: string, value: string) => {
+    setHighlighted({type: type, value: value});
+    setOpacityLayer(false);
+  }
+
   return (
     <>
       {visible && <DetailedModal
@@ -74,8 +80,8 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           hoverable
           style={{ width: '100%', boxShadow: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? '0 2px 8px #28c499' : '' }}
           onClick={() => setVisible(true)}
-          onMouseEnter={() =>  setHighlighted({type: data.type, value: data.value})}
-          onMouseLeave={()=> setHighlighted({type: '', value: ''})}
+          onMouseEnter={() =>  setValuesMap(data.type, data.value)}
+          onMouseLeave={()=> setValuesMap('','')}
           className="card-information"
           cover={
             data.image ? <img alt="example" src={data.image} /> : <img alt="example" src="/Icons/default.png" />

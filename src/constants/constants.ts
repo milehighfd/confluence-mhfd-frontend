@@ -57,6 +57,7 @@ export const MUNICIPALITIES_POINTS = 'labels_municipality';
 export const COUNTIES_FILTERS = 'counties';
 export const COUNTIES_POINTS = 'labels_county';
 export const MHFD_BOUNDARY_FILTERS = 'district_boundary';
+export const OPACITY_LAYERS = 'opacity_layers';
 
 /* Component Layers */
 export const GRADE_CONTROL_STRUCTURE = 'grade_control_structure';

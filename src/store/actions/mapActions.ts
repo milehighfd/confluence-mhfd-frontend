@@ -666,6 +666,16 @@ export const setToggleModalFilter = (toggle: boolean) => {
         dispatch({type: types.SET_TOOGLE_MODAL, toggle })
     }
 } 
+export const setOpacityLayer = (value: boolean) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_OPACITY_LAYER, value})
+    }
+}
+export const setCoordinatesJurisdiction = (coordinates: any) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_COORDINATES_JURISDICTION, coordinates})
+    }
+}
 export const setFilterTabNumber = (tab: string) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_FILTER_TAB_NUMBER, tab})

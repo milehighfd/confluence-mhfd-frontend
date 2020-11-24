@@ -51,7 +51,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProjects, getParamFilterComponents,
-    getParamFilterProblems, setTabCards } = useMapDispatch();
+    getParamFilterProblems, setTabCards, setOpacityLayer, 
+    setCoordinatesJurisdiction } = useMapDispatch();
   const { tabCards } = useMapState();
   
   const [countFilterProblems, setCountFilterProblems] = useState(0);
@@ -260,13 +261,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === name).map((element: any) => {
       return {
         aoi: element.aoi,
-        filter: element.filter
+        filter: element.filter,
+        coordinates: element.coordinates
       }
     });
     
     if (zoomareaSelected.length > 0) {
       const optionsProblem = {...filterProblemOptions};
       const optionsProject = {...filterProjectOptions};
+      //console.log('coord', zoomareaSelected[0].coordinates);
       
       switch(zoomareaSelected[0].filter) {
         case 'County':
@@ -276,6 +279,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['jurisdiction'] = '';
           optionsProblem['servicearea'] = '';
           optionsProject['servicearea'] = '';
+          setOpacityLayer(false);
+          setCoordinatesJurisdiction([]);
           break;
         case 'Jurisdiction':
           optionsProblem['jurisdiction'] = name;
@@ -284,6 +289,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['county'] = '';
           optionsProblem['servicearea'] = '';
           optionsProject['servicearea'] = '';
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          //console.log('NEW COORDINATES', zoomareaSelected[0].coordinates);
           break;
         case 'Service Area':
           optionsProblem['servicearea'] = name;
@@ -292,6 +300,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['county'] = '';
           optionsProblem['jurisdiction'] = '';
           optionsProject['jurisdiction'] = '';
+          setOpacityLayer(false);
+          setCoordinatesJurisdiction([]);
           break;
         default:
           optionsProblem['servicearea'] = '';
@@ -300,6 +310,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['county'] = '';
           optionsProblem['jurisdiction'] = '';
           optionsProject['jurisdiction'] = '';
+          setOpacityLayer(false);
+          setCoordinatesJurisdiction([]);
       }
       setFilterProblemOptions(optionsProblem);
       setFilterProjectOptions(optionsProject);

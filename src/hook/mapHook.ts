@@ -3,28 +3,34 @@ import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
          getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
-         getZoomAreaFilter } from '../store/actions/mapActions';
+         getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction } from '../store/actions/mapActions';
 
 const selectMapStates: ParametricSelector<RootState, undefined, {
   toggleModalFilter: boolean,
   tabCards: string,
   filterTabNumber: string,
-  boundsMap: string
+  boundsMap: string,
+  opacityLayer: boolean,
+  coordinatesJurisdiction: any[]
 }> =
-  createSelector<any, boolean, string, string, string,
+  createSelector<any, boolean, string, string, string, boolean, any[],
     {
       toggleModalFilter: boolean,
       tabCards: string,
       filterTabNumber: string,
       boundsMap: string,
+      opacityLayer: boolean,
+      coordinatesJurisdiction: any[]
     }>
     (
       state => state.map.toggleModalFilter,
       state => state.map.tabCards,
       state => state.map.filterTabNumber,
       state => state.map.boundsMap,
-      (toggleModalFilter, tabCards, filterTabNumber, boundsMap) => ({
-        toggleModalFilter, tabCards, filterTabNumber, boundsMap
+      state => state.map.opacityLayer,
+      state => state.map.coordinatesJurisdiction,
+      (toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction) => ({
+        toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction
       })
     );
 
@@ -59,5 +65,11 @@ export const useMapDispatch = () => {
     getZoomAreaFilter: () => {
       dispatch(getZoomAreaFilter());
     },
+    setOpacityLayer: (value: boolean) => {
+      dispatch(setOpacityLayer(value));
+    },
+    setCoordinatesJurisdiction: (coordinates: any[]) => {
+      dispatch(setCoordinatesJurisdiction(coordinates));
+    }
   }
 }

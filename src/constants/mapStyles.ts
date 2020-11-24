@@ -37,7 +37,8 @@ import {
   PROJECTS_LINE,
   STUDIES,
   FEMA_FLOOD_HAZARD,
-  XSTREAMS
+  XSTREAMS,
+  OPACITY_LAYERS
 } from "./constants";
 
 export const localComponents = {
@@ -86,6 +87,14 @@ export const polygonStroke = {
       'line-width': 2.5,
   }
 };
+
+export const opacityLayer = {
+  type: 'fill',
+  layout: {},
+  paint: {
+    'fill-opacity': 0.8
+  }
+}
 
 export const COMPONENT_LAYERS_STYLE = {
   [GRADE_CONTROL_STRUCTURE]: [{
@@ -2223,6 +2232,14 @@ export const tileStyles = {
     layout: {},
     "paint": {
       "fill-color": "hsla(213, 94%, 43%, 0.6)"
+    }
+  }],
+  [OPACITY_LAYERS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    'paint': {
+      'fill-opacity': 0.8
     }
   }],
   [FEMA_FLOOD_HAZARD]: [ {
