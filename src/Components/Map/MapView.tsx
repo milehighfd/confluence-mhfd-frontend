@@ -1,5 +1,5 @@
 import React, { useState, useEffect, CSSProperties } from "react";
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoComplete } from 'antd';
 
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
@@ -26,6 +26,31 @@ const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Search } = Input;
 const content = (<div className="popoveer-00">Filter by Area</div>);
+
+const contentTag = (
+  <div className="tag-filters">
+    <div className="tag-body">
+    <div className="head">PROJECT TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+    <p>Maintenance <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Capital <Button className="btn-transparent"><img src="/Icons/icon-84.svg" width="15px" alt="" /></Button> </p>
+
+    <div className="head">PROJECT STATUS <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+    <p>Initiated <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Preliminary Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Construction <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Final Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+
+    <div className="head">PROBLEM TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+    <p>Hydrology <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Floodpain <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Alternatives <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+
+    <div className="head">MHFD DOLLARS ALLOCATED <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+    <p>$250K - $500K <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    </div>
+    <div className="btn-footer-02"><Button className="btn-borde">Clear</Button></div>
+  </div>
+);
 
 const accordionRow: Array<any> = [
   {
@@ -397,6 +422,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               </Popover>
             </span>
           </Dropdown>
+          {/*<div className="auto-complete-map">
+            <AutoComplete
+             placeholder="Boulder"
+           />
+           <Popover content={content}>
+             <img src="/Icons/icon-12.svg" alt="" style={{ marginLeft: '5px' }} />
+           </Popover>
+          </div>*/}
         </Col>
         <Col style={{ textAlign: 'right' }} span={4}>
           <ButtonGroup>
@@ -446,10 +479,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
           <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
+          <Popover placement="bottomRight" overlayClassName="tag-filters" content={contentTag}>
             <Button onClick={handleToggle} >
               <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
                 tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
             </Button>
+          </Popover>
             <div className="sort-content">
               <Dropdown trigger={['click']}
                 overlay={tabActive === '0' ?

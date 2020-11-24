@@ -628,6 +628,32 @@
     border-color: $opacity00;
   }
 }
+.auto-complete-map{
+  .ant-select-selection__placeholder, .ant-select-search__field__placeholder, .ant-input{
+   color: $purple;
+   font-size: 22px !important;
+   margin-left: 0px !important;
+   margin-right: 0px !important;
+  }
+  .ant-select-auto-complete.ant-select .ant-input {
+    border: none;
+    padding: 0px;
+  }
+  .ant-input{
+    resize: horizontal;
+    width: 90px !important;
+  }
+  .ant-input:active {
+    width: auto !important;
+  }
+  .ant-input:focus {
+    min-width: 200px !important;
+  }
+  .ant-input:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.0);
+  }
+}
 .head-filter{
   background: $opacity00;
   height: 50px;
@@ -922,6 +948,46 @@
     font-weight: 600;
     top: -1px;
     position: relative;
+  }
+}
+// BORRAR ARRIBA
+
+// NEW TAG Filter
+.tag-filters{
+  width: 230px;
+
+  .tag-body{
+    height: 420px;
+    overflow-y: auto;
+  }
+  .ant-popover-inner-content{
+    padding: 0px;
+    padding-bottom: 5px;
+  }
+  .head{
+    background: $opacity00;
+    padding: 5px;
+    color: $purple00;
+    font-size: 13px;
+
+    img{
+      margin-top: -1px;
+    }
+  }
+  p{
+    margin-bottom: 0px;
+    border-top: 1px solid $opacity01;
+    margin: 0px 5px;
+    padding: 10px 5px;
+    font-size: 13px;
+
+    button{
+      height: 15px;
+      width: 15px;
+      padding: 0px;
+      margin: 0px;
+      float: right;
+    }
   }
 }
 .card-map{
