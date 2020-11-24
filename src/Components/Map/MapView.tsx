@@ -369,6 +369,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             getGalleryProblems();
             getGalleryProjects();
           }}></Checkbox>
+          <div className="progress">
+            <div className="progress-value"></div>
+          </div>
         </div>
       </Col>
     </Row>
@@ -486,16 +489,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             </Button>
           </Popover>
             <div className="sort-content">
-              <Dropdown trigger={['click']}
-                overlay={tabActive === '0' ?
-                  menuSort(SORTED_PROBLEMS) :
-                  menuSort(SORTED_PROJECTS)}
-                getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
-                <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
-                  {/*<img className="img-filter00" alt="" />*/} Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
-                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
-                </span>
-              </Dropdown>
               <span className="sort-buttons" onClick={() => {
                 if (tabActive === '0') {
                   const auxOptions = { ...filterProblemOptions };
@@ -524,6 +517,16 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   }}
                 />
               </span>
+              <Dropdown trigger={['click']}
+                overlay={tabActive === '0' ?
+                  menuSort(SORTED_PROBLEMS) :
+                  menuSort(SORTED_PROJECTS)}
+                getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
+                <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
+                  {/*<img className="img-filter00" alt="" />*/} Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
+                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
+                </span>
+              </Dropdown>
             </div>
           </Col>
         </Row>

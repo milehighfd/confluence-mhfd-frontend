@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Alert,  Modal, Button  } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 
 const stateValue = {
   visible: false
@@ -45,6 +46,22 @@ export default () => {
                  <button className="btn-borde">Cancel</button>
                  <button className="btn-purple">Submit</button>
                </Modal>
+            </div>
+
+            <div className="map-pop-02">
+              <h4>LAYERS</h4>
+              <div className="layer-popup">
+                <Button className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> Detention Facilities <RightOutlined /></Button>
+              </div>
+              <div className="layer-popup">
+                <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt=""/> Problems <RightOutlined /></Button>
+              </div>
+              <div className="layer-popup">
+                <Button className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> Watersheds <RightOutlined /></Button>
+              </div>
+              <div className="layer-popup">
+                <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt=""/> MEP Referrals <RightOutlined /></Button>
+              </div>
             </div>
          </div>
 
