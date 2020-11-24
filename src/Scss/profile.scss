@@ -148,6 +148,10 @@
   .ant-tabs-bar{
     border-bottom: none;
   }
+  .ant-tabs-nav .ant-tabs-tab {
+    padding: 12px 0 8px!important;
+    font-size: 14px !important;
+  }
 }
 .profile-pad {
   opacity: 0.5;

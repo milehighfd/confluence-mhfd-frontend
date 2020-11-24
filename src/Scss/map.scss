@@ -294,7 +294,7 @@
     -webkit-mask: url('/Icons/ic_boundary.svg') no-repeat center;
     height: 18px;
     width: 16px;
-    background: rgba(17, 9, 60, 0.5);
+    background: $purple00;
   }
   .ant-btn:hover > .img-icon {
     opacity: 1;
@@ -792,7 +792,7 @@
     // margin-right: 14px;
 
     .sort-buttons {
-     margin-left: 4px;
+     margin-right: 15px;
      cursor: pointer;
 
       .anticon + span, span + .anticon, .anticon {
