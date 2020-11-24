@@ -398,7 +398,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     </Row>
     <Row className="filt-00" gutter={[24, 16]}>
         <Col span={12}>
-            <label>Vendor</label>
+            <label>Consultant</label>
             <Select value={filterProjectOptions.consultant ? filterProjectOptions.consultant : '- Select -'} style={{ width: '100%' }} onChange={ (e: string) => {
                 apply(e, 'consultant');
             }}>
