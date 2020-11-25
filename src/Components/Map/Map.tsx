@@ -198,12 +198,14 @@ const Map = ({ leftWidth,
 
 
     
-    const hideOpacity = async () => {
+    const hideOpacity = () => {
         
         console.log('hide opacity');
-        map.setLayoutProperty('mask', 'visibility', 'visible');
-        map.removeLayer('mask');
-        map.removeSource('mask');
+         if (map.getLayer('mask')) { 
+            map.setLayoutProperty('mask', 'visibility', 'visible');
+            map.removeLayer('mask');
+            map.removeSource('mask');
+        } 
     }
 
     if (user?.polygon[0]) {
@@ -260,9 +262,10 @@ const Map = ({ leftWidth,
             
             let miboundsmap = map.getBounds();
             let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
+            let misbounds = -105.44866830999993+','+39.13673489846491+','+-104.36395751000016+','+40.39677734100488;
                 
             console.log('porque', boundingBox1)
-            var arrayBounds = boundsMap.split(',');
+            var arrayBounds = misbounds.split(',');
             console.log('BOUNDS', boundsMap);
             if (!map.getLayer('mask')) { 
                 map.addSource('mask', {
@@ -297,13 +300,7 @@ const Map = ({ leftWidth,
                         'fill-opacity': 0.8
                     }
                 });
-                /* map.setLayoutProperty('mask', 'visibility', 'visible');
-                const newConfig = {
-                    "type": "geojson",
-                    "data": polyMask(mask, arrayBounds)
-                }
-                map.getSource('mask').setData(newConfig); 
-            } */
+
         } }
     }, [coordinatesJurisdiction]);
 
@@ -470,20 +467,13 @@ const Map = ({ leftWidth,
             setZoomEndCounter(_++);
             console.log(zoomEndCounter);
             if (map.isStyleLoaded()) {
-                console.log('mio', coordinatesJurisdiction)
-                applyOpacity();
+               hideOpacity();
             }
-            // hideLayerOpacity();
         });
         let __ = 1;// #good practices
         map.on('dragend', () => {
             if (map.isStyleLoaded()) {
-                //hideOpacity();
-                if (map.getLayer('mask')) { 
-                    map.setLayoutProperty('mask', 'visibility', 'visible');
-                    map.removeLayer('mask');
-                    map.removeSource('mask');
-                }
+                hideOpacity();
             }
             console.log('move end')
             setDragEndCounter(__++);
