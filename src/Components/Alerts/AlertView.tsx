@@ -49,7 +49,7 @@ export default () => {
             </div>
 
             <div className="map-pop-02">
-              <h4>LAYERS</h4>
+              <div className="headmap">LAYERS</div>
               <div className="layer-popup">
                 <Button className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> Detention Facilities <RightOutlined /></Button>
               </div>

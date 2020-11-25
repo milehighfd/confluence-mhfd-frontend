@@ -518,14 +518,22 @@
 // NEW POPUP
 .map-pop-02{
   width: 280px;
-  padding: 0px;
   min-height: 150px;
   border-radius: 1.3px;
   box-shadow: $shadow;
   background-color: #fafbfb;
-  border-radius: 4px;
-  padding: 0px 10px 10px 5px;
+  padding: 0px 0px 10px 0px;
 
+  .headmap{
+    min-height: 40px;
+    border-radius: 1.3px 1.3px 0px 0px;
+    background: $opacity01;
+    font-size: 14px;
+    color: $opacity;
+    padding: 12px 15px;
+    text-transform: uppercase;
+    line-height: 16px;
+  }
   h4{
     color: $opacity;
     font-size: 14px;
@@ -544,7 +552,7 @@
     }
   }
   .layer-popup{
-    padding: 0px 5px;
+    padding: 5px;
     border-bottom: 1px solid rgba(61, 46, 138, 0.07);
   }
   .btn-transparent:hover, .btn-transparent:focus, .btn-transparent:active{
