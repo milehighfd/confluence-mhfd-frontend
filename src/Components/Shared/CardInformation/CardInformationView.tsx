@@ -54,7 +54,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
 
   const setValuesMap = (type: string, value: string) => {
     setHighlighted({type: type, value: value});
-    setOpacityLayer(false);
+    // setOpacityLayer(false);
   }
 
   return (

@@ -198,13 +198,15 @@ const Map = ({ leftWidth,
 
 
     
-    const hideOpacity = () => {
+    const hideOpacity = async () => {
         
-        console.log('hide opacity');
-         if (map.getLayer('mask')) { 
-            map.setLayoutProperty('mask', 'visibility', 'visible');
-            map.removeLayer('mask');
-            map.removeSource('mask');
+        if  (map.loaded()) {
+            console.log('hide opacity');
+            if (map.getLayer('mask')) { 
+                map.setLayoutProperty('mask', 'visibility', 'visible');
+                map.removeLayer('mask');
+                map.removeSource('mask');
+            }
         } 
     }
 
@@ -255,18 +257,19 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         
-        console.log('cambiomapa', coordinatesJurisdiction)
+        console.log('changemap Jurisdiction', coordinatesJurisdiction)
         let mask
         if (coordinatesJurisdiction.length > 0) {
             mask = turf.polygon(coordinatesJurisdiction);
             
             let miboundsmap = map.getBounds();
-            let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
+            // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
             let misbounds = -105.44866830999993+','+39.13673489846491+','+-104.36395751000016+','+40.39677734100488;
                 
-            console.log('porque', boundingBox1)
+            // console.log('porque', boundingBox1)
             var arrayBounds = misbounds.split(',');
             console.log('BOUNDS', boundsMap);
+            setOpacityLayer(true);
             if (!map.getLayer('mask')) { 
                 map.addSource('mask', {
                     "type": "geojson",
@@ -301,7 +304,12 @@ const Map = ({ leftWidth,
                     }
                 });
 
-        } }
+        } } else {
+            if (opacityLayer) {
+                hideOpacity()
+            }
+            
+        }
     }, [coordinatesJurisdiction]);
 
     useEffect(() => {   
@@ -464,15 +472,17 @@ const Map = ({ leftWidth,
         }
         let _ = 0;
         map.on('zoomend', () => {
+            console.log('zoomendOn', opacityLayer)
+            if (!opacityLayer) {
+                hideOpacity();
+            }
             setZoomEndCounter(_++);
             console.log(zoomEndCounter);
-            if (map.isStyleLoaded()) {
-               hideOpacity();
-            }
+            setOpacityLayer(false)
         });
         let __ = 1;// #good practices
         map.on('dragend', () => {
-            if (map.isStyleLoaded()) {
+            if (!opacityLayer) {
                 hideOpacity();
             }
             console.log('move end')

@@ -279,7 +279,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['jurisdiction'] = '';
           optionsProblem['servicearea'] = '';
           optionsProject['servicearea'] = '';
-          setOpacityLayer(false);
+          // setOpacityLayer(true);
           setCoordinatesJurisdiction([]);
           break;
         case 'Jurisdiction':
@@ -300,7 +300,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['county'] = '';
           optionsProblem['jurisdiction'] = '';
           optionsProject['jurisdiction'] = '';
-          setOpacityLayer(false);
+          // setOpacityLayer(false);
           setCoordinatesJurisdiction([]);
           break;
         default:
@@ -310,7 +310,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['county'] = '';
           optionsProblem['jurisdiction'] = '';
           optionsProject['jurisdiction'] = '';
-          setOpacityLayer(false);
+          //setOpacityLayer(false);
           setCoordinatesJurisdiction([]);
       }
       setFilterProblemOptions(optionsProblem);
