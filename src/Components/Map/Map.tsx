@@ -1241,6 +1241,10 @@ const Map = ({ leftWidth,
     };
     //end geocoder
 
+    const showMHFD = () => {
+        console.log('MHFD');
+    }
+
     const layerObjects: any = selectedLayers.filter(element => typeof element === 'object');
     const layerStrings = selectedLayers.filter(element => typeof element !== 'object');
     const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
@@ -1331,7 +1335,7 @@ const Map = ({ leftWidth,
             </div>*/}
 
             <div className="m-zoom">
-              <Button style={{borderRadius:'4px'}}><img className="img-icon"/></Button>
+              <Button style={{borderRadius:'4px'}} onClick={() => showMHFD() } ><img className="img-icon"/></Button>
               {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
           </div>
         </div>

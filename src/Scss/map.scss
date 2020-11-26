@@ -782,7 +782,7 @@
     width: 18px;
     background: $green !important;
   }
-  .ant-dropdown-link .img-filter00{
+  /* .ant-dropdown-link .img-filter00{
     -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
     height: 18px;
     width: 18px;
@@ -794,13 +794,13 @@
     height: 18px;
     width: 18px;
     background: $green !important;
-  }
+  } */
   .sort-content {
     display: inline-block;
     // margin-right: 14px;
 
     .sort-buttons {
-     margin-right: 15px;
+     margin-right: 5px;
      cursor: pointer;
 
       .anticon + span, span + .anticon, .anticon {
@@ -820,6 +820,22 @@
       .arrow-down:hover, .arrow-down:focus, .arrow-down:active, .arrow-down.active{
         opacity: 100%;
       }
+      .img-filter00{
+        -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
+        height: 18px;
+        width: 18px;
+        background: $opacity;
+        transition: width 2s;
+      }
+    }
+    .sort-buttons:hover > .img-filter00{
+      opacity: 1;
+      //-webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
+      //height: 18px;
+      //width: 18px;
+      //background: $green !important
+      transform: rotate(180deg);
+      transition: width 2s;
     }
   }
   .btn-borde{

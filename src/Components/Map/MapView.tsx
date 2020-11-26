@@ -500,7 +500,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             </Button>
           </Popover>
             <div className="sort-content">
-              <span className="sort-buttons" onClick={() => {
+              <span className="sort-buttons" style={{transitionTimingFunction: 'ease-in'}} onClick={() => {
                 if (tabActive === '0') {
                   const auxOptions = { ...filterProblemOptions };
                   auxOptions.order = filterProblemOptions.order === 'asc' ? 'desc' : 'asc';
@@ -513,20 +513,22 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   getGalleryProjects();
                 }
               }}>
-                <CaretUpOutlined
+                {/* <CaretUpOutlined
                   className="arrow-up"
                   style={{
                     opacity: tabActive === '0' ? (filterProblemOptions.order === 'asc' ? '100%' : '30%') :
                       (filterProjectOptions.order === 'asc' ? '100%' : '30%')
                   }}
-                />
+                /> 
+                
                 <CaretDownOutlined
                   className="arrow-down"
                   style={{
                     opacity: tabActive === '0' ? (filterProblemOptions.order === 'desc' ? '100%' : '30%') :
                       (filterProjectOptions.order === 'desc' ? '100%' : '30%')
                   }}
-                />
+                />*/}
+              <img className="img-filter00" alt="" />
               </span>
               <Dropdown trigger={['click']}
                 overlay={tabActive === '0' ?
@@ -534,8 +536,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   menuSort(SORTED_PROJECTS)}
                 getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
                 <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
-                  {/*<img className="img-filter00" alt="" />*/} Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
-                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
+                  {/*<img className="img-filter00" alt="" /> Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :*/}
+                  Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
+                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title} 
                 </span>
               </Dropdown>
             </div>
