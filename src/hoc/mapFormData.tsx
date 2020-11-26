@@ -161,7 +161,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
                   <Spin className="loading-01" spinning={(spinFilter || spinCardProblems || spinCardProjects || spinValue)}>
-                    <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={leftWidth}>
+                    <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={15}>{/*span={leftWidth}*/}
                         <Map
                             leftWidth={leftWidth}
                             layers={layers}
@@ -218,7 +218,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                         </Button>
                     </Col>
-                    <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={rightWidth}>
+                    <Col style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} span={9}>{/*span={rightWidth}*/}
                         <WrappedComponent
                             selectedItems={selectedItems}
                             isPolygon={isPolygon}

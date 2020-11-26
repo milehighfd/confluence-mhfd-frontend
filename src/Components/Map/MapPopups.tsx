@@ -5,19 +5,19 @@ const problemStyle: any = {
     status: {
         'Low': {
             color: '#28c499',
-            width:'50%', 
+            width:'50%',
             marginBottom:'0px'
         }, 'Medium': {
             color: '#FFD300',
-            width:'50%', 
+            width:'50%',
             marginBottom:'0px'
         }, 'High': {
             color: 'red',
-            width:'50%', 
+            width:'50%',
             marginBottom:'0px'
         }, '-': {
             color: 'black',
-            width:'50%', 
+            width:'50%',
             marginBottom:'0px'
         }
     }
@@ -27,7 +27,7 @@ const projectStyle = {
     status: {
         color: '#11093c',
         opacity: '0.6',
-        width:'50%', 
+        width:'50%',
         marginBottom:'0px'
     }
 }
@@ -66,8 +66,9 @@ export const MainPopup = ({ item, test, sw } : any) => {
             <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? item.status : capitalize(item.status)}</span>
           </div>
         </div>
-        { sw && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499'}}>
-            <Button id="pop-up" style={{ width: '100%', color: '#28C499' }} onClick={() => test()} className="btn-borde">See Details</Button>
+        { sw && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+            <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
+            <Button id="pop-up" style={{ width: '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">See Details</Button>
         </div>}
       </Card>
     </div>
@@ -96,7 +97,7 @@ export const ComponentPopup = ({ item } : any) => {
             {item.debris_frequency ? <p><i>Frequency:</i> {item.debris_frequency}</p> : ''}
             {item.acreage ? <p><i>Acreage:</i> {item.acreage}</p> : ''}
             {item.length ? <p><i>Length:</i> {item.length}</p> : ''}
-            
+
             {item.projectno ? <p><i>Project Number:</i> {item.projectno}</p> : ''}
             {item.mepstatus ? <p><i>MEP Status:</i> {item.mepstatus}</p> : ''}
             {item.mepstatusdate ? <p><i>MEP Status Date:</i> {item.mepstatusdate}</p> : ''}

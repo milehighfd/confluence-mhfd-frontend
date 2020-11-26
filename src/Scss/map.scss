@@ -83,7 +83,26 @@
     }
   }
 }
-
+.map-00{
+  .mapboxgl-ctrl-bottom-right {
+    width: 100%;
+  }
+  .mapboxgl-ctrl-group{
+    left: 20px;
+    position: absolute;
+    width: 25px;
+    bottom: 30px;
+  }
+  .mapboxgl-ctrl-scale{
+    left: 55px;
+    position: absolute;
+    bottom: 30px;
+    width: auto !important;
+    border: none;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.8);
+  }
+}
 .map .m-head{
   position: absolute;
   top: 20px;
@@ -127,7 +146,7 @@
   }
   .btn-02{
     background: $green;
-    margin-left: 15px;
+    margin-right: 15px;
   }
   .ant-input-search-icon{
     color: $purple;
@@ -261,8 +280,8 @@
 .map .m-zoom{
   position: absolute;
   width: 25px;
-  right: 20px;
-  bottom: 20px;
+  left: 20px;
+  bottom: 125px;
   z-index: 10;
 
   button{
@@ -271,8 +290,23 @@
     padding: 0px;
     border: none;
   }
+   button .img-icon{
+    -webkit-mask: url('/Icons/ic_boundary.svg') no-repeat center;
+    height: 18px;
+    width: 16px;
+    background: $purple00;
+  }
+  .ant-btn:hover > .img-icon {
+    opacity: 1;
+    -webkit-mask: url('/Icons/ic_boundary.svg') no-repeat center;
+    height: 18px;
+    width: 16px;
+    background: $green !important;
+  }
 }
 .filter-map{
+  height: calc(100vh - 290px);
+  overflow-y: auto;
   h6{
     font-size: 16px;
     color: $opacity;
@@ -280,12 +314,92 @@
     margin-bottom: 0px;
   }
   p{
-    font-size: 16px;
-    margin-bottom: 0px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: $purple00;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
+    float: left;
+    margin-right: 8px;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 10px 12px;
+    color: $opacity;
+    background: $opacity00;
+    height: 41px;
+  }
+  .ant-collapse-content{
+    border-top: none;
+
+    img{
+      margin-right: 5px;
+    }
+  }
+  .ant-collapse > .ant-collapse-item {
+    border-bottom: 1px solid $white;
+  }
+  .ant-checkbox-wrapper{
+    float: right;
+  }
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 10px 10px 0px 10px;
+  }
+  .ant-collapse{
+    border: none;
+  }
+  .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+    right: 12px;
+  }
+  .ant-switch{
+    float: right;
+  }
+  .ant-switch-checked {
+   background-color: $green;
+  }
+}
+.filter-coll-header{
+  display: flex;
+  width: 200px;
+  position: relative;
+  font-size: 13px;
+
+  .ant-switch {
+    position: absolute;
+    right: 0px;
+    top: 3px;
+    z-index: 1200;
+  }
+  img{
+    margin-right: 3px;
+    height: 15px;
+  }
+}
+.popover-filter-map{
+  z-index: 1070 !important;
+
+  .ant-popover-inner{
+    background-color: $black;
+  }
+  .popoveer-00{
+    color: $white;
+    max-width: 260px;
+  }
+ .ant-popover-arrow{
+    border-bottom-color: $black !important;
+    border-left-color: $black !important;
+  }
+}
+.btn-footer-02{
+  margin: 0px 0px 2px 0px;
+  text-align: right;
+
+  .btn-borde {
+    margin-right: 5px;
+    border: none !important;
   }
 }
 .map-pop-00{
-  width: 240px;
+  width: 280px;
   padding: 0px;
   min-height: 150px;
    // font-weight: bold;
@@ -344,6 +458,7 @@
     padding: 15px 15px;
   }
 }
+
 .map .mapboxgl-popup .mapboxgl-popup-content{
   width: auto !important;
 }
@@ -400,7 +515,55 @@
     color: $opacity;
   }
 }
+// NEW POPUP
+.map-pop-02{
+  width: 280px;
+  min-height: 150px;
+  border-radius: 1.3px;
+  box-shadow: $shadow;
+  background-color: #fafbfb;
+  padding: 0px 0px 10px 0px;
 
+  .headmap{
+    min-height: 40px;
+    border-radius: 1.3px 1.3px 0px 0px;
+    background: $opacity01;
+    font-size: 14px;
+    color: $opacity;
+    padding: 12px 15px;
+    text-transform: uppercase;
+    line-height: 16px;
+  }
+  h4{
+    color: $opacity;
+    font-size: 14px;
+    padding: 10px 0px 0px 5px;
+  }
+  .btn-transparent{
+    padding: 8px 5px;
+    width: 100%;
+    text-align: left;
+    height: 35px;
+    font-size: 13px;
+
+    img{
+      margin-right: 5px;
+      margin-top: -3px;
+    }
+  }
+  .layer-popup{
+    padding: 5px;
+    border-bottom: 1px solid rgba(61, 46, 138, 0.07);
+  }
+  .btn-transparent:hover, .btn-transparent:focus, .btn-transparent:active{
+    background: rgba(61, 46, 138, 0.07) !important;
+  }
+  .ant-btn .anticon {
+    float: right;
+    margin-top: 3px;
+    color: $opacity;
+  }
+}
 .mapboxgl-ctrl-group button{
   width: 25px !important;
   height: 25px !important;
@@ -514,10 +677,36 @@
     border-color: $opacity00;
   }
 }
+.auto-complete-map{
+  .ant-select-selection__placeholder, .ant-select-search__field__placeholder, .ant-input{
+   color: $purple;
+   font-size: 22px !important;
+   margin-left: 0px !important;
+   margin-right: 0px !important;
+  }
+  .ant-select-auto-complete.ant-select .ant-input {
+    border: none;
+    padding: 0px;
+  }
+  .ant-input{
+    resize: horizontal;
+    width: 90px !important;
+  }
+  .ant-input:active {
+    width: auto !important;
+  }
+  .ant-input:focus {
+    min-width: 200px !important;
+  }
+  .ant-input:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.0);
+  }
+}
 .head-filter{
   background: $opacity00;
   height: 50px;
-  padding: 6px 20px;
+  padding: 6px 15px;
   margin-left: -20px;
   margin-right: -20px;
 
@@ -540,6 +729,9 @@
     text-align: left;
     font-size: 12px;
     padding: 18px 0px;
+  }
+  .ant-dropdown-link:hover{
+    color: $green;
   }
   button{
     border: none;
@@ -590,12 +782,25 @@
     width: 18px;
     background: $green !important;
   }
+  .ant-dropdown-link .img-filter00{
+    -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
+    height: 18px;
+    width: 18px;
+    background: $opacity;
+  }
+  .ant-dropdown-link:hover > .img-filter00{
+    opacity: 1;
+    -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
+    height: 18px;
+    width: 18px;
+    background: $green !important;
+  }
   .sort-content {
     display: inline-block;
-    margin-right: 14px;
+    // margin-right: 14px;
 
     .sort-buttons {
-     margin-left: 4px;
+     margin-right: 15px;
      cursor: pointer;
 
       .anticon + span, span + .anticon, .anticon {
@@ -624,6 +829,50 @@
     margin-left: 10px;
   }
 }
+.apply-filter{
+  border: 1px solid rgba(37, 24, 99, 0.1);
+  border-radius: 4px;
+  padding: 11px;
+  height: 40px;
+  line-height: 14px;
+  margin: 5px 0px;
+  position: relative;
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: $green !important;
+    border-color: $green !important;
+  }
+  .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
+    border-color: $green !important;
+  }
+  .progress {
+    background: transparent;
+    justify-content: flex-start;
+    border-radius: 100px;
+    align-items: center;
+    position: relative;
+    padding: 0 5px;
+    display: flex;
+    height: 3px;
+    width: 190px;
+    position: absolute;
+    bottom: 0px;
+    left: -5px
+  }
+  .progress-value {
+    animation: load 3s normal forwards;
+    box-shadow: 0 10px 40px -10px #fff;
+    border-radius: 100px;
+    background: $green;
+    height: 3px;
+    width: 0;
+    animation-iteration-count:infinite;
+  }
+  @keyframes load {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+}
 .img-negative{
   background-image: url('/Icons/icon-21.svg') !important;
 }
@@ -632,7 +881,9 @@
     color: $purple;
   }
   .ant-tabs-nav .ant-tabs-tab {
-    padding: 12px 0px 8px 0px !important;
+    padding: 15px 0px 15px 0px !important;
+    margin: 0 20px 0 0;
+    font-size: 15px;
   }
   .ant-tabs-ink-bar {
     background-color: $purple;
@@ -676,7 +927,7 @@
   }
   .ant-timeline-item {
     padding: 0px;
-    font-size: 14px;
+    font-size: 15px;
     list-style: none;
   }
   .ant-timeline-item-last > .ant-timeline-item-content {
@@ -702,7 +953,7 @@
   margin: 0px -20px !important;
 
   .ant-tabs-bar {
-    margin: 0 20px 16px 20px;
+    margin: 0 15px 16px 15px;
   }
 }
 .line-00{
@@ -784,6 +1035,46 @@
     position: relative;
   }
 }
+// BORRAR ARRIBA
+
+// NEW TAG Filter
+.tag-filters{
+  width: 230px;
+
+  .tag-body{
+    height: 420px;
+    overflow-y: auto;
+  }
+  .ant-popover-inner-content{
+    padding: 0px;
+    padding-bottom: 5px;
+  }
+  .head{
+    background: $opacity00;
+    padding: 5px;
+    color: $purple00;
+    font-size: 13px;
+
+    img{
+      margin-top: -1px;
+    }
+  }
+  p{
+    margin-bottom: 0px;
+    border-top: 1px solid $opacity01;
+    margin: 0px 5px;
+    padding: 10px 5px;
+    font-size: 13px;
+
+    button{
+      height: 15px;
+      width: 15px;
+      padding: 0px;
+      margin: 0px;
+      float: right;
+    }
+  }
+}
 .card-map{
   padding: 10px 20px 0px 20px;
 
@@ -856,6 +1147,44 @@
     top: -5px;
   }
 }
+.card-button-hover{
+  position: relative;
+  button, button:hover, button:focus{
+    background-color: $dark;
+    color: $white;
+    font-size: 12px;
+    border: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  img {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+}
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.5);
+  height: 100%;
+  width: 100%;
+}
+.card-button-hover:hover .image {
+  opacity: 0.3;
+}
+.card-button-hover:hover .middle {
+  opacity: 1;
+}
 .test-style {
   background-color: transparent;
   position: absolute;
@@ -865,6 +1194,33 @@
   z-index: 10;
   right: 320px;
 }
+.like-btn{
+  position: absolute;
+  right: 10px;
+  top: 105px;
+
+  button, button:hover, button:active, button:focus{
+    background: transparent;
+    border:none;
+    padding: 0px;
+    height: 20px;
+    width: 22px;
+  }
+  button .like-img{
+    background-image: url('/Icons/icon-81.svg');
+    height: 20px;
+    width: 22px;
+    background-repeat: no-repeat;
+  }
+  .ant-btn:hover > .like-img, .ant-btn:focus > .like-img,
+  .ant-btn:active > .like-img, .ant-btn.active > .like-img{
+    background-image: url('/Icons/icon-82.svg');
+    height: 20px;
+    width: 22px;
+    background-repeat: no-repeat;
+  }
+}
+
 // END MAP
 
 // FILTERS MAP

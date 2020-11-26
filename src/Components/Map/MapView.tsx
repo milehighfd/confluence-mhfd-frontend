@@ -1,5 +1,5 @@
 import React, { useState, useEffect, CSSProperties } from "react";
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoComplete } from 'antd';
 
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
@@ -26,6 +26,31 @@ const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Search } = Input;
 const content = (<div className="popoveer-00">Filter by Area</div>);
+
+const contentTag = (
+  <div className="tag-filters">
+    <div className="tag-body">
+    <div className="head">PROJECT TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+    <p>Maintenance <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Capital <Button className="btn-transparent"><img src="/Icons/icon-84.svg" width="15px" alt="" /></Button> </p>
+
+    <div className="head">PROJECT STATUS <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+    <p>Initiated <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Preliminary Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Construction <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Final Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+
+    <div className="head">PROBLEM TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+    <p>Hydrology <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Floodpain <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    <p>Alternatives <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+
+    <div className="head">MHFD DOLLARS ALLOCATED <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+    <p>$250K - $500K <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+    </div>
+    <div className="btn-footer-02"><Button className="btn-borde">Clear</Button></div>
+  </div>
+);
 
 const accordionRow: Array<any> = [
   {
@@ -54,11 +79,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     getParamFilterProblems, setTabCards, setOpacityLayer, 
     setCoordinatesJurisdiction } = useMapDispatch();
   const { tabCards } = useMapState();
-  
+
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
-  
+
   useEffect(() => {
     let countTagProblems = 0;
     let countTagProjets = 0;
@@ -265,11 +290,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         coordinates: element.coordinates
       }
     });
-    
+
     if (zoomareaSelected.length > 0) {
       const optionsProblem = {...filterProblemOptions};
       const optionsProject = {...filterProjectOptions};
-      //console.log('coord', zoomareaSelected[0].coordinates);
       
       switch(zoomareaSelected[0].filter) {
         case 'County':
@@ -348,13 +372,18 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-      <Col >
-        Apply current map view to filters
-        <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
-          setApplyFilter(!applyFilter)
-          getGalleryProblems();
-          getGalleryProjects();
-        }}></Checkbox>
+      <Col style={{fontSize: '12px'}}>
+        <div className="apply-filter">
+          Apply map view to filters
+          <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
+            setApplyFilter(!applyFilter)
+            getGalleryProblems();
+            getGalleryProjects();
+          }}></Checkbox>
+          <div className="progress">
+            <div className="progress-value"></div>
+          </div>
+        </div>
       </Col>
     </Row>
   );
@@ -381,7 +410,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     </Menu>
   }
   return <>
-    <div className="count">
+    <div className="count" style={{paddingBottom: '0px'}}>
       {displayModal && visible && <DetailedModal
         detailed={detailed}
         getDetailedPageProblem={getDetailedPageProblem}
@@ -407,6 +436,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               </Popover>
             </span>
           </Dropdown>
+          {/*<div className="auto-complete-map">
+            <AutoComplete
+             placeholder="Boulder"
+           />
+           <Popover content={content}>
+             <img src="/Icons/icon-12.svg" alt="" style={{ marginLeft: '5px' }} />
+           </Popover>
+          </div>*/}
         </Col>
         <Col style={{ textAlign: 'right' }} span={4}>
           <ButtonGroup>
@@ -428,7 +465,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
       <div className="head-filter">
         <Row type="flex" justify="space-around" align="middle">
-          <Col span={14}>
+          <Col span={12}>
             <Search
               placeholder="Search..."
               value={tabActive === '0' ? keywordProblem : keywordProject}
@@ -451,22 +488,18 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}
               style={{ width: 200 }}
             />
-            <Button onClick={e => {
+            {/*<Button onClick={e => {
               clearSearch();
-            }} style={{ width: '80px' }} className="btn-borde">Clear</Button>
+            }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
-          <Col style={{ textAlign: 'right' }} span={10} id="sort-map">
+          <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
+          <Popover placement="bottomRight" overlayClassName="tag-filters" content={contentTag}>
+            <Button onClick={handleToggle} >
+              <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
+                tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
+            </Button>
+          </Popover>
             <div className="sort-content">
-              <Dropdown trigger={['click']}
-                overlay={tabActive === '0' ?
-                  menuSort(SORTED_PROBLEMS) :
-                  menuSort(SORTED_PROJECTS)}
-                getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
-                <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
-                  Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
-                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
-                </span>
-              </Dropdown>
               <span className="sort-buttons" onClick={() => {
                 if (tabActive === '0') {
                   const auxOptions = { ...filterProblemOptions };
@@ -495,12 +528,17 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   }}
                 />
               </span>
+              <Dropdown trigger={['click']}
+                overlay={tabActive === '0' ?
+                  menuSort(SORTED_PROBLEMS) :
+                  menuSort(SORTED_PROJECTS)}
+                getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
+                <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
+                  {/*<img className="img-filter00" alt="" />*/} Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
+                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
+                </span>
+              </Dropdown>
             </div>
-
-            <Button onClick={handleToggle} >
-              <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
-                tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
-            </Button>
           </Col>
         </Row>
       </div>
@@ -650,4 +688,3 @@ const layers = {
 }
 
 export default mapFormContainer(MapView, layers);
-

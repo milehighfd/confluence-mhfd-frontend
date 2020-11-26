@@ -106,6 +106,7 @@ const Map = ({ leftWidth,
 }: MapProps) => {
     // console.log( mapSearch);=
     let geocoderRef = useRef<HTMLDivElement>(null);
+
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
         filterTabNumber, coordinatesJurisdiction, opacityLayer } = useMapState();
@@ -246,7 +247,7 @@ const Map = ({ leftWidth,
             }
         }
     }, [highlighted]);
-    const [counterPopup, setCounterPopup] = useState({ componentes: 0 });
+    const [counterPopup, setCounterPopup] = useState({componentes: 0});
 
     useEffect(() => {
         const div = document.getElementById('popup');
@@ -354,20 +355,6 @@ const Map = ({ leftWidth,
             unit: 'imperial'
         }), 'bottom-right');
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-
-        //console.log('DEFAULT STYLE', dropdownItems.items[dropdownItems.default].style);
-
-        /* map.on('load', function() {
-            map.addSource('layer-opacity', {
-                'type': 'raster',
-                'url': dropdownItems.items[dropdownItems.default].style, //hosted style id
-            });
-            map.addLayer({
-                'id': 'layer-opacity',
-                'source': 'layer-opacity',
-                'type': 'raster'
-            });
-        }) */
 
         addMapGeocoder(map, geocoderRef);
 
@@ -514,11 +501,6 @@ const Map = ({ leftWidth,
                 setFilterCoordinates(boundingBox, tabCards);
             }
         }
-
-        /* if (opacityLayer) {
-            showOpacityLayer('opacity_layer');
-        } */
-
 
     }, [applyFilter, zoomEndCounter, dragEndCounter]);
     useEffect(() => {
@@ -1282,6 +1264,20 @@ const Map = ({ leftWidth,
             />}
             <div id="map" style={{ width: '100%', height: '100%' }} />
             <div className="m-head">
+                <Dropdown overlayClassName="dropdown-map-layers"
+                    visible={visibleDropdown}
+                    onVisibleChange={(flag : boolean) => {
+                        // selectCheckboxes(selectedCheckBox);
+                        setVisibleDropdown(flag);
+
+                    }}
+                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
+                    className="btn-02"
+                    trigger={['click']}>
+                    <Button>
+                        <img src="/Icons/icon-05.svg" alt="" />
+                    </Button>
+                </Dropdown>
                 <AutoComplete
                     dropdownMatchSelectWidth={true}
                     style={{ width: 200 }}
@@ -1299,20 +1295,7 @@ const Map = ({ leftWidth,
                     style={{ width: '200px', height: '35px' }}
                 />
                 <Button className="btn-purple"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
-                <Dropdown overlayClassName="dropdown-map-layers"
-                    visible={visibleDropdown}
-                    onVisibleChange={(flag: boolean) => {
-                        // selectCheckboxes(selectedCheckBox);
-                        setVisibleDropdown(flag);
 
-                    }}
-                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
-                    className="btn-02"
-                    trigger={['click']}>
-                    <Button>
-                        <img src="/Icons/icon-05.svg" alt="" />
-                    </Button>
-                </Dropdown>
             </div>
 
             {/* <Dropdown
@@ -1324,32 +1307,33 @@ const Map = ({ leftWidth,
                 </Button>
             </Dropdown> */}
 
-            <div className="m-footer">
-                <Collapse accordion defaultActiveKey={['1']} expandIconPosition="right">
-                    <Panel header="Legend" key="1">
-                        <hr />
-                        <div className="scroll-footer">
-                            {layerObjects.filter((element: any) => element.name === PROJECTS_MAP_STYLES.name).length ? <>
-                                <p><span style={{ background: '#ffdd00', border: 'hidden' }} />Projects</p>
-                            </> : ''}
-                            {layerStrings.includes(PROBLEMS_TRIGGER) ? <>
-                                <p><span className="color-footer-problem" style={{ background: '#FF342F', border: 'hidden' }} />Problems</p>
-                            </> : ''}
-                            {layerObjects.filter((element: any) => element.name === COMPONENT_LAYERS.name).length ? <>
-                                <p><span style={{ background: '#3EE135', border: 'hidden' }} />Components</p>
-                            </> : ''}
-                            {/* {layerStrings.includes(MHFD_BOUNDARY_FILTERS) ? <>
+            {/*<div className="m-footer">
+              <Collapse accordion defaultActiveKey={['1']} expandIconPosition="right">
+                <Panel header="Legend" key="1">
+                <hr />
+                <div className="scroll-footer">
+                    {layerObjects.filter((element: any)  => element.name === PROJECTS_MAP_STYLES.name ).length ? <>
+                        <p><span style={{ background: '#ffdd00', border: 'hidden' }} />Projects</p>
+                    </> : ''}
+                    {layerStrings.includes(PROBLEMS_TRIGGER) ? <>
+                    <p><span className="color-footer-problem" style={{ background: '#FF342F', border: 'hidden'   }} />Problems</p>
+                    </> : ''}
+                    {layerObjects.filter((element: any)  => element.name === COMPONENT_LAYERS.name ).length ? <>
+                        <p><span style={{ background: '#3EE135', border: 'hidden' }} />Components</p>
+                    </> : ''}
+                     {layerStrings.includes(MHFD_BOUNDARY_FILTERS) ? <>
                         <p><span className="color-footer-boundary" style={{ border: '1px dashed' }} />MHFD Boundary</p>
-                    </> : '' } */}
-                        </div>
-                    </Panel>
-                </Collapse>
-            </div>
+                    </> : '' }
+                </div>
+                </Panel>
+              </Collapse>
 
-            {/* <div className="m-zoom">
-                    <Button style={{borderRadius:'4px 4px 0px 0px'}}><img src="/Icons/icon-35.svg" alt="" width="12px"/></Button>
-                    <Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>
-                </div> */}
+            </div>*/}
+
+            <div className="m-zoom">
+              <Button style={{borderRadius:'4px'}}><img className="img-icon"/></Button>
+              {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
+          </div>
         </div>
 
     )

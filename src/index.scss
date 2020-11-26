@@ -9,10 +9,10 @@ html, body{
 body{
  font-family: $ubunto !important;
  overflow-y: hidden;
- -moz-user-select: none; 
+ -moz-user-select: none;
  -webkit-user-select: none;
  -ms-user-select: none;
- user-select: none; 
+ user-select: none;
 }
 .ant-timeline-item-head-green {
   color: $green !important;
@@ -1489,20 +1489,6 @@ body{
   }
   .btn-03 img {
     margin-left: 8px;
-  }
-  .m-zoom {
-    position: absolute;
-    width: 25px;
-    right: 20px;
-    top: 20px;
-    right: 20px;
-    z-index: 10;
-  }
-  .m-zoom button {
-    width: 25px;
-    height: 25px;
-    padding: 0px;
-    border: none;
   }
   .m-foo{
     width: 120px;
