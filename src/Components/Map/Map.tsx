@@ -159,7 +159,7 @@ const Map = ({ leftWidth,
                     "source": "mask",
                     "type": "fill",
                     "paint": {
-                        "fill-color": "white",
+                        "fill-color": "black",
                         'fill-opacity': 0.8
                     }
                 });
@@ -177,7 +177,7 @@ const Map = ({ leftWidth,
                     "source": "mask",
                     "type": "fill",
                     "paint": {
-                        "fill-color": "white",
+                        "fill-color": "black",
                         'fill-opacity': 0.8
                     }
                 });
@@ -201,6 +201,17 @@ const Map = ({ leftWidth,
     
     const hideOpacity = async () => {
         
+        /* const waiting = () => {
+        if (!map.isStyleLoaded()) {
+                    setTimeout(waiting, 50);
+                } else {
+                    // setCoordinatesJurisdiction([]);
+                    map.setLayoutProperty('mask', 'visibility', 'none');
+                    setOpacityLayer(false);
+                }
+            } 
+            waiting(); */
+     //   const waiting = () => {
         if  (map.loaded()) {
             console.log('hide opacity');
             if (map.getLayer('mask')) { 
@@ -208,8 +219,13 @@ const Map = ({ leftWidth,
                 map.removeLayer('mask');
                 map.removeSource('mask');
             }
-        } 
+    /*    } else {
+            setTimeout(waiting, 50);
+        }
     }
+        waiting(); */
+    }
+}
 
     if (user?.polygon[0]) {
         let bottomLongitude = user.polygon[0][0];
@@ -282,7 +298,7 @@ const Map = ({ leftWidth,
                     "source": "mask",
                     "type": "fill",
                     "paint": {
-                        "fill-color": "white",
+                        "fill-color": "black",
                         'fill-opacity': 0.8
                     }
                 });
@@ -300,14 +316,21 @@ const Map = ({ leftWidth,
                     "source": "mask",
                     "type": "fill",
                     "paint": {
-                        "fill-color": "white",
+                        "fill-color": "black",
                         'fill-opacity': 0.8
                     }
                 });
 
         } } else {
             if (opacityLayer) {
-                hideOpacity()
+                if  (map.loaded()) {
+                    console.log('hide opacity');
+                    if (map.getLayer('mask')) { 
+                        map.setLayoutProperty('mask', 'visibility', 'visible');
+                        map.removeLayer('mask');
+                        map.removeSource('mask');
+                    }
+                }
             }
             
         }
@@ -404,7 +427,7 @@ const Map = ({ leftWidth,
             "source": "mask",
             "type": "fill",
             "paint": {
-                "fill-color": "white",
+                "fill-color": "black",
                 'fill-opacity': 0.8
             }
         }); */
@@ -475,6 +498,7 @@ const Map = ({ leftWidth,
             console.log('move end')
             setDragEndCounter(__++);
             // hideLayerOpacity();
+            setOpacityLayer(false)
         });
         map.on('load', updateZoom);
         map.on('move', updateZoom);

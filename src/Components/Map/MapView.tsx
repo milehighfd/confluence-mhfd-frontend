@@ -303,8 +303,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['jurisdiction'] = '';
           optionsProblem['servicearea'] = '';
           optionsProject['servicearea'] = '';
-          // setOpacityLayer(true);
-          setCoordinatesJurisdiction([]);
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         case 'Jurisdiction':
           optionsProblem['jurisdiction'] = name;
@@ -324,8 +324,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['county'] = '';
           optionsProblem['jurisdiction'] = '';
           optionsProject['jurisdiction'] = '';
-          // setOpacityLayer(false);
-          setCoordinatesJurisdiction([]);
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         default:
           optionsProblem['servicearea'] = '';
@@ -334,8 +334,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['county'] = '';
           optionsProblem['jurisdiction'] = '';
           optionsProject['jurisdiction'] = '';
-          //setOpacityLayer(false);
-          setCoordinatesJurisdiction([]);
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       }
       setFilterProblemOptions(optionsProblem);
       setFilterProjectOptions(optionsProject);
