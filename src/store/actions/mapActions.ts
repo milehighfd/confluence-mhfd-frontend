@@ -585,27 +585,6 @@ export const getParamsFilter = (bounds: string) => {
         })
     }
 }
-/*
-export const getParamFilterByPositionTab = (bounds: string, position: number) => {
-    return (dispatch: Function) => {
-        dispatch(setSpinFilter(true));
-        console.log('PROJECT', SERVER.PARAM_FILTER_PROJECTS, bounds);
-        let URL = '';
-        if (position === 0) {
-            URL = SERVER.PARAM_FILTER_PROJECTS;
-        } if (position === 1) {
-            URL = SERVER.PARAM_FILTER_PROBLEMS;
-        } else {
-            URL = SERVER.PARAM_FILTER_COMPONENTS;
-        }
-        datasets.getData(URL + '?bounds=' + bounds).then(params => {
-            if (params) {
-                dispatch({type: types.GET_PARAM_FILTER_BY_POSITION_TAB, params});
-            }
-            dispatch(setSpinFilter(false));
-        })
-    }
-}*/
 export const getParamFilterProjects = (bounds: string) => {
     return (dispatch: Function) => {
         dispatch(setSpinFilter(true));
@@ -660,7 +639,11 @@ export const setSpinFilter = (spin: boolean) => {
         dispatch({type: types.SET_SPIN_FILTER, spin })
     }
 }
-
+export const setNameZoomArea = (name: string) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_NAME_ZOOMAREA, name});
+    }
+}
 export const setToggleModalFilter = (toggle: boolean) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_TOOGLE_MODAL, toggle })

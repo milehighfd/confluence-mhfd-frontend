@@ -213,6 +213,7 @@ const initState = {
     zoomarea: [],
     opacityLayer: false,
     coordinatesJurisdiction: [],
+    nameZoomArea: ''
 }
 
 const mapReducer = (state = initState, action : any) => {
@@ -457,6 +458,12 @@ const mapReducer = (state = initState, action : any) => {
             return {
                 ...state,
                 toggleModalFilter: action.toggle
+            }
+        }
+        case types.SET_NAME_ZOOMAREA: {
+            return {
+                ...state,
+                nameZoomArea: action.name
             }
         }
         case types.SET_BOUNDS_MAP: {

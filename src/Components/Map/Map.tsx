@@ -44,6 +44,7 @@ import DetailedModal from '../Shared/Modals/DetailedModal';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { style } from 'd3';
 import { setOpacityLayer } from '../../store/actions/mapActions';
+import { useProfileDispatch } from '../../hook/profileHook';
 const { Option } = AutoComplete;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
@@ -102,7 +103,9 @@ const Map = ({ leftWidth,
     existDetailedPageProblem,
     existDetailedPageProject,
     zoom,
-    applyFilter
+    applyFilter,
+    filterProblemOptions,
+    filterProjectOptions
 }: MapProps) => {
     // console.log( mapSearch);=
     let geocoderRef = useRef<HTMLDivElement>(null);
@@ -110,8 +113,10 @@ const Map = ({ leftWidth,
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
         filterTabNumber, coordinatesJurisdiction, opacityLayer } = useMapState();
-    const { setBoundMap, getParamFilterComponents, getParamFilterProblems, 
-            getParamFilterProjects, setCoordinatesJurisdiction } = useMapDispatch();
+    const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
+        getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
+        setFilterProblemOptions, setFilterProjectOptions } = useMapDispatch();
+    const { saveUserInformation } = useProfileDispatch();
 
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
@@ -123,6 +128,13 @@ const Map = ({ leftWidth,
     const [dragEndCounter, setDragEndCounter] = useState(0);
     //const [layerOpacity, setLayerOpacity] = useState(false);
     const coor: any[][] = [];
+    const coordinatesMHFD = [
+        [-105.3236581, 39.4057815],
+        [-105.3236581, 40.1315705],
+        [-104.4889475, 40.1315705],
+        [-104.4889475, 39.4057815],
+        [-105.3236581, 39.4057815]
+    ];
     const [data, setData] = useState({
         problemid: '',
         id: '',
@@ -130,7 +142,6 @@ const Map = ({ leftWidth,
         value: '',
         type: ''
     });
-    //let mask: any;
 
     const polyMask = (mask: any, bounds: any) => {
         console.log('mask', mask);
@@ -148,12 +159,12 @@ const Map = ({ leftWidth,
             mask = turf.polygon(coordinatesJurisdiction);
             const arrayBounds = boundsMap.split(',');
             console.log('BOUNDS', boundsMap);
-            if (!map.getLayer('mask')) { 
+            if (!map.getLayer('mask')) {
                 map.addSource('mask', {
                     "type": "geojson",
                     "data": polyMask(mask, arrayBounds)
                 });
-    
+
                 map.addLayer({
                     "id": "mask",
                     "source": "mask",
@@ -171,7 +182,7 @@ const Map = ({ leftWidth,
                     "type": "geojson",
                     "data": polyMask(mask, arrayBounds)
                 });
-    
+
                 map.addLayer({
                     "id": "mask",
                     "source": "mask",
@@ -198,7 +209,7 @@ const Map = ({ leftWidth,
     } */
 
 
-    
+
     const hideOpacity = async () => {
         
         /* const waiting = () => {
@@ -214,7 +225,7 @@ const Map = ({ leftWidth,
      //   const waiting = () => {
         if  (map.loaded()) {
             console.log('hide opacity');
-            if (map.getLayer('mask')) { 
+            if (map.getLayer('mask')) {
                 map.setLayoutProperty('mask', 'visibility', 'visible');
                 map.removeLayer('mask');
                 map.removeSource('mask');
@@ -263,7 +274,7 @@ const Map = ({ leftWidth,
             }
         }
     }, [highlighted]);
-    const [counterPopup, setCounterPopup] = useState({componentes: 0});
+    const [counterPopup, setCounterPopup] = useState({ componentes: 0 });
 
     useEffect(() => {
         const div = document.getElementById('popup');
@@ -273,26 +284,26 @@ const Map = ({ leftWidth,
     }, [counterPopup]);
 
     useEffect(() => {
-        
+
         console.log('changemap Jurisdiction', coordinatesJurisdiction)
         let mask
         if (coordinatesJurisdiction.length > 0) {
             mask = turf.polygon(coordinatesJurisdiction);
-            
+
             let miboundsmap = map.getBounds();
             // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
-            let misbounds = -105.44866830999993+','+39.13673489846491+','+-104.36395751000016+','+40.39677734100488;
-                
+            let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+
             // console.log('porque', boundingBox1)
             var arrayBounds = misbounds.split(',');
             console.log('BOUNDS', boundsMap);
             setOpacityLayer(true);
-            if (!map.getLayer('mask')) { 
+            if (!map.getLayer('mask')) {
                 map.addSource('mask', {
                     "type": "geojson",
                     "data": polyMask(mask, arrayBounds)
                 });
-    
+
                 map.addLayer({
                     "id": "mask",
                     "source": "mask",
@@ -310,7 +321,7 @@ const Map = ({ leftWidth,
                     "type": "geojson",
                     "data": polyMask(mask, arrayBounds)
                 });
-    
+
                 map.addLayer({
                     "id": "mask",
                     "source": "mask",
@@ -321,7 +332,8 @@ const Map = ({ leftWidth,
                     }
                 });
 
-        } } else {
+            }
+        } else {
             if (opacityLayer) {
                 if  (map.loaded()) {
                     console.log('hide opacity');
@@ -332,11 +344,11 @@ const Map = ({ leftWidth,
                     }
                 }
             }
-            
+
         }
     }, [coordinatesJurisdiction]);
 
-    useEffect(() => {   
+    useEffect(() => {
         if (map) {
             applyFilters('problems', filterProblems);
         }
@@ -448,14 +460,14 @@ const Map = ({ leftWidth,
                 }
                 // hideLayerOpacity();
             }
-            
+
         });
         map.once('dragend', () => {
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setBoundMap(boundingBox);
             console.log(applyFilter);
-            
+
             if (applyFilter) {
                 if (toggleModalFilter) {
                     if (filterTabNumber === PROJECTS_TRIGGER) {
@@ -470,10 +482,10 @@ const Map = ({ leftWidth,
                 }
                 // hideLayerOpacity();
             }
-            
 
-    
-            
+
+
+
         });
         const updateZoom = () => {
             console.log('update zoom')
@@ -779,28 +791,28 @@ const Map = ({ leftWidth,
             }
         });
     };
-/*     const showOpacityLayer = (key: string) => {
-        const styles = { ...tileStyles as any };
-        //console.log('STYLES', styles['opacity_layers'][0]);
-
-        /* styles['opacity_layers'].foreach((style : LayerStylesType, index : number) => {
-            console.log(style);
-        }) */
-        /* styles[key].forEach((style : LayerStylesType, index : number) => {
-        } */
-        /* const source = 'polygon-opa';
-        map.addSource(source, {
-            type: 'geojson',
-            //style: styles['opacity_layers'][0],
-            data: {
-                type: 'Feature',
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: [boundsMap]
-                }
+    /*     const showOpacityLayer = (key: string) => {
+            const styles = { ...tileStyles as any };
+            //console.log('STYLES', styles['opacity_layers'][0]);
+    
+            /* styles['opacity_layers'].foreach((style : LayerStylesType, index : number) => {
+                console.log(style);
+            }) */
+    /* styles[key].forEach((style : LayerStylesType, index : number) => {
+    } */
+    /* const source = 'polygon-opa';
+    map.addSource(source, {
+        type: 'geojson',
+        //style: styles['opacity_layers'][0],
+        data: {
+            type: 'Feature',
+            geometry: {
+                type: 'Polygon',
+                coordinates: [boundsMap]
             }
-        });
-        addMapLayers(map, source, opacityLayer); */
+        }
+    });
+    addMapLayers(map, source, opacityLayer); */
     //} */
 
     const showHighlighted = (key: string, cartodb_id: string) => {
@@ -1266,7 +1278,27 @@ const Map = ({ leftWidth,
     //end geocoder
 
     const showMHFD = () => {
-        console.log('MHFD');
+        const user = store.getState().profile.userInformation;
+        user.polygon = coordinatesMHFD;
+        saveUserInformation(user);
+        setNameZoomArea('Mile High Flood District');
+        if (!opacityLayer) {
+            hideOpacity();
+        }
+        setOpacityLayer(false);
+        setCoordinatesJurisdiction([]);
+        const optionsProblem = { ...filterProblemOptions };
+        const optionsProject = { ...filterProjectOptions };
+        optionsProblem['servicearea'] = '';
+        optionsProject['servicearea'] = '';
+        optionsProblem['county'] = '';
+        optionsProject['county'] = '';
+        optionsProblem['jurisdiction'] = '';
+        optionsProject['jurisdiction'] = '';
+        setFilterProblemOptions(optionsProblem);
+        setFilterProjectOptions(optionsProject);
+
+        //setArea(name);
     }
 
     const layerObjects: any = selectedLayers.filter(element => typeof element === 'object');
@@ -1294,7 +1326,7 @@ const Map = ({ leftWidth,
             <div className="m-head">
                 <Dropdown overlayClassName="dropdown-map-layers"
                     visible={visibleDropdown}
-                    onVisibleChange={(flag : boolean) => {
+                    onVisibleChange={(flag: boolean) => {
                         // selectCheckboxes(selectedCheckBox);
                         setVisibleDropdown(flag);
 
@@ -1359,9 +1391,9 @@ const Map = ({ leftWidth,
             </div>*/}
 
             <div className="m-zoom">
-              <Button style={{borderRadius:'4px'}} onClick={() => showMHFD() } ><img className="img-icon"/></Button>
-              {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
-          </div>
+                <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
+                {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
+            </div>
         </div>
 
     )

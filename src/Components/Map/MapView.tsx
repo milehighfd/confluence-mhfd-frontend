@@ -77,8 +77,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProjects, getParamFilterComponents,
     getParamFilterProblems, setTabCards, setOpacityLayer, 
-    setCoordinatesJurisdiction } = useMapDispatch();
-  const { tabCards } = useMapState();
+    setCoordinatesJurisdiction, setNameZoomArea } = useMapDispatch();
+  const { tabCards, nameZoomArea } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
@@ -132,7 +132,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   // const [listDescription, setListDescription] = useState(false);
   const listDescription = false;
   const [designation, SetDesignation] = useState(store.getState().profile.userInformation.designation);
-  const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
+  //const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
   const [tabActive, setTabActive] = useState('1');
   const { projectId } = useParams();
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword ? filterProblemOptions.keyword : '');
@@ -154,6 +154,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [textStyle, setTextStyle] = useState<string>(purple);
   if (designation === 'guest') {
     setApplyFilter(false);
+  }
+  if (nameZoomArea.length === 0) {
+    setNameZoomArea(store.getState().profile.userInformation.zoomarea);
   }
 
   useEffect(() => {
@@ -282,7 +285,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     const user = store.getState().profile.userInformation;
     user.polygon = coordinates;
     saveUserInformation(user);
-    setArea(name);
+    //setArea(name);
+    setNameZoomArea(name);
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === name).map((element: any) => {
       return {
         aoi: element.aoi,
@@ -430,7 +434,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <Col span={20} id="westminter">
           <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
             <span className="ant-dropdown-link span-header">
-              {area ? (area.endsWith(', CO') ? area.replace(', CO', '') : area) : 'Mile High Flood District'}
+              {nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
               <Popover content={content}>
                 <img src="/Icons/icon-12.svg" alt="" style={{ marginLeft: '8px' }} />
               </Popover>
