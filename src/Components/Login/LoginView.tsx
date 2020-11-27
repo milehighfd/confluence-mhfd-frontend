@@ -83,19 +83,19 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
   return <Layout style={{ background: '#fff' }}>
     <Row>
       <CarouselAutoPlayView />
-      <Col span={11} className="login-hh">
+      <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
       <div className="login-step01">
         <div>
         <Row className="returnText">
           <Col span={12}>
           {/* <Button shape="circle" icon="arrow-left" /><span>Back</span> */}
           </Col>
-          <Col span={12} style={{ textAlign: 'right' }}>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
           <span>Continue as Guest</span><Button shape="circle" onClick={() => redirectGuest()} icon="arrow-right" />
           </Col>
         </Row>
         </div>
-        <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit}>
+        <Form className="login-form" onSubmit={handleSubmit}>
       {/* <h1>
         Welcome to MHFD's Confluence
       </h1>*/}

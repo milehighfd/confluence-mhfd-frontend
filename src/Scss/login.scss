@@ -25,13 +25,16 @@
 .anticon.anticon-paper-clip {
   display: none;
 }
-.login-form h1 {
-  color: $purple00;
-  font-size: 32px;
-  font-style: normal;
-  line-height: normal;
-  font-weight: 400;
-  margin: 0;
+.login-form {
+  width: 420px;
+    h1 {
+    color: $purple00;
+    font-size: 32px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 400;
+    margin: 0;
+  }
 }
 // footer carousel
 .contact01 {
@@ -475,4 +478,90 @@
   opacity: 0.15;
   background: $purple;
   margin: 0 26px 0 24px;
+}
+.mobile-login{
+  display: none;
+}
+
+// RESPONSIVE
+@media (max-width: 575.98px) {
+  .logo-white {
+    margin: 52px 0 0 25px;
+  }
+  .ant-carousel{
+    .slick-slide .textContent {
+      margin-left: 25px;
+    }
+    .slick-slide h2 {
+      font-size: 21px;
+    }
+    .slick-slide .textContent {
+      height: 28vh;
+    }
+    .slick-slide h5 {
+     font-size: 14px;
+    }
+    .slick-dots-bottom {
+      bottom: inherit;
+      top: 31vh;
+      left: -35px;
+    }
+    .btn-purple {
+      height: 50px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  }
+  .contact01 {
+    position: relative;
+    bottom: inherit;
+    height: 100%;
+    margin: 0px;
+  }
+  .icons-list{
+    position: absolute;
+    top: 33vh;
+    left: 25px;
+    img{
+      height: 20px !important;
+    }
+  }
+  .social01{
+    position: absolute;
+    top: 90vh;
+    z-index: 10;
+
+    span {
+      width: 15px;
+    }
+    a {
+      font-size: 12px;
+    }
+    ul {
+      width: 100vw;
+      text-align: center;
+    }
+  }
+  .mobile-login{
+    position: absolute;
+    top: 80vh;
+    z-index: 10;
+    width: 88vw;
+    margin: 0px 25px;
+    display: inline-block;
+
+    .btn-purple{
+      height: 50px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 100%;
+    }
+  }
+  .login-form{
+    width: auto;
+  }
+  .login-step01 {
+    width: 100%;
+    padding: 0px 25px;
+  }
 }

@@ -1,11 +1,11 @@
 import React from "react";
-import { Col, Carousel } from "antd";
+import { Col, Carousel, Button } from "antd";
 import store from "../../../store";
 import { SERVER } from "../../../Config/Server.config";
 
 export default () => {
   const images = store.getState().carouselImages.images;
-  return <Col span={13}>
+  return <Col xs={{ span: 24 }} lg={{ span: 13 }}>
     <a href="https://mhfd.org/" target="_blank">
       <div className="logo-white"
         style={{ backgroundImage: 'url(/Icons/logo-white.svg)' }}>
@@ -27,6 +27,9 @@ export default () => {
           <li><a href="https://mhfd.org/wp-content/uploads/2019/12/CORA_Policy_Website.pdf" target="_blank">Privacy Policy</a></li>
         </ul>
       </div>
+      <div className="mobile-login">
+        <Button className="btn-purple">Login</Button>
+      </div>
     </div>
     <Carousel autoplay autoplaySpeed={6000}>
       {images.map((image: string, index: number) => {
@@ -39,42 +42,5 @@ export default () => {
         </div>
       })}
     </Carousel>
-    {/* <Carousel autoplay autoplaySpeed={10000}>
-      <div>
-        <img src="/Icons/banner/low.jpg" className={"img-banner"} alt="" />
-        <div className="textContent">
-          <h2>What can I do with Confluence?</h2>
-          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-        </div>
-      </div>
-      <div>
-        <img src="/Icons/banner/confluence.jpg" className={"img-banner"} alt="" />
-        <div className="textContent">
-          <h2>What can I do with Confluence?</h2>
-          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-        </div>
-      </div>
-      <div>
-        <img src="/Icons/banner/drainageway_img.jpg" className={"img-banner"} alt="" />
-        <div className="textContent">
-          <h2>What can I do with Confluence?</h2>
-          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-        </div>
-      </div>
-      <div>
-        <img src="/Icons/banner/eco.jpg" className={"img-banner"} alt="" />
-        <div className="textContent">
-          <h2>What can I do with Confluence?</h2>
-          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-        </div>
-      </div>
-      <div>
-        <img src="/Icons/banner/westminster.jpg" className={"img-banner"} alt="" />
-        <div className="textContent">
-          <h2>What can I do with Confluence?</h2>
-          <h5>Check Project Status, Submit Work Request, Explore your Streams.</h5>
-        </div>
-      </div>
-    </Carousel> */}
   </Col>
 }
