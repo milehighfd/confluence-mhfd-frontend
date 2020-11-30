@@ -1,5 +1,5 @@
 import React, { useState, useEffect, CSSProperties } from "react";
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoComplete } from 'antd';
+import { Icon, Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoComplete } from 'antd';
 
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
@@ -8,11 +8,12 @@ import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../../Classes/MapTypes";
 import { useParams, useLocation } from "react-router-dom";
-import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
+import { CaretUpOutlined, CaretDownOutlined, UnderlineOutlined } from "@ant-design/icons";
 import store from "../../store";
 import DetailedModal from "../Shared/Modals/DetailedModal";
 import { genExtra } from "../../utils/detailedUtils";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
+import { push } from "connected-react-router";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -30,23 +31,23 @@ const content = (<div className="popoveer-00">Filter by Area</div>);
 const contentTag = (
   <div className="tag-filters">
     <div className="tag-body">
-    <div className="head">PROJECT TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
-    <p>Maintenance <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-    <p>Capital <Button className="btn-transparent"><img src="/Icons/icon-84.svg" width="15px" alt="" /></Button> </p>
+      <div className="head">PROJECT TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+      <p>Maintenance <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+      <p>Capital <Button className="btn-transparent"><img src="/Icons/icon-84.svg" width="15px" alt="" /></Button> </p>
 
-    <div className="head">PROJECT STATUS <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
-    <p>Initiated <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-    <p>Preliminary Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-    <p>Construction <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-    <p>Final Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+      <div className="head">PROJECT STATUS <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+      <p>Initiated <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+      <p>Preliminary Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+      <p>Construction <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+      <p>Final Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
 
-    <div className="head">PROBLEM TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
-    <p>Hydrology <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-    <p>Floodpain <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-    <p>Alternatives <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+      <div className="head">PROBLEM TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+      <p>Hydrology <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+      <p>Floodpain <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+      <p>Alternatives <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
 
-    <div className="head">MHFD DOLLARS ALLOCATED <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
-    <p>$250K - $500K <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+      <div className="head">MHFD DOLLARS ALLOCATED <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+      <p>$250K - $500K <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
     </div>
     <div className="btn-footer-02"><Button className="btn-borde">Clear</Button></div>
   </div>
@@ -76,7 +77,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProjects, getParamFilterComponents,
-    getParamFilterProblems, setTabCards, setOpacityLayer, 
+    getParamFilterProblems, setTabCards, setOpacityLayer,
     setCoordinatesJurisdiction, setNameZoomArea } = useMapDispatch();
   const { tabCards, nameZoomArea } = useMapState();
 
@@ -296,10 +297,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     });
 
     if (zoomareaSelected.length > 0) {
-      const optionsProblem = {...filterProblemOptions};
-      const optionsProject = {...filterProjectOptions};
-      
-      switch(zoomareaSelected[0].filter) {
+      const optionsProblem = { ...filterProblemOptions };
+      const optionsProject = { ...filterProjectOptions };
+
+      switch (zoomareaSelected[0].filter) {
         case 'County':
           optionsProblem['county'] = name;
           optionsProject['county'] = name;
@@ -346,11 +347,31 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     }
   }
 
+  const dataAutocomplete = groupOrganization.filter(function (item: any) {
+    if (item.aoi === undefined) {
+      return false;
+    }
+    return true;
+  }).map((item: { aoi: string }) => { return item.aoi; });
+
+  const onSelect = (value: any) => {
+    console.log('Selected:', value);
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+      return {
+        aoi: element.aoi,
+        filter: element.filter,
+        coordinates: element.coordinates
+      }
+    });
+    changeCenter(value, zoomareaSelected[0].coordinates[0])
+  };
+
   const menu = () => {
     return <Menu className="js-mm-00 sign-menu-organization2x">
       {groupOrganization.map((item: { aoi: string, coordinates: Array<Array<Array<number>>> }) => (
         <Menu.Item onClick={() => changeCenter(item.aoi, item.coordinates[0])} key={item.aoi + "g1"}><span>{item.aoi}</span></Menu.Item>
       ))}
+
       {/* <Menu.ItemGroup key="g1">
         <label className="label-sg">{'Regional Agency'}</label>
         {ORGANIZATION_COORDINATES.REGIONAL_AGENCY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
@@ -376,7 +397,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-      <Col style={{fontSize: '12px'}}>
+      <Col style={{ fontSize: '12px' }}>
         <div className="apply-filter">
           Apply map view to filters
           <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
@@ -414,7 +435,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     </Menu>
   }
   return <>
-    <div className="count" style={{paddingBottom: '0px'}}>
+    <div className="count" style={{ paddingBottom: '0px' }}>
       {displayModal && visible && <DetailedModal
         detailed={detailed}
         getDetailedPageProblem={getDetailedPageProblem}
@@ -432,14 +453,27 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       />}
       <Row className="head-m">
         <Col span={20} id="westminter">
-          <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
+          {/*<Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
             <span className="ant-dropdown-link span-header">
               {nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
               <Popover content={content}>
                 <img src="/Icons/icon-12.svg" alt="" style={{ marginLeft: '8px' }} />
               </Popover>
             </span>
-          </Dropdown>
+      </Dropdown> */}
+          <Popover content={content}>
+            <AutoComplete
+              style={{ width: '200' }}
+              dataSource={dataAutocomplete}
+              placeholder={'Mile High Flood District'}
+              filterOption={(inputValue, option: any) =>
+                // groupOrganization.name
+                option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+              }
+              onSelect={onSelect} >
+              <Input suffix={<Icon type="down-circle" className="certain-category-icon" />} />
+            </AutoComplete>
+          </Popover>
           {/*<div className="auto-complete-map">
             <AutoComplete
              placeholder="Boulder"
@@ -497,14 +531,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
           <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
-          <Popover placement="bottomRight" overlayClassName="tag-filters" content={contentTag}>
-            <Button onClick={handleToggle} >
-              <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
-                tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
-            </Button>
-          </Popover>
+            <Popover placement="bottomRight" overlayClassName="tag-filters" content={contentTag}>
+              <Button onClick={handleToggle} >
+                <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
+                  tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
+              </Button>
+            </Popover>
             <div className="sort-content">
-              <span className="sort-buttons" style={{transitionTimingFunction: 'ease-in'}} onClick={() => {
+              <span className="sort-buttons" style={{ transitionTimingFunction: 'ease-in' }} onClick={() => {
                 if (tabActive === '0') {
                   const auxOptions = { ...filterProblemOptions };
                   auxOptions.order = filterProblemOptions.order === 'asc' ? 'desc' : 'asc';
@@ -532,7 +566,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                       (filterProjectOptions.order === 'desc' ? '100%' : '30%')
                   }}
                 />*/}
-              <img className="img-filter00" alt="" />
+                <img className="img-filter00" alt="" />
               </span>
               <Dropdown trigger={['click']}
                 overlay={tabActive === '0' ?
@@ -542,7 +576,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
                   {/*<img className="img-filter00" alt="" /> Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :*/}
                   Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
-                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title} 
+                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
                 </span>
               </Dropdown>
             </div>
