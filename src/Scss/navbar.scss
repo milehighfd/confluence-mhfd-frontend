@@ -77,11 +77,17 @@
 }
 
 .tutorial{
-  .btn-question, .btn-question:hover,
-  .btn-question:focus, .btn-question:active{
-    background: transparent;
-    border: none;
-    padding: 0px;
+  .btn-question{
+    -webkit-mask: url('/Icons/icon-27.svg') no-repeat center;
+    height: 22px;
+    background: $white;
+    padding: 28px 11px;
+  }
+  .btn-question:hover{
+    opacity: 1;
+    -webkit-mask: url('/Icons/icon-27.svg') no-repeat center;
+    height: 22px;
+    background: $green !important;
   }
   .logo-00{
     position: absolute;

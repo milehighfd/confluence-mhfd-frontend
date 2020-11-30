@@ -109,6 +109,7 @@
   left: 20px;
   height: 35px;
   z-index: 10;
+  display: flex;
 
   .geocoder {
     display: inline-block;
@@ -135,18 +136,27 @@
     top: 7px;
   }
   button{
-    // top: -1px;
     height: 35px;
     border: none;
     width: 35px;
     padding: 0px;
+    background: $green;
+    margin-right: 15px;
   }
   .btn-purple{
     margin: 0px 15px;
   }
   .btn-02{
-    background: $green;
-    margin-right: 15px;
+    -webkit-mask: url('/Icons/icon-05.svg') no-repeat center;
+    height: 16px;
+    background: $white;
+    padding: 17.5px 9px;
+  }
+  Button:hover > .btn-02{
+    -webkit-mask: url('/Icons/icon-05.svg') no-repeat center;
+    height: 16px;
+    background: $dark !important;
+    margin-top: -2px;
   }
   .ant-input-search-icon{
     color: $purple;
@@ -166,7 +176,6 @@
     overflow: hidden;
     background-color: $white;
     box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
-    margin-top: -2px;
   }
   .ant-input-affix-wrapper .ant-input-suffix {
     left: 12px;
@@ -683,24 +692,30 @@
    font-size: 22px !important;
    margin-left: 0px !important;
    margin-right: 0px !important;
+   height: 30px;
   }
   .ant-select-auto-complete.ant-select .ant-input {
     border: none;
     padding: 0px;
   }
-  .ant-input{
-    resize: horizontal;
-    width: 90px !important;
-  }
-  .ant-input:active {
-    width: auto !important;
-  }
-  .ant-input:focus {
-    min-width: 200px !important;
-  }
+  // .ant-input{
+  //   resize: horizontal;
+  //   width: 90px !important;
+  // }
+  // .ant-input:active {
+  //   width: auto !important;
+  // }
+  // .ant-input:focus {
+  //   min-width: 200px !important;
+  // }
   .ant-input:focus {
     border-color: transparent;
     box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.0);
+  }
+  .ant-input-affix-wrapper .ant-input-suffix {
+    right: -5px;
+    color: $purple;
+    font-size: 16px;
   }
 }
 .head-filter{
@@ -1217,14 +1232,14 @@
 }
 .like-btn{
   position: absolute;
-  right: 10px;
-  bottom: 4px;
+  right: 5px;
+  bottom: 1px;
 
   button, button:hover, button:focus, button:active{
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
     border:none;
     padding: 2px;
-    height: 25px;
+    height: 26px;
     width: 26px;
   }
   button .like-img{

@@ -211,7 +211,7 @@ const Map = ({ leftWidth,
 
 
     const hideOpacity = async () => {
-        
+
         /* const waiting = () => {
         if (!map.isStyleLoaded()) {
                     setTimeout(waiting, 50);
@@ -220,7 +220,7 @@ const Map = ({ leftWidth,
                     map.setLayoutProperty('mask', 'visibility', 'none');
                     setOpacityLayer(false);
                 }
-            } 
+            }
             waiting(); */
      //   const waiting = () => {
         if  (map.loaded()) {
@@ -337,7 +337,7 @@ const Map = ({ leftWidth,
             if (opacityLayer) {
                 if  (map.loaded()) {
                     console.log('hide opacity');
-                    if (map.getLayer('mask')) { 
+                    if (map.getLayer('mask')) {
                         map.setLayoutProperty('mask', 'visibility', 'visible');
                         map.removeLayer('mask');
                         map.removeSource('mask');
@@ -794,7 +794,7 @@ const Map = ({ leftWidth,
     /*     const showOpacityLayer = (key: string) => {
             const styles = { ...tileStyles as any };
             //console.log('STYLES', styles['opacity_layers'][0]);
-    
+
             /* styles['opacity_layers'].foreach((style : LayerStylesType, index : number) => {
                 console.log(style);
             }) */
@@ -1332,10 +1332,9 @@ const Map = ({ leftWidth,
 
                     }}
                     overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
-                    className="btn-02"
                     trigger={['click']}>
                     <Button>
-                        <img src="/Icons/icon-05.svg" alt="" />
+                    <span className="btn-02"></span>
                     </Button>
                 </Dropdown>
                 <AutoComplete

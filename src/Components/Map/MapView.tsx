@@ -461,6 +461,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               </Popover>
             </span>
       </Dropdown> */}
+      <div className="auto-complete-map">
           <Popover content={content}>
             <AutoComplete
               style={{ width: '200' }}
@@ -471,9 +472,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
               }
               onSelect={onSelect} >
-              <Input suffix={<Icon type="down-circle" className="certain-category-icon" />} />
+              <Input suffix={<Icon type="down" className="certain-category-icon" />} />
             </AutoComplete>
           </Popover>
+          </div>
           {/*<div className="auto-complete-map">
             <AutoComplete
              placeholder="Boulder"
@@ -557,8 +559,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                     opacity: tabActive === '0' ? (filterProblemOptions.order === 'asc' ? '100%' : '30%') :
                       (filterProjectOptions.order === 'asc' ? '100%' : '30%')
                   }}
-                /> 
-                
+                />
+
                 <CaretDownOutlined
                   className="arrow-down"
                   style={{

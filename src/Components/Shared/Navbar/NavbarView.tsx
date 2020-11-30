@@ -134,7 +134,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
       <Menu.Item>
        <div className="tutorial">
         <Button className="btn-question" onClick={showModal}>
-          <img src="/Icons/icon-27.svg" alt="" />
         </Button>
         <Modal
           centered
