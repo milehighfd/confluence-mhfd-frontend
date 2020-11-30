@@ -18,6 +18,9 @@
     font-size: 16px;
     margin-top: 10px;
   }
+  .btn-purple:hover {
+    border-bottom: 4px solid $green !important;
+  }
 }
 .anticon.anticon-loading{
   display: none;
@@ -82,19 +85,32 @@
 }
 // login_material style
 .returnText {
-  top: 10%;
-  // width: 533px;
-  align-items: center;
-  font-size: 1rem;
-  justify-content: center;
   margin-bottom: 40px;
-  span {
-    margin: 0 11px;
-  }
+
   Button, Button:hover, Button:focus, Button:active, Button.active {
-   color: #251863;
-   border: 1px solid #251863;
+   border: none;
+   color: rgba(0,0,0,.65);
+   font-size: 1rem;
+   box-shadow: none;
+   padding: 0px;
+   height: 33px;
  }
+ button:hover > .text-l{
+   position: relative;
+   top: -2px;
+ }
+ .anticon {
+    border: 1px solid $purple;
+    border-radius: 50%;
+    padding: 7px 7px 5px 7px;
+    color: $purple;
+    height: 32px;
+    width: 32px;
+  }
+  button:hover > .anticon{
+    border: 1px solid $green;
+    color: $green;
+  }
 }
 // END LOGIN
 

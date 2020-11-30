@@ -7,7 +7,7 @@ import { Redirect, Link } from "react-router-dom";
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
 import ReCAPTCHA from "react-google-recaptcha";
 import * as Yup from "yup";
-
+import { ArrowRightOutlined } from '@ant-design/icons';
 
 const keyCaptcha = SERVER.CAPTCHA;
 const validationSchema = Yup.object().shape({
@@ -91,7 +91,9 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
           {/* <Button shape="circle" icon="arrow-left" /><span>Back</span> */}
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
-          <span>Continue as Guest</span><Button shape="circle" onClick={() => redirectGuest()} icon="arrow-right" />
+            <Button onClick={() => redirectGuest()}>
+             <label className="text-l">Continue as Guest</label> <ArrowRightOutlined/>
+            </Button>
           </Col>
         </Row>
         </div>

@@ -115,7 +115,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     >
       <Menu.Item>
        <Popover content={content}>
-         <img src="/Icons/icon-26.svg" alt="" />
+         <button className="notification-icon"></button>
        </Popover>
       </Menu.Item>
       <label className="ll-0"></label>
