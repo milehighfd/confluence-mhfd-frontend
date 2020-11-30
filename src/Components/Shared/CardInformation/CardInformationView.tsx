@@ -78,26 +78,29 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
       <Col span={12}>
         <Card
           hoverable
-          style={{ width: '100%', boxShadow: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? '0 2px 8px #28c499' : '' }}
+          style={{ width: '100%', border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? '2px solid #28c499' : '' }}
           onClick={() => setVisible(true)}
           onMouseEnter={() =>  setValuesMap(data.type, data.value)}
           onMouseLeave={()=> setValuesMap('','')}
           className="card-information"
           cover={
-            <div className="card-button-hover">
-              {data.image ? <img className="" alt="example" src={data.image} /> : <img alt="example" src="/Icons/default.png" />}
-              <div className="middle">
-                <Button>See Details</Button>
-              </div>
+            <div>
+              <div className="card-button-hover">
+                {data.image ? <img className="" alt="example" src={data.image} /> : <img alt="example" src="/Icons/default.png" />}
+                <div className="middle">
+                  <Button>See Details</Button>
+                </div>
+             </div>
+             <div className="like-btn">
+               <Button><div className="like-img"></div></Button>
+             </div>
            </div>
          }
         >
-          <div className="like-btn">
-            <Button><div className="like-img"></div></Button>
-          </div>
-          {/*<Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click">
+
+          <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click">
             <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}><label>...</label></Button>
-          </Popover>*/}
+          </Popover>
           <div style={{ height: 40 }}>
             <h4>{data.requestName}</h4>
           </div>

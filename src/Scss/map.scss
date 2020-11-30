@@ -1165,7 +1165,7 @@
 }
 .card-button-hover{
   position: relative;
-  button, button:hover, button:focus{
+  button{
     background-color: $dark;
     color: $white;
     font-size: 12px;
@@ -1173,6 +1173,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  button:hover, button:focus{
+    background-color: $dark;
+    color: $green;
   }
   img {
     opacity: 1;
@@ -1194,6 +1198,7 @@
   background: rgba(0,0,0,0.5);
   height: 100%;
   width: 100%;
+  border-radius: 6px 6px 0px 0px;
 }
 .card-button-hover:hover .image {
   opacity: 0.3;
@@ -1213,14 +1218,14 @@
 .like-btn{
   position: absolute;
   right: 10px;
-  top: 105px;
+  bottom: 4px;
 
-  button, button:hover, button:active, button:focus{
-    background: transparent;
+  button, button:hover, button:focus, button:active{
+    background: rgba(0, 0, 0, 0.3);
     border:none;
-    padding: 0px;
-    height: 20px;
-    width: 22px;
+    padding: 2px;
+    height: 25px;
+    width: 26px;
   }
   button .like-img{
     background-image: url('/Icons/icon-81.svg');
