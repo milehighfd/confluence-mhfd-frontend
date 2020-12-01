@@ -36,6 +36,7 @@ const contentTag = (
       <p>Capital <Button className="btn-transparent"><img src="/Icons/icon-84.svg" width="15px" alt="" /></Button> </p>
 
       <div className="head">PROJECT STATUS <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+
       <p>Initiated <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
       <p>Preliminary Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
       <p>Construction <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
@@ -85,7 +86,180 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
 
+  var labelsFiltersProjects = [
+    {
+      'display': 'PROJECT TYPE',
+      'name': 'projecttype',
+      'detail': []
+    },
+    {
+      'name': 'totalcost',
+      'display': 'TOTAL COST',
+      'detail': []
+    },
+    {
+      'name': 'status',
+      'display': 'PROJECT STATUS',
+      'detail': []
+    },
+    {
+      'name': 'year',
+      'display': 'YEAR',
+      'detail': []
+    },
+    {
+      'name': 'mhfddollarsallocated',
+      'display': 'MHFD DOLLARS ALLOCATED',
+      'detail': []
+    },
+    {
+      'name': 'workplanyear',
+      'display': 'WORK PLAN YEAR',
+      'detail': []
+    },
+    {
+      'name': 'additional',
+      'display': 'ADDITIONAL FILTERS',
+      'detail': []
+    }
+  ];
+
+  const labelsFiltersProblems = [
+    {
+      'name': 'cost',
+      'display': 'SOLUTION COST',
+      'detail': []
+    },
+    {
+      'name': 'priority',
+      'display': 'PRIORITY',
+      'detail': []
+    },
+    {
+      'name': 'components',
+      'display': 'ELEMENT TYPE',
+      'detail': []
+    },
+    {
+      'name': 'solutionstatus',
+      'display': 'STATUS',
+      'detail': []
+    },
+    {
+      'name': 'county',
+      'display': 'COUNTY',
+      'detail': []
+    },
+    {
+      'name': 'jurisdiction',
+      'display': 'JURISDICTION',
+      'detail': []
+    },
+    {
+      'name': 'servicearea',
+      'display': 'WATERSHED SERVICE AREA',
+      'detail': []
+    },
+    {
+      'name': 'mhfdmanager',
+      'display': 'MHFD WATERSHED',
+      'detail': []
+    },
+    {
+      'name': 'source',
+      'display': 'SOURCE',
+      'detail': []
+    },
+    {
+      'name': 'problemtype',
+      'display': 'PROBLEM TYPE',
+      'detail': []
+    }
+  ];
+  let contentStringProject: string = "<div className='tag-filters'><div className='tag-body'>";
+  let contentStringProblem: string = "<div className='tag-filters'><div className='tag-body'>";
+
+  const generateLabelsFilterProblems = () => {
+    for (const label2 of labelsFiltersProjects) {
+      //console.log('VALUEE2',label2);
+      if (label2.detail.length > 0) {
+        const mainLabel = `<div className="head">${label2.name} <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>`;
+        let descript = '';
+        for (const value of label2.detail) {
+          descript = descript + `<p>${value} <Button className="btn-transparent"><img src="/Icons/icon-84.svg" width="15px" alt="" /></Button> </p>`;
+        }
+
+      }
+    }
+    return (
+      <div className='tag-filters'>
+        <div className='tag-body'>
+          {labelsFiltersProblems.filter(x => x.detail.length > 0).map((element: any) => {
+            return (
+              showFilterLabels(element)
+            )
+          })}
+        </div>
+        <div className="btn-footer-02"><Button className="btn-borde"
+        >Clear</Button></div>
+      </div>
+    )
+  }
+  const generateLabelsFilterProjects = () => {
+    let contentStringProject2: string = "<div className='tag-filters'><div className='tag-body'>";
+    const filterProjects = { ...filterProjectOptions } as any;
+    for (const key in filterProjectOptions) {
+      let c = 0;
+      const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+      if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+        for (let index = 0; index < tag.length; index++) {
+          const element = tag[index];
+          /* if (element) {
+            //countTagProjets += 1;
+          } */
+        }
+      }
+      const position = labelsFiltersProjects.findIndex(x => x.name === key);
+      if (position >= 0) {
+        const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+        const elements = [];
+        for (let index = 0; index < tag.length; index++) {
+          elements.push(tag[index]);
+        }
+        if (elements.length > 0) {
+          labelsFiltersProjects[position]['detail'] = elements as any;
+        }
+      }
+    }
+    return (
+      <div className='tag-filters'>
+        <div className='tag-body'>
+          {labelsFiltersProjects.filter(x => x.detail.length > 0).map((element: any) => {
+            return (
+              showFilterLabels(element)
+            )
+          })}
+        </div>
+        <div className="btn-footer-02"><Button className="btn-borde"
+        >Clear</Button></div>
+      </div>
+    );
+  }
+
+  const showFilterLabels = (element: any) => {
+    return (
+      <div className="head">{element.display} <img src="/Icons/icon-19.svg" width="13px" alt="" />
+        {element.detail.map((filter: any) => {
+          return <p>{filter} <Button className="btn-transparent"
+            onClick={() => removeFilter()}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+        })}
+      </div>
+    );
+  }
+
   useEffect(() => {
+    console.log('FILTER PROBLEMS', filterProblemOptions);
+    console.log('FILTER PROJECTS', filterProjectOptions);
     let countTagProblems = 0;
     let countTagProjets = 0;
     let countTagComponents = 0;
@@ -112,19 +286,51 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           }
         }
       }
+      const position = labelsFiltersProjects.findIndex(x => x.name === key);
+      if (position >= 0) {
+        const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+        const elements = [];
+        for (let index = 0; index < tag.length; index++) {
+          elements.push(tag[index]);
+        }
+        if (elements.length > 0) {
+          labelsFiltersProjects[position]['detail'] = elements as any;
+        }
+      }
     }
+    console.log('result', labelsFiltersProjects);
+    let bodyTagProjects = '';
+    for (const label2 of labelsFiltersProjects) {
+      //console.log('VALUEE2',label2);
+      if (label2.detail.length > 0) {
+        const mainLabel = `<div className="head">${label2.name} <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>`;
+        let descript = '';
+        for (const value of label2.detail) {
+          descript = descript + `<p>${value} <Button className="btn-transparent"><img src="/Icons/icon-84.svg" width="15px" alt="" /></Button> </p>`;
+        }
+        bodyTagProjects = bodyTagProjects + mainLabel + descript;
+      }
+    }
+    contentStringProject = ((contentStringProject + bodyTagProjects +
+      `<div className="btn-footer-02"><Button className="btn-borde">Clear</Button></div></div>`));
+    console.log('END TITLE', contentStringProject);
     const filterProblems = { ...filterProblemOptions } as any;
     for (const key in filterProblemOptions) {
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+        const elements = [];
+        const position = labelsFiltersProblems.findIndex(x => x.name === key);
         for (let index = 0; index < tag.length; index++) {
           const element = tag[index];
           if (element) {
             countTagProblems += 1;
+            elements.push(element);
           }
         }
+        labelsFiltersProblems[position]['detail'] = elements as any;
       }
     }
+        
     setCountFilterComponents(countTagComponents);
     setCountFilterProblems(countTagProblems);
     setCountFilterProjects(countTagProjets);
@@ -159,6 +365,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   if (nameZoomArea.length === 0) {
     setNameZoomArea(store.getState().profile.userInformation.zoomarea);
   }
+
+  const deleteTagProblem = (tag: string, value: string) => { }
 
   useEffect(() => {
     if (location.includes('problemid=')) {
@@ -299,7 +507,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     if (zoomareaSelected.length > 0) {
       const optionsProblem = { ...filterProblemOptions };
       const optionsProject = { ...filterProjectOptions };
-
+      //console.log('coordinates', zoomareaSelected[0].coordinates);
       switch (zoomareaSelected[0].filter) {
         case 'County':
           optionsProblem['county'] = name;
@@ -320,7 +528,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           optionsProject['servicearea'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-          //console.log('NEW COORDINATES', zoomareaSelected[0].coordinates);
           break;
         case 'Service Area':
           optionsProblem['servicearea'] = name;
@@ -533,7 +740,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
           <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
-            <Popover placement="bottomRight" overlayClassName="tag-filters" content={contentTag}>
+            <Popover placement="bottomRight" overlayClassName="tag-filters" content={
+              //contentTag
+              tabActive === '0' ? generateLabelsFilterProblems() : generateLabelsFilterProjects()
+            }>
               <Button onClick={handleToggle} >
                 <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
                   tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
@@ -553,21 +763,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   getGalleryProjects();
                 }
               }}>
-                {/* <CaretUpOutlined
-                  className="arrow-up"
-                  style={{
-                    opacity: tabActive === '0' ? (filterProblemOptions.order === 'asc' ? '100%' : '30%') :
-                      (filterProjectOptions.order === 'asc' ? '100%' : '30%')
-                  }}
-                />
-
-                <CaretDownOutlined
-                  className="arrow-down"
-                  style={{
-                    opacity: tabActive === '0' ? (filterProblemOptions.order === 'desc' ? '100%' : '30%') :
-                      (filterProjectOptions.order === 'desc' ? '100%' : '30%')
-                  }}
-                />*/}
                 <img className="img-filter00" alt="" />
               </span>
               <Dropdown trigger={['click']}

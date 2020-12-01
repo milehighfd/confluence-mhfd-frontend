@@ -92,38 +92,39 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
         getGalleryProjects();
     }
     const tagComponents = [] as any;
-    for (const key in filterComponentOptions) {
+    /* for (const key in filterComponentOptions) {
         const tag = {
             key,
             values: key === 'estimatedcost' ? filterComponentOptions[key] : filterComponentOptions[key].split(',')
         }
-        tagComponents.push(tag);
-    }
+        //tagComponents.push(tag);
+    } */
 
     const tagProblems = [] as any;
-    for (const key in filterProblemOptions) {
+    /* for (const key in filterProblemOptions) {
         const tag = {
             key,
             values: key === 'cost' ? filterProblemOptions[key] : filterProblemOptions[key].split(',')
         }
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-            tagProblems.push(tag);
+            //tagProblems.push(tag);
         }
-    }
+    } */
 
     const tagProjects = [] as any;
-    for (const key in filterProjectOptions) {
+    /* for (const key in filterProjectOptions) {
         const tag = {
             key,
             values: (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjectOptions[key] : filterProjectOptions[key].split(',')
         }
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-            tagProjects.push(tag);
+            //tagProjects.push(tag);
         }
-    }
+    } */
+    
     return (
         <div className="hastag">
-            {type !== 'Components' ? <h6> Showing {totalElements} {type}:</h6> : <h6> Showing {totalComponents} {type}:</h6>}
+            {/* {type !== 'Components' ? <h6> Showing {totalElements} {type}:</h6> : <h6> Showing {totalComponents} {type}:</h6>} */}
             <div style={{ marginBottom: totalElements ? 0 : 5 }}>
                 {type === FILTER_PROBLEMS_TRIGGER ? tagProblems.map((tag: { key: string, values: Array<string> }, index: number) => {
                     return <>

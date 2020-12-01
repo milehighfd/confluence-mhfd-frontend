@@ -26,7 +26,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
 
     const deleteFilter = (tag: string, value: string) => {
         const auxFilterComponents = { ...filterComponentOptions };
-        const valueTag = tag === 'estimatedcost'?  filterComponentOptions[tag]: filterComponentOptions[tag].split(',');
+        const valueTag = tag === 'estimatedcost' ? filterComponentOptions[tag] : filterComponentOptions[tag].split(',');
         const auxValueTag = [] as Array<string>;
         for (let index = 0; index < valueTag.length; index++) {
             const element = valueTag[index];
@@ -41,14 +41,14 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                 newValue = newValue ? (newValue + ',' + element) : element;
             }
         }
-        auxFilterComponents[tag] = tag === 'estimatedcost'? auxValueTag: newValue;
+        auxFilterComponents[tag] = tag === 'estimatedcost' ? auxValueTag : newValue;
         setFilterComponentOptions(auxFilterComponents);
         getGalleryProjects();
         getGalleryProblems();
     }
     const deleteTagProblem = (tag: string, value: string) => {
         const auxFilterProblems = { ...filterProblemOptions };
-        const valueTag = tag === 'cost'?  filterProblemOptions[tag]: filterProblemOptions[tag].split(',');
+        const valueTag = tag === 'cost' ? filterProblemOptions[tag] : filterProblemOptions[tag].split(',');
         const auxValueTag = [] as Array<string>;
         for (let index = 0; index < valueTag.length; index++) {
             const element = valueTag[index];
@@ -63,13 +63,13 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                 newValue = newValue ? (newValue + ',' + element) : element;
             }
         }
-        auxFilterProblems[tag] = tag === 'cost'? auxValueTag: newValue;
+        auxFilterProblems[tag] = tag === 'cost' ? auxValueTag : newValue;
         setFilterProblemOptions(auxFilterProblems);
         getGalleryProblems();
     }
     const deleteTagProject = (tag: string, value: string) => {
         const auxFilterProjects = { ...filterProjectOptions };
-        const valueTag = (tag === 'mhfddollarsallocated' || tag === 'totalcost')?  filterProjectOptions[tag]: filterProjectOptions[tag].split(',');
+        const valueTag = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? filterProjectOptions[tag] : filterProjectOptions[tag].split(',');
         const auxValueTag = [] as Array<string>;
         for (let index = 0; index < valueTag.length; index++) {
             const element = valueTag[index];
@@ -84,7 +84,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                 newValue = newValue ? (newValue + ',' + element) : element;
             }
         }
-        auxFilterProjects[tag] = (tag === 'mhfddollarsallocated' || tag === 'totalcost')? auxValueTag: newValue;
+        auxFilterProjects[tag] = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? auxValueTag : newValue;
         setFilterProjectOptions(auxFilterProjects);
         getGalleryProjects();
     }
@@ -96,7 +96,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
     for (const key in filterComponentOptions) {
         const tag = {
             key,
-            values: key === 'estimatedcost'?  filterComponentOptions[key]: filterComponentOptions[key].split(',')
+            values: key === 'estimatedcost' ? filterComponentOptions[key] : filterComponentOptions[key].split(',')
         }
         tagComponents.push(tag);
     }
@@ -110,10 +110,10 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
     for (const key in filterProblemOptions) {
         const tag = {
             key,
-            values: key === 'cost'?  filterProblemOptions[key]: filterProblemOptions[key].split(',')
+            values: key === 'cost' ? filterProblemOptions[key] : filterProblemOptions[key].split(',')
         }
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-            tagProblems.push(tag);
+            //tagProblems.push(tag);
         }
     }
 
@@ -121,10 +121,10 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
     for (const key in filterProjectOptions) {
         const tag = {
             key,
-            values: (key === 'mhfddollarsallocated' || key === 'totalcost')?  filterProjectOptions[key]: filterProjectOptions[key].split(',')
+            values: (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjectOptions[key] : filterProjectOptions[key].split(',')
         }
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-            tagProjects.push(tag);
+            //tagProjects.push(tag);
         }
     }
 
@@ -144,11 +144,14 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
             setState(auxState);
         }, 500);
     };
+    /* console.log('TAG PROBLEMS', tagProblems);
+    console.log('TAG PROJECTS', tagProjects); */
+
     return <>
-        <div className="scroll-cards" style={{height: 'auto', overflowY: 'hidden'}}>
-        <div className="hastag" style={{ minHeight: 34 }}>
-            <h6> Showing {totalElements} {type}:</h6>
-            <div style={{ marginBottom: totalElements ? 0 : 5 }}>
+        <div className="scroll-cards" style={{ height: 'auto', overflowY: 'hidden' }}>
+            <div className="hastag" style={{ minHeight: 34 }}>
+                {/* <h6> Showing {totalElements} {type}:</h6> */}
+                <div style={{ marginBottom: totalElements ? 0 : 5 }}>
                 {type === FILTER_PROBLEMS_TRIGGER ? tagProblems.map((tag: { key: string, values: Array<string> }, index: number) => {
                     return <>
                         {tag.values.map((element: string) => {
@@ -188,7 +191,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                             </Tag>
                         })}
                     </>
-                })}
+                })} 
                 {tagComponents.map((tag: { key: string, values: Array<string> }, index: number) => {
                     return <>
                         {tag.values.map((element: string) => {
@@ -262,7 +265,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                 </InfiniteScroll>
             </Row>
         }
-        </div>
+    </div>
 
     </>
 }
