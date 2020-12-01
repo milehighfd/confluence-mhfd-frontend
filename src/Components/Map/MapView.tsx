@@ -13,7 +13,8 @@ import store from "../../store";
 import DetailedModal from "../Shared/Modals/DetailedModal";
 import { genExtra } from "../../utils/detailedUtils";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
-import { push } from "connected-react-router";
+//import { push } from "connected-react-router";
+import { elementCost, getStatus } from '../../utils/utils';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -118,8 +119,53 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       'detail': []
     },
     {
-      'name': 'additional',
-      'display': 'ADDITIONAL FILTERS',
+      'name': 'problemtype',
+      'display': 'PROBLEM TYPE',
+      'detail': []
+    },
+    {
+      'name': 'consultant',
+      'display': 'CONSULTANT',
+      'detail': []
+    },
+    {
+      'name': 'contractor',
+      'display': 'CONTRACTOR',
+      'detail': []
+    },
+    {
+      'name': 'jurisdiction',
+      'display': 'JURISDICTION',
+      'detail': []
+    },
+    {
+      'name': 'county',
+      'display': 'COUNTY',
+      'detail': []
+    },
+    {
+      'name': 'lgmanager',
+      'display': 'LOCAL GOVERNMENT MANAGER',
+      'detail': []
+    },
+    {
+      'name': 'streamname',
+      'display': 'STREAM NAME',
+      'detail': []
+    },
+    {
+      'name': 'creator',
+      'display': 'CREATOR',
+      'detail': []
+    },
+    {
+      'name': 'mhfdmanager',
+      'display': 'MHFD WATERSHED MANAGER',
+      'detail': []
+    },
+    {
+      'name': 'servicearea',
+      'display': 'WATERSHED SERVICE AREA',
       'detail': []
     }
   ];
@@ -176,19 +222,132 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       'detail': []
     }
   ];
-  let contentStringProject: string = "<div className='tag-filters'><div className='tag-body'>";
-  let contentStringProblem: string = "<div className='tag-filters'><div className='tag-body'>";
+  const resetFilterProblems = () => {
+    console.log('reset problem');
+    const options = { ...filterProblemOptions };
+    options.components = '';
+    options.solutionstatus = '';
+    options.county = '';
+    options.cost = '';
+    options.priority = '';
+    options.jurisdiction = '';
+    options.mhfdmanager = '';
+    options.problemtype = '';
+    options.source = '';
+    options.servicearea = '';
+    setFilterProblemOptions(options);
+    getGalleryProblems();
+  }
+
+  const resetFilterProjects = () => {
+    console.log('reset project');
+    const options = { ...filterProjectOptions };
+    options.projecttype = 'Maintenance,Capital';
+    options.status = 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual';
+    options.mhfddollarsallocated = '';
+    options.workplanyear = '';
+    options.startyear = '';
+    options.completedyear = '';
+    options.problemtype = '';
+    options.mhfdmanager = '';
+    options.jurisdiction = '';
+    options.totalcost = ''
+    options.streamname = '';
+    options.county = '';
+    options.lgmanager = '';
+    options.creator = '';
+    options.problemtype = '';
+    options.consultant = '';
+    options.contractor = '';
+    options.servicearea = '';
+    setFilterProjectOptions(options);
+    getGalleryProjects();
+  }
+
+  const deleteTagProblems = (tag: string, value: string) => {
+    console.log('delete problem')
+    const auxFilterProblems = { ...filterProblemOptions };
+    //console.log('AUX FILTER', auxFilterProblems);
+    /* const valueTag = tag === 'cost' ? auxFilterProblems[tag] : auxFilterProblems[tag].split(',');
+    const auxValueTag = [] as Array<string>;
+    for (let index = 0; index < valueTag.length; index++) {
+      const element = valueTag[index];
+      if (element !== value) {
+        auxValueTag.push(element);
+      }
+    }
+    let newValue = '';
+    for (let index = 0; index < auxValueTag.length; index++) {
+      const element = auxValueTag[index];
+      if (element !== '') {
+        newValue = newValue ? (newValue + ',' + element) : element;
+      }
+    }
+    auxFilterProblems[tag] = tag === 'cost' ? auxValueTag : newValue;
+    setFilterProblemOptions(auxFilterProblems); */
+    //getGalleryProblems();
+  }
+
+  const deleteTagProjects = (tag: string, value: string) => {
+    const auxFilterProjects = { ...filterProjectOptions };
+    //console.log('AUX FILTER PROJECT', auxFilterProjects);
+    /* const valueTag = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? filterProjectOptions[tag] : filterProjectOptions[tag].split(',');
+    const auxValueTag = [] as Array<string>;
+    for (let index = 0; index < valueTag.length; index++) {
+        const element = valueTag[index];
+        if (element !== value) {
+            auxValueTag.push(element);
+        }
+    }
+    let newValue = '';
+    for (let index = 0; index < auxValueTag.length; index++) {
+        const element = auxValueTag[index];
+        if (element !== '') {
+            newValue = newValue ? (newValue + ',' + element) : element;
+        }
+    }
+    auxFilterProjects[tag] = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? auxValueTag : newValue;
+    console.log(auxFilterProjects[tag]);
+    setFilterProjectOptions(auxFilterProjects); */
+    //getGalleryProjects();
+  }
 
   const generateLabelsFilterProblems = () => {
-    for (const label2 of labelsFiltersProjects) {
-      //console.log('VALUEE2',label2);
-      if (label2.detail.length > 0) {
-        const mainLabel = `<div className="head">${label2.name} <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>`;
-        let descript = '';
-        for (const value of label2.detail) {
-          descript = descript + `<p>${value} <Button className="btn-transparent"><img src="/Icons/icon-84.svg" width="15px" alt="" /></Button> </p>`;
-        }
+    //console.log('', paramProblems);
+    const filterProblems = { ...filterProblemOptions } as any;
+    //console.log('FILTER PROBLEMS', filterProblems);
+    for (const key in filterProblemOptions) {
+      const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
+      if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+        const elements = [];
+        const position = labelsFiltersProblems.findIndex(x => x.name === key);
+        for (let index = 0; index < tag.length; index++) {
+          const element = tag[index];
+          if (element) {
+            //countTagProblems += 1;
+            if (key === 'cost') {
+              const cost = element.split(',')
+              elements.push({
+                tag: elementCost(cost[0], cost[1]),
+                value: element
+              });
+            } else {
+              if (key === 'solutionstatus') {
+                elements.push({
+                  tag: getStatus(element),
+                  value: element
+                });
+              } else {
+                elements.push({
+                  tag: element,
+                  value: element
+                });
+              }
+            }
 
+          }
+        }
+        labelsFiltersProblems[position]['detail'] = elements as any;
       }
     }
     return (
@@ -196,18 +355,18 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         <div className='tag-body'>
           {labelsFiltersProblems.filter(x => x.detail.length > 0).map((element: any) => {
             return (
-              showFilterLabels(element)
+              showFilterLabelsProblems(element)
             )
           })}
         </div>
         <div className="btn-footer-02"><Button className="btn-borde"
-        >Clear</Button></div>
+          onClick={() => resetFilterProblems()} >Clear</Button></div>
       </div>
     )
   }
   const generateLabelsFilterProjects = () => {
-    let contentStringProject2: string = "<div className='tag-filters'><div className='tag-body'>";
     const filterProjects = { ...filterProjectOptions } as any;
+    //console.log('FILTERS', filterProjects);
     for (const key in filterProjectOptions) {
       let c = 0;
       const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
@@ -224,7 +383,20 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
         const elements = [];
         for (let index = 0; index < tag.length; index++) {
-          elements.push(tag[index]);
+          if (key === 'mhfddollarsallocated' || key === 'totalcost') {
+            const cost = tag[index].split(',');
+            elements.push({
+              tag: elementCost(cost[0], cost[1]),
+              value: tag[index]
+            });
+          } else {
+            if (tag[index].length > 0) {
+              elements.push({
+                tag: tag[index],
+                value: tag[index]
+              });
+            }
+          }
         }
         if (elements.length > 0) {
           labelsFiltersProjects[position]['detail'] = elements as any;
@@ -241,7 +413,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           })}
         </div>
         <div className="btn-footer-02"><Button className="btn-borde"
-        >Clear</Button></div>
+          onClick={() => resetFilterProjects()}>Clear</Button></div>
       </div>
     );
   }
@@ -250,16 +422,25 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     return (
       <div className="head">{element.display} <img src="/Icons/icon-19.svg" width="13px" alt="" />
         {element.detail.map((filter: any) => {
-          return <p>{filter} <Button className="btn-transparent"
-            onClick={() => removeFilter()}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+          return <p>{filter.tag} <Button className="btn-transparent"
+            onClick={() => deleteTagProjects(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+        })}
+      </div>
+    );
+  }
+
+  const showFilterLabelsProblems = (element: any) => {
+    return (
+      <div className="head">{element.display} <img src="/Icons/icon-19.svg" width="13px" alt="" />
+        {element.detail.map((filter: any) => {
+          return <p>{filter.tag} <Button className="btn-transparent"
+            onClick={() => deleteTagProblems(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
         })}
       </div>
     );
   }
 
   useEffect(() => {
-    console.log('FILTER PROBLEMS', filterProblemOptions);
-    console.log('FILTER PROJECTS', filterProjectOptions);
     let countTagProblems = 0;
     let countTagProjets = 0;
     let countTagComponents = 0;
@@ -311,9 +492,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         bodyTagProjects = bodyTagProjects + mainLabel + descript;
       }
     }
-    contentStringProject = ((contentStringProject + bodyTagProjects +
-      `<div className="btn-footer-02"><Button className="btn-borde">Clear</Button></div></div>`));
-    console.log('END TITLE', contentStringProject);
+
     const filterProblems = { ...filterProblemOptions } as any;
     for (const key in filterProblemOptions) {
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
@@ -330,7 +509,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         labelsFiltersProblems[position]['detail'] = elements as any;
       }
     }
-        
+
     setCountFilterComponents(countTagComponents);
     setCountFilterProblems(countTagProblems);
     setCountFilterProjects(countTagProjets);
@@ -668,20 +847,20 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               </Popover>
             </span>
       </Dropdown> */}
-      <div className="auto-complete-map">
-          <Popover content={content}>
-            <AutoComplete
-              style={{ width: '200' }}
-              dataSource={dataAutocomplete}
-              placeholder={'Mile High Flood District'}
-              filterOption={(inputValue, option: any) =>
-                // groupOrganization.name
-                option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-              }
-              onSelect={onSelect} >
-              <Input suffix={<Icon type="down" className="certain-category-icon" />} />
-            </AutoComplete>
-          </Popover>
+          <div className="auto-complete-map">
+            <Popover content={content}>
+              <AutoComplete
+                style={{ width: '200' }}
+                dataSource={dataAutocomplete}
+                placeholder={'Mile High Flood District'}
+                filterOption={(inputValue, option: any) =>
+                  // groupOrganization.name
+                  option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                }
+                onSelect={onSelect} >
+                <Input suffix={<Icon type="down" className="certain-category-icon" />} />
+              </AutoComplete>
+            </Popover>
           </div>
           {/*<div className="auto-complete-map">
             <AutoComplete

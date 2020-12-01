@@ -19,6 +19,27 @@ export const numberWithCommas = (x: number) => {
   return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
 }
 
+export const getStatus = (value: any) => {
+  let percentStatus = '';
+  console.log(typeof(value));
+  switch(value) {
+    case '0':
+      percentStatus = '0%-25%';
+      break;
+    case '25':
+      percentStatus = '25%-50%';
+      break;
+    case '50':
+      percentStatus = '50%-75%';
+      break;
+    case '75':
+      percentStatus = '75%-100%';
+      break;
+  }
+  console.log('status', value + ' ' + percentStatus);
+  return percentStatus;
+}
+
 export const secondWordOfCamelCase = (text: string) => {
   const spacedText = text.replace(/([A-Z])/g, ' $1').trim();
   const formatedText = spacedText.split(/\s+/).slice(1, 2);
