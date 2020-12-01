@@ -5,7 +5,7 @@ import Navbar from "../Components/Shared/Navbar/NavbarContainer";
 import SidebarView from "../Components/Shared/Sidebar/SidebarView";
 import LoadingView from '../Components/Loading/LoadingView';
 
-import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES } from "../constants/constants";
+import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MEDIUM_SCREEN_RIGHT, MEDIUM_SCREEN_LEFT } from "../constants/constants";
 import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message, Spin } from 'antd';
@@ -95,8 +95,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
              } : MapHOCProps) => {
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
-        const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN);
-        const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN);
+        const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_LEFT);
+        const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_RIGHT);
         const [selectedItems, setSelectedItems] = useState([]);
         const [isPolygon, setIsPolygon] = useState(false);
         const [formatedProjects, setFormatedProjects] = useState<any>([]);
@@ -127,13 +127,13 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         }, [projectsByType]);
 
         const updateWidth = () => {
-          if (leftWidth === MEDIUM_SCREEN) {
+          if (leftWidth === MEDIUM_SCREEN_LEFT) {
             setLeftWidth(COMPLETE_SCREEN);
             setRightWitdh(EMPTY_SCREEN);
             setRotationStyle({transform: 'rotate(180deg)'});
           } else {
-            setLeftWidth(MEDIUM_SCREEN);
-            setRightWitdh(MEDIUM_SCREEN);
+            setLeftWidth(MEDIUM_SCREEN_LEFT);
+            setRightWitdh(MEDIUM_SCREEN_RIGHT);
             setRotationStyle(emptyStyle);
             const copySelectedLayers = [...selectedLayers];
             if (!copySelectedLayers.includes(PROBLEMS_TRIGGER)) {
