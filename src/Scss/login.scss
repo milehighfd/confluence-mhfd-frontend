@@ -501,6 +501,9 @@
 
 // RESPONSIVE
 @media (max-width: 575.98px) {
+  body{
+    overflow-y: scroll;
+  }
   .logo-white {
     margin: 52px 0 0 25px;
   }

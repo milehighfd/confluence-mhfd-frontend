@@ -28,7 +28,7 @@ export default () => {
         </ul>
       </div>
       <div className="mobile-login">
-        <Button className="btn-purple">Login</Button>
+        <Button className="btn-purple">Enter</Button>
       </div>
     </div>
     <Carousel autoplay autoplaySpeed={6000}>
