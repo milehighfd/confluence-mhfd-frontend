@@ -191,7 +191,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                             </Tag>
                         })}
                     </>
-                })} 
+                })}
                 {tagComponents.map((tag: { key: string, values: Array<string> }, index: number) => {
                     return <>
                         {tag.values.map((element: string) => {
@@ -244,7 +244,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                     next={fetchMoreData}
                     hasMore={state.hasMore}
                     loader={cardInformation.length ? <h4>Loading...</h4> : ''}
-                    height={window.innerHeight - 335}
+                    height={window.innerHeight - 245}
                     endMessage={''}>
                     {sw ? state.items.map((i, index: number) => {
                         return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}
