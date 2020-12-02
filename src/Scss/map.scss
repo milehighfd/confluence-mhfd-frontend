@@ -314,7 +314,7 @@
   }
 }
 .filter-map{
-  height: calc(100vh - 290px);
+  height: calc(100vh - 170px);
   overflow-y: auto;
   h6{
     font-size: 16px;
@@ -689,8 +689,9 @@
 .auto-complete-map{
   .ant-select{
     width: 100% ;
-    max-width: 255px;
+    max-width: 295px;
     min-width: 90px;
+    border-bottom: 1.5px solid $opacity03;
   }
   .ant-select-selection__placeholder, .ant-select-search__field__placeholder, .ant-input{
    color: $purple;
@@ -1072,7 +1073,7 @@
   }
   .head{
     background: $opacity00;
-    padding: 5px;
+    padding: 5px 10px;
     color: $purple00;
     font-size: 13px;
 
