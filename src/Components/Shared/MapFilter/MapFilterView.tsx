@@ -61,8 +61,6 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
         { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean }) => {
   // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
 
- 
-  
   const onChange = (value: boolean, item: any) => {
     //console.log('mi grupo de switch', value, item, selectedLayers)
     
@@ -82,9 +80,6 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     removePopup();
   } 
 
-
-
-
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '250px', left: '-12px', margin:'0px 20px', paddingTop: '0px'}}>
           <div className="filter-map">
           <Checkbox.Group value={selectedLayers} onChange={(items) => {
@@ -101,7 +96,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   Floodplains
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.floodplains)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
-                  </Popover> <Switch size="small"/>
+                  </Popover> <Switch size="small" onChange={(value) => onChange(value, FLOODPLAINS)}/>
                 </p> {/* <Checkbox value={FLOODPLAINS}></Checkbox>*/}
 
                 <p>
@@ -110,7 +105,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.fema_flood_hazard_zones)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
                   </Popover>
-                  <Switch size="small"/>
+                  <Switch size="small" onChange={(value) => onChange(value, FEMA_FLOOD_HAZARD)}/>
                 </p> {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
 
                 <p>
@@ -119,7 +114,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.watershed)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
                   </Popover>
-                  <Switch size="small"/>
+                  <Switch size="small" onChange={(value) => onChange(value, WATERSHED_FILTERS)}/>
                 </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
 
                 <p style={{display: 'none'}}>
@@ -128,7 +123,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.stream_mang_corridors)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
                   </Popover>
-                  <Switch size="small" />
+                  <Switch size="small" onChange={(value) => onChange(value, STREAMS_FILTERS)}/>
                   </p> {/*<Checkbox value={STREAMS_FILTERS}></Checkbox>*/}
               </Panel>
 
@@ -139,7 +134,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.service_area)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
                   </Popover>
-                  <Switch size="small"/>
+                  <Switch size="small" onChange={(value) => onChange(value, SERVICE_AREA_LAYERS)}/>
                 </p> {/*<Checkbox value={SERVICE_AREA_LAYERS}></Checkbox>*/}
 
                 <p>
@@ -148,7 +143,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.municipalities)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
                   </Popover>
-                  <Switch size="small"/>
+                  <Switch size="small" onChange={(value) => onChange(value, MUNICIPALITIES)}/>
                 </p> {/*<Checkbox value={MUNICIPALITIES}></Checkbox>*/}
 
                 <p>
@@ -157,7 +152,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.counties)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}}/>
                   </Popover>
-                  <Switch size="small"/>
+                  <Switch size="small" onChange={(value) => onChange(value, COUNTIES_LAYERS)}/>
                 </p> {/*<Checkbox value={COUNTIES_LAYERS}></Checkbox>*/}
 
                 <p style={{display: 'none'}}>
@@ -173,7 +168,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
                   </Popover>
                   <Switch size="small" defaultChecked={true} onChange={(value) => onChange(value, PROBLEMS_TRIGGER)}/>
-                </p> <Checkbox defaultChecked={true} value={PROBLEMS_TRIGGER}></Checkbox>
+                </p>{/*<Checkbox defaultChecked={true} value={PROBLEMS_TRIGGER}></Checkbox> */}
 
                 <p>
                   <img src="/Icons/icon-76.svg" alt=""/>
@@ -181,7 +176,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.component)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
                   </Popover>
-                  <Switch size="small"/>
+                  <Switch size="small" onChange={(value) => onChange(value, COMPONENT_LAYERS)}/>
                 </p> {/*<Checkbox value={COMPONENT_LAYERS}></Checkbox>*/}
 
                 <p>
@@ -191,7 +186,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
                   </Popover>
                   <Switch size="small" defaultChecked={true} onClick={(value) => onChange(value, PROJECTS_MAP_STYLES)}/>
-                </p><Checkbox defaultChecked={true} value={PROJECTS_MAP_STYLES}></Checkbox>
+                </p>{/*<Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROJECTS_MAP_STYLES}></Checkbox> */}
 
                 <p>
                   <img src="/Icons/icon-76.svg" alt=""/>
@@ -199,7 +194,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.mep_projects)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
                   </Popover>
-                  <Switch size="small"/>
+                  <Switch size="small" onChange={(value) => onChange(value, MEP_PROJECTS)}/>
                 </p> {/* <Checkbox value={MEP_PROJECTS}></Checkbox>*/}
 
                 <p>
@@ -208,7 +203,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.routine_maintenance)}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
                   </Popover>
-                  <Switch size="small"/>
+                  <Switch size="small" onChange={(value) => onChange(value, ROUTINE_MAINTENANCE)}/>
                 </p> {/* <Checkbox value={ROUTINE_MAINTENANCE}></Checkbox>*/}
               </Panel>
 
