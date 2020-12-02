@@ -66,7 +66,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
   const onChange = (value: boolean, item: any) => {
     //console.log('mi grupo de switch', value, item, selectedLayers)
     
-    var switchSelected: any[] = selectedLayers
+    let switchSelected: any[] = [...selectedLayers];
     //console.log('mi array', switchSelected)
     if(value) {
       switchSelected.push(item);
