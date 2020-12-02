@@ -56,15 +56,40 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
         { selectCheckboxes : Function,  setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean }) => {
   // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
 
+ 
+  
+  const onChange = (value: boolean, item: any) => {
+    //console.log('mi grupo de switch', value, item, selectedLayers)
+    
+    var switchSelected: any[] = selectedLayers
+    //console.log('mi array', switchSelected)
+    if(value) {
+      switchSelected.push(item);
+    } else {
+      switchSelected = switchSelected.filter((element) => {
+        return element !== item; 
+      })
+    }
+    console.log('mi array 2', switchSelected, selectedLayers)
+    setSelectedCheckBox(switchSelected);
+    // setCheckboxes(switchSelected);
+    selectCheckboxes(switchSelected);
+    removePopup();
+  } 
+
+
+
+
   return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '250px', left: '-12px', margin:'0px 20px', paddingTop: '0px'}}>
           <div className="filter-map">
           <Checkbox.Group value={selectedLayers} onChange={(items) => {
+              console.log('deloschek', items, selectedLayers)
               setSelectedCheckBox(items);
               // setCheckboxes(items);
               selectCheckboxes(items);
               removePopup();
             }}>
-            <Collapse defaultActiveKey={['1']} expandIconPosition="right">
+            <Collapse defaultActiveKey={['1', '2', '3', '4']} expandIconPosition="right">
               <Panel header="" key="1" extra={genExtra()}>
                 <p>
                   <img src="/Icons/icon-75.svg" alt=""/>
@@ -142,8 +167,8 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
                   </Popover>
-                  <Switch size="small"/>
-                </p> {/*<Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROBLEMS_TRIGGER}></Checkbox>*/}
+                  <Switch size="small" defaultChecked={true} onChange={(value) => onChange(value, PROBLEMS_TRIGGER)}/>
+                </p> <Checkbox defaultChecked={true} value={PROBLEMS_TRIGGER}></Checkbox>
 
                 <p>
                   <img src="/Icons/icon-76.svg" alt=""/>
@@ -160,8 +185,8 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={content}>
                     <img src="/Icons/icon-19.svg" alt="" style={{marginLeft: '5px'}} />
                   </Popover>
-                  <Switch size="small"/>
-                </p> {/*<Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROJECTS_MAP_STYLES}></Checkbox>*/}
+                  <Switch size="small" defaultChecked={true} onClick={(value) => onChange(value, PROJECTS_MAP_STYLES)}/>
+                </p><Checkbox defaultChecked={true} value={PROJECTS_MAP_STYLES}></Checkbox>
 
                 <p>
                   <img src="/Icons/icon-76.svg" alt=""/>
