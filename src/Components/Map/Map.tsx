@@ -504,9 +504,6 @@ const Map = ({ leftWidth,
         });
         let __ = 1;// #good practices
         map.on('dragend', () => {
-            if (!opacityLayer) {
-                hideOpacity();
-            }
             console.log('move end')
             setDragEndCounter(__++);
             // hideLayerOpacity();
