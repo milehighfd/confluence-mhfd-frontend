@@ -21,6 +21,7 @@ let contents: any = [];
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 
+let contentsFilter: any = [];
 
 const content00 = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
 const content01 = (<div className="popoveer-00"><b>Priority:</b> is the severity of a problem relative to other problems of the same type.</div>);
@@ -101,7 +102,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProjects,
-    setTabCards, setOpacityLayer, setLabelFilterProblems, setLabelFilterProjects,
+    setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
     setCoordinatesJurisdiction, setNameZoomArea } = useMapDispatch();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems } = useMapState();
 
@@ -198,7 +199,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const generateLabelsFilterProblems = () => {
     //console.log('', paramProblems);
     const filterProblems = { ...filterProblemOptions } as any;
-    console.log('FILTER PROBLEMS', labelsFiltersProblems);
+    //console.log('FILTER PROBLEMS', labelsFiltersProblems);
     const labelsProblems = [...labelsFiltersProblems];
     for (const key in filterProblemOptions) {
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
@@ -254,24 +255,13 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }
   const generateLabelsFilterProjects = () => {
     const filterProjects = { ...filterProjectOptions } as any;
-    //console.log('FILTERS', filterProjects);
     let labelsProjects = [] as any;
-    //let labelsProjects = { ...labelsFiltersProjects} [] as any;
     labelsProjects = [...labelsFiltersProjects];
-    console.log('FUNCTIOOOON', labelsProjects);
-    console.log('OTHER FUNCTION', typeof(labelsFiltersProjects));
+    console.log('LABEL',labelsProjects);
     for (const key in filterProjectOptions) {
       let c = 0;
       const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
-      /* if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-        for (let index = 0; index < tag.length; index++) {
-          const element = tag[index];
-          if (element) {
-            //countTagProjets += 1;
-          }
-        }
-      } */
-      const position = labelsProjects.findIndex((x: any) => x.name === key);
+      const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
       if (position >= 0) {
         const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
         const elements = [];
@@ -294,16 +284,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           }
         }
         if (elements.length > 0) {
-          console.log('DETALLLLE', labelsProjects);
-          labelsProjects[position]['detail'] = elements as any;
+          labelsFiltersProjects[position]['detail'] = elements as any;
         }
       }
     }
-    //setLabelFilterProjects(labelsProjects);
     return (
       <div className='tag-filters'>
         <div className='tag-body'>
-          {labelsProjects.filter((x: any) => x.detail.length > 0).map((element: any) => {
+          {labelsFiltersProjects.filter((x: any) => x.detail.length > 0).map((element: any) => {
             return (
               showFilterLabels(element)
             )
@@ -316,15 +304,22 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }
 
   const showFilterLabels = (element: any) => {
-    return (
-      <>
-      <div className="head">{element.display} <Popover content={content00}><img src="/Icons/icon-19.svg" width="13px" alt="" /></Popover></div>
-        {element.detail.map((filter: any) => {
-          return <p>{filter.display} <Button className="btn-transparent"
-            onClick={() => deleteTagProjects(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-        })}
-      </>
-    );
+    if (element.detail[0].length === 0) {
+      return (
+        <>
+        </>)
+    } else {
+      return (
+        <>
+        {/* {element.popover ? <div className="head">{element.display} <Popover content={content + element.popover}><img src="/Icons/icon-19.svg" width="13px" alt="" /></Popover></div> : */}
+        <div className="head">{element.display} <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+          {element.detail.map((filter: any) => {
+            return <p>{filter.display} <Button className="btn-transparent"
+              onClick={() => deleteTagProjects(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+          })}
+        </>
+      );
+    }
   }
 
   const showFilterLabelsProblems = (element: any) => {

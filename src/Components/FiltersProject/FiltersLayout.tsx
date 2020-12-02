@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Checkbox, Select, Button, Popover } from 'antd';
 import { elementCost, elementCostLastPosition } from '../../utils/utils';
+import { useMapDispatch } from '../../hook/mapHook';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
@@ -506,7 +507,11 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 }
 
 export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects, setToggleFilters} : any) => {
+    const { setLabelFilterProjects, setLabelFilterProblems } = useMapDispatch();
+    //const { labelsFiltersProjects, labelsFiltersProblems } = useMapState();
+
     const apply = (values: any, field: string) => {
+        console.log('value: ' + values + ", field: " + field);
         const options = {...filterComponentOptions};
         if('component_type' === field || 'status' === field || 'yearofstudy' === field) {
             let newValue = '';
@@ -518,9 +523,11 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         } else {
             options[field] = values;
         }
+        //let labelsProjects = [...labelsFiltersProjects];
         setFilterComponentOptions(options);
         getGalleryProjects();
         getGalleryProblems();
+        
     }
     const reset = () => {
         const options = {...filterComponentOptions};

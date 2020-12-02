@@ -28,8 +28,8 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
       opacityLayer: boolean,
       coordinatesJurisdiction: any[],
       nameZoomArea: string,
-      labelsFiltersProjects: LabelFilter[],
-      labelsFiltersProblems: LabelFilter[]
+      labelsFiltersProjects: any[],
+      labelsFiltersProblems: any[] //LabelFilter[]
     }>
     (
       state => state.map.toggleModalFilter,

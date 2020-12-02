@@ -218,134 +218,160 @@ const initState = {
         {
             'display': 'PROJECT TYPE',
             'name': 'projecttype',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'totalcost',
             'display': 'TOTAL COST',
-            'detail': []
+            'detail': [],
+            'popover': '05'
         },
         {
             'name': 'status',
             'display': 'PROJECT STATUS',
-            'detail': []
+            'detail': [],
+            'popover': '06'
         },
         {
             'name': 'year',
             'display': 'YEAR',
-            'detail': []
+            'detail': [],
+            'popover': '07'
         },
         {
             'name': 'mhfddollarsallocated',
             'display': 'MHFD DOLLARS ALLOCATED',
-            'detail': []
+            'detail': [],
+            'popover': '09'
         },
         {
             'name': 'workplanyear',
             'display': 'WORK PLAN YEAR',
-            'detail': []
+            'detail': [],
+            'popover': '10'
         },
         {
             'name': 'problemtype',
             'display': 'PROBLEM TYPE',
-            'detail': []
+            'detail': [],
+            'popover': '11'
         },
         {
             'name': 'consultant',
             'display': 'CONSULTANT',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'contractor',
             'display': 'CONTRACTOR',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'jurisdiction',
             'display': 'JURISDICTION',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'county',
             'display': 'COUNTY',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'lgmanager',
             'display': 'LOCAL GOVERNMENT MANAGER',
-            'detail': []
+            'detail': [],
+            'popover': '12'
         },
         {
             'name': 'streamname',
             'display': 'STREAM NAME',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'creator',
             'display': 'CREATOR',
-            'detail': []
+            'detail': [],
+            'popover': '13'
         },
         {
             'name': 'mhfdmanager',
             'display': 'MHFD WATERSHED MANAGER',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'servicearea',
             'display': 'WATERSHED SERVICE AREA',
-            'detail': []
+            'detail': [],
+            'popover': ''
         }
     ],
     labelsFiltersProblems: [
         {
             'name': 'cost',
             'display': 'SOLUTION COST',
-            'detail': []
+            'detail': [],
+            'popover': '00'
         },
         {
             'name': 'priority',
             'display': 'PRIORITY',
-            'detail': []
+            'detail': [],
+            'popover': '01'
         },
         {
             'name': 'components',
             'display': 'ELEMENT TYPE',
-            'detail': []
+            'detail': [],
+            'popover': '02'
         },
         {
             'name': 'solutionstatus',
             'display': 'STATUS',
-            'detail': []
+            'detail': [],
+            'popover': '03'
         },
         {
             'name': 'county',
             'display': 'COUNTY',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'jurisdiction',
             'display': 'JURISDICTION',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'servicearea',
             'display': 'WATERSHED SERVICE AREA',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'mhfdmanager',
             'display': 'MHFD WATERSHED',
-            'detail': []
+            'detail': [],
+            'popover': ''
         },
         {
             'name': 'source',
             'display': 'SOURCE',
-            'detail': []
+            'detail': [],
+            'popover': '04'
         },
         {
             'name': 'problemtype',
             'display': 'PROBLEM TYPE',
-            'detail': []
+            'detail': [],
+            'popover': ''
         }
     ]
 }
