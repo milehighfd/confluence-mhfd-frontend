@@ -100,7 +100,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
-  const { setToggleModalFilter, getParamFilterProjects, 
+  const { setToggleModalFilter, getParamFilterProjects,
     setTabCards, setOpacityLayer, setLabelFilterProblems, setLabelFilterProjects,
     setCoordinatesJurisdiction, setNameZoomArea } = useMapDispatch();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems } = useMapState();
@@ -213,7 +213,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               const cost = element.split(',')
               elements.push({
                 tag: key,
-                value: element, 
+                value: element,
                 display: elementCost(cost[0], cost[1])
               });
             } else {
@@ -256,7 +256,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     const filterProjects = { ...filterProjectOptions } as any;
     //console.log('FILTERS', filterProjects);
     let labelsProjects = [] as any;
-    //let labelsProjects = { ...labelsFiltersProjects} [] as any; 
+    //let labelsProjects = { ...labelsFiltersProjects} [] as any;
     labelsProjects = [...labelsFiltersProjects];
     console.log('FUNCTIOOOON', labelsProjects);
     console.log('OTHER FUNCTION', typeof(labelsFiltersProjects));
@@ -317,23 +317,25 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const showFilterLabels = (element: any) => {
     return (
-      <div className="head">{element.display} <Popover content={content00}><img src="/Icons/icon-19.svg" width="13px" alt="" /></Popover>
+      <>
+      <div className="head">{element.display} <Popover content={content00}><img src="/Icons/icon-19.svg" width="13px" alt="" /></Popover></div>
         {element.detail.map((filter: any) => {
           return <p>{filter.display} <Button className="btn-transparent"
             onClick={() => deleteTagProjects(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
         })}
-      </div>
+      </>
     );
   }
 
   const showFilterLabelsProblems = (element: any) => {
     return (
-      <div className="head">{element.display} <img src="/Icons/icon-19.svg" width="13px" alt="" />
+      <>
+      <div className="head">{element.display} <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
         {element.detail.map((filter: any) => {
           return <p>{filter.display} <Button className="btn-transparent"
             onClick={() => deleteTagProblems(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
         })}
-      </div>
+      </>
     );
   }
 
@@ -376,7 +378,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         }
       }
     }
-    
+
     setCountFilterComponents(countTagComponents);
     setCountFilterProblems(countTagProblems);
     setCountFilterProjects(countTagProjets);
