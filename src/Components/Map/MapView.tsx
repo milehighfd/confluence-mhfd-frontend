@@ -714,7 +714,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             </span>
       </Dropdown> */}
           <div className="auto-complete-map">
-            <Popover content={content}>
+            {/* <Popover content={content}> */}
               <AutoComplete
                 style={{ width: '200' }}
                 dataSource={dataAutocomplete}
@@ -726,7 +726,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 onSelect={onSelect} >
                 <Input suffix={<Icon type="down" className="certain-category-icon" />} />
               </AutoComplete>
-            </Popover>
+            {/* </Popover> */}
           </div>
           {/*<div className="auto-complete-map">
             <AutoComplete
