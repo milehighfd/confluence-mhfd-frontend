@@ -607,7 +607,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       return false;
     }
     return true;
-  }).map((item: { aoi: string }) => { return <Option key={item.aoi}>{item.aoi}</Option> });
+  }).map((item: { aoi: string }) => { return <Option className="list-line" key={item.aoi}>{item.aoi}</Option> });
 
   const onSelect = (value: any) => {
     console.log('Selected:', value);

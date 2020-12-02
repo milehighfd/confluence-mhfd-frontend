@@ -228,6 +228,20 @@
     font-weight: 500;
   }
 }
+// LIST MENU AUTOCOMPLE
+.list-line{
+  font-size: 14px !important;
+  color: $purple !important;
+  border-bottom: 1px solid rgba(61, 46, 138, 0.07);
+  margin: 0px 8px;
+  padding: 8px 10px !important;
+  border-radius: 4px;
+}
+.list-line:hover, .list-line:focus{
+  font-weight: 500;
+  background-color: $opacity01 !important;
+}
+//END LIST MENU AUTOCOMPLE
 .sign-menu {
   overflow-y: auto;
   max-height: 225px;
