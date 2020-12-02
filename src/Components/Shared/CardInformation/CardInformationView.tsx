@@ -78,7 +78,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
       <Col span={12}>
         <Card
           hoverable
-          style={{ width: '100%', border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 2px #28c499' : '', margin:(selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? '-2px' : ''}}
+          style={{ width: '100%', border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 2px #28c499' : '', margin:(selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? '-2px 0px' : ''}}
           onClick={() => setVisible(true)}
           onMouseEnter={() =>  setValuesMap(data.type, data.value)}
           onMouseLeave={()=> setValuesMap('','')}

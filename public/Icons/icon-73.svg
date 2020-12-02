@@ -1,38 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="17" viewBox="0 0 16 17">
-  <defs>
-    <clipPath id="clip-path">
-      <rect id="Rectángulo_2" data-name="Rectángulo 2" width="16" height="17" transform="translate(627 -55)" fill="none"/>
-    </clipPath>
-    <clipPath id="clip-path-2">
-      <path id="Trazado_19" data-name="Trazado 19" d="M627.66-51.536h2.073a2.626,2.626,0,0,0,2.545,1.979,2.626,2.626,0,0,0,2.545-1.979h7.352a.66.66,0,0,0,.66-.66.66.66,0,0,0-.66-.66h-7.352a2.626,2.626,0,0,0-2.545-1.979,2.626,2.626,0,0,0-2.545,1.979H627.66a.66.66,0,0,0-.66.66.66.66,0,0,0,.66.66Zm4.619-1.979a1.32,1.32,0,0,1,1.32,1.32,1.32,1.32,0,0,1-1.32,1.32,1.32,1.32,0,0,1-1.32-1.32,1.32,1.32,0,0,1,1.319-1.32Z" fill="none"/>
-    </clipPath>
-    <clipPath id="clip-path-3">
-      <path id="Trazado_18" data-name="Trazado 18" d="M627-39h16V-55H627Z" fill="none"/>
-    </clipPath>
-    <clipPath id="clip-path-4">
-      <path id="Trazado_22" data-name="Trazado 22" d="M627.66-46.258h7.352a2.626,2.626,0,0,0,2.545,1.979,2.626,2.626,0,0,0,2.545-1.979h2.073a.66.66,0,0,0,.66-.66.66.66,0,0,0-.66-.66H640.1a2.626,2.626,0,0,0-2.545-1.979,2.626,2.626,0,0,0-2.545,1.979h-7.35a.66.66,0,0,0-.66.66.66.66,0,0,0,.66.66Zm9.9-1.979a1.32,1.32,0,0,1,1.32,1.32,1.32,1.32,0,0,1-1.32,1.32,1.32,1.32,0,0,1-1.32-1.32,1.32,1.32,0,0,1,1.317-1.32Z" fill="none"/>
-    </clipPath>
-    <clipPath id="clip-path-6">
-      <path id="Trazado_25" data-name="Trazado 25" d="M627.66-40.979h2.073A2.626,2.626,0,0,0,632.278-39a2.626,2.626,0,0,0,2.545-1.979h7.352a.66.66,0,0,0,.66-.66.66.66,0,0,0-.66-.66h-7.352a2.626,2.626,0,0,0-2.545-1.979,2.626,2.626,0,0,0-2.545,1.979H627.66a.66.66,0,0,0-.66.66.66.66,0,0,0,.66.66Zm4.619-1.979a1.32,1.32,0,0,1,1.32,1.32,1.32,1.32,0,0,1-1.32,1.32,1.32,1.32,0,0,1-1.32-1.32,1.32,1.32,0,0,1,1.319-1.321Z" fill="none"/>
-    </clipPath>
-  </defs>
-  <g id="Grupo_24" data-name="Grupo 24" transform="translate(-627 55)" style="isolation: isolate">
-    <g id="Grupo_23" data-name="Grupo 23" clip-path="url(#clip-path)">
-      <g id="Grupo_18" data-name="Grupo 18" clip-path="url(#clip-path-2)">
-        <g id="Grupo_17" data-name="Grupo 17" clip-path="url(#clip-path-3)">
-          <path id="Trazado_17" data-name="Trazado 17" d="M622-59.835h25.835v15.279H622Z" fill="#251863"/>
-        </g>
-      </g>
-      <g id="Grupo_20" data-name="Grupo 20" clip-path="url(#clip-path-4)">
-        <g id="Grupo_19" data-name="Grupo 19" clip-path="url(#clip-path-3)">
-          <path id="Trazado_20" data-name="Trazado 20" d="M622-54.557h25.835v15.279H622Z" fill="#251863"/>
-        </g>
-      </g>
-      <g id="Grupo_22" data-name="Grupo 22" clip-path="url(#clip-path-6)">
-        <g id="Grupo_21" data-name="Grupo 21" clip-path="url(#clip-path-3)">
-          <path id="Trazado_23" data-name="Trazado 23" d="M622-49.278h25.835V-34H622Z" fill="#251863"/>
-        </g>
-      </g>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#251863;}
+</style>
+<title>ic_filter</title>
+<g id="Symbols">
+	<g id="_x2D_Card1-2ROW" transform="translate(-371.000000, -76.000000)">
+		<g id="card_sub-header1" transform="translate(38.000000, 59.000000)">
+			<g id="ic_filter" transform="translate(333.000000, 17.000000)">
+				<path id="Shape" class="st0" d="M0.7,3.5h2.1c0.3,1.2,1.3,2,2.5,2s2.2-0.8,2.5-2h7.4c0.4,0,0.7-0.3,0.7-0.7s-0.3-0.7-0.7-0.7
+					H7.8c-0.3-1.2-1.3-2-2.5-2S3,1,2.7,2.1H0.7C0.3,2.1,0,2.4,0,2.8S0.3,3.5,0.7,3.5L0.7,3.5z M5.3,1.5c0.7,0,1.3,0.6,1.3,1.3
+					S6,4.1,5.3,4.1S4,3.5,4,2.8S4.5,1.5,5.3,1.5z"/>
+				<path id="Shape_1_" class="st0" d="M0.7,8.7H8c0.3,1.2,1.3,2,2.5,2s2.2-0.8,2.5-2h2.1c0.4,0,0.7-0.3,0.7-0.7s-0.3-0.7-0.7-0.7
+					h-2.1c-0.3-1.2-1.3-2-2.5-2S8.3,6.3,8,7.4H0.7C0.3,7.4,0,7.7,0,8.1S0.3,8.7,0.7,8.7L0.7,8.7z M10.6,6.8c0.7,0,1.3,0.6,1.3,1.3
+					s-0.6,1.3-1.3,1.3c-0.7,0-1.3-0.6-1.3-1.3S9.8,6.8,10.6,6.8z"/>
+				<path id="Shape_2_" class="st0" d="M0.7,14h2.1c0.3,1.2,1.3,2,2.5,2s2.2-0.8,2.5-2h7.4c0.4,0,0.7-0.3,0.7-0.7s-0.3-0.7-0.7-0.7
+					H7.8c-0.3-1.2-1.3-2-2.5-2s-2.2,0.8-2.5,2H0.7C0.3,12.7,0,13,0,13.4S0.3,14,0.7,14z M5.3,12c0.7,0,1.3,0.6,1.3,1.3
+					S6,14.7,5.3,14.7S4,14.1,4,13.4S4.5,12,5.3,12z"/>
+			</g>
+		</g>
+	</g>
+</g>
 </svg>

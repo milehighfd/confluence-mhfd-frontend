@@ -784,37 +784,19 @@
   }
   button .img-filter{
     -webkit-mask: url('/Icons/icon-73.svg') no-repeat center;
-    height: 18px;
+    height: 16px;
     width: 18px;
-    background: $opacity;
+    background: $opacity02;
+    padding: 7px;
   }
-  // .ant-btn:hover > .img-filter, .ant-btn:focus > .img-filter{
-  //   opacity: 1;
-  //   -webkit-mask: url('/Icons/icon-73.svg') no-repeat center;
-  //   height: 18px;
-  //   width: 18px;
-  //   background: $purple;
-  // }
   .ant-btn:hover > .img-filter{
     opacity: 1;
     -webkit-mask: url('/Icons/icon-73.svg') no-repeat center;
-    height: 18px;
+    height: 16px;
     width: 18px;
     background: $green !important;
+    padding: 7px;
   }
-  /* .ant-dropdown-link .img-filter00{
-    -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
-    height: 18px;
-    width: 18px;
-    background: $opacity;
-  }
-  .ant-dropdown-link:hover > .img-filter00{
-    opacity: 1;
-    -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
-    height: 18px;
-    width: 18px;
-    background: $green !important;
-  } */
   .sort-content {
     display: inline-block;
     // margin-right: 14px;
@@ -844,18 +826,20 @@
         -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
         height: 18px;
         width: 18px;
-        background: $opacity;
+        background: $opacity02;
         transition: width 2s;
+        padding: 9px;
       }
     }
     .sort-buttons:hover > .img-filter00{
       opacity: 1;
-      //-webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
-      //height: 18px;
-      //width: 18px;
-      //background: $green !important
+      -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
+      height: 18px;
+      width: 18px;
+      background: $green !important;
       transform: rotate(180deg);
       transition: width 2s;
+      padding: 9px;
     }
   }
   .btn-borde{

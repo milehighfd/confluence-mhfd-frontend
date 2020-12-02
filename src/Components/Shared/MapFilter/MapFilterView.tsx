@@ -27,27 +27,27 @@ const { Panel } = Collapse;
 export const genExtra = () => (
     <div className="filter-coll-header">
       <div><img src="/Icons/icon-77.svg" alt=""/> HYDROLOGIC </div>
-      <Switch size="small"/>
+      {/* <Switch size="small"/> */}
     </div>
   );
 export const genExtra01 = () => (
   <div className="filter-coll-header">
     <div><img src="/Icons/icon-78.svg" alt=""/> BOUNDARIES</div>
-    <Switch size="small"/>
+    {/* <Switch size="small"/> */}
   </div>
 
   );
 export const genExtra02 = () => (
   <div className="filter-coll-header">
     <div><img src="/Icons/icon-79.svg" alt=""/> MHFD DATA </div>
-    <Switch size="small" />
+    {/* <Switch size="small" /> */}
   </div>
 
   );
 export const genExtra03 = () => (
   <div className="filter-coll-header">
     <div><img src="/Icons/icon-80.svg" alt=""/> OTHER LAYERS</div>
-    <Switch size="small"/>
+    {/* <Switch size="small"/> */}
   </div>
 
   );
