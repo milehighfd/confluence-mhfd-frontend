@@ -808,7 +808,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}>
                 <img className="img-filter00" alt="" />
               </span>
-              <Dropdown trigger={['click']}
+              <Dropdown trigger={['hover']}
                 overlay={tabActive === '0' ?
                   menuSort(SORTED_PROBLEMS) :
                   menuSort(SORTED_PROJECTS)}

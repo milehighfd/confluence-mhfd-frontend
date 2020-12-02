@@ -105,7 +105,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     removePopup();
   }
 
-  return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '250px', left: '-12px', margin: '0px 20px', paddingTop: '0px' }}>
+  return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '325px', left: '-12px', margin: '0px 20px', paddingTop: '0px' }}>
     <div className="filter-map">
       <Checkbox.Group value={selectedLayers} onChange={(items) => {
         console.log('deloschek', items, selectedLayers)

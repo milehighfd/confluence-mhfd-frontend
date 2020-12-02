@@ -76,9 +76,10 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
       />}
 
       <Col span={12}>
+      <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 2px #28c499' : ''}}>
         <Card
           hoverable
-          style={{ width: '100%', border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 2px #28c499' : ''}}
+          style={{ width: '100%'}}
           onClick={() => setVisible(true)}
           onMouseEnter={() =>  setValuesMap(data.type, data.value)}
           onMouseLeave={()=> setValuesMap('','')}
@@ -132,6 +133,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
               </div>
             )}
         </Card>
+      </div>
       </Col>
     </>
   );
