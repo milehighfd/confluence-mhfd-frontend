@@ -48,6 +48,7 @@ const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Es
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Search } = Input;
+const { Option } = AutoComplete;
 const content = (<div className="popoveer-00">Filter by Area</div>);
 
 const contentTag = (
@@ -604,7 +605,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       return false;
     }
     return true;
-  }).map((item: { aoi: string }) => { return item.aoi; });
+  }).map((item: { aoi: string }) => { return <Option key={item.aoi}>{item.aoi}</Option> });
 
   const onSelect = (value: any) => {
     console.log('Selected:', value);
@@ -723,7 +724,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   // groupOrganization.name
                   option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                 }
-                onSelect={onSelect} >
+                onSelect={onSelect}>
                 <Input suffix={<Icon type="down" className="certain-category-icon" />} />
               </AutoComplete>
             {/* </Popover> */}

@@ -1707,7 +1707,24 @@ export const DEFAULT_BODY = {
 
 
 
-
+export const popUps = {
+  floodplains: 'Floodplains are areas that have been identified to be at risk of flooding in the 1% annual chance (or "100-year") storm event according to studies and models approved by CWCB and FEMA. This layer also includes the areas covered by the FEMA NHFL layer.',
+  fema_flood_hazard_zones: 'The Federal Emergency Management Agency National Flood Hazard Layer is the official map of federally designated floodplains and floodways. It does not include floodplains desginated only at the state or local level (see Floodplains layer).',
+  watershed: 'Watersheds are areas of land that drain to a common stream. This layer shows Major Basins at the District scale (colored fill) and sub-basins when you zoom in (dashed orange lines).',
+  service_area: 'Service Areas are the zones that are under the supervision of different Mile High Flood District Watershed Managers.',
+  municipalities: 'Jurisdictional boundaries of the municipalities and agencies that partner with MHFD on projects.',
+  counties: 'Jurisdictional boundaries of the counties within MHFD.',
+  problem: 'Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.',
+  component: 'Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks require to solve those problems.',
+  project: 'Projects are active (i.e. planned and budgeted or funded and underway) and completed efforts to solve an identified Problem or requested by local governments.',
+  mep_projects: 'Maintenance Eligibility Program (MEP) Referrals are requests from local governments for MHFD to review, approve, and potentially maintain certain stormwater infrastructure.',
+  routine_maintenance: 'Routine Maintenance represents areas where MHFD performs maintenance on a regular schedule, such as trash and debris removal and vegetation maintenance.',
+  species: 'These layers show known areas of habitat for federally- and state-protected threatened and endangered species as well as block clearance zones for certain species.',
+  research_monitoring: 'Research/Monitoring indicates the location of water quality monitoring sites and research projects with MHFD involvement.',
+  climb_to_safety: 'This layer shows the location of "Climb to Safety" flood warning signage installations throughout the District.',
+  dam_safety: 'This Dam Safety layer was created with data accessed from data.colorado.gov (sourced from DWR) showing the hazard classifications of jurisdictional dams.',
+  stream_mang_corridors: 'Stream Management Corridors are estimated zones that should be preserved to reduce the risk of fluvial hazards in addition to traditional mapped floodplains.',
+}
 
 
 /*  // Mapbox Custom Styles
