@@ -1724,6 +1724,10 @@ export const popUps = {
   climb_to_safety: 'This layer shows the location of "Climb to Safety" flood warning signage installations throughout the District.',
   dam_safety: 'This Dam Safety layer was created with data accessed from data.colorado.gov (sourced from DWR) showing the hazard classifications of jurisdictional dams.',
   stream_mang_corridors: 'Stream Management Corridors are estimated zones that should be preserved to reduce the risk of fluvial hazards in addition to traditional mapped floodplains.',
+  nrcs_soils: 'NRCS SOILS',
+  bcz_prebels_meadow: 'Block Clearance Zone -  Preble’s Meadow Jumping Mouse. These layers show known areas of habitat for federally- and state-protected threatened and endangered species as well as block clearance zones for certain species.',
+  bcz_ute_ladies: 'Block Clearance Zone - Ute Ladies Tresses Orchid. These layers show known areas of habitat for federally- and state-protected threatened and endangered species as well as block clearance zones for certain species.',
+  semswa_service_area: 'SEMSWA Service Area'
 }
 
 
