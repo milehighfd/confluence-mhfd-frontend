@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
          getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
          getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
-         setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea } from '../store/actions/mapActions';
-import { OptionProblems, OptionProjects } from '../Classes/MapTypes';
+         setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
+         setLabelFilterProblems, setLabelFilterProjects } from '../store/actions/mapActions';
+import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
 
 const selectMapStates: ParametricSelector<RootState, undefined, {
   toggleModalFilter: boolean,
@@ -14,9 +15,11 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
   boundsMap: string,
   opacityLayer: boolean,
   coordinatesJurisdiction: any[],
-  nameZoomArea: string
+  nameZoomArea: string,
+  labelsFiltersProjects: LabelFilter[],
+  labelsFiltersProblems: LabelFilter[]
 }> =
-  createSelector<any, boolean, string, string, string, boolean, any[],string,
+  createSelector<any, boolean, string, string, string, boolean, any[],string, LabelFilter[], LabelFilter[],
     {
       toggleModalFilter: boolean,
       tabCards: string,
@@ -24,7 +27,9 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
       boundsMap: string,
       opacityLayer: boolean,
       coordinatesJurisdiction: any[],
-      nameZoomArea: string
+      nameZoomArea: string,
+      labelsFiltersProjects: LabelFilter[],
+      labelsFiltersProblems: LabelFilter[]
     }>
     (
       state => state.map.toggleModalFilter,
@@ -34,8 +39,10 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
       state => state.map.opacityLayer,
       state => state.map.coordinatesJurisdiction,
       state => state.map.nameZoomArea,
-      (toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, nameZoomArea) => ({
-        toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction,nameZoomArea
+      state => state.map.labelsFiltersProjects,
+      state => state.map.labelsFiltersProblems,
+      (toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems) => ({
+        toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction,nameZoomArea, labelsFiltersProjects, labelsFiltersProblems
       })
     );
 
@@ -84,6 +91,12 @@ export const useMapDispatch = () => {
     },
     setNameZoomArea: (name: string) => {
       dispatch(setNameZoomArea(name));
+    },
+    setLabelFilterProjects: (filters: any) => {
+      dispatch(setLabelFilterProjects(filters));
+    },
+    setLabelFilterProblems: (filters: any) => {
+      dispatch(setLabelFilterProblems(filters));
     }
   }
 }

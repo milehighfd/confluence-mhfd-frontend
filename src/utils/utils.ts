@@ -21,7 +21,6 @@ export const numberWithCommas = (x: number) => {
 
 export const getStatus = (value: any) => {
   let percentStatus = '';
-  console.log(typeof(value));
   switch(value) {
     case '0':
       percentStatus = '0%-25%';
@@ -36,7 +35,7 @@ export const getStatus = (value: any) => {
       percentStatus = '75%-100%';
       break;
   }
-  console.log('status', value + ' ' + percentStatus);
+  //console.log('status', value + ' ' + percentStatus);
   return percentStatus;
 }
 

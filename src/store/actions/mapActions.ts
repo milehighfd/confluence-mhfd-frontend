@@ -633,7 +633,16 @@ export const getComponentsByProblemId = (data: any) => {
         
     }
 }
-
+export const setLabelFilterProblems = (filters: any) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_LABELS_FILTER_PROBLEMS, filters});
+    }
+}
+export const setLabelFilterProjects = (filters: any) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_LABELS_FILTER_PROJECTS, filters});
+    }
+}
 export const setSpinFilter = (spin: boolean) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_SPIN_FILTER, spin })

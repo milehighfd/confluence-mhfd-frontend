@@ -24,7 +24,6 @@ const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Es
 // const content18 = (<div className="popoveer-00"><b>Stream Name:</b> is the name of the Major Drainageway or Watershed where the Component is located.</div>);
 
 export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterProblemOptions, getGalleryProblems, setToggleFilters }: any) => {
-    console.log('PARAM PROBLEMS', paramProblems);
     const firstSegmentComponents = paramProblems.components.slice(0, paramProblems.components.length / 2);
     const secondSegmentComponents = paramProblems.components.slice(paramProblems.components.length / 2, paramProblems.components.length);
 

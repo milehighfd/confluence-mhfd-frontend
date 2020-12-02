@@ -488,13 +488,13 @@ const Map = ({ leftWidth,
 
         });
         const updateZoom = () => {
-            console.log('update zoom')
+            //console.log('update zoom')
             const zoom = map.getZoom().toFixed(2);
             setZoomValue(zoom);
         }
         let _ = 0;
         map.on('zoomend', () => {
-            console.log('zoomendOn', opacityLayer)
+            //console.log('zoomendOn', opacityLayer)
             if (!opacityLayer) {
                 hideOpacity();
             }
@@ -519,7 +519,7 @@ const Map = ({ leftWidth,
 
 
     useEffect(() => {
-        console.log('my apply filter ', applyFilter, zoomEndCounter);
+        //console.log('my apply filter ', applyFilter, zoomEndCounter);
         const bounds = map.getBounds();
         const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
         setBoundMap(boundingBox);

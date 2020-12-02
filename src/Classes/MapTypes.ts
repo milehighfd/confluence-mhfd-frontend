@@ -158,8 +158,8 @@ export type MapViewTypes = {
     getDetailedPageProject: Function,
     detailed: Detailed,
     loaderDetailedPage: boolean,
-    filterProblemOptions: OptionProblems,
-    filterProjectOptions: OptionProjects,
+    filterProblemOptions: any, //OptionProblems,
+    filterProjectOptions: any, //OptionProjects,
     filterCoordinates: string,
     setFilterProblemOptions: Function,
     setFilterProjectOptions: Function,
@@ -212,11 +212,11 @@ export type OptionProjects = {
     status: string,
     startyear: string,
     completedyear: string,
-    mhfddollarsallocated: string,
+    mhfddollarsallocated: [], // string,
     lgmanager: string,
     streamname: string,
     creator: string,
-    totalcost: string,
+    totalcost: [], // string,
     workplanyear: string,
     problemtype: string,
     mhfdmanager: string,
@@ -414,7 +414,17 @@ export type SelectedFilterTypes = {
     [key : string] : string | Array<string>
 };
 
+export type Detail = {
+    key: string,
+    value: string,
+    display: string
+}
 
+export type LabelFilter = {
+    name: string,
+    display: string,
+    detail: Detail[]
+}
 
 
 

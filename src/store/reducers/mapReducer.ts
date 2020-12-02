@@ -3,7 +3,7 @@ import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_F
 
 const initState = {
     error: '',
-    selectedOnMap: {id: -1, tab: ''},
+    selectedOnMap: { id: -1, tab: '' },
     redirect: false,
     newProject: {
         jurisdiction: '',
@@ -187,7 +187,7 @@ const initState = {
         servicearea: ''
     },
     filterCoordinates: '-105.3236683149282,39.274174328991904,-104.48895750946532,40.26156304805423',
-    paramFilters : {
+    paramFilters: {
         problems: {},
         projects: {},
         components: {}
@@ -213,12 +213,146 @@ const initState = {
     zoomarea: [],
     opacityLayer: false,
     coordinatesJurisdiction: [],
-    nameZoomArea: ''
+    nameZoomArea: '',
+    labelsFiltersProjects: [
+        {
+            'display': 'PROJECT TYPE',
+            'name': 'projecttype',
+            'detail': []
+        },
+        {
+            'name': 'totalcost',
+            'display': 'TOTAL COST',
+            'detail': []
+        },
+        {
+            'name': 'status',
+            'display': 'PROJECT STATUS',
+            'detail': []
+        },
+        {
+            'name': 'year',
+            'display': 'YEAR',
+            'detail': []
+        },
+        {
+            'name': 'mhfddollarsallocated',
+            'display': 'MHFD DOLLARS ALLOCATED',
+            'detail': []
+        },
+        {
+            'name': 'workplanyear',
+            'display': 'WORK PLAN YEAR',
+            'detail': []
+        },
+        {
+            'name': 'problemtype',
+            'display': 'PROBLEM TYPE',
+            'detail': []
+        },
+        {
+            'name': 'consultant',
+            'display': 'CONSULTANT',
+            'detail': []
+        },
+        {
+            'name': 'contractor',
+            'display': 'CONTRACTOR',
+            'detail': []
+        },
+        {
+            'name': 'jurisdiction',
+            'display': 'JURISDICTION',
+            'detail': []
+        },
+        {
+            'name': 'county',
+            'display': 'COUNTY',
+            'detail': []
+        },
+        {
+            'name': 'lgmanager',
+            'display': 'LOCAL GOVERNMENT MANAGER',
+            'detail': []
+        },
+        {
+            'name': 'streamname',
+            'display': 'STREAM NAME',
+            'detail': []
+        },
+        {
+            'name': 'creator',
+            'display': 'CREATOR',
+            'detail': []
+        },
+        {
+            'name': 'mhfdmanager',
+            'display': 'MHFD WATERSHED MANAGER',
+            'detail': []
+        },
+        {
+            'name': 'servicearea',
+            'display': 'WATERSHED SERVICE AREA',
+            'detail': []
+        }
+    ],
+    labelsFiltersProblems: [
+        {
+            'name': 'cost',
+            'display': 'SOLUTION COST',
+            'detail': []
+        },
+        {
+            'name': 'priority',
+            'display': 'PRIORITY',
+            'detail': []
+        },
+        {
+            'name': 'components',
+            'display': 'ELEMENT TYPE',
+            'detail': []
+        },
+        {
+            'name': 'solutionstatus',
+            'display': 'STATUS',
+            'detail': []
+        },
+        {
+            'name': 'county',
+            'display': 'COUNTY',
+            'detail': []
+        },
+        {
+            'name': 'jurisdiction',
+            'display': 'JURISDICTION',
+            'detail': []
+        },
+        {
+            'name': 'servicearea',
+            'display': 'WATERSHED SERVICE AREA',
+            'detail': []
+        },
+        {
+            'name': 'mhfdmanager',
+            'display': 'MHFD WATERSHED',
+            'detail': []
+        },
+        {
+            'name': 'source',
+            'display': 'SOURCE',
+            'detail': []
+        },
+        {
+            'name': 'problemtype',
+            'display': 'PROBLEM TYPE',
+            'detail': []
+        }
+    ]
 }
 
-const mapReducer = (state = initState, action : any) => {
-    switch(action.type) {
-        case types.SET_REVERSE_GEOCODE: 
+const mapReducer = (state = initState, action: any) => {
+    switch (action.type) {
+        case types.SET_REVERSE_GEOCODE:
             return {
                 ...state,
                 newProject: {
@@ -247,12 +381,12 @@ const mapReducer = (state = initState, action : any) => {
                     coordinates: action.marker
                 }
             }
-        case types.CREATE_NEW_PROJECT: 
+        case types.CREATE_NEW_PROJECT:
             return {
                 ...state,
                 problems: action.problems
             }
-        case types.SET_REDIRECT: 
+        case types.SET_REDIRECT:
             return {
                 ...state,
                 redirect: action.status
@@ -280,7 +414,7 @@ const mapReducer = (state = initState, action : any) => {
                 ...state,
                 projectsByType: action.filteredProjects
             }
-        case types.GET_MAP_LAYERS: 
+        case types.GET_MAP_LAYERS:
             return {
                 ...state,
                 layers: {
@@ -293,7 +427,7 @@ const mapReducer = (state = initState, action : any) => {
                 ...state,
                 layers: {
                     ...state.layers,
-                    [action.data.name] : {
+                    [action.data.name]: {
                         ...state.layers[action.data.name],
                         [action.data.trigger]: action.data.tiles
                     }
@@ -330,7 +464,7 @@ const mapReducer = (state = initState, action : any) => {
         }
         case types.GALLERY_PROJECTS: {
             return {
-                ...state, 
+                ...state,
                 galleryProjects: action.galleryProjects
             }
         }
@@ -348,13 +482,13 @@ const mapReducer = (state = initState, action : any) => {
         }
         case types.SET_FILTER_COORDINATES: {
             return {
-                ...state, 
+                ...state,
                 filterCoordinates: action.coordinates
             }
         }
         case types.GET_PARAM_FILTERS: {
             return {
-                ...state, 
+                ...state,
                 paramFilters: action.params
             }
         }
@@ -427,7 +561,7 @@ const mapReducer = (state = initState, action : any) => {
         case types.SET_SELECTED_ON_MAP: {
             return {
                 ...state,
-                selectedOnMap: {id: action.id, tab: action.tab}
+                selectedOnMap: { id: action.id, tab: action.tab }
             }
         }
         case types.MAP_SEARCH_QUERY: {
@@ -520,6 +654,18 @@ const mapReducer = (state = initState, action : any) => {
                 coordinatesJurisdiction: action.coordinates
             }
         }
+        case types.SET_LABELS_FILTER_PROJECTS: {
+            return {
+                ...state,
+                labelsFiltersProjects: action.filters
+            }
+        }
+        case types.SET_LABELS_FILTER_PROBLEMS: {
+            return {
+                ...state,
+                labelsFiltersProblems: action.filters
+            }
+        }
         case types.GET_PARAM_FILTER_COMPONENTS: {
             return {
                 ...state,
@@ -529,7 +675,7 @@ const mapReducer = (state = initState, action : any) => {
                 }
             }
         }
-        default: 
+        default:
             return state;
     }
 }
