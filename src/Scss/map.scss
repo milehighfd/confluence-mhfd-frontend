@@ -1,8 +1,4 @@
 @import "styles.scss";
-@import "button.scss";
-@use 'styles';
-@use 'button';
-
 .map{
   height: calc(100vh - 69px);
   margin: 5px;

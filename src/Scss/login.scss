@@ -1,5 +1,4 @@
 @import "styles.scss";
-@use 'styles';
 
 // LOGIN
 .login-hh{
@@ -529,14 +528,14 @@
       font-size: 21px;
     }
     .slick-slide .textContent {
-      height: 28vh;
+      height: 185px;
     }
     .slick-slide h5 {
      font-size: 14px;
     }
     .slick-dots-bottom {
       bottom: inherit;
-      top: 31vh;
+      top: 220px;
       left: -35px;
     }
     .btn-purple {
@@ -553,7 +552,7 @@
   }
   .icons-list{
     position: absolute;
-    top: 33vh;
+    top: 245px;
     left: 25px;
     img{
       height: 20px !important;
@@ -561,7 +560,7 @@
   }
   .social01{
     position: absolute;
-    top: 90vh;
+    top: 80vh;
     z-index: 10;
 
     span {
@@ -577,7 +576,7 @@
   }
   .mobile-login{
     position: absolute;
-    top: 80vh;
+    top: 72vh;
     z-index: 10;
     width: 88vw;
     margin: 0px 25px;
