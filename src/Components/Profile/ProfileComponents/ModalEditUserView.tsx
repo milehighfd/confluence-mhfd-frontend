@@ -114,12 +114,13 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
             const auxTitle = event.item.props.children.props.children;
             setTitle(auxTitle);
           }}>
-          {groupOrganization.map((item: {type: string, values: Array<{name: string}>}, index: number) => {
-            return <Menu.ItemGroup key={index}>
-              <label className="label-sg">{item.type}</label>
-              {item.values.map((element: {name: string}, index: number) => (<Menu.Item key={index + item.type + element.name}><span>{element.name}</span></Menu.Item>))}
-            </Menu.ItemGroup>
-          })}
+            <Menu.ItemGroup>
+              {
+                groupOrganization.map((item: {aoi: string, values: Array<{name: string}>}, index: number) => {
+                  return <Menu.Item key={item.aoi}><span>{item.aoi}</span></Menu.Item>
+                })
+              }
+            </Menu.ItemGroup>    
         </Menu>
   };
   const stateValue = {
@@ -271,8 +272,8 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
             </Col>
             <Col className="gutter-row" span={3}>
                 <Button className="btn-borde" onClick={() => {
-                  values.zoomarea = (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? values.organization : 'Mile High Flood Control District Boundary';
-                  const auxTitle = 'Mile High Flood Control District Boundary';
+                  values.zoomarea = (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? values.organization : 'Mile High Flood District';
+                  const auxTitle = 'Mile High Flood District';
                   setTitle(auxTitle);
                 }} style={{padding: '0px', textAlignLast: 'center'}} >
                   Default
