@@ -130,7 +130,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
           if (leftWidth === MEDIUM_SCREEN_LEFT) {
             setLeftWidth(COMPLETE_SCREEN);
             setRightWitdh(EMPTY_SCREEN);
-            setRotationStyle({transform: 'rotate(180deg)'});
+            setRotationStyle({transform: 'rotate(180deg)', marginRight:'-4px', right:'4px', position:'relative'});
           } else {
             setLeftWidth(MEDIUM_SCREEN_LEFT);
             setRightWitdh(MEDIUM_SCREEN_RIGHT);

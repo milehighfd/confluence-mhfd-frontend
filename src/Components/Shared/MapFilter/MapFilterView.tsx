@@ -28,51 +28,59 @@ import {
 const { Panel } = Collapse;
 export const genExtra = () => (
   <div className="filter-coll-header">
-    <div><img src="/Icons/icon-79.svg" alt="" /> MHFD DATA </div>
-    {/* <Switch size="small" /> */}
+    MHFD DATA
+    {/*<div><img src="/Icons/icon-79.svg" alt="" /> MHFD DATA </div>
+     <Switch size="small" /> */}
   </div>
 );
 export const genExtra01 = () => (
   <div className="filter-coll-header">
-    <div><img src="/Icons/icon-77.svg" alt="" /> HYDROLOGIC </div>
-    {/* <Switch size="small"/> */}
+    HYDROLOGIC
+    {/* <div><img src="/Icons/icon-77.svg" alt="" /> HYDROLOGIC </div>
+    <Switch size="small"/> */}
   </div>
 );
 export const genExtra02 = () => (
   <div className="filter-coll-header">
-    <div><img src="/Icons/icon-79.svg" alt="" /> HYDRAULIC</div>
-    {/* <Switch size="small"/> */}
+    HYDRAULIC
+    {/* <div><img src="/Icons/icon-79.svg" alt="" /> HYDRAULIC</div>
+    <Switch size="small"/> */}
   </div>
 
 );
 export const genExtra03 = () => (
   <div className="filter-coll-header">
-    <div><img src="/Icons/icon-79.svg" alt="" /> GEOMORPHOLOGY</div>
-    {/* <Switch size="small"/> */}
+    GEOMORPHOLOGY
+    {/* <div><img src="/Icons/icon-79.svg" alt="" /> GEOMORPHOLOGY</div>
+    <Switch size="small"/> */}
   </div>
 );
 export const genExtra04 = () => (
   <div className="filter-coll-header">
-    <div><img src="/Icons/icon-79.svg" alt="" /> ENVIRONMENTAL</div>
-    {/* <Switch size="small"/> */}
+    ENVIRONMENTAL
+    {/* <div><img src="/Icons/icon-79.svg" alt="" /> ENVIRONMENTAL</div>
+    <Switch size="small"/> */}
   </div>
 );
 export const genExtra05 = () => (
   <div className="filter-coll-header">
-    <div><img src="/Icons/icon-79.svg" alt="" /> HUMAN CONNECTION</div>
-    {/* <Switch size="small"/> */}
+    HUMAN CONNECTION
+    {/* <div><img src="/Icons/icon-79.svg" alt="" /> HUMAN CONNECTION</div>
+    <Switch size="small"/> */}
   </div>
 );
 export const genExtra06 = () => (
   <div className="filter-coll-header">
-    <div><img src="/Icons/icon-78.svg" alt="" /> BOUNDARIES</div>
-    {/* <Switch size="small"/> */}
+    BOUNDARIES
+    {/* <div><img src="/Icons/icon-78.svg" alt="" /> BOUNDARIES</div>
+    <Switch size="small"/> */}
   </div>
 );
 export const genExtra07 = () => (
   <div className="filter-coll-header">
-    <div><img src="/Icons/icon-80.svg" alt="" /> OTHER LAYERS</div>
-    {/* <Switch size="small"/> */}
+    OTHER LAYERS
+    {/* <div><img src="/Icons/icon-80.svg" alt="" /> OTHER LAYERS</div>
+    <Switch size="small"/> */}
   </div>
 
 );
@@ -173,7 +181,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
 
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
-                  NRCS Solis
+                  NRCS Soils
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.nrcs_soils)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>

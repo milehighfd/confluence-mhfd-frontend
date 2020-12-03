@@ -79,6 +79,9 @@
   border-radius: 10px 0px 0px 10px !important;
   z-index: 1000;
 }
+.btn-coll:hover > img {
+  margin-right: -2px !important;
+}
 // CHECKBOXES
 .ant-checkbox-group{
   width: 100%;
