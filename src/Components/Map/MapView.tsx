@@ -15,6 +15,7 @@ import { genExtra } from "../../utils/detailedUtils";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
 //import { push } from "connected-react-router";
 import { elementCost, getStatus } from '../../utils/utils';
+import { profile } from "console";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -386,7 +387,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   // const [listDescription, setListDescription] = useState(false);
   const listDescription = false;
   const [designation, SetDesignation] = useState(store.getState().profile.userInformation.designation);
-  //const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
+  // const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
   const [tabActive, setTabActive] = useState('1');
   const { projectId } = useParams();
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword ? filterProblemOptions.keyword : '');
@@ -415,6 +416,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }
 
   const deleteTagProblem = (tag: string, value: string) => { }
+
+  useEffect(() => {
+    setNameZoomArea(store.getState().profile.userInformation.zoomarea);
+  }, [store.getState().profile])
 
   useEffect(() => {
     if (location.includes('problemid=')) {
