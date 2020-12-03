@@ -409,7 +409,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   if (designation === 'guest') {
     setApplyFilter(false);
   }
-  console.log('ozuna', store.getState().profile.userInformation.zoomarea)
+
   if (nameZoomArea.length === 0) {
     setNameZoomArea(store.getState().profile.userInformation.zoomarea);
   }
