@@ -683,6 +683,7 @@
   }
 }
 .auto-complete-map{
+  margin-top: -1px;
   .ant-select{
     width: 100% ;
     max-width: 295px;
@@ -747,9 +748,9 @@
     font-size: 12px;
     padding: 18px 0px;
   }
-  .ant-dropdown-link:hover{
-    color: $green;
-  }
+  // .ant-dropdown-link:hover{
+  //   color: $green;
+  // }
   button{
     border: none;
     background-color: transparent;
@@ -802,23 +803,6 @@
      margin-right: 5px;
      cursor: pointer;
 
-      .anticon + span, span + .anticon, .anticon {
-        position: absolute !important;
-        font-size: 10px;
-        z-index: 1000;
-        color: $purple;
-        opacity: 30%;
-      }
-      .arrow-up{
-        top: 7.3px;
-      }
-      .arrow-down{
-        top: 14px;
-      }
-      .arrow-up:hover, .arrow-up:focus, .arrow-up:active, .arrow-up.active,
-      .arrow-down:hover, .arrow-down:focus, .arrow-down:active, .arrow-down.active{
-        opacity: 100%;
-      }
       .img-filter00{
         -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
         height: 18px;
@@ -845,6 +829,17 @@
     margin-right: 15px;
     margin-left: 10px;
   }
+}
+.sort-content:hover > .ant-dropdown-link{
+  color: $green;
+}
+.sort-content:hover > .sort-buttons > .img-filter00{
+  opacity: 1;
+  -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
+  height: 18px;
+  width: 18px;
+  background: $green !important;
+  padding: 9px;
 }
 .apply-filter{
   border: 1px solid rgba(37, 24, 99, 0.1);
