@@ -310,8 +310,9 @@
   }
 }
 .filter-map{
-  height: calc(100vh - 170px);
+  max-height: calc(100vh - 170px);
   overflow-y: auto;
+  height: auto;
   h6{
     font-size: 16px;
     color: $opacity;
@@ -401,6 +402,9 @@
   .btn-borde {
     margin-right: 0px;
     border: none !important;
+  }
+  .ant-btn > span {
+    margin-right: -4px;
   }
 }
 .map-pop-00{
