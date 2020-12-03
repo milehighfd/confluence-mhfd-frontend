@@ -1724,10 +1724,10 @@ export const popUps = {
   climb_to_safety: 'This layer shows the location of "Climb to Safety" flood warning signage installations throughout the District.',
   dam_safety: 'This Dam Safety layer was created with data accessed from data.colorado.gov (sourced from DWR) showing the hazard classifications of jurisdictional dams.',
   stream_mang_corridors: 'Stream Management Corridors are estimated zones that should be preserved to reduce the risk of fluvial hazards in addition to traditional mapped floodplains.',
-  nrcs_soils: 'NRCS SOILS',
+  nrcs_soils: 'This layer displays the USDA Natural Resources Conservation Service (NRCS) Soil Survey within MHFD. Map units delineate the extent of different soils. Data for each map unit contains descriptions of the soil’s components, productivity, unique properties, and suitability interpretations.',
   bcz_prebels_meadow: 'Block Clearance Zone -  Preble’s Meadow Jumping Mouse. These layers show known areas of habitat for federally- and state-protected threatened and endangered species as well as block clearance zones for certain species.',
   bcz_ute_ladies: 'Block Clearance Zone - Ute Ladies Tresses Orchid. These layers show known areas of habitat for federally- and state-protected threatened and endangered species as well as block clearance zones for certain species.',
-  semswa_service_area: 'SEMSWA Service Area'
+  semswa_service_area: 'Southeast Metro Stormwater Authority Boundary. SEMSWA covers the entire City of Centennial, the developed areas of unincorporated Arapahoe County, and a small portion of Douglas County. Their boundary is an outgrowth of the partnership (IGA) between the City of Centennial, Arapahoe County, the Arapahoe County Water and Wastewater Authority, East Cherry Creek Valley Water and Sanitation District, and the Inverness Water and Sanitation District.'
 }
 
 
