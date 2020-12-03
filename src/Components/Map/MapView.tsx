@@ -409,6 +409,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   if (designation === 'guest') {
     setApplyFilter(false);
   }
+  console.log('ozuna', store.getState().profile.userInformation.zoomarea)
   if (nameZoomArea.length === 0) {
     setNameZoomArea(store.getState().profile.userInformation.zoomarea);
   }
@@ -440,6 +441,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         setData(auxData);
       }
     }
+    setNameZoomArea(store.getState().profile.userInformation.zoomarea); // add for the dropdown
   }, []);
 
   useEffect(() => {
@@ -707,14 +709,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       />}
       <Row className="head-m">
         <Col span={20} id="westminter">
-          {/*<Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
+         <Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
             <span className="ant-dropdown-link span-header">
               {nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
               <Popover content={content}>
                 <img src="/Icons/icon-12.svg" alt="" style={{ marginLeft: '8px' }} />
               </Popover>
             </span>
-      </Dropdown> */}
+      </Dropdown>
           <div className="auto-complete-map">
             {/* <Popover content={content}> */}
             <AutoComplete
