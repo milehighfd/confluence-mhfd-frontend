@@ -639,7 +639,7 @@ export const setLabelFilterProblems = (filters: any) => {
     }
 }
 export const setLabelFilterProjects = (filters: any) => {
-    return (dispatch: Function) => {
+    return async (dispatch: Function) => {
         dispatch({type: types.SET_LABELS_FILTER_PROJECTS, filters});
     }
 }

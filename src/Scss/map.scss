@@ -399,7 +399,7 @@
   text-align: right;
 
   .btn-borde {
-    margin-right: 5px;
+    margin-right: 0px;
     border: none !important;
   }
 }
@@ -1055,7 +1055,7 @@
   width: 230px;
 
   .tag-body{
-    height: 420px;
+    height: auto;
     overflow-y: auto;
   }
   .ant-popover-inner-content{

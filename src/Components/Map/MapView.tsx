@@ -248,8 +248,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             )
           })}
         </div>
-        <div className="btn-footer-02"><Button className="btn-borde"
-          onClick={() => resetFilterProblems()} >Clear</Button></div>
+        <div className="btn-footer-02">
+          {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
+            onClick={() => resetFilterProblems()}>Clear</Button> : 'No filters are applied'}
+        </div>
       </div>
     )
   }
@@ -257,7 +259,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     const filterProjects = { ...filterProjectOptions } as any;
     let labelsProjects = [] as any;
     labelsProjects = [...labelsFiltersProjects];
-    console.log('LABEL',labelsProjects);
+    //console.log('LABEL',labelsProjects);
     for (const key in filterProjectOptions) {
       let c = 0;
       const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
@@ -297,8 +299,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             )
           })}
         </div>
-        <div className="btn-footer-02"><Button className="btn-borde"
-          onClick={() => resetFilterProjects()}>Clear</Button></div>
+        <div className="btn-footer-02">
+          {labelsFiltersProjects.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
+            onClick={() => resetFilterProjects()}>Clear</Button> : 'No filters are applied'}
+        </div>
       </div>
     );
   }
@@ -311,8 +315,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     } else {
       return (
         <>
-        {/* {element.popover ? <div className="head">{element.display} <Popover content={content + element.popover}><img src="/Icons/icon-19.svg" width="13px" alt="" /></Popover></div> : */}
-        <div className="head">{element.display} <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+          {/* {element.popover ? <div className="head">{element.display} <Popover content={content + element.popover}><img src="/Icons/icon-19.svg" width="13px" alt="" /></Popover></div> : */}
+          <div className="head">{element.display} &nbsp;<img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
           {element.detail.map((filter: any) => {
             return <p>{filter.display} <Button className="btn-transparent"
               onClick={() => deleteTagProjects(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
@@ -325,7 +329,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const showFilterLabelsProblems = (element: any) => {
     return (
       <>
-      <div className="head">{element.display} <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+        <div className="head">{element.display} <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
         {element.detail.map((filter: any) => {
           return <p>{filter.display} <Button className="btn-transparent"
             onClick={() => deleteTagProblems(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
@@ -713,17 +717,17 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </Dropdown> */}
           <div className="auto-complete-map">
             {/* <Popover content={content}> */}
-              <AutoComplete
-                style={{ width: '200' }}
-                dataSource={dataAutocomplete}
-                placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
-                filterOption={(inputValue, option: any) =>
-                  // groupOrganization.name
-                  option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-                }
-                onSelect={onSelect}>
-                <Input suffix={<Icon type="down" className="certain-category-icon" />} />
-              </AutoComplete>
+            <AutoComplete
+              style={{ width: '200' }}
+              dataSource={dataAutocomplete}
+              placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
+              filterOption={(inputValue, option: any) =>
+                // groupOrganization.name
+                option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+              }
+              onSelect={onSelect}>
+              <Input suffix={<Icon type="down" className="certain-category-icon" />} />
+            </AutoComplete>
             {/* </Popover> */}
           </div>
           {/*<div className="auto-complete-map">
