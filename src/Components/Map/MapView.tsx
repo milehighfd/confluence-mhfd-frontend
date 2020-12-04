@@ -105,7 +105,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const { setToggleModalFilter, getParamFilterProjects,
     setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
     setCoordinatesJurisdiction, setNameZoomArea } = useMapDispatch();
-  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems } = useMapState();
+  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, spinCardProblems, spinCardProjects } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
@@ -659,7 +659,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col style={{ fontSize: '12px' }}>
-        <div className="apply-filter">
+        <div className={(spinFilter || spinCardProblems || spinCardProjects ) ? "apply-filter" : 'apply-filter-no-effect'}>
           Apply map view to filters
           <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
             setApplyFilter(!applyFilter)

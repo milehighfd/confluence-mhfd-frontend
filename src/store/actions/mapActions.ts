@@ -519,6 +519,12 @@ export const getGalleryProjects = () => {
     }
 }
 
+export const setSpinMapLoaded = (spin: boolean) => {
+    return (dispatch: Function) => {
+        dispatch({types: types.SET_SPIN_MAP_LOADED, spin: spin});
+    }
+}
+
 export const getDetailedPageProject = (id: number, cartoid: number, type: string) => {
     return (dispatch: Function) => {
         dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})

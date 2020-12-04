@@ -569,18 +569,21 @@ const Map = ({ leftWidth,
                     setTimeout(waiting, 50);
                 } else {
                     applyMapLayers();
+                    setSpinValue(false);
                 }
             };
             waiting();
         });
         if (map.isStyleLoaded()) {
             applyMapLayers();
+            setSpinValue(false);
         } else {
             const waiting = () => {
                 if (!map.isStyleLoaded()) {
                     setTimeout(waiting, 50);
                 } else {
                     applyMapLayers();
+                    setSpinValue(false);
                 }
             };
             waiting();
@@ -641,9 +644,6 @@ const Map = ({ leftWidth,
         applyFilters('problems', filterProblems);
         applyFilters('projects_line_1', filterProjects);
         applyFilters('projects_polygon_', filterProjects);
-        setTimeout(() => {
-            setSpinValue(false);
-        }, 2000);
     }
 
     const addLayersSource = (key: string, tiles: Array<string>) => {

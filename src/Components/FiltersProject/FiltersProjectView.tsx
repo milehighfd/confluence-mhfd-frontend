@@ -198,10 +198,13 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
     setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
     getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal, selectedLayers, updateSelectedLayers, applyFilter,
     setApplyFilter, spinFilter }: FiltersProjectTypes) => {
+        
+    const { boundsMap, spinCardProblems, spinCardProjects } = useMapState();
+    const emptyStyle: React.CSSProperties = {};
     const genExtra = () => (
         <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col style={{fontSize: '12px'}}>
-            <div className="apply-filter">
+            <div className={(spinFilter || spinCardProblems || spinCardProjects ) ? "apply-filter" : 'apply-filter-no-effect' }>
                 Apply map view to filters
               <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
                       setApplyFilter(!applyFilter);
@@ -215,7 +218,6 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
 
     const { setFilterTabNumber, getParamFilterComponents,
         getParamFilterProblems, getParamFilterProjects } = useMapDispatch();
-    const { boundsMap } = useMapState();
     const getFilterBody = (trigger: string) => {
         switch (trigger) {
             case FILTER_PROBLEMS_TRIGGER:

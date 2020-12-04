@@ -17,9 +17,12 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
   coordinatesJurisdiction: any[],
   nameZoomArea: string,
   labelsFiltersProjects: LabelFilter[],
-  labelsFiltersProblems: LabelFilter[]
+  labelsFiltersProblems: LabelFilter[],
+  spinFilter: boolean,
+    spinCardProblems: boolean,
+    spinCardProjects: boolean,
 }> =
-  createSelector<any, boolean, string, string, string, boolean, any[],string, LabelFilter[], LabelFilter[],
+  createSelector<any, boolean, string, string, string, boolean, any[],string, LabelFilter[], LabelFilter[], boolean, boolean, boolean,
     {
       toggleModalFilter: boolean,
       tabCards: string,
@@ -30,6 +33,9 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
       nameZoomArea: string,
       labelsFiltersProjects: any[],
       labelsFiltersProblems: any[] //LabelFilter[]
+      spinFilter: boolean,
+      spinCardProblems: boolean,
+      spinCardProjects: boolean
     }>
     (
       state => state.map.toggleModalFilter,
@@ -41,8 +47,13 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
       state => state.map.nameZoomArea,
       state => state.map.labelsFiltersProjects,
       state => state.map.labelsFiltersProblems,
-      (toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems) => ({
-        toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction,nameZoomArea, labelsFiltersProjects, labelsFiltersProblems
+      state => state.map.spinFilter,
+      state => state.map.spinCardProblems,
+      state => state.map.spinCardProjects,
+      (toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems,
+        spinFilter, spinCardProblems, spinCardProjects) => ({
+        toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction,nameZoomArea, labelsFiltersProjects, labelsFiltersProblems,
+        spinFilter, spinCardProblems, spinCardProjects
       })
     );
 
