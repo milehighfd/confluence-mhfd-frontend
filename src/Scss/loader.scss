@@ -77,33 +77,33 @@
   top: 0;
   z-index: 50000 !important;
   max-height: none !important;
-  .ant-spin-dot-spin {
-    position: absolute !important;
-    margin: -18px 0 0 -18px !important;
-    border: 3.6px solid #29c499 !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    width: 36px !important;
-    height: 36px !important;
-    left: 50% !important;
-    top: 50% !important;
-    animation: loader-spin 2s linear infinite reverse !important;
-    -webkit-filter: url(#goo) !important;
-            filter: url(#goo) !important;
-    box-shadow: 0 0 0 1px #29c499 inset !important;
-  }
-  .ant-spin-dot-spin:before {
-    content: "" !important;
-    position: absolute !important;
-    -webkit-animation: loader-spin 2s cubic-bezier(0.59, 0.25, 0.4, 0.69) infinite !important;
-            animation: loader-spin 2s cubic-bezier(0.59, 0.25, 0.4, 0.69) infinite !important;
-    background: #29c499 !important;
-    -webkit-transform-origin: top center !important;
-            transform-origin: top center !important;
-    border-radius: 50% !important;
-    width: 150% !important;
-    height: 150% !important;
-    top: 50% !important;
-    left: -12.5% !important;
-  }
+  // .ant-spin-dot-spin {
+  //   position: absolute !important;
+  //   margin: -18px 0 0 -18px !important;
+  //   border: 3.6px solid #29c499 !important;
+  //   box-sizing: border-box !important;
+  //   overflow: hidden !important;
+  //   width: 36px !important;
+  //   height: 36px !important;
+  //   left: 50% !important;
+  //   top: 50% !important;
+  //   animation: loader-spin 2s linear infinite reverse !important;
+  //   -webkit-filter: url(#goo) !important;
+  //           filter: url(#goo) !important;
+  //   box-shadow: 0 0 0 1px #29c499 inset !important;
+  // }
+  // .ant-spin-dot-spin:before {
+  //   content: "" !important;
+  //   position: absolute !important;
+  //   -webkit-animation: loader-spin 2s cubic-bezier(0.59, 0.25, 0.4, 0.69) infinite !important;
+  //           animation: loader-spin 2s cubic-bezier(0.59, 0.25, 0.4, 0.69) infinite !important;
+  //   background: #29c499 !important;
+  //   -webkit-transform-origin: top center !important;
+  //           transform-origin: top center !important;
+  //   border-radius: 50% !important;
+  //   width: 150% !important;
+  //   height: 150% !important;
+  //   top: 50% !important;
+  //   left: -12.5% !important;
+  // }
 }

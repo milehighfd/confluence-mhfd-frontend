@@ -1080,6 +1080,7 @@
   width: 230px;
 
   .tag-body{
+    max-height: calc(100vh - 210px);
     height: auto;
     overflow-y: auto;
   }

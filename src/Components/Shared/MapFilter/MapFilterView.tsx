@@ -346,7 +346,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
         }
         removePopup();
         setVisibleDropdown(false);
-      }}>Clear</Button>
+      }}>Close</Button>
 
     </div>
   </div>
