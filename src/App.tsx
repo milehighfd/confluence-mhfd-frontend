@@ -36,6 +36,9 @@ import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttac
 import { SELECT_ALL_FILTERS } from './constants/constants';
 import Prueba from './Components/algo/Prueba';
 import DetailedPageContainer from './Components/DetailedPage/DetailedPageContainer';
+import { resetProfile, saveUserInformation } from './store/actions/ProfileActions';
+import { resetAppUser } from './store/actions/appUser';
+import { resetMap } from './store/actions/mapActions';
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter, 
           setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions,
@@ -44,6 +47,13 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
              getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
              filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function, getGroupOrganization: Function }) {
   const [ loading, setLoading ] = useState(true);
+  const [redirect, setRedirect] = useState(false);
+  const [message, setMessage] = useState({message: '', color: '#28C499'});
+  useEffect(() => {
+    resetAppUser();
+    resetProfile();
+    resetMap();
+  }, []);
   useEffect(() => {
     getCarouselImages();
   }, [getCarouselImages]);
@@ -98,11 +108,40 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
   }, []);
   const history = useHistory()
 
+  /* const redirectGuest = () => {
+    console.log('redirect de la app');
+    datasets.getData(SERVER.GUEST).then(async res => {
+      if (res?.token) {
+        localStorage.setItem('mfx-token', res.token);
+        await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
+          replaceAppUser(result);
+          saveUserInformation(result)
+        });
+        setRedirect(true);
+      } else {
+        const auxMessage = {...message};
+        auxMessage.message = 'Could not connect, check your email and password';
+        auxMessage.color = 'red';
+        setMessage(auxMessage);
+      }
+    })
+  } */
+
+
   useEffect(() => {
       return history.listen((location) => {
         ReactGA.pageview(location.pathname);
       })
   },[history]);
+
+ /* if(appUser.email === '') {
+    console.log('comprobando', appUser)
+    redirectGuest();
+    console.log('comprobando2', appUser)
+  }
+  if(redirect) {
+    return <Redirect to="/map" />
+  } */
   return <Switch>
       <Route path={'/prueba'} component={Prueba} />
       <Route path={`/login`} component={LoginContainer} />
@@ -117,6 +156,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route exact path="/" render={() => (
           <Redirect to="/login"/>
       )}/>
+      
       {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileContainer} />}
       {datasets.getToken() && appUser.email && <Route path={`/map/:projectId?`} component={MapView} />}
       {(appUser.designation === 'admin' || 
