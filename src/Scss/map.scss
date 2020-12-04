@@ -808,7 +808,7 @@
      cursor: pointer;
 
       .img-filter00{
-        -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
+   //     -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
         height: 18px;
         width: 18px;
         background: $opacity02;
@@ -818,7 +818,7 @@
     }
     .sort-buttons:hover > .img-filter00{
       opacity: 1;
-      -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
+   //   -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
       height: 18px;
       width: 18px;
       background: $green !important;
@@ -839,7 +839,7 @@
 }
 .sort-content:hover > .sort-buttons > .img-filter00{
   opacity: 1;
-  -webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
+  //-webkit-mask: url('/Icons/icon-83.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: $green !important;

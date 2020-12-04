@@ -661,6 +661,21 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const { spinMapLoaded } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded
     }));
+
+  const sortClick = () => {
+    if (tabActive === '0') {
+      const auxOptions = { ...filterProblemOptions };
+      auxOptions.order = filterProblemOptions.order === 'asc' ? 'desc' : 'asc';
+      setFilterProblemOptions(auxOptions);
+      getGalleryProblems();
+    } else {
+      const auxOptions = { ...filterProjectOptions };
+      auxOptions.order = filterProjectOptions.order === 'asc' ? 'desc' : 'asc';
+      setFilterProjectOptions(auxOptions);
+      getGalleryProjects();
+    }
+  }
+
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col style={{ fontSize: '12px' }}>
@@ -719,7 +734,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       />}
       <Row className="head-m">
         <Col span={20} id="westminter">
-        { /*<Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
+          { /*<Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
             <span className="ant-dropdown-link span-header">
               {nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
               <Popover content={content}>
@@ -809,27 +824,16 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               </Button>
             </Popover>
             <div className="sort-content">
-              <span className="sort-buttons" style={{ transitionTimingFunction: 'ease-in' }} onClick={() => {
-                if (tabActive === '0') {
-                  const auxOptions = { ...filterProblemOptions };
-                  auxOptions.order = filterProblemOptions.order === 'asc' ? 'desc' : 'asc';
-                  setFilterProblemOptions(auxOptions);
-                  getGalleryProblems();
-                } else {
-                  const auxOptions = { ...filterProjectOptions };
-                  auxOptions.order = filterProjectOptions.order === 'asc' ? 'desc' : 'asc';
-                  setFilterProjectOptions(auxOptions);
-                  getGalleryProjects();
-                }
-              }}>
-                <img className="img-filter00" alt="" />
+              <span className="sort-buttons" style={{ transitionTimingFunction: 'ease-in' }} onClick={sortClick}>
+                {filterProjectOptions.order === 'asc' ? <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-83.svg') no-repeat center" }} /> : <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-86.svg') no-repeat center" }} />}
+
               </span>
               <Dropdown trigger={['hover']}
                 overlay={tabActive === '0' ?
                   menuSort(SORTED_PROBLEMS) :
                   menuSort(SORTED_PROJECTS)}
                 getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
-                <span className="ant-dropdown-link" style={{ cursor: 'pointer' }}>
+                <span className="ant-dropdown-link" style={{ cursor: 'pointer' }} onClick={sortClick}>
                   {/*<img className="img-filter00" alt="" /> Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :*/}
                   Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
                     SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
