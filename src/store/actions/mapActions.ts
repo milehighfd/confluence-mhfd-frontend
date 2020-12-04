@@ -521,7 +521,7 @@ export const getGalleryProjects = () => {
 
 export const setSpinMapLoaded = (spin: boolean) => {
     return (dispatch: Function) => {
-        dispatch({types: types.SET_SPIN_MAP_LOADED, spin: spin});
+        dispatch({type: types.SET_SPIN_MAP_LOADED, spin: spin});
     }
 }
 

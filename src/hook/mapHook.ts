@@ -5,7 +5,7 @@ import { setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
          getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
          getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
          setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
-         setLabelFilterProblems, setLabelFilterProjects } from '../store/actions/mapActions';
+         setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded } from '../store/actions/mapActions';
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
 
 const selectMapStates: ParametricSelector<RootState, undefined, {
@@ -108,6 +108,9 @@ export const useMapDispatch = () => {
     },
     setLabelFilterProblems: (filters: any) => {
       dispatch(setLabelFilterProblems(filters));
+    },
+    setSpinMapLoaded: (spin: boolean) => {
+      dispatch(setSpinMapLoaded(spin));
     }
   }
 }

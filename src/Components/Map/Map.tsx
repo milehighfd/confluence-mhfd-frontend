@@ -115,7 +115,7 @@ const Map = ({ leftWidth,
         filterTabNumber, coordinatesJurisdiction, opacityLayer } = useMapState();
     const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
         getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
-        setFilterProblemOptions, setFilterProjectOptions } = useMapDispatch();
+        setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded } = useMapDispatch();
     const { saveUserInformation } = useProfileDispatch();
 
     const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -570,6 +570,7 @@ const Map = ({ leftWidth,
                 } else {
                     applyMapLayers();
                     setSpinValue(false);
+                    setSpinMapLoaded(false);
                 }
             };
             waiting();
@@ -577,6 +578,7 @@ const Map = ({ leftWidth,
         if (map.isStyleLoaded()) {
             applyMapLayers();
             setSpinValue(false);
+            setSpinMapLoaded(false);
         } else {
             const waiting = () => {
                 if (!map.isStyleLoaded()) {
@@ -584,6 +586,7 @@ const Map = ({ leftWidth,
                 } else {
                     applyMapLayers();
                     setSpinValue(false);
+                    setSpinMapLoaded(false);
                 }
             };
             waiting();

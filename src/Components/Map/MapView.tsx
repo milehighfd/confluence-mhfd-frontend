@@ -16,6 +16,7 @@ import { useMapDispatch, useMapState } from "../../hook/mapHook";
 //import { push } from "connected-react-router";
 import { elementCost, getStatus } from '../../utils/utils';
 import { profile } from "console";
+import { shallowEqual, useSelector } from 'react-redux';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -104,13 +105,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProjects,
     setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
-    setCoordinatesJurisdiction, setNameZoomArea } = useMapDispatch();
+    setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded } = useMapDispatch();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, spinCardProblems, spinCardProjects } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
-
+  useEffect(() => {
+    setSpinMapLoaded(true);
+  }, []);
   const resetFilterProblems = () => {
     console.log('reset problem');
     const options = { ...filterProblemOptions };
@@ -655,11 +658,13 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </Menu.ItemGroup> */}
     </Menu>
   };
-
+  const { spinMapLoaded } = useSelector((state: any) => ({
+    spinMapLoaded: state.map.spinMapLoaded
+    }));
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col style={{ fontSize: '12px' }}>
-        <div className={(spinFilter || spinCardProblems || spinCardProjects ) ? "apply-filter" : 'apply-filter-no-effect'}>
+        <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'}>
           Apply map view to filters
           <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
             setApplyFilter(!applyFilter)

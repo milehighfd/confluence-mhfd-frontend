@@ -7,6 +7,7 @@ import { FiltersProjectTypes } from "../../Classes/MapTypes";
 import store from "../../store";
 import { elementCost } from "../../utils/utils";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
+import { shallowEqual, useSelector } from 'react-redux';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
@@ -198,13 +199,16 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
     setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
     getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal, selectedLayers, updateSelectedLayers, applyFilter,
     setApplyFilter, spinFilter }: FiltersProjectTypes) => {
-        
+    const { spinMapLoaded } = useSelector((state: any) => ({
+        spinMapLoaded: state.map.spinMapLoaded
+        }), shallowEqual);
+          
     const { boundsMap, spinCardProblems, spinCardProjects } = useMapState();
     const emptyStyle: React.CSSProperties = {};
     const genExtra = () => (
         <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col style={{fontSize: '12px'}}>
-            <div className={(spinFilter || spinCardProblems || spinCardProjects ) ? "apply-filter" : 'apply-filter-no-effect' }>
+            <div className={(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect' }>
                 Apply map view to filters
               <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
                       setApplyFilter(!applyFilter);
