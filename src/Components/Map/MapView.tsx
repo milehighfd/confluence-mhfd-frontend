@@ -17,6 +17,7 @@ import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { elementCost, getStatus } from '../../utils/utils';
 import { profile } from "console";
 import { shallowEqual, useSelector } from 'react-redux';
+import { useProfileDispatch } from "../../hook/profileHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -104,8 +105,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProjects,
-    setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
+    setTabCards, setOpacityLayer,  //setLabelFilterProjects, //setLabelFilterProblems 
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded } = useMapDispatch();
+
+  const { updateUserInformation } = useProfileDispatch();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, spinCardProblems, spinCardProjects } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
@@ -411,7 +414,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
   if (designation === 'guest') {
-    setApplyFilter(false);
+    //setApplyFilter(false);
   }
 
   if (nameZoomArea.length === 0) {
@@ -550,7 +553,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const changeCenter = (name: string, coordinates: Array<Array<number>>) => {
     const user = store.getState().profile.userInformation;
     user.polygon = coordinates;
-    saveUserInformation(user);
+    user.zoomarea = name;
+    //console.log(user);
+    updateUserInformation(user);
     //setArea(name);
     setNameZoomArea(name);
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === name).map((element: any) => {
