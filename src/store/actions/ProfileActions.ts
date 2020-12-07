@@ -4,6 +4,7 @@ import { SERVER } from "../../Config/Server.config";
 import { User } from '../../Classes/TypeList';
 import { message } from 'antd';
 import store from '..';
+//import { dispatch } from 'd3';
 
 export const getUserInformation = () => {
   return (dispatch: Function) => {

@@ -602,6 +602,17 @@ export const getParamFilterProjects = (bounds: string) => {
         })
     }
 }
+export const getParamFilterProjectsAsync = (bounds: string) => {
+    return (dispatch: Function) => {
+        //dispatch(setSpinFilter(true));
+        datasets.getData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds).then(params => {
+            if (params) {
+                dispatch({type: types.GET_PARAM_FILTER_PROJECTS, params});
+            }
+            //dispatch(setSpinFilter(false));
+        })
+    }
+}
 export const getParamFilterProblems = (bounds: string) => {
     return (dispatch: Function) => {
         dispatch(setSpinFilter(true));
@@ -613,6 +624,17 @@ export const getParamFilterProblems = (bounds: string) => {
         })
     }
 }
+export const getParamFilterProblemsAsync = (bounds: string) => {
+    return (dispatch: Function) => {
+        //dispatch(setSpinFilter(true));
+        datasets.getData(SERVER.PARAM_FILTER_PROBLEMS + '?bounds=' + bounds).then(params => {
+            if (params) {
+                dispatch({type: types.GET_PARAM_FILTER_PROBLEMS, params});
+            }
+            //dispatch(setSpinFilter(false));
+        })
+    }
+}
 export const getParamFilterComponents = (bounds: string) => {
     return (dispatch: Function) => {
         dispatch(setSpinFilter(true));
@@ -621,6 +643,17 @@ export const getParamFilterComponents = (bounds: string) => {
                 dispatch({type: types.GET_PARAM_FILTER_COMPONENTS, params});
             }
             dispatch(setSpinFilter(false));
+        })
+    }
+}
+export const getParamFilterComponentsAsync = (bounds: string) => {
+    return (dispatch: Function) => {
+        //dispatch(setSpinFilter(true));
+        datasets.getData(SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds).then(params => {
+            if (params) {
+                dispatch({type: types.GET_PARAM_FILTER_COMPONENTS, params});
+            }
+            //dispatch(setSpinFilter(false));
         })
     }
 }

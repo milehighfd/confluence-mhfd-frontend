@@ -100,6 +100,11 @@ const profile = (state = initProfile, action: any) => {
         ...state,
         laoderAllProjects: action.spin
       }
+    case types.GET_GUEST_USER: 
+      return {
+        ...state,
+        userInformation: action.user
+      }
     default:
       return state;
   }

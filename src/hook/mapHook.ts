@@ -1,12 +1,18 @@
-import {ParametricSelector, createSelector} from 'reselect';
+import { ParametricSelector, createSelector } from 'reselect';
 import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
-import { setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
-         getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
-         getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
-         setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
-         setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded } from '../store/actions/mapActions';
+
+import {
+  setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
+  getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
+  getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
+  setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
+  setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
+  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync
+} from '../store/actions/mapActions';
+
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
+import { dispatch } from 'd3';
 
 const selectMapStates: ParametricSelector<RootState, undefined, {
   toggleModalFilter: boolean,
@@ -18,11 +24,12 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
   nameZoomArea: string,
   labelsFiltersProjects: LabelFilter[],
   labelsFiltersProblems: LabelFilter[],
-  spinFilter: boolean,
-    spinCardProblems: boolean,
-    spinCardProjects: boolean,
+  spinFilters: boolean,
+  spinCardProblems: boolean,
+  spinCardProjects: boolean//,
+  //paramFilters: any
 }> =
-  createSelector<any, boolean, string, string, string, boolean, any[],string, LabelFilter[], LabelFilter[], boolean, boolean, boolean,
+  createSelector<any, boolean, string, string, string, boolean, any[], string, LabelFilter[], LabelFilter[], boolean, boolean, boolean, //any,
     {
       toggleModalFilter: boolean,
       tabCards: string,
@@ -32,10 +39,11 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
       coordinatesJurisdiction: any[],
       nameZoomArea: string,
       labelsFiltersProjects: any[],
-      labelsFiltersProblems: any[] //LabelFilter[]
-      spinFilter: boolean,
+      labelsFiltersProblems: any[],
+      spinFilters: boolean,
       spinCardProblems: boolean,
-      spinCardProjects: boolean
+      spinCardProjects: boolean//,
+      //paramFilters: any
     }>
     (
       state => state.map.toggleModalFilter,
@@ -47,14 +55,18 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
       state => state.map.nameZoomArea,
       state => state.map.labelsFiltersProjects,
       state => state.map.labelsFiltersProblems,
-      state => state.map.spinFilter,
+      state => state.map.spinFilters,
       state => state.map.spinCardProblems,
       state => state.map.spinCardProjects,
-      (toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems,
-        spinFilter, spinCardProblems, spinCardProjects) => ({
-        toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction,nameZoomArea, labelsFiltersProjects, labelsFiltersProblems,
-        spinFilter, spinCardProblems, spinCardProjects
-      })
+      //state => state.map.paramFilters,
+      (toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
+        nameZoomArea, labelsFiltersProjects, labelsFiltersProblems,
+        spinFilters, spinCardProblems, spinCardProjects//, paramFilters
+        ) => ({
+          toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
+          nameZoomArea, labelsFiltersProjects, labelsFiltersProblems,
+          spinFilters, spinCardProblems, spinCardProjects//, paramFilters
+        })
     );
 
 export const useMapState = () => {
@@ -111,6 +123,15 @@ export const useMapDispatch = () => {
     },
     setSpinMapLoaded: (spin: boolean) => {
       dispatch(setSpinMapLoaded(spin));
+    },
+    getParamFilterComponentsAsync: (bounds: string) => {
+      dispatch(getParamFilterComponentsAsync(bounds));
+    },
+    getParamFilterProjectsAsync: (bounds: string) => {
+      dispatch(getParamFilterProjectsAsync(bounds));
+    },
+    getParamFilterProblemsAsync: (bounds: string) => {
+      dispatch(getParamFilterProblemsAsync(bounds));
     }
   }
 }

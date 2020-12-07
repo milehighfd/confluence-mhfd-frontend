@@ -205,6 +205,7 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
           
     const { boundsMap, spinCardProblems, spinCardProjects } = useMapState();
     const emptyStyle: React.CSSProperties = {};
+    console.log(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded );
     const genExtra = () => (
         <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col style={{fontSize: '12px'}}>
@@ -215,6 +216,9 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
                       getGalleryProblems();
                       getGalleryProjects();
                   }}></Checkbox>
+                <div className="progress">
+                    <div className="progress-value"></div>
+              </div>
             </div>
             </Col>
         </Row>
@@ -247,9 +251,10 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
                 return null;
         }
     }
-
+// !spinFilter &&
     return <>
-        {!spinFilter && <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
+
+        { <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
             if (e === '0') {
                 setTabActive('0');
                 setFilterTabNumber(PROBLEMS_TRIGGER);
@@ -293,7 +298,7 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
                             setFilterComponentOptions={setFilterComponentOptions}
                             getGalleryProblems={getGalleryProblems}
                             getGalleryProjects={getGalleryProjects} />
-                        {getFilterBody(value)}
+                        {!spinFilter && getFilterBody(value)}
 
                     </TabPane>
                 );
