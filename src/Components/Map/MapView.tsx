@@ -10,6 +10,7 @@ import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../..
 import { useParams, useLocation } from "react-router-dom";
 import { CaretUpOutlined, CaretDownOutlined, UnderlineOutlined } from "@ant-design/icons";
 import store from "../../store";
+import * as datasets from "../../Config/datasets"
 import DetailedModal from "../Shared/Modals/DetailedModal";
 import { genExtra } from "../../utils/detailedUtils";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
@@ -17,6 +18,8 @@ import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { elementCost, getStatus } from '../../utils/utils';
 import { profile } from "console";
 import { shallowEqual, useSelector } from 'react-redux';
+import { SERVER } from "../../Config/Server.config";
+import { replaceAppUser } from "../../store/actions/appUser";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -112,6 +115,31 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
   useEffect(() => {
+    /* const logued = localStorage.getItem('mfx-token')
+    const logued2 = store.getState().profile.userInformation.designation
+    console.log('logued', logued, logued2)
+    if(!logued){
+      const redirectGuest = () => {
+        console.log('redirect app');
+        datasets.getData(SERVER.GUEST).then(async res => {
+          if (res?.token) {
+            localStorage.setItem('mfx-token', res.token);
+            await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
+              console.log('resultadox', result)
+              replaceAppUser(result);
+              saveUserInformation(result)
+            });
+            //setRedirect(true);
+          } else {
+            //const auxMessage = {...message};
+            //auxMessage.message = 'Could not connect, check your email and password';
+            // auxMessage.color = 'red';
+            //setMessage(auxMessage);
+          }
+        })
+      }
+      redirectGuest(); 
+    } */
     setSpinMapLoaded(true);
   }, []);
   const resetFilterProblems = () => {
