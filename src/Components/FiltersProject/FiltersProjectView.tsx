@@ -247,9 +247,10 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
                 return null;
         }
     }
-
+// !spinFilter &&
     return <>
-        {!spinFilter && <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
+
+        { <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
             if (e === '0') {
                 setTabActive('0');
                 setFilterTabNumber(PROBLEMS_TRIGGER);
@@ -293,7 +294,7 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
                             setFilterComponentOptions={setFilterComponentOptions}
                             getGalleryProblems={getGalleryProblems}
                             getGalleryProjects={getGalleryProjects} />
-                        {getFilterBody(value)}
+                        {!spinFilter && getFilterBody(value)}
 
                     </TabPane>
                 );
