@@ -114,6 +114,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [hoverFilterModal, setHoverFilterModal] = useState(false);
+  /* const [showFilterModelProject, setShowFilterModelProject] = useState(false);
+  const [showFilterModelProblem, setShowFilterModelProblem] = useState(false); */
   useEffect(() => {
     /* const logued = localStorage.getItem('mfx-token')
     const logued2 = store.getState().profile.userInformation.designation
@@ -229,9 +233,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }
 
   const generateLabelsFilterProblems = () => {
-    //console.log('', paramProblems);
     const filterProblems = { ...filterProblemOptions } as any;
-    //console.log('FILTER PROBLEMS', labelsFiltersProblems);
     const labelsProblems = [...labelsFiltersProblems];
     for (const key in filterProblemOptions) {
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
@@ -282,7 +284,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         </div>
         <div className="btn-footer-02">
           {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
-            onClick={() => resetFilterProblems()}>Clear</Button> : 'No filters are applied'}
+            onClick={() => hideFilterModal()}>Close</Button> : 'No filters are applied'}
         </div>
       </div>
     )
@@ -333,7 +335,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         </div>
         <div className="btn-footer-02">
           {labelsFiltersProjects.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
-            onClick={() => resetFilterProjects()}>Clear</Button> : 'No filters are applied'}
+            onClick={() => hideFilterModal()}>Close</Button> : 'No filters are applied'}
         </div>
       </div>
     );
@@ -704,6 +706,16 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     }
   }
 
+  const hideFilterModal = () => {
+    setShowFilterModal(false);
+    setHoverFilterModal(false);
+  }
+
+  const handleHoverChange =(visible: boolean) => {
+    setShowFilterModal(false);
+    setHoverFilterModal(visible);
+  };
+
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col style={{ fontSize: '12px' }}>
@@ -842,8 +854,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
           <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
-            <Popover placement="bottomRight" overlayClassName="tag-filters" content={
-              //contentTag
+            <Popover placement="bottomRight" overlayClassName="tag-filters" 
+              visible={hoverFilterModal} trigger="hover"
+              onVisibleChange={() => handleHoverChange(!hoverFilterModal)}
+              content={
               tabActive === '0' ? generateLabelsFilterProblems() : generateLabelsFilterProjects()
             }>
               <Button onClick={handleToggle} >
