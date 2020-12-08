@@ -3,6 +3,7 @@ import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_F
 
 const initState = {
     error: '',
+    autocomplete: '',
     selectedOnMap: { id: -1, tab: '' },
     redirect: false,
     newProject: {
@@ -697,6 +698,12 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 labelsFiltersProblems: action.filters
+            }
+        }
+        case types.SET_AUTOCOMPLETE: {
+            return {
+                ...state,
+                autocomplete: action.autocomplete
             }
         }
         case types.GET_PARAM_FILTER_COMPONENTS: {

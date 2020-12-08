@@ -8,7 +8,7 @@ import {
   getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
   setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
-  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync
+  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync, setAutocomplete
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -114,6 +114,9 @@ export const useMapDispatch = () => {
     },
     setNameZoomArea: (name: string) => {
       dispatch(setNameZoomArea(name));
+    },
+    setAutocomplete: (autocomplete: string) => {
+      dispatch(setAutocomplete(autocomplete));
     },
     setLabelFilterProjects: (filters: any) => {
       dispatch(setLabelFilterProjects(filters));

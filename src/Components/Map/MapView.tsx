@@ -114,6 +114,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
+  const [valueA, setvalueA] = useState('');
+
 
 
   /* const logued = localStorage.getItem('mfx-token')
@@ -498,13 +500,13 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setCounterComponents(counter);
   })
 
-  const handleOnSubmit = (filtersData: FilterTypes) => {
+ /* const handleOnSubmit = (filtersData: FilterTypes) => {
     getProjectWithFilters(filtersData);
   }
 
   const handleReset = () => {
     getProjectWithFilters([]);
-  }
+  } */
 
   const handleToggle = () => {
     // Force coded cause' components tab doesn't exists on MapView
@@ -778,6 +780,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </Dropdown> */}
           <div className="auto-complete-map">
             {/* <Popover content={content}> */}
+            {nameZoomArea}
             <AutoComplete
               style={{ width: '200' }}
               dataSource={dataAutocomplete}
@@ -786,8 +789,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 // groupOrganization.name
                 option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
               }
-              onSelect={onSelect}>
-              <Input suffix={<Icon type="down" className="certain-category-icon" />} />
+              onSelect={onSelect}
+              value={valueA}
+              onSearch={(input2: any) => {
+                console.log('llega', input2)
+                setvalueA(input2)
+              }}
+              >
+
+              <Input id={'miclase'} suffix={<Icon type="down" className="certain-category-icon" />} />
             </AutoComplete>
             {/* </Popover> */}
           </div>
@@ -802,7 +812,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         </Col>
         <Col style={{ textAlign: 'right' }} span={4}>
           <ButtonGroup>
-            {/* <Button className="btn-mm" onClick={() => {
+            {/* <Button className="btn-mm" onClick={() Arvada=> {
               setListDescription(true);
             }}>
               <img className="img-h" src="/Icons/icon-30.svg" alt="" />
@@ -987,8 +997,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           componentsTotal={counterComponents}
           filterNames={filterNames}
           setToggleFilters={setToggleFilters}
-          // handleOnSubmit={handleOnSubmit}
-          // handleReset={handleReset}
+          /* handleOnSubmit={handleOnSubmit}
+          handleReset={handleReset} */
           setFilterNames={setFilterNames}
           projectsLength={galleryProjects.length}
           problemsLength={galleryProblems.length}

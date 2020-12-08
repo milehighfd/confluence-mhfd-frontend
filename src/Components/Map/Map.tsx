@@ -115,7 +115,7 @@ const Map = ({ leftWidth,
         filterTabNumber, coordinatesJurisdiction, opacityLayer } = useMapState();
     const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
         getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
-        setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded } = useMapDispatch();
+        setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete } = useMapDispatch();
     const { saveUserInformation } = useProfileDispatch();
 
     const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -1278,6 +1278,7 @@ const Map = ({ leftWidth,
     //end geocoder
 
     const showMHFD = () => {
+        setAutocomplete('')
         const user = store.getState().profile.userInformation;
         user.polygon = coordinatesMHFD;
         saveUserInformation(user);

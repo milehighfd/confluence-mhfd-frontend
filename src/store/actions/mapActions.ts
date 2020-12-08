@@ -766,3 +766,9 @@ export const setZoomProjectOrProblem = (zoom: any) => {
         dispatch({type: types.ZOOM_PROJECT_OR_PROBLEMS, zoom});
     }
 }
+
+export const setAutocomplete = (autocomplete: string) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_AUTOCOMPLETE, autocomplete});
+    }
+}
