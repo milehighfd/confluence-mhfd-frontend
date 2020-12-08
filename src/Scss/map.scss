@@ -353,8 +353,8 @@
   .ant-collapse{
     border: none;
   }
-  .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
-    right: 12px;
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+    left: 13px;
   }
   .ant-switch{
     float: right;
@@ -365,9 +365,10 @@
 }
 .filter-coll-header{
   display: flex;
-  width: 200px;
+  width: 297px;
   position: relative;
   font-size: 13px;
+  padding-left: 21px;
 
   .ant-switch {
     position: absolute;
