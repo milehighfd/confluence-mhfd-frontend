@@ -25,50 +25,9 @@ import {
   popUps
 } from '../../../constants/constants';
 
-const { Panel } = Collapse;
-export const genExtra = () => (
-  <div className="filter-coll-header">
-    <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} MHFD DATA </div>
-     <Switch size="small" />
-  </div>
-);
-export const genExtra01 = () => (
-  <div className="filter-coll-header">
-    <div>{/* <img src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
-    <Switch size="small"/>
-  </div>
-);
-export const genExtra02 = () => (
-  <div className="filter-coll-header">
-     <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
-    <Switch size="small"/>
-  </div>
 
-);
-export const genExtra03 = () => (
-  <div className="filter-coll-header">
-    <div>{/* <img src="/Icons/icon-79.svg" alt="" />*/} GEOMORPHOLOGY</div>
-    <Switch size="small"/>
-  </div>
-);
-export const genExtra04 = () => (
-  <div className="filter-coll-header">
-     <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
-    <Switch size="small"/>
-  </div>
-);
-export const genExtra05 = () => (
-  <div className="filter-coll-header">
-    <div>{/* <img src="/Icons/icon-79.svg" alt="" />*/} HUMAN CONNECTION</div>
-    <Switch size="small"/>
-  </div>
-);
-export const genExtra06 = () => (
-  <div className="filter-coll-header">
-    <div>{/* <img src="/Icons/icon-78.svg" alt="" />*/} BOUNDARIES</div>
-    <Switch size="small"/>
-  </div>
-);
+const { Panel } = Collapse;
+
 export const genExtra07 = () => (
   <div className="filter-coll-header">
      <div>{/*<img src="/Icons/icon-80.svg" alt="" />*/} OTHER LAYERS</div>
@@ -85,7 +44,101 @@ const contenido = (text: string) => {
 export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView }:
   { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean }) => {
   // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
+  
+  const changeGroup = (value: boolean, elements: Array<any>) => {
+    let switchSelected: any[] = [...selectedLayers];
+    for (const element of elements) {
+      if (value) {
+        switchSelected.push(element);
+      } else {
+        switchSelected = switchSelected.filter((item) => {
+          return element !== item;
+        });
+      }
+      console.log('my element ', element);
+    }
+    setSelectedCheckBox(switchSelected);
+    selectCheckboxes(switchSelected);
+    removePopup();
+  }
+  const genExtra = () => {
+    return (<div className="filter-coll-header">
+      <div><img src="/Icons/icon-79.svg" alt="" /> MHFD DATA </div>
+       <Switch size="small" onChange={(value, event) => {
+         event.stopPropagation();
+         changeGroup(value, [PROBLEMS_TRIGGER,
+        PROJECTS_MAP_STYLES,
+        MEP_PROJECTS,
+        ROUTINE_MAINTENANCE,
+        COMPONENT_LAYERS]
+      )} }/> 
+    </div>)
+  };
+  const genExtra01 = () => {
+    return (
+      <div className="filter-coll-header">
+    
+         <div>{/*<img src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
+        <Switch size="small" onChange={(value, event) => {
+         event.stopPropagation();
+         changeGroup(value, [WATERSHED_FILTERS
+         ])}
+       }/> 
+      </div>
+  )};
+  const genExtra02 = () => {
+    return (
+    <div className="filter-coll-header">
+       <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
+      <Switch size="small" onChange={(value, event) => {
+         event.stopPropagation();
+         changeGroup(value, [FLOODPLAINS,
+          FEMA_FLOOD_HAZARD
+         ])}
+       }/> 
+    </div>
+    ) 
+  };
 
+  const genExtra03 = () => {
+    return(
+      <div className="filter-coll-header">
+        <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} GEOMORPHOLOGY</div>
+        <Switch size="small"/> 
+      </div>
+    )
+  };
+
+
+ const genExtra04 = () => {
+   return (
+    <div className="filter-coll-header">
+       <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
+      <Switch size="small"/> 
+    </div>
+    )
+  };
+  const genExtra05 = () => (
+    <div className="filter-coll-header">
+      <div>{/* <img src="/Icons/icon-79.svg" alt="" />*/} HUMAN CONNECTION</div>
+      <Switch size="small"/>
+    </div>
+  );
+
+
+
+ const genExtra06 = () => {
+    return (<div className="filter-coll-header">
+      <div>{/*<img src="/Icons/icon-78.svg" alt="" />*/} BOUNDARIES</div>
+      <Switch size="small" onChange={(value, event) => {
+         event.stopPropagation();
+         changeGroup(value, [SERVICE_AREA_LAYERS,
+          COUNTIES_LAYERS,
+          MUNICIPALITIES
+         ])}
+       }/>
+    </div>
+  )};
   const onChange = (value: boolean, item: any) => {
     //console.log('mi grupo de switch', value, item, selectedLayers)
 
@@ -96,9 +149,8 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     } else {
       switchSelected = switchSelected.filter((element) => {
         return element !== item;
-      })
+      });
     }
-    console.log('mi array 2', switchSelected, selectedLayers)
     setSelectedCheckBox(switchSelected);
     // setCheckboxes(switchSelected);
     selectCheckboxes(switchSelected);
