@@ -108,13 +108,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProjects,
     setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
-    setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded } = useMapDispatch();
+    setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete } = useMapDispatch();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, spinCardProblems, spinCardProjects } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
-  const [valueA, setvalueA] = useState('');
 
 
 
@@ -656,6 +655,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const onSelect = (value: any) => {
     console.log('Selected:', value);
+    setAutocomplete(value);
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
       return {
         aoi: element.aoi,
@@ -694,10 +694,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </Menu.ItemGroup> */}
     </Menu>
   };
-  const { spinMapLoaded } = useSelector((state: any) => ({
-    spinMapLoaded: state.map.spinMapLoaded
+  const { autcomplete, spinMapLoaded } = useSelector((state: any) => ({
+    spinMapLoaded: state.map.spinMapLoaded,
+    autcomplete: state.map.autocomplete
     }));
-
+  
   const sortClick = () => {
     if (tabActive === '0') {
       const auxOptions = { ...filterProblemOptions };
@@ -790,10 +791,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
               }
               onSelect={onSelect}
-              value={valueA}
+              value={autcomplete}
               onSearch={(input2: any) => {
                 console.log('llega', input2)
-                setvalueA(input2)
+                setAutocomplete(input2)
               }}
               >
 
