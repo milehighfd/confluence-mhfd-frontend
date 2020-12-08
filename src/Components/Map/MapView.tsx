@@ -494,13 +494,13 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setCounterComponents(counter);
   })
 
-  const handleOnSubmit = (filtersData: FilterTypes) => {
+  /* const handleOnSubmit = (filtersData: FilterTypes) => {
     getProjectWithFilters(filtersData);
   }
 
   const handleReset = () => {
     getProjectWithFilters([]);
-  }
+  } */
 
   const handleToggle = () => {
     // Force coded cause' components tab doesn't exists on MapView
@@ -994,8 +994,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           componentsTotal={counterComponents}
           filterNames={filterNames}
           setToggleFilters={setToggleFilters}
-          handleOnSubmit={handleOnSubmit}
-          handleReset={handleReset}
+          /* handleOnSubmit={handleOnSubmit}
+          handleReset={handleReset} */
           setFilterNames={setFilterNames}
           projectsLength={galleryProjects.length}
           problemsLength={galleryProblems.length}

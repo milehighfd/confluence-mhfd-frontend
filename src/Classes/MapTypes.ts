@@ -359,8 +359,8 @@ export type FiltersProjectTypes = {
     filterNames : Array<FilterNamesTypes>, 
     setFilterNames : Function, 
     setToggleFilters: Function, 
-    handleOnSubmit: Function, 
-    handleReset: Function, 
+    /* handleOnSubmit: Function, 
+    handleReset: Function,  */
     projectsLength: number, 
     problemsLength: number, 
     getDropdownFilters: Function, 

@@ -194,7 +194,8 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
 }
 
 export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters,
-    handleOnSubmit, handleReset, projectsLength, problemsLength, getDropdownFilters,
+    /* handleOnSubmit, handleReset,  */
+    projectsLength, problemsLength, getDropdownFilters,
     dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
     setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
     getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, componentsTotal, selectedLayers, updateSelectedLayers, applyFilter,
