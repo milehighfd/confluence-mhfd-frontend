@@ -141,11 +141,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         })
       }
       sw = 1
-      redirectGuest(); 
-    }   
+      redirectGuest();
+    }
 */
 
-  useEffect(() => { 
+  useEffect(() => {
     setSpinMapLoaded(true);
   }, []);
   const resetFilterProblems = () => {
@@ -820,7 +820,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
       <div className="head-filter">
         <Row type="flex" justify="space-around" align="middle">
-          <Col span={12}>
+          <Col span={11}>
             <Search
               placeholder="Search..."
               value={tabActive === '0' ? keywordProblem : keywordProject}
@@ -847,7 +847,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               clearSearch();
             }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
-          <Col style={{ textAlign: 'right' }} span={12} id="sort-map">
+          <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
+            <Button className="btn-red"><u>Reset</u></Button>
             <Popover placement="bottomRight" overlayClassName="tag-filters" content={
               //contentTag
               tabActive === '0' ? generateLabelsFilterProblems() : generateLabelsFilterProjects()
@@ -986,8 +987,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           componentsTotal={counterComponents}
           filterNames={filterNames}
           setToggleFilters={setToggleFilters}
-          handleOnSubmit={handleOnSubmit}
-          handleReset={handleReset}
+          // handleOnSubmit={handleOnSubmit}
+          // handleReset={handleReset}
           setFilterNames={setFilterNames}
           projectsLength={galleryProjects.length}
           problemsLength={galleryProblems.length}

@@ -51,6 +51,19 @@
   width: auto !important;
   padding-right: 6px !important;
 }
+// RED BUTTON
+.btn-red, .btn-red:hover {
+  border: none !important;
+  color: $red !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  width: auto !important;
+  padding-right: 6px !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0px !important;
+  text-decoration: underline;
+}
 
 // OTHER BUTTONS
 .f-btn{
