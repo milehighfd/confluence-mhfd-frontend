@@ -37,7 +37,7 @@ export const genExtra07 = () => (
 );
 const content = (<div className="popoveer-00"><i>Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</i></div>);
 
-const contenido = (text: string) => {
+const contentPopOver = (text: string) => {
   return <div className="popoveer-00"><i>{text}</i></div>
 }
 
@@ -171,7 +171,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
                   Problems
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.problem)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" defaultChecked={true} onChange={(value) => onChange(value, PROBLEMS_TRIGGER)} />
@@ -180,7 +180,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   Components
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.component)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.component)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onChange={(value) => onChange(value, COMPONENT_LAYERS)} />
@@ -189,7 +189,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
                   Projects
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.project)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.project)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" defaultChecked={true} onClick={(value) => onChange(value, PROJECTS_MAP_STYLES)} />
@@ -198,7 +198,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   MEP Projects
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.mep_projects)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.mep_projects)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onChange={(value) => onChange(value, MEP_PROJECTS)} />
@@ -207,7 +207,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
                   Routine Maintenance
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.routine_maintenance)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.routine_maintenance)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onChange={(value) => onChange(value, ROUTINE_MAINTENANCE)} />
@@ -217,7 +217,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
                   Watersheds
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.watershed)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.watershed)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onChange={(value) => onChange(value, WATERSHED_FILTERS)} />
@@ -226,7 +226,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
                   NRCS Soils
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.nrcs_soils)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.nrcs_soils)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" />
@@ -235,7 +235,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p style={{ display: 'none' }}>
               <img src="/Icons/icon-77.svg" alt="" />
                   Streams
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.stream_mang_corridors)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onChange={(value) => onChange(value, STREAMS_FILTERS)} />
@@ -246,7 +246,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
                   Floodplains
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.floodplains)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.floodplains)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover> <Switch size="small" onChange={(value) => onChange(value, FLOODPLAINS)} />
             </p> {/* <Checkbox value={FLOODPLAINS}></Checkbox>} */}
@@ -254,7 +254,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   FEMA Flood Hazard Zones
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.fema_flood_hazard_zones)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.fema_flood_hazard_zones)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onChange={(value) => onChange(value, FEMA_FLOOD_HAZARD)} />
@@ -263,7 +263,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
                   DWR Dam Safety
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.dam_safety)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" />
@@ -274,7 +274,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   Stream Mang. Corridors
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.stream_mang_corridors)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" />
@@ -285,7 +285,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   BCZ - Preble’s Meadow Jumping Mouse
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.bcz_prebels_meadow)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_prebels_meadow)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" />
@@ -294,7 +294,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   BCZ - Ute Ladies Tresses Orchid
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.bcz_ute_ladies)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_ute_ladies)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" />
@@ -303,7 +303,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
                   Research/Monitoring
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.research_monitoring)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.research_monitoring)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" />
@@ -314,7 +314,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   Climb to Safety
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.climb_to_safety)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.climb_to_safety)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" />
@@ -324,7 +324,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   Service Areas
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.service_area)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.service_area)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onChange={(value) => onChange(value, SERVICE_AREA_LAYERS)} />
@@ -333,7 +333,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   Counties
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.counties)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.counties)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onChange={(value) => onChange(value, COUNTIES_LAYERS)} />
@@ -342,7 +342,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-75.svg" alt="" />
                   Municipalities
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.municipalities)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.municipalities)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onChange={(value) => onChange(value, MUNICIPALITIES)} />
@@ -351,7 +351,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   SEMSWA Service Area
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.semswa_service_area)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.semswa_service_area)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" />
@@ -366,7 +366,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
                   Species
-                  <Popover placement="right" overlayClassName="popover-filter-map" content={contenido(popUps.species)}>
+                  <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.species)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" />
