@@ -57,13 +57,51 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     [COUNTIES_LAYERS.name]: false,
     [MUNICIPALITIES.name]: false
   });
+  const [groups, setGroups] = useState({
+    MHFDData: false,
+    hydrologic: false,
+    hydraulic: false,
+    geomorphology: false,
+    environmental: false,
+    humanConnection: false,
+    boundaries: false
+  });
   useEffect(() => {
     console.log(switches);
-    
+    const newGroups: any = {};
+    if (switches[PROBLEMS_TRIGGER] && switches[PROJECTS_MAP_STYLES.name] && switches[COMPONENT_LAYERS.name] 
+      && switches[MEP_PROJECTS.name] && switches[ROUTINE_MAINTENANCE.name]) {
+        newGroups['MHFDData'] = true;
+      } else {
+        newGroups['MHFDData'] = false;
+      }
+    console.log(switches[WATERSHED_FILTERS]);
+    if (switches[WATERSHED_FILTERS]) {
+      newGroups['hydrologic'] = true;
+      console.log('===> ', {...groups, 'hydrologic': true});
+    } else {
+      console.log('Z=== ', {...groups, 'hydrologic': true});
+      newGroups['hydrologic'] = false;
+    }
+    if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD]) {
+      newGroups['hydraulic'] = true;
+    } else {
+      newGroups['hydraulic'] = false;
+    }
+    if (switches[SERVICE_AREA_LAYERS.name] && switches[COUNTIES_LAYERS.name] && switches[MUNICIPALITIES.name] ) {
+      newGroups['boundaries'] = true;
+    } else { 
+      newGroups['boundaries'] = false;
+    }
+    setGroups({...groups, ...newGroups});
   }, [switches]);
-  const changeGroup = (value: boolean, elements: Array<any>) => {
+  useEffect(() => {
+    console.log(groups);
+  }, [groups]);
+  const changeGroup = (value: boolean, elements: Array<any>, name: string) => {
     let switchSelected: any[] = [...selectedLayers];
     const newSwitches: any = {};
+    setGroups({...groups, [name]: value});
     for (const element of elements) {
       if (element.hasOwnProperty('name')) {
         const key: string = String(element['name']);
@@ -84,16 +122,17 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     selectCheckboxes(switchSelected);
     removePopup();
   }
+  
   const genExtra = () => {
     return (<div className="filter-coll-header">
       <div><img src="/Icons/icon-79.svg" alt="" /> MHFD DATA </div>
-       <Switch size="small" onClick={(value, event) => {
+       <Switch checked={groups['MHFDData']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [PROBLEMS_TRIGGER,
         PROJECTS_MAP_STYLES,
         MEP_PROJECTS,
         ROUTINE_MAINTENANCE,
-        COMPONENT_LAYERS]
+        COMPONENT_LAYERS], 'MHFDData'
       )} }/> 
     </div>)
   };
@@ -102,10 +141,10 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
       <div className="filter-coll-header">
     
          <div>{/*<img src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
-        <Switch size="small" onClick={(value, event) => {
+        <Switch checked={groups['hydrologic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [WATERSHED_FILTERS
-         ])}
+         ], 'hydrologic')}
        }/> 
       </div>
   )};
@@ -113,21 +152,23 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     return (
     <div className="filter-coll-header">
        <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
-      <Switch size="small" onClick={(value, event) => {
+      <Switch checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
           FEMA_FLOOD_HAZARD
-         ])}
+         ], 'hydraulic')}
        }/> 
     </div>
     ) 
   };
-
+  
   const genExtra03 = () => {
     return(
       <div className="filter-coll-header">
         <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} GEOMORPHOLOGY</div>
-        <Switch size="small"/> 
+        <Switch size="small" onClick={(value, event) => {
+          event.stopPropagation();
+        }}/> 
       </div>
     )
   };
@@ -137,14 +178,18 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
    return (
     <div className="filter-coll-header">
        <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
-      <Switch size="small"/> 
+      <Switch size="small" onClick={(value, event) => {
+          event.stopPropagation();
+        }}/> 
     </div>
     )
   };
   const genExtra05 = () => (
     <div className="filter-coll-header">
       <div>{/* <img src="/Icons/icon-79.svg" alt="" />*/} HUMAN CONNECTION</div>
-      <Switch size="small"/>
+      <Switch size="small" onClick={(value, event) => {
+          event.stopPropagation();
+        }}/>
     </div>
   );
 
@@ -153,12 +198,12 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
  const genExtra06 = () => {
     return (<div className="filter-coll-header">
       <div>{/*<img src="/Icons/icon-78.svg" alt="" />*/} BOUNDARIES</div>
-      <Switch size="small" onClick={(value, event) => {
+      <Switch checked={groups['boundaries']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [SERVICE_AREA_LAYERS,
           COUNTIES_LAYERS,
           MUNICIPALITIES
-         ])}
+         ], 'boundaries')}
        }/>
     </div>
   )};
