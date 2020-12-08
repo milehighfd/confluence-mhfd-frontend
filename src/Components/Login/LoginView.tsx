@@ -84,7 +84,7 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
     <Row>
       <CarouselAutoPlayView />
       <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
-      <div className="login-step01">
+      <div className="login-step01"  id="login-form" >
         <div>
         <Row className="returnText">
           <Col span={12}>

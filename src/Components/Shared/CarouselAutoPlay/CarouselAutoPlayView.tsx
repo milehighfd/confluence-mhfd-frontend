@@ -1,10 +1,11 @@
 import React from "react";
-import { Col, Carousel, Button } from "antd";
+import { Col, Carousel, Button, Anchor } from "antd";
 import store from "../../../store";
 import { SERVER } from "../../../Config/Server.config";
 
 export default () => {
   const images = store.getState().carouselImages.images;
+  const { Link } = Anchor;
   return <Col xs={{ span: 24 }} lg={{ span: 13 }}>
     <a href="https://mhfd.org/" target="_blank">
       <div className="logo-white"
@@ -28,7 +29,9 @@ export default () => {
         </ul>
       </div>
       <div className="mobile-login">
-        <Button className="btn-purple">Enter</Button>
+        <Anchor affix={false}>
+          <Button href="#login-form" className="btn-purple">Enter</Button>
+        </Anchor>
       </div>
     </div>
     <Carousel autoplay autoplaySpeed={6000}>

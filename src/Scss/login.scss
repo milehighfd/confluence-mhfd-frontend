@@ -585,8 +585,22 @@
     .btn-purple{
       height: 50px;
       font-size: 16px;
-      margin-top: 10px;
+      // margin-top: 10px;
       width: 100%;
+      padding: 9px 0px;
+    }
+    .ant-anchor-wrapper {
+      margin-left: 0px;
+      padding-left: 0px;
+      overflow: hidden;
+      background-color: transparent;
+      height: 50px;
+    }
+    .ant-anchor {
+      padding-left: 0px;
+    }
+    .ant-anchor-ink::before {
+      background-color: transparent;
     }
   }
   .login-form{
