@@ -147,7 +147,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setSpinMapLoaded(true);
   }, []);
   const resetFilterProblems = () => {
-    console.log('reset problem');
     const options = { ...filterProblemOptions };
     options.components = '';
     options.solutionstatus = '';
@@ -164,7 +163,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }
 
   const resetFilterProjects = () => {
-    console.log('reset project');
     const options = { ...filterProjectOptions };
     options.projecttype = 'Maintenance,Capital';
     options.status = 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual';
@@ -236,6 +234,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     //console.log('', paramProblems);
     const filterProblems = { ...filterProblemOptions } as any;
     //console.log('FILTER PROBLEMS', labelsFiltersProblems);
+    //let countTagProblems = 0;
     const labelsProblems = [...labelsFiltersProblems];
     for (const key in filterProblemOptions) {
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
@@ -379,6 +378,20 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     let countTagProjets = 0;
     let countTagComponents = 0;
     const filterComponents = { ...filterComponentOptions } as any;
+    const filterProblems = { ...filterProblemOptions} as any;
+    for (const key in filterProblemOptions) {
+      const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
+      if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+        const elements = [];
+        //const position = labelsProblems.findIndex((x: any) => x.name === key);
+        for (let index = 0; index < tag.length; index++) {
+          const element = tag[index];
+          if (element) {
+            countTagProblems++;
+          }
+        }
+      }
+    }
     for (const key in filterComponentOptions) {
       let c = 0;
       const tag = key === 'estimatedcost' ? filterComponents[key] : filterComponents[key].split(',');
@@ -442,9 +455,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const purple = '#11093c';
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
-  if (designation === 'guest') {
-    setApplyFilter(false);
-  }
 
   if (nameZoomArea.length === 0) {
     setNameZoomArea(store.getState().profile.userInformation.zoomarea);
@@ -487,6 +497,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   useEffect(() => {
     if (filters) {
       setCurrentFilters(filters);
+    }
+    if (designation === 'guest') {
+      setApplyFilter(false);
     }
   }, [filters]);
 
