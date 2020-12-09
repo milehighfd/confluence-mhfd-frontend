@@ -587,7 +587,11 @@
       font-size: 16px;
       // margin-top: 10px;
       width: 100%;
-      padding: 9px 0px;
+      padding: 16px 0px;
+    }
+    .ant-anchor-link-title {
+      color: $white;
+      text-align: center;
     }
     .ant-anchor-wrapper {
       margin-left: 0px;
