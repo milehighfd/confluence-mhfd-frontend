@@ -22,7 +22,9 @@ import 'antd/dist/antd.css';
 
 import App from './AppContainer';
 
-
+if (!localStorage.getItem('mfx-token')) {
+  localStorage.setItem('mfx-token', 'GUEST');
+}
 
 export const initGA = () => {
   ReactGA.initialize('UA-176723071-1');
