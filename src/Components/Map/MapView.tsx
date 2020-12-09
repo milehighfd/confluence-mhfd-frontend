@@ -114,6 +114,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
+  const [valueA, setvalueA] = useState('');
+
 
   /* const logued = localStorage.getItem('mfx-token')
     const logued2 = store.getState().profile.userInformation.designation
@@ -791,6 +793,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       </Dropdown> */}
           <div className="auto-complete-map">
             {/* <Popover content={content}> */}
+            {nameZoomArea}
             <AutoComplete
               style={{ width: '200' }}
               dataSource={dataAutocomplete}
@@ -800,14 +803,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                 option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
               }
               onSelect={onSelect}
-              value={autcomplete}
+              value={valueA}
               onSearch={(input2: any) => {
                 console.log('llega', input2)
-                setAutocomplete(input2)
+                setvalueA(input2)
               }}
               >
 
-              <Input suffix={<Icon type="down" className="certain-category-icon" />} />
+              <Input id={'miclase'} suffix={<Icon type="down" className="certain-category-icon" />} />
             </AutoComplete>
             {/* </Popover> */}
           </div>

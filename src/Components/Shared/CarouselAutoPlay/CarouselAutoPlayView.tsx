@@ -30,7 +30,7 @@ export default () => {
       </div>
       <div className="mobile-login">
         <Anchor affix={false}>
-          <Button href="#login-form" className="btn-purple">Enter</Button>
+          <Button href="#login-form" className="btn-purple"><Link href="#login-form" className="btn-purple" title="Enter" />Enter</Button>
         </Anchor>
       </div>
     </div>
