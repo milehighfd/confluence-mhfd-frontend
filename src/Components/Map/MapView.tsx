@@ -115,8 +115,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
 
-
-
   /* const logued = localStorage.getItem('mfx-token')
     const logued2 = store.getState().profile.userInformation.designation
     console.log('logued', logued, logued2)
@@ -143,8 +141,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       }
       sw = 1
       redirectGuest();
-    }
-*/
+    } */
 
   useEffect(() => {
     setSpinMapLoaded(true);
@@ -858,7 +855,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
           <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
-            <Button className="btn-red"><u>Reset</u></Button>
+            <Button className="btn-red" onClick={tabCards === 'projects'? resetFilterProjects : resetFilterProblems }><u>Reset</u></Button>
             <Popover placement="bottomRight" overlayClassName="tag-filters" content={
               //contentTag
               tabActive === '0' ? generateLabelsFilterProblems() : generateLabelsFilterProjects()
