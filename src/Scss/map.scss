@@ -323,6 +323,7 @@
     font-size: 12px;
     margin-bottom: 10px;
     color: $purple00;
+    width: 305px;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
     float: left;
@@ -372,7 +373,7 @@
 
   .ant-switch {
     position: absolute;
-    right: 0px;
+    right: -5px;
     top: 3px;
     z-index: 1200;
   }
@@ -877,7 +878,7 @@
     left: -5px
   }
   .progress-value {
-    animation: load 1s normal forwards;
+    animation: load 3s normal forwards;
     box-shadow: 0 10px 40px -10px #fff;
     border-radius: 100px;
     background: $green;
