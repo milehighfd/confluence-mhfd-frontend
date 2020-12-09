@@ -84,7 +84,7 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
     <Row>
       <CarouselAutoPlayView />
       <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
-      <div className="login-step01" >
+      <div className="login-step01" id="login-form">
         <div>
         <Row className="returnText">
           <Col span={12}>
@@ -134,7 +134,7 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
         />
       </div>
           <span style={{color: message.color}}>&nbsp;&nbsp; {message.message}</span>
-        <Button className="btn-purple" block htmlType="submit" id="login-form">
+        <Button className="btn-purple" block htmlType="submit">
             Login
         </Button>
       </div>
