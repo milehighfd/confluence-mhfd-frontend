@@ -792,8 +792,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             </span>
       </Dropdown> */}
           <div className="auto-complete-map">
-            {/* <Popover content={content}> */}
-            {nameZoomArea}
             <AutoComplete
               style={{ width: '200' }}
               dataSource={dataAutocomplete}
