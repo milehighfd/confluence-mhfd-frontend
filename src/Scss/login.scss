@@ -514,6 +514,9 @@
 
 // RESPONSIVE
 @media (max-width: 575.98px) {
+  html{
+    scroll-behavior: smooth;
+  }
   body{
     overflow-y: scroll;
   }
@@ -606,6 +609,10 @@
     .ant-anchor-ink::before {
       background-color: transparent;
     }
+    .ant-anchor-ink-ball {
+      -webkit-transition: top 5s ease-in-out !important;
+      transition: top 5s ease-in-out !important;
+    }
   }
   .login-form{
     width: auto;
@@ -613,5 +620,6 @@
   .login-step01 {
     width: 100%;
     padding: 0px 25px;
+    top: 53%;
   }
 }
