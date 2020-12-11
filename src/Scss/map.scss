@@ -574,6 +574,13 @@
     margin-top: 3px;
     color: $opacity;
   }
+  .map-pop-00{
+    display: none;
+  }
+  .btn-transparent:hover + .map-pop-00{
+    display: inline-block !important;
+    position: absolute;
+  }
 }
 .mapboxgl-ctrl-group button{
   width: 25px !important;

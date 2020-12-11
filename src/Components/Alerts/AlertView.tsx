@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Alert,  Modal, Button  } from 'antd';
+import { Alert,  Modal, Button, Card  } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 
 const stateValue = {
@@ -52,15 +52,87 @@ export default () => {
               <div className="headmap">LAYERS</div>
               <div className="layer-popup">
                 <Button className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> Detention Facilities <RightOutlined /></Button>
+                <div className="map-pop-00">
+                  <Card hoverable>
+                    <div className="bodymap">
+                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
+                      <h6>Denver</h6>
+                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
+                      <hr/>
+                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+                        <p>Capital</p>
+                        <span>Initiated</span>
+                      </div>
+                    </div>
+                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
+                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
+                    </div>
+                  </Card>
+                </div>
               </div>
               <div className="layer-popup">
                 <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt=""/> Problems <RightOutlined /></Button>
+                <div className="map-pop-00">
+                  <Card hoverable>
+                    <div className="bodymap">
+                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
+                      <h6>Denver</h6>
+                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
+                      <hr/>
+                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+                        <p>Capital</p>
+                        <span>Initiated</span>
+                      </div>
+                    </div>
+                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
+                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
+                    </div>
+                  </Card>
+                </div>
               </div>
               <div className="layer-popup">
                 <Button className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> Watersheds <RightOutlined /></Button>
+                <div className="map-pop-00">
+                  <Card hoverable>
+                    <div className="bodymap">
+                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
+                      <h6>Denver</h6>
+                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
+                      <hr/>
+                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+                        <p>Capital</p>
+                        <span>Initiated</span>
+                      </div>
+                    </div>
+                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
+                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
+                    </div>
+                  </Card>
+                </div>
               </div>
               <div className="layer-popup">
                 <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt=""/> MEP Referrals <RightOutlined /></Button>
+                <div className="map-pop-00">
+                  <Card hoverable>
+                    <div className="bodymap">
+                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
+                      <h6>Denver</h6>
+                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
+                      <hr/>
+                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+                        <p>Capital</p>
+                        <span>Initiated</span>
+                      </div>
+                    </div>
+                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
+                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
+                    </div>
+                  </Card>
+                </div>
               </div>
             </div>
          </div>
