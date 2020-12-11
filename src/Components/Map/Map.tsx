@@ -10,7 +10,8 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { MainPopup, ComponentPopup } from './MapPopups';
-import { Dropdown, Button, Collapse } from 'antd';
+import { Dropdown, Button, Collapse, Card } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import { CloseOutlined } from '@ant-design/icons';
 //import { opacityLayer } from '../../constants/mapStyles';
 import { MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
@@ -45,6 +46,7 @@ import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { style } from 'd3';
 import { setOpacityLayer } from '../../store/actions/mapActions';
 import { useProfileDispatch } from '../../hook/profileHook';
+import AlertView from '../Alerts/AlertView';
 const { Option } = AutoComplete;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
@@ -967,14 +969,29 @@ const Map = ({ leftWidth,
 
 
     }
+    const doSomething = (bbox:any, event:any) => {
+        console.log(bbox);
+        const div = document.getElementById('xd');
+        if (div != null) {
+            console.log(div);
+            div.classList.remove('map-pop-00');
+            div.classList.add('map-pop-01');
+            console.log(div);
+        }
+        return (<div>
+            asdfasdf {bbox}
+        </div>);
+    }
 
     const addMapListeners = (key: string) => {
         const styles = { ...tileStyles as any };
+        const availableLayers: any[] = [];
         if (styles[key]) {
             styles[key].forEach((style: LayerStylesType, index: number) => {
                 if (!map.getLayer(key + '_' + index)) {
                     return;
                 }
+                availableLayers.push(key + '_' + index);
                 map.on('click', key + '_' + index, (e: any) => {
                     let html: any = null;
                     if (map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
@@ -1014,7 +1031,7 @@ const Map = ({ leftWidth,
                         };
                         itemValue = { ...item };
                         itemValue.value = item.valueid;
-                        html = loadMainPopup(item, test);
+                        html = loadMainPopup(item, test, true);
                     }
                     if (COMPONENT_LAYERS.tiles.includes(key)) {
                         const item = {
@@ -1162,6 +1179,22 @@ const Map = ({ leftWidth,
                     setSelectedOnMap(-1, '');
                 })
             });
+            /*
+            map.on('click', (e: any) => {
+                const bbox = [e.point.x - 5, e.point.y - 5,
+                e.point.x + 5, e.point.y + 5];
+                const features = map.queryRenderedFeatures(bbox, { layers: availableLayers });
+                const html = loadMenuPopup();
+                console.log(features);
+                if (html) {
+                    popup.remove();
+                    popup = new mapboxgl.Popup();
+                    popup.setLngLat(e.lngLat)
+                        .setHTML(html)
+                        .addTo(map);
+                    document.getElementById('cochi')?.addEventListener('click', doSomething.bind(bbox, bbox));
+                }
+            });*/
             map.on('mouseenter', key, () => {
                 map.getCanvas().style.cursor = 'pointer';
             });
@@ -1171,9 +1204,102 @@ const Map = ({ leftWidth,
         }
     }
 
-    const loadMainPopup = (item: any, test: Function) => ReactDOMServer.renderToStaticMarkup(
+
+    const loadMenuPopup = () => ReactDOMServer.renderToStaticMarkup(
         <>
-            <MainPopup item={item} test={test} sw={true}></MainPopup>
+            <div className="map-pop-02">
+              <div className="headmap">LAYERS</div>
+              <div className="layer-popup">
+                <Button id="cochi" className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> Detention Facilities <RightOutlined /></Button>
+                <div id="xd" className="map-pop-00">
+                  <Card hoverable>
+                    <div className="bodymap">
+                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
+                      <h6>Denver</h6>
+                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
+                      <hr/>
+                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+                        <p>Capital</p>
+                        <span>Initiated</span>
+                      </div>
+                    </div>
+                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
+                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+              <div className="layer-popup">
+                <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt=""/> Problems <RightOutlined /></Button>
+                <div className="map-pop-00">
+                  <Card hoverable>
+                    <div className="bodymap">
+                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
+                      <h6>Denver</h6>
+                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
+                      <hr/>
+                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+                        <p>Capital</p>
+                        <span>Initiated</span>
+                      </div>
+                    </div>
+                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
+                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+              <div className="layer-popup">
+                <Button className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> Watersheds <RightOutlined /></Button>
+                <div className="map-pop-00">
+                  <Card hoverable>
+                    <div className="bodymap">
+                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
+                      <h6>Denver</h6>
+                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
+                      <hr/>
+                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+                        <p>Capital</p>
+                        <span>Initiated</span>
+                      </div>
+                    </div>
+                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
+                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+              <div className="layer-popup">
+                <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt=""/> MEP Referrals <RightOutlined /></Button>
+                <div className="map-pop-00">
+                  <Card hoverable>
+                    <div className="bodymap">
+                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
+                      <h6>Denver</h6>
+                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
+                      <hr/>
+                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+                        <p>Capital</p>
+                        <span>Initiated</span>
+                      </div>
+                    </div>
+                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
+                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+            </div>
+        </>
+    );
+    const loadMainPopup = (item: any, test: Function, sw?: boolean) => ReactDOMServer.renderToStaticMarkup(
+        <>
+
+            <MainPopup item={item} test={test} sw={sw}></MainPopup>
         </>
     );
 

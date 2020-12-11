@@ -66,9 +66,9 @@ export const MainPopup = ({ item, test, sw } : any) => {
             <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? item.status : capitalize(item.status)}</span>
           </div>
         </div>
-        { sw && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
-            <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
-            <Button id="pop-up" style={{ width: '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">See Details</Button>
+        {  <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+            {!sw && <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>}
+            <Button id="pop-up" style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">See Details</Button>
         </div>}
       </Card>
     </div>

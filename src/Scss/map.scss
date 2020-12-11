@@ -577,10 +577,11 @@
   .map-pop-00{
     display: none;
   }
-  .btn-transparent:hover + .map-pop-00, .btn-transparent:active + .map-pop-00, .btn-transparent.active + .map-pop-00{
+  .map-pop-01{
     display: inline-block !important;
     position: absolute;
   }
+  
 }
 .mapboxgl-ctrl-group button{
   width: 25px !important;
