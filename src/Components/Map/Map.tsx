@@ -969,18 +969,23 @@ const Map = ({ leftWidth,
 
 
     }
-    const doSomething = (bbox:any, event:any) => {
-        console.log(bbox);
-        const div = document.getElementById('xd');
+    const showPopup = (index: any, size: number, event:any) => {
+        console.log('my index ', index, size);
+        for (let i = 0; i < size; i++) {
+            const div = document.getElementById('popup-' + i);
+            if (div != null) {
+                div.classList.remove('map-pop-01');
+                div.classList.add('map-pop-00');
+            } 
+        }
+        const div = document.getElementById('popup-' + index);
         if (div != null) {
             console.log(div);
             div.classList.remove('map-pop-00');
             div.classList.add('map-pop-01');
             console.log(div);
         }
-        return (<div>
-            asdfasdf {bbox}
-        </div>);
+        return;
     }
 
     const addMapListeners = (key: string) => {
@@ -992,7 +997,7 @@ const Map = ({ leftWidth,
                     return;
                 }
                 availableLayers.push(key + '_' + index);
-                map.on('click', key + '_' + index, (e: any) => {
+               /* map.on('click', key + '_' + index, (e: any) => {
                     let html: any = null;
                     if (map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
                         return;
@@ -1166,6 +1171,7 @@ const Map = ({ leftWidth,
                         document.getElementById('pop-up')?.addEventListener('click', test.bind(itemValue, itemValue));
                     }
                 });
+                */
                 map.on('mousemove', key + '_' + index, (e: any) => {
                     if (key.includes('projects') || key === 'problems') {
                         map.getCanvas().style.cursor = 'pointer';
@@ -1179,22 +1185,86 @@ const Map = ({ leftWidth,
                     setSelectedOnMap(-1, '');
                 })
             });
-            /*
             map.on('click', (e: any) => {
-                const bbox = [e.point.x - 5, e.point.y - 5,
-                e.point.x + 5, e.point.y + 5];
-                const features = map.queryRenderedFeatures(bbox, { layers: availableLayers });
-                const html = loadMenuPopup();
-                console.log(features);
-                if (html) {
-                    popup.remove();
-                    popup = new mapboxgl.Popup();
-                    popup.setLngLat(e.lngLat)
-                        .setHTML(html)
-                        .addTo(map);
-                    document.getElementById('cochi')?.addEventListener('click', doSomething.bind(bbox, bbox));
+                const popups: any = [];
+                const menuOptions: any = [];
+                const bbox = [e.point.x , e.point.y ,
+                e.point.x , e.point.y ];
+                let features = map.queryRenderedFeatures(bbox, { layers: availableLayers });
+                const search = (id: number, source: string) => {
+                    let index = 0;
+                    for (const feature of features) { 
+                        if (feature.properties.cartodb_id === id && source === feature.source) {
+                            return index;
+                        }
+                        index++;
+                    }
+                    return -1;
                 }
-            });*/
+                features = features.filter((element: any, index: number) => {
+                    return search(element.properties.cartodb_id, element.source) === index;
+                });
+                console.log('##### ' , features);
+                for (const feature of features) {
+                    console.log('$$$ ', feature.source);
+                    let html: any = null;
+                    let itemValue;
+                    if (feature.source === 'projects_polygon_' || feature.source === 'projects_line_1') {
+                        getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
+                        const item = {
+                            type: key,
+                            title: 'Project',
+                            name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
+                            organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
+                            value: feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0',
+                            projecctype: feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-',
+                            status: feature.properties.status ? feature.properties.status : '-',
+                            objectid: feature.properties.objectid,
+                            valueid: feature.properties.cartodb_id,
+                            id: feature.properties.projectid,
+                            popupId: 'popup'
+                        };
+                        itemValue = { ...item };
+                        itemValue.value = item.valueid;
+                        menuOptions.push('Project');
+                        popups.push(itemValue);
+                    }
+                    if (feature.source === 'problems') {
+                        getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
+                        const item = {
+                            type: 'problems',
+                            title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
+                            name: feature.properties.problemname ? feature.properties.problemname : '-',
+                            organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+                            value: feature.properties.solutioncost ? feature.properties.solutioncost : '0',
+                            status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
+                            priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
+                            problemid: feature.properties.problemid,
+                            popupId: 'popup'
+                        };
+                        itemValue = { ...item };
+                        menuOptions.push('Problem');
+                        popups.push(itemValue);
+                    }
+                }
+                
+                console.log(popups, menuOptions);
+                if (popups.length) {
+                    const html = loadMenuPopupWithData(menuOptions, popups);
+                    console.log(features);
+                    if (html) {
+                        popup.remove();
+                        popup = new mapboxgl.Popup();
+                        popup.setLngLat(e.lngLat)
+                            .setHTML(html)
+                            .addTo(map);
+                        for (const index in popups) {
+                            console.log(index);
+                            document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length));
+                        }
+                    }
+                }
+            });
             map.on('mouseenter', key, () => {
                 map.getCanvas().style.cursor = 'pointer';
             });
@@ -1205,6 +1275,23 @@ const Map = ({ leftWidth,
     }
 
 
+    const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
+        <>
+            <div className="map-pop-02">
+              <div className="headmap">LAYERS</div>
+                {
+                    menuOptions.map((menu: any, index: number) => {
+                        return (
+                            <>
+                                <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> {menu} <RightOutlined /></Button>
+                                {menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
+                            </>
+                        )
+                    })
+                }
+            </div>
+        </>
+    );
     const loadMenuPopup = () => ReactDOMServer.renderToStaticMarkup(
         <>
             <div className="map-pop-02">
@@ -1296,10 +1383,10 @@ const Map = ({ leftWidth,
             </div>
         </>
     );
-    const loadMainPopup = (item: any, test: Function, sw?: boolean) => ReactDOMServer.renderToStaticMarkup(
+    const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) =>(
         <>
 
-            <MainPopup item={item} test={test} sw={sw}></MainPopup>
+            <MainPopup id={id} item={item} test={test} sw={sw}></MainPopup>
         </>
     );
 

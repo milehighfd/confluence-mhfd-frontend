@@ -41,7 +41,7 @@ const capitalize = (s : string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export const MainPopup = ({ item, test, sw } : any) => {
+export const MainPopup = ({id, item, test, sw } : any) => {
     for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
@@ -51,7 +51,7 @@ export const MainPopup = ({ item, test, sw } : any) => {
     if (item.priority) {
         priorityType = item.priority.split(' ')[0];
     }
-    return <div className="map-pop-00">
+    return <div id={"popup-" + id} className="map-pop-00">
       <Card hoverable>
         <div className="headmap">
             {capitalize(item.title)}
