@@ -974,15 +974,15 @@ const Map = ({ leftWidth,
         for (let i = 0; i < size; i++) {
             const div = document.getElementById('popup-' + i);
             if (div != null) {
-                div.classList.remove('map-pop-01');
-                div.classList.add('map-pop-00');
-            } 
+                div.classList.remove('map-pop-03');
+                // div.classList.add('map-pop-00');
+            }
         }
         const div = document.getElementById('popup-' + index);
         if (div != null) {
             console.log(div);
-            div.classList.remove('map-pop-00');
-            div.classList.add('map-pop-01');
+            // div.classList.remove('map-pop-00');
+            div.classList.add('map-pop-03');
             console.log(div);
         }
         return;
@@ -1193,7 +1193,7 @@ const Map = ({ leftWidth,
                 let features = map.queryRenderedFeatures(bbox, { layers: availableLayers });
                 const search = (id: number, source: string) => {
                     let index = 0;
-                    for (const feature of features) { 
+                    for (const feature of features) {
                         if (feature.properties.cartodb_id === id && source === feature.source) {
                             return index;
                         }
@@ -1247,7 +1247,7 @@ const Map = ({ leftWidth,
                         popups.push(itemValue);
                     }
                 }
-                
+
                 console.log(popups, menuOptions);
                 if (popups.length) {
                     const html = loadMenuPopupWithData(menuOptions, popups);
