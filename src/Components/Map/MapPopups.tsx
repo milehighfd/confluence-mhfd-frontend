@@ -74,8 +74,8 @@ export const MainPopup = ({id, item, test, sw } : any) => {
     </div>
 };
 
-export const ComponentPopup = ({ item } : any) => {
-    return <div className="map-pop-01">
+export const ComponentPopup = ({ id, item } : any) => {
+    return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable>
         <div className="headmap">
             {item.layer}
