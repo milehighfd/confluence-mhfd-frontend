@@ -478,6 +478,7 @@
 }
 .map-pop-01{
   min-width: 125px;
+  width: 280px;
   max-width: 330px;
   height: auto;
   border-radius: 1.3px;
@@ -576,7 +577,7 @@
     margin-top: 3px;
     color: $opacity;
   }
-  .map-pop-00{
+  .map-pop-00, .map-pop-01{
     display: none;
   }
   .map-pop-03{
