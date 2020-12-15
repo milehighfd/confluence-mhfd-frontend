@@ -528,7 +528,7 @@
 }
 // NEW POPUP
 .map-pop-02{
-  width: 280px;
+  width: 250px;
   min-height: 150px;
   border-radius: 1.3px;
   box-shadow: $shadow;
@@ -545,27 +545,29 @@
     text-transform: uppercase;
     line-height: 16px;
   }
-  h4{
-    color: $opacity;
-    font-size: 14px;
-    padding: 10px 0px 0px 5px;
-  }
+  // h4{
+  //   color: $opacity;
+  //   font-size: 14px;
+  //   padding: 10px 0px 0px 5px;
+  // }
   .btn-transparent{
     padding: 8px 5px;
-    width: 100%;
+    width: 240px;
     text-align: left;
     height: 35px;
     font-size: 13px;
+    margin: 5px;
+    border-bottom: 1px solid rgba(61, 46, 138, 0.07) !important;
 
     img{
       margin-right: 5px;
       margin-top: -3px;
     }
   }
-  .layer-popup{
-    padding: 5px;
-    border-bottom: 1px solid rgba(61, 46, 138, 0.07);
-  }
+  // .layer-popup{
+  //   padding: 5px;
+  //   border-bottom: 1px solid rgba(61, 46, 138, 0.07);
+  // }
   .btn-transparent:hover, .btn-transparent:focus, .btn-transparent:active{
     background: rgba(61, 46, 138, 0.07) !important;
   }
