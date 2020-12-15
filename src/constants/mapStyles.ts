@@ -3245,6 +3245,7 @@ export const tileStyles = {
   }],
   [COUNTIES_POINTS]: [{
     type: 'symbol',
+    'source-layer': 'pluto15v1',
     "layout": {
       "text-field": [
           "concat",
