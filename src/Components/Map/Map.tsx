@@ -1002,7 +1002,6 @@ const Map = ({ leftWidth,
             const bbox = [e.point.x , e.point.y ,
             e.point.x , e.point.y ];
             let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
-            console.log('all layeros ', allLayers);
             const search = (id: number, source: string) => {
                 let index = 0;
                 for (const feature of features) {
@@ -1205,7 +1204,9 @@ const Map = ({ leftWidth,
                             jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
                             problem: 'Dataset in development'
                         };
-                        menuOptions.push('Components');
+                        const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
+                        console.log('my name ', name);
+                        menuOptions.push(name);
                         popups.push(item);
                     }
                 }
@@ -1402,7 +1403,7 @@ const Map = ({ leftWidth,
 
     const loadComponentPopup = (index: number, item: any) => (
         <>
-            <ComponentPopup index={index} item={item}></ComponentPopup>
+            <ComponentPopup id={index} item={item}></ComponentPopup>
         </>
     );
 
