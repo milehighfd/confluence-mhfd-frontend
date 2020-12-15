@@ -3266,18 +3266,21 @@ export const tileStyles = {
   [PROBLEMS_TRIGGER]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
-    "layout": {"line-join": "round"},
+    "layout": {
+      "line-round-limit": 1,
+      "line-cap": "round",
+      "line-miter-limit": 0,
+      "line-join": "round"
+    },
     "paint": {
         "line-color": [
             "step",
             ["zoom"],
             "hsla(0, 86%, 56%, 0)",
             9,
-            "hsla(0, 86%, 56%, 0.15)",
-            11.5,
-            "hsla(0, 86%, 56%, 0.51)",
+            "hsla(0, 86%, 56%, 0.58)",
             13,
-            "hsla(0, 86%, 56%, 0.29)",
+            "hsl(0, 86%, 56%)",
             22,
             "hsla(0, 86%, 56%, 0.29)"
         ],
@@ -3286,68 +3289,13 @@ export const tileStyles = {
             ["linear"],
             ["zoom"],
             9,
-            3,
-            10,
-            12,
             13,
-            3,
-            15,
-            4,
+            16,
+            22,
             22,
             22
         ],
-        "line-gap-width": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            14,
-            1,
-            22,
-            0
-        ]
-    }
-  }, {
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "fill-color": [
-          "step",
-          ["zoom"],
-          "hsla(0, 94%, 67%, 0)",
-          11,
-          "hsla(0, 94%, 67%, 0.09)",
-          22,
-          "hsla(0, 94%, 67%, 0.09)"
-      ]
-    }
-  }, {
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "fill-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          10,
-          "hsla(0, 94%, 51%, 0.02)",
-          17,
-          "hsla(0, 94%, 51%, 0)",
-          17.74,
-          "hsla(0, 94%, 51%, 0)",
-          22,
-          "hsla(0, 94%, 51%, 0.02)"
-      ]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0
+        "line-opacity": 0.76
     }
   }], 
   [STUDIES]: [ {
