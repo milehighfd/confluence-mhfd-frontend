@@ -1248,8 +1248,8 @@ const Map = ({ leftWidth,
                         return;
                     }
                     let itemValue;
-                  
-                    
+
+
                     const description = e.features[0].properties.description ? e.features[0].properties.description : '-';
                     if (html) {
                         popup.remove();
@@ -1276,8 +1276,8 @@ const Map = ({ leftWidth,
             });
             console.log('my available layers ', availableLayers);
             setAllLayers(allLayers => [...allLayers, ...availableLayers]);
-            console.log('my all laayers ', allLayers, [...allLayers, ...availableLayers]);  
-            
+            console.log('my all laayers ', allLayers, [...allLayers, ...availableLayers]);
+
             map.on('mouseenter', key, () => {
                 map.getCanvas().style.cursor = 'pointer';
             });
@@ -1291,23 +1291,25 @@ const Map = ({ leftWidth,
     const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
 
         <>
-            {menuOptions.length === 1 ? <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0]) : 
+            {menuOptions.length === 1 ? <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0]) :
                                 menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
                                 </> :
             <div className="map-pop-02">
               <div className="headmap">LAYERS</div>
+              <div className="layer-popup">
                 {
                     menuOptions.map((menu: any, index: number) => {
                         return (
                             <>
                                 <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> {menu} <RightOutlined /></Button>
-                                { (menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index]) : 
+                                { (menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index]) :
                                 menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
                             </>
                         )
                     })
                 }
-            </div> }
+            </div>
+            </div>}
         </>
     );
     const loadMenuPopup = () => ReactDOMServer.renderToStaticMarkup(

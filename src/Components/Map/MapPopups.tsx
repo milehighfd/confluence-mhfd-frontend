@@ -105,6 +105,7 @@ export const ComponentPopup = ({ id, item } : any) => {
             {item.servicearea ? <p><i>Service Area:</i> {item.servicearea}</p> : ''}
             {item.watershedmanager ? <p><i>Watershed Manager: </i> {item.watershedmanager}</p> : ''}
             {item.constructionmanagers ? <p><i>Construction Managers:</i> {item.constructionmanagers}</p> : ''}
+            <Button  style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>
         </div>
         </Card>
     </div>
