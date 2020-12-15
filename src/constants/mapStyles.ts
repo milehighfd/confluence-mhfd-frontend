@@ -977,6 +977,8 @@ export const COMPONENT_LAYERS_STYLE = {
           ["zoom"],
           0,
           0,
+          10,
+          0,
           12.5,
           0.42,
           15,
@@ -991,23 +993,55 @@ export const COMPONENT_LAYERS_STYLE = {
     'source-layer': 'pluto15v1',
     "layout": {"line-join": "round", "line-round-limit": 0.5},
     "paint": {
-        "line-color": "hsl(298, 87%, 84%)",
+        "line-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            "hsl(298, 87%, 84%)",
+            22,
+            "hsl(298, 87%, 84%)"
+        ],
         "line-blur": 12,
-        "line-width": 12
+        "line-width": 12,
+        "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            10,
+            0,
+            11,
+            0,
+            13,
+            1,
+            22,
+            1
+        ]
     }
   },{
     type: 'line',
     'source-layer': 'pluto15v1',
     "layout": {"line-join": "round", "line-round-limit": 0.5},
-    "paint": {"line-color": "hsl(123, 87%, 40%)", "line-width": 2}
-  },,{
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-        'line-color': 'red',
-        'line-width': 12,
-        'line-opacity': 0
+    "paint": {
+        "line-color": "hsl(123, 87%, 40%)",
+        "line-width": 2,
+        "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            10,
+            0,
+            11,
+            0,
+            13,
+            1,
+            22,
+            1
+        ]
     }
   }]
 }
