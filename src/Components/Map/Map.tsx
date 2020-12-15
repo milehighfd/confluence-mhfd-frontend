@@ -1289,7 +1289,11 @@ const Map = ({ leftWidth,
 
 
     const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
+
         <>
+            {menuOptions.length === 1 ? <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0]) : 
+                                menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
+                                </> :
             <div className="map-pop-02">
               <div className="headmap">LAYERS</div>
                 {
@@ -1303,7 +1307,7 @@ const Map = ({ leftWidth,
                         )
                     })
                 }
-            </div>
+            </div> }
         </>
     );
     const loadMenuPopup = () => ReactDOMServer.renderToStaticMarkup(
