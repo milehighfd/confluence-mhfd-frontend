@@ -128,6 +128,8 @@ const Map = ({ leftWidth,
     const [visible, setVisible] = useState(true);
     const [zoomEndCounter, setZoomEndCounter] = useState(0);
     const [dragEndCounter, setDragEndCounter] = useState(0);
+    const empty:any[] = [];
+    const [allLayers, setAllLayers] = useState(empty);
     //const [layerOpacity, setLayerOpacity] = useState(false);
     const coor: any[][] = [];
     const coordinatesMHFD = [
@@ -988,7 +990,246 @@ const Map = ({ leftWidth,
         return;
     }
 
-    const addMapListeners = (key: string) => {
+    useEffect(() => {
+        console.log('never updates ', allLayers);
+        if (allLayers.length < 100) {
+            return;
+        }
+        map.on('click', (e: any) => {
+            console.log('entro al click');
+            const popups: any = [];
+            const menuOptions: any = [];
+            const bbox = [e.point.x , e.point.y ,
+            e.point.x , e.point.y ];
+            let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
+            console.log('all layeros ', allLayers);
+            const search = (id: number, source: string) => {
+                let index = 0;
+                for (const feature of features) {
+                    if (feature.properties.cartodb_id === id && source === feature.source) {
+                        return index;
+                    }
+                    index++;
+                }
+                return -1;
+            }
+            features = features.filter((element: any, index: number) => {
+                return search(element.properties.cartodb_id, element.source) === index;
+            });
+            console.log('##### ' , features);
+            for (const feature of features) {
+                console.log('$$$ ', feature.source);
+                let html: any = null;
+                let itemValue;
+                if (feature.source === 'projects_polygon_' || feature.source === 'projects_line_1') {
+                    getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
+                    const item = {
+                        type: 'project',
+                        title: 'Project',
+                        name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
+                        organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
+                        value: feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0',
+                        projecctype: feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-',
+                        status: feature.properties.status ? feature.properties.status : '-',
+                        objectid: feature.properties.objectid,
+                        valueid: feature.properties.cartodb_id,
+                        id: feature.properties.projectid,
+                        popupId: 'popup'
+                    };
+                    itemValue = { ...item };
+                    itemValue.value = item.valueid;
+                    menuOptions.push('Project');
+                    popups.push(itemValue);
+                }
+                if (feature.source === 'problems') {
+                    getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
+                    const item = {
+                        type: 'problems',
+                        title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
+                        name: feature.properties.problemname ? feature.properties.problemname : '-',
+                        organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+                        value: feature.properties.solutioncost ? feature.properties.solutioncost : '0',
+                        status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
+                        priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
+                        problemid: feature.properties.problemid,
+                        popupId: 'popup'
+                    };
+                    itemValue = { ...item };
+                    menuOptions.push('Problem');
+                    popups.push(itemValue);
+                }
+                if (feature.source === 'mep_projects_temp_locations') {
+                    const item = {
+                        layer: 'MEP Temporary Location',
+                        feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                        projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
+                        mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                        mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
+                        notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                        servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                    }
+                    menuOptions.push('MEP Temporary Location');
+                    popups.push(item);
+                }
+                if (feature.source === 'mep_projects_temp_locations') {
+                    const item = {
+                        layer: 'MEP Temporary Location',
+                        feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                        projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
+                        mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                        mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
+                        notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                        servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                    }
+                    menuOptions.push('MEP Temporary Location');
+                    popups.push(item);
+                }
+                if (feature.source === 'mep_projects_detention_basins') {
+                    const item = {
+                        layer: 'MEP Detention Basin',
+                        feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                        projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
+                        mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                        mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
+                        notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                        servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                    }
+                    menuOptions.push('MEP Detention Basin');
+                    popups.push(item);
+                }
+                if (feature.source === 'mep_projects_channels') {
+                    const item = {
+                        layer: 'MEP Channel',
+                        feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                        projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
+                        mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                        mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
+                        notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                        servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                    }
+                    menuOptions.push('MEP Channel');
+                    popups.push(item);
+                }
+                if (feature.source === 'mep_projects_storm_outfalls') {
+                    const item = {
+                        layer: 'MEP Storm Outfall',
+                        feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                        projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
+                        mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                        mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
+                        notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                        servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                    }
+                    menuOptions.push('MEP Storm Outfall');
+                    popups.push(item);
+                }
+                if (feature.source === 'watershed_service_areas') {
+                    const item = {
+                        layer: 'Service Area',
+                        feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
+                        watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                        constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+                    }
+                    menuOptions.push('Service Area');
+                    popups.push(item);
+                }
+                if (feature.source === 'catchments' || feature.source === 'basin') {
+                    const item = {
+                        layer: 'Watershed',
+                        feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
+                    }
+                    menuOptions.push('Watershed');
+                    popups.push(item);
+                }
+                if (feature.source === ROUTINE_NATURAL_AREAS) {
+                    const item = {
+                        layer: 'Vegetation Management - Natural Area',
+                        feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
+                        contract: feature.properties.contract ? feature.properties.contract : '-',
+                        contractor: feature.properties.contractor ? feature.properties.contractor : '-',
+                        local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
+                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-'
+                    }
+                    menuOptions.push('Vegetation Management - Natural Area');
+                    popups.push(item);
+                }
+                if (feature.source === ROUTINE_WEED_CONTROL) {
+                    const item = {
+                        layer: 'Vegetation Management - Weed Control',
+                        feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
+                        contract: feature.properties.contract ? feature.properties.contract : '-',
+                        contractor: feature.properties.contractor ? feature.properties.contractor : '-',
+                        local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
+                        mow_frequency: feature.properties.mow_frequency ? feature.properties.mow_frequency : '-',
+                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-'
+                    }
+                    menuOptions.push('Vegetation Management - Weed Control');
+                    popups.push(item);
+                }
+                if (feature.source === ROUTINE_DEBRIS_AREA) {
+                    const item = {
+                        layer: 'Debris Management Area',
+                        feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
+                        contract: feature.properties.contract ? feature.properties.contract : '-',
+                        contractor: feature.properties.contractor ? feature.properties.contractor : '-',
+                        local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
+                        debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
+                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-'
+                    }
+                    menuOptions.push('Debris Management Area');
+                    popups.push(item);
+                }
+                if (feature.source === ROUTINE_DEBRIS_LINEAR) {
+                    const item = {
+                        layer: 'Debris Management Linear',
+                        feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
+                        contract: feature.properties.contract ? feature.properties.contract : '-',
+                        contractor: feature.properties.contractor ? feature.properties.contractor : '-',
+                        local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
+                        debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
+                        length: feature.properties.length ? Math.round(feature.properties.length) : '-'
+                    }
+                    menuOptions.push('Debris Management Linear');
+                    popups.push(item);
+                }
+                for (const component of COMPONENT_LAYERS.tiles) {
+                    console.log('entro a este for ', feature.source, component);
+                    if (feature.source === component) {
+                        console.log('entrto acaaaaa ');
+                        const item = {
+                            layer: 'Components',
+                            subtype: feature.properties.type ? feature.properties.type : '-',
+                            status: feature.properties.subtype ? feature.properties.subtype : '-',
+                            estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                            studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+                            jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+                            problem: 'Dataset in development'
+                        };
+                        menuOptions.push('Components');
+                        popups.push(item);
+                    }
+                }
+            }
+
+            console.log(popups, menuOptions);
+            if (popups.length) {
+                const html = loadMenuPopupWithData(menuOptions, popups);
+                console.log(features);
+                if (html) {
+                    popup.remove();
+                    popup = new mapboxgl.Popup();
+                    popup.setLngLat(e.lngLat)
+                        .setHTML(html)
+                        .addTo(map);
+                    for (const index in popups) {
+                        console.log(index);
+                        document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length));
+                    }
+                }
+            }
+        });
+    }, [allLayers]);
+    const addMapListeners = async (key: string) => {
         const styles = { ...tileStyles as any };
         const availableLayers: any[] = [];
         if (styles[key]) {
@@ -1003,164 +1244,8 @@ const Map = ({ leftWidth,
                         return;
                     }
                     let itemValue;
-                    if (key === 'problems') {
-                        getComponentCounter(e.features[0].properties.problemid || 0, 'problemid', setCounterPopup);
-                        const item = {
-                            type: 'problems',
-                            title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
-                            name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
-                            organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                            value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
-                            status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
-                            priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority' : '-',
-                            problemid: e.features[0].properties.problemid,
-                            popupId: 'popup'
-                        };
-                        itemValue = { ...item };
-                        html = loadMainPopup(item, test);
-                    }
-                    if (key.includes('projects') && !key.includes('mep')) {
-                        getComponentCounter(e.features[0].properties.projectid || 0, 'projectid', setCounterPopup);
-                        const item = {
-                            type: key,
-                            title: 'Project',
-                            name: e.features[0].properties.projectname ? e.features[0].properties.projectname : e.features[0].properties.requestedname ? e.features[0].properties.requestedname : '-',
-                            organization: e.features[0].properties.sponsor ? e.features[0].properties.sponsor : 'No sponsor',
-                            value: e.features[0].properties.finalcost ? e.features[0].properties.finalcost : e.features[0].properties.estimatedcost ? e.features[0].properties.estimatedcost : '0',
-                            projecctype: e.features[0].properties.projectsubtype ? e.features[0].properties.projectsubtype : e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
-                            status: e.features[0].properties.status ? e.features[0].properties.status : '-',
-                            objectid: e.features[0].properties.objectid,
-                            valueid: e.features[0].properties.cartodb_id,
-                            id: e.features[0].properties.projectid,
-                            popupId: 'popup'
-                        };
-                        itemValue = { ...item };
-                        itemValue.value = item.valueid;
-                        html = loadMainPopup(item, test, true);
-                    }
-                    if (COMPONENT_LAYERS.tiles.includes(key)) {
-                        const item = {
-                            layer: 'Components',
-                            subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',
-                            status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
-                            estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
-                            studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
-                            jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                            problem: 'Dataset in development'
-                        };
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === 'mep_projects_temp_locations') {
-                        const item = {
-                            layer: 'MEP Temporary Location',
-                            feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
-                            projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
-                            mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
-                            mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
-                            notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
-                            servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
-                        }
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === 'mep_projects_detention_basins') {
-                        const item = {
-                            layer: 'MEP Detention Basin',
-                            feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
-                            projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
-                            mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
-                            mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
-                            notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
-                            servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
-                        }
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === 'mep_projects_channels') {
-                        const item = {
-                            layer: 'MEP Channel',
-                            feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
-                            projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
-                            mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
-                            mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
-                            notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
-                            servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
-                        }
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === 'mep_projects_storm_outfalls') {
-                        const item = {
-                            layer: 'MEP Storm Outfall',
-                            feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
-                            projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
-                            mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
-                            mepstatusdate: e.features[0].properties.status_date ? e.features[0].properties.status_date : '-',
-                            notes: e.features[0].properties.mhfd_notes ? e.features[0].properties.mhfd_notes : '-',
-                            servicearea: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-'
-                        }
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === 'watershed_service_areas') {
-                        const item = {
-                            layer: 'Service Area',
-                            feature: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-',
-                            watershedmanager: e.features[0].properties.watershedmanager ? e.features[0].properties.watershedmanager : '-',
-                            constructionmanagers: e.features[0].properties.constructionmanagers ? e.features[0].properties.constructionmanagers : '-',
-                        }
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === 'catchments' || key === 'basin') {
-                        const item = {
-                            layer: 'Watershed',
-                            feature: e.features[0].properties.str_name ? e.features[0].properties.str_name : 'No name'
-                        }
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === ROUTINE_NATURAL_AREAS) {
-                        const item = {
-                            layer: 'Vegetation Management - Natural Area',
-                            feature: e.features[0].properties.work_item_name ? e.features[0].properties.work_item_name : '-',
-                            contract: e.features[0].properties.contract ? e.features[0].properties.contract : '-',
-                            contractor: e.features[0].properties.contractor ? e.features[0].properties.contractor : '-',
-                            local_gov: e.features[0].properties.local_gov ? e.features[0].properties.local_gov : '-',
-                            acreage: e.features[0].properties.acreage ? numberWithCommas(Math.round(e.features[0].properties.acreage * 100) / 100) : '-'
-                        }
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === ROUTINE_WEED_CONTROL) {
-                        const item = {
-                            layer: 'Vegetation Management - Weed Control',
-                            feature: e.features[0].properties.work_item_name ? e.features[0].properties.work_item_name : '-',
-                            contract: e.features[0].properties.contract ? e.features[0].properties.contract : '-',
-                            contractor: e.features[0].properties.contractor ? e.features[0].properties.contractor : '-',
-                            local_gov: e.features[0].properties.local_gov ? e.features[0].properties.local_gov : '-',
-                            mow_frequency: e.features[0].properties.mow_frequency ? e.features[0].properties.mow_frequency : '-',
-                            acreage: e.features[0].properties.acreage ? numberWithCommas(Math.round(e.features[0].properties.acreage * 100) / 100) : '-'
-                        }
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === ROUTINE_DEBRIS_AREA) {
-                        const item = {
-                            layer: 'Debris Management Area',
-                            feature: e.features[0].properties.work_item_name ? e.features[0].properties.work_item_name : '-',
-                            contract: e.features[0].properties.contract ? e.features[0].properties.contract : '-',
-                            contractor: e.features[0].properties.contractor ? e.features[0].properties.contractor : '-',
-                            local_gov: e.features[0].properties.local_gov ? e.features[0].properties.local_gov : '-',
-                            debris_frequency: e.features[0].properties.debris_frequency ? e.features[0].properties.debris_frequency : '-',
-                            acreage: e.features[0].properties.acreage ? numberWithCommas(Math.round(e.features[0].properties.acreage * 100) / 100) : '-'
-                        }
-                        html = loadComponentPopup(item);
-                    }
-                    if (key === ROUTINE_DEBRIS_LINEAR) {
-                        const item = {
-                            layer: 'Debris Management Linear',
-                            feature: e.features[0].properties.work_item_name ? e.features[0].properties.work_item_name : '-',
-                            contract: e.features[0].properties.contract ? e.features[0].properties.contract : '-',
-                            contractor: e.features[0].properties.contractor ? e.features[0].properties.contractor : '-',
-                            local_gov: e.features[0].properties.local_gov ? e.features[0].properties.local_gov : '-',
-                            debris_frequency: e.features[0].properties.debris_frequency ? e.features[0].properties.debris_frequency : '-',
-                            length: e.features[0].properties.length ? Math.round(e.features[0].properties.length) : '-'
-                        }
-                        html = loadComponentPopup(item);
-                    }
+                  
+                    
                     const description = e.features[0].properties.description ? e.features[0].properties.description : '-';
                     if (html) {
                         popup.remove();
@@ -1183,88 +1268,12 @@ const Map = ({ leftWidth,
                 map.on('mouseleave', key + '_' + index, () => {
                     map.getCanvas().style.cursor = '';
                     setSelectedOnMap(-1, '');
-                })
-            });
-            map.on('click', (e: any) => {
-                const popups: any = [];
-                const menuOptions: any = [];
-                const bbox = [e.point.x , e.point.y ,
-                e.point.x , e.point.y ];
-                let features = map.queryRenderedFeatures(bbox, { layers: availableLayers });
-                const search = (id: number, source: string) => {
-                    let index = 0;
-                    for (const feature of features) {
-                        if (feature.properties.cartodb_id === id && source === feature.source) {
-                            return index;
-                        }
-                        index++;
-                    }
-                    return -1;
-                }
-                features = features.filter((element: any, index: number) => {
-                    return search(element.properties.cartodb_id, element.source) === index;
                 });
-                console.log('##### ' , features);
-                for (const feature of features) {
-                    console.log('$$$ ', feature.source);
-                    let html: any = null;
-                    let itemValue;
-                    if (feature.source === 'projects_polygon_' || feature.source === 'projects_line_1') {
-                        getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
-                        const item = {
-                            type: key,
-                            title: 'Project',
-                            name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
-                            organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
-                            value: feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0',
-                            projecctype: feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-',
-                            status: feature.properties.status ? feature.properties.status : '-',
-                            objectid: feature.properties.objectid,
-                            valueid: feature.properties.cartodb_id,
-                            id: feature.properties.projectid,
-                            popupId: 'popup'
-                        };
-                        itemValue = { ...item };
-                        itemValue.value = item.valueid;
-                        menuOptions.push('Project');
-                        popups.push(itemValue);
-                    }
-                    if (feature.source === 'problems') {
-                        getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
-                        const item = {
-                            type: 'problems',
-                            title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
-                            name: feature.properties.problemname ? feature.properties.problemname : '-',
-                            organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                            value: feature.properties.solutioncost ? feature.properties.solutioncost : '0',
-                            status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
-                            priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
-                            problemid: feature.properties.problemid,
-                            popupId: 'popup'
-                        };
-                        itemValue = { ...item };
-                        menuOptions.push('Problem');
-                        popups.push(itemValue);
-                    }
-                }
-
-                console.log(popups, menuOptions);
-                if (popups.length) {
-                    const html = loadMenuPopupWithData(menuOptions, popups);
-                    console.log(features);
-                    if (html) {
-                        popup.remove();
-                        popup = new mapboxgl.Popup();
-                        popup.setLngLat(e.lngLat)
-                            .setHTML(html)
-                            .addTo(map);
-                        for (const index in popups) {
-                            console.log(index);
-                            document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length));
-                        }
-                    }
-                }
             });
+            console.log('my available layers ', availableLayers);
+            setAllLayers(allLayers => [...allLayers, ...availableLayers]);
+            console.log('my all laayers ', allLayers, [...allLayers, ...availableLayers]);  
+            
             map.on('mouseenter', key, () => {
                 map.getCanvas().style.cursor = 'pointer';
             });
@@ -1284,7 +1293,8 @@ const Map = ({ leftWidth,
                         return (
                             <>
                                 <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> {menu} <RightOutlined /></Button>
-                                {menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
+                                { (menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index]) : 
+                                menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
                             </>
                         )
                     })
@@ -1390,9 +1400,9 @@ const Map = ({ leftWidth,
         </>
     );
 
-    const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup(
+    const loadComponentPopup = (index: number, item: any) => (
         <>
-            <ComponentPopup item={item}></ComponentPopup>
+            <ComponentPopup index={index} item={item}></ComponentPopup>
         </>
     );
 
