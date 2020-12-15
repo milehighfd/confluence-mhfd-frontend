@@ -1891,21 +1891,6 @@ export const PROJECTS_STYLES = {
         ],
         "line-blur": 22
       }
-    },{
-      type: 'symbol',
-      'source-layer': 'pluto15v1',
-      "layout": {
-        "text-field": [
-            "match",
-            ["get", "status"],
-            ["Initiated"],
-            ["to-string", ["get", "projectname"]],
-            ""
-        ],
-        "symbol-avoid-edges": true,
-        "text-padding": 66
-      },
-      "paint": {"text-color": "#ffdd00"}
     }
 ],
   [PROJECTS_LINE]: [
