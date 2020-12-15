@@ -3001,62 +3001,8 @@ export const tileStyles = {
           0
       ],
       "fill-outline-color": "hsla(0, 0%, 0%, 0)"
-      }
+     }
     }, {
-      type: 'symbol',
-      'source-layer': 'pluto15v1',
-      "layout": {
-        "text-field": [
-            "match",
-            ["get", "city"],
-            [
-                "Broomfield",
-                "Littleton",
-                "Aurora",
-                "Boulder",
-                "Denver",
-                "Parker",
-                "Lakewood",
-                "Golden",
-                "Brighton"
-            ],
-            ["to-string", ["get", "city"]],
-            ""
-        ],
-        "text-offset": [1, 1],
-        "text-pitch-alignment": "viewport",
-        "text-padding": 111,
-        "symbol-avoid-edges": true,
-        "text-justify": "auto"
-      },
-      "paint": {
-          "text-color": "hsl(227, 100%, 100%)",
-          "text-halo-color": "hsla(196, 0%, 31%, 0.57)",
-          "text-halo-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0,
-              13.19,
-              0,
-              22,
-              3
-          ],
-          "text-halo-blur": 1,
-          "text-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              12,
-              1,
-              13,
-              0,
-              22,
-              0
-          ]
-      }
-  },{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -3120,109 +3066,165 @@ export const tileStyles = {
           6
       ]
     }
-  }, {
+  }], 
+  [MUNICIPALITIES_POINTS]: [ {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
       "text-field": [
-          "step",
-          ["zoom"],
+          "match",
+          ["get", "city"],
           [
-              "match",
-              ["get", "city"],
-              [
-                  "Broomfield",
-                  "Littleton",
-                  "Aurora",
-                  "Boulder",
-                  "Denver",
-                  "Parker",
-                  "Lakewood",
-                  "Golden",
-                  "Brighton"
-              ],
-              ["to-string", ["get", "city"]],
-              ["to-string", ["get", "city"]]
+              "Broomfield",
+              "Littleton",
+              "Aurora",
+              "Boulder",
+              "Denver",
+              "Parker",
+              "Lakewood",
+              "Golden",
+              "Brighton"
           ],
-          13,
           ["to-string", ["get", "city"]],
-          22,
-          [
-              "match",
-              ["get", "city"],
-              [
-                  "Broomfield",
-                  "Littleton",
-                  "Aurora",
-                  "Boulder",
-                  "Denver",
-                  "Parker",
-                  "Lakewood",
-                  "Golden",
-                  "Brighton"
-              ],
-              ["to-string", ["get", "city"]],
-              ["to-string", ["get", "city"]]
-          ]
+          ""
       ],
-      "symbol-placement": "line",
       "text-offset": [1, 1],
       "text-pitch-alignment": "viewport",
-      "symbol-spacing": 500,
+      "text-padding": 111,
       "symbol-avoid-edges": true,
-      "text-font": ["Open Sans SemiBold", "Arial Unicode MS Regular"]
+      "text-justify": "auto",
+      "visibility": "none"
     },
     "paint": {
-        "text-color": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            "hsl(227, 100%, 100%)",
-            13.5,
-            "hsl(227, 95%, 100%)",
-            14,
-            "hsl(227, 100%, 0%)",
-            22,
-            "hsl(227, 100%, 0%)"
-        ],
-        "text-halo-color": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            "hsla(196, 0%, 31%, 0.57)",
-            22,
-            "hsla(196, 4%, 97%, 0.57)"
-        ],
+        "text-color": "hsl(227, 100%, 100%)",
+        "text-halo-color": "hsla(196, 0%, 31%, 0.57)",
         "text-halo-width": [
             "interpolate",
             ["linear"],
             ["zoom"],
             0,
             0,
-            13.15,
+            13.19,
             0,
             22,
-            2
+            3
         ],
         "text-halo-blur": 1,
         "text-opacity": [
             "interpolate",
             ["linear"],
             ["zoom"],
-            0,
-            0,
-            12.5,
-            0,
-            14.08,
+            12,
             1,
+            13,
+            0,
             22,
-            1
+            0
         ]
     }
-  }], 
-  [MUNICIPALITIES_POINTS]: [],
+},  {
+  type: 'symbol',
+  'source-layer': 'pluto15v1',
+  "layout": {
+    "text-field": [
+        "step",
+        ["zoom"],
+        [
+            "match",
+            ["get", "city"],
+            [
+                "Broomfield",
+                "Littleton",
+                "Aurora",
+                "Boulder",
+                "Denver",
+                "Parker",
+                "Lakewood",
+                "Golden",
+                "Brighton"
+            ],
+            ["to-string", ["get", "city"]],
+            ["to-string", ["get", "city"]]
+        ],
+        13,
+        ["to-string", ["get", "city"]],
+        22,
+        [
+            "match",
+            ["get", "city"],
+            [
+                "Broomfield",
+                "Littleton",
+                "Aurora",
+                "Boulder",
+                "Denver",
+                "Parker",
+                "Lakewood",
+                "Golden",
+                "Brighton"
+            ],
+            ["to-string", ["get", "city"]],
+            ["to-string", ["get", "city"]]
+        ]
+    ],
+    "symbol-placement": "line",
+    "text-offset": [2, 2],
+    "text-pitch-alignment": "viewport",
+    "symbol-spacing": 500,
+    "symbol-avoid-edges": true,
+    "text-font": ["Open Sans SemiBold", "Arial Unicode MS Regular"],
+    "visibility": "none"
+  },
+  "paint": {
+      "text-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsl(227, 100%, 100%)",
+          13.5,
+          "hsl(227, 95%, 100%)",
+          14,
+          "hsl(227, 100%, 0%)",
+          22,
+          "hsl(227, 100%, 0%)"
+      ],
+      "text-halo-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(196, 0%, 31%, 0.57)",
+          22,
+          "hsla(196, 4%, 97%, 0.57)"
+      ],
+      "text-halo-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.15,
+          0,
+          22,
+          2
+      ],
+      "text-halo-blur": 1,
+      "text-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12.5,
+          0,
+          14.08,
+          1,
+          22,
+          1
+      ]
+  }
+  }],
   [COUNTIES_FILTERS]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
