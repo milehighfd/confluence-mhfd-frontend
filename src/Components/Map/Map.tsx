@@ -1015,6 +1015,9 @@ const Map = ({ leftWidth,
             features = features.filter((element: any, index: number) => {
                 return search(element.properties.cartodb_id, element.source) === index;
             });
+            features.sort((a: any, b: any) => {
+                return a.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').localeCompare(b.source.replace('polygon_', '').replace('line_1', '').split('_').join(' '));
+            });
             console.log('##### ' , features);
             for (const feature of features) {
                 console.log('$$$ ', feature.source);
