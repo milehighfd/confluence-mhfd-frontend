@@ -3243,7 +3243,21 @@ export const tileStyles = {
       "line-dasharray": [5, 2, 3, 2, 5]
     }
   }],
-  [COUNTIES_POINTS]: [],
+  [COUNTIES_POINTS]: [{
+    type: 'symbol',
+    "layout": {
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "county"]],
+          " ",
+          "County"
+      ],
+      "text-size": 18,
+      "text-padding": 66,
+      "visibility": "none"
+    },
+    "paint": {"text-color": "hsl(0, 4%, 58%)"}
+  }],
   [MHFD_BOUNDARY_FILTERS]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
