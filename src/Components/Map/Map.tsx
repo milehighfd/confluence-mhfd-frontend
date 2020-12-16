@@ -1300,11 +1300,11 @@ const Map = ({ leftWidth,
                 {
                     menuOptions.map((menu: any, index: number) => {
                         return (
-                            <>
+                            <div>
                                 <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> {menu} <RightOutlined /></Button>
                                 { (menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index]) :
                                 menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
-                            </>
+                            </div>
                         )
                     })
                 }
