@@ -38,7 +38,15 @@ import {
   STUDIES,
   FEMA_FLOOD_HAZARD,
   XSTREAMS,
-  OPACITY_LAYERS
+  OPACITY_LAYERS,
+  NRCS_SOILS,
+  DWR_DAM_SAFETY,
+  STREAM_MANAGEMENT_CORRIDORS,
+  BCZ_PREBLE_MEADOW_JUMPING,
+  BCZ_UTE_LADIES_TRESSES_ORCHID,
+  RESEARCH_MONITORING,
+  CLIMB_TO_SAFETY,
+  SEMSWA_SERVICE_AREA
 } from "./constants";
 
 export const localComponents = {
@@ -3483,6 +3491,78 @@ export const tileStyles = {
           22,
           12
       ]
+    }
+  }],
+  [NRCS_SOILS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'fill-color': '#FFF',
+        'fill-opacity': 1,
+    }
+  }],
+  [DWR_DAM_SAFETY]: [{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "#FFF",
+      "circle-radius": 5
+    }
+  }], 
+  [STREAM_MANAGEMENT_CORRIDORS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'fill-color': '#FFF',
+        'fill-opacity': 1,
+    }
+  }], 
+  [BCZ_PREBLE_MEADOW_JUMPING]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'fill-color': '#FFF',
+        'fill-opacity': 1,
+    }
+  }],
+  [BCZ_UTE_LADIES_TRESSES_ORCHID]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'fill-color': '#FFF',
+        'fill-opacity': 1,
+    }
+  }],
+  [RESEARCH_MONITORING]: [{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "#FFF",
+      "circle-radius": 5
+    }
+  }],
+  [CLIMB_TO_SAFETY]: [{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "#FFF",
+      "circle-radius": 5
+    }
+  }],
+  [SEMSWA_SERVICE_AREA]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+        'fill-color': '#FFF',
+        'fill-opacity': 1,
     }
   }],
   ...COMPONENT_LAYERS_STYLE,
