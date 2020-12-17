@@ -160,7 +160,7 @@ const Map = ({ leftWidth,
         let mask;
         console.log('apply opacity', coordinatesJurisdiction);
         if (coordinatesJurisdiction.length > 0) {
-            mask = turf.polygon(coordinatesJurisdiction);
+            mask = turf.multiPolygon(coordinatesJurisdiction);
             const arrayBounds = boundsMap.split(',');
             console.log('BOUNDS', boundsMap);
             if (!map.getLayer('mask')) {
@@ -243,12 +243,33 @@ const Map = ({ leftWidth,
 }
 
     if (user?.polygon[0]) {
-        let bottomLongitude = user.polygon[0][0];
-        let bottomLatitude = user.polygon[0][1];
-        let topLongitude = user.polygon[0][0];
-        let topLatitude = user.polygon[0][1];
+        let myPolygon: any = [];
         for (let index = 0; index < user.polygon.length; index++) {
-            const element = user.polygon[index];
+            const geo = user.polygon[index];
+            if (geo[0].hasOwnProperty('length')) {
+                for (let index2 = 0; index2 < geo.length; index2++) {
+                    const geo2 = geo[index2];
+                    myPolygon.push([...geo2]);
+                }
+            } else {
+                myPolygon.push([...geo]);
+            }
+            //  if (element[0].hasOwnProperty('length')) {
+              //  for (const element2 of element) {
+              //      myPolygon.push([...element2]);
+               // }
+         //   } else {
+              //  myPolygon.push([...element]);
+            //}
+        }
+        let bottomLongitude = myPolygon[0][0];
+        let bottomLatitude = myPolygon[0][1];
+        let topLongitude = myPolygon[0][0];
+        let topLatitude = myPolygon[0][1];
+        for (let index = 0; index < myPolygon.length; index++) {
+            const element = myPolygon[index];
+            
+            console.log('my element ', element);
             if (bottomLongitude > element[0]) {
                 bottomLongitude = element[0];
             }
@@ -264,8 +285,9 @@ const Map = ({ leftWidth,
         }
         bottomLongitude -= 0.125;
         topLongitude += 0.125;
+        console.log(bottomLongitude, bottomLatitude, topLongitude, topLatitude);
         coor.push([bottomLongitude, bottomLatitude]);
-        coor.push([topLongitude, topLatitude])
+        coor.push([topLongitude, topLatitude]);
     }
 
     useEffect(() => {
@@ -292,8 +314,9 @@ const Map = ({ leftWidth,
         console.log('changemap Jurisdiction', coordinatesJurisdiction)
         let mask
         if (coordinatesJurisdiction.length > 0) {
-            mask = turf.polygon(coordinatesJurisdiction);
-
+            console.log(coordinatesJurisdiction);
+            mask = turf.multiPolygon(coordinatesJurisdiction);
+            console.log('my mask ', mask);
             let miboundsmap = map.getBounds();
             // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
             let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
@@ -547,6 +570,8 @@ const Map = ({ leftWidth,
     }, [zoom]);
 
     useEffect(() => {
+        console.log('my polygon ', polygon);
+        console.log(coor);
         map.fitBounds(coor);
     }, [polygon])
 
@@ -926,7 +951,7 @@ const Map = ({ leftWidth,
         }
 
         const polygon = draw.getAll().features[0].geometry.coordinates;
-        const polygonTurfCoords = turf.polygon(polygon);
+        const polygonTurfCoords = turf.multiPolygon(polygon);
         const polygonCoords = polygon[0];
 
         const { geometry } = turf.centroid(polygonTurfCoords);
@@ -985,18 +1010,17 @@ const Map = ({ leftWidth,
             console.log(div);
             // div.classList.remove('map-pop-00');
             div.classList.add('map-pop-03');
+
             console.log(div);
         }
         return;
     }
 
     useEffect(() => {
-        console.log('never updates ', allLayers);
         if (allLayers.length < 100) {
             return;
         }
         map.on('click', (e: any) => {
-            console.log('entro al click');
             const popups: any = [];
             const menuOptions: any = [];
             const bbox = [e.point.x , e.point.y ,
@@ -1274,9 +1298,7 @@ const Map = ({ leftWidth,
                     setSelectedOnMap(-1, '');
                 });
             });
-            console.log('my available layers ', availableLayers);
             setAllLayers(allLayers => [...allLayers, ...availableLayers]);
-            console.log('my all laayers ', allLayers, [...allLayers, ...availableLayers]);
 
             map.on('mouseenter', key, () => {
                 map.getCanvas().style.cursor = 'pointer';
