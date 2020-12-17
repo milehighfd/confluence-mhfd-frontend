@@ -22,7 +22,15 @@ import {
   FLOODPLAINS,
   FEMA_FLOOD_HAZARD,
   XSTREAMS,
-  popUps
+  popUps,
+  NRCS_SOILS,
+  DWR_DAM_SAFETY,
+  STREAM_MANAGEMENT_CORRIDORS,
+  BCZ_PREBLE_MEADOW_JUMPING,
+  BCZ_UTE_LADIES_TRESSES_ORCHID,
+  RESEARCH_MONITORING,
+  CLIMB_TO_SAFETY,
+  SEMSWA_SERVICE_AREA
 } from '../../../constants/constants';
 
 
@@ -55,8 +63,30 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     [FEMA_FLOOD_HAZARD]: false,
     [SERVICE_AREA_LAYERS.name]: false,
     [COUNTIES_LAYERS.name]: false,
-    [MUNICIPALITIES.name]: false
+    [MUNICIPALITIES.name]: false,
+    [NRCS_SOILS]: false,
+    [DWR_DAM_SAFETY]: false,
+    [STREAM_MANAGEMENT_CORRIDORS]: false,
+    [BCZ_PREBLE_MEADOW_JUMPING]: false,
+    [BCZ_UTE_LADIES_TRESSES_ORCHID]: false,
+    [RESEARCH_MONITORING]: false,
+    [CLIMB_TO_SAFETY]: false,
+    [SEMSWA_SERVICE_AREA]: false
   });
+  /**
+ export const NRCS_SOILS = 'usda_nrcs_soils';
+export const DWR_DAM_SAFETY = 'dwr_dam_safety';
+export const STREAM_MANAGEMENT_CORRIDORS = 'stream_management_corridors';
+export const BCZ_PREBLE_MEADOW_JUMPING = 
+'bcz_prebles_meadow_jumping_mouse';
+export const BCZ_UTE_LADIES_TRESSES_ORCHID =
+'bcz_ute_ladies_tresses_orchid';
+export const RESEARCH_MONITORING = 
+'stormwater_research_sites';
+export const CLIMB_TO_SAFETY = 'climb_to_safety_signs';
+export const SEMSWA_SERVICE_AREA = 
+'semswa_service_area';
+ */
   const [groups, setGroups] = useState({
     MHFDData: false,
     hydrologic: false,
@@ -143,7 +173,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
          <div>{/*<img src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
         <Switch checked={groups['hydrologic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
-         changeGroup(value, [WATERSHED_FILTERS
+         changeGroup(value, [WATERSHED_FILTERS, NRCS_SOILS
          ], 'hydrologic')}
        }/>
       </div>
@@ -155,7 +185,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
       <Switch checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
-          FEMA_FLOOD_HAZARD
+          FEMA_FLOOD_HAZARD, DWR_DAM_SAFETY
          ], 'hydraulic')}
        }/>
     </div>
@@ -166,8 +196,9 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     return(
       <div className="filter-coll-header">
         <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} GEOMORPHOLOGY</div>
-        <Switch size="small" onClick={(value, event) => {
+        <Switch checked={groups['geomorphology']} size="small" onClick={(value, event) => {
           event.stopPropagation();
+          changeGroup(value, [STREAM_MANAGEMENT_CORRIDORS], 'geomorphology')
         }}/>
       </div>
     )
@@ -178,8 +209,9 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
    return (
     <div className="filter-coll-header">
        <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
-      <Switch size="small" onClick={(value, event) => {
+      <Switch checked={groups['environmental']} size="small" onClick={(value, event) => {
           event.stopPropagation();
+          changeGroup(value, [BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING], 'environmental')
         }}/>
     </div>
     )
@@ -187,8 +219,9 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
   const genExtra05 = () => (
     <div className="filter-coll-header">
       <div>{/* <img src="/Icons/icon-79.svg" alt="" />*/} HUMAN CONNECTION</div>
-      <Switch size="small" onClick={(value, event) => {
+      <Switch checked={groups['humanConnection']} size="small" onClick={(value, event) => {
           event.stopPropagation();
+          changeGroup(value, [CLIMB_TO_SAFETY], 'humanConnection')
         }}/>
     </div>
   );
@@ -202,7 +235,8 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
          event.stopPropagation();
          changeGroup(value, [SERVICE_AREA_LAYERS,
           COUNTIES_LAYERS,
-          MUNICIPALITIES
+          MUNICIPALITIES,
+          SEMSWA_SERVICE_AREA
          ], 'boundaries')}
        }/>
     </div>
@@ -305,7 +339,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.nrcs_soils)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch size="small" />
+              <Switch size="small" checked={switches[NRCS_SOILS]} onClick={(value) => onChange(value, NRCS_SOILS)} />
             </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
 
             <p style={{ display: 'none' }}>
@@ -342,7 +376,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch size="small" />
+              <Switch size="small" checked={switches[DWR_DAM_SAFETY]} onClick={(value) => onChange(value, DWR_DAM_SAFETY)} />
             </p>
           </Panel>
           <Panel header="" key="4" extra={genExtra03()}>
@@ -353,7 +387,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch size="small" />
+              <Switch size="small" checked={switches[STREAM_MANAGEMENT_CORRIDORS]} onClick={(value) => onChange(value, STREAM_MANAGEMENT_CORRIDORS)} />
             </p>
           </Panel>
 
@@ -364,7 +398,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_prebels_meadow)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch size="small" />
+              <Switch size="small" checked={switches[BCZ_PREBLE_MEADOW_JUMPING]} onClick={(value) => onChange(value, BCZ_PREBLE_MEADOW_JUMPING)} />
             </p>
 
             <p>
@@ -373,7 +407,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_ute_ladies)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch size="small" />
+              <Switch size="small" checked={switches[BCZ_UTE_LADIES_TRESSES_ORCHID]} onClick={(value) => onChange(value, BCZ_UTE_LADIES_TRESSES_ORCHID)}/>
             </p>
 
             <p>
@@ -382,7 +416,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.research_monitoring)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch size="small" />
+              <Switch size="small" checked={switches[RESEARCH_MONITORING]} onClick={(value) => onChange(value, RESEARCH_MONITORING)} /> 
             </p>
           </Panel>
 
@@ -393,7 +427,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.climb_to_safety)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch size="small" />
+              <Switch size="small" checked={switches[CLIMB_TO_SAFETY]} onClick={(value) => onChange(value, CLIMB_TO_SAFETY)} />
             </p>
           </Panel>
           <Panel header="" key="7" extra={genExtra06()}>
@@ -430,7 +464,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.semswa_service_area)}>
                 <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch size="small" />
+              <Switch size="small" checked={switches[SEMSWA_SERVICE_AREA]} onClick={(value) => onChange(value, SEMSWA_SERVICE_AREA)} />
             </p> {/*<Checkbox value={COUNTIES_LAYERS}></Checkbox>*/}
 
             <p style={{ display: 'none' }}>
