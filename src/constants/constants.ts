@@ -160,7 +160,7 @@ export const ROUTINE_MAINTENANCE = {
 };
 
 // Project Styles Filters
-export const PROJECTS_POLYGONS = 'projects_polygon_';
+export const  PROJECTS_POLYGONS = 'projects_polygon_';
 export const PROJECTS_LINE = 'projects_line_1';
 export const STUDIES = 'studies';
 
@@ -171,6 +171,20 @@ export const PROJECTS_MAP_STYLES = {
     PROJECTS_LINE
   ]
 }
+
+/*new styles*/
+export const NRCS_SOILS = 'usda_nrcs_soils';
+export const DWR_DAM_SAFETY = 'dwr_dam_safety';
+export const STREAM_MANAGEMENT_CORRIDORS = 'stream_management_corridors';
+export const BCZ_PREBLE_MEADOW_JUMPING = 
+'bcz_prebles_meadow_jumping_mouse';
+export const BCZ_UTE_LADIES_TRESSES_ORCHID =
+'bcz_ute_ladies_tresses_orchid';
+export const RESEARCH_MONITORING = 
+'stormwater_research_sites';
+export const CLIMB_TO_SAFETY = 'climb_to_safety_signs';
+export const SEMSWA_SERVICE_AREA = 
+'semswa_service_area';
 
 export const SELECT_ALL_FILTERS = [
   STREAMS_FILTERS,
@@ -186,7 +200,16 @@ export const SELECT_ALL_FILTERS = [
   PROBLEMS_TRIGGER,
   PROJECTS_MAP_STYLES,
   STUDIES,
-  MEP_PROJECTS];
+  MEP_PROJECTS,
+  NRCS_SOILS,
+  DWR_DAM_SAFETY,
+  STREAM_MANAGEMENT_CORRIDORS,
+  BCZ_PREBLE_MEADOW_JUMPING,
+  BCZ_UTE_LADIES_TRESSES_ORCHID,
+  RESEARCH_MONITORING,
+  CLIMB_TO_SAFETY,
+  SEMSWA_SERVICE_AREA
+];
 
 /* End of Map Constants */
 
