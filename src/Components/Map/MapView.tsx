@@ -594,7 +594,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       getGalleryProjects();
     }
   }
-  const changeCenter = (name: string, coordinates: Array<Array<number>>) => {
+  const changeCenter = (name: string, coordinates: any) => {
     const user = store.getState().profile.userInformation;
     user.polygon = coordinates;
     saveUserInformation(user);
@@ -675,7 +675,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         coordinates: element.coordinates
       }
     });
-    changeCenter(value, zoomareaSelected[0].coordinates[0])
+    changeCenter(value, zoomareaSelected[0].coordinates)
   };
 
   const menu = () => {

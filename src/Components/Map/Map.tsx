@@ -132,13 +132,13 @@ const Map = ({ leftWidth,
     const [allLayers, setAllLayers] = useState(empty);
     //const [layerOpacity, setLayerOpacity] = useState(false);
     const coor: any[][] = [];
-    const coordinatesMHFD = [
+    const coordinatesMHFD = [[
         [-105.3236581, 39.4057815],
         [-105.3236581, 40.1315705],
         [-104.4889475, 40.1315705],
         [-104.4889475, 39.4057815],
         [-105.3236581, 39.4057815]
-    ];
+    ]];
     const [data, setData] = useState({
         problemid: '',
         id: '',
@@ -243,13 +243,14 @@ const Map = ({ leftWidth,
 }
 
     if (user?.polygon[0]) {
+        const bbox = turf.bbox(turfPolygon);
         let myPolygon: any = [];
         for (let index = 0; index < user.polygon.length; index++) {
             const geo = user.polygon[index];
             if (geo[0].hasOwnProperty('length')) {
                 for (let index2 = 0; index2 < geo.length; index2++) {
                     const geo2 = geo[index2];
-                    myPolygon.push([...geo2]);
+                    myPolygon.push(...geo2);
                 }
             } else {
                 myPolygon.push([...geo]);
@@ -267,9 +268,7 @@ const Map = ({ leftWidth,
         let topLongitude = myPolygon[0][0];
         let topLatitude = myPolygon[0][1];
         for (let index = 0; index < myPolygon.length; index++) {
-            const element = myPolygon[index];
-            
-            console.log('my element ', element);
+            const element = myPolygon[index];     
             if (bottomLongitude > element[0]) {
                 bottomLongitude = element[0];
             }
