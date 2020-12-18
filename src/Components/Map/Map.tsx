@@ -243,7 +243,6 @@ const Map = ({ leftWidth,
 }
 
     if (user?.polygon[0]) {
-        const bbox = turf.bbox(turfPolygon);
         let myPolygon: any = [];
         for (let index = 0; index < user.polygon.length; index++) {
             const geo = user.polygon[index];
