@@ -216,6 +216,7 @@ const initState = {
     opacityLayer: false,
     coordinatesJurisdiction: [],
     nameZoomArea: '',
+    bboxComponents: [],
     labelsFiltersProjects: [
         {
             'display': 'PROJECT TYPE',
@@ -704,6 +705,12 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 autocomplete: action.autocomplete
+            }
+        }
+        case types.BBOX_COMPONENTS: {
+            return {
+                ...state,
+                bboxComponents: action.bboxComponents
             }
         }
         case types.GET_PARAM_FILTER_COMPONENTS: {

@@ -772,3 +772,15 @@ export const setAutocomplete = (autocomplete: string) => {
         dispatch({type: types.SET_AUTOCOMPLETE, autocomplete});
     }
 }
+
+export const getBBOXComponents = (table: string, id: number) => {
+    return (dispatch: Function) => {
+        //dispatch(setSpinFilter(true));
+        datasets.getData(SERVER.BBOX_COMPONENTS + '?table=' + table + '&id=' + id).then(bboxComponents => {
+            if (bboxComponents) {
+                dispatch({type: types.BBOX_COMPONENTS, bboxComponents});
+            }
+            //dispatch(setSpinFilter(false));
+        })
+    }
+}
