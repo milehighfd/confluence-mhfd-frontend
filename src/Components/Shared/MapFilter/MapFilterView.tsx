@@ -128,6 +128,23 @@ export const SEMSWA_SERVICE_AREA =
   useEffect(() => {
     console.log(groups);
   }, [groups]);
+  useEffect(() => {
+    const newSwitches: any = {};
+    for (const layer of selectedLayers) {
+      console.log('layer ', layer);
+      if (layer.hasOwnProperty('name')) {
+        const key: string = layer['name'];
+        newSwitches[key] = true;
+      } else {
+        newSwitches[layer] = true;
+      } 
+    }
+    console.log('my new switches ',  newSwitches);
+    setSwitches((switches: any) => {
+      console.log('mirad y aprended ', {...switches, ...newSwitches});
+      return {...switches, ...newSwitches};
+    });
+  }, [selectedLayers]);
   const changeGroup = (value: boolean, elements: Array<any>, name: string) => {
     let switchSelected: any[] = [...selectedLayers];
     const newSwitches: any = {};

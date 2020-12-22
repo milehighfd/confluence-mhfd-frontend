@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 
 import bbox from "@turf/bbox";
 import store from "../../../store";
+import { COMPONENT_LAYERS } from "../../../constants/constants";
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
@@ -27,28 +28,30 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
   const [visible, setVisible] = useState(false);
 
-  const { getBBOXComponents } = useMapDispatch();
+  const { getBBOXComponents, updateSelectedLayers } = useMapDispatch();
   const { saveUserInformation } = useProfileDispatch();
   const showComponents = () => {
     console.log(data);
     const id = data.type === 'problems' ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
   }
-  const { autcomplete, spinMapLoaded, bboxComponents } = useSelector((state: any) => ({
+  const { autcomplete, spinMapLoaded, bboxComponents, selectedLayers } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete,
     bboxComponents: state.map.bboxComponents,
-
+    selectedLayers: state.map.selectedLayers
   }));
   const changeCenter = () => {
     console.log(data.coordinates);
     console.log(data.coordinates);
     setZoomProjectOrProblem(data.coordinates);
+    
   }
   
   useEffect(() => {
     console.log(bboxComponents);
     if (bboxComponents.length && bboxComponents[0] != null) {
+      updateSelectedLayers([...selectedLayers, COMPONENT_LAYERS]);
       setZoomProjectOrProblem(bboxComponents[0]);
       // saveUserInformation(user);
     }
