@@ -87,9 +87,10 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     <h5>Solution Status <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.solutionstatus &&
-                        <HorizontalBarChart data={paramProblems.solutionstatus} selected={filterProblemOptions.solutionstatus} onSelect={(items: any) => {
-                            apply(items, 'solutionstatus');
-                        }} />
+                        <HorizontalBarChart type={'solutionstatus'}
+                            data={paramProblems.solutionstatus}
+                            selected={filterProblemOptions.solutionstatus}
+                            onSelect={(items: any) => apply(items, 'solutionstatus')} />
                     }
                 </Col>
                 <Col span={12}>
