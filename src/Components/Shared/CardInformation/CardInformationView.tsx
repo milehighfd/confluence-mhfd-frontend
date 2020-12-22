@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Card, Popover, Menu, Dropdown, Button, Icon } from "antd";
 import { ComponentType } from "../../../Classes/MapTypes";
 import DetailedModal from "../Modals/DetailedModal";
@@ -6,6 +6,13 @@ import DetailedModal from "../Modals/DetailedModal";
 import { numberWithCommas } from '../../../utils/utils';
 import { Detailed } from "../../../store/types/detailedTypes";
 import { useMapDispatch } from "../../../hook/mapHook";
+import { useProfileDispatch } from "../../../hook/profileHook";
+
+import { useSelector } from "react-redux";
+
+
+import bbox from "@turf/bbox";
+import store from "../../../store";
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
@@ -19,9 +26,33 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any, componentCounter: number,
                 getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
   const [visible, setVisible] = useState(false);
+
+  const { getBBOXComponents } = useMapDispatch();
+  const { saveUserInformation } = useProfileDispatch();
+  const showComponents = () => {
+    console.log(data);
+    const id = data.type === 'problem' ? data.problemid : data.id;
+    getBBOXComponents(data.type, id);
+  }
+  const { autcomplete, spinMapLoaded, bboxComponents } = useSelector((state: any) => ({
+    spinMapLoaded: state.map.spinMapLoaded,
+    autcomplete: state.map.autocomplete,
+    bboxComponents: state.map.bboxComponents,
+
+  }));
   const changeCenter = () => {
+    console.log(data.coordinates);
+    console.log(data.coordinates);
     setZoomProjectOrProblem(data.coordinates);
   }
+  
+  useEffect(() => {
+    console.log(bboxComponents);
+    if (bboxComponents.length && bboxComponents[0] != null) {
+      setZoomProjectOrProblem(bboxComponents[0]);
+      // saveUserInformation(user);
+    }
+  }, [bboxComponents]);
   const { setOpacityLayer } = useMapDispatch();
   const stopModal = (e: any) => {
     e.domEvent.stopPropagation();
@@ -33,6 +64,14 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
         LIST ACTIONS
       </Menu.Item>
 
+      {data.totalComponents ? <Menu.Item onClick={(e: any) => {
+         e.domEvent.stopPropagation();
+         e.domEvent.nativeEvent.stopImmediatePropagation();
+         showComponents();
+      }}>
+        <span className="menu-item-text">Show Components</span>
+      </Menu.Item> : <></>
+      }
       <Menu.Item onClick={(e: any) => {
          e.domEvent.stopPropagation();
          e.domEvent.nativeEvent.stopImmediatePropagation();
