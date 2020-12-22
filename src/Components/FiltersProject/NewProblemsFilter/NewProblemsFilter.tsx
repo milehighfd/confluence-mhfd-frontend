@@ -63,12 +63,12 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
             <Row className="filt-00" style={{ marginTop: '10px' }}>
                 <Col span={12}>
                     <h5>Problem Type <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-
                     {
                         paramProblems.problemtype &&
-                        <PieChart data={paramProblems.problemtype} selected={filterProblemOptions.problemtype} onSelect={(e: string) => {
-                            apply(e, 'problemtype');
-                        }} />
+                        <PieChart type={'problemtype'}
+                            data={paramProblems.problemtype}
+                            selected={filterProblemOptions.problemtype}
+                            onSelect={(e: string) => apply(e, 'problemtype')} />
                     }
                 </Col>
                 <Col span={12}>

@@ -3,22 +3,37 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 
-const PieChart = ({ data, selected, onSelect }: any) => {
+const PieChart = ({ data, type, selected, onSelect }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const selectedData = selected ? selected.split(',') : [];
 
   useEffect(() => {
-    let total = data.length;
-    let problemTypeData: any = data.map((d:any) => {
-      let index = selectedData.indexOf(d);
-      return {
-        key: d,
-        counter: 1,
-        selected: index === -1 ? false : true,
-        value: 1 / total
-      }
-    });
+    let total: any;
+    let pieChartData: any;
+    if (type === 'problemtype') {
+      total = data.length;
+      pieChartData = data.map((d:any) => {
+        let index = selectedData.indexOf(d);
+        return {
+          key: d,
+          counter: 1,
+          selected: index === -1 ? false : true,
+          value: 1 / total
+        }
+      });
+    } else if (type === 'projecttype') {
+      total = data.reduce((a: number, x: any) => a + x.counter, 0);
+      pieChartData = data.map((d:any) => {
+        let index = selectedData.indexOf(d.value);
+        return {
+          key: d.value,
+          counter: d.counter,
+          selected: index === -1 ? false : true,
+          value: d.counter / total
+        }
+      });
+    }
 
     const width = 150;
     const height = 150;
@@ -33,7 +48,7 @@ const PieChart = ({ data, selected, onSelect }: any) => {
       .outerRadius(radius + 5);
 
     var color = d3.scaleOrdinal()
-      .domain(problemTypeData.map((r: any) => r.key))
+      .domain(pieChartData.map((r: any) => r.key))
       .range(["#917cd9", "#fd687e", "#fac774", "#29c49a", "#32a4fc"]);
 
     var pie = d3.pie()
@@ -47,7 +62,7 @@ const PieChart = ({ data, selected, onSelect }: any) => {
     .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    var data_ready: any = pie(problemTypeData)
+    var data_ready: any = pie(pieChartData)
 
     var slices = svg
       .selectAll('slices')
@@ -65,7 +80,11 @@ const PieChart = ({ data, selected, onSelect }: any) => {
         } else {
           selectedData.push(d.data.key);
         }
-        onSelect(selectedData.join(','))
+        if (type === 'problemtype') {
+          onSelect(selectedData.join(','))
+        } else if (type === 'projecttype') {
+          onSelect(selectedData)
+        }
       })
       .transition().duration(2000)
       .attr('d', (d: any) => d.data.selected ? arc2(d) : arc(d) )
@@ -109,7 +128,6 @@ const PieChart = ({ data, selected, onSelect }: any) => {
       .attr('height', 6)
 
   }, [data, selected]);
-
 
   return (
     <svg ref={svgRef} />
