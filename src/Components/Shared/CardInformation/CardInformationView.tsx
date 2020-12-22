@@ -31,7 +31,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   const { saveUserInformation } = useProfileDispatch();
   const showComponents = () => {
     console.log(data);
-    const id = data.type === 'problem' ? data.problemid : data.id;
+    const id = data.type === 'problems' ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
   }
   const { autcomplete, spinMapLoaded, bboxComponents } = useSelector((state: any) => ({
