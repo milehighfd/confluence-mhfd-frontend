@@ -283,7 +283,6 @@ const Map = ({ leftWidth,
         }
         bottomLongitude -= 0.125;
         topLongitude += 0.125;
-        console.log(bottomLongitude, bottomLatitude, topLongitude, topLatitude);
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude]);
     }
@@ -291,7 +290,6 @@ const Map = ({ leftWidth,
     useEffect(() => {
         if (map) {
             if (highlighted.type) {
-                console.log('HIGHLIGHT', highlighted.type);
                 showHighlighted(highlighted.type, highlighted.value);
             } else {
                 hideHighlighted();
@@ -308,13 +306,9 @@ const Map = ({ leftWidth,
     }, [counterPopup]);
 
     useEffect(() => {
-
-        console.log('changemap Jurisdiction', coordinatesJurisdiction)
         let mask
         if (coordinatesJurisdiction.length > 0) {
-            console.log(coordinatesJurisdiction);
             mask = turf.multiPolygon(coordinatesJurisdiction);
-            console.log('my mask ', mask);
             let miboundsmap = map.getBounds();
             // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
             let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
@@ -475,7 +469,6 @@ const Map = ({ leftWidth,
                 const bounds = map.getBounds();
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
                 setBoundMap(boundingBox);
-                console.log(applyFilter);
                 if (applyFilter) {
                     if (toggleModalFilter) {
                         getParamsFilter(boundingBox);
@@ -545,7 +538,6 @@ const Map = ({ leftWidth,
         const bounds = map.getBounds();
         const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
         setBoundMap(boundingBox);
-        console.log(applyFilter);
         if (applyFilter) {
             if (toggleModalFilter) {
                 if (filterTabNumber === PROJECTS_TRIGGER) {
@@ -863,7 +855,6 @@ const Map = ({ leftWidth,
     const addTilesLayers = (key: string) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
-            console.log('my style is ', key + '_highlight_' + index, style.type);
             map.addLayer({
                 id: key + '_' + index,
                 source: key,
@@ -1000,7 +991,6 @@ const Map = ({ leftWidth,
         // console.log(draw.getAll().features[0].geometry.coordinates);
     }
     const test = (item: any) => {
-        console.log('item::::', item);
 
         setVisible(true);
         setData(item);
@@ -1014,9 +1004,7 @@ const Map = ({ leftWidth,
 
     }
     const showPopup = (index: any, size: number, id: any, event:any) => {
-        console.log('my index ', index, size, id);
         const styles = { ...tileStyles as any };
-        console.log('my styles are ', styles, id.layer,  styles[id.layer]);
         showHighlighted(id.layer, id.id);
         for (let i = 0; i < size; i++) {
             const div = document.getElementById('popup-' + i);
@@ -1027,11 +1015,9 @@ const Map = ({ leftWidth,
         }
         const div = document.getElementById('popup-' + index);
         if (div != null) {
-            console.log(div);
             // div.classList.remove('map-pop-00');
             div.classList.add('map-pop-03');
 
-            console.log(div);
         }
         return;
     }
@@ -1063,9 +1049,7 @@ const Map = ({ leftWidth,
             features.sort((a: any, b: any) => {
                 return a.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').localeCompare(b.source.replace('polygon_', '').replace('line_1', '').split('_').join(' '));
             });
-            console.log('##### ' , features);
             for (const feature of features) {
-                console.log('$$$ ', feature.source);
                 let html: any = null;
                 let itemValue;
                 if (feature.source === 'projects_polygon_' || feature.source === 'projects_line_1') {
@@ -1252,11 +1236,8 @@ const Map = ({ leftWidth,
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
-                console.log('my id array is ', ids);
                 for (const component of COMPONENT_LAYERS.tiles) {
-                    console.log('entro a este for ', feature.source, component);
                     if (feature.source === component) {
-                        console.log('entrto acaaaaa ');
                         const item = {
                             layer: 'Components',
                             subtype: feature.properties.type ? feature.properties.type : '-',
@@ -1267,7 +1248,6 @@ const Map = ({ leftWidth,
                             problem: 'Dataset in development'
                         };
                         const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
-                        console.log('my name ', name);
                         menuOptions.push(name);
                         popups.push(item);
                         ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
@@ -1275,10 +1255,8 @@ const Map = ({ leftWidth,
                 }
             }
 
-            console.log(popups, menuOptions);
             if (popups.length) {
                 const html = loadMenuPopupWithData(menuOptions, popups);
-                console.log(features);
                 if (html) {
                     popup.remove();
                     popup = new mapboxgl.Popup();
@@ -1322,6 +1300,7 @@ const Map = ({ leftWidth,
                 });
                 */
                 map.on('mousemove', key + '_' + index, (e: any) => {
+                    showHighlighted(key, e.features[0].properties.cartodb_id);
                     if (key.includes('projects') || key === 'problems') {
                         map.getCanvas().style.cursor = 'pointer';
                         setSelectedOnMap(e.features[0].properties.cartodb_id, key);
@@ -1330,6 +1309,8 @@ const Map = ({ leftWidth,
                     }
                 });
                 map.on('mouseleave', key + '_' + index, () => {
+                    console.log('i exit');
+                    hideHighlighted();
                     map.getCanvas().style.cursor = '';
                     setSelectedOnMap(-1, '');
                 });
