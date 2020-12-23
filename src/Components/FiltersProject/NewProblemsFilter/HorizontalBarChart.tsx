@@ -77,9 +77,10 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
       if (type === 'solutionstatus') {
         return y(d.value) + 10
       } else if (type === 'status') {
-        return y(d.value) + 10
+        return y(d.value) + 10;
       }
     };
+
     var heightFn: any = () => {
       if (type === 'solutionstatus') {
         return 25;
@@ -95,13 +96,17 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
       }
     }
 
+    let xo: any = x(0);
+
+    let xCountFn: any = (d: any) => x(d.count);
+
     svg.selectAll("myRect")
       .data(data)
       .enter()
       .append("rect")
-      .attr("x", x(0))
+      .attr("x", xo)
       .attr("y", yFn)
-      .attr("width", function (d: any) { return x(d.count); })
+      .attr("width", xCountFn)
       .attr("height", heightFn)
       .attr("fill", "#261964")
       .style("opacity", function (d: any) {
@@ -143,7 +148,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
       .style("font-size", fontSizeFn)
 
     var countXFn = (d: any) => {
-      return x(d.count) - (d.count < 10 ? 10 : (d.count < 100 ? 20 : 30));
+      return xCountFn(d) - (d.count < 10 ? 10 : (d.count < 100 ? 20 : 30));
     }
     
     var countYFn = (d: any) => {

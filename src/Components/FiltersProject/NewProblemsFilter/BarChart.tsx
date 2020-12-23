@@ -29,7 +29,7 @@ const BarChart = ({ data, selected, onSelect }: any) => {
 
     var y = d3.scaleLinear().rangeRound([height, 0]);
 
-    var accum: any = [];
+    var accum: any[] = [];
     data.forEach((d: any, i:number) => {
       accum.push(d.count + (i > 0 ? accum[i-1] : 0))
     });
@@ -37,6 +37,13 @@ const BarChart = ({ data, selected, onSelect }: any) => {
     let sum = d3.sum(data, function(d:any) { return d.count });
     
     y.domain([0, sum]);
+
+    let yAccFn: any = (d:any, i: number) => {
+      return y(accum[i]);
+    }
+    let yCountFn: any = (d:any) => {
+      return y(d.count);
+    }
 
     var singleBars = svg
       .selectAll(".singlebar")
@@ -46,12 +53,10 @@ const BarChart = ({ data, selected, onSelect }: any) => {
       .enter()
       .append("rect")
       .attr("x", 50)
-      .attr("y", function (d:any, i) {
-        return y(accum[i]);
-      })
+      .attr("y", yAccFn)
       .attr('width', 50)
       .attr('height', function (d:any, ) {
-        return height - y(d.count);
+        return height - yCountFn(d);
       })
       .attr('fill', (d:any, i) => {
         if (i === 0) return '#29c499';
@@ -86,7 +91,7 @@ const BarChart = ({ data, selected, onSelect }: any) => {
       .text(function(d:any){ return d.value })
       .attr("transform", function(d:any, i) {
         let xo = 105;
-        let yo = y(accum[i]) + (height - y(d.count)) / 2;
+        let yo = yAccFn(d, i) + (height - yCountFn(d)) / 2;
         return `translate(${xo}, ${yo})`;
       })
       .style("font-size", 10)

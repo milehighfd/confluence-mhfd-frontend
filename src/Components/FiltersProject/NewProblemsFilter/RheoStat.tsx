@@ -106,18 +106,18 @@ const RheoStat = ({ data, type, selected, onSelect }: any) => {
       return condition ? x(d.max) : x(d.value);
     }
 
+    let yCounterFn: any = (d: any) => y(d.counter);
+
     g.selectAll(".bar-d3")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar-d3")
       .attr("x", xdr)
-      .attr("y", function (d: any) {
-        return y(d.counter);
-      })
+      .attr("y", yCounterFn)
       .attr('fill', fillColor)
       .attr("width", x.bandwidth())
       .attr("height", function (d: any) {
-        return height - y(d.counter);
+        return height - yCounterFn(d);
       });
 
 
