@@ -5,6 +5,7 @@ import * as d3 from 'd3';
 const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
   console.log('data', data);
   console.log('selected', selected);
+
   const svgRef = useRef<SVGSVGElement>(null);
 
   const labelmap: any = {
@@ -14,7 +15,15 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
     75: '75 - 100%'
   }
 
-  let selectedData = selected.split(',').filter((r: any) => r !== '').map((r: any) => +r);
+  let selectedData = selected.split(',')
+    .filter((r: any) => r !== '')
+    .map((r: any) => {
+      if (type === 'solutionstatus') {
+        return +r
+      } else {
+        return r;
+      }
+    });
 
   useEffect(() => {
     if (type === 'solutionstatus') {
@@ -27,7 +36,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
         }
       })
     } else if (type === 'status') {
-      data = data.map((r: any) => {
+      data = data.filter((r: any) => r.counter > 0).map((r: any) => {
         let index = selectedData.indexOf(r.value)
         return {
           value: r.value,
@@ -67,21 +76,36 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
     svg.append("g")
       .call(d3.axisLeft(y))
 
-    var ydr: any = (d: any) => { return y(d.value) + 10 };
+    var yFn: any = (d: any) => {
+      if (type === 'solutionstatus') {
+        return y(d.value) + 10
+      } else if (type === 'status') {
+        return y(d.value) + 10
+      }
+    };
+    var heightFn: any = () => {
+      if (type === 'solutionstatus') {
+        return 25;
+      } else if (type === 'status') {
+        return Math.floor(y.bandwidth() / 2);
+      }
+    }
+    var fontSizeFn: any = () => {
+      if (type === 'solutionstatus') {
+        return 14
+      } else if (type === 'status') {
+        return 12;
+      }
+    }
+
     svg.selectAll("myRect")
       .data(data)
       .enter()
       .append("rect")
       .attr("x", x(0))
-      .attr("y", ydr)
+      .attr("y", yFn)
       .attr("width", function (d: any) { return x(d.count); })
-      .attr("height", function (d: any) {
-        if (type === 'solutionstatus') {
-          return 25;
-        } else if (type === 'status') {
-          return y.bandwidth();
-        }
-      })
+      .attr("height", heightFn)
       .attr("fill", "#261964")
       .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.value);
@@ -116,10 +140,18 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
       })
       .attr("transform", function (d: any) {
         let xo = 10;
-        let yo = ydr(d) - 5;
+        let yo = yFn(d) - 5;
         return `translate(${xo}, ${yo})`;
       })
-      .style("font-size", 14)
+      .style("font-size", fontSizeFn)
+
+    var countXFn = (d: any) => {
+      return x(d.count) - (d.count < 10 ? 10 : (d.count < 100 ? 20 : 30));
+    }
+    
+    var countYFn = (d: any) => {
+      return yFn(d) + ((heightFn() + fontSizeFn()) / 2) - 2;
+    }
 
     svg
       .selectAll('.count')
@@ -127,12 +159,9 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
       .enter()
       .append('text')
       .text(function (d: any) { return d.count })
-      .attr("transform", function (d: any) {
-        let xo = x(d.count) - (d.count < 10 ? 10 : (d.count < 100 ? 20 : 30));
-        let yo = ydr(d) + 15;
-        return `translate(${xo}, ${yo})`;
-      })
-      .style("font-size", 14)
+      .attr('x', countXFn)
+      .attr('y', countYFn)
+      .style("font-size", fontSizeFn)
       .style('fill', 'white')
 
   }, [data, selected])
