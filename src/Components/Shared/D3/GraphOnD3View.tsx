@@ -3,7 +3,7 @@ import * as d3Scale from 'd3-scale';
 import { LINE } from '../../../constants/constants';
 
 export default ({ data, option }: { data: Array<{ name: string, value: number}>, option: string}) => {
-  const xScale = d3Scale.scaleLinear()
+  const xScale: any = d3Scale.scaleLinear()
     .domain([0, 100])
     .range([10, 320]);
 
@@ -16,9 +16,9 @@ export default ({ data, option }: { data: Array<{ name: string, value: number}>,
       </g>
   }
   const Axis = () => {
-    const ticks = useMemo(() => {
+    const ticks: any = useMemo(() => {
       return xScale.ticks(6)
-        .map(value => ({
+        .map((value: any) => ({
           value,
           xOffset: xScale(value)
         }))
@@ -29,7 +29,7 @@ export default ({ data, option }: { data: Array<{ name: string, value: number}>,
           d=""
           stroke="currentColor"
         />
-        {ticks.map(({ value, xOffset }) => (
+        {ticks.map(({ value, xOffset }: any) => (
           <g key={value} transform={`translate(${xOffset}, 0)`} >
             <text key={value} style={{
               fontSize: "10px",
