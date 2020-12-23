@@ -842,6 +842,14 @@ const Map = ({ leftWidth,
             }
         });
     };
+    const hideOneHighlighted = (key: string) => {
+        const styles = { ...tileStyles as any }
+        styles[key].forEach((style: LayerStylesType, index: number) => {
+            if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+                map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+            }
+        });
+    };
     const hideHighlighted = () => {
         const styles = { ...tileStyles as any };
         for (const key in styles) {
@@ -1027,6 +1035,7 @@ const Map = ({ leftWidth,
             return;
         }
         map.on('click', (e: any) => {
+            hideHighlighted();
             const popups: any = [];
             const menuOptions: any = [];
             const ids: any = [];
@@ -1308,9 +1317,9 @@ const Map = ({ leftWidth,
                         setSelectedOnMap(-1, '');
                     }
                 });
-                map.on('mouseleave', key + '_' + index, () => {
+                map.on('mouseleave', key + '_' + index, (e: any) => {
                     console.log('i exit');
-                    hideHighlighted();
+                    hideOneHighlighted(key);
                     map.getCanvas().style.cursor = '';
                     setSelectedOnMap(-1, '');
                 });
