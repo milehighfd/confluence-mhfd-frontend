@@ -2,15 +2,22 @@ import React, { useEffect, useRef } from 'react';
 
 import * as d3 from 'd3';
 
-const TreeMap = ({ data, type, selected, onSelect }: any) => {
+const TreeMap = ({ data, type, tab, selected, onSelect }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   let selectedData = selected === '' ? [] : selected.split(',')
 
   let color: string;
 
+  let datatype = typeof data[0];
+
   if (type === 'servicearea') {
     color = '#80a7f7';
+  } else {
+    color = '#66d4ff';
+  }
+
+  if (datatype === 'string') {
     let sa = 'Service Area';
     data = {
       name: '',
@@ -28,7 +35,6 @@ const TreeMap = ({ data, type, selected, onSelect }: any) => {
       })
     }
   } else {
-    color = '#66d4ff';
     let sum = 0;
     (data || []).forEach((d: any) => {
       sum += d.counter + 1;
@@ -98,8 +104,10 @@ const TreeMap = ({ data, type, selected, onSelect }: any) => {
       selectedData = selectedData.map((r: any) => `${r}`)
       if (type === 'servicearea') {
         onSelect(selectedData.join(','))
-      } else {
+      } else if (type === 'county' && tab === 'problem') {
         onSelect(selectedData)
+      } else if (type === 'county' && tab === 'project') {
+        onSelect(selectedData.join(','))
       }
     })
 

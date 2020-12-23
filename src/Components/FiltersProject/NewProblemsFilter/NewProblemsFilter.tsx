@@ -109,7 +109,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     <h5>Service Area</h5>
                     {
                         paramProblems.servicearea &&
-                        <TreeMap data={paramProblems.servicearea} type={'servicearea'}
+                        <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'problem'}
                             selected={filterProblemOptions.servicearea}
                             onSelect={(e: string) => apply(e, 'servicearea')} />
                     }
@@ -118,7 +118,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     <h5>County <img src="/Icons/icon-19.svg" alt="" /></h5>
                     {
                         paramProblems.county &&
-                        <TreeMap data={paramProblems.county} type={'county'}
+                        <TreeMap data={paramProblems.county} type={'county'} tab={'problem'}
                             selected={filterProblemOptions.county}
                             onSelect={(items: any) => apply(items, 'county')} />
                     }
