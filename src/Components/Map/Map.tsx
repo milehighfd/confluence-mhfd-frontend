@@ -835,7 +835,7 @@ const Map = ({ leftWidth,
     //} */
 
     const showHighlighted = (key: string, cartodb_id: string) => {
-        const styles = { ...tileStyles as any };
+        const styles = { ...tileStyles as any }
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
                 map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
@@ -844,7 +844,7 @@ const Map = ({ leftWidth,
     };
     const hideHighlighted = () => {
         const styles = { ...tileStyles as any };
-        for (const key of highlightedLayers) {
+        for (const key in styles) {
             styles[key].forEach((style: LayerStylesType, index: number) => {
                 if (map.getLayer(key + '_highlight_' + index)) {
                     map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
@@ -889,7 +889,7 @@ const Map = ({ leftWidth,
                     },
                     paint: {
                         'circle-color': '#FFF',
-                        'circle-radius': 12,
+                        'circle-radius': 7,
                         'circle-opacity': 1
                     },
                     filter: ['in', 'cartodb_id']
