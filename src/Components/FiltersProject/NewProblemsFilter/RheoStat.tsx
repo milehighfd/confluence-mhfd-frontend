@@ -3,28 +3,46 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { sliderBottom } from 'd3-simple-slider';
 
-const RheoStat = ({ data, selected, onSelect }: any) => {
+const RheoStat = ({ data, type, selected, onSelect }: any) => {
   const divRef = useRef<HTMLDivElement>(null);
-
-  data = data.map((r: any) => {
-    let index = selected.indexOf(`${r.min},${r.max}`);
-    return {
-      min: r.min,
-      max: r.max,
-      counter: r.counter,
-      last: r.last,
-      selected: index === -1 ? false : true
-    }
-  })
+  const pRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const width = 150;
     const height = 150;
-    let keys = data.map((r: any) => r.max);
+
+    let condition: boolean = type !== 'year';
+
+    const fillColor = condition ? '#2dc49a' : '#ffdc00';
+    const opaquedColor = condition ? '#b7eadc' : '#fff2a8';
+
+    const keyFn = (d: any) => {
+      return condition ? d.max : d.value;
+    }
+
+    const filterFn = (d: any) => {
+      return condition ? true : d !== null
+    }
+
+    const getMinMax = (cmin: any, cmax: any) => {
+      let minValue, maxValue;
+      if (condition) {
+        minValue = cmin < data.length ? data[cmin] : { min: 0 };
+        maxValue = data[cmax - 1];
+        minValue = minValue.min;
+        maxValue = maxValue.max;
+      } else {
+        minValue = cmin < data.length ? data[cmin].value : data[cmin - 1].value;
+        maxValue = cmax < data.length ? data[cmax].value : data[cmax - 1].value;
+      }
+      return [minValue, maxValue];
+    }
+
+    let keys = data.map(keyFn).filter(filterFn);
 
     var sliderRange = sliderBottom()
       .min(0)
-      .max(keys.length)
+      .max(condition ? keys.length : keys.length - 1)
       .width(width)
       .tickFormat(d3.format('.2%'))
       .ticks(keys.length)
@@ -36,7 +54,7 @@ const RheoStat = ({ data, selected, onSelect }: any) => {
           .type(d3.symbolCircle)
           .size(200)()
       )
-      .fill('#2dc49a')
+      .fill(fillColor)
       .on('onchange', (val: any) => {
         let [currentMin, currentMax] = val;
         let selectedData: any[] = [];
@@ -45,15 +63,19 @@ const RheoStat = ({ data, selected, onSelect }: any) => {
           .selectAll(".bar-d3")
           .attr('fill', (d: any, i) => {
             if (currentMin <= i && i + 1 <= currentMax) {
-              selectedData.push(`${d.min},${d.max}`);
-              return '#2dc49a';
+              let value = condition ? `${d.min},${d.max}` : d.value;
+              selectedData.push(value);
+              return fillColor;
             }
-            return '#b7eadc';
+            return opaquedColor;
           })
-        onSelect(selectedData);
-        let dmin = currentMin < data.length ? { min: 0 } : data[currentMin];
-        let dmax = data[currentMax - 1];
-        d3.select('p#value-range').text(`${dmin.min} - ${dmax.max}`);
+        const [dmin, dmax] = getMinMax(currentMin, currentMax);
+        if (condition) {
+          onSelect(selectedData);
+        } else {
+          onSelect(`${dmin}`);
+        }
+        d3.select(pRef.current).text(`${dmin} - ${dmax}`);
       });
 
     var svg2 = d3
@@ -81,7 +103,7 @@ const RheoStat = ({ data, selected, onSelect }: any) => {
     y.domain([0, maxiCounter]);
 
     let xdr: any = (d: any) => {
-      return x(d.max);
+      return condition ? x(d.max) : x(d.value);
     }
 
     g.selectAll(".bar-d3")
@@ -92,7 +114,7 @@ const RheoStat = ({ data, selected, onSelect }: any) => {
       .attr("y", function (d: any) {
         return y(d.counter);
       })
-      .attr('fill', '#2dc49a')
+      .attr('fill', fillColor)
       .attr("width", x.bandwidth())
       .attr("height", function (d: any) {
         return height - y(d.counter);
@@ -105,19 +127,15 @@ const RheoStat = ({ data, selected, onSelect }: any) => {
 
     gRange.call(sliderRange);
 
-    d3.select('p#value-range').text(
-      sliderRange
-        .value()
-        .map(d3.format('.2%'))
-        .join('-')
-    );
+    const [mnValue, mxValue] = getMinMax(0, condition ? keys.length : keys.length - 1)
+    d3.select(pRef.current).text(`${mnValue} - ${mxValue}`);
 
   }, []);
 
   return (
     <>
       <div ref={divRef}></div>
-      <p id="value-range"></p>
+      <p ref={pRef}></p>
     </>
   )
 }
