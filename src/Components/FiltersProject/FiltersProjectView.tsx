@@ -232,13 +232,13 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
     const getFilterBody = (trigger: string) => {
         switch (trigger) {
             case FILTER_PROBLEMS_TRIGGER:
-                return <NewProblemsFilter paramProblems={paramFilters.problems}
+                return <ProblemsFilter paramProblems={paramFilters.problems}
                     filterProblemOptions={filterProblemOptions}
                     setFilterProblemOptions={setFilterProblemOptions}
                     getGalleryProblems={getGalleryProblems}
                     setToggleFilters={setToggleFilters} />
             case FILTER_PROJECTS_TRIGGER:
-                return <NewProjectsFilter paramProjects={paramFilters.projects}
+                return <ProjectsFilter paramProjects={paramFilters.projects}
                     filterProjectOptions={filterProjectOptions}
                     setFilterProjectOptions={setFilterProjectOptions}
                     getGalleryProjects={getGalleryProjects}
