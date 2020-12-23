@@ -169,10 +169,13 @@ export const SEMSWA_SERVICE_AREA =
     selectCheckboxes(switchSelected);
     removePopup();
   }
-
+  const emptyStyle: React.CSSProperties = {};
+  const weightStyle: React.CSSProperties = {'fontWeight': 500};
   const genExtra = () => {
     return (<div className="filter-coll-header">
-      <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} MHFD DATA </div>
+      <div style={(switches[PROBLEMS_TRIGGER] || switches[PROJECTS_MAP_STYLES.name] || 
+        switches[MEP_PROJECTS.name] || switches[ROUTINE_MAINTENANCE.name] || switches[COMPONENT_LAYERS.name])
+        ? weightStyle : emptyStyle }>{/*<img src="/Icons/icon-79.svg" alt="" />*/} MHFD DATA </div>
        <Switch checked={groups['MHFDData']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [PROBLEMS_TRIGGER,
@@ -187,7 +190,7 @@ export const SEMSWA_SERVICE_AREA =
     return (
       <div className="filter-coll-header">
 
-         <div>{/*<img src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
+         <div style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS]) ? weightStyle : emptyStyle }>{/*<img src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
         <Switch checked={groups['hydrologic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [WATERSHED_FILTERS, NRCS_SOILS
@@ -198,7 +201,7 @@ export const SEMSWA_SERVICE_AREA =
   const genExtra02 = () => {
     return (
     <div className="filter-coll-header">
-       <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
+       <div style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] || switches[DWR_DAM_SAFETY]) ? weightStyle : emptyStyle}>{/*<img src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
       <Switch checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
@@ -212,7 +215,7 @@ export const SEMSWA_SERVICE_AREA =
   const genExtra03 = () => {
     return(
       <div className="filter-coll-header">
-        <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} GEOMORPHOLOGY</div>
+        <div style={(switches[STREAM_MANAGEMENT_CORRIDORS]) ? weightStyle : emptyStyle}>{/*<img src="/Icons/icon-79.svg" alt="" />*/} GEOMORPHOLOGY</div>
         <Switch checked={groups['geomorphology']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [STREAM_MANAGEMENT_CORRIDORS], 'geomorphology')
@@ -225,7 +228,8 @@ export const SEMSWA_SERVICE_AREA =
  const genExtra04 = () => {
    return (
     <div className="filter-coll-header">
-       <div>{/*<img src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
+       <div style={(switches[BCZ_PREBLE_MEADOW_JUMPING] || switches[BCZ_UTE_LADIES_TRESSES_ORCHID] ||
+        switches[RESEARCH_MONITORING]) ? weightStyle : emptyStyle}>{/*<img src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
       <Switch checked={groups['environmental']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING], 'environmental')
@@ -235,7 +239,7 @@ export const SEMSWA_SERVICE_AREA =
   };
   const genExtra05 = () => (
     <div className="filter-coll-header">
-      <div>{/* <img src="/Icons/icon-79.svg" alt="" />*/} HUMAN CONNECTION</div>
+      <div style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>{/* <img src="/Icons/icon-79.svg" alt="" />*/} HUMAN CONNECTION</div>
       <Switch checked={groups['humanConnection']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [CLIMB_TO_SAFETY], 'humanConnection')
@@ -247,7 +251,9 @@ export const SEMSWA_SERVICE_AREA =
 
  const genExtra06 = () => {
     return (<div className="filter-coll-header">
-      <div>{/*<img src="/Icons/icon-78.svg" alt="" />*/} BOUNDARIES</div>
+      <div style={(switches[SERVICE_AREA_LAYERS.name] || switches[COUNTIES_LAYERS.name] ||
+        switches[MUNICIPALITIES.name] || switches[SEMSWA_SERVICE_AREA]) ? weightStyle : emptyStyle}>
+          {/*<img src="/Icons/icon-78.svg" alt="" />*/} BOUNDARIES</div>
       <Switch checked={groups['boundaries']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [SERVICE_AREA_LAYERS,
