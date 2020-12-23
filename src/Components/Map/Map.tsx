@@ -863,7 +863,15 @@ const Map = ({ leftWidth,
     const addTilesLayers = (key: string) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
-            if (key.includes('problems') || key.includes('projects')) {
+            console.log('my style is ', key + '_highlight_' + index, style.type);
+            map.addLayer({
+                id: key + '_' + index,
+                source: key,
+                ...style
+            });
+
+            map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+            if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
                 map.addLayer({
                     id: key + '_highlight_' + index,
                     source: key,
@@ -877,15 +885,26 @@ const Map = ({ leftWidth,
                         'line-width': 7,
                     },
                     filter: ['in', 'cartodb_id']
-                })
+                });
             }
-            map.addLayer({
-                id: key + '_' + index,
-                source: key,
-                ...style
-            });
-
-            map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+            if (style.type === 'circle' || style.type === 'symbol') {
+                map.addLayer({
+                    id: key + '_highlight_' + index,
+                    type: 'circle',
+                    'source-layer': 'pluto15v1',
+                    source: key,
+                    layout: {
+                        visibility: 'visible'
+                    },
+                    paint: {
+                        'circle-color': '#FFF',
+                        'circle-radius': 12,
+                        'circle-opacity': 1
+                    },
+                    filter: ['in', 'cartodb_id']
+                  });
+            }
+            
         });
         addMapListeners(key);
     }
@@ -994,8 +1013,11 @@ const Map = ({ leftWidth,
 
 
     }
-    const showPopup = (index: any, size: number, event:any) => {
-        console.log('my index ', index, size);
+    const showPopup = (index: any, size: number, id: any, event:any) => {
+        console.log('my index ', index, size, id);
+        const styles = { ...tileStyles as any };
+        console.log('my styles are ', styles, id.layer,  styles[id.layer]);
+        showHighlighted(id.layer, id.id);
         for (let i = 0; i < size; i++) {
             const div = document.getElementById('popup-' + i);
             if (div != null) {
@@ -1021,6 +1043,7 @@ const Map = ({ leftWidth,
         map.on('click', (e: any) => {
             const popups: any = [];
             const menuOptions: any = [];
+            const ids: any = [];
             const bbox = [e.point.x , e.point.y ,
             e.point.x , e.point.y ];
             let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
@@ -1064,6 +1087,7 @@ const Map = ({ leftWidth,
                     itemValue.value = item.valueid;
                     menuOptions.push('Project');
                     popups.push(itemValue);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'problems') {
                     getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
@@ -1081,6 +1105,7 @@ const Map = ({ leftWidth,
                     itemValue = { ...item };
                     menuOptions.push('Problem');
                     popups.push(itemValue);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_temp_locations') {
                     const item = {
@@ -1094,6 +1119,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Temporary Location');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_temp_locations') {
                     const item = {
@@ -1107,6 +1133,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Temporary Location');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_detention_basins') {
                     const item = {
@@ -1120,6 +1147,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Detention Basin');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_channels') {
                     const item = {
@@ -1133,6 +1161,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Channel');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_storm_outfalls') {
                     const item = {
@@ -1146,6 +1175,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Storm Outfall');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'watershed_service_areas') {
                     const item = {
@@ -1156,6 +1186,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('Service Area');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'catchments' || feature.source === 'basin') {
                     const item = {
@@ -1164,6 +1195,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('Watershed');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_NATURAL_AREAS) {
                     const item = {
@@ -1176,6 +1208,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('Vegetation Management - Natural Area');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_WEED_CONTROL) {
                     const item = {
@@ -1189,6 +1222,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('Vegetation Management - Weed Control');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_DEBRIS_AREA) {
                     const item = {
@@ -1202,6 +1236,7 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('Debris Management Area');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_DEBRIS_LINEAR) {
                     const item = {
@@ -1215,7 +1250,9 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('Debris Management Linear');
                     popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
+                console.log('my id array is ', ids);
                 for (const component of COMPONENT_LAYERS.tiles) {
                     console.log('entro a este for ', feature.source, component);
                     if (feature.source === component) {
@@ -1233,6 +1270,7 @@ const Map = ({ leftWidth,
                         console.log('my name ', name);
                         menuOptions.push(name);
                         popups.push(item);
+                        ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     }
                 }
             }
@@ -1249,7 +1287,7 @@ const Map = ({ leftWidth,
                         .addTo(map);
                     for (const index in popups) {
                         console.log(index);
-                        document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length));
+                        document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
                     }
                 }
             }
