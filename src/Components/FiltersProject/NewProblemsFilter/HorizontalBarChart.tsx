@@ -3,9 +3,6 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
-  console.log('data', data);
-  console.log('selected', selected);
-
   const svgRef = useRef<SVGSVGElement>(null);
 
   const labelmap: any = {
