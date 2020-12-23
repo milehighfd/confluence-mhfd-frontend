@@ -1012,7 +1012,7 @@ const Map = ({ leftWidth,
 
     }
     const showPopup = (index: any, size: number, id: any, event:any) => {
-        const styles = { ...tileStyles as any };
+        hideHighlighted();
         showHighlighted(id.layer, id.id);
         for (let i = 0; i < size; i++) {
             const div = document.getElementById('popup-' + i);
