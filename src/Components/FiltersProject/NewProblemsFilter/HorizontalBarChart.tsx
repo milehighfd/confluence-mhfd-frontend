@@ -76,7 +76,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
           index = id;
         }
       })
-      return 25 + index * 45;
+      return 20 + index * 45;
     }
 
     var countFn: any = (d: any) => d.count;
