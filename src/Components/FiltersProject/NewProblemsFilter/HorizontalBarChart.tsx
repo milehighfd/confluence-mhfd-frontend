@@ -1,50 +1,141 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
+import { Button } from 'antd';
 
-const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
+const labelmap: any = {
+  0: '0 - 25%',
+  25: '25 - 50%',
+  50: '50 - 75%',
+  75: '75 - 100%'
+}
+
+const solutionstatus = 'solutionstatus';
+const status = 'status';
+const component_type = 'component_type';
+
+var transformSelectedData = (sData: any) => {
+  return sData.map((r: any) => `${r}`)
+}
+
+const HorizontalBarChart = ({ data, type, selected, onSelect, hasScroll, defaultValue }: any) => {
+  console.log('HorizontalBarChart', data, selected)
   const svgRef = useRef<SVGSVGElement>(null);
+  const [selectedData, setSelectedData] = useState<string[]>([]);
 
-  const labelmap: any = {
-    0: '0 - 25%',
-    25: '25 - 50%',
-    50: '50 - 75%',
-    75: '75 - 100%'
-  }
-
-  let selectedData = selected.split(',')
+  useEffect(() => {
+    let temporal = selected.split(',')
     .filter((r: any) => r !== '')
     .map((r: any) => {
-      if (type === 'solutionstatus') {
+      if (type === solutionstatus) {
         return +r
       } else {
         return r;
       }
     });
+    setSelectedData(temporal);
+  }, [selected])
 
   useEffect(() => {
-    if (type === 'solutionstatus') {
+    if (type === solutionstatus) {
       data = data.map((r: any) => {
-        let index = selectedData.indexOf(r.value)
         return {
           value: r.value,
-          count: r.count,
-          selected: index === -1 ? false : true
+          count: r.count
         }
       })
-    } else if (type === 'status') {
+    } else if (type === status) {
       data = data.filter((r: any) => r.counter > 0).map((r: any) => {
-        let index = selectedData.indexOf(r.value)
+        return {
+          value: r.value,
+          count: r.counter
+        }
+      })
+    } else if (type === component_type) {
+      data = data.filter((r: any) => r.counter > 0).map((r: any) => {
         return {
           value: r.value,
           count: r.counter,
-          selected: index === -1 ? false : true
+          key: r.key
         }
       })
     }
 
     const width = 200;
-    const height = type === 'solutionstatus' ? 200 : 300;;
+    const height = type === solutionstatus ? 200 : 300;
+
+    let maxi: any = d3.max(data, (d: any) => d.count);
+
+    var x = d3.scaleLinear()
+      .domain([0, maxi])
+      .range([0, width]);
+
+    var y: any = d3.scaleBand()
+      .range([10, height])
+      .domain(data.map((d: any) => d.value))
+      .padding(.1);
+
+    let xCountFn: any = (d: any) => x(d.count);
+
+    var yFn: any = (d: any) => y(d.value);
+
+    var heightFn: any = () => {
+      if (type === solutionstatus) {
+        return 25;
+      } else if (type === status) {
+        return Math.floor(y.bandwidth() / 2);
+      } else if (type === component_type) {
+        return 25;
+      }
+    }
+
+    var fontSizeFn: any = () => {
+      if (type === solutionstatus) {
+        return 14
+      } else if (type === status) {
+        return 12;
+      } else if (type === component_type) {
+        return 12;
+      }
+    }
+
+    var getIndex = (d: any) => {
+      let property;
+      switch (type) {
+        case solutionstatus:
+          property = 'value';
+          break;
+        case status:
+          property = 'value';
+          break;
+        case component_type:
+          property = 'key';
+          break;
+        default:
+          property = 'value';
+          break;
+      }
+      let index = selectedData.indexOf(d[property]);
+      return index;
+    }
+
+    var getValueToPush = (d: any) => {
+      if (type === component_type) {
+        return d.key;
+      } else {
+        return d.value;
+      }
+    }
+
+    let labelTextFn = (d: any) => {
+      if (type === solutionstatus) {
+        return labelmap[d.value]
+      } else if (type === status) {
+        return d.value;
+      } else if (type === component_type) {
+        return d.value;
+      }
+    }
 
     d3.select(svgRef.current).select('g').remove();
 
@@ -53,12 +144,6 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
       .attr("height", height)
       .append("g")
 
-    let maxi: any = d3.max(data, (d: any) => d.count);
-
-    var x = d3.scaleLinear()
-      .domain([0, maxi])
-      .range([0, width]);
-
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
@@ -66,51 +151,22 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
       .attr("transform", "translate(-10,0)rotate(-45)")
       .style("text-anchor", "end");
 
-    var y: any = d3.scaleBand()
-      .range([10, height])
-      .domain(data.map(function (d: any) { return d.value; }))
-      .padding(.1);
     svg.append("g")
       .call(d3.axisLeft(y))
 
-    var yFn: any = (d: any) => {
-      if (type === 'solutionstatus') {
-        return y(d.value) + 10
-      } else if (type === 'status') {
-        return y(d.value) + 10;
-      }
-    };
-
-    var heightFn: any = () => {
-      if (type === 'solutionstatus') {
-        return 25;
-      } else if (type === 'status') {
-        return Math.floor(y.bandwidth() / 2);
-      }
-    }
-    var fontSizeFn: any = () => {
-      if (type === 'solutionstatus') {
-        return 14
-      } else if (type === 'status') {
-        return 12;
-      }
-    }
-
-    let xo: any = x(0);
-
-    let xCountFn: any = (d: any) => x(d.count);
+    let xInitialValue: any = x(0);
 
     svg.selectAll("myRect")
       .data(data)
       .enter()
       .append("rect")
-      .attr("x", xo)
+      .attr("x", xInitialValue)
       .attr("y", yFn)
       .attr("width", xCountFn)
       .attr("height", heightFn)
       .attr("fill", "#261964")
-      .style("opacity", function (d: any) {
-        let index = selectedData.indexOf(d.value);
+      .style("opacity", (d: any) => {
+        let index = getIndex(d);
         if (index !== -1) {
           return 1;
         } else {
@@ -118,14 +174,12 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
         }
       })
       .on('click', (d: any, i: number) => {
-        let index = selectedData.indexOf(d.value);
+        let index = getIndex(d);
         if (index !== -1) {
-          selectedData.splice(index, 1);
+          setSelectedData(selectedData.filter((_, ind) => i !== index))
         } else {
-          selectedData.push(d.value);
+          setSelectedData([...selectedData, getValueToPush(d)])
         }
-        selectedData = selectedData.map((r: any) => `${r}`)
-        onSelect(selectedData)
       })
 
     svg
@@ -133,13 +187,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
       .data(data)
       .enter()
       .append('text')
-      .text(function (d: any) {
-        if (type === 'solutionstatus') {
-          return labelmap[d.value]
-        } else if (type === 'status') {
-          return d.value;
-        }
-      })
+      .text(labelTextFn)
       .attr("transform", function (d: any) {
         let xo = 10;
         let yo = yFn(d) - 5;
@@ -150,7 +198,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
     var countXFn = (d: any) => {
       return xCountFn(d) - (d.count < 10 ? 10 : (d.count < 100 ? 20 : 30));
     }
-    
+
     var countYFn = (d: any) => {
       return yFn(d) + ((heightFn() + fontSizeFn()) / 2) - 2;
     }
@@ -160,16 +208,34 @@ const HorizontalBarChart = ({ data, type, selected, onSelect }: any) => {
       .data(data)
       .enter()
       .append('text')
-      .text(function (d: any) { return d.count })
+      .text(xCountFn)
       .attr('x', countXFn)
       .attr('y', countYFn)
       .style("font-size", fontSizeFn)
       .style('fill', 'white')
 
-  }, [data, selected])
+  }, [data, selectedData])
+
+  const apply = () => {
+    onSelect(transformSelectedData(selectedData))
+  }
+
+  const reset = () => {
+    onSelect(defaultValue);
+  }
 
   return (
-    <svg ref={svgRef} />
+    <>
+      <div className={hasScroll ? 'svg-scroll' : ''}>
+        <svg ref={svgRef} />
+      </div>
+      <Button onClick={apply}>
+        apply
+      </Button>
+      <Button onClick={reset}>
+        reset
+      </Button>
+    </>
   )
 }
 
