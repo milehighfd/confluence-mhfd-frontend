@@ -18,8 +18,7 @@ var transformSelectedData = (sData: any) => {
   return sData.map((r: any) => `${r}`)
 }
 
-const HorizontalBarChart = ({ data, type, selected, onSelect, hasScroll, defaultValue }: any) => {
-  console.log('HorizontalBarChart', data, selected)
+const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
@@ -61,8 +60,8 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, hasScroll, default
       })
     }
 
-    const width = 200;
-    const height = type === solutionstatus ? 200 : 300;
+    const width = 280;
+    const height = data.length * 45;
 
     let maxi: any = d3.max(data, (d: any) => d.count);
 
@@ -70,33 +69,28 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, hasScroll, default
       .domain([0, maxi])
       .range([0, width]);
 
-    var y: any = d3.scaleBand()
-      .range([10, height])
-      .domain(data.map((d: any) => d.value))
-      .padding(.1);
+    var y: any = (value: any) => {
+      let index = 0;
+      data.forEach((d: any, id: any) => {
+        if (d.value === value) {
+          index = id;
+        }
+      })
+      return (index + 1) * 45;
+    }
+
+    var countFn: any = (d: any) => d.count;
 
     let xCountFn: any = (d: any) => x(d.count);
 
     var yFn: any = (d: any) => y(d.value);
 
     var heightFn: any = () => {
-      if (type === solutionstatus) {
-        return 25;
-      } else if (type === status) {
-        return Math.floor(y.bandwidth() / 2);
-      } else if (type === component_type) {
-        return 25;
-      }
+      return 25;
     }
 
     var fontSizeFn: any = () => {
-      if (type === solutionstatus) {
-        return 14
-      } else if (type === status) {
-        return 12;
-      } else if (type === component_type) {
-        return 12;
-      }
+      return 14;
     }
 
     var getIndex = (d: any) => {
@@ -151,9 +145,6 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, hasScroll, default
       .attr("transform", "translate(-10,0)rotate(-45)")
       .style("text-anchor", "end");
 
-    svg.append("g")
-      .call(d3.axisLeft(y))
-
     let xInitialValue: any = x(0);
 
     svg.selectAll("myRect")
@@ -188,15 +179,15 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, hasScroll, default
       .enter()
       .append('text')
       .text(labelTextFn)
-      .attr("transform", function (d: any) {
-        let xo = 10;
-        let yo = yFn(d) - 5;
-        return `translate(${xo}, ${yo})`;
+      .attr("x", 10)
+      .attr("y", (d: any) => {
+        return yFn(d) - 6;
       })
       .style("font-size", fontSizeFn)
 
     var countXFn = (d: any) => {
-      return xCountFn(d) - (d.count < 10 ? 10 : (d.count < 100 ? 20 : 30));
+      let digits = Math.floor(Math.log10(d.count === 0 ? 1 : d.count));
+      return xCountFn(d) - (digits * 14);
     }
 
     var countYFn = (d: any) => {
@@ -208,7 +199,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, hasScroll, default
       .data(data)
       .enter()
       .append('text')
-      .text(xCountFn)
+      .text(countFn)
       .attr('x', countXFn)
       .attr('y', countYFn)
       .style("font-size", fontSizeFn)
@@ -226,7 +217,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, hasScroll, default
 
   return (
     <>
-      <div className={hasScroll ? 'svg-scroll' : ''}>
+      <div className={'svg-scroll'}>
         <svg ref={svgRef} />
       </div>
       <Button onClick={apply}>
