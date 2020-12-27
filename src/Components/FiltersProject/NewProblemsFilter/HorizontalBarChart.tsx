@@ -60,7 +60,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
       })
     }
 
-    const width = 280;
+    const width = 220;
     const height = data.length * 45;
 
     let maxi: any = d3.max(data, (d: any) => d.count);
@@ -76,7 +76,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
           index = id;
         }
       })
-      return (index + 1) * 45;
+      return 25 + index * 45;
     }
 
     var countFn: any = (d: any) => d.count;
