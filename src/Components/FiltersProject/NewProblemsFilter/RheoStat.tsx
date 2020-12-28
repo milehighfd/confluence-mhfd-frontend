@@ -128,7 +128,8 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
     y.domain([0, maxiCounter]);
 
     let xdr: any = (d: any) => {
-      return condition ? x(d.max) : x(d.value);
+      let offset: any = condition ? x(d.max) : x(d.value);
+      return offset + 1;
     }
 
     let yCounterFn: any = (d: any) => y(d.counter);
@@ -152,7 +153,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr("x", xdr)
       .attr("y", yCounterFn)
       .attr('fill', fillColor)
-      .attr("width", x.bandwidth())
+      .attr("width", x.bandwidth()-2)
       .attr("height", function (_: any, i) {
         let d = data[i];
         return height - yCounterFn(d);
