@@ -18,7 +18,7 @@ var transformSelectedData = (sData: any) => {
   return sData.map((r: any) => `${r}`)
 }
 
-const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
+const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, color }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
@@ -86,11 +86,11 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
     var yFn: any = (d: any) => y(d.value);
 
     var heightFn: any = () => {
-      return 25;
+      return 20;
     }
 
     var fontSizeFn: any = () => {
-      return 14;
+      return 12;
     }
 
     var getIndex = (d: any) => {
@@ -151,12 +151,6 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
       .data(data);
 
     rects
-      .transition().duration(2000)
-      .attr("x", xInitialValue)
-      .attr("y", yFn)
-      .attr("width", xCountFn)
-      .attr("height", heightFn)
-      .attr("fill", "#261964")
       .style("opacity", (d: any) => {
         let index = getIndex(d);
         if (index !== -1) {
@@ -165,6 +159,14 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
           return 0.7;
         }
       })
+
+    rects
+      .transition().duration(2000)
+      .attr("x", xInitialValue)
+      .attr("y", yFn)
+      .attr("width", xCountFn)
+      .attr("height", heightFn)
+      .attr("fill", color)
 
     let newRects = rects.enter()
       .append("rect")
@@ -176,7 +178,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
       .attr("y", yFn)
       .attr("width", xCountFn)
       .attr("height", heightFn)
-      .attr("fill", "#261964")
+      .attr("fill", color)
       .style("opacity", (d: any) => {
         let index = getIndex(d);
         if (index !== -1) {
