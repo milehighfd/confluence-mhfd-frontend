@@ -157,6 +157,15 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .transition().duration(2000)
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + textsOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + textsOffsetY })
+      .text(function (d: any) {
+        if (d.data.percentage > 0.10) {
+          return d.data.name;
+        } else {
+          return '';
+        }
+      })
+      .attr("font-size", "10px")
+      .attr("fill", "black")
       .style("text-anchor", "middle")
 
     texts
@@ -167,7 +176,6 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + textsOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + textsOffsetY })
       .text(function (d: any) {
-        console.log('d.data.percentage', d.data.percentage, d.data.percentage > 10, typeof d.data.percentage)
         if (d.data.percentage > 0.10) {
           return d.data.name;
         } else {
@@ -197,6 +205,15 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .transition().duration(2000)
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + percentageOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + percentageOffsetY })
+      .text(function (d: any) {
+        if (d.data.percentage > 0.10) {
+          return d.data.value;
+        } else {
+          return '';
+        }
+      })
+      .attr("font-size", "10px")
+      .attr("fill", "black")
       .style("text-anchor", "middle")
 
     percentages
