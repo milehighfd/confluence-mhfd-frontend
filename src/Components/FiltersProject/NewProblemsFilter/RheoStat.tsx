@@ -148,7 +148,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
       });
 
     rects
-      .enter().append("rect")
+      .enter().append("rect").lower()
       .attr("class", "bar-d3")
       .attr("x", xdr)
       .attr("y", yCounterFn)
