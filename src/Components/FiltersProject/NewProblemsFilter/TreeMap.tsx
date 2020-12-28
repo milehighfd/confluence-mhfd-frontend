@@ -59,8 +59,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   }
 
   useEffect(() => {
-    const width = 200;
-    const height = 200;
+    const width = 250;
+    const height = 250;
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)
