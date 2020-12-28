@@ -131,26 +131,27 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
       }
     }
 
-    d3.select(svgRef.current).select('g').remove();
+    let xInitialValue: any = x(0);
+
+    let onClickFn = (d: any) => {
+      let index = getIndex(d);
+      if (index !== -1) {
+        setSelectedData(selectedData.filter((_, ind) => ind !== index))
+      } else {
+        setSelectedData([...selectedData, getValueToPush(d)])
+      }
+    }
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)
       .attr("height", height)
-      .append("g")
 
-    svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x))
-      .selectAll("text")
-      .attr("transform", "translate(-10,0)rotate(-45)")
-      .style("text-anchor", "end");
+    let rects = svg
+      .selectAll(".hrect")
+      .data(data);
 
-    let xInitialValue: any = x(0);
-
-    svg.selectAll("myRect")
-      .data(data)
-      .enter()
-      .append("rect")
+    rects
+      .transition().duration(2000)
       .attr("x", xInitialValue)
       .attr("y", yFn)
       .attr("width", xCountFn)
@@ -164,20 +165,49 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
           return 0.7;
         }
       })
-      .on('click', (d: any, i: number) => {
+
+    let newRects = rects.enter()
+      .append("rect")
+      .attr("class", "hrect")
+    
+    newRects
+      .transition().duration(2000)
+      .attr("x", xInitialValue)
+      .attr("y", yFn)
+      .attr("width", xCountFn)
+      .attr("height", heightFn)
+      .attr("fill", "#261964")
+      .style("opacity", (d: any) => {
         let index = getIndex(d);
         if (index !== -1) {
-          setSelectedData(selectedData.filter((_, ind) => i !== index))
+          return 1;
         } else {
-          setSelectedData([...selectedData, getValueToPush(d)])
+          return 0.7;
         }
       })
 
-    svg
-      .selectAll('.labels')
+    rects.on('click', onClickFn)
+
+    var labels = svg
+      .selectAll('.hlabels')
       .data(data)
+
+    let newLabels = labels
       .enter()
       .append('text')
+      .attr("class", "hlabels")
+    
+    newLabels
+      .transition().duration(2000)
+      .text(labelTextFn)
+      .attr("x", 10)
+      .attr("y", (d: any) => {
+        return yFn(d) - 6;
+      })
+      .style("font-size", fontSizeFn)
+    
+    labels
+      .transition().duration(2000)
       .text(labelTextFn)
       .attr("x", 10)
       .attr("y", (d: any) => {
@@ -194,16 +224,32 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue }: an
       return yFn(d) + ((heightFn() + fontSizeFn()) / 2) - 2;
     }
 
-    svg
-      .selectAll('.count')
+    let counts = svg
+      .selectAll('.hcount')
       .data(data)
+
+    let newCounts = counts
       .enter()
       .append('text')
+      .attr('class', 'hcount')
+
+    newCounts
+      .transition().duration(2000)
       .text(countFn)
       .attr('x', countXFn)
       .attr('y', countYFn)
       .style("font-size", fontSizeFn)
       .style('fill', 'white')
+    
+    counts
+      .transition().duration(2000)
+      .text(countFn)
+      .attr('x', countXFn)
+      .attr('y', countYFn)
+      .style("font-size", fontSizeFn)
+      .style('fill', 'white')
+
+    counts.on('click', onClickFn)
 
   }, [data, selectedData])
 
