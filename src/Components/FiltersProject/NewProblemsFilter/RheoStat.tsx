@@ -1,17 +1,45 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { sliderBottom } from 'd3-simple-slider';
+import { Button } from 'antd';
 
-const RheoStat = ({ data, type, selected, onSelect }: any) => {
-  const divRef = useRef<HTMLDivElement>(null);
+const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
+  const svgRef = useRef<SVGSVGElement>(null);
   const pRef = useRef<HTMLParagraphElement>(null);
+  const gRef = useRef<SVGGElement>(null);
+  
+  let condition: boolean = type !== 'year';
+  const [selectedData, setSelectedData] = useState<string[]>([]);
+  const [minTick, setMinTick] = useState(0);
+  const [maxTick, setMaxTick] = useState(condition ? data.length : data.length - 1);
+  
+  useEffect(() => {
+    setSelectedData(selected);
+    if (selected.length === 0) {
+      setMinTick(0);
+      setMaxTick(condition ? data.length : data.length - 1);
+    } else {
+      let minValue = selected[0];
+      let maxValue = selected[selected.length - 1];
+      let minIndex = data.map((r: any) => `${r.min},${r.max}`).indexOf(minValue);
+      let maxIndex = data.map((r: any) => `${r.min},${r.max}`).indexOf(maxValue);
+      setMinTick(minIndex);
+      setMaxTick(maxIndex + 1);
+    }
+  }, [selected])
+
+  useEffect(() => {
+    let minValue = data[minTick].min;
+    let maxValue = data[maxTick-1].max;
+    d3
+      .select(pRef.current)
+      .text(`${minValue} - ${maxValue}`);
+  }, [minTick, maxTick]);
 
   useEffect(() => {
     const width = 150;
     const height = 150;
-
-    let condition: boolean = type !== 'year';
 
     const fillColor = condition ? '#2dc49a' : '#ffdc00';
     const opaquedColor = condition ? '#b7eadc' : '#fff2a8';
@@ -47,7 +75,7 @@ const RheoStat = ({ data, type, selected, onSelect }: any) => {
       .tickFormat(d3.format('.2%'))
       .ticks(keys.length)
       .step(1)
-      .default([0, 100])
+      .default([minTick, maxTick])
       .handle(
         d3
           .symbol()
@@ -57,36 +85,33 @@ const RheoStat = ({ data, type, selected, onSelect }: any) => {
       .fill(fillColor)
       .on('onchange', (val: any) => {
         let [currentMin, currentMax] = val;
-        let selectedData: any[] = [];
-        d3
-          .select(divRef.current)
+        let sData: any[] = [];
+        let bars = d3
+          .select(svgRef.current)
           .selectAll(".bar-d3")
-          .attr('fill', (d: any, i) => {
+        bars
+          .attr('fill', (_: any, i) => {
+            let d = data[i]
             if (currentMin <= i && i + 1 <= currentMax) {
               let value = condition ? `${d.min},${d.max}` : d.value;
-              selectedData.push(value);
+              sData.push(value);
               return fillColor;
             }
             return opaquedColor;
           })
+        setSelectedData(sData);
         const [dmin, dmax] = getMinMax(currentMin, currentMax);
-        if (condition) {
-          onSelect(selectedData);
-        } else {
-          onSelect(`${dmin}`);
-        }
         d3.select(pRef.current).text(`${dmin} - ${dmax}`);
       });
 
-    var svg2 = d3
-      .select(divRef.current)
-      .append('svg')
+    var svg = d3
+      .select(svgRef.current)
       .attr('width', width + 20)
       .attr('height', height + 20)
 
-    let g = svg2.append("g")
-      .attr("width", width)
-      .attr("height", height);
+    // svg
+    //   .selectAll(".bar-d3")
+    //   .remove();
 
     var x = d3.scaleBand()
       .rangeRound([0, width])
@@ -108,34 +133,66 @@ const RheoStat = ({ data, type, selected, onSelect }: any) => {
 
     let yCounterFn: any = (d: any) => y(d.counter);
 
-    g.selectAll(".bar-d3")
+    var rects = svg
+      .selectAll(".bar-d3")
       .data(data)
+
+    rects
+      .transition().duration(2000)
+      .attr("x", xdr)
+      .attr("y", yCounterFn)
+      .attr("height", function (_: any, i) {
+        let d = data[i];
+        return height - yCounterFn(d);
+      });
+
+    rects
       .enter().append("rect")
       .attr("class", "bar-d3")
       .attr("x", xdr)
       .attr("y", yCounterFn)
       .attr('fill', fillColor)
       .attr("width", x.bandwidth())
-      .attr("height", function (d: any) {
+      .attr("height", function (_: any, i) {
+        let d = data[i];
         return height - yCounterFn(d);
       });
+    
+    rects.exit().remove();
 
-
-    var gRange = svg2
-      .append('g')
+    var gRange = d3
+      .select(gRef.current)
       .attr("transform", "translate(0," + height + ")");
 
     gRange.call(sliderRange);
 
-    const [mnValue, mxValue] = getMinMax(0, condition ? keys.length : keys.length - 1)
-    d3.select(pRef.current).text(`${mnValue} - ${mxValue}`);
+  }, [data, selectedData]);
 
-  }, []);
+  const apply = () => {
+    if (condition) {
+      onSelect(selectedData);
+    } else {
+      onSelect(selectedData[0]);
+    }
+    // onSelect(transformSelectedData(selectedData))
+  }
+
+  const reset = () => {
+    onSelect(defaultValue);
+  }
 
   return (
     <>
-      <div ref={divRef}></div>
+      <svg ref={svgRef}>
+        <g ref={gRef}></g>
+      </svg>
       <p ref={pRef}></p>
+      <Button onClick={apply}>
+        apply
+      </Button>
+      <Button onClick={reset}>
+        reset
+      </Button>
     </>
   )
 }
