@@ -4,6 +4,8 @@ import * as d3 from 'd3';
 import { sliderBottom } from 'd3-simple-slider';
 import { Button } from 'antd';
 
+var sliderRange: any;
+
 const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const pRef = useRef<HTMLParagraphElement>(null);
@@ -12,6 +14,11 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minTick, setMinTick] = useState(0);
   const [maxTick, setMaxTick] = useState(data.length - 1);
+
+  const width = 150;
+  const height = 200;
+  const fillColor = '#ffdc00';
+  const opaquedColor = '#fff2a8';
 
   useEffect(() => {
     let sData = selected.length === 0 ? [] : selected.split(',');
@@ -35,14 +42,9 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
     d3
       .select(pRef.current)
       .text(`${minValue} - ${maxValue}`);
-  }, [minTick, maxTick]);
+  });
 
   useEffect(() => {
-    const width = 150;
-    const height = 150;
-
-    const fillColor = '#ffdc00';
-    const opaquedColor = '#fff2a8';
 
     const keyFn = (d: any) => {
       return d.value;
@@ -61,12 +63,12 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
 
     let keys = data.map(keyFn).filter(filterFn);
 
-    var sliderRange = sliderBottom()
+    sliderRange = sliderBottom()
       .min(0)
-      .max(keys.length - 1)
+      .max(keys.length-1)
       .width(width)
       .tickFormat(d3.format('.2%'))
-      .ticks(keys.length)
+      .ticks(keys.length-1)
       .step(1)
       .default([minTick, maxTick])
       .handle(
@@ -93,6 +95,8 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
             return opaquedColor;
           })
         setSelectedData(sData);
+        setMinTick(currentMin);
+        setMaxTick(currentMax);
         const [dmin, dmax] = getMinMax(currentMin, currentMax);
         d3.select(pRef.current).text(`${dmin} - ${dmax}`);
       });
@@ -101,6 +105,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
       .select(svgRef.current)
       .attr('width', width + 20)
       .attr('height', height + 20)
+      .attr('transform', `translate(${25}, 0)`)
 
     var x = d3.scaleBand()
       .rangeRound([0, width])
@@ -166,6 +171,11 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
 
   const reset = () => {
     onSelect(defaultValue);
+    d3
+      .select(svgRef.current)
+      .selectAll(".bar-d3")
+      .attr('fill', fillColor)
+    sliderRange.value([0, data.length])
   }
 
   return (
