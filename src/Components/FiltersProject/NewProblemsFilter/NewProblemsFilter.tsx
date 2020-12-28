@@ -88,7 +88,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     {
                         paramProblems.solutionstatus &&
                         <HorizontalBarChart type={'solutionstatus'}
-                            data={paramProblems.solutionstatus}
+                            data={paramProblems.solutionstatus} color={'#261964'}
                             selected={filterProblemOptions.solutionstatus}
                             onSelect={(items: any) => apply(items, 'solutionstatus')} />
                     }
@@ -110,7 +110,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     {
                         paramProblems.servicearea &&
                         <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'problem'}
-                            selected={filterProblemOptions.servicearea}
+                            selected={filterProblemOptions.servicearea} defaultValue={''}
                             onSelect={(e: string) => apply(e, 'servicearea')} />
                     }
                 </Col>
@@ -119,7 +119,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     {
                         paramProblems.county &&
                         <TreeMap data={paramProblems.county} type={'county'} tab={'problem'}
-                            selected={filterProblemOptions.county}
+                            selected={filterProblemOptions.county} defaultValue={''}
                             onSelect={(items: any) => apply(items, 'county')} />
                     }
                 </Col>
