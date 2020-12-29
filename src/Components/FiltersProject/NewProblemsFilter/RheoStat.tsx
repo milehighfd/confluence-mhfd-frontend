@@ -17,7 +17,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const [minTick, setMinTick] = useState(0);
   const [maxTick, setMaxTick] = useState(condition ? data.length : data.length - 1);
 
-  const width = 200;
+  const width = 220;
   const height = 180;
   const marginLeft = 30;
   const rounded = 4;
@@ -192,7 +192,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
     svg
       .append('g')
       .attr('class', 'hleftlabel')
-      .attr('transform', `translate(${marginLeft / 2}, ${(height * 2) / 3}) rotate(270) skewX(-20)`)
+      .attr('transform', `translate(${marginLeft / 2}, ${height / 2}) rotate(270) skewX(-20)`)
       .append('text')
       .text('Number of Componets')
       .style("text-anchor", "middle")
@@ -233,16 +233,17 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
   return (
     <>
-      <Button type="dashed" shape="round" size={'small'} onClick={apply}>
-        apply
+      <Button className="btn-svg" onClick={apply}>
+        <u>Apply</u>
       </Button>
-      <Button type="dashed" shape="round" size={'small'} onClick={reset}>
-        reset
+      &nbsp;|&nbsp;
+      <Button className="btn-svg" onClick={reset}>
+        <u>Reset</u>
       </Button>
-      <svg ref={svgRef}>
+      <svg ref={svgRef} className={'svg-top-pad'}>
         <g ref={gRef}></g>
       </svg>
-      <Row style={{ marginLeft: 50 }}>
+      <Row style={{ marginLeft: 30 }}>
         <Col span={12}>
           <label>
             Min Cost

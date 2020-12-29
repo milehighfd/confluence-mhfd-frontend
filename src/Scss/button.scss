@@ -65,6 +65,28 @@
   text-decoration: underline;
 }
 
+.btn-svg {
+  border: none !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  width: auto !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0px !important;
+  text-decoration: underline !important;
+}
+.btn-svg:hover {
+  border: none !important;
+  color: $green !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  width: auto !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0px !important;
+  text-decoration: underline !important;
+}
+
 // OTHER BUTTONS
 .f-btn{
   background: $black !important;
