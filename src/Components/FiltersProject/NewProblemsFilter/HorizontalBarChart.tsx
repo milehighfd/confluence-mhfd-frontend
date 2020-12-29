@@ -10,6 +10,8 @@ const labelmap: any = {
   75: '75 - 100%'
 }
 
+let partitionData = [0, 1, 2, 3, 4];
+
 const solutionstatus = 'solutionstatus';
 const status = 'status';
 const component_type = 'component_type';
@@ -18,7 +20,7 @@ var transformSelectedData = (sData: any) => {
   return sData.map((r: any) => `${r}`)
 }
 
-const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, color }: any) => {
+const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, color, bottomLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
@@ -60,8 +62,9 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       })
     }
 
+    const spaceBetween = 55;
     const width = 220;
-    const height = data.length * 45;
+    const height = data.length * spaceBetween - 20;
 
     let maxi: any = d3.max(data, (d: any) => d.count);
 
@@ -76,7 +79,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
           index = id;
         }
       })
-      return 20 + index * 45;
+      return 20 + index * spaceBetween;
     }
 
     var countFn: any = (d: any) => d.count;
@@ -86,11 +89,11 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
     var yFn: any = (d: any) => y(d.value);
 
     var heightFn: any = () => {
-      return 20;
+      return 16;
     }
 
     var fontSizeFn: any = () => {
-      return 12;
+      return 10;
     }
 
     var getIndex = (d: any) => {
@@ -144,7 +147,26 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)
-      .attr("height", height)
+      .attr("height", height + 30)
+
+    let lines = svg
+      .selectAll('.hlines')
+      .data(partitionData)
+    
+    lines
+      .enter()
+      .append("line").lower()
+      .attr('class', 'hlines')
+      .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
+      .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
+      .attr("y1", 0)
+      .attr("y2", height)
+      .attr('stroke-width', '0.1%')
+      .style("stroke-dasharray","2,2")
+      .style("stroke", 'black')
+      .style('opacity', 0.40);
+
+    lines.exit().remove();
 
     let rects = svg
       .selectAll(".hrect")
@@ -162,6 +184,8 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
     rects
       .transition().duration(2000)
+      .attr("rx", 2)
+      .attr("ry", 2)
       .attr("x", xInitialValue)
       .attr("y", yFn)
       .attr("width", xCountFn)
@@ -202,20 +226,22 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
     newLabels
       .transition().duration(2000)
       .text(labelTextFn)
-      .attr("x", 10)
+      .attr("x", 0)
       .attr("y", (d: any) => {
         return yFn(d) - 6;
       })
       .style("font-size", fontSizeFn)
+      .style('opacity', 0.7);
     
     labels
       .transition().duration(2000)
       .text(labelTextFn)
-      .attr("x", 10)
+      .attr("x", 0)
       .attr("y", (d: any) => {
         return yFn(d) - 6;
       })
       .style("font-size", fontSizeFn)
+      .style('opacity', 0.7);
 
     var countXFn = (d: any) => {
       let digits = Math.floor(Math.log10(d.count === 0 ? 1 : d.count));
@@ -223,7 +249,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
     }
 
     var countYFn = (d: any) => {
-      return yFn(d) + ((heightFn() + fontSizeFn()) / 2) - 2;
+      return yFn(d) + ((heightFn() + fontSizeFn()) / 2);
     }
 
     let counts = svg
@@ -252,6 +278,17 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .style('fill', 'white')
 
     counts.on('click', onClickFn)
+
+    svg.selectAll('.hbottomlabel').remove();
+
+    svg
+      .append('g')
+      .attr('class', 'hbottomlabel')
+      .attr('transform', `translate(${width / 2}, ${height + 20}) skewX(-20)`)
+      .append('text')
+      .text(bottomLabel)
+      .style("text-anchor", "middle")
+      .style('opacity', 0.40);
 
   }, [data, selectedData])
 
