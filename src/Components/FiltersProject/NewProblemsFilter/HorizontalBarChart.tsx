@@ -164,13 +164,15 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .attr('stroke-width', '0.1%')
       .style("stroke-dasharray","2,2")
       .style("stroke", 'black')
-      .style('opacity', 0.40);
+      .style('opacity', 0.4);
 
     lines.exit().remove();
 
     let rects = svg
       .selectAll(".hrect")
       .data(data);
+
+    rects.exit().remove();
 
     rects
       .style("opacity", (d: any) => {
@@ -213,10 +215,13 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       })
 
     rects.on('click', onClickFn)
+    newRects.on('click', onClickFn)
 
     var labels = svg
       .selectAll('.hlabels')
       .data(data)
+
+    labels.exit().remove();
 
     let newLabels = labels
       .enter()
@@ -256,6 +261,8 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .selectAll('.hcount')
       .data(data)
 
+    counts.exit().remove();
+
     let newCounts = counts
       .enter()
       .append('text')
@@ -268,7 +275,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .attr('y', countYFn)
       .style("font-size", fontSizeFn)
       .style('fill', 'white')
-    
+
     counts
       .transition().duration(2000)
       .text(countFn)
@@ -278,6 +285,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .style('fill', 'white')
 
     counts.on('click', onClickFn)
+    newCounts.on('click', onClickFn)
 
     svg.selectAll('.hbottomlabel').remove();
 
