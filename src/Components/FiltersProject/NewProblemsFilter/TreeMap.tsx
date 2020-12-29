@@ -58,6 +58,11 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     }
   }
 
+  const numberFormatter = (value: any) => {
+    let integerValue = Math.floor(value);
+    return `${integerValue}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+
   useEffect(() => {
     const width = 250;
     const height = 250;
@@ -212,7 +217,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + percentageOffsetY })
       .text(function (d: any) {
         if (d.data.percentage > 0.10) {
-          return d.data.value;
+          return numberFormatter(d.data.value);
         } else {
           return '';
         }
@@ -230,7 +235,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + percentageOffsetY })
       .text(function (d: any) {
         if (d.data.percentage > 0.10) {
-          return d.data.value;
+          return numberFormatter(d.data.value);
         } else {
           return '';
         }
