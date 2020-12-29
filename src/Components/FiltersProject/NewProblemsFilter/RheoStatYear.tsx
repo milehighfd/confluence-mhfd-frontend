@@ -15,7 +15,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
   const [minTick, setMinTick] = useState(0);
   const [maxTick, setMaxTick] = useState(data.length - 1);
 
-  const width = 150;
+  const width = 200;
   const height = 200;
   const fillColor = '#ffdc00';
   const opaquedColor = '#fff2a8';
@@ -156,6 +156,25 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
       });
 
     rects.exit().remove();
+
+    let lines = svg
+      .selectAll('.hlines')
+      .data(data)
+
+    lines
+      .enter()
+      .append("line").lower()
+      .attr('class', 'hlines')
+      .attr("x1", (d: any) => xdr(d) + x.bandwidth())
+      .attr("x2", (d: any) => xdr(d) + x.bandwidth())
+      .attr("y1", 0)
+      .attr("y2", height)
+      .attr('stroke-width', '0.1%')
+      .style("stroke-dasharray", "2,2")
+      .style("stroke", 'black')
+      .style('opacity', 0.4);
+
+    lines.exit().remove();
 
     var gRange = d3
       .select(gRef.current)

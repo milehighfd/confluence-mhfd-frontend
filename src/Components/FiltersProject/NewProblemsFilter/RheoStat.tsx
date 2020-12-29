@@ -10,13 +10,13 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const pRef = useRef<HTMLParagraphElement>(null);
   const gRef = useRef<SVGGElement>(null);
-  
+
   let condition: boolean = type !== 'year';
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minTick, setMinTick] = useState(0);
   const [maxTick, setMaxTick] = useState(condition ? data.length : data.length - 1);
 
-  const width = 150;
+  const width = 200;
   const height = 200;
   const fillColor = condition ? '#2dc49a' : '#ffdc00';
   const opaquedColor = condition ? '#b7eadc' : '#fff2a8';
@@ -38,7 +38,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
   useEffect(() => {
     let minValue = data[minTick].min;
-    let maxValue = data[maxTick-1].max;
+    let maxValue = data[maxTick - 1].max;
     d3
       .select(pRef.current)
       .text(`${minValue} - ${maxValue}`);
@@ -75,7 +75,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .max(condition ? keys.length : keys.length - 1)
       .width(width)
       .tickFormat(d3.format('.2%'))
-      .ticks(keys.length)
+      .ticks(0)
       .step(1)
       .default([minTick, maxTick])
       .handle(
@@ -112,7 +112,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .select(svgRef.current)
       .attr('width', width + 20)
       .attr('height', height + 20)
-      .attr('transform', `translate(${25}, 0)`)
+    // .attr('transform', `translate(${25}, 0)`)
 
     var x = d3.scaleBand()
       .rangeRound([0, width])
@@ -130,7 +130,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
     let xdr: any = (d: any) => {
       let offset: any = condition ? x(d.max) : x(d.value);
-      return offset + 1;
+      return offset + 0.5;
     }
 
     let yCounterFn: any = (d: any) => y(d.counter);
@@ -154,13 +154,32 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr("x", xdr)
       .attr("y", yCounterFn)
       .attr('fill', fillColor)
-      .attr("width", x.bandwidth()-2)
+      .attr("width", x.bandwidth() - 1)
       .attr("height", function (_: any, i) {
         let d = data[i];
         return height - yCounterFn(d);
       });
-    
+
     rects.exit().remove();
+
+    let lines = svg
+      .selectAll('.hlines')
+      .data(data.filter((_: any, i: number) => i % 2 === 1))
+
+    lines
+      .enter()
+      .append("line").lower()
+      .attr('class', 'hlines')
+      .attr("x1", (d: any) => xdr(d) + x.bandwidth())
+      .attr("x2", (d: any) => xdr(d) + x.bandwidth())
+      .attr("y1", 0)
+      .attr("y2", height)
+      .attr('stroke-width', '0.1%')
+      .style("stroke-dasharray", "2,2")
+      .style("stroke", 'black')
+      .style('opacity', 0.4);
+
+    lines.exit().remove();
 
     var gRange = d3
       .select(gRef.current)
