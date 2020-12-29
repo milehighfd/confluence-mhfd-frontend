@@ -18,7 +18,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const [maxTick, setMaxTick] = useState(condition ? data.length : data.length - 1);
 
   const width = 200;
-  const height = 200;
+  const height = 180;
   const fillColor = condition ? '#2dc49a' : '#ffdc00';
   const opaquedColor = condition ? '#b7eadc' : '#fff2a8';
 

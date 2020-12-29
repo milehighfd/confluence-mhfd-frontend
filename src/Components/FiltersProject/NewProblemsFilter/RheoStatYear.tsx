@@ -16,7 +16,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
 
-  const width = 200;
+  const width = 180;
   const height = 200;
   const fillColor = '#ffdc00';
   const opaquedColor = '#fff2a8';
