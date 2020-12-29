@@ -2,18 +2,19 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { sliderBottom } from 'd3-simple-slider';
-import { Button } from 'antd';
+import { Button, Col, InputNumber, Row } from 'antd';
 
 var sliderRange: any;
 
 const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const pRef = useRef<HTMLParagraphElement>(null);
   const gRef = useRef<SVGGElement>(null);
 
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minTick, setMinTick] = useState(0);
   const [maxTick, setMaxTick] = useState(data.length - 1);
+  const [left, setLeft] = useState(0);
+  const [right, setRight] = useState(0);
 
   const width = 200;
   const height = 200;
@@ -39,9 +40,8 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
   useEffect(() => {
     let minValue = data[minTick].value;
     let maxValue = data[maxTick].value;
-    d3
-      .select(pRef.current)
-      .text(`${minValue} - ${maxValue}`);
+    setLeft(minValue);
+    setRight(maxValue);
   });
 
   useEffect(() => {
@@ -98,7 +98,8 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
         setMinTick(currentMin);
         setMaxTick(currentMax);
         const [dmin, dmax] = getMinMax(currentMin, currentMax);
-        d3.select(pRef.current).text(`${dmin} - ${dmax}`);
+        setLeft(dmin);
+        setRight(dmax);
       });
 
     var svg = d3
@@ -197,12 +198,33 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
     sliderRange.value([0, data.length])
   }
 
+  const onChangeLeft = (e: any) => {
+    setLeft(e);
+  }
+
+  const onChangeRight = (e: any) => {
+    setRight(e);
+  }
+
   return (
     <>
       <svg ref={svgRef}>
         <g ref={gRef}></g>
       </svg>
-      <p ref={pRef}></p>
+      <Row>
+        <Col span={12}>
+          <label>
+            Min Years
+          </label>
+          <InputNumber size='large' min={0} value={left} onChange={onChangeLeft} style={{ width: '80%' }} />
+        </Col>
+        <Col span={12}>
+          <label>
+            Max Years
+          </label>
+          <InputNumber size='large' min={0} value={right} onChange={onChangeRight} style={{ width: '80%' }} />
+        </Col>
+      </Row>
       <Button onClick={apply}>
         apply
       </Button>
