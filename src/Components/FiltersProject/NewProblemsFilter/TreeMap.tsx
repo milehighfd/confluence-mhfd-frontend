@@ -259,13 +259,13 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
   return (
     <>
-      <svg ref={svgRef} />
-      <Button onClick={apply}>
+      <Button type="dashed" shape="round" size={'small'} onClick={apply}>
         apply
       </Button>
-      <Button onClick={reset}>
+      <Button type="dashed" shape="round" size={'small'} onClick={reset}>
         reset
       </Button>
+      <svg ref={svgRef} />
     </>
   )
 }

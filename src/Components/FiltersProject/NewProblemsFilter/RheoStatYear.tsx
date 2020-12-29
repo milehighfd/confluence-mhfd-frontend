@@ -208,6 +208,12 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
 
   return (
     <>
+      <Button type="dashed" shape="round" size={'small'} onClick={apply}>
+        apply
+      </Button>
+      <Button type="dashed" shape="round" size={'small'} onClick={reset}>
+        reset
+      </Button>
       <svg ref={svgRef}>
         <g ref={gRef}></g>
       </svg>
@@ -225,12 +231,6 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
           <InputNumber size='large' min={0} value={right} onChange={onChangeRight} style={{ width: '80%' }} />
         </Col>
       </Row>
-      <Button onClick={apply}>
-        apply
-      </Button>
-      <Button onClick={reset}>
-        reset
-      </Button>
     </>
   )
 }

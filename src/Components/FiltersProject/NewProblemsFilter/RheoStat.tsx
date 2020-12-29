@@ -113,7 +113,6 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .select(svgRef.current)
       .attr('width', width + 20)
       .attr('height', height + 20)
-    // .attr('transform', `translate(${25}, 0)`)
 
     var x = d3.scaleBand()
       .rangeRound([0, width])
@@ -217,6 +216,12 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
   return (
     <>
+      <Button type="dashed" shape="round" size={'small'} onClick={apply}>
+        apply
+      </Button>
+      <Button type="dashed" shape="round" size={'small'} onClick={reset}>
+        reset
+      </Button>
       <svg ref={svgRef}>
         <g ref={gRef}></g>
       </svg>
@@ -234,12 +239,6 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
           <InputNumber size='large' min={0} value={right} onChange={onChangeRight} style={{ width: '80%' }} />
         </Col>
       </Row>
-      <Button onClick={apply}>
-        apply
-      </Button>
-      <Button onClick={reset}>
-        reset
-      </Button>
     </>
   )
 }

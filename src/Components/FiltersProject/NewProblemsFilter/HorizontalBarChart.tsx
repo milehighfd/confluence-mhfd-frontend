@@ -310,15 +310,15 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
   return (
     <>
+      <Button type="dashed" shape="round" size={'small'} onClick={apply}>
+        apply
+      </Button>
+      <Button type="dashed" shape="round" size={'small'} onClick={reset}>
+        reset
+      </Button>
       <div className={'svg-scroll'}>
         <svg ref={svgRef} />
       </div>
-      <Button onClick={apply}>
-        apply
-      </Button>
-      <Button onClick={reset}>
-        reset
-      </Button>
     </>
   )
 }
