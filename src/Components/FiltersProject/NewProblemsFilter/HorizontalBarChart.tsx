@@ -287,17 +287,6 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
     counts.on('click', onClickFn)
     newCounts.on('click', onClickFn)
 
-    svg.selectAll('.hbottomlabel').remove();
-
-    svg
-      .append('g')
-      .attr('class', 'hbottomlabel')
-      .attr('transform', `translate(${width / 2}, ${height + 20}) skewX(-20)`)
-      .append('text')
-      .text(bottomLabel)
-      .style("text-anchor", "middle")
-      .style('opacity', 0.40);
-
   }, [data, selectedData])
 
   const apply = () => {
@@ -319,6 +308,9 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       </Button>
       <div className={'svg-scroll svg-top-pad'}>
         <svg ref={svgRef} />
+      </div>
+      <div style={{textAlign: 'center'}}>
+        <i>{bottomLabel}</i>
       </div>
     </>
   )
