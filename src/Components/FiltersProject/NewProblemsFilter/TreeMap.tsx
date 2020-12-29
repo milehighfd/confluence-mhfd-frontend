@@ -24,14 +24,9 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   }
 
   if (datatype === 'string') {
-    let sa = 'Service Area';
     data = {
       name: '',
       children: (data || []).map((d: any) => {
-        let index = d.indexOf(sa);
-        if (index !== -1) {
-          d = d.substr(0, index - 1);
-        }
         return {
           name: d,
           value: 1,
@@ -63,10 +58,29 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     return `${integerValue}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 
+  const nameFormatter: any = (value: any) => {
+    if (value.includes('County')) {
+      let index = value.indexOf('County');
+      if (index !== -1) {
+        value = value.substr(0, index - 1);
+      }
+    }
+    if (value.includes('Service Area')) {
+      let index = value.indexOf('Service Area');
+      if (index !== -1) {
+        value = value.substr(0, index - 1);
+      }
+    }
+    return value;
+  }
+
   useEffect(() => {
     const width = 250;
     const height = 250;
     const rounded = 4;
+    const percentage = 0.10;
+    const fontSizeText = '16px';
+    const fontSizePercentage = '12px';
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)
@@ -168,14 +182,15 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + textsOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + textsOffsetY })
       .text(function (d: any) {
-        if (d.data.percentage > 0.10) {
-          return d.data.name;
+        if (d.data.percentage > percentage) {
+          return nameFormatter(d.data.name);
         } else {
           return '';
         }
       })
-      .attr("font-size", "10px")
+      .attr("font-size", fontSizeText)
       .attr("fill", "black")
+      .attr('font-weight', 'bold')
       .style("text-anchor", "middle")
 
     texts
@@ -186,18 +201,19 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + textsOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + textsOffsetY })
       .text(function (d: any) {
-        if (d.data.percentage > 0.10) {
-          return d.data.name;
+        if (d.data.percentage > percentage) {
+          return nameFormatter(d.data.name);
         } else {
           return '';
         }
       })
-      .attr("font-size", "10px")
+      .attr("font-size", fontSizeText)
       .attr("fill", "black")
+      .attr('font-weight', 'bold')
       .style("text-anchor", "middle")
 
     var percentageOffsetX = 0;
-    var percentageOffsetY = 10;
+    var percentageOffsetY = 15;
 
     var percentages = svg
       .selectAll(".percentages")
@@ -216,15 +232,16 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + percentageOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + percentageOffsetY })
       .text(function (d: any) {
-        if (d.data.percentage > 0.10) {
+        if (d.data.percentage > percentage) {
           return numberFormatter(d.data.value);
         } else {
           return '';
         }
       })
-      .attr("font-size", "10px")
+      .attr("font-size", fontSizePercentage)
       .attr("fill", "black")
       .style("text-anchor", "middle")
+      .style('opacity', 0.7)
 
     percentages
       .enter()
@@ -234,15 +251,16 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + percentageOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + percentageOffsetY })
       .text(function (d: any) {
-        if (d.data.percentage > 0.10) {
+        if (d.data.percentage > percentage) {
           return numberFormatter(d.data.value);
         } else {
           return '';
         }
       })
-      .attr("font-size", "10px")
+      .attr("font-size", fontSizePercentage)
       .attr("fill", "black")
       .style("text-anchor", "middle")
+      .style('opacity', 0.7)
 
   }, [data])
 
