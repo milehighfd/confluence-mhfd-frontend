@@ -231,6 +231,15 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
     setRight(e);
   }
 
+  const priceFormatter = (value: any) => {
+    let integerValue = Math.floor(value);
+    return `$ ${integerValue}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+
+  const priceParser = (value: any) => {
+    return value.replace(/\$\s?|(,*)/g, '')
+  }
+
   return (
     <>
       <Button className="btn-svg" onClick={apply}>
@@ -248,13 +257,19 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
           <label>
             Min Cost
           </label>
-          <InputNumber size='large' min={0} value={left} onChange={onChangeLeft} style={{ width: '80%' }} />
+          <InputNumber size='large' style={{ width: '100%', fontSize: 12 }} min={0}
+            formatter={priceFormatter}
+            parser={priceParser}
+            value={left} onChange={onChangeLeft} />
         </Col>
         <Col span={12}>
           <label>
             Max Cost
           </label>
-          <InputNumber size='large' min={0} value={right} onChange={onChangeRight} style={{ width: '80%' }} />
+          <InputNumber size='large' style={{ width: '100%', fontSize: 12 }} min={0}
+            formatter={priceFormatter}
+            parser={priceParser}
+            value={right} onChange={onChangeRight} />
         </Col>
       </Row>
     </>
