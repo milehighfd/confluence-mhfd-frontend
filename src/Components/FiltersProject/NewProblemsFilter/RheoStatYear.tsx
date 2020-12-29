@@ -18,6 +18,8 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
 
   const width = 180;
   const height = 200;
+  const marginLeft = 30;
+  const rounded = 4;
   const fillColor = '#ffdc00';
   const opaquedColor = '#fff2a8';
 
@@ -66,7 +68,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
     sliderRange = sliderBottom()
       .min(0)
       .max(keys.length-1)
-      .width(width)
+      .width(width-marginLeft)
       .tickFormat(d3.format('.2%'))
       .ticks(keys.length-1)
       .step(1)
@@ -109,7 +111,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
       .attr('transform', `translate(${25}, 0)`)
 
     var x = d3.scaleBand()
-      .rangeRound([0, width])
+      .rangeRound([marginLeft, width])
 
     var y = d3.scaleLinear()
       .range([height, 0]);
@@ -137,6 +139,8 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
 
     rects
       .transition().duration(2000)
+      .attr('rx', rounded)
+      .attr('ry', rounded)
       .attr("x", xdr)
       .attr("y", yCounterFn)
       .attr("height", function (_: any, i) {
@@ -147,6 +151,8 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
     rects
       .enter().append("rect").lower()
       .attr("class", "bar-d3")
+      .attr('rx', rounded)
+      .attr('ry', rounded)
       .attr("x", xdr)
       .attr("y", yCounterFn)
       .attr('fill', fillColor)
@@ -177,9 +183,20 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
 
     lines.exit().remove();
 
+    svg.selectAll('.hleftlabel').remove();
+
+    svg
+      .append('g')
+      .attr('class', 'hleftlabel')
+      .attr('transform', `translate(${marginLeft/2}, ${(height * 2)/3}) rotate(270) skewX(-20)`)
+      .append('text')
+      .text('Number of Componets')
+      .style("text-anchor", "middle")
+      .style('opacity', 0.40);
+
     var gRange = d3
       .select(gRef.current)
-      .attr("transform", "translate(0," + height + ")");
+      .attr("transform", `translate(${marginLeft},${height})`);
 
     gRange.call(sliderRange);
 
@@ -217,7 +234,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
       <svg ref={svgRef}>
         <g ref={gRef}></g>
       </svg>
-      <Row>
+      <Row style={{ marginLeft: 50 }}>
         <Col span={12}>
           <label>
             Min Years
