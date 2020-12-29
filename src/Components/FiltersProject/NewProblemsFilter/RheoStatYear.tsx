@@ -238,13 +238,13 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
       <Row style={{ marginLeft: 30 }}>
         <Col span={12}>
           <label>
-            Min Years
+            Min Year
           </label>
           <InputNumber size='large' min={0} value={left} onChange={onChangeLeft} style={{ width: '80%' }} />
         </Col>
         <Col span={12}>
           <label>
-            Max Years
+            Max Year
           </label>
           <InputNumber size='large' min={0} value={right} onChange={onChangeRight} style={{ width: '80%' }} />
         </Col>
