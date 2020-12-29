@@ -61,6 +61,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   useEffect(() => {
     const width = 250;
     const height = 250;
+    const rounded = 4;
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)
@@ -85,6 +86,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
     rects
       .transition().duration(2000)
+      .attr("rx", rounded)
+      .attr("ry", rounded)
       .attr("x", function (d: any) { return d.x0 })
       .attr("y", function (d: any) { return d.y0 })
       .attr('width', function (d: any) { return d.x1 - d.x0; })
@@ -115,6 +118,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
     newRects
       .transition().duration(2000)
+      .attr("rx", rounded)
+      .attr("ry", rounded)
       .attr("x", function (d: any) { return d.x0 })
       .attr("y", function (d: any) { return d.y0 })
       .attr('width', function (d: any) { return d.x1 - d.x0; })
