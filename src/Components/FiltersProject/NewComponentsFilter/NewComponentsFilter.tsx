@@ -92,7 +92,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 295 }}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{marginBottom: 0}}>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.component_type &&
                     <HorizontalBarChart type={'component_type'} defaultValue={''} bottomLabel={'Number of Components'}
@@ -102,7 +102,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{marginBottom: 0}}>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.estimatedcost &&
                     <RheoStat defaultValue={[]} type={'estimatedcost'}
@@ -115,7 +115,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
 
         <Row className="filt-00">
             <Col span={12}>
-                <h5>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{marginBottom: 0}}>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.status &&
                     <HorizontalBarChart type={'status'} defaultValue={''} bottomLabel={'Number of Components'}
@@ -125,7 +125,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{marginBottom: 0}}>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.yearofstudy &&
                     <RheoStatYear type={'year'} defaultValue={''}
@@ -137,7 +137,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5>Watershed Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{marginBottom: 0}}>Watershed Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.servicearea &&
                     <TreeMap data={paramComponents.servicearea} type={'servicearea'} tab={'component'}
@@ -146,7 +146,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5>County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{marginBottom: 0}}>County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.county &&
                     <TreeMap data={paramComponents.county} type={'county'} tab={'component'}
@@ -158,7 +158,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
 
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5>Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{marginBottom: 0}}>Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.jurisdiction &&
                     <>
@@ -180,7 +180,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5>MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{marginBottom: 0}}>MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.watershed &&
                     <>
