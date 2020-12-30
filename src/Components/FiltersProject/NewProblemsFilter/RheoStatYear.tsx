@@ -23,6 +23,14 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
   const fillColor = '#ffdc00';
   const opaquedColor = '#fff2a8';
 
+  // TODO: change data on component endpoint
+  data = data.map((d: any) => {
+    return {
+      ...d,
+      count: d.counter
+    }
+  })
+
   useEffect(() => {
     let sData = selected.length === 0 ? [] : selected.split(',');
     setSelectedData(sData);
