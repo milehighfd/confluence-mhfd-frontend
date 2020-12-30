@@ -85,8 +85,8 @@ export const useMapDispatch = () => {
     getParamFilterProblems: (bounds: string) => {
       dispatch(getParamFilterProblems(bounds));
     },
-    getParamFilterComponents: (bounds: string) => {
-      dispatch(getParamFilterComponents(bounds));
+    getParamFilterComponents: (bounds: string, data?: any) => {
+      dispatch(getParamFilterComponents(bounds, data));
     },
     setTabCards: (tab: string) => {
       dispatch(setTabCards(tab));
