@@ -249,8 +249,8 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .style('opacity', 0.7);
 
     var countXFn = (d: any) => {
-      let digits = Math.floor(Math.log10(d.count === 0 ? 1 : d.count));
-      return xCountFn(d) - (digits * 14);
+      let digits = Math.floor(Math.log10(d.count === 0 ? 1 : d.count)) + 1;
+      return xCountFn(d) - (digits * fontSizeFn());
     }
 
     var countYFn = (d: any) => {
