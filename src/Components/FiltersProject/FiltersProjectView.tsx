@@ -10,6 +10,7 @@ import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { shallowEqual, useSelector } from 'react-redux';
 import { NewProblemsFilter } from "./NewProblemsFilter/NewProblemsFilter";
 import { NewProjectsFilter } from "./NewProjectsFilter/NewProjectsFilter";
+import { NewComponentsFilter } from "./NewComponentsFilter/NewComponentsFilter";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
@@ -244,7 +245,7 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
                     getGalleryProjects={getGalleryProjects}
                     setToggleFilters={setToggleFilters} />
             case FILTER_COMPONENTS_TRIGGER:
-                return <ComponentsFilter paramComponents={paramFilters.components}
+                return <NewComponentsFilter paramComponents={paramFilters.components}
                     filterComponentOptions={filterComponentOptions}
                     setFilterComponentOptions={setFilterComponentOptions}
                     getGalleryProblems={getGalleryProblems}
