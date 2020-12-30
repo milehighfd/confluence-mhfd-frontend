@@ -86,7 +86,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.projecttype &&
-                    <PieChart type={'projecttype'}
+                    <PieChart type={'projecttype'} defaultValue={''}
                         data={paramProjects.projecttype}
                         selected={filterProjectOptions.projecttype}
                         onSelect={(e: string) => apply(e, 'projecttype')} />

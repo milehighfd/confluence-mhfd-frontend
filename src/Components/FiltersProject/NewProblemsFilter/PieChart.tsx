@@ -1,19 +1,25 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
+import { Button } from 'antd';
 
 
-const PieChart = ({ data, type, selected, onSelect }: any) => {
+const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const selectedData = selected ? selected.split(',') : [];
+  const [selectedData, setSelectedData] = useState<any[]>([]);
+  
+  useEffect(() => {
+    setSelectedData(selected ? selected.split(',') : []);
+  }, [selected]);
+
 
   useEffect(() => {
     let total: any;
     let pieChartData: any;
     if (type === 'problemtype') {
       total = data.length;
-      pieChartData = data.map((d:any) => {
+      pieChartData = data.map((d: any) => {
         let index = selectedData.indexOf(d);
         return {
           key: d,
@@ -24,7 +30,7 @@ const PieChart = ({ data, type, selected, onSelect }: any) => {
       });
     } else if (type === 'projecttype') {
       total = data.reduce((a: number, x: any) => a + x.counter, 0);
-      pieChartData = data.map((d:any) => {
+      pieChartData = data.map((d: any) => {
         let index = selectedData.indexOf(d.value);
         return {
           key: d.value,
@@ -35,9 +41,9 @@ const PieChart = ({ data, type, selected, onSelect }: any) => {
       });
     }
 
-    const width = 150;
-    const height = 150;
-    const radius = 70;
+    const width = 180;
+    const height = 180;
+    const radius = 85;
 
     var arc = d3.arc()
       .innerRadius(radius * 0.5)
@@ -59,7 +65,7 @@ const PieChart = ({ data, type, selected, onSelect }: any) => {
     const svg = d3.select(svgRef.current)
       .attr("width", width + 100)
       .attr("height", height + 50)
-    .append("g")
+      .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     var data_ready: any = pie(pieChartData)
@@ -67,7 +73,7 @@ const PieChart = ({ data, type, selected, onSelect }: any) => {
     var slices = svg
       .selectAll('slices')
       .data(data_ready)
-    
+
     slices
       .enter()
       .append('path')
@@ -76,18 +82,13 @@ const PieChart = ({ data, type, selected, onSelect }: any) => {
       .on('click', (d: any) => {
         let index = selectedData.indexOf(d.data.key);
         if (index !== -1) {
-          selectedData.splice(index, 1);
+          setSelectedData(selectedData.filter((_, ind) => ind !== index))
         } else {
-          selectedData.push(d.data.key);
-        }
-        if (type === 'problemtype') {
-          onSelect(selectedData.join(','))
-        } else if (type === 'projecttype') {
-          onSelect(selectedData)
+          setSelectedData([...selectedData, d.data.key])
         }
       })
       .transition().duration(2000)
-      .attr('d', (d: any) => d.data.selected ? arc2(d) : arc(d) )
+      .attr('d', (d: any) => d.data.selected ? arc2(d) : arc(d))
 
     slices.exit().remove();
 
@@ -102,7 +103,7 @@ const PieChart = ({ data, type, selected, onSelect }: any) => {
       .attr("transform", function (d: any) { return "translate(" + arc.centroid(d) + ")"; })
       .style("text-anchor", "middle")
       .style("font-size", 10)
-    
+
     texts.exit().remove()
 
     svg
@@ -111,7 +112,11 @@ const PieChart = ({ data, type, selected, onSelect }: any) => {
       .enter()
       .append('text')
       .text(function (d: any) { return d.data.key })
-      .attr("transform", function (d: any, i) { return "translate(" + ((i % 2 === 0 ? -75 : 30) + 22) + ',' + ((75 + Math.floor(i / 2) * 20) + 5) + ")"; })
+      .attr("transform", (d: any, i) => {
+        let xo = (i % 2 === 0 ? -radius : 30) + 22;
+        let yo = ((radius + Math.floor(i / 2) * 20) + 10);
+        return `translate(${xo},${yo})`;
+      })
       .style("font-size", 10)
 
     svg
@@ -122,15 +127,40 @@ const PieChart = ({ data, type, selected, onSelect }: any) => {
       .style("fill", (d: any): any => {
         return color(d.data.key)
       })
-      .attr("x", function (d: any, i) { return (i % 2 === 0 ? -75 : 30) })
-      .attr("y", function (d: any, i) { return 75 + Math.floor(i / 2) * 20 })
+      .attr("x", (d: any, i) => {
+        return (i % 2 === 0 ? -radius : 30)
+      })
+      .attr("y", (d: any, i) => {
+        return radius + 5 + Math.floor(i / 2) * 20
+      })
       .attr('width', 20)
       .attr('height', 6)
 
-  }, [data, selected]);
+  }, [data, selectedData]);
+
+  const apply = () => {
+    if (type === 'problemtype') {
+      onSelect(selectedData.join(','))
+    } else if (type === 'projecttype') {
+      onSelect(selectedData)
+    }
+  }
+
+  const reset = () => {
+    onSelect(defaultValue);
+  }
 
   return (
-    <svg ref={svgRef} />
+    <>
+      <Button className="btn-svg" onClick={apply}>
+        <u>Apply</u>
+      </Button>
+      &nbsp;|&nbsp;
+      <Button className="btn-svg" onClick={reset}>
+        <u>Reset</u>
+      </Button>
+      <svg ref={svgRef} />
+    </>
   )
 }
 
