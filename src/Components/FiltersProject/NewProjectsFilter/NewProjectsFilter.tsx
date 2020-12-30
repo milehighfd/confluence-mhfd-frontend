@@ -96,7 +96,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.estimatedCost &&
-                    <RheoStat axisLabel={'Number of Projects'} defaultValue={[]}
+                    <RheoStat axisLabel={'Number of Projects'} defaultValue={''}
                         data={paramProjects.estimatedCost}
                         selected={filterProjectOptions.totalcost}
                         onSelect={(items: string) => apply(items, 'totalcost')} />
@@ -130,7 +130,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.startyear &&
-                    <RheoStatYear type={'year'} axisLabel={'Number of Projects'}
+                    <RheoStatYear type={'startyear'} axisLabel={'Number of Projects'} defaultValue={''}
                         data={paramProjects.startyear}
                         selected={filterProjectOptions.startyear}
                         onSelect={(e: string) => apply(e, 'startyear')} />
@@ -140,7 +140,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.completedyear &&
-                    <RheoStatYear type={'year'} axisLabel={'Number of Projects'}
+                    <RheoStatYear type={'completedyear'} axisLabel={'Number of Projects'} defaultValue={''}
                         data={paramProjects.completedyear}
                         selected={filterProjectOptions.completedyear}
                         onSelect={(e: string) => apply(e, 'completedyear')} />
@@ -153,7 +153,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 {
                     paramProjects.servicearea &&
                     <TreeMap data={paramProjects.servicearea} type={'servicearea'} tab={'project'}
-                        selected={filterProjectOptions.servicearea}
+                        selected={filterProjectOptions.servicearea} defaultValue={''}
                         onSelect={(e: string) => apply(e, 'servicearea')} />
                 }
             </Col>
@@ -162,7 +162,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 {
                     paramProjects.county &&
                     <TreeMap data={paramProjects.county} type={'county'} tab={'project'}
-                        selected={filterProjectOptions.county}
+                        selected={filterProjectOptions.county} defaultValue={''}
                         onSelect={(items: any) => apply(items, 'county')} />
                 }
             </Col>
