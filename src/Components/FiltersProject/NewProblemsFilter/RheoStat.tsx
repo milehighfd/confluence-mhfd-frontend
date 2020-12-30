@@ -233,7 +233,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
   const priceFormatter = (value: any) => {
     let integerValue = Math.floor(value / 1000);
-    return `$ ${integerValue}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return `$${integerValue}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 
   const priceParser = (value: any) => {
