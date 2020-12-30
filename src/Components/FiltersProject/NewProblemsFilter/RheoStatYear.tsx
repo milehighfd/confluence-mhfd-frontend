@@ -6,7 +6,7 @@ import { Button, Col, InputNumber, Row } from 'antd';
 
 var sliderRange: any;
 
-const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
+const RheoStatYear = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
 
@@ -198,7 +198,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
       .attr('class', 'hleftlabel')
       .attr('transform', `translate(${marginLeft/2}, ${height / 2}) rotate(270) skewX(-20)`)
       .append('text')
-      .text('Number of Componets')
+      .text(axisLabel)
       .style("text-anchor", "middle")
       .style('opacity', 0.40);
 

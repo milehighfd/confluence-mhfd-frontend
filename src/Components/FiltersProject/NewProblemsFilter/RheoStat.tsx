@@ -6,7 +6,7 @@ import { Button, Col, InputNumber, Row } from 'antd';
 
 var sliderRange: any;
 
-const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
+const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
   const [left, setLeft] = useState(0);
@@ -194,7 +194,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr('class', 'hleftlabel')
       .attr('transform', `translate(${marginLeft / 2}, ${height / 2}) rotate(270) skewX(-20)`)
       .append('text')
-      .text('Number of Componets')
+      .text(axisLabel)
       .style("text-anchor", "middle")
       .style('opacity', 0.40);
 
