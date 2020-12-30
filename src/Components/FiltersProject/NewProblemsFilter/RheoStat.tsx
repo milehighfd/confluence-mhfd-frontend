@@ -232,7 +232,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
   }
 
   const priceFormatter = (value: any) => {
-    let integerValue = Math.floor(value);
+    let integerValue = Math.floor(value / 1000);
     return `$ ${integerValue}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 
@@ -255,18 +255,18 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
       <Row style={{ marginLeft: 30 }}>
         <Col span={12}>
           <label>
-            Min Cost
+            Min Cost (K)
           </label>
-          <InputNumber size='large' style={{ width: '100%', fontSize: 12 }} min={0}
+          <InputNumber size='large' style={{ width: '80%' }} min={0}
             formatter={priceFormatter}
             parser={priceParser}
             value={left} onChange={onChangeLeft} />
         </Col>
         <Col span={12}>
           <label>
-            Max Cost
+            Max Cost (K)
           </label>
-          <InputNumber size='large' style={{ width: '100%', fontSize: 12 }} min={0}
+          <InputNumber size='large' style={{ width: '80%' }} min={0}
             formatter={priceFormatter}
             parser={priceParser}
             value={right} onChange={onChangeRight} />
