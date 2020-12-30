@@ -64,7 +64,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
     const spaceBetween = 55;
     const width = 180;
-    const height = data.length * spaceBetween - 20;
+    const height = Math.max(data.length * spaceBetween - 20, 240);
 
     let maxi: any = d3.max(data, (d: any) => d.count);
 
@@ -147,7 +147,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)
-      .attr("height", height + 30)
+      .attr("height", height)
 
     let lines = svg
       .selectAll('.hlines')
