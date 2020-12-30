@@ -4,28 +4,29 @@ import PieChart from "../NewProblemsFilter/PieChart";
 import RheoStat from "../NewProblemsFilter/RheoStat";
 import HorizontalBarChart from "../NewProblemsFilter/HorizontalBarChart";
 import TreeMap from "../NewProblemsFilter/TreeMap";
+import { useMapDispatch, useMapState } from "../../../hook/mapHook";
+import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
 
 const { Option } = Select;
-const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
-const content01 = (<div className="popoveer-00"><b>Priority:</b> is the severity of a problem relative to other problems of the same type.</div>);
-const content02 = (<div className="popoveer-00"><b>Element Type:</b> describes the type of improvements needed to solve a Problem.</div>);
-const content03 = (<div className="popoveer-00"><b>Status:</b> is the percentage (by cost) of elements required to solve a problem that have been completed.</div>);
-const content04 = (<div className="popoveer-00"><b>Source</b> is the document or process through which a Problem was identified.</div>);
+const content = (<div className="popoveer-00"><b>Service Area:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content1 = (<div className="popoveer-00"><b>County:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content2 = (<div className="popoveer-00"><b>Jurisdiction:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content3 = (<div className="popoveer-00"><b>Watershed Manager:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content4 = (<div className="popoveer-00"><b>Project Type:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 const content05 = (<div className="popoveer-00"><b>Total Cost:</b> is the Estimated Cost (for Projects in progress) or Final Cost (for completed Projects).</div>);
 const content06 = (<div className="popoveer-00"><b>Project Status:</b> is the current status of the Project. Some statuses are only applicable to certain project types.</div>);
-const content07 = (<div className="popoveer-00"><b>Start Year:</b> is the year a Project was initiated. For Projects that have not been initiated, use the "Work Plan Year" filter.</div>);
-// const content08 = (<div className="popoveer-00"><b>Completed Year:</b> represents the year a Project was finished (monitoring may still be occurring).</div>);
+const content07 = (<div className="popoveer-00"><b>Year Initiated:</b> is the year a Project was initiated. For Projects that have not been initiated, use the "Work Plan Year" filter.</div>);
+const content08 = (<div className="popoveer-00"><b>Year Completed:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 const content09 = (<div className="popoveer-00"><b>MHFD Dollars Allocated:</b> is the amount of funding that MHFD has budgeted or encumbered for a particular Project. For Capital projects and Master Plans, this is the number that must at least be matched by a local government.</div>);
 const content10 = (<div className="popoveer-00"><b>Work Plan Year:</b> is the year that a proposed Project is on the approved MHFD Work Plan.</div>);
-const content11 = (<div className="popoveer-00"><b>Problem Type:</b> is the type of Problem that a Project is intended to help solve.</div>);
+const content11 = (<div className="popoveer-00"><b>Consultant:</b>  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 const content12 = (<div className="popoveer-00"><b>Local Government Manager:</b> is the staff person at a local government responsible for planning or implementation of a Project.</div>);
-const content13 = (<div className="popoveer-00"><b>Creator:</b> is the Confluence user who first created a Project in the Confluence database.</div>);
-const content14 = (<div className="popoveer-00"><b>Component Type:</b> is a description of the type of Improvement or Data Point that has been identified at a particular location. (The term "Component" refers to a "Component of the Solution to a Problem," in the context of Capital Projects, or to a "Component of a Problem," in the context of Maintenance Projects.)</div>);
-const content15 = (<div className="popoveer-00"><b>Component Status:</b> is the status of implementing an improvement. (The term "Component" refers to a "Component of the Solution to a Problem," in the context of Capital Projects, or to a "Component of a Problem," in the context of Maintenance Projects.)</div>);
-const content16 = (<div className="popoveer-00"><b>Year of Study:</b> refers to the year of the Study in which the Component was first identified or proposed.</div>);
-const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Estimated Cost of implementing or addressing a Component as part of a Capital or Maintenance project.</div>);
+const content13 = (<div className="popoveer-00"><b>Contractor:</b>  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content14 = (<div className="popoveer-00"><b>Stream Name:</b>  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 
 export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects, setToggleFilters }: any) => {
+    const { getParamFilterProjects } = useMapDispatch();
+    const { boundsMap } = useMapState();
     const apply = (values: any, field: string) => {
         console.log('values', values, 'field', field);
         //console.log('filterProjectOptions:::', filterProjectOptions, paramProjects);
@@ -53,6 +54,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         }
         setFilterProjectOptions(options);
         getGalleryProjects();
+        getParamFilterProjects(boundsMap, options)
     }
     const reset = () => {
         const options = { ...filterProjectOptions };
@@ -76,153 +78,256 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         options.servicearea = '';
         setFilterProjectOptions(options);
         getGalleryProjects();
+        getParamFilterProjects(boundsMap, options)
     }
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5>Project type </h5>
-                <PieChart type={'projecttype'}
-                    data={paramProjects.projecttype}
-                    selected={filterProjectOptions.projecttype}
-                    onSelect={(e: string) => apply(e, 'projecttype')} />
+                <h5>Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.projecttype &&
+                    <PieChart type={'projecttype'}
+                        data={paramProjects.projecttype}
+                        selected={filterProjectOptions.projecttype}
+                        onSelect={(e: string) => apply(e, 'projecttype')} />
+                }
             </Col>
             <Col span={12}>
                 <h5>Total Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <RheoStat
-                    data={paramProjects.estimatedCost}
-                    selected={filterProjectOptions.totalcost}
-                    onSelect={(items: string) => apply(items, 'totalcost')} />
+                {
+                    paramProjects.estimatedCost &&
+                    <RheoStat axisLabel={'Number of Projects'}
+                        data={paramProjects.estimatedCost}
+                        selected={filterProjectOptions.totalcost}
+                        onSelect={(items: string) => apply(items, 'totalcost')} />
+                }
             </Col>
         </Row>
         <Row className="filt-00">
             <Col span={12}>
                 <h5>Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <div className="check-scroll">
-                    <HorizontalBarChart type={'status'}
-                        data={paramProjects.status}
+                {
+                    paramProjects.status &&
+                    <HorizontalBarChart type={'status'} defaultValue={''} bottomLabel={'Number of Projects'}
+                        data={paramProjects.status} color={'#261964'}
                         selected={filterProjectOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} />
-                </div>
+                }
             </Col>
             <Col span={12}>
                 <h5>MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <RheoStat
-                    data={paramProjects.mhfddollarsallocated}
-                    selected={filterProjectOptions.mhfddollarsallocated}
-                    onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
+                {
+                    paramProjects.mhfddollarsallocated &&
+                    <RheoStat axisLabel={'Number of Projects'}
+                        data={paramProjects.mhfddollarsallocated}
+                        selected={filterProjectOptions.mhfddollarsallocated}
+                        onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
+                }
             </Col>
         </Row>
         <Row className="filt-00">
             <Col span={12} className="filter-menu">
                 <h5>Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <RheoStat type={'year'}
-                    data={paramProjects.startyear}
-                    selected={filterProjectOptions.startyear}
-                    onSelect={(e: string) => apply(e, 'startyear')} />
+                {
+                    paramProjects.startyear &&
+                    <RheoStatYear type={'year'} axisLabel={'Number of Projects'}
+                        data={paramProjects.startyear}
+                        selected={filterProjectOptions.startyear}
+                        onSelect={(e: string) => apply(e, 'startyear')} />
+                }
             </Col>
             <Col span={12}>
-                <h5>Year Completed <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                <RheoStat type={'year'}
-                    data={paramProjects.completedyear}
-                    selected={filterProjectOptions.completedyear}
-                    onSelect={(e: string) => apply(e, 'completedyear')} />
+                <h5>Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.completedyear &&
+                    <RheoStatYear type={'year'} axisLabel={'Number of Projects'}
+                        data={paramProjects.completedyear}
+                        selected={filterProjectOptions.completedyear}
+                        onSelect={(e: string) => apply(e, 'completedyear')} />
+                }
             </Col>
         </Row>
         <Row className="filt-00">
             <Col span={12}>
-                <h5>Service Area</h5>
-                <TreeMap data={paramProjects.servicearea} type={'servicearea'} tab={'project'}
-                    selected={filterProjectOptions.servicearea}
-                    onSelect={(e: string) => apply(e, 'servicearea')} />
+                <h5>Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.servicearea &&
+                    <TreeMap data={paramProjects.servicearea} type={'servicearea'} tab={'project'}
+                        selected={filterProjectOptions.servicearea}
+                        onSelect={(e: string) => apply(e, 'servicearea')} />
+                }
             </Col>
             <Col span={12}>
-                <h5>County <img src="/Icons/icon-19.svg" alt="" /></h5>
-                <TreeMap data={paramProjects.county} type={'county'} tab={'project'}
-                    selected={filterProjectOptions.county}
-                    onSelect={(items: any) => apply(items, 'county')} />
+                <h5>County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                {
+                    paramProjects.county &&
+                    <TreeMap data={paramProjects.county} type={'county'} tab={'project'}
+                        selected={filterProjectOptions.county}
+                        onSelect={(items: any) => apply(items, 'county')} />
+                }
             </Col>
         </Row>
 
-        <h5 className="filt-h5">Additional filters</h5>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <label>Consultant</label>
-                <Select value={filterProjectOptions.consultant ? filterProjectOptions.consultant : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                    apply(e, 'consultant');
-                }}>
-                    {paramProjects.consultant.map((element: string, index: number) => {
-                        return element && <Option key={index} value={element}>{element}</Option>
-                    })}
-                </Select>
+                <h5>Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                {
+                    paramProjects.consultant &&
+                    <>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'consultant') }}>
+                            <u>Reset</u>
+                        </Button>
+                        <Select value={filterProjectOptions.consultant ? filterProjectOptions.consultant : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                            apply(e, 'consultant');
+                        }}>
+                            {paramProjects.consultant.map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                            })}
+                        </Select>
+                    </>
+                }
             </Col>
             <Col span={12}>
-                <label>Contractor</label>
-                <Select value={filterProjectOptions.contractor ? filterProjectOptions.contractor : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                    apply(e, 'contractor');
-                }}>
-                    {paramProjects.contractor.map((element: string, index: number) => {
-                        return element && <Option key={index} value={element}>{element}</Option>
-                    })}
-                </Select>
+                <h5>Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                {
+                    paramProjects.contractor &&
+                    <>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'contractor') }}>
+                            <u>Reset</u>
+                        </Button>
+                        <Select value={filterProjectOptions.contractor ? filterProjectOptions.contractor : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                            apply(e, 'contractor');
+                        }}>
+                            {paramProjects.contractor.map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                            })}
+                        </Select>
+                    </>
+                }
             </Col>
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <label>Jurisdiction</label>
-                <Select value={filterProjectOptions.jurisdiction ? filterProjectOptions.jurisdiction : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                    apply(e, 'jurisdiction');
-                }}>
-                    {paramProjects.jurisdiction.map((element: string, index: number) => {
-                        return element && <Option key={index} value={element}>{element}</Option>
-                    })}
-                </Select>
+                <h5>Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                {
+                    paramProjects.jurisdiction &&
+                    <>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
+                            <u>Reset</u>
+                        </Button>
+                        <Select value={filterProjectOptions.jurisdiction ? filterProjectOptions.jurisdiction : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                            apply(e, 'jurisdiction');
+                        }}>
+                            {paramProjects.jurisdiction.map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                            })}
+                        </Select>
+                    </>
+                }
             </Col>
             <Col span={12}>
-                <label>MHFD Watershed Manager</label>
-                <Select value={filterProjectOptions.mhfdmanager ? filterProjectOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                    apply(e, 'mhfdmanager');
-                }}>
-                    {paramProjects.mhfdmanager.map((element: string, index: number) => {
-                        return element && <Option key={index} value={element}>{element}</Option>
-                    })}
-                </Select>
+                <h5>MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                {
+                    paramProjects.mhfdmanager &&
+                    <>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'mhfdmanager') }}>
+                            <u>Reset</u>
+                        </Button>
+                        <Select value={filterProjectOptions.mhfdmanager ? filterProjectOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                            apply(e, 'mhfdmanager');
+                        }}>
+                            {paramProjects.mhfdmanager.map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                            })}
+                        </Select>
+                    </>
+                }
             </Col>
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <label>Local Government Manager <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover></label>
-                <Select value={filterProjectOptions.lgmanager ? filterProjectOptions.lgmanager : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                    apply(e, 'lgmanager');
-                }}>
-                    {paramProjects.lgmanager.map((element: string, index: number) => {
-                        return element && <Option key={index} value={element}>{element}</Option>
-                    })}
-                </Select>
+                <h5>Local Government Manager <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                {
+                    paramProjects.lgmanager &&
+                    <>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'lgmanager') }}>
+                            <u>Reset</u>
+                        </Button>
+                        <Select value={filterProjectOptions.lgmanager ? filterProjectOptions.lgmanager : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                            apply(e, 'lgmanager');
+                        }}>
+                            {paramProjects.lgmanager.map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                            })}
+                        </Select>
+                    </>
+                }
             </Col>
             <Col span={12}>
-                <label>Stream Name</label>
-                <Select value={filterProjectOptions.streamname ? filterProjectOptions.streamname : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                    apply(e, 'streamname');
-                }}>
-                    {paramProjects.streamname.map((element: string, index: number) => {
-                        return element && <Option key={index} value={element}>{element}</Option>
-                    })}
-                </Select>
+                <h5>Stream Name <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                {
+                    paramProjects.streamname &&
+                    <>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'streamname') }}>
+                            <u>Reset</u>
+                        </Button>
+                        <Select value={filterProjectOptions.streamname ? filterProjectOptions.streamname : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                            apply(e, 'streamname');
+                        }}>
+                            {paramProjects.streamname.map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                            })}
+                        </Select>
+                    </>
+                }
             </Col>
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5>Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt=""/></Popover></h5>
-                <Checkbox.Group value={filterProjectOptions.workplanyear.split(',')} onChange={(item) => {
-                    apply(item, 'workplanyear');
-                }}>
-                    {paramProjects.workplanyear.map((element: {value: number, counter: number}, index: number) => {
-                        return <p key={index}><Checkbox value={'' +element.value}>
-                            {element.value}</Checkbox>
-                            <span className="filt-s">{element.counter}</span>
-                        </p>
-                    })}
-                </Checkbox.Group>
+                <h5>Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.workplanyear &&
+                    <>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'workplanyear') }}>
+                            <u>Reset</u>
+                        </Button>
+                        <Select value={filterProjectOptions.workplanyear ? filterProjectOptions.workplanyear : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                            apply(e, 'workplanyear');
+                        }}>
+                            {paramProjects.workplanyear.map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                            })}
+                        </Select>
+                    </>
+                }
             </Col>
         </Row>
         <div className="btn-footer" style={{ marginTop: '25px' }}>
