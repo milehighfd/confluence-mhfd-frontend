@@ -16,7 +16,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue }: any) => {
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
 
-  const width = 220;
+  const width = 200;
   const height = 200;
   const marginLeft = 30;
   const rounded = 4;

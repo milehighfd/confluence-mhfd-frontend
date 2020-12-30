@@ -17,7 +17,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const [minTick, setMinTick] = useState(0);
   const [maxTick, setMaxTick] = useState(condition ? data.length : data.length - 1);
 
-  const width = 220;
+  const width = 200;
   const height = 180;
   const marginLeft = 30;
   const rounded = 4;

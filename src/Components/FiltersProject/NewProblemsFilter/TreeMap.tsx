@@ -75,8 +75,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   }
 
   useEffect(() => {
-    const width = 250;
-    const height = 250;
+    const width = 220;
+    const height = 220;
     const rounded = 4;
     const percentage = 0.10;
     const fontSizeText = '16px';
