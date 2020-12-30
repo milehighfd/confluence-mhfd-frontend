@@ -79,8 +79,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     const height = 220;
     const rounded = 4;
     const percentage = 0.10;
-    const fontSizeText = '16px';
-    const fontSizePercentage = '12px';
+    const fontSizeText = '12px';
+    const fontSizePercentage = '10px';
 
     const svg = d3.select(svgRef.current)
       .attr("width", width)
