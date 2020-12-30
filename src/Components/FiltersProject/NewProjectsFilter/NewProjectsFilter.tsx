@@ -316,11 +316,11 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                             <u>Apply</u>
                         </Button>
                         &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', 'workplanyear') }}>
+                        <Button className="btn-svg" onClick={() => { apply([], 'workplanyear') }}>
                             <u>Reset</u>
                         </Button>
                         <Select value={filterProjectOptions.workplanyear ? filterProjectOptions.workplanyear : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                            apply(e, 'workplanyear');
+                            apply([`${e}`], 'workplanyear');
                         }}>
                             {paramProjects.workplanyear.map((element: any, index: number) => {
                                 return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
