@@ -6,7 +6,7 @@ import { Button, Col, InputNumber, Row } from 'antd';
 
 var sliderRange: any;
 
-const RheoStatYear = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
+const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
 
@@ -27,7 +27,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue, axisLabel }: any
   data = data.map((d: any) => {
     return {
       ...d,
-      count: d.count || d.counter
+      count: d.hasOwnProperty('count') ? d.count : d.counter
     }
   })
 
@@ -211,7 +211,11 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue, axisLabel }: any
   }, [data, selectedData]);
 
   const apply = () => {
-    onSelect(selectedData);
+    if (type === 'yearofstudy') {
+      onSelect(selectedData);
+    } else {
+      onSelect(selectedData.join(','));
+    }
   }
 
   const reset = () => {
