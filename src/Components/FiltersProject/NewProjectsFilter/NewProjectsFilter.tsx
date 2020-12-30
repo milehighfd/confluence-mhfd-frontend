@@ -13,7 +13,7 @@ const content1 = (<div className="popoveer-00"><b>County:</b> Lorem ipsum dolor 
 const content2 = (<div className="popoveer-00"><b>Jurisdiction:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 const content3 = (<div className="popoveer-00"><b>Watershed Manager:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 const content4 = (<div className="popoveer-00"><b>Project Type:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content05 = (<div className="popoveer-00"><b>Total Cost:</b> is the Estimated Cost (for Projects in progress) or Final Cost (for completed Projects).</div>);
+const content05 = (<div className="popoveer-00"><b>Estimated Project Cost:</b> is the Estimated Cost (for Projects in progress) or Final Cost (for completed Projects).</div>);
 const content06 = (<div className="popoveer-00"><b>Project Status:</b> is the current status of the Project. Some statuses are only applicable to certain project types.</div>);
 const content07 = (<div className="popoveer-00"><b>Year Initiated:</b> is the year a Project was initiated. For Projects that have not been initiated, use the "Work Plan Year" filter.</div>);
 const content08 = (<div className="popoveer-00"><b>Year Completed:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
@@ -93,10 +93,10 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
             <Col span={12}>
-                <h5>Total Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5>Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.estimatedCost &&
-                    <RheoStat axisLabel={'Number of Projects'}
+                    <RheoStat axisLabel={'Number of Projects'} defaultValue={[]}
                         data={paramProjects.estimatedCost}
                         selected={filterProjectOptions.totalcost}
                         onSelect={(items: string) => apply(items, 'totalcost')} />
@@ -118,7 +118,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.mhfddollarsallocated &&
-                    <RheoStat axisLabel={'Number of Projects'}
+                    <RheoStat axisLabel={'Number of Projects'} defaultValue={[]}
                         data={paramProjects.mhfddollarsallocated}
                         selected={filterProjectOptions.mhfddollarsallocated}
                         onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
