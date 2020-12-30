@@ -105,7 +105,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 <h5 style={{marginBottom: 0}}>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.estimatedcost &&
-                    <RheoStat defaultValue={[]} type={'estimatedcost'} axisLabel={'Number of Componets'}
+                    <RheoStat defaultValue={[]} type={'estimatedcost'} axisLabel={'Number of Components'}
                         data={paramComponents.estimatedcost}
                         selected={filterComponentOptions.estimatedcost}
                         onSelect={(items: any) => apply(items, 'estimatedcost')} />
@@ -128,7 +128,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 <h5 style={{marginBottom: 0}}>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.yearofstudy &&
-                    <RheoStatYear type={'year'} defaultValue={''} axisLabel={'Number of Components'}
+                    <RheoStatYear type={'yearofstudy'} defaultValue={''} axisLabel={'Number of Components'}
                         data={paramComponents.yearofstudy}
                         selected={filterComponentOptions.yearofstudy}
                         onSelect={(e: string) => apply(e, 'yearofstudy')} />
