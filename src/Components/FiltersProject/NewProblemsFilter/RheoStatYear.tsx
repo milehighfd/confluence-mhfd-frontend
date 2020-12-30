@@ -27,7 +27,7 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue, axisLabel }: any
   data = data.map((d: any) => {
     return {
       ...d,
-      count: d.counter
+      count: d.count || d.counter
     }
   })
 
@@ -48,8 +48,8 @@ const RheoStatYear = ({ data, selected, onSelect, defaultValue, axisLabel }: any
   }, [selected])
 
   useEffect(() => {
-    let minValue = data[minTick].value;
-    let maxValue = data[maxTick].value;
+    let minValue = data[minTick] ? data[minTick].value : 0;
+    let maxValue = data[maxTick] ? data[maxTick].value : 0;
     setLeft(minValue);
     setRight(maxValue);
   });
