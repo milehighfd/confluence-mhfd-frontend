@@ -15,42 +15,26 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
   let color: string;
 
-  let datatype = typeof data[0];
-
   if (type === 'servicearea') {
     color = '#80a7f7';
   } else {
     color = '#66d4ff';
   }
 
-  if (datatype === 'string') {
-    data = {
-      name: '',
-      children: (data || []).map((d: any) => {
-        return {
-          name: d,
-          value: 1,
-          colname: 'level2',
-          percentage: 1 / (data || []).length
-        }
-      })
-    }
-  } else {
-    let sum = 0;
-    (data || []).forEach((d: any) => {
-      sum += d.counter;
-    });
-    data = {
-      name: '',
-      children: (data || []).map((d: any) => {
-        return {
-          name: d.value,
-          value: d.counter,
-          colname: 'level2',
-          percentage: (d.counter) / sum
-        }
-      })
-    }
+  let sum = 0;
+  (data || []).forEach((d: any) => {
+    sum += d.counter;
+  });
+  data = {
+    name: '',
+    children: (data || []).map((d: any) => {
+      return {
+        name: d.value,
+        value: d.counter,
+        colname: 'level2',
+        percentage: (d.counter) / sum
+      }
+    })
   }
 
   const numberFormatter = (value: any) => {
@@ -112,7 +96,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr('width', function (d: any) { return d.x1 - d.x0; })
       .attr('height', function (d: any) { return d.y1 - d.y0; })
       .style("fill", color)
-      .style("opacity", function(d:any) {
+      .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
           return 1;
@@ -120,7 +104,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
           return 0.6;
         }
       })
-    
+
     rects.on('click', (d: any) => {
       let index = selectedData.indexOf(d.data.name);
       if (index !== -1) {
@@ -144,7 +128,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr('width', function (d: any) { return d.x1 - d.x0; })
       .attr('height', function (d: any) { return d.y1 - d.y0; })
       .style("fill", color)
-      .style("opacity", function(d:any) {
+      .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
           return 1;
@@ -262,16 +246,12 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .style("text-anchor", "middle")
       .style('opacity', 0.7)
 
-  }, [data])
+  }, [data, selectedData])
 
   const apply = () => {
-    if (type === 'servicearea') {
-      onSelect(selectedData.join(','))
-    } else if (type === 'county' && tab === 'problem') {
+    if (type === 'county' && tab === 'problem') {
       onSelect(selectedData)
-    } else if (type === 'county' && tab === 'project') {
-      onSelect(selectedData.join(','))
-    } else if (type === 'county' && tab === 'component') {
+    } else {
       onSelect(selectedData.join(','))
     }
   }

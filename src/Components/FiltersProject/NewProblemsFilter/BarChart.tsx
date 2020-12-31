@@ -1,23 +1,28 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
+import { Button } from 'antd';
 
-const BarChart = ({ data, selected, onSelect }: any) => {
+const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const [selectedData, setSelectedData] = useState<any[]>([]);
 
-  let selectedData = selected.split(',');
+  useEffect(() => {
+    let sData = selected.split(',');
+    setSelectedData(sData);
+  }, [selected])
 
   data = data.map((d: any) => {
     let index = selectedData.indexOf(d.value);
     return {
       value: d.value,
-      count: d.count,
+      counter: d.counter,
       selected: index === -1 ? false : true
     };
   }).reverse();
 
   useEffect(() => {
-    const width = 150;
+    const width = 200;
     const height = 200;
 
     d3.select(svgRef.current).select('g').remove();
@@ -31,10 +36,10 @@ const BarChart = ({ data, selected, onSelect }: any) => {
 
     var accum: any[] = [];
     data.forEach((d: any, i:number) => {
-      accum.push(d.count + (i > 0 ? accum[i-1] : 0))
+      accum.push(d.counter + (i > 0 ? accum[i-1] : 0))
     });
 
-    let sum = d3.sum(data, function(d:any) { return d.count });
+    let sum = d3.sum(data, function(d:any) { return d.counter });
     
     y.domain([0, sum]);
 
@@ -42,7 +47,7 @@ const BarChart = ({ data, selected, onSelect }: any) => {
       return y(accum[i]);
     }
     let yCountFn: any = (d:any) => {
-      return y(d.count);
+      return y(d.counter);
     }
 
     var singleBars = svg
@@ -78,7 +83,6 @@ const BarChart = ({ data, selected, onSelect }: any) => {
         } else {
           selectedData.push(d.value);
         }
-        onSelect(selectedData)
       })
     
     var labels =  svg
@@ -95,10 +99,39 @@ const BarChart = ({ data, selected, onSelect }: any) => {
         return `translate(${xo}, ${yo})`;
       })
       .style("font-size", 10)
-  }, [data, selected])
+
+      svg.selectAll('.hleftlabel').remove();
+
+      svg
+        .append('g')
+        .attr('class', 'hleftlabel')
+        .attr('transform', `translate(${15}, ${height / 2}) rotate(270) skewX(-20)`)
+        .append('text')
+        .text(axisLabel)
+        .style("text-anchor", "middle")
+        .style('opacity', 0.40);
+
+  }, [data, selectedData])
+
+  const apply = () => {
+    onSelect(selectedData)
+  }
+
+  const reset = () => {
+    onSelect(defaultValue);
+  }
 
   return (
-    <svg ref={svgRef}/>
+    <>
+      <Button className="btn-svg" onClick={apply}>
+        <u>Apply</u>
+      </Button>
+      &nbsp;|&nbsp;
+      <Button className="btn-svg" onClick={reset}>
+        <u>Reset</u>
+      </Button>
+      <svg ref={svgRef} />
+    </>
   )
 }
 

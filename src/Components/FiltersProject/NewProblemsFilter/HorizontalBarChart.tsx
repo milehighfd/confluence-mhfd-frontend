@@ -42,21 +42,21 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       data = data.map((r: any) => {
         return {
           value: r.value,
-          count: r.count
+          counter: r.counter
         }
       })
     } else if (type === status) {
       data = data.filter((r: any) => r.counter > 0).map((r: any) => {
         return {
           value: r.value,
-          count: r.counter
+          counter: r.counter
         }
       })
     } else if (type === component_type) {
       data = data.filter((r: any) => r.counter > 0).map((r: any) => {
         return {
           value: r.value,
-          count: r.counter,
+          counter: r.counter,
           key: r.key
         }
       })
@@ -66,7 +66,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
     const width = 180;
     const height = Math.max(data.length * spaceBetween - 20, 240);
 
-    let maxi: any = d3.max(data, (d: any) => d.count);
+    let maxi: any = d3.max(data, (d: any) => d.counter);
 
     var x = d3.scaleLinear()
       .domain([0, maxi])
@@ -82,9 +82,9 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       return 20 + index * spaceBetween;
     }
 
-    var countFn: any = (d: any) => d.count;
+    var countFn: any = (d: any) => d.counter;
 
-    let xCountFn: any = (d: any) => x(d.count);
+    let xCountFn: any = (d: any) => x(d.counter);
 
     var yFn: any = (d: any) => y(d.value);
 
@@ -249,7 +249,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .style('opacity', 0.7);
 
     var countXFn = (d: any) => {
-      let digits = Math.floor(Math.log10(d.count === 0 ? 1 : d.count)) + 1;
+      let digits = Math.floor(Math.log10(d.counter === 0 ? 1 : d.counter)) + 1;
       return xCountFn(d) - (digits * fontSizeFn());
     }
 

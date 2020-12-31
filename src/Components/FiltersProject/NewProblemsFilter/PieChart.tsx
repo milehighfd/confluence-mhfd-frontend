@@ -8,7 +8,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const [selectedData, setSelectedData] = useState<any[]>([]);
-  
+
   useEffect(() => {
     setSelectedData(selected ? selected.split(',') : []);
   }, [selected]);
@@ -17,27 +17,15 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   useEffect(() => {
     let total: any;
     let pieChartData: any;
-    if (type === 'problemtype') {
-      total = data.length;
-      pieChartData = data.map((d: any) => {
-        let index = selectedData.indexOf(d);
-        return {
-          key: d,
-          counter: 1,
-          selected: index === -1 ? false : true,
-          value: 1 / total
-        }
-      });
-    } else if (type === 'projecttype') {
-      total = data.reduce((a: number, x: any) => a + x.counter, 0);
-      pieChartData = data.map((d: any) => {
-        return {
-          key: d.value,
-          counter: d.counter,
-          value: d.counter / total
-        }
-      });
-    }
+
+    total = data.reduce((a: number, x: any) => a + x.counter, 0);
+    pieChartData = data.map((d: any) => {
+      return {
+        key: d.value,
+        counter: d.counter,
+        value: d.counter / total
+      }
+    });
 
     const width = 180;
     const height = 180;
@@ -62,7 +50,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
     const svg = d3.select(svgRef.current)
       .attr("width", width + 100)
-      .attr("height", height + 50)
+      .attr("height", height + 75)
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
@@ -137,7 +125,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     var legendsText = svg
       .selectAll('slices')
       .data(data_ready)
-    
+
     legendsText.exit().remove();
 
     legendsText
@@ -165,7 +153,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     var legendsBar = svg
       .selectAll('slices')
       .data(data_ready)
-    
+
     legendsBar.exit().remove();
 
     legendsBar
