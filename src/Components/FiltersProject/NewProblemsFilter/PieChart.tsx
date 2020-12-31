@@ -134,7 +134,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
         let xo = (i % 2 === 0 ? -radius : 30) + 27;
-        let yo = ((radius + Math.floor(i / 2) * 20) + 20);
+        let yo = ((radius + Math.floor(i / 2) * 20) + 35);
         return `translate(${xo},${yo})`;
       })
       .style("font-size", 12)
@@ -144,7 +144,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
         let xo = (i % 2 === 0 ? -radius : 30) + 27;
-        let yo = ((radius + Math.floor(i / 2) * 20) + 20);
+        let yo = ((radius + Math.floor(i / 2) * 20) + 35);
         return `translate(${xo},${yo})`;
       })
       .style("font-size", 12)
@@ -164,7 +164,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         return (i % 2 === 0 ? -radius : 30)
       })
       .attr("y", (d: any, i) => {
-        return radius + 15 + Math.floor(i / 2) * 20
+        return radius + 30 + Math.floor(i / 2) * 20
       })
       .attr('width', 20)
       .attr('height', 6)
@@ -178,7 +178,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         return (i % 2 === 0 ? -radius : 30)
       })
       .attr("y", (d: any, i) => {
-        return radius + 15 + Math.floor(i / 2) * 20
+        return radius + 30 + Math.floor(i / 2) * 20
       })
       .attr('width', 20)
       .attr('height', 6)

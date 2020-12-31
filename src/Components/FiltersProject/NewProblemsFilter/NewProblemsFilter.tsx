@@ -68,7 +68,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
         <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
             <Row className="filt-00" style={{ marginTop: '10px' }}>
                 <Col span={12}>
-                    <h5>Problem Type <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 style={{ marginBottom: 0 }}>Problem Type <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.problemtype &&
                         <PieChart type={'problemtype'} defaultValue={''}
@@ -78,7 +78,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     }
                 </Col>
                 <Col span={12}>
-                    <h5>Solution Cost <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 style={{ marginBottom: 0 }}>Solution Cost <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.cost &&
                         <RheoStat
@@ -94,7 +94,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
 
             <Row className="filt-00">
                 <Col span={12}>
-                    <h5>Solution Status <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 style={{ marginBottom: 0 }}>Solution Status <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.solutionstatus &&
                         <HorizontalBarChart type={'solutionstatus'} defaultValue={''} axisLabel={axisLabel}
@@ -104,7 +104,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     }
                 </Col>
                 <Col span={12}>
-                    <h5>Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 style={{ marginBottom: 0 }}>Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.priority &&
                         <BarChart data={paramProblems.priority}
@@ -119,7 +119,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
 
             <Row className="filt-00">
                 <Col span={12}>
-                    <h5>Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 style={{ marginBottom: 0 }}>Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.servicearea &&
                         <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'project'}
@@ -128,7 +128,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     }
                 </Col>
                 <Col span={12}>
-                    <h5>County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 style={{ marginBottom: 0 }}>County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.county &&
                         <TreeMap data={paramProblems.county} type={'county'} tab={'problem'}
@@ -140,7 +140,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
 
             <Row className="filt-00" gutter={[24, 16]}>
                 <Col span={12}>
-                    <h5>Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 style={{ marginBottom: 0 }}>Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <Button className="btn-svg" onClick={() => { }}>
                             <u>Apply</u>
@@ -160,7 +160,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     </>
                 </Col>
                 <Col span={12}>
-                    <h5>MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 style={{ marginBottom: 0 }}>MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <Button className="btn-svg" onClick={() => { }}>
                             <u>Apply</u>

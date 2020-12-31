@@ -252,7 +252,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
       <svg ref={svgRef} className={'svg-top-pad'}>
         <g ref={gRef}></g>
       </svg>
-      <Row style={{ marginLeft: 30 }}>
+      <Row style={{ marginLeft: 30, marginTop: -10 }}>
         <Col span={12}>
           <label>
             Min Cost (K)
