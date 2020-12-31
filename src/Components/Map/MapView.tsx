@@ -5,7 +5,7 @@ import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../../Classes/MapTypes";
 import { useParams, useLocation } from "react-router-dom";
 import { CaretUpOutlined, CaretDownOutlined, UnderlineOutlined } from "@ant-design/icons";
@@ -106,10 +106,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
-  const { setToggleModalFilter, getParamFilterProjects,
+  const { setToggleModalFilter, getParamFilterProjects, getParamFilterComponents,
     setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete } = useMapDispatch();
-  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, spinCardProblems, spinCardProjects } = useMapState();
+  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
@@ -186,6 +186,27 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     options.servicearea = '';
     setFilterProjectOptions(options);
     getGalleryProjects();
+    if (toggleModalFilter) {
+      getParamFilterProjects(boundsMap, options)
+    }
+  }
+
+  const resetFilterComponents = () => {
+    const options: any = { ...filterComponentOptions };
+    options.component_type = '';
+    options.status = '';
+    options.yearofstudy = '';
+    options.estimatedcost = [];
+    options.jurisdiction = '';
+    options.county = '';
+    options.mhfdmanager = '';
+    options.servicearea = '';
+    setFilterComponentOptions(options);
+    getGalleryProjects();
+    getGalleryProblems();
+    if (toggleModalFilter) {
+      getParamFilterComponents(boundsMap, options);
+    }
   }
 
   const deleteTagProblems = (tag: string, value: string) => {
@@ -764,6 +785,36 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       ))}
     </Menu>
   }
+  const onResetClick = () => {
+    // console.log('toggleModalFilter', toggleModalFilter)
+    if (toggleModalFilter) {
+      switch(filterTabNumber) {
+        case PROBLEMS_TRIGGER:
+            // console.log('FILTER_PROBLEMS_TRIGGER')
+            resetFilterProblems();
+            break;
+        case PROJECTS_TRIGGER:
+            // console.log('FILTER_PROJECTS_TRIGGER')
+            resetFilterProjects();
+            break;
+        case COMPONENTS_TRIGGER:
+            // console.log('FILTER_COMPONENTS_TRIGGER')
+            resetFilterComponents();
+            break;
+      }
+    } else {
+      switch(tabCards) {
+        case PROBLEMS_TRIGGER:
+            // console.log('cards PROBLEMS_TRIGGER')
+            resetFilterProblems();
+            break;
+        case PROJECTS_TRIGGER:
+            // console.log('cards PROJECTS_TRIGGER')
+            resetFilterProjects();
+            break;
+      }
+    }
+  }
   return <>
     <div className="count" style={{ paddingBottom: '0px' }}>
       {displayModal && visible && <DetailedModal
@@ -869,7 +920,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
           <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
-            <Button className="btn-red" onClick={tabCards === 'projects'? resetFilterProjects : resetFilterProblems }><u>Reset</u></Button>
+            <Button className="btn-red" onClick={onResetClick}><u>Reset</u></Button>
             <Popover placement="bottomRight" overlayClassName="tag-filters" content={
               //contentTag
               tabActive === '0' ? generateLabelsFilterProblems() : generateLabelsFilterProjects()
