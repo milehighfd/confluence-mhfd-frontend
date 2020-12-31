@@ -591,14 +591,14 @@ export const getParamsFilter = (bounds: string) => {
         })
     }
 }
-export const getParamFilterProjects = (bounds: string) => {
+export const getParamFilterProjects = (bounds: string, data?: any) => {
     return (dispatch: Function) => {
-        dispatch(setSpinFilter(true));
-        datasets.getData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds).then(params => {
+        // dispatch(setSpinFilter(true));
+        datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then(params => {
             if (params) {
                 dispatch({type: types.GET_PARAM_FILTER_PROJECTS, params});
             }
-            dispatch(setSpinFilter(false));
+            // dispatch(setSpinFilter(false));
         })
     }
 }
