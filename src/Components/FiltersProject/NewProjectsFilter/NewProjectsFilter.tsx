@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Row, Col, Checkbox, Popover, Select } from 'antd';
+import { Button, Row, Col, Popover, Select } from 'antd';
 import PieChart from "../NewProblemsFilter/PieChart";
 import RheoStat from "../NewProblemsFilter/RheoStat";
 import HorizontalBarChart from "../NewProblemsFilter/HorizontalBarChart";
@@ -330,9 +330,6 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
         </Row>
-        <div className="btn-footer" style={{ marginTop: '25px' }}>
-            <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-borde">Reset</Button>
-        </div>
     </div>
     </>
 }
