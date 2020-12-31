@@ -133,7 +133,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .append('text')
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = (i % 2 === 0 ? -radius : 30) + 22;
+        let xo = (i % 2 === 0 ? -radius : 30) + 27;
         let yo = ((radius + Math.floor(i / 2) * 20) + 20);
         return `translate(${xo},${yo})`;
       })
@@ -143,7 +143,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsText
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = (i % 2 === 0 ? -radius : 30) + 22;
+        let xo = (i % 2 === 0 ? -radius : 30) + 27;
         let yo = ((radius + Math.floor(i / 2) * 20) + 20);
         return `translate(${xo},${yo})`;
       })
