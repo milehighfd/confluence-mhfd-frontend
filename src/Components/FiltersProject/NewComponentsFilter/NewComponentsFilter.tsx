@@ -89,13 +89,15 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
         paramComponents.status = paramComponents.status.filter(filterFunction)
     }
 
+    const axisLabel = 'Number of Components';
+
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 295 }}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5 style={{marginBottom: 0}}>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.component_type &&
-                    <HorizontalBarChart type={'component_type'} defaultValue={''} bottomLabel={'Number of Components'}
+                    <HorizontalBarChart type={'component_type'} defaultValue={''} axisLabel={axisLabel}
                         data={paramComponents.component_type} color={'#66d4ff'}
                         selected={filterComponentOptions.component_type}
                         onSelect={(items: any) => apply(items, 'component_type')} />
@@ -105,7 +107,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 <h5 style={{marginBottom: 0}}>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.estimatedcost &&
-                    <RheoStat defaultValue={[]} type={'estimatedcost'} axisLabel={'Number of Components'}
+                    <RheoStat defaultValue={[]} type={'estimatedcost'} axisLabel={axisLabel}
                         data={paramComponents.estimatedcost}
                         selected={filterComponentOptions.estimatedcost}
                         onSelect={(items: any) => apply(items, 'estimatedcost')} />
@@ -118,7 +120,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 <h5 style={{marginBottom: 0}}>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.status &&
-                    <HorizontalBarChart type={'status'} defaultValue={''} bottomLabel={'Number of Components'}
+                    <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
                         data={paramComponents.status} color={'#261964'}
                         selected={filterComponentOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} />
@@ -128,7 +130,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 <h5 style={{marginBottom: 0}}>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.yearofstudy &&
-                    <RheoStatYear type={'yearofstudy'} defaultValue={''} axisLabel={'Number of Components'}
+                    <RheoStatYear type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
                         data={paramComponents.yearofstudy}
                         selected={filterComponentOptions.yearofstudy}
                         onSelect={(e: string) => apply(e, 'yearofstudy')} />

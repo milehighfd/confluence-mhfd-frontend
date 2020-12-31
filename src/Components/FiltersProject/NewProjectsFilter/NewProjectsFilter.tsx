@@ -92,6 +92,8 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         })
     }
 
+    const axisLabel = 'Number of Projects';
+
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
@@ -108,7 +110,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.estimatedCost &&
-                    <RheoStat axisLabel={'Number of Projects'} defaultValue={''}
+                    <RheoStat axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.estimatedCost}
                         selected={filterProjectOptions.totalcost}
                         onSelect={(items: string) => apply(items, 'totalcost')} />
@@ -120,7 +122,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.status &&
-                    <HorizontalBarChart type={'status'} defaultValue={''} bottomLabel={'Number of Projects'}
+                    <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
                         data={paramProjects.status} color={'#261964'}
                         selected={filterProjectOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} />
@@ -130,7 +132,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.mhfddollarsallocated &&
-                    <RheoStat axisLabel={'Number of Projects'} defaultValue={[]}
+                    <RheoStat axisLabel={axisLabel} defaultValue={[]}
                         data={paramProjects.mhfddollarsallocated}
                         selected={filterProjectOptions.mhfddollarsallocated}
                         onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
@@ -142,7 +144,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.startyear &&
-                    <RheoStatYear type={'startyear'} axisLabel={'Number of Projects'} defaultValue={''}
+                    <RheoStatYear type={'startyear'} axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.startyear}
                         selected={filterProjectOptions.startyear}
                         onSelect={(e: string) => apply(e, 'startyear')} />
@@ -152,7 +154,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5>Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.completedyear &&
-                    <RheoStatYear type={'completedyear'} axisLabel={'Number of Projects'} defaultValue={''}
+                    <RheoStatYear type={'completedyear'} axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.completedyear}
                         selected={filterProjectOptions.completedyear}
                         onSelect={(e: string) => apply(e, 'completedyear')} />

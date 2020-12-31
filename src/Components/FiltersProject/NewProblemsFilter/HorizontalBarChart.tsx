@@ -20,7 +20,7 @@ var transformSelectedData = (sData: any) => {
   return sData.map((r: any) => `${r}`)
 }
 
-const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, color, bottomLabel }: any) => {
+const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, color, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
@@ -310,7 +310,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
         <svg ref={svgRef} />
       </div>
       <div style={{textAlign: 'center'}}>
-        <i>{bottomLabel}</i>
+        <i>{axisLabel}</i>
       </div>
     </>
   )
