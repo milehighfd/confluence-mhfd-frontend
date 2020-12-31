@@ -96,6 +96,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr('width', function (d: any) { return d.x1 - d.x0; })
       .attr('height', function (d: any) { return d.y1 - d.y0; })
       .style("fill", color)
+    
+    rects
       .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
@@ -128,6 +130,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr('width', function (d: any) { return d.x1 - d.x0; })
       .attr('height', function (d: any) { return d.y1 - d.y0; })
       .style("fill", color)
+
+    newRects
       .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
