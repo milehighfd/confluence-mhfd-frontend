@@ -276,7 +276,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5>Local Government Manager <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5>Local Government Mngr <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.lgmanager &&
                     <>
