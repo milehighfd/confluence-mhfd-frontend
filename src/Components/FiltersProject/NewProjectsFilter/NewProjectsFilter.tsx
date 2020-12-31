@@ -80,6 +80,18 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         getGalleryProjects();
         getParamFilterProjects(boundsMap, options)
     }
+    if (paramProjects.startyear) {
+        paramProjects.startyear.sort((a: any, b: any) => {
+            return a.value - b.value;
+        })
+    }
+
+    if (paramProjects.completedyear) {
+        paramProjects.completedyear.sort((a: any, b: any) => {
+            return a.value - b.value;
+        })
+    }
+
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
