@@ -31,11 +31,9 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     } else if (type === 'projecttype') {
       total = data.reduce((a: number, x: any) => a + x.counter, 0);
       pieChartData = data.map((d: any) => {
-        let index = selectedData.indexOf(d.value);
         return {
           key: d.value,
           counter: d.counter,
-          selected: index === -1 ? false : true,
           value: d.counter / total
         }
       });
@@ -75,10 +73,8 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .data(data_ready)
 
     slices
-      .enter()
-      .append('path')
       .attr('fill', (d: any): any => { return (color(d.data.key)) })
-      .style("opacity", 0.7)
+      .style("opacity", 1)
       .on('click', (d: any) => {
         let index = selectedData.indexOf(d.data.key);
         if (index !== -1) {
@@ -88,7 +84,29 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         }
       })
       .transition().duration(2000)
-      .attr('d', (d: any) => d.data.selected ? arc2(d) : arc(d))
+      .attr('d', (d: any) => {
+        let index = selectedData.indexOf(d.data.key);
+        return index !== -1 ? arc2(d) : arc(d)
+      })
+
+    slices
+      .enter()
+      .append('path')
+      .attr('fill', (d: any): any => { return (color(d.data.key)) })
+      .style("opacity", 1)
+      .on('click', (d: any) => {
+        let index = selectedData.indexOf(d.data.key);
+        if (index !== -1) {
+          setSelectedData(selectedData.filter((_, ind) => ind !== index))
+        } else {
+          setSelectedData([...selectedData, d.data.key])
+        }
+      })
+      .transition().duration(2000)
+      .attr('d', (d: any) => {
+        let index = selectedData.indexOf(d.data.key);
+        return index !== -1 ? arc2(d) : arc(d)
+      })
 
     slices.exit().remove();
 
@@ -97,32 +115,73 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .data(data_ready);
 
     texts
+      .text((d: any) => { return d.value === 0 ? '' : d3.format(".0%")(d.value) })
+      .attr("transform", (d: any) => { return "translate(" + arc.centroid(d) + ")"; })
+      .attr("fill", "white")
+      .attr('font-weight', 'bold')
+      .style("text-anchor", "middle")
+      .style("font-size", 12)
+
+    texts
       .enter()
       .append('text')
-      .text(function (d: any) { return d3.format(".0%")(d.value) })
-      .attr("transform", function (d: any) { return "translate(" + arc.centroid(d) + ")"; })
+      .text((d: any) => { return d.value === 0 ? '' : d3.format(".0%")(d.value) })
+      .attr("transform", (d: any) => { return "translate(" + arc.centroid(d) + ")"; })
+      .attr("fill", "white")
+      .attr('font-weight', 'bold')
       .style("text-anchor", "middle")
-      .style("font-size", 10)
+      .style("font-size", 12)
 
     texts.exit().remove()
 
-    svg
+    var legendsText = svg
       .selectAll('slices')
       .data(data_ready)
+    
+    legendsText.exit().remove();
+
+    legendsText
       .enter()
       .append('text')
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
         let xo = (i % 2 === 0 ? -radius : 30) + 22;
-        let yo = ((radius + Math.floor(i / 2) * 20) + 10);
+        let yo = ((radius + Math.floor(i / 2) * 20) + 20);
         return `translate(${xo},${yo})`;
       })
-      .style("font-size", 10)
+      .style("font-size", 12)
+      .style('opacity', 0.8)
 
-    svg
+    legendsText
+      .text(function (d: any) { return d.data.key })
+      .attr("transform", (d: any, i) => {
+        let xo = (i % 2 === 0 ? -radius : 30) + 22;
+        let yo = ((radius + Math.floor(i / 2) * 20) + 20);
+        return `translate(${xo},${yo})`;
+      })
+      .style("font-size", 12)
+      .style('opacity', 0.8)
+
+    var legendsBar = svg
       .selectAll('slices')
       .data(data_ready)
-      .enter()
+    
+    legendsBar.exit().remove();
+
+    legendsBar
+      .style("fill", (d: any): any => {
+        return color(d.data.key)
+      })
+      .attr("x", (d: any, i) => {
+        return (i % 2 === 0 ? -radius : 30)
+      })
+      .attr("y", (d: any, i) => {
+        return radius + 15 + Math.floor(i / 2) * 20
+      })
+      .attr('width', 20)
+      .attr('height', 6)
+
+    legendsBar.enter()
       .append('rect')
       .style("fill", (d: any): any => {
         return color(d.data.key)
@@ -131,7 +190,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         return (i % 2 === 0 ? -radius : 30)
       })
       .attr("y", (d: any, i) => {
-        return radius + 5 + Math.floor(i / 2) * 20
+        return radius + 15 + Math.floor(i / 2) * 20
       })
       .attr('width', 20)
       .attr('height', 6)
