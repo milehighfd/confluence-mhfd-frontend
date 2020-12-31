@@ -103,7 +103,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: -5 }}>Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.projecttype &&
                     <PieChart type={'projecttype'} defaultValue={''}
@@ -113,7 +113,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: -5 }}>Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.estimatedCost &&
                     <RheoStat axisLabel={axisLabel} defaultValue={''}
@@ -125,7 +125,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         </Row>
         <Row className="filt-00">
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: -5 }}>Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.status &&
                     <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
@@ -135,7 +135,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: -5 }}>MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.mhfddollarsallocated &&
                     <RheoStat axisLabel={axisLabel} defaultValue={[]}
@@ -147,7 +147,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         </Row>
         <Row className="filt-00">
             <Col span={12} className="filter-menu">
-                <h5 style={{ marginBottom: 0 }}>Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: -5 }}>Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.startyear &&
                     <RheoStatYear type={'startyear'} axisLabel={axisLabel} defaultValue={''}
@@ -157,7 +157,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: -5 }}>Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.completedyear &&
                     <RheoStatYear type={'completedyear'} axisLabel={axisLabel} defaultValue={''}
@@ -169,7 +169,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         </Row>
         <Row className="filt-00">
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: -5 }}>Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.servicearea &&
                     <TreeMap data={paramProjects.servicearea} type={'servicearea'} tab={'project'}
@@ -178,7 +178,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 style={{ marginBottom: -5 }}>County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.county &&
                     <TreeMap data={paramProjects.county} type={'county'} tab={'project'}
@@ -190,7 +190,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
 
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 style={{ marginBottom: -5 }}>Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.consultant &&
                     <>
@@ -212,7 +212,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 style={{ marginBottom: -5 }}>Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.contractor &&
                     <>
@@ -236,7 +236,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 style={{ marginBottom: -5 }}>Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.jurisdiction &&
                     <>
@@ -258,7 +258,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>MHFD Project Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 style={{ marginBottom: -5 }}>MHFD Project Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.mhfdmanager &&
                     <>
@@ -282,7 +282,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Local Government Mngr <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 style={{ marginBottom: -5 }}>Local Government Mngr <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.lgmanager &&
                     <>
@@ -304,7 +304,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Stream Name <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5 style={{ marginBottom: -5 }}>Stream Name <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.streamname &&
                     <>
@@ -328,7 +328,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5 style={{ marginBottom: 0 }}>Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: -5 }}>Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.workplanyear &&
                     <>

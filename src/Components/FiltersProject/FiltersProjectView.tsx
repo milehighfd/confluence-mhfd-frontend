@@ -233,7 +233,7 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
     const getFilterBody = (trigger: string) => {
         switch (trigger) {
             case FILTER_PROBLEMS_TRIGGER:
-                return <ProblemsFilter paramProblems={paramFilters.problems}
+                return <NewProblemsFilter paramProblems={paramFilters.problems}
                     filterProblemOptions={filterProblemOptions}
                     setFilterProblemOptions={setFilterProblemOptions}
                     getGalleryProblems={getGalleryProblems}
