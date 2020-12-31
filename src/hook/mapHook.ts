@@ -82,8 +82,8 @@ export const useMapDispatch = () => {
     getParamFilterProjects: (bounds: string, data?: any) => {
       dispatch(getParamFilterProjects(bounds, data));
     },
-    getParamFilterProblems: (bounds: string) => {
-      dispatch(getParamFilterProblems(bounds));
+    getParamFilterProblems: (bounds: string, data?: any) => {
+      dispatch(getParamFilterProblems(bounds, data));
     },
     getParamFilterComponents: (bounds: string, data?: any) => {
       dispatch(getParamFilterComponents(bounds, data));
