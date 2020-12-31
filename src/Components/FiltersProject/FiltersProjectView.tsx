@@ -239,7 +239,7 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
                     getGalleryProblems={getGalleryProblems}
                     setToggleFilters={setToggleFilters} />
             case FILTER_PROJECTS_TRIGGER:
-                return <ProjectsFilter paramProjects={paramFilters.projects}
+                return <NewProjectsFilter paramProjects={paramFilters.projects}
                     filterProjectOptions={filterProjectOptions}
                     setFilterProjectOptions={setFilterProjectOptions}
                     getGalleryProjects={getGalleryProjects}
