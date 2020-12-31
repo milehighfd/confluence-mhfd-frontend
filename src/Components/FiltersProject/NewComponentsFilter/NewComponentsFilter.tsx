@@ -61,40 +61,28 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
         return r.value !== null && r.value !== '';
     }
 
-    if (paramComponents.watershed) {
-        paramComponents.watershed = paramComponents.watershed.filter(filterFunction)
-        paramComponents.watershed.sort((a: any, b: any) => {
-            return a.value.localeCompare(b.value)
+
+    ['watershed', 'jurisdiction', 'county', 'servicearea', 'status']
+        .forEach((key: string) => {
+            if (paramComponents[key]) {
+                paramComponents[key] = paramComponents[key].filter(filterFunction);
+            }
         });
-    }
-    if (paramComponents.jurisdiction) {
-        paramComponents.jurisdiction = paramComponents.jurisdiction.filter(filterFunction)
-        paramComponents.jurisdiction.sort((a: any, b: any) => {
-            return a.value.localeCompare(b.value)
+    ['watershed', 'jurisdiction']
+        .forEach((key: string) => {
+            if (paramComponents[key]) {
+                paramComponents[key].sort((a: any, b: any) => {
+                    return a.value.localeCompare(b.value)
+                });
+            }
         });
-    }
-    if (paramComponents.jurisdiction) {
-        paramComponents.jurisdiction = paramComponents.jurisdiction.filter(filterFunction)
-        paramComponents.jurisdiction.sort((a: any, b: any) => {
-            return a.value.localeCompare(b.value)
-        });
-    }
-    if (paramComponents.county) {
-        paramComponents.county = paramComponents.county.filter(filterFunction)
-    }
-    if (paramComponents.servicearea) {
-        paramComponents.servicearea = paramComponents.servicearea.filter(filterFunction)
-    }
-    if (paramComponents.status) {
-        paramComponents.status = paramComponents.status.filter(filterFunction)
-    }
 
     const axisLabel = 'Number of Components';
 
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 295 }}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5 style={{marginBottom: 0}}>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: 0 }}>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.component_type &&
                     <HorizontalBarChart type={'component_type'} defaultValue={''} axisLabel={axisLabel}
@@ -104,7 +92,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{marginBottom: 0}}>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: 0 }}>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.estimatedcost &&
                     <RheoStat defaultValue={[]} type={'estimatedcost'} axisLabel={axisLabel}
@@ -117,7 +105,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
 
         <Row className="filt-00">
             <Col span={12}>
-                <h5 style={{marginBottom: 0}}>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: 0 }}>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.status &&
                     <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
@@ -127,7 +115,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{marginBottom: 0}}>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: 0 }}>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.yearofstudy &&
                     <RheoStatYear type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
@@ -139,7 +127,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5 style={{marginBottom: 0}}>Watershed Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: 0 }}>Watershed Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.servicearea &&
                     <TreeMap data={paramComponents.servicearea} type={'servicearea'} tab={'component'}
@@ -148,7 +136,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{marginBottom: 0}}>County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: 0 }}>County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.county &&
                     <TreeMap data={paramComponents.county} type={'county'} tab={'component'}
@@ -160,46 +148,46 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
 
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5 style={{marginBottom: 0}}>Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: 0 }}>Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.jurisdiction &&
                     <>
-                    <Button className="btn-svg" onClick={()=>{}}>
-                    <u>Apply</u>
-                    </Button>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
                     &nbsp;|&nbsp;
-                    <Button className="btn-svg" onClick={() => {apply('', 'jurisdiction')}}>
-                        <u>Reset</u>
-                    </Button>
-                    <Select value={filterComponentOptions.jurisdiction ? filterComponentOptions.jurisdiction : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                        apply(e, 'jurisdiction');
-                    }}>
-                        {paramComponents.jurisdiction.map((element: any, index: number) => {
-                            return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
-                        })}
-                    </Select>
+                    <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
+                            <u>Reset</u>
+                        </Button>
+                        <Select value={filterComponentOptions.jurisdiction ? filterComponentOptions.jurisdiction : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                            apply(e, 'jurisdiction');
+                        }}>
+                            {paramComponents.jurisdiction.map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                            })}
+                        </Select>
                     </>
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{marginBottom: 0}}>MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 style={{ marginBottom: 0 }}>MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.watershed &&
                     <>
-                    <Button className="btn-svg" onClick={()=>{}}>
-                    <u>Apply</u>
-                    </Button>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
                     &nbsp;|&nbsp;
-                    <Button className="btn-svg" onClick={() => {apply('', 'mhfdmanager')}}>
-                        <u>Reset</u>
-                    </Button>
-                    <Select value={filterComponentOptions.mhfdmanager ? filterComponentOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                        apply(e, 'mhfdmanager');
-                    }}>
-                        {paramComponents.watershed.map((element: any, index: number) => {
-                            return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
-                        })}
-                    </Select>
+                    <Button className="btn-svg" onClick={() => { apply('', 'mhfdmanager') }}>
+                            <u>Reset</u>
+                        </Button>
+                        <Select value={filterComponentOptions.mhfdmanager ? filterComponentOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                            apply(e, 'mhfdmanager');
+                        }}>
+                            {paramComponents.watershed.map((element: any, index: number) => {
+                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                            })}
+                        </Select>
                     </>
                 }
             </Col>

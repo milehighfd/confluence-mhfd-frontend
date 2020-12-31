@@ -11,7 +11,7 @@ const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 const content1 = (<div className="popoveer-00"><b>County:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 const content2 = (<div className="popoveer-00"><b>Jurisdiction:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content3 = (<div className="popoveer-00"><b>Watershed Manager:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content3 = (<div className="popoveer-00"><b>MHFD Project Manager:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 const content4 = (<div className="popoveer-00"><b>Project Type:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
 const content05 = (<div className="popoveer-00"><b>Estimated Project Cost:</b> is the Estimated Cost (for Projects in progress) or Final Cost (for completed Projects).</div>);
 const content06 = (<div className="popoveer-00"><b>Project Status:</b> is the current status of the Project. Some statuses are only applicable to certain project types.</div>);
@@ -80,17 +80,23 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
         getGalleryProjects();
         getParamFilterProjects(boundsMap, options)
     }
-    if (paramProjects.startyear) {
-        paramProjects.startyear.sort((a: any, b: any) => {
-            return a.value - b.value;
-        })
-    }
 
-    if (paramProjects.completedyear) {
-        paramProjects.completedyear.sort((a: any, b: any) => {
-            return a.value - b.value;
-        })
-    }
+    ['startyear', 'completedyear', 'workplanyear'].forEach((key: string) => {
+        if (paramProjects[key]) {
+            paramProjects.completedyear.sort((a: any, b: any) => {
+                return a.value - b.value;
+            })
+        }
+    });
+
+    ['consultant', 'contractor', 'jurisdiction', 'mhfdmanager', 'lgmanager', 'streamname']
+        .forEach((key: string) => {
+            if (paramProjects[key]) {
+                paramProjects[key].sort((a: any, b: any) => {
+                    return a.value.localeCompare(b.value)
+                });
+            }
+        });
 
     const axisLabel = 'Number of Projects';
 
@@ -252,7 +258,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
             <Col span={12}>
-                <h5>MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
+                <h5>MHFD Project Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.mhfdmanager &&
                     <>

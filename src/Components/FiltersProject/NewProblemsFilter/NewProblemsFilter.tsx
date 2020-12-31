@@ -53,6 +53,15 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
         getParamFilterProblems(boundsMap, options);
     }
 
+    ['mhfdmanager', 'jurisdiction']
+        .forEach((key: string) => {
+            if (paramProblems[key]) {
+                paramProblems[key].sort((a: any, b: any) => {
+                    return a.value.localeCompare(b.value)
+                });
+            }
+        });
+
     const axisLabel = 'Number of Problems';
 
     return (
