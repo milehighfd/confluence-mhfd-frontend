@@ -113,6 +113,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
             }
             return opaquedColor;
           })
+
         setSelectedData(sData);
         setMinTick(currentMin);
         setMaxTick(currentMax);
@@ -218,7 +219,15 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
     gRange.call(sliderRange);
 
     service.ref = sliderRange;
-
+    d3
+      .select(svgRef.current)
+      .selectAll('.track-inset')
+      .attr('stroke', opaquedColor)
+      .attr('stroke-width', 6);
+    d3
+      .select(svgRef.current)
+      .selectAll('.track-fill')
+      .attr('stroke-width', 6);
   }, [data, selectedData]);
 
   const apply = () => {

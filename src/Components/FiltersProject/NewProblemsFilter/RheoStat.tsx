@@ -106,13 +106,17 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
             }
             return opaquedColor;
           })
+        d3
+          .select(svgRef.current)
+          .selectAll('.track-inset')
+          .attr('stroke', opaquedColor);
         setSelectedData(sData);
         setMinTick(currentMin);
         setMaxTick(currentMax);
         const [dmin, dmax] = getMinMax(currentMin, currentMax);
         setLeft(dmin);
         setRight(dmax);
-      });
+      })
 
     var svg = d3
       .select(svgRef.current)
@@ -209,6 +213,15 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     service.ref = sliderRange;
 
+    d3
+      .select(svgRef.current)
+      .selectAll('.track-inset')
+      .attr('stroke', opaquedColor)
+      .attr('stroke-width', 6);
+    d3
+      .select(svgRef.current)
+      .selectAll('.track-fill')
+      .attr('stroke-width', 6);
   }, [data, selectedData]);
 
   const apply = () => {
