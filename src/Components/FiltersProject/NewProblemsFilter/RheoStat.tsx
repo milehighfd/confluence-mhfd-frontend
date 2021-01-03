@@ -12,23 +12,22 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
 
-  let condition: boolean = type !== 'year';
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minTick, setMinTick] = useState(0);
-  const [maxTick, setMaxTick] = useState(condition ? data.length : data.length - 1);
+  const [maxTick, setMaxTick] = useState(data.length);
 
   const width = 200;
   const height = 180;
   const marginLeft = 30;
   const rounded = 4;
-  const fillColor = condition ? '#2dc49a' : '#ffdc00';
-  const opaquedColor = condition ? '#b7eadc' : '#fff2a8';
+  const fillColor = '#2dc49a';
+  const opaquedColor = '#b7eadc';
 
   useEffect(() => {
     setSelectedData(selected);
     if (selected.length === 0) {
       setMinTick(0);
-      setMaxTick(condition ? data.length : data.length - 1);
+      setMaxTick(data.length);
     } else {
       let minValue = selected[0];
       let maxValue = selected[selected.length - 1];
@@ -49,24 +48,19 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
   useEffect(() => {
 
     const keyFn = (d: any) => {
-      return condition ? d.max : d.value;
+      return d.max;
     }
 
     const filterFn = (d: any) => {
-      return condition ? true : d !== null
+      return true;
     }
 
     const getMinMax = (cmin: any, cmax: any) => {
       let minValue, maxValue;
-      if (condition) {
-        minValue = cmin < data.length ? data[cmin] : { min: 0 };
-        maxValue = data[cmax - 1];
-        minValue = minValue.min;
-        maxValue = maxValue.max;
-      } else {
-        minValue = cmin < data.length ? data[cmin].value : data[cmin - 1].value;
-        maxValue = cmax < data.length ? data[cmax].value : data[cmax - 1].value;
-      }
+      minValue = cmin < data.length ? data[cmin] : { min: 0 };
+      maxValue = data[cmax - 1];
+      minValue = minValue.min;
+      maxValue = maxValue.max;
       return [minValue, maxValue];
     }
 
@@ -74,7 +68,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
 
     sliderRange = sliderBottom()
       .min(0)
-      .max(condition ? keys.length : keys.length - 1)
+      .max(keys.length)
       .width(width - marginLeft)
       .tickFormat(d3.format('.2%'))
       .ticks(0)
@@ -97,7 +91,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
           .attr('fill', (_: any, i) => {
             let d = data[i]
             if (currentMin <= i && i + 1 <= currentMax) {
-              let value = condition ? `${d.min},${d.max}` : d.value;
+              let value = `${d.min},${d.max}`;
               sData.push(value);
               return fillColor;
             }
@@ -131,7 +125,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
     y.domain([0, maxiCounter]);
 
     let xdr: any = (d: any) => {
-      let offset: any = condition ? x(d.max) : x(d.value);
+      let offset: any = x(d.max);
       return offset + 0.5;
     }
 
@@ -207,11 +201,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
   }, [data, selectedData]);
 
   const apply = () => {
-    if (condition) {
-      onSelect(selectedData);
-    } else {
-      onSelect(selectedData[0]);
-    }
+    onSelect(selectedData);
   }
 
   const reset = () => {
@@ -220,7 +210,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
       .select(svgRef.current)
       .selectAll(".bar-d3")
       .attr('fill', fillColor)
-    sliderRange.value([0, condition ? data.length : data.length - 1])
+    sliderRange.value([0, data.length])
   }
 
   const onChangeLeft = (e: any) => {
