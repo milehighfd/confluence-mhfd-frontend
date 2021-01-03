@@ -3,10 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { sliderBottom } from 'd3-simple-slider';
 import { Button, Col, InputNumber, Row } from 'antd';
+import RheoStatService from './RheoStatService';
 
-var sliderRange: any;
 
-const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: any) => {
+const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
   const [left, setLeft] = useState(0);
@@ -15,6 +15,8 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minTick, setMinTick] = useState(0);
   const [maxTick, setMaxTick] = useState(data.length);
+
+  const [service] = useState<RheoStatService>(new RheoStatService());
 
   const width = 200;
   const height = 180;
@@ -66,7 +68,14 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
 
     let keys = data.map(keyFn).filter(filterFn);
 
-    sliderRange = sliderBottom()
+    let sliderRange;
+    if (!service.ref) {
+      sliderRange = sliderBottom()
+    } else {
+      sliderRange = service.ref;
+    }
+
+    sliderRange
       .min(0)
       .max(keys.length)
       .width(width - marginLeft)
@@ -198,6 +207,8 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
 
     gRange.call(sliderRange);
 
+    service.ref = sliderRange;
+
   }, [data, selectedData]);
 
   const apply = () => {
@@ -210,7 +221,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
       .select(svgRef.current)
       .selectAll(".bar-d3")
       .attr('fill', fillColor)
-    sliderRange.value([0, data.length])
+    service.ref.value([0, data.length])
   }
 
   const onChangeLeft = (e: any) => {

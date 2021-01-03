@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { sliderBottom } from 'd3-simple-slider';
 import { Button, Col, InputNumber, Row } from 'antd';
+import RheoStatService from './RheoStatService';
 
-var sliderRange: any;
 
 const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -15,6 +15,8 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
   const [maxTick, setMaxTick] = useState(data.length - 1);
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
+
+  const [service] = useState<RheoStatService>(new RheoStatService());
 
   const width = 200;
   const height = 200;
@@ -73,7 +75,14 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
 
     let keys = data.map(keyFn).filter(filterFn);
 
-    sliderRange = sliderBottom()
+    let sliderRange;
+    if (!service.ref) {
+      sliderRange = sliderBottom()
+    } else {
+      sliderRange = service.ref;
+    }
+
+    sliderRange
       .min(0)
       .max(keys.length-1)
       .width(width-marginLeft)
@@ -208,6 +217,8 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
 
     gRange.call(sliderRange);
 
+    service.ref = sliderRange;
+
   }, [data, selectedData]);
 
   const apply = () => {
@@ -224,7 +235,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
       .select(svgRef.current)
       .selectAll(".bar-d3")
       .attr('fill', fillColor)
-    sliderRange.value([0, data.length])
+    service.ref.value([0, data.length])
   }
 
   const onChangeLeft = (e: any) => {
