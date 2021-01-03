@@ -9,6 +9,7 @@ import RheoStatService from './RheoStatService';
 const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
+
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
 
@@ -41,8 +42,17 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   }, [selected])
 
   useEffect(() => {
-    let minValue = data[minTick].min;
-    let maxValue = data[maxTick - 1].max;
+    let minValue, maxValue;
+    if (minTick === data.length) {
+      minValue = data[minTick - 1].max;
+    } else {
+      minValue = data[minTick].min;
+    }
+    if (maxTick === 0) {
+      maxValue = data[maxTick].min;
+    } else {
+      maxValue = data[maxTick - 1].max;
+    }
     setLeft(minValue);
     setRight(maxValue);
   });
@@ -53,20 +63,16 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       return d.max;
     }
 
-    const filterFn = (d: any) => {
-      return true;
-    }
-
     const getMinMax = (cmin: any, cmax: any) => {
       let minValue, maxValue;
-      minValue = cmin < data.length ? data[cmin] : { min: 0 };
-      maxValue = data[cmax - 1];
+      minValue = cmin < data.length ? data[cmin] : data[data.length -1];
+      maxValue = cmax < data.length ? data[cmax] : data[data.length -1];
       minValue = minValue.min;
       maxValue = maxValue.max;
       return [minValue, maxValue];
     }
 
-    let keys = data.map(keyFn).filter(filterFn);
+    let keys = data.map(keyFn);
 
     let sliderRange;
     if (!service.ref) {
