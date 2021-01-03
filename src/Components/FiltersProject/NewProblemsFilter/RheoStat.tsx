@@ -13,9 +13,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
 
-  const [selectedData, setSelectedData] = useState<string[]>([]);
-  const [minTick, setMinTick] = useState(0);
-  const [maxTick, setMaxTick] = useState(data.length);
+  const [selectedData, setSelectedData] = useState<any[]>([]);
 
   const [service] = useState<RheoStatService>(new RheoStatService());
 
@@ -27,37 +25,6 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   const opaquedColor = '#b7eadc';
 
   useEffect(() => {
-    setSelectedData(selected);
-    if (selected.length === 0) {
-      setMinTick(0);
-      setMaxTick(data.length);
-    } else {
-      let minValue = selected[0];
-      let maxValue = selected[selected.length - 1];
-      let minIndex = data.map((r: any) => `${r.min},${r.max}`).indexOf(minValue);
-      let maxIndex = data.map((r: any) => `${r.min},${r.max}`).indexOf(maxValue);
-      setMinTick(minIndex);
-      setMaxTick(maxIndex + 1);
-    }
-  }, [selected])
-
-  useEffect(() => {
-    let minValue, maxValue;
-    if (minTick === data.length) {
-      minValue = data[minTick - 1].max;
-    } else {
-      minValue = data[minTick].min;
-    }
-    if (maxTick === 0) {
-      maxValue = data[maxTick].min;
-    } else {
-      maxValue = data[maxTick - 1].max;
-    }
-    setLeft(minValue);
-    setRight(maxValue);
-  });
-
-  useEffect(() => {
 
     const keyFn = (d: any) => {
       return d.max;
@@ -65,8 +32,8 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     const getMinMax = (cmin: any, cmax: any) => {
       let minValue, maxValue;
-      minValue = cmin < data.length ? data[cmin] : data[data.length -1];
-      maxValue = cmax < data.length ? data[cmax] : data[data.length -1];
+      minValue = cmin < data.length ? data[cmin] : data[data.length - 1];
+      maxValue = cmax < data.length ? data[cmax] : data[data.length - 1];
       minValue = minValue.min;
       maxValue = maxValue.max;
       return [minValue, maxValue];
@@ -77,9 +44,12 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
     let sliderRange;
     if (!service.ref) {
       sliderRange = sliderBottom()
+        .default([0, keys.length])
     } else {
       sliderRange = service.ref;
     }
+    setLeft(data[0].min)
+    setRight(data[data.length - 1].max)
 
     sliderRange
       .min(0)
@@ -88,7 +58,6 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .tickFormat(d3.format('.2%'))
       .ticks(0)
       .step(1)
-      .default([minTick, maxTick])
       .handle(
         d3
           .symbol()
@@ -117,8 +86,6 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
           .selectAll('.track-inset')
           .attr('stroke', opaquedColor);
         setSelectedData(sData);
-        setMinTick(currentMin);
-        setMaxTick(currentMax);
         const [dmin, dmax] = getMinMax(currentMin, currentMax);
         setLeft(dmin);
         setRight(dmax);
@@ -165,8 +132,9 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
         return height - yCounterFn(d);
       });
 
-    rects
-      .enter().append("rect").lower()
+    let newRects = rects
+      .enter().append("rect").lower();
+    newRects
       .attr("class", "bar-d3")
       .attr('rx', rounded)
       .attr('ry', rounded)
@@ -178,6 +146,10 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
         let d = data[i];
         return height - yCounterFn(d);
       });
+
+    newRects.sort((a: any, b: any) => {
+      return a.min - b.min;
+    })
 
     rects.exit().remove();
 
@@ -228,10 +200,16 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .select(svgRef.current)
       .selectAll('.track-fill')
       .attr('stroke-width', 6);
-  }, [data, selectedData]);
+
+  }, [data]);
 
   const apply = () => {
     onSelect(selectedData);
+    if (service.ref) {
+      service.ref.value([0, 20]);
+    }
+    setLeft(selectedData[0].split(',')[0]);
+    setRight(selectedData[selectedData.length - 1].split(',')[1]);
   }
 
   const reset = () => {
