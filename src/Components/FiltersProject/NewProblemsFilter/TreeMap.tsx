@@ -11,7 +11,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   const [leftOffset, setLeftOffset] = useState(0);
   const [topOffset, setTopOffset] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
-  const [popupContent, setPopupContent] = useState('');
+  const [popupContent, setPopupContent] = useState<any>(null);
 
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
@@ -124,7 +124,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     }
 
     let mouseOverFn = (d: any) => {
-      setPopupContent(`${d.data.name}: ${d.data.value}`)
+      setPopupContent(d)
       setLeftOffset((d.x0 + d.x1) / 2);
       setTopOffset((d.y0 + d.y1) / 2);
       setShowPopup(true);
@@ -294,13 +294,20 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     top: topOffset,
     backgroundColor: 'white',
     textAlign: 'center',
-    padding: 8
+    padding: 8,
+    borderRadius: 8,
+    fontSize: 12,
+    zIndex: 5
   }
 
   return (
     <>
       <div ref={popupRef} style={popupStyle} className="text-center">
-          {popupContent}
+          { popupContent &&
+            <>
+              <b>{nameFormatter(popupContent.data.name)}</b>: {popupContent.data.value}
+            </>
+          }
       </div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
