@@ -221,7 +221,13 @@
       font-size: 18px;
     }
   }
-  // .ant-carousel .slick-dots{
-  //   display: none !important;
-  // }
+  .ant-carousel .slick-dots{
+    display: none !important;
+  }
+  .ant-modal-close {
+    right: 12%;
+  }
+ .ant-modal-close-x {
+    color: white !important;
+  }
 }
