@@ -132,13 +132,13 @@ const Map = ({ leftWidth,
     const [allLayers, setAllLayers] = useState(empty);
     //const [layerOpacity, setLayerOpacity] = useState(false);
     const coor: any[][] = [];
-    const coordinatesMHFD = [[
+    const coordinatesMHFD = [
         [-105.3236581, 39.4057815],
         [-105.3236581, 40.1315705],
         [-104.4889475, 40.1315705],
         [-104.4889475, 39.4057815],
         [-105.3236581, 39.4057815]
-    ]];
+    ];
     const [data, setData] = useState({
         problemid: '',
         id: '',
@@ -567,8 +567,6 @@ const Map = ({ leftWidth,
     }, [zoom]);
 
     useEffect(() => {
-        console.log('my polygon ', polygon);
-        console.log(coor);
         map.fitBounds(coor);
     }, [polygon])
 
