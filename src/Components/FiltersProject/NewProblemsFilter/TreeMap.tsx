@@ -6,6 +6,12 @@ import { CHART_CONSTANTS } from './Charts.constants';
 
 const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  const [leftOffset, setLeftOffset] = useState(0);
+  const [topOffset, setTopOffset] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupContent, setPopupContent] = useState('');
 
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
@@ -116,8 +122,22 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         setSelectedData([...selectedData, d.data.name])
       }
     }
+
+    let mouseOverFn = (d: any) => {
+      setPopupContent(`${d.data.name}: ${d.data.value}`)
+      setLeftOffset((d.x0 + d.x1) / 2);
+      setTopOffset((d.y0 + d.y1) / 2);
+      setShowPopup(true);
+    }
+
+    let mouseLeaveFn = () => {
+      setShowPopup(false);
+    }
+
     
     rects.on('click', clickFn)
+    rects.on('mouseover', mouseOverFn).on('mouseleave', mouseLeaveFn)
+    rects.on('mouseleave', mouseLeaveFn)
 
     let newRects = rects
       .enter()
@@ -144,6 +164,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         }
       })
       .on('click', clickFn)
+      .on('mouseover', mouseOverFn).on('mouseleave', mouseLeaveFn)
 
     var textsOffsetX = 0;
     var textsOffsetY = 0;
@@ -176,13 +197,14 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr('font-weight', 'bold')
       .style("text-anchor", "middle")
     
-    texts.on('click', clickFn)
+    texts.on('click', clickFn).on('mouseover', mouseOverFn).on('mouseleave', mouseLeaveFn)
 
     texts
       .enter()
       .append("text")
       .attr("class", "titles")
       .on('click', clickFn)
+      .on('mouseover', mouseOverFn).on('mouseleave', mouseLeaveFn)
       .transition().duration(2000)
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + textsOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + textsOffsetY })
@@ -229,13 +251,13 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .style("text-anchor", "middle")
       .style('opacity', 0.7)
     
-    percentages.on('click', clickFn)
+    percentages.on('click', clickFn).on('mouseover', mouseOverFn).on('mouseleave', mouseLeaveFn)
 
     percentages
       .enter()
       .append("text")
       .attr("class", "percentages")
-      .on('click', clickFn)
+      .on('click', clickFn).on('mouseover', mouseOverFn).on('mouseleave', mouseLeaveFn)
       .transition().duration(2000)
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + percentageOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + percentageOffsetY })
@@ -265,8 +287,20 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     onSelect(defaultValue);
   }
 
+  const popupStyle: React.CSSProperties = {
+    display: showPopup ? 'block' : 'none',
+    position: 'absolute',
+    left: leftOffset - (popupRef.current ? popupRef.current.offsetWidth / 2 : 0),
+    top: topOffset,
+    backgroundColor: 'white',
+    textAlign: 'center'
+  }
+
   return (
     <>
+      <div ref={popupRef} style={popupStyle} className="text-center">
+          {popupContent}
+      </div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
       </Button>
