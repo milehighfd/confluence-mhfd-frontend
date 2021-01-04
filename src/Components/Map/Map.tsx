@@ -125,7 +125,7 @@ const Map = ({ leftWidth,
     const [zoomValue, setZoomValue] = useState(0);
     // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
     const [zoomEndCounter, setZoomEndCounter] = useState(0);
     const [dragEndCounter, setDragEndCounter] = useState(0);
     const empty:any[] = [];
@@ -144,7 +144,8 @@ const Map = ({ leftWidth,
         id: '',
         objectid: '',
         value: '',
-        type: ''
+        type: '',
+        cartoid: ''
     });
 
     const polyMask = (mask: any, bounds: any) => {
@@ -304,6 +305,12 @@ const Map = ({ leftWidth,
             div.innerHTML = `${counterPopup.componentes}`;
         }
     }, [counterPopup]);
+
+    useEffect(() => {
+        if(data.problemid || data.cartoid) {
+            setVisible(true);
+        }
+    }, [data]);
 
     useEffect(() => {
         let mask
@@ -1275,11 +1282,35 @@ const Map = ({ leftWidth,
                     for (const index in popups) {
                         console.log(index);
                         document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
+                        document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
                     }
                 }
             }
         });
     }, [allLayers]);
+    const seeDetails = (details: any, event: any) => {
+        
+        if (details.problemid) {
+            setData({
+                id: '',
+                objectid: '',
+                cartoid: '',
+                type: '',
+                value: '',
+                problemid: details.problemid
+            });
+        } else {
+            setData({
+                id: details.id !== '-'? details.id: undefined,
+                objectid: details.objectid,
+                cartoid: details.valueid,
+                type: details.type,
+                value: details.value,
+                problemid: ''
+            });
+        }
+        
+    }
     const addMapListeners = async (key: string) => {
         const styles = { ...tileStyles as any };
         const availableLayers: any[] = [];
@@ -1589,7 +1620,7 @@ const Map = ({ leftWidth,
 
     return (
         <div className="map">
-            {displayModal && visible && <DetailedModal
+            {visible && <DetailedModal
                 detailed={detailed}
                 getDetailedPageProblem={getDetailedPageProblem}
                 getDetailedPageProject={getDetailedPageProject}
