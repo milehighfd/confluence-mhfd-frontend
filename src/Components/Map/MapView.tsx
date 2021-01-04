@@ -695,6 +695,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const onSelect = (value: any) => {
     console.log('Selected:', value);
     setAutocomplete(value);
+    setvalueA(value);
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
       return {
         aoi: element.aoi,
