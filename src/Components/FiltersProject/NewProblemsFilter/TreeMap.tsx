@@ -293,7 +293,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     left: leftOffset - (popupRef.current ? popupRef.current.offsetWidth / 2 : 0),
     top: topOffset,
     backgroundColor: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: 8
   }
 
   return (

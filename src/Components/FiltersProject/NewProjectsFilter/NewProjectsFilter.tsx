@@ -188,7 +188,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
             </Col>
         </Row>
 
-        <Row className="filt-00" gutter={[24, 16]}>
+        <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
                 <h5 style={{ marginBottom: -5 }}>Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
@@ -234,7 +234,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
         </Row>
-        <Row className="filt-00" gutter={[24, 16]}>
+        <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
                 <h5 style={{ marginBottom: -5 }}>Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
@@ -280,7 +280,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
         </Row>
-        <Row className="filt-00" gutter={[24, 16]}>
+        <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
                 <h5 style={{ marginBottom: -5 }}>Local Government Mngr <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
@@ -326,7 +326,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 }
             </Col>
         </Row>
-        <Row className="filt-00" gutter={[24, 16]}>
+        <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
                 <h5 style={{ marginBottom: -5 }}>Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
