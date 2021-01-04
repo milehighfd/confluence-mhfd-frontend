@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { Button } from 'antd';
 
+import { CHART_CONSTANTS } from './Charts.constants';
 
 const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -60,41 +61,44 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .selectAll('slices')
       .data(data_ready)
 
+    let clickFn = (d: any) => {
+      let index = selectedData.indexOf(d.data.key);
+      if (index !== -1) {
+        setSelectedData(selectedData.filter((_, ind) => ind !== index))
+      } else {
+        setSelectedData([...selectedData, d.data.key])
+      }
+    }
+
     slices
       .attr('fill', (d: any): any => { return (color(d.data.key)) })
-      .style("opacity", 1)
-      .on('click', (d: any) => {
+      .style("opacity", (d: any) => {
         let index = selectedData.indexOf(d.data.key);
-        if (index !== -1) {
-          setSelectedData(selectedData.filter((_, ind) => ind !== index))
-        } else {
-          setSelectedData([...selectedData, d.data.key])
-        }
+        return index === -1 ? CHART_CONSTANTS.opacityOpaque : CHART_CONSTANTS.opacityFull;
       })
+      .on('click', clickFn)
       .transition().duration(2000)
       .attr('d', (d: any) => {
         let index = selectedData.indexOf(d.data.key);
         return index !== -1 ? arc2(d) : arc(d)
       })
+      // .attr('d', (d: any) => arc(d))
 
     slices
       .enter()
       .append('path')
       .attr('fill', (d: any): any => { return (color(d.data.key)) })
-      .style("opacity", 1)
-      .on('click', (d: any) => {
+      .style("opacity", (d: any) => {
         let index = selectedData.indexOf(d.data.key);
-        if (index !== -1) {
-          setSelectedData(selectedData.filter((_, ind) => ind !== index))
-        } else {
-          setSelectedData([...selectedData, d.data.key])
-        }
+        return index === -1 ? CHART_CONSTANTS.opacityOpaque : CHART_CONSTANTS.opacityFull;
       })
+      .on('click', clickFn)
       .transition().duration(2000)
       .attr('d', (d: any) => {
         let index = selectedData.indexOf(d.data.key);
         return index !== -1 ? arc2(d) : arc(d)
       })
+      // .attr('d', (d: any) => arc(d))
 
     slices.exit().remove();
 
@@ -109,6 +113,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr('font-weight', 'bold')
       .style("text-anchor", "middle")
       .style("font-size", 12)
+      .on('click', clickFn)
 
     texts
       .enter()
@@ -119,6 +124,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr('font-weight', 'bold')
       .style("text-anchor", "middle")
       .style("font-size", 12)
+      .on('click', clickFn)
 
     texts.exit().remove()
 
@@ -138,7 +144,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         return `translate(${xo},${yo})`;
       })
       .style("font-size", 12)
-      .style('opacity', 0.8)
+      // .style('opacity', 0.8)
 
     legendsText
       .text(function (d: any) { return d.data.key })
@@ -148,7 +154,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         return `translate(${xo},${yo})`;
       })
       .style("font-size", 12)
-      .style('opacity', 0.8)
+      // .style('opacity', 0.8)
 
     var legendsBar = svg
       .selectAll('slices')

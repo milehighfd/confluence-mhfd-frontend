@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { Button } from 'antd';
+import { CHART_CONSTANTS } from './Charts.constants';
 
 const labelmap: any = {
   0: '0 - 25%',
@@ -178,9 +179,9 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .style("opacity", (d: any) => {
         let index = getIndex(d);
         if (index !== -1) {
-          return 1;
+          return CHART_CONSTANTS.opacityFull;
         } else {
-          return 0.7;
+          return CHART_CONSTANTS.opacityOpaque;
         }
       })
 
@@ -208,9 +209,9 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .style("opacity", (d: any) => {
         let index = getIndex(d);
         if (index !== -1) {
-          return 1;
+          return CHART_CONSTANTS.opacityFull;
         } else {
-          return 0.7;
+          return CHART_CONSTANTS.opacityOpaque;
         }
       })
 

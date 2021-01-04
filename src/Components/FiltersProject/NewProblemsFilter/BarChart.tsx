@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { Button } from 'antd';
+import { CHART_CONSTANTS } from './Charts.constants';
 
 const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -54,9 +55,11 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .selectAll(".singlebar")
       .data(data)
       
-    singleBars
+    var newBars = singleBars
       .enter()
       .append("rect")
+    
+    singleBars
       .attr("x", 50)
       .attr("y", yAccFn)
       .attr('width', 50)
@@ -71,20 +74,49 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .style("opacity", function(d:any) {
         let index = selectedData.indexOf(d.value);
         if (index !== -1) {
-          return 1;
+          return CHART_CONSTANTS.opacityFull;
         } else {
-          return 0.7;
+          return CHART_CONSTANTS.opacityOpaque;
         }
       })
       .on('click', (d: any) => {
         let index = selectedData.indexOf(d.value);
         if (index !== -1) {
-          selectedData.splice(index, 1);
+          setSelectedData(selectedData.filter((_, ind) => ind !== index))
         } else {
-          selectedData.push(d.value);
+          setSelectedData([...selectedData, d.value])
         }
       })
-    
+
+    newBars
+      .attr("x", 50)
+      .attr("y", yAccFn)
+      .attr('width', 50)
+      .attr('height', function (d:any, ) {
+        return height - yCountFn(d);
+      })
+      .attr('fill', (d:any, i) => {
+        if (i === 0) return '#29c499';
+        else if (i === 1) return '#ffdd00';
+        return '#fe687e';
+      })
+      .style("opacity", function(d:any) {
+        let index = selectedData.indexOf(d.value);
+        if (index !== -1) {
+          return CHART_CONSTANTS.opacityFull;
+        } else {
+          return CHART_CONSTANTS.opacityOpaque;
+        }
+      })
+      .on('click', (d: any) => {
+        let index = selectedData.indexOf(d.value);
+        if (index !== -1) {
+          setSelectedData(selectedData.filter((_, ind) => ind !== index))
+        } else {
+          setSelectedData([...selectedData, d.value])
+        }
+      })
+
     var labels =  svg
       .selectAll('.labels')
       .data(data);

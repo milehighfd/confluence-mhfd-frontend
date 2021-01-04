@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { Button } from 'antd';
+import { CHART_CONSTANTS } from './Charts.constants';
 
 const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -101,20 +102,22 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
-          return 1;
+          return CHART_CONSTANTS.opacityFull;
         } else {
-          return 0.6;
+          return CHART_CONSTANTS.opacityOpaque;
         }
       })
 
-    rects.on('click', (d: any) => {
+    let clickFn = (d: any) => {
       let index = selectedData.indexOf(d.data.name);
       if (index !== -1) {
         setSelectedData(selectedData.filter((_, ind) => ind !== index))
       } else {
         setSelectedData([...selectedData, d.data.name])
       }
-    })
+    }
+    
+    rects.on('click', clickFn)
 
     let newRects = rects
       .enter()
@@ -135,20 +138,12 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
-          return 1;
+          return CHART_CONSTANTS.opacityFull;
         } else {
-          return 0.6;
+          return CHART_CONSTANTS.opacityOpaque;
         }
       })
-
-    newRects.on('click', (d: any) => {
-      let index = selectedData.indexOf(d.data.name);
-      if (index !== -1) {
-        setSelectedData(selectedData.filter((_, ind) => ind !== index))
-      } else {
-        setSelectedData([...selectedData, d.data.name])
-      }
-    })
+      .on('click', clickFn)
 
     var textsOffsetX = 0;
     var textsOffsetY = 0;
@@ -180,11 +175,14 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr("fill", "black")
       .attr('font-weight', 'bold')
       .style("text-anchor", "middle")
+    
+    texts.on('click', clickFn)
 
     texts
       .enter()
       .append("text")
       .attr("class", "titles")
+      .on('click', clickFn)
       .transition().duration(2000)
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + textsOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + textsOffsetY })
@@ -230,11 +228,14 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .attr("fill", "black")
       .style("text-anchor", "middle")
       .style('opacity', 0.7)
+    
+    percentages.on('click', clickFn)
 
     percentages
       .enter()
       .append("text")
       .attr("class", "percentages")
+      .on('click', clickFn)
       .transition().duration(2000)
       .attr("x", function (d: any) { return (d.x0 + d.x1) / 2 + percentageOffsetX })
       .attr("y", function (d: any) { return (d.y1 + d.y0) / 2 + percentageOffsetY })
