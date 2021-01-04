@@ -106,7 +106,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
-  const { setToggleModalFilter, getParamFilterProjects, getParamFilterComponents,
+  const { setToggleModalFilter, getParamFilterProblems, getParamFilterProjects, getParamFilterComponents,
     setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete } = useMapDispatch();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber } = useMapState();
@@ -162,6 +162,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     options.servicearea = '';
     setFilterProblemOptions(options);
     getGalleryProblems();
+    if (toggleModalFilter) {
+      getParamFilterProblems(boundsMap, options)
+    }
   }
 
   const resetFilterProjects = () => {
@@ -229,6 +232,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     auxFilterProblems[tag] = tag === 'cost' ? auxValueTag : newValue;
     setFilterProblemOptions(auxFilterProblems);
     getGalleryProblems();
+    getParamFilterProblems(boundsMap, auxFilterProblems)
   }
 
   const deleteTagProjects = (tag: string, value: string) => {
@@ -251,6 +255,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     auxFilterProjects[tag] = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? auxValueTag : newValue;
     setFilterProjectOptions(auxFilterProjects);
     getGalleryProjects();
+    getParamFilterProjects(boundsMap, auxFilterProjects)
+
   }
 
   const generateLabelsFilterProblems = () => {
