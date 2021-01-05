@@ -376,6 +376,56 @@ const initState = {
             'detail': [],
             'popover': ''
         }
+    ],
+    labelsFiltersComponents: [
+        {
+            'name': 'component_type',
+            'display': 'COMPONENT TYPE',
+            'detail': [],
+            'popover': ''
+        },
+        {
+            'name': 'estimatedcost',
+            'display': 'ESTIMATED COST',
+            'detail': [],
+            'popover': ''
+        },
+        {
+            'name': 'status',
+            'display': 'COMPONENT STATUS',
+            'detail': [],
+            'popover': ''
+        },
+        {
+            'name': 'yearofstudy',
+            'display': 'YEAR OF STUDY',
+            'detail': [],
+            'popover': ''
+        },
+        {
+            'name': 'servicearea',
+            'display': 'WATERSHED SERVICE AREA',
+            'detail': [],
+            'popover': ''
+        },
+        {
+            'name': 'county',
+            'display': 'COUNTY',
+            'detail': [],
+            'popover': ''
+        },
+        {
+            'name': 'jurisdiction',
+            'display': 'JURISDICTION',
+            'detail': [],
+            'popover': ''
+        },
+        {
+            'name': 'mhfdmanager',
+            'display': 'MHFD Watershed Manager ',
+            'detail': [],
+            'popover': ''
+        }
     ]
 }
 
@@ -699,6 +749,12 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 labelsFiltersProblems: action.filters
+            }
+        }
+        case types.SET_LABELS_FILTER_COMPONENTS: {
+            return {
+                ...state,
+                labelsFiltersComponents: action.filters
             }
         }
         case types.SET_AUTOCOMPLETE: {

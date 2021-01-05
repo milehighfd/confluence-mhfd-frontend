@@ -14,6 +14,11 @@ export const spacingCamelCase = (text: string) => {
   }
   return '';
 }
+export const capitalLetter = (chain: string) => {
+  return chain.split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.substring(1))
+    .join(' ');
+}
 
 export const numberWithCommas = (x: number) => {
   return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;

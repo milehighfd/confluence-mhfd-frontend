@@ -8,13 +8,12 @@ import {
   getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
   setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
-  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync, setAutocomplete, getBBOXComponents, updateSelectedLayers
+  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync, setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
-import { dispatch } from 'd3';
 
-const selectMapStates: ParametricSelector<RootState, undefined, {
+interface selectMapState {
   toggleModalFilter: boolean,
   tabCards: string,
   filterTabNumber: string,
@@ -24,47 +23,69 @@ const selectMapStates: ParametricSelector<RootState, undefined, {
   nameZoomArea: string,
   labelsFiltersProjects: LabelFilter[],
   labelsFiltersProblems: LabelFilter[],
+  labelsFiltersComponents: LabelFilter[],
   spinFilters: boolean,
   spinCardProblems: boolean,
   spinCardProjects: boolean//,
   //paramFilters: any
-}> =
-  createSelector<any, boolean, string, string, string, boolean, any[], string, LabelFilter[], LabelFilter[], boolean, boolean, boolean, //any,
-    {
-      toggleModalFilter: boolean,
-      tabCards: string,
-      filterTabNumber: string,
-      boundsMap: string,
-      opacityLayer: boolean,
-      coordinatesJurisdiction: any[],
-      nameZoomArea: string,
-      labelsFiltersProjects: any[],
-      labelsFiltersProblems: any[],
-      spinFilters: boolean,
-      spinCardProblems: boolean,
-      spinCardProjects: boolean//,
-      //paramFilters: any
-    }>
-    (
-      state => state.map.toggleModalFilter,
-      state => state.map.tabCards,
-      state => state.map.filterTabNumber,
-      state => state.map.boundsMap,
-      state => state.map.opacityLayer,
-      state => state.map.coordinatesJurisdiction,
-      state => state.map.nameZoomArea,
-      state => state.map.labelsFiltersProjects,
-      state => state.map.labelsFiltersProblems,
-      state => state.map.spinFilters,
-      state => state.map.spinCardProblems,
-      state => state.map.spinCardProjects,
+}
+
+/* Commented because typescript doesn't support that many arguments
+createSelector<any, boolean, string, string, string, boolean, any[], string, LabelFilter[], LabelFilter[], boolean, boolean, boolean, //any,
+  {
+    toggleModalFilter: boolean,
+    tabCards: string,
+    filterTabNumber: string,
+    boundsMap: string,
+    opacityLayer: boolean,
+    coordinatesJurisdiction: any[],
+    nameZoomArea: string,
+    labelsFiltersProjects: any[],
+    labelsFiltersProblems: any[],
+    spinFilters: boolean,
+    spinCardProblems: boolean,
+    spinCardProjects: boolean//,
+    //paramFilters: any
+  }>
+  (
+    state => state.map.toggleModalFilter,
+    state => state.map.tabCards,
+    state => state.map.filterTabNumber,
+    state => state.map.boundsMap,
+    state => state.map.opacityLayer,
+    state => state.map.coordinatesJurisdiction,
+    state => state.map.nameZoomArea,
+    state => state.map.labelsFiltersProjects,
+    state => state.map.labelsFiltersProblems,
+    state => state.map.spinFilters,
+    state => state.map.spinCardProblems,
+    state => state.map.spinCardProjects,
+*/
+
+let createSelectorHack: any = createSelector;
+
+const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> =
+  createSelectorHack(
+      (state: any) => state.map.toggleModalFilter,
+      (state: any) => state.map.tabCards,
+      (state: any) => state.map.filterTabNumber,
+      (state: any) => state.map.boundsMap,
+      (state: any) => state.map.opacityLayer,
+      (state: any) => state.map.coordinatesJurisdiction,
+      (state: any) => state.map.nameZoomArea,
+      (state: any) => state.map.labelsFiltersProjects,
+      (state: any) => state.map.labelsFiltersProblems,
+      (state: any) => state.map.labelsFiltersComponents,
+      (state: any) => state.map.spinFilters,
+      (state: any) => state.map.spinCardProblems,
+      (state: any) => state.map.spinCardProjects,
       //state => state.map.paramFilters,
-      (toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
-        nameZoomArea, labelsFiltersProjects, labelsFiltersProblems,
-        spinFilters, spinCardProblems, spinCardProjects//, paramFilters
+      (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
+        nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
+        spinFilters: any, spinCardProblems: any, spinCardProjects: any//, paramFilters
         ) => ({
           toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
-          nameZoomArea, labelsFiltersProjects, labelsFiltersProblems,
+          nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
           spinFilters, spinCardProblems, spinCardProjects//, paramFilters
         })
     );
@@ -123,6 +144,9 @@ export const useMapDispatch = () => {
     },
     setLabelFilterProblems: (filters: any) => {
       dispatch(setLabelFilterProblems(filters));
+    },
+    setLabelFilterComponents: (filters: any) => {
+      dispatch(setLabelFilterComponents(filters));
     },
     setSpinMapLoaded: (spin: boolean) => {
       dispatch(setSpinMapLoaded(spin));

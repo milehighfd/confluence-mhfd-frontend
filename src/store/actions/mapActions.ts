@@ -682,6 +682,11 @@ export const setLabelFilterProjects = (filters: any) => {
         dispatch({type: types.SET_LABELS_FILTER_PROJECTS, filters});
     }
 }
+export const setLabelFilterComponents = (filters: any) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.SET_LABELS_FILTER_COMPONENTS, filters});
+    }
+}
 export const setSpinFilter = (spin: boolean) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_SPIN_FILTER, spin })

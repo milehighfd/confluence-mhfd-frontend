@@ -1,25 +1,18 @@
-import React, { useState, useEffect, CSSProperties } from "react";
+import React, { useState, useEffect } from "react";
 import { Icon, Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoComplete } from 'antd';
 
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_LIST, ORGANIZATION_COORDINATES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from '../../constants/constants';
-import { FilterTypes, FilterNamesTypes, MapViewTypes, ProjectTypes } from "../../Classes/MapTypes";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from '../../constants/constants';
+import { FilterTypes, FilterNamesTypes, MapViewTypes } from "../../Classes/MapTypes";
 import { useParams, useLocation } from "react-router-dom";
-import { CaretUpOutlined, CaretDownOutlined, UnderlineOutlined } from "@ant-design/icons";
 import store from "../../store";
-import * as datasets from "../../Config/datasets"
 import DetailedModal from "../Shared/Modals/DetailedModal";
-import { genExtra } from "../../utils/detailedUtils";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
-//import { push } from "connected-react-router";
-import { elementCost, getStatus } from '../../utils/utils';
-import { profile } from "console";
-import { shallowEqual, useSelector } from 'react-redux';
-import { SERVER } from "../../Config/Server.config";
-import { replaceAppUser } from "../../store/actions/appUser";
+import { capitalLetter, elementCost, getStatus } from '../../utils/utils';
+import { useSelector } from "react-redux";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -109,7 +102,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const { setToggleModalFilter, getParamFilterProblems, getParamFilterProjects, getParamFilterComponents,
     setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete } = useMapDispatch();
-  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber } = useMapState();
+  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
@@ -280,7 +273,94 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     return body;
   }
   const generateLabelsFilterComponents = () => {
-    return <p style={{textAlign: 'center'}}>No filters are applied</p>;
+    const filterComponents = { ...filterComponentOptions } as any;
+    const labelsProblems = [...labelsFiltersComponents];
+    for (const key in filterComponents) {
+      const tag = key === 'estimatedcost' ? filterComponents[key] : filterComponents[key].split(',');
+        if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+        const elements = [];
+        const position = labelsProblems.findIndex((x: any) => x.name === key);
+        for (let index = 0; index < tag.length; index++) {
+          const element = tag[index];
+          if (element) {
+            if (key === 'estimatedcost') {
+              const cost = element.split(',')
+              elements.push({
+                tag: key,
+                value: element,
+                display: elementCost(cost[0], cost[1])
+              });
+            } else if (key === 'component_type') {
+              elements.push({
+                tag: key,
+                value: element,
+                display: capitalLetter(element)
+              });
+            } else {
+              elements.push({
+                tag: key,
+                value: element,
+                display: element
+              });
+            }
+          }
+        }
+        labelsProblems[position]['detail'] = elements as any;
+      }
+    }
+    return <div className='tag-filters'>
+    <div className='tag-body'>
+      {labelsProblems.filter((x: any) => x.detail.length > 0).map((element: any) => {
+        return (
+          showFilterLabelsComponents(element)
+        )
+      })}
+    </div>
+    <div className="btn-footer-02">
+      {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
+        onClick={() => resetFilterComponents()}>Clear</Button> : <p style={{textAlign: 'center'}}>No filters are applied</p>}
+    </div>
+  </div>;
+  }
+  const showFilterLabelsComponents = (element: any) => {
+    if (element.detail[0].length === 0) {
+      return (
+        <>
+        </>)
+    } else {
+      return (
+        <>
+          {/* {element.popover ? <div className="head">{element.display} <Popover content={content + element.popover}><img src="/Icons/icon-19.svg" width="13px" alt="" /></Popover></div> : */}
+          <div className="head">{element.display} &nbsp;<img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
+          {element.detail.map((filter: any) => {
+            return <p>{filter.display} <Button className="btn-transparent"
+              onClick={() => deleteTagComponents(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+          })}
+        </>
+      );
+    }
+  }
+  const deleteTagComponents = (tag: string, value: string) => {
+    const auxFilterComponents: any = { ...filterComponentOptions };
+    const valueTag = (tag === 'estimatedcost') ? filterComponentOptions[tag] : auxFilterComponents[tag].split(',');
+    const auxValueTag = [] as Array<string>;
+    for (let index = 0; index < valueTag.length; index++) {
+      const element = valueTag[index];
+      if (element !== value) {
+        auxValueTag.push(element);
+      }
+    }
+    let newValue = '';
+    for (let index = 0; index < auxValueTag.length; index++) {
+      const element = auxValueTag[index];
+      if (element !== '') {
+        newValue = newValue ? (newValue + ',' + element) : element;
+      }
+    }
+    auxFilterComponents[tag] = (tag === 'estimatedcost') ? auxValueTag : newValue;
+    setFilterComponentOptions(auxFilterComponents);
+    getGalleryProjects();
+    getParamFilterComponents(boundsMap, auxFilterComponents)
   }
   const generateLabelsFilterProblems = () => {
     //console.log('', paramProblems);
@@ -392,7 +472,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           })}
         </div>
         <div className="btn-footer-02">
-          {mappedLabelsFiltersProjects.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
+          {mappedLabelsFiltersProjects.filter((x: any) => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
             onClick={() => resetFilterProjects(false)}>Clear</Button> : <p style={{textAlign: 'center'}}>No filters are applied</p>}
         </div>
       </div>
@@ -471,7 +551,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           }
         }
       }
-      const position = labelsFiltersProjects.findIndex(x => x.name === key);
+      const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
       if (position >= 0) {
         const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
         const elements = [];

@@ -231,7 +231,7 @@ export type OptionComponents = {
     component_type: string,
     status: string,
     yearofstudy: string,
-    estimatedcost: string,
+    estimatedcost: [],
     jurisdiction: string,
     county: string,
     mhfdmanager: string,
