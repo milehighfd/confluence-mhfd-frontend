@@ -3804,9 +3804,39 @@ export const tileStyles = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#FFF',
-        'fill-opacity': 1,
+    "paint": {
+      "fill-color": "hsla(221, 57%, 42%, 0.2)",
+      "fill-outline-color": "#2ee550"
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {"line-dasharray": [5, 3]}
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": "SEMSWA",
+      "symbol-avoid-edges": true,
+      "text-letter-spacing": 0.44,
+      "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          8,
+          22,
+          16
+      ],
+      "text-rotate": -45,
+      "text-justify": "auto"
+    },
+    "paint": {
+        "text-color": "#2ee550",
+        "text-halo-width": 44,
+        "text-opacity": 0.66,
+        "text-halo-color": "hsla(0, 4%, 20%, 0.88)"
     }
   }],
   ...COMPONENT_LAYERS_STYLE,
