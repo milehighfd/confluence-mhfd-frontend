@@ -110,7 +110,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   const menu = (
     <Menu className="menu-login-dropdown ">
       {user.designation !== 'guest' ? <Menu.Item className="login-dropdown" onClick={showProfile}>My Profile</Menu.Item> : '' }
-      <Menu.Item className="login-dropdown" onClick={showModal}>About Us</Menu.Item>
+      <Menu.Item className="login-dropdown" onClick={showModal}>Show Tutorial</Menu.Item>
       <Menu.Item className="login-dropdown" onClick={logout}>Logout</Menu.Item>
     </Menu>
   );
