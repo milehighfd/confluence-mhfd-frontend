@@ -622,4 +622,20 @@
     padding: 0px 25px;
     top: 53%;
   }
+  .signup {
+    justify-content: inherit;
+
+    .button-dropdown{
+      width: 60px !important;
+      padding: 9px 0px 7px 0px !important;
+    }
+  }
+  .btn-responsive{
+    width: auto !important;
+    min-width: 80px;
+    max-width: 98px;
+    padding: 9px 0px 7px 0px !important;
+    font-size: 12px !important;
+    margin-left: 8px;
+  }
 }

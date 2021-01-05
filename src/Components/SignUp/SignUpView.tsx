@@ -130,10 +130,10 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
   return <Layout style={{ background: '#fff' }}>
     <Row>
       <CarouselAutoPlayView />
-      <Col span={11} className="login-hh">
-        <div className="login-step01">
+      <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
+        <div className="login-step01" id="login-form">
           <div>
-            <Form style={{ width: '420px' }} className="login-form" onSubmit={handleSubmit} autoComplete="off">
+            <Form className="login-form" onSubmit={handleSubmit} autoComplete="off">
               <h1>
                 Sign Up!
               </h1>
@@ -141,7 +141,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
                 <span className="loginLabels">Define your user role:</span>
                 <Col className="signup">
                   {roles.map((role: { value: string, style: string, title: string, options: Array<string> }, index: number) => {
-                    return <Button key={index} style={{ width: role.style }} className={targetButton === role.value ? 'button-dropdown' : ''} onClick={() => {
+                    return <Button key={index} style={{ width: role.style }} className={targetButton === role.value ? 'button-dropdown' : 'btn-responsive'} onClick={() => {
                       values.designation = role.value;
                       values.organization = role.value === STAFF ? 'Mile High Flood District':'';
                       const auxTitle = role.value;
