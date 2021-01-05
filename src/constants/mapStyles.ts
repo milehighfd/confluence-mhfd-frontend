@@ -3573,12 +3573,72 @@ export const tileStyles = {
     }
   }],
   [CLIMB_TO_SAFETY]: [{
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.02,
+          22,
+          0.2
+      ],
+      "icon-image": "Urbanclimbtosafetysign_origclean",
+      "icon-offset": [-225, -250],
+      "text-line-height": 6,
+      "text-justify": "auto",
+      "text-offset": [-4, -4],
+      "icon-optional": true,
+      "icon-text-fit-padding": [5, 2, 5, 2]
+    },
+    "paint": {
+        "text-color": "hsl(0, 85%, 53%)",
+        "icon-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            9.9,
+            0,
+            10,
+            0.52,
+            22,
+            1
+        ]
+    }
+  }, {
     type: 'circle',
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "circle-color": "#FFF",
-      "circle-radius": 5
+      "circle-color": "hsl(60, 100%, 68%)",
+      "circle-stroke-color": "hsla(116, 60%, 42%, 0.66)",
+      "circle-stroke-width": 3,
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9.9,
+          0,
+          10,
+          0.54,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9.9,
+          0,
+          10,
+          0.54,
+          22,
+          1
+      ]
     }
   }],
   [SEMSWA_SERVICE_AREA]: [{
