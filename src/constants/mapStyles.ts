@@ -3547,8 +3547,81 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "circle-color": "#FFF",
-      "circle-radius": 5
+      "circle-color": "#c10022",
+      "circle-stroke-color": "hsl(244, 0%, 98%)",
+      "circle-stroke-width": 1,
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.9,
+          0,
+          9,
+          5,
+          22,
+          10
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.9,
+          0,
+          9,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "#feda00",
+      "circle-stroke-color": "hsl(0, 0%, 100%)",
+      "circle-stroke-width": 1,
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          9,
+          2,
+          22,
+          5
+      ],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.9,
+          0,
+          9,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.9,
+          0,
+          9,
+          1,
+          22,
+          1
+      ]
     }
   }], 
   [STREAM_MANAGEMENT_CORRIDORS]: [{
