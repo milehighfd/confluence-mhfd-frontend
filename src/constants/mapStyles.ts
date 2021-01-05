@@ -3628,9 +3628,9 @@ export const tileStyles = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#FFF',
-        'fill-opacity': 1,
+    "paint": {
+      "fill-color": "hsla(0, 82%, 51%, 0.31)",
+      "fill-outline-color": "hsl(0, 2%, 50%)"
     }
   }], 
   [BCZ_PREBLE_MEADOW_JUMPING]: [{
