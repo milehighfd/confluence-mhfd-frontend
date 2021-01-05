@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, Dropdown, Icon, Popover, Modal, Button, Tabs, Carousel } from 'antd';
 import * as datasets from "../../../Config/datasets";
 import { Redirect, useLocation } from "react-router-dom";
@@ -18,11 +18,26 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   {user: User, updateUserInformation : Function, groupOrganization: [], getGroupOrganization: Function}) => {
   const [ key, setKey] = useState('1');
   const [ openProfile, setOpenProfile] = useState(false);
+  const [ sliderIndex, setSliderIndex] = useState(0);
   const stateValue = {
     visible: false,
     visible1:false
   }
+  const [carrousel, setCarrousel] = useState({slick: {slickGoTo: (index: number) => {}}});
   const [state, setState] = useState(stateValue);
+
+
+  useEffect(() => {
+    if (sliderIndex === 3) {
+      setState({...state, visible1: false});
+      setSliderIndex(0);
+    }
+    console.log(sliderIndex, carrousel);
+    if (carrousel.hasOwnProperty('slick')) {
+      carrousel.slick.slickGoTo(sliderIndex);
+
+    }
+  }, [sliderIndex]);
   const showModal = () => {
     const auxState = {...state};
     auxState.visible = true;
@@ -328,7 +343,9 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
      style={{ top: '0', height: '100vh' }}
      className="tutorial-carousel tutorial"
     >
-    <Carousel>
+    <Carousel ref={(node: any) => {
+      setCarrousel(node);
+    }} slickGoTo={sliderIndex} afterChange={(coso: any) => {console.log(coso);}} >
         <div className="tuto-01">
           <div className="tuto-02">
             <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
@@ -399,11 +416,14 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             <p><i>Hovering on a map feature highlights the related card on the right side of the page.</i></p>
           </div>
         </div>
+       
     </Carousel>
     <div className="footer-next">
-      <h4>How to Use the Map</h4>
-      <Button className="btn-green">Next <DoubleRightOutlined /></Button>
-    </div>
+          <h4>How to Use the Map</h4>
+          <Button onClick={() => {
+            setSliderIndex(sliderIndex => sliderIndex + 1);
+          }} className="btn-green">Next <DoubleRightOutlined /></Button>
+      </div>
     </Modal>
   </Header>
 
