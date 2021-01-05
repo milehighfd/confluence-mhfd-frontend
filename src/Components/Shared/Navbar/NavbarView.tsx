@@ -329,9 +329,76 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
      className="tutorial-carousel tutorial"
     >
     <Carousel>
-        <div className="tuto-01"></div>
-        <div className="tuto-02"></div>
-        <div className="tuto-03"></div>
+        <div className="tuto-01">
+          <div className="tuto-02">
+            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
+            <p><i>This is the navigation bar. Hover over icons to see what they do, and click on them to go to that area of Confluence.</i></p>
+          </div>
+          <div className="tuto-03">
+            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
+            <p><i>Explore Confluence and have fun learning more about your streams and watersheds. Please use this button to make suggestions, ask questions or provide overall feedback.</i></p>
+          </div>
+          <div className="tuto-04">
+            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
+            <p><i>Click here to expand the navigation bar and see descriptions of all the options.</i></p>
+          </div>
+          <div className="tuto-05">
+            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
+            <p><i>This is the hybrid map view. Click on the chevron to expand into full map view.</i></p>
+          </div>
+          <div className="tuto-06">
+            <img className="img-t-01" src="/Icons/tutorial/ic_arrow2.svg" alt="" />
+            <img className="img-t-02" src="/Icons/tutorial/ic_arrow2.svg" alt="" />
+            <p><i>This area allows you to access notifications, user settings, and this Guide.</i></p>
+          </div>
+        </div>
+
+        <div className="tuto-01">
+          <div className="tuto-07">
+            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
+            <p><i>Click here to select your area of interest and show only the Problems and  Projects in that area.</i></p>
+          </div>
+          <div className="tuto-08">
+            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
+            <p><i>Click here to select your area of interest and show only the Problems and  Projects in that area.</i></p>
+          </div>
+          <div className="tuto-09">
+            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
+            <p><i>Toggle between Problems and Projects to display related cards below.</i></p>
+          </div>
+          <div className="tuto-10">
+            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
+            <p><i>Click here to automatically limit the Cards shown below to the area that is currently visable on the map.</i></p>
+          </div>
+          <div className="tuto-11">
+            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
+            <p><i>This is a Card. Click the card to see the related Detail Page, and click the ellipses to see all available options. Hovering on a card heighlights its related feature on the map.</i></p>
+          </div>
+        </div>
+
+        <div className="tuto-01">
+          <div className="tuto-12">
+            <img src="/Icons/tutorial/ic_arrow5.svg" alt="" />
+            <p><i>Click here to see all of the layers (including legends) that are avilable for display on the Confluence map.</i></p>
+          </div>
+          <div className="tuto-13">
+            <img src="/Icons/tutorial/ic_arrow6.svg" alt="" />
+            <p><i>Search for a street, intersection, address, landmark, or stream.</i></p>
+          </div>
+          <div className="tuto-14">
+            <img  className="img-card" src="/Icons/tutorial/overlay.png" width="280px" alt="" />
+            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
+            <p><i>Click on map features to see details and additional ways to interact with MHFD data. Click and drag the right mouse button to view the map in 3D.</i></p>
+          </div>
+          <div className="tuto-15">
+            <img src="/Icons/tutorial/ic_arrow6.svg" alt="" />
+            <p><i>Click here to select your area of interest and show only the Problems and Projects in that area.</i></p>
+          </div>
+          <div className="tuto-16">
+            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
+            <p><i>Hovering on a map feature highlights the related card on the right side of the page.</i></p>
+          </div>
+        </div>
     </Carousel>
     <div className="footer-next">
       <h4>How to Use the Map</h4>
