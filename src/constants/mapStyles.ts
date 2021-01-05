@@ -3522,9 +3522,24 @@ export const tileStyles = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#FFF',
-        'fill-opacity': 1,
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "hydgrpdcd"],
+          ["A"],
+          "#efa51a",
+          ["A/D"],
+          "#e73f74",
+          ["B"],
+          "#11a579",
+          ["C"],
+          "#3969AC",
+          ["D"],
+          "#7f3c8d",
+          ["<Null>"],
+          "hsla(96, 3%, 52%, 0.32)",
+          "#000000"
+      ]
     }
   }],
   [DWR_DAM_SAFETY]: [{
