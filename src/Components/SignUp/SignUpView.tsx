@@ -220,7 +220,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
                 </Button>
               </Form.Item>
               <div style={{ textAlign: "center" }}>
-                <span> I have an account</span>
+                <span className="respo-tt"> I have an account</span>
                 <Link to={'/login'} className="login-form-forgot">
                   Login
                 </Link>

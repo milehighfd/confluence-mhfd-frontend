@@ -54,7 +54,7 @@ export default () => {
             <div>
             <Row className="returnText">
               <Col span={12}>
-              <Button shape="circle" icon="arrow-left" onClick={ () => setRedirect(true)} /><span>Back</span>
+              <Button shape="circle" icon="arrow-left" onClick={ () => setRedirect(true)} /><span className="respo-tt">Back</span>
               </Col>
             </Row>
             </div>
