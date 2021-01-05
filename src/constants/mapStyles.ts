@@ -3637,9 +3637,28 @@ export const tileStyles = {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#FFF',
-        'fill-opacity': 1,
+    "paint": {
+      "fill-color": "hsla(25, 61%, 38%, 0.32)",
+      "fill-pattern": ["step", ["zoom"], "pjm2", 22, "pjm2"],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.2,
+          22,
+          0.25
+      ],
+      "fill-antialias": false,
+      "fill-outline-color": "#000000"
+    }
+  }, {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsla(25, 61%, 38%, 0.32)",
+      "fill-outline-color": "hsl(189, 90%, 55%)"
     }
   }],
   [BCZ_UTE_LADIES_TRESSES_ORCHID]: [{
