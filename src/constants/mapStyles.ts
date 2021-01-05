@@ -2199,6 +2199,30 @@ export const tileStyles = {
     "paint": {
       "line-color": [
           "match",
+          ["get", "fld_zone"],
+          ["A", "AE", "AO", "AH"],
+          "#17285e",
+          "hsla(0, 94%, 25%, 0)"
+      ],
+      "line-width": 3,
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          14,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "line-color": [
+          "match",
           ["get", "zone_subty"],
           ["FLOODWAY"],
           "#17285e",
@@ -2228,7 +2252,8 @@ export const tileStyles = {
       ],
       "line-dasharray": [2, 2]
     }
-  }, {
+  },
+  {
     type: 'fill',
     'source-layer': 'pluto15v1',
     "paint": {
