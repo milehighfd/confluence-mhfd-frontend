@@ -557,7 +557,17 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setToggleModalFilter(!toggleFilters);
 
     if (!toggleFilters) {
-      getParamFilterProjects(filterCoordinates);
+      switch(tabPosition) {
+        case '0':
+          getParamFilterProblems(boundsMap, filterProblemOptions)
+          break;
+        case '1':
+          getParamFilterProjects(boundsMap, filterProjectOptions)
+          break;
+        case '2':
+          getParamFilterComponents(boundsMap, filterComponentOptions);
+          break;
+      }
     } else {
       if (tabActive === '0') {
         getGalleryProblems();
