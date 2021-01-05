@@ -3675,8 +3675,60 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "circle-color": "#FFF",
-      "circle-radius": 5
+      "circle-color": "hsl(295, 90%, 51%)",
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          10,
+          22,
+          20
+      ],
+      "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "hsl(295, 90%, 51%)",
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          7,
+          22,
+          15
+      ],
+      "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
+   }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "hsl(295, 90%, 51%)",
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          5,
+          22,
+          10
+      ],
+      "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "hsl(295, 90%, 51%)",
+      "circle-stroke-width": 7,
+      "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
     }
   }],
   [CLIMB_TO_SAFETY]: [{
