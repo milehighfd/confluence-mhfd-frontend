@@ -167,10 +167,15 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     }
   }
 
-  const resetFilterProjects = () => {
+  const resetFilterProjects = (withDefaults: boolean) => {
     const options = { ...filterProjectOptions };
-    options.projecttype = 'Maintenance,Capital';
-    options.status = 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual';
+    if (withDefaults) {
+      options.projecttype = 'Maintenance,Capital';
+      options.status = 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual';
+    } else {
+      options.projecttype = '';
+      options.status = '';
+    }
     options.mhfddollarsallocated = [];
     options.workplanyear = '';
     options.startyear = '';
@@ -259,6 +264,24 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   }
 
+  const getFiltersPopoverContent = () => {
+    let body = null;
+    switch (tabActive) {
+      case '0':
+        body = generateLabelsFilterProblems();
+        break;
+      case '1':
+        body = generateLabelsFilterProjects();
+        break;
+      case '2':
+        body = generateLabelsFilterComponents();
+        break;
+    }
+    return body;
+  }
+  const generateLabelsFilterComponents = () => {
+    return <p style={{textAlign: 'center'}}>No filters are applied</p>;
+  }
   const generateLabelsFilterProblems = () => {
     //console.log('', paramProblems);
     const filterProblems = { ...filterProblemOptions } as any;
@@ -314,7 +337,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         </div>
         <div className="btn-footer-02">
           {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
-            onClick={() => resetFilterProblems()}>Clear</Button> : 'No filters are applied'}
+            onClick={() => resetFilterProblems()}>Clear</Button> : <p style={{textAlign: 'center'}}>No filters are applied</p>}
         </div>
       </div>
     )
@@ -354,18 +377,23 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         }
       }
     }
+    let mappedLabelsFiltersProjects = labelsFiltersProjects.map((lfp: any) => {
+      let d = lfp.detail.filter((dt: any) => dt !== '');
+      let mlfp = { ...lfp, detail: d };
+      return mlfp;
+    })
     return (
       <div className='tag-filters'>
         <div className='tag-body'>
-          {labelsFiltersProjects.filter((x: any) => x.detail.length > 0).map((element: any) => {
+          {mappedLabelsFiltersProjects.filter((x: any) => x.detail.length > 0).map((element: any) => {
             return (
               showFilterLabels(element)
             )
           })}
         </div>
         <div className="btn-footer-02">
-          {labelsFiltersProjects.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
-            onClick={() => resetFilterProjects()}>Clear</Button> : 'No filters are applied'}
+          {mappedLabelsFiltersProjects.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
+            onClick={() => resetFilterProjects(false)}>Clear</Button> : <p style={{textAlign: 'center'}}>No filters are applied</p>}
         </div>
       </div>
     );
@@ -812,7 +840,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             break;
         case PROJECTS_TRIGGER:
             // console.log('FILTER_PROJECTS_TRIGGER')
-            resetFilterProjects();
+            resetFilterProjects(true);
             break;
         case COMPONENTS_TRIGGER:
             // console.log('FILTER_COMPONENTS_TRIGGER')
@@ -827,7 +855,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             break;
         case PROJECTS_TRIGGER:
             // console.log('cards PROJECTS_TRIGGER')
-            resetFilterProjects();
+            resetFilterProjects(true);
             break;
       }
     }
@@ -938,10 +966,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           </Col>
           <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
             <Button className="btn-red" onClick={onResetClick}><u>Reset</u></Button>
-            <Popover placement="bottomRight" overlayClassName="tag-filters" content={
-              //contentTag
-              tabActive === '0' ? generateLabelsFilterProblems() : generateLabelsFilterProjects()
-            }>
+            <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()}>
               <Button onClick={handleToggle} >
                 <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
                   tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
