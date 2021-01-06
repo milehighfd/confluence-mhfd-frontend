@@ -152,4 +152,367 @@
   .ant-btn-circle, .ant-btn-circle-outline {
     min-width: 80px !important;
   }
+  // NAVBAR
+  .logo {
+    width: 520px !important;
+    height: 70px !important;
+  }
+  .header{
+    height: 96px !important;
+
+    h6 {
+      font-size: 32px !important;
+      line-height: 100px;
+      margin-bottom: 0px;
+    }
+    .ll-img {
+      height: 52px !important;
+      width: 52px !important;
+      border-radius: 50% !important;
+    }
+    a {
+      font-size: 24px !important;
+    }
+    .anticon {
+      font-size: 20px !important;
+    }
+    .ant-menu-dark.ant-menu-horizontal {
+      line-height: 100px !important;
+    }
+  }
+  .notification-icon, .notification-icon:hover {
+    padding: 18px 25px !important;
+    mask-size: 35px 35px !important;
+    top: -5px;
+    position: relative;
+  }
+  .tutorial{
+    .btn-question {
+      padding: 49px 22px !important;
+      mask-size: 35px 35px !important;
+    }
+  }
+  .tutorial-000{
+    width: 1800px !important;
+
+    .ant-tabs .ant-tabs-left-bar .ant-tabs-nav-scroll, .ant-tabs .ant-tabs-right-bar .ant-tabs-nav-scroll {
+      width: 500px !important;
+    }
+    .ant-tabs .ant-tabs-left-bar .ant-tabs-tab, .ant-tabs .ant-tabs-right-bar .ant-tabs-tab {
+      margin: 0px 0 25px 25px !important;
+      font-size: 32px;
+    }
+    .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
+      width: 10px !important;
+    }
+    .ant-tabs-left-content img{
+      width: 1160px !important;
+    }
+    .content {
+      height: 400px !important;
+      margin: 40px 45px 40px 0px !important;
+      text-align: justify;
+    }
+    p {
+     font-size: 32px !important;
+    }
+    .btn-purple {
+      width: 280px !important;
+      height: 80px !important;
+      font-size: 32px !important;
+    }
+    .ant-tabs .ant-tabs-left-content {
+      padding-left: 60px !important;
+      padding-top: 20px; 
+    }
+    .ant-tabs-nav {
+      padding-top: 70px !important;
+    }
+    .logo-00 {
+      padding-left: 50px !important;
+    }
+    .ant-modal-close-x {
+      font-size: 28px !important;
+    }
+    .ant-modal-close {
+      padding: 15px !important;
+   }
+  }
+  .tutorial .logo-00 img {
+    width: 280px !important;
+  }
+  .login-dropdown {
+    font-size: 26px !important;
+    padding: 12px 15px !important;
+  }
+  // SIDEBAR
+  .ant-layout-sider-collapsed{
+    width: 100px !important;
+    flex: 0 0 100px !important;
+    max-width: 100px !important;
+    min-width: 100px !important;
+  }
+  .ant-menu-inline-collapsed > .ant-menu-item .anticon,
+  .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item .anticon,
+  .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-submenu > .ant-menu-submenu-title .anticon,
+  .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon {
+      width: 36px ;
+  }
+  .ant-menu-dark.ant-menu-inline .ant-menu-item, .ant-menu-dark.ant-menu-vertical .ant-menu-item,
+  .ant-menu-dark.ant-menu-vertical-left .ant-menu-item, .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
+    padding: 0px 31px !important;
+  }
+  .ant-menu-vertical > .ant-menu-item, .ant-menu-vertical-left > .ant-menu-item, .ant-menu-vertical-right > .ant-menu-item, .ant-menu-inline > .ant-menu-item, .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    height: 80px !important;
+    line-height: 80px !important;
+    margin-left: 15px !important;
+  }
+  .ant-layout-sider-trigger {
+    min-width: 100px !important;
+    max-width: 200px !important;
+    font-size: 20px;
+  }
+  // MAP
+  .map{
+    .m-head .ant-select-auto-complete.ant-select .ant-input {
+      height: 60px;
+      padding: 6px 20px 6px 45px;
+      width: 400px;
+      font-size: 24px;
+    }
+    .m-head .ant-input-search-icon {
+      font-size: 24px;
+    }
+    .m-head button {
+      height: 60px;
+      width: 60px;
+    }
+    .m-head Button:hover > .btn-02 {
+      mask-size: 30px 30px !important;
+    }
+    .m-head .btn-02 {
+      padding: 30px 30px !important;
+      mask-size: 30px 30px !important;
+    }
+    .m-zoom {
+     width: 50px;
+     bottom: 220px;
+
+      button {
+        width: 50px;
+        height: 50px;
+      }
+      button .img-icon {
+        height: 34px;
+        width: 28px;
+      }
+      .ant-btn:hover > .img-icon {
+        height: 34px;
+        width: 28px;
+      }
+    }
+  }
+  .mapboxgl-ctrl-group button {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .map-00 {
+    .mapboxgl-ctrl-group {
+      width: 50px;
+      bottom: 50px;
+    }
+    .mapboxgl-ctrl-scale {
+     font-size: 24px;
+     padding: 12px 14px;
+    }
+    .mapboxgl-ctrl-scale {
+     left: 80px;
+     bottom: 50px;
+    }
+  }
+  .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+    background-size: 26px 26px;
+  }
+  .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+    background-size: 26px 26px;
+  }
+
+  // CARDS
+  .card-information img {
+    height: 16vh;
+  }
+  .card-map{
+    h4 {
+      font-size: 36px;
+      line-height: 42px;
+    }
+    .card-title-s {
+      height: 90px;
+    }
+    h6 {
+     font-size: 32px;
+    }
+    .ant-card-body {
+      padding: 20px;
+    }
+    h5 {
+      font-size: 34px;
+    }
+    h5 span {
+      font-size: 28px;
+      line-height: 56px;
+    }
+    p, span{
+      font-size: 26px !important;
+    }
+    .btn-card, .btn-card:hover, .btn-card:focus, .btn-card:active, .btn-card.active {
+      right: 10px;
+      top: 10px;
+      font-size: 40px;
+      height: 40px;
+      line-height: 0px;
+      width: 45px;
+    }
+    .btn-card label {
+      top: -10px;
+    }
+  }
+  .like-btn {
+    right: 10px;
+    bottom: 10px;
+
+    button, button:hover, button:focus, button:active {
+      height: 52px;
+      width: 52px;
+      padding-left: 4px;
+    }
+    button .like-img {
+      height: 40px;
+      width: 48px;
+    }
+  }
+  .card-button-hover button {
+    padding: 20px 25px;
+    height: 80px;
+  }
+  // TABS
+  .tabs-map{
+    .ant-tabs-nav .ant-tabs-tab {
+      padding: 15px 0px 15px 0px !important;
+      margin: 0 20px 0 0;
+      font-size: 28px;
+    }
+  }
+  .apply-filter-no-effect {
+    padding: 11px 20px !important;
+    height: 60px !important;
+    line-height: 35px !important;
+    font-size: 21px !important;
+
+    .ant-checkbox-inner {
+      width: 32px !important;
+      height: 32px !important;
+      margin-left: 10px;
+    }
+    .ant-checkbox-checked .ant-checkbox-inner::after {
+      transform: rotate(45deg) scale(2) translate(-50%, -50%) !important;
+    }
+    .ant-checkbox-inner::after {
+      left: 35% !important;
+      top: 60% !important;
+    }
+  }
+  .progress {
+    width: auto !important;
+  }
+
+  // HEADER FILTERS
+  .head-filter {
+    height: 100px;
+    padding: 15px 15px;
+
+    .ant-input-affix-wrapper .ant-input {
+       width: 350px;
+       font-size: 24px;
+       padding: 12px 15px;
+    }
+    .ant-input-affix-wrapper {
+      width: 350px !important;
+      height: 70px;
+    }
+    .ant-input-affix-wrapper .ant-input-suffix {
+      right: 20px;
+      font-size: 24px;
+    }
+    button {
+      font-size: 24px !important;
+      margin-left: 20px;
+    }
+    .ant-dropdown-link {
+      font-size: 24px;
+    }
+    button .img-filter {
+      height: 26px;
+      width: 28px;
+      padding: 13px;
+      margin-top: -5px;
+    }
+    .ant-btn:hover > .img-filter {
+       height: 26px;
+       width: 28px;
+       padding: 13px;
+       margin-top: -5px;
+    }
+    .sort-content .sort-buttons .img-filter00 {
+       height: 28px;
+       width: 28px;
+       padding: 15px;
+       margin-top: -5px;
+    }
+    .sort-content:hover > .sort-buttons > .img-filter00, .sort-content .sort-buttons:hover > .img-filter00 {
+       height: 28px;
+       width: 28px;
+       padding: 15px;
+       margin-top: -5px;
+    }
+    .sort-content {
+      margin: 0px 20px;
+    }
+  }
+  .auto-complete-map{
+     .ant-select-selection__placeholder,
+     .ant-select-search__field__placeholder,
+     .ant-input {
+      font-size: 44px !important;
+      padding-top: 8px !important;
+      height: 44px !important
+    }
+    .ant-select {
+      max-width: 600px !important;
+      height: 60px !important;
+    }
+  }
+  .list-line {
+    font-size: 28px !important;
+    margin: 0px 16px;
+    padding: 20px 10px !important;
+  }
+  .ant-select-dropdown-menu {
+    max-height: 500px;
+  }
+  .head-m {
+    margin-bottom: 30px;
+  }
+  .btn-coll {
+    top: calc(50% - 54px);
+    width: 100px;
+    height: 110px !important;
+
+    img{
+      width: 36px;
+    }
+  }
+  .count {
+    padding: 35px !important;
+  }
 }

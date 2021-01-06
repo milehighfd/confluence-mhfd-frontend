@@ -856,7 +856,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete
     }));
-  
+
   const sortClick = () => {
     if (tabActive === '0') {
       const auxOptions = { ...filterProblemOptions };
@@ -873,7 +873,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-      <Col style={{ fontSize: '12px' }}>
+      <Col>
         <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'}>
           Apply map view to filters
           <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {

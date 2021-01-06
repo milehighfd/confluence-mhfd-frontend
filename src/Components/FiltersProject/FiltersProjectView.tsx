@@ -125,7 +125,7 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
             //tagProjects.push(tag);
         }
     } */
-    
+
     return (
         <div className="hastag">
             {/* {type !== 'Components' ? <h6> Showing {totalElements} {type}:</h6> : <h6> Showing {totalComponents} {type}:</h6>} */}
@@ -206,13 +206,13 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
     const { spinMapLoaded } = useSelector((state: any) => ({
         spinMapLoaded: state.map.spinMapLoaded
         }), shallowEqual);
-          
+
     const { boundsMap, spinCardProblems, spinCardProjects } = useMapState();
     const emptyStyle: React.CSSProperties = {};
     console.log(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded );
     const genExtra = () => (
         <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-            <Col style={{fontSize: '12px'}}>
+            <Col>
             <div className={(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect' }>
                 Apply map view to filters
               <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {

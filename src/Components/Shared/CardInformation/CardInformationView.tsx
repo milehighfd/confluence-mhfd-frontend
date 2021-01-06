@@ -45,9 +45,9 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     console.log(data.coordinates);
     console.log(data.coordinates);
     setZoomProjectOrProblem(data.coordinates);
-    
+
   }
-  
+
   useEffect(() => {
     console.log(bboxComponents);
     if (bboxComponents.length && bboxComponents[0] != null) {
@@ -144,7 +144,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click">
             <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}><label>...</label></Button>
           </Popover>
-          <div style={{ height: 40 }}>
+          <div className="card-title-s">
             <h4>{data.requestName}</h4>
           </div>
           {type === 'Problems' ? <Popover placement="topLeft" content={content}><h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6></Popover> : <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>}

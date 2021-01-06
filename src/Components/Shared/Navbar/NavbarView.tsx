@@ -178,7 +178,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
        visible={state.visible}
        onOk={handleOk}
        onCancel={handleCancel}
-       className="tutorial"
+       className="tutorial tutorial-000"
        width="750px"
     >
       <Tabs activeKey={key} tabPosition="left" onChange={(e) => {
@@ -416,7 +416,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             <p><i>Hovering on a map feature highlights the related card on the right side of the page.</i></p>
           </div>
         </div>
-       
+
     </Carousel>
     <div className="footer-next">
           <h4>How to Use the Map</h4>
