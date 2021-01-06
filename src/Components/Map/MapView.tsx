@@ -318,7 +318,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     </div>
     <div className="btn-footer-02">
       {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
-        onClick={() => resetFilterComponents()}>Clear</Button> : <p style={{textAlign: 'center'}}>No filters are applied</p>}
+        onClick={() => resetFilterComponents()}>Clear</Button> : <p style={{textAlign: 'right'}}>No filters are applied</p>}
     </div>
   </div>;
   }
@@ -417,7 +417,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         </div>
         <div className="btn-footer-02">
           {labelsProblems.filter(x => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
-            onClick={() => resetFilterProblems()}>Clear</Button> : <p style={{textAlign: 'center'}}>No filters are applied</p>}
+            onClick={() => resetFilterProblems()}>Clear</Button> : <p style={{textAlign: 'right'}}>No filters are applied</p>}
         </div>
       </div>
     )
@@ -473,7 +473,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         </div>
         <div className="btn-footer-02">
           {mappedLabelsFiltersProjects.filter((x: any) => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
-            onClick={() => resetFilterProjects(false)}>Clear</Button> : <p style={{textAlign: 'center'}}>No filters are applied</p>}
+            onClick={() => resetFilterProjects(false)}>Clear</Button> : <p style={{textAlign: 'right'}}>No filters are applied</p>}
         </div>
       </div>
     );
