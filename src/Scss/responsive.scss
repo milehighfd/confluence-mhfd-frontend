@@ -223,7 +223,7 @@
     }
     .ant-tabs .ant-tabs-left-content {
       padding-left: 60px !important;
-      padding-top: 20px; 
+      padding-top: 20px;
     }
     .ant-tabs-nav {
       padding-top: 70px !important;
@@ -514,5 +514,73 @@
   }
   .count {
     padding: 35px !important;
+  }
+  // DETILED
+  .detailed-h{
+    padding: 20px 30px !important;
+    h1 {
+      font-size: 42px;
+    }
+    p {
+      font-size: 28px;
+      margin-bottom: 0px !important;
+    }
+    .btn-opacity {
+      height: 55px;
+      font-size: 28px;
+      width: 250px;
+      padding: 6px 0px;
+    }
+    .btn-transparent img{
+      height: 30px;
+    }
+    .btn-transparent{
+      padding: 0px 12px !important;
+      margin: 19px 5px !important;
+    }
+  }
+  .detailed-modal {
+    width: 2000px !important;
+  }
+  .detailed-mm{
+    font-size: 28px;
+    min-height: 53px;
+  }
+  .detailed-b {
+    .ant-carousel {
+      height: 700px;
+    }
+    .ant-carousel .slick-slide {
+      height: 700px;
+    }
+  }
+  .detailed-c {
+    height: 700px;
+  }
+  .detailed-info {
+    padding: 40px 50px 0px 50px;
+    font-size: 24px;
+  }
+  .tabs-detailed .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 42px 0px !important;
+    font-size: 32px !important;
+  }
+  .divider img{
+    width: 30px !important;
+  }
+  .table-up-modal .ant-table-thead > tr > th, .table-up-modal .ant-table-tbody > tr > td {
+    font-size: 28px !important;
+  }
+  .solution-b {
+    height: 60px;
+    font-size: 24px;
+  }
+  .detailed{
+    .map{
+      height: 1000px !important;
+    }
+  }
+  .status-d label {
+    font-size: 21px;
   }
 }
