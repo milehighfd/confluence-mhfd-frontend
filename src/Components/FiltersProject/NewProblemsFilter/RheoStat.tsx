@@ -93,8 +93,9 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     var svg = d3
       .select(svgRef.current)
-      .attr('width', width + 20)
-      .attr('height', height + 20)
+      .attr("viewBox", `0 0 ${width + 20} ${height + 20}`)
+      // .attr('width', width + 20)
+      // .attr('height', height + 20)
 
     var x = d3.scaleBand()
       .rangeRound([marginLeft, width])
@@ -240,6 +241,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
   return (
     <>
+      <div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
       </Button>
@@ -247,6 +249,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       <Button className="btn-svg" onClick={reset}>
         <u>Reset</u>
       </Button>
+      </div>
       <svg ref={svgRef} className={'svg-top-pad'}>
         <g ref={gRef}></g>
       </svg>

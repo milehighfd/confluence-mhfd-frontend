@@ -124,8 +124,9 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
 
     var svg = d3
       .select(svgRef.current)
-      .attr('width', width + 20)
-      .attr('height', height + 20)
+      // .attr('width', width + 20)
+      // .attr('height', height + 20)
+      .attr("viewBox", `0 0 ${width + 20} ${height + 20}`)
       .attr('transform', `translate(${25}, 0)`)
 
     var x = d3.scaleBand()
@@ -257,6 +258,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
 
   return (
     <>
+      <div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
       </Button>
@@ -264,6 +266,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
       <Button className="btn-svg" onClick={reset}>
         <u>Reset</u>
       </Button>
+      </div>
       <svg ref={svgRef} className={'svg-top-pad'}>
         <g ref={gRef}></g>
       </svg>
@@ -272,13 +275,15 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
           <label>
             Min Year
           </label>
-          <InputNumber size='large' min={0} value={left} onChange={onChangeLeft} style={{ width: '80%' }} />
+          <InputNumber size='large' style={{ width: '80%' }}
+            min={0} value={left} onChange={onChangeLeft} />
         </Col>
         <Col span={12}>
           <label>
             Max Year
           </label>
-          <InputNumber size='large' min={0} value={right} onChange={onChangeRight} style={{ width: '80%' }} />
+          <InputNumber size='large' style={{ width: '80%' }}
+            min={0} value={right} onChange={onChangeRight}/>
         </Col>
       </Row>
     </>

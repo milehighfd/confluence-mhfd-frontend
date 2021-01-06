@@ -74,8 +74,9 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     const fontSizePercentage = '10px';
 
     const svg = d3.select(svgRef.current)
-      .attr("width", width)
-      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      // .attr("width", width)
+      // .attr("height", height)
 
     var _root = d3.hierarchy(data).sum(function (d: any) { return d.value })
     d3.treemap()
@@ -309,6 +310,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
             </>
           }
       </div>
+      <div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
       </Button>
@@ -316,6 +318,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       <Button className="btn-svg" onClick={reset}>
         <u>Reset</u>
       </Button>
+      </div>
       <svg ref={svgRef} className={'svg-top-pad'} />
     </>
   )

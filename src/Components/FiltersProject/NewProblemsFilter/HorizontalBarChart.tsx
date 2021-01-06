@@ -147,8 +147,9 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
     }
 
     const svg = d3.select(svgRef.current)
-      .attr("width", width)
-      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      // .attr("width", width)
+      // .attr("height", height)
 
     let lines = svg
       .selectAll('.hlines')

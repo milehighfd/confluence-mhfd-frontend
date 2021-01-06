@@ -154,13 +154,15 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                 <Col span={12}>
                     <h5 style={{ marginBottom: -5 }}>Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
+                        <div>
                         <Button className="btn-svg" onClick={() => { }}>
                             <u>Apply</u>
                         </Button>
-                    &nbsp;|&nbsp;
-                    <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
                             <u>Reset</u>
                         </Button>
+                        </div>
                         <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'}
                             style={{ width: '100%' }} onChange={(e: string) => {
                                 apply(e, 'jurisdiction');
@@ -174,13 +176,15 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                 <Col span={12}>
                     <h5 style={{ marginBottom: -5 }}>MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
+                        <div>
                         <Button className="btn-svg" onClick={() => { }}>
                             <u>Apply</u>
                         </Button>
-                    &nbsp;|&nbsp;
-                    <Button className="btn-svg" onClick={() => { apply('', 'mhfdmanager') }}>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'mhfdmanager') }}>
                             <u>Reset</u>
                         </Button>
+                        </div>
                         <Select placeholder="- Select -" value={filterProblemOptions.mhfdmanager ? filterProblemOptions.mhfdmanager : '- Select -'}
                             style={{ width: '100%' }} onChange={(e: string) => {
                                 apply(e, 'mhfdmanager');

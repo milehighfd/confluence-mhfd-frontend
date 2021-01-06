@@ -50,8 +50,9 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     d3.select(svgRef.current).select('g').remove();
 
     const svg = d3.select(svgRef.current)
-      .attr("width", width + 100)
-      .attr("height", height + 75)
+      // .attr("width", width + 100)
+      // .attr("height", height + 75)
+      .attr("viewBox", `0 0 ${width + 100} ${height + 75}`)
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
@@ -205,6 +206,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
   return (
     <>
+      <div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
       </Button>
@@ -212,6 +214,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       <Button className="btn-svg" onClick={reset}>
         <u>Reset</u>
       </Button>
+      </div>
       <svg ref={svgRef} />
     </>
   )

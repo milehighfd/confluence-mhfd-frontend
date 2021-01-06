@@ -29,8 +29,9 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
     d3.select(svgRef.current).select('g').remove();
 
     const svg = d3.select(svgRef.current)
-      .attr("width", width)
-      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      // .attr("width", width)
+      // .attr("height", height)
       .append("g")
 
     var y = d3.scaleLinear().rangeRound([height, 0]);
@@ -155,6 +156,7 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
   return (
     <>
+      <div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
       </Button>
@@ -162,6 +164,7 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       <Button className="btn-svg" onClick={reset}>
         <u>Reset</u>
       </Button>
+      </div>
       <svg ref={svgRef} />
     </>
   )
