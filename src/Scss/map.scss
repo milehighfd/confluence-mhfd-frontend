@@ -309,6 +309,7 @@
     background: $green !important;
   }
 }
+
 .filter-map{
   max-height: calc(100vh - 170px);
   overflow-y: auto;
@@ -363,6 +364,13 @@
   .ant-switch-checked {
    background-color: $green;
   }
+}
+.map-filter-s{
+  background: #fff;
+  width: 325px;
+  left: -12px;
+  margin: 0px 20px !important;
+  padding-top: 0px !important;
 }
 .filter-coll-header{
   display: flex;

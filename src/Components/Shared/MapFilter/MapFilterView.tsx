@@ -77,14 +77,14 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
  export const NRCS_SOILS = 'usda_nrcs_soils';
 export const DWR_DAM_SAFETY = 'dwr_dam_safety';
 export const STREAM_MANAGEMENT_CORRIDORS = 'stream_management_corridors';
-export const BCZ_PREBLE_MEADOW_JUMPING = 
+export const BCZ_PREBLE_MEADOW_JUMPING =
 'bcz_prebles_meadow_jumping_mouse';
 export const BCZ_UTE_LADIES_TRESSES_ORCHID =
 'bcz_ute_ladies_tresses_orchid';
-export const RESEARCH_MONITORING = 
+export const RESEARCH_MONITORING =
 'stormwater_research_sites';
 export const CLIMB_TO_SAFETY = 'climb_to_safety_signs';
-export const SEMSWA_SERVICE_AREA = 
+export const SEMSWA_SERVICE_AREA =
 'semswa_service_area';
  */
   const [groups, setGroups] = useState({
@@ -137,7 +137,7 @@ export const SEMSWA_SERVICE_AREA =
         newSwitches[key] = true;
       } else {
         newSwitches[layer] = true;
-      } 
+      }
     }
     console.log('my new switches ',  newSwitches);
     setSwitches((switches: any) => {
@@ -173,7 +173,7 @@ export const SEMSWA_SERVICE_AREA =
   const weightStyle: React.CSSProperties = {'fontWeight': 500};
   const genExtra = () => {
     return (<div className="filter-coll-header">
-      <div style={(switches[PROBLEMS_TRIGGER] || switches[PROJECTS_MAP_STYLES.name] || 
+      <div style={(switches[PROBLEMS_TRIGGER] || switches[PROJECTS_MAP_STYLES.name] ||
         switches[MEP_PROJECTS.name] || switches[ROUTINE_MAINTENANCE.name] || switches[COMPONENT_LAYERS.name])
         ? weightStyle : emptyStyle }>{/*<img src="/Icons/icon-79.svg" alt="" />*/} MHFD DATA </div>
        <Switch checked={groups['MHFDData']} size="small" onClick={(value, event) => {
@@ -290,7 +290,7 @@ export const SEMSWA_SERVICE_AREA =
     removePopup();
   }
 
-  return <div className="ant-dropdown-menu" style={{ background: '#fff', width: '325px', left: '-12px', margin: '0px 20px', paddingTop: '0px' }}>
+  return <div className="ant-dropdown-menu map-filter-s">
     <div className="filter-map">
       <Checkbox.Group value={selectedLayers} onChange={(items) => {
         console.log('deloschek', items, selectedLayers)
@@ -305,7 +305,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-75.svg" alt="" />
                   Problems
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[PROBLEMS_TRIGGER]} size="small" onClick={(value) => onChange(value, PROBLEMS_TRIGGER)} />
             </p>{/*<Checkbox defaultChecked={true} value={PROBLEMS_TRIGGER}></Checkbox> */}
@@ -314,7 +314,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   Components
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.component)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[COMPONENT_LAYERS.name]} size="small" onClick={(value) => onChange(value, COMPONENT_LAYERS)} />
             </p> {/*<Checkbox value={COMPONENT_LAYERS}></Checkbox>*/}
@@ -323,7 +323,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-75.svg" alt="" />
                   Projects
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.project)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[PROJECTS_MAP_STYLES.name]} size="small"  onClick={(value) => onChange(value, PROJECTS_MAP_STYLES)} />
             </p>{/*<Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROJECTS_MAP_STYLES}></Checkbox> */}
@@ -332,7 +332,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   MEP Projects
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.mep_projects)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[MEP_PROJECTS.name]} size="small" onClick={(value) => onChange(value, MEP_PROJECTS)} />
             </p> {/* <Checkbox value={MEP_PROJECTS}></Checkbox>*/}
@@ -341,7 +341,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-75.svg" alt="" />
                   Routine Maintenance
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.routine_maintenance)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[ROUTINE_MAINTENANCE.name]} size="small" onClick={(value) => onChange(value, ROUTINE_MAINTENANCE)} />
             </p> {/* <Checkbox value={ROUTINE_MAINTENANCE}></Checkbox>*/}
@@ -351,7 +351,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-75.svg" alt="" />
                   Watersheds
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.watershed)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[WATERSHED_FILTERS]} size="small" onClick={(value) => onChange(value, WATERSHED_FILTERS)} />
             </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
@@ -360,7 +360,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-75.svg" alt="" />
                   NRCS Soils
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.nrcs_soils)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" checked={switches[NRCS_SOILS]} onClick={(value) => onChange(value, NRCS_SOILS)} />
             </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
@@ -369,7 +369,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-77.svg" alt="" />
                   Streams
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" onClick={(value) => onChange(value, STREAMS_FILTERS)} />
             </p> {/*<Checkbox value={STREAMS_FILTERS}></Checkbox>*/}
@@ -380,7 +380,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-75.svg" alt="" />
                   Floodplains
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.floodplains)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover> <Switch checked={switches[FLOODPLAINS.name]}  size="small" onClick={(value) => onChange(value, FLOODPLAINS)} />
             </p> {/* <Checkbox value={FLOODPLAINS}></Checkbox>} */}
 
@@ -388,7 +388,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   FEMA Flood Hazard Zones
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.fema_flood_hazard_zones)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[FEMA_FLOOD_HAZARD]} size="small" onClick={(value) => onChange(value, FEMA_FLOOD_HAZARD)} />
             </p>  {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
@@ -397,7 +397,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-75.svg" alt="" />
                   DWR Dam Safety
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" checked={switches[DWR_DAM_SAFETY]} onClick={(value) => onChange(value, DWR_DAM_SAFETY)} />
             </p>
@@ -408,7 +408,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   Stream Mang. Corridors
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" checked={switches[STREAM_MANAGEMENT_CORRIDORS]} onClick={(value) => onChange(value, STREAM_MANAGEMENT_CORRIDORS)} />
             </p>
@@ -419,7 +419,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   BCZ - Preble’s Meadow Jumping Mouse
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_prebels_meadow)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" checked={switches[BCZ_PREBLE_MEADOW_JUMPING]} onClick={(value) => onChange(value, BCZ_PREBLE_MEADOW_JUMPING)} />
             </p>
@@ -428,7 +428,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   BCZ - Ute Ladies Tresses Orchid
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_ute_ladies)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" checked={switches[BCZ_UTE_LADIES_TRESSES_ORCHID]} onClick={(value) => onChange(value, BCZ_UTE_LADIES_TRESSES_ORCHID)}/>
             </p>
@@ -437,9 +437,9 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-75.svg" alt="" />
                   Research/Monitoring
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.research_monitoring)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch size="small" checked={switches[RESEARCH_MONITORING]} onClick={(value) => onChange(value, RESEARCH_MONITORING)} /> 
+              <Switch size="small" checked={switches[RESEARCH_MONITORING]} onClick={(value) => onChange(value, RESEARCH_MONITORING)} />
             </p>
           </Panel>
 
@@ -448,7 +448,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   Climb to Safety
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.climb_to_safety)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" checked={switches[CLIMB_TO_SAFETY]} onClick={(value) => onChange(value, CLIMB_TO_SAFETY)} />
             </p>
@@ -458,7 +458,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   Service Areas
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.service_area)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[SERVICE_AREA_LAYERS.name]} size="small" onClick={(value) => onChange(value, SERVICE_AREA_LAYERS)} />
             </p> {/*<Checkbox value={SERVICE_AREA_LAYERS}></Checkbox>*/}
@@ -467,7 +467,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   Counties
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.counties)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[COUNTIES_LAYERS.name]} size="small" onClick={(value) => onChange(value, COUNTIES_LAYERS)} />
             </p> {/*<Checkbox value={COUNTIES_LAYERS}></Checkbox>*/}
@@ -476,7 +476,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-75.svg" alt="" />
                   Municipalities
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.municipalities)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch checked={switches[MUNICIPALITIES.name]} size="small" onClick={(value) => onChange(value, MUNICIPALITIES)} />
             </p> {/*<Checkbox value={MUNICIPALITIES}></Checkbox>*/}
@@ -485,7 +485,7 @@ export const SEMSWA_SERVICE_AREA =
               <img src="/Icons/icon-76.svg" alt="" />
                   SEMSWA Service Area
                   <Popover placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.semswa_service_area)}>
-                <img src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
               <Switch size="small" checked={switches[SEMSWA_SERVICE_AREA]} onClick={(value) => onChange(value, SEMSWA_SERVICE_AREA)} />
             </p> {/*<Checkbox value={COUNTIES_LAYERS}></Checkbox>*/}

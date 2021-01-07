@@ -540,7 +540,7 @@
     }
   }
   .detailed-modal {
-    width: 2000px !important;
+    width: 2100px !important;
   }
   .detailed-mm{
     font-size: 28px;
@@ -582,5 +582,210 @@
   }
   .status-d label {
     font-size: 21px;
+  }
+
+  // FILTERS MENU
+  .tag-filters {
+    width: 460px;
+    padding-bottom: 10px;
+
+    .head {
+     font-size: 26px;
+
+     img{
+       width: 26px;
+     }
+    }
+    p {
+      font-size: 26px;
+    }
+    button img{
+      width: 30px;
+    }
+    p button {
+      height: 30px;
+      width: 30px;
+    }
+  }
+  .btn-footer-02 .btn-borde {
+    font-size: 26px;
+  }
+
+  // FILTERS MAP
+  .map-filter-s {
+    width: 630px;
+    left: 30px;
+  }
+  .filter-coll-header {
+    width: 590px;
+    font-size: 26px;
+    padding-left: 42px;
+  }
+  .filter-map{
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+      padding: 7px 12px;
+      height: 50px;
+      line-height: 36px;
+    }
+    .ant-collapse-content > .ant-collapse-content-box {
+      padding: 20px 20px 0px 20px;
+    }
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+      left: 26px;
+      font-size: 20px;
+    }
+    p {
+      font-size: 24px;
+      width: 588px;
+      margin-bottom: 20px;
+
+      img{
+        height: 28px;
+        margin-top: -3px;
+      }
+    }
+    .info-pop{
+      height: 20px;
+      margin-top: 0px;
+    }
+    .ant-switch-small {
+      min-width: 56px;
+      height: 32px;
+      line-height: 28px;
+    }
+    .ant-switch-small::after {
+      width: 24px;
+      height: 24px;
+    }
+    .ant-switch-loading-icon, .ant-switch::after {
+      top: 3px;
+    }
+  }
+  .btn-footer-02 {
+    padding-bottom: 10px ;
+  }
+  // CHAT
+  .chat-r{
+    h5 {
+      font-size: 28px;
+    }
+    img {
+      margin-top: 5px;
+      height: 60px;
+    }
+    h6 {
+     font-size: 21px;
+   }
+   p, span {
+     font-size: 18px;
+    }
+    .chat-00 .chat-footer .ant-input {
+      font-size: 18px;
+    }
+  }
+  .chat-00{
+    height: 430px;
+
+    .chat-head img {
+      height: 20px;
+    }
+    .chat-footer {
+      height: 60px;
+      padding: 14px 15px;
+    }
+    .chat-footer img {
+      margin-top: 0px;
+      height: 35px;
+    }
+    .chat-body h6 {
+      font-size: 24px;
+    }
+    .chat-body p {
+      font-size: 18px;
+    }
+    .chat-body {
+      padding: 75px 50px;
+    }
+  }
+
+  // TUTORIAL
+  .tutorial-carousel{
+    p{
+      font-size: 28px !important;
+    }
+    .tuto-01{
+      .tuto-02, .tuto-03, .tuto-04, .tuto-05, .tuto-06,
+      .tuto-07, .tuto-08, .tuto-09, .tuto-10, .tuto-11,
+      .tuto-12, .tuto-13, .tuto-14, .tuto-15, .tuto-16{
+        width: 600px !important;
+      }
+
+      .tuto-02 {
+        top: 172px !important;
+        left: 55px !important;
+      }
+      .tuto-03 {
+        top: 750px !important;
+        left: 55px !important;
+      }
+      .tuto-04 {
+        left: 55px !important;
+      }
+      .tuto-06 {
+        top: 76px !important;
+
+        .img-t-01 {
+          left: 235px !important;
+        }
+      }
+      .tuto-07 {
+        top: 100px !important;
+        left: 80% !important;
+      }
+      .tuto-08 {
+        top: 260px !important;
+      }
+      .tutorial-carousel .tuto-01 .tuto-09 {
+        top: 385px !important;
+        right: calc(30% - 42px) !important;
+        width: 400px !important;
+      }
+      .tuto-10 {
+        top: 380px !important;
+
+        img {
+          left: 200px !important;
+        }
+      }
+      .tuto-12 {
+        top: 175px !important;
+        left: 75px !important;
+        width: 400px !important;
+      }
+      .tuto-13 {
+        top: 145px!important;
+        left: 503px!important;
+      }
+      .tuto-15 {
+        bottom: 92px !important;
+        left: 175px !important;
+      }
+      .tuto-14 {
+        top: 35% !important;
+
+        .img-card {
+          left: -513px !important;
+          width: 560px !important;
+        }
+      }
+    }
+    .footer-next h4 {
+      font-size: 42px !important;
+    }
+    .footer-next .btn-green {
+      height: 70px !important;
+      padding: 0px 50px !important;
+      font-size: 32px !important;
+    }
   }
 }

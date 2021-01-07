@@ -377,7 +377,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
           </div>
           <div className="tuto-08">
             <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
-            <p><i>Click here to select your area of interest and show only the Problems and  Projects in that area.</i></p>
+            <p><i>Use this bar to search, sort, and filter the Problems and Projects shown on the cards below.</i></p>
           </div>
           <div className="tuto-09">
             <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
@@ -409,7 +409,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
           </div>
           <div className="tuto-15">
             <img src="/Icons/tutorial/ic_arrow6.svg" alt="" />
-            <p><i>Click here to select your area of interest and show only the Problems and Projects in that area.</i></p>
+            <p><i>Click this button to quickly zoom out to MHFD boundary extents.</i></p>
           </div>
           <div className="tuto-16">
             <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
