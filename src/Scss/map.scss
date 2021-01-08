@@ -1294,6 +1294,19 @@
     width: 22px;
     background-repeat: no-repeat;
   }
+  button .like-img-on{
+    background-image: url('/Icons/icon-82.svg');
+    height: 20px;
+    width: 22px;
+    background-repeat: no-repeat;
+  }
+  .ant-btn:hover > .like-img, .ant-btn:focus > .like-img,
+  .ant-btn:active > .like-img, .ant-btn.active > .like-img{
+    background-image: url('/Icons/icon-81.svg');
+    height: 20px;
+    width: 22px;
+    background-repeat: no-repeat;
+  }
 }
 
 // END MAP
