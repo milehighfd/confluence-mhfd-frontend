@@ -426,7 +426,10 @@ const initState = {
             'detail': [],
             'popover': ''
         }
-    ]
+    ],
+    favorites: [],
+    favoriteProblemCards: [],
+    favoriteProjectCards: []
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -776,6 +779,24 @@ const mapReducer = (state = initState, action: any) => {
                     ...state.paramFilters,
                     components: action.params
                 }
+            }
+        }
+        case types.FAVORITE_LIST: {
+            return {
+                ...state,
+                favorites: action.favorites
+            }
+        }
+        case types.FAVORITE_CARDS_PROBLEMS: {
+            return {
+                ...state,
+                favoriteProblemCards: action.favoriteProblemCards
+            }
+        }
+        case types.FAVORITE_CARDS_PROJECTS: {
+            return {
+                ...state,
+                favoriteProjectCards: action.favoriteProjectCards
             }
         }
         default:

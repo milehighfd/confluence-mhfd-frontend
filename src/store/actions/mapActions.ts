@@ -789,3 +789,48 @@ export const getBBOXComponents = (table: string, id: number) => {
         })
     }
 }
+
+
+export const addFavorite = (email: string, cartodb_id: number, table: string) => {
+    return (dispatch: Function) => {
+        datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&cartodb_id=' + cartodb_id).then(favorite => {
+            favoriteCards(email, true);
+            favoriteCards(email, false); 
+            dispatch(favoriteList(email));
+            dispatch({type: types.ADD_FAVORITE, favorite});
+        });
+        //datasets.getData()
+    }
+}
+
+export const deleteFavorite = (email: string, cartodb_id: number, table: string) => {
+    return (dispatch: Function) => {
+        datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, {email: email, cartodb_id: cartodb_id, table: table}).then(favorite => {
+            favoriteCards(email, true);
+            favoriteCards(email, false);
+            dispatch(favoriteList(email));
+            dispatch({type: types.DELETE_FAVORITE, favorite});
+        });
+        //datasets.getData()
+    }
+}
+
+export const favoriteList = (email: string) => {
+    return (dispatch: Function) => {
+        datasets.getData(SERVER.FAVORITES + '?email=' + email).then(favorites  => {
+            dispatch({type: types.FAVORITE_LIST, favorites});
+        });
+    }
+}
+
+export const favoriteCards = (email: string, isproblem: boolean) => {
+    return (dispatch: Function) => {
+        datasets.postData(SERVER.FAVORITE_CARDS, {email: email, isproblem: isproblem}).then(favoriteCards => {
+            if (isproblem) {
+                dispatch({type: types.FAVORITE_CARDS_PROBLEMS, favoriteProblemCards: favoriteCards});
+            } else {
+                dispatch({type: types.FAVORITE_CARDS_PROJECTS, favoriteProjectCards: favoriteCards});
+            }
+        });
+    }
+}
