@@ -432,7 +432,8 @@ const initState = {
     ],
     favorites: [],
     favoriteProblemCards: [],
-    favoriteProjectCards: []
+    favoriteProjectCards: [],
+    tutorialStatus: false
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -800,6 +801,16 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 favoriteProjectCards: action.favoriteProjectCards
+            }
+        }
+        case types.TUTORIAL_STATUS: {
+            console.log({
+                ...state,
+                tutorialStatus: action.tutorialStatus
+            });
+            return {
+                ...state,
+                tutorialStatus: action.tutorialStatus
             }
         }
         default:

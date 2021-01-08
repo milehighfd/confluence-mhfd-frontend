@@ -8,7 +8,7 @@ import {
   getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
   setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
-  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync, setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents, addFavorite, deleteFavorite, favoriteList
+  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync, setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents, addFavorite, deleteFavorite, favoriteList, changeTutorialStatus
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -30,7 +30,8 @@ interface selectMapState {
   favoriteProblemCards: any,
   favoriteProjectCards: any,
   favorites: any,
-  bboxComponents: any
+  bboxComponents: any,
+  tutorialStatus: boolean
 }
 
 /* Commented because typescript doesn't support that many arguments
@@ -86,15 +87,16 @@ const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> 
       (state: any) => state.map.favoriteProjectCards,
       (state: any) => state.map.favorites,
       (state: any) => state.map.bboxComponents,
+      (state: any) => state.map.tutorialStatus,
       //state => state.map.paramFilters,
       (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
         nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
         spinFilters: any, spinCardProblems: any, spinCardProjects: any,//, paramFilters
-        favoriteProblemCards: any,favoriteProjectCards: any, favorites: any, bboxComponents: any
+        favoriteProblemCards: any,favoriteProjectCards: any, favorites: any, bboxComponents: any, tutorialStatus: boolean
         ) => ({
           toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
           nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
-          spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites, bboxComponents
+          spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites, bboxComponents, tutorialStatus
         })
     );
 
@@ -182,6 +184,9 @@ export const useMapDispatch = () => {
     }, 
     favoriteList: (email: string) => {
       dispatch(favoriteList(email));
+    },
+    changeTutorialStatus: (status: boolean) => {
+      dispatch(changeTutorialStatus(status));
     }
   }
 }

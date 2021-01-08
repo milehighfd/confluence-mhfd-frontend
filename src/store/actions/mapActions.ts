@@ -834,3 +834,11 @@ export const favoriteCards = (email: string, isproblem: boolean) => {
         });
     }
 }
+
+export const changeTutorialStatus = (tutorialStatus: boolean) => {
+    return (dispatch: Function) => {
+        console.log('tutorial ', tutorialStatus);
+        console.log({type: types.TUTORIAL_STATUS, tutorialStatus});
+        dispatch({type: types.TUTORIAL_STATUS, tutorialStatus});
+    }
+}
