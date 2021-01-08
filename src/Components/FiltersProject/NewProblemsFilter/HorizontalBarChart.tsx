@@ -63,7 +63,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       })
     }
 
-    const spaceBetween = 55;
+    const spaceBetween = 45;
     const width = 180;
     const height = Math.max(data.length * spaceBetween - 20, 140);
 

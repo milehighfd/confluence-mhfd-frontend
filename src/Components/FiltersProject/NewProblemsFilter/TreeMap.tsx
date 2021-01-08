@@ -342,7 +342,9 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         <u>Reset</u>
       </Button>
       </div>
-      <svg ref={svgRef} className={'svg-top-pad'} />
+      <div className="tree-chart">
+        <svg ref={svgRef} className={'svg-top-pad'} />
+      </div>
     </>
   )
 }
