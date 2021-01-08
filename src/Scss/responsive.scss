@@ -193,53 +193,57 @@
     }
   }
   .tutorial-000{
-    width: 1800px !important;
+    width: 2200px !important;
 
     .ant-tabs .ant-tabs-left-bar .ant-tabs-nav-scroll, .ant-tabs .ant-tabs-right-bar .ant-tabs-nav-scroll {
-      width: 500px !important;
+      width: 530px !important;
     }
     .ant-tabs .ant-tabs-left-bar .ant-tabs-tab, .ant-tabs .ant-tabs-right-bar .ant-tabs-tab {
-      margin: 0px 0 25px 25px !important;
-      font-size: 32px;
+      margin: 0px 0 35px 25px !important;
+      font-size: 40px;
     }
     .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
       width: 10px !important;
     }
     .ant-tabs-left-content img{
-      width: 1160px !important;
+      width: 1540px !important;
     }
     .content {
-      height: 400px !important;
+      height: 550px !important;
       margin: 40px 45px 40px 0px !important;
       text-align: justify;
     }
     p {
-     font-size: 32px !important;
+     font-size: 40px !important;
     }
     .btn-purple {
-      width: 280px !important;
-      height: 80px !important;
-      font-size: 32px !important;
+      width: 320px !important;
+      height: 120px !important;
+      font-size: 42px !important;
     }
     .ant-tabs .ant-tabs-left-content {
       padding-left: 60px !important;
       padding-top: 20px;
+      padding-bottom: 20px;
     }
     .ant-tabs-nav {
-      padding-top: 70px !important;
+      padding-top: 100px !important;
     }
     .logo-00 {
       padding-left: 50px !important;
     }
     .ant-modal-close-x {
-      font-size: 28px !important;
+      font-size: 32px !important;
     }
     .ant-modal-close {
       padding: 15px !important;
-   }
+    }
+    .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
+      width: 10px !important;
+    }
   }
   .tutorial .logo-00 img {
-    width: 280px !important;
+    width: 350px !important;
   }
   .login-dropdown {
     font-size: 26px !important;
@@ -389,6 +393,12 @@
     button .like-img {
       height: 40px;
       width: 48px;
+    }
+    .ant-btn:hover > .like-img, .ant-btn:focus > .like-img,
+    .ant-btn:active > .like-img, .ant-btn.active > .like-img{
+      height: 40px !important;
+      width: 48px !important;
+      background-size: 43px;
     }
   }
   .card-button-hover button {
