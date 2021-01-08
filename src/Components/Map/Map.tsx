@@ -1169,19 +1169,19 @@ const Map = ({ leftWidth,
             });
             features.sort((a: any, b: any) => {
                 //first sort the projects then problems, then alphabetical
-                if (a.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').includes('project')) {
+                if (a.source.includes('project')) {
                     return -1;
                 }
-                if (b.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').includes('project')) {
+                if (b.source.includes('project')) {
                     return 1;
                 }
-                if (a.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').includes('problem')) {
+                if (a.source.includes('problem')) {
                     return -1;
                 }
-                if (b.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').includes('problem')) {
+                if (b.source.includes('problem')) {
                     return 1;
                 }
-                return a.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').localeCompare(b.source.replace('polygon_', '').replace('line_1', '').split('_').join(' '));
+                return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
             });
             for (const feature of features) {
                 let html: any = null;
