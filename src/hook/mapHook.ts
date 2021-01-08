@@ -8,7 +8,7 @@ import {
   getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
   setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
-  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync, setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents
+  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync, setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents, addFavorite, deleteFavorite, favoriteList
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -26,7 +26,10 @@ interface selectMapState {
   labelsFiltersComponents: LabelFilter[],
   spinFilters: boolean,
   spinCardProblems: boolean,
-  spinCardProjects: boolean//,
+  spinCardProjects: boolean,
+  favoriteProblemCards: any,
+  favoriteProjectCards: any,
+  favorites: any//,
   //paramFilters: any
 }
 
@@ -79,14 +82,18 @@ const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> 
       (state: any) => state.map.spinFilters,
       (state: any) => state.map.spinCardProblems,
       (state: any) => state.map.spinCardProjects,
+      (state: any) => state.map.favoriteProblemCards,
+      (state: any) => state.map.favoriteProjectCards,
+      (state: any) => state.map.favorites,
       //state => state.map.paramFilters,
       (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
         nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
-        spinFilters: any, spinCardProblems: any, spinCardProjects: any//, paramFilters
+        spinFilters: any, spinCardProblems: any, spinCardProjects: any,//, paramFilters
+        favoriteProblemCards: any,favoriteProjectCards: any, favorites: any
         ) => ({
           toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
           nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
-          spinFilters, spinCardProblems, spinCardProjects//, paramFilters
+          spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites//, paramFilters
         })
     );
 
@@ -165,6 +172,15 @@ export const useMapDispatch = () => {
     },
     updateSelectedLayers: (selectedLayer: any) => {
       dispatch(updateSelectedLayers(selectedLayer))
+    },
+    addFavorite: (email: string, cartodb_id: number, table: string) => {
+      dispatch(addFavorite(email, cartodb_id, table));
+    },
+    deleteFavorite: (email: string, cartodb_id: number, table: string) => {
+      dispatch(deleteFavorite(email, cartodb_id, table));
+    }, 
+    favoriteList: (email: string) => {
+      dispatch(favoriteList(email));
     }
   }
 }
