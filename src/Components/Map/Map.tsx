@@ -1168,6 +1168,18 @@ const Map = ({ leftWidth,
                 return search(element.properties.cartodb_id, element.source) === index;
             });
             features.sort((a: any, b: any) => {
+                if (a.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').includes('project')) {
+                    return -1;
+                }
+                if (b.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').includes('project')) {
+                    return 1;
+                }
+                if (a.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').includes('problem')) {
+                    return -1;
+                }
+                if (b.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').includes('problem')) {
+                    return 1;
+                }
                 return a.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').localeCompare(b.source.replace('polygon_', '').replace('line_1', '').split('_').join(' '));
             });
             for (const feature of features) {
