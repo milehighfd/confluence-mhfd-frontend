@@ -1467,7 +1467,6 @@ const Map = ({ leftWidth,
                     }
                 });
                 map.on('mouseleave', key + '_' + index, (e: any) => {
-                    console.log('i exit');
                     hideOneHighlighted(key);
                     map.getCanvas().style.cursor = '';
                     setSelectedOnMap(-1, '');

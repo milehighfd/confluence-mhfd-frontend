@@ -940,9 +940,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       }
     }
   }
-  console.log('current status ', tutorialStatus);
   useEffect(() => {
-    console.log('my status changes ', tutorialStatus);
     if (tutorialStatus) {
       handleToggle();
     }
