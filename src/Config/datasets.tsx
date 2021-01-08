@@ -88,6 +88,19 @@ export const deleteData = (url: any, token?: any) => {
       console.log(err);
     });
 }
+export const deleteDataWithBody = (url: any, body: any, token?: any) => {
+    const headers = token ? JSONOptions(token) : JSONDefault();
+    return fetch(url, {
+        method: 'DELETE',
+        headers,
+        body: JSON.stringify(body)
+    })
+    .then(response => response.json())
+    .then(data => (data))
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 export const JSONOptionsOctet = (token?: any) => {
     let headers = new Headers();
