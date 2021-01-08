@@ -46,10 +46,12 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   }, [favorites]);
   
   const isActive = (table: string, cartodb_id: number): boolean => {
+    if (favorites) {
     for (const favorite of favorites) {
       if (favorite.table === table && favorite.cartodb_id === cartodb_id) {
         return true;
       }
+    }
     }
     return false;
   }
@@ -69,10 +71,10 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   }
 
   useEffect(() => {
-    console.log(bboxComponents);
-    if (bboxComponents.length && bboxComponents[0] != null) {
+    const bcbbox = bboxComponents.bbox;
+    if (bcbbox.length && bcbbox[0] != null) {
       updateSelectedLayers([...selectedLayers, COMPONENT_LAYERS]);
-      setZoomProjectOrProblem(bboxComponents[0]);
+      setZoomProjectOrProblem(bcbbox[0]);
       // saveUserInformation(user);
     }
   }, [bboxComponents]);

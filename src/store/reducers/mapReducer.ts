@@ -216,7 +216,10 @@ const initState = {
     opacityLayer: false,
     coordinatesJurisdiction: [],
     nameZoomArea: '',
-    bboxComponents: [],
+    bboxComponents: {
+        bbox: [],
+        centroids: []
+    },
     labelsFiltersProjects: [
         {
             'display': 'PROJECT TYPE',

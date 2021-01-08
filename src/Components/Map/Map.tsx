@@ -47,6 +47,9 @@ import { style } from 'd3';
 import { setOpacityLayer } from '../../store/actions/mapActions';
 import { useProfileDispatch } from '../../hook/profileHook';
 import AlertView from '../Alerts/AlertView';
+import {MapboxLayer} from '@deck.gl/mapbox';
+import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
+import * as d3 from 'd3';
 const { Option } = AutoComplete;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
@@ -63,6 +66,47 @@ const { Panel } = Collapse;
 {/*const genExtra = () => (
   <CloseOutlined />
 );*/}
+
+class ArcBrushingLayer extends ArcLayer {
+//     getShaders() {
+//       // use customized shaders
+//       return Object.assign({}, super.getShaders(), {
+//         inject: {
+//           'vs:#decl': `
+// uniform vec2 mousePosition;
+// uniform float brushRadius;
+//           `,
+//           'vs:#main-end': `
+// float brushRadiusPixels = project_scale(brushRadius);
+
+// vec2 sourcePosition = project_position(instancePositions.xy);
+// bool isSourceInBrush = distance(sourcePosition, mousePosition) <= brushRadiusPixels;
+
+// vec2 targetPosition = project_position(instancePositions.zw);
+// bool isTargetInBrush = distance(targetPosition, mousePosition) <= brushRadiusPixels;
+
+// if (!isSourceInBrush && !isTargetInBrush) {
+// vColor.a = 0.0;
+// }
+//           `,
+//           'fs:#main-start': `
+// if (vColor.a == 0.0) discard;
+//           `
+//         }
+//       });
+//     }
+
+    draw(opts: any) {
+      const {brushRadius = 1e6, mousePosition} = this.props;
+      // add uniforms
+      const uniforms = Object.assign({}, opts.uniforms, {
+        brushRadius: brushRadius,
+        mousePosition: mousePosition ?
+          this.projectPosition(this.unproject(mousePosition)).slice(0, 2) : [0, 0]
+      });
+      super.draw(Object.assign({}, opts, {uniforms}));
+    }
+}
 
 const Map = ({ leftWidth,
     layers,
@@ -114,7 +158,7 @@ const Map = ({ leftWidth,
 
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
-        filterTabNumber, coordinatesJurisdiction, opacityLayer } = useMapState();
+        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents } = useMapState();
     const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
         getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete } = useMapDispatch();
@@ -622,6 +666,67 @@ const Map = ({ leftWidth,
             removeTilesHandler(recentSelection);
         }
     }, [recentSelection]);
+
+    useEffect(() => {
+        if (bboxComponents.centroids && bboxComponents.centroids.length === 0) {
+        } else {
+            if (map.getLayer('counties')) {
+                map.removeLayer('counties')
+            }
+            if (map.getLayer('arcs')) {
+                map.removeLayer('arcs')
+            }
+
+            const SOURCE_COLOR = [166, 3, 3];
+            const TARGET_COLOR = [35, 181, 184];
+            const RADIUS_SCALE = d3.scaleSqrt().domain([0, 8000]).range([1000, 20000]);
+            const WIDTH_SCALE = d3.scaleLinear().domain([0, 1000]).range([1, 4]);
+
+
+            let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
+                return {
+                    position: c.centroid,
+                    name: c.component,
+                    total: 1,
+                    color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR
+                }
+            });
+            let arcs: any[] = [];
+
+            for (let i = 1;  i < bboxComponents.centroids.length ; i++) {
+                arcs.push({
+                    source: bboxComponents.centroids[0].centroid,
+                    target: bboxComponents.centroids[i].centroid,
+                    value: 1
+                });
+            }
+            let countiesLayer = new MapboxLayer({
+                type: ScatterplotLayer,
+                id: 'counties',
+                data: scatterData,
+                opacity: 1,
+                pickable: true,
+                getRadius: (d: any) => 2,
+                getColor: (d: any) => d.color
+            });
+
+            let arcsLayer = new MapboxLayer({
+                type: ArcLayer,
+                id: 'arcs',
+                data: arcs,
+                brushRadius: 100000,
+                getStrokeWidth: (d: any) => 4,
+                opacity: 1,
+                getSourcePosition: (d: any) => d.source,
+                getTargetPosition: (d: any) => d.target,
+                getWidth: (d: any) => 10,
+                getSourceColor: SOURCE_COLOR,
+                getTargetColor: TARGET_COLOR
+            });
+            map.addLayer(countiesLayer);
+            map.addLayer(arcsLayer);
+        }
+    }, [bboxComponents])
 
     const removePopup = () => {
         popup.remove();

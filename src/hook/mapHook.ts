@@ -29,8 +29,8 @@ interface selectMapState {
   spinCardProjects: boolean,
   favoriteProblemCards: any,
   favoriteProjectCards: any,
-  favorites: any//,
-  //paramFilters: any
+  favorites: any,
+  bboxComponents: any
 }
 
 /* Commented because typescript doesn't support that many arguments
@@ -85,15 +85,16 @@ const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> 
       (state: any) => state.map.favoriteProblemCards,
       (state: any) => state.map.favoriteProjectCards,
       (state: any) => state.map.favorites,
+      (state: any) => state.map.bboxComponents,
       //state => state.map.paramFilters,
       (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
         nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
         spinFilters: any, spinCardProblems: any, spinCardProjects: any,//, paramFilters
-        favoriteProblemCards: any,favoriteProjectCards: any, favorites: any
+        favoriteProblemCards: any,favoriteProjectCards: any, favorites: any, bboxComponents: any
         ) => ({
           toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
           nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
-          spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites//, paramFilters
+          spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites, bboxComponents
         })
     );
 
