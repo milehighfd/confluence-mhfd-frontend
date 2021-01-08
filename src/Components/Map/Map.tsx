@@ -677,8 +677,9 @@ const Map = ({ leftWidth,
                 map.removeLayer('arcs')
             }
 
-            const SOURCE_COLOR = [166, 3, 3];
-            const TARGET_COLOR = [35, 181, 184];
+            const SOURCE_COLOR = [189, 56, 68];
+            const TARGET_COLOR = [131, 233, 80];
+            const YELLOW_SOLID = [255, 255, 80]
             const RADIUS_SCALE = d3.scaleSqrt().domain([0, 8000]).range([1000, 20000]);
             const WIDTH_SCALE = d3.scaleLinear().domain([0, 1000]).range([1, 4]);
 
@@ -720,9 +721,10 @@ const Map = ({ leftWidth,
                 getSourcePosition: (d: any) => d.source,
                 getTargetPosition: (d: any) => d.target,
                 getWidth: (d: any) => 10,
-                getSourceColor: SOURCE_COLOR,
-                getTargetColor: TARGET_COLOR
+                getSourceColor: YELLOW_SOLID,
+                getTargetColor: YELLOW_SOLID
             });
+            map.setPitch(80)
             map.addLayer(countiesLayer);
             map.addLayer(arcsLayer);
         }
