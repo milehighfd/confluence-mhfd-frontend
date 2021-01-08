@@ -105,12 +105,10 @@ export const SEMSWA_SERVICE_AREA =
       } else {
         newGroups['MHFDData'] = false;
       }
-    console.log(switches[WATERSHED_FILTERS]);
     if (switches[WATERSHED_FILTERS]) {
       newGroups['hydrologic'] = true;
       console.log('===> ', {...groups, 'hydrologic': true});
     } else {
-      console.log('Z=== ', {...groups, 'hydrologic': true});
       newGroups['hydrologic'] = false;
     }
     if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD]) {

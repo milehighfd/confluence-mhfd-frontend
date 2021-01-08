@@ -33,7 +33,7 @@ import {
     COUNTIES_FILTERS,
     MHFD_BOUNDARY_FILTERS,
     SELECT_ALL_FILTERS,
-    MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER
+    MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles } from '../../constants/mapStyles';
@@ -155,7 +155,12 @@ const Map = ({ leftWidth,
 }: MapProps) => {
     // console.log( mapSearch);=
     let geocoderRef = useRef<HTMLDivElement>(null);
-
+    const hovereableLayers = [ PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, 
+        MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
+         ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
+        LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, 
+        CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
+         PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE];
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
         filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents } = useMapState();
@@ -982,6 +987,9 @@ const Map = ({ leftWidth,
             });
 
             map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+            if (!hovereableLayers.includes(key)) {
+                return;
+            }
             if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
                 map.addLayer({
                     id: key + '_highlight_' + index,
@@ -1458,7 +1466,9 @@ const Map = ({ leftWidth,
                 });
                 */
                 map.on('mousemove', key + '_' + index, (e: any) => {
-                    showHighlighted(key, e.features[0].properties.cartodb_id);
+                    if (hovereableLayers.includes(key)) {
+                        showHighlighted(key, e.features[0].properties.cartodb_id);
+                    }
                     if (key.includes('projects') || key === 'problems') {
                         map.getCanvas().style.cursor = 'pointer';
                         setSelectedOnMap(e.features[0].properties.cartodb_id, key);
@@ -1467,7 +1477,9 @@ const Map = ({ leftWidth,
                     }
                 });
                 map.on('mouseleave', key + '_' + index, (e: any) => {
-                    hideOneHighlighted(key);
+                    if (hovereableLayers.includes(key)) {
+                        hideOneHighlighted(key);
+                    }
                     map.getCanvas().style.cursor = '';
                     setSelectedOnMap(-1, '');
                 });
