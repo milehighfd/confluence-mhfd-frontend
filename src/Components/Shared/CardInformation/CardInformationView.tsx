@@ -5,7 +5,7 @@ import DetailedModal from "../Modals/DetailedModal";
 
 import { numberWithCommas } from '../../../utils/utils';
 import { Detailed } from "../../../store/types/detailedTypes";
-import { useMapDispatch } from "../../../hook/mapHook";
+import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { useProfileDispatch } from "../../../hook/profileHook";
 
 import { useSelector } from "react-redux";
@@ -27,14 +27,34 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any, componentCounter: number,
                 getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
   const [visible, setVisible] = useState(false);
-
-  const { getBBOXComponents, updateSelectedLayers } = useMapDispatch();
+  const { getBBOXComponents, updateSelectedLayers, addFavorite, deleteFavorite, favoriteList } = useMapDispatch();
+  const { favorites, favoriteProblemCards, favoriteProjectCards } = useMapState();
   const { saveUserInformation } = useProfileDispatch();
   const showComponents = () => {
     console.log(data);
     const id = data.type === 'problems' ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
   }
+  const user = store.getState().profile.userInformation;
+  useEffect(() => {
+    favoriteList(user.email);
+  }, 
+  []);
+  useEffect(() => {
+    console.log(favorites);
+    setActiveCard(isActive(data.type, data.cartodb_id));
+  }, [favorites]);
+  
+  const isActive = (table: string, cartodb_id: number): boolean => {
+    for (const favorite of favorites) {
+      if (favorite.table === table && favorite.cartodb_id === cartodb_id) {
+        return true;
+      }
+    }
+    return false;
+  }
+  const [activeCard, setActiveCard] = useState(isActive(data.type, data.cartodb_id));
+  
   const { autcomplete, spinMapLoaded, bboxComponents, selectedLayers } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete,
@@ -98,7 +118,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     setHighlighted({type: type, value: value});
     // setOpacityLayer(false);
   }
-
+  
   return (
     <>
       {visible && <DetailedModal
@@ -135,7 +155,15 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 </div>
              </div>
              <div className="like-btn">
-               <Button><div className="like-img"></div></Button>
+               <Button onClick={(event) => {
+                  event.stopPropagation();
+                  activeCard ? deleteFavorite(user.email, data.cartodb_id, data.type) : addFavorite(user.email, data.cartodb_id, data.type);
+                  //favoriteList(user.email);
+                }
+               }
+                >
+                 <div className={activeCard ? "like-img-on" : "like-img"}></div>
+                </Button>
              </div>
            </div>
          }
