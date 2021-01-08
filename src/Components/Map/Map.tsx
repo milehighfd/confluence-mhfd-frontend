@@ -1168,6 +1168,7 @@ const Map = ({ leftWidth,
                 return search(element.properties.cartodb_id, element.source) === index;
             });
             features.sort((a: any, b: any) => {
+                //first sort the projects then problems, then alphabetical
                 if (a.source.replace('polygon_', '').replace('line_1', '').split('_').join(' ').includes('project')) {
                     return -1;
                 }
