@@ -8,6 +8,7 @@ import { User } from "../../../Classes/TypeList";
 import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
 import '../../../Scss/navbar.scss';
 import {DoubleRightOutlined} from '@ant-design/icons';
+import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -25,17 +26,19 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   }
   const [carrousel, setCarrousel] = useState({slick: {slickGoTo: (index: number) => {}}});
   const [state, setState] = useState(stateValue);
-
-
+  const { changeTutorialStatus } = useMapDispatch();
   useEffect(() => {
-    if (sliderIndex === 3) {
-      setState({...state, visible1: false});
-      setSliderIndex(0);
-    }
+    console.log('change state value ',stateValue);
+    changeTutorialStatus(state.visible1);
+  }, [state]);
+  useEffect(() => {
     console.log(sliderIndex, carrousel);
     if (carrousel.hasOwnProperty('slick')) {
       carrousel.slick.slickGoTo(sliderIndex);
-
+    }
+    if (sliderIndex === 3) {
+      setState({...state, visible1: false});
+      setSliderIndex(0);
     }
   }, [sliderIndex]);
   const showModal = () => {
@@ -58,6 +61,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
    const showModal1 = () => {
      const auxState = {...state};
      auxState.visible1 = true;
+     console.log('estoy entrando aca ', auxState);
      setState(auxState);
    };
    const handleOk1 = (e: any) => {

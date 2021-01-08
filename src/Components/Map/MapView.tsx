@@ -102,7 +102,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const { setToggleModalFilter, getParamFilterProblems, getParamFilterProjects, getParamFilterComponents,
     setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete } = useMapDispatch();
-  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber } = useMapState();
+  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
@@ -940,6 +940,13 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       }
     }
   }
+  console.log('current status ', tutorialStatus);
+  useEffect(() => {
+    console.log('my status changes ', tutorialStatus);
+    if (tutorialStatus) {
+      handleToggle();
+    }
+  }, [tutorialStatus]);
   return <>
     <div className="count" style={{ paddingBottom: '0px' }}>
       {displayModal && visible && <DetailedModal
