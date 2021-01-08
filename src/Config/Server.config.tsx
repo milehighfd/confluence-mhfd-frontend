@@ -73,6 +73,9 @@ export const SERVER = (function () {
     const PARAM_FILTER_COMPONENTS = 'params-filter-components';
     const GET_ZOOMAREA_FILTER = 'get-zoom-filter';
     const BBOX_COMPONENTS = 'bbox-components';
+    const FAVORITES = 'favorites';
+    const ADD_FAVORITE = 'create';
+    const FAVORITE_CARDS = 'favorite-list';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -135,6 +138,10 @@ export const SERVER = (function () {
         PARAM_FILTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROBLEMS}`,
         PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS}`,
         GET_ZOOMAREA_FILTER: `${URL_BASE.BASE}/${ZOOMAREA}/${GET_ZOOMAREA_FILTER}`,
-        BBOX_COMPONENTS: `${URL_BASE.BASE}/${MAP}/${BBOX_COMPONENTS}`
+        BBOX_COMPONENTS: `${URL_BASE.BASE}/${MAP}/${BBOX_COMPONENTS}`,
+        FAVORITES: `${URL_BASE.BASE}/${FAVORITES}`,
+        ADD_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}/${ADD_FAVORITE}`,
+        DELETE_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}`,
+        FAVORITE_CARDS: `${URL_BASE.BASE}/${FAVORITES}/${FAVORITE_CARDS}`
     }
 })();
