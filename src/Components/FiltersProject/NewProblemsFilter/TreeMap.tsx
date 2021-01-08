@@ -65,13 +65,14 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     return value;
   }
 
+  const width = 220;
+  const height = 220;
+  const rounded = 4;
+  const percentage = 0.10;
+  const fontSizeText = '12px';
+  const fontSizePercentage = '10px';
+
   useEffect(() => {
-    const width = 220;
-    const height = 220;
-    const rounded = 4;
-    const percentage = 0.10;
-    const fontSizeText = '12px';
-    const fontSizePercentage = '10px';
 
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
@@ -137,7 +138,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
     
     rects.on('click', clickFn)
-    rects.on('mouseover', mouseOverFn).on('mouseleave', mouseLeaveFn)
+    rects.on('mouseover', mouseOverFn)
     rects.on('mouseleave', mouseLeaveFn)
 
     let newRects = rects
@@ -288,22 +289,44 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     onSelect(defaultValue);
   }
 
+  let popupLabel = '';
+
+  if (popupContent) {
+    popupLabel = `${nameFormatter(popupContent.data.name)} ${popupContent.data.value}`;
+  }
+
+  const getLo = () => {
+    let l = 0;
+    if (svgRef.current && svgRef.current?.clientWidth) {
+      l = (leftOffset / width) * svgRef.current?.clientWidth
+    }
+    l -= popupLabel.length * 5;
+    return l;
+  }
+
+  const getTo = () => {
+    let t = 0;
+    if (svgRef.current && svgRef.current?.clientHeight) {
+      t = ((topOffset + 5)/ height) * svgRef.current?.clientHeight;
+    }
+    return t;
+  }
+
   const popupStyle: React.CSSProperties = {
     display: showPopup ? 'block' : 'none',
     position: 'absolute',
-    left: leftOffset - (popupRef.current ? popupRef.current.offsetWidth / 2 : 0),
-    top: topOffset,
+    left: getLo(),
+    top: getTo(),
     backgroundColor: 'white',
     textAlign: 'center',
     padding: 8,
     borderRadius: 8,
-    fontSize: 12,
     zIndex: 5
   }
 
   return (
     <>
-      <div ref={popupRef} style={popupStyle} className="text-center">
+      <div ref={popupRef} style={popupStyle} className="popup-chart">
           { popupContent &&
             <>
               <b>{nameFormatter(popupContent.data.name)}</b>: {popupContent.data.value}

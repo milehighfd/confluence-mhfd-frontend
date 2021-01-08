@@ -65,7 +65,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
     const spaceBetween = 55;
     const width = 180;
-    const height = Math.max(data.length * spaceBetween - 20, 240);
+    const height = Math.max(data.length * spaceBetween - 20, 140);
 
     let maxi: any = d3.max(data, (d: any) => d.counter);
 
@@ -85,16 +85,16 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
     var countFn: any = (d: any) => d.counter;
 
-    let xCountFn: any = (d: any) => x(d.counter);
+    let xCountFn: any = (d: any) => Math.max(17, x(d.counter) || 0);
 
     var yFn: any = (d: any) => y(d.value);
 
     var heightFn: any = () => {
-      return 16;
+      return 14;
     }
 
     var fontSizeFn: any = () => {
-      return 10;
+      return 12;
     }
 
     var getIndex = (d: any) => {
@@ -252,11 +252,12 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
     var countXFn = (d: any) => {
       let digits = Math.floor(Math.log10(d.counter === 0 ? 1 : d.counter)) + 1;
-      return xCountFn(d) - (digits * fontSizeFn());
+      return xCountFn(d) - (digits * 8);
     }
 
     var countYFn = (d: any) => {
-      return yFn(d) + ((heightFn() + fontSizeFn()) / 2);
+      // return yFn(d) + ((heightFn() + fontSizeFn()) / 2);
+      return yFn(d) + fontSizeFn() - 1;
     }
 
     let counts = svg
@@ -309,9 +310,9 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
         <u>Reset</u>
       </Button>
       <div className={'svg-scroll svg-top-pad'}>
-        <svg ref={svgRef} />
+        <svg ref={svgRef} className="horizontal-text" />
       </div>
-      <div style={{textAlign: 'center'}}>
+      <div className="horizontal-axis-label">
         <i>{axisLabel}</i>
       </div>
     </>

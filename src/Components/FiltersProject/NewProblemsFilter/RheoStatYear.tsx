@@ -9,6 +9,12 @@ import RheoStatService from './RheoStatService';
 const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  const [leftOffset, setLeftOffset] = useState(0);
+  const [topOffset, setTopOffset] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupContent, setPopupContent] = useState<any>(null);
 
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minTick, setMinTick] = useState(0);
@@ -19,9 +25,9 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
   const [service] = useState<RheoStatService>(new RheoStatService());
 
   const width = 200;
-  const height = 200;
+  const height = 140;
   const marginLeft = 30;
-  const rounded = 4;
+  const rounded = 2;
   const fillColor = '#ffdc00';
   const opaquedColor = '#fff2a8';
 
@@ -152,6 +158,17 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
       return y(d.count)
     };
 
+    let mouseOverFn = (d: any) => {
+      setPopupContent(d)
+      setLeftOffset(xdr(d));
+      setTopOffset(yCounterFn(d));
+      setShowPopup(true);
+    }
+
+    let mouseLeaveFn = () => {
+      setShowPopup(false);
+    }
+
     var rects = svg
       .selectAll(".bar-d3")
       .data(data)
@@ -167,8 +184,12 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
         return height - yCounterFn(d);
       });
 
-    rects
-      .enter().append("rect").lower()
+    rects.on('mouseover', mouseOverFn)
+    rects.on('mouseleave', mouseLeaveFn)
+
+    let newRects = rects
+      .enter().append("rect").lower();
+    newRects
       .attr("class", "bar-d3")
       .attr('rx', rounded)
       .attr('ry', rounded)
@@ -180,6 +201,9 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
         let d = data[i];
         return height - yCounterFn(d);
       });
+
+    newRects.on('mouseover', mouseOverFn)
+    newRects.on('mouseleave', mouseLeaveFn)
 
     rects.exit().remove();
 
@@ -229,6 +253,10 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
       .select(svgRef.current)
       .selectAll('.track-fill')
       .attr('stroke-width', 6);
+
+    d3.select(svgRef.current)
+      .selectAll('.track-overlay')
+      .attr('stroke-width', 10);
   }, [data, selectedData]);
 
   const apply = () => {
@@ -256,8 +284,50 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
     setRight(e);
   }
 
+  let popupLabel = '';
+
+  if (popupContent) {
+    popupLabel = `${popupContent.value}`;
+  }
+
+  const getLo = () => {
+    let l = 0;
+    if (svgRef.current && svgRef.current?.clientWidth) {
+      l = (leftOffset / width) * svgRef.current?.clientWidth
+    }
+    l -= popupLabel.length * 5;
+    return l;
+  }
+
+  const getTo = () => {
+    let t = 0;
+    if (svgRef.current && svgRef.current?.clientHeight) {
+      t = ((topOffset + 5)/ height) * svgRef.current?.clientHeight;
+    }
+    return t;
+  }
+
+  const popupStyle: React.CSSProperties = {
+    display: showPopup ? 'block' : 'none',
+    position: 'absolute',
+    left: getLo(),
+    top: getTo(),
+    backgroundColor: 'white',
+    textAlign: 'center',
+    padding: 8,
+    borderRadius: 8,
+    zIndex: 5
+  }
+
   return (
     <>
+      <div ref={popupRef} style={popupStyle} className="popup-chart">
+        { popupContent &&
+          <>
+            {popupLabel}
+          </>
+        }
+      </div>
       <div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
@@ -275,14 +345,14 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
           <label>
             Min Year
           </label>
-          <InputNumber size='large' style={{ width: '80%' }}
+          <InputNumber size='large' className="rheostat-input"
             min={0} value={left} onChange={onChangeLeft} />
         </Col>
         <Col span={12}>
           <label>
             Max Year
           </label>
-          <InputNumber size='large' style={{ width: '80%' }}
+          <InputNumber size='large' className="rheostat-input"
             min={0} value={right} onChange={onChangeRight}/>
         </Col>
       </Row>

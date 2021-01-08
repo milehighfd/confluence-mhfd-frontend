@@ -1374,13 +1374,35 @@
 }
 @media only screen and (min-height: 1200px){
   .svg-scroll{
-    height: 600px !important;
+    height: 450px !important;
     overflow-y: auto;
     margin-right: 20px;
   }
+  .horizontal-axis-label {
+    font-size: 45px !important;
+  }
+  .popup-chart {
+    text-align: center;
+    font-size: 30px !important;
+  }
+}
+.popup-chart {
+  text-align: center;
+  font-size: 12px;
+}
+.horizontal-text {
+  font-size: 12px;
+}
+.rheostat-input {
+  width: 80% !important;
+  max-width: 150px;
+}
+.horizontal-axis-label {
+  font-size: 14 px;
+  text-align: center;
 }
 .svg-scroll{
-  height: 250px;
+  height: 150px;
   overflow-y: auto;
   margin-right: 20px;
 }

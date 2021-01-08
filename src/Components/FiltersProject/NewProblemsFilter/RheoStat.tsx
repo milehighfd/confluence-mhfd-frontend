@@ -9,6 +9,12 @@ import RheoStatService from './RheoStatService';
 const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  const [leftOffset, setLeftOffset] = useState(0);
+  const [topOffset, setTopOffset] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupContent, setPopupContent] = useState<any>(null);
 
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
@@ -18,9 +24,9 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   const [service] = useState<RheoStatService>(new RheoStatService());
 
   const width = 200;
-  const height = 180;
+  const height = 140;
   const marginLeft = 30;
-  const rounded = 4;
+  const rounded = 2;
   const fillColor = '#2dc49a';
   const opaquedColor = '#b7eadc';
 
@@ -118,6 +124,17 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     let yCounterFn: any = (d: any) => y(d.counter);
 
+    let mouseOverFn = (d: any) => {
+      setPopupContent(d)
+      setLeftOffset(xdr(d));
+      setTopOffset(yCounterFn(d));
+      setShowPopup(true);
+    }
+
+    let mouseLeaveFn = () => {
+      setShowPopup(false);
+    }
+
     var rects = svg
       .selectAll(".bar-d3")
       .data(data)
@@ -132,6 +149,9 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
         let d = data[i];
         return height - yCounterFn(d);
       });
+
+    rects.on('mouseover', mouseOverFn)
+    rects.on('mouseleave', mouseLeaveFn)
 
     let newRects = rects
       .enter().append("rect").lower();
@@ -151,6 +171,9 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
     newRects.sort((a: any, b: any) => {
       return a.min - b.min;
     })
+
+    newRects.on('mouseover', mouseOverFn)
+    newRects.on('mouseleave', mouseLeaveFn)
 
     rects.exit().remove();
 
@@ -202,6 +225,10 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .selectAll('.track-fill')
       .attr('stroke-width', 6);
 
+    d3.select(svgRef.current)
+      .selectAll('.track-overlay')
+      .attr('stroke-width', 10)
+
   }, [data]);
 
   const apply = () => {
@@ -239,8 +266,50 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
     return value.replace(/\$\s?|(,*)/g, '')
   }
 
+  let popupLabel = '';
+
+  if (popupContent) {
+    popupLabel = `${priceFormatter(popupContent.min)}K to ${priceFormatter(popupContent.max)}K`;
+  }
+
+  const getLo = () => {
+    let l = 0;
+    if (svgRef.current && svgRef.current?.clientWidth) {
+      l = (leftOffset / width) * svgRef.current?.clientWidth
+    }
+    l -= popupLabel.length * 5;
+    return l;
+  }
+
+  const getTo = () => {
+    let t = 0;
+    if (svgRef.current && svgRef.current?.clientHeight) {
+      t = ((topOffset + 5)/ height) * svgRef.current?.clientHeight;
+    }
+    return t;
+  }
+
+  const popupStyle: React.CSSProperties = {
+    display: showPopup ? 'block' : 'none',
+    position: 'absolute',
+    left: getLo(),
+    top: getTo(),
+    backgroundColor: 'white',
+    textAlign: 'center',
+    padding: 8,
+    borderRadius: 8,
+    zIndex: 5
+  }
+
   return (
     <>
+      <div ref={popupRef} style={popupStyle} className="popup-chart">
+        { popupContent &&
+          <>
+            {popupLabel}
+          </>
+        }
+      </div>
       <div>
       <Button className="btn-svg" onClick={apply}>
         <u>Apply</u>
@@ -258,7 +327,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
           <label>
             Min Cost (K)
           </label>
-          <InputNumber size='large' style={{ width: '80%' }} min={0}
+          <InputNumber className="rheostat-input" size='large' min={0}
             formatter={priceFormatter}
             parser={priceParser}
             value={left} onChange={onChangeLeft} />
@@ -267,7 +336,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
           <label>
             Max Cost (K)
           </label>
-          <InputNumber size='large' style={{ width: '80%' }} min={0}
+          <InputNumber className="rheostat-input" size='large' min={0}
             formatter={priceFormatter}
             parser={priceParser}
             value={right} onChange={onChangeRight} />
