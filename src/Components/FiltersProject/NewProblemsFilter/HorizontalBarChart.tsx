@@ -71,7 +71,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
     var x = d3.scaleLinear()
       .domain([0, maxi])
-      .range([0, width]);
+      .range([0, width-10]);
 
     var y: any = (value: any) => {
       let index = 0;

@@ -52,6 +52,9 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       return y(d.counter);
     }
 
+    let barWidth = 30;
+    let barXOffset = 70;
+
     var singleBars = svg
       .selectAll(".singlebar")
       .data(data)
@@ -61,9 +64,9 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .append("rect")
     
     singleBars
-      .attr("x", 50)
+      .attr("x", barXOffset)
       .attr("y", yAccFn)
-      .attr('width', 50)
+      .attr('width', barWidth)
       .attr('height', function (d:any, ) {
         return height - yCountFn(d);
       })
@@ -90,9 +93,9 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       })
 
     newBars
-      .attr("x", 50)
+      .attr("x", barXOffset)
       .attr("y", yAccFn)
-      .attr('width', 50)
+      .attr('width', barWidth)
       .attr('height', function (d:any, ) {
         return height - yCountFn(d);
       })
