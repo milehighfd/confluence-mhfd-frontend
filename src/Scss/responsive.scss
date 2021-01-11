@@ -400,6 +400,21 @@
       width: 48px !important;
       background-size: 43px;
     }
+    button .like-img-on{
+      background-image: url('/Icons/icon-82.svg');
+      height: 40px;
+      width: 48px;
+      background-repeat: no-repeat;
+      background-size: 43px;
+    }
+    .ant-btn:hover > .like-img, .ant-btn:focus > .like-img,
+    .ant-btn:active > .like-img, .ant-btn.active > .like-img{
+      background-image: url('/Icons/icon-82.svg');
+      height: 40px;
+      width: 48px;
+      background-repeat: no-repeat;
+      background-size: 43px;
+    }
   }
   .card-button-hover button {
     padding: 20px 25px;
