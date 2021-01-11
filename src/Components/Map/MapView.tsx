@@ -944,7 +944,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     }
   }
   useEffect(() => {
-    if (tutorialStatus) {
+    if (tutorialStatus && toggleFilters) {
       handleToggle();
     }
   }, [tutorialStatus]);

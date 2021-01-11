@@ -10,6 +10,7 @@ import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message, Spin } from 'antd';
 import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
+import { useMapState } from '../hook/mapHook';
 
 export default function (WrappedComponent : any, layers : MapLayersType) {
     return ({ problems,
@@ -102,7 +103,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         const [formatedProjects, setFormatedProjects] = useState<any>([]);
         const [spinValue, setSpinValue] = useState(true);
         const [isExtendedView, setCompleteView] = useState(false);
-
+        const { tutorialStatus } =useMapState();
         let markerRef = useRef<HTMLDivElement>(null);
         let polygonRef = useRef<HTMLDivElement>(null);
         useEffect(() => {
@@ -125,7 +126,13 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             setFormatedProjects(newProjects);
           }
         }, [projectsByType]);
-
+        useEffect(() => {
+          if (tutorialStatus) {
+            setLeftWidth(MEDIUM_SCREEN_LEFT);
+            setRightWitdh(MEDIUM_SCREEN_RIGHT);
+            setRotationStyle(emptyStyle);
+          }
+        }, [tutorialStatus])
         const updateWidth = () => {
           if (leftWidth === MEDIUM_SCREEN_LEFT) {
             setLeftWidth(COMPLETE_SCREEN);
