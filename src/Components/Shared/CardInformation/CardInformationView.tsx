@@ -37,6 +37,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   }
   const user = store.getState().profile.userInformation;
   useEffect(() => {
+    console.log(user.designation);
     favoriteList(user.email);
   }, 
   []);
@@ -156,7 +157,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                   <Button>See Details</Button>
                 </div>
              </div>
-             <div className="like-btn">
+             {user.designation !== 'guest' ? <div className="like-btn">
                <Button onClick={(event) => {
                   event.stopPropagation();
                   activeCard ? deleteFavorite(user.email, data.cartodb_id, data.type) : addFavorite(user.email, data.cartodb_id, data.type);
@@ -166,7 +167,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                 >
                  <div className={activeCard ? "like-img-on" : "like-img"}></div>
                 </Button>
-             </div>
+             </div>: <></>}
            </div>
          }
         >
