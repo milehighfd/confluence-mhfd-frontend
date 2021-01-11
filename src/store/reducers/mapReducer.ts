@@ -433,7 +433,9 @@ const initState = {
     favorites: [],
     favoriteProblemCards: [],
     favoriteProjectCards: [],
-    tutorialStatus: false
+    tutorialStatus: false,
+    addFavorite: {},
+    deleteFavorite: 'x'
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -811,6 +813,26 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 tutorialStatus: action.tutorialStatus
+            }
+        }
+        case types.ADD_FAVORITE: {
+            return {
+                ...state,
+                favorites: [...state.favorites, action.favorite]
+            }
+        }
+        case types.DELETE_FAVORITE: {
+            console.log(action.favorite);
+            const copy: any = [];
+            for (const element of state.favorites) {
+                if (element['table'] === action.favorite.table && +element['cartodb_id'] === +action.favorite.cartodb_id) {
+                    continue;
+                }
+                copy.push(element);
+            }
+            return {
+                ...state,
+                favorites: copy
             }
         }
         default:

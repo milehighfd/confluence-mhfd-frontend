@@ -794,10 +794,9 @@ export const getBBOXComponents = (table: string, id: number) => {
 export const addFavorite = (email: string, cartodb_id: number, table: string) => {
     return (dispatch: Function) => {
         datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&cartodb_id=' + cartodb_id).then(favorite => {
-            favoriteCards(email, true);
-            favoriteCards(email, false); 
-            dispatch(favoriteList(email));
+            favorite.cartodb_id = +favorite.cartodb_id;
             dispatch({type: types.ADD_FAVORITE, favorite});
+            //dispatch(favoriteList(email));
         });
         //datasets.getData()
     }
@@ -806,10 +805,8 @@ export const addFavorite = (email: string, cartodb_id: number, table: string) =>
 export const deleteFavorite = (email: string, cartodb_id: number, table: string) => {
     return (dispatch: Function) => {
         datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, {email: email, cartodb_id: cartodb_id, table: table}).then(favorite => {
-            favoriteCards(email, true);
-            favoriteCards(email, false);
-            dispatch(favoriteList(email));
-            dispatch({type: types.DELETE_FAVORITE, favorite});
+            dispatch({type: types.DELETE_FAVORITE, favorite: {cartodb_id: cartodb_id, table: table}});
+           // dispatch(favoriteList(email));
         });
         //datasets.getData()
     }

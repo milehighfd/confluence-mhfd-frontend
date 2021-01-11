@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import bbox from "@turf/bbox";
 import store from "../../../store";
 import { COMPONENT_LAYERS } from "../../../constants/constants";
+import { stat } from "fs";
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
@@ -36,23 +37,24 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     getBBOXComponents(data.type, id);
   }
   const user = store.getState().profile.userInformation;
+  
   useEffect(() => {
     console.log(user.designation);
     favoriteList(user.email);
   }, 
   []);
   useEffect(() => {
-    console.log(favorites);
-    setActiveCard(isActive(data.type, data.cartodb_id));
-  }, [favorites]);
+    const status = isActive(data.type, data.cartodb_id);
+    setActiveCard(status);
+  }, [favorites, deleteFavorite, addFavorite]);
   
   const isActive = (table: string, cartodb_id: number): boolean => {
     if (favorites) {
-    for (const favorite of favorites) {
-      if (favorite.table === table && favorite.cartodb_id === cartodb_id) {
-        return true;
+      for (const favorite of favorites) {
+        if (favorite.table === table && favorite.cartodb_id === cartodb_id) {
+          return true;
+        }
       }
-    }
     }
     return false;
   }
@@ -160,7 +162,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
              {user.designation !== 'guest' ? <div className="like-btn">
                <Button onClick={(event) => {
                   event.stopPropagation();
-                  activeCard ? deleteFavorite(user.email, data.cartodb_id, data.type) : addFavorite(user.email, data.cartodb_id, data.type);
+                  activeCard ?  deleteFavorite(user.email, data.cartodb_id, data.type) : addFavorite(user.email, data.cartodb_id, data.type);
                   //favoriteList(user.email);
                 }
                }
