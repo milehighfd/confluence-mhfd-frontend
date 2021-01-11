@@ -35,47 +35,48 @@
 // 2K DISPLAY
 @media (min-width: 2500px) and (max-width: 2999px){
   .tutorial-000{
-    width: 1600px !important;
+    width: 1400px !important;
 
     .ant-tabs .ant-tabs-left-bar .ant-tabs-nav-scroll, .ant-tabs .ant-tabs-right-bar .ant-tabs-nav-scroll {
-      width: 400px !important;
+      width: 330px !important;
     }
     .ant-tabs .ant-tabs-left-bar .ant-tabs-tab, .ant-tabs .ant-tabs-right-bar .ant-tabs-tab {
-      margin: 0px 0 20px 5px !important;
-      font-size: 28px;
+      margin: 0px 0 10px 0px !important;
+      font-size: 24px;
     }
     .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
       width: 10px !important;
     }
     .ant-tabs-left-content img{
-      width: 1115px !important;
+      width: 990px !important;
     }
     .content {
-      height: 280px !important;
-      margin: 30px 20px 30px 0px !important;
+      height: 260px !important;
+      margin: 20px 20px 20px 0px !important;
       text-align: justify;
     }
     p {
-     font-size: 28px !important;
+     font-size: 24px !important;
     }
     .btn-purple {
-      width: 250px !important;
-      height: 80px !important;
-      font-size: 28px !important;
+      width: 230px !important;
+      height: 70px !important;
+      font-size: 24px !important;
     }
     .ant-tabs .ant-tabs-left-content {
       padding-left: 40px !important;
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
     .ant-tabs-nav {
-      padding-top: 80px !important;
+      padding-top: 60px !important;
     }
     .logo-00 {
-      padding-left: 50px !important;
+      padding-left: 30px !important;
+      top: 15px;
     }
     .ant-modal-close-x {
-      font-size: 24px !important;
+      font-size: 21px !important;
     }
     .ant-modal-close {
       padding: 5px !important;
@@ -85,7 +86,7 @@
     }
   }
   .tutorial .logo-00 img {
-    width: 260px !important;
+    width: 220px !important;
   }
 }
 
