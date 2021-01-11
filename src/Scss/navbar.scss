@@ -378,3 +378,9 @@
     }
   }
 }
+// RESPONSIVE MOBILE
+@media (max-width: 575.98px) {
+  .header{
+    display: none;
+  }
+}

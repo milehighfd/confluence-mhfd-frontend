@@ -32,6 +32,62 @@
     padding: 3px 6px;
   }
  }
+// 2K DISPLAY
+@media (min-width: 2500px) and (max-width: 2999px){
+  .tutorial-000{
+    width: 1600px !important;
+
+    .ant-tabs .ant-tabs-left-bar .ant-tabs-nav-scroll, .ant-tabs .ant-tabs-right-bar .ant-tabs-nav-scroll {
+      width: 400px !important;
+    }
+    .ant-tabs .ant-tabs-left-bar .ant-tabs-tab, .ant-tabs .ant-tabs-right-bar .ant-tabs-tab {
+      margin: 0px 0 20px 5px !important;
+      font-size: 28px;
+    }
+    .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
+      width: 10px !important;
+    }
+    .ant-tabs-left-content img{
+      width: 1115px !important;
+    }
+    .content {
+      height: 280px !important;
+      margin: 30px 20px 30px 0px !important;
+      text-align: justify;
+    }
+    p {
+     font-size: 28px !important;
+    }
+    .btn-purple {
+      width: 250px !important;
+      height: 80px !important;
+      font-size: 28px !important;
+    }
+    .ant-tabs .ant-tabs-left-content {
+      padding-left: 40px !important;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+    .ant-tabs-nav {
+      padding-top: 80px !important;
+    }
+    .logo-00 {
+      padding-left: 50px !important;
+    }
+    .ant-modal-close-x {
+      font-size: 24px !important;
+    }
+    .ant-modal-close {
+      padding: 5px !important;
+    }
+    .ant-tabs .ant-tabs-left-bar .ant-tabs-ink-bar {
+      width: 10px !important;
+    }
+  }
+  .tutorial .logo-00 img {
+    width: 260px !important;
+  }
+}
 
  // 4K DISPLAY
 @media (min-width: 3000px) {
