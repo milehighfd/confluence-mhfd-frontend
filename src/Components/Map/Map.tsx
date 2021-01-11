@@ -1723,7 +1723,6 @@ const Map = ({ leftWidth,
         const user = store.getState().profile.userInformation;
         user.polygon = coordinatesMHFD;
         saveUserInformation(user);
-        setNameZoomArea('Mile High Flood District');
         if (!opacityLayer) {
             hideOpacity();
         }
@@ -1739,7 +1738,8 @@ const Map = ({ leftWidth,
         optionsProject['jurisdiction'] = '';
         setFilterProblemOptions(optionsProblem);
         setFilterProjectOptions(optionsProject);
-
+        setNameZoomArea('Mile High Flood District');
+        
         //setArea(name);
     }
 
