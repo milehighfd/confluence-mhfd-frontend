@@ -107,9 +107,12 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
+  
   const [valueA, setvalueA] = useState('');
 
-
+  useEffect(() => {
+    setvalueA(nameZoomArea);
+  }, [nameZoomArea]);
   /* const logued = localStorage.getItem('mfx-token')
     const logued2 = store.getState().profile.userInformation.designation
     console.log('logued', logued, logued2)
