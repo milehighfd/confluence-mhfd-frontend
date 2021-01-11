@@ -43,11 +43,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     favoriteList(user.email);
   }, 
   []);
-  useEffect(() => {
-    const status = isActive(data.type, data.cartodb_id);
-    setActiveCard(status);
-  }, [favorites, deleteFavorite, addFavorite]);
-  
   const isActive = (table: string, cartodb_id: number): boolean => {
     if (favorites) {
       for (const favorite of favorites) {
@@ -59,6 +54,11 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     return false;
   }
   const [activeCard, setActiveCard] = useState(isActive(data.type, data.cartodb_id));
+  useEffect(() => {
+    const status = isActive(data.type, data.cartodb_id);
+    setActiveCard(status);
+  }, [favorites, deleteFavorite, addFavorite]);
+  
   
   const { autcomplete, spinMapLoaded, bboxComponents, selectedLayers } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
