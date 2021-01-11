@@ -133,7 +133,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
       // .attr('width', width + 20)
       // .attr('height', height + 20)
       .attr("viewBox", `0 0 ${width + 20} ${height + 20}`)
-      .attr('transform', `translate(${25}, 0)`)
+      // .attr('transform', `translate(${25}, 0)`)
 
     var x = d3.scaleBand()
       .rangeRound([marginLeft, width])
