@@ -23,8 +23,8 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   }).reverse();
 
   useEffect(() => {
-    const width = 200;
-    const height = 200;
+    const width = 180;
+    const height = 120;
 
     d3.select(svgRef.current).select('g').remove();
 
@@ -145,6 +145,7 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
         .append('text')
         .text(axisLabel)
         .style("text-anchor", "middle")
+        .style("font-size", 12)
         .style('opacity', 0.40);
 
   }, [data, selectedData])
