@@ -8,6 +8,8 @@ import TabPaneView from "./ProfileComponents/TabPaneView";
 import UserInformationView from "./ProfileComponents/UserInformationView";
 
 import { User, ProjectName } from "../../Classes/TypeList";
+import { useMapDispatch, useMapState } from "../../hook/mapHook";
+import store from "../../store";
 
 const content = (<div className="popoveer-00">View Problems within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
 const content00 = (<div className="popoveer-00">View Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
@@ -35,6 +37,14 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   //   return newOption;
   // }
   const [ filter, setFilter] = useState('');
+  const { favoriteCards } = useMapDispatch();
+  const { favoriteProblemCards, favoriteProjectCards} = useMapState();
+  useEffect(() => {
+    console.log('my user ', user);
+    favoriteCards(user.email, true);
+    favoriteCards(user.email, false);
+    
+  }, [user]);
   useEffect(() => {
     getUserProjects({});
   }, [getUserProjects]);
@@ -69,7 +79,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
               <Tabs defaultActiveKey="2" className="tabs-map">
 
                 <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
-                  <TabPaneView type={"Problems"} data={problems} search={getUserProblem}
+                  <TabPaneView type={"Problems"} data={favoriteProblemCards} search={getUserProblem}
                     getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
                     getComponentsByProblemId={getComponentsByProblemId}
                     displayModal={displayModal} detailed={detailed}
@@ -82,7 +92,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                 </TabPane>
 
                 <TabPane key="2" tab={<span><Popover content={content00} placement="rightBottom">Projects</Popover> </span>}>
-                  <TabPaneView type={"Projects"} data={projects} search={getUserProject}
+                  <TabPaneView type={"Projects"} data={favoriteProjectCards} search={getUserProject}
                     getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
                     getComponentsByProblemId={getComponentsByProblemId}
                     displayModal={displayModal} detailed={detailed}

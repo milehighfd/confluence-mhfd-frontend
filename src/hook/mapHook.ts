@@ -8,7 +8,7 @@ import {
   getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
   setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
-  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync, setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents, addFavorite, deleteFavorite, favoriteList, changeTutorialStatus
+  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync, setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents, addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -187,6 +187,9 @@ export const useMapDispatch = () => {
     },
     changeTutorialStatus: (status: boolean) => {
       dispatch(changeTutorialStatus(status));
+    },
+    favoriteCards: (email: string, isproblem: boolean) => {
+      dispatch(favoriteCards(email, isproblem));
     }
   }
 }
