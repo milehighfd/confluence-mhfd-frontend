@@ -287,7 +287,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
   let popupLabel = '';
 
   if (popupContent) {
-    popupLabel = `${popupContent.value}`;
+    popupLabel = `${popupContent.count}`;
   }
 
   const getLo = () => {

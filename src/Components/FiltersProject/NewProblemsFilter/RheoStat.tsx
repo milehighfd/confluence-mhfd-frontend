@@ -269,7 +269,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   let popupLabel = '';
 
   if (popupContent) {
-    popupLabel = `${priceFormatter(popupContent.min)}K to ${priceFormatter(popupContent.max)}K`;
+    popupLabel = `${popupContent.counter}`;
   }
 
   const getLo = () => {
