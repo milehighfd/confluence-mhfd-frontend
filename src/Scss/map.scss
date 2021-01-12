@@ -308,6 +308,9 @@
     width: 16px;
     background: $green !important;
   }
+  .btn-green{
+    display: none;
+  }
 }
 
 .filter-map{
@@ -1461,6 +1464,9 @@
   }
 }
 .title-filter-map{
+  display: none;
+}
+.fr-area{
   display: none;
 }
 // FILTERS MAP

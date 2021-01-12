@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Alert,  Modal, Button, Card  } from 'antd';
+import { Alert,  Modal, Button, Card, Carousel } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 
 const stateValue = {
@@ -134,6 +134,54 @@ export default () => {
                   </Card>
                 </div>
               </div>
+            </div>
+
+            <div className="poup-map-mobile">
+              <Carousel autoplay>
+                <div>
+                  <div className="popup-mobile">
+                    <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
+                    <div style={{width: '60%', padding: '10px'}}>
+                      <h4>Baseline Road at Dry Creek Ditch No. 3</h4>
+                      <h6>Boulder County</h6>
+                      <p><b>$2,500,0000</b> <span> Components</span></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="popup-mobile">
+                    <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
+                    <div style={{width: '60%', padding: '10px'}}>
+                      <h4>Baseline Road at Dry Creek Ditch No. 3</h4>
+                      <h6>Boulder County</h6>
+                      <p><b>$2,500,0000</b> <span> Components</span></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="popup-mobile">
+                    <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
+                    <div style={{width: '60%', padding: '10px'}}>
+                      <h4>Baseline Road at Dry Creek Ditch No. 3</h4>
+                      <h6>Boulder County</h6>
+                      <p><b>$2,500,0000</b> <span> Components</span></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="popup-mobile">
+                    <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
+                    <div style={{width: '60%', padding: '10px'}}>
+                      <h4>Baseline Road at Dry Creek Ditch No. 3</h4>
+                      <h6>Boulder County</h6>
+                      <p><b>$2,500,0000</b> <span> Components</span></p>
+                    </div>
+                  </div>
+                </div>
+              </Carousel>
             </div>
          </div>
 

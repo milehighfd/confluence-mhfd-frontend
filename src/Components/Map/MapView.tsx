@@ -107,7 +107,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
-  
+
   const [valueA, setvalueA] = useState('');
 
   useEffect(() => {
@@ -950,6 +950,13 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     }
   }, [tutorialStatus]);
   return <>
+    <div className="fr-area">Explore Confluence</div>
+    <div className="mhfd-mobile">
+      <h6>About the Platform</h6>
+      <p>Confluence is your one-stop Mile High Flood District data portal.
+      MHFD has developed Confluence from the ground up to meet the unique data needs of a
+      regional flood control and stream management district.</p>
+    </div>
     <div className="count" style={{ paddingBottom: '0px' }}>
       {displayModal && visible && <DetailedModal
         detailed={detailed}
@@ -966,7 +973,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         componentCounter={componentCounter}
         getComponentCounter={getComponentCounter}
       />}
-      <Row className="head-m">
+      <Row className="head-m mobile-display">
         <Col span={20} id="westminter">
           { /*<Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
             <span className="ant-dropdown-link span-header">
@@ -1024,7 +1031,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         </Col>
       </Row>
 
-      <div className="head-filter">
+      <div className="head-filter mobile-display">
         <Row type="flex" justify="space-around" align="middle">
           <Col span={11}>
             <Search

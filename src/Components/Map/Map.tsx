@@ -114,10 +114,10 @@ const Map = ({ leftWidth,
 }: MapProps) => {
     // console.log( mapSearch);=
     let geocoderRef = useRef<HTMLDivElement>(null);
-    const hovereableLayers = [ PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, 
+    const hovereableLayers = [ PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
         MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
          ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
-        LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, 
+        LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
         CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
          PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE];
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
@@ -276,7 +276,7 @@ const Map = ({ leftWidth,
         let topLongitude = myPolygon[0][0];
         let topLatitude = myPolygon[0][1];
         for (let index = 0; index < myPolygon.length; index++) {
-            const element = myPolygon[index];     
+            const element = myPolygon[index];
             if (bottomLongitude > element[0]) {
                 bottomLongitude = element[0];
             }
@@ -980,7 +980,7 @@ const Map = ({ leftWidth,
                     filter: ['in', 'cartodb_id']
                   });
             }
-            
+
         });
         addMapListeners(key);
     }
@@ -1372,7 +1372,7 @@ const Map = ({ leftWidth,
         });
     }, [allLayers]);
     const seeDetails = (details: any, event: any) => {
-        
+
         if (details.problemid) {
             setData({
                 id: '',
@@ -1392,7 +1392,7 @@ const Map = ({ leftWidth,
                 problemid: ''
             });
         }
-        
+
     }
     const addMapListeners = async (key: string) => {
         const styles = { ...tileStyles as any };
@@ -1789,6 +1789,7 @@ const Map = ({ leftWidth,
             </div>*/}
 
             <div className="m-zoom">
+                <Button className="btn-green"><img src="/Icons/icon-87.svg" width="15px"/></Button>
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
                 {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
             </div>

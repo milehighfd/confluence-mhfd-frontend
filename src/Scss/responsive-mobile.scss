@@ -9,8 +9,146 @@
       position: relative;
   }
   .map-00{
+    scroll-behavior: smooth;
+
     .btn-coll{
       display: none;
+    }
+
+    .mapboxgl-ctrl-group {
+      bottom: 45px;
+      width: 30px;
+    }
+    .mapboxgl-ctrl-scale {
+      display: none;
+    }
+  }
+  .mapboxgl-ctrl-group button {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .m-zoom{
+    bottom: 150px !important;
+    width: 30px !important;
+
+    .btn-green{
+      background: $green;
+      margin-bottom: 5px;
+      display: block !important;
+
+      img{
+        margin-top: -2px;
+      }
+    }
+    button {
+      width: 30px !important;
+      height: 30px !important;
+    }
+  }
+  .fr-area {
+    display: inline-block;
+    transition: top .2s ease-in-out!important;
+    position: absolute;
+    top: -45px;
+    height: 45px;
+    border-radius: 20px 20px 0px 0px;
+    text-align: center;
+    color: $white;
+    background: $green;
+    width: 100%;
+    padding: 12px 0px;
+    z-index: 1000;
+  }
+  .fr-area.active {
+    transition: top .2s ease-in-out!important;
+    top: 6em;
+  }
+  // MODAL MAPA TUTORIAL
+  .tutorial-mobile{
+    margin: 0px !important;
+    max-width: 100vw !important;
+
+    .ant-modal-footer{
+      display: none;
+    }
+    .ant-modal-content {
+      background: rgba(0, 0, 0, 0.3);
+    }
+    .ant-modal-body {
+      padding: 0px;
+    }
+
+    .ant-modal-close {
+      color: $white;
+    }
+    .tuto-01 {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position-x: center;
+
+      p{
+        color: $white;
+      }
+
+      .tuto-17, .tuto-18, .tuto-19, .tuto-20{
+        position: absolute;
+        text-align: center;
+      }
+
+      .tuto-17{
+        top: 55px;
+        left: 0px;
+
+        p{
+          padding: 4px 0px 0px 30px;
+        }
+        img{
+          left: -75px;
+          position: relative;
+        }
+      }
+      .tuto-18{
+        bottom: 210px;
+        left: 42px;
+
+        p{
+          padding: 0px 0px 0px 20px;
+        }
+        img{
+          left: -80px;
+          position: relative;
+        }
+      }
+      .tuto-19{
+        bottom: 140px;
+        left: 42px;
+
+        p{
+          padding: 0px 0px 0px 20px;
+          text-align: left !important;
+        }
+        img{
+          left: -128px;
+          position: relative;
+        }
+      }
+      .tuto-20{
+        bottom: 10px;
+        left: 42px;
+
+        p{
+          padding: 0px 0px 80px 80px;
+          text-align: left !important;
+        }
+        img{
+          left: -115px;
+          position: relative;
+          bottom: -61px;
+        }
+      }
     }
   }
   // FILTERS MAP
@@ -92,15 +230,97 @@
       max-width: 200px;
     }
   }
+  .poup-map-mobile{
+    margin: 20px 0px;
+    width: 320px;
+    // position: absolute;
+    // bottom: 103px;
+    .popup-mobile{
+      display: flex;
+      height: 100px;
+      width: 305px;
+      background: $white;
+      border-radius: 10px;
+      box-shadow: $shadow;
 
+      img{
+        height: 100px;
+        width: 122px;
+        z-index: 2;
+      }
+      h4{
+        text-align: left;
+        color: $purple;
+        line-height: 16px;
+      }
+      h6{
+        text-align: left;
+        color: $opacity;
+        font-size: 11px;
+      }
+      p{
+        text-align: left;
+      }
+      p b{
+        color: $purple;
+      }
+      p span{
+        float: right;
+        font-size: 10px;
+        color: $opacity;
+        margin-top: 3px;
+      }
+    }
+    .ant-carousel .slick-slide{
+      height: 120px;
+    }
+    // .ant-carousel .slick-slide {
+    //   width: 320px !important;
+    // }
+  }
 
+  // TABS PROBLEM AND PROJECT
+  .tabs-map .ant-tabs-nav .ant-tabs-tab {
+    font-size: 13px;
+  }
+  .mhfd-mobile{
+    text-align: center;
+    background: $white;
+    padding: 15px;
+    margin-bottom: 10px;
 
+    h6{
+      font-size: 16px;
+      color: $purple;
+    }
+    p{
+      margin-bottom: 0px;
+      font-size: 14px;
+    }
+  }
+  // MODAL DETAILED
+  .detailed-modal{
+    top: 10px !important;
+    width: 520px;
+    margin: 0px !important;
+    max-width: 100vw !important;
 
+    .ant-modal-content{
+      border-radius: 20px 20px 0px 20px;
+    }
+    .btn-close-mobile{
+      
+    }
+  }
+  .detailed{
+    border-radius: 20px 20px 0px 20px;
+  }
   // PROFILE
   .profile-header {
     min-height: 260px !important;
     border-radius: 0px 0px 20px 20px;
     margin-bottom: 10px !important;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,0.1)!important;
   }
   .profile-info {
     padding: 20px 20px 0px 20px!important;
@@ -175,8 +395,6 @@
   .edit-profile .btn-opacity {
     display: none;
   }
-
-
   // GENERAL
   .mobile-display{
     display: none !important;

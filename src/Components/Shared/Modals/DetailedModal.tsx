@@ -66,14 +66,14 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
           setVisible={setVisible} /> */}
         {loaderDetailedPage && <div className="detailed">
           <Row className="detailed-h" gutter={[16, 8]}>
-            <Col span={13}>
+            <Col xs={24} lg={13}>
               <h1> {detailedPage?.problemname ? detailedPage?.problemname : detailedPage?.projectname} </h1>
               <p><span>{detailedPage?.problemtype ? (detailedPage.problemtype + ' Problem') : (detailedPage.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span>{detailedPage?.problemtype ? ( detailedPage.jurisdiction + ', CO' ) : (detailedPage.sponsor)}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage.county} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage.servicearea} </span></p>
             </Col>
-            <Col span={5}>
+            <Col xs={10} lg={5}>
               {
               detailedPage.problemtype ? (
                 <div className="status-d">
@@ -86,7 +86,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               }
 
             </Col>
-            <Col span={3} style={{ textAlign: 'center' }}>
+            <Col xs={10} lg={3} style={{ textAlign: 'center' }}>
               {
                 detailedPage.problemtype ? (
                   <div className="detailed-mm">
@@ -99,20 +99,20 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                 )
               }
             </Col>
-            <Col span={3} style={{ textAlign: 'right' }}>
+            <Col xs={4} lg={3} style={{ textAlign: 'right' }}>
               <Tooltip title="Download PDF">
-                <Button className="disabled-btn btn-transparent"><img src="/Icons/icon-01.svg" alt="" /></Button>
+                <Button className="disabled-btn btn-transparent mobile-display"><img src="/Icons/icon-01.svg" alt="" /></Button>
               </Tooltip>
               <Tooltip title="Copy URL">
                 <Button className="btn-transparent"><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl()} /></Button>
               </Tooltip>
               <Tooltip title="Close Window">
-                <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
+                <Button className="btn-transparent btn-close-mobile" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
               </Tooltip>
             </Col>
           </Row>
           <Row className="detailed-b">
-            <Col span={17} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }}>
+            <Col xs={24} lg={17} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }}>
               <Carousel autoplay>
                 {/* <div> */}
                 {console.log(detailedPage)}
@@ -155,7 +155,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                   getComponentCounter={getComponentCounter} />
               )}
             </Col>
-            <Col span={7}>
+            <Col span={7} className="mobile-display">
               <TeamCollaborator />
             </Col>
           </Row>

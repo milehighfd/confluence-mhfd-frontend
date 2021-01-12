@@ -1,16 +1,42 @@
 import React, { useState } from "react";
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Modal, Button } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "../../../constants/constants";
 import '../../../Scss/sidebar.scss';
 const { Sider } = Layout;
 
+const stateValue = {
+  visible: false
+}
+
 export default () => {
+  const [state, setState] = useState(stateValue);
+ const showModal = () => {
+   const auxState = {...state};
+   auxState.visible = true;
+   setState(auxState);
+ };
+
+ const handleOk = (e: any) => {
+   console.log(e);
+   const auxState = {...state};
+   auxState.visible = false;
+   setState(auxState);
+ };
+
+ const handleCancel = (e: any) => {
+   console.log(e);
+   const auxState = {...state};
+   auxState.visible = false;
+   setState(auxState);
+ };
+
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const location = useLocation();
   const appUser = store.getState().appUser;
   const indexOf = "" + ROUTERS_SIDEBAR.indexOf(location.pathname);
+
 
   return <Sider collapsedWidth="58" collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
     <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline" >
@@ -115,10 +141,10 @@ export default () => {
           </Link>
         </Menu.Item> : ''}
         <Menu.Item key="9" className="menu-desktop">
-          <Link to={''}>
+          <Button className="btn-transparent" onClick={showModal}>
             <img className="img-h anticon" src="/Icons/icon-27.svg" alt="" width="18px" style={{opacity: '0.5'}}  />
             <img className="img-a anticon" src="/Icons/menu-green-16.svg" alt="" width="18px"  />
-          </Link>
+          </Button>
         </Menu.Item>
         <Menu.Item key="10" className="menu-desktop">
           <Link to={''}>
@@ -127,5 +153,33 @@ export default () => {
           </Link>
         </Menu.Item>
     </Menu>
+    <Modal
+       centered
+       visible={state.visible}
+       onOk={handleOk}
+       onCancel={handleCancel}
+       className="tutorial-mobile"
+       width="100vw"
+       style={{height:'100vh', top:'0px'}}
+     >
+       <div className="tuto-01">
+         <div className="tuto-17">
+           <img src="/Icons/tutorial/ic_arrow5.svg" alt="" />
+           <p><i>Click here to see all of the layers for display.</i></p>
+         </div>
+         <div className="tuto-18">
+           <img src="/Icons/tutorial/ic_arrow22.svg" alt="" />
+           <p><i>Click here to zoom to your location.</i></p>
+         </div>
+         <div className="tuto-19">
+           <img src="/Icons/tutorial/ic_arrow22.svg" alt="" />
+           <p><i>Click here to quickly zoom out to MHFD boundary extents.</i></p>
+         </div>
+         <div className="tuto-20">
+           <img src="/Icons/tutorial/ic_arrow33.svg" alt="" />
+           <p><i>Swipe up to view all Project & Problem cards within your area.</i></p>
+         </div>
+       </div>
+     </Modal>
   </Sider>
 };
