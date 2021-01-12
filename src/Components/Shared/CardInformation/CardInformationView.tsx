@@ -37,11 +37,11 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     getBBOXComponents(data.type, id);
   }
   const user = store.getState().profile.userInformation;
-  
+
   useEffect(() => {
     console.log(user.designation);
     favoriteList(user.email);
-  }, 
+  },
   []);
   const isActive = (table: string, cartodb_id: number): boolean => {
     if (favorites) {
@@ -58,8 +58,8 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     const status = isActive(data.type, data.cartodb_id);
     setActiveCard(status);
   }, [favorites, deleteFavorite, addFavorite]);
-  
-  
+
+
   const { autcomplete, spinMapLoaded, bboxComponents, selectedLayers } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete,
@@ -123,7 +123,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     setHighlighted({type: type, value: value});
     // setOpacityLayer(false);
   }
-  
+
   return (
     <>
       {visible && <DetailedModal
@@ -142,7 +142,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
         getComponentCounter={getComponentCounter}
       />}
 
-      <Col span={12}>
+      <Col xs={24} lg={12}>
       <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : ''}}>
         <Card
           hoverable

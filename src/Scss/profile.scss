@@ -4,7 +4,7 @@
 // profile
 .profile-header {
   background-color: $white;
-  min-height: 240px !important;
+  min-height: 240px;
 }
 .profile-img {
   height: 120px;
@@ -35,11 +35,11 @@
 }
 .profile-info {
   display: flex !important;
-  padding: 50px 0px 50px 20px !important;
+  padding: 50px 0px 50px 20px;
 }
 .profile-project {
   display: flex !important;
-  padding: 50px 0px 50px 0px !important;
+  padding: 50px 0px 50px 0px;
   height: 100%;
 }
 .profile-dat {
@@ -89,9 +89,12 @@
   }
 }
 .profile-table {
-  padding: 8px 20px 0px 0px !important;
+  padding: 8px 20px 0px 0px;
   width: 100%;
-  text-align: right;
+  display: flex;
+  place-content: flex-end;
+  margin-right: 20px;
+
   td {
     font-size: 14px;
     font-weight: normal;
@@ -106,7 +109,23 @@
     background-color: $opacity00;
   }
   .ant-table-small > .ant-table-content > .ant-table-body {
-      margin: 0px;
+    margin: 0px;
+  }
+  .span-text {
+      font-size: 14px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: $purple00;
+    }
+    th {
+      text-align: center !important;
+    }
+    div:nth-child(4) label{
+      display: none;
     }
 }
 .profile-bystatus {
@@ -120,24 +139,9 @@
 .profile-filter {
   justify-content: space-between;
 }
-.profile-table{
-  span {
-    font-size: 14px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: center;
-    color: $purple00;
-  }
-  th {
-    text-align: center !important;
-  }
-}
 .profile-tabs {
   position: relative !important;
-  top: -38px !important;
+  top: -38px;
   margin-bottom: -38px;
 
   .ant-tabs-bar{
@@ -453,5 +457,8 @@
     }
   }
 }
-
+.profile-00{
+  height: calc(100vh - 53px);
+  overflow-y: auto;
+}
 // END PROFILE

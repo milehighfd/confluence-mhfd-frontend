@@ -9,7 +9,7 @@ const genExtra = () => (
 export default () => {
     const { Panel } = Collapse;
 
-    return <Col style={{paddingLeft: '15px', height: '100%'}} span={7}>
+    return <Col style={{paddingLeft: '15px', height: '100%'}} span={7} className="mobile-display">
     <Row style={{background: '#fff', height: '100%', borderTop: '17px solid rgba(37, 24, 99, 0.06)'}}>
       <Col className="profile-pad">
         <h2>Project Collaborators <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h2>

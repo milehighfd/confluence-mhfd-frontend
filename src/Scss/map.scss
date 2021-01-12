@@ -403,6 +403,8 @@
  .ant-popover-arrow{
     border-bottom-color: $black !important;
     border-left-color: $black !important;
+    border-top-color: $black !important;
+    border-right-color: $black !important;
   }
 }
 .btn-footer-02{
@@ -1433,5 +1435,8 @@
   .ant-select-dropdown-menu {
     max-height: 160px !important;
   }
+}
+.title-filter-map{
+  display: none;
 }
 // FILTERS MAP

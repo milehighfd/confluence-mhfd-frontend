@@ -4,7 +4,7 @@ import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 import ModalEditUserView from './ModalEditUserView';
 
-export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, projects, groupOrganizacion, getGroupOrganization, setFilter }: 
+export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, projects, groupOrganizacion, getGroupOrganization, setFilter }:
       { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function,
         updateUserInformation : Function, projects: Array<any>, groupOrganizacion: [], getGroupOrganization: Function,
         setFilter: Function }) => {
@@ -34,7 +34,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
   }
 
   const typeProjects = PROJECT_TYPES_AND_NAME;
-  return <> <Col span={12} className="profile-info">
+  return <> <Col xs={{ span: 24 }} lg={{ span: 12 }} className="profile-info">
     <div style={{ position: 'relative', minWidth: '135px', width: '135px', height: '120px' }}>
       <Spin spinning={spinImage} delay={500}>
         {user.photo ? <img className="profile-img" src={user.photo} alt="" /> :
@@ -59,7 +59,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
         <h3>{user.name}</h3>
       <span>{user.title ? user.title: ''}</span>
       </div>
-      
+
       <div className="profile-contact">
         <Popover content={phone}>
           <Button type="default" shape="circle">
@@ -88,31 +88,32 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
       </Popover>
     </div>*/}
   </Col>
-    <Col span={12} className="profile-project">
+    <Col xs={{ span: 24 }} lg={{ span: 12 }} className="profile-project">
       <div className="profile-table" style={{ paddingLeft: "0px", paddingRight: "0px" }}>
-        <span className="cursor-pointer-span" onClick={() => {
+        <div className="cursor-pointer-span" onClick={() => {
             setFilter('');
           }}>
           <span className="text-profile-projects" >
             {projects.length? projects.length: 0}
-          </span> <span style={{ paddingRight: "8px" }}> Total Projects </span>
-        </span>
-         |
+          </span> <span className="span-text" style={{ paddingRight: "8px" }}> Total Projects </span>
+          <label>|</label>
+        </div>
         {typeProjects.map((element: { name: string, id: string }, index: number) => {
-          return <span className="cursor-pointer-span" key={index} onClick={() => {
+          return <div className="cursor-pointer-span" key={index} onClick={() => {
             setFilter(element.id);
           }}>
             <span className="text-profile-projects" >
               {projects.filter((project) => project.projecttype === element.id).length}
             </span>
-            <span style={{ paddingRight: "8px" }}>
+            <span className="span-text" style={{ paddingRight: "8px" }}>
               {element.name}
-            </span> {(typeProjects.length - 1) !== index ? '|' : ''}
-          </span>
+            </span>
+            <label>|</label>
+          </div>
         })}
-        <Popover content={content} placement="left"><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover>
+        <Popover content={content} placement="left"><div className="mobile-display"><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></div></Popover>
       </div>
-      <ModalEditUserView updateUserInformation={updateUserInformation} user={user} isVisible={false} 
+      <ModalEditUserView updateUserInformation={updateUserInformation} user={user} isVisible={false}
         hideProfile={hideProfile} groupOrganization={groupOrganizacion} getGroupOrganization={getGroupOrganization} />
     </Col>
   </>

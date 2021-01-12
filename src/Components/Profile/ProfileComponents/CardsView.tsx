@@ -8,7 +8,7 @@ import { AnyAaaaRecord } from 'dns';
 export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
         displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, componentCounter,
         getComponentCounter }: { data: any, type: string, numberWithCommas: Function,
-        getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any, 
+        getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any,
         detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, componentCounter: number,
         getComponentCounter: Function }) => {
     const [visible, setVisible] = useState(false);
@@ -30,7 +30,7 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
         value: data.cartodb_id,
         type: data.type
       };
-      
+
     return <>
         {visible && <DetailedModal
             detailed={detailed}
@@ -48,7 +48,7 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
             getComponentCounter={getComponentCounter}
 
         />}
-        <Col span={6}>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }}>
             <Card
                 onClick={() => setVisible(true)}
                 hoverable

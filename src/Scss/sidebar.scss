@@ -60,3 +60,53 @@
 .ant-menu-inline-collapsed{
   width: auto !important;
 }
+.menu-desktop{
+  display: none;
+}
+// RESPONSIVE MOBILE
+@media (max-width: 575.98px) {
+  .ant-layout-sider{
+    flex: auto !important;
+    max-width: inherit !important;
+    min-width: min-content !important;
+    width: 100% !important;
+    position: fixed !important;
+    bottom: 0px !important;
+    z-index: 1000 !important;
+    height: 58px !important;
+  }
+  .ant-menu-root.ant-menu-vertical, .ant-menu-root.ant-menu-vertical-left,
+  .ant-menu-root.ant-menu-vertical-right, .ant-menu-root.ant-menu-inline {
+    display: flex;
+  }
+  .ant-layout-sider-trigger {
+    display: none;
+  }
+  .menu-mobile{
+    display: none;
+  }
+  .menu-desktop{
+    display: inline;
+  }
+  .ant-layout-sider img {
+    margin-right: 0px !important;
+    width: 25px;
+  }
+  .ant-menu-vertical > .ant-menu-item, .ant-menu-vertical-left > .ant-menu-item,
+  .ant-menu-vertical-right > .ant-menu-item, .ant-menu-inline > .ant-menu-item,
+  .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    height: 58px;
+    line-height: 68px;
+    margin-top: 0px;
+  }
+  .ant-menu-dark.ant-menu-inline .ant-menu-item,
+  .ant-menu-dark.ant-menu-vertical .ant-menu-item,
+  .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
+  .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
+    width: 25%;
+    text-align: center;
+  }
+}

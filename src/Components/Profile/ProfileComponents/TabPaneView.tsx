@@ -11,8 +11,8 @@ const { Search } = Input;
 export default ({ type, data, search, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
         displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, spinValue, filter, componentCounter,
         getComponentCounter }:
-        { type: string, data: Array<any>, search: Function, 
-          getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any, 
+        { type: string, data: Array<any>, search: Function,
+          getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any,
           detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, spinValue: boolean, filter: string,
           componentCounter: number,
           getComponentCounter: Function }) => {
@@ -69,8 +69,8 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
   };
 
   return <Spin spinning={spinValue} className="loading-01">
-    <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px' }} className="card-map" gutter={[16, 16]}>
-    <div className="user-filter profile-filter">
+    <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px' }} className="card-map profile-mobile" gutter={[16, 16]}>
+    <div className="user-filter profile-filter mobile-display">
       <div>
         <Search
           placeholder="Search by Name"
@@ -121,7 +121,7 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
         return datas[index] && <CardsView key={index} data={datas[index]} type={type} numberWithCommas={numberWithCommas}
             getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
             getComponentsByProblemId={getComponentsByProblemId}
-            displayModal={displayModal} detailed={detailed} 
+            displayModal={displayModal} detailed={detailed}
             loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
             loaderTableCompoents={loaderTableCompoents}
             componentCounter={componentCounter}
@@ -130,5 +130,5 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
       }) : ''}
     </InfiniteScroll>
   </Row>
-  </Spin> 
+  </Spin>
 }
