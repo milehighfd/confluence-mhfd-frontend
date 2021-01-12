@@ -7,14 +7,14 @@ import TreeMap from './TreeMap';
 import HorizontalBarChart from './HorizontalBarChart';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 const { Option } = Select;
-const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
+const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority:</b> is the severity of a problem relative to other problems of the same type.</div>);
 const content02 = (<div className="popoveer-00"><b>Status:</b> is the percentage (by cost) of elements required to solve a problem that have been completed.</div>);
-const content03 = (<div className="popoveer-00"><b>Problem Type:</b> is the type of Problem that a Project is intended to help solve.</div>);
-const content04 = (<div className="popoveer-00"><b>Service Area:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content05 = (<div className="popoveer-00"><b>County:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content06 = (<div className="popoveer-00"><b>Jurisdiction:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content07 = (<div className="popoveer-00"><b>MHFD Project Manager:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content03 = (<div className="popoveer-00"><b>Problem Type:</b> is which of the "Five Pillars" of stream management the problem belongs to.</div>);
+const content04 = (<div className="popoveer-00"><b>Service Area:</b> is the MHFD Watershed Service Area where the problem is located.</div>);
+const content05 = (<div className="popoveer-00"><b>County:</b> is the county where the problem is located.</div>);
+const content06 = (<div className="popoveer-00"><b>Jurisdiction:</b> is the local government where the problem is located.</div>);
+const content07 = (<div className="popoveer-00"><b>MHFD Project Manager:</b> is the MHFD PM who is responsible for the service area where the problem is located.</div>);
 
 export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterProblemOptions, getGalleryProblems }: any) => {
     const { getParamFilterProblems } = useMapDispatch();
