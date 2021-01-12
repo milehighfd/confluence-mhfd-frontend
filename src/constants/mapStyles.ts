@@ -3711,110 +3711,20 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          "hsla(0, 0%, 0%, 0.12)",
-          10.5,
-          "hsla(210, 69%, 51%, 0.34)",
-          11,
-          "hsla(210, 71%, 35%, 0.67)",
-          12,
-          "hsl(210, 71%, 37%)",
-          12.58,
-          "hsl(210, 69%, 62%)",
-          22,
-          "hsl(210, 69%, 77%)"
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["get", "catch_sum"],
-          130.080010015,
-          0.5,
-          640,
-          1,
-          6400,
-          4,
-          1131411.35931,
-          12
-      ]
+      "line-width": 10,
+      "line-blur": 5,
+      "line-color": "hsl(123, 28%, 19%)"
     }
   }, {
-    type: 'line',
+    type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          "hsla(0, 0%, 0%, 0.12)",
-          10.5,
-          "hsla(210, 69%, 51%, 0.34)",
-          11,
-          "hsla(210, 71%, 35%, 0.67)",
-          12,
-          "hsl(210, 71%, 37%)",
-          12.58,
-          "hsl(210, 69%, 62%)",
-          22,
-          "hsl(210, 69%, 77%)"
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["get", "catch_sum"],
-          130.080010015,
-          0.5,
-          640,
-          1,
-          6400,
-          4,
-          1131411.35931,
-          12
-      ]
+      "fill-color": "hsla(95, 67%, 21%, 0.5)",
+      "fill-outline-color": "hsla(51, 78%, 47%, 0.5)"
     }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          "hsla(0, 0%, 0%, 0.12)",
-          10.5,
-          "hsla(210, 69%, 51%, 0.34)",
-          11,
-          "hsla(210, 71%, 35%, 0.67)",
-          12,
-          "hsl(210, 71%, 37%)",
-          12.58,
-          "hsl(210, 69%, 62%)",
-          22,
-          "hsl(210, 69%, 77%)"
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["get", "catch_sum"],
-          130.080010015,
-          0.5,
-          640,
-          1,
-          6400,
-          4,
-          1131411.35931,
-          12
-      ]
-    }
-  }], 
+  }
+  ], 
   [BCZ_PREBLE_MEADOW_JUMPING]: [{
     type: 'fill',
     'source-layer': 'pluto15v1',
