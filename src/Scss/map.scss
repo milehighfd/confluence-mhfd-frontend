@@ -1383,28 +1383,13 @@
   overflow-y: auto;
   margin-right: 20px;
 }
-@media only screen and (min-height: 960px){
-  .svg-scroll{
-    height: 200px !important;
-  }
+.chart-filter-title {
+  font-size: 15px !important;
 }
-@media only screen and (min-height: 1200px){
-  .svg-scroll{
-    height: 450px !important;
-    overflow-y: auto;
-    margin-right: 20px;
-  }
-  .horizontal-axis-label {
-    font-size: 45px !important;
-  }
-  .popup-chart {
-    text-align: center;
-    font-size: 30px !important;
-  }
-}
-.tree-chart {
-  padding-left: 8px;
-  padding-right: 8px;
+.svg-scroll{
+  height: 150px;
+  overflow-y: auto;
+  margin-right: 20px;
 }
 .popup-chart {
   text-align: center;
@@ -1412,21 +1397,56 @@
   border-color: #e9e8ef;
   border-style: solid;
 }
+.horizontal-axis-label {
+  font-size: 15px;
+  text-align: center;
+}
+@media only screen and (min-width: 1600px){
+  .svg-scroll{
+    height: 220px !important;
+  }
+  .horizontal-axis-label {
+    font-size: 22px !important;
+  }
+  .popup-chart {
+    font-size: 30px !important;
+  }
+  .chart-filter-title {
+    font-size: 18px !important;
+  }
+}
+@media only screen and (min-width: 2000px){
+  .svg-scroll{
+    height: 260px !important;
+  }
+  .horizontal-axis-label {
+    font-size: 28px !important;
+  }
+}
+@media only screen and (min-width: 3000px){
+  .svg-scroll{
+    height: 450px !important;
+  }
+  .horizontal-axis-label {
+    font-size: 45px !important;
+  }
+  .popup-chart {
+    font-size: 30px !important;
+  }
+}
+.filter-title {
+  margin-bottom: -5px !important;
+}
+.tree-chart {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 .horizontal-text {
   font-size: 12px;
 }
 .rheostat-input {
   width: 80% !important;
   max-width: 150px;
-}
-.horizontal-axis-label {
-  font-size: 14 px;
-  text-align: center;
-}
-.svg-scroll{
-  height: 150px;
-  overflow-y: auto;
-  margin-right: 20px;
 }
 .svg-top-pad {
   margin-top: -5px;
