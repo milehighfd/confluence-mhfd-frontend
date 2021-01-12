@@ -3745,13 +3745,67 @@ export const tileStyles = {
     }
   }],
   [BCZ_UTE_LADIES_TRESSES_ORCHID]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          "hsl(289, 55%, 10%)",
+          8.67,
+          "hsl(289, 52%, 20%)",
+          9,
+          "hsl(289, 60%, 15%)",
+          9.67,
+          "hsl(289, 52%, 20%)",
+          22,
+          "hsl(289, 52%, 20%)"
+      ],
+      "line-gap-width": 12,
+      "line-blur": 22,
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          11,
+          22,
+          22
+      ]
+    }
+  }, {
     type: 'fill',
     'source-layer': 'pluto15v1',
     layout: {},
-    paint: {
-        'fill-color': '#FFF',
-        'fill-opacity': 1,
+    "paint": {
+      "fill-color": "hsl(180, 75%, 86%)",
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8.5,
+          1,
+          14,
+          0.51
+      ]
     }
+  }, {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsl(292, 72%, 88%)",
+      "fill-pattern": [
+          "step",
+          ["zoom"],
+          "viewpoint-11",
+          22,
+          "viewpoint-15"
+      ]
+  }
   }],
   [RESEARCH_MONITORING]: [{
     type: 'circle',
