@@ -17,7 +17,7 @@ const { Panel } = Collapse;
 export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal, componentCounter, getComponentCounter }:
        { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string,
         loaderTableCompoents: boolean, updateModal: Function, componentCounter: number, getComponentCounter: Function }) => {
-  
+
   let sections = ['4'];
   if (detailedPage.problems && detailedPage.problems.length > 0) {
     sections.push('1');
@@ -386,7 +386,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       {active.includes(key) ? <img src="/Icons/icon-21.svg" alt="" /> : <img src="/Icons/icon-20.svg" alt="" />}
     </div>
   };
-  
+
 
   return <div className="tabs-detailed">
     <Collapse defaultActiveKey={active} onChange={(e: any) => {
@@ -394,7 +394,7 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
     }}>
       {type === PROJECTS_MODAL && <Panel header="PROBLEM" key="1" extra={genExtra('1')}>
         <Row className="table-up-modal">
-            <Col span={24}>
+            <Col xs={{ span: 24 }} lg={{ span: 24 }}>
               <Table loading={false} columns={columnProblems} rowKey={(record: any) => record.problemid} dataSource={detailedPage.problems} pagination={false}
                 onChange={(pagination, filters, sort) => {
 
@@ -404,18 +404,18 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       </Panel>}
 
       {type === PROJECTS_MODAL && <Panel header="VENDORS" key="2" extra={genExtra('2')}>
-        <div className="detailed-info">
+        <div className="detailed-info padding-00">
           <Row>
-            <Col span={4}>
+            <Col xs={{ span: 24 }} lg={{ span: 4 }}>
               <label><i>Contractor</i></label>
             </Col>
-            <Col span={8}>
+            <Col xs={{ span: 24 }} lg={{ span: 8 }}>
               <p>{ detailedPage.contractor ? detailedPage.contractor : 'N/A' }</p>
             </Col>
-            <Col span={4}>
+            <Col xs={{ span: 24 }} lg={{ span: 4 }}>
               <label><i>Consultant</i></label>
             </Col>
-            <Col span={8}>
+            <Col xs={{ span: 24 }} lg={{ span: 8 }}>
               <p>{detailedPage.consultant ? detailedPage.consultant : 'N/A' }</p>
             </Col>
           </Row>
@@ -443,29 +443,31 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
       </Panel> */}
 
       <Panel header={type === PROBLEMS_MODAL ? 'Solution Components' : 'Solution Components'} key="3" extra={genExtra('3')}>
-        <Row className="table-up-modal">
-          <Col span={24}>
-            <Table loading={loaderTableCompoents} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
-              onChange={(pagination, filters, sort) => {
-                getComponentsByProblemId({id, typeid, sortby: sort.columnKey, sorttype: (sort.order === 'descend' ? 'desc': 'asc')});
-                // handleTableChange(pagination, filters, sort)
-              }} />
-          </Col>
-        </Row>
-        {data.length > 0 && <div className="solution-b" style={{display:'flex'}}>
-          <div style={{width:'284px'}}><b>Total Estimated Cost</b></div>
-          <div style={{padding: '0px 12.5px'}}><b>${new Intl.NumberFormat("en-EN").format(total)}</b></div>
-        </div>}
+        <div className="scroll-mobile">
+          <Row className="table-up-modal">
+            <Col xs={{ span: 24 }} lg={{ span: 24 }}>
+              <Table loading={loaderTableCompoents} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
+                onChange={(pagination, filters, sort) => {
+                  getComponentsByProblemId({id, typeid, sortby: sort.columnKey, sorttype: (sort.order === 'descend' ? 'desc': 'asc')});
+                  // handleTableChange(pagination, filters, sort)
+                }} />
+            </Col>
+          </Row>
+          {data.length > 0 && <div className="solution-b" style={{display:'flex'}}>
+            <div style={{width:'284px'}}><b>Total Estimated Cost</b></div>
+            <div style={{padding: '0px 12.5px'}}><b>${new Intl.NumberFormat("en-EN").format(total)}</b></div>
+          </div>}
+        </div>
       </Panel>
 
       <Panel header="Map" key="4" extra={genExtra('4')}>
-        <div className="map" style={{height:'500px'}}>
+        <div className="map map-modal">
           <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div></div>
           </div>
           {/* <div className="test-style"> Zoom: {zoomValue}</div> */}
-              
-          <div className="m-footer icon-legend">
+
+          <div className="m-footer icon-legend mobile-display">
             <Collapse accordion defaultActiveKey={['1']} expandIconPosition="right">
               <Panel header="Legend" key="1">
               <hr />

@@ -590,6 +590,9 @@ body{
     font-weight: 100;
   }
 }
+.map-modal{
+  height: 500px !important;
+}
 .table-create-bottom{
   .ant-table-tbody > tr:nth-child(2) > td{
     border-bottom: 1px solid #e8e8e8 !important;
@@ -1610,6 +1613,9 @@ body{
   .ant-table-pagination.ant-pagination{
     display: none;
   }
+}
+.btn-close-mobile{
+  display: none !important;
 }
 // END DETAILED PROBLEM
 

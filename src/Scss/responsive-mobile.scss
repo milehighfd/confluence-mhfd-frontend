@@ -288,6 +288,7 @@
     background: $white;
     padding: 15px;
     margin-bottom: 10px;
+    display: block;
 
     h6{
       font-size: 16px;
@@ -298,22 +299,90 @@
       font-size: 14px;
     }
   }
+  .card-information img {
+    height: 25vh !important;
+  }
   // MODAL DETAILED
   .detailed-modal{
     top: 10px !important;
-    width: 520px;
     margin: 0px !important;
     max-width: 100vw !important;
+    overflow-x: hidden;
+    padding-bottom: 0px !important;
 
     .ant-modal-content{
-      border-radius: 20px 20px 0px 20px;
+      border-radius: 20px 20px 0px 0px;
     }
     .btn-close-mobile{
-      
+      position: absolute;
+      top: -18px;
+      right: -22px;
+      display: block !important;
     }
   }
   .detailed{
-    border-radius: 20px 20px 0px 20px;
+    border-radius: 20px 20px 0px 0px;
+    overflow-x: hidden;
+  }
+  .detailed-h{
+    h1 {
+      font-size: 18px;
+      text-align: center;
+      padding: 0px 10px;
+    }
+    p{
+      text-align: center;
+    }
+  }
+  .detailed-b{
+    .ant-carousel {
+     height: 200px;
+     margin: 10px;
+   }
+   .ant-carousel .slick-slide {
+     height: 200px;
+   }
+  }
+  .detailed-c {
+     height: 200px;
+  }
+  .detailed-info{
+    padding: 20px 20px 0px 20px;
+  }
+  .tabs-detailed {
+    padding: 0px 20px 20px 20px;
+  }
+  .line-01 {
+    width: 75px;
+  }
+  .padding-00{
+    padding: 0px !important;
+  }
+  .scroll-mobile{
+    overflow-x: scroll;
+    table{
+      width: 710px !important;
+    }
+    .solution-b {
+      width: 710px;
+    }
+  }
+  .map-modal{
+    height: 250px !important;
+    border-radius: 10px;
+
+    .mapboxgl-ctrl-bottom-right {
+      right: inherit;
+      position: absolute;
+      bottom: 25px;
+      left: 10px;
+    }
+    .mapboxgl-ctrl-scale, .mapboxgl-ctrl-attrib.mapboxgl-compact{
+      display: none;
+    }
+  }
+  .status-d {
+    padding: 6px 0px 6px 0px;
   }
   // PROFILE
   .profile-header {

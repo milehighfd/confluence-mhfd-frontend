@@ -219,18 +219,18 @@ export const problemPanel = (data : DetailedMapProps) => (
 
 export const vendorsPanel = (data : DetailedMapProps) => (
   <Panel header="VENDORS" key="6" extra={genExtra()}>
-    <div className="detailed-info">
+    <div className="detailed-info padding-00">
       <Row>
-        <Col span={4}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Contractor</i></label>
         </Col>
-        <Col span={8}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>Atkins</p>
         </Col>
-        <Col span={4}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Consultant</i></label>
         </Col>
-        <Col span={8}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>Applegate Group</p>
         </Col>
       </Row>
