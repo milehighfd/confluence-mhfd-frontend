@@ -67,47 +67,6 @@ const { Panel } = Collapse;
   <CloseOutlined />
 );*/}
 
-class ArcBrushingLayer extends ArcLayer {
-//     getShaders() {
-//       // use customized shaders
-//       return Object.assign({}, super.getShaders(), {
-//         inject: {
-//           'vs:#decl': `
-// uniform vec2 mousePosition;
-// uniform float brushRadius;
-//           `,
-//           'vs:#main-end': `
-// float brushRadiusPixels = project_scale(brushRadius);
-
-// vec2 sourcePosition = project_position(instancePositions.xy);
-// bool isSourceInBrush = distance(sourcePosition, mousePosition) <= brushRadiusPixels;
-
-// vec2 targetPosition = project_position(instancePositions.zw);
-// bool isTargetInBrush = distance(targetPosition, mousePosition) <= brushRadiusPixels;
-
-// if (!isSourceInBrush && !isTargetInBrush) {
-// vColor.a = 0.0;
-// }
-//           `,
-//           'fs:#main-start': `
-// if (vColor.a == 0.0) discard;
-//           `
-//         }
-//       });
-//     }
-
-    draw(opts: any) {
-      const {brushRadius = 1e6, mousePosition} = this.props;
-      // add uniforms
-      const uniforms = Object.assign({}, opts.uniforms, {
-        brushRadius: brushRadius,
-        mousePosition: mousePosition ?
-          this.projectPosition(this.unproject(mousePosition)).slice(0, 2) : [0, 0]
-      });
-      super.draw(Object.assign({}, opts, {uniforms}));
-    }
-}
-
 const Map = ({ leftWidth,
     layers,
     components,
@@ -166,7 +125,7 @@ const Map = ({ leftWidth,
         filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents } = useMapState();
     const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
         getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
-        setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete } = useMapDispatch();
+        setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents } = useMapDispatch();
     const { saveUserInformation } = useProfileDispatch();
 
     const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -673,22 +632,20 @@ const Map = ({ leftWidth,
     }, [recentSelection]);
 
     useEffect(() => {
+        if (map.getLayer('mapboxArcs')) {
+            map.removeLayer('mapboxArcs')
+        }
+        if (map.getLayer('arcs')) {
+            map.removeLayer('arcs')
+        }
         if (bboxComponents.centroids && bboxComponents.centroids.length === 0) {
+            setTimeout(() => {
+                map.setPitch(0)
+            }, 3000)
         } else {
-            if (map.getLayer('counties')) {
-                map.removeLayer('counties')
-            }
-            if (map.getLayer('arcs')) {
-                map.removeLayer('arcs')
-            }
-
             const SOURCE_COLOR = [189, 56, 68];
             const TARGET_COLOR = [131, 233, 80];
             const YELLOW_SOLID = [255, 255, 80]
-            const RADIUS_SCALE = d3.scaleSqrt().domain([0, 8000]).range([1000, 20000]);
-            const WIDTH_SCALE = d3.scaleLinear().domain([0, 1000]).range([1, 4]);
-
-
             let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
                 return {
                     position: c.centroid,
@@ -706,9 +663,9 @@ const Map = ({ leftWidth,
                     value: 1
                 });
             }
-            let countiesLayer = new MapboxLayer({
+            let mapboxArcsLayer = new MapboxLayer({
                 type: ScatterplotLayer,
-                id: 'counties',
+                id: 'mapboxArcs',
                 data: scatterData,
                 opacity: 1,
                 pickable: true,
@@ -730,7 +687,7 @@ const Map = ({ leftWidth,
                 getTargetColor: YELLOW_SOLID
             });
             map.setPitch(80)
-            map.addLayer(countiesLayer);
+            map.addLayer(mapboxArcsLayer);
             map.addLayer(arcsLayer);
         }
     }, [bboxComponents])
@@ -1739,7 +1696,7 @@ const Map = ({ leftWidth,
         setFilterProblemOptions(optionsProblem);
         setFilterProjectOptions(optionsProject);
         setNameZoomArea('Mile High Flood District');
-        
+        setBBOXComponents({ bbox: [], centroids: [] })
         //setArea(name);
     }
 

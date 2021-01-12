@@ -7,14 +7,14 @@ import TreeMap from './TreeMap';
 import HorizontalBarChart from './HorizontalBarChart';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 const { Option } = Select;
-const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
+const content = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority:</b> is the severity of a problem relative to other problems of the same type.</div>);
 const content02 = (<div className="popoveer-00"><b>Status:</b> is the percentage (by cost) of elements required to solve a problem that have been completed.</div>);
-const content03 = (<div className="popoveer-00"><b>Problem Type:</b> is the type of Problem that a Project is intended to help solve.</div>);
-const content04 = (<div className="popoveer-00"><b>Service Area:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content05 = (<div className="popoveer-00"><b>County:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content06 = (<div className="popoveer-00"><b>Jurisdiction:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content07 = (<div className="popoveer-00"><b>MHFD Project Manager:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content03 = (<div className="popoveer-00"><b>Problem Type:</b> is which of the "Five Pillars" of stream management the problem belongs to.</div>);
+const content04 = (<div className="popoveer-00"><b>Service Area:</b> is the MHFD Watershed Service Area where the problem is located.</div>);
+const content05 = (<div className="popoveer-00"><b>County:</b> is the county where the problem is located.</div>);
+const content06 = (<div className="popoveer-00"><b>Jurisdiction:</b> is the local government where the problem is located.</div>);
+const content07 = (<div className="popoveer-00"><b>MHFD Project Manager:</b> is the MHFD PM who is responsible for the service area where the problem is located.</div>);
 
 export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterProblemOptions, getGalleryProblems }: any) => {
     const { getParamFilterProblems } = useMapDispatch();
@@ -80,7 +80,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
         <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
             <Row className="filt-00" style={{ marginTop: '10px' }}>
                 <Col span={12}>
-                    <h5 style={{ marginBottom: -5 }}>Problem Type <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Problem Type <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.problemtype &&
                         <PieChart type={'problemtype'} defaultValue={''}
@@ -90,7 +90,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     }
                 </Col>
                 <Col span={12}>
-                    <h5 style={{ marginBottom: -5 }}>Solution Cost <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Solution Cost <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.cost &&
                         <RheoStat
@@ -106,7 +106,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
 
             <Row className="filt-00">
                 <Col span={12}>
-                    <h5 style={{ marginBottom: -5 }}>Solution Status <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Solution Status <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.solutionstatus &&
                         <HorizontalBarChart type={'solutionstatus'} defaultValue={''} axisLabel={axisLabel}
@@ -116,7 +116,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     }
                 </Col>
                 <Col span={12}>
-                    <h5 style={{ marginBottom: -5 }}>Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.priority &&
                         <BarChart data={paramProblems.priority}
@@ -131,7 +131,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
 
             <Row className="filt-00">
                 <Col span={12}>
-                    <h5 style={{ marginBottom: -5 }}>Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.servicearea &&
                         <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'project'}
@@ -140,7 +140,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     }
                 </Col>
                 <Col span={12}>
-                    <h5 style={{ marginBottom: -5 }}>County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.county &&
                         <TreeMap data={paramProblems.county} type={'county'} tab={'problem'}
@@ -152,7 +152,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
 
             <Row className="filt-00" gutter={[24, 16]}>
                 <Col span={12}>
-                    <h5 style={{ marginBottom: -5 }}>Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="chart-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <div>
                         <Button className="btn-svg" onClick={() => { }}>
@@ -174,7 +174,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     </>
                 </Col>
                 <Col span={12}>
-                    <h5 style={{ marginBottom: -5 }}>MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="chart-title">MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <div>
                         <Button className="btn-svg" onClick={() => { }}>

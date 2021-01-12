@@ -43,7 +43,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
     console.log('my user ', user);
     favoriteCards(user.email, true);
     favoriteCards(user.email, false);
-    
+
   }, [user]);
   useEffect(() => {
     getUserProjects({});
@@ -67,15 +67,15 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
       <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
-        <Layout className="map-00 profile-00" style={{ height: 'calc(100vh - 53px)', overflowY: 'scroll' }}>
+        <Layout className="map-00 profile-00">
           <Row className="profile-header">
-            <UserInformationView projects={projects} updateUserInformation={updateUserInformation} 
-              key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage} 
-              spinImage={spinImage} spinValue={spinValue} groupOrganizacion={groupOrganization} 
+            <UserInformationView projects={projects} updateUserInformation={updateUserInformation}
+              key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage}
+              spinImage={spinImage} spinValue={spinValue} groupOrganizacion={groupOrganization}
               getGroupOrganization={getGroupOrganization} setFilter={setFilter} />
           </Row>
           <Row >
-            <Col className="profile-tabs" span={17}>
+            <Col className="profile-tabs" xs={{ span: 24 }} lg={{ span: 17 }}>
               <Tabs defaultActiveKey="2" className="tabs-map">
 
                 <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>

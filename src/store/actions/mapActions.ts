@@ -778,6 +778,12 @@ export const setAutocomplete = (autocomplete: string) => {
     }
 }
 
+export const setBBOXComponents = (bboxComponents: any) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.BBOX_COMPONENTS, bboxComponents});
+    }
+}
+
 export const getBBOXComponents = (table: string, id: number) => {
     return (dispatch: Function) => {
         //dispatch(setSpinFilter(true));

@@ -30,7 +30,7 @@ export default () => {
         </Link>
       </Menu.Item>
       {(appUser.designation !== 'guest') ?
-      <Menu.Item key="2">
+      <Menu.Item key="2" className="menu-mobile">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="18px" style={{opacity: '0.2'}} />
           <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
@@ -38,7 +38,7 @@ export default () => {
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
-      <Menu.Item key="3">
+      <Menu.Item key="3" className="menu-mobile">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
@@ -46,7 +46,7 @@ export default () => {
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
-      <Menu.Item key="4">
+      <Menu.Item key="4" className="menu-mobile">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-14.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-14.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
@@ -54,7 +54,7 @@ export default () => {
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
-      <Menu.Item key="5">
+      <Menu.Item key="5" className="menu-mobile">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
@@ -92,14 +92,14 @@ export default () => {
       </Menu.Item>: ''} */}
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') ?
-        <Menu.Item key="6">
+        <Menu.Item key="6" className="menu-mobile">
           <Link to={'/upload-attachment'}>
             <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="18px" />
             <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="18px" />
             <span>Uploader</span>
           </Link>
         </Menu.Item> : ''}
-        <Menu.Item key="7">
+        <Menu.Item key="7" className="menu-mobile">
           <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
             <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="18px" />
             <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="18px" />
@@ -107,13 +107,25 @@ export default () => {
           </a>
         </Menu.Item>
       {(appUser.designation === 'admin') && (appUser.status === 'approved') ?
-        <Menu.Item key="8">
+        <Menu.Item key="8" className="menu-mobile">
           <Link to={'/user'}>
             <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="18px" />
             <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="18px" />
             <span>Settings</span>
           </Link>
         </Menu.Item> : ''}
+        <Menu.Item key="9" className="menu-desktop">
+          <Link to={''}>
+            <img className="img-h anticon" src="/Icons/icon-27.svg" alt="" width="18px" style={{opacity: '0.5'}}  />
+            <img className="img-a anticon" src="/Icons/menu-green-16.svg" alt="" width="18px"  />
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="10" className="menu-desktop">
+          <Link to={''}>
+            <img className="img-h anticon" src="/Icons/menu-white-17.svg" alt="" width="18px" style={{opacity: '0.4'}}  />
+            <img className="img-a anticon" src="/Icons/menu-green-17.svg" alt="" width="18px"  />
+          </Link>
+        </Menu.Item>
     </Menu>
   </Sider>
 };

@@ -8,10 +8,10 @@ import TreeMap from "../NewProblemsFilter/TreeMap";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
 
 const { Option } = Select;
-const content = (<div className="popoveer-00"><b>Service Area:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content1 = (<div className="popoveer-00"><b>County:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content2 = (<div className="popoveer-00"><b>Jurisdiction:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content3 = (<div className="popoveer-00"><b>Watershed Manager:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content = (<div className="popoveer-00"><b>Service Area:</b> is the MHFD Watershed Service Area where the component is located.</div>);
+const content1 = (<div className="popoveer-00"><b>County:</b> is the county where the component is located.</div>);
+const content2 = (<div className="popoveer-00"><b>Jurisdiction:</b> is the local government where the component is located.</div>);
+const content3 = (<div className="popoveer-00"><b>Watershed Manager:</b> is the MHFD Watershed Manager responsible for the service area where the component is located.</div>);
 
 const content14 = (<div className="popoveer-00"><b>Component Type:</b> is a description of the type of Improvement or Data Point that has been identified at a particular location. (The term "Component" refers to a "Component of the Solution to a Problem," in the context of Capital Projects, or to a "Component of a Problem," in the context of Maintenance Projects.)</div>);
 const content15 = (<div className="popoveer-00"><b>Component Status:</b> is the status of implementing an improvement. (The term "Component" refers to a "Component of the Solution to a Problem," in the context of Capital Projects, or to a "Component of a Problem," in the context of Maintenance Projects.)</div>);
@@ -82,7 +82,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 295 }}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
-                <h5 style={{ marginBottom: -5 }}>Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.component_type &&
                     <HorizontalBarChart type={'component_type'} defaultValue={''} axisLabel={axisLabel}
@@ -92,7 +92,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: -5 }}>Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.estimatedcost &&
                     <RheoStat defaultValue={[]} axisLabel={axisLabel}
@@ -105,7 +105,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
 
         <Row className="filt-00">
             <Col span={12}>
-                <h5 style={{ marginBottom: -5 }}>Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.status &&
                     <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
@@ -115,7 +115,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: -5 }}>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.yearofstudy &&
                     <RheoStatYear type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
@@ -127,7 +127,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
         </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5 style={{ marginBottom: -5 }}>Watershed Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">Watershed Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.servicearea &&
                     <TreeMap data={paramComponents.servicearea} type={'servicearea'} tab={'component'}
@@ -136,7 +136,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: -5 }}>County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.county &&
                     <TreeMap data={paramComponents.county} type={'county'} tab={'component'}
@@ -148,7 +148,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
 
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5 style={{ marginBottom: -5 }}>Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title ">Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.jurisdiction &&
                     <>
@@ -170,7 +170,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
             <Col span={12}>
-                <h5 style={{ marginBottom: -5 }}>MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title ">MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.watershed &&
                     <>

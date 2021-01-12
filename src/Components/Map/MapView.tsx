@@ -101,7 +101,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProblems, getParamFilterProjects, getParamFilterComponents,
     setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
-    setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete } = useMapDispatch();
+    setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete, setBBOXComponents } = useMapDispatch();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
@@ -825,6 +825,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       }
     });
     changeCenter(value, zoomareaSelected[0].coordinates)
+    setBBOXComponents({ bbox: [], centroids: [] })
   };
 
   const menu = () => {
