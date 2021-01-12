@@ -8,10 +8,10 @@ import TreeMap from "../NewProblemsFilter/TreeMap";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
 
 const { Option } = Select;
-const content = (<div className="popoveer-00"><b>Service Area:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content1 = (<div className="popoveer-00"><b>County:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content2 = (<div className="popoveer-00"><b>Jurisdiction:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
-const content3 = (<div className="popoveer-00"><b>Watershed Manager:</b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis, sit omnis rerum nam, officia tempore sunt pariatur nihil deserunt non enim! Eligendi iure repellendus natus dolore temporibus quidem numquam.</div>);
+const content = (<div className="popoveer-00"><b>Service Area:</b> is the MHFD Watershed Service Area where the component is located.</div>);
+const content1 = (<div className="popoveer-00"><b>County:</b> is the county where the component is located.</div>);
+const content2 = (<div className="popoveer-00"><b>Jurisdiction:</b> is the local government where the component is located.</div>);
+const content3 = (<div className="popoveer-00"><b>Watershed Manager:</b> is the MHFD Watershed Manager responsible for the service area where the component is located.</div>);
 
 const content14 = (<div className="popoveer-00"><b>Component Type:</b> is a description of the type of Improvement or Data Point that has been identified at a particular location. (The term "Component" refers to a "Component of the Solution to a Problem," in the context of Capital Projects, or to a "Component of a Problem," in the context of Maintenance Projects.)</div>);
 const content15 = (<div className="popoveer-00"><b>Component Status:</b> is the status of implementing an improvement. (The term "Component" refers to a "Component of the Solution to a Problem," in the context of Capital Projects, or to a "Component of a Problem," in the context of Maintenance Projects.)</div>);
