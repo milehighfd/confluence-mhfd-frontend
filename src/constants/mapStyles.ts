@@ -3895,13 +3895,13 @@ export const tileStyles = {
           22,
           0.2
       ],
-      "icon-image": "Urbanclimbtosafetysign_origclean",
       "icon-offset": [-225, -250],
       "text-line-height": 6,
       "text-justify": "auto",
       "text-offset": [-4, -4],
       "icon-optional": true,
-      "icon-text-fit-padding": [5, 2, 5, 2]
+      "icon-text-fit-padding": [5, 2, 5, 2],
+      "icon-image": "Frame17m2t"
     },
     "paint": {
         "text-color": "hsl(0, 85%, 53%)",
@@ -3911,10 +3911,10 @@ export const tileStyles = {
             ["zoom"],
             0,
             0,
-            9.9,
-            0,
-            10,
-            0.52,
+            8.5,
+            0.66,
+            9,
+            1,
             22,
             1
         ]
@@ -3931,9 +3931,9 @@ export const tileStyles = {
           "interpolate",
           ["linear"],
           ["zoom"],
-          9.9,
-          0,
-          10,
+          8.9,
+          0.5,
+          9,
           0.54,
           22,
           1
