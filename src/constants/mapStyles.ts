@@ -221,7 +221,21 @@ export const COMPONENT_LAYERS_STYLE = {
           2
       ],
       "circle-stroke-color": "hsl(295, 88%, 40%)",
-      "circle-opacity": ["step", ["zoom"], 0, 12, 0.41, 13, 1, 22, 1],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.5,
+          0,
+          9,
+          0.72,
+          15,
+          1,
+          22,
+          1
+      ],
       "circle-radius": 3,
       "circle-stroke-opacity": [
           "interpolate",
@@ -241,7 +255,21 @@ export const COMPONENT_LAYERS_STYLE = {
       "circle-color": "hsl(98, 80%, 53%)",
       "circle-stroke-width": 2,
       "circle-stroke-color": "hsl(295, 88%, 40%)",
-      "circle-opacity": ["step", ["zoom"], 0, 12, 0.41, 13, 1, 22, 1],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.5,
+          0,
+          9,
+          0.72,
+          15,
+          1,
+          22,
+          1
+      ],
       "circle-stroke-opacity": ["step", ["zoom"], 0, 12, 0.37, 22, 1],
       "circle-radius": [
           "interpolate",
