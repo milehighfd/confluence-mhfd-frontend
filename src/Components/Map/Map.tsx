@@ -639,7 +639,9 @@ const Map = ({ leftWidth,
             map.removeLayer('arcs')
         }
         if (bboxComponents.centroids && bboxComponents.centroids.length === 0) {
-            map.setPitch(0)
+            setTimeout(() => {
+                map.setPitch(0)
+            }, 3000)
         } else {
             const SOURCE_COLOR = [189, 56, 68];
             const TARGET_COLOR = [131, 233, 80];
