@@ -41,8 +41,8 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   const { favoriteProblemCards, favoriteProjectCards} = useMapState();
   useEffect(() => {
     console.log('my user ', user);
-    favoriteCards(user.email, true);
-    favoriteCards(user.email, false);
+    favoriteCards(user.email, true, { keyword: "", column: 'problemname', order: "asc"});
+    favoriteCards(user.email, false, { keyword: "", column: 'projectname', order: "asc"});
 
   }, [user]);
   useEffect(() => {
