@@ -169,12 +169,12 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             {name} <Icon type="caret-down" />
         </a>
       </Dropdown>
-      <Menu.Item>
+      {location[1] === ROUTERS.MAP && location.length === 2 && <Menu.Item>
        <div className="tutorial">
         <Button className="btn-question" onClick={showModal1}>
         </Button>
        </div>
-      </Menu.Item>
+      </Menu.Item>}
     </Menu>
 
     <Modal
