@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { Col, Card } from 'antd';
+import { Col, Card, Button } from 'antd';
 
 import { ComponentType } from '../../../Classes/MapTypes';
 import DetailedModal from '../../Shared/Modals/DetailedModal';
 import { AnyAaaaRecord } from 'dns';
+import ReactDOMServer from 'react-dom/server';
 
 export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
         displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, componentCounter,
-        getComponentCounter }: { data: any, type: string, numberWithCommas: Function,
+        getComponentCounter, deleted }: { data: any, type: string, numberWithCommas: Function,
         getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any,
         detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, componentCounter: number,
-        getComponentCounter: Function }) => {
+        getComponentCounter: Function, deleted: Function }) => {
     const [visible, setVisible] = useState(false);
+    const [clicked, setClicked] = useState(true);
     const getComponentSizes = (components: Array<ComponentType>) => {
         if (components && components.length) {
             let sideText = ' Components';
@@ -30,6 +32,22 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
         value: data.cartodb_id,
         type: data.type
       };
+
+    const returnHTML = () => ReactDOMServer.renderToStaticMarkup(
+        data.problemtype ? <img alt="example" height="100%" src={`gallery/${data.problemtype}.jpg`} /> :
+
+                        data.attachments ? <img alt="example" src={data.attachments} /> : (
+                            data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.jpg" /> :
+                                data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.jpg" /> :
+                                    data.projecttype === 'Maintenance' ?
+                                        (data.projectsubtype === 'Vegetation Mangement' ? <img alt="example" src="projectImages/vegetation_management.jpg" /> :
+                                            data.projectsubtype === 'Sediment Removal' ? <img alt="example" src="projectImages/sediment_removal.jpg" /> :
+                                                data.projectsubtype === 'Restoration' ? <img alt="example" src="projectImages/restoration.jpg" /> :
+                                                    data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/minor_repairs.jpg" /> :
+                                                        <img alt="example" src="projectImages/debris_management.jpg" />) : <img alt="example" src="Icons/eje.png" />
+                        )
+    )
+        
 
     return <>
         {visible && <DetailedModal
@@ -55,9 +73,10 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
                 style={{ width: '100%' }}
                 className="card-information"
                 cover={
-                    data.problemtype ? <img alt="example" height="100%" src={`gallery/${data.problemtype}.jpg`} /> :
+                    <div>
+                    {data.problemtype ? <img alt="example" height="100%" src={`gallery/${data.problemtype}.jpg`} /> :
 
-                        data.attachments ? <img alt="example" src={data.attachments} /> : (
+                        data.attachments ? <img alt="example" src={data.attachments} /> : 
                             data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.jpg" /> :
                                 data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.jpg" /> :
                                     data.projecttype === 'Maintenance' ?
@@ -65,8 +84,24 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
                                             data.projectsubtype === 'Sediment Removal' ? <img alt="example" src="projectImages/sediment_removal.jpg" /> :
                                                 data.projectsubtype === 'Restoration' ? <img alt="example" src="projectImages/restoration.jpg" /> :
                                                     data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/minor_repairs.jpg" /> :
-                                                        <img alt="example" src="projectImages/debris_management.jpg" />) : <img alt="example" src="Icons/eje.png" />
-                        )
+                                                        <img alt="example" src="projectImages/debris_management.jpg" />) : <img alt="example" src="Icons/eje.png" />}
+                        <div>
+                        <div className="like-btn">
+                        <Button onClick={(event) => {
+                            event.stopPropagation();
+                            deleted(data.cartodb_id, data.type);
+                            setClicked(false);
+                           // deleteFavorite(user.email, data.cartodb_id, data.type);
+                            //favoriteList(user.email);
+                            }
+                        }
+                            >
+                            <div className={clicked ? "like-img-on" : "like-img"}></div>
+                            </Button>
+                        </div>
+                        </div>
+                    </div>
+                    
 
                 }
             >

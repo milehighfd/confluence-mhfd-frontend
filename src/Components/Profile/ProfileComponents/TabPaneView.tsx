@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import CardsView from "./CardsView";
 import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
 import store from '../../../store';
+import { useMapDispatch } from '../../../hook/mapHook';
 
 const { Search } = Input;
 
@@ -27,6 +28,7 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
   const valueDropdown = type === 'Problems' ? SORTED_PROBLEMS : SORTED_PROJECTS;
   const user = store.getState().profile.userInformation;
   const [options, setOptions] = useState({ keyword: "", column: type === 'Problems' ? 'problemname' : 'projectname', order: "asc"});
+
   const [state, setState] = useState({
     items: Array.from({ length: size }),
     hasMore: true
@@ -34,6 +36,7 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
   const numberWithCommas = (x: number) => {
     return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
   }
+  const { deleteFavorite } = useMapDispatch();
   useEffect(() => {
     const auxState = { ...state };
     auxState.hasMore = true;
@@ -70,7 +73,10 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
       setState(auxState);
     }, 500);
   };
-
+  const deleted = (cartodb_id: number, type: string) => {
+    deleteFavorite(user.email, cartodb_id, type);
+    search(user.email, type === 'Problems', options);
+  }
   return <Spin spinning={spinValue} className="loading-01">
     <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px' }} className="card-map profile-mobile" gutter={[16, 16]}>
     <div className="user-filter profile-filter mobile-display">
@@ -81,7 +87,7 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
             const auxOptions = { ...options };
             auxOptions.keyword = value;
             setOptions(auxOptions);
-            search(user.email, type === 'Problems', auxOptions                  );
+            search(user.email, type === 'Problems', auxOptions);
           }}
           style={{ width: 240 }}
         />
@@ -131,6 +137,7 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
             loaderTableCompoents={loaderTableCompoents}
             componentCounter={componentCounter}
             getComponentCounter={getComponentCounter}
+            deleted={deleted}
         />
       }) : ''}
     </InfiniteScroll>
