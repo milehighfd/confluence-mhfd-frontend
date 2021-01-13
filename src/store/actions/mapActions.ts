@@ -826,9 +826,18 @@ export const favoriteList = (email: string) => {
     }
 }
 
-export const favoriteCards = (email: string, isproblem: boolean) => {
+
+
+export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: any) => {
+    
     return (dispatch: Function) => {
-        datasets.postData(SERVER.FAVORITE_CARDS, {email: email, isproblem: isproblem}).then(favoriteCards => {
+        let sendData: any = {email: email, isproblem: isproblem};
+        console.log(sendData, 'and extraOptions ', extraOptions);
+        if (extraOptions) {
+            sendData = {...sendData, ...{name: extraOptions.keyword, sortby: extraOptions.column, sorttype: extraOptions.order}};
+            console.log('now ', sendData);
+        }
+        datasets.postData(SERVER.FAVORITE_CARDS, sendData).then(favoriteCards => {
             if (isproblem) {
                 dispatch({type: types.FAVORITE_CARDS_PROBLEMS, favoriteProblemCards: favoriteCards});
             } else {
@@ -845,3 +854,4 @@ export const changeTutorialStatus = (tutorialStatus: boolean) => {
         dispatch({type: types.TUTORIAL_STATUS, tutorialStatus});
     }
 }
+

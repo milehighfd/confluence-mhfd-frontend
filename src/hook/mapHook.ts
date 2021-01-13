@@ -193,8 +193,12 @@ export const useMapDispatch = () => {
     changeTutorialStatus: (status: boolean) => {
       dispatch(changeTutorialStatus(status));
     },
-    favoriteCards: (email: string, isproblem: boolean) => {
-      dispatch(favoriteCards(email, isproblem));
+    favoriteCards: (email: string, isproblem: boolean, extraOptions?: any) => {
+      if (extraOptions) {
+        dispatch(favoriteCards(email, isproblem, extraOptions))
+      } else {
+        dispatch(favoriteCards(email, isproblem));
+      }
     }
   }
 }

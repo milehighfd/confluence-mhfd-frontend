@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import CardsView from "./CardsView";
 import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
+import store from '../../../store';
 
 const { Search } = Input;
 
@@ -24,7 +25,8 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
     sw = true;
   }
   const valueDropdown = type === 'Problems' ? SORTED_PROBLEMS : SORTED_PROJECTS;
-  const [options, setOptions] = useState({ keyword: "", column: type === 'Problems' ? 'problemname' : 'projectname', order: "asc" });
+  const user = store.getState().profile.userInformation;
+  const [options, setOptions] = useState({ keyword: "", column: type === 'Problems' ? 'problemname' : 'projectname', order: "asc"});
   const [state, setState] = useState({
     items: Array.from({ length: size }),
     hasMore: true
@@ -44,7 +46,8 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
           const auxOptions = { ...options };
           auxOptions.column = item.name;
           setOptions(auxOptions);
-          search(auxOptions);
+          console.log('aux ', auxOptions);
+          search(user.email, type === 'Problems', auxOptions);
         }}>
           <span className="menu-item-text">{item.title}</span>
         </Menu.Item>
@@ -78,7 +81,7 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
             const auxOptions = { ...options };
             auxOptions.keyword = value;
             setOptions(auxOptions);
-            search(auxOptions);
+            search(user.email, type === 'Problems', auxOptions                  );
           }}
           style={{ width: 240 }}
         />
@@ -90,10 +93,12 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
           </Button>
         </Dropdown>
         <span className="sort-by" onClick={() => {
+            
             const auxOptions = { ...options };
+
             auxOptions.order = options.order === 'asc' ? 'desc' : 'asc';
             setOptions(auxOptions);
-            search(auxOptions);
+            search(user.email, type === 'Problems', auxOptions);
         }}>
           <CaretUpOutlined
             className="arrow-up"

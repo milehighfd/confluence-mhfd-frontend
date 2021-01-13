@@ -79,7 +79,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
               <Tabs defaultActiveKey="2" className="tabs-map">
 
                 <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
-                  <TabPaneView type={"Problems"} data={favoriteProblemCards} search={getUserProblem}
+                  <TabPaneView type={"Problems"} data={favoriteProblemCards} search={favoriteCards}
                     getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
                     getComponentsByProblemId={getComponentsByProblemId}
                     displayModal={displayModal} detailed={detailed}
@@ -92,7 +92,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                 </TabPane>
 
                 <TabPane key="2" tab={<span><Popover content={content00} placement="rightBottom">Projects</Popover> </span>}>
-                  <TabPaneView type={"Projects"} data={favoriteProjectCards} search={getUserProject}
+                  <TabPaneView type={"Projects"} data={favoriteProjectCards} search={favoriteCards}
                     getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
                     getComponentsByProblemId={getComponentsByProblemId}
                     displayModal={displayModal} detailed={detailed}
