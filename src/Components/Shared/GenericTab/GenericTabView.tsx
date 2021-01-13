@@ -245,6 +245,7 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                     hasMore={state.hasMore}
                     loader={cardInformation.length ? <h4>Loading...</h4> : ''}
                     height={window.innerHeight - 245}
+                    className="scroll-infinite-mobile"
                     endMessage={''}>
                     {sw ? state.items.map((i, index: number) => {
                         return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}

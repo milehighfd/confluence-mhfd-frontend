@@ -468,5 +468,17 @@
   .mobile-display{
     display: none !important;
   }
-
+  .count {
+    padding: 10px 17px;
+    overflow-x: hidden;
+  }
+  .apply-filter-no-effect {
+    margin: 1px 0px;
+  }
+  .scroll-infinite-mobile{
+    height: calc(100vh - 136px) !important;
+  }
+  .card-map .btn-card{
+    display: none;
+  }
 }
