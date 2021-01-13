@@ -164,7 +164,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             <Navbar/>
             <Layout>
               <SidebarView></SidebarView>
-              <Layout className="map-00" style={{height: '100%'}}>
+              <Layout className="map-00" style={{height: 'calc(100vh - 58px)'}}>
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
                   <Spin className="loading-01" spinning={(spinFilter || spinCardProblems || spinCardProjects || spinValue)}>

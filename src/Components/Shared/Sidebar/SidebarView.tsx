@@ -143,9 +143,10 @@ export default () => {
           </Link>
         </Menu.Item> : ''}
         <Menu.Item key="9" className="menu-desktop">
-          <Button onClick={showModal}>
+          <a onClick={showModal}>
             <i className="anticon mdi mdi-help-circle-outline"/>
-          </Button>
+            <span></span>
+          </a>
         </Menu.Item>
         <Menu.Item key="10" className="menu-desktop">
           <Link to={''}>
