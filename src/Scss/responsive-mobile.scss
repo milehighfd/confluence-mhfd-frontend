@@ -323,6 +323,19 @@
   .detailed{
     border-radius: 20px 20px 0px 0px;
     overflow-x: hidden;
+
+    .ant-carousel .slick-dots {
+      display: block !important;
+      padding-bottom: 12px !important;
+      width: 100%;
+      top: inherit !important;
+      left: -20px !important;
+    }
+    .ant-carousel .slick-dots li button{
+      width: 25px;
+      height: 6px;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.5);
+    }
   }
   .detailed-h{
     h1 {

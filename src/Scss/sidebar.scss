@@ -78,6 +78,8 @@
   .ant-menu-root.ant-menu-vertical, .ant-menu-root.ant-menu-vertical-left,
   .ant-menu-root.ant-menu-vertical-right, .ant-menu-root.ant-menu-inline {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
   .ant-layout-sider-trigger {
     display: none;
@@ -106,7 +108,41 @@
   .ant-menu-dark.ant-menu-vertical .ant-menu-item,
   .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
   .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
-    width: 25%;
+    // width: 25%;
     text-align: center;
+  }
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-h , .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-a{
+    display: none !important;
+  }
+  .ant-menu-dark .ant-menu-item-selected .anticon {
+      color: $green;
+  }
+  .ant-layout-sider-has-trigger {
+    padding-bottom: 0px;
+  }
+  .ant-menu-inline-collapsed > .ant-menu-item .anticon,
+  .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item .anticon,
+  .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-submenu > .ant-menu-submenu-title .anticon,
+  .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon {
+    font-size: 24px;
+  }
+  .ant-menu-dark .ant-menu-item-selected > a, .ant-menu-dark .ant-menu-item-selected > a:hover,
+  .ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-item-group-title, .ant-menu-dark .ant-menu-item > a {
+    line-height: 64px !important;
+  }
+  .ant-layout-sider-children button{
+    background: transparent;
+    border: none;
+    padding: 0px;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .ant-layout-sider-children button:hover,.ant-layout-sider-children button:active,
+  .ant-layout-sider-children button.active, .ant-layout-sider-children button:focus{
+    color: $green;
+    background: transparent;
+    border: none;
+    padding: 0px;
+    box-shadow: none;
   }
 }

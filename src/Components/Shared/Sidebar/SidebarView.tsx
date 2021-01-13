@@ -43,15 +43,17 @@ export default () => {
       {(appUser.designation !== 'guest') ?
       <Menu.Item key="0">
         <Link to={'/profile-view'}>
-          <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-01.svg" alt="" width="18px" />
+          <img className="img-h anticon mobile-display" src="/Icons/menu-white-01.svg" alt="" width="18px" />
+          <img className="img-a anticon mobile-display" src="/Icons/menu-green-01.svg" alt="" width="18px" />
+          <i className="anticon mdi mdi-home-outline menu-desktop"/>
           <span>My Confluence</span>
         </Link>
       </Menu.Item> : ''}
       <Menu.Item key="1">
         <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="18px" />
+          <img className="img-h anticon mobile-display" src="/Icons/menu-white-02.svg" alt="" width="18px" />
+          <img className="img-a anticon mobile-display" src="/Icons/menu-green-02.svg" alt="" width="18px" />
+          <i className="anticon mdi mdi-map-legend menu-desktop"/>
           <span>Map View</span>
         </Link>
       </Menu.Item>
@@ -141,15 +143,13 @@ export default () => {
           </Link>
         </Menu.Item> : ''}
         <Menu.Item key="9" className="menu-desktop">
-          <Button className="btn-transparent" onClick={showModal}>
-            <img className="img-h anticon" src="/Icons/icon-27.svg" alt="" width="18px" style={{opacity: '0.5'}}  />
-            <img className="img-a anticon" src="/Icons/menu-green-16.svg" alt="" width="18px"  />
+          <Button onClick={showModal}>
+            <i className="anticon mdi mdi-help-circle-outline"/>
           </Button>
         </Menu.Item>
         <Menu.Item key="10" className="menu-desktop">
           <Link to={''}>
-            <img className="img-h anticon" src="/Icons/menu-white-17.svg" alt="" width="18px" style={{opacity: '0.4'}}  />
-            <img className="img-a anticon" src="/Icons/menu-green-17.svg" alt="" width="18px"  />
+            <i className="anticon mdi mdi-logout" />
           </Link>
         </Menu.Item>
     </Menu>
@@ -160,7 +160,7 @@ export default () => {
        onCancel={handleCancel}
        className="tutorial-mobile"
        width="100vw"
-       style={{height:'100vh', top:'0px'}}
+       style={{height:'100%', top:'0px'}}
      >
        <div className="tuto-01">
          <div className="tuto-17">
