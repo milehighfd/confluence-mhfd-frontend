@@ -65,7 +65,7 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
     const spaceBetween = 45;
     const width = 180;
-    const height = Math.max(data.length * spaceBetween - 20, 140);
+    const height = Math.max(data.length * spaceBetween, 140);
 
     let maxi: any = d3.max(data, (d: any) => d.counter);
 
