@@ -98,6 +98,30 @@ export const ComponentPopup = ({ id, item } : any) => {
             {item.acreage ? <p><i>Acreage:</i> {item.acreage}</p> : ''}
             {item.length ? <p><i>Length:</i> {item.length}</p> : ''}
 
+            {item.hydgrpdcd ? <p><i>Hydrologic Group:</i>{item.hydgrpdcd}</p> : ''}
+            {item.muname ? <p><i>Mapunit Name:</i>{item.muname}</p> : ''}
+            {item.aws0150wta ? <p><i>Available Water Storage 0-150 cm:</i>{item.aws0150wta}</p> : ''}
+            {item.drclassdcd ? <p><i>Drainage Class:</i>{item.drclassdcd}</p> : ''}
+            {item.nrcsweb ? <p><i>Web Soil Survey:</i>NA</p> : ''}
+            
+            {item.dam_name ? <p><i>Dam Name:</i>{item.dam_name}</p> : ''}
+            {item.hazard_class ? <p><i>Hazard Class:</i>{item.hazard_class}</p> : ''}
+            {item.year_completed ? <p><i>Year Completed:</i>{item.year_completed}</p> : ''}
+            {item.dam_height ? <p><i>Dam Height (ft):</i>{item.dam_height}</p> : ''}
+            {item.more_information ? <p><i>DWR Website:</i>{item.more_information}</p> : ''}
+            {item.scale ? <p><i>Scale</i>{item.scale}</p> : ''}
+            {item.date_created ? <p><i>Date created:</i>{item.date_created}</p> : ''}
+            {item.expirationdate ? <p><i>Expiration Date:</i>{item.expirationdate}</p>: ''}
+            {item.website ? <p><i>Website:</i>{item.website}</p> : ''}
+            {item.letter ? <p><i>Letter:</i>{item.letter}</p> : ''}
+            {item.map ? <p><i>Map:</i>{item.map}</p> : ''}
+
+            {item.sitename ? <p> <i>Site Name:</i>{item.sitename}</p> : ''}
+            {item.sitetype ? <p> <i>Site Type:</i>{item.sitetype}</p> : ''}
+            {item.bmptype ? <p> <i>BMP Type:</i>{item.bmptype}</p> : ''}
+
+            {item.str_name ? <p><i>Stream Name:</i>{item.str_name}</p> : ''}
+
             {item.projectno ? <p><i>Project Number:</i> {item.projectno}</p> : ''}
             {item.mepstatus ? <p><i>MEP Status:</i> {item.mepstatus}</p> : ''}
             {item.mepstatusdate ? <p><i>MEP Status Date:</i> {item.mepstatusdate}</p> : ''}

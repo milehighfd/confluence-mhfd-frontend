@@ -33,7 +33,7 @@ import {
     COUNTIES_FILTERS,
     MHFD_BOUNDARY_FILTERS,
     SELECT_ALL_FILTERS,
-    MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE
+    MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles } from '../../constants/mapStyles';
@@ -1336,6 +1336,120 @@ const Map = ({ leftWidth,
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
+                // new layers 
+                if (feature.source === NRCS_SOILS) {
+                    const item = {
+                        layer: 'NCRS Soils',
+                        hydgrpdcd: feature.properties.hydgrpdcd,
+                        muname: feature.properties.muname,
+                        aws0150wta: feature.properties.aws0150wta,
+                        drclassdcd: feature.properties.drclassdcd,
+                        nrcsweb: 'NA'
+                    }
+                    menuOptions.push('NCRS Soils');
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                if (feature.source === DWR_DAM_SAFETY) {
+                    const item = {
+                        layer: 'DWR Dam Safety',
+                        dam_name: feature.properties.dam_name,
+                        hazard_class: feature.properties.hazard_class,
+                        year_completed: feature.properties.year_completed,
+                        dam_height: feature.properties.dam_height,
+                        more_information: feature.properties.more_information
+                    }
+                    menuOptions.push('DWR Dam Safety');
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                if (feature.source === DWR_DAM_SAFETY) {
+                    const item = {
+                        layer: 'DWR Dam Safety',
+                        dam_name: feature.properties.dam_name,
+                        hazard_class: feature.properties.hazard_class,
+                        year_completed: feature.properties.year_completed,
+                        dam_height: feature.properties.dam_height,
+                        more_information: feature.properties.more_information
+                    }
+                    menuOptions.push('DWR Dam Safety');
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
+                    const item = {
+                        layer: 'Stream Management Corridors',
+                        scale: feature.properties.scale,
+                        date_created: feature.properties.date_created,
+                    }
+                    console.log(item, feature.properties);
+                    menuOptions.push('Stream Management Corridors');
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
+                    const item = {
+                        layer: 'Stream Management Corridors',
+                        scale: feature.properties.scale,
+                        date_created: feature.properties.date_created,
+                    }
+                    menuOptions.push('Stream Management Corridors');
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                if (feature.source === BCZ_PREBLE_MEADOW_JUMPING) {
+                    const item = {
+                        layer: 'BCZ - Preble’s Meadow Jumping Mouse',
+                        expirationdate: feature.properties.expirationdate,
+                        website: 'https://www.fws.gov/mountain-prairie/es/preblesMeadowJumpingMouse.php',
+                        letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0030_PMJM_Denver_Block_Clearance_extension_accessible_signed.pdf',
+                        map: `https://www.fws.gov/mountain-prairie/es/species/mammals/preble/9-2016_USFWS_Preble's_map_Denver_Metro_Area.pdf`
+                    }
+                    menuOptions.push('BCZ - Preble’s Meadow Jumping Mouse');
+                    popups.push(item);
+                    console.log('my item is ', item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
+                    const item = {
+                        layer: 'BCZ - Ute Ladies Tresses Orchid',
+                        expirationdate: feature.properties.expirationdate,
+                        website: 'https://www.fws.gov/mountain-prairie/es/uteLadiestress.php',
+                        letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0031_ULTO_Denver_Block_Clearance_extension_accessible_signed.pdf',
+                        map: 'https://www.fws.gov/mountain-prairie/es/species/plants/uteladiestress/BlockClearanceMap2008.pdf'
+                    }
+                    menuOptions.push('BCZ - Ute Ladies Tresses Orchid');
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                if (feature.source === RESEARCH_MONITORING) {
+                    const item = {
+                        layer: 'Research/Monitoring',
+                        sitename: feature.properties.sitename,
+                        sitetype: feature.properties.sitetype,
+                        bmptype: feature.properties.bmptype,
+                    }
+                    menuOptions.push('Research/Monitoring');
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                if (feature.source === CLIMB_TO_SAFETY) {
+                    const item = {
+                        layer: 'Climb to Safety',
+                    }
+                    menuOptions.push('Climb to Safety');
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                if (feature.source === SEMSWA_SERVICE_AREA) {
+                    const item = {
+                        layer: 'SEMSWA Service Area',
+                    }
+                    menuOptions.push('SEMSWA Service Area');
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                
                 for (const component of COMPONENT_LAYERS.tiles) {
                     if (feature.source === component) {
                         const item = {
