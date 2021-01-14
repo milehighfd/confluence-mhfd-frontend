@@ -1363,19 +1363,6 @@ const Map = ({ leftWidth,
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
-                if (feature.source === DWR_DAM_SAFETY) {
-                    const item = {
-                        layer: 'DWR Dam Safety',
-                        dam_name: feature.properties.dam_name,
-                        hazard_class: feature.properties.hazard_class,
-                        year_completed: feature.properties.year_completed,
-                        dam_height: feature.properties.dam_height,
-                        more_information: feature.properties.more_information
-                    }
-                    menuOptions.push('DWR Dam Safety');
-                    popups.push(item);
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
                 if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
                     const item = {
                         layer: 'Stream Management Corridors',
@@ -1383,16 +1370,6 @@ const Map = ({ leftWidth,
                         date_created: feature.properties.date_created,
                     }
                     console.log(item, feature.properties);
-                    menuOptions.push('Stream Management Corridors');
-                    popups.push(item);
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
-                    const item = {
-                        layer: 'Stream Management Corridors',
-                        scale: feature.properties.scale,
-                        date_created: feature.properties.date_created,
-                    }
                     menuOptions.push('Stream Management Corridors');
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
