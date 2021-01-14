@@ -4,9 +4,15 @@
 @media (max-width: 575.98px) {
   // MAP
   .map {
-      height: calc(100vh - 58px);
-      margin: 0px;
-      position: relative;
+    height: calc(100vh - 102px);
+    margin: 0px;
+    position: relative;
+    top: 0;
+    bottom: 0;
+
+    .m-head {
+      top: 30px;
+    }
   }
   .map-00{
     scroll-behavior: smooth;
@@ -16,7 +22,7 @@
     }
 
     .mapboxgl-ctrl-group {
-      bottom: 45px;
+      bottom: 15px;
       width: 30px;
     }
     .mapboxgl-ctrl-scale {
@@ -27,8 +33,11 @@
     width: 30px !important;
     height: 30px !important;
   }
+  a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib.mapboxgl-compact {
+    display: none !important;
+  }
   .m-zoom{
-    bottom: 150px !important;
+    bottom: 120px !important;
     width: 30px !important;
 
     .btn-green{
@@ -45,11 +54,17 @@
       height: 30px !important;
     }
   }
+  .fr-area-p{
+    display: inline-block;
+    height: 45px;
+    margin-bottom: -6px;
+    background: #09121f;
+    width: 100%;
+    transition: top .2s ease-in-out!important;
+  }
   .fr-area {
     display: inline-block;
     transition: top .2s ease-in-out!important;
-    position: absolute;
-    top: -45px;
     height: 45px;
     border-radius: 20px 20px 0px 0px;
     text-align: center;
@@ -57,7 +72,6 @@
     background: $green;
     width: 100%;
     padding: 12px 0px;
-    z-index: 1000;
   }
   .fr-area.active {
     transition: top .2s ease-in-out!important;
@@ -497,6 +511,6 @@
     display: none;
   }
   .height-mobile{
-    height: calc(100vh - 58px);
+    height: calc(100vh - 102px);
   }
 }

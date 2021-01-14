@@ -967,7 +967,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     }
   }, [tutorialStatus]);
   return <>
-    <div className="fr-area">Explore Confluence</div>
+  <div className="fr-area-p"><div className="fr-area">Explore Confluence</div></div>
     <div className="mhfd-mobile">
       <h6>About the Platform</h6>
       <p>Confluence is your one-stop Mile High Flood District data portal.
