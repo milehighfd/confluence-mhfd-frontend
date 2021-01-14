@@ -557,6 +557,9 @@
     padding: 12px 15px;
     text-transform: uppercase;
     line-height: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
   }
   // h4{
   //   color: $opacity;
@@ -575,7 +578,7 @@
 
     img{
       margin-right: 5px;
-      margin-top: -3px;
+      margin-top: -13px;
     }
   }
   .layer-popup{
@@ -599,6 +602,18 @@
     display: inline-block !important;
     position: absolute;
     top: 43px;
+  }
+  .text-popup{
+    width: 250px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
+  }
+  .text-popup-00{
+    width: 186px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
   }
 }
 .mapboxgl-ctrl-group button{
