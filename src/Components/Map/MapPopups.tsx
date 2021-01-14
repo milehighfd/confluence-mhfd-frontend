@@ -108,13 +108,13 @@ export const ComponentPopup = ({ id, item } : any) => {
             {item.hazard_class ? <p><i>Hazard Class:</i>{item.hazard_class}</p> : ''}
             {item.year_completed ? <p><i>Year Completed:</i>{item.year_completed}</p> : ''}
             {item.dam_height ? <p><i>Dam Height (ft):</i>{item.dam_height}</p> : ''}
-            {item.more_information ? <p><i>DWR Website:</i>{item.more_information}</p> : ''}
+            {item.more_information ? <p><i>DWR Website:</i><a href={item.more_information} target="_blank">{item.more_information}</a></p> : ''}
             {item.scale ? <p><i>Scale</i>{item.scale}</p> : ''}
             {item.date_created ? <p><i>Date created:</i>{item.date_created}</p> : ''}
             {item.expirationdate ? <p><i>Expiration Date:</i>{item.expirationdate}</p>: ''}
-            {item.website ? <p><i>Website:</i>{item.website}</p> : ''}
-            {item.letter ? <p><i>Letter:</i>{item.letter}</p> : ''}
-            {item.map ? <p><i>Map:</i>{item.map}</p> : ''}
+            {item.website ? <p><i>Website:</i><a href={item.website} target="_blank">{item.website}</a></p> : ''}
+            {item.letter ? <p><i>Letter:</i><a href={item.letter} target="_blank">{item.letter}</a></p> : ''}
+            {item.map ? <p><i>Map:</i><a href={item.map} target="_blank">{item.map}</a></p> : ''}
 
             {item.sitename ? <p> <i>Site Name:</i>{item.sitename}</p> : ''}
             {item.sitetype ? <p> <i>Site Type:</i>{item.sitetype}</p> : ''}
