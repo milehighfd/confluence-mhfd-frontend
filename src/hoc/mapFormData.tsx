@@ -168,7 +168,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
                   <Spin className="loading-01" spinning={(spinFilter || spinCardProblems || spinCardProjects || spinValue)}>
-                    <Col xs={{ span: 24 }} style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} lg={leftWidth}>{/*span={15}*/}
+                    <Col xs={{ span: 24 }} className="height-mobile" style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} lg={leftWidth}>{/*span={15}*/}
                         <Map
                             leftWidth={leftWidth}
                             layers={layers}

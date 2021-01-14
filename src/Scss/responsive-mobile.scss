@@ -494,4 +494,7 @@
   .card-map .btn-card{
     display: none;
   }
+  .height-mobile{
+    height: calc(100vh - 58px);
+  }
 }
