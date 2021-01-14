@@ -1005,10 +1005,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               style={{ width: '200' }}
               dataSource={dataAutocomplete}
               placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
-              filterOption={(inputValue, option: any) =>
-                // groupOrganization.name
-                option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-              }
+              // filterOption={(inputValue, option: any) =>
+              //   // groupOrganization.name
+              //   option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+              // }
               onSelect={onSelect}
               value={valueA}
               onSearch={(input2: any) => {
