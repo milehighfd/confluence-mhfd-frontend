@@ -759,50 +759,67 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     if (zoomareaSelected.length > 0) {
       const optionsProblem = { ...filterProblemOptions };
       const optionsProject = { ...filterProjectOptions };
+      const optionsComponent = { ...filterComponentOptions };
       //console.log('coordinates', zoomareaSelected[0].coordinates);
       switch (zoomareaSelected[0].filter) {
         case 'County':
           optionsProblem['county'] = name;
           optionsProject['county'] = name;
+          optionsComponent['county'] = name;
           optionsProblem['jurisdiction'] = '';
           optionsProject['jurisdiction'] = '';
+          optionsComponent['jurisdiction'] = '';
           optionsProblem['servicearea'] = '';
           optionsProject['servicearea'] = '';
+          optionsComponent['servicearea'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         case 'Jurisdiction':
           optionsProblem['jurisdiction'] = name;
           optionsProject['jurisdiction'] = name;
+          optionsComponent['jurisdiction'] = name;
           optionsProblem['county'] = '';
           optionsProject['county'] = '';
+          optionsComponent['county'] = '';
           optionsProblem['servicearea'] = '';
           optionsProject['servicearea'] = '';
+          optionsComponent['servicearea'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         case 'Service Area':
           optionsProblem['servicearea'] = name;
           optionsProject['servicearea'] = name;
+          optionsComponent['servicearea'] = name;
           optionsProblem['county'] = '';
           optionsProject['county'] = '';
+          optionsComponent['county'] = '';
           optionsProblem['jurisdiction'] = '';
           optionsProject['jurisdiction'] = '';
+          optionsComponent['jurisdiction'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         default:
           optionsProblem['servicearea'] = '';
           optionsProject['servicearea'] = '';
+          optionsComponent['servicearea'] = '';
           optionsProblem['county'] = '';
           optionsProject['county'] = '';
+          optionsComponent['county'] = '';
           optionsProblem['jurisdiction'] = '';
           optionsProject['jurisdiction'] = '';
+          optionsComponent['jurisdiction'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       }
       setFilterProblemOptions(optionsProblem);
       setFilterProjectOptions(optionsProject);
+      setFilterComponentOptions(optionsComponent);
+      getParamFilterProblems(boundsMap, optionsProblem);
+      getParamFilterProjects(boundsMap, optionsProject);
+      getParamFilterComponents(boundsMap, optionsComponent);
     }
   }
 
