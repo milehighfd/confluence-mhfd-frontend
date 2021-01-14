@@ -152,7 +152,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
 
             <Row className="filt-00" gutter={[24, 16]}>
                 <Col span={12}>
-                    <h5 className="chart-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <div>
                         <Button className="btn-svg" onClick={() => { }}>
@@ -174,7 +174,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                     </>
                 </Col>
                 <Col span={12}>
-                    <h5 className="chart-title">MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title">MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <div>
                         <Button className="btn-svg" onClick={() => { }}>
