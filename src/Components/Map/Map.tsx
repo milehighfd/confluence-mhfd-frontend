@@ -645,7 +645,7 @@ const Map = ({ leftWidth,
         } else {
             const SOURCE_COLOR = [189, 56, 68];
             const TARGET_COLOR = [131, 233, 80];
-            const YELLOW_SOLID = [255, 255, 80]
+            const YELLOW_SOLID = [118, 239, 213];
             let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
                 return {
                     position: c.centroid,
@@ -660,7 +660,7 @@ const Map = ({ leftWidth,
                 arcs.push({
                     source: bboxComponents.centroids[0].centroid,
                     target: bboxComponents.centroids[i].centroid,
-                    value: 1
+                    value: bboxComponents.centroids[i].arcWidth
                 });
             }
             let mapboxArcsLayer = new MapboxLayer({
@@ -682,7 +682,8 @@ const Map = ({ leftWidth,
                 opacity: 1,
                 getSourcePosition: (d: any) => d.source,
                 getTargetPosition: (d: any) => d.target,
-                getWidth: (d: any) => 10,
+                getWidth: (d: any) => d.value * 2,
+                getHeight: 0.7,
                 getSourceColor: YELLOW_SOLID,
                 getTargetColor: YELLOW_SOLID
             });
