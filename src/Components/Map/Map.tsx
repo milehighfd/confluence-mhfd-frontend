@@ -1168,7 +1168,7 @@ const Map = ({ leftWidth,
                         popupId: 'popup'
                     };
                     itemValue = { ...item };
-                    itemValue.value = item.valueid;
+                   // itemValue.value = item.valueid;
                     menuOptions.push('Project');
                     popups.push(itemValue);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
@@ -1389,7 +1389,7 @@ const Map = ({ leftWidth,
                 objectid: details.objectid,
                 cartoid: details.valueid,
                 type: details.type,
-                value: details.value,
+                value: details.valueid,
                 problemid: ''
             });
         }
