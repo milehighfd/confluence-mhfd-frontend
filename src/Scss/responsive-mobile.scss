@@ -8,7 +8,7 @@
   }
   // MAP
   .map {
-    height: calc(100vh - 72px);
+    height: calc(100vh - 58px);
     margin: 0px;
 
     .m-head {
@@ -515,4 +515,14 @@
   //   top: 0;
   //   bottom: 0;
   // }
+}
+@media only screen and (min-device-width: 414px) and (-webkit-min-device-pixel-ratio: 3) {
+  .map {
+    height: calc(100vh - 76px);
+    margin: 0px;
+
+    .m-head {
+      top: 30px;
+    }
+  }
 }
