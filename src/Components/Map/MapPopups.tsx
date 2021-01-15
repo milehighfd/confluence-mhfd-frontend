@@ -98,23 +98,23 @@ export const ComponentPopup = ({ id, item } : any) => {
             {item.acreage ? <p><i>Acreage: </i> {item.acreage}</p> : ''}
             {item.length ? <p><i>Length: </i> {item.length}</p> : ''}
 
-            {item.hydgrpdcd ? <p><i>Hydrologic Group:</i>{item.hydgrpdcd}</p> : ''}
-            {item.muname ? <p><i>Mapunit Name:</i>{item.muname}</p> : ''}
-            {item.aws0150wta ? <p><i>Available Water Storage 0-150 cm:</i>{item.aws0150wta}</p> : ''}
-            {item.drclassdcd ? <p><i>Drainage Class:</i>{item.drclassdcd}</p> : ''}
-            {item.nrcsweb ? <p><i>Web Soil Survey:</i>NA</p> : ''}
+            {item.hydgrpdcd ? <p><i>Hydrologic Group: </i>{item.hydgrpdcd}</p> : ''}
+            {item.muname ? <p><i>Mapunit Name: </i>{item.muname}</p> : ''}
+            {item.aws0150wta ? <p><i>Available Water Storage 0-150 cm: </i>{item.aws0150wta}</p> : ''}
+            {item.drclassdcd ? <p><i>Drainage Class: </i>{item.drclassdcd}</p> : ''}
+            {item.nrcsweb ? <p><i>Web Soil Survey: </i>NA</p> : ''}
 
-            {item.dam_name ? <p><i>Dam Name:</i>{item.dam_name}</p> : ''}
-            {item.hazard_class ? <p><i>Hazard Class:</i>{item.hazard_class}</p> : ''}
-            {item.year_completed ? <p><i>Year Completed:</i>{item.year_completed}</p> : ''}
-            {item.dam_height ? <p><i>Dam Height (ft):</i>{item.dam_height}</p> : ''}
-            {item.more_information ? <p><i>DWR Website:</i><a href={item.more_information} target="_blank">{item.more_information}</a></p> : ''}
+            {item.dam_name ? <p><i>Dam Name: </i>{item.dam_name}</p> : ''}
+            {item.hazard_class ? <p><i>Hazard Class: </i>{item.hazard_class}</p> : ''}
+            {item.year_completed ? <p><i>Year Completed: </i>{item.year_completed}</p> : ''}
+            {item.dam_height ? <p><i>Dam Height (ft): </i>{item.dam_height}</p> : ''}
+            {item.more_information ? <p><i>DWR Website: </i><a href={item.more_information} target="_blank">{item.more_information}</a></p> : ''}
             {item.scale ? <p><i>Scale</i>{item.scale}</p> : ''}
-            {item.date_created ? <p><i>Date created:</i>{item.date_created}</p> : ''}
-            {item.expirationdate ? <p><i>Expiration Date:</i>{item.expirationdate}</p>: ''}
-            {item.website ? <p className="text-popup"><i>Website:</i> <a href={item.website} target="_blank">{item.website}</a></p> : ''}
-            {item.letter ? <p className="text-popup"><i>Letter:</i> <a href={item.letter} target="_blank">{item.letter}</a></p> : ''}
-            {item.map ? <p className="text-popup"><i>Map:</i> <a href={item.map} target="_blank">{item.map}</a></p> : ''}
+            {item.date_created ? <p><i>Date created: </i>{item.date_created}</p> : ''}
+            {item.expirationdate ? <p><i>Expiration Date: </i>{item.expirationdate}</p>: ''}
+            {item.website ? <p className="text-popup"><i>Website: </i> <a href={item.website} target="_blank">{item.website}</a></p> : ''}
+            {item.letter ? <p className="text-popup"><i>Letter: </i> <a href={item.letter} target="_blank">{item.letter}</a></p> : ''}
+            {item.map ? <p className="text-popup"><i>Map: </i> <a href={item.map} target="_blank">{item.map}</a></p> : ''}
 
             {item.sitename ? <p> <i>Site Name: </i>{item.sitename}</p> : ''}
             {item.sitetype ? <p> <i>Site Type: </i>{item.sitetype}</p> : ''}
