@@ -644,7 +644,7 @@ const Map = ({ leftWidth,
             }, 3000)
         } else {
             const SOURCE_COLOR = [189, 56, 68];
-            const TARGET_COLOR = [131, 233, 80];
+            const TARGET_COLOR = [13, 87, 73];
             const YELLOW_SOLID = [118, 239, 213];
             let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
                 return {
@@ -669,7 +669,13 @@ const Map = ({ leftWidth,
                 data: scatterData,
                 opacity: 1,
                 pickable: true,
-                getRadius: (d: any) => 2,
+                getRadius: (d: any) => {
+                    if (d.name === 'self') {
+                        return 2;
+                    } else {
+                        return 1;
+                    }
+                },
                 getColor: (d: any) => d.color
             });
 
