@@ -9,6 +9,7 @@ import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView
 import '../../../Scss/navbar.scss';
 import {DoubleRightOutlined} from '@ant-design/icons';
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
+import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -27,6 +28,19 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   const [carrousel, setCarrousel] = useState({slick: {slickGoTo: (index: number) => {}}});
   const [state, setState] = useState(stateValue);
   const { changeTutorialStatus } = useMapDispatch();
+  const { getTimesLogin } = useProfileDispatch();
+  const { timesLogged } = useProfileState();
+  useEffect(() => {
+    getTimesLogin();
+  }, []);
+  useEffect(() => {
+    console.log('logged ', timesLogged);
+    if (timesLogged !== -1) {
+      if (timesLogged <= 1) {
+        setState({...state, visible1: true});
+      }
+    }
+  }, [timesLogged]);
   useEffect(() => {
     console.log('change state value ',stateValue);
     changeTutorialStatus(state.visible1);

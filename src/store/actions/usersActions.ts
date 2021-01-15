@@ -1,6 +1,7 @@
 import * as types from '../types/usersTypes';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
+import { dispatch } from 'd3';
 // import { SERVER } from "../../Config/Server.config";
 // import * as datasets from "../../Config/datasets";
 
@@ -72,6 +73,14 @@ export const getAllUserActivity = () => {
       tempLink.setAttribute('download', 'activity.csv');
       tempLink.click();
       dispatch({ type: 'download', res });
+    });
+  }
+}
+
+export const getTimesLogin = () => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.TIMES_LOGIN, datasets.getToken()).then(times => {
+      dispatch({ type: types.TIMES_LOGIN, times: times.times});
     });
   }
 }

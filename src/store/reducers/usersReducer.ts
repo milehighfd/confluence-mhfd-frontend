@@ -17,7 +17,8 @@ const initStateUsersActivated = {
         ],
         totalPages: 1,
         currentPage: 1
-    }
+    },
+    timesLogged: -1
 }
 
 const users = (state = initStateUsersActivated, action : any) => {
@@ -57,6 +58,12 @@ const users = (state = initStateUsersActivated, action : any) => {
                 ...state,
                 userActivity: action.res
             }
+        case types.TIMES_LOGIN: {
+            return {
+                ...state,
+                timesLogged: action.times
+            }
+        }
         default: 
             return state;
     }
