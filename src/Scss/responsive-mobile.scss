@@ -8,12 +8,13 @@
   }
   // MAP
   .map {
-    height: calc(100vh - 102px);
+    height: 100vh;
     margin: 0px;
     position: relative;
     top: 0;
     bottom: 0;
     min-height: -webkit-fill-available;
+    padding-bottom: 58px;
 
     .m-head {
       top: 30px;
@@ -28,7 +29,7 @@
     }
 
     .mapboxgl-ctrl-group {
-      bottom: 15px;
+      bottom: 45px;
       width: 30px;
     }
     .mapboxgl-ctrl-scale {
@@ -43,7 +44,7 @@
     display: none !important;
   }
   .m-zoom{
-    bottom: 120px !important;
+    bottom: 208px !important;
     width: 30px !important;
 
     .btn-green{
@@ -60,14 +61,6 @@
       height: 30px !important;
     }
   }
-  .fr-area-p{
-    display: inline-block;
-    height: 45px;
-    margin-bottom: -6px;
-    background: #09121f;
-    width: 100%;
-    transition: top .2s ease-in-out!important;
-  }
   .fr-area {
     display: inline-block;
     transition: top .2s ease-in-out!important;
@@ -77,6 +70,8 @@
     color: $white;
     background: $green;
     width: 100%;
+    position: absolute;
+    top: -102px;
     padding: 12px 0px;
   }
   .fr-area.active {
@@ -311,6 +306,7 @@
     padding: 15px;
     margin-bottom: 10px;
     display: block;
+    margin-top: -57px;
 
     h6{
       font-size: 16px;
