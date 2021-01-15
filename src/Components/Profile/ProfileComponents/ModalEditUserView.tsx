@@ -41,7 +41,9 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
     asign();
     console.log(title, organization.length);
   }, [user]);
-
+  useEffect(() => {
+    getGroupOrganization();
+  }, []);
   const validationSchema = VALIDATION_USER_PROFILE;
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
