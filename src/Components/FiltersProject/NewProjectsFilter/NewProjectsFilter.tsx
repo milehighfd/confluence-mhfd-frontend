@@ -8,21 +8,21 @@ import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
 
 const { Option } = Select;
-const content = (<div className="popoveer-00"><b>Service Area:</b> is the MHFD Watershed Service Area where the project is located.</div>);
-const content1 = (<div className="popoveer-00"><b>County:</b> is the county where the project is located.</div>);
-const content2 = (<div className="popoveer-00"><b>Jurisdiction:</b> is the local government where the project is located.</div>);
-const content3 = (<div className="popoveer-00"><b>MHFD Project Manager:</b> is the MHFD PM who is responsible for the service area where the project is located.</div>);
-const content4 = (<div className="popoveer-00"><b>Project Type:</b> is the MHFD program of which the project is a part.</div>);
-const content05 = (<div className="popoveer-00"><b>Estimated Project Cost:</b> is the estimated total cost of the project based on the cost of the underlying components.</div>);
-const content06 = (<div className="popoveer-00"><b>Project Status:</b> is the current status of the Project. Some statuses are only applicable to certain project types.</div>);
-const content07 = (<div className="popoveer-00"><b>Year Initiated:</b> is the year a Project was initiated (i.e. provided MHFD funding). For Projects that have not been initiated, use the "Work Plan Year" filter.</div>);
-const content08 = (<div className="popoveer-00"><b>Year Completed:</b> is the year a project was closed out by MHFD.</div>);
-const content09 = (<div className="popoveer-00"><b>MHFD Dollars Allocated:</b> is the amount of funding that MHFD has budgeted or encumbered for a particular Project. For Capital projects and Master Plans, this is the number that must at least be matched by a local government.</div>);
-const content10 = (<div className="popoveer-00"><b>Work Plan Year:</b> is the year that a proposed Project is on the approved MHFD Work Plan.</div>);
-const content11 = (<div className="popoveer-00"><b>Consultant:</b> is the primary civil engineering design consultant on the project.</div>);
-const content12 = (<div className="popoveer-00"><b>Local Government Manager:</b> is the local government's project manager assigned to the project.</div>);
-const content13 = (<div className="popoveer-00"><b>Contractor:</b> is the primary civil engineering construction contractor on the project.</div>);
-const content14 = (<div className="popoveer-00"><b>Stream Name:</b> is the name or ID of the stream where the project is located.</div>);
+const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
+const content1 = (<div className="popoveer-00"><b>County</b> is the county where the project is located.</div>);
+const content2 = (<div className="popoveer-00"><b>Jurisdiction</b> is the local government where the project is located.</div>);
+const content3 = (<div className="popoveer-00"><b>MHFD Project Manager</b> is the MHFD PM who is responsible for the service area where the project is located.</div>);
+const content4 = (<div className="popoveer-00"><b>Project Type</b> is the MHFD program of which the project is a part.</div>);
+const content05 = (<div className="popoveer-00"><b>Estimated Project Cost</b> is the estimated total cost of the project based on the cost of the underlying components.</div>);
+const content06 = (<div className="popoveer-00"><b>Project Status</b> is the current status of the Project. Some statuses are only applicable to certain project types.</div>);
+const content07 = (<div className="popoveer-00"><b>Year Initiated</b> is the year a Project was initiated (i.e. provided MHFD funding). For Projects that have not been initiated, use the "Work Plan Year" filter.</div>);
+const content08 = (<div className="popoveer-00"><b>Year Completed</b> is the year a project was closed out by MHFD.</div>);
+const content09 = (<div className="popoveer-00"><b>MHFD Dollars Allocated</b> is the amount of funding that MHFD has budgeted or encumbered for a particular Project. For Capital projects and Master Plans, this is the number that must at least be matched by a local government.</div>);
+const content10 = (<div className="popoveer-00"><b>Work Plan Year</b> is the year that a proposed Project is on the approved MHFD Work Plan.</div>);
+const content11 = (<div className="popoveer-00"><b>Consultant</b> is the primary civil engineering design consultant on the project.</div>);
+const content12 = (<div className="popoveer-00"><b>Local Government Manager</b> is the local government's project manager assigned to the project.</div>);
+const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary civil engineering construction contractor on the project.</div>);
+const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
 
 export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects, setToggleFilters }: any) => {
     const { getParamFilterProjects } = useMapDispatch();
