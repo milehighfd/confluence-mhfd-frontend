@@ -966,6 +966,21 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       handleToggle();
     }
   }, [tutorialStatus]);
+
+  let filterCounter = 0;
+  switch(tabActive) {
+    case '0':
+      filterCounter = countFilterProblems;
+      break;
+    case '1':
+      filterCounter = countFilterProjects;
+      break;
+    case '2':
+      filterCounter = countFilterComponents;
+      break;
+  }
+  let filterLabel = `Filters (${filterCounter})`;
+
   return <>
   <div className="fr-area">Explore Confluence</div>
     <div className="mhfd-mobile">
@@ -1082,8 +1097,8 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
             <Button className="btn-red" onClick={onResetClick}><u>Reset</u></Button>
             <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()}>
               <Button onClick={handleToggle} >
-                <img style={{ background: backgroundStyle }} className="img-filter" alt="" /><span style={{ color: textStyle }} > Filters ({tabActive === '0' ? (countFilterComponents + countFilterProblems) :
-                  tabActive === '1' ? (countFilterComponents + countFilterProjects) : (countFilterComponents)})</span>
+                <img style={{ background: backgroundStyle }} className="img-filter" alt="" />
+                <span style={{ color: textStyle }}> {filterLabel} </span>
               </Button>
             </Popover>
             <div className="sort-content">
