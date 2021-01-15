@@ -76,6 +76,7 @@ export const SERVER = (function () {
     const FAVORITES = 'favorites';
     const ADD_FAVORITE = 'create';
     const FAVORITE_CARDS = 'favorite-list';
+    const TIMES_LOGIN = 'count-login';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -113,6 +114,7 @@ export const SERVER = (function () {
         USER_PROJECT: `${URL_BASE.BASE}/${PROJECT}/${FILTER_BY_USER_CREATOR}`,
         USER_UPLOAD_PHOTO: `${URL_BASE.BASE}/${USER}/${UPLOAD_PHOTO}`,
         USER_ACTIVITY: `${URL_BASE.BASE}/${ADMIN}/${USER_ACTIVITY}/${GET_ALL}`,
+        TIMES_LOGIN: `${URL_BASE.BASE}/${ADMIN}/${USER_ACTIVITY}/${TIMES_LOGIN}`,
         USER_ACTIVITY_CSV: `${URL_BASE.BASE}/${ADMIN}/${USER_ACTIVITY_CSV}`,
         COUNT_PROJECTS_BY_CREATOR: `${URL_BASE.BASE}/${PROJECT}/${COUNT_PROJECTS_BY_CREATOR}`,
         UPDATE_USER_INFORMATION: `${URL_BASE.BASE}/${USER}/${UPDATE}`,
