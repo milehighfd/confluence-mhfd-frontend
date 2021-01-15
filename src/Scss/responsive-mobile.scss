@@ -21,6 +21,7 @@
   }
   .map-00{
     scroll-behavior: smooth;
+    padding-bottom: 58px;
 
     .btn-coll{
       display: none;
@@ -515,11 +516,9 @@
   .card-map .btn-card{
     display: none;
   }
-  .height-mobile{
-    height: calc(100vh - 102px);
-    position: relative;
-    top: 0;
-    bottom: 0;
-    min-height: -webkit-fill-available;
-  }
+  // .height-mobile{
+  //   height: 100%;
+  //   top: 0;
+  //   bottom: 0;
+  // }
 }
