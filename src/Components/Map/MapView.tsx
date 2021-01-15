@@ -1242,6 +1242,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           spinFilter={spinFilter}
         />
       }
+      <Button className="btn-map"><img src="/Icons/menu-green-02.svg" alt="" width="18px"/> Map</Button>
     </div>
   </>
 }
