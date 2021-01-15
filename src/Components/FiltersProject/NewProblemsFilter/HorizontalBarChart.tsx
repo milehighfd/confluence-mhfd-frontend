@@ -156,6 +156,16 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       .data(partitionData)
     
     lines
+      .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
+      .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
+      .attr("y1", 0)
+      .attr("y2", height)
+      .attr('stroke-width', '0.1%')
+      .style("stroke-dasharray","2,2")
+      .style("stroke", 'black')
+      .style('opacity', 0.4);
+
+    lines
       .enter()
       .append("line").lower()
       .attr('class', 'hlines')
@@ -202,6 +212,8 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
     
     newRects
       .transition().duration(2000)
+      .attr("rx", 2)
+      .attr("ry", 2)
       .attr("x", xInitialValue)
       .attr("y", yFn)
       .attr("width", xCountFn)
