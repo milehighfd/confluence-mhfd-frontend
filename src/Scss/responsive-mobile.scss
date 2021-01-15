@@ -2,6 +2,10 @@
 @use 'styles';
 // RESPONSIVE MOBILE
 @media (max-width: 575.98px) {
+  html, body, .ant-layout{
+    min-height: -webkit-fill-available;
+    height: 100%;
+  }
   // MAP
   .map {
     height: calc(100vh - 102px);
@@ -9,6 +13,7 @@
     position: relative;
     top: 0;
     bottom: 0;
+    min-height: -webkit-fill-available;
 
     .m-head {
       top: 30px;
@@ -512,5 +517,9 @@
   }
   .height-mobile{
     height: calc(100vh - 102px);
+    position: relative;
+    top: 0;
+    bottom: 0;
+    min-height: -webkit-fill-available;
   }
 }
