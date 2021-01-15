@@ -3,7 +3,10 @@
 
 // GENERAL
 html, body{
-  height: 100vh;
+  height: 100%;
+}
+.ant-layout, #root{
+  height: 100%;
 }
 body{
  font-family: $ubunto !important;

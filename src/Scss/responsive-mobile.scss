@@ -8,13 +8,8 @@
   }
   // MAP
   .map {
-    height: 100vh;
+    height: calc(100vh - 72px);
     margin: 0px;
-    position: relative;
-    top: 0;
-    bottom: 0;
-    min-height: -webkit-fill-available;
-    padding-bottom: 58px;
 
     .m-head {
       top: 30px;
@@ -24,6 +19,9 @@
     scroll-behavior: smooth;
     padding-bottom: 58px;
 
+    .mapboxgl-map {
+      height: calc(100% - 58px);
+    }
     .btn-coll{
       display: none;
     }

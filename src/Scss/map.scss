@@ -1,6 +1,6 @@
 @import "styles.scss";
 .map{
-  height: calc(100vh - 69px);
+  height: 100vh;
   margin: 5px;
   position: relative;
 
@@ -80,6 +80,9 @@
   }
 }
 .map-00{
+  .mapboxgl-map{
+    height: calc(100% - 69px);
+  }
   .mapboxgl-ctrl-bottom-right {
     width: 100%;
   }

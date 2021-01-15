@@ -1819,7 +1819,7 @@ const Map = ({ leftWidth,
                 componentCounter={componentCounter}
                 getComponentCounter={getComponentCounter}
             />}
-            <div id="map" style={{ width: '100%', height: '100%' }} />
+            <div id="map" />
             <div className="m-head">
                 <Dropdown overlayClassName="dropdown-map-layers"
                     visible={visibleDropdown}
