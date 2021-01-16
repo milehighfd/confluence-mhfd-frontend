@@ -78,8 +78,8 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
           .select(svgRef.current)
           .selectAll(".bar-d3")
         bars
-          .attr('fill', (_: any, i) => {
-            let d = data[i]
+          .attr('fill', (d: any, i) => {
+            // let d = data[i]
             if (currentMin <= i && i + 1 <= currentMax) {
               let value = `${d.min},${d.max}`;
               sData.push(value);
@@ -145,8 +145,8 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .attr('ry', rounded)
       .attr("x", xdr)
       .attr("y", yCounterFn)
-      .attr("height", function (_: any, i) {
-        let d = data[i];
+      .attr("height", function (d: any, i) {
+        // let d = data[i];
         return height - yCounterFn(d);
       });
 
@@ -163,8 +163,8 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .attr("y", yCounterFn)
       .attr('fill', fillColor)
       .attr("width", x.bandwidth() - 1)
-      .attr("height", function (_: any, i) {
-        let d = data[i];
+      .attr("height", function (d: any, i) {
+        // let d = data[i];
         return height - yCounterFn(d);
       });
 
@@ -229,15 +229,17 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .selectAll('.track-overlay')
       .attr('stroke-width', 10)
 
-  }, [data]);
+  }, [selected, data]);
 
   const apply = () => {
     onSelect(selectedData);
     if (service.ref) {
       service.ref.value([0, 20]);
     }
-    setLeft(selectedData[0].split(',')[0]);
-    setRight(selectedData[selectedData.length - 1].split(',')[1]);
+    if (selectedData.length > 0) {
+      setLeft(selectedData[0].split(',')[0]);
+      setRight(selectedData[selectedData.length - 1].split(',')[1]);
+    }
   }
 
   const reset = () => {
