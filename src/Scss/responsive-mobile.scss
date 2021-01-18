@@ -25,6 +25,7 @@
 
     .mapboxgl-map {
       height: calc(100% - 58px);
+      z-index: 10000;
     }
     .btn-coll{
       display: none;
