@@ -14,7 +14,7 @@
 }
 .svg-scroll::-webkit-scrollbar-thumb {
   background: #e9e8ef;
-  border-radius: 5px; 
+  border-radius: 5px;
 }
 .col-wr::-webkit-scrollbar, #graph::-webkit-scrollbar{
   width: 6px;
@@ -35,5 +35,12 @@
 }
 .scroll-footer::-webkit-scrollbar-thumb {
   background: $purple;
+  border-radius: 5px;
+}
+.ggyyyy::-webkit-scrollbar{
+  width: 1px;
+}
+.ggyyyy::-webkit-scrollbar-thumb{
+  background: transparent;
   border-radius: 5px;
 }

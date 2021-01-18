@@ -8,7 +8,7 @@
   }
   // MAP
   .map {
-    height: calc(100vh - 58px);
+    height: calc(100vh - 57px);
     margin: 0px;
 
     .m-head {
@@ -21,7 +21,7 @@
   }
   .map-00{
     scroll-behavior: smooth;
-    padding-bottom: 58px;
+    overflow-y: hidden;
 
     .mapboxgl-map {
       height: calc(100% - 58px);
@@ -305,10 +305,9 @@
   .mhfd-mobile{
     text-align: center;
     background: $white;
-    padding: 15px;
     margin-bottom: 10px;
     display: block;
-    margin-top: -57px;
+    padding: 10px;
 
     h6{
       font-size: 16px;
@@ -535,8 +534,55 @@
       margin-right: 8px;
     }
   }
+  .collapse-tabs{
+    width: 100%;
+    position: absolute;
+    bottom: 58px;
+    left: 0px;
+    z-index: 10;
+    // box-shadow: $shadow;
+
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+      display: none;
+    }
+    .ant-collapse{
+      border-radius: 20px 20px 0px 0px;
+      border: none;
+    }
+    .ant-collapse-header{
+      background-color: $green;
+      color: $white !important;
+      text-align: center;
+      border-radius: 20px 20px 0px 0px !important;
+    }
+    .ant-collapse > .ant-collapse-item:last-child, .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+      border-radius: 20px 20px 0px 0px !important;
+    }
+    .ant-collapse-content > .ant-collapse-content-box {
+      padding: 0px !important;
+    }
+    .ggyyyy{
+      overflow-y: scroll!important;
+      height: 560px;
+    }
+    .ffoo{
+      display: block;
+      width: 100%;
+      position: static;
+      top: auto;
+      margin-right: 0;
+      margin-left: 0;
+      height: 100%;
+      max-height: 100%;
+      overflow-y: scroll;
+      background: $opacity01;
+    }
+  }
 }
-@media only screen and (min-device-width: 375px)   and (max-device-width: 812px)  and (-webkit-min-device-pixel-ratio: 3) {
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 812px)
+  and (-webkit-min-device-pixel-ratio: 3) {
   .map {
     height: calc(100vh - 107px);
     margin: 0px;
@@ -548,6 +594,12 @@
   .map-00{
     .mapboxgl-map {
       height: calc(100% - 58px);
+    }
+  }
+  .collapse-tabs{
+    .ggyyyy{
+      overflow-y: scroll!important;
+      height: 528px;
     }
   }
 }

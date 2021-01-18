@@ -11,10 +11,10 @@ html, body{
 body{
  font-family: $ubunto !important;
  overflow-y: hidden;
- -moz-user-select: none;
- -webkit-user-select: none;
- -ms-user-select: none;
- user-select: none;
+ // -moz-user-select: none;
+ // -webkit-user-select: none;
+ // -ms-user-select: none;
+ // user-select: none;
 }
 .ant-timeline-item-head-green {
   color: $green !important;
