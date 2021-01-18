@@ -39,6 +39,7 @@ import DetailedPageContainer from './Components/DetailedPage/DetailedPageContain
 import { resetProfile, saveUserInformation } from './store/actions/ProfileActions';
 import { resetAppUser } from './store/actions/appUser';
 import { resetMap } from './store/actions/mapActions';
+import SampleMap from './Components/SampleMap/SampleMap';
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter, 
           setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions,
@@ -143,6 +144,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
     return <Redirect to="/map" />
   } */
   return <Switch>
+      <Route path={'/test-map'} component={SampleMap}/>
       <Route path={'/prueba'} component={Prueba} />
       <Route path={`/login`} component={LoginContainer} />
       <Route path={`/sign-up`} component={SignUpContainer} />
