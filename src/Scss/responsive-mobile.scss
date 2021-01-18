@@ -1,12 +1,13 @@
 @import "styles.scss";
 @use 'styles';
 // RESPONSIVE MOBILE
-@media (max-width: 575.98px) {
+@media (max-width: 575.98px) {  
   html, body, .ant-layout{
     min-height: -webkit-fill-available;
     height: 100%;
-    touch-action: none ;
+    touch-action: none;
   }
+
   // MAP
   .map {
     height: 100%;
@@ -26,16 +27,13 @@
     }
   }
   .map-00{
-    scroll-behavior: smooth;
-    overflow-y: hidden;
-
-    .mapboxgl-map {
+    .mapboxgl-map, .mapboxgl-canvas{
       height: 100%;
+      width: 100%;
     }
     .btn-coll{
       display: none;
     }
-
     .mapboxgl-ctrl-group {
       bottom: 104px;
       width: 30px;
@@ -412,6 +410,7 @@
   .map-modal{
     height: 250px !important;
     border-radius: 10px;
+    position: relative;
 
     .mapboxgl-ctrl-bottom-right {
       right: inherit;

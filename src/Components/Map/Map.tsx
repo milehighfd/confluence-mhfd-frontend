@@ -411,7 +411,7 @@ const Map = ({ leftWidth,
         map = new mapboxgl.Map({
             container: 'map',
             dragRotate: true,
-            touchZoomRotate: false,
+            touchZoomRotate: true,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
             center: [user.coordinates.longitude, user.coordinates.latitude],
             zoom: 8
