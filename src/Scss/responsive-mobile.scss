@@ -5,11 +5,14 @@
   html, body, .ant-layout{
     min-height: -webkit-fill-available;
     height: 100%;
+    touch-action: none ;
   }
   // MAP
   .map {
     height: calc(100vh - 57px);
     margin: 0px;
+    position: inherit;
+
 
     .m-head {
       top: 30px;
@@ -25,7 +28,6 @@
 
     .mapboxgl-map {
       height: calc(100% - 58px);
-      z-index: 10000;
     }
     .btn-coll{
       display: none;
@@ -43,7 +45,7 @@
     width: 30px !important;
     height: 30px !important;
   }
-  a.mapboxgl-ctrl-logo, .mapboxgl-ctrl-attrib.mapboxgl-compact {
+  a.mapboxgl-ctrl-logo, {
     display: none !important;
   }
   .m-zoom{
