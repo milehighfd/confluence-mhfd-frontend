@@ -478,8 +478,11 @@ const Map = ({ leftWidth,
                 'fill-opacity': 0.8
             }
         }); */
-
+        let _ = 0;
         map.on('zoomend', () => {
+            hideOpacity();
+            setZoomEndCounter(_++);
+            setOpacityLayer(false)
             value += 1;
             if (value >= 2) {
                 const bounds = map.getBounds();
@@ -504,7 +507,11 @@ const Map = ({ leftWidth,
             }
 
         });
+        let __ = 1;
         map.on('dragend', () => {
+            hideOpacity();
+            setDragEndCounter(__++);
+            setOpacityLayer(false)
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setBoundMap(boundingBox);
@@ -533,7 +540,7 @@ const Map = ({ leftWidth,
             const zoom = map.getZoom().toFixed(2);
             setZoomValue(zoom);
         }
-        let _ = 0;
+        // let _ = 0;
         // map.on('zoomend', () => {
         //     //console.log('zoomendOn', opacityLayer)
         //     if (!opacityLayer) {
@@ -543,7 +550,7 @@ const Map = ({ leftWidth,
         //     console.log(zoomEndCounter);
         //     setOpacityLayer(false)
         // });
-        let __ = 1;// #good practices
+        // let __ = 1;// #good practices
         // map.on('dragend', () => {
         //     console.log('move end')
         //     setDragEndCounter(__++);
