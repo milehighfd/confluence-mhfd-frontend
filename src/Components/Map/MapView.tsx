@@ -44,6 +44,8 @@ const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Es
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
 
+const mhfdCoords = '-105.23496707999973,39.5294420336657,-104.47458099999955,39.99857524427594'
+
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -144,7 +146,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   useEffect(() => {
     setSpinMapLoaded(true);
   }, []);
-  const resetFilterProblems = () => {
+  const resetFilterProblems = (withCoords?: any) => {
     const options = { ...filterProblemOptions };
     options.components = '';
     options.solutionstatus = '';
@@ -159,11 +161,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setFilterProblemOptions(options);
     getGalleryProblems();
     if (toggleModalFilter) {
-      getParamFilterProblems(boundsMap, options)
+      getParamFilterProblems(withCoords ? withCoords : boundsMap, options)
     }
   }
 
-  const resetFilterProjects = (withDefaults: boolean) => {
+  const resetFilterProjects = (withDefaults: boolean, withCoords?: any) => {
     const options = { ...filterProjectOptions };
     if (withDefaults) {
       options.projecttype = 'Maintenance,Capital';
@@ -191,11 +193,11 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setFilterProjectOptions(options);
     getGalleryProjects();
     if (toggleModalFilter) {
-      getParamFilterProjects(boundsMap, options)
+      getParamFilterProjects(withCoords ? withCoords : boundsMap, options)
     }
   }
 
-  const resetFilterComponents = () => {
+  const resetFilterComponents = (withCoords?: any) => {
     const options: any = { ...filterComponentOptions };
     options.component_type = '';
     options.status = '';
@@ -209,7 +211,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     getGalleryProjects();
     getGalleryProblems();
     if (toggleModalFilter) {
-      getParamFilterComponents(boundsMap, options);
+      getParamFilterComponents(withCoords ? withCoords : boundsMap, options);
     }
   }
 
@@ -742,7 +744,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       getGalleryProjects();
     }
   }
-  const changeCenter = (name: string, coordinates: any) => {
+  const changeCenter = (name: string, coordinates: any, shouldLoadFilters = true) => {
     const user = store.getState().profile.userInformation;
     user.polygon = coordinates;
     saveUserInformation(user);
@@ -755,8 +757,17 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         coordinates: element.coordinates
       }
     });
-
+    let boundsToMap = boundsMap;
     if (zoomareaSelected.length > 0) {
+      let cords = zoomareaSelected[0].coordinates[0][0];
+      let minLng = cords[0][0], minLat = cords[0][1];
+      let maxLng = cords[0][0], maxLat = cords[0][1];
+      cords.forEach((c: any) => {
+        let [lng, lat] = c;
+        minLng = Math.min(minLng, lng); minLat = Math.min(minLat, lat);
+        maxLng = Math.max(maxLng, lng); maxLat = Math.max(maxLat, lat);
+      })
+      boundsToMap = [minLng, minLat, maxLng, maxLat].join(',');
       const optionsProblem = { ...filterProblemOptions };
       const optionsProject = { ...filterProjectOptions };
       const optionsComponent = { ...filterComponentOptions };
@@ -817,9 +828,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       setFilterProblemOptions(optionsProblem);
       setFilterProjectOptions(optionsProject);
       setFilterComponentOptions(optionsComponent);
-      getParamFilterProblems(boundsMap, optionsProblem);
-      getParamFilterProjects(boundsMap, optionsProject);
-      getParamFilterComponents(boundsMap, optionsComponent);
+      if (name === 'Mile High Flood District') {
+        boundsToMap = mhfdCoords;
+      }
+      if (shouldLoadFilters) {
+        getParamFilterProblems(boundsToMap, optionsProblem);
+        getParamFilterProjects(boundsToMap, optionsProject);
+        getParamFilterComponents(boundsToMap, optionsComponent);
+      }
     }
   }
 
@@ -932,31 +948,37 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     </Menu>
   }
   const onResetClick = () => {
-    // console.log('toggleModalFilter', toggleModalFilter)
+    let value = 'Mile High Flood District';
+    setvalueA(value);
+    setAutocomplete(value);
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+      return {
+        aoi: element.aoi,
+        filter: element.filter,
+        coordinates: element.coordinates
+      }
+    });
+    changeCenter(value, zoomareaSelected[0].coordinates, false)
+    let boundsToMap = mhfdCoords;
     if (toggleModalFilter) {
       switch(filterTabNumber) {
         case PROBLEMS_TRIGGER:
-            // console.log('FILTER_PROBLEMS_TRIGGER')
-            resetFilterProblems();
+            resetFilterProblems(boundsToMap);
             break;
         case PROJECTS_TRIGGER:
-            // console.log('FILTER_PROJECTS_TRIGGER')
-            resetFilterProjects(true);
+            resetFilterProjects(true, boundsToMap);
             break;
         case COMPONENTS_TRIGGER:
-            // console.log('FILTER_COMPONENTS_TRIGGER')
-            resetFilterComponents();
+            resetFilterComponents(boundsToMap);
             break;
       }
     } else {
       switch(tabCards) {
         case PROBLEMS_TRIGGER:
-            // console.log('cards PROBLEMS_TRIGGER')
-            resetFilterProblems();
+            resetFilterProblems(boundsToMap);
             break;
         case PROJECTS_TRIGGER:
-            // console.log('cards PROJECTS_TRIGGER')
-            resetFilterProjects(true);
+            resetFilterProjects(true, boundsToMap);
             break;
       }
     }
