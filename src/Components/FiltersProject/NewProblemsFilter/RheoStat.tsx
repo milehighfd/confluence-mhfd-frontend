@@ -35,7 +35,6 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   });
 
   useEffect(() => {
-    console.log('calling useEffect on Rheostat', data, selected, selectedData)
 
     const keyFn = (d: any) => {
       return d.id;
