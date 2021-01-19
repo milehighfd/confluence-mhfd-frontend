@@ -491,14 +491,14 @@ const Map = ({ leftWidth,
                 setBoundMap(boundingBox);
                 if (applyFilter) {
                     //TODO: move this ifs inside toggle modal if it works again
-                    if (filterTabNumber === PROJECTS_TRIGGER) {
-                        getParamFilterProjects(boundingBox, filterProjectOptions);
-                    } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                        getParamFilterProblems(boundingBox, filterProblemOptions);
-                    } else {
-                        getParamFilterComponents(boundingBox, filterComponentOptions);
-                    }
                     if (toggleModalFilter) {
+                        if (filterTabNumber === PROJECTS_TRIGGER) {
+                            getParamFilterProjects(boundingBox, filterProjectOptions);
+                        } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+                            getParamFilterProblems(boundingBox, filterProblemOptions);
+                        } else {
+                            getParamFilterComponents(boundingBox, filterComponentOptions);
+                        }
                         getParamsFilter(boundingBox);
                     } else {
                         setFilterCoordinates(boundingBox, tabCards);
@@ -517,14 +517,14 @@ const Map = ({ leftWidth,
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setBoundMap(boundingBox);
             if (applyFilter) {
-                if (filterTabNumber === PROJECTS_TRIGGER) {
-                    getParamFilterProjects(boundingBox, filterProjectOptions);
-                } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                    getParamFilterProblems(boundingBox, filterProblemOptions);
-                } else {
-                    getParamFilterComponents(boundingBox, filterComponentOptions);
-                }
                 if (toggleModalFilter) {
+                    if (filterTabNumber === PROJECTS_TRIGGER) {
+                        getParamFilterProjects(boundingBox, filterProjectOptions);
+                    } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+                        getParamFilterProblems(boundingBox, filterProblemOptions);
+                    } else {
+                        getParamFilterComponents(boundingBox, filterComponentOptions);
+                    }
                     //TODO: move those ifs inside toggle modal if it works again
                 } else {
                     setFilterCoordinates(boundingBox, tabCards);
