@@ -150,7 +150,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                 </Col>
             </Row>
 
-            <Row className="filt-00" gutter={[24, 16]}>
+            <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
                 <Col span={12}>
                     <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
@@ -195,6 +195,9 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                         </Select>
                     </>
                 </Col>
+            </Row>
+            <Row className="filt-00" gutter={[24, 16]} style={{height: 50}}>
+                <Col span={24} style={{height: 50}}></Col>
             </Row>
         </div>
         </>

@@ -192,6 +192,9 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 }
             </Col>
         </Row>
+        <Row className="filt-00" gutter={[24, 16]} style={{height: 50}}>
+            <Col span={24} style={{height: 50}}></Col>
+        </Row>
     </div>
     </>
 }
