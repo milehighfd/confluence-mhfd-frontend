@@ -132,7 +132,11 @@ const Map = ({ leftWidth,
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const [zoomValue, setZoomValue] = useState(0);
-    const notComponentOptions: any[] = ['NCRS Soils', 'DWR Dam Safety', 'Stream Management Corridors', `BCZ - Preble’s Meadow Jumping Mouse`, 'BCZ - Ute Ladies Tresses Orchid',  'Research/Monitoring', 'Climb to Safety', 'SEMSWA Service Area'];
+    const notComponentOptions: any[] = ['NCRS Soils', 'DWR Dam Safety', 'Stream Management Corridors', 
+    `BCZ - Preble’s Meadow Jumping Mouse`, 'BCZ - Ute Ladies Tresses Orchid',  'Research/Monitoring', 'Climb to Safety', 'SEMSWA Service Area',
+    'Debris Management Linear', 'Debris Management Area', 'Vegetation Management - Weed Control', 
+    'Vegetation Management - Natural Area', 'Watershed', 'Service Area', 'MEP Storm Outfall', 
+    'MEP Channel', 'MEP Detention Basin', 'MEP Temporary Location', 'MEP Temporary Location'];
     // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
     const [visible, setVisible] = useState(false);
