@@ -744,6 +744,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       getGalleryProjects();
     }
   }
+  //TODO remove unused code once filters are defined
   const changeCenter = (name: string, coordinates: any, shouldLoadFilters = true) => {
     const user = store.getState().profile.userInformation;
     user.polygon = coordinates;
@@ -757,71 +758,71 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         coordinates: element.coordinates
       }
     });
-    let boundsToMap = boundsMap;
+    // let boundsToMap = boundsMap;
     if (zoomareaSelected.length > 0) {
-      let cords = zoomareaSelected[0].coordinates[0][0];
-      let minLng = cords[0][0], minLat = cords[0][1];
-      let maxLng = cords[0][0], maxLat = cords[0][1];
-      cords.forEach((c: any) => {
-        let [lng, lat] = c;
-        minLng = Math.min(minLng, lng); minLat = Math.min(minLat, lat);
-        maxLng = Math.max(maxLng, lng); maxLat = Math.max(maxLat, lat);
-      })
-      boundsToMap = [minLng, minLat, maxLng, maxLat].join(',');
+    //   let cords = zoomareaSelected[0].coordinates[0][0];
+    //   let minLng = cords[0][0], minLat = cords[0][1];
+    //   let maxLng = cords[0][0], maxLat = cords[0][1];
+    //   cords.forEach((c: any) => {
+    //     let [lng, lat] = c;
+    //     minLng = Math.min(minLng, lng); minLat = Math.min(minLat, lat);
+    //     maxLng = Math.max(maxLng, lng); maxLat = Math.max(maxLat, lat);
+    //   })
+    //   boundsToMap = [minLng, minLat, maxLng, maxLat].join(',');
       const optionsProblem = { ...filterProblemOptions };
       const optionsProject = { ...filterProjectOptions };
       const optionsComponent = { ...filterComponentOptions };
       //console.log('coordinates', zoomareaSelected[0].coordinates);
       switch (zoomareaSelected[0].filter) {
         case 'County':
-          optionsProblem['county'] = name;
-          optionsProject['county'] = name;
-          optionsComponent['county'] = name;
-          optionsProblem['jurisdiction'] = '';
-          optionsProject['jurisdiction'] = '';
-          optionsComponent['jurisdiction'] = '';
-          optionsProblem['servicearea'] = '';
-          optionsProject['servicearea'] = '';
-          optionsComponent['servicearea'] = '';
+          // optionsProblem['county'] = name;
+          // optionsProject['county'] = name;
+          // optionsComponent['county'] = name;
+          // optionsProblem['jurisdiction'] = '';
+          // optionsProject['jurisdiction'] = '';
+          // optionsComponent['jurisdiction'] = '';
+          // optionsProblem['servicearea'] = '';
+          // optionsProject['servicearea'] = '';
+          // optionsComponent['servicearea'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         case 'Jurisdiction':
-          optionsProblem['jurisdiction'] = name;
-          optionsProject['jurisdiction'] = name;
-          optionsComponent['jurisdiction'] = name;
-          optionsProblem['county'] = '';
-          optionsProject['county'] = '';
-          optionsComponent['county'] = '';
-          optionsProblem['servicearea'] = '';
-          optionsProject['servicearea'] = '';
-          optionsComponent['servicearea'] = '';
+          // optionsProblem['jurisdiction'] = name;
+          // optionsProject['jurisdiction'] = name;
+          // optionsComponent['jurisdiction'] = name;
+          // optionsProblem['county'] = '';
+          // optionsProject['county'] = '';
+          // optionsComponent['county'] = '';
+          // optionsProblem['servicearea'] = '';
+          // optionsProject['servicearea'] = '';
+          // optionsComponent['servicearea'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         case 'Service Area':
-          optionsProblem['servicearea'] = name;
-          optionsProject['servicearea'] = name;
-          optionsComponent['servicearea'] = name;
-          optionsProblem['county'] = '';
-          optionsProject['county'] = '';
-          optionsComponent['county'] = '';
-          optionsProblem['jurisdiction'] = '';
-          optionsProject['jurisdiction'] = '';
-          optionsComponent['jurisdiction'] = '';
+          // optionsProblem['servicearea'] = name;
+          // optionsProject['servicearea'] = name;
+          // optionsComponent['servicearea'] = name;
+          // optionsProblem['county'] = '';
+          // optionsProject['county'] = '';
+          // optionsComponent['county'] = '';
+          // optionsProblem['jurisdiction'] = '';
+          // optionsProject['jurisdiction'] = '';
+          // optionsComponent['jurisdiction'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         default:
-          optionsProblem['servicearea'] = '';
-          optionsProject['servicearea'] = '';
-          optionsComponent['servicearea'] = '';
-          optionsProblem['county'] = '';
-          optionsProject['county'] = '';
-          optionsComponent['county'] = '';
-          optionsProblem['jurisdiction'] = '';
-          optionsProject['jurisdiction'] = '';
-          optionsComponent['jurisdiction'] = '';
+          // optionsProblem['servicearea'] = '';
+          // optionsProject['servicearea'] = '';
+          // optionsComponent['servicearea'] = '';
+          // optionsProblem['county'] = '';
+          // optionsProject['county'] = '';
+          // optionsComponent['county'] = '';
+          // optionsProblem['jurisdiction'] = '';
+          // optionsProject['jurisdiction'] = '';
+          // optionsComponent['jurisdiction'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       }
@@ -948,37 +949,37 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     </Menu>
   }
   const onResetClick = () => {
-    let value = 'Mile High Flood District';
-    setvalueA(value);
-    setAutocomplete(value);
-    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
-      return {
-        aoi: element.aoi,
-        filter: element.filter,
-        coordinates: element.coordinates
-      }
-    });
-    changeCenter(value, zoomareaSelected[0].coordinates, false)
-    let boundsToMap = mhfdCoords;
+    // let value = 'Mile High Flood District';
+    // setvalueA(value);
+    // setAutocomplete(value);
+    // const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+    //   return {
+    //     aoi: element.aoi,
+    //     filter: element.filter,
+    //     coordinates: element.coordinates
+    //   }
+    // });
+    // changeCenter(value, zoomareaSelected[0].coordinates, false)
+    // let boundsToMap = mhfdCoords;
     if (toggleModalFilter) {
       switch(filterTabNumber) {
         case PROBLEMS_TRIGGER:
-            resetFilterProblems(boundsToMap);
+            resetFilterProblems();//boundsToMap
             break;
         case PROJECTS_TRIGGER:
-            resetFilterProjects(true, boundsToMap);
+            resetFilterProjects(true);//boundsToMap
             break;
         case COMPONENTS_TRIGGER:
-            resetFilterComponents(boundsToMap);
+            resetFilterComponents();//boundsToMap
             break;
       }
     } else {
       switch(tabCards) {
         case PROBLEMS_TRIGGER:
-            resetFilterProblems(boundsToMap);
+            resetFilterProblems();//boundsToMap
             break;
         case PROJECTS_TRIGGER:
-            resetFilterProjects(true, boundsToMap);
+            resetFilterProjects(true);//boundsToMap
             break;
       }
     }
