@@ -189,7 +189,7 @@
     margin: 0px 0px !important;
     padding-top: 0px !important;
     border-radius: 20px 20px 0px 0px !important;
-    height: 100%;
+    height:  calc(100vh - 18px);
     overflow-y: scroll;
     position: fixed !important;
     top:18px !important;
@@ -230,7 +230,7 @@
     }
   }
   .btn-footer-02 {
-    margin: 25px 0px;
+    margin: 25px 0px 120px 0px;
     text-align: center;
 
     .btn-borde {
