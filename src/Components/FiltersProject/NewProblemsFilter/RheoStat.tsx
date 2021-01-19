@@ -30,10 +30,15 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   const fillColor = '#2dc49a';
   const opaquedColor = '#b7eadc';
 
+  data = data.map((d: any, i: any) => {
+    return { ...d, id: i }
+  });
+
   useEffect(() => {
+    console.log('calling useEffect on Rheostat', data, selected, selectedData)
 
     const keyFn = (d: any) => {
-      return d.max;
+      return d.id;
     }
 
     const getMinMax = (cmin: any, cmax: any) => {
@@ -118,7 +123,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
     y.domain([0, maxiCounter]);
 
     let xdr: any = (d: any) => {
-      let offset: any = x(d.max);
+      let offset: any = x(d.id);
       return offset + 0.5;
     }
 
@@ -229,7 +234,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .selectAll('.track-overlay')
       .attr('stroke-width', 10)
 
-  }, [selected, data]);
+  }, [selected, data, selectedData]);
 
   const apply = () => {
     onSelect(selectedData);

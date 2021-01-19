@@ -262,22 +262,22 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
             if (e === '0') {
                 setTabActive('0');
                 setFilterTabNumber(PROBLEMS_TRIGGER);
-                if (JSON.stringify(paramFilters.problems) === '{}') {
-                    getParamFilterProblems(boundsMap);
-                }
+                // if (JSON.stringify(paramFilters.problems) === '{}') {
+                    getParamFilterProblems(boundsMap, filterProblemOptions);
+                // }
             } else {
                 if (e === '1') {
                     setTabActive('1');
                     setFilterTabNumber(PROJECTS_TRIGGER);
-                    if (JSON.stringify(paramFilters.projects) === '{}') {
-                        getParamFilterProjects(boundsMap);
-                    }
+                    // if (JSON.stringify(paramFilters.projects) === '{}') {
+                        getParamFilterProjects(boundsMap, filterProjectOptions);
+                    // }
                 } else {
                     setTabActive('2');
                     setFilterTabNumber(COMPONENTS_TRIGGER);
-                    if (JSON.stringify(paramFilters.components) === '{}') {
-                        getParamFilterComponents(boundsMap);
-                    }
+                    // if (JSON.stringify(paramFilters.components) === '{}') {
+                        getParamFilterComponents(boundsMap, filterComponentOptions);
+                    // }
                     const copySelectedLayers = [...selectedLayers];
                     if (!copySelectedLayers.includes(COMPONENT_LAYERS)) {
                         copySelectedLayers.push(COMPONENT_LAYERS);
