@@ -34,9 +34,9 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     getTimesLogin();
   }, []);
   useEffect(() => {
-    console.log('logged ', timesLogged);
+    console.log('logged ', timesLogged, user);
     if (timesLogged !== -1 && user.email) {
-      if (timesLogged <= 1 && user.email !== 'guest@guest.com') {
+      if (timesLogged <= 1 && user.email !== 'guest@mhfd.com') {
         setState({...state, visible1: true});
       }
     }
