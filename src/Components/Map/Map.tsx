@@ -132,6 +132,7 @@ const Map = ({ leftWidth,
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const [zoomValue, setZoomValue] = useState(0);
+    const notComponentOptions: any[] = ['NCRS Soils', 'DWR Dam Safety', 'Stream Management Corridors', `BCZ - Preble’s Meadow Jumping Mouse`, 'BCZ - Ute Ladies Tresses Orchid',  'Research/Monitoring', 'Climb to Safety', 'SEMSWA Service Area'];
     // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
     const [visible, setVisible] = useState(false);
@@ -1447,7 +1448,7 @@ const Map = ({ leftWidth,
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
-
+                
                 for (const component of COMPONENT_LAYERS.tiles) {
                     if (feature.source === component) {
                         const item = {
@@ -1569,7 +1570,7 @@ const Map = ({ leftWidth,
     const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
 
         <>
-            {menuOptions.length === 1 ? <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0]) :
+            {menuOptions.length === 1 ? <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
                                 menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
                                 </> :
             <div className="map-pop-02">
@@ -1580,7 +1581,7 @@ const Map = ({ leftWidth,
                         return (
                             <div>
                                 <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-                                { (menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index]) :
+                                { (menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) :
                                 menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
                             </div>
                         )
@@ -1688,9 +1689,9 @@ const Map = ({ leftWidth,
         </>
     );
 
-    const loadComponentPopup = (index: number, item: any) => (
+    const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
         <>
-            <ComponentPopup id={index} item={item}></ComponentPopup>
+            <ComponentPopup id={index} item={item} isComponent={isComponent}></ComponentPopup>
         </>
     );
 

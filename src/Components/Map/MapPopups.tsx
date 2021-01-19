@@ -74,7 +74,7 @@ export const MainPopup = ({id, item, test, sw } : any) => {
     </div>
 };
 
-export const ComponentPopup = ({ id, item } : any) => {
+export const ComponentPopup = ({ id, item, isComponent } : any) => {
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable>
         <div className="headmap">
@@ -129,7 +129,7 @@ export const ComponentPopup = ({ id, item } : any) => {
             {item.servicearea ? <p><i>Service Area: </i> {item.servicearea}</p> : ''}
             {item.watershedmanager ? <p><i>Watershed Manager: </i> {item.watershedmanager}</p> : ''}
             {item.constructionmanagers ? <p><i>Construction Managers: </i> {item.constructionmanagers}</p> : ''}
-            <Button  style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>
+            {isComponent && <Button  style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
         </div>
         </Card>
     </div>
