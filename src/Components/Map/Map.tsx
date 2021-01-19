@@ -10,7 +10,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { MainPopup, ComponentPopup } from './MapPopups';
-import { Dropdown, Button, Collapse, Card } from 'antd';
+import { Dropdown, Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { CloseOutlined } from '@ant-design/icons';
 //import { opacityLayer } from '../../constants/mapStyles';
@@ -50,6 +50,8 @@ import AlertView from '../Alerts/AlertView';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import * as d3 from 'd3';
+import GenericTabView from '../Shared/GenericTab/GenericTabView';
+import { useFilterDispatch, useFilterState } from '../../hook/filtersHook';
 const { Option } = AutoComplete;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
@@ -66,6 +68,11 @@ const { Panel } = Collapse;
 {/*const genExtra = () => (
   <CloseOutlined />
 );*/}
+
+let contents: any = [];
+contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
+contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
+
 
 const Map = ({ leftWidth,
     layers,
@@ -123,15 +130,27 @@ const Map = ({ leftWidth,
          PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE];
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
-        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents } = useMapState();
+        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap } = useMapState();
     const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
         getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
-        setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents } = useMapDispatch();
+        setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
+    getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem} = useMapDispatch();
     const { saveUserInformation } = useProfileDispatch();
-
+    const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const [zoomValue, setZoomValue] = useState(0);
+    const { TabPane } = Tabs;
+    const listDescription = false;
+    const accordionRow: Array<any> = [
+        {
+          color: "green", image: "/Icons/icon-19.svg", field1: "Component 1", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
+        }, {
+          color: "gray", image: "/Icons/icon-19.svg", field1: "Component 2", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
+        }, {
+          color: "green", image: "/Icons/icon-19.svg", field1: "Component 3", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
+        }
+      ];
     const notComponentOptions: any[] = ['NCRS Soils', 'DWR Dam Safety', 'Stream Management Corridors', 
     `BCZ - Preble’s Meadow Jumping Mouse`, 'BCZ - Ute Ladies Tresses Orchid',  'Research/Monitoring', 'Climb to Safety', 'SEMSWA Service Area',
     'Debris Management Linear', 'Debris Management Area', 'Vegetation Management - Weed Control', 
@@ -144,6 +163,28 @@ const Map = ({ leftWidth,
     const [dragEndCounter, setDragEndCounter] = useState(0);
     const empty:any[] = [];
     const [allLayers, setAllLayers] = useState(empty);
+    const [tabActive, setTabActive] = useState('1');
+    const [tabPosition, setTabPosition] = useState('1');
+    const {removeFilter} = useFilterDispatch();
+    const {filters} = useFilterState();
+    const [filterNames, setFilterNames] = useState<Array<any>>([]);
+    const genExtra = () => (
+        <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+          <Col>
+            <div className={'apply-filter-no-effect'}>
+              Apply map view to filters
+              <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
+                setApplyFilter(!applyFilter)
+                getGalleryProblems();
+                getGalleryProjects();
+              }}></Checkbox>
+              <div className="progress">
+                <div className="progress-value"></div>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      );
     //const [layerOpacity, setLayerOpacity] = useState(false);
     const coor: any[][] = [];
     const coordinatesMHFD = [
@@ -1946,14 +1987,106 @@ const Map = ({ leftWidth,
                    regional flood control and stream management district.</p>
                  </div>
                  <div className="ffoo">
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                 <Tabs onTabClick={(e: string) => {
+                    if (e === '0') {
+                        setTabActive('0');
+                        setTabCards(PROBLEMS_TRIGGER);
+                        getGalleryProblems();
+                    } else {
+                        setTabActive('1');
+                        setTabCards(PROJECTS_TRIGGER);
+                        getGalleryProjects();
+                    }
+                    }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" tabBarExtraContent={genExtra()}>
+                    {tabs.map((value: string, index: number) => {
+                        let totalElements = 0;
+                        let cardInformation: Array<Object> = [];
+                        if (value === FILTER_PROBLEMS_TRIGGER) {
+                        cardInformation = galleryProblems.map((problem: any) => {
+                            return {
+                            cartodb_id: problem.cartodb_id,
+                            image: `gallery/${problem.problemtype}.jpg`,
+                            requestName: problem.problemname,
+                            jurisdiction: problem.jurisdiction,
+                            estimatedCost: problem.solutioncost,
+                            field4: 'X',
+                            field5: 'Components',
+                            priority: problem.problempriority,
+                            percentage: problem.solutionstatus,
+                            problemid: problem.problemid,
+                            type: problem.type,
+                            value: problem.cartodb_id,
+                            totalComponents: problem.totalComponents,
+                            coordinates: problem.coordinates[0]
+                            }
+                        });
+                        totalElements = cardInformation.length;
+                        } else {
+                        cardInformation = galleryProjects.map((project: any) => {
+                            return {
+                            cartodb_id: project.cartodb_id,
+                            image: project.attachments ? project.attachments : (
+                                project.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
+                                project.projecttype === 'Study' ? '/projectImages/study.jpg' :
+                                    project.projecttype === 'Maintenance' ?
+                                    (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
+                                        project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
+                                        project.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
+                                            project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
+                                            '/projectImages/debris_management.png') : '/Icons/eje.png'
+                            ),
+                            requestName: project.projectname ? project.projectname : project.requestedname,
+                            sponsor: project.sponsor,
+                            estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
+                            status: project.status,
+                            projecttype: project.projecttype,
+                            objectid: project.objectid,
+                            type: project.type,
+                            value: project.cartodb_id,
+                            id: project.projectid,
+                            totalComponents: project.totalComponents,
+                            coordinates: project.coordinates[0]
+                            }
+                        });
+                        totalElements = cardInformation.length;
+                        }
+
+                        return (
+                        <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value} </Popover> </span>} key={'' + index}>
+                            <GenericTabView key={value + index}
+                            detailed={detailed}
+                            loaderDetailedPage={loaderDetailedPage}
+                            getDetailedPageProblem={getDetailedPageProblem}
+                            getDetailedPageProject={getDetailedPageProject}
+                            filterNames={filterNames}
+                            listDescription={listDescription}
+                            type={value}
+                            totalElements={totalElements}
+                            cardInformation={cardInformation}
+                            accordionRow={accordionRow}
+                            listFilters={filters}
+                            removeFilter={removeFilter}
+                            setHighlighted={setHighlighted}
+                            getComponentsByProblemId={getComponentsByProblemId}
+                            filterComponentOptions={filterComponentOptions}
+                            setFilterComponentOptions={setFilterComponentOptions}
+                            getGalleryProjects={getGalleryProjects}
+                            getGalleryProblems={getGalleryProblems}
+                            filterProblemOptions={filterProblemOptions}
+                            filterProjectOptions={filterProjectOptions}
+                            setFilterProblemOptions={setFilterProblemOptions}
+                            setFilterProjectOptions={setFilterProjectOptions}
+                            componentsOfProblems={componentsOfProblems}
+                            loaderTableCompoents={loaderTableCompoents}
+                            selectedOnMap={selectedOnMap}
+                            componentCounter={componentCounter}
+                            getComponentCounter={getComponentCounter}
+                            setZoomProjectOrProblem={setZoomProjectOrProblem}
+                            />
+                        </TabPane>
+                        );
+                    })}
+                    </Tabs>
                  </div>
                 </div>
                </Panel>
