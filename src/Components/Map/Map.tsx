@@ -161,6 +161,7 @@ const Map = ({ leftWidth,
     const [visible, setVisible] = useState(false);
     const [zoomEndCounter, setZoomEndCounter] = useState(0);
     const [dragEndCounter, setDragEndCounter] = useState(0);
+    const [collapseKey, setCollapseKey] = useState('0');
     const empty:any[] = [];
     const [allLayers, setAllLayers] = useState(empty);
     const [tabActive, setTabActive] = useState('1');
@@ -1976,9 +1977,18 @@ const Map = ({ leftWidth,
             </div>
 
             <div className="menu-desktop collapse-tabs">
-            <Collapse  accordion>
-               <Panel header="Explore Confluence" key="1">
-                <Button className="btn-map"><img src="/Icons/menu-green-02.svg" alt="" width="18px"/> Map</Button>
+            <Collapse  accordion activeKey={collapseKey}>
+               <Panel header="Explore Confluence" key="1" extra={
+                   <div onClick={()=> {
+                       console.log('on click');
+                       setCollapseKey(collapseKey => '' + (1 - +collapseKey));
+                   }}>
+                             asdfasdf
+                   </div>
+               }>
+                <Button onClick={() => {
+                    setCollapseKey('0');
+                }} className="btn-map"><img src="/Icons/menu-green-02.svg" alt="" width="18px"/> Map</Button>
                 <div className="ggyyyy">
                  <div className="mhfd-mobile">
                    <h6>About the Platform</h6>
