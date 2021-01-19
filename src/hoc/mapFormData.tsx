@@ -220,6 +220,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             zoom={zoom}
                             applyFilter={applyFilter}
                             paramFilters={paramFilters}
+                            filterComponentOptions={filterComponentOptions}
                             />
 
                         <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>

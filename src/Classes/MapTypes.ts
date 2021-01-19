@@ -53,6 +53,7 @@ export type MapProps = {
     zoom: any,
     applyFilter: boolean,
     paramFilters: any,
+    filterComponentOptions: OptionComponents
 }
 
 export type MapHOCProps = {

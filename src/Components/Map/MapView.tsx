@@ -828,14 +828,14 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       setFilterProblemOptions(optionsProblem);
       setFilterProjectOptions(optionsProject);
       setFilterComponentOptions(optionsComponent);
-      if (name === 'Mile High Flood District') {
-        boundsToMap = mhfdCoords;
-      }
-      if (shouldLoadFilters) {
-        getParamFilterProblems(boundsToMap, optionsProblem);
-        getParamFilterProjects(boundsToMap, optionsProject);
-        getParamFilterComponents(boundsToMap, optionsComponent);
-      }
+      // if (name === 'Mile High Flood District') {
+      //   boundsToMap = mhfdCoords;
+      // }
+      // if (shouldLoadFilters) {
+      //   getParamFilterProblems(boundsToMap, optionsProblem);
+      //   getParamFilterProjects(boundsToMap, optionsProject);
+      //   getParamFilterComponents(boundsToMap, optionsComponent);
+      // }
     }
   }
 

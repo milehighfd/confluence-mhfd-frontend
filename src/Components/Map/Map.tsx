@@ -110,7 +110,8 @@ const Map = ({ leftWidth,
     zoom,
     applyFilter,
     filterProblemOptions,
-    filterProjectOptions
+    filterProjectOptions,
+    filterComponentOptions
 }: MapProps) => {
     // console.log( mapSearch);=
     let geocoderRef = useRef<HTMLDivElement>(null);
@@ -478,13 +479,21 @@ const Map = ({ leftWidth,
             }
         }); */
 
-        map.once('zoomend', () => {
+        map.on('zoomend', () => {
             value += 1;
             if (value >= 2) {
                 const bounds = map.getBounds();
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
                 setBoundMap(boundingBox);
                 if (applyFilter) {
+                    //TODO: move this ifs inside toggle modal if it works again
+                    if (filterTabNumber === PROJECTS_TRIGGER) {
+                        getParamFilterProjects(boundingBox, filterProjectOptions);
+                    } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+                        getParamFilterProblems(boundingBox, filterProblemOptions);
+                    } else {
+                        getParamFilterComponents(boundingBox, filterComponentOptions);
+                    }
                     if (toggleModalFilter) {
                         getParamsFilter(boundingBox);
                     } else {
@@ -495,21 +504,20 @@ const Map = ({ leftWidth,
             }
 
         });
-        map.once('dragend', () => {
+        map.on('dragend', () => {
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setBoundMap(boundingBox);
-            console.log(applyFilter);
-
             if (applyFilter) {
+                if (filterTabNumber === PROJECTS_TRIGGER) {
+                    getParamFilterProjects(boundingBox, filterProjectOptions);
+                } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+                    getParamFilterProblems(boundingBox, filterProblemOptions);
+                } else {
+                    getParamFilterComponents(boundingBox, filterComponentOptions);
+                }
                 if (toggleModalFilter) {
-                    if (filterTabNumber === PROJECTS_TRIGGER) {
-                        getParamFilterProjects(boundingBox);
-                    } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                        getParamFilterProblems(boundingBox);
-                    } else {
-                        getParamFilterComponents(boundingBox);
-                    }
+                    //TODO: move those ifs inside toggle modal if it works again
                 } else {
                     setFilterCoordinates(boundingBox, tabCards);
                 }
@@ -526,22 +534,22 @@ const Map = ({ leftWidth,
             setZoomValue(zoom);
         }
         let _ = 0;
-        map.on('zoomend', () => {
-            //console.log('zoomendOn', opacityLayer)
-            if (!opacityLayer) {
-                hideOpacity();
-            }
-            setZoomEndCounter(_++);
-            console.log(zoomEndCounter);
-            setOpacityLayer(false)
-        });
+        // map.on('zoomend', () => {
+        //     //console.log('zoomendOn', opacityLayer)
+        //     if (!opacityLayer) {
+        //         hideOpacity();
+        //     }
+        //     setZoomEndCounter(_++);
+        //     console.log(zoomEndCounter);
+        //     setOpacityLayer(false)
+        // });
         let __ = 1;// #good practices
-        map.on('dragend', () => {
-            console.log('move end')
-            setDragEndCounter(__++);
-            // hideLayerOpacity();
-            setOpacityLayer(false)
-        });
+        // map.on('dragend', () => {
+        //     console.log('move end')
+        //     setDragEndCounter(__++);
+        //     // hideLayerOpacity();
+        //     setOpacityLayer(false)
+        // });
         map.on('load', updateZoom);
         map.on('move', updateZoom);
 
