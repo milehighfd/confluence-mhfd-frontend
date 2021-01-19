@@ -30,11 +30,22 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   const fillColor = '#2dc49a';
   const opaquedColor = '#b7eadc';
 
-  data = data.map((d: any, i: any) => {
-    return { ...d, id: i }
-  });
+  useEffect(() => {
+    if (data.length > 0) {
+      setLeft(Math.floor(data[0].min / 1000))
+      setRight(Math.floor((data[data.length - 1].max + 0.001) / 1000))
+    }
+  }, [data])
 
   useEffect(() => {
+    let _data = data.map((d: any, i: any) => {
+      return { 
+        ...d,
+        min: Math.floor(d.min / 1000),
+        max: Math.floor((d.max + 0.001) / 1000),
+        id: i 
+      }
+    });
 
     const keyFn = (d: any) => {
       return d.id;
@@ -42,14 +53,14 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     const getMinMax = (cmin: any, cmax: any) => {
       let minValue, maxValue;
-      minValue = cmin < data.length ? data[cmin] : data[data.length - 1];
-      maxValue = cmax < data.length ? data[cmax] : data[data.length - 1];
+      minValue = cmin < _data.length ? _data[cmin] : _data[_data.length - 1];
+      maxValue = cmax < _data.length ? _data[cmax] : _data[_data.length - 1];
       minValue = minValue.min;
       maxValue = maxValue.max;
       return [minValue, maxValue];
     }
 
-    let keys = data.map(keyFn);
+    let keys = _data.map(keyFn);
 
     let sliderRange;
     if (!service.ref) {
@@ -58,8 +69,6 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
     } else {
       sliderRange = service.ref;
     }
-    setLeft(data[0].min)
-    setRight(data[data.length - 1].max)
 
     sliderRange
       .min(0)
@@ -83,9 +92,8 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
           .selectAll(".bar-d3")
         bars
           .attr('fill', (d: any, i) => {
-            // let d = data[i]
             if (currentMin <= i && i + 1 <= currentMax) {
-              let value = `${d.min},${d.max}`;
+              let value = `${d.min*1000},${d.max*1000}`;
               sData.push(value);
               return fillColor;
             }
@@ -115,7 +123,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     x.domain(keys);
 
-    let maxiCounter: any = d3.max(data, (d: any) => {
+    let maxiCounter: any = d3.max(_data, (d: any) => {
       return d.counter;
     });
 
@@ -141,7 +149,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     var rects = svg
       .selectAll(".bar-d3")
-      .data(data)
+      .data(_data)
 
     rects
       .transition().duration(2000)
@@ -149,8 +157,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .attr('ry', rounded)
       .attr("x", xdr)
       .attr("y", yCounterFn)
-      .attr("height", function (d: any, i) {
-        // let d = data[i];
+      .attr("height", function (d: any) {
         return height - yCounterFn(d);
       });
 
@@ -167,8 +174,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .attr("y", yCounterFn)
       .attr('fill', fillColor)
       .attr("width", x.bandwidth() - 1)
-      .attr("height", function (d: any, i) {
-        // let d = data[i];
+      .attr("height", function (d: any) {
         return height - yCounterFn(d);
       });
 
@@ -183,7 +189,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     let lines = svg
       .selectAll('.hlines')
-      .data(data.filter((_: any, i: number) => i % 2 === 1))
+      .data(_data.filter((_: any, i: number) => i % 2 === 1))
 
     lines
       .enter()
@@ -233,7 +239,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .selectAll('.track-overlay')
       .attr('stroke-width', 10)
 
-  }, [selected, data, selectedData]);
+  }, [data, selectedData]);
 
   const apply = () => {
     onSelect(selectedData);
@@ -241,8 +247,8 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       service.ref.value([0, 20]);
     }
     if (selectedData.length > 0) {
-      setLeft(selectedData[0].split(',')[0]);
-      setRight(selectedData[selectedData.length - 1].split(',')[1]);
+      setLeft(selectedData[0].split(',')[0] / 1000);
+      setRight(selectedData[selectedData.length - 1].split(',')[1] / 1000);
     }
   }
 
@@ -256,20 +262,48 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   }
 
   const onChangeLeft = (e: any) => {
+    let index = 0;
+    data.forEach((d: any) => {
+      if (e >= Math.floor((d.max+0.001)/1000)) {
+        index++;
+      }
+    })
+    let [lf, rg] = service.ref.value();
+    if (index > rg) {
+      index = rg;
+    }
+    service.ref.value([index, rg]);
     setLeft(e);
   }
 
   const onChangeRight = (e: any) => {
+    let index = 0;
+    data.forEach((d: any) => {
+      if (e >= Math.floor((d.max+0.001)/1000)) {
+        index++;
+      }
+    })
+    let [lf, rg] = service.ref.value();
+    if (index < lf) {
+      index = lf;
+    }
+    service.ref.value([lf, index]);
     setRight(e);
   }
 
   const priceFormatter = (value: any) => {
-    let integerValue = Math.floor(value / 1000);
-    return `$${integerValue}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 
   const priceParser = (value: any) => {
-    return value.replace(/\$\s?|(,*)/g, '')
+    value = value.replace(/\$\s?|(,*)/g, '');
+    if (value === '0') {
+      return value;
+    }
+    while (value.length > 0 && value[0] === '0') {
+      value = value.substr(1);
+    }
+    return value
   }
 
   let popupLabel = '';
