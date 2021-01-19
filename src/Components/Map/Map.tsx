@@ -151,10 +151,10 @@ const Map = ({ leftWidth,
           color: "green", image: "/Icons/icon-19.svg", field1: "Component 3", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
         }
       ];
-    const notComponentOptions: any[] = ['NCRS Soils', 'DWR Dam Safety', 'Stream Management Corridors', 
+    const notComponentOptions: any[] = ['NCRS Soils', 'DWR Dam Safety', 'Stream Management Corridors',
     `BCZ - Preble’s Meadow Jumping Mouse`, 'BCZ - Ute Ladies Tresses Orchid',  'Research/Monitoring', 'Climb to Safety', 'SEMSWA Service Area',
-    'Debris Management Linear', 'Debris Management Area', 'Vegetation Management - Weed Control', 
-    'Vegetation Management - Natural Area', 'Watershed', 'Service Area', 'MEP Storm Outfall', 
+    'Debris Management Linear', 'Debris Management Area', 'Vegetation Management - Weed Control',
+    'Vegetation Management - Natural Area', 'Watershed', 'Service Area', 'MEP Storm Outfall',
     'MEP Channel', 'MEP Detention Basin', 'MEP Temporary Location', 'MEP Temporary Location'];
     // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
@@ -1494,7 +1494,7 @@ const Map = ({ leftWidth,
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
-                
+
                 for (const component of COMPONENT_LAYERS.tiles) {
                     if (feature.source === component) {
                         const item = {
@@ -1960,11 +1960,11 @@ const Map = ({ leftWidth,
                             zoom: 14
                             });
                       }
-                    
+
                       function error() {
-                        // thinking 
+                        // thinking
                       }
-                    
+
                       if(!navigator.geolocation) {
                           // add some error here
                       } else {
@@ -1978,15 +1978,16 @@ const Map = ({ leftWidth,
 
             <div className="menu-desktop collapse-tabs">
             <Collapse  accordion activeKey={collapseKey}>
-               <Panel header="Explore Confluence" key="1" extra={
-                   <div onClick={()=> {
+               <Panel header="" key="1" extra={
+                   <div className="title-explore" onClick={()=> {
                        console.log('on click');
                        setCollapseKey(collapseKey => '' + (1 - +collapseKey));
                    }}>
-                             asdfasdf
+                             Explore Confluence
                    </div>
                }>
-                <Button onClick={() => {
+                <Button onClick={(e) => {
+                    e.stopPropagation();
                     setCollapseKey('0');
                 }} className="btn-map"><img src="/Icons/menu-green-02.svg" alt="" width="18px"/> Map</Button>
                 <div className="ggyyyy">

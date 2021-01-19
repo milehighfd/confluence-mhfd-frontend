@@ -63,7 +63,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
       <div className="profile-contact">
         <Popover content={phone}>
           <Button type="default" shape="circle">
-            <img src="/Icons/icon-65.svg" alt="" height="15px" />
+            <a href={'tel:'+user.phone}><img src="/Icons/icon-65.svg" alt="" height="15px" /></a>
           </Button>
         </Popover>
         <Popover content={mail}>
