@@ -112,9 +112,9 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.scale ? <p><i>Scale</i>{item.scale}</p> : ''}
             {item.date_created ? <p><i>Date created: </i>{item.date_created}</p> : ''}
             {item.expirationdate ? <p><i>Expiration Date: </i>{item.expirationdate}</p>: ''}
-            {item.website ? <p className="text-popup"><i>Website: </i> <a href={item.website} target="_blank">{item.website}</a></p> : ''}
-            {item.letter ? <p className="text-popup"><i>Letter: </i> <a href={item.letter} target="_blank">{item.letter}</a></p> : ''}
-            {item.map ? <p className="text-popup"><i>Map: </i> <a href={item.map} target="_blank">{item.map}</a></p> : ''}
+            {item.website ? <p className="text-popup"><i>Website: </i> <a href={item.website} target="_blank">link</a></p> : ''}
+            {item.letter ? <p className="text-popup"><i>Letter: </i> <a href={item.letter} target="_blank">link</a></p> : ''}
+            {item.map ? <p className="text-popup"><i>Map: </i> <a href={item.map} target="_blank">link</a></p> : ''}
 
             {item.sitename ? <p> <i>Site Name: </i>{item.sitename}</p> : ''}
             {item.sitetype ? <p> <i>Site Type: </i>{item.sitetype}</p> : ''}
