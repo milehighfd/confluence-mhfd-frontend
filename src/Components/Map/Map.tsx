@@ -52,6 +52,7 @@ import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import * as d3 from 'd3';
 import GenericTabView from '../Shared/GenericTab/GenericTabView';
 import { useFilterDispatch, useFilterState } from '../../hook/filtersHook';
+import MapService from './MapService';
 const { Option } = AutoComplete;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
@@ -130,7 +131,7 @@ const Map = ({ leftWidth,
          PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE];
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
-        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap } = useMapState();
+        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap, autocomplete } = useMapState();
     const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
         getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
@@ -169,6 +170,7 @@ const Map = ({ leftWidth,
     const {removeFilter} = useFilterDispatch();
     const {filters} = useFilterState();
     const [filterNames, setFilterNames] = useState<Array<any>>([]);
+    const [mapService] = useState<MapService>(new MapService());
     const genExtra = () => (
         <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
           <Col>
@@ -269,36 +271,6 @@ const Map = ({ leftWidth,
         }
     } */
 
-
-
-    const hideOpacity = async () => {
-
-        /* const waiting = () => {
-        if (!map.isStyleLoaded()) {
-                    setTimeout(waiting, 50);
-                } else {
-                    // setCoordinatesJurisdiction([]);
-                    map.setLayoutProperty('mask', 'visibility', 'none');
-                    setOpacityLayer(false);
-                }
-            }
-            waiting(); */
-     //   const waiting = () => {
-        if  (map.loaded()) {
-            console.log('hide opacity');
-            if (map.getLayer('mask')) {
-                map.setLayoutProperty('mask', 'visibility', 'visible');
-                map.removeLayer('mask');
-                map.removeSource('mask');
-            }
-    /*    } else {
-            setTimeout(waiting, 50);
-        }
-    }
-        waiting(); */
-    }
-}
-
     if (user?.polygon[0]) {
         let myPolygon: any = [];
         for (let index = 0; index < user.polygon.length; index++) {
@@ -343,6 +315,10 @@ const Map = ({ leftWidth,
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude]);
     }
+
+    useEffect(() => {
+        mapService.autocomplete = autocomplete;
+    }, [autocomplete])
 
     useEffect(() => {
         if (map) {
@@ -464,6 +440,7 @@ const Map = ({ leftWidth,
             center: [user.coordinates.longitude, user.coordinates.latitude],
             zoom: 8
         });
+        mapService.map = map;
         if (coor[0] && coor[1]) {
             map.fitBounds(coor);
         }
@@ -527,7 +504,7 @@ const Map = ({ leftWidth,
         }); */
         let _ = 0;
         map.on('zoomend', () => {
-            hideOpacity();
+            mapService.hideOpacity();
             setZoomEndCounter(_++);
             setOpacityLayer(false)
             value += 1;
@@ -556,7 +533,7 @@ const Map = ({ leftWidth,
         });
         let __ = 1;
         map.on('dragend', () => {
-            hideOpacity();
+            mapService.hideOpacity();
             setDragEndCounter(__++);
             setOpacityLayer(false)
             const bounds = map.getBounds();
@@ -1841,7 +1818,7 @@ const Map = ({ leftWidth,
         user.polygon = coordinatesMHFD;
         saveUserInformation(user);
         if (!opacityLayer) {
-            hideOpacity();
+            mapService.hideOpacity();
         }
         setOpacityLayer(false);
         setCoordinatesJurisdiction([]);

@@ -36,7 +36,8 @@ interface selectMapState {
   tutorialStatus: boolean,
   galleryProblems: any,
   galleryProjects: any,
-  selectedOnMap: any
+  selectedOnMap: any,
+  autocomplete: any
 }
 
 /* Commented because typescript doesn't support that many arguments
@@ -95,21 +96,20 @@ const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> 
       (state: any) => state.map.tutorialStatus,
       (state: any) => state.map.galleryProblems,
       (state: any) => state.map.galleryProjects,
-      (state: any) => state.map.selectedOnMap
+      (state: any) => state.map.selectedOnMap,
+      (state: any) => state.map.autocomplete
   ,
       //state => state.map.paramFilters,
       (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
         nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
         spinFilters: any, spinCardProblems: any, spinCardProjects: any,//, paramFilters
         favoriteProblemCards: any,favoriteProjectCards: any, favorites: any, bboxComponents: any, tutorialStatus: boolean,
-        galleryProblems: any, galleryProjects: any, selectedOnMap
-    : any
+        galleryProblems: any, galleryProjects: any, selectedOnMap: any, autocomplete: any
         ) => ({
           toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
           nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
           spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites, bboxComponents, tutorialStatus,
-          galleryProblems, galleryProjects, selectedOnMap
-      
+          galleryProblems, galleryProjects, selectedOnMap, autocomplete
         })
     );
 
