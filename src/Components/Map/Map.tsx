@@ -1903,7 +1903,29 @@ const Map = ({ leftWidth,
             </div>*/}
 
             <div className="m-zoom">
-                <Button className="btn-green"><img src="/Icons/icon-87.svg" width="15px"/></Button>
+                <Button className="btn-green"><img src="/Icons/icon-87.svg" width="15px"
+                onClick={() => {
+                    function success(position: any) {
+                        const latitude  = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        console.log(latitude, longitude);
+                        map.flyTo({
+                            center: [longitude, latitude],
+                            zoom: 14
+                            });
+                      }
+                    
+                      function error() {
+                        // thinking 
+                      }
+                    
+                      if(!navigator.geolocation) {
+                          // add some error here
+                      } else {
+                        navigator.geolocation.getCurrentPosition(success, error);
+                      }
+                }}
+                /></Button>
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
                 {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
             </div>
