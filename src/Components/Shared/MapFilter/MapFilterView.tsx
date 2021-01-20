@@ -421,7 +421,7 @@ export const SEMSWA_SERVICE_AREA =
 
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
-                  Stream Mang. Corridors
+                  Stream Management Corridors
                   <Popover arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
                 <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
