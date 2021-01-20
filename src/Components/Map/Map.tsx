@@ -143,6 +143,10 @@ const Map = ({ leftWidth,
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const [mobilePopups, setMobilePopups] = useState<any>([]);
 
+    useEffect(()=> {
+        console.log(mobilePopups);
+        
+    }, [mobilePopups]);
     const [zoomValue, setZoomValue] = useState(0);
     const { TabPane } = Tabs;
     const listDescription = false;
@@ -1863,7 +1867,7 @@ const Map = ({ leftWidth,
                 getComponentCounter={getComponentCounter}
             />}
             <div id="map">
-              {<MobilePopup items={mobilePopups}></MobilePopup>}
+              {mobilePopups.length && <MobilePopup items={mobilePopups}></MobilePopup>}
             </div>
             <div className="m-head">
                 <Dropdown overlayClassName="dropdown-map-layers"

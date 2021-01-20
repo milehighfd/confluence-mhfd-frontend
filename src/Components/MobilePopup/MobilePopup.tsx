@@ -5,8 +5,8 @@ import { RightOutlined } from '@ant-design/icons';
 const stateValue = {
   visible: false
 }
-export default (items: any) => {
-  console.log('my items ', items);
+export default ({items}: {items: any}) => {
+  console.log('my items ', items, items.item);
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
@@ -27,13 +27,13 @@ export default (items: any) => {
     auxState.visible = false;
     setState(auxState);
   };
-  const card = (data: any) => (
-    <div>
+  const card = (data: any, index: number) => (
+    <div key={'mobile-popup-' + index}>
       <div className="popup-mobile">
         <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
         <div style={{width: '60%', padding: '10px'}}>
           {data.title && data.type === 'problems' && <h4>{data.title}</h4>}
-          {data.projecctype && <h4>{data.projecctype}</h4>}
+          {data.projecctype && <h4>{data.projecctype} Project</h4>}
           {data.layer && <h4>{data.layer}</h4>}
           {data.feature && <h6>{data.feature}</h6>}
           {data.mepstatus && <h6>{data.mepstatus}</h6>}
@@ -53,52 +53,10 @@ export default (items: any) => {
 
             <div className="poup-map-mobile">
               <Carousel autoplay>
-                {items && items.length && items.map((item: any) => {
-                  return card(item);
+                {items && items.length && items.map((item: any, index: number) => {
+                  console.log('le item ', item);
+                  return card(item, index);
                 })}
-                <div>
-                  <div className="popup-mobile">
-                    <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
-                    <div style={{width: '60%', padding: '10px'}}>
-                      <h4>Baseline Road at Dry Creek Ditch No. 3</h4>
-                      <h6>Boulder County</h6>
-                      <p><b>$2,500,0000</b> <span> Components</span></p>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="popup-mobile">
-                    <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
-                    <div style={{width: '60%', padding: '10px'}}>
-                      <h4>Baseline Road at Dry Creek Ditch No. 3</h4>
-                      <h6>Boulder County</h6>
-                      <p><b>$2,500,0000</b> <span> Components</span></p>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="popup-mobile">
-                    <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
-                    <div style={{width: '60%', padding: '10px'}}>
-                      <h4>Baseline Road at Dry Creek Ditch No. 3</h4>
-                      <h6>Boulder County</h6>
-                      <p><b>$2,500,0000</b> <span> Components</span></p>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="popup-mobile">
-                    <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
-                    <div style={{width: '60%', padding: '10px'}}>
-                      <h4>Baseline Road at Dry Creek Ditch No. 3</h4>
-                      <h6>Boulder County</h6>
-                      <p><b>$2,500,0000</b> <span> Components</span></p>
-                    </div>
-                  </div>
-                </div>
               </Carousel>
             </div>
          </div>
