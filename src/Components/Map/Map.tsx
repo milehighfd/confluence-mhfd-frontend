@@ -1202,6 +1202,10 @@ const Map = ({ leftWidth,
                 return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
             });
             for (const feature of features) {
+                //an special and tricky case
+                if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
+                    continue;
+                }
                 let html: any = null;
                 let itemValue;
                 if (feature.source === 'projects_polygon_' || feature.source === 'projects_line_1') {
@@ -1217,7 +1221,16 @@ const Map = ({ leftWidth,
                         objectid: feature.properties.objectid,
                         valueid: feature.properties.cartodb_id,
                         id: feature.properties.projectid,
-                        popupId: 'popup'
+                        popupId: 'popup',
+                        image: feature.properties.attachments ? feature.properties.attachments : (
+                            feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
+                            feature.properties.projecttype === 'Study' ? '/projectImages/study.jpg' :
+                                feature.properties.projecttype === 'Maintenance' ?
+                                (feature.properties.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
+                                    feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
+                                    feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
+                                        feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
+                                        '/projectImages/debris_management.png') : '/Icons/eje.png')
                     };
                     itemValue = { ...item };
                    // itemValue.value = item.valueid;
@@ -1236,7 +1249,8 @@ const Map = ({ leftWidth,
                         status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
                         priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
                         problemid: feature.properties.problemid,
-                        popupId: 'popup'
+                        popupId: 'popup',
+                        image: `gallery/${feature.properties.problemtype}.jpg`,
                     };
                     itemValue = { ...item };
                     menuOptions.push('Problem');
