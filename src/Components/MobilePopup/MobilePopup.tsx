@@ -30,15 +30,18 @@ export default ({items}: {items: any}) => {
   const card = (data: any, index: number) => (
     <div key={'mobile-popup-' + index}>
       <div className="popup-mobile">
-        <div style={{width: '40%'}}><img src={data.image} alt="" /></div>
-        <div style={{width: '60%', padding: '10px'}}>
+        <div style={data.image? {width: '40%'} : {width: '0%'}}>
+          {data.image && <img src={data.image} alt="" />}
+        </div>
+        <div style={data.image? {width: '60%', padding: '10px'} : {width: '100%', padding: '10px'}}>
           {data.title && data.type === 'problems' && <h6>{data.title}</h6>}
           {data.projecttype && <h6>{data.projecttype} Project</h6>}
-          {data.layer && <h6>{data.layer}</h6>}
+          {data.layer && <h4>{data.layer}</h4>}
           {data.feature && <h6>{data.feature}</h6>}
           {data.mepstatus && <h6>{data.mepstatus}</h6>}
           {data.name && <h4>{data.name}</h4>}
-          {data.subtype && <h6>{data.subtype}</h6>}
+          {data.type && <h6>Type: {data.type}</h6>}
+          {data.subtype && <h6>Subtype: {data.subtype}</h6>}
           {data.status && <h6>{data.status}</h6>}
           {data.hydgrpdcd && <h6>{data.hydgrpdcd}</h6>}
           {data.muname && <h6>{data.muname}</h6>}

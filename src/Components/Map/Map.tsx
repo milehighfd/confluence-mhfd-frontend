@@ -1522,6 +1522,11 @@ const Map = ({ leftWidth,
                         };
                         const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
                         menuOptions.push(name);
+                        mobile.push({
+                            layer: item.layer,
+                            type: item.subtype,
+                            subtype: item.status
+                        })
                         popups.push(item);
                         ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     }
