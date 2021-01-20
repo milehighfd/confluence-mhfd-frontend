@@ -1432,8 +1432,8 @@ const Map = ({ leftWidth,
                 if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
                     const item = {
                         layer: 'Stream Management Corridors',
-                        scale: feature.properties.scale,
-                        date_created: feature.properties.date_created,
+                        scale: 'District',//feature.properties.scale,
+                        date_created: '01/07/2019' //feature.properties.date_created,
                     }
                     console.log(item, feature.properties);
                     menuOptions.push('Stream Management Corridors');
