@@ -1866,8 +1866,8 @@ const Map = ({ leftWidth,
                 componentCounter={componentCounter}
                 getComponentCounter={getComponentCounter}
             />}
-            <div id="map">
               {mobilePopups.length && <MobilePopup items={mobilePopups}></MobilePopup>}
+            <div id="map">
             </div>
             <div className="m-head">
                 <Dropdown overlayClassName="dropdown-map-layers"
