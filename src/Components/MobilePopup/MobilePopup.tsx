@@ -32,12 +32,12 @@ export default ({items}: {items: any}) => {
       <div className="popup-mobile">
         <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
         <div style={{width: '60%', padding: '10px'}}>
-          {data.title && data.type === 'problems' && <h4>{data.title}</h4>}
-          {data.projecctype && <h4>{data.projecctype} Project</h4>}
-          {data.layer && <h4>{data.layer}</h4>}
+          {data.title && data.type === 'problems' && <h6>{data.title}</h6>}
+          {data.projecctype && <h6>{data.projecctype} Project</h6>}
+          {data.layer && <h6>{data.layer}</h6>}
           {data.feature && <h6>{data.feature}</h6>}
           {data.mepstatus && <h6>{data.mepstatus}</h6>}
-          {data.name && <h6>{data.name}</h6>}
+          {data.name && <h4>{data.name}</h4>}
           {data.subtype && <h6>{data.subtype}</h6>}
           {data.status && <h6>{data.status}</h6>}
           {data.hydgrpdcd && <h6>{data.hydgrpdcd}</h6>}
