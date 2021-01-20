@@ -109,7 +109,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.year_completed ? <p><i>Year Completed: </i>{item.year_completed}</p> : ''}
             {item.dam_height ? <p><i>Dam Height (ft): </i>{item.dam_height}</p> : ''}
             {item.more_information ? <p><i>DWR Website: </i><a href={item.more_information} target="_blank">{item.more_information}</a></p> : ''}
-            {item.scale ? <p><i>Scale</i>{item.scale}</p> : ''}
+            {item.scale ? <p><i>Scale: </i>{item.scale}</p> : ''}
             {item.date_created ? <p><i>Date created: </i>{item.date_created}</p> : ''}
             {item.expirationdate ? <p><i>Expiration Date: </i>{item.expirationdate}</p>: ''}
             {item.website ? <p className="text-popup"><i>Website: </i> <a href={item.website} target="_blank">See website here</a></p> : ''}
