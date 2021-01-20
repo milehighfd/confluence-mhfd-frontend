@@ -1167,6 +1167,7 @@ const Map = ({ leftWidth,
         map.on('click', (e: any) => {
             hideHighlighted();
             const popups: any = [];
+            const mobile: any = [];
             const menuOptions: any = [];
             const ids: any = [];
             const bbox = [e.point.x , e.point.y ,
@@ -1232,6 +1233,14 @@ const Map = ({ leftWidth,
                                         feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
                                         '/projectImages/debris_management.png') : '/Icons/eje.png')
                     };
+                    mobile.push({
+                        type: 'project',
+                        name: item.name,
+                        value: item.value,
+                        projecttype: item.projecctype,
+                        image: '/Icons/eje.png'
+                        // image: item.image,
+                    });
                     itemValue = { ...item };
                    // itemValue.value = item.valueid;
                     menuOptions.push('Project');
@@ -1253,6 +1262,13 @@ const Map = ({ leftWidth,
                         image: `gallery/${feature.properties.problemtype}.jpg`,
                     };
                     itemValue = { ...item };
+                    mobile.push({
+                        type: 'problems',
+                        title: item.title,
+                        value: item.value,
+                        name: item.name,
+                        image: item.image
+                    });
                     menuOptions.push('Problem');
                     popups.push(itemValue);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
@@ -1514,7 +1530,7 @@ const Map = ({ leftWidth,
 
             if (popups.length) {
                 const html = loadMenuPopupWithData(menuOptions, popups);
-                setMobilePopups(popups);
+                setMobilePopups(mobile);
                 if (html) {
                     popup.remove();
                     popup = new mapboxgl.Popup();

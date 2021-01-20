@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Alert,  Modal, Button, Card, Carousel } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
-
+import { numberWithCommas } from '../../utils/utils';
 const stateValue = {
   visible: false
 }
@@ -30,10 +30,10 @@ export default ({items}: {items: any}) => {
   const card = (data: any, index: number) => (
     <div key={'mobile-popup-' + index}>
       <div className="popup-mobile">
-        <div style={{width: '40%'}}><img src="/Icons/eje.png" alt="" /></div>
+        <div style={{width: '40%'}}><img src={data.image} alt="" /></div>
         <div style={{width: '60%', padding: '10px'}}>
           {data.title && data.type === 'problems' && <h6>{data.title}</h6>}
-          {data.projecctype && <h6>{data.projecctype} Project</h6>}
+          {data.projecttype && <h6>{data.projecttype} Project</h6>}
           {data.layer && <h6>{data.layer}</h6>}
           {data.feature && <h6>{data.feature}</h6>}
           {data.mepstatus && <h6>{data.mepstatus}</h6>}
@@ -44,7 +44,7 @@ export default ({items}: {items: any}) => {
           {data.muname && <h6>{data.muname}</h6>}
           {data.dam_name && <h6>{data.dam_name}</h6>}
           {data.hazard_class && <h6>{data.hazard_class}</h6>}
-          {data.value && <p><b>${data.value}</b> </p>}
+          {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}
         </div>
       </div>
     </div>
