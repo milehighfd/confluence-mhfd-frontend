@@ -53,6 +53,7 @@ import * as d3 from 'd3';
 import GenericTabView from '../Shared/GenericTab/GenericTabView';
 import { useFilterDispatch, useFilterState } from '../../hook/filtersHook';
 import MapService from './MapService';
+import MobilePopup from '../MobilePopup/MobilePopup';
 const { Option } = AutoComplete;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
@@ -140,6 +141,8 @@ const Map = ({ leftWidth,
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
+    const [mobilePopups, setMobilePopups] = useState<any>([]);
+
     const [zoomValue, setZoomValue] = useState(0);
     const { TabPane } = Tabs;
     const listDescription = false;
@@ -1493,6 +1496,7 @@ const Map = ({ leftWidth,
 
             if (popups.length) {
                 const html = loadMenuPopupWithData(menuOptions, popups);
+                setMobilePopups(popups);
                 if (html) {
                     popup.remove();
                     popup = new mapboxgl.Popup();
@@ -1843,6 +1847,7 @@ const Map = ({ leftWidth,
 
     return (
         <div className="map">
+            {<MobilePopup items={mobilePopups}></MobilePopup>}
             {visible && <DetailedModal
                 detailed={detailed}
                 getDetailedPageProblem={getDetailedPageProblem}

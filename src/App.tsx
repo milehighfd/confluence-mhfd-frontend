@@ -40,6 +40,7 @@ import { resetProfile, saveUserInformation } from './store/actions/ProfileAction
 import { resetAppUser } from './store/actions/appUser';
 import { resetMap } from './store/actions/mapActions';
 import SampleMap from './Components/SampleMap/SampleMap';
+import MobilePopup from './Components/MobilePopup/MobilePopup';
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter, 
           setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions,
@@ -152,6 +153,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/reset-password`} component={ResetPasswordContainer} />
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
       <Route path={`/alert-view`} component={AlertContainer} />
+      <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={`/work-request`} component={WorkRequestView} />
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />
