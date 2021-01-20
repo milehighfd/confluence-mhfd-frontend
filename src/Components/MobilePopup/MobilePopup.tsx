@@ -50,7 +50,7 @@ export default (items: any) => {
     </div>
   );
  return   <div>
-           
+
             <div className="poup-map-mobile">
               <Carousel autoplay>
                 {items && items.length && items.map((item: any) => {

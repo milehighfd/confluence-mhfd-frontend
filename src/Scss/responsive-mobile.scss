@@ -258,22 +258,28 @@
     }
   }
   .poup-map-mobile{
+    display: inline-block;
     margin: 20px 0px;
     width: 320px;
-    // position: absolute;
-    // bottom: 103px;
+    position: absolute;
+    z-index: 1;
+    bottom: 94px;
+    height: 100px;
+    left: 60px;
+
     .popup-mobile{
       display: flex;
       height: 100px;
-      width: 305px;
+      width: 270px;
       background: $white;
       border-radius: 10px;
       box-shadow: $shadow;
 
       img{
         height: 100px;
-        width: 122px;
+        width: 105px;
         z-index: 2;
+        border-radius: 10px 0px 0px 10px;
       }
       h4{
         text-align: left;

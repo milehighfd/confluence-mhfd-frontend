@@ -1847,7 +1847,6 @@ const Map = ({ leftWidth,
 
     return (
         <div className="map">
-            {<MobilePopup items={mobilePopups}></MobilePopup>}
             {visible && <DetailedModal
                 detailed={detailed}
                 getDetailedPageProblem={getDetailedPageProblem}
@@ -1863,7 +1862,9 @@ const Map = ({ leftWidth,
                 componentCounter={componentCounter}
                 getComponentCounter={getComponentCounter}
             />}
-            <div id="map" />
+            <div id="map">
+              {<MobilePopup items={mobilePopups}></MobilePopup>}
+            </div>
             <div className="m-head">
                 <Dropdown overlayClassName="dropdown-map-layers"
                     visible={visibleDropdown}
