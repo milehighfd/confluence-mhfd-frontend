@@ -461,7 +461,7 @@ export const SEMSWA_SERVICE_AREA =
           <Panel header="" key="6" extra={genExtra05()}>
             <p>
               <img src="/Icons/icon-76.svg" alt="" />
-                  Climb to Safety
+                  Climb to Safety Signs
                   <Popover arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.climb_to_safety)}>
                 <img className="info-pop" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>

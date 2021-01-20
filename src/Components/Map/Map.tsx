@@ -1478,9 +1478,9 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === CLIMB_TO_SAFETY) {
                     const item = {
-                        layer: 'Climb to Safety',
+                        layer: 'Climb to Safety Signs',
                     }
-                    menuOptions.push('Climb to Safety');
+                    menuOptions.push('Climb to Safety Signs');
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
