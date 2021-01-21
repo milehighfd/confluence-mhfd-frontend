@@ -38,27 +38,27 @@ export default ({items}: {items: any}) => {
           {data.title && data.type === 'problems' && <h6>{data.title}</h6>}
           {data.projecttype && <h6>{data.projecttype} Project</h6>}
           {data.layer && <h4>{data.layer}</h4>}
-          {data.proj_name && <h6><h6 className="sub-title">Project Name: </h6>{data.proj_name}</h6>}
-          {data.mep_status && <h6><h6 className="sub-title">MEP Status: </h6> {data.mep_status}</h6>}
+          {data.proj_name && <h6><a className="sub-title">Project Name: </a>{data.proj_name}</h6>}
+          {data.mep_status && <h6><a className="sub-title">MEP Status: </a> {data.mep_status}</h6>}
           {data.name && <h4>{data.name}</h4>}
-          {data.project_subtype && <h6><h6 className="sub-title">Type: </h6>{data.project_subtype}</h6>}
-          {data.frequency && <h6><h6 className="sub-title">Frequency: </h6>{data.frequency}</h6>}
-          {data.type && <h6><h6 className="sub-title">Type: </h6>{data.type}</h6>}
-          {data.subtype && <h6><h6 className="sub-title">Subtype: </h6>{data.subtype}</h6>}
-          {data.status && <h6><h6 className="sub-title">Status: </h6>{data.status}</h6>}
-          {data.hydgrpdcd && <h6><h6 className="sub-title">Hydrologic Group: </h6>{data.hydgrpdcd}</h6>}
-          {data.muname && <h6><h6 className="sub-title">Mapunit Name: </h6>{data.muname}</h6>}
-          {data.dam_name && <h6><h6 className="sub-title">Dam Name: </h6>{data.dam_name}</h6>}
-          {data.hazard_class && <h6><h6 className="sub-title">Hazard Class: </h6>{data.hazard_class}</h6>}
+          {data.project_subtype && <h6><a className="sub-title">Type: </a>{data.project_subtype}</h6>}
+          {data.frequency && <h6><a className="sub-title">Frequency: </a>{data.frequency}</h6>}
+          {data.type && <h6><a className="sub-title">Type: </a>{data.type}</h6>}
+          {data.subtype && <h6><a className="sub-title">Subtype: </a>{data.subtype}</h6>}
+          {data.status && <h6><a className="sub-title">Status: </a>{data.status}</h6>}
+          {data.hydgrpdcd && <h6><a className="sub-title">Hydrologic Group: </a>{data.hydgrpdcd}</h6>}
+          {data.muname && <h6><a className="sub-title">Mapunit Name: </a>{data.muname}</h6>}
+          {data.dam_name && <h6><a className="sub-title">Dam Name: </a>{data.dam_name}</h6>}
+          {data.hazard_class && <h6><a className="sub-title">Hazard Class: </a>{data.hazard_class}</h6>}
           {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}
-          {data.scale && <h6><h6 className="sub-title"></h6>Scale: {data.scale}</h6>}
-          {data.date_created && <h6><h6 className="sub-title">Date created: </h6>{data.date_created}</h6>}
-          {data.bcz_specname && <h6><h6 className="sub-title">Species Name: </h6>{data.bcz_specname}</h6>}
-          {data.bcz_expdate && <h6><h6 className="sub-title">Expiration Date: </h6>{data.bcz_expdate}</h6>}
-          {data.sitename && <h6><h6 className="sub-title">Site Name: </h6>{data.sitename}</h6>}
-          {data.sitetype && <h6><h6 className="sub-title">Site Type: </h6>{data.sitetype}</h6>}
-          {data.watershedmanager && <h6><h6 className="sub-title">Watershed Manager: </h6>{data.watershedmanager}</h6>}
-          {data.constructionmanagers && <h6><h6 className="sub-title">Construction Managers: </h6>{data.constructionmanagers}</h6>}
+          {data.scale && <h6><a className="sub-title"></a>Scale: {data.scale}</h6>}
+          {data.date_created && <h6><a className="sub-title">Date created: </a>{data.date_created}</h6>}
+          {data.bcz_specname && <h6><a className="sub-title">Species Name: </a>{data.bcz_specname}</h6>}
+          {data.bcz_expdate && <h6><a className="sub-title">Expiration Date: </a>{data.bcz_expdate}</h6>}
+          {data.sitename && <h6><a className="sub-title">Site Name: </a>{data.sitename}</h6>}
+          {data.sitetype && <h6><a className="sub-title">Site Type: </a>{data.sitetype}</h6>}
+          {data.watershedmanager && <h6><a className="sub-title">Watershed Manager: </a>{data.watershedmanager}</h6>}
+          {data.constructionmanagers && <h6><animate className="sub-title">Construction Managers: </animate>{data.constructionmanagers}</h6>}
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@ export default ({items}: {items: any}) => {
  return   <div>
 
             <div className="poup-map-mobile">
-              <Carousel autoplay>
+              <Carousel>
                 {items && items.length && items.map((item: any, index: number) => {
                   console.log('le item ', item);
                   return card(item, index);
