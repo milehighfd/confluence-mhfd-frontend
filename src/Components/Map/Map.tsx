@@ -1580,6 +1580,7 @@ const Map = ({ leftWidth,
                     const item = {
                         layer: 'Climb to Safety Signs',
                     }
+                    mobile.push(item);
                     menuOptions.push('Climb to Safety Signs');
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
