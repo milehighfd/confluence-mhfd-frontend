@@ -1567,6 +1567,11 @@ const Map = ({ leftWidth,
                         sitetype: feature.properties.sitetype,
                         bmptype: feature.properties.bmptype,
                     }
+                    mobile.push({
+                        layer: item.layer,
+                        sitename: item.sitename,
+                        sitetype: item.sitetype
+                    })
                     menuOptions.push('Research/Monitoring');
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});

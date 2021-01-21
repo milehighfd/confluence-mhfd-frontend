@@ -55,6 +55,8 @@ export default ({items}: {items: any}) => {
           {data.date_created && <h6>Date created: {data.date_created}</h6>}
           {data.bcz_specname && <h6>Species Name: {data.bcz_specname}</h6>}
           {data.bcz_expdate && <h6>Expiration Date: {data.bcz_expdate}</h6>}
+          {data.sitename && <h6>Site Name: {data.sitename}</h6>}
+          {data.sitetype && <h6>Site Type: {data.sitetype}</h6>}
         </div>
       </div>
     </div>
