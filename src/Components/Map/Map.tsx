@@ -1496,6 +1496,11 @@ const Map = ({ leftWidth,
                         dam_height: feature.properties.dam_height,
                         more_information: feature.properties.more_information
                     }
+                    mobile.push({
+                        layer: item.layer,
+                        dam_name: item.dam_name,
+                        hazard_class: item.hazard_class
+                    })
                     menuOptions.push('DWR Dam Safety');
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
