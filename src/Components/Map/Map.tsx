@@ -1285,6 +1285,11 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Temporary Location');
                     popups.push(item);
+                    mobile.push({
+                        layer: item.layer,
+                        proj_name: item.feature,
+                        mep_status: item.mepstatus
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_temp_locations') {
@@ -1299,6 +1304,11 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Temporary Location');
                     popups.push(item);
+                    mobile.push({
+                        layer: item.layer,
+                        proj_name: item.feature,
+                        mep_status: item.mepstatus
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_detention_basins') {
@@ -1313,6 +1323,11 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Detention Basin');
                     popups.push(item);
+                    mobile.push({
+                        layer: item.layer,
+                        proj_name: item.feature,
+                        mep_status: item.mepstatus
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_channels') {
@@ -1327,6 +1342,11 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Channel');
                     popups.push(item);
+                    mobile.push({
+                        layer: item.layer,
+                        proj_name: item.feature,
+                        mep_status: item.mepstatus
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_storm_outfalls') {
@@ -1341,6 +1361,11 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('MEP Storm Outfall');
                     popups.push(item);
+                    mobile.push({
+                        layer: item.layer,
+                        proj_name: item.feature,
+                        mep_status: item.mepstatus
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'watershed_service_areas') {

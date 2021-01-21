@@ -37,8 +37,8 @@ export default ({items}: {items: any}) => {
           {data.title && data.type === 'problems' && <h6>{data.title}</h6>}
           {data.projecttype && <h6>{data.projecttype} Project</h6>}
           {data.layer && <h4>{data.layer}</h4>}
-          {data.feature && <h6>{data.feature}</h6>}
-          {data.mepstatus && <h6>{data.mepstatus}</h6>}
+          {data.proj_name && <h6>Project Name: {data.proj_name}</h6>}
+          {data.mep_status && <h6>MEP Status: {data.mep_status}</h6>}
           {data.name && <h4>{data.name}</h4>}
           {data.type && <h6>Type: {data.type}</h6>}
           {data.subtype && <h6>Subtype: {data.subtype}</h6>}
