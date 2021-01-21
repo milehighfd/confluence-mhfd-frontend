@@ -47,8 +47,8 @@ export default ({items}: {items: any}) => {
           {data.status && <h6>{data.status}</h6>}
           {data.hydgrpdcd && <h6>Hydrologic Group: {data.hydgrpdcd}</h6>}
           {data.muname && <h6>Mapunit Name: {data.muname}</h6>}
-          {data.dam_name && <h6>{data.dam_name}</h6>}
-          {data.hazard_class && <h6>{data.hazard_class}</h6>}
+          {data.dam_name && <h6>Dam Name: {data.dam_name}</h6>}
+          {data.hazard_class && <h6>Hazard Class: {data.hazard_class}</h6>}
           {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}
         </div>
       </div>
