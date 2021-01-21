@@ -25,6 +25,9 @@
     .ant-select-auto-complete{
       width: 100% !important;
     }
+    .mapboxgl-popup {
+      display: none;
+    }
   }
   .map-00{
     .mapboxgl-map, .mapboxgl-canvas{
@@ -260,7 +263,7 @@
   .poup-map-mobile{
     display: block;
     margin: 20px 0px;
-    width: 320px;
+    width: calc(100% - 60px);
     position: absolute;
     z-index: 1;
     bottom: 94px;
@@ -312,9 +315,9 @@
     .ant-carousel .slick-slide{
       height: 150px;
     }
-    // .ant-carousel .slick-slide {
-    //   width: 320px !important;
-    // }
+    .ant-carousel .slick-list .slick-slide.slick-active{
+      margin-right: -20px;
+    }
   }
 
   // TABS PROBLEM AND PROJECT
