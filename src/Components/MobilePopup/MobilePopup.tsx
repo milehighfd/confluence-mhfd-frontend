@@ -3,18 +3,18 @@ import { Alert,  Modal, Button, Card, Carousel } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { numberWithCommas } from '../../utils/utils';
 import { date } from "yup";
+import { useMapDispatch } from "../../hook/mapHook";
 const stateValue = {
   visible: false
 }
 export default ({items}: {items: any}) => {
-  console.log('my items ', items, items.item);
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
     auxState.visible = true;
     setState(auxState);
   };
-
+  const {setSelectedPopup} = useMapDispatch();
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
@@ -66,7 +66,9 @@ export default ({items}: {items: any}) => {
  return   <div>
 
             <div className="poup-map-mobile">
-              <Carousel>
+              <Carousel afterChange={(current: number) => {
+                setSelectedPopup(current);
+              }}>
                 {items && items.length && items.map((item: any, index: number) => {
                   return card(item, index);
                 })}

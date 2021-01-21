@@ -132,16 +132,18 @@ const Map = ({ leftWidth,
          PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE];
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
-        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap, autocomplete } = useMapState();
+        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup } = useMapState();
     const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
         getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
-    getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem} = useMapDispatch();
+    getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
+    setSelectedPopup} = useMapDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const [mobilePopups, setMobilePopups] = useState<any>([]);
+    const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
 
     useEffect(()=> {
         console.log(mobilePopups);
@@ -624,6 +626,13 @@ const Map = ({ leftWidth,
         map.fitBounds(coor);
     }, [polygon])
 
+    useEffect(() => {
+        if (currentPopup !== -1 && activeMobilePopups.length > currentPopup) {
+            highlithOnTap(activeMobilePopups[currentPopup]);
+        } else {
+            hideHighlighted();
+        }
+    }, [currentPopup, activeMobilePopups]);
     useEffect(() => {
         map.setStyle(dropdownItems.items[dropdownItems.default].style);
     }, [dropdownItems.items[dropdownItems.default].style]);
@@ -1141,6 +1150,10 @@ const Map = ({ leftWidth,
 
 
     }
+    const highlithOnTap = (id: any) => {
+        hideHighlighted();
+        showHighlighted(id.layer, id.id);
+    }
     const showPopup = (index: any, size: number, id: any, event:any) => {
         hideHighlighted();
         showHighlighted(id.layer, id.id);
@@ -1174,6 +1187,8 @@ const Map = ({ leftWidth,
             const bbox = [e.point.x , e.point.y ,
             e.point.x , e.point.y ];
             setMobilePopups([]);
+            setActiveMobilePopups([]);
+            setSelectedPopup(-1);
             let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
             const search = (id: number, source: string) => {
                 let index = 0;
@@ -1646,6 +1661,8 @@ const Map = ({ leftWidth,
             if (popups.length) {
                 const html = loadMenuPopupWithData(menuOptions, popups);
                 setMobilePopups(mobile);
+                setActiveMobilePopups(mobileIds);
+                setSelectedPopup(0);
                 if (html) {
                     popup.remove();
                     popup = new mapboxgl.Popup();
