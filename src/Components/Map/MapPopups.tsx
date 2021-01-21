@@ -83,7 +83,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
         <div className="bodymap">
             {item.subtype ? <h4><i>{item.subtype}</i> </h4> : ''}
             {item.feature ? <h4>{item.feature}</h4> : ''}
-            {item.status ? <p><i>Status: </i> {item.status}</p> : ''}
+            {item.status ? <p><i>Subtype: </i> {item.status}</p> : ''}
             {item.estimatedcost ? <p><i>Estimated Cost: </i> ${numberWithCommas(item.estimatedcost)}</p> : ''}
             {item.studyname ? <p><i>Study Name: </i> {item.studyname}</p> : ''}
             {item.jurisdiction ? <p><i>Jurisdiction: </i> {item.jurisdiction}</p> : ''}
