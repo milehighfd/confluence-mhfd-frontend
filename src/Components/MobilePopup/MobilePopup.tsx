@@ -38,27 +38,27 @@ export default ({items}: {items: any}) => {
           {data.title && data.type === 'problems' && <h6>{data.title}</h6>}
           {data.projecttype && <h6>{data.projecttype} Project</h6>}
           {data.layer && <h4>{data.layer}</h4>}
-          {data.proj_name && <h6>Project Name: {data.proj_name}</h6>}
-          {data.mep_status && <h6>MEP Status: {data.mep_status}</h6>}
+          {data.proj_name && <h6><h6 className="sub-title">Project Name: </h6>{data.proj_name}</h6>}
+          {data.mep_status && <h6><h6 className="sub-title">MEP Status: </h6> {data.mep_status}</h6>}
           {data.name && <h4>{data.name}</h4>}
-          {data.project_subtype && <h6 className="sub-title">Type: {data.project_subtype}</h6>}
-          {data.frequency && <h6>Frequency: {data.frequency}</h6>}
-          {data.type && <h6 className="sub-title">Type: {data.type}</h6>}
-          {data.subtype && <h6>Subtype: {data.subtype}</h6>}
-          {data.status && <h6>{data.status}</h6>}
-          {data.hydgrpdcd && <h6>Hydrologic Group: {data.hydgrpdcd}</h6>}
-          {data.muname && <h6>Mapunit Name: {data.muname}</h6>}
-          {data.dam_name && <h6>Dam Name: {data.dam_name}</h6>}
-          {data.hazard_class && <h6>Hazard Class: {data.hazard_class}</h6>}
+          {data.project_subtype && <h6><h6 className="sub-title">Type: </h6>{data.project_subtype}</h6>}
+          {data.frequency && <h6><h6 className="sub-title">Frequency: </h6>{data.frequency}</h6>}
+          {data.type && <h6><h6 className="sub-title">Type: </h6>{data.type}</h6>}
+          {data.subtype && <h6><h6 className="sub-title">Subtype: </h6>{data.subtype}</h6>}
+          {data.status && <h6><h6 className="sub-title">Status: </h6>{data.status}</h6>}
+          {data.hydgrpdcd && <h6><h6 className="sub-title">Hydrologic Group: </h6>{data.hydgrpdcd}</h6>}
+          {data.muname && <h6><h6 className="sub-title">Mapunit Name: </h6>{data.muname}</h6>}
+          {data.dam_name && <h6><h6 className="sub-title">Dam Name: </h6>{data.dam_name}</h6>}
+          {data.hazard_class && <h6><h6 className="sub-title">Hazard Class: </h6>{data.hazard_class}</h6>}
           {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}
-          {data.scale && <h6>Scale: {data.scale}</h6>}
-          {data.date_created && <h6>Date created: {data.date_created}</h6>}
-          {data.bcz_specname && <h6>Species Name: {data.bcz_specname}</h6>}
-          {data.bcz_expdate && <h6>Expiration Date: {data.bcz_expdate}</h6>}
-          {data.sitename && <h6>Site Name: {data.sitename}</h6>}
-          {data.sitetype && <h6>Site Type: {data.sitetype}</h6>}
-          {data.watershedmanager && <h6>Site Type: {data.watershedmanager}</h6>}
-          {data.constructionmanagers && <h6>Site Type: {data.constructionmanagers}</h6>}
+          {data.scale && <h6><h6 className="sub-title"></h6>Scale: {data.scale}</h6>}
+          {data.date_created && <h6><h6 className="sub-title">Date created: </h6>{data.date_created}</h6>}
+          {data.bcz_specname && <h6><h6 className="sub-title">Species Name: </h6>{data.bcz_specname}</h6>}
+          {data.bcz_expdate && <h6><h6 className="sub-title">Expiration Date: </h6>{data.bcz_expdate}</h6>}
+          {data.sitename && <h6><h6 className="sub-title">Site Name: </h6>{data.sitename}</h6>}
+          {data.sitetype && <h6><h6 className="sub-title">Site Type: </h6>{data.sitetype}</h6>}
+          {data.watershedmanager && <h6><h6 className="sub-title">Watershed Manager: </h6>{data.watershedmanager}</h6>}
+          {data.constructionmanagers && <h6><h6 className="sub-title">Construction Managers: </h6>{data.constructionmanagers}</h6>}
         </div>
       </div>
     </div>
