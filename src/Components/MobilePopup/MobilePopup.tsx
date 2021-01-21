@@ -57,6 +57,8 @@ export default ({items}: {items: any}) => {
           {data.bcz_expdate && <h6>Expiration Date: {data.bcz_expdate}</h6>}
           {data.sitename && <h6>Site Name: {data.sitename}</h6>}
           {data.sitetype && <h6>Site Type: {data.sitetype}</h6>}
+          {data.watershedmanager && <h6>Site Type: {data.watershedmanager}</h6>}
+          {data.constructionmanagers && <h6>Site Type: {data.constructionmanagers}</h6>}
         </div>
       </div>
     </div>

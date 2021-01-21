@@ -1375,6 +1375,11 @@ const Map = ({ leftWidth,
                         watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
                         constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
                     }
+                    mobile.push({
+                        layer: item.layer,
+                        watershedmanager: item.watershedmanager,
+                        constructionmanagers: item.constructionmanagers
+                    })
                     menuOptions.push('Service Area');
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
