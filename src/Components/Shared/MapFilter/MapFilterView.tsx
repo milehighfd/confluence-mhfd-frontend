@@ -294,7 +294,7 @@ export const SEMSWA_SERVICE_AREA =
       <div className="title-filter-map">
         <h6>Layers</h6>
         <Button className="btn-transparent" onClick={() => {
-          if (isExtendedView) {
+          {/*if (isExtendedView) {
             setSelectedCheckBox([MHFD_BOUNDARY_FILTERS, XSTREAMS]);
             // setCheckboxes([]);
             selectCheckboxes([MHFD_BOUNDARY_FILTERS, XSTREAMS]);
@@ -302,7 +302,7 @@ export const SEMSWA_SERVICE_AREA =
             setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
             // setCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
             selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-          }
+          }*/}
           removePopup();
           setVisibleDropdown(false);
         }}><CloseOutlined /></Button>

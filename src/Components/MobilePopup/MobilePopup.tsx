@@ -41,9 +41,9 @@ export default ({items}: {items: any}) => {
           {data.proj_name && <h6>Project Name: {data.proj_name}</h6>}
           {data.mep_status && <h6>MEP Status: {data.mep_status}</h6>}
           {data.name && <h4>{data.name}</h4>}
-          {data.project_subtype && <h6>Type: {data.project_subtype}</h6>}
+          {data.project_subtype && <h6 className="sub-title">Type: {data.project_subtype}</h6>}
           {data.frequency && <h6>Frequency: {data.frequency}</h6>}
-          {data.type && <h6>Type: {data.type}</h6>}
+          {data.type && <h6 className="sub-title">Type: {data.type}</h6>}
           {data.subtype && <h6>Subtype: {data.subtype}</h6>}
           {data.status && <h6>{data.status}</h6>}
           {data.hydgrpdcd && <h6>Hydrologic Group: {data.hydgrpdcd}</h6>}
