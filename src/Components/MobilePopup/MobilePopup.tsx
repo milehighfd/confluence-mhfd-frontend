@@ -68,7 +68,6 @@ export default ({items}: {items: any}) => {
             <div className="poup-map-mobile">
               <Carousel>
                 {items && items.length && items.map((item: any, index: number) => {
-                  console.log('le item ', item);
                   return card(item, index);
                 })}
               </Carousel>

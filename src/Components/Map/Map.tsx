@@ -1172,6 +1172,7 @@ const Map = ({ leftWidth,
             const ids: any = [];
             const bbox = [e.point.x , e.point.y ,
             e.point.x , e.point.y ];
+            setMobilePopups([]);
             let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
             const search = (id: number, source: string) => {
                 let index = 0;
