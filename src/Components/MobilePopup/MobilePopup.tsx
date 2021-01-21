@@ -45,8 +45,8 @@ export default ({items}: {items: any}) => {
           {data.type && <h6>Type: {data.type}</h6>}
           {data.subtype && <h6>Subtype: {data.subtype}</h6>}
           {data.status && <h6>{data.status}</h6>}
-          {data.hydgrpdcd && <h6>{data.hydgrpdcd}</h6>}
-          {data.muname && <h6>{data.muname}</h6>}
+          {data.hydgrpdcd && <h6>Hydrologic Group: {data.hydgrpdcd}</h6>}
+          {data.muname && <h6>Mapunit Name: {data.muname}</h6>}
           {data.dam_name && <h6>{data.dam_name}</h6>}
           {data.hazard_class && <h6>{data.hazard_class}</h6>}
           {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}

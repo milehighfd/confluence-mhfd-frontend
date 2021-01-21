@@ -1480,6 +1480,11 @@ const Map = ({ leftWidth,
                     }
                     menuOptions.push('NCRS Soils');
                     popups.push(item);
+                    mobile.push({
+                        layer: item.layer,
+                        hydgrpdcd: item.hydgrpdcd,
+                        muname: item.muname
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === DWR_DAM_SAFETY) {
