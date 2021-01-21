@@ -1514,6 +1514,11 @@ const Map = ({ leftWidth,
                     console.log(item, feature.properties);
                     menuOptions.push('Stream Management Corridors');
                     popups.push(item);
+                    mobile.push({
+                        layer: item.layer,
+                        scale: item.scale,
+                        date_created: item.date_created
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === BCZ_PREBLE_MEADOW_JUMPING) {

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Alert,  Modal, Button, Card, Carousel } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { numberWithCommas } from '../../utils/utils';
+import { date } from "yup";
 const stateValue = {
   visible: false
 }
@@ -50,6 +51,8 @@ export default ({items}: {items: any}) => {
           {data.dam_name && <h6>Dam Name: {data.dam_name}</h6>}
           {data.hazard_class && <h6>Hazard Class: {data.hazard_class}</h6>}
           {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}
+          {data.scale && <h6>Scale: {data.scale}</h6>}
+          {data.date_created && <h6>Date created: {data.date_created}</h6>}
         </div>
       </div>
     </div>
