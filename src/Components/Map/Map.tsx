@@ -1525,23 +1525,37 @@ const Map = ({ leftWidth,
                     const item = {
                         layer: 'BCZ - Preble’s Meadow Jumping Mouse',
                         expirationdate: feature.properties.expirationdate,
+                        bcz_specname: feature.properties.bcz_specname,
+                        bcz_expdate: feature.properties.bcz_expdate,
                         website: 'https://www.fws.gov/mountain-prairie/es/preblesMeadowJumpingMouse.php',
                         letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0030_PMJM_Denver_Block_Clearance_extension_accessible_signed.pdf',
                         map: `https://www.fws.gov/mountain-prairie/es/species/mammals/preble/9-2016_USFWS_Preble's_map_Denver_Metro_Area.pdf`
                     }
                     menuOptions.push('BCZ - Preble’s Meadow Jumping Mouse');
                     popups.push(item);
+                    mobile.push({
+                        layer: item.layer,
+                        bcz_specname: item.bcz_specname,
+                        bcz_expdate: item.bcz_expdate
+                    });
                     console.log('my item is ', item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
                     const item = {
                         layer: 'BCZ - Ute Ladies Tresses Orchid',
+                        bcz_specname: feature.properties.bcz_specname,
+                        bcz_expdate: feature.properties.bcz_expdate,
                         expirationdate: feature.properties.expirationdate,
                         website: 'https://www.fws.gov/mountain-prairie/es/uteLadiestress.php',
                         letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0031_ULTO_Denver_Block_Clearance_extension_accessible_signed.pdf',
                         map: 'https://www.fws.gov/mountain-prairie/es/species/plants/uteladiestress/BlockClearanceMap2008.pdf'
                     }
+                    mobile.push({
+                        layer: item.layer,
+                        bcz_specname: item.bcz_specname,
+                        bcz_expdate: item.bcz_expdate
+                    });
                     menuOptions.push('BCZ - Ute Ladies Tresses Orchid');
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
