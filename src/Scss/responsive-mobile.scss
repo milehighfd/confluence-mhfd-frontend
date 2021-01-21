@@ -261,7 +261,7 @@
     }
   }
   .poup-map-mobile{
-    display: block;
+    display: inline-block;
     margin: 20px 0px;
     width: calc(100% - 60px);
     position: absolute;
@@ -277,6 +277,7 @@
       background: $white;
       border-radius: 10px;
       box-shadow: $shadow;
+      transition: top .2s ease-in-out!important;
 
       img{
         height: 120px;
@@ -311,12 +312,16 @@
         color: $opacity;
         margin-top: 3px;
       }
+      .ant-carousel .slick-dots{
+        display: none !important;
+      }
     }
     .ant-carousel .slick-slide{
       height: 150px;
     }
     .ant-carousel .slick-list .slick-slide.slick-active{
       margin-right: -20px;
+      transition: top .2s ease-in-out!important;
     }
   }
 
