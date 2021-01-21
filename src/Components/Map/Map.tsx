@@ -1170,6 +1170,7 @@ const Map = ({ leftWidth,
             const mobile: any = [];
             const menuOptions: any = [];
             const ids: any = [];
+            const mobileIds: any = [];
             const bbox = [e.point.x , e.point.y ,
             e.point.x , e.point.y ];
             setMobilePopups([]);
@@ -1212,6 +1213,9 @@ const Map = ({ leftWidth,
                 let itemValue;
                 if (feature.source === 'projects_polygon_' || feature.source === 'projects_line_1') {
                     getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
+                    const filtered = galleryProjects.filter((item: any) => 
+                        item.cartodb_id === feature.properties.cartodb_id
+                    );
                     const item = {
                         type: 'project',
                         title: 'Project',
@@ -1224,7 +1228,7 @@ const Map = ({ leftWidth,
                         valueid: feature.properties.cartodb_id,
                         id: feature.properties.projectid,
                         popupId: 'popup',
-                        image: feature.properties.attachments ? feature.properties.attachments : (
+                        image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
                             feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
                             feature.properties.projecttype === 'Study' ? '/projectImages/study.jpg' :
                                 feature.properties.projecttype === 'Maintenance' ?
@@ -1239,13 +1243,13 @@ const Map = ({ leftWidth,
                         name: item.name,
                         value: item.value,
                         projecttype: item.projecctype,
-                        image: '/Icons/eje.png'
-                        // image: item.image,
+                        image: item.image,
                     });
                     itemValue = { ...item };
                    // itemValue.value = item.valueid;
                     menuOptions.push('Project');
                     popups.push(itemValue);
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'problems') {
@@ -1272,6 +1276,7 @@ const Map = ({ leftWidth,
                     });
                     menuOptions.push('Problem');
                     popups.push(itemValue);
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_temp_locations') {
@@ -1291,6 +1296,7 @@ const Map = ({ leftWidth,
                         proj_name: item.feature,
                         mep_status: item.mepstatus
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_temp_locations') {
@@ -1310,6 +1316,7 @@ const Map = ({ leftWidth,
                         proj_name: item.feature,
                         mep_status: item.mepstatus
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_detention_basins') {
@@ -1329,6 +1336,7 @@ const Map = ({ leftWidth,
                         proj_name: item.feature,
                         mep_status: item.mepstatus
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_channels') {
@@ -1348,6 +1356,7 @@ const Map = ({ leftWidth,
                         proj_name: item.feature,
                         mep_status: item.mepstatus
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_projects_storm_outfalls') {
@@ -1367,6 +1376,7 @@ const Map = ({ leftWidth,
                         proj_name: item.feature,
                         mep_status: item.mepstatus
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'watershed_service_areas') {
@@ -1412,6 +1422,7 @@ const Map = ({ leftWidth,
                         project_subtype: item.project_subtype,
                         frequency: item.frequency
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_WEED_CONTROL) {
@@ -1432,6 +1443,7 @@ const Map = ({ leftWidth,
                         project_subtype: item.project_subtype,
                         frequency: item.mow_frequency
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_DEBRIS_AREA) {
@@ -1452,6 +1464,7 @@ const Map = ({ leftWidth,
                         project_subtype: item.project_subtype,
                         frequency: item.debris_frequency
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_DEBRIS_LINEAR) {
@@ -1472,6 +1485,7 @@ const Map = ({ leftWidth,
                         project_subtype: item.project_subtype,
                         frequency: item.debris_frequency
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 // new layers
@@ -1491,6 +1505,7 @@ const Map = ({ leftWidth,
                         hydgrpdcd: item.hydgrpdcd,
                         muname: item.muname
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === DWR_DAM_SAFETY) {
@@ -1525,6 +1540,7 @@ const Map = ({ leftWidth,
                         scale: item.scale,
                         date_created: item.date_created
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === BCZ_PREBLE_MEADOW_JUMPING) {
@@ -1544,7 +1560,7 @@ const Map = ({ leftWidth,
                         bcz_specname: item.bcz_specname,
                         bcz_expdate: item.bcz_expdate
                     });
-                    console.log('my item is ', item);
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
@@ -1562,6 +1578,7 @@ const Map = ({ leftWidth,
                         bcz_specname: item.bcz_specname,
                         bcz_expdate: item.bcz_expdate
                     });
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     menuOptions.push('BCZ - Ute Ladies Tresses Orchid');
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
@@ -1578,6 +1595,7 @@ const Map = ({ leftWidth,
                         sitename: item.sitename,
                         sitetype: item.sitetype
                     })
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     menuOptions.push('Research/Monitoring');
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
@@ -1618,6 +1636,7 @@ const Map = ({ leftWidth,
                             type: item.subtype,
                             subtype: item.status
                         })
+                        mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                         popups.push(item);
                         ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     }
