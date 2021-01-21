@@ -435,7 +435,8 @@ const initState = {
     favoriteProjectCards: [],
     tutorialStatus: false,
     addFavorite: {},
-    deleteFavorite: 'x'
+    deleteFavorite: 'x',
+    currentPopup: -1
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -833,6 +834,12 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 favorites: copy
+            }
+        }
+        case types.CHANGE_CURRENT_POPUP: {
+            return {
+                ...state,
+                currentPopup: action.currentPopup
             }
         }
         default:

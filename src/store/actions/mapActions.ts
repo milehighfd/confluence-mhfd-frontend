@@ -525,6 +525,12 @@ export const setSpinMapLoaded = (spin: boolean) => {
     }
 }
 
+export const setSelectedPopup = (currentPopup: number) => {
+    return (dispatch: Function) => {
+        dispatch({type: types.CHANGE_CURRENT_POPUP, currentPopup: currentPopup});
+    }
+}
+
 export const getDetailedPageProject = (id: number, cartoid: number, type: string) => {
     return (dispatch: Function) => {
         dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})

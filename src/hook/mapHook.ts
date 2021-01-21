@@ -10,7 +10,7 @@ import {
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
   getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync,
   setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents,
-  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem
+  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -37,7 +37,8 @@ interface selectMapState {
   galleryProblems: any,
   galleryProjects: any,
   selectedOnMap: any,
-  autocomplete: any
+  autocomplete: any,
+  currentPopup: number
 }
 
 /* Commented because typescript doesn't support that many arguments
@@ -97,19 +98,20 @@ const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> 
       (state: any) => state.map.galleryProblems,
       (state: any) => state.map.galleryProjects,
       (state: any) => state.map.selectedOnMap,
-      (state: any) => state.map.autocomplete
+      (state: any) => state.map.autocomplete,
+      (state: any) => state.map.currentPopup
   ,
       //state => state.map.paramFilters,
       (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
         nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
         spinFilters: any, spinCardProblems: any, spinCardProjects: any,//, paramFilters
         favoriteProblemCards: any,favoriteProjectCards: any, favorites: any, bboxComponents: any, tutorialStatus: boolean,
-        galleryProblems: any, galleryProjects: any, selectedOnMap: any, autocomplete: any
+        galleryProblems: any, galleryProjects: any, selectedOnMap: any, autocomplete: any, currentPopup: number
         ) => ({
           toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
           nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
           spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites, bboxComponents, tutorialStatus,
-          galleryProblems, galleryProjects, selectedOnMap, autocomplete
+          galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup
         })
     );
 
@@ -228,6 +230,9 @@ export const useMapDispatch = () => {
     },
     setZoomProjectOrProblem: (zoom: any) => {
       dispatch(setZoomProjectOrProblem(zoom));
+    },
+    setSelectedPopup: (popupId: number) => {
+      dispatch(setSelectedPopup(popupId));
     }
   }
 }
