@@ -1530,7 +1530,7 @@ const Map = ({ leftWidth,
                     const item = {
                         layer: 'BCZ - Preble’s Meadow Jumping Mouse',
                         expirationdate: feature.properties.expirationdate,
-                        bcz_specname: feature.properties.bcz_specname,
+                        bcz_specname: feature.properties.species_name,
                         bcz_expdate: feature.properties.bcz_expdate,
                         website: 'https://www.fws.gov/mountain-prairie/es/preblesMeadowJumpingMouse.php',
                         letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0030_PMJM_Denver_Block_Clearance_extension_accessible_signed.pdf',
@@ -1549,7 +1549,7 @@ const Map = ({ leftWidth,
                 if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
                     const item = {
                         layer: 'BCZ - Ute Ladies Tresses Orchid',
-                        bcz_specname: feature.properties.bcz_specname,
+                        bcz_specname: feature.properties.species_name,
                         bcz_expdate: feature.properties.bcz_expdate,
                         expirationdate: feature.properties.expirationdate,
                         website: 'https://www.fws.gov/mountain-prairie/es/uteLadiestress.php',
