@@ -1395,10 +1395,17 @@ const Map = ({ leftWidth,
                         contract: feature.properties.contract ? feature.properties.contract : '-',
                         contractor: feature.properties.contractor ? feature.properties.contractor : '-',
                         local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
-                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-'
+                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
+                        project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
+                        frequency: 'NA'
                     }
                     menuOptions.push('Vegetation Management - Natural Area');
                     popups.push(item);
+                    mobile.push({
+                        layer: 'ROUTINE MAINTENANCE',
+                        project_subtype: item.project_subtype,
+                        frequency: item.frequency
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_WEED_CONTROL) {
@@ -1409,10 +1416,16 @@ const Map = ({ leftWidth,
                         contractor: feature.properties.contractor ? feature.properties.contractor : '-',
                         local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
                         mow_frequency: feature.properties.mow_frequency ? feature.properties.mow_frequency : '-',
-                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-'
+                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
+                        project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
                     }
                     menuOptions.push('Vegetation Management - Weed Control');
                     popups.push(item);
+                    mobile.push({
+                        layer: 'ROUTINE MAINTENANCE',
+                        project_subtype: item.project_subtype,
+                        frequency: item.mow_frequency
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_DEBRIS_AREA) {
@@ -1423,10 +1436,16 @@ const Map = ({ leftWidth,
                         contractor: feature.properties.contractor ? feature.properties.contractor : '-',
                         local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
                         debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
-                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-'
+                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
+                        project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
                     }
                     menuOptions.push('Debris Management Area');
                     popups.push(item);
+                    mobile.push({
+                        layer: 'ROUTINE MAINTENANCE',
+                        project_subtype: item.project_subtype,
+                        frequency: item.debris_frequency
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_DEBRIS_LINEAR) {
@@ -1437,10 +1456,16 @@ const Map = ({ leftWidth,
                         contractor: feature.properties.contractor ? feature.properties.contractor : '-',
                         local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
                         debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
-                        length: feature.properties.length ? Math.round(feature.properties.length) : '-'
+                        length: feature.properties.length ? Math.round(feature.properties.length) : '-',
+                        project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
                     }
                     menuOptions.push('Debris Management Linear');
                     popups.push(item);
+                    mobile.push({
+                        layer: 'ROUTINE MAINTENANCE',
+                        project_subtype: item.project_subtype,
+                        frequency: item.debris_frequency
+                    });
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 // new layers
