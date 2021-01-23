@@ -604,11 +604,11 @@ const Map = ({ leftWidth,
         if (applyFilter) {
             if (toggleModalFilter) {
                 if (filterTabNumber === PROJECTS_TRIGGER) {
-                    getParamFilterProjects(boundingBox);
+                    getParamFilterProjects(boundingBox, filterProjectOptions);
                 } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                    getParamFilterProblems(boundingBox);
+                    getParamFilterProblems(boundingBox, filterProblemOptions);
                 } else {
-                    getParamFilterComponents(boundingBox);
+                    getParamFilterComponents(boundingBox, filterComponentOptions);
                 }
             } else {
                 setFilterCoordinates(boundingBox, tabCards);
