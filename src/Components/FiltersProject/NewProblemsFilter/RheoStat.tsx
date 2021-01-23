@@ -6,7 +6,7 @@ import { Button, Col, InputNumber, Row } from 'antd';
 import RheoStatService from './RheoStatService';
 
 
-const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
+const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const gRef = useRef<SVGGElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
@@ -20,8 +20,6 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   const [right, setRight] = useState(0);
 
   const [selectedData, setSelectedData] = useState<any[]>([]);
-
-  const [service] = useState<RheoStatService>(new RheoStatService());
 
   const width = 200;
   const height = 140;
@@ -63,11 +61,11 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
     let keys = _data.map(keyFn);
 
     let sliderRange;
-    if (!service.ref) {
+    if (!RheoStatService.getRef(type)) {
       sliderRange = sliderBottom()
         .default([0, keys.length])
     } else {
-      sliderRange = service.ref;
+      sliderRange = RheoStatService.getRef(type);
     }
 
     sliderRange
@@ -223,7 +221,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     gRange.call(sliderRange);
 
-    service.ref = sliderRange;
+    RheoStatService.setRef(type, sliderRange);
 
     d3
       .select(svgRef.current)
@@ -243,8 +241,8 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
   const apply = () => {
     onSelect(selectedData);
-    if (service.ref) {
-      service.ref.value([0, 20]);
+    if (RheoStatService.getRef(type)) {
+      RheoStatService.getRef(type).value([0, 20]);
     }
     if (selectedData.length > 0) {
       setLeft(selectedData[0].split(',')[0] / 1000);
@@ -258,7 +256,7 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .select(svgRef.current)
       .selectAll(".bar-d3")
       .attr('fill', fillColor)
-    service.ref.value([0, data.length])
+    RheoStatService.getRef(type).value([0, data.length])
   }
 
   const onChangeLeft = (e: any) => {
@@ -268,11 +266,11 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
         index++;
       }
     })
-    let [lf, rg] = service.ref.value();
+    let [lf, rg] = RheoStatService.getRef(type).value();
     if (index > rg) {
       index = rg;
     }
-    service.ref.value([index, rg]);
+    RheoStatService.getRef(type).value([index, rg]);
     setLeft(e);
   }
 
@@ -283,11 +281,11 @@ const RheoStat = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
         index++;
       }
     })
-    let [lf, rg] = service.ref.value();
+    let [lf, rg] = RheoStatService.getRef(type).value();
     if (index < lf) {
       index = lf;
     }
-    service.ref.value([lf, index]);
+    RheoStatService.getRef(type).value([lf, index]);
     setRight(e);
   }
 

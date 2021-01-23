@@ -22,8 +22,6 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
 
-  const [service] = useState<RheoStatService>(new RheoStatService());
-
   const width = 200;
   const height = 140;
   const marginLeft = 30;
@@ -82,10 +80,10 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
     let keys = data.map(keyFn).filter(filterFn);
 
     let sliderRange;
-    if (!service.ref) {
+    if (!RheoStatService.getRef(type)) {
       sliderRange = sliderBottom()
     } else {
-      sliderRange = service.ref;
+      sliderRange = RheoStatService.getRef(type);
     }
 
     sliderRange
@@ -243,7 +241,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
 
     gRange.call(sliderRange);
 
-    service.ref = sliderRange;
+    RheoStatService.setRef(type, sliderRange);
     d3
       .select(svgRef.current)
       .selectAll('.track-inset')
@@ -273,7 +271,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
       .select(svgRef.current)
       .selectAll(".bar-d3")
       .attr('fill', fillColor)
-    service.ref.value([0, data.length])
+      RheoStatService.getRef(type).value([0, data.length])
   }
 
   const onChangeLeft = (e: any) => {

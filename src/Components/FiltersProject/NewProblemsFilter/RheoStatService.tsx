@@ -2,16 +2,25 @@ class RheoStatService {
 
   private myRef: any;
 
-  constructor() { }
-
-  get ref(): any {
-    return this.myRef;
+  constructor() {
+    this.myRef = {}
   }
 
-  set ref(value: any) {
-    this.myRef = value;
+  getRef(key: string): any {
+    return this.myRef[key];
+  }
+
+  setRef(key: string, value: any) {
+    this.myRef[key] = value;
+  }
+
+  reset() {
+    Object.keys(this.myRef).forEach(key => {
+      let sliderRange = this.myRef[key];
+      sliderRange.value([0, sliderRange.max()]);
+    })
   }
 
 }
 
-export default RheoStatService;
+export default new RheoStatService();

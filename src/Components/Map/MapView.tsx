@@ -13,6 +13,7 @@ import DetailedModal from "../Shared/Modals/DetailedModal";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { capitalLetter, elementCost, getStatus } from '../../utils/utils';
 import { useSelector } from "react-redux";
+import RheoStatService from '../FiltersProject/NewProblemsFilter/RheoStatService';
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -949,6 +950,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     </Menu>
   }
   const onResetClick = () => {
+    RheoStatService.reset();
     // let value = 'Mile High Flood District';
     // setvalueA(value);
     // setAutocomplete(value);

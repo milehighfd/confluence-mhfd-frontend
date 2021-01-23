@@ -28,9 +28,6 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
     const { getParamFilterProjects } = useMapDispatch();
     const { boundsMap } = useMapState();
     const apply = (values: any, field: string) => {
-        console.log('values', values, 'field', field);
-        //console.log('filterProjectOptions:::', filterProjectOptions, paramProjects);
-
         const options = { ...filterProjectOptions };
         if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field) {
             let newValue = '';
@@ -116,7 +113,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.estimatedCost &&
-                    <RheoStat axisLabel={axisLabel} defaultValue={''}
+                    <RheoStat type={'totalcost'} axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.estimatedCost}
                         selected={filterProjectOptions.totalcost}
                         onSelect={(items: string) => apply(items, 'totalcost')} />
@@ -138,7 +135,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 <h5 className="filter-title chart-filter-title">MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.mhfddollarsallocated &&
-                    <RheoStat axisLabel={axisLabel} defaultValue={[]}
+                    <RheoStat type={'mhfddollarsallocated'} axisLabel={axisLabel} defaultValue={[]}
                         data={paramProjects.mhfddollarsallocated}
                         selected={filterProjectOptions.mhfddollarsallocated}
                         onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
