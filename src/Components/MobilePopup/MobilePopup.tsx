@@ -7,7 +7,7 @@ import { useMapDispatch } from "../../hook/mapHook";
 const stateValue = {
   visible: false
 }
-export default ({items}: {items: any}) => {
+export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
@@ -29,7 +29,12 @@ export default ({items}: {items: any}) => {
     setState(auxState);
   };
   const card = (data: any, index: number) => (
-    <div key={'mobile-popup-' + index}>
+    <div onClick={() => {
+      if (data.type && data.type === 'problems' || data.type === 'project') {
+        console.log('entro entro');
+        seeDetails(data);
+      }
+    }} key={'mobile-popup-' + index}>
       <div className="popup-mobile">
         <div style={data.image? {width: '40%'} : {width: '0%'}}>
           {data.image && <img src={data.image} alt="" />}

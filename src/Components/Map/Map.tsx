@@ -1259,6 +1259,10 @@ const Map = ({ leftWidth,
                         value: item.value,
                         projecttype: item.projecctype,
                         image: item.image,
+                        //for detail popup
+                        id: item.id,
+                        objectid: item.objectid,
+                        valueid: item.valueid
                     });
                     itemValue = { ...item };
                    // itemValue.value = item.valueid;
@@ -1287,7 +1291,9 @@ const Map = ({ leftWidth,
                         title: item.title,
                         value: item.value,
                         name: item.name,
-                        image: item.image
+                        image: item.image,
+                        //for detail popup
+                        problemid: item.problemid
                     });
                     menuOptions.push('Problem');
                     popups.push(itemValue);
@@ -2029,7 +2035,7 @@ const Map = ({ leftWidth,
                 componentCounter={componentCounter}
                 getComponentCounter={getComponentCounter}
             />}
-              {mobilePopups.length ? <MobilePopup items={mobilePopups}></MobilePopup> : <></>}
+              {mobilePopups.length ? <MobilePopup seeDetails={seeDetails} items={mobilePopups}></MobilePopup> : <></>}
             <div id="map">
             </div>
             <div className="m-head">
