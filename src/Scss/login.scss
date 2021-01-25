@@ -5,6 +5,7 @@
   height: 100vh;
   overflow-y: auto;
   position: relative;
+  background: $white !important;
 }
 .login-step01 {
   transform: translate(-50%,-50%);
