@@ -2115,6 +2115,9 @@ const Map = ({ leftWidth,
                             center: [longitude, latitude],
                             zoom: 14
                             });
+                        var marker = new mapboxgl.Marker()
+                        .setLngLat([longitude, latitude])
+                        .addTo(map);
                       }
 
                       function error() {
@@ -2125,6 +2128,7 @@ const Map = ({ leftWidth,
                           // add some error here
                       } else {
                         navigator.geolocation.getCurrentPosition(success, error);
+                        
                       }
                 }}
                 /></Button>
