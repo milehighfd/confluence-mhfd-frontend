@@ -1571,7 +1571,7 @@ const Map = ({ leftWidth,
                     menuOptions.push('BCZ - Preble’s Meadow Jumping Mouse');
                     popups.push(item);
                     mobile.push({
-                        layer: item.layer,
+                        layer: 'BLOCK CLEARANCE ZONE',
                         bcz_specname: item.bcz_specname,
                         bcz_expdate: item.bcz_expdate
                     });
@@ -1589,7 +1589,7 @@ const Map = ({ leftWidth,
                         map: 'https://www.fws.gov/mountain-prairie/es/species/plants/uteladiestress/BlockClearanceMap2008.pdf'
                     }
                     mobile.push({
-                        layer: item.layer,
+                        layer: 'BLOCK CLEARANCE ZONE',
                         bcz_specname: item.bcz_specname,
                         bcz_expdate: item.bcz_expdate
                     });
