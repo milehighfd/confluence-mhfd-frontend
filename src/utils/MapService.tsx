@@ -30,10 +30,15 @@ export class MapService {
       closeButton: false,
       closeOnClick: false
      });
-     this.map.addControl(new mapboxgl.ScaleControl({
-      unit: 'imperial'
-  }), 'bottom-right');
-     this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+     const width = window.innerWidth;
+     if (width < 800) {
+      this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');  
+     } else {
+       this.map.addControl(new mapboxgl.ScaleControl({
+        unit: 'imperial'
+      }), 'bottom-right');
+      this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+     }
   }
   create(mapId: string, coords?: any) {
     this.draw = new MapboxDraw({
