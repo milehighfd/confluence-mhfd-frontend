@@ -778,7 +778,7 @@
   }
 }
 .head-filter{
-  background: $opacity00;
+  background: #f5f7ff;
   height: 50px;
   padding: 6px 15px;
   margin-left: -20px;
@@ -905,6 +905,7 @@
   line-height: 14px;
   margin: 5px 0px;
   position: relative;
+  font-size: 12px;
 
   .ant-checkbox-checked .ant-checkbox-inner {
     background-color: $green !important;

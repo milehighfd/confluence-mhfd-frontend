@@ -8,6 +8,9 @@ html, body{
 .ant-layout, #root{
   height: 100%;
 }
+.ant-layout{
+  background: #f5f7ff !important;
+}
 body{
  font-family: $ubunto !important;
  overflow-y: hidden;
@@ -1024,7 +1027,7 @@ body{
   .chat-head{
     height: 50px;
     border-radius: 4px 4px 0px 0px;
-    background-color: $opacity00;
+    background-color: #f5f7ff;
     font-size: 18px;
     color: $purple00;
     text-transform: uppercase;
@@ -1329,7 +1332,7 @@ body{
 .detailed-h{
   // height: 80px !important;
   min-height: 80px;
-  background: $opacity00;
+  background: #f5f7ff;
   padding: 10px 20px;
   margin: 0px !important;
 
@@ -1352,7 +1355,7 @@ body{
     padding: 0px 12px;
     margin: 8px 0px;
   }
-  .btn-opacity{
+  .btn-opacity,.btn-opacity:hover, .btn-opacity:focus{
     height: 40px;
     font-size: 13px;
     border-radius: 2px;
@@ -1362,6 +1365,7 @@ body{
     width: 120px;
     min-width: 120px;
     float: right;
+    background: $white !important;
   }
 }
 .disabled-btn{
