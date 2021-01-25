@@ -2029,7 +2029,7 @@ const Map = ({ leftWidth,
                 componentCounter={componentCounter}
                 getComponentCounter={getComponentCounter}
             />}
-              {mobilePopups.length && <MobilePopup items={mobilePopups}></MobilePopup>}
+              {mobilePopups.length ? <MobilePopup items={mobilePopups}></MobilePopup> : <></>}
             <div id="map">
             </div>
             <div className="m-head">
