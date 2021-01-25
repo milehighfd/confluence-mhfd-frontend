@@ -1637,8 +1637,9 @@ const Map = ({ leftWidth,
                     if (feature.source === component) {
                         const item = {
                             layer: 'Components',
-                            subtype: feature.properties.type ? feature.properties.type : '-',
-                            status: feature.properties.subtype ? feature.properties.subtype : '-',
+                            type: feature.properties.type ? feature.properties.type : '-',
+                            subtype: feature.properties.subtype ? feature.properties.subtype : '-',
+                            status: feature.properties.status ? feature.properties.status : '-',
                             estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
                             studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
                             jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
@@ -1648,8 +1649,8 @@ const Map = ({ leftWidth,
                         menuOptions.push(name);
                         mobile.push({
                             layer: item.layer,
-                            type: item.subtype,
-                            subtype: item.status
+                            type: item.type,
+                            subtype: item.subtype
                         })
                         mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                         popups.push(item);
