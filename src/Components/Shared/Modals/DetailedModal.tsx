@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Button, Progress, Carousel, Modal, message, Tooltip } from 'antd';
 
+import { saveAs } from 'file-saver';
+
 import { FILTER_PROBLEMS_TRIGGER } from '../../../constants/constants';
  import { SERVER } from "../../../Config/Server.config";
 import { Detailed } from '../../../store/types/detailedTypes';
@@ -52,6 +54,15 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     message.success('Copied to Clipboard!');
   }
   const detailedPage = detailed as any;
+
+  const downloadPdf = () => {
+    let params = `cartoid=${data.value}&type=${data.type}`;
+    saveAs(
+      `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`,
+      "project.pdf"
+    );
+  }
+
   return (
     <>
       <Modal
@@ -102,7 +113,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
             </Col>
             <Col xs={{ span: 4 }} lg={{ span: 3 }}style={{ textAlign: 'right' }}>
               <Tooltip title="Download PDF">
-                <Button className="disabled-btn btn-transparent mobile-display"><img src="/Icons/icon-01.svg" alt="" /></Button>
+                <Button className="disabled-btn btn-transparent mobile-display"><img src="/Icons/icon-01.svg" alt="" onClick={downloadPdf} /></Button>
               </Tooltip>
               <Tooltip title="Copy URL">
                 <Button className="btn-transparent"><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl()} /></Button>
