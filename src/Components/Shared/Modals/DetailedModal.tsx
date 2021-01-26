@@ -56,11 +56,18 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   const detailedPage = detailed as any;
 
   const downloadPdf = () => {
-    let params = `cartoid=${data.value}&type=${data.type}`;
-    saveAs(
-      `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`,
-      "project.pdf"
-    );
+    if (type === FILTER_PROBLEMS_TRIGGER) {
+      saveAs(
+        `${process.env.REACT_APP_API_URI}/gallery/problem-by-id/${data.problemid}/pdf`,
+        "problem.pdf"
+      );
+    } else {
+      let params = `cartoid=${data.value}&type=${data.type}`;
+      saveAs(
+        `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`,
+        "project.pdf"
+      );
+    }
   }
 
   return (
