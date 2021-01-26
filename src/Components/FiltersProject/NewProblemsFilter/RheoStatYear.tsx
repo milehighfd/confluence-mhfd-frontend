@@ -91,7 +91,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
       .max(keys.length-1)
       .width(width-marginLeft)
       .tickFormat(d3.format('.2%'))
-      .ticks(keys.length-1)
+      .ticks(0)
       .step(1)
       .default([minTick, maxTick])
       .handle(
