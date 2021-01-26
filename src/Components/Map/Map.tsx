@@ -449,6 +449,16 @@ const Map = ({ leftWidth,
             center: [user.coordinates.longitude, user.coordinates.latitude],
             zoom: 8
         });
+        map.loadImage('custom-sprite/30x30px.png', (error: any, image: any) => {
+            if (error) {
+                console.log('error on load ', error);
+                return;
+            }
+            if (!map.hasImage('adjust-24px')) {
+                map.addImage('adjust-24px', image);
+                console.log('jajaja ', image);
+            }
+        });
         mapService.map = map;
         if (coor[0] && coor[1]) {
             map.fitBounds(coor);
@@ -2115,9 +2125,30 @@ const Map = ({ leftWidth,
                             center: [longitude, latitude],
                             zoom: 14
                             });
-                        var marker = new mapboxgl.Marker()
-                        .setLngLat([longitude, latitude])
-                        .addTo(map);
+                        
+                        map.addSource('point', {
+                            'type': 'geojson',
+                            'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                            {
+                            'type': 'Feature',
+                            'geometry': {
+                            'type': 'Point',
+                            'coordinates': [longitude, latitude]
+                            }
+                            }
+                            ]
+                            }
+                            });
+                            map.addLayer({
+                            'id': 'points',
+                            'type': 'symbol',
+                            'source': 'point',
+                            'layout': {
+                            'icon-image': 'adjust-24px'
+                            }
+                            });
                       }
 
                       function error() {
