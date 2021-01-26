@@ -467,18 +467,6 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
           </div>
           {/* <div className="test-style"> Zoom: {zoomValue}</div> */}
 
-          <div className="m-footer icon-legend mobile-display">
-            <Collapse accordion defaultActiveKey={['1']} expandIconPosition="right">
-              <Panel header="Legend" key="1">
-              <hr />
-              <div className="scroll-footer">
-                  <p><span style={{ background: '#ffdd00', border: 'hidden' }} />Projects</p>
-                  <p><span className="color-footer-problem" style={{ background: '#FF342F', border: 'hidden'   }} />Problems</p>
-                  <p><span style={{ background: '#3EE135', border: 'hidden' }} />Components</p>
-              </div>
-              </Panel>
-            </Collapse>
-          </div>
         </div>
       </Panel>
 
