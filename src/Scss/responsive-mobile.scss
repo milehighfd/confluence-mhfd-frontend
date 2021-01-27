@@ -652,3 +652,18 @@
     input[type="week"], input[type="number"], input[type="email"],
     input[type="tel"], input[type="url"]{ font-size: 14px; }
 }
+@media only screen
+    and (device-width : 414px)
+    and (device-height : 896px)
+    and (-webkit-device-pixel-ratio : 3)
+    and (orientation : portrait){
+      .scroll-infinite-mobile {
+        height: 553px !important;
+      }
+      .collapse-tabs{
+        .ggyyyy{
+          overflow-y: scroll!important;
+          height: 620px;
+        }
+      }
+    }
