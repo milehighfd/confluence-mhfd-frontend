@@ -75,7 +75,7 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
   };
   const deleted = (cartodb_id: number, type: string) => {
     deleteFavorite(user.email, cartodb_id, type);
-    search(user.email, type === 'Problems', options);
+    search(user.email, type === 'problems', options);
   }
   return <Spin spinning={spinValue} className="loading-01">
     <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px' }} className="card-map profile-mobile" gutter={[16, 16]}>
@@ -128,8 +128,8 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
       loader={datas.length ? <h4>Loading...</h4> : ''}
       height={window.innerHeight - 400}
       endMessage={''}>
-      {sw ? state.items.map((i, index: number) => {
-        return datas[index] && <CardsView key={index} data={datas[index]} type={type} numberWithCommas={numberWithCommas}
+      {sw ? datas.map((data, index: number) => {
+        return data && <CardsView key={'profile-card-' + data.cartodb_id} data={data} type={type} numberWithCommas={numberWithCommas}
             getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
             getComponentsByProblemId={getComponentsByProblemId}
             displayModal={displayModal} detailed={detailed}
