@@ -162,7 +162,7 @@ const Map = ({ leftWidth,
         }
       ];
     const notComponentOptions: any[] = ['NCRS Soils', 'DWR Dam Safety', 'Stream Management Corridors',
-    `BCZ - Preble’s Meadow Jumping Mouse`, 'BCZ - Ute Ladies Tresses Orchid',  'Research/Monitoring', 'Climb to Safety', 'SEMSWA Service Area',
+    `BCZ - Preble’s Meadow Jumping Mouse`, 'BCZ - Ute Ladies Tresses Orchid',  'Research/Monitoring', 'Climb to Safety Signs', 'SEMSWA Service Area',
     'Debris Management Linear', 'Debris Management Area', 'Vegetation Management - Weed Control',
     'Vegetation Management - Natural Area', 'Watershed', 'Service Area', 'MEP Storm Outfall',
     'MEP Channel', 'MEP Detention Basin', 'MEP Temporary Location', 'MEP Temporary Location'];
@@ -321,6 +321,7 @@ const Map = ({ leftWidth,
         }
         bottomLongitude -= 0.125;
         topLongitude += 0.125;
+        console.log('coords ' , bottomLongitude, bottomLatitude, topLongitude, topLatitude);
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude]);
     }
@@ -456,9 +457,73 @@ const Map = ({ leftWidth,
             }
             if (!map.hasImage('adjust-24px')) {
                 map.addImage('adjust-24px', image);
-                console.log('jajaja ', image);
             }
         });
+        map.loadImage('custom-sprite/dollar.png', (error: any, image: any) => {
+            if (error) {
+                console.log('error on load ', error);
+                return;
+            }
+            if (!map.hasImage('dollar')) {
+                map.addImage('dollar', image);
+            }
+        });
+        map.loadImage('custom-sprite/fema-floodway.png', (error: any, image: any) => {
+            if (error) {
+                console.log('error on load ', error);
+                return;
+            }
+            if (!map.hasImage('fema-floodway')) {
+                map.addImage('fema-floodway', image);
+            }
+        });
+        map.loadImage('custom-sprite/Frame13a.png', (error: any, image: any) => {
+            if (error) {
+                console.log('error on load ', error);
+                return;
+            }
+            if (!map.hasImage('Frame13a')) {
+                map.addImage('Frame13a', image);
+            }
+        });
+        map.loadImage('custom-sprite/Frame17m2t.png', (error: any, image: any) => {
+            if (error) {
+                console.log('error on load ', error);
+                return;
+            }
+            if (!map.hasImage('Frame17m2t')) {
+                map.addImage('Frame17m2t', image);
+            }
+        });
+        map.loadImage('custom-sprite/Frame21C.png', (error: any, image: any) => {
+            if (error) {
+                console.log('error on load ', error);
+                return;
+            }
+            if (!map.hasImage('Frame21C')) {
+                map.addImage('Frame21C', image);
+            }
+        });
+        map.loadImage('custom-sprite/pjm2.png', (error: any, image: any) => {
+            if (error) {
+                console.log('error on load ', error);
+            }
+            if (!map.hasImage('pjm2')) {
+                map.addImage('pjm2', image);
+            }
+        });
+        map.loadImage('custom-sprite/Urbanclimbtosafetysign_origclean-50.png', (error: any, image: any) => {
+            if (error) {
+                console.log('error on load ', error);
+                return;
+            }
+            if (!map.hasImage('Urbanclimbtosafetysign_origclean')) {
+                map.addImage('Urbanclimbtosafetysign_origclean', image);
+            }
+        });
+        
+        
+        
         mapService.map = map;
         if (coor[0] && coor[1]) {
             map.fitBounds(coor);
