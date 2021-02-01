@@ -145,7 +145,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
       return d.count;
     });
 
-    y.domain([0, maxiCounter]);
+    y.domain([0, Math.max(maxiCounter, 1)]);
 
     let xdr: any = (d: any) => {
       let offset: any = x(d.value);

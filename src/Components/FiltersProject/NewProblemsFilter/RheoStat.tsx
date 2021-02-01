@@ -125,7 +125,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
       return d.counter;
     });
 
-    y.domain([0, maxiCounter]);
+    y.domain([0, Math.max(maxiCounter, 1)]);
 
     let xdr: any = (d: any) => {
       let offset: any = x(d.id);
