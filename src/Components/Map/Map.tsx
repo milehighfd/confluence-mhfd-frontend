@@ -33,6 +33,7 @@ import {
     COUNTIES_FILTERS,
     MHFD_BOUNDARY_FILTERS,
     SELECT_ALL_FILTERS,
+    MENU_OPTIONS,
     MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
@@ -161,11 +162,12 @@ const Map = ({ leftWidth,
           color: "green", image: "/Icons/icon-19.svg", field1: "Component 3", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
         }
       ];
-    const notComponentOptions: any[] = ['NCRS Soils', 'DWR Dam Safety', 'Stream Management Corridors',
-    `BCZ - Preble’s Meadow Jumping Mouse`, 'BCZ - Ute Ladies Tresses Orchid',  'Research/Monitoring', 'Climb to Safety Signs', 'SEMSWA Service Area',
-    'Debris Management Linear', 'Debris Management Area', 'Vegetation Management - Weed Control',
-    'Vegetation Management - Natural Area', 'Watershed', 'Service Area', 'MEP Storm Outfall',
-    'MEP Channel', 'MEP Detention Basin', 'MEP Temporary Location', 'MEP Temporary Location'];
+    const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS,MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS ,
+        MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,  MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
+        MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
+        MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
+        MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION
+        ];
     // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
     const [visible, setVisible] = useState(false);
@@ -1308,7 +1310,7 @@ const Map = ({ leftWidth,
                     );
                     const item = {
                         type: 'project',
-                        title: 'Project',
+                        title: MENU_OPTIONS.PROJECT,
                         name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
                         organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
                         value: feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0',
@@ -1341,15 +1343,15 @@ const Map = ({ leftWidth,
                     });
                     itemValue = { ...item };
                    // itemValue.value = item.valueid;
-                    menuOptions.push('Project');
+                    menuOptions.push(MENU_OPTIONS.PROJECT);
                     popups.push(itemValue);
                     mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
-                if (feature.source === 'problems') {
+                if (feature.source === MENU_OPTIONS.PROBLEMS) {
                     getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
                     const item = {
-                        type: 'problems',
+                        type: MENU_OPTIONS.PROBLEMS,
                         title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
                         name: feature.properties.problemname ? feature.properties.problemname : '-',
                         organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
@@ -1362,7 +1364,7 @@ const Map = ({ leftWidth,
                     };
                     itemValue = { ...item };
                     mobile.push({
-                        type: 'problems',
+                        type: MENU_OPTIONS.PROBLEMS,
                         title: item.title,
                         value: item.value,
                         name: item.name,
@@ -1377,7 +1379,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === 'mep_projects_temp_locations') {
                     const item = {
-                        layer: 'MEP Temporary Location',
+                        layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
                         feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
                         projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
                         mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
@@ -1385,7 +1387,7 @@ const Map = ({ leftWidth,
                         notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
                         servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
                     }
-                    menuOptions.push('MEP Temporary Location');
+                    menuOptions.push(MENU_OPTIONS.MEP_TEMPORARY_LOCATION);
                     popups.push(item);
                     mobile.push({
                         layer: item.layer,
@@ -1397,7 +1399,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === 'mep_projects_temp_locations') {
                     const item = {
-                        layer: 'MEP Temporary Location',
+                        layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
                         feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
                         projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
                         mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
@@ -1405,7 +1407,7 @@ const Map = ({ leftWidth,
                         notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
                         servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
                     }
-                    menuOptions.push('MEP Temporary Location');
+                    menuOptions.push(MENU_OPTIONS.MEP_TEMPORARY_LOCATION);
                     popups.push(item);
                     mobile.push({
                         layer: item.layer,
@@ -1417,7 +1419,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === 'mep_projects_detention_basins') {
                     const item = {
-                        layer: 'MEP Detention Basin',
+                        layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
                         feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
                         projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
                         mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
@@ -1425,7 +1427,7 @@ const Map = ({ leftWidth,
                         notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
                         servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
                     }
-                    menuOptions.push('MEP Detention Basin');
+                    menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
                     popups.push(item);
                     mobile.push({
                         layer: item.layer,
@@ -1437,7 +1439,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === 'mep_projects_channels') {
                     const item = {
-                        layer: 'MEP Channel',
+                        layer: MENU_OPTIONS.MEP_CHANNEL,
                         feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
                         projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
                         mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
@@ -1445,7 +1447,7 @@ const Map = ({ leftWidth,
                         notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
                         servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
                     }
-                    menuOptions.push('MEP Channel');
+                    menuOptions.push(MENU_OPTIONS.MEP_CHANNEL);
                     popups.push(item);
                     mobile.push({
                         layer: item.layer,
@@ -1457,7 +1459,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === 'mep_projects_storm_outfalls') {
                     const item = {
-                        layer: 'MEP Storm Outfall',
+                        layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
                         feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
                         projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
                         mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
@@ -1465,7 +1467,7 @@ const Map = ({ leftWidth,
                         notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
                         servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
                     }
-                    menuOptions.push('MEP Storm Outfall');
+                    menuOptions.push(MENU_OPTIONS.MEP_STORM_OUTFALL);
                     popups.push(item);
                     mobile.push({
                         layer: item.layer,
@@ -1477,7 +1479,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === 'watershed_service_areas') {
                     const item = {
-                        layer: 'Service Area',
+                        layer: MENU_OPTIONS.SERVICE_AREA,
                         feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
                         watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
                         constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
@@ -1487,22 +1489,22 @@ const Map = ({ leftWidth,
                         watershedmanager: item.watershedmanager,
                         constructionmanagers: item.constructionmanagers
                     })
-                    menuOptions.push('Service Area');
+                    menuOptions.push(MENU_OPTIONS.SERVICE_AREA);
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'catchments' || feature.source === 'basin') {
                     const item = {
-                        layer: 'Watershed',
+                        layer: MENU_OPTIONS.WATERSHED,
                         feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
                     }
-                    menuOptions.push('Watershed');
+                    menuOptions.push(MENU_OPTIONS.WATERSHED);
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === ROUTINE_NATURAL_AREAS) {
                     const item = {
-                        layer: 'Vegetation Management - Natural Area',
+                        layer: MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA,
                         feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
                         contract: feature.properties.contract ? feature.properties.contract : '-',
                         contractor: feature.properties.contractor ? feature.properties.contractor : '-',
@@ -1511,10 +1513,10 @@ const Map = ({ leftWidth,
                         project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
                         frequency: 'NA'
                     }
-                    menuOptions.push('Vegetation Management - Natural Area');
+                    menuOptions.push(MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA);
                     popups.push(item);
                     mobile.push({
-                        layer: 'ROUTINE MAINTENANCE',
+                        layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
                         project_subtype: item.project_subtype,
                         frequency: item.frequency
                     });
@@ -1523,7 +1525,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === ROUTINE_WEED_CONTROL) {
                     const item = {
-                        layer: 'Vegetation Management - Weed Control',
+                        layer: MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
                         feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
                         contract: feature.properties.contract ? feature.properties.contract : '-',
                         contractor: feature.properties.contractor ? feature.properties.contractor : '-',
@@ -1532,10 +1534,10 @@ const Map = ({ leftWidth,
                         acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
                         project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
                     }
-                    menuOptions.push('Vegetation Management - Weed Control');
+                    menuOptions.push(MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL);
                     popups.push(item);
                     mobile.push({
-                        layer: 'ROUTINE MAINTENANCE',
+                        layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
                         project_subtype: item.project_subtype,
                         frequency: item.mow_frequency
                     });
@@ -1544,7 +1546,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === ROUTINE_DEBRIS_AREA) {
                     const item = {
-                        layer: 'Debris Management Area',
+                        layer: MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA,
                         feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
                         contract: feature.properties.contract ? feature.properties.contract : '-',
                         contractor: feature.properties.contractor ? feature.properties.contractor : '-',
@@ -1553,10 +1555,10 @@ const Map = ({ leftWidth,
                         acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
                         project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
                     }
-                    menuOptions.push('Debris Management Area');
+                    menuOptions.push(MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA);
                     popups.push(item);
                     mobile.push({
-                        layer: 'ROUTINE MAINTENANCE',
+                        layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
                         project_subtype: item.project_subtype,
                         frequency: item.debris_frequency
                     });
@@ -1565,7 +1567,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === ROUTINE_DEBRIS_LINEAR) {
                     const item = {
-                        layer: 'Debris Management Linear',
+                        layer: MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR,
                         feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
                         contract: feature.properties.contract ? feature.properties.contract : '-',
                         contractor: feature.properties.contractor ? feature.properties.contractor : '-',
@@ -1574,10 +1576,10 @@ const Map = ({ leftWidth,
                         length: feature.properties.length ? Math.round(feature.properties.length) : '-',
                         project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
                     }
-                    menuOptions.push('Debris Management Linear');
+                    menuOptions.push(MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR);
                     popups.push(item);
                     mobile.push({
-                        layer: 'ROUTINE MAINTENANCE',
+                        layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
                         project_subtype: item.project_subtype,
                         frequency: item.debris_frequency
                     });
@@ -1587,14 +1589,14 @@ const Map = ({ leftWidth,
                 // new layers
                 if (feature.source === NRCS_SOILS) {
                     const item = {
-                        layer: 'NCRS Soils',
+                        layer: MENU_OPTIONS.NCRS_SOILS,
                         hydgrpdcd: feature.properties.hydgrpdcd,
                         muname: feature.properties.muname,
                         aws0150wta: feature.properties.aws0150wta,
                         drclassdcd: feature.properties.drclassdcd,
                         nrcsweb: 'NA'
                     }
-                    menuOptions.push('NCRS Soils');
+                    menuOptions.push(MENU_OPTIONS.NCRS_SOILS);
                     popups.push(item);
                     mobile.push({
                         layer: item.layer,
@@ -1606,7 +1608,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === DWR_DAM_SAFETY) {
                     const item = {
-                        layer: 'DWR Dam Safety',
+                        layer: MENU_OPTIONS.DWR_DAM_SAFETY,
                         dam_name: feature.properties.dam_name,
                         hazard_class: feature.properties.hazard_class,
                         year_completed: feature.properties.year_completed,
@@ -1618,18 +1620,18 @@ const Map = ({ leftWidth,
                         dam_name: item.dam_name,
                         hazard_class: item.hazard_class
                     })
-                    menuOptions.push('DWR Dam Safety');
+                    menuOptions.push(MENU_OPTIONS.DWR_DAM_SAFETY);
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
                     const item = {
-                        layer: 'Stream Management Corridors',
+                        layer: MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
                         scale: 'District',//feature.properties.scale,
                         date_created: '01/07/2019' //feature.properties.date_created,
                     }
                     console.log(item, feature.properties);
-                    menuOptions.push('Stream Management Corridors');
+                    menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
                     popups.push(item);
                     mobile.push({
                         layer: item.layer,
@@ -1641,7 +1643,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === BCZ_PREBLE_MEADOW_JUMPING) {
                     const item = {
-                        layer: 'BCZ - Preble’s Meadow Jumping Mouse',
+                        layer: MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
                         expirationdate: feature.properties.expirationdate,
                         bcz_specname: feature.properties.species_name,
                         bcz_expdate: feature.properties.bcz_expdate,
@@ -1649,10 +1651,10 @@ const Map = ({ leftWidth,
                         letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0030_PMJM_Denver_Block_Clearance_extension_accessible_signed.pdf',
                         map: `https://www.fws.gov/mountain-prairie/es/species/mammals/preble/9-2016_USFWS_Preble's_map_Denver_Metro_Area.pdf`
                     }
-                    menuOptions.push('BCZ - Preble’s Meadow Jumping Mouse');
+                    menuOptions.push(MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE);
                     popups.push(item);
                     mobile.push({
-                        layer: 'BLOCK CLEARANCE ZONE',
+                        layer: MENU_OPTIONS.BLOCK_CLEARANCE_ZONE,
                         bcz_specname: item.bcz_specname,
                         bcz_expdate: item.bcz_expdate
                     });
@@ -1661,7 +1663,7 @@ const Map = ({ leftWidth,
                 }
                 if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
                     const item = {
-                        layer: 'BCZ - Ute Ladies Tresses Orchid',
+                        layer: MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,
                         bcz_specname: feature.properties.species_name,
                         bcz_expdate: feature.properties.bcz_expdate,
                         expirationdate: feature.properties.expirationdate,
@@ -1670,18 +1672,18 @@ const Map = ({ leftWidth,
                         map: 'https://www.fws.gov/mountain-prairie/es/species/plants/uteladiestress/BlockClearanceMap2008.pdf'
                     }
                     mobile.push({
-                        layer: 'BLOCK CLEARANCE ZONE',
+                        layer: MENU_OPTIONS.BLOCK_CLEARANCE_ZONE,
                         bcz_specname: item.bcz_specname,
                         bcz_expdate: item.bcz_expdate
                     });
                     mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    menuOptions.push('BCZ - Ute Ladies Tresses Orchid');
+                    menuOptions.push(MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID);
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === RESEARCH_MONITORING) {
                     const item = {
-                        layer: 'Research/Monitoring',
+                        layer: MENU_OPTIONS.RESEARCH_MONITORING,
                         sitename: feature.properties.sitename,
                         sitetype: feature.properties.sitetype,
                         bmptype: feature.properties.bmptype,
@@ -1692,24 +1694,24 @@ const Map = ({ leftWidth,
                         sitetype: item.sitetype
                     })
                     mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    menuOptions.push('Research/Monitoring');
+                    menuOptions.push(MENU_OPTIONS.RESEARCH_MONITORING);
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === CLIMB_TO_SAFETY) {
                     const item = {
-                        layer: 'Climb to Safety Signs',
+                        layer: MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS,
                     }
                     mobile.push(item);
-                    menuOptions.push('Climb to Safety Signs');
+                    menuOptions.push(MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS);
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === SEMSWA_SERVICE_AREA) {
                     const item = {
-                        layer: 'SEMSWA Service Area',
+                        layer: MENU_OPTIONS.SEMSWA_SERVICE_AREA,
                     }
-                    menuOptions.push('SEMSWA Service Area');
+                    menuOptions.push(MENU_OPTIONS.SEMSWA_SERVICE_AREA);
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
@@ -1717,7 +1719,7 @@ const Map = ({ leftWidth,
                 for (const component of COMPONENT_LAYERS.tiles) {
                     if (feature.source === component) {
                         const item = {
-                            layer: 'Components',
+                            layer: MENU_OPTIONS.COMPONENTS,
                             type: feature.properties.type ? feature.properties.type : '-',
                             subtype: feature.properties.subtype ? feature.properties.subtype : '-',
                             status: feature.properties.status ? feature.properties.status : '-',

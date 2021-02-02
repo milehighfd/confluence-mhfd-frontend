@@ -1754,6 +1754,36 @@ export const popUps = {
   semswa_service_area: 'Southeast Metro Stormwater Authority Boundary. SEMSWA covers the entire City of Centennial, the developed areas of unincorporated Arapahoe County, and a small portion of Douglas County. Their boundary is an outgrowth of the partnership (IGA) between the City of Centennial, Arapahoe County, the Arapahoe County Water and Wastewater Authority, East Cherry Creek Valley Water and Sanitation District, and the Inverness Water and Sanitation District.'
 }
 
+/* Menu Opctions */
+
+export const MENU_OPTIONS = 
+  { 
+    MEP_TEMPORARY_LOCATION: 'MEP Temporary Location',
+    MEP_DETENTION_BASIN: 'MEP Detention Basin',
+    MEP_CHANNEL: 'MEP Channel',
+    MEP_STORM_OUTFALL: 'MEP Storm Outfall',
+    SERVICE_AREA: 'Service Area',
+    WATERSHED: 'Watershed',
+    VEGETATION_MANAGEMENT_NATURAL_AREA: 'Vegetation Management - Natural Area',
+    VEGETATION_MANAGEMENT_WEED_CONTROL:'Vegetation Management - Weed Control',
+    DEBRIS_MANAGEMENT_AREA: 'Debris Management Area',
+    ROUTINE_MAINTENANCE: 'ROUTINE MAINTENANCE',
+    DEBRIS_MANAGEMENT_LINEAR: 'Debris Management Linear',
+    NCRS_SOILS: 'NCRS Soils',
+    DWR_DAM_SAFETY: 'DWR Dam Safety',
+    STREAM_MANAGEMENT_CORRIDORS: 'Stream Management Corridors',
+    BCZ_PREBLES_MEADOW_JUMPING_MOUSE: 'BCZ - Preble’s Meadow Jumping Mouse',
+    BLOCK_CLEARANCE_ZONE: 'BLOCK CLEARANCE ZONE',
+    BCZ_UTE_LADIES_TRESSES_ORCHID: 'BCZ - Ute Ladies Tresses Orchid',
+    RESEARCH_MONITORING: 'Research/Monitoring',
+    SEMSWA_SERVICE_AREA: 'SEMSWA Service Area',
+    COMPONENTS: 'Components',
+    CLIMB_TO_SAFETY_SIGNS: 'Climb to Safety Signs',
+    CLIMB_TO_SAFETY:'Climb to Safety',
+    PROJECT:'Project',
+    PROBLEMS: 'problems'
+  }
+;
 
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11
