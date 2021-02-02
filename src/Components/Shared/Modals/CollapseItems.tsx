@@ -13,11 +13,12 @@ import { CloseOutlined } from '@ant-design/icons';
 
 
 const { Panel } = Collapse;
+var map: any;
 
 export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal, componentCounter, getComponentCounter }:
        { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string,
         loaderTableCompoents: boolean, updateModal: Function, componentCounter: number, getComponentCounter: Function }) => {
-
+  const [image, setImage] = useState<string>('');
   let sections = ['4'];
   if (detailedPage.problems && detailedPage.problems.length > 0) {
     sections.push('1');
@@ -32,7 +33,6 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   const [ zoomValue, setZoomValue] = useState(0);
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
-  let map: any;
   // if (html) {
   //   map = new MapService('map2');
   //   map.create('map2');
@@ -462,11 +462,19 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
 
       <Panel header="Map" key="4" extra={genExtra('4')}>
         <div className="map map-modal">
+          {/*{image && <img src={image}></img>//pachon un comment to test*/} 
           <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div></div>
           </div>
           {/* <div className="test-style"> Zoom: {zoomValue}</div> */}
-
+           {/*   also uncomment :
+            <button onClick={()=> {
+                  console.log('my map ', map);
+                  if (map) {
+                    console.log(map.getCanvas().toDataURL())
+                    setImage(map.getCanvas().toDataURL());
+                  }
+                }}>get canvas</button>*/}
         </div>
       </Panel>
 
