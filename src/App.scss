@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.rotate-download {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rotate-download {
+    animation: rotate-download infinite 4s linear;
+  }
+}
+
+@keyframes rotate-download {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

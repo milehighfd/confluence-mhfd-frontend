@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { Collapse, Table, Row, Col, Menu } from 'antd';
 
@@ -15,9 +15,9 @@ import { CloseOutlined } from '@ant-design/icons';
 const { Panel } = Collapse;
 var map: any;
 
-export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal, componentCounter, getComponentCounter }:
+export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal, componentCounter, getComponentCounter }:
        { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string,
-        loaderTableCompoents: boolean, updateModal: Function, componentCounter: number, getComponentCounter: Function }) => {
+        loaderTableCompoents: boolean, updateModal: Function, componentCounter: number, getComponentCounter: Function }, ref) => {
   const [image, setImage] = useState<string>('');
   let sections = ['4'];
   if (detailedPage.problems && detailedPage.problems.length > 0) {
@@ -37,6 +37,15 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
   //   map = new MapService('map2');
   //   map.create('map2');
   // }
+  const getCanvasBase64 = () => {
+    return map.getCanvas().toDataURL();
+  }
+  useImperativeHandle(
+    ref,
+    () => ({
+      getCanvasBase64
+    })
+  )
   useEffect(() => {
     const waiting = () => {
       html = document.getElementById('map2');
@@ -487,4 +496,4 @@ export default ({ type, data, detailedPage, getComponentsByProblemId, id, typeid
 
     </Collapse>
   </div>
-}
+})

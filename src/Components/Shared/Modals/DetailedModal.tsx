@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Row, Col, Button, Progress, Carousel, Modal, message, Tooltip } from 'antd';
 
 import { saveAs } from 'file-saver';
@@ -16,8 +16,10 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function,
     detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, componentCounter: number,
     getComponentCounter: Function }) => {
-
+  const ciprRef = useRef(null);
+  const cipjRef = useRef(null);
   const [typeDetail, setTypeDetail] = useState('');
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
@@ -56,18 +58,43 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   const detailedPage = detailed as any;
 
   const downloadPdf = () => {
+    if (loading) {
+      return;
+    }
+    let url, map: any, fileName: string ;
     if (type === FILTER_PROBLEMS_TRIGGER) {
-      saveAs(
-        `${process.env.REACT_APP_API_URI}/gallery/problem-by-id/${data.problemid}/pdf`,
-        "problem.pdf"
-      );
+      url = `${process.env.REACT_APP_API_URI}/gallery/problem-by-id/${data.problemid}/pdf`;
+      fileName = 'problem.pdf';
+      let c: any = ciprRef.current;
+      if (c) {
+        map = c.getCanvasBase64()
+      }
     } else {
       let params = `cartoid=${data.value}&type=${data.type}`;
-      saveAs(
-        `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`,
-        "project.pdf"
-      );
+      url = `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`;
+      fileName = 'project.pdf';
+      let c: any = cipjRef.current;
+      if (c) {
+        map = c.getCanvasBase64();
+      }
     }
+    let body: any = { map };
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    setLoading(true);
+    fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body)
+    })
+    .then( res => res.blob() )
+    .then((r) => {
+      var blob = new Blob([r], {type: 'application/pdf'});
+      saveAs(blob, fileName)
+    })
+    .finally(() => {
+      setLoading(false);
+    })
   }
 
   return (
@@ -120,7 +147,8 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
             </Col>
             <Col xs={{ span: 4 }} lg={{ span: 3 }}style={{ textAlign: 'right' }}>
               <Tooltip title="Download PDF">
-                <Button className="disabled-btn btn-transparent mobile-display"><img src="/Icons/icon-01.svg" alt="" onClick={downloadPdf} /></Button>
+                <Button className={'disabled-btn btn-transparent mobile-display'}><img src="/Icons/icon-01.svg" className={(loading? 'rotate-download' : '')} alt="" onClick={downloadPdf} />
+                </Button>
               </Tooltip>
               <Tooltip title="Copy URL">
                 <Button className="btn-transparent"><img src="/Icons/icon-06.svg" alt="" onClick={() => copyUrl()} /></Button>
@@ -161,13 +189,13 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
               {detailedPage.problemid ? (
-                  <CollapseItems type={typeDetail} data={componentsOfProblems}
+                  <CollapseItems ref={ciprRef} type={typeDetail} data={componentsOfProblems}
                   getComponentsByProblemId={getComponentsByProblemId} id={data.problemid} typeid={'problemid'} loaderTableCompoents={loaderTableCompoents}
                    detailedPage={detailedPage} updateModal={updateModal}
                    componentCounter={componentCounter}
                    getComponentCounter={getComponentCounter} />
                 ) : (
-                  <CollapseItems type={typeDetail} data={componentsOfProblems}
+                  <CollapseItems ref={cipjRef} type={typeDetail} data={componentsOfProblems}
                   getComponentsByProblemId={getComponentsByProblemId} id={data.id} typeid={'projectid'} loaderTableCompoents={loaderTableCompoents}
                   detailedPage={detailedPage} updateModal={updateModal}
                   componentCounter={componentCounter}
