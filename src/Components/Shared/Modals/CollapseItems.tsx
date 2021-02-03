@@ -4,7 +4,7 @@ import { Collapse, Table, Row, Col, Menu } from 'antd';
 
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS } from '../../../constants/constants';
 import { tileStyles } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
@@ -101,13 +101,13 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
 
       }
       if(type === PROBLEMS_MODAL) {
-        map.addVectorSource('problems', layers.problems);
+        map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problems);
         for (const problem of tileStyles.problems) {
-          map.addLayer('problems-layer_' + i, 'problems', problem);
+          map.addLayer('problems-layer_' + i, MENU_OPTIONS.PROBLEMS, problem);
           map.setFilter('problems-layer_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
           i++;
         }
-        addMapListeners('problems', 'problems-layer_');
+        addMapListeners(MENU_OPTIONS.PROBLEMS, 'problems-layer_');
         let idProjectLine = 0;
         let idProjectPolygon = 0;
         detailedPage.components.forEach((element: any) => {
@@ -134,7 +134,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
         detailedPage.problems.forEach((element: any) => {
           if(element.problemid) {
             i = 0;
-            map.addVectorSource('problems', layers.problems);
+            map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problems);
             for (const problem of tileStyles.problems) {
               map.addLayer('problems-layer_' + i, 'problems', problem);
               map.setFilter('problems-layer_' + i, ['in', 'problemid', element.problemid]);
@@ -142,7 +142,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
             }
           }
         });
-        addMapListeners('problems', 'problems-layer_');
+        addMapListeners(MENU_OPTIONS.PROBLEMS, 'problems-layer_');
         map.addVectorSource('projects-line', layers.projects.projects_line_1);
         let idProjectLine = 0;
         let idProjectPolygon = 0;
@@ -193,10 +193,10 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
               if ( map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
                 return;
               }
-              if (key === 'problems') {
+              if (key === MENU_OPTIONS.PROBLEMS) {
                 getComponentCounter(e.features[0].properties.problemid || 0, 'problemid', setCounterPopup);
                 const item = {
-                    type: 'problems',
+                    type: MENU_OPTIONS.PROBLEMS,
                     title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
                     name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
                     organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
@@ -207,11 +207,11 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                 };
                 html = loadMainPopup(item);
               }
-              if (key.includes('projects') && !key.includes('mep')) {
+              if (key.includes(MENU_OPTIONS.PROJECTS) && !key.includes('mep')) {
                   getComponentCounter(e.features[0].properties.projectid || 0, 'projectid', setCounterPopup);
                   const item = {
-                      type: 'projects',
-                      title: 'Project',
+                      type: MENU_OPTIONS.PROJECTS,
+                      title: MENU_OPTIONS.PROJECT,
                       name: e.features[0].properties.projectname ? e.features[0].properties.projectname : e.features[0].properties.requestedname ? e.features[0].properties.requestedname : '-',
                       organization: e.features[0].properties.sponsor ? e.features[0].properties.sponsor : 'No sponsor',
                       value: e.features[0].properties.finalcost ? e.features[0].properties.finalcost : e.features[0].properties.estimatedcost ? e.features[0].properties.estimatedcost : '0',
@@ -223,7 +223,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
               }
               if (COMPONENT_LAYERS.tiles.includes( key)) {
                 const item = {
-                    layer: 'Components',
+                    layer: MENU_OPTIONS.COMPONENTS,
                     subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',
                     status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
                     estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
@@ -233,9 +233,9 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                 };
                 html = loadComponentPopup(item);
             }
-              if (key === 'mep_projects_temp_locations') {
+              if (key === MENU_OPTIONS.MEP_PROJECTS_TEMP_LOCATIONS) {
                   const item = {
-                      layer: 'MEP Temporary Location',
+                      layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
                       feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
                       projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
                       mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
@@ -245,9 +245,9 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                   }
                   html = loadComponentPopup(item);
               }
-              if (key === 'mep_projects_detention_basins') {
+              if (key === MENU_OPTIONS.MEP_PROJECTS_DETENTION_BASINS) {
                   const item = {
-                      layer: 'MEP Detention Basin',
+                      layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
                       feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
                       projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
                       mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
@@ -257,9 +257,9 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                   }
                   html = loadComponentPopup(item);
               }
-              if (key === 'mep_projects_channels') {
+              if (key === MENU_OPTIONS.MEP_PROJECTS_CHANNELS) {
                   const item = {
-                      layer: 'MEP Channel',
+                      layer: MENU_OPTIONS.MEP_CHANNEL,
                       feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
                       projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
                       mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
@@ -269,9 +269,9 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                   }
                   html = loadComponentPopup(item);
               }
-              if (key === 'mep_projects_storm_outfalls') {
+              if (key === MENU_OPTIONS.MEP_PROJECTS_STORM_OUTFALLS) {
                   const item = {
-                      layer: 'MEP Storm Outfall',
+                      layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
                       feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
                       projectno: e.features[0].properties.proj_no ? e.features[0].properties.proj_no : '-',
                       mepstatus: e.features[0].properties.mep_status ? e.features[0].properties.mep_status : '-',
@@ -281,18 +281,18 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                   }
                   html = loadComponentPopup(item);
               }
-              if (key === 'watershed_service_areas') {
+              if (key === MENU_OPTIONS.WATERSHED_SERVICE_AREAS) {
                   const item = {
-                      layer: 'Service Area',
+                      layer: MENU_OPTIONS.SERVICE_AREA,
                       feature: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-',
                       watershedmanager: e.features[0].properties.watershedmanager ? e.features[0].properties.watershedmanager : '-',
                       constructionmanagers: e.features[0].properties.constructionmanagers ? e.features[0].properties.constructionmanagers : '-',
                   }
                   html = loadComponentPopup(item);
               }
-              if (key === 'catchments' || key === 'basin') {
+              if (key === MENU_OPTIONS.CATCHMENTS || key === MENU_OPTIONS.BASIN) {
                   const item = {
-                      layer: 'Watershed',
+                      layer: MENU_OPTIONS.WATERSHED,
                       feature: e.features[0].properties.str_name ? e.features[0].properties.str_name : 'No name'
                   }
                   html = loadComponentPopup(item);

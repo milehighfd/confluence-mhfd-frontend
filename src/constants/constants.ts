@@ -1763,6 +1763,13 @@ export const MENU_OPTIONS =
     MEP_CHANNEL: 'MEP Channel',
     MEP_STORM_OUTFALL: 'MEP Storm Outfall',
     SERVICE_AREA: 'Service Area',
+    MEP_PROJECTS_TEMP_LOCATIONS: 'mep_projects_temp_locations',
+    MEP_PROJECTS_DETENTION_BASINS: 'mep_projects_detention_basins',
+    MEP_PROJECTS_CHANNELS:'mep_projects_channels',
+    MEP_PROJECTS_STORM_OUTFALLS:'mep_projects_storm_outfalls',
+    WATERSHED_SERVICE_AREAS:'watershed_service_areas',
+    CATCHMENTS:'catchments',
+    BASIN:'basin',
     WATERSHED: 'Watershed',
     VEGETATION_MANAGEMENT_NATURAL_AREA: 'Vegetation Management - Natural Area',
     VEGETATION_MANAGEMENT_WEED_CONTROL:'Vegetation Management - Weed Control',
@@ -1781,6 +1788,7 @@ export const MENU_OPTIONS =
     CLIMB_TO_SAFETY_SIGNS: 'Climb to Safety Signs',
     CLIMB_TO_SAFETY:'Climb to Safety',
     PROJECT:'Project',
+    PROJECTS: 'projects',
     PROBLEMS: 'problems'
   }
 ;
