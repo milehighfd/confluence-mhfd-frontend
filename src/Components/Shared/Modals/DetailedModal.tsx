@@ -57,7 +57,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   }
   const detailedPage = detailed as any;
 
-  const downloadPdf = () => {
+  const downloadPdf = async () => {
     if (loading) {
       return;
     }
@@ -67,7 +67,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       fileName = 'problem.pdf';
       let c: any = ciprRef.current;
       if (c) {
-        map = c.getCanvasBase64()
+        map = await c.getCanvasBase64()
       }
     } else {
       let params = `cartoid=${data.value}&type=${data.type}`;
@@ -75,7 +75,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       fileName = 'project.pdf';
       let c: any = cipjRef.current;
       if (c) {
-        map = c.getCanvasBase64();
+        map = await c.getCanvasBase64();
       }
     }
     let body: any = { map };

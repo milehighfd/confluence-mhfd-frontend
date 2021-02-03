@@ -38,7 +38,25 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
   //   map.create('map2');
   // }
   const getCanvasBase64 = () => {
-    return map.getCanvas().toDataURL();
+    return new Promise((resolve, reject) => {
+      const w8 = () => {
+        setTimeout(() => {
+          html = document.getElementById('map2');
+          if (!html) {
+            setTimeout(w8, 50);
+          } else {
+            if (!map) {
+              setTimeout(w8, 50);
+            } else {
+              map.isStyleLoaded(() => {
+                resolve(map.getCanvas().toDataURL());
+              });
+            }
+          }
+        }, 3000);
+      }
+      w8();
+    });
   }
   useImperativeHandle(
     ref,
