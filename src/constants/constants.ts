@@ -1763,11 +1763,6 @@ export const MENU_OPTIONS =
     MEP_CHANNEL: 'MEP Channel',
     MEP_STORM_OUTFALL: 'MEP Storm Outfall',
     SERVICE_AREA: 'Service Area',
-    MEP_PROJECTS_TEMP_LOCATIONS: 'mep_projects_temp_locations',
-    MEP_PROJECTS_DETENTION_BASINS: 'mep_projects_detention_basins',
-    MEP_PROJECTS_CHANNELS:'mep_projects_channels',
-    MEP_PROJECTS_STORM_OUTFALLS:'mep_projects_storm_outfalls',
-    WATERSHED_SERVICE_AREAS:'watershed_service_areas',
     CATCHMENTS:'catchments',
     BASIN:'basin',
     WATERSHED: 'Watershed',
@@ -1792,6 +1787,7 @@ export const MENU_OPTIONS =
     PROBLEMS: 'problems'
   }
 ;
+
 
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11

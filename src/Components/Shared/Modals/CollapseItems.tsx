@@ -4,7 +4,7 @@ import { Collapse, Table, Row, Col, Menu } from 'antd';
 
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, SELECT_ALL_FILTERS, MEP_PROJECTS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS } from '../../../constants/constants';
 import { tileStyles } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
@@ -233,7 +233,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                 };
                 html = loadComponentPopup(item);
             }
-              if (key === MENU_OPTIONS.MEP_PROJECTS_TEMP_LOCATIONS) {
+              if (key === MEP_PROJECTS_TEMP_LOCATIONS) {
                   const item = {
                       layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
                       feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
@@ -245,7 +245,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                   }
                   html = loadComponentPopup(item);
               }
-              if (key === MENU_OPTIONS.MEP_PROJECTS_DETENTION_BASINS) {
+              if (key === MEP_PROJECTS_DETENTION_BASINS) {
                   const item = {
                       layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
                       feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
@@ -257,7 +257,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                   }
                   html = loadComponentPopup(item);
               }
-              if (key === MENU_OPTIONS.MEP_PROJECTS_CHANNELS) {
+              if (key === MEP_PROJECTS_CHANNELS) {
                   const item = {
                       layer: MENU_OPTIONS.MEP_CHANNEL,
                       feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
@@ -269,7 +269,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                   }
                   html = loadComponentPopup(item);
               }
-              if (key === MENU_OPTIONS.MEP_PROJECTS_STORM_OUTFALLS) {
+              if (key === MEP_PROJECTS_STORM_OUTFALLS) {
                   const item = {
                       layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
                       feature: e.features[0].properties.proj_name ? e.features[0].properties.proj_name : '-',
@@ -281,7 +281,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                   }
                   html = loadComponentPopup(item);
               }
-              if (key === MENU_OPTIONS.WATERSHED_SERVICE_AREAS) {
+              if (key ===  SERVICE_AREA_FILTERS) {
                   const item = {
                       layer: MENU_OPTIONS.SERVICE_AREA,
                       feature: e.features[0].properties.servicearea ? e.features[0].properties.servicearea : '-',
