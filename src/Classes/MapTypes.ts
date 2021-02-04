@@ -355,6 +355,7 @@ export type MapStyleTypes = {
 } 
 
 export type FiltersProjectTypes = {
+    tabActive: string,
     tabPosition: string, 
     setTabPosition: Function, 
     filterNames : Array<FilterNamesTypes>, 

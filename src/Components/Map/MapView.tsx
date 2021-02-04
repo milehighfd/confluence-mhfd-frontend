@@ -1250,6 +1250,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         </Tabs>
         :
         <FiltersProjectView
+          tabActive={tabActive}
           tabPosition={tabPosition}
           setTabPosition={setTabPosition}
           componentsTotal={counterComponents}

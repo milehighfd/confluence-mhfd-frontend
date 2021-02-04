@@ -196,7 +196,7 @@ const FiltersHeader = ({ filterProblemOptions, filterProjectOptions, setFilterPr
     );
 }
 
-export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters,
+export default ({ tabActive, tabPosition, setTabPosition, filterNames, setFilterNames, setToggleFilters,
     /* handleOnSubmit, handleReset,  */
     projectsLength, problemsLength, getDropdownFilters,
     dropdowns, userFiltered, getUserFilters, getValuesByGroupColumn, paramFilters, filterProblemOptions,
@@ -291,10 +291,16 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
             }
         }} >
             {tabs.map((value: string, index: number) => {
-                let total = (index === 0) ? totals.problems : (index === 1 ? totals.projects : totals.components);
-                let totalLabel = `${total}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                let tabLabel;
+                if (`${index}` === tabActive) {
+                    let total = (index === 0) ? totals.problems : (index === 1 ? totals.projects : totals.components);
+                    let totalLabel = `${total}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    tabLabel = `${value} (${totalLabel})`;
+                } else {
+                    tabLabel = `${value}`;
+                }
                 return (
-                    <TabPane key={'' + index} style={{ height: window.innerHeight - 240, overflow: 'auto' }} tab={<span><Popover content={contents[index]} placement="rightBottom">{`${value} (${totalLabel})`} </Popover> </span>}>
+                    <TabPane key={'' + index} style={{ height: window.innerHeight - 240, overflow: 'auto' }} tab={<span><Popover content={contents[index]} placement="rightBottom">{tabLabel} </Popover> </span>}>
                         <FiltersHeader
                             totalElements={value === FILTER_PROJECTS_TRIGGER ? projectsLength : problemsLength}
                             totalComponents={componentsTotal}
