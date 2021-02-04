@@ -71,6 +71,9 @@ export const SERVER = (function () {
     const PARAM_FILTER_PROJECTS = 'params-filter-projects';
     const PARAM_FILTER_PROBLEMS = 'params-filter-problems';
     const PARAM_FILTER_COMPONENTS = 'params-filter-components';
+    const COUNTER_PROJECTS = 'projects-counter';
+    const COUNTER_PROBLEMS = 'problems-counter';
+    const COUNTER_COMPONENTS = 'components-counter';
     const GET_ZOOMAREA_FILTER = 'get-zoom-filter';
     const BBOX_COMPONENTS = 'bbox-components';
     const FAVORITES = 'favorites';
@@ -139,6 +142,9 @@ export const SERVER = (function () {
         PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROJECTS}`,
         PARAM_FILTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROBLEMS}`,
         PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS}`,
+        COUNTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${COUNTER_PROJECTS}`,
+        COUNTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${COUNTER_PROBLEMS}`,
+        COUNTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${COUNTER_COMPONENTS}`,
         GET_ZOOMAREA_FILTER: `${URL_BASE.BASE}/${ZOOMAREA}/${GET_ZOOMAREA_FILTER}`,
         BBOX_COMPONENTS: `${URL_BASE.BASE}/${MAP}/${BBOX_COMPONENTS}`,
         FAVORITES: `${URL_BASE.BASE}/${FAVORITES}`,

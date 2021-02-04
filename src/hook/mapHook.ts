@@ -10,7 +10,7 @@ import {
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
   getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync,
   setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents,
-  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup
+  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter, getComponentsCounter, getProjectCounter, getProblemCounter
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -38,7 +38,8 @@ interface selectMapState {
   galleryProjects: any,
   selectedOnMap: any,
   autocomplete: any,
-  currentPopup: number
+  currentPopup: number,
+  totals: any,
 }
 
 /* Commented because typescript doesn't support that many arguments
@@ -99,19 +100,20 @@ const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> 
       (state: any) => state.map.galleryProjects,
       (state: any) => state.map.selectedOnMap,
       (state: any) => state.map.autocomplete,
-      (state: any) => state.map.currentPopup
+      (state: any) => state.map.currentPopup,
+      (state: any) => state.map.totals
   ,
       //state => state.map.paramFilters,
       (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
         nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
         spinFilters: any, spinCardProblems: any, spinCardProjects: any,//, paramFilters
         favoriteProblemCards: any,favoriteProjectCards: any, favorites: any, bboxComponents: any, tutorialStatus: boolean,
-        galleryProblems: any, galleryProjects: any, selectedOnMap: any, autocomplete: any, currentPopup: number
+        galleryProblems: any, galleryProjects: any, selectedOnMap: any, autocomplete: any, currentPopup: number, totals: any
         ) => ({
           toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
           nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
           spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites, bboxComponents, tutorialStatus,
-          galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup
+          galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup, totals
         })
     );
 
@@ -127,12 +129,20 @@ export const useMapDispatch = () => {
     },
     getParamFilterProjects: (bounds: string, data?: any) => {
       dispatch(getParamFilterProjects(bounds, data));
+      dispatch(getProjectCounter(bounds, data));
+    },
+    getTabCounters: (bounds: string, problemsOpts: any, projectsOpts: any, componentOpts: any) => {
+      dispatch(getProblemCounter(bounds, problemsOpts));
+      dispatch(getProjectCounter(bounds, projectsOpts));
+      dispatch(getComponentsCounter(bounds, componentOpts));
     },
     getParamFilterProblems: (bounds: string, data?: any) => {
       dispatch(getParamFilterProblems(bounds, data));
+      dispatch(getProblemCounter(bounds, data));
     },
     getParamFilterComponents: (bounds: string, data?: any) => {
       dispatch(getParamFilterComponents(bounds, data));
+      dispatch(getComponentsCounter(bounds, data));
     },
     setTabCards: (tab: string) => {
       dispatch(setTabCards(tab));

@@ -157,6 +157,11 @@ const initState = {
         servicearea: '',
         keyword: {}
     },
+    totals: {
+        problems: 0,
+        projects: 0,
+        components: 0,
+    },
     filterProjects: {
         projectname: '',
         projecttype: 'Maintenance,Capital',
@@ -840,6 +845,15 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 currentPopup: action.currentPopup
+            }
+        }
+        case types.SET_COUNTER_TAB: {
+            return {
+                ...state,
+                totals: {
+                    ...state.totals,
+                    [action.key]: action.total
+                }
             }
         }
         default:

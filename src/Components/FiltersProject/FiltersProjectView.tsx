@@ -207,7 +207,7 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
         spinMapLoaded: state.map.spinMapLoaded
         }), shallowEqual);
 
-    const { boundsMap, spinCardProblems, spinCardProjects } = useMapState();
+    const { boundsMap, spinCardProblems, spinCardProjects, totals } = useMapState();
     const emptyStyle: React.CSSProperties = {};
     // console.log(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded );
     const genExtra = () => (
@@ -229,7 +229,7 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
     );
 
     const { setFilterTabNumber, getParamFilterComponents,
-        getParamFilterProblems, getParamFilterProjects } = useMapDispatch();
+        getParamFilterProblems, getParamFilterProjects, getTabCounters } = useMapDispatch();
     const getFilterBody = (trigger: string) => {
         switch (trigger) {
             case FILTER_PROBLEMS_TRIGGER:
@@ -255,6 +255,9 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
                 return null;
         }
     }
+    useEffect(() => {
+        getTabCounters(boundsMap, filterProblemOptions, filterProjectOptions, filterComponentOptions);
+    }, [])
 // !spinFilter &&
     return <>
 
@@ -288,8 +291,9 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
             }
         }} >
             {tabs.map((value: string, index: number) => {
+                let total = (index === 0) ? totals.problems : (index === 1 ? totals.projects : totals.components);
                 return (
-                    <TabPane key={'' + index} style={{ height: window.innerHeight - 240, overflow: 'auto' }} tab={<span><Popover content={contents[index]} placement="rightBottom">{value} </Popover> </span>}>
+                    <TabPane key={'' + index} style={{ height: window.innerHeight - 240, overflow: 'auto' }} tab={<span><Popover content={contents[index]} placement="rightBottom">{`${value} (${total})`} </Popover> </span>}>
                         <FiltersHeader
                             totalElements={value === FILTER_PROJECTS_TRIGGER ? projectsLength : problemsLength}
                             totalComponents={componentsTotal}
