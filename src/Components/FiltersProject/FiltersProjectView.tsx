@@ -292,8 +292,9 @@ export default ({ tabPosition, setTabPosition, filterNames, setFilterNames, setT
         }} >
             {tabs.map((value: string, index: number) => {
                 let total = (index === 0) ? totals.problems : (index === 1 ? totals.projects : totals.components);
+                let totalLabel = `${total}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 return (
-                    <TabPane key={'' + index} style={{ height: window.innerHeight - 240, overflow: 'auto' }} tab={<span><Popover content={contents[index]} placement="rightBottom">{`${value} (${total})`} </Popover> </span>}>
+                    <TabPane key={'' + index} style={{ height: window.innerHeight - 240, overflow: 'auto' }} tab={<span><Popover content={contents[index]} placement="rightBottom">{`${value} (${totalLabel})`} </Popover> </span>}>
                         <FiltersHeader
                             totalElements={value === FILTER_PROJECTS_TRIGGER ? projectsLength : problemsLength}
                             totalComponents={componentsTotal}
