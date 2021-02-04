@@ -147,7 +147,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
             </Col>
             <Col xs={{ span: 4 }} lg={{ span: 3 }}style={{ textAlign: 'right' }}>
               <Tooltip title="Download PDF">
-                <Button className={'disabled-btn btn-transparent mobile-display'}><img src="/Icons/icon-01.svg" className={(loading? 'rotate-download' : '')} alt="" onClick={downloadPdf} />
+                <Button className={'btn-transparent mobile-display'}><img src="/Icons/icon-01.svg" className={(loading? 'rotate-download' : '')} alt="" onClick={downloadPdf} />
                 </Button>
               </Tooltip>
               <Tooltip title="Copy URL">
