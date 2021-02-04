@@ -1181,11 +1181,9 @@ export const USER = {
 }
 export const RADIO_ITEMS = [
   {
-    value: 'admin', name: 'MHFD Admin'
+    value: 'admin', name: 'MHFD Senior Manager'
   }, {
-    value: 'staff', name: 'MHFD Staff'
-  }, {
-    value: 'government_admin', name: 'Local Government Admin'
+    value: 'staff', name: 'MHFD Service Area Manager'
   }, {
     value: 'government_staff', name: 'Local Government'
   }, {
