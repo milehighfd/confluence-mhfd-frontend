@@ -42,6 +42,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
     console.log(title, organization.length);
   }, [user]);
   useEffect(() => {
+    console.log('my user is ', user);
     getGroupOrganization();
   }, []);
   const validationSchema = VALIDATION_USER_PROFILE;
@@ -208,7 +209,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
             <Col className="gutter-row" span={12}>
               <p>ORGANIZATION</p>
               {values.designation !== OTHER ? <div id="sign-up-organization">
-                <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                <Dropdown className={values.designation === ADMIN ? 'btn-disabled' : ''} disabled={values.designation === ADMIN} overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button style={{ paddingLeft: '10px' }} className="btn-borde" >
                     {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
                     <img src="/Icons/icon-12.svg" alt="" />
