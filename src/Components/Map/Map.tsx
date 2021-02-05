@@ -34,7 +34,7 @@ import {
     MHFD_BOUNDARY_FILTERS,
     SELECT_ALL_FILTERS,
     MENU_OPTIONS,
-    MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA
+    MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles } from '../../constants/mapStyles';
@@ -323,7 +323,7 @@ const Map = ({ leftWidth,
         }
         bottomLongitude -= 0.125;
         topLongitude += 0.125;
-        console.log('coords ' , bottomLongitude, bottomLatitude, topLongitude, topLatitude);
+ //.       console.log('coords ' , bottomLongitude, bottomLatitude, topLongitude, topLatitude);
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude]);
     }
@@ -669,7 +669,6 @@ const Map = ({ leftWidth,
         // });
         map.on('load', updateZoom);
         map.on('move', updateZoom);
-
     }, []);
 
 
@@ -1961,14 +1960,13 @@ const Map = ({ leftWidth,
     );
     const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) =>(
         <>
-
-            <MainPopup id={id} item={item} test={test} sw={sw}></MainPopup>
+            <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)}></MainPopup>
         </>
     );
 
     const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
         <>
-            <ComponentPopup id={index} item={item} isComponent={isComponent}></ComponentPopup>
+            <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)}></ComponentPopup>
         </>
     );
 
