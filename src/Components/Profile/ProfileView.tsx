@@ -69,7 +69,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
         <SidebarView></SidebarView>
         <Layout className="map-00 profile-00">
           <Row className="profile-header">
-            <UserInformationView projects={projects} updateUserInformation={updateUserInformation}
+            <UserInformationView projects={favoriteProjectCards} updateUserInformation={updateUserInformation}
               key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage}
               spinImage={spinImage} spinValue={spinValue} groupOrganizacion={groupOrganization}
               getGroupOrganization={getGroupOrganization} setFilter={setFilter} />
