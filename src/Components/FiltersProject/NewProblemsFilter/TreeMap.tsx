@@ -126,10 +126,10 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     }
 
     let mouseOverFn = (d: any) => {
-      setPopupContent(d)
+   //   setPopupContent(d)
       setLeftOffset((d.x0 + d.x1) / 2);
       setTopOffset((d.y0 + d.y1) / 2);
-      setShowPopup(true);
+     // setShowPopup(true);
     }
 
     let mouseLeaveFn = () => {
