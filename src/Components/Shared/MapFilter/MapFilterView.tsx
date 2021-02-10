@@ -106,21 +106,36 @@ export const SEMSWA_SERVICE_AREA =
       } else {
         newGroups['MHFDData'] = false;
       }
-    if (switches[WATERSHED_FILTERS]) {
+    if ( switches[WATERSHED_FILTERS] && switches[NRCS_SOILS]) {
       newGroups['hydrologic'] = true;
       console.log('===> ', {...groups, 'hydrologic': true});
     } else {
       newGroups['hydrologic'] = false;
     }
-    if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD]) {
+    if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD] && switches[DWR_DAM_SAFETY]) {
       newGroups['hydraulic'] = true;
     } else {
       newGroups['hydraulic'] = false;
     }
-    if (switches[SERVICE_AREA_LAYERS.name] && switches[COUNTIES_LAYERS.name] && switches[MUNICIPALITIES.name] ) {
+    if (switches[SERVICE_AREA_LAYERS.name] && switches[COUNTIES_LAYERS.name] && switches[MUNICIPALITIES.name] && switches[SEMSWA_SERVICE_AREA] ) {
       newGroups['boundaries'] = true;
     } else {
       newGroups['boundaries'] = false;
+    }
+    if(switches[STREAM_MANAGEMENT_CORRIDORS]){
+      newGroups['geomorphology'] = true;
+    } else {
+      newGroups['geomorphology'] = false;
+    }
+    if(switches[BCZ_PREBLE_MEADOW_JUMPING] && switches[BCZ_UTE_LADIES_TRESSES_ORCHID] && switches[RESEARCH_MONITORING]){
+      newGroups['environmental'] = true;
+    } else {
+      newGroups['environmental'] = false;
+    }
+    if(switches[CLIMB_TO_SAFETY]){
+      newGroups['humanConnection'] = true;
+    } else {
+      newGroups['humanConnection'] = false;
     }
     setGroups({...groups, ...newGroups});
   }, [switches]);
