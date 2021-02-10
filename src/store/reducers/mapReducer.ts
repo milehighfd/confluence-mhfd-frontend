@@ -441,7 +441,8 @@ const initState = {
     tutorialStatus: false,
     addFavorite: {},
     deleteFavorite: 'x',
-    currentPopup: -1
+    currentPopup: -1,
+    favoritesLoader: 0
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -854,6 +855,12 @@ const mapReducer = (state = initState, action: any) => {
                     ...state.totals,
                     [action.key]: action.total
                 }
+            }
+        }
+        case types.FAVORITE_LOADER: {
+            return {
+                ...state,
+                favoritesLoader: action.favoritesLoader + state.favoritesLoader
             }
         }
         default:

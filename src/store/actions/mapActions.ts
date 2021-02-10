@@ -857,8 +857,8 @@ export const favoriteList = (email: string) => {
 
 
 export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: any) => {
-    
     return (dispatch: Function) => {
+        dispatch({type: types.FAVORITE_LOADER, favoritesLoader: 1});
         let sendData: any = {email: email, isproblem: isproblem};
         console.log(sendData, 'and extraOptions ', extraOptions);
         if (extraOptions) {
@@ -868,8 +868,10 @@ export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: 
         datasets.postData(SERVER.FAVORITE_CARDS, sendData).then(favoriteCards => {
             if (isproblem) {
                 dispatch({type: types.FAVORITE_CARDS_PROBLEMS, favoriteProblemCards: favoriteCards});
+                dispatch({type: types.FAVORITE_LOADER, favoritesLoader: -1});
             } else {
                 dispatch({type: types.FAVORITE_CARDS_PROJECTS, favoriteProjectCards: favoriteCards});
+                dispatch({type: types.FAVORITE_LOADER, favoritesLoader: -1});
             }
         });
     }
