@@ -3398,7 +3398,7 @@ export const tileStyles = {
             "step",
             ["zoom"],
             "hsla(0, 86%, 56%, 0)",
-            9,
+            7,
             "hsla(0, 86%, 56%, 0.58)",
             13,
             "hsl(0, 86%, 56%)",
