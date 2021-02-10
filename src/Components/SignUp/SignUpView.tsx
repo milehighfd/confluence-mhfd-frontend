@@ -8,7 +8,6 @@ import * as datasets from "../../Config/datasets";
 import { useFormik } from "formik";
 import { VALIDATION_SIGN_UP } from "../../constants/validation";
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
-import "../Login/Login.scss"
 
 
 export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Function, getUserInformation: Function }) => {

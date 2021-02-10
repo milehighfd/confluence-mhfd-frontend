@@ -1,4 +1,4 @@
-@import "styles.scss";
+@import "../Theme/styles.scss";
 @use 'styles';
 
 // profile
@@ -35,7 +35,7 @@
 }
 .profile-info {
   display: flex !important;
-  padding: 50px 0px 50px 20px;
+  padding: 50px 0px 50px 20px !important;
 }
 .profile-project {
   display: flex !important;
@@ -458,7 +458,7 @@
   }
 }
 .profile-00{
-  height: calc(100vh - 53px);
+  height: calc(100vh - 53px) !important;
   overflow-y: auto;
 }
 // END PROFILE

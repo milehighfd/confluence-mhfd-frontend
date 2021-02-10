@@ -1,0 +1,25 @@
+// * Style for MHFD based in Ant-design
+// * Author: New Vision Data
+@charset 'UTF-8';
+
+// COMPONENTS
+@import
+  '../Scss/Components/login',
+  '../Scss/Components/map',
+  '../Scss/Components/navbar',
+  '../Scss/Components/profile',
+  '../Scss/Components/sidebar',
+  '../Scss/Components/user';
+
+// LAYOUT
+@import
+'../Scss/Layout/responsive-mobile',
+'../Scss/Layout/responsive';
+
+// THEME
+@import
+  '../Scss/Theme/button',
+  '../Scss/Theme/loader',
+  '../Scss/Theme/scroll',
+  '../Scss/Theme/styles',
+  '../Scss/Theme/theme';

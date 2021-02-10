@@ -24,7 +24,7 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
   });
 }
 
-export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity, getAllUserActivity, getUserInformation, user } : 
+export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity, getAllUserActivity, getUserInformation, user } :
   { saveUserActivated: Function, saveUserPending: Function, userActivity: UserActivities, getUserActivity: Function, getAllUserActivity: Function, getUserInformation: Function, user: User }) => {
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
@@ -46,7 +46,7 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
   }, [])
 
   const getAllUser = () => {
-    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(optionUserActivated), setTotalUsersActivated); 
+    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(optionUserActivated), setTotalUsersActivated);
     getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + 'status=pending&' + urlOptions(optionUserPending), setTotalUsersPending);
     getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(optionUserDeleted), setTotalUsersDeleted);
   }
@@ -120,7 +120,7 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                 <Col span={24}>
                   <Tabs defaultActiveKey="1">
                     <TabPane tab="Approved Users" key="1">
-                      <UserFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated} 
+                      <UserFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated}
                         reset={resetActivated} title={'activated'}/>
                       {userActivatedState.map((user: User, index: number) => {
                         aprPos++;
@@ -144,13 +144,13 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                     </TabPane>
 
                     <TabPane tab="Pending User Requests" key="2">
-                      <UserFilters option={optionUserPending} setOption={setOptionUserPending} search={searchUserPending} 
+                      <UserFilters option={optionUserPending} setOption={setOptionUserPending} search={searchUserPending}
                         reset={resetPending} title={'pending'}/>
                       {userPendingState.map((user: User, index: number) => {
                         pndPos++;
                         return (
                           <div key={user._id} style={{ marginBottom: 10 }}>
-                            <Accordeon user={user} pos={((optionUserPending.page - 1) * 10) + pndPos} 
+                            <Accordeon user={user} pos={((optionUserPending.page - 1) * 10) + pndPos}
                               saveUser={getAllUser} deleteUser={deleteUserActivated} type="/approved"
                               deleteUserDatabase={deleteUserDatabase} />
                           </div>
@@ -167,13 +167,13 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                       </div>
                     </TabPane>
                     <TabPane tab="Deleted Users" key="4">
-                      <UserFilters option={optionUserDeleted} setOption={setOptionUserDeteled} search={searchUserDelete} 
+                      <UserFilters option={optionUserDeleted} setOption={setOptionUserDeteled} search={searchUserDelete}
                         reset={resetDeleted} title={'deleted'}/>
                       {userDeleted.map((user: User, index: number) => {
                         delPos++;
                         return (
                           <div key={user._id} style={{ marginBottom: 10 }}>
-                            <Accordeon user={user} pos={((optionUserDeleted.page - 1) * 10) + delPos} 
+                            <Accordeon user={user} pos={((optionUserDeleted.page - 1) * 10) + delPos}
                               saveUser={getAllUser} deleteUser={deleteUserActivated} type="/approved"
                               deleteUserDatabase={deleteUserDatabase} />
                           </div>
@@ -191,12 +191,12 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
                     </TabPane>
 
                     <TabPane tab="User Activity" key="3">
-                          <Button className="btn-down" onClick={() => {
+                          <Button className="btn-transparent" onClick={() => {
                             getAllUserActivity();
                           }}>
                             <img src="/Icons/icon-15.svg" alt=""/>
                           </Button>
-                          <Table columns={COLUMNS_USER_ACTIVITY} rowKey={record => record.registerDate} dataSource={userActivity.data} 
+                          <Table columns={COLUMNS_USER_ACTIVITY} rowKey={record => record.registerDate} dataSource={userActivity.data}
                             pagination={pagination} onChange={(pagination, filters, sort) => handleTableChange(pagination, filters, sort)}/>
                     </TabPane>
                   </Tabs>

@@ -3,7 +3,7 @@ import { Layout, Menu, Modal, Button } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "../../../constants/constants";
-import '../../../Scss/sidebar.scss';
+import '../../../Scss/Components/sidebar.scss';
 const { Sider } = Layout;
 
 const stateValue = {

@@ -1,4 +1,4 @@
-@import "styles.scss";
+@import "../Theme/styles.scss";
 @use 'styles';
 
 // SIDEBAR
@@ -85,10 +85,10 @@
     display: none;
   }
   .menu-mobile{
-    display: none;
+    display: none !important;
   }
   .menu-desktop{
-    display: inline;
+    display: inline !important;
   }
   .ant-layout-sider img {
     margin-right: 0px !important;

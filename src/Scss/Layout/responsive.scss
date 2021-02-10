@@ -1,4 +1,4 @@
-@import "styles.scss";
+@import "../Theme/styles.scss";
 @use 'styles';
 
 // RESPONSIVE
@@ -617,6 +617,12 @@
       font-size: 28px;
     }
   }
+  .apply-filter{
+    padding: 11px 20px;
+    height: 60px;
+    line-height: 35px;
+    font-size: 21px;
+  }
   .apply-filter-no-effect {
     padding: 11px 20px !important;
     height: 60px !important;
@@ -733,47 +739,54 @@
   .detailed-h{
     padding: 20px 30px !important;
     h1 {
-      font-size: 42px;
+      font-size: 42px !important;
+      line-height: 42px !important;
     }
     p {
-      font-size: 28px;
+      font-size: 28px !important;
       margin-bottom: 0px !important;
     }
-    .btn-opacity {
-      height: 55px;
-      font-size: 28px;
-      width: 250px;
-      padding: 6px 0px;
+    .btn-opacity, .btn-opacity:hover {
+      height: 55px !important;
+      font-size: 28px !important;
+      width: 250px !important;
+      padding: 6px 0px !important;
     }
     .btn-transparent img{
       height: 30px;
     }
     .btn-transparent{
       padding: 0px 12px !important;
-      margin: 19px 5px !important;
+      margin: 28px 5px !important;
     }
   }
   .detailed-modal {
     width: 2100px !important;
+    min-width: 2100px;
   }
   .detailed-mm{
-    font-size: 28px;
-    min-height: 53px;
+    font-size: 28px !important;
+    min-height: 75px !important;
+    padding: 17px 0px !important;
   }
   .detailed-b {
     .ant-carousel {
-      height: 700px;
+      height: 700px !important;
     }
     .ant-carousel .slick-slide {
-      height: 700px;
+      height: 700px !important;
     }
   }
   .detailed-c {
-    height: 700px;
+    height: 700px !important;
   }
   .detailed-info {
-    padding: 40px 50px 0px 50px;
-    font-size: 24px;
+    padding: 40px 50px 0px 50px !important;
+    font-size: 24px !important;
+
+    p{
+      font-size: 24px !important;
+    }
   }
   .tabs-detailed .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     padding: 42px 0px !important;
@@ -786,8 +799,8 @@
     font-size: 28px !important;
   }
   .solution-b {
-    height: 60px;
-    font-size: 24px;
+    height: 60px !important;
+    font-size: 24px !important;
   }
   .detailed{
     .map{
@@ -795,7 +808,7 @@
     }
   }
   .status-d label {
-    font-size: 21px;
+    font-size: 21px !important;
   }
 
   // FILTERS MENU
@@ -828,7 +841,7 @@
   // FILTERS MAP
   .map-filter-s {
     width: 630px;
-    left: 30px;
+    // left: 30px;
   }
   .filter-coll-header {
     width: 590px;
@@ -881,44 +894,45 @@
   // CHAT
   .chat-r{
     h5 {
-      font-size: 28px;
+      font-size: 28px !important;
     }
     img {
-      margin-top: 5px;
-      height: 60px;
+      margin-top: 5px !important;
+      height: 60px !important;
     }
     h6 {
-     font-size: 21px;
+     font-size: 21px !important;
    }
    p, span {
-     font-size: 18px;
+     font-size: 18px !important;
     }
     .chat-00 .chat-footer .ant-input {
-      font-size: 18px;
+      font-size: 18px !important;
     }
   }
   .chat-00{
-    height: 430px;
+    height: 430px !important;
 
     .chat-head img {
-      height: 20px;
+      height: 20px !important;
+      margin-top: -4px !important;
     }
     .chat-footer {
       height: 60px;
       padding: 14px 15px;
     }
     .chat-footer img {
-      margin-top: 0px;
-      height: 35px;
+      margin-top: 0px !important;
+      height: 35px !important;
     }
     .chat-body h6 {
-      font-size: 24px;
+      font-size: 24px !important;
     }
     .chat-body p {
-      font-size: 18px;
+      font-size: 18px !important;
     }
     .chat-body {
-      padding: 75px 50px;
+      padding: 75px 50px !important;
     }
   }
 

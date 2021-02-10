@@ -1,4 +1,4 @@
-@import "styles.scss";
+@import "../Theme/styles.scss";
 @use 'styles';
 // RESPONSIVE MOBILE
 @media (max-width: 575.98px) {
@@ -374,7 +374,7 @@
     }
   }
   .detailed{
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px !important;
     overflow-x: hidden;
 
     .ant-carousel .slick-dots {
@@ -392,7 +392,7 @@
   }
   .detailed-h{
     h1 {
-      font-size: 18px;
+      font-size: 18px !important;
       text-align: center;
       padding: 0px 10px;
     }
@@ -402,24 +402,24 @@
   }
   .detailed-b{
     .ant-carousel {
-     height: 200px;
+     height: 200px !important;
      margin: 10px;
    }
    .ant-carousel .slick-slide {
-     height: 200px;
+     height: 200px !important;
    }
   }
   .detailed-c {
-     height: 200px;
+     height: 200px !important;
   }
   .detailed-info{
-    padding: 20px 20px 0px 20px;
+    padding: 20px 20px 0px 20px !important;
   }
   .tabs-detailed {
-    padding: 0px 20px 20px 20px;
+    padding: 0px 20px 20px 20px !important;
   }
   .line-01 {
-    width: 75px;
+    width: 75px !important;
   }
   .padding-00{
     padding: 0px !important;
@@ -449,7 +449,7 @@
     }
   }
   .status-d {
-    padding: 6px 0px 6px 0px;
+    padding: 6px 0px 6px 0px !important;
   }
   // PROFILE
   .profile-header {

@@ -111,7 +111,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
             <label>|</label>
           </div>
         })}
-        <Popover content={content} placement="left"><div className="mobile-display"><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></div></Popover>
+        <Popover content={content} placement="left"><div className="mobile-display" style={{height:'20px'}}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></div></Popover>
       </div>
       <ModalEditUserView updateUserInformation={updateUserInformation} user={user} isVisible={false}
         hideProfile={hideProfile} groupOrganization={groupOrganizacion} getGroupOrganization={getGroupOrganization} />

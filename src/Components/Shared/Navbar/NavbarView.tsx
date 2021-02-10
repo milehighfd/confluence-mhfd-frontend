@@ -6,7 +6,7 @@ import store from "../../../store";
 import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
 import { User } from "../../../Classes/TypeList";
 import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
-import '../../../Scss/navbar.scss';
+import '../../../Scss/Components/navbar.scss';
 import {DoubleRightOutlined} from '@ant-design/icons';
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";

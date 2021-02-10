@@ -7,15 +7,6 @@ import ReactGA  from 'react-ga';
 import {ConnectedRouter} from 'connected-react-router';
 
 import './index.scss';
-import './Scss/button.scss';
-import './Scss/scroll.scss';
-import './Scss/loader.scss';
-import './Scss/login.scss';
-import './Scss/user.scss';
-import './Scss/map.scss';
-import './Scss/responsive.scss';
-import './Scss/responsive-mobile.scss';
-import './Scss/profile.scss';
 import * as serviceWorker from './serviceWorker';
 import {history} from "./store/configureStore";
 import store from './store';
