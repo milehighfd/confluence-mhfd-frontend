@@ -76,7 +76,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
           </Row>
           <Row >
             <Col className="profile-tabs" xs={{ span: 24 }} lg={{ span: 17 }}>
-              <Spin spinning={favoritesLoader > 0}>
+              <Spin className="loading-01" spinning={favoritesLoader > 0}>
               <Tabs defaultActiveKey="2" className="tabs-map">
 
                 <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
