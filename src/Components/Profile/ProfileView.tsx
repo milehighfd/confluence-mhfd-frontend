@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Row, Col, Tabs, Popover } from 'antd';
+import { Layout, Row, Col, Tabs, Popover, Spin } from 'antd';
 
 import Navbar from "../Shared/Navbar/NavbarContainer";
 import SidebarView from "../Shared/Sidebar/SidebarView";
@@ -38,7 +38,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   // }
   const [ filter, setFilter] = useState('');
   const { favoriteCards } = useMapDispatch();
-  const { favoriteProblemCards, favoriteProjectCards} = useMapState();
+  const { favoriteProblemCards, favoriteProjectCards, favoritesLoader} = useMapState();
   useEffect(() => {
     console.log('my user ', user);
     favoriteCards(user.email, true, { keyword: "", column: 'problemname', order: "asc"});
@@ -76,6 +76,8 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
           </Row>
           <Row >
             <Col className="profile-tabs" xs={{ span: 24 }} lg={{ span: 17 }}>
+              <Spin spinning={favoritesLoader > 0}>
+                <div>asdfasdf</div>
               <Tabs defaultActiveKey="2" className="tabs-map">
 
                 <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
@@ -160,7 +162,9 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
                   Lorem
                 </TabPane> */}
               </Tabs>
+              </Spin>
             </Col>
+            
             <Collaborators />
           </Row>
         </Layout>

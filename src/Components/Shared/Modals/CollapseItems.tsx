@@ -182,7 +182,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
       // const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
-      map.fitBounds([detailedPage.coordinates[0][0],detailedPage.coordinates[0][2]]);
+      map.fitBounds([detailedPage.coordinates[0][0], detailedPage.coordinates[0][2]]);
       map.getLoadZoom(updateZoom);
       map.getMoveZoom(updateZoom);
     }
