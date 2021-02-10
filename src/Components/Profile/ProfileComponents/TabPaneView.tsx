@@ -77,8 +77,8 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
     deleteFavorite(user.email, cartodb_id, type);
     search(user.email, type === 'problems', options);
   }
-  return <Spin spinning={spinValue} className="loading-01">
-    <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px' }} className="card-map profile-mobile" gutter={[16, 16]}>
+  // <Spin spinning={spinValue} className="loading-01">
+  return <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px' }} className="card-map profile-mobile" gutter={[16, 16]}>
     <div className="user-filter profile-filter mobile-display">
       <div>
         <Search
@@ -142,5 +142,5 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
       }) : ''}
     </InfiniteScroll>
   </Row>
-  </Spin>
+//  </Spin>
 }

@@ -167,7 +167,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <Layout className="map-00">
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
-                  <Spin className="loading-01" spinning={(spinFilter || spinCardProblems || spinCardProjects || spinValue)}>
                     <Col xs={{ span: 24 }} className="height-mobile" style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} lg={leftWidth}>{/*span={15}*/}
                         <Map
                             leftWidth={leftWidth}
@@ -289,7 +288,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             spinFilter={spinFilter}
                       />
                     </Col>
-                  </Spin>
                 </Row>}
               </Layout>
             </Layout>
