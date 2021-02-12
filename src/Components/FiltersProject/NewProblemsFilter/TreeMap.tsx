@@ -73,6 +73,15 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   const fontSizeText = '12px';
   const fontSizePercentage = '10px';
 
+  let clickFn = (d: any) => {
+    let index = selectedData.indexOf(d.data.name);
+    if (index !== -1) {
+      setSelectedData(selectedData.filter((_, ind) => ind !== index))
+    } else {
+      setSelectedData([...selectedData, d.data.name])
+    }
+  }
+
   useEffect(() => {
 
     const svg = d3.select(svgRef.current)
@@ -117,19 +126,10 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         }
       })
 
-    let clickFn = (d: any) => {
-      let index = selectedData.indexOf(d.data.name);
-      if (index !== -1) {
-        setSelectedData(selectedData.filter((_, ind) => ind !== index))
-      } else {
-        setSelectedData([...selectedData, d.data.name])
-      }
-    }
-
-    let mouseOverFn = (d: any) => {
+    let mouseOverFn = function(d: any) {
       setPopupContent(d)
       setLeftOffset((d.x0 + d.x1) / 2);
-      setTopOffset(d.y0);
+      setTopOffset((d.y0+d.y1) / 2);
       setShowPopup(true);
     }
 
@@ -328,6 +328,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   return (
     <>
       <div onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
+        onClick={() => clickFn(popupContent)}
         ref={popupRef}
         style={popupStyle}
         className="tremap-popup">
