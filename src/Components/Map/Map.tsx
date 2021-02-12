@@ -677,18 +677,17 @@ const Map = ({ leftWidth,
         const bounds = map.getBounds();
         const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
         setBoundMap(boundingBox);
-        if (applyFilter) {
-            if (toggleModalFilter) {
-                if (filterTabNumber === PROJECTS_TRIGGER) {
-                    getParamFilterProjects(boundingBox, filterProjectOptions);
-                } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                    getParamFilterProblems(boundingBox, filterProblemOptions);
-                } else {
-                    getParamFilterComponents(boundingBox, filterComponentOptions);
-                }
+        let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
+        if (toggleModalFilter) {
+            if (filterTabNumber === PROJECTS_TRIGGER) {
+                getParamFilterProjects(applyFilter ? boundingBox : defaultBounds, filterProjectOptions);
+            } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+                getParamFilterProblems(applyFilter ? boundingBox : defaultBounds, filterProblemOptions);
             } else {
-                setFilterCoordinates(boundingBox, tabCards);
+                getParamFilterComponents(applyFilter ? boundingBox : defaultBounds, filterComponentOptions);
             }
+        } else {
+            setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
         }
 
     }, [applyFilter, zoomEndCounter, dragEndCounter]);
