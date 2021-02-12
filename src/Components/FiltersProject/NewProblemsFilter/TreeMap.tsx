@@ -330,7 +330,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       <div onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
         ref={popupRef}
         style={popupStyle}
-        className="popup-chart">
+        className="tremap-popup">
           { popupContent &&
             <>
               <b>{nameFormatter(popupContent.data.name)}</b>: {popupContent.data.value}

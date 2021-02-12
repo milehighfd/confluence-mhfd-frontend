@@ -1423,6 +1423,12 @@
   overflow-y: auto;
   margin-right: 20px;
 }
+.tremap-popup {
+  text-align: center;
+  font-size: 12px;
+  border-color: #e9e8ef;
+  border-style: solid;
+}
 .popup-chart {
   text-align: center;
   font-size: 12px;
@@ -1442,6 +1448,9 @@
   }
   .popup-chart {
     font-size: 30px !important;
+  }
+  .tremap-popup {
+    font-size: 20px !important;
   }
   .chart-filter-title {
     font-size: 18px !important;
@@ -1464,6 +1473,9 @@
   }
   .popup-chart {
     font-size: 30px !important;
+  }
+  .tremap-popup {
+    font-size: 40px !important;
   }
 }
 .filter-title {
