@@ -14,6 +14,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   const [popupContent, setPopupContent] = useState<any>(null);
 
   const [selectedData, setSelectedData] = useState<string[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     let sData = selected === '' ? [] : selected.split(',')
@@ -126,10 +127,10 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
     }
 
     let mouseOverFn = (d: any) => {
-   //   setPopupContent(d)
+      setPopupContent(d)
       setLeftOffset((d.x0 + d.x1) / 2);
-      setTopOffset((d.y0 + d.y1) / 2);
-     // setShowPopup(true);
+      setTopOffset(d.y0);
+      setShowPopup(true);
     }
 
     let mouseLeaveFn = () => {
@@ -313,7 +314,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   }
 
   const popupStyle: React.CSSProperties = {
-    display: showPopup ? 'block' : 'none',
+    display: (showPopup || isHovered) ? 'block' : 'none',
     position: 'absolute',
     left: getLo(),
     top: getTo(),
@@ -326,7 +327,10 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
   return (
     <>
-      <div ref={popupRef} style={popupStyle} className="popup-chart">
+      <div onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
+        ref={popupRef}
+        style={popupStyle}
+        className="popup-chart">
           { popupContent &&
             <>
               <b>{nameFormatter(popupContent.data.name)}</b>: {popupContent.data.value}
