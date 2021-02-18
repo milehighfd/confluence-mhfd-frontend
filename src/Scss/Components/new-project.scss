@@ -1,0 +1,223 @@
+@import "../Theme/styles.scss";
+@use 'styles';
+
+.new-project{
+  .ant-modal-header{
+    background: $light-purple;
+    text-align: center;
+    padding: 16px 24px;
+    border-bottom: none;
+  }
+  .ant-modal-close{
+    color: $purple !important;
+  }
+  .ant-modal-title{
+    font-size: 20px;
+    color: $purple00;
+  }
+  .ant-modal-body{
+    padding: 15px 100px 50px 100px;
+  }
+  h4{
+    font-size: 18px;
+    color: $purple00;
+  }
+  .ant-input{
+    height: 44px;
+    color: $opacity;
+    background-color: #ffffff;
+    border: solid 1px $opacity04;
+  }
+  .ant-input:hover {
+    border-color: #251863;
+  }
+  .button-project{
+    height: 75px;
+    width: 100%;
+    display: flex;
+    padding: 0px;
+    border-radius: 4px;
+    border: solid 1px $opacity04;
+    box-shadow: none;
+
+    .project-img{
+      background: $light-purple;
+      width: 90px;
+      min-width: 90px;
+      height: 100%;
+      border-radius: 4px 0px 0px 4px;
+      padding: 21.5px 0px;
+    }
+    .project-info{
+      display: block;
+      text-align: left;
+      padding: 8px;
+      white-space: initial;
+
+      h5{
+        font-size: 16px;
+        color: $purple00;
+        margin-bottom: 2px;
+      }
+      p{
+        font-size: 11px;
+        color: $opacity;
+        margin-bottom: 0px;
+      }
+    }
+  }
+  .button-project:hover, .button-project:focus,
+  .button-project:active, .button-project.Active{
+    border: 1px solid $green;
+    height: 75px;
+  }
+  .btn-opacity{
+    width: 100%;
+    height: 36px;
+  }
+  .ant-modal-footer{
+    button{
+      width: 150px;
+      height: 44px;
+    }
+  }
+}
+.popver-info{
+  width: 200px;
+  font-size: 10px;
+  color: $opacity;
+}
+
+// 2560x1440 DISPLAY
+@media (min-width: 1900px) and (max-width: 2499px){
+  .new-project{
+    width: 1066px !important;
+
+    .ant-modal-header{
+      padding: 25px 24px !important;
+    }
+    .ant-modal-title{
+      font-size: 26px !important;
+    }
+    .ant-modal-body{
+      padding: 15px 135px 50px 135px !important;
+    }
+    h4{
+      font-size: 24px !important;
+    }
+    .ant-input{
+      height: 58px !important;
+      font-size: 18px !important;
+      padding: 0px 20px !important;
+    }
+    .button-project{
+      height: 100px !important;
+
+      .project-img{
+        width: 100px !important;
+        min-width: 100px !important;
+        padding: 28.5px 0px !important;
+
+        img{
+          height: 40px !important;
+        }
+      }
+      .project-info{
+        padding: 13px !important;
+
+        h5{
+          font-size: 21px !important;
+          margin-bottom: 2px;
+        }
+        p{
+          font-size: 14px !important;
+        }
+      }
+    }
+    .btn-opacity{
+      height: 48px !important;
+      font-size: 18px !important;
+    }
+    .ant-modal-footer{
+      padding: 18px 25px;
+
+      button{
+        width: 220px !important;
+        height: 58px !important;
+        font-size: 18px !important;
+        margin-left: 20px;
+      }
+    }
+  }
+  .popver-info{
+    width: 250px !important;
+    font-size: 14px !important;
+  }
+}
+
+// 2560x1440 DISPLAY
+@media (min-width: 2500px) and (max-width: 2999px){
+  .new-project{
+    width: 1422px !important;
+
+    .ant-modal-header{
+      padding: 37px 24px !important;
+    }
+    .ant-modal-title{
+      font-size: 35px !important;
+    }
+    .ant-modal-body{
+      padding: 15px 184px 80px 184px !important;
+    }
+    h4{
+      font-size: 32px !important;
+    }
+    .ant-input{
+      height: 78px !important;
+      font-size: 24px !important;
+      padding: 0px 30px !important;
+    }
+    .button-project{
+      height: 130px !important;
+
+      .project-img{
+        width: 158px !important;
+        min-width: 158px !important;
+        padding: 37.5px 0px !important;
+
+        img{
+          height: 53px !important;
+        }
+      }
+      .project-info{
+        padding: 15px !important;
+
+        h5{
+          font-size: 28px !important;
+          margin-bottom: 5px;
+        }
+        p{
+          font-size: 18px !important;
+        }
+      }
+    }
+    .btn-opacity{
+      height: 64px !important;
+      font-size: 24px !important;
+    }
+    .ant-modal-footer{
+      padding: 25px;
+
+      button{
+        width: 300px !important;
+        height: 78px !important;
+        font-size: 24px !important;
+        margin-left: 25px;
+      }
+    }
+  }
+  .popver-info{
+    width: 335px !important;
+    font-size: 18px !important;
+  }
+}

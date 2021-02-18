@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom'
 
 import {initGA} from './index';
 
-
 import * as datasets from "./Config/datasets"
 import { SERVER } from "./Config/Server.config";
 import store from './store';
@@ -21,6 +20,7 @@ import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
+import NewProjectContainer from './Components/NewProject/NewProjectContainer';
 
 /* In use of Map/Form HOC */
 import MapView from './Components/Map/MapView';
@@ -34,9 +34,9 @@ import { resetMap } from './store/actions/mapActions';
 import SampleMap from './Components/SampleMap/SampleMap';
 import MobilePopup from './Components/MobilePopup/MobilePopup';
 
-function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter, 
+function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter,
           setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions,
-          filterProjectOptions, filterComponentOptions, replaceFilterCoordinates, getGroupOrganization } 
+          filterProjectOptions, filterComponentOptions, replaceFilterCoordinates, getGroupOrganization }
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
              getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
              filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function, getGroupOrganization: Function }) {
@@ -146,17 +146,18 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
       <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
+      <Route path={'/new-project'} component={NewProjectContainer} />
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />
       <Route exact path="/" render={() => (
           <Redirect to="/login"/>
       )}/>
-      
+
       {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileContainer} />}
       {datasets.getToken() && appUser.email && <Route path={`/map/:projectId?`} component={MapView} />}
-      {(appUser.designation === 'admin' || 
+      {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserContainer} />}
-      {(appUser.designation === 'admin' || 
+      {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />}
       {(appUser.designation === 'admin') && (appUser.status === 'approved') && <Route path={`/detailed-view`} component={DetailedContainer} />}
       {(loading && <Route path={`/`} component={LoadingView} />)}
