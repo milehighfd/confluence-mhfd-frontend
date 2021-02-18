@@ -21,6 +21,7 @@ import Unauthorized from './Components/Unauthorized/Unauthorized';
 import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
 import NewProjectContainer from './Components/NewProject/NewProjectContainer';
+import CapitalContainer from './Components/Project/Capital/CapitalContainer';
 
 /* In use of Map/Form HOC */
 import MapView from './Components/Map/MapView';
@@ -147,6 +148,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={'/new-project'} component={NewProjectContainer} />
+      <Route path={'/capital'} component={CapitalContainer} />
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />
       <Route exact path="/" render={() => (
