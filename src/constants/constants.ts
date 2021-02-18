@@ -1183,7 +1183,7 @@ export const RADIO_ITEMS = [
   {
     value: 'admin', name: 'MHFD Senior Manager'
   }, {
-    value: 'staff', name: 'MHFD Service Area Manager'
+    value: 'staff', name: 'MHFD Staff'
   }, {
     value: 'government_staff', name: 'Local Government'
   }, {
