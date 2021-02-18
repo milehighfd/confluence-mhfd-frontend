@@ -16,8 +16,6 @@ import ResetPasswordContainer from './Components/ResetPassword/ResetPasswordCont
 import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswordContainer';
 import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
-import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
-import WorkPlanContainer from './Components/WorkPlan/WorkPlanContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
@@ -25,13 +23,7 @@ import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
 
 /* In use of Map/Form HOC */
-import ProjectCapitalForm from './Components/ProjectForms/ProjectCapitalForm';
-import ProjectSpecialForm from './Components/ProjectForms/ProjectSpecialForm';
-import ProjectAcquisitionForm from './Components/ProjectForms/ProjectAcquisitionForm';
 import MapView from './Components/Map/MapView';
-import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenanceForm';
-import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
-import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 import { SELECT_ALL_FILTERS } from './constants/constants';
 import Prueba from './Components/algo/Prueba';
@@ -154,7 +146,6 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
       <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
-      <Route path={`/work-request`} component={WorkRequestView} />
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />
       <Route exact path="/" render={() => (
@@ -167,33 +158,6 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserContainer} />}
       {(appUser.designation === 'admin' || 
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-capital`} component={ProjectCapitalForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-acquisition`} component={ProjectAcquisitionForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-special`} component={ProjectSpecialForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-maintenance`} component={ProjectMaintenanceForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-study`} component={ProjectStudyForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') 
-        && (appUser.status === 'approved') && <Route path={`/new-project-types`} component={NewProjectTypesContainer} />}
-      {(appUser.designation === 'admin' ||
-        appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/work-plan`} component={WorkPlanContainer} />}
       {(appUser.designation === 'admin') && (appUser.status === 'approved') && <Route path={`/detailed-view`} component={DetailedContainer} />}
       {(loading && <Route path={`/`} component={LoadingView} />)}
       <Route path={`/`} component={Unauthorized} />
