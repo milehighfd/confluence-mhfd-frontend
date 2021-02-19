@@ -58,6 +58,23 @@ body{
 .color-footer-boundary {
   border-color: #826dba !important;
 }
+.ant-input:focus{
+  box-shadow: none !important;
+}
+.ant-select-dropdown-menu-item{
+  padding: 8px 20px 8px 20px !important;
+  margin: 0px 10px;
+  text-align: left;
+  font-size: 14px !important;
+  color: $purple00 !important;
+  border-bottom: 1px solid $opacity01;
+}
+.ant-select-dropdown-menu-item-ative:not(.ant-select-dropdown-menu-item-disabled),
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled){
+  background: none;
+  background-color: #e6f7ff !important;
+  font-weight:bold;
+}
 // margins
 .marbot-4 {
   margin-bottom: 10px;
