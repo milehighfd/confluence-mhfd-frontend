@@ -40,10 +40,11 @@
       color: $purple;
       min-width: 105px;
       width: 105px;
-      padding: 10px 8.5px;
+      padding: 10px 5px;
       margin-right: 5px;
       position: relative;
       top: 6px;
+      letter-spacing: -0.8px;
     }
     .hh-img{
       margin-top: 12px;
@@ -58,6 +59,10 @@
       font-size: 13px;
       text-transform: uppercase;
       color: $purple00;
+
+      img{
+        margin-top: -3px;
+      }
     }
     .sub-title{
       font-size: 10px;
@@ -359,6 +364,18 @@
       }
     }
   }
+  .switch-option{
+    font-size: 10px;
+    color: $opacity;
+    line-height: 24px;
+
+    span{
+      float: right;
+    }
+    .ant-switch-checked {
+      background-color: $green;
+    }
+  }
   .footer-project{
     text-align: right;
     background: $white;
@@ -558,6 +575,10 @@
              height: 20px;
            }
          }
+       }
+       .switch-option{
+         font-size: 14px;
+         line-height: 38px;
        }
     }
     .footer-project{
@@ -794,6 +815,10 @@
             width: 8.714286px;
             height: 13.142857px;
           }
+       }
+       .switch-option{
+         font-size: 18px;
+         line-height: 38px;
        }
     }
     .footer-project{

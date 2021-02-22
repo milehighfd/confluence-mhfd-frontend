@@ -217,13 +217,13 @@ export default () => {
 
 
             {/*Section*/}
-            <h5>3. GENERATE PROJECT</h5>
+            <h5>3. GENERATE PROJECT <img src="/Icons/icon-19.svg" alt="" height="14px" /></h5>
             <Button className="btn-green">Show Project</Button>
             <br/>
 
 
             {/*Section*/}
-            <h5>4. Upload Attachments</h5>
+            <h5>4. Upload Attachments <img src="/Icons/icon-19.svg" alt="" height="14px" /></h5>
             <Upload>
              <Button>
               <img src="/Icons/icon-17.svg" alt="" height="20px" />
