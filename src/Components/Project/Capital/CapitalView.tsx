@@ -5,6 +5,9 @@ import { PlusCircleFilled } from '@ant-design/icons';
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
+const content = (
+  <div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>
+);
 
 const stateValue = {
   visible: false
@@ -79,7 +82,9 @@ export default () => {
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
                 <label className="tag-name">Capital Project</label>
-                <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
+                <Popover content={content}>
+                  <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
+                </Popover>
               </Col>
             </Row>
           </div>
@@ -89,7 +94,7 @@ export default () => {
             {/*First Section*/}
             <h5>1. Project Information</h5>
             <label className="sub-title">Description <img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
-            <TextArea rows={4} />
+            <TextArea rows={4} placeholder="Add description"/>
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Service Area<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
@@ -157,8 +162,8 @@ export default () => {
                       <Timeline.Item color="green"><Input placeholder="Unnamed Component" /></Timeline.Item>
                     </Timeline>
                   </div>
-                  <div className="second">Proposed</div>
-                  <div className="third">$200,000</div>
+                  <div className="second"><Input placeholder="Proposed" /></div>
+                  <div className="third"><Input placeholder="$200,000" /></div>
                   <div className="fourth"><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></div>
                 </div>
               </Panel>
@@ -175,10 +180,12 @@ export default () => {
                 <p>Overhead Cost <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                <Select placeholder="75%" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
+                <Select placeholder="75%" dropdownClassName="menu-large" >
+                  <Option value="75">75%</Option>
+                  <Option value="80">80%</Option>
+                  <Option value="85">85%</Option>
+                  <Option value="90">90%</Option>
+                  <Option value="95">95%</Option>
                 </Select>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
