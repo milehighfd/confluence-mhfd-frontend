@@ -47,7 +47,7 @@
       letter-spacing: -0.8px;
     }
     .hh-img{
-      margin-top: 12px;
+      margin-top: 8px;
     }
   }
   .body-project{
@@ -62,6 +62,9 @@
 
       img{
         margin-top: -3px;
+      }
+      .btn-transparent{
+        padding: 0px 5px;
       }
     }
     .sub-title{
@@ -363,6 +366,57 @@
         font-size: 18px;
       }
     }
+
+    // STUDY
+    .streams{
+      font-size: 12px;
+      color: $opacity;
+
+      .ant-timeline{
+        width: 100%;
+        margin-right: 18px;
+      }
+      .amount{
+        margin-left: 8px;
+        color: $purple;
+      }
+      button{
+        height: 20px;
+        padding: 0px;
+        position: relative;
+        right: -30px;
+      }
+      .ant-timeline-item-head{
+        border-color: $purple !important;
+        background-color: $purple !important;
+      }
+    }
+
+    // ACQUISITION AND SPECIAL
+    .ant-table-thead > tr > th {
+      color: $opacity;
+      font-weight: 400;
+      background: $light-purple;
+      font-size: 12px;
+      padding: 3px 16px;
+      border-bottom: none;
+    }
+    .ant-pagination{
+      display: none;
+    }
+    .ant-table-bordered .ant-table-tbody > tr > td{
+      font-size: 12px;
+      color: $purple;
+      padding: 8px 16px;
+    }
+    .btn-location,.btn-location:hover{
+      border: 1px solid $green;
+      color: $green;
+      height: 30px;
+      width: 115px;
+      font-size: 12px;
+      margin-top: 27px;
+    }
   }
   .switch-option{
     font-size: 10px;
@@ -580,6 +634,30 @@
          font-size: 14px;
          line-height: 38px;
        }
+       // STUDY
+       .streams{
+         font-size: 16px;
+
+         button{
+           right: -38px;
+         }
+       }
+
+       // ACQUISITION AND SPECIAL
+       .ant-table-thead > tr > th {
+         font-size: 16px;
+         padding: 4px 16px;
+       }
+       .ant-table-bordered .ant-table-tbody > tr > td{
+         font-size: 16px;
+         padding: 12px 16px;
+       }
+       .btn-location,.btn-location:hover{
+         height: 40px;
+         width: 150px;
+         font-size: 16px;
+         margin-top: 40px;
+       }
     }
     .footer-project{
       button{
@@ -624,6 +702,10 @@
 
       h5{
         font-size: 24px;
+
+        img{
+          height: 24px;
+        }
       }
       .sub-title {
         font-size: 18px !important;
@@ -819,6 +901,30 @@
        .switch-option{
          font-size: 18px;
          line-height: 38px;
+       }
+       // STUDY
+       .streams{
+         font-size: 21px;
+
+         button{
+           right: -48px;
+         }
+       }
+
+       // ACQUISITION AND SPECIAL
+       .ant-table-thead > tr > th {
+         font-size: 21px;
+         padding: 6px 16px;
+       }
+       .ant-table-bordered .ant-table-tbody > tr > td{
+         font-size: 21px;
+         padding: 16px 16px;
+       }
+       .btn-location,.btn-location:hover{
+         height: 54px;
+         width: 205px;
+         font-size: 21px;
+         margin-top: 52px;
        }
     }
     .footer-project{

@@ -6,7 +6,7 @@ const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
 const content = (
-  <div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>
+  <div className="popver-info">Master plans that set goals for the watershed and stream corridor, identify problems, and recommend improvements.</div>
 );
 
 const stateValue = {
@@ -14,18 +14,12 @@ const stateValue = {
 }
 const genExtra = () => (
   <div className="tab-head-project">
-    <div>West Tollgate Creek GSB Drops </div>
-    <div>Aurora</div>
-    <div>PrelimDesign</div>
-    <div>$450,200</div>
+    <div>Cherry Creek</div>
   </div>
 );
-const genExtra05 = () => (
+const genExtra00 = () => (
   <div className="tab-head-project">
-    <div>Independent Component</div>
-    <div>Aurora</div>
-    <div>Final Design</div>
-    <div>$450,200</div>
+    <div>Lakewood Gulch</div>
   </div>
 );
 
@@ -74,14 +68,13 @@ export default () => {
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <Input placeholder="Bear Canyon Creek at Araphoe Road"  />
+                <Input placeholder="Bear Canyon Creek at Araphoe Road" />
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>
-                <p>Cherry Creek Service Area · Aurora County</p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
-                <label className="tag-name" style={{padding:'10px'}}>Capital Project</label>
+                <label className="tag-name" style={{padding:'10px'}}>Study</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
                 </Popover>
@@ -113,105 +106,89 @@ export default () => {
                 </Select>
               </Col>
             </Row>
+            <Row gutter={[16, 16]}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Sponsor<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <Select placeholder="Select a person" style={{width:'100%'}}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Potencial Co-Sponsor<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <Select placeholder="Select a person" style={{width:'100%'}}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+            </Row>
             <br/>
 
-
             {/*Second Section*/}
-            <h5>2. SELECT COMPONENTS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
-              <div className="tab-titles">
-                <div>Problem</div>
-                <div>Jurisdiction</div>
-                <div>Status <img src="/Icons/icon-19.svg" alt="" height="15px" /></div>
-                <div>Cost</div>
-              </div>
+            <h5>2. SELECT STREAMS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
+              <Row className="streams">
+                <Col xs={{ span: 24 }} lg={{ span: 11}}>Stream Name</Col>
+                <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
+                <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
+              </Row>
             <div className="draw">
               <img src="/Icons/icon-08.svg" alt="" height="22px" />
-              <p>Click on the icon above and draw a polygon to select components</p>
+              <p>Click on the icon and draw a polygon to select stream segments</p>
             </div>
             <Collapse
               defaultActiveKey={['1']}
               expandIconPosition="right"
             >
               <Panel header="" key="1" extra={genExtra()}>
-                <div className="tab-body-project">
-                  <div className="first">
+                <div className="tab-body-project streams">
                     <Timeline>
-                      <Timeline.Item color="green">Grade Control Structure <img src="/Icons/icon-19.svg" alt="" height="10px" /></Timeline.Item>
-                      <Timeline.Item color="orange">Detention Facility <img src="/Icons/icon-19.svg" alt="" height="10px" /></Timeline.Item>
-                      <Timeline.Item color="green">Pipe Appurtenances <img src="/Icons/icon-19.svg" alt="" height="10px" /></Timeline.Item>
+                      <Timeline.Item color="purple">
+                        <Row>
+                          <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}> Aurora <img src="/Icons/icon-19.svg" alt="" height="10px" /></Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5}}>1.2 mi</Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>
+                            <label className="amount">24.0 sq mi</label>
+                          </Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                        </Row>
+                      </Timeline.Item>
+                      <Timeline.Item color="purple">
+                        <Row>
+                          <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}> Araphoe County <img src="/Icons/icon-19.svg" alt="" height="10px" /></Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>1.4 mi</Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>
+                            <label className="amount">41.8 sq mi</label>
+                          </Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                        </Row>
+                      </Timeline.Item>
                     </Timeline>
-                  </div>
-                  <div className="second">Proposed</div>
-                  <div className="third">$200,000</div>
-                  <div className="fourth"><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></div>
                 </div>
               </Panel>
-              <Panel header="" key="2" extra={genExtra()}>
-                <div></div>
-              </Panel>
-              <Panel header="" key="3" extra={genExtra()}>
-                <div></div>
-              </Panel>
-              <Panel header=" " key="4" extra={genExtra()}>
-                <div></div>
-              </Panel>
-              <Panel header="" key="5" extra={genExtra05()}>
-                <div className="tab-body-project">
-                  <div className="first">
+              <Panel header="" key="2" extra={genExtra00()}>
+                <div className="tab-body-project streams">
                     <Timeline>
-                      <Timeline.Item color="green"><Input placeholder="Unnamed Component" /></Timeline.Item>
+                      <Timeline.Item color="purple">
+                        <Row>
+                          <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}> Boulder <img src="/Icons/icon-19.svg" alt="" height="10px" /></Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>3.2 mi</Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }} >
+                            <label className="amount">41.8 sq mi</label>
+                          </Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                        </Row>
+                      </Timeline.Item>
                     </Timeline>
-                  </div>
-                  <div className="second"><Input placeholder="Proposed" /></div>
-                  <div className="third"><Input placeholder="$200,000" /></div>
-                  <div className="fourth"><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></div>
                 </div>
               </Panel>
             </Collapse>
-            <Button className="btn-transparent-green"><PlusCircleFilled /> Independent Component</Button>
-
-            <Row className="cost-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>$8,230,000</b></Col>
-            </Row>
-            <hr/>
-            <Row className="sub-project">
-              <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
-                <p>Overhead Cost <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                <Select placeholder="75%" dropdownClassName="menu-large" >
-                  <Option value="75">75%</Option>
-                  <Option value="80">80%</Option>
-                  <Option value="85">85%</Option>
-                  <Option value="90">90%</Option>
-                  <Option value="95">95%</Option>
-                </Select>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
-
-            </Row>
-            <Row className="sub-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-                <Input placeholder="Enter Description" />
-              </Col>
-            </Row>
-            <br/>
-            <Row className="sub-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
-                <p>Additional Cost <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
-            </Row>
-            <Row className="sub-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-                <Input placeholder="Enter Description" />
-              </Col>
-            </Row>
             <hr/>
             <Row className="cost-project">
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL COST</Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>$8,230,000</b></Col>
+              <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>TOTAL</Col>
+              <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><b>5.8mi</b></Col>
+              <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7}}><b>141.1 sq mi</b></Col>
             </Row>
             <br/>
 
