@@ -34,6 +34,15 @@ export default () => {
         </Anchor>
       </div>
     </div>
+    <div className="logo-partner">
+      <div>
+        <p>Designed by</p>
+        <img className="vizonomy" src="/Icons/logo_vizonomy.png" alt="" />
+      </div>
+      <div>
+        <img className="respec" src="/Icons/logo-respec.png" alt="" />
+      </div>
+    </div>
     <Carousel autoplay autoplaySpeed={6000}>
       {images.map((image: string, index: number) => {
         return <div key={index}>
