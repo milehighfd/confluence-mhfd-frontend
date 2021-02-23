@@ -37,10 +37,10 @@ export default () => {
     <div className="logo-partner">
       <div>
         <p>Designed by</p>
-        <img className="vizonomy" src="/Icons/logo_vizonomy.png" alt="" />
+        <a href="https://vizonomy.com/main" target="_blank"><img className="vizonomy" src="/Icons/logo_vizonomy.png" alt="" /></a>
       </div>
       <div>
-        <img className="respec" src="/Icons/logo-respec.png" alt="" />
+        <a href="https://www.respec.com" target="_blank"><img className="respec" src="/Icons/logo-respec.png" alt="" /></a>
       </div>
     </div>
     <Carousel autoplay autoplaySpeed={6000}>
