@@ -20,12 +20,8 @@ import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
-import NewProjectContainer from './Components/NewProject/NewProjectContainer';
-import CapitalContainer from './Components/Project/Capital/CapitalContainer';
-import MaintenanceContainer from './Components/Project/Maintenance/MaintenanceContainer';
-import StudyContainer from './Components/Project/Study/StudyContainer';
-import AcquisitionContainer from './Components/Project/Acquisition/AcquisitionContainer';
-import SpecialContainer from './Components/Project/Special/SpecialContainer';
+//import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
+
 
 /* In use of Map/Form HOC */
 import MapView from './Components/Map/MapView';
@@ -38,6 +34,10 @@ import { resetAppUser } from './store/actions/appUser';
 import { resetMap } from './store/actions/mapActions';
 import SampleMap from './Components/SampleMap/SampleMap';
 import MobilePopup from './Components/MobilePopup/MobilePopup';
+import { ModalProjectView } from './Components/ProjectModal/ModalProjectView';
+
+
+
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter,
           setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions,
@@ -151,12 +151,8 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
       <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
-      <Route path={'/new-project'} component={NewProjectContainer} />
-      <Route path={'/capital'} component={CapitalContainer} />
-      <Route path={'/maintenance'} component={MaintenanceContainer} />
-      <Route path={'/study'} component={StudyContainer} />
-      <Route path={'/acquisition'} component={AcquisitionContainer} />
-      <Route path={'/special'} component={SpecialContainer} />
+      <Route path={'/new-project'} component={ModalProjectView} />
+      
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />
       <Route exact path="/" render={() => (

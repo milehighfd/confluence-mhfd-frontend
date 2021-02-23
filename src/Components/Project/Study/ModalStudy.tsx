@@ -10,7 +10,7 @@ const content = (
 );
 
 const stateValue = {
-  visible: false
+  visibleStudy: false
 }
 const genExtra = () => (
   <div className="tab-head-project">
@@ -24,35 +24,33 @@ const genExtra00 = () => (
 );
 
 
-export default () => {
+export const ModalStudy= ({visibleStudy, setVisibleStudy}:
+  {visibleStudy: boolean, setVisibleStudy: Function}) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
-    auxState.visible = true;
+    auxState.visibleStudy = true;
     setState(auxState);
   };
 
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    auxState.visible = false;
+    setVisibleStudy (false);
     setState(auxState);
   };
 
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    auxState.visible = false;
+    setVisibleStudy (false);
     setState(auxState);
   };
   return (
     <>
-    <Button type="primary" onClick={showModal}>
-       Open Modal
-     </Button>
      <Modal
        centered
-       visible={state.visible}
+       visible={visibleStudy}
        onOk={handleOk}
        onCancel={handleCancel}
        className="projects"
@@ -241,8 +239,8 @@ export default () => {
             </Row>
           </div>
           <div className="footer-project">
-            <Button className="btn-borde">Cancel</Button>
-            <Button className="btn-purple">Save Draft Project</Button>
+            <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
+            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>
           </div>
         </Col>
       </Row>

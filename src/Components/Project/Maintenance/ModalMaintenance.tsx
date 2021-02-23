@@ -1,67 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
+import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline, Switch } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
 const content = (
-  <div className="popver-info">The purchase of property that is shown to have high flood risk or is needed to implement master plan improvements.</div>
+  <div className="popver-info"> Projects that repair or restore existing infrastructure and are eligible for MHFD participation.</div>
 );
 
 const stateValue = {
-  visible: false
+  visibleMaintenance: false
 }
-const dataSource = [
-  {
-    latitude:'-',
-    longitude:'-',
-  },
-];
 
-const columns = [
-  {
-    title: 'Latitude',
-    dataIndex: 'latitude',
-    key: 'latitude',
-  },
-  {
-    title: 'Longitude',
-    dataIndex: 'longitude',
-    key: 'longitude',
-  },
-
-];
-
-export default () => {
+export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance}:
+  {visibleMaintenance: boolean, setVisibleMaintenance: Function}) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
-    auxState.visible = true;
+    auxState.visibleMaintenance = true;
     setState(auxState);
   };
 
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    auxState.visible = false;
+    setVisibleMaintenance(false);
     setState(auxState);
   };
 
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    auxState.visible = false;
+    setVisibleMaintenance(false);
     setState(auxState);
   };
   return (
     <>
-    <Button type="primary" onClick={showModal}>
-       Open Modal
-     </Button>
      <Modal
        centered
-       visible={state.visible}
+       visible={visibleMaintenance}
        onOk={handleOk}
        onCancel={handleCancel}
        className="projects"
@@ -76,14 +54,15 @@ export default () => {
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">
             <Row>
-              <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+              <Col xs={{ span: 24 }} lg={{ span: 14 }}>
                 <Input placeholder="Bear Canyon Creek at Araphoe Road"  />
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
-                <label className="tag-name" style={{padding:'10px'}}>Acquisition</label>
+              <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{textAlign:'right'}}>
+                <label className="tag-name">Maintenance</label>
+                <label className="tag-name">Vegetation Management</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
                 </Popover>
@@ -117,7 +96,7 @@ export default () => {
             </Row>
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Progress<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <label className="sub-title">Frequency<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
                 <Select placeholder="Select a person" style={{width:'100%'}}>
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
@@ -125,7 +104,13 @@ export default () => {
                 </Select>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Anticipated Purchase Date<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <label className="sub-title">Access Control<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <p className="switch-option">Public Access / Ownership <span><Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked /></span></p>
+              </Col>
+            </Row>
+            <Row gutter={[16, 16]}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Maintenance Eligibility<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
                 <Select placeholder="Select a person" style={{width:'100%'}}>
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
@@ -137,21 +122,19 @@ export default () => {
 
 
             {/*Second Section*/}
-            <h5>2. Drop Pin <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" /></Button></h5>
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }} xxl={{ span: 12 }}>
-                <Table dataSource={dataSource} columns={columns} bordered />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }}>
-                  <Button className="btn-location">Add Location</Button>
-              </Col>
-            </Row>
+            <h5>2. Draw Activity <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
+            <div className="draw">
+              <img src="/Icons/icon-08.svg" alt="" height="22px" />
+              <p>Click on the icon and draw a polygon to draw the activity area</p>
+            </div>
             <br/>
+
 
             {/*Section*/}
             <h5>3. GENERATE PROJECT <img src="/Icons/icon-19.svg" alt="" height="14px" /></h5>
             <Button className="btn-green">Show Project</Button>
             <br/>
+
 
             {/*Section*/}
             <h5>4. Upload Attachments <img src="/Icons/icon-19.svg" alt="" height="14px" /></h5>
@@ -195,8 +178,8 @@ export default () => {
             </Row>
           </div>
           <div className="footer-project">
-            <Button className="btn-borde">Cancel</Button>
-            <Button className="btn-purple">Save Draft Project</Button>
+            <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
+            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>
           </div>
         </Col>
       </Row>
