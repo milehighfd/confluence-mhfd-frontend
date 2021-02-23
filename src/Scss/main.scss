@@ -7,14 +7,16 @@
   '../Scss/Components/login',
   '../Scss/Components/map',
   '../Scss/Components/navbar',
+  '../Scss/Components/new-project',
   '../Scss/Components/profile',
+  '../Scss/Components/projects',
   '../Scss/Components/sidebar',
   '../Scss/Components/user';
 
 // LAYOUT
 @import
-'../Scss/Layout/responsive-mobile',
-'../Scss/Layout/responsive';
+  '../Scss/Layout/responsive-mobile',
+  '../Scss/Layout/responsive';
 
 // THEME
 @import

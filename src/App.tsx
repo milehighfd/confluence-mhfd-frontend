@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom'
 
 import {initGA} from './index';
 
-
 import * as datasets from "./Config/datasets"
 import { SERVER } from "./Config/Server.config";
 import store from './store';
@@ -16,22 +15,20 @@ import ResetPasswordContainer from './Components/ResetPassword/ResetPasswordCont
 import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswordContainer';
 import SignUpContainer from './Components/SignUp/SignUpContainer';
 import UserContainer from './Components/User/UserContainer';
-import NewProjectTypesContainer from './Components/NewProjectTypes/NewProjectTypesContainer';
-import WorkPlanContainer from './Components/WorkPlan/WorkPlanContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
+import NewProjectContainer from './Components/NewProject/NewProjectContainer';
+import CapitalContainer from './Components/Project/Capital/CapitalContainer';
+import MaintenanceContainer from './Components/Project/Maintenance/MaintenanceContainer';
+import StudyContainer from './Components/Project/Study/StudyContainer';
+import AcquisitionContainer from './Components/Project/Acquisition/AcquisitionContainer';
+import SpecialContainer from './Components/Project/Special/SpecialContainer';
 
 /* In use of Map/Form HOC */
-import ProjectCapitalForm from './Components/ProjectForms/ProjectCapitalForm';
-import ProjectSpecialForm from './Components/ProjectForms/ProjectSpecialForm';
-import ProjectAcquisitionForm from './Components/ProjectForms/ProjectAcquisitionForm';
 import MapView from './Components/Map/MapView';
-import ProjectMaintenanceForm from './Components/ProjectForms/ProjectMaintenanceForm';
-import ProjectStudyForm from './Components/ProjectForms/ProjectStudyForm';
-import WorkRequestView from './Components/WorkRequest/WorkRequestView';
 import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 import { SELECT_ALL_FILTERS } from './constants/constants';
 import Prueba from './Components/algo/Prueba';
@@ -42,9 +39,9 @@ import { resetMap } from './store/actions/mapActions';
 import SampleMap from './Components/SampleMap/SampleMap';
 import MobilePopup from './Components/MobilePopup/MobilePopup';
 
-function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter, 
+function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter,
           setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions,
-          filterProjectOptions, filterComponentOptions, replaceFilterCoordinates, getGroupOrganization } 
+          filterProjectOptions, filterComponentOptions, replaceFilterCoordinates, getGroupOrganization }
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
              getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
              filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function, getGroupOrganization: Function }) {
@@ -154,46 +151,24 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
       <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
-      <Route path={`/work-request`} component={WorkRequestView} />
+      <Route path={'/new-project'} component={NewProjectContainer} />
+      <Route path={'/capital'} component={CapitalContainer} />
+      <Route path={'/maintenance'} component={MaintenanceContainer} />
+      <Route path={'/study'} component={StudyContainer} />
+      <Route path={'/acquisition'} component={AcquisitionContainer} />
+      <Route path={'/special'} component={SpecialContainer} />
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />
       <Route exact path="/" render={() => (
           <Redirect to="/login"/>
       )}/>
-      
+
       {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileContainer} />}
       {datasets.getToken() && appUser.email && <Route path={`/map/:projectId?`} component={MapView} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserContainer} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-capital`} component={ProjectCapitalForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-acquisition`} component={ProjectAcquisitionForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-special`} component={ProjectSpecialForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-maintenance`} component={ProjectMaintenanceForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') && (appUser.status === 'approved') && <Route path={`/project-study`} component={ProjectStudyForm} />}
-      {(appUser.designation === 'admin' || 
-        appUser.designation === 'staff'|| 
-        appUser.designation === 'government_admin' || 
-        appUser.designation === 'government_staff') 
-        && (appUser.status === 'approved') && <Route path={`/new-project-types`} component={NewProjectTypesContainer} />}
       {(appUser.designation === 'admin' ||
-        appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/work-plan`} component={WorkPlanContainer} />}
+        appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserContainer} />}
+      {(appUser.designation === 'admin' ||
+        appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />}
       {(appUser.designation === 'admin') && (appUser.status === 'approved') && <Route path={`/detailed-view`} component={DetailedContainer} />}
       {(loading && <Route path={`/`} component={LoadingView} />)}
       <Route path={`/`} component={Unauthorized} />

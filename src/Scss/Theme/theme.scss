@@ -58,6 +58,23 @@ body{
 .color-footer-boundary {
   border-color: #826dba !important;
 }
+.ant-input:focus{
+  box-shadow: none !important;
+}
+.ant-select-dropdown-menu-item{
+  padding: 8px 20px 8px 20px !important;
+  margin: 0px 10px;
+  text-align: left;
+  font-size: 14px;
+  color: $purple00 !important;
+  border-bottom: 1px solid $opacity01;
+}
+.ant-select-dropdown-menu-item-ative:not(.ant-select-dropdown-menu-item-disabled),
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled){
+  background: none;
+  background-color: #e6f7ff !important;
+  font-weight:bold;
+}
 // margins
 .marbot-4 {
   margin-bottom: 10px;
@@ -322,6 +339,7 @@ body{
     font-size: 21px;
     text-align: center;
     margin-bottom: 20px;
+    font-weight: 400;
   }
   .ant-modal-body{
     text-align: center;
@@ -733,19 +751,6 @@ body{
   text-align: right;
   color: $purple00;
 }
-
-
-.label-npf{
-  label{
-    font-size: 12px;
-    color: $opacity;
-  }
-  .ant-input:hover, .ant-input:focus {
-    border-color: $purple;
-    border-right-width: 1px !important;
-    box-shadow: none;
-  }
-}
 .all-npf{
   label{
     font-size: 12px;
@@ -759,33 +764,6 @@ body{
 //END CREATE A NEW PROJECT
 
 // WORK REQUEST
-.draw-section {
-  width: 100%;
-  height: 110px;
-  border-radius: 3px;
-  border: solid 1.8px $opacity01;
-  border-style: dashed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  h6 {
-    font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0.23px;
-    text-align: center;
-    color: $purple00;
-    opacity: 0.6;
-  }
-  img {
-    height: 27px;
-    margin: 12px 13px;
-  }
-}
 .request{
   h2{
     font-size: 22px;
@@ -818,107 +796,7 @@ body{
     opacity: 0.5;
   }
 }
-.work-request{
-  display: flex;
-  overflow-x: auto;
-  margin: 0px 20px;
 
-  .col-wr{
-    min-width: 213px;
-    width: 213px;
-    height: 687px;
-    min-height: 687px;
-    border-radius: 4px;
-    background-color: $opacity00;
-    margin: 0px 3.5px;
-    padding: 40px 8px 20px 8px;
-    position: relative;
-    overflow-y: auto;
-  }
-
-  .col-hovered {
-    background-color: #2418631c;
-    border-style: dashed;
-    border-color: $purple;
-    border-width: 3px;
-  }
-
-  .btn-create, .btn-create:hover{
-    background-color: transparent;
-    border: none;
-    padding: 0px;
-    box-shadow: none;
-    font-size: 14px;
-    color: $purple00;
-    position: absolute;
-    top: 0px;
-  }
-  .btn-create img{
-    margin-right: 5px;
-  }
-  .card-wr{
-    width: 197px;
-    height: 133px;
-    box-shadow: 0 3px 5px 0 rgba(6, 36, 45, 0.06);
-    background-color: $white;
-    border-left: 4px solid $gray;
-    position: relative;
-    padding: 5px 5px;
-    margin-bottom: 5px;
-    cursor: grab;
-  }
-  .card-wr:active {
-    cursor: grabbing;
-  }
-  h3{
-    font-size: 16px;
-    color: $purple00;
-    text-transform: uppercase;
-    text-align: center;
-  }
-  h4{
-    font-size: 16px;
-    color: $purple00;
-  }
-  h6{
-    font-size: 14px;
-    color: $purple;
-  }
-  .menu-wr{
-    position: absolute;
-    top: 8px;
-    right: 5px;
-  }
-  p{
-    position: absolute;
-    bottom: 1px;
-    margin-bottom: 0px;
-    width: 183px;
-    color: $opacity;
-  }
-  label{
-    float: right;
-  }
-
-  .ant-select-selection {
-    border: none;
-    border-radius: 0px;
-    border-bottom: 1px solid $opacity01;
-    font-size: 16px;
-    color: $opacity;
-    width: 160px;
-  }
-  .ant-select-selection:hover {
-    border-color: $purple;
-  }
-  .ant-select-arrow{
-    color: $purple;
-    font-weight: bold;
-  }
-  .input-rr::placeholder{
-    color: $opacity;
-  }
-}
 .menu-card{
   width: 160px;
   height: 140px;
@@ -1102,139 +980,6 @@ body{
 // END WORK REQUEST
 
 // WORK PLAN
-.work-p{
-  padding: 20px;
-  height: calc(100vh - 58px);
-  overflow-y: auto;
-}
-.work-plan{
-  .col-wr{
-    min-width: 100%;
-    width: 100%;
-    height: 687px;
-    min-height: 687px;
-    border-radius: 4px;
-    background-color: $opacity00;
-    margin: 13px 3.5px 0px 3.5px;
-    padding: 40px 8px 20px 8px;
-    position: relative;
-    overflow-y: auto;
-  }
-  .col-hovered {
-    background-color: #2418631c;
-    border-style: dashed;
-    border-color: $purple;
-    border-width: 3px;
-  }
-  .col-wr-01{
-    min-width: 100%;
-    width: 100%;
-    height: 344px;
-    min-height: 344px;
-    border-radius: 4px;
-    background-color: $opacity00;
-    margin: 13px 3.5px 0px 3.5px;
-    padding: 40px 8px 20px 8px;
-    position: relative;
-    overflow-y: auto;
-  }
-  .btn-create, .btn-create:hover{
-    background-color: transparent;
-    border: none;
-    padding: 0px;
-    box-shadow: none;
-    font-size: 14px;
-    color: $purple00;
-    position: absolute;
-    top: 0px;
-  }
-  .btn-create img{
-    margin-right: 5px;
-  }
-  .card-wr{
-    width: 100%;
-    height: 133px;
-    box-shadow: 0 3px 5px 0 rgba(6, 36, 45, 0.06);
-    background-color: $white;
-    border-left: 4px solid $gray;
-    position: relative;
-    padding: 5px 5px;
-    margin-bottom: 5px;
-  }
-  h3{
-    font-size: 16px;
-    color: $purple00;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 0px;
-  }
-  h4{
-    font-size:16px;
-    color: $purple00;
-    line-height: 18px;
-  }
-  h6{
-    font-size: 14px;
-    color: $purple;
-  }
-  .menu-wr{
-    position: absolute;
-    top: 8px;
-    right: 5px;
-  }
-  p{
-    position: absolute;
-    bottom: 1px;
-    margin-bottom: 0px;
-    width: 92%;
-    color: $opacity;
-  }
-  label{
-    float: right;
-  }
-  a, a:hover{
-    color: $green;
-    font-size: 12px;
-    text-decoration: underline;
-  }
-  .ant-select-selection {
-    border: none;
-    border-radius: 0px;
-    border-bottom: 1px solid $opacity01;
-    font-size: 16px;
-    color: $opacity;
-    width: 160px;
-  }
-  .ant-select-selection:hover {
-    border-color: $purple;
-  }
-  .ant-select-arrow{
-    color: $purple;
-    font-weight: bold;
-  }
-  .input-rr::placeholder{
-    color: $opacity;
-  }
-}
-.work-pc{
-  // min-width: 380px;
-  // width: 380px;
-  height: 687px;
-  min-height: 687px;
-  border-radius: 4px;
-  background-color: $opacity00;
-  margin: 0px 3.5px 0px 3.5px;
-  padding: 20px;
-  position: relative;
-  overflow-y: auto;
-  .wp-chart{
-    height: 50%;
-  }
-  h5{
-    font-size: 16px;
-    color: $purple00;
-  }
-}
 .text-font-title {
   width: 53px;
   height: 18px;
@@ -1266,9 +1011,6 @@ body{
   opacity: 0.1;
   border: solid 1.3px #251863;
 }
-.work-title{
-  padding-left: 15px;
-}
 .user-activity {
   width: 111px;
   height: 24px;
@@ -1280,14 +1022,6 @@ body{
   line-height: 1.29;
   letter-spacing: 0.27px;
   color: #11093c;
-}
-.col-name{
-  font-size: 18.7px;
-  color: $purple00;
-  position: absolute;
-  transform: rotate(270deg);
-  left: -18px;
-  top: 50%;
 }
 .text-profile-projects {
   width: 91px;
@@ -1301,14 +1035,6 @@ body{
   color: #29c499;
   padding-right: 7px;
   padding-left: 8px;
-}
-.col-name-01{
-  font-size: 18.7px;
-  color: #11093c;
-  position: absolute;
-  transform: rotate(270deg);
-  left: -27px;
-  top: 50%;
 }
 
 // DETAILED PROBLEM
