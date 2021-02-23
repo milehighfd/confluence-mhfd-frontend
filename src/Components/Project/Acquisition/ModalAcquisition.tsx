@@ -6,16 +6,16 @@ const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
 const content = (
-  <div className="popver-info"> Any effort for which MHFD funds or staff participation is requested that doesn’t fit into one of the other Project categories.</div>
+  <div className="popver-info">The purchase of property that is shown to have high flood risk or is needed to implement master plan improvements.</div>
 );
 
 const stateValue = {
-  visible: false
+  visibleAcquisition: false
 }
 const dataSource = [
   {
-    latitude:'39.744137',
-    longitude:'- 104.950050',
+    latitude:'-',
+    longitude:'-',
   },
 ];
 
@@ -33,35 +33,33 @@ const columns = [
 
 ];
 
-export default () => {
+export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition}:
+  {visibleAcquisition: boolean, setVisibleAcquisition: Function}) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
-    auxState.visible = true;
+    auxState.visibleAcquisition = true;
     setState(auxState);
   };
 
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    auxState.visible = false;
+    setVisibleAcquisition(false);
     setState(auxState);
   };
 
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    auxState.visible = false;
+    setVisibleAcquisition(false);
     setState(auxState);
   };
   return (
     <>
-    <Button type="primary" onClick={showModal}>
-       Open Modal
-     </Button>
      <Modal
        centered
-       visible={state.visible}
+       visible={visibleAcquisition}
        onOk={handleOk}
        onCancel={handleCancel}
        className="projects"
@@ -83,7 +81,7 @@ export default () => {
                 </Button>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
-                <label className="tag-name" style={{padding:'10px'}}>Special</label>
+                <label className="tag-name" style={{padding:'10px'}}>Acquisition</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
                 </Popover>
@@ -153,7 +151,6 @@ export default () => {
             <Button className="btn-green">Show Project</Button>
             <br/>
 
-
             {/*Section*/}
             <h5>4. Upload Attachments <img src="/Icons/icon-19.svg" alt="" height="14px" /></h5>
             <Upload>
@@ -196,8 +193,8 @@ export default () => {
             </Row>
           </div>
           <div className="footer-project">
-            <Button className="btn-borde">Cancel</Button>
-            <Button className="btn-purple">Save Draft Project</Button>
+            <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
+            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>
           </div>
         </Col>
       </Row>

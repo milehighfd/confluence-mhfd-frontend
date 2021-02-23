@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover } from 'antd';
+import { useMapDispatch, useMapState } from "../../hook/mapHook";
+import { ModalCapital } from "../Project/Capital/ModalCapital";
+import { ModalAcquisition } from "../Project/Acquisition/ModalAcquisition";
+import { ModalMaintenance } from "../Project/Maintenance/ModalMaintenance";
+import { ModalSpecial } from "../Project/Special/ModalSpecial";
+import { ModalStudy } from "../Project/Study/ModalStudy";
 
 const stateValue = {
   visible: false
@@ -10,8 +16,16 @@ const content02 = (<div className="popver-info">Removal of accumulated sediment 
 const content03 = (<div className="popver-info">Upkeep of aging or failing drop structures, outfalls, and other eligible flood control features.</div>);
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
-export default () => {
+
+export const ModalProjectView = () => {
   const [state, setState] = useState(stateValue);
+  const [visible, setVisible] = useState(false);
+  const [visibleCapital, setVisibleCapital] = useState(false);
+  const [visibleAcquisition, setVisibleAcquisition] = useState(false);
+  const [visibleMaintenance, setVisibleMaintenance] = useState(false);
+  const [visibleSpecial, setVisibleSpecial] = useState(false);
+  const [visibleStudy, setVisibleStudy] = useState(false);
+  const [typeProject, setTypeProyect] = useState("");
   const showModal = () => {
     const auxState = {...state};
     auxState.visible = true;
@@ -23,19 +37,83 @@ export default () => {
     const auxState = {...state};
     auxState.visible = false;
     setState(auxState);
+    if(typeProject === "Capital" ){
+      setVisibleCapital(true);
+      console.log("capitalModal");
+    }
+    if(typeProject === "Acquisition" ){
+      setVisibleAcquisition(true);
+      console.log("capitalModal");
+    }
+    if(typeProject === "Maintenance" ){
+      setVisibleMaintenance(true);
+      console.log("MaintenanceModal");
+    }
+    if(typeProject === "Special" ){
+      setVisibleSpecial(true);
+      console.log("capitalModal");
+    }
+    if(typeProject === "Study" ){
+      setVisibleStudy(true);
+      console.log("capitalModal");
+    }
   };
-
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};
     auxState.visible = false;
     setState(auxState);
   };
+  const chooseSubtypes = (e: any) => {
+    setTypeProyect(e);
+    if(e === "Capital"){
+      console.log("capital");
+      setVisible(false);
+    }
+    if(e === "Maintenance"){
+      console.log("Maintenance");
+      setVisible(true);
+    }
+    if(e === "Study"){
+      console.log("Study");
+      setVisible(false);
+    }
+    if(e === "Acquisition"){
+      console.log("Acquisition");
+      setVisible(false);
+    }
+    if(e === "Special"){
+      console.log("Special");
+      setVisible(false);
+    }
+  };
   return (
     <>
+     {visibleCapital && <ModalCapital
+      visibleCapital = {visibleCapital} 
+      setVisibleCapital = {setVisibleCapital}
+     />}
+     {visibleAcquisition && <ModalAcquisition
+      visibleAcquisition = {visibleAcquisition} 
+      setVisibleAcquisition = {setVisibleAcquisition}
+     />}
+     {visibleMaintenance && <ModalMaintenance
+      visibleMaintenance = {visibleMaintenance} 
+      setVisibleMaintenance = {setVisibleMaintenance}
+     />}
+     {visibleSpecial && <ModalSpecial
+      visibleSpecial = {visibleSpecial} 
+      setVisibleSpecial = {setVisibleSpecial}
+     />}
+     {visibleStudy && <ModalStudy
+      visibleStudy = {visibleStudy} 
+      setVisibleStudy = {setVisibleStudy}
+     />}
+     
     <Button type="primary" onClick={showModal}>
        Open Modal
      </Button>
+    
      <Modal
        title="Create Project"
        centered
@@ -60,8 +138,8 @@ export default () => {
 
       {/*Buttons*/}
       <h4>Choose a Project Type</h4>
-      <Row gutter={[16, 16]}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+      <Row gutter={[16, 16]} >
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes("Capital") }>
           <Button className="button-project">
             <div className="project-img">
               <img src="/Icons/project/capital.svg" alt="" height="30px" />
@@ -72,20 +150,20 @@ export default () => {
             </div>
           </Button>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes("Maintenance") }>
         <Button className="button-project">
           <div className="project-img">
             <img src="/Icons/project/maintenance.svg" alt="" height="30px" />
           </div>
           <div className="project-info">
-            <h5>Mainenance</h5>
+            <h5>Maintenance</h5>
             <p>Restore existing infrastructure eligible for MHFD participation.</p>
           </div>
         </Button>
         </Col>
       </Row>
       <Row gutter={[16, 16]}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes("Study") }>
           <Button className="button-project">
             <div className="project-img">
               <img src="/Icons/project/study.svg" alt="" height="30px" />
@@ -96,7 +174,7 @@ export default () => {
             </div>
           </Button>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes("Acquisition") }>
         <Button className="button-project">
           <div className="project-img">
             <img src="/Icons/project/acquisition.svg" alt="" height="30px" />
@@ -109,7 +187,7 @@ export default () => {
         </Col>
       </Row>
       <Row gutter={[16, 16]}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes("Special") }>
           <Button className="button-project">
             <div className="project-img">
               <img src="/Icons/project/special.svg" alt="" height="30px" />
@@ -124,7 +202,7 @@ export default () => {
       <br/>
 
       {/*Buttons*/}
-      <h4>Choose a Subtype</h4>
+      {visible && <> <h4>Choose a Subtype</h4>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <Popover content={content00}><Button className="btn-opacity">Debris Management</Button></Popover>
@@ -143,7 +221,8 @@ export default () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <Popover content={content04}><Button className="btn-opacity">Restoration</Button></Popover>
         </Col>
-      </Row>
+      </Row></>}
+      
      </Modal>
     </>
   );

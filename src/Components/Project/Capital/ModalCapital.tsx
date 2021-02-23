@@ -10,7 +10,7 @@ const content = (
 );
 
 const stateValue = {
-  visible: false
+  visibleCapital: false
 }
 const genExtra = () => (
   <div className="tab-head-project">
@@ -29,36 +29,35 @@ const genExtra05 = () => (
   </div>
 );
 
-
-export default () => {
+export const ModalCapital = ({visibleCapital, setVisibleCapital}:
+  {visibleCapital: boolean, setVisibleCapital: Function}) => {
   const [state, setState] = useState(stateValue);
+  console.log(visibleCapital, "visiCap");
+  
   const showModal = () => {
     const auxState = {...state};
-    auxState.visible = true;
+    auxState.visibleCapital = true;
     setState(auxState);
   };
 
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    auxState.visible = false;
+    setVisibleCapital (false);
     setState(auxState);
   };
 
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    auxState.visible = false;
+    setVisibleCapital (false);
     setState(auxState);
   };
   return (
     <>
-    <Button type="primary" onClick={showModal}>
-       Open Modal
-     </Button>
      <Modal
        centered
-       visible={state.visible}
+       visible={visibleCapital}
        onOk={handleOk}
        onCancel={handleCancel}
        className="projects"
@@ -264,8 +263,8 @@ export default () => {
             </Row>
           </div>
           <div className="footer-project">
-            <Button className="btn-borde">Cancel</Button>
-            <Button className="btn-purple">Save Draft Project</Button>
+            <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
+            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>
           </div>
         </Col>
       </Row>
