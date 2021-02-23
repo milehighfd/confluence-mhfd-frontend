@@ -5,9 +5,18 @@ import { PlusCircleFilled } from '@ant-design/icons';
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
-const content = (
-  <div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>
-);
+const content = (<div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>);
+const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content03 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content04 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content05 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content06 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content07 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content08 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content09 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content10 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 
 const stateValue = {
   visibleCapital: false
@@ -33,7 +42,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
   {visibleCapital: boolean, setVisibleCapital: Function}) => {
   const [state, setState] = useState(stateValue);
   console.log(visibleCapital, "visiCap");
-  
+
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleCapital = true;
@@ -92,11 +101,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
 
             {/*First Section*/}
             <h5>1. Project Information</h5>
-            <label className="sub-title">Description <img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+            <label className="sub-title">Description <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
             <TextArea rows={4} placeholder="Add description"/>
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Service Area<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                 <Select placeholder="Select a person" style={{width:'100%'}}>
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
@@ -104,7 +113,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
                 </Select>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">County<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                 <Select placeholder="Select a person" style={{width:'100%'}}>
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
@@ -120,7 +129,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
               <div className="tab-titles">
                 <div>Problem</div>
                 <div>Jurisdiction</div>
-                <div>Status <img src="/Icons/icon-19.svg" alt="" height="15px" /></div>
+                <div>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></div>
                 <div>Cost</div>
               </div>
             <div className="draw">
@@ -135,9 +144,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
                 <div className="tab-body-project">
                   <div className="first">
                     <Timeline>
-                      <Timeline.Item color="green">Grade Control Structure <img src="/Icons/icon-19.svg" alt="" height="10px" /></Timeline.Item>
-                      <Timeline.Item color="orange">Detention Facility <img src="/Icons/icon-19.svg" alt="" height="10px" /></Timeline.Item>
-                      <Timeline.Item color="green">Pipe Appurtenances <img src="/Icons/icon-19.svg" alt="" height="10px" /></Timeline.Item>
+                      <Timeline.Item color="green">Grade Control Structure <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Timeline.Item>
+                      <Timeline.Item color="orange">Detention Facility <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Timeline.Item>
+                      <Timeline.Item color="green">Pipe Appurtenances <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Timeline.Item>
                     </Timeline>
                   </div>
                   <div className="second">Proposed</div>
@@ -176,7 +185,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
             <hr/>
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
-                <p>Overhead Cost <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
+                <p>Overhead Cost <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
                 <Select placeholder="75%" dropdownClassName="menu-large" >
@@ -198,7 +207,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
             <br/>
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
-                <p>Additional Cost <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
+                <p>Additional Cost <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
             </Row>
@@ -216,13 +225,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
 
 
             {/*Section*/}
-            <h5>3. GENERATE PROJECT <img src="/Icons/icon-19.svg" alt="" height="14px" /></h5>
+            <h5>3. GENERATE PROJECT <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Button className="btn-green">Show Project</Button>
             <br/>
 
 
             {/*Section*/}
-            <h5>4. Upload Attachments <img src="/Icons/icon-19.svg" alt="" height="14px" /></h5>
+            <h5>4. Upload Attachments <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Upload>
              <Button>
               <img src="/Icons/icon-17.svg" alt="" height="20px" />

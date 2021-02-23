@@ -67,12 +67,16 @@
     }
   }
   .button-project:hover, .button-project:focus,
-  .button-project:active, .button-project.Active{
+  .button-project:active, .button-project.active{
     border: 1px solid $green;
     height: 75px;
   }
   .btn-opacity{
     width: 100%;
+    height: 36px;
+  }
+  .btn-opacity:hover, .btn-opacity:focus, .btn-opacity:active, .btn-opacity.active{
+    border: 1px solid $green !important;
     height: 36px;
   }
   .ant-modal-footer{
