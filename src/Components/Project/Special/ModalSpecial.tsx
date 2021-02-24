@@ -5,9 +5,14 @@ import { PlusCircleFilled } from '@ant-design/icons';
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
-const content = (
-  <div className="popver-info"> Any effort for which MHFD funds or staff participation is requested that doesn’t fit into one of the other Project categories.</div>
-);
+const content = (<div className="popver-info"> Any effort for which MHFD funds or staff participation is requested that doesn’t fit into one of the other Project categories.</div>);
+const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content03 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content04 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content05 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content06 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 
 const stateValue = {
   visibleSpecial: false
@@ -93,11 +98,11 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial}:
 
             {/*First Section*/}
             <h5>1. Project Information</h5>
-            <label className="sub-title">Description <img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+            <label className="sub-title">Description <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
             <TextArea rows={4} placeholder="Add description"/>
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Service Area<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                 <Select placeholder="Select a person" style={{width:'100%'}}>
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
@@ -105,7 +110,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial}:
                 </Select>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">County<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                 <Select placeholder="Select a person" style={{width:'100%'}}>
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
@@ -115,7 +120,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial}:
             </Row>
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Progress<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                 <Select placeholder="Select a person" style={{width:'100%'}}>
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
@@ -123,7 +128,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial}:
                 </Select>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Anticipated Purchase Date<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <label className="sub-title">Anticipated Purchase Date <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                 <Select placeholder="Select a person" style={{width:'100%'}}>
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
@@ -147,13 +152,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial}:
             <br/>
 
             {/*Section*/}
-            <h5>3. GENERATE PROJECT <img src="/Icons/icon-19.svg" alt="" height="14px" /></h5>
+            <h5>3. GENERATE PROJECT <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Button className="btn-green">Show Project</Button>
             <br/>
 
 
             {/*Section*/}
-            <h5>4. Upload Attachments <img src="/Icons/icon-19.svg" alt="" height="14px" /></h5>
+            <h5>4. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Upload>
              <Button>
               <img src="/Icons/icon-17.svg" alt="" height="20px" />
