@@ -1,0 +1,181 @@
+@import "../Theme/styles.scss";
+@use 'styles';
+.work-head, .work-body{
+  background: $white;
+}
+.work-head{
+  padding: 15px 20px;
+
+  h2{
+    color: $purple00;
+    font-size: 21px;
+    i{
+      font-size: 16px;
+      color: $green;
+    }
+  }
+  .ant-btn-group{
+    margin-left: 10px !important;
+  }
+  .btn-opacity{
+    height: 38px;
+    padding: 0px 8px;
+  }
+  .icon-bt{
+    height: 4px;
+    width: 24px;
+    background: $purple;
+    padding: 9px;
+  }
+  .btn-opacity:hover > .icon-bt{
+    opacity: 1;
+    height: 4px;
+    width: 24px;
+    background: $green !important;
+    padding: 9px;
+  }
+  .ant-select-selection{
+    border: none;
+  }
+  .ant-select{
+    color: $opacity;
+    width: 110px;
+  }
+  .ant-select-selection__placeholder, .ant-select-search__field__placeholder{
+    color: $opacity;
+  }
+}
+.work-body{
+  .ant-tabs-nav .ant-tabs-tab {
+    margin: 0 20px 0 20px;
+    font-size: 12px;
+  }
+  .col-bg{
+    background: $light-purple;
+    padding: 0px 20px;
+    margin-bottom: 20px;
+  }
+}
+.work-table{
+  display: flex;
+  overflow-x: auto;
+  margin: 0px 0px 40px 15px;
+
+  .col-wr{
+    min-width: 160px;
+    width: 160px;
+    height: 515px;
+    min-height: 515px;
+    border-radius: 4px;
+    background-color: $light-purple;
+    margin-right: 10px;
+    padding: 40px 6px 20px 6px;
+    position: relative;
+    overflow-y: auto;
+  }
+  .btn-transparent{
+    padding: 0px;
+    box-shadow: none;
+    font-size: 12px;
+    position: absolute;
+    top: 0px;
+
+    img{
+      margin-right: 5px;
+      height: 15px;
+    }
+  }
+  .card-wr{
+    width: 148px;
+    height: 100px;
+    box-shadow: 0 3px 5px 0 rgba(6, 36, 45, 0.06);
+    background-color: $white;
+    position: relative;
+    padding: 5px 5px;
+    margin-bottom: 5px;
+  }
+  h3{
+    font-size: 12px;
+    color: $purple00;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  h4{
+    font-size: 14px;
+    color: $purple00;
+    width: 98%;
+  }
+  h6{
+    font-size: 11px;
+    color: $purple;
+    font-weight: normal;
+  }
+  .menu-wr{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .purple{
+    background: $light-purple;
+    font-size: 10px;
+    color: $purple;
+    padding: 2px 8px;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 3px;
+    left: 5px;
+  }
+  .yellow{
+    background: rgba(255, 221, 0, 0.3);
+    font-size: 10px;
+    color: #FF8938;
+    padding: 2px 8px;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 3px;
+    right: 5px;
+  }
+}
+.cost-wr{
+  margin-top: 20px;
+
+  h5{
+    font-size: 12px;
+    color: $purple;
+    margin-bottom: 0px;
+  }
+  .ant-input {
+    height: 32px;
+    padding: 4px 11px;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    line-height: 1.5;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid $opacity01;
+  }
+  .ant-input:hover {
+    border-color: $purple;
+  }
+  .ant-input:focus {
+    box-shadow: none;
+    border-color: $purple;
+  }
+  .input-pp::placeholder{
+    color: $purple;
+  }
+  .input-rr::placeholder{
+    color: $red;
+  }
+}
+.work-footer{
+  text-align: right;
+  background: $white;
+  padding: 15px 20px;
+  border-top: solid 1px $opacity01;
+
+  button{
+    height: 44px;
+    margin-left: 10px;
+  }
+}

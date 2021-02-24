@@ -33,11 +33,11 @@
 
 // BUTTON OPACITY
 .btn-opacity, .btn-opacity:hover, .btn-opacity:focus, .btn-opacity:active, .btn-opacity.active{
-  background-color: $opacity00 !important;
+  background-color: $light-purple !important;
   border: none !important;
   color: $purple00 !important;
   box-shadow: none !important;
-  border-radius: 4px !important;
+  border-radius: 4px;
 }
 
 // BUTTON TRANSPARENT

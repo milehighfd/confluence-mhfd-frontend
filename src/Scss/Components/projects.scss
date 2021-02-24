@@ -111,16 +111,6 @@
       display: flex;
       font-size: 12px;
       color: $opacity;
-
-      div:nth-child(1){
-        width: 240px;
-      }
-      div:nth-child(2){
-        width: 120px;
-      }
-      div:nth-child(3){
-        width: 115px;
-      }
     }
     .draw{
       height: 80px;
@@ -228,26 +218,25 @@
       font-size: 12px;
       color: $purple00;
       line-height: 15px;
-
-      div:nth-child(1){
-        width: 240px;
-      }
-      div:nth-child(2){
-        width: 120px;
-      }
-      div:nth-child(3){
-        width: 115px;
-      }
     }
     .tab-body-project{
       display: flex;
       font-size: 12px;
 
-      .first{
-        width: 360px;
+      .ant-timeline{
+        width: 100%;
+      }
+      label{
+        padding-left: 18px;
+      }
+      .btn-transparent{
+        height: 20px;
+
+        img{
+          margin-top: -3px;
+        }
       }
       .second{
-        width: 115px;
         color: $opacity;
 
         .ant-input{
@@ -264,7 +253,6 @@
         }
       }
       .third{
-        width: 82px;
         color: $purple00;
 
         .ant-input{
@@ -273,6 +261,7 @@
           font-size: 12px;
           background: transparent;
           height: 20px;
+          width: 100%;
          }
          .ant-input::placeholder {
            color: $purple;
@@ -285,7 +274,6 @@
       }
       .fourth{
         text-align: right;
-        width: 38px;
 
         button{
           padding: 0px;
@@ -309,6 +297,7 @@
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
       float: left;
+      width: 100%;
     }
     .ant-collapse > .ant-collapse-item {
       border-bottom: none;
@@ -371,11 +360,6 @@
     .streams{
       font-size: 12px;
       color: $opacity;
-
-      .ant-timeline{
-        width: 100%;
-        margin-right: 18px;
-      }
       .amount{
         margin-left: 8px;
         color: $purple;
@@ -500,30 +484,10 @@
       }
       .tab-titles{
         font-size: 16px !important;
-
-        div:nth-child(1){
-          width: 330px;
-        }
-        div:nth-child(2){
-          width: 200px;
-        }
-        div:nth-child(3){
-          width: 165px;
-        }
       }
 
       .tab-head-project{
         font-size: 16px !important;
-
-        div:nth-child(1){
-          width: 330px;
-        }
-        div:nth-child(2){
-          width: 200px;
-        }
-        div:nth-child(3){
-          width: 165px;
-        }
       }
       .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
         height: 54px;
@@ -532,11 +496,7 @@
       .tab-body-project{
         font-size: 16px !important;
 
-        .first{
-          width: 530px;
-        }
         .second{
-          width: 165px;
           color: $opacity;
 
           .ant-input {
@@ -545,7 +505,6 @@
           }
         }
         .third{
-          width: 76px;
           color: $purple00;
 
           .ant-input {
@@ -744,30 +703,10 @@
       }
       .tab-titles{
         font-size: 21px !important;
-
-        div:nth-child(1){
-          width: 330px;
-        }
-        div:nth-child(2){
-          width: 200px;
-        }
-        div:nth-child(3){
-          width: 165px;
-        }
       }
 
       .tab-head-project{
         font-size: 21px !important;
-
-        div:nth-child(1){
-          width: 420px;
-        }
-        div:nth-child(2){
-          width: 210px;
-        }
-        div:nth-child(3){
-          width: 230px;
-        }
       }
       .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
         height: 70px;
@@ -776,12 +715,7 @@
       .tab-body-project{
         font-size: 21px !important;
 
-        .first{
-          width: 630px;
-        }
         .second{
-          width: 230px;
-
           .ant-input {
             font-size: 21px;
             padding: 8px 0px;
@@ -789,8 +723,6 @@
           }
         }
         .third{
-          width: 215px;
-
           .ant-input {
             font-size: 21px;
             padding: 8px 0px;
