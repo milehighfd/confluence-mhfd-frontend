@@ -360,15 +360,9 @@
     .streams{
       font-size: 12px;
       color: $opacity;
+
       .amount{
-        margin-left: 8px;
         color: $purple;
-      }
-      button{
-        height: 20px;
-        padding: 0px;
-        position: relative;
-        right: -30px;
       }
       .ant-timeline-item-head{
         border-color: $purple !important;
@@ -597,10 +591,6 @@
        // STUDY
        .streams{
          font-size: 16px;
-
-         button{
-           right: -38px;
-         }
        }
 
        // ACQUISITION AND SPECIAL
@@ -838,10 +828,6 @@
        // STUDY
        .streams{
          font-size: 21px;
-
-         button{
-           right: -48px;
-         }
        }
 
        // ACQUISITION AND SPECIAL

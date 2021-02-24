@@ -147,7 +147,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
                     <Timeline.Item color="green">
                       <Row style={{marginLeft:'-18px'}}>
                         <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>Aurora Grade Control Structure </label><Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5}}>Proposed</Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Proposed</Col>
                         <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>$200,000</Col>
                         <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                       </Row>
