@@ -475,8 +475,8 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
         if(!auxFilter.component_type) {
             auxFilter.component_type = "grade_control_structure,pipe_appurtenances,special_item_point," +
                                         "special_item_linear,special_item_area,channel_improvements_linear,"+
-                                        "channel_improvements_area,removal_line,removal_area,storm_drain,"+
-                                        "detention_facilities,maintenance_trails,land_acquisition,landscaping_area"
+                                        "channel_improvements_area,storm_drain,"+
+                                        "detention_facilities,land_acquisition,landscaping_area" // TODO save on a constant the useful components #dotty 
         }
         datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
             if(filtersComponents?.problems || filtersComponents?.projects_line_1 || filtersComponents?.projects_polygon_) {

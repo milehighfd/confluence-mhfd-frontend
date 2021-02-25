@@ -827,9 +827,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       }
-      setFilterProblemOptions(optionsProblem);
-      setFilterProjectOptions(optionsProject);
-      setFilterComponentOptions(optionsComponent);
+     // setFilterProblemOptions(optionsProblem);
+     // setFilterProjectOptions(optionsProject);
+     // setFilterComponentOptions(optionsComponent);
       // if (name === 'Mile High Flood District') {
       //   boundsToMap = mhfdCoords;
       // }
