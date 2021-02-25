@@ -1016,29 +1016,6 @@
   .ant-collapse-content>.ant-collapse-content-box {
     padding: 20px 15px 0px 15px;
   }
-  .ant-timeline-item {
-    padding: 0px;
-    font-size: 15px;
-    list-style: none;
-  }
-  .ant-timeline-item-last > .ant-timeline-item-content {
-    min-height: 0px;
-  }
-  .ant-timeline-item-tail {
-    position: absolute;
-    top: 4px;
-    left: -20px;
-    height: calc(100% - 10px);
-    border-top: 2px solid #e8e8e8;
-    width: 20px;
-    border-left: none;
-  }
-  .ant-timeline {
-    padding-left: 20px;
-    border-left: 2px solid #e8e8e8;
-    margin-top: -20px;
-    padding-top: 26px;
-  }
 }
 .over-00{
   margin: 0px -20px !important;

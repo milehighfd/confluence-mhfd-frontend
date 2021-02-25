@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Drawer, Row, Col, Input, Button } from 'antd';
 
-export default ({ visible, setVisible } : { visible : boolean, setVisible : Function}) => {
+export default () => {
+  const [visible, setVisible] = useState(false);
+   const showDrawer = () => {
+     setVisible(true);
+   };
+   const onClose = () => {
+     setVisible(false);
+   };
   return (
+    <>
+    <Button onClick={showDrawer} >
+      Drawer
+    </Button>
     <Drawer
       placement="right"
       closable={false}
@@ -86,5 +97,6 @@ export default ({ visible, setVisible } : { visible : boolean, setVisible : Func
         </div>
       </div>
     </Drawer>
+  </>
   )
 }

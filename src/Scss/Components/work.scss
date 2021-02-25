@@ -52,14 +52,29 @@
   }
   .col-bg{
     background: $light-purple;
-    padding: 0px 20px;
-    margin-bottom: 20px;
+    padding:7px 20px;
+    margin-bottom: 5px;
+    display: flex;
+    height: 40px;
+    width: 72vw;
+
+    div{
+      width: 160px;
+      min-width: 160px;
+      padding: 0px 5px;
+      margin-right: 10px;
+      line-height: 25px;
+    }
+  }
+  .ant-tabs-tabpane-active{
+    height: calc(100vh - 268px);
+    overflow-x: auto;
   }
 }
 .work-table{
   display: flex;
   overflow-x: auto;
-  margin: 0px 0px 40px 15px;
+  margin: 0px 0px 15px 15px;
 
   .col-wr{
     min-width: 160px;
@@ -103,7 +118,7 @@
   h4{
     font-size: 14px;
     color: $purple00;
-    width: 98%;
+    width: 96%;
   }
   h6{
     font-size: 11px;
@@ -138,34 +153,132 @@
 }
 .cost-wr{
   margin-top: 20px;
+  overflow-x: auto;
+  color: $red;
+  font-size: 12px;
 
   h5{
     font-size: 12px;
     color: $purple;
     margin-bottom: 0px;
+    font-weight: 400;
   }
   .ant-input {
-    height: 32px;
-    padding: 4px 11px;
-    color: rgba(0, 0, 0, 0.65);
-    font-size: 14px;
+    height: 25px;
+    padding: 4px 0px;
+    color: $purple;
+    font-size: 12px;
     line-height: 1.5;
     border: none;
     border-radius: 0px;
     border-bottom: 1px solid $opacity01;
+    background: transparent;
   }
-  .ant-input:hover {
-    border-color: $purple;
-  }
-  .ant-input:focus {
+  .ant-input:hover, .ant-input:focus {
     box-shadow: none;
-    border-color: $purple;
+    border-color: $green;
   }
-  .input-pp::placeholder{
+  .ant-input::placeholder{
     color: $purple;
   }
-  .input-rr::placeholder{
-    color: $red;
+  .tab-head-project{
+    display: flex;
+    font-size: 12px;
+    color: $purple00;
+    line-height: 15px;
+
+    div{
+      width: 160px;
+      min-width: 160px;
+      padding: 0px 5px;
+      margin-right: 10px;
+    }
+    label{
+      padding-left: 18px;
+    }
+  }
+  .tab-body-line{
+    display: flex;
+    font-size: 12px;
+    color: $purple00;
+    line-height: 15px;
+    margin-left: -18px;
+
+    div{
+      width: 160px;
+      min-width: 160px;
+      padding: 0px 5px;
+      margin-right: 10px;
+    }
+  }
+  .tab-body-project{
+    display: flex;
+    font-size: 12px;
+
+    .ant-timeline{
+      width: 100%;
+    }
+    label{
+      padding-left: 18px;
+    }
+  }
+  .ant-collapse{
+    border: none;
+    background-color: $white;
+    width: 72vw;
+  }
+  .ant-collapse-content{
+    border-top: none;
+    background: rgba(245, 247, 255, 0.4);
+  }
+  .ant-collapse-icon-position-left > .ant-collapse-item > .ant-collapse-header{
+    height: 40px;
+    padding: 12px 20px;
+    background: $light-purple;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
+    float: left;
+    width: 100%;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    box-shadow: none !important;
+  }
+  .ant-collapse > .ant-collapse-item {
+    border-bottom: none;
+    margin-bottom: 5px;
+  }
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 15px 20px;
+  }
+  .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+    border: 1px solid $opacity;
+    padding: 2px;
+    color: $opacity;
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
+    display: block;
+  }
+  .ant-timeline-item {
+    padding: 0px 0 10px;
+    font-size: 12px;
+    color: $opacity;
+  }
+  .ant-timeline-item-content {
+    top: -4px;
+  }
+  .ant-timeline-item-last > .ant-timeline-item-content {
+    min-height: 16px;
+  }
+  .ant-timeline-item-last{
+    padding: 0px;
+  }
+  .streams{
+    font-size: 12px;
+    color: $opacity;
+    .ant-timeline-item-head{
+      border-color: $purple !important;
+      background-color: $purple !important;
+    }
   }
 }
 .work-footer{
@@ -179,3 +292,86 @@
     margin-left: 10px;
   }
 }
+.btn-scroll, .btn-scroll:hover, .btn-scroll:focus{
+  border: none !important;
+  background-color: $opacity01 !important;
+  box-shadow: none !important;
+  position: absolute !important;
+  top: calc(50% - 27px);
+  right: 0px;
+  padding: 0px !important;
+  width: 25px;
+  height: 40px !important;
+  border-radius: 0px !important;
+  z-index: 1000;
+  color: $purple !important;
+}
+.work-popover{
+  .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+    border-right: none;
+  }
+  .ant-popover-inner-content {
+    padding: 0px 16px;
+  }
+  .ant-popover-content{
+    width: 135px;
+  }
+}
+
+// MODAL EDIT
+.work-modal-edit{
+  .ant-modal-header {
+    padding: 15px 20px 0px 20px;
+    border-bottom: none;
+  }
+  .ant-modal-title{
+    color: $purple00;
+  }
+  p{
+    font-size: 12px;
+    margin-bottom: 0px;
+    color: $opacity;
+  }
+  .ant-input-affix-wrapper .ant-input-prefix {
+    right: 12px;
+    left: inherit;
+  }
+  .ant-input{
+    height: 44px;
+    color: $purple00;
+  }
+  .ant-input-affix-wrapper{
+    margin-bottom: 15px;
+  }
+  .ant-input-affix-wrapper .ant-input:not(:first-child) {
+    padding-left: 11px;
+    padding-right: 35px;
+  }
+  .ant-input:focus, .ant-input:hover, .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled){
+    border-color: $purple;
+  }
+  .ant-modal-close-x {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+  }
+  .anticon{
+    color: $purple;
+  }
+  .ant-modal-footer {
+    padding: 0px 20px 20px 20px;
+    border-top: none;
+
+    button{
+      height: 48px;
+      padding: 0px 50px;
+      border-radius: 2px !important;
+      font-size: 16px;
+    }
+  }
+}
+
+// 1920x1080 DISPLAY
+@media (min-width: 1900px) and (max-width: 2499px){}
+// 2560x1440 DISPLAY
+@media (min-width: 2500px) and (max-width: 2999px){}
