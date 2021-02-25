@@ -10,7 +10,7 @@ const SORT_ITEMS = [{ name: 'Name', value: 'name' },
   { name: 'Designation', value: 'designation' }, 
   { name: 'Date Registered', value: 'createdAt' }
  ];
-const ROLES = ['MHFD Admin', 'MHFD Staff', 'Local Government Admin', 'Local Government', 'Consultant / Contractor', 'Other'];
+const ROLES = ['MHFD Admin', 'MHFD Staff', 'Local Government', 'Consultant / Contractor', 'Other'];
 export default ({ option, setOption, search, reset, title }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function, title: string }) => {
   const { Search } = Input;
   const menu = (list: Array<string>, title: string, defaultValue: string) => (
