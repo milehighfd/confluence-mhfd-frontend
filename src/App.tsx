@@ -20,6 +20,7 @@ import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
+import RequestContainer from './Components/Work/Request/RequestContainer';
 //import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
 
 
@@ -152,7 +153,8 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={'/new-project'} component={ModalProjectView} />
-      
+      <Route path={'/work-request'} component={RequestContainer} />
+
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />
       <Route exact path="/" render={() => (

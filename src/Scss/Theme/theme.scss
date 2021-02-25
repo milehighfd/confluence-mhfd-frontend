@@ -62,7 +62,7 @@ body{
   box-shadow: none !important;
 }
 .ant-select-dropdown-menu-item{
-  padding: 8px 20px 8px 20px !important;
+  padding: 8px 10px 8px 10px !important;
   margin: 0px 10px;
   text-align: left;
   font-size: 14px;
@@ -74,6 +74,11 @@ body{
   background: none;
   background-color: #e6f7ff !important;
   font-weight:bold;
+}
+.ant-select-focused .ant-select-selection,
+.ant-select-selection:focus, .ant-select-selection:active {
+  border-color: none !important;
+  box-shadow: none !important;
 }
 // margins
 .marbot-4 {
@@ -764,39 +769,6 @@ body{
 //END CREATE A NEW PROJECT
 
 // WORK REQUEST
-.request{
-  h2{
-    font-size: 22px;
-    color: $purple00;
-    margin-bottom: 0px;
-  }
-  .btn-comment img{
-    margin-right: 5px;
-  }
-  .btn-opacity{
-    height: 40px;
-    border-radius: 4px;
-    background-color: $opacity00;
-    border: none;
-    color: $purple00;
-    font-size: 14px;
-    margin-left: 10px;
-  }
-  .btn-opacity img{
-    margin-right: 6px;
-    height: 12px;
-    margin-top: -2px;
-  }
-  hr {
-    border-bottom: dashed 1.3px #251863;
-    border-width: 1px;
-    opacity: 0.3;
-    border-top: none;
-    margin: 25px 0px 15px 0px;
-    opacity: 0.5;
-  }
-}
-
 .menu-card{
   width: 160px;
   height: 140px;
@@ -810,56 +782,6 @@ body{
   li{
     margin: 0px 15px;
     padding: 10px 0px;
-  }
-}
-.cost-wr{
-  // margin-top: 20px;
-  h5{
-    font-size: 14px;
-    color: $opacity;
-    text-transform: uppercase;
-    margin-bottom: 0px;
-    margin-top: 5px;
-  }
-  .ant-input {
-    height: 32px;
-    padding: 4px 11px;
-    color: rgba(0, 0, 0, 0.65);
-    font-size: 14px;
-    line-height: 1.5;
-    border: none;
-    border-radius: 0px;
-    border-bottom: 1px solid $opacity01;
-  }
-  .ant-input:hover {
-    border-color: $purple;
-  }
-  .ant-input:focus {
-    box-shadow: none;
-    border-color: $purple;
-  }
-  .input-pp::placeholder{
-    color: $purple;
-  }
-  .input-rr::placeholder{
-    color: $red;
-  }
-  .btn-purple{
-    width: 170px;
-    height: 45px;
-    margin-top: 10px;
-    float: right;
-  }
-  .btn-borde{
-    margin-top: 20px;
-    margin-right: 20px;
-    width: 170px;
-    height: 45px;
-  }
-
-  .cost-rows {
-    padding: 8px;
-    padding-right: 16px;
   }
 }
 // CHAT

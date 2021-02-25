@@ -151,21 +151,21 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy}:
                 <div className="tab-body-project streams">
                     <Timeline>
                       <Timeline.Item color="purple">
-                        <Row>
-                          <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}> Aurora <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
-                          <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5}}>1.2 mi</Col>
+                        <Row style={{marginLeft:'-18px'}}>
+                          <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}> <label>Aurora</label> <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>1.2 mi</Col>
                           <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>
-                            <label className="amount">24.0 sq mi</label>
+                            <span className="amount">24.0 sq mi</span>
                           </Col>
                           <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                         </Row>
                       </Timeline.Item>
                       <Timeline.Item color="purple">
-                        <Row>
-                          <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}> Araphoe County <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
+                        <Row style={{marginLeft:'-18px'}}>
+                          <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label> Araphoe County</label> <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
                           <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>1.4 mi</Col>
                           <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>
-                            <label className="amount">41.8 sq mi</label>
+                            <span className="amount">41.8 sq mi</span>
                           </Col>
                           <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                         </Row>
@@ -178,10 +178,10 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy}:
                     <Timeline>
                       <Timeline.Item color="purple">
                         <Row>
-                          <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}> Boulder <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
+                          <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label> Boulder</label> <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
                           <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>3.2 mi</Col>
                           <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }} >
-                            <label className="amount">41.8 sq mi</label>
+                            <span className="amount">41.8 sq mi</span>
                           </Col>
                           <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                         </Row>

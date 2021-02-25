@@ -22,20 +22,20 @@ const stateValue = {
   visibleCapital: false
 }
 const genExtra = () => (
-  <div className="tab-head-project">
-    <div>West Tollgate Creek GSB Drops </div>
-    <div>Aurora</div>
-    <div>PrelimDesign</div>
-    <div>$450,200</div>
-  </div>
+  <Row className="tab-head-project">
+    <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>West Tollgate Creek GSB Drops </Col>
+    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>Aurora</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 5}} xxl={{ span: 5 }}>PrelimDesign</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 3}} xxl={{ span: 4 }}>$450,200</Col>
+  </Row>
 );
 const genExtra05 = () => (
-  <div className="tab-head-project">
-    <div>Independent Component</div>
-    <div>Aurora</div>
-    <div>Final Design</div>
-    <div>$450,200</div>
-  </div>
+  <Row className="tab-head-project">
+    <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>Independent Component</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>Aurora</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Final Design</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>$450,200</Col>
+  </Row>
 );
 
 export const ModalCapital = ({visibleCapital, setVisibleCapital}:
@@ -88,6 +88,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
                 </Button>
                 <p>Cherry Creek Service Area · Aurora County</p>
               </Col>
+
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
                 <label className="tag-name" style={{padding:'10px'}}>Capital Project</label>
                 <Popover content={content}>
@@ -127,10 +128,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
             {/*Second Section*/}
             <h5>2. SELECT COMPONENTS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
               <div className="tab-titles">
-                <div>Problem</div>
-                <div>Jurisdiction</div>
-                <div>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></div>
-                <div>Cost</div>
+                <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10}}>Problem</Col>
+                <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>Jurisdiction</Col>
+                <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
+                <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
             <div className="draw">
               <img src="/Icons/icon-08.svg" alt="" height="22px" />
@@ -142,37 +143,46 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
             >
               <Panel header="" key="1" extra={genExtra()}>
                 <div className="tab-body-project">
-                  <div className="first">
-                    <Timeline>
-                      <Timeline.Item color="green">Grade Control Structure <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Timeline.Item>
-                      <Timeline.Item color="orange">Detention Facility <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Timeline.Item>
-                      <Timeline.Item color="green">Pipe Appurtenances <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Timeline.Item>
-                    </Timeline>
-                  </div>
-                  <div className="second">Proposed</div>
-                  <div className="third">$200,000</div>
-                  <div className="fourth"><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></div>
+                  <Timeline>
+                    <Timeline.Item color="green">
+                      <Row style={{marginLeft:'-18px'}}>
+                        <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>Aurora Grade Control Structure </label><Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Proposed</Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>$200,000</Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                      </Row>
+                    </Timeline.Item>
+                    <Timeline.Item color="orange">
+                      <Row style={{marginLeft:'-18px'}}>
+                        <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>Araphoe County Detention Facility</label> <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Proposed</Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>$200,000</Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                      </Row>
+                    </Timeline.Item>
+                    <Timeline.Item color="green">
+                      <Row style={{marginLeft:'-18px'}}>
+                        <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>Pipe Appurtenances</label> <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Proposed</Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>$200,000</Col>
+                        <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                      </Row>
+                    </Timeline.Item>
+                  </Timeline>
                 </div>
-              </Panel>
-              <Panel header="" key="2" extra={genExtra()}>
-                <div></div>
-              </Panel>
-              <Panel header="" key="3" extra={genExtra()}>
-                <div></div>
-              </Panel>
-              <Panel header=" " key="4" extra={genExtra()}>
-                <div></div>
               </Panel>
               <Panel header="" key="5" extra={genExtra05()}>
                 <div className="tab-body-project">
-                  <div className="first">
-                    <Timeline>
-                      <Timeline.Item color="green"><Input placeholder="Unnamed Component" /></Timeline.Item>
-                    </Timeline>
-                  </div>
-                  <div className="second"><Input placeholder="Proposed" /></div>
-                  <div className="third"><Input placeholder="$200,000" /></div>
-                  <div className="fourth"><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></div>
+                  <Timeline>
+                    <Timeline.Item color="green">
+                      <Row style={{marginLeft:'-18px'}}>
+                        <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label><Input placeholder="Unnamed Component" /></label></Col>
+                        <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed" /></Col>
+                        <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}><Input placeholder="$200,000" /></Col>
+                        <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                      </Row>
+                    </Timeline.Item>
+                  </Timeline>
                 </div>
               </Panel>
             </Collapse>
