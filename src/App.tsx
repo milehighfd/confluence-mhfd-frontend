@@ -23,6 +23,8 @@ import LoadingView from './Components/Loading/LoadingView';
 import RequestContainer from './Components/Work/Request/RequestContainer';
 import ModalEdit from './Components/Work/Request/ModalEdit';
 import Chat from './Components/Work/Drawers/Chat';
+import Status from './Components/Work/Drawers/Status';
+import Analytics from './Components/Work/Drawers/Analytics';
 //import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
 
 
@@ -158,6 +160,8 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={'/work-request'} component={RequestContainer} />
       <Route path={'/modal-edit'} component={ModalEdit} />
       <Route path={'/chat'} component={Chat} />
+      <Route path={'/status'} component={Status} />
+      <Route path={'/analytics'} component={Analytics} />
 
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />

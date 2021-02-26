@@ -208,16 +208,132 @@ export default () => {
                    </TabPane>
 
                    <TabPane tab="Study" key="2">
-                     Content of Tab Pane 2
+                   Content of Tab Pane 2
                    </TabPane>
+
                    <TabPane tab="Maintenance" key="3">
-                     Content of Tab Pane 3
+                     <div className="work-table">
+                      <div>
+                        <h3>Workspace</h3>
+                        <div className="col-wr">
+                          <Button className="btn-transparent"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
+                          <div className="card-wr" style={{borderLeft: '3px solid #9faeb1'}}>
+                            <h4>West Tollgate Creek GSB Drops </h4>
+                            <h6>$410,000</h6>
+                            <label className="purple">Aurora</label>
+                            <label className="yellow">Draft</label>
+                            <Popover placement="bottomRight" overlayClassName="work-popover" content={content} trigger="click">
+                                <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
+                            </Popover>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>Debris Management</h3>
+                        <div className="col-wr">
+                        <div className="card-wr" style={{borderLeft: '3px solid #9faeb1 '}}>
+                          <h4>West Tollgate Creek GSB Drops </h4>
+                          <h6>$410,000</h6>
+                          <label className="purple">Aurora</label>
+                          <label className="yellow">Draft</label>
+                          <Popover placement="bottomRight" overlayClassName="work-popover" content={content} trigger="click">
+                              <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
+                          </Popover>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>Vegetation Management</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                      <div>
+                      <h3>Sediment Removal</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>Minor Repairs</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3>-</h3>
+                        <div className="col-wr">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="cost-wr">
+                      <Collapse
+                        defaultActiveKey={['1']}
+                        expandIconPosition="left"
+                      >
+                        <Panel header="" key="1" extra={genExtra()}>
+                          <div className="tab-body-project streams">
+                              <Timeline>
+                                <Timeline.Item color="purple">
+                                  <div className="tab-body-line">
+                                    <div><label>Boulder</label></div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                  </div>
+                                </Timeline.Item>
+                                <Timeline.Item color="purple">
+                                  <div className="tab-body-line">
+                                    <div><label>Louisville</label></div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                  </div>
+                                </Timeline.Item>
+                                <Timeline.Item color="purple">
+                                  <div className="tab-body-line">
+                                    <div><label>Superior</label></div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                  </div>
+                                </Timeline.Item>
+                              </Timeline>
+                          </div>
+                        </Panel>
+                      </Collapse>
+                      <div className="col-bg">
+                        <div><h5>Target Cost</h5></div>
+                        <div><Input placeholder="Enter target cost" /></div>
+                        <div><Input placeholder="Enter target cost" /></div>
+                        <div><Input placeholder="Enter target cost" /></div>
+                        <div><Input placeholder="Enter target cost" /></div>
+                        <div><Input placeholder="Enter target cost" /></div>
+                      </div>
+                      <div className="col-bg">
+                        <div><h5>Differential</h5></div>
+                        <div>$241,800</div>
+                        <div>$241,800</div>
+                        <div>$241,800</div>
+                        <div>$241,800</div>
+                        <div>$241,800</div>
+                      </div>
+                    </div>
                    </TabPane>
                    <TabPane tab="Acquisition" key="4">
-                     Content of Tab Pane 3
+                     Content of Tab Pane 4
                    </TabPane>
                    <TabPane tab="Special" key="5">
-                     Content of Tab Pane 3
+                     Content of Tab Pane 5
                    </TabPane>
                 </Tabs>
               </div>
