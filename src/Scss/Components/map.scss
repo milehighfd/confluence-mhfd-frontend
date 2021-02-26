@@ -333,10 +333,10 @@
     margin-bottom: 0px;
   }
   p{
-    font-size: 12px;
+    font-size: 11px;
     margin-bottom: 10px;
     color: $purple00;
-    width: 305px;
+    width: 230px;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
     float: left;
@@ -379,16 +379,16 @@
 }
 .map-filter-s{
   background: #fff;
-  width: 325px;
+  width: 255px;
   left: -20px;
   margin: 0px 20px !important;
   padding-top: 0px !important;
 }
 .filter-coll-header{
   display: flex;
-  width: 297px;
+  width: 222px;
   position: relative;
-  font-size: 13px;
+  font-size: 12px;
   padding-left: 21px;
 
   .ant-switch {
