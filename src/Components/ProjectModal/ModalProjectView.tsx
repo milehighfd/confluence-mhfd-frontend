@@ -62,7 +62,6 @@ export const ModalProjectView = () => {
   };
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
-    console.log(e, "*****  ",  e.target.value, "---------", nameProject);
     if(typeProject !== null){
       if(typeProject === NEW_PROJECT_TYPES.Maintenance){
         if(subType !== ''){
@@ -81,7 +80,6 @@ export const ModalProjectView = () => {
     }
   };
   const handleCancel = (e: any) => {
-    console.log(e);
     const auxState = {...state};
     auxState.visible = false;
     setState(auxState);
