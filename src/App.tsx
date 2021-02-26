@@ -21,6 +21,8 @@ import Unauthorized from './Components/Unauthorized/Unauthorized';
 import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
 import RequestContainer from './Components/Work/Request/RequestContainer';
+import ModalEdit from './Components/Work/Request/ModalEdit';
+import Chat from './Components/Work/Drawers/Chat';
 //import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
 
 
@@ -154,6 +156,8 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={'/new-project'} component={ModalProjectView} />
       <Route path={'/work-request'} component={RequestContainer} />
+      <Route path={'/modal-edit'} component={ModalEdit} />
+      <Route path={'/chat'} component={Chat} />
 
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />

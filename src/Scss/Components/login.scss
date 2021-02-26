@@ -217,7 +217,7 @@
     background-color: #e6f7ff !important;
   }
   span{
-    font-size: 14px;
+    font-size: 12px;
     color: $purple00;
     padding: 0px 0px 10px 0px;
     border-bottom: 1px solid rgba(61, 46, 138, 0.07);
@@ -227,6 +227,9 @@
   span:hover{
     color: #251863;
     font-weight: 500;
+  }
+  img{
+    margin-right: 4px;
   }
 }
 // LIST MENU AUTOCOMPLE

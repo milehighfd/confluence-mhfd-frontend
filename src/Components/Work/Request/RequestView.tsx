@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu } from 'antd';
-import { PlusCircleFilled } from '@ant-design/icons';
+import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer} from 'antd';
+import { PlusCircleFilled, RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
-
-const menu = (
-  <Menu>
+const { Panel } = Collapse;
+const genExtra = () => (
+  <div className="tab-head-project">
+    <div><label>Total Cost</label></div>
+    <div>$1,000,000</div>
+    <div>$1,000,000</div>
+    <div>$1,000,000</div>
+    <div>$1,000,000</div>
+    <div>$1,000,000</div>
+  </div>
+);
+const content = (
+  <Menu className="js-mm-00">
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        1st menu item
-      </a>
+      <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Edit Project</span>
     </Menu.Item>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        2nd menu item
-      </a>
+      <span><img src="/Icons/icon-90.svg" alt="" width="8px" style={{opacity:'0.5'}}/> Edit Amount</span>
     </Menu.Item>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="">
-        3rd menu item
-      </a>
+      <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
+    </Menu.Item>
+    <Menu.Item>
+      <span><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
     </Menu.Item>
   </Menu>
 );
@@ -37,7 +44,13 @@ export default () => {
         <Layout className="work">
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-              {/* aqui va mapitash*/}
+              <div className="map">
+               {/* aqui va mapitash*/}
+              </div>
+
+              <Button className="btn-coll" >
+                  <img src="/Icons/icon-34.svg" alt="" width="18px" style={{transform: 'rotate(180deg)'}}/>
+              </Button>
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: 16 }}>
@@ -86,11 +99,9 @@ export default () => {
                             <h6>$410,000</h6>
                             <label className="purple">Aurora</label>
                             <label className="yellow">Draft</label>
-                            <Dropdown overlay={menu} className="menu-wr">
-                              <a className="ant-dropdown-link">
-                                 <img src="/Icons/icon-60.svg" alt=""/>
-                              </a>
-                            </Dropdown>
+                            <Popover placement="bottomRight" overlayClassName="work-popover" content={content} trigger="click">
+                                <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
+                            </Popover>
                           </div>
                         </div>
                       </div>
@@ -103,11 +114,9 @@ export default () => {
                           <h6>$410,000</h6>
                           <label className="purple">Aurora</label>
                           <label className="yellow">Draft</label>
-                          <Dropdown overlay={menu} className="menu-wr">
-                            <a className="ant-dropdown-link">
-                               <img src="/Icons/icon-60.svg" alt=""/>
-                            </a>
-                          </Dropdown>
+                          <Popover placement="bottomRight" overlayClassName="work-popover" content={content} trigger="click">
+                              <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
+                          </Popover>
                         </div>
                         </div>
                       </div>
@@ -138,24 +147,62 @@ export default () => {
                     </div>
 
                     <div className="cost-wr">
-                      <Row gutter={[16, 24]}>
-
-                      </Row>
+                      <Collapse
+                        defaultActiveKey={['1']}
+                        expandIconPosition="left"
+                      >
+                        <Panel header="" key="1" extra={genExtra()}>
+                          <div className="tab-body-project streams">
+                              <Timeline>
+                                <Timeline.Item color="purple">
+                                  <div className="tab-body-line">
+                                    <div><label>Boulder</label></div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                  </div>
+                                </Timeline.Item>
+                                <Timeline.Item color="purple">
+                                  <div className="tab-body-line">
+                                    <div><label>Louisville</label></div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                  </div>
+                                </Timeline.Item>
+                                <Timeline.Item color="purple">
+                                  <div className="tab-body-line">
+                                    <div><label>Superior</label></div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                    <div>$170,000</div>
+                                  </div>
+                                </Timeline.Item>
+                              </Timeline>
+                          </div>
+                        </Panel>
+                      </Collapse>
                       <div className="col-bg">
-                        <Row gutter={[16, 24]}>
-                          <Col span={6}><h5>Target Cost</h5></Col>
-                          <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-                          <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-                          <Col span={6}><Input className="input-pp" placeholder="Enter target cost" /></Col>
-                        </Row>
+                        <div><h5>Target Cost</h5></div>
+                        <div><Input placeholder="Enter target cost" /></div>
+                        <div><Input placeholder="Enter target cost" /></div>
+                        <div><Input placeholder="Enter target cost" /></div>
+                        <div><Input placeholder="Enter target cost" /></div>
+                        <div><Input placeholder="Enter target cost" /></div>
                       </div>
                       <div className="col-bg">
-                        <Row gutter={[16, 24]}>
-                          <Col span={6}><h5>Differential</h5></Col>
-                          <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
-                          <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
-                          <Col span={6}><Input className="input-rr" placeholder="XXX Difference" /></Col>
-                        </Row>
+                        <div><h5>Differential</h5></div>
+                        <div>$241,800</div>
+                        <div>$241,800</div>
+                        <div>$241,800</div>
+                        <div>$241,800</div>
+                        <div>$241,800</div>
                       </div>
                     </div>
                    </TabPane>
@@ -176,9 +223,11 @@ export default () => {
               </div>
 
               <div className="work-footer">
-                <Button className="btn-borde">Save Worplan</Button>
-                <Button className="btn-purple">Submit for Review</Button>
+                <Button className="btn-borde">Save Work Request</Button>
+                <Button className="btn-purple">Submit to County Manager</Button>
               </div>
+
+            <Button className="btn-scroll"><RightOutlined /></Button>
             </Col>
           </Row>
         </Layout>
