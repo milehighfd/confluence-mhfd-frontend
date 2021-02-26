@@ -38,13 +38,17 @@ const columns = [
 
 ];
 
-export const ModalSpecial = ({visibleSpecial, setVisibleSpecial}:
-  {visibleSpecial: boolean, setVisibleSpecial: Function}) => {
+export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject}:
+  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function}) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleSpecial = true;
     setState(auxState);
+  };
+
+  const onChange = (e: any)=>{
+    setNameProject(e.target.value);
   };
 
   const handleOk = (e: any) => {
@@ -80,7 +84,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial}:
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <Input placeholder="Bear Canyon Creek at Araphoe Road"  />
+                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>

@@ -38,13 +38,17 @@ const columns = [
 
 ];
 
-export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition}:
-  {visibleAcquisition: boolean, setVisibleAcquisition: Function}) => {
+export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject}:
+  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function} ) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleAcquisition = true;
     setState(auxState);
+  };
+
+  const onChange = (e: any)=>{
+    setNameProject(e.target.value);
   };
 
   const handleOk = (e: any) => {
@@ -61,7 +65,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition}:
     setState(auxState);
   };
   return (
-    <>
+    <> 
      <Modal
        centered
        visible={visibleAcquisition}
@@ -80,7 +84,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition}:
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <Input placeholder="Bear Canyon Creek at Araphoe Road"  />
+                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject}  />
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>
@@ -199,7 +203,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition}:
           </div>
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>
+            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>     
           </div>
         </Col>
       </Row>
