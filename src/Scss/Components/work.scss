@@ -4,7 +4,7 @@
   background: $white;
 }
 .work-head{
-  padding: 15px 20px;
+  padding: 15px 20px 0px 15px;
 
   h2{
     color: $purple00;
@@ -44,8 +44,53 @@
   .ant-select-selection__placeholder, .ant-select-search__field__placeholder{
     color: $opacity;
   }
+  .ant-input{
+    font-size: 21px;
+    border: none;
+    border-bottom: 1px solid $opacity01;
+    border-radius: 0px;
+    padding: 0px 11px;
+  }
+  .ant-input::placeholder{
+    color: $purple00;
+  }
+  .ant-input:hover, .ant-input:focus {
+    border-color: $purple;
+  }
+  .ant-input-affix-wrapper .ant-input:not(:first-child) {
+    padding-left: 25px;
+  }
+  .ant-input-affix-wrapper .ant-input-prefix {
+    left: 0px;
+  }
+  .ant-input-affix-wrapper .ant-input-suffix {
+    right: 0px;
+  }
 }
 .work-body{
+  .btn-filter-d{
+    position: absolute;
+    top: 70px;
+    right: 25px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0px;
+    z-index: 1000;
+  }
+  .icon-bt{
+    height: 4px;
+    width: 24px;
+    background: $purple;
+    padding: 9px;
+  }
+  .btn-filter-d:hover > .icon-bt{
+    opacity: 1;
+    height: 4px;
+    width: 24px;
+    background: $green !important;
+    padding: 9px;
+  }
   .ant-tabs-nav .ant-tabs-tab {
     margin: 0 20px 0 20px;
     font-size: 12px;
@@ -67,7 +112,7 @@
     }
   }
   .ant-tabs-tabpane-active{
-    height: calc(100vh - 268px);
+    height: calc(100vh - 254px);
     overflow-x: auto;
   }
 }
@@ -279,6 +324,16 @@
     .ant-timeline-item-head{
       border-color: $purple !important;
       background-color: $purple !important;
+    }
+    .ant-timeline-item-head-green {
+      color: $green !important;
+      border-color: $green !important;
+      background: $green !important;
+    }
+    .ant-timeline-item-head-orange{
+      color: $orange !important;
+      border-color: $orange !important;
+      background: $orange !important;
     }
   }
 }
@@ -600,7 +655,7 @@
       font-size: 16px;
     }
     .ant-tabs-tabpane-active {
-      height: calc(100vh - 296px);
+      height: calc(100vh - 281px);
     }
     .col-bg {
       height: 54px;
@@ -762,6 +817,7 @@
     .ant-dropdown-link, .ant-dropdown-link:hover, .ant-dropdown-link:focus{
       margin-bottom: 25px;
       font-size: 18px;
+      height: 40px;
     }
     .note{
       font-size: 16px;
@@ -776,6 +832,11 @@
     }
   }
   .menu-utilities{
+    padding: 10px 0px !important;
+
+    .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title{
+      padding: 10px !important
+    }
     h6{
       font-size: 16px;
       margin-bottom: -5px;
@@ -869,7 +930,7 @@
       font-size: 21px;
     }
     .ant-tabs-tabpane-active {
-      height: calc(100vh - 345px);
+      height: calc(100vh - 330px);
     }
     .col-bg {
       height: 70px;
@@ -1014,5 +1075,127 @@
         font-size: 31px;
       }
     }
+  }
+  // Utilities
+  .work-utilities{
+    h5{
+      font-size: 28px;
+    }
+    .ant-drawer-header {
+      padding: 25px 25px 0;
+
+      .btn-transparent{
+        span{
+         font-size: 18px;
+        }
+      }
+      .ant-select{
+        font-size: 24px;
+        width: 105px !important;
+      }
+    }
+    .ant-drawer-title img{
+      height: 32px;
+    }
+    .ant-drawer-body {
+      padding: 25px;
+    }
+    h6{
+      font-size: 24px;
+    }
+    p{
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .ant-dropdown-link, .ant-dropdown-link:hover, .ant-dropdown-link:focus{
+      margin-bottom: 25px;
+      font-size: 24px;
+      height: 50px;
+    }
+    .note{
+      font-size: 21px;
+      padding: 25px;
+    }
+    .footer-drawer{
+      button{
+        height: 78px;
+        width: 195px;
+        font-size: 24px;
+      }
+    }
+  }
+  .menu-utilities{
+    padding: 12px 0px !important;
+
+    .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title{
+      padding: 12px !important
+    }
+    h6{
+      font-size: 21px;
+      margin-bottom: 0px;
+    }
+    label{
+      font-size: 16px;
+      padding-left: 24px;
+    }
+    i{
+      font-size: 18px;
+    }
+  }
+  .chat-r{
+    h6{
+      font-size: 24px;
+    }
+    p, span{
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    img{
+      margin-top: 0px;
+      height: 60px;
+    }
+  }
+  .chat-00{
+    height: 710px;
+
+    .chat-head{
+      height: 90px;
+      font-size: 28px;
+      padding: 24px 25px;
+    }
+    .chat-head img{
+      margin-top: -6px;
+      height: 25px;
+    }
+    .chat-body{
+      height: 530px;
+      padding: 175px 40px;
+    }
+    .chat-footer{
+      height: 90px;
+      padding: 15px 25px;
+    }
+    .chat-body h6{
+      font-size: 28px;
+    }
+    .chat-body p{
+      font-size: 24px;
+    }
+    .chat-footer .ant-input {
+      font-size: 24px;
+      margin: 18px 0px;
+    }
+  }
+  .chat-footer{
+    img{
+      margin-top: 0px;
+    }
+    .btn-send{
+      font-size: 24px !important;
+      margin: 16px 0px;
+    }
+  }
+  .ant-drawer-right .ant-drawer-content-wrapper {
+    width: 550px !important;
   }
 }

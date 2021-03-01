@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer } from 'antd';
-import { PlusCircleFilled, RightOutlined } from '@ant-design/icons';
+import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer, AutoComplete } from 'antd';
+import { PlusCircleFilled, RightOutlined, DownOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 
@@ -60,7 +60,14 @@ export default () => {
               <div className="work-head">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                    <h2><i className="mdi mdi-circle"></i> Aurora Work Request</h2>
+                    <h2>
+                      <Input
+                       style={{ width: 310 }}
+                       placeholder="Boulder County Work Plan"
+                       prefix={<i className="mdi mdi-circle"></i>}
+                       suffix={<DownOutlined />}
+                     />
+                    </h2>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{textAlign:'right'}}>
                     <Select placeholder="Year 2018">
@@ -90,6 +97,9 @@ export default () => {
                 </Row>
               </div>
               <div className="work-body">
+              <Button className="btn-filter-d">
+                <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>
+              </Button>
                 <Tabs defaultActiveKey="1" className="tabs-map">
                    <TabPane tab="Capital" key="1">
                      <div className="work-table">
@@ -157,7 +167,7 @@ export default () => {
                         <Panel header="" key="1" extra={genExtra()}>
                           <div className="tab-body-project streams">
                               <Timeline>
-                                <Timeline.Item color="purple">
+                                <Timeline.Item color="green">
                                   <div className="tab-body-line">
                                     <div><label>Boulder <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
                                     <div>$170,000</div>
@@ -167,7 +177,7 @@ export default () => {
                                     <div>$170,000</div>
                                   </div>
                                 </Timeline.Item>
-                                <Timeline.Item color="purple">
+                                <Timeline.Item color="orange">
                                   <div className="tab-body-line">
                                     <div><label>Louisville <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
                                     <div>$170,000</div>
@@ -177,7 +187,7 @@ export default () => {
                                     <div>$170,000</div>
                                   </div>
                                 </Timeline.Item>
-                                <Timeline.Item color="purple">
+                                <Timeline.Item color="green">
                                   <div className="tab-body-line">
                                     <div><label>Superior <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
                                     <div>$170,000</div>
@@ -208,10 +218,6 @@ export default () => {
                         <div>$241,800</div>
                       </div>
                     </div>
-                   </TabPane>
-
-                   <TabPane tab="Study" key="2">
-                   Content of Tab Pane 2
                    </TabPane>
 
                    <TabPane tab="Maintenance" key="3">
@@ -332,18 +338,12 @@ export default () => {
                       </div>
                     </div>
                    </TabPane>
-                   <TabPane tab="Acquisition" key="4">
-                     Content of Tab Pane 4
-                   </TabPane>
-                   <TabPane tab="Special" key="5">
-                     Content of Tab Pane 5
-                   </TabPane>
                 </Tabs>
               </div>
 
               <div className="work-footer">
-                <Button className="btn-borde">Save Work Request</Button>
-                <Button className="btn-purple">Submit to County Manager</Button>
+                <Button className="btn-borde">Save Workplan</Button>
+                <Button className="btn-purple">Submit for Review</Button>
               </div>
 
             <Button className="btn-scroll"><RightOutlined /></Button>
