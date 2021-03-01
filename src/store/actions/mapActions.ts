@@ -827,7 +827,7 @@ export const getBBOXComponents = (table: string, id: number) => {
 
 export const addFavorite = (email: string, id: number, table: string) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id).then(favorite => {
+        datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
             favorite.id = +favorite.id;
             dispatch({type: types.ADD_FAVORITE, favorite});
             //dispatch(favoriteList(email));
