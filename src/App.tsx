@@ -20,7 +20,7 @@ import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
-import RequestContainer from './Components/Work/Request/RequestContainer';
+import RequestView from './Components/Work/Request/RequestView';
 import ModalEdit from './Components/Work/Request/ModalEdit';
 import Chat from './Components/Work/Drawers/Chat';
 import Status from './Components/Work/Drawers/Status';
@@ -157,7 +157,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={'/new-project'} component={ModalProjectView} />
-      <Route path={'/work-request'} component={RequestContainer} />
+      <Route path={'/work-request'} component={RequestView} />
       <Route path={'/modal-edit'} component={ModalEdit} />
       <Route path={'/chat'} component={Chat} />
       <Route path={'/status'} component={Status} />

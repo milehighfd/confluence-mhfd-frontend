@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer} from 'antd';
+import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer } from 'antd';
 import { PlusCircleFilled, RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
@@ -8,6 +8,9 @@ const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
+const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
+const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const genExtra = () => (
   <div className="tab-head-project">
     <div><label>Total Cost</label></div>
@@ -156,7 +159,7 @@ export default () => {
                               <Timeline>
                                 <Timeline.Item color="purple">
                                   <div className="tab-body-line">
-                                    <div><label>Boulder</label></div>
+                                    <div><label>Boulder <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
                                     <div>$170,000</div>
                                     <div>$170,000</div>
                                     <div>$170,000</div>
@@ -166,7 +169,7 @@ export default () => {
                                 </Timeline.Item>
                                 <Timeline.Item color="purple">
                                   <div className="tab-body-line">
-                                    <div><label>Louisville</label></div>
+                                    <div><label>Louisville <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
                                     <div>$170,000</div>
                                     <div>$170,000</div>
                                     <div>$170,000</div>
@@ -176,7 +179,7 @@ export default () => {
                                 </Timeline.Item>
                                 <Timeline.Item color="purple">
                                   <div className="tab-body-line">
-                                    <div><label>Superior</label></div>
+                                    <div><label>Superior <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
                                     <div>$170,000</div>
                                     <div>$170,000</div>
                                     <div>$170,000</div>
