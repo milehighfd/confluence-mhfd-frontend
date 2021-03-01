@@ -45,8 +45,8 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   []);
   const isActive = (table: string, id: number): boolean => {
     if (favorites) {
-      console.log(favorites);
       for (const favorite of favorites) {
+        console.log(favorite);
         if (favorite.table === table && favorite.id === id) {
           return true;
         }
@@ -56,7 +56,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   }
   const [activeCard, setActiveCard] = useState(isActive(data.type, data.id));
   useEffect(() => {
-    const status = isActive(data.type, data.id);
+    const status = isActive(data.type, data.problemid || data.id);
     setActiveCard(status);
   }, [favorites, deleteFavorite, addFavorite]);
 
@@ -163,7 +163,8 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
              {user.designation !== 'guest' ? <div className="like-btn">
                <Button onClick={(event) => {
                   event.stopPropagation();
-                  activeCard ?  deleteFavorite(user.email, (data.projectid || data.problemid), data.type) : addFavorite(user.email, (data.projectid || data.problemid), data.type);
+
+                  activeCard ?  deleteFavorite(user.email, (data.id || data.problemid), data.type) : addFavorite(user.email, (data.id || data.problemid), data.type);
                   //favoriteList(user.email);
                 }
                }
