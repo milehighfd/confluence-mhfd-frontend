@@ -43,19 +43,20 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     favoriteList(user.email);
   },
   []);
-  const isActive = (table: string, cartodb_id: number): boolean => {
+  const isActive = (table: string, id: number): boolean => {
     if (favorites) {
+      console.log(favorites);
       for (const favorite of favorites) {
-        if (favorite.table === table && favorite.cartodb_id === cartodb_id) {
+        if (favorite.table === table && favorite.id === id) {
           return true;
         }
       }
     }
     return false;
   }
-  const [activeCard, setActiveCard] = useState(isActive(data.type, data.cartodb_id));
+  const [activeCard, setActiveCard] = useState(isActive(data.type, data.id));
   useEffect(() => {
-    const status = isActive(data.type, data.cartodb_id);
+    const status = isActive(data.type, data.id);
     setActiveCard(status);
   }, [favorites, deleteFavorite, addFavorite]);
 
@@ -162,7 +163,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
              {user.designation !== 'guest' ? <div className="like-btn">
                <Button onClick={(event) => {
                   event.stopPropagation();
-                  activeCard ?  deleteFavorite(user.email, data.cartodb_id, data.type) : addFavorite(user.email, data.cartodb_id, data.type);
+                  activeCard ?  deleteFavorite(user.email, (data.projectid || data.problemid), data.type) : addFavorite(user.email, (data.projectid || data.problemid), data.type);
                   //favoriteList(user.email);
                 }
                }

@@ -825,10 +825,10 @@ export const getBBOXComponents = (table: string, id: number) => {
 }
 
 
-export const addFavorite = (email: string, cartodb_id: number, table: string) => {
+export const addFavorite = (email: string, id: number, table: string) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&cartodb_id=' + cartodb_id).then(favorite => {
-            favorite.cartodb_id = +favorite.cartodb_id;
+        datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id).then(favorite => {
+            favorite.id = +favorite.id;
             dispatch({type: types.ADD_FAVORITE, favorite});
             //dispatch(favoriteList(email));
         });
@@ -836,10 +836,10 @@ export const addFavorite = (email: string, cartodb_id: number, table: string) =>
     }
 }
 
-export const deleteFavorite = (email: string, cartodb_id: number, table: string) => {
+export const deleteFavorite = (email: string, id: number, table: string) => {
     return (dispatch: Function) => {
-        datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, {email: email, cartodb_id: cartodb_id, table: table}).then(favorite => {
-            dispatch({type: types.DELETE_FAVORITE, favorite: {cartodb_id: cartodb_id, table: table}});
+        datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, {email: email, id: id, table: table}, datasets.getToken()).then(favorite => {
+            dispatch({type: types.DELETE_FAVORITE, favorite: {id: id, table: table}});
            // dispatch(favoriteList(email));
         });
         //datasets.getData()
@@ -848,7 +848,7 @@ export const deleteFavorite = (email: string, cartodb_id: number, table: string)
 
 export const favoriteList = (email: string) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.FAVORITES + '?email=' + email).then(favorites  => {
+        datasets.getData(SERVER.FAVORITES + '?email=' + email, datasets.getToken()).then(favorites  => {
             dispatch({type: types.FAVORITE_LIST, favorites});
         });
     }
@@ -865,7 +865,7 @@ export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: 
             sendData = {...sendData, ...{name: extraOptions.keyword, sortby: extraOptions.column, sorttype: extraOptions.order}};
             console.log('now ', sendData);
         }
-        datasets.postData(SERVER.FAVORITE_CARDS, sendData).then(favoriteCards => {
+        datasets.postData(SERVER.FAVORITE_CARDS, sendData, datasets.getToken()).then(favoriteCards => {
             if (isproblem) {
                 dispatch({type: types.FAVORITE_CARDS_PROBLEMS, favoriteProblemCards: favoriteCards});
                 dispatch({type: types.FAVORITE_LOADER, favoritesLoader: -1});

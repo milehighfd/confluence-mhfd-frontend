@@ -206,11 +206,11 @@ export const useMapDispatch = () => {
     updateSelectedLayers: (selectedLayer: any) => {
       dispatch(updateSelectedLayers(selectedLayer))
     },
-    addFavorite: (email: string, cartodb_id: number, table: string) => {
-      dispatch(addFavorite(email, cartodb_id, table));
+    addFavorite: (email: string, id: number, table: string) => {
+      dispatch(addFavorite(email, id, table));
     },
-    deleteFavorite: (email: string, cartodb_id: number, table: string) => {
-      dispatch(deleteFavorite(email, cartodb_id, table));
+    deleteFavorite: (email: string, id: number, table: string) => {
+      dispatch(deleteFavorite(email, id, table));
     }, 
     favoriteList: (email: string) => {
       dispatch(favoriteList(email));
