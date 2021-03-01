@@ -32,13 +32,17 @@ const genExtra00 = () => (
 );
 
 
-export const ModalStudy= ({visibleStudy, setVisibleStudy}:
-  {visibleStudy: boolean, setVisibleStudy: Function}) => {
+export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject}:
+  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function}) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleStudy = true;
     setState(auxState);
+  };
+
+  const onChange = (e: any)=>{
+    setNameProject(e.target.value);
   };
 
   const handleOk = (e: any) => {
@@ -74,7 +78,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy}:
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <Input placeholder="Bear Canyon Creek at Araphoe Road" />
+                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>

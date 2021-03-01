@@ -19,13 +19,17 @@ const stateValue = {
   visibleMaintenance: false
 }
 
-export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance}:
-  {visibleMaintenance: boolean, setVisibleMaintenance: Function}) => {
+export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType}:
+  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string}) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
     setState(auxState);
+  };
+
+  const onChange = (e: any)=>{
+    setNameProject(e.target.value);
   };
 
   const handleOk = (e: any) => {
@@ -61,14 +65,14 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance}:
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 14 }}>
-                <Input placeholder="Bear Canyon Creek at Araphoe Road"  />
+                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{textAlign:'right'}}>
                 <label className="tag-name">Maintenance</label>
-                <label className="tag-name">Vegetation Management</label>
+                <label className="tag-name">{subType}</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
                 </Popover>

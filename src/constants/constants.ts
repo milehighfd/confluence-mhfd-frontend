@@ -1785,7 +1785,20 @@ export const MENU_OPTIONS =
     PROBLEMS: 'problems'
   }
 ;
-
+export const NEW_PROJECT_TYPES = {
+  Capital: "Capital",
+  Acquisition: "Acquisition",
+  Maintenance: "Maintenance",
+  Special: "Special",
+  Study: "Study",
+  MAINTENANCE_SUBTYPES: {
+    Debris_Management:"Debris Management",
+    Vegetation_Management: "Vegetation Management",
+    Sediment_Removal:"Sediment Removal",
+    Minor_Repairs:"Minor Repairs",
+    Restoration:"Restoration"
+  }
+}
 
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11

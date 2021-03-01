@@ -38,10 +38,14 @@ const genExtra05 = () => (
   </Row>
 );
 
-export const ModalCapital = ({visibleCapital, setVisibleCapital}:
-  {visibleCapital: boolean, setVisibleCapital: Function}) => {
+export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject}:
+  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function}) => {
   const [state, setState] = useState(stateValue);
   console.log(visibleCapital, "visiCap");
+
+  const onChange = (e: any)=>{
+    setNameProject(e.target.value);
+  };
 
   const showModal = () => {
     const auxState = {...state};
@@ -82,7 +86,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital}:
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <Input placeholder="Bear Canyon Creek at Araphoe Road"  />
+                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>

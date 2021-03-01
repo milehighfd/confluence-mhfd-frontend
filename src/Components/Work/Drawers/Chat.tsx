@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Drawer, Row, Col, Input, Button } from 'antd';
+import { CloseOutlined, RightOutlined } from '@ant-design/icons';
 
 export default () => {
   const [visible, setVisible] = useState(false);
@@ -15,19 +16,22 @@ export default () => {
       Drawer
     </Button>
     <Drawer
+      title={<h5>
+              <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> CHAT
+              <Button className="btn-transparent"><CloseOutlined /></Button>
+             </h5>}
       placement="right"
       closable={false}
       onClose={() => setVisible(false)}
       visible={visible}
-      className="chat-r"
+      className="chat-r work-utilities"
     >
-      <h5>Team Collaborators</h5>
       <Row>
         <Col span={4}>
           <img src="/Icons/icon-28.svg" alt="" height="35px" />
         </Col>
         <Col span={13}>
-          <h6>TBD</h6>
+          <h6>Jon Villines</h6>
           <p>Project Manager</p>
         </Col>
         <Col span={7} style={{ textAlign: 'right' }}>
@@ -39,7 +43,7 @@ export default () => {
           <img src="/Icons/icon-28.svg" alt="" height="35px" />
         </Col>
         <Col span={13}>
-          <h6>TBD</h6>
+          <h6>Carolyn Roan</h6>
           <p>Floodplain Administration</p>
         </Col>
         <Col span={7} style={{ textAlign: 'right' }}>
@@ -51,7 +55,7 @@ export default () => {
           <img src="/Icons/icon-28.svg" alt="" height="35px" />
         </Col>
         <Col span={13}>
-          <h6>TBD</h6>
+          <h6>Deb Ohlinger</h6>
           <p>People Manager</p>
         </Col>
         <Col span={7} style={{ textAlign: 'right' }}>
@@ -63,7 +67,7 @@ export default () => {
           <img src="/Icons/icon-28.svg" alt="" height="35px" />
         </Col>
         <Col span={13}>
-          <h6>TBD</h6>
+          <h6>Amy Gabor</h6>
           <p>Project Engineer</p>
         </Col>
         <Col span={7} style={{ textAlign: 'right' }}>
@@ -72,7 +76,7 @@ export default () => {
       </Row>
       <div className="chat-00">
         <div className="chat-head">
-          Comments <img src="/Icons/icon-19.svg" alt="" height="20px" />
+          Comments <img src="/Icons/icon-19.svg" alt="" height="15px" />
         </div>
         <div className="chat-body">
           <img src="/Icons/icon-61.svg" alt="" />
