@@ -1219,7 +1219,7 @@ const Map = ({ leftWidth,
         if (item.problemid) {
             existDetailedPageProblem(item.problemid);
         } else {
-            const url = 'objectid=' + item.objectid + '&cartoid=' + item.valueid + '&type=' + item.type;
+            const url = 'projectid' + (item.projectid || item.id) + '&type=' + item.type;
             existDetailedPageProject(url);
         }
 
