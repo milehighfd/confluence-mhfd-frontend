@@ -44,3 +44,10 @@
   background: transparent;
   border-radius: 5px;
 }
+.filter-map::-webkit-scrollbar{
+  width: 5px;
+}
+.filter-map::-webkit-scrollbar-thumb{
+  background: #D3D0E0;
+  border-radius: 5px;
+}

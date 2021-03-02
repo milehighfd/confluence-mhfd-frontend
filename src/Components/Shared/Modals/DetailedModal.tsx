@@ -26,8 +26,9 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     } else {
-      getDetailedPageProject(data.objectid, data.value, data.type);
-      getComponentsByProblemId({id: data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      console.log(data);
+      getDetailedPageProject(data.id || data.projectid, data.type);
+      getComponentsByProblemId({id: data.id || data.projectid, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
   }, []);
@@ -40,12 +41,14 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     getComponentsByProblemId({id: problemId, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
   }
   const copyUrl = () => {
+    console.log(data);
     function handler (event: any){
       let url = '';
+      console.log(data);
       if (type === FILTER_PROBLEMS_TRIGGER) {
         url = `problemid=${data.problemid}`;
       } else {
-        url = `objectid=${data.objectid}&cartoid=${data.value}&type=${data.type}&id=${data.id ? data.id: ''}`;
+        url = `type=${data.type}&projectid=${data.id ? data.id: ''}`;
       }
       event.clipboardData.setData('text/plain', SERVER.SHARE_MAP_PROJECT + '?' + url);
       event.preventDefault();
@@ -70,7 +73,8 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
         map = await c.getCanvasBase64()
       }
     } else {
-      let params = `cartoid=${data.value}&type=${data.type}`;
+      let params = `projectid=${data.projectid}`;
+      console.log('params ', params);
       url = `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`;
       fileName = 'project.pdf';
       let c: any = cipjRef.current;

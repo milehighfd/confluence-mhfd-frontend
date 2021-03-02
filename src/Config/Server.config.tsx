@@ -59,6 +59,7 @@ export const SERVER = (function () {
     const REMOVE = 'remove'
     const PROBLEM_BY_ID = 'problem-by-id';
     const PROJECT_BY_ID = 'project-by-id';
+    const DETAILED_PAGE_PROJECT = 'project-by-ids';
     const GROUP_COLUMNS = 'group-by';
     const PARAM_FILTERS = 'params-filters';
     const COMPONENTS_BY_ENTITYID = 'components-by-entityid';
@@ -127,6 +128,7 @@ export const SERVER = (function () {
         DELETE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${REMOVE}`,
         PROBLEM_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROBLEM_BY_ID}`,
         PROJECT_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROJECT_BY_ID}`,
+        DETAILED_PAGE_PROJECT: `${URL_BASE.BASE}/${GALLERY}/${DETAILED_PAGE_PROJECT}`,
         PARAM_FILTERS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTERS}`,
         GROUP_COLUMNS: `${URL_BASE.BASE}/${GALLERY}/${GROUP_COLUMNS}`,
         COMPONENTS_BY_ENTITYID: `${URL_BASE.BASE}/${GALLERY}/${COMPONENTS_BY_ENTITYID}`,

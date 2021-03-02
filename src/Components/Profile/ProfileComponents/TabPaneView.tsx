@@ -73,8 +73,8 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
       setState(auxState);
     }, 500);
   };
-  const deleted = (cartodb_id: number, type: string) => {
-    deleteFavorite(user.email, cartodb_id, type);
+  const deleted = (id: number, type: string) => {
+    deleteFavorite(user.email, id, type);
     search(user.email, type === 'problems', options);
   }
   // <Spin spinning={spinValue} className="loading-01">

@@ -148,7 +148,7 @@ const Map = ({ leftWidth,
 
     useEffect(()=> {
         console.log(mobilePopups);
-        
+
     }, [mobilePopups]);
     const [zoomValue, setZoomValue] = useState(0);
     const { TabPane } = Tabs;
@@ -523,9 +523,9 @@ const Map = ({ leftWidth,
                 map.addImage('Urbanclimbtosafetysign_origclean', image);
             }
         });
-        
-        
-        
+
+
+
         mapService.map = map;
         if (coor[0] && coor[1]) {
             map.fitBounds(coor);
@@ -1219,7 +1219,7 @@ const Map = ({ leftWidth,
         if (item.problemid) {
             existDetailedPageProblem(item.problemid);
         } else {
-            const url = 'objectid=' + item.objectid + '&cartoid=' + item.valueid + '&type=' + item.type;
+            const url = 'projectid' + (item.projectid || item.id) + '&type=' + item.type;
             existDetailedPageProject(url);
         }
 
@@ -1303,7 +1303,7 @@ const Map = ({ leftWidth,
                 let itemValue;
                 if (feature.source === 'projects_polygon_' || feature.source === 'projects_line_1') {
                     getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
-                    const filtered = galleryProjects.filter((item: any) => 
+                    const filtered = galleryProjects.filter((item: any) =>
                         item.cartodb_id === feature.properties.cartodb_id
                     );
                     const item = {
@@ -2127,7 +2127,7 @@ const Map = ({ leftWidth,
                 </Dropdown>
                 <AutoComplete
                     dropdownMatchSelectWidth={true}
-                    style={{ width: 200 }}
+                    style={{ width: 240 }}
                     dataSource={mapSearch.map(renderOption)}
                     onSelect={onSelect}
                     onSearch={handleSearch}
@@ -2188,7 +2188,7 @@ const Map = ({ leftWidth,
                             center: [longitude, latitude],
                             zoom: 14
                             });
-                        
+
                         map.addSource('point', {
                             'type': 'geojson',
                             'data': {
@@ -2222,7 +2222,7 @@ const Map = ({ leftWidth,
                           // add some error here
                       } else {
                         navigator.geolocation.getCurrentPosition(success, error);
-                        
+
                       }
                 }}
                 /></Button>

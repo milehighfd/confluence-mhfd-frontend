@@ -475,8 +475,8 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
         if(!auxFilter.component_type) {
             auxFilter.component_type = "grade_control_structure,pipe_appurtenances,special_item_point," +
                                         "special_item_linear,special_item_area,channel_improvements_linear,"+
-                                        "channel_improvements_area,removal_line,removal_area,storm_drain,"+
-                                        "detention_facilities,maintenance_trails,land_acquisition,landscaping_area"
+                                        "channel_improvements_area,storm_drain,"+
+                                        "detention_facilities,land_acquisition,landscaping_area" // TODO save on a constant the useful components #dotty 
         }
         datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
             if(filtersComponents?.problems || filtersComponents?.projects_line_1 || filtersComponents?.projects_polygon_) {
@@ -531,10 +531,10 @@ export const setSelectedPopup = (currentPopup: number) => {
     }
 }
 
-export const getDetailedPageProject = (id: number, cartoid: number, type: string) => {
+export const getDetailedPageProject = (id: number, type: string) => {
     return (dispatch: Function) => {
         dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})
-        datasets.getData(SERVER.PROJECT_BY_ID  + 's?cartoid=' + cartoid + '&objectid=' + id + '&type=' + type, datasets.getToken()).then(detailed => {
+        datasets.getData(SERVER.DETAILED_PAGE_PROJECT  + '?projectid=' + id + '&type=' + type, datasets.getToken()).then(detailed => {
             dispatch({type: detailedTypes.REPLACE_DETAILED_PAGE, detailed});
         });
     }
@@ -551,7 +551,8 @@ export const getDetailedPageProblem = (id: string) => {
 export const existDetailedPageProject = (url: string) => {
     return (dispatch: Function) => {
         dispatch({type: detailedTypes.DISPLAY_MODAL, spin: false});
-        datasets.getData(SERVER.PROJECT_BY_ID  + 's?' + url, datasets.getToken()).then(detailed => {
+        datasets.getData(SERVER.DETAILED_PAGE_PROJECT  + '?' + url, datasets.getToken()).then(detailed => {
+            console.log(detailed);
             if(detailed?.cartodb_id) {
                 dispatch({type: detailedTypes.DISPLAY_MODAL, spin: true});
             }
@@ -825,10 +826,10 @@ export const getBBOXComponents = (table: string, id: number) => {
 }
 
 
-export const addFavorite = (email: string, cartodb_id: number, table: string) => {
+export const addFavorite = (email: string, id: number, table: string) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&cartodb_id=' + cartodb_id).then(favorite => {
-            favorite.cartodb_id = +favorite.cartodb_id;
+        datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
+            favorite.id = +favorite.id;
             dispatch({type: types.ADD_FAVORITE, favorite});
             //dispatch(favoriteList(email));
         });
@@ -836,10 +837,10 @@ export const addFavorite = (email: string, cartodb_id: number, table: string) =>
     }
 }
 
-export const deleteFavorite = (email: string, cartodb_id: number, table: string) => {
+export const deleteFavorite = (email: string, id: number, table: string) => {
     return (dispatch: Function) => {
-        datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, {email: email, cartodb_id: cartodb_id, table: table}).then(favorite => {
-            dispatch({type: types.DELETE_FAVORITE, favorite: {cartodb_id: cartodb_id, table: table}});
+        datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, {email: email, id: id, table: table}, datasets.getToken()).then(favorite => {
+            dispatch({type: types.DELETE_FAVORITE, favorite: {id: id, table: table}});
            // dispatch(favoriteList(email));
         });
         //datasets.getData()
@@ -848,7 +849,7 @@ export const deleteFavorite = (email: string, cartodb_id: number, table: string)
 
 export const favoriteList = (email: string) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.FAVORITES + '?email=' + email).then(favorites  => {
+        datasets.getData(SERVER.FAVORITES + '?email=' + email, datasets.getToken()).then(favorites  => {
             dispatch({type: types.FAVORITE_LIST, favorites});
         });
     }
@@ -865,7 +866,7 @@ export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: 
             sendData = {...sendData, ...{name: extraOptions.keyword, sortby: extraOptions.column, sorttype: extraOptions.order}};
             console.log('now ', sendData);
         }
-        datasets.postData(SERVER.FAVORITE_CARDS, sendData).then(favoriteCards => {
+        datasets.postData(SERVER.FAVORITE_CARDS, sendData, datasets.getToken()).then(favoriteCards => {
             if (isproblem) {
                 dispatch({type: types.FAVORITE_CARDS_PROBLEMS, favoriteProblemCards: favoriteCards});
                 dispatch({type: types.FAVORITE_LOADER, favoritesLoader: -1});

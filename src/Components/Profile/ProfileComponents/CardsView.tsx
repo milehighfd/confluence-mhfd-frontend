@@ -89,7 +89,7 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
                         <div className="like-btn">
                         <Button onClick={(event) => {
                             event.stopPropagation();
-                            deleted(data.cartodb_id, data.type);
+                            deleted(data.problemid || data.projectid, data.type);
                             setClicked(false);
                            // deleteFavorite(user.email, data.cartodb_id, data.type);
                             //favoriteList(user.email);
