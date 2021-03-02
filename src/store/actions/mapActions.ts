@@ -861,10 +861,8 @@ export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: 
     return (dispatch: Function) => {
         dispatch({type: types.FAVORITE_LOADER, favoritesLoader: 1});
         let sendData: any = {email: email, isproblem: isproblem};
-        console.log(sendData, 'and extraOptions ', extraOptions);
         if (extraOptions) {
             sendData = {...sendData, ...{name: extraOptions.keyword, sortby: extraOptions.column, sorttype: extraOptions.order}};
-            console.log('now ', sendData);
         }
         datasets.postData(SERVER.FAVORITE_CARDS, sendData, datasets.getToken()).then(favoriteCards => {
             if (isproblem) {
