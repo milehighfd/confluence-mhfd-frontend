@@ -26,6 +26,9 @@ import ModalEdit from './Components/Work/Request/ModalEdit';
 import Chat from './Components/Work/Drawers/Chat';
 import Status from './Components/Work/Drawers/Status';
 import Analytics from './Components/Work/Drawers/Analytics';
+import StatusPlan from './Components/Work/Drawers/StatusPlan';
+import StatusDistrict from './Components/Work/Drawers/StatusDistrict';
+import Filter from './Components/Work/Drawers/Filter';
 //import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
 
 
@@ -164,6 +167,10 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={'/chat'} component={Chat} />
       <Route path={'/status'} component={Status} />
       <Route path={'/analytics'} component={Analytics} />
+      <Route path={'/status-plan'} component={StatusPlan} />
+      <Route path={'/status-district'} component={StatusDistrict} />
+      <Route path={'/status-district'} component={StatusDistrict} />
+      <Route path={'/filter'} component={Filter} />
 
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />

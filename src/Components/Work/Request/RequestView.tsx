@@ -102,7 +102,7 @@ export default () => {
                             <h6>$410,000</h6>
                             <label className="purple">Aurora</label>
                             <label className="yellow">Draft</label>
-                            <Popover placement="bottomRight" overlayClassName="work-popover" content={content} trigger="click">
+                            <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
                                 <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
                             </Popover>
                           </div>
@@ -117,7 +117,7 @@ export default () => {
                           <h6>$410,000</h6>
                           <label className="purple">Aurora</label>
                           <label className="yellow">Draft</label>
-                          <Popover placement="bottomRight" overlayClassName="work-popover" content={content} trigger="click">
+                          <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
                               <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
                           </Popover>
                         </div>

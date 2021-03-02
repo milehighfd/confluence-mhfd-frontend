@@ -11,6 +11,7 @@ const { Panel } = Collapse;
 const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
 const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content03 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const genExtra = () => (
   <div className="tab-head-project">
     <div><label>Total Cost</label></div>
@@ -33,7 +34,7 @@ const content = (
       <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
     </Menu.Item>
     <Menu.Item>
-      <span><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
+      <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
     </Menu.Item>
   </Menu>
 );
@@ -104,15 +105,15 @@ export default () => {
                    <TabPane tab="Capital" key="1">
                      <div className="work-table">
                       <div>
-                        <h3>Workspace</h3>
+                        <h3>Workspace <Popover placement="right" content={content03} trigger="click"><img src="/Icons/icon-19.svg" alt="" height="12px" /></Popover></h3>
                         <div className="col-wr">
                           <Button className="btn-transparent"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
-                          <div className="card-wr" style={{borderLeft: '3px solid #9faeb1'}}>
+                          <div className="card-wr" style={{borderLeft: '3px solid #FDB32E'}}>
                             <h4>West Tollgate Creek GSB Drops </h4>
                             <h6>$410,000</h6>
                             <label className="purple">Aurora</label>
                             <label className="yellow">Draft</label>
-                            <Popover placement="bottomRight" overlayClassName="work-popover" content={content} trigger="click">
+                            <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
                                 <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
                             </Popover>
                           </div>
@@ -127,7 +128,7 @@ export default () => {
                           <h6>$410,000</h6>
                           <label className="purple">Aurora</label>
                           <label className="yellow">Draft</label>
-                          <Popover placement="bottomRight" overlayClassName="work-popover" content={content} trigger="click">
+                          <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
                               <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
                           </Popover>
                         </div>
