@@ -46,7 +46,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   const isActive = (table: string, id: number): boolean => {
     if (favorites) {
       for (const favorite of favorites) {
-        console.log(favorite);
         if (favorite.table === table && favorite.id === id) {
           return true;
         }
