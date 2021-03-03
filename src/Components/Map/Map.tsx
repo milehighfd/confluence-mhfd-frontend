@@ -62,7 +62,7 @@ const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 let map: any = null;
 let popup = new mapboxgl.Popup();
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
-const highlightedLayers = ['problems', 'projects_line_1', 'projects_polygon_'];
+const highlightedLayers = ['problems', 'mhfd_projects'];
 type LayersType = string | ObjectLayerType;
 
 /* line to remove useEffect dependencies warning */
@@ -426,8 +426,7 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         if (map) {
-            applyFilters('projects_line_1', filterProjects);
-            applyFilters('projects_polygon_', filterProjects);
+            applyFilters('mhfd_projects', filterProjects);
         }
     }, [filterProjects, componentDetailIds]);
 
@@ -436,8 +435,7 @@ const Map = ({ leftWidth,
             for (const component of COMPONENT_LAYERS.tiles) {
                 applyFilters(component, filterComponents);
             }
-            applyFilters('projects_line_1', filterProjects);
-            applyFilters('projects_polygon_', filterProjects);
+            applyFilters('mhfd_projects', filterProjects);
             applyFilters('problems', filterProblems);
         }
     }, [filterComponents, componentDetailIds]);
@@ -875,8 +873,7 @@ const Map = ({ leftWidth,
             }
         });
         applyFilters('problems', filterProblems);
-        applyFilters('projects_line_1', filterProjects);
-        applyFilters('projects_polygon_', filterProjects);
+        applyFilters('mhfd_projects', filterProjects);
     }
 
     const addLayersSource = (key: string, tiles: Array<string>) => {
@@ -1301,7 +1298,7 @@ const Map = ({ leftWidth,
                 }
                 let html: any = null;
                 let itemValue;
-                if (feature.source === 'projects_polygon_' || feature.source === 'projects_line_1') {
+                if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects') {
                     getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
                     const filtered = galleryProjects.filter((item: any) =>
                         item.cartodb_id === feature.properties.cartodb_id
