@@ -20,11 +20,15 @@ import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
 import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
-import RequestContainer from './Components/Work/Request/RequestContainer';
+import RequestView from './Components/Work/Request/RequestView';
+import PlanView from './Components/Work/Plan/PlanView';
 import ModalEdit from './Components/Work/Request/ModalEdit';
 import Chat from './Components/Work/Drawers/Chat';
 import Status from './Components/Work/Drawers/Status';
 import Analytics from './Components/Work/Drawers/Analytics';
+import StatusPlan from './Components/Work/Drawers/StatusPlan';
+import StatusDistrict from './Components/Work/Drawers/StatusDistrict';
+import Filter from './Components/Work/Drawers/Filter';
 //import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
 
 
@@ -157,11 +161,16 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/alert-view`} component={AlertContainer} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={'/new-project'} component={ModalProjectView} />
-      <Route path={'/work-request'} component={RequestContainer} />
+      <Route path={'/work-request'} component={RequestView} />
+      <Route path={'/work-plan'} component={PlanView} />
       <Route path={'/modal-edit'} component={ModalEdit} />
       <Route path={'/chat'} component={Chat} />
       <Route path={'/status'} component={Status} />
       <Route path={'/analytics'} component={Analytics} />
+      <Route path={'/status-plan'} component={StatusPlan} />
+      <Route path={'/status-district'} component={StatusDistrict} />
+      <Route path={'/status-district'} component={StatusDistrict} />
+      <Route path={'/filter'} component={Filter} />
 
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />

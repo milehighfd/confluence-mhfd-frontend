@@ -2,13 +2,16 @@
 @use 'styles';
 
 .user::-webkit-scrollbar, .count::-webkit-scrollbar, .login-hh::-webkit-scrollbar, .ant-drawer-wrapper-body::-webkit-scrollbar, .detailed::-webkit-scrollbar, .content-create .content-new01::-webkit-scrollbar, .count-01::-webkit-scrollbar, .profile-00::-webkit-scrollbar, .sign-menu::-webkit-scrollbar, .sign-menu-organization::-webkit-scrollbar,
-.upload::-webkit-scrollbar, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar,.infinite-scroll-component::-webkit-scrollbar, .scroll-filters::-webkit-scrollbar, .scroll-footer::-webkit-scrollbar, .tutorial .content::-webkit-scrollbar, .check-scroll::-webkit-scrollbar, .svg-scroll::-webkit-scrollbar, .scroll-cards::-webkit-scrollbar, .filter-menu .ant-select-dropdown-menu::-webkit-scrollbar, .ant-select-dropdown-menu::-webkit-scrollbar,.work-p::-webkit-scrollbar,
-.filter-map::-webkit-scrollbar, .tag-body::-webkit-scrollbar, .layer-popup::-webkit-scrollbar, .body-project::-webkit-scrollbar, .work::-webkit-scrollbar, .work-body .ant-tabs-tabpane-active::-webkit-scrollbar {
-  width: 6px;
+.upload::-webkit-scrollbar, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar,.infinite-scroll-component::-webkit-scrollbar, .scroll-filters::-webkit-scrollbar, .scroll-footer::-webkit-scrollbar, .tutorial .content::-webkit-scrollbar, .check-scroll::-webkit-scrollbar, .svg-scroll::-webkit-scrollbar, .scroll-cards::-webkit-scrollbar,
+.filter-menu .ant-select-dropdown-menu::-webkit-scrollbar, .ant-select-dropdown-menu::-webkit-scrollbar,.work-p::-webkit-scrollbar,
+.filter-map::-webkit-scrollbar, .tag-body::-webkit-scrollbar, .layer-popup::-webkit-scrollbar, .body-project::-webkit-scrollbar, .work::-webkit-scrollbar, .work-body .ant-tabs-tabpane-active::-webkit-scrollbar,
+.body-f-p::-webkit-scrollbar {
+  width: 5px;
 }
 .user::-webkit-scrollbar-thumb, .count::-webkit-scrollbar-thumb, .login-hh::-webkit-scrollbar-thumb, .ant-drawer-wrapper-body::-webkit-scrollbar-thumb, .detailed::-webkit-scrollbar-thumb, .content-create .content-new01::-webkit-scrollbar-thumb, .count-01::-webkit-scrollbar-thumb, .profile-00::-webkit-scrollbar-thumb, .sign-menu::-webkit-scrollbar-thumb, .sign-menu-organization::-webkit-scrollbar-thumb,
 .upload::-webkit-scrollbar-thumb, .over-00 .ant-tabs-tabpane-active::-webkit-scrollbar-thumb,.infinite-scroll-component::-webkit-scrollbar-thumb, .scroll-filters::-webkit-scrollbar-thumb, .scroll-footer::-webkit-scrollbar-thumb, .tutorial .content::-webkit-scrollbar-thumb, .check-scroll::-webkit-scrollbar-thumb, .scroll-cards::-webkit-scrollbar-thumb, .filter-menu .ant-select-dropdown-menu::-webkit-scrollbar-thumb, .ant-select-dropdown-menu::-webkit-scrollbar-thumb,
-.work-p::-webkit-scrollbar-thumb, .filter-map::-webkit-scrollbar-thumb, .tag-body::-webkit-scrollbar-thumb, .layer-popup::-webkit-scrollbar-thumb, .body-project::-webkit-scrollbar-thumb, .work::-webkit-scrollbar-thumb, .work-body .ant-tabs-tabpane-active::-webkit-scrollbar-thumb {
+.work-p::-webkit-scrollbar-thumb, .filter-map::-webkit-scrollbar-thumb, .tag-body::-webkit-scrollbar-thumb, .layer-popup::-webkit-scrollbar-thumb, .body-project::-webkit-scrollbar-thumb, .work::-webkit-scrollbar-thumb, .work-body .ant-tabs-tabpane-active::-webkit-scrollbar-thumb,
+.body-f-p::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }
@@ -42,5 +45,12 @@
 }
 .ggyyyy::-webkit-scrollbar-thumb{
   background: transparent;
+  border-radius: 5px;
+}
+.filter-map::-webkit-scrollbar{
+  width: 5px;
+}
+.filter-map::-webkit-scrollbar-thumb{
+  background: #D3D0E0;
   border-radius: 5px;
 }

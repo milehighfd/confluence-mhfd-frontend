@@ -54,8 +54,8 @@ const mapDispatchToProps = (dispatch: Function): any => {
     getDetailedPageProblem(id: string) {
       dispatch(getDetailedPageProblem(id))
     },
-    getDetailedPageProject(id: number, cartoid: number, type: string) {
-      dispatch(getDetailedPageProject(id, cartoid, type))
+    getDetailedPageProject(id: number, type: string) {
+      dispatch(getDetailedPageProject(id, type))
     },
     getComponentsByProblemId(data: any) {
       dispatch(getComponentsByProblemId(data))

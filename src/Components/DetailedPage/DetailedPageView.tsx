@@ -14,6 +14,7 @@ export default ({displayModal, detailed, loaderDetailedPage, componentsOfProblem
     }
     const [data, setData] = useState({
         problemid: '',
+        projectid: '',
         id: '',
         objectid: '',
         value: '',
@@ -27,20 +28,16 @@ export default ({displayModal, detailed, loaderDetailedPage, componentsOfProblem
           auxData.problemid = id;
           setData(auxData);
         }
-        if(location.includes('?objectid=') && location.includes('&cartoid=') && location.includes('&type=') && location.includes('&id=')) {
+        if(location.includes('projectid=')) {
           const params = location.split('&');
-          if(params.length === 4) {
-            const objectid = params[0].replace('?objectid=', '');
-            const cartoid = params[1].replace('cartoid=', '');
-            const type = params[2].replace('type=', '');
-            const id = params[3].replace('id=', '');
-            const url = 'objectid=' + objectid + '&cartoid=' + cartoid + '&type=' + type;
+          if(params.length === 2) {
+            const type = params[0].replace('?type=', '');
+            const projectid = params[1].replace('projectid=', '');
+            const url = 'type=' + type + '&projectid=' + projectid;
             existDetailedPageProject(url);
             const auxData = {...data};
-            auxData.objectid = objectid;
-            auxData.value = cartoid;
             auxData.type = type;
-            auxData.id = id;
+            auxData.projectid = projectid;
             setData(auxData);
           }
         }

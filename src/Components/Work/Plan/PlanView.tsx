@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer } from 'antd';
-import { PlusCircleFilled, RightOutlined } from '@ant-design/icons';
+import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer, AutoComplete } from 'antd';
+import { PlusCircleFilled, RightOutlined, DownOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 
@@ -11,6 +11,7 @@ const { Panel } = Collapse;
 const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
 const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content03 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const genExtra = () => (
   <div className="tab-head-project">
     <div><label>Total Cost</label></div>
@@ -33,7 +34,7 @@ const content = (
       <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
     </Menu.Item>
     <Menu.Item>
-      <span><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
+      <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
     </Menu.Item>
   </Menu>
 );
@@ -60,7 +61,14 @@ export default () => {
               <div className="work-head">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                    <h2><i className="mdi mdi-circle"></i> Aurora Work Request</h2>
+                    <h2>
+                      <Input
+                       style={{ width: 310 }}
+                       placeholder="Boulder County Work Plan"
+                       prefix={<i className="mdi mdi-circle"></i>}
+                       suffix={<DownOutlined />}
+                     />
+                    </h2>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{textAlign:'right'}}>
                     <Select placeholder="Year 2018">
@@ -90,14 +98,17 @@ export default () => {
                 </Row>
               </div>
               <div className="work-body">
+              <Button className="btn-filter-d">
+                <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>
+              </Button>
                 <Tabs defaultActiveKey="1" className="tabs-map">
                    <TabPane tab="Capital" key="1">
                      <div className="work-table">
                       <div>
-                        <h3>Workspace</h3>
+                        <h3>Workspace <Popover placement="right" content={content03} trigger="click"><img src="/Icons/icon-19.svg" alt="" height="12px" /></Popover></h3>
                         <div className="col-wr">
                           <Button className="btn-transparent"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
-                          <div className="card-wr" style={{borderLeft: '3px solid #9faeb1'}}>
+                          <div className="card-wr" style={{borderLeft: '3px solid #FDB32E'}}>
                             <h4>West Tollgate Creek GSB Drops </h4>
                             <h6>$410,000</h6>
                             <label className="purple">Aurora</label>
@@ -157,7 +168,7 @@ export default () => {
                         <Panel header="" key="1" extra={genExtra()}>
                           <div className="tab-body-project streams">
                               <Timeline>
-                                <Timeline.Item color="purple">
+                                <Timeline.Item color="green">
                                   <div className="tab-body-line">
                                     <div><label>Boulder <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
                                     <div>$170,000</div>
@@ -167,7 +178,7 @@ export default () => {
                                     <div>$170,000</div>
                                   </div>
                                 </Timeline.Item>
-                                <Timeline.Item color="purple">
+                                <Timeline.Item color="orange">
                                   <div className="tab-body-line">
                                     <div><label>Louisville <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
                                     <div>$170,000</div>
@@ -177,7 +188,7 @@ export default () => {
                                     <div>$170,000</div>
                                   </div>
                                 </Timeline.Item>
-                                <Timeline.Item color="purple">
+                                <Timeline.Item color="green">
                                   <div className="tab-body-line">
                                     <div><label>Superior <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
                                     <div>$170,000</div>
@@ -208,10 +219,6 @@ export default () => {
                         <div>$241,800</div>
                       </div>
                     </div>
-                   </TabPane>
-
-                   <TabPane tab="Study" key="2">
-                   Content of Tab Pane 2
                    </TabPane>
 
                    <TabPane tab="Maintenance" key="3">
@@ -332,18 +339,12 @@ export default () => {
                       </div>
                     </div>
                    </TabPane>
-                   <TabPane tab="Acquisition" key="4">
-                     Content of Tab Pane 4
-                   </TabPane>
-                   <TabPane tab="Special" key="5">
-                     Content of Tab Pane 5
-                   </TabPane>
                 </Tabs>
               </div>
 
               <div className="work-footer">
-                <Button className="btn-borde">Save Work Request</Button>
-                <Button className="btn-purple">Submit to County Manager</Button>
+                <Button className="btn-borde">Save Workplan</Button>
+                <Button className="btn-purple">Submit for Review</Button>
               </div>
 
             <Button className="btn-scroll"><RightOutlined /></Button>

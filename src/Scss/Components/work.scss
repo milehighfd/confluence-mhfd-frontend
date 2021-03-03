@@ -4,7 +4,7 @@
   background: $white;
 }
 .work-head{
-  padding: 15px 20px;
+  padding: 15px 20px 0px 15px;
 
   h2{
     color: $purple00;
@@ -44,8 +44,53 @@
   .ant-select-selection__placeholder, .ant-select-search__field__placeholder{
     color: $opacity;
   }
+  .ant-input{
+    font-size: 21px;
+    border: none;
+    border-bottom: 1px solid $opacity01;
+    border-radius: 0px;
+    padding: 0px 11px;
+  }
+  .ant-input::placeholder{
+    color: $purple00;
+  }
+  .ant-input:hover, .ant-input:focus {
+    border-color: $purple;
+  }
+  .ant-input-affix-wrapper .ant-input:not(:first-child) {
+    padding-left: 25px;
+  }
+  .ant-input-affix-wrapper .ant-input-prefix {
+    left: 0px;
+  }
+  .ant-input-affix-wrapper .ant-input-suffix {
+    right: 0px;
+  }
 }
 .work-body{
+  .btn-filter-d{
+    position: absolute;
+    top: 70px;
+    right: 25px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0px;
+    z-index: 1000;
+  }
+  .icon-bt{
+    height: 4px;
+    width: 24px;
+    background: $purple;
+    padding: 9px;
+  }
+  .btn-filter-d:hover > .icon-bt{
+    opacity: 1;
+    height: 4px;
+    width: 24px;
+    background: $green !important;
+    padding: 9px;
+  }
   .ant-tabs-nav .ant-tabs-tab {
     margin: 0 20px 0 20px;
     font-size: 12px;
@@ -67,7 +112,7 @@
     }
   }
   .ant-tabs-tabpane-active{
-    height: calc(100vh - 268px);
+    height: calc(100vh - 254px);
     overflow-x: auto;
   }
 }
@@ -280,6 +325,16 @@
       border-color: $purple !important;
       background-color: $purple !important;
     }
+    .ant-timeline-item-head-green {
+      color: $green !important;
+      border-color: $green !important;
+      background: $green !important;
+    }
+    .ant-timeline-item-head-orange{
+      color: $orange !important;
+      border-color: $orange !important;
+      background: $orange !important;
+    }
   }
 }
 .work-footer{
@@ -455,25 +510,59 @@
     height: 325px;
     margin-bottom: 15px;
   }
+  .ant-list-split .ant-list-item {
+    border-bottom: 1px solid $opacity01;
+  }
+  .filter-plan{
+    background: $light-purple;
+    height: 250px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+  .head-f-p{
+    height: 45px;
+    color: $purple00;
+    font-size: 14px;
+    border-bottom: 1px solid $opacity01;
+    padding: 12px 15px;
+  }
+  .body-f-p{
+    padding: 15px;
+    height: 205px;
+    overflow-y: auto;
+
+    p{
+      font-size: 12px !important;
+      line-height: 14px;
+      margin-bottom: 20px;
+
+      span{
+        float: right;
+      }
+    }
+  }
 }
 .menu-utilities{
   h6{
     font-size: 12px;
     color: $purple00;
-    margin-bottom: -10px;
+    margin-bottom: -5px;
   }
-  label{
+  p{
     font-size: 9px;
     color: $opacity;
     padding-left: 12px;
+    margin-bottom: 0px;
+    white-space: normal;
+    width: 257px;
+    line-height: 10px;
   }
   i{
     font-size: 10px;
   }
-}
-.ant-drawer-right .ant-drawer-content-wrapper {
-  right: 0;
-  width: 310px !important;
+  img{
+    margin-left: 5px;
+  }
 }
 .chat-r{
   // opacity: 0.5;
@@ -504,7 +593,7 @@
   width: 100%;
   height: 400px;
   border-radius: 4px;
-  background-color: $opacity00;
+  background-color: $light-purple;
   margin-top: 15px;
 
   .chat-head{
@@ -515,6 +604,7 @@
     color: $purple00;
     text-transform: uppercase;
     padding: 12px 15px;
+    border-bottom: solid 1.3px $opacity01;
   }
   .chat-head img{
     margin-top: -3px;
@@ -574,9 +664,674 @@
 .ant-drawer .ant-drawer-content {
   height: calc(100vh - 58px) !important;
 }
-
+.ant-drawer-right .ant-drawer-content-wrapper {
+  right: 0;
+  width: 310px !important;
+}
 
 // 1920x1080 DISPLAY
-@media (min-width: 1900px) and (max-width: 2499px){}
+@media (min-width: 1900px) and (max-width: 2499px){
+  .work-head{
+    h2{
+      font-size: 27px;
+      i{
+        font-size: 21px;
+      }
+    }
+    .ant-select{
+      font-size: 18px;
+      width: 130px;
+    }
+    .btn-opacity {
+      height: 50px;
+      padding: 0px 12px;
+    }
+    .ant-input-affix-wrapper{
+      width: 390px !important;
+    }
+    .ant-input{
+      font-size: 27px;
+      padding: 0px 11px;
+      height: 40px;
+    }
+    .ant-input-affix-wrapper .ant-input:not(:first-child) {
+      padding-left: 30px;
+    }
+  }
+  .work-body{
+    .ant-tabs-nav .ant-tabs-tab {
+      margin: 0 25px 0 25px;
+      font-size: 16px;
+    }
+    .ant-tabs-tabpane-active {
+      height: calc(100vh - 281px);
+    }
+    .col-bg {
+      height: 54px;
+          padding: 14px 20px;
+
+      div{
+        min-width: 215px;
+        width: 215px;
+      }
+    }
+  }
+  .work-table{
+    h3 {
+     font-size: 16px;
+     width: 215px;
+    }
+    .col-wr {
+      min-width: 215px;
+      width: 215px;
+      height: 685px;
+      min-height: 685px;
+    }
+    .btn-transparent {
+      font-size: 16px;
+
+      img{
+        height: 18px;
+      }
+    }
+    .card-wr {
+      width: 203px;
+      height: 135px;
+    }
+    h4 {
+      font-size: 18px;
+    }
+    h6{
+      font-size: 14px;
+    }
+    .purple, .yellow{
+      font-size: 13px;
+    }
+  }
+  .cost-wr{
+    font-size: 16px;
+
+    .ant-collapse-icon-position-left > .ant-collapse-item > .ant-collapse-header {
+      height: 54px;
+    }
+    .tab-head-project{
+      font-size: 16px;
+      line-height: 30px;
+
+      div{
+        width: 215px;
+        min-width: 215px;
+      }
+    }
+
+    .tab-body-line {
+      font-size: 16px;
+      line-height: 18px;
+
+      div{
+        width: 215px;
+        min-width: 215px;
+      }
+    }
+    h5{
+      font-size: 16px;
+    }
+    .ant-input {
+      height: 30px;
+      font-size: 16px;
+    }
+  }
+  .work-footer{
+    button {
+     height: 54px;
+     font-size: 18px;
+    }
+  }
+  // MODAL EDIT
+  .work-modal-edit{
+    width: 520px !important;
+
+    .ant-modal-header {
+      padding: 30px 25px 0px 25px;
+    }
+    .ant-modal-title{
+      font-size: 22px;
+      line-height: 24px;
+    }
+    .ant-modal-body{
+      padding: 25px;
+    }
+    p{
+      font-size: 16px;
+    }
+    .ant-input{
+      height: 58px;
+      font-size: 21px;
+    }
+    .ant-input-affix-wrapper .ant-input:not(:first-child) {
+      padding-left: 15px;
+      padding-right: 40px;
+    }
+    .ant-input-affix-wrapper .ant-input-prefix :not(.anticon),
+    .ant-input-affix-wrapper .ant-input-suffix :not(.anticon) {
+      height: 20px;
+    }
+    .ant-modal-close-x {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 21px;
+    }
+    .ant-modal-footer {
+      padding: 0px 25px 25px 25px;
+
+      button{
+        height: 64px;
+        padding: 0px 50px;
+        font-size: 24px;
+      }
+    }
+  }
+  // Utilities
+  .work-utilities{
+    h5{
+      font-size: 21px;
+    }
+    .ant-drawer-header {
+      padding: 25px 25px 0;
+
+      .btn-transparent{
+        span{
+         font-size: 18px;
+        }
+      }
+      .ant-select{
+        font-size: 18px;
+        width: 90px !important;
+      }
+    }
+    .ant-drawer-title img{
+      height: 24px;
+    }
+    .ant-drawer-body {
+      padding: 25px;
+    }
+    h6{
+      font-size: 18px;
+    }
+    p{
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    .ant-dropdown-link, .ant-dropdown-link:hover, .ant-dropdown-link:focus{
+      margin-bottom: 25px;
+      font-size: 18px;
+      height: 40px;
+    }
+    .note{
+      font-size: 16px;
+      padding: 20px;
+    }
+    .footer-drawer{
+      button{
+        height: 58px;
+        width: 150px;
+        font-size: 18px;
+      }
+    }
+    .filter-plan{
+      height: 335px;
+    }
+    .head-f-p{
+      height: 60px;
+      font-size: 18px;
+      padding: 16px 15px;
+    }
+    .body-f-p{
+      height: 275px;
+      overflow-y: auto;
+
+      p{
+        font-size: 16px !important;
+        line-height: 18px;
+        margin-bottom: 30px;
+      }
+    }
+  }
+  .menu-utilities{
+    padding: 10px 0px !important;
+
+    .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title{
+      padding: 10px !important
+    }
+    h6{
+      font-size: 16px;
+      margin-bottom: 0px;
+    }
+    p{
+      font-size: 12px;
+      padding-left: 18px;
+      width: 345px;
+      line-height: 12px;
+    }
+    i{
+      font-size: 14px;
+    }
+    img{
+      height: 10px;
+    }
+  }
+  .chat-r{
+    h6{
+      font-size: 18px;
+    }
+    p, span{
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    img{
+      margin-top: 0px;
+      height: 45px;
+    }
+  }
+  .chat-00{
+    height: 530px;
+
+    .chat-head{
+      height: 65px;
+      font-size: 21px;
+      padding: 18px 15px;
+    }
+    .chat-head img{
+      margin-top: -6px;
+      height: 18px;
+    }
+    .chat-body{
+      height: 400px;
+      padding: 132px 40px;
+    }
+    .chat-footer{
+      height: 65px;
+      padding: 10px 15px;
+    }
+    .chat-body h6{
+      font-size: 21px;
+    }
+    .chat-body p{
+      font-size: 18px;
+    }
+    .chat-footer .ant-input {
+      font-size: 18px;
+      margin: 8px 0px;
+    }
+  }
+  .chat-footer{
+    img{
+      margin-top: 0px;
+    }
+    .btn-send{
+      font-size: 18.7px !important;
+      margin: 8px 0px;
+    }
+  }
+  .ant-drawer-right .ant-drawer-content-wrapper {
+    width: 415px !important;
+  }
+}
 // 2560x1440 DISPLAY
-@media (min-width: 2500px) and (max-width: 2999px){}
+@media (min-width: 2500px) and (max-width: 2999px){
+  .work-head{
+    h2{
+      font-size: 36px;
+      i{
+        font-size: 31px;
+      }
+    }
+    .ant-select{
+      font-size: 24px;
+      width: 160px;
+    }
+    .btn-opacity {
+      height: 68px;
+      padding: 0px 18px;
+    }
+    .ant-input-affix-wrapper{
+      width: 500px !important;
+    }
+    .ant-input{
+      font-size: 36px;
+      height: 52px;
+    }
+    .ant-input-affix-wrapper .ant-input:not(:first-child) {
+      padding-left: 40px;
+    }
+  }
+  .work-body{
+    .ant-tabs-nav .ant-tabs-tab {
+      margin: 0 30px 0 30px;
+      font-size: 21px;
+    }
+    .ant-tabs-tabpane-active {
+      height: calc(100vh - 330px);
+    }
+    .col-bg {
+      height: 70px;
+      padding: 21px 20px;
+
+      div{
+        min-width: 285px;
+        width: 285px;
+      }
+    }
+  }
+  .work-table{
+    h3 {
+     font-size: 21px;
+     width: 285px;
+    }
+    .col-wr {
+      min-width: 285px;
+      width: 285px;
+      height: 915px;
+      min-height: 915px;
+      margin-right: 15px;
+      padding: 50px 10px 20px 10px;
+    }
+    .btn-transparent {
+      font-size: 21px;
+      top: 5px;
+
+      img{
+        height: 20px;
+        margin-top: -3px;
+      }
+    }
+    .card-wr {
+      width: 265px;
+      height: 175px;
+    }
+    h4 {
+      font-size: 24px;
+    }
+    h6{
+      font-size: 19px;
+    }
+    .purple, .yellow{
+      font-size: 17px;
+    }
+    .menu-wr {
+      top: 12px;
+      right: 10px;
+      height: 18px;
+    }
+  }
+  .cost-wr{
+    font-size: 21px;
+
+    .ant-collapse-icon-position-left > .ant-collapse-item > .ant-collapse-header {
+      height: 70px;
+    }
+    .tab-head-project{
+      font-size: 21px;
+      line-height: 48px;
+
+      div{
+        width: 285px;
+        min-width: 285px;
+      }
+    }
+
+    .tab-body-line {
+      font-size: 21px;
+      line-height: 18px;
+
+      div{
+        width: 285px;
+        min-width: 285px;
+      }
+    }
+    h5{
+      font-size: 21px;
+    }
+    .ant-input {
+      height: 40px;
+      font-size: 21px;
+      margin-top: -5px;
+    }
+  }
+  .work-footer{
+    button {
+     height: 78px;
+     font-size: 24px;
+    }
+  }
+  .btn-scroll, .btn-scroll:hover, .btn-scroll:focus {
+    width: 42px;
+    height: 70px !important;
+    font-size: 18px !important;
+  }
+  // MODAL EDIT
+  .work-modal-edit{
+    width: 694px !important;
+
+    .ant-modal-header {
+      padding: 50px 40px 0px 40px;
+    }
+    .ant-modal-title{
+      font-size: 30px;
+      line-height: 36px;
+    }
+    .ant-modal-body{
+      padding: 40px;
+    }
+    p{
+      font-size: 21px;
+    }
+    .ant-input{
+      height: 78px;
+      font-size: 28px;
+    }
+    .ant-input-affix-wrapper{
+      margin-bottom: 25px;
+    }
+    .ant-input-affix-wrapper .ant-input:not(:first-child) {
+      padding-left: 20px;
+      padding-right: 50px;
+    }
+    .ant-input-affix-wrapper .ant-input-prefix :not(.anticon),
+    .ant-input-affix-wrapper .ant-input-suffix :not(.anticon) {
+      height: 25px;
+    }
+    .ant-modal-close-x {
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 24px;
+    }
+    .ant-modal-footer {
+      padding: 0px 40px 40px 40px;
+
+      button{
+        height: 85px;
+        padding: 0px 70px;
+        font-size: 31px;
+      }
+    }
+  }
+  // Utilities
+  .work-utilities{
+    h5{
+      font-size: 28px;
+    }
+    .ant-drawer-header {
+      padding: 25px 25px 0;
+
+      .btn-transparent{
+        span{
+         font-size: 18px;
+        }
+      }
+      .ant-select{
+        font-size: 24px;
+        width: 105px !important;
+      }
+    }
+    .ant-drawer-title img{
+      height: 32px;
+    }
+    .ant-drawer-body {
+      padding: 25px;
+    }
+    h6{
+      font-size: 24px;
+    }
+    p{
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .ant-dropdown-link, .ant-dropdown-link:hover, .ant-dropdown-link:focus{
+      margin-bottom: 25px;
+      font-size: 24px;
+      height: 50px;
+    }
+    .note{
+      font-size: 21px;
+      padding: 25px;
+    }
+    .footer-drawer{
+      button{
+        height: 78px;
+        width: 195px;
+        font-size: 24px;
+      }
+    }
+    .ant-checkbox-inner{
+      width: 25px;
+      height: 25px;
+    }
+    .ant-checkbox-inner::after{
+      left: 30%;
+    }
+    .filter-plan{
+      height: 445px;
+    }
+    .head-f-p{
+      height: 80px;
+      font-size: 24px;
+      padding: 22px 20px;
+    }
+    .body-f-p{
+      padding: 20px;
+      height: 365px;
+      overflow-y: auto;
+
+      p{
+        font-size: 21px !important;
+        line-height: 24px;
+        margin-bottom: 40px;
+      }
+    }
+  }
+  .menu-utilities{
+    padding: 12px 0px !important;
+
+    .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title{
+      padding: 12px !important
+    }
+    h6{
+      font-size: 21px;
+      margin-bottom: 0px;
+    }
+    p{
+      font-size: 16px;
+      padding-left: 24px;
+      width: 475px;
+      line-height: 16px;
+    }
+    i{
+      font-size: 18px;
+    }
+    img{
+      height: 12px;
+    }
+  }
+  .chat-r{
+    h6{
+      font-size: 24px;
+    }
+    p, span{
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    img{
+      margin-top: 0px;
+      height: 60px;
+    }
+  }
+  .chat-00{
+    height: 710px;
+
+    .chat-head{
+      height: 90px;
+      font-size: 28px;
+      padding: 24px 25px;
+    }
+    .chat-head img{
+      margin-top: -6px;
+      height: 25px;
+    }
+    .chat-body{
+      height: 530px;
+      padding: 175px 40px;
+    }
+    .chat-footer{
+      height: 90px;
+      padding: 15px 25px;
+    }
+    .chat-body h6{
+      font-size: 28px;
+    }
+    .chat-body p{
+      font-size: 24px;
+    }
+    .chat-footer .ant-input {
+      font-size: 24px;
+      margin: 18px 0px;
+    }
+  }
+  .chat-footer{
+    img{
+      margin-top: 0px;
+    }
+    .btn-send{
+      font-size: 24px !important;
+      margin: 16px 0px;
+    }
+  }
+  .ant-drawer-right .ant-drawer-content-wrapper {
+    width: 550px !important;
+  }
+  .work-popover{
+    .ant-popover-inner-content {
+      padding: 0px 20px;
+    }
+    .ant-popover-content{
+      width: 215px;
+    }
+    .ant-menu-vertical > .ant-menu-item, .ant-menu-vertical-left > .ant-menu-item,
+    .ant-menu-vertical-right > .ant-menu-item, .ant-menu-inline > .ant-menu-item,
+    .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title,
+    .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title,
+    .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title,
+    .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+      height: 54px;
+      line-height: 54px;
+    }
+    img{
+      width: 16px;
+    }
+    span {
+      font-size: 21px !important;
+    }
+  }
+}
