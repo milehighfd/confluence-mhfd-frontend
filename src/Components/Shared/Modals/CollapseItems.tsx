@@ -131,23 +131,15 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
         detailedPage.components.forEach((element: any) => {
           if(element.projectid) {
             // let i = 0;
-            map.addVectorSource('projects-line', layers.projects.projects_line_1);
-            for (const project of tileStyles.projects_line_1) {
+            map.addVectorSource('projects-line', layers.projects.mhfd_projects);
+            for (const project of tileStyles.mhfd_projects) {
               map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
               map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', element.projectid]);
               idProjectLine++;
-            }
-            map.addVectorSource('projects-polygon', layers.projects.projects_polygon_);
-            // i = 0;
-            for (const project of tileStyles.projects_polygon_) {
-              map.addLayer('projects-polygon_' + idProjectPolygon, 'projects-polygon', project);
-              map.setFilter('projects-polygon_' + idProjectPolygon, ['in', 'projectid', element.projectid]);
-              idProjectPolygon++;
-            }
+            }       
           }
         });
-        addMapListeners('projects_line_1', 'projects-line_');
-        addMapListeners('projects_polygon_', 'projects-polygon_');
+        addMapListeners('mhfd_projects', 'projects-line_');
       } else {
         detailedPage.problems.forEach((element: any) => {
           if(element.problemid) {
@@ -161,24 +153,16 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
           }
         });
         addMapListeners(MENU_OPTIONS.PROBLEMS, 'problems-layer_');
-        map.addVectorSource('projects-line', layers.projects.projects_line_1);
+        map.addVectorSource('projects-line', layers.projects.mhfd_projects);
         let idProjectLine = 0;
         let idProjectPolygon = 0;
-        for (const project of tileStyles.projects_line_1) {
+        for (const project of tileStyles.mhfd_projects) {
           map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
           map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage.cartodb_id]);
           idProjectLine++;
         }
-        map.addVectorSource('projects-polygon', layers.projects.projects_polygon_);
         i = 0;
-        for (const project of tileStyles.projects_polygon_) {
-          map.addLayer('projects-polygon_' + idProjectPolygon, 'projects-polygon', project);
-          map.setFilter('projects-polygon_' + idProjectPolygon, ['in', 'cartodb_id', detailedPage.cartodb_id]);
-          idProjectPolygon++;
-        }
-        addMapListeners('projects_line_1', 'projects-line_');
-        addMapListeners('projects_polygon_', 'projects-polygon_');
-
+        addMapListeners('mhfd_projects', 'projects-line_');
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
       // const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
