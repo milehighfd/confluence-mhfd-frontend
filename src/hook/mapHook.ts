@@ -10,7 +10,7 @@ import {
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
   getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync,
   setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents,
-  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter, getComponentsCounter, getProjectCounter, getProblemCounter
+  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter, getComponentsCounter, getProjectCounter, getProblemCounter, mapSearchQuery, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -40,7 +40,14 @@ interface selectMapState {
   autocomplete: any,
   currentPopup: number,
   totals: any,
-  favoritesLoader: number
+  favoritesLoader: number,
+  layers: any,
+  selectedLayers: any,
+  mapSearch: any,
+  componentDetailIds: any,
+  filterProjects: any, 
+  filterProblems: any,
+  filterComponents: any
 }
 
 /* Commented because typescript doesn't support that many arguments
@@ -103,19 +110,26 @@ const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> 
       (state: any) => state.map.autocomplete,
       (state: any) => state.map.currentPopup,
       (state: any) => state.map.totals,
-      (state: any) => state.map.favoritesLoader
-  ,
+      (state: any) => state.map.favoritesLoader,
+      (state: any) => state.map.layers,
+      (state: any) => state.map.selectedLayers,
+      (state: any) => state.map.mapSearch,
+      (state: any) => state.map.componentDetailIds,
+      (state: any) => state.map.filterProblems,
+      (state: any) => state.map.filterProjects,
+      (state: any) => state.map.filterComponents,
       //state => state.map.paramFilters,
       (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
         nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
         spinFilters: any, spinCardProblems: any, spinCardProjects: any,//, paramFilters
         favoriteProblemCards: any,favoriteProjectCards: any, favorites: any, bboxComponents: any, tutorialStatus: boolean,
-        galleryProblems: any, galleryProjects: any, selectedOnMap: any, autocomplete: any, currentPopup: number, totals: any, favoritesLoader: number
+        galleryProblems: any, galleryProjects: any, selectedOnMap: any, autocomplete: any, currentPopup: number, totals: any, favoritesLoader: number, 
+        layers: any, selectedLayers: any, mapSearch: any, componentDetailIds: any, filterProblems: any, filterProjects: any, filterComponents: any
         ) => ({
           toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
           nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
           spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites, bboxComponents, tutorialStatus,
-          galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup, totals, favoritesLoader
+          galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup, totals, favoritesLoader, layers, selectedLayers, mapSearch, componentDetailIds, filterProblems, filterProjects, filterComponents
         })
     );
 
@@ -245,6 +259,21 @@ export const useMapDispatch = () => {
     },
     setSelectedPopup: (popupId: number) => {
       dispatch(setSelectedPopup(popupId));
+    },
+    mapSearchQuery: (query: any) => {
+      dispatch(mapSearchQuery(query));
+    },
+    getComponentCounter: (id: any,type: any, setCountComponents: any) => {
+      dispatch(getComponentCounter(id, type, setCountComponents));
+    },
+    setSelectedOnMap: (number: any, tab: any) => {
+      dispatch(setSelectedOnMap(number, tab));
+    },
+    existDetailedPageProblem: (url: any) => {
+      dispatch(existDetailedPageProblem(url));
+    },
+    existDetailedPageProject: (url: any) => {
+      dispatch(existDetailedPageProject(url));
     }
   }
 }
