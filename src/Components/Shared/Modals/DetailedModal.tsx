@@ -73,8 +73,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
         map = await c.getCanvasBase64()
       }
     } else {
-      let params = `projectid=${data.projectid}`;
-      console.log('params ', params);
+      let params = `projectid=${data.id}`;
       url = `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`;
       fileName = 'project.pdf';
       let c: any = cipjRef.current;
