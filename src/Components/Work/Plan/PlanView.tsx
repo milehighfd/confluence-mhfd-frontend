@@ -49,7 +49,7 @@ export default () => {
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
               <div className="map">
-               {/* aqui va mapitash*/}
+               {/* here goes the map*/}
               </div>
 
               <Button className="btn-coll" >

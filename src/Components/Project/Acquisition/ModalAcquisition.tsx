@@ -77,7 +77,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
           <div>
-            aqui va mapitash
+            here goes the map
           </div>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
