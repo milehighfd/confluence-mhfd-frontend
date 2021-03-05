@@ -169,7 +169,6 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={'/analytics'} component={Analytics} />
       <Route path={'/status-plan'} component={StatusPlan} />
       <Route path={'/status-district'} component={StatusDistrict} />
-      <Route path={'/status-district'} component={StatusDistrict} />
       <Route path={'/filter'} component={Filter} />
 
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}

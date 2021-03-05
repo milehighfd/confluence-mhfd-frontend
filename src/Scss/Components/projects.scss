@@ -419,6 +419,13 @@
       margin-left: 10px;
     }
   }
+  #map3{
+    height: 100% !important;
+  }
+  .map{
+    margin: 0px !important;
+    height: calc(100vh - 54px);
+  }
 }
 .menu-large{
   width: 200px !important;
