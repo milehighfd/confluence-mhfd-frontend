@@ -5,6 +5,7 @@ import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
 import { MainPopup, ComponentPopup } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
+import * as turf from '@turf/turf';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import {
   MAP_DROPDOWN_ITEMS,
@@ -37,6 +38,8 @@ import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { containsNumber } from "@turf/turf";
+import {getFeaturesIntersected, getHull} from './utilsService';
+
 let map: any;
 let coordX = -1;
 let coordY = -1;
@@ -53,9 +56,9 @@ const CreateProjectMap = () => {
   let controller = false;
   const user = store.getState().profile.userInformation;
   const {layers, selectedLayers, mapSearch, filterProjects,filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects } = useMapState(); 
-  const [thisSelectedLayers, setThisSelectedLayers] = useState(selectedLayers);
+  const [thisSelectedLayers, setThisSelectedLayers] = useState(["district_boundary","xstreams",{"name":"components","tiles":["landscaping_area","land_acquisition","detention_facilities","storm_drain","channel_improvements_area","channel_improvements_linear","special_item_area","special_item_linear","special_item_point","pipe_appurtenances","grade_control_structure"]}]);
   const {mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject} = useMapDispatch();
-  const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
+  const [selectedCheckBox, setSelectedCheckBox] = useState(thisSelectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -97,9 +100,45 @@ const CreateProjectMap = () => {
     };
     waiting();
   }, []);
-  useEffect(()=>{
-    setThisSelectedLayers(selectedLayers);
-  },[selectedLayers]);
+  const onCreateDraw = (event:any) => {
+    const userPolygon = event.features[0];
+
+    const polygonBoundingBox = turf.bbox(userPolygon);
+    const southWest = [polygonBoundingBox[0], polygonBoundingBox[1]];
+    const northEast = [polygonBoundingBox[2], polygonBoundingBox[3]];
+    const northEastPointPixel = map.map.project(northEast);
+    const southWestPointPixel = map.map.project(southWest);
+    let totalFeatures: Array<any> = [];
+    for(let key of COMPONENT_LAYERS.tiles) {
+        if(map.getLayer(key+'_0')) {
+          const featuresComponents = map.map.queryRenderedFeatures([southWestPointPixel, northEastPointPixel], {layers: [key+'_0']}); 
+          totalFeatures = [...totalFeatures, ...featuresComponents];
+        } 
+    }
+    let featuresIntersected = getFeaturesIntersected(totalFeatures, userPolygon);
+    let hull: any = getHull(featuresIntersected);
+    console.log("HULL", hull);
+    map.removeLayer('hull');
+    map.removeSource('hull'); 
+    if(!map.map.getSource('hull')) {
+      map.map.addSource('hull', {
+        'type': 'geojson',
+        'data': hull
+      });
+    }
+    if(!map.getLayer('hull')){
+      map.map.addLayer({
+        'id': 'hull',
+        'type': 'fill',
+        'source': 'hull',
+        'layout': {},
+        'paint': {
+        'fill-color': '#088',
+        'fill-opacity': 0.8
+        }
+      });
+    }
+  }
   useEffect(()=>{
     if(map){
       map.create();
@@ -108,6 +147,7 @@ const CreateProjectMap = () => {
       map.map.on('style.load', () => {
                 applyMapLayers();         
       });
+      map.createDraw(onCreateDraw);
     }
   },[map])
   const updateSelectedLayers = (newLayers: any) => {
