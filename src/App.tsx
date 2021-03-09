@@ -18,7 +18,6 @@ import UserContainer from './Components/User/UserContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
 import Unauthorized from './Components/Unauthorized/Unauthorized';
-import AlertContainer from './Components/Alerts/AlertContainer';
 import LoadingView from './Components/Loading/LoadingView';
 import RequestView from './Components/Work/Request/RequestView';
 import PlanView from './Components/Work/Plan/PlanView';
@@ -29,6 +28,8 @@ import Analytics from './Components/Work/Drawers/Analytics';
 import StatusPlan from './Components/Work/Drawers/StatusPlan';
 import StatusDistrict from './Components/Work/Drawers/StatusDistrict';
 import Filter from './Components/Work/Drawers/Filter';
+import { AlertView } from './Components/Alerts/AlertView';
+
 //import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
 
 
@@ -158,7 +159,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={'/404'} component={Unauthorized} />
       <Route path={`/reset-password`} component={ResetPasswordContainer} />
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
-      <Route path={`/alert-view`} component={AlertContainer} />
+      <Route path={`/alert-view`} component={AlertView} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={'/new-project'} component={ModalProjectView} />
       <Route path={'/work-request'} component={RequestView} />

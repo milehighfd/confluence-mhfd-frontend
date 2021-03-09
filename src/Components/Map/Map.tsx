@@ -47,7 +47,7 @@ import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { style } from 'd3';
 import { setOpacityLayer } from '../../store/actions/mapActions';
 import { useProfileDispatch } from '../../hook/profileHook';
-import AlertView from '../Alerts/AlertView';
+import { AlertView } from '../Alerts/AlertView';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import * as d3 from 'd3';

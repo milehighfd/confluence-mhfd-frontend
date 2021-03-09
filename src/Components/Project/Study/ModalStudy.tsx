@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
+import { AlertView } from "../../Alerts/AlertView";
+import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
+import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -32,9 +35,15 @@ const genExtra00 = () => (
 );
 
 
-export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject}:
-  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function}) => {
+export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject}:
+  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string }) => {
   const [state, setState] = useState(stateValue);
+  const [visibleAlert, setVisibleAlert] = useState(false);
+  const [description, setDescription] =useState('');
+  const [disable, setDisable] = useState(false);
+  const [serviceArea, setServiceArea] = useState('');
+  const [country, setCountry] = useState('');
+  
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleStudy = true;
@@ -48,8 +57,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    setVisibleStudy (false);
+   // setVisibleStudy (false);
     setState(auxState);
+    setVisibleAlert( true);
   };
 
   const handleCancel = (e: any) => {
@@ -60,6 +70,11 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   };
   return (
     <>
+    {visibleAlert && <AlertView
+      visibleAlert = {visibleAlert}
+      setVisibleAlert ={setVisibleAlert}
+      setVisible = {setVisibleStudy}
+     />}
      <Modal
        centered
        visible={visibleStudy}
@@ -95,31 +110,19 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
           <div className="body-project">
 
             {/*First Section*/}
-            <h5>1. Project Information</h5>
-            <label className="sub-title">Description <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-            <TextArea rows={4} placeholder="Add description"/>
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-            </Row>
+            <ProjectInformation
+              typeProject = {typeProject}
+              description = {description}
+              setDescription = {setDescription}
+              serviceArea = {serviceArea}
+              setServiceArea = {setServiceArea}
+              country = {country} 
+              setCountry = {setCountry}
+            />
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
+                <Select placeholder="Select a Sponsor" style={{width:'100%'}} >
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
                   <Option value="tom">Tom</Option>
@@ -127,7 +130,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
+                <Select placeholder="Select a Co-Sponsor" style={{width:'100%'}}>
                   <Option value="jack">Jack</Option>
                   <Option value="lucy">Lucy</Option>
                   <Option value="tom">Tom</Option>
@@ -202,57 +205,19 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             </Row>
             <br/>
 
-
             {/*Section*/}
             <h5>3. GENERATE PROJECT <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Button className="btn-green">Show Project</Button>
             <br/>
 
-
             {/*Section*/}
-            <h5>4. Upload Attachments <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Upload>
-             <Button>
-              <img src="/Icons/icon-17.svg" alt="" height="20px" />
-              <p>Attach main image in PNG or JPEG format</p>
-             </Button>
-           </Upload>
-           <Row className="title-galery">
-            <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
-            <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
-           </Row>
-
-            <Row className="card-image">
-              <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
-                <img src="/Icons/project/jpg.svg" alt="" height="27px" />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-                <p>Image-1.jpg</p>
-                <label>16 Sep, 2020 at 11:05 • 4.8 MB</label>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span:3 }} xxl={{ span: 3 }}>
-                <Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button>
-                <Checkbox/>
-              </Col>
-            </Row>
-
-            <Row className="card-image">
-              <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
-                <img src="/Icons/project/png.svg" alt="" height="27px" />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-                <p>Image-2.png</p>
-                <label>16 Sep, 2020 at 11:05 • 4.8 MB</label>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span:3 }} xxl={{ span: 3 }}>
-                <Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button>
-                <Checkbox/>
-              </Col>
-            </Row>
+            <UploadAttachment
+              typeProject = {typeProject}
+            />
           </div>
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>
+            <Button className="btn-purple" onClick={handleOk} disabled={disable}>Save Draft Project</Button>
           </div>
         </Col>
       </Row>

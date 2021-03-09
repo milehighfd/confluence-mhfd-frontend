@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
+import { AlertView } from "../../Alerts/AlertView";
+import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
+import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
+import { DropPin } from "../TypeProjectComponents/DropPing";
+import { PROJECT_INFORMATION } from "../../../constants/constants";
+import { selectedComponents } from "../../../constants/mapStyles";
+
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -13,9 +20,12 @@ const content03 = (<div className="popver-info">Lorem ipsum dolor sit amet, cons
 const content04 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content05 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content06 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-
+const selec = [0];
+for(var i = 1 ; i < 21 ; i++){
+  selec.push(i);
+}
 const stateValue = {
-  visibleAcquisition: false
+  visibleAcqui: false,
 }
 const dataSource = [
   {
@@ -35,29 +45,38 @@ const columns = [
     dataIndex: 'longitude',
     key: 'longitude',
   },
-
 ];
-
-export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject}:
-  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function} ) => {
+ 
+export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject}:
+  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string} ) => {
+  var date = new Date();
+  var year = date.getFullYear();
   const [state, setState] = useState(stateValue);
-  const showModal = () => {
-    const auxState = {...state};
-    auxState.visibleAcquisition = true;
-    setState(auxState);
-  };
+  const [visibleAlert, setVisibleAlert] = useState(false);
+  const [description, setDescription] =useState('');
+  const [disable, setDisable] = useState(false);
+  const [serviceArea, setServiceArea] = useState('');
+  const [country, setCountry] = useState('');
+  const [Porgress, setProgress] = useState('');
+  const [purchaseDate, setPurchaseDate] = useState('');
 
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
   };
 
   const handleOk = (e: any) => {
-    console.log(e);
-    const auxState = {...state};
-    setVisibleAcquisition(false);
-    setState(auxState);
+    console.log("entra");
+   //setVisibleAcquisition(false);
+    setVisibleAlert( true);
+  };
+  
+  const apllyProgress = (e: any)=>{
+    setProgress(e);
   };
 
+  const apllyPurchaseDate = (e: any)=>{
+    setPurchaseDate(e);
+  };
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};
@@ -66,6 +85,11 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   };
   return (
     <> 
+     {visibleAlert && <AlertView
+      visibleAlert = {visibleAlert}
+      setVisibleAlert ={setVisibleAlert}
+      setVisible = {setVisibleAcquisition}
+     />}
      <Modal
        centered
        visible={visibleAcquisition}
@@ -101,59 +125,40 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
           <div className="body-project">
 
             {/*First Section*/}
-            <h5>1. Project Information</h5>
-            <label className="sub-title">Description <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-            <TextArea rows={4} placeholder="Add description"/>
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-            </Row>
+            <ProjectInformation
+              typeProject = {typeProject}
+              description = {description}
+              setDescription = {setDescription}
+              serviceArea = {serviceArea}
+              setServiceArea = {setServiceArea}
+              country = {country} 
+              setCountry = {setCountry}
+            />
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
+                <Select placeholder="Select a Progress" style={{width:'100%'}} onChange={(progress)=> apllyProgress(progress)}>
+                 {PROJECT_INFORMATION.PROGRESS.map((element) =>{
+                    return <Option key={element} value={element}>{element}</Option>
+                  })}
                 </Select>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Anticipated Purchase Date <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
+                <Select placeholder="Select a Purchase Date" style={{width:'100%'}} onChange={(purchaseDate)=> apllyPurchaseDate(purchaseDate)} >
+                  {selec.map((element) =>{
+                    var newYear = year+element;
+                    return <Option key={newYear} value={newYear}>{newYear}</Option>
+                  })}
                 </Select>
               </Col>
             </Row>
             <br/>
 
-
             {/*Second Section*/}
-            <h5>2. Drop Pin <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" /></Button></h5>
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }} xxl={{ span: 12 }}>
-                <Table dataSource={dataSource} columns={columns} bordered />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }}>
-                  <Button className="btn-location">Add Location</Button>
-              </Col>
-            </Row>
-            <br/>
+            <DropPin
+              typeProject= {typeProject}
+            />
 
             {/*Section*/}
             <h5>3. GENERATE PROJECT <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
@@ -161,49 +166,13 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             <br/>
 
             {/*Section*/}
-            <h5>4. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Upload>
-             <Button>
-              <img src="/Icons/icon-17.svg" alt="" height="20px" />
-              <p>Attach main image in PNG or JPEG format</p>
-             </Button>
-           </Upload>
-           <Row className="title-galery">
-            <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
-            <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
-           </Row>
-
-            <Row className="card-image">
-              <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
-                <img src="/Icons/project/jpg.svg" alt="" height="27px" />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-                <p>Image-1.jpg</p>
-                <label>16 Sep, 2020 at 11:05 • 4.8 MB</label>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span:3 }} xxl={{ span: 3 }}>
-                <Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button>
-                <Checkbox/>
-              </Col>
-            </Row>
-
-            <Row className="card-image">
-              <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
-                <img src="/Icons/project/png.svg" alt="" height="27px" />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-                <p>Image-2.png</p>
-                <label>16 Sep, 2020 at 11:05 • 4.8 MB</label>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span:3 }} xxl={{ span: 3 }}>
-                <Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button>
-                <Checkbox/>
-              </Col>
-            </Row>
+            <UploadAttachment
+              typeProject = {typeProject}
+            />
           </div>
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>     
+            <Button key="submit" className="btn-purple" disabled={disable} onClick={handleOk}>Save Draft Project</Button>     
           </div>
         </Col>
       </Row>

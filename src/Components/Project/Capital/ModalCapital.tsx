@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
+import { AlertView } from "../../Alerts/AlertView";
+import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
+import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -39,11 +42,16 @@ const genExtra05 = () => (
   </Row>
 );
 
-export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject}:
-  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function}) => {
+export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject}:
+  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string}) => {
   const [state, setState] = useState(stateValue);
+  const [description, setDescription] =useState('');
   console.log(visibleCapital, "visiCap");
-
+  const [visibleAlert, setVisibleAlert] = useState(false);
+  const [disable, setDisable] = useState(false);
+  const [serviceArea, setServiceArea] = useState('');
+  const [country, setCountry] = useState('');
+  
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
   };
@@ -57,8 +65,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    setVisibleCapital (false);
+    //setVisibleCapital (false);
     setState(auxState);
+    setVisibleAlert( true);
   };
 
   const handleCancel = (e: any) => {
@@ -69,6 +78,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   };
   return (
     <>
+    {visibleAlert && <AlertView
+      visibleAlert = {visibleAlert}
+      setVisibleAlert ={setVisibleAlert}
+      setVisible = {setVisibleCapital}
+     />}
      <Modal
        centered
        visible={visibleCapital}
@@ -105,30 +119,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           <div className="body-project">
 
             {/*First Section*/}
-            <h5>1. Project Information</h5>
-            <label className="sub-title">Description <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-            <TextArea rows={4} placeholder="Add description"/>
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-            </Row>
-            <br/>
-
-
+            <ProjectInformation
+              typeProject = {typeProject}
+              description = {description}
+              setDescription = {setDescription}
+              serviceArea = {serviceArea}
+              setServiceArea = {setServiceArea}
+              country = {country} 
+              setCountry = {setCountry}
+            /> 
             {/*Second Section*/}
             <h5>2. SELECT COMPONENTS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
               <div className="tab-titles">
@@ -245,49 +244,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
 
             {/*Section*/}
-            <h5>4. Upload Attachments <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Upload>
-             <Button>
-              <img src="/Icons/icon-17.svg" alt="" height="20px" />
-              <p>Attach main image in PNG or JPEG format</p>
-             </Button>
-           </Upload>
-           <Row className="title-galery">
-            <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
-            <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
-           </Row>
-
-            <Row className="card-image">
-              <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
-                <img src="/Icons/project/jpg.svg" alt="" height="27px" />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-                <p>Image-1.jpg</p>
-                <label>16 Sep, 2020 at 11:05 • 4.8 MB</label>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span:3 }} xxl={{ span: 3 }}>
-                <Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button>
-                <Checkbox/>
-              </Col>
-            </Row>
-
-            <Row className="card-image">
-              <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
-                <img src="/Icons/project/png.svg" alt="" height="27px" />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-                <p>Image-2.png</p>
-                <label>16 Sep, 2020 at 11:05 • 4.8 MB</label>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span:3 }} xxl={{ span: 3 }}>
-                <Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button>
-                <Checkbox/>
-              </Col>
-            </Row>
+            <UploadAttachment
+              typeProject = {typeProject}
+            />
           </div>
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>
+            <Button className="btn-purple" onClick={handleOk} disabled={disable}>Save Draft Project</Button>
           </div>
         </Col>
       </Row>

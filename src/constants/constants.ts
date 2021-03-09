@@ -1784,6 +1784,7 @@ export const MENU_OPTIONS =
     PROBLEMS: 'problems'
   }
 ;
+
 export const NEW_PROJECT_TYPES = {
   Capital: "Capital",
   Acquisition: "Acquisition",
@@ -1798,6 +1799,32 @@ export const NEW_PROJECT_TYPES = {
     Restoration:"Restoration"
   }
 }
+
+export const PROJECT_INFORMATION ={
+  COUNTRY_PROJECT : [
+    'Arapahoe County',
+    'Adams County',
+    'Boulder County',
+    'Broomfield County',
+    'Denver County',
+    'Douglas County',
+    'Jefferson County'
+  ],
+  PROGRESS: [
+    'Appraisal in process', 
+    'Appraisal complete', 
+    'Appraisal accepted by all parties',
+    'Remaining funding secured'
+  ],
+  MAINTENANCE_ELIGIBILITY: [
+    'Capital Project', 
+    'MEP', 
+    'Grandfathered', 
+    'Not Eligible', 
+    'Unknown' 
+  ]
+}
+
 
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11

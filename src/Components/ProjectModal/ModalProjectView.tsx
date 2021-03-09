@@ -27,7 +27,7 @@ export const ModalProjectView = () => {
   const [visibleMaintenance, setVisibleMaintenance] = useState(false);
   const [visibleSpecial, setVisibleSpecial] = useState(false);
   const [visibleStudy, setVisibleStudy] = useState(false);
-  const [typeProject, setTypeProyect] = useState(null);
+  const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
   const [disable, setDisable] = useState(true);
   const [nameProject, setNameProject] = useState('');
@@ -38,7 +38,7 @@ export const ModalProjectView = () => {
     setNameProject('');
   };
   const handleOk = (e: any) => {
-    console.log(e);
+    console.log(typeProject, "entraaaa");
     const auxState = {...state};
     auxState.visible = false;
     setState(auxState);
@@ -62,7 +62,7 @@ export const ModalProjectView = () => {
   };
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
-    if(typeProject !== null){
+    if(typeProject !== ''){
       if(typeProject === NEW_PROJECT_TYPES.Maintenance){
         if(subType !== ''){
           setDisable(false);
@@ -104,12 +104,14 @@ export const ModalProjectView = () => {
       setVisibleCapital = {setVisibleCapital}
       nameProject = {nameProject}
       setNameProject = {setNameProject}
+      typeProject = {typeProject}
      />}
      {visibleAcquisition && <ModalAcquisition
       visibleAcquisition = {visibleAcquisition} 
       setVisibleAcquisition = {setVisibleAcquisition}
       nameProject = {nameProject}
       setNameProject = {setNameProject}
+      typeProject = {typeProject}
      />}
      {visibleMaintenance && <ModalMaintenance
       visibleMaintenance = {visibleMaintenance} 
@@ -117,24 +119,26 @@ export const ModalProjectView = () => {
       nameProject = {nameProject}
       setNameProject = {setNameProject}
       subType = {subType}
+      typeProject = {typeProject}
      />}
      {visibleSpecial && <ModalSpecial
       visibleSpecial = {visibleSpecial} 
       setVisibleSpecial = {setVisibleSpecial}
       nameProject = {nameProject}
       setNameProject = {setNameProject}
+      typeProject = {typeProject}
      />}
      {visibleStudy && <ModalStudy
       visibleStudy = {visibleStudy} 
       setVisibleStudy = {setVisibleStudy}
       nameProject = {nameProject}
       setNameProject = {setNameProject}
+      typeProject = {typeProject}
      />}
      
     <Button type="primary" onClick={showModal}>
        Open Modal
      </Button>
-    
      <Modal
        title="Create Project"
        centered

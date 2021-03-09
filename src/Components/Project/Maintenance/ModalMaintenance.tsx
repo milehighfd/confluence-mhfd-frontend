@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline, Switch } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
+import { AlertView } from "../../Alerts/AlertView";
+import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
+import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
+import { NEW_PROJECT_TYPES, PROJECT_INFORMATION } from "../../../constants/constants";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -14,18 +18,43 @@ const content04 = (<div className="popver-info"><b>Access Control:</b> Is any pa
 const content05 = (<div className="popver-info"><b>Maintenance Eligibility:</b> The maintenance eligibility status for the project. </div>);
 const content06 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content07 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-
+const selec = ['None'];
+for(var i = 1 ; i < 13 ; i++){
+  selec.push(''+i);
+}
 const stateValue = {
   visibleMaintenance: false
 }
 
-export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType}:
-  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string}) => {
+export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject}:
+  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string }) => {
   const [state, setState] = useState(stateValue);
+  const [visibleAlert, setVisibleAlert] = useState(false);
+  const [description, setDescription] =useState('');
+  const [disable, setDisable] = useState(false);
+  const [serviceArea, setServiceArea] = useState('');
+  const [country, setCountry] = useState('');
+  const [frequency, setFrequency] = useState('');
+  const [eligibility, setEligibility] = useState('');
+  const [visibleEligibility, setVisibleEligibility] = useState(false);
+
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
     setState(auxState);
+  };
+  useEffect(()=>{
+    if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal ){
+    console.log("djhsdusd", subType)
+    setVisibleEligibility(true);
+    }
+  },[])
+
+  const apllyFrequency = (e: any)=>{
+    setFrequency(e);
+  };
+  const apllyEligibility = (e: any)=>{
+    setEligibility(e);
   };
 
   const onChange = (e: any)=>{
@@ -35,8 +64,9 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
-    setVisibleMaintenance(false);
+   // setVisibleMaintenance(false);
     setState(auxState);
+    setVisibleAlert( true);
   };
 
   const handleCancel = (e: any) => {
@@ -47,6 +77,11 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   };
   return (
     <>
+    {visibleAlert && <AlertView
+      visibleAlert = {visibleAlert}
+      setVisibleAlert ={setVisibleAlert}
+      setVisible = {setVisibleMaintenance}
+     />}
      <Modal
        centered
        visible={visibleMaintenance}
@@ -83,34 +118,22 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
           <div className="body-project">
 
             {/*First Section*/}
-            <h5>1. Project Information</h5>
-            <label className="sub-title">Description <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-            <TextArea rows={4} placeholder="Add description"/>
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-            </Row>
+            <ProjectInformation
+              typeProject = {typeProject}
+              description = {description}
+              setDescription = {setDescription}
+              serviceArea = {serviceArea}
+              setServiceArea = {setServiceArea}
+              country = {country} 
+              setCountry = {setCountry}
+            />
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
+                <Select placeholder="Select a Frequency" style={{width:'100%'}} onChange={(frequency)=> apllyFrequency(frequency)}>
+                  {selec.map((element) =>{
+                    return <Option key={element} value={element}>{element}</Option>
+                  })}
                 </Select>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
@@ -118,16 +141,19 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
                 <p className="switch-option">Public Access / Ownership <span><Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked /></span></p>
               </Col>
             </Row>
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-            </Row>
+            {visibleEligibility &&  
+              <Row gutter={[16, 16]}>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                  <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+                  <Select placeholder="Select a Eligibility" style={{width:'100%'}} onChange={(eligibilit)=> apllyEligibility(eligibilit)}>
+                    {PROJECT_INFORMATION.MAINTENANCE_ELIGIBILITY.map((element) =>{
+                      return <Option key={element} value={element}>{element}</Option>
+                    })}
+                  </Select>
+                </Col>
+              </Row>
+            }
+           
             <br/>
 
 
@@ -147,49 +173,13 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
 
             {/*Section*/}
-            <h5>4. Upload Attachments <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Upload>
-             <Button>
-              <img src="/Icons/icon-17.svg" alt="" height="20px" />
-              <p>Attach main image in PNG or JPEG format</p>
-             </Button>
-           </Upload>
-           <Row className="title-galery">
-            <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
-            <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
-           </Row>
-
-            <Row className="card-image">
-              <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
-                <img src="/Icons/project/jpg.svg" alt="" height="27px" />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-                <p>Image-1.jpg</p>
-                <label>16 Sep, 2020 at 11:05 • 4.8 MB</label>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span:3 }} xxl={{ span: 3 }}>
-                <Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button>
-                <Checkbox/>
-              </Col>
-            </Row>
-
-            <Row className="card-image">
-              <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
-                <img src="/Icons/project/png.svg" alt="" height="27px" />
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-                <p>Image-2.png</p>
-                <label>16 Sep, 2020 at 11:05 • 4.8 MB</label>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span:3 }} xxl={{ span: 3 }}>
-                <Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button>
-                <Checkbox/>
-              </Col>
-            </Row>
+            <UploadAttachment
+              typeProject = {typeProject}
+            />
           </div>
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk}>Save Draft Project</Button>
+            <Button className="btn-purple" onClick={handleOk} disabled={disable}>Save Draft Project</Button>
           </div>
         </Col>
       </Row>
