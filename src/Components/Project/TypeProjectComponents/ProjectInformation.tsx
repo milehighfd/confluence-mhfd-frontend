@@ -6,9 +6,9 @@ import {  PROJECT_INFORMATION, SERVICE_AREA, SERVICE_AREA_VALUE } from "../../..
 
 const { TextArea } = Input;
 const { Option } = Select;
-const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content00 = (<div className="popver-info"></div>);
+const content01 = (<div className="popver-info"></div>);
+const content02 = (<div className="popver-info"></div>);
 
 export const ProjectInformation = ({typeProject, description, setDescription, serviceArea, setServiceArea, country, setCountry}:
   {typeProject: string, description: string, setDescription: Function, serviceArea: string, setServiceArea: Function, country: string, setCountry: Function}) => {

@@ -4,17 +4,17 @@ import { PlusCircleFilled } from '@ant-design/icons';
 
 const { TextArea } = Input;
 const { Option } = Select;
-const content06 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content06 = (<div className="popver-info"></div>);
 
 export const UploadAttachment = ({typeProject}:
   {typeProject: string}) => {
   const onChange = (e: any)=>{
-    
+
   };
-  
+
   return(
     <>
-    <h5>4. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+    <h5>5. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
         <Upload>
             <Button>
             <img src="/Icons/icon-17.svg" alt="" height="20px" />

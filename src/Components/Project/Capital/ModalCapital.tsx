@@ -10,17 +10,17 @@ const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>);
-const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content03 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content04 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content05 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content06 = (<div className="popver-info"><b>Percent Overhead Cost</b> is the estimated total percentage of costs for: Engineering, Legal, Construction Management, Dewatering, Mobilization, Traffic Control, Utilities, Stormwater Management, and Contingency. </div>);
-const content07 = (<div className="popver-info"><b>Additional Cost</b> should reflect any anticipated costs not included in the previous categories.</div>);
-const content08 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content09 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content10 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content00 = (<div className="popver-info"></div>);
+const content01 = (<div className="popver-info"></div>);
+const content02 = (<div className="popver-info"></div>);
+const content03 = (<div className="popver-info"></div>);
+const content04 = (<div className="popver-info"></div>);
+const content05 = (<div className="popver-info"></div>);
+const content06 = (<div className="popver-info"></div>);
+const content07 = (<div className="popver-info"></div>);
+const content08 = (<div className="popver-info"></div>);
+const content09 = (<div className="popver-info"></div>);
+const content10 = (<div className="popver-info"></div>);
 
 const stateValue = {
   visibleCapital: false
@@ -51,7 +51,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
   const [country, setCountry] = useState('');
-  
+
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
   };
@@ -125,9 +125,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               setDescription = {setDescription}
               serviceArea = {serviceArea}
               setServiceArea = {setServiceArea}
-              country = {country} 
+              country = {country}
               setCountry = {setCountry}
-            /> 
+            />
             {/*Second Section*/}
             <h5>2. SELECT COMPONENTS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
               <div className="tab-titles">
@@ -210,8 +210,146 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 </Select>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
-
             </Row>
+
+            <Timeline className="sub-project" style={{marginTop:'10px'}}>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Overhead Cost</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                    <Select placeholder="75%" dropdownClassName="menu-medium" >
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Mobilization</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                    <Select placeholder="75%" dropdownClassName="menu-medium" >
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Traffic Control</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                    <Select placeholder="75%" dropdownClassName="menu-medium" >
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Utility Coordination / Relocation</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                    <Select placeholder="75%" dropdownClassName="menu-medium" >
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Stormwater Management / Erosion Control</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                    <Select placeholder="75%" dropdownClassName="menu-medium" >
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Engineering</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                    <Select placeholder="75%" dropdownClassName="menu-medium" >
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Legal / Administrative</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                    <Select placeholder="75%" dropdownClassName="menu-medium" >
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contract Admin / Construction Management</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                    <Select placeholder="75%" dropdownClassName="menu-medium" >
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contingency</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                    <Select placeholder="75%" dropdownClassName="menu-medium" >
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+                </Row>
+              </Timeline.Item>
+
+            </Timeline>
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
                 <Input placeholder="Enter Description" />
@@ -240,6 +378,28 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             {/*Section*/}
             <h5>3. GENERATE PROJECT <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Button className="btn-green">Show Project</Button>
+            <br/>
+
+            {/*Section*/}
+            <h5>4. Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+            <Row gutter={[16, 16]}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Service Area<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <Select placeholder="Select a person" style={{width:'100%'}}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">County<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <Select placeholder="Select a person" style={{width:'100%'}}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+            </Row>
             <br/>
 
 

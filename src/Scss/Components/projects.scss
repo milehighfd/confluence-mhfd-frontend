@@ -141,10 +141,10 @@
     }
     .sub-project{
       font-size: 12px;
-      color: $opacity;
+      color: $purple00;
       p{
         font-size: 12px;
-        color: $opacity;
+        color: $purple00;
         margin-bottom: 0px;
       }
       .ant-input{
@@ -169,6 +169,28 @@
       }
       .ant-select-selection__rendered{
         line-height: 23px;
+      }
+      .ant-timeline-item{
+        color: $purple00;
+
+        label{
+          color: $purple00;
+          padding-left: 32px;
+        }
+      }
+      .ant-timeline-item-content{
+        margin: 0px;
+      }
+      .ant-timeline-item{
+        padding: 0px !important;
+      }
+      .ant-timeline-item-head{
+        border-color: $purple !important;
+        background-color: $purple;
+        margin-left: 15px;
+      }
+      .ant-timeline-item-tail{
+        left: 19px;
       }
     }
     .btn-green{
@@ -451,7 +473,9 @@
 .menu-large{
   width: 200px !important;
 }
-
+.menu-medium{
+  width: 100px !important;
+}
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
   // CAPITAL
