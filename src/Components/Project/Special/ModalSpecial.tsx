@@ -11,13 +11,14 @@ const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
 const content = (<div className="popver-info"> Any effort for which MHFD funds or staff participation is requested that doesn’t fit into one of the other Project categories.</div>);
-const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content03 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content04 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content05 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content06 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
+const content00 = (<div className="popver-info"></div>);
+const content01 = (<div className="popver-info"></div>);
+const content02 = (<div className="popver-info"></div>);
+const content03 = (<div className="popver-info"></div>);
+const content04 = (<div className="popver-info"></div>);
+const content05 = (<div className="popver-info"></div>);
+const content06 = (<div className="popver-info"></div>);
+const content08 = (<div className="popver-info"></div>);
 const selec = [1];
 for(var i = 2 ; i < 21 ; i++){
   selec.push(i);
@@ -138,13 +139,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
               setDescription = {setDescription}
               serviceArea = {serviceArea}
               setServiceArea = {setServiceArea}
-              country = {country} 
+              country = {country}
               setCountry = {setCountry}
             />
             <br/>
 
             {/*Second Section*/}
-            
+
             <DropPin
               typeProject= {typeProject}
             />
@@ -153,7 +154,29 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             <h5>3. GENERATE PROJECT <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Button className="btn-green">Show Project</Button>
             <br/>
-            
+
+            {/*Section*/}
+            <h5>4. Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+            <Row gutter={[16, 16]}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Service Area<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <Select placeholder="Select a person" style={{width:'100%'}}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">County<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <Select placeholder="Select a person" style={{width:'100%'}}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+            </Row>
+            <br/>
+
             {/*Section*/}
             <UploadAttachment
               typeProject = {typeProject}

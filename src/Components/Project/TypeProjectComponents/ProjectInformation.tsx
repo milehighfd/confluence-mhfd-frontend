@@ -47,7 +47,6 @@ export const ProjectInformation = ({typeProject, description, setDescription, se
         </Select>
       </Col>
     </Row>
-    <br/>
     </>
   );
 }

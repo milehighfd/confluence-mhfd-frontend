@@ -43,7 +43,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
   const [country, setCountry] = useState('');
-  
+
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleStudy = true;
@@ -116,27 +116,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               setDescription = {setDescription}
               serviceArea = {serviceArea}
               setServiceArea = {setServiceArea}
-              country = {country} 
+              country = {country}
               setCountry = {setCountry}
             />
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a Sponsor" style={{width:'100%'}} >
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a Co-Sponsor" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-            </Row>
             <br/>
 
             {/*Second Section*/}
@@ -208,6 +190,45 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             {/*Section*/}
             <h5>3. GENERATE PROJECT <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Button className="btn-green">Show Project</Button>
+            <br/>
+
+            <h5>4. Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+            <Row gutter={[16, 16]}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Service Area<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <Select placeholder="Select a person" style={{width:'100%'}}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">County<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
+                <Select placeholder="Select a person" style={{width:'100%'}}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+            </Row>
+            <Row gutter={[16, 16]}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+                <Select placeholder="Select a Sponsor" style={{width:'100%'}} >
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+                <Select placeholder="Select a Co-Sponsor" style={{width:'100%'}}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+                </Select>
+              </Col>
+            </Row>
             <br/>
 
             {/*Section*/}

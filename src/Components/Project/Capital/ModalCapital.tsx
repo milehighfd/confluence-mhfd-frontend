@@ -128,6 +128,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               country = {country}
               setCountry = {setCountry}
             />
+            <br/>
             {/*Second Section*/}
             <h5>2. SELECT COMPONENTS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
               <div className="tab-titles">
@@ -201,7 +202,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <p>Overhead Cost <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                <Select placeholder="75%" dropdownClassName="menu-large" >
+                <Select placeholder="75%" dropdownClassName="menu-medium" >
                   <Option value="75">75%</Option>
                   <Option value="80">80%</Option>
                   <Option value="85">85%</Option>
