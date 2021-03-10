@@ -349,14 +349,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
                 </Row>
               </Timeline.Item>
-
             </Timeline>
+
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
                 <Input placeholder="Enter Description" />
               </Col>
             </Row>
             <br/>
+
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
                 <p>Additional Cost <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
@@ -374,7 +375,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>$8,230,000</b></Col>
             </Row>
             <br/>
-
 
             {/*Section*/}
             <h5>3. GENERATE PROJECT <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
