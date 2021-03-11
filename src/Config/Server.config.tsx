@@ -81,6 +81,12 @@ export const SERVER = (function () {
     const ADD_FAVORITE = 'create';
     const FAVORITE_CARDS = 'favorite-list';
     const TIMES_LOGIN = 'count-login';
+    const CREATE = 'create';
+    const ACQUISITION = 'acquisition';
+    const CAPITAL = 'capital';
+    const MAINTENANCE = 'maintenance';
+    const SPECIAL = 'special';
+    const STUDY = 'study';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -152,6 +158,11 @@ export const SERVER = (function () {
         FAVORITES: `${URL_BASE.BASE}/${FAVORITES}`,
         ADD_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}/${ADD_FAVORITE}`,
         DELETE_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}`,
-        FAVORITE_CARDS: `${URL_BASE.BASE}/${FAVORITES}/${FAVORITE_CARDS}`
+        FAVORITE_CARDS: `${URL_BASE.BASE}/${FAVORITES}/${FAVORITE_CARDS}`,
+        CREATE_ACQUISITION:`${URL_BASE.BASE}/${CREATE}/${ACQUISITION}`,
+        CREATE_CAPITAL:`${URL_BASE.BASE}/${CREATE}/${CAPITAL}`,
+        CREATE_MAINTENANCE:`${URL_BASE.BASE}/${CREATE}/${MAINTENANCE}`,
+        CREATE_SPECIAL:`${URL_BASE.BASE}/${CREATE}/${SPECIAL}`,
+        CREATE_STUDY:`${URL_BASE.BASE}/${CREATE}/${STUDY}`
     }
 })();

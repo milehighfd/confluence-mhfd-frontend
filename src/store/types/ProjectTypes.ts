@@ -1,0 +1,2 @@
+export const GET_SPECIAL_ROW = 'GET_SPECIAL_ROW';
+export const SET_REDIRECT = 'SET_REDIRECT';
