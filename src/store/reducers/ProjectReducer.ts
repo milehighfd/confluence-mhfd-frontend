@@ -1,8 +1,21 @@
 import * as types from '../types/ProjectTypes';
 import { User } from '../../Classes/User';
 
-const appProject = () => {
-    
+const initState = {
+  specialLocation: []
 }
 
-export default appProject;
+const projectReducer = (state = initState, action: any) => {
+    switch(action.type) {
+      case types.SET_LOCATION: {
+        return {
+          ...state, 
+          specialLocation: action.specialLocation
+        }
+      }
+      default: 
+        return state;
+    }
+}
+
+export default projectReducer;

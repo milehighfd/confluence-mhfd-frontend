@@ -6,6 +6,7 @@ import { RightOutlined } from '@ant-design/icons';
 import { MainPopup, ComponentPopup } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
+import DetailedModal from '../Shared/Modals/DetailedModal';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import {
   MAP_DROPDOWN_ITEMS,
@@ -31,10 +32,11 @@ import {
 import { MapHOCProps, ProjectTypes, MapLayersType,MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
 import { Dropdown, Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
-import { tileStyles } from '../../constants/mapStyles';
+import { tileStyles, COMPONENT_LAYERS_STYLE } from '../../constants/mapStyles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
+import { useProjectDispatch } from '../../hook/projectHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { containsNumber } from "@turf/turf";
@@ -47,17 +49,20 @@ let previousClick = false;
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
-const CreateProjectMap = () => {
+const CreateProjectMap = ( type:any ) => {
   let html = document.getElementById('map3');
-  
   let draw: any;
   let popup = new mapboxgl.Popup();
+  let marker = new mapboxgl.Marker({color:"#ffbf00", scale: 0.7});
   const [isExtendedView, setCompleteView] = useState(false);
   let controller = false;
   const user = store.getState().profile.userInformation;
-  const {layers, selectedLayers, mapSearch, filterProjects,filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects } = useMapState(); 
-  const [thisSelectedLayers, setThisSelectedLayers] = useState(["district_boundary","xstreams",{"name":"components","tiles":["landscaping_area","land_acquisition","detention_facilities","storm_drain","channel_improvements_area","channel_improvements_linear","special_item_area","special_item_linear","special_item_point","pipe_appurtenances","grade_control_structure"]}]);
-  const {mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject} = useMapDispatch();
+  const {layers, selectedLayers, mapSearch, filterProjects,filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter,loaderTableCompoents } = useMapState(); 
+  const [thisSelectedLayers, setThisSelectedLayers] = useState([...selectedLayers, {"name":"components","tiles":["landscaping_area","land_acquisition","detention_facilities","storm_drain","channel_improvements_area","channel_improvements_linear","special_item_area","special_item_linear","special_item_point","pipe_appurtenances","grade_control_structure"]}]);
+  
+  
+  const {mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId} = useMapDispatch();
+  const {saveSpecialLocation} = useProjectDispatch();
   const [selectedCheckBox, setSelectedCheckBox] = useState(thisSelectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -100,9 +105,14 @@ const CreateProjectMap = () => {
     };
     waiting();
   }, []);
+  useEffect(() => {
+    if(data.problemid || data.cartoid) {
+        setVisible(true);
+    }
+}, [data]);
   const onCreateDraw = (event:any) => {
     const userPolygon = event.features[0];
-
+    // console.log("USER POLYGN TO SEND", userPolygon);
     const polygonBoundingBox = turf.bbox(userPolygon);
     const southWest = [polygonBoundingBox[0], polygonBoundingBox[1]];
     const northEast = [polygonBoundingBox[2], polygonBoundingBox[3]];
@@ -115,9 +125,10 @@ const CreateProjectMap = () => {
           totalFeatures = [...totalFeatures, ...featuresComponents];
         } 
     }
+    console.log("TOTAL FEATURES", totalFeatures);
     let featuresIntersected = getFeaturesIntersected(totalFeatures, userPolygon);
+    console.log("FEATURES INTERSECTED", featuresIntersected, JSON.stringify(userPolygon));
     let hull: any = getHull(featuresIntersected);
-    console.log("HULL", hull);
     map.removeLayer('hull');
     map.removeSource('hull'); 
     if(!map.map.getSource('hull')) {
@@ -138,6 +149,14 @@ const CreateProjectMap = () => {
         }
       });
     }
+    if(map.getLayer('streams_0')){
+      const featuresStreams = map.map.queryRenderedFeatures([southWestPointPixel, northEastPointPixel], {layers: ['streams_0']})
+      const stramsIntersected = getFeaturesIntersected(featuresStreams, hull);
+      if(stramsIntersected.length > 0){
+        const intersection = turf.intersect(stramsIntersected, hull);
+      }
+    }
+    
   }
   useEffect(()=>{
     if(map){
@@ -156,6 +175,7 @@ const CreateProjectMap = () => {
   useEffect(()=>{
     if(map && map.map.isStyleLoaded()){
       applyMapLayers();
+      console.log(map.map.getStyle().layers);
     }
     
   },[thisSelectedLayers]);
@@ -185,7 +205,31 @@ const CreateProjectMap = () => {
           }
       });
       applyFilters('problems', filterProblems);
+      let filterProjectsNew = filterProjects; 
+      if(type.type==='SPECIAL') {
+        filterProjectsNew.projecttype = "Maintenance,Special";
+      }
       applyFilters('mhfd_projects', filterProjects);
+      if(type.type==="CAPITAL") {
+        applyComponentFilter();
+      } 
+      
+  }
+  const applyMhfdFilter = () => {
+      const styles = { ...tileStyles as any };
+      styles['mhfd_projects'].forEach((style: LayerStylesType, index: number) => {
+        console.log("HEY", map.map.getFilter('mhfd_projects_'+index));
+      });
+  }
+  const applyComponentFilter = () => {
+    const styles = {...COMPONENT_LAYERS_STYLE as any};
+    Object.keys(styles).forEach(element => {
+      for(let i = 0 ; i < styles[element].length ; ++i) {
+        if(map.map.getLayer(element+"_"+i)) {
+          map.map.setFilter(element+'_'+i, ['!has','projectid']);
+        }
+      }
+    });
   }
   const showLayers = (key: string) => {
 
@@ -372,14 +416,16 @@ const CreateProjectMap = () => {
   const addTilesLayers = (key: string) => {
       const styles = { ...tileStyles as any };
       styles[key].forEach((style: LayerStylesType, index: number) => {
-        // console.log("ADDING", key, index);
+        // console.log("ADDING LAYR", key + '_' + index);
           map.map.addLayer({
               id: key + '_' + index,
               source: key,
               ...style
           });
-
-          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+          if(!key.includes('streams')) {
+            map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+          }
+          
           if (!hovereableLayers.includes(key)) {
               return;
           }
@@ -478,7 +524,6 @@ const CreateProjectMap = () => {
       }
   }
   const test = (item: any) => {
-
     setVisible(true);
     setData(item);
     if (item.problemid) {
@@ -487,8 +532,6 @@ const CreateProjectMap = () => {
         const url = 'projectid' + (item.projectid || item.id) + '&type=' + item.type;
         existDetailedPageProject(url);
     }
-
-
 }
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...tileStyles as any }
@@ -556,12 +599,19 @@ const CreateProjectMap = () => {
       }
 
   }
+  const addMarker = (e: any) => {
+    marker.setLngLat([e.lngLat.lng,e.lngLat.lat]).addTo(map.map);
+          let sendLine = { geom: { type:'MultiLineString', coordinates: [[e.lngLat.lng,e.lngLat.lat],[e.lngLat.lng,e.lngLat.lat]] }};
+          saveSpecialLocation(sendLine);
+  }
   useEffect(() => {
     if (allLayers.length < 100) {
         return;
     }
     map.map.on('click', (e: any) => {
-      
+        if(type.type === 'SPECIAL') {
+          addMarker(e);
+        }
         hideHighlighted();
         const popups: any = [];
         const mobile: any = [];
@@ -948,7 +998,7 @@ const CreateProjectMap = () => {
                     scale: 'District',//feature.properties.scale,
                     date_created: '01/07/2019' //feature.properties.date_created,
                 }
-                console.log(item, feature.properties);
+                // console.log(item, feature.properties);
                 menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
                 popups.push(item);
                 mobile.push({
@@ -1265,6 +1315,21 @@ const CreateProjectMap = () => {
   return <>
   <div className="map">
     <div id="map3"  style={{ height: '572px', width: '100%' }}></div>
+    {visible && <DetailedModal
+                detailed={detailed}
+                getDetailedPageProblem={getDetailedPageProblem}
+                getDetailedPageProject={getDetailedPageProject}
+                loaderDetailedPage={loaderDetailedPage}
+                getComponentsByProblemId={getComponentsByProblemId}
+                type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
+                data={data}
+                visible={visible}
+                setVisible={setVisible}
+                componentsOfProblems={componentsByProblemId}
+                loaderTableCompoents={loaderTableCompoents}
+                componentCounter={componentCounter}
+                getComponentCounter={getComponentCounter}
+            />}
     <div className="m-head">
       <Dropdown overlayClassName="dropdown-map-layers"
           visible={visibleDropdown}

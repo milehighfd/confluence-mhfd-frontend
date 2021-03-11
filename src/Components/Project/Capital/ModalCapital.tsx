@@ -95,7 +95,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
           {/* mapitash */}
-          <CreateProjectMap></CreateProjectMap>
+          <CreateProjectMap type="CAPITAL"></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
+import { useProjectState } from '../../../hook/projectHook';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -25,12 +26,19 @@ export const DropPin = ({typeProject}:
   }
   const [latitude, setLatitude] = useState('39.744137');
   const [longitude, setLongitude] = useState('- 104.950050');
+  const {specialLocation} = useProjectState();
   const dataSource = [
     {
       latitude: latitude,
       longitude:longitude,
     },
   ];
+  useEffect(()=>{
+    if(specialLocation.geom) {
+      setLatitude(specialLocation.geom.coordinates[0][1]);
+      setLongitude(specialLocation.geom.coordinates[0][0]);
+    }
+  }, [specialLocation]);
   return(
     <>
     <h5>2. Drop Pin <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" /></Button></h5>

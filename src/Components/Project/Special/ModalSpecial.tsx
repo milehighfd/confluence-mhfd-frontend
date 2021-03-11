@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
+import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
@@ -110,9 +111,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <div>
-            here goes the map
-          </div>
+            <CreateProjectMap type="SPECIAL"></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

@@ -442,7 +442,8 @@ const initState = {
     addFavorite: {},
     deleteFavorite: 'x',
     currentPopup: -1,
-    favoritesLoader: 0
+    favoritesLoader: 0,
+    showComponents: []
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -862,6 +863,12 @@ const mapReducer = (state = initState, action: any) => {
                 ...state,
                 favoritesLoader: action.favoritesLoader + state.favoritesLoader
             }
+        }
+        case types.CREATE_SHOW_COMPONENTS: {
+          return {
+            ...state, 
+            showComponents: action.showComponents 
+          }
         }
         default:
             return state;

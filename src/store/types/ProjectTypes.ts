@@ -1,2 +1,4 @@
 export const GET_SPECIAL_ROW = 'GET_SPECIAL_ROW';
 export const SET_REDIRECT = 'SET_REDIRECT';
+export const SET_LOCATION = 'SET_LOCATION';
+export const GET_LOCATION = 'GET_LOCATION';
