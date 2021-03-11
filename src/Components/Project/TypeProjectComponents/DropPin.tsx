@@ -5,12 +5,7 @@ import { PlusCircleFilled } from '@ant-design/icons';
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
-const dataSource = [
-  {
-    latitude:'39.744137',
-    longitude:'- 104.950050',
-  },
-];
+
 const columns = [
   {
     title: 'Latitude',
@@ -28,6 +23,14 @@ export const DropPin = ({typeProject}:
   {typeProject: string}) => {
   const onChange = (e: any)=>{ 
   }
+  const [latitude, setLatitude] = useState('39.744137');
+  const [longitude, setLongitude] = useState('- 104.950050');
+  const dataSource = [
+    {
+      latitude: latitude,
+      longitude:longitude,
+    },
+  ];
   return(
     <>
     <h5>2. Drop Pin <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" /></Button></h5>
@@ -40,7 +43,6 @@ export const DropPin = ({typeProject}:
         </Col>
       </Row>
       <br/>
-
     </>
   );
 }

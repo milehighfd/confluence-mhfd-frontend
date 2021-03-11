@@ -5,6 +5,7 @@ import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
+import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -120,13 +121,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
             {/*First Section*/}
             <ProjectInformation
-              typeProject = {typeProject}
               description = {description}
               setDescription = {setDescription}
-              serviceArea = {serviceArea}
-              setServiceArea = {setServiceArea}
-              country = {country}
-              setCountry = {setCountry}
             />
             <br/>
             {/*Second Section*/}
@@ -382,25 +378,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <br/>
 
             {/*Section*/}
-            <h5>4. Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Service Area<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">County<img src="/Icons/icon-19.svg" alt="" height="10px" /></label>
-                <Select placeholder="Select a person" style={{width:'100%'}}>
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-                </Select>
-              </Col>
-            </Row>
+            <LocationInformation
+              setServiceArea = {setServiceArea}
+              setCountry = {setCountry}
+            />
             <br/>
 
 
