@@ -1,10 +1,11 @@
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation } from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation } from '../store/actions/ProjectActions';
 import { RootState } from '../store/reducers';
 
 interface selectProjectState {
-  specialLocation: any
+  specialLocation: any,
+  acquisitionLocation: any
 }
 
 let createSelectorHack: any = createSelector;
@@ -12,8 +13,9 @@ let createSelectorHack: any = createSelector;
 const selectProjectStates: ParametricSelector<RootState, undefined, selectProjectState> =
 createSelectorHack(
   (state: any) => state.project.specialLocation,
-  (specialLocation: any) => ({
-    specialLocation
+  (state: any) => state.project.acquisitionLocation,
+  (specialLocation: any, acquisitionLocation: any) => ({
+    specialLocation, acquisitionLocation
   })
 );
 
@@ -43,6 +45,9 @@ export const useProjectDispatch = () => {
       },
       saveSpecialLocation: (location: any) => {
         dispatch(saveSpecialLocation(location));
+      },
+      saveAcquisitionLocation: (location: any) => {
+        dispatch(saveAcquisitionLocation(location))
       }
    }
 }

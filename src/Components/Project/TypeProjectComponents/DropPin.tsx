@@ -22,11 +22,12 @@ const columns = [
 
 export const DropPin = ({typeProject}:
   {typeProject: string}) => {
+    console.log("type projcet", typeProject);
   const onChange = (e: any)=>{ 
   }
   const [latitude, setLatitude] = useState('39.744137');
   const [longitude, setLongitude] = useState('- 104.950050');
-  const {specialLocation} = useProjectState();
+  const {specialLocation, acquisitionLocation} = useProjectState();
   const dataSource = [
     {
       latitude: latitude,
@@ -39,6 +40,13 @@ export const DropPin = ({typeProject}:
       setLongitude(specialLocation.geom.coordinates[0][0]);
     }
   }, [specialLocation]);
+ 
+  useEffect(()=>{
+    if(acquisitionLocation.geom) {
+      setLatitude(acquisitionLocation.geom.coordinates[0][1]);
+      setLongitude(acquisitionLocation.geom.coordinates[0][0]);
+    }
+  }, [acquisitionLocation]);
   return(
     <>
     <h5>2. Drop Pin <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" /></Button></h5>

@@ -1,4 +1,4 @@
-import { SET_LOCATION } from './../types/ProjectTypes';
+import { SET_PROJECT_LOCATION, SET_ACQUISITION_LOCATION } from './../types/ProjectTypes';
 import * as types from '../types/ProjectTypes';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
@@ -52,6 +52,11 @@ export const saveStudy = (data: any) => {
 
 export const saveSpecialLocation = (specialLocation: any) => {
   return ( dispatch: Function ) => {
-    dispatch({type: types.SET_LOCATION, specialLocation});
+    dispatch({type: types.SET_PROJECT_LOCATION, specialLocation});
+  }
+}
+export const saveAcquisitionLocation = (acquisitionLocation: any) => {
+  return ( dispatch: Function ) => {
+    dispatch({type: types.SET_ACQUISITION_LOCATION, acquisitionLocation});
   }
 }

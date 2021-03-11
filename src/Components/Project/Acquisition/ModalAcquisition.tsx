@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import { AlertView } from "../../Alerts/AlertView";
+import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { DropPin } from "../TypeProjectComponents/DropPin";
@@ -102,9 +103,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <div>
-            here goes the map
-          </div>
+          <CreateProjectMap type="ACQUISITION"></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

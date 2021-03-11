@@ -62,7 +62,7 @@ const CreateProjectMap = ( type:any ) => {
   
   
   const {mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId} = useMapDispatch();
-  const {saveSpecialLocation} = useProjectDispatch();
+  const {saveSpecialLocation, saveAcquisitionLocation} = useProjectDispatch();
   const [selectedCheckBox, setSelectedCheckBox] = useState(thisSelectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -602,14 +602,19 @@ const CreateProjectMap = ( type:any ) => {
   const addMarker = (e: any) => {
     marker.setLngLat([e.lngLat.lng,e.lngLat.lat]).addTo(map.map);
           let sendLine = { geom: { type:'MultiLineString', coordinates: [[e.lngLat.lng,e.lngLat.lat],[e.lngLat.lng,e.lngLat.lat]] }};
-          saveSpecialLocation(sendLine);
+          if(type.type === 'SPECIAL') {
+            saveSpecialLocation(sendLine);
+          } else if( type.type === 'ACQUISITION') {
+            saveAcquisitionLocation(sendLine);
+          }
+          
   }
   useEffect(() => {
     if (allLayers.length < 100) {
         return;
     }
     map.map.on('click', (e: any) => {
-        if(type.type === 'SPECIAL') {
+        if(type.type === 'SPECIAL' || type.type === 'ACQUISITION') {
           addMarker(e);
         }
         hideHighlighted();
