@@ -153,9 +153,9 @@ export const SEMSWA_SERVICE_AREA =
         newSwitches[layer] = true;
       }
     }
-    console.log('my new switches ',  newSwitches);
+    // console.log('my new switches ',  newSwitches);
     setSwitches((switches: any) => {
-      console.log('mirad y aprended ', {...switches, ...newSwitches});
+      // console.log('mirad y aprended ', {...switches, ...newSwitches});
       return {...switches, ...newSwitches};
     });
   }, [selectedLayers]);

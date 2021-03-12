@@ -87,7 +87,7 @@ export const SERVER = (function () {
     const MAINTENANCE = 'maintenance';
     const SPECIAL = 'special';
     const STUDY = 'study';
-    const SHOW_COMPONENTS = 'showcomponents';
+    const GET_STREAM_INTERSECTION = 'get-stream';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -165,6 +165,6 @@ export const SERVER = (function () {
         CREATE_MAINTENANCE:`${URL_BASE.BASE}/${CREATE}/${MAINTENANCE}`,
         CREATE_SPECIAL:`${URL_BASE.BASE}/${CREATE}/${SPECIAL}`,
         CREATE_STUDY:`${URL_BASE.BASE}/${CREATE}/${STUDY}`,
-        CREATE_SHOW_COMPONENTS: `${URL_BASE.BASE}/create/${SHOW_COMPONENTS}`
+        GET_STREAM_INTERSECTION: `${URL_BASE.BASE}/create/${GET_STREAM_INTERSECTION}`
     }
 })();

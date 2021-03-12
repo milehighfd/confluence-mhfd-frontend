@@ -16,6 +16,7 @@ import {
   COMPONENTS_TRIGGER,
   PROJECTS_MAP_STYLES,
   COMPONENT_LAYERS,
+  XSTREAMS,
   MEP_PROJECTS,
   ROUTINE_MAINTENANCE,
   FLOODPLAINS_FEMA_FILTERS,
@@ -36,7 +37,7 @@ import { tileStyles, COMPONENT_LAYERS_STYLE } from '../../constants/mapStyles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
-import { useProjectDispatch } from '../../hook/projectHook';
+import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { containsNumber } from "@turf/turf";
@@ -58,12 +59,11 @@ const CreateProjectMap = ( type:any ) => {
   let controller = false;
   const user = store.getState().profile.userInformation;
   const {layers, selectedLayers, mapSearch, filterProjects,filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter,loaderTableCompoents } = useMapState(); 
-  const [thisSelectedLayers, setThisSelectedLayers] = useState([...selectedLayers, {"name":"components","tiles":["landscaping_area","land_acquisition","detention_facilities","storm_drain","channel_improvements_area","channel_improvements_linear","special_item_area","special_item_linear","special_item_point","pipe_appurtenances","grade_control_structure"]}]);
   
-  
-  const {mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId} = useMapDispatch();
-  const {saveSpecialLocation, saveAcquisitionLocation} = useProjectDispatch();
-  const [selectedCheckBox, setSelectedCheckBox] = useState(thisSelectedLayers);
+  const {mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, updateSelectedLayers} = useMapDispatch();
+  const {saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon} = useProjectDispatch();
+  const {streamIntersected} = useProjectState();
+  const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -92,94 +92,125 @@ const CreateProjectMap = ( type:any ) => {
     type: '',
     cartoid: ''
 });
-  useEffect(() => {
-    const waiting = () => {
-      html = document.getElementById('map3');
-      if (!html) {
-        setTimeout(waiting, 50);
-      } else {
-        if(!map) {
-          map = new MapService('map3');
-        }
-      } 
-    };
-    waiting();
-  }, []);
-  useEffect(() => {
-    if(data.problemid || data.cartoid) {
-        setVisible(true);
-    }
+useEffect(() => {
+  const waiting = () => {
+    html = document.getElementById('map3');
+    if (!html) {
+      setTimeout(waiting, 50);
+    } else {
+      if(!map) {
+        map = new MapService('map3');
+        setLayersSelectedOnInit();
+      }
+    } 
+  };
+  waiting();
+}, []);
+useEffect(() => {
+  if(data.problemid || data.cartoid) {
+      setVisible(true);
+  }
 }, [data]);
-  const onCreateDraw = (event:any) => {
-    const userPolygon = event.features[0];
-    // console.log("USER POLYGN TO SEND", userPolygon);
-    const polygonBoundingBox = turf.bbox(userPolygon);
-    const southWest = [polygonBoundingBox[0], polygonBoundingBox[1]];
-    const northEast = [polygonBoundingBox[2], polygonBoundingBox[3]];
-    const northEastPointPixel = map.map.project(northEast);
-    const southWestPointPixel = map.map.project(southWest);
-    let totalFeatures: Array<any> = [];
-    for(let key of COMPONENT_LAYERS.tiles) {
-        if(map.getLayer(key+'_0')) {
-          const featuresComponents = map.map.queryRenderedFeatures([southWestPointPixel, northEastPointPixel], {layers: [key+'_0']}); 
-          totalFeatures = [...totalFeatures, ...featuresComponents];
-        } 
-    }
-    console.log("TOTAL FEATURES", totalFeatures);
-    let featuresIntersected = getFeaturesIntersected(totalFeatures, userPolygon);
-    console.log("FEATURES INTERSECTED", featuresIntersected, JSON.stringify(userPolygon));
-    let hull: any = getHull(featuresIntersected);
-    map.removeLayer('hull');
-    map.removeSource('hull'); 
-    if(!map.map.getSource('hull')) {
-      map.map.addSource('hull', {
+useEffect(()=>{
+  let geom = {} ;
+  if(streamIntersected.geom) {
+   geom = JSON.parse(streamIntersected.geom);
+  }
+
+  if(map && map.map.isStyleLoaded()) {
+    console.log("GEOM TO PUT", geom);
+    map.removeLayer('streamIntersected');
+    map.removeSource('streamIntersected'); 
+    if(!map.map.getSource('streamIntersected')) {
+      map.map.addSource('streamIntersected', {
         'type': 'geojson',
-        'data': hull
+        'data': {type:'Feature', geometry: geom, properties: []}
       });
     }
-    if(!map.getLayer('hull')){
+    if(!map.getLayer('streamIntersected')){
       map.map.addLayer({
-        'id': 'hull',
-        'type': 'fill',
-        'source': 'hull',
+        'id': 'streamIntersected',
+        'type': 'line',
+        'source': 'streamIntersected',
         'layout': {},
         'paint': {
-        'fill-color': '#088',
-        'fill-opacity': 0.8
+          'line-color': '#eae320',
+          'line-width': 4,
         }
       });
     }
-    if(map.getLayer('streams_0')){
-      const featuresStreams = map.map.queryRenderedFeatures([southWestPointPixel, northEastPointPixel], {layers: ['streams_0']})
-      const stramsIntersected = getFeaturesIntersected(featuresStreams, hull);
-      if(stramsIntersected.length > 0){
-        const intersection = turf.intersect(stramsIntersected, hull);
-      }
-    }
-    
   }
-  useEffect(()=>{
-    if(map){
-      map.create();
-      map.addDrawController();
-      setLayerFilters(layers);
-      map.map.on('style.load', () => {
-                applyMapLayers();         
-      });
-      map.createDraw(onCreateDraw);
-    }
-  },[map])
-  const updateSelectedLayers = (newLayers: any) => {
-    setThisSelectedLayers(newLayers);
-  }
-  useEffect(()=>{
-    if(map && map.map.isStyleLoaded()){
-      applyMapLayers();
-      console.log(map.map.getStyle().layers);
-    }
     
-  },[thisSelectedLayers]);
+},[streamIntersected]);
+useEffect(()=>{
+  if(map){
+    map.create();
+    map.addDrawController();
+    setLayerFilters(layers);
+    map.map.on('style.load', () => {
+              applyMapLayers();         
+    });
+    map.createDraw(onCreateDraw);
+  }
+},[map])
 
+useEffect(()=>{
+  if(map && map.map.isStyleLoaded()){
+    applyMapLayers();
+  }
+  
+},[selectedLayers]);
+const setLayersSelectedOnInit = ( ) => {
+  if(type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
+    updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS, COMPONENT_LAYERS]);
+  }
+}
+const onCreateDraw = (event:any) => {
+  const userPolygon = event.features[0];
+  if(type.type === 'CAPITAL') {
+    getStreamIntersectionSave(userPolygon.geometry);
+  } else if (type.type === 'MAINTENANCE') {
+    getStreamIntersectionPolygon(userPolygon.geometry);
+  }
+  
+  // const polygonBoundingBox = turf.bbox(userPolygon);
+  // const southWest = [polygonBoundingBox[0], polygonBoundingBox[1]];
+  // const northEast = [polygonBoundingBox[2], polygonBoundingBox[3]];
+  // const northEastPointPixel = map.map.project(northEast);
+  // const southWestPointPixel = map.map.project(southWest);
+  // let totalFeatures: Array<any> = [];
+  // for(let key of COMPONENT_LAYERS.tiles) {
+  //     if(map.getLayer(key+'_0')) {
+  //       const featuresComponents = map.map.queryRenderedFeatures([southWestPointPixel, northEastPointPixel], {layers: [key+'_0']}); 
+  //       totalFeatures = [...totalFeatures, ...featuresComponents];
+  //     } 
+  // }
+  // let featuresIntersected = getFeaturesIntersected(totalFeatures, userPolygon);
+  // let hull: any = getHull(featuresIntersected);
+  // console.log("HULL DATA TP", hull);
+  // map.removeLayer('hull');
+  // map.removeSource('hull'); 
+  // if(!map.map.getSource('hull')) {
+  //   map.map.addSource('hull', {
+  //     'type': 'geojson',
+  //     'data': hull
+  //   });
+  // }
+  // if(!map.getLayer('hull')){
+  //   map.map.addLayer({
+  //     'id': 'hull',
+  //     'type': 'fill',
+  //     'source': 'hull',
+  //     'layout': {},
+  //     'paint': {
+  //     'fill-color': '#088',
+  //     'fill-opacity': 0.8
+  //     }
+  //   });
+  // }
+
+  
+}
   const applyMapLayers = async () => {
       await SELECT_ALL_FILTERS.forEach((layer) => {
           if (typeof layer === 'object') {
@@ -195,7 +226,7 @@ const CreateProjectMap = ( type:any ) => {
               addLayersSource(layer, layerFilters[layer]);
           }
       });
-      await thisSelectedLayers.forEach((layer: LayersType) => {
+      await selectedLayers.forEach((layer: LayersType) => {
           if (typeof layer === 'object') {
               layer.tiles.forEach((subKey: string) => {
                   showLayers(subKey);
@@ -207,7 +238,9 @@ const CreateProjectMap = ( type:any ) => {
       applyFilters('problems', filterProblems);
       let filterProjectsNew = filterProjects; 
       if(type.type==='SPECIAL') {
-        filterProjectsNew.projecttype = "Maintenance,Special";
+        filterProjectsNew.projecttype = "Special";
+      } else if(type.type === 'STUDY') {
+        filterProjectsNew.projecttype = "Study";
       }
       applyFilters('mhfd_projects', filterProjects);
       if(type.type==="CAPITAL") {
@@ -378,7 +411,7 @@ const CreateProjectMap = ( type:any ) => {
   };
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     
-    const deleteLayers = thisSelectedLayers.filter((layer:any) => !selectedItems.includes(layer as string));
+    const deleteLayers = selectedLayers.filter((layer:any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
         removeTilesHandler(layer);
     });
@@ -1343,7 +1376,7 @@ const CreateProjectMap = ( type:any ) => {
               setVisibleDropdown(flag);
 
           }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: thisSelectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
+          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
           trigger={['click']}>
           <Button>
           <span className="btn-02"></span>

@@ -10,18 +10,6 @@ import { ComponentType } from 'react';
 import store from '..';
 import { dispatch } from 'd3';
 
-
-export const createShowComponents = (geom: any) => {
-  return (dispatch: Function) => {
-    const url = SERVER.CREATE_SHOW_COMPONENTS;
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        dispatch({type: types.CREATE_SHOW_COMPONENTS, showComponents: data})
-      })
-      .catch(err => console.log("ERROR"));
-  }
-}
 export const getReverseGeocode = (lat : number, lng : number, accessToken : string) => {
     /* Intentionally Commented By The Other API Proposal and Backup*/
     return (dispatch : Function) => {

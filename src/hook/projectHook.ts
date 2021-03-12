@@ -1,11 +1,12 @@
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation } from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection } from '../store/actions/ProjectActions';
 import { RootState } from '../store/reducers';
 
 interface selectProjectState {
   specialLocation: any,
-  acquisitionLocation: any
+  acquisitionLocation: any,
+  streamIntersected: any
 }
 
 let createSelectorHack: any = createSelector;
@@ -14,8 +15,9 @@ const selectProjectStates: ParametricSelector<RootState, undefined, selectProjec
 createSelectorHack(
   (state: any) => state.project.specialLocation,
   (state: any) => state.project.acquisitionLocation,
-  (specialLocation: any, acquisitionLocation: any) => ({
-    specialLocation, acquisitionLocation
+  (state: any) => state.project.streamIntersected,
+  (specialLocation: any, acquisitionLocation: any, streamIntersected: any) => ({
+    specialLocation, acquisitionLocation, streamIntersected
   })
 );
 
@@ -48,6 +50,12 @@ export const useProjectDispatch = () => {
       },
       saveAcquisitionLocation: (location: any) => {
         dispatch(saveAcquisitionLocation(location))
+      },
+      getStreamIntersectionSave: (geom: any) => {
+        dispatch(getStreamIntersection(geom));
+      },
+      getStreamIntersectionPolygon: (geom: any) => {
+        dispatch(getStreamIntersection(geom));
       }
    }
 }

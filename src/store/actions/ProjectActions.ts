@@ -60,3 +60,21 @@ export const saveAcquisitionLocation = (acquisitionLocation: any) => {
     dispatch({type: types.SET_ACQUISITION_LOCATION, acquisitionLocation});
   }
 }
+
+export const getStreamIntersection = (geom: any) => {
+  return ( dispatch: Function) => {
+    datasets.postData(SERVER.GET_STREAM_INTERSECTION, {geom: geom}, datasets.getToken()).then(res => {
+      let streamIntersected = res;
+        dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
+    });
+  }
+}
+
+export const getStreamIntersectionPolygon = (geom: any) => {
+  return ( dispatch: Function) => {
+    datasets.postData(SERVER.GET_STREAM_INTERSECTION, {geom: geom}, datasets.getToken()).then(res => {
+      let streamIntersected = res;
+        dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
+    });
+  }
+}

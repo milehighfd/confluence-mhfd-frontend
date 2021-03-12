@@ -4,6 +4,7 @@ import { PlusCircleFilled } from '@ant-design/icons';
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
+import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { NEW_PROJECT_TYPES, PROJECT_INFORMATION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 
@@ -94,9 +95,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <div>
-            here goes the map
-          </div>
+          <CreateProjectMap type="MAINTENANCE"></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">
