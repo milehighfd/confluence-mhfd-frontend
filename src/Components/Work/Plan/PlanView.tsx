@@ -3,6 +3,7 @@ import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu,
 import { PlusCircleFilled, RightOutlined, DownOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
+import WsService from "../Request/WsService";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -40,6 +41,130 @@ const content = (
 );
 
 export default () => {
+
+  const [columns, setColumns] = useState([
+    {
+      title: 'Workspace',
+      hasCreateOption: true,
+      projects: [
+        {
+          projectid: '2',
+          projectname: 'West Tollgate Creek GSB Drops',
+          price: '$410,000',
+          jurisdiction: 'Aurora',
+          state: 'Draft'
+        }
+      ],
+    },
+    {
+      title: '2020',
+      projects: [
+        {
+          projectid: '1',
+          projectname: 'Bear Creek',
+          price: '$38,327',
+          jurisdiction: 'Denver',
+          state: 'Draft'
+        },
+        {
+          projectid: '3',
+          projectname: 'Cherry Creek @ Quebec to illif',
+          price: '$16,100,000',
+          jurisdiction: 'Araphoe County',
+          state: 'Draft'
+        }
+      ],
+    },
+    {
+      title: '2021',
+      projects: [],
+    },
+    {
+      title: '2022',
+      projects: [],
+    },
+    {
+      title: '2023',
+      projects: [],
+    },
+    {
+      title: '2024',
+      projects: [],
+    }
+  ])
+
+  useEffect(() => {
+    WsService.receiveUpdate('work-plan', (data: any) => {
+      setColumns(data);
+    })
+  }, [])
+
+  const generateCard = (project: any) => {
+    const {
+      projectid,
+      projectname,
+      price,
+      jurisdiction,
+      state
+    } = project;
+    return (
+      <div className="card-wr" style={{borderLeft: '3px solid #9faeb1'}} draggable onDragStart={e => onDragStart(e, projectid)}>
+        <h4>{projectname}</h4>
+        <h6>{price}</h6>
+        <label className="purple">{jurisdiction}</label>
+        <label className="yellow">{state}</label>
+        <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
+            <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
+        </Popover>
+      </div>
+    )
+  }
+  
+  const onDragStart = (e: any, id: any) => {
+    console.log('onDragStart', id)
+    e.dataTransfer.setData('id', id);
+  }
+
+  const onDragOver = (e: any) => {
+    e.preventDefault();
+  }
+
+  const onDrop = (e: any, columnIdx: number, cat: string) => {
+    let id = e.dataTransfer.getData("id");
+    let fromColumnIdx = -1;
+    let project: any;
+    columns.map(r => r.projects).forEach((ps: any, i) => {
+      ps.forEach((p: any) => {
+        if (p.projectid === id) {
+          fromColumnIdx = i;
+          project = p;
+        }
+      })
+    })
+
+    if (fromColumnIdx === columnIdx) {
+      return;
+    }
+
+    const newColumns = columns.map((c: any, i: number) => {
+      if (i === fromColumnIdx) {
+        return {
+          ...c,
+          projects: c.projects.filter((p: any) => p.projectid !== id)
+        }
+      }
+      if (i === columnIdx) {
+        return {
+          ...c,
+          projects: [...c.projects, project]
+        }
+      }
+      return c;
+    })
+    WsService.sendUpdate('work-plan', newColumns);
+    setColumns(newColumns);
+  }
+
   return <>
     <Layout>
       <Navbar/>
@@ -104,60 +229,21 @@ export default () => {
                 <Tabs defaultActiveKey="1" className="tabs-map">
                    <TabPane tab="Capital" key="1">
                      <div className="work-table">
-                      <div>
-                        <h3>Workspace <Popover placement="right" content={content03} trigger="click"><img src="/Icons/icon-19.svg" alt="" height="12px" /></Popover></h3>
-                        <div className="col-wr">
-                          <Button className="btn-transparent"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button>
-                          <div className="card-wr" style={{borderLeft: '3px solid #FDB32E'}}>
-                            <h4>West Tollgate Creek GSB Drops </h4>
-                            <h6>$410,000</h6>
-                            <label className="purple">Aurora</label>
-                            <label className="yellow">Draft</label>
-                            <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
-                                <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
-                            </Popover>
+                      {
+                        columns.map((column, columnIdx) => (
+                          <div className="container-drag">
+                            <h3>{column.title}</h3>
+                            <div className="col-wr droppable" onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx, 'complete')}>
+                                { column.hasCreateOption && <Button className="btn-transparent"><img src="/Icons/icon-18.svg" alt=""/> Create Project</Button> }
+                                {
+                                  column.projects.map((p) => (
+                                    generateCard(p)
+                                  ))
+                                }
+                            </div>
                           </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h3>2020</h3>
-                        <div className="col-wr">
-                        <div className="card-wr" style={{borderLeft: '3px solid #28C499 '}}>
-                          <h4>West Tollgate Creek GSB Drops </h4>
-                          <h6>$410,000</h6>
-                          <label className="purple">Aurora</label>
-                          <label className="yellow">Draft</label>
-                          <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
-                              <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
-                          </Popover>
-                        </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h3>2021</h3>
-                        <div className="col-wr">
-                        </div>
-                      </div>
-
-                      <div>
-                      <h3>2022</h3>
-                        <div className="col-wr">
-                        </div>
-                      </div>
-
-                      <div>
-                        <h3>2023</h3>
-                        <div className="col-wr">
-                        </div>
-                      </div>
-
-                      <div>
-                        <h3>2024</h3>
-                        <div className="col-wr">
-                        </div>
-                      </div>
+                        ))
+                      }
                     </div>
 
                     <div className="cost-wr">

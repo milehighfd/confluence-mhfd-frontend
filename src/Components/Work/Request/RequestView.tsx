@@ -86,7 +86,7 @@ export default () => {
   ])
 
   useEffect(() => {
-    WsService.receiveUpdate('', (data: any) => {
+    WsService.receiveUpdate('work-request', (data: any) => {
       setColumns(data);
     })
   }, [])
@@ -153,9 +153,9 @@ export default () => {
       }
       return c;
     })
-    WsService.sendUpdate('', newColumns);
+    WsService.sendUpdate('work-request', newColumns);
     setColumns(newColumns);
-  } 
+  }
 
   return <>
     <Layout>
