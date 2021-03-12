@@ -3,6 +3,7 @@ import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu,
 import { PlusCircleFilled, RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
+import WsService from "./WsService";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -84,6 +85,12 @@ export default () => {
     }
   ])
 
+  useEffect(() => {
+    WsService.receiveUpdate('', (data: any) => {
+      setColumns(data);
+    })
+  }, [])
+
   const generateCard = (project: any) => {
     const {
       projectid,
@@ -131,7 +138,7 @@ export default () => {
       return;
     }
 
-    setColumns(columns.map((c: any, i: number) => {
+    const newColumns = columns.map((c: any, i: number) => {
       if (i === fromColumnIdx) {
         return {
           ...c,
@@ -145,7 +152,9 @@ export default () => {
         }
       }
       return c;
-    }))
+    })
+    WsService.sendUpdate('', newColumns);
+    setColumns(newColumns);
   } 
 
   return <>
