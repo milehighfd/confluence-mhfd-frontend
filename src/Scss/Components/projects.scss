@@ -118,15 +118,27 @@
       border: 1px dashed $opacity04;
       margin: 10px 0px 15px 0px;
       padding: 18px 0px;
+      color: $opacity;
 
       p{
         font-size: 13px;
-        color: $opacity;
         margin-bottom: 0px;
       }
-      img{
+      .icon-draw{
         margin-bottom: 2px;
+        height: 0px;
+        width: 0px;
+        background: $purple;
+        transition: width 2s;
+        padding: 9px;
       }
+    }
+    .draw:hover, .draw:focus, .draw:active, .draw.active{
+      border: 1px dashed $green;
+      color: $green;
+    }
+    .draw:hover > .icon-draw, .draw:focus > .icon-draw, .draw:active > .icon-draw, .draw.active > .icon-draw{
+      background: $green;
     }
     hr{
       border: 1px dashed $opacity04;

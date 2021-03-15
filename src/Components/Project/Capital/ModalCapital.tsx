@@ -134,7 +134,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
             <div className="draw">
-              <img src="/Icons/icon-08.svg" alt="" height="22px" />
+              <img src="" className="icon-draw" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p>Click on the icon above and draw a polygon to select components</p>
             </div>
             <Collapse
