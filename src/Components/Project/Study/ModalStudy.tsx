@@ -49,6 +49,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [isDraw, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
 
+  const [county, setCounty] = useState('');
+  const [save, setSave] = useState(false);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleStudy = true;
@@ -86,7 +88,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     {visibleAlert && <AlertView
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
-      setVisible = {setVisibleStudy}
+      setSave = {setSave}
      />}
      <Modal
        centered
@@ -200,7 +202,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
 
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCountry = {setCountry}
+              setCounty = {setCounty}
             />
             <br/>
 

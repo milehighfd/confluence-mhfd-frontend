@@ -21,7 +21,7 @@ export const UploadAttachment = ({typeProject}:
             <p>Attach main image in PNG or JPEG format</p>
             </Button>
         </Upload>
-        <Row className="title-galery">
+        <Row className="title-galery">        
         <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
         <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
         </Row>
@@ -51,7 +51,7 @@ export const UploadAttachment = ({typeProject}:
             <Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button>
             <Checkbox/>
             </Col>
-        </Row>
+        </Row> 
     </>
   );
 }

@@ -683,14 +683,14 @@ const CreateProjectMap = (type: any) => {
 
   }
   const addMarker = (e: any) => {
-    marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
-    let sendLine = { geom: { type: 'MultiLineString', coordinates: [[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng, e.lngLat.lat]] } };
-    if (type.type === 'SPECIAL') {
-      saveSpecialLocation(sendLine);
-    } else if (type.type === 'ACQUISITION') {
-      saveAcquisitionLocation(sendLine);
-    }
-
+    marker.setLngLat([e.lngLat.lng,e.lngLat.lat]).addTo(map.map);
+          let sendLine = { geom: { type:'MultiLineString', coordinates: [[[e.lngLat.lng,e.lngLat.lat],[e.lngLat.lng,e.lngLat.lat]]] }};
+          if(type.type === 'SPECIAL') {
+            saveSpecialLocation(sendLine);
+          } else if( type.type === 'ACQUISITION') {
+            saveAcquisitionLocation(sendLine);
+          }
+          
   }
   useEffect(() => {
     if (allLayers.length < 100) {

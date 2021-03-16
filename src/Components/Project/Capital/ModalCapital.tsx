@@ -7,6 +7,8 @@ import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation"
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import { Geom, Project } from "../../../Classes/Project";
+
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -45,15 +47,37 @@ const genExtra05 = () => (
 
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string}) => {
+  
+  const {saveProjectCapital} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
-  console.log(visibleCapital, "visiCap");
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
   const [country, setCountry] = useState('');
   const [isDraw, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
+  const [county, setCounty] = useState('');
+  const [save, setSave] = useState(false);
+  
+  var geom = new Geom();
+  
+  useEffect(()=>{
+    if(save === true){
+      var capital = new Project();
+      capital.projectname = nameProject;
+      capital.description = description;
+      capital.county = county;
+      capital.servicearea = serviceArea;
+      capital.geom = geom;
+      //capital.overheadcost = overheadcost;
+      //capital.acquisitionanticipateddate = purchaseDate;
+      console.log(capital,"****+++CAPITAL******")
+      saveProjectCapital(capital);
+      setVisibleCapital(false);
+    }
+  },[save]);
+
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
   };
@@ -90,7 +114,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     {visibleAlert && <AlertView
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
-      setVisible = {setVisibleCapital}
+      setSave = {setSave}
      />}
      <Modal
        centered
@@ -388,7 +412,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             {/*Section*/}
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCountry = {setCountry}
+              setCounty = {setCounty}
             />
             <br/>
 

@@ -8,7 +8,8 @@ import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { DropPin } from "../TypeProjectComponents/DropPin";
 import { PROJECT_INFORMATION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-
+import { useProjectDispatch } from "../../../hook/projectHook";
+import { Geom, Project} from "../../../Classes/Project";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -29,59 +30,52 @@ for(var i = 2 ; i < 21 ; i++){
 const stateValue = {
   visibleSpecial: false
 }
-const dataSource = [
-  {
-    latitude:'39.744137',
-    longitude:'- 104.950050',
-  },
-];
-
-const columns = [
-  {
-    title: 'Latitude',
-    dataIndex: 'latitude',
-    key: 'latitude',
-  },
-  {
-    title: 'Longitude',
-    dataIndex: 'longitude',
-    key: 'longitude',
-  },
-
-];
 
 export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject}:
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string}) => {
+  
+  const {saveProjectSpecial} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
-  const [disable, setDisable] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState('');
-  const [country, setCountry] = useState('');
-  const [Porgress, setProgress] = useState('');
-  const [purchaseDate, setPurchaseDate] = useState('');
-
+  const [county, setCounty] = useState('');
+  const [save, setSave] = useState(false);
+  const [geom, setGeom] = useState();
   var date = new Date();
   var year = date.getFullYear();
+  
+  useEffect(()=>{
+    if(save === true){
+      var special = new Project();
+      special.geom =  geom;
+      special.projectname = nameProject;
+      special.description = description;
+      special.county = county;
+      special.servicearea = serviceArea;
+      saveProjectSpecial(special);
+      setVisibleSpecial(false);
+    }
+  },[save]);
+
+  useEffect(()=>{
+    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
+      setDisable(false);
+    }
+  },[geom, description, county, serviceArea]);
+
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleSpecial = true;
     setState(auxState);
   };
 
-  const apllyProgress = (e: any)=>{
-    setProgress(e);
-  };
-
-  const apllyPurchaseDate = (e: any)=>{
-    setPurchaseDate(e);
-  };
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
   };
 
   const handleOk = (e: any) => {
-    console.log(e);
     const auxState = {...state};
     //setVisibleSpecial (false);
     setState(auxState);
@@ -89,7 +83,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   };
 
   const handleCancel = (e: any) => {
-    console.log(e);
     const auxState = {...state};
     setVisibleSpecial (false);
     setState(auxState);
@@ -99,7 +92,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     {visibleAlert && <AlertView
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
-      setVisible = {setVisibleSpecial}
+      setSave = {setSave} 
      />}
      <Modal
        centered
@@ -135,8 +128,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
             {/*First Section*/}
             <ProjectInformation
-              description = {description}
-              setDescription = {setDescription}
+              description= {description}
+              setDescription= {setDescription}
             />
             <br/>
 
@@ -144,6 +137,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
             <DropPin
               typeProject= {typeProject}
+              geom= {geom}
+              setGeom= {setGeom}
             />
 
             {/*Section*/}
@@ -154,7 +149,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             {/*Section*/}
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCountry = {setCountry}
+              setCounty = {setCounty}
             />
 
             <br/>

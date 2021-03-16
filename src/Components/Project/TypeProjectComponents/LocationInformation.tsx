@@ -10,14 +10,14 @@ const content08 = (<div className="popver-info"></div>);
 const content01 = (<div className="popver-info"></div>);
 const content02 = (<div className="popver-info"></div>);
 
-export const LocationInformation = ({setServiceArea, setCountry}:
-  {setServiceArea: Function, setCountry: Function}) => {
+export const LocationInformation = ({setServiceArea, setCounty}:
+  {setServiceArea: Function, setCounty: Function}) => {
   
   const apllyServiceArea = (e: any)=>{
     setServiceArea(e);
   };
-  const apllyCountry = (e: any)=>{
-    setCountry(e);
+  const apllyCounty = (e: any)=>{
+    setCounty(e);
   };
   return(
     <>
@@ -36,7 +36,7 @@ export const LocationInformation = ({setServiceArea, setCountry}:
       </Col>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select placeholder="Select a Country" style={{width:'100%'}}  onChange={(country)=> apllyCountry(country)}>
+        <Select placeholder="Select a County" style={{width:'100%'}}  onChange={(county)=> apllyCounty(county)}>
           {PROJECT_INFORMATION.COUNTRY_PROJECT.map((element) =>{
             return <Option key={element} value={element}>{element}</Option>
           })}

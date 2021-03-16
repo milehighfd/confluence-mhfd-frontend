@@ -9,7 +9,8 @@ import { DropPin } from "../TypeProjectComponents/DropPin";
 import { PROJECT_INFORMATION } from "../../../constants/constants";
 import { selectedComponents } from "../../../constants/mapStyles";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-
+import { useProjectDispatch } from "../../../hook/projectHook";
+import { Project, Geom } from "../../../Classes/Project";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -24,51 +25,58 @@ const content05 = (<div className="popver-info"></div>);
 const content06 = (<div className="popver-info"></div>);
 const content08 = (<div className="popver-info"></div>);
 const selec = [0];
+
 for(var i = 1 ; i < 21 ; i++){
   selec.push(i);
 }
 const stateValue = {
   visibleAcqui: false,
 }
-const dataSource = [
-  {
-    latitude:'-',
-    longitude:'-',
-  },
-];
-
-const columns = [
-  {
-    title: 'Latitude',
-    dataIndex: 'latitude',
-    key: 'latitude',
-  },
-  {
-    title: 'Longitude',
-    dataIndex: 'longitude',
-    key: 'longitude',
-  },
-];
 
 export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject}:
   {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string} ) => {
-  var date = new Date();
-  var year = date.getFullYear();
+  
+  const {saveProjectAcquisition} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
-  const [disable, setDisable] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState('');
-  const [country, setCountry] = useState('');
-  const [Porgress, setProgress] = useState('');
+  const [county, setCounty] = useState('');
+  const [progress, setProgress] = useState('');
   const [purchaseDate, setPurchaseDate] = useState('');
+  const [save, setSave] = useState(false);
+  const [geom, setGeom] = useState();
+  var date = new Date();
+
+  var year = date.getFullYear();
+
+  useEffect(()=>{
+    if(save === true){
+      var acquisition = new Project();
+      acquisition.projectname = nameProject;
+      acquisition.description = description;
+      acquisition.county = county;
+      acquisition.servicearea = serviceArea;
+      acquisition.geom = geom;
+      acquisition.acquisitionprogress = progress;
+      acquisition.acquisitionanticipateddate = purchaseDate;
+      saveProjectAcquisition(acquisition);
+      setVisibleAcquisition(false);
+    }
+  },[save]);
+
+  useEffect(()=>{
+    if(geom != undefined && description != '' && county != '' && serviceArea != '' && progress != '' && purchaseDate != '' ){
+      setDisable(false);
+    }
+  },[geom, description, county, serviceArea,progress,purchaseDate]);
 
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
   };
 
   const handleOk = (e: any) => {
-    console.log("entra");
    //setVisibleAcquisition(false);
     setVisibleAlert( true);
   };
@@ -91,7 +99,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
      {visibleAlert && <AlertView
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
-      setVisible = {setVisibleAcquisition}
+      setSave = {setSave}
      />}
      <Modal
        centered
@@ -154,6 +162,8 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             {/*Second Section*/}
             <DropPin
               typeProject= {typeProject}
+              geom= {geom}
+              setGeom= {setGeom}
             />
 
             {/*Section*/}
@@ -164,7 +174,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             {/*Section*/}
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCountry = {setCountry}
+              setCounty = {setCounty}
             />
             <br/>
 

@@ -8,6 +8,7 @@ import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { NEW_PROJECT_TYPES, PROJECT_INFORMATION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import { Geom, Project } from "../../../Classes/Project";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -32,22 +33,46 @@ const stateValue = {
 
 export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject}:
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string }) => {
+  
+  const {saveProjectMaintenance} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
   const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
-  const [country, setCountry] = useState('');
+  const [county, setCounty] = useState('');
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
   const [visibleEligibility, setVisibleEligibility] = useState(false);
   const [isDraw, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
+  const [save, setSave] = useState(false);
+  const [ownership, setOwnership] = useState("true");
+  var geom = new Geom();
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
     setState(auxState);
   };
+
+  useEffect(()=>{
+    if(save === true){
+      var maintenance = new Project();
+      maintenance.projectname = nameProject;
+      maintenance.description = description;
+      maintenance.county = county;
+      maintenance.servicearea = serviceArea;
+      maintenance.geom = geom;
+      maintenance.projectsubtype = subType;
+      maintenance.frequency = frequency;
+      maintenance.maintenanceeligibility = eligibility;
+      maintenance.ownership = ownership ;
+      console.log(maintenance,"****++MAINTENANCE******")
+      saveProjectMaintenance(maintenance);
+      setVisibleMaintenance(false);
+    }
+  },[save]);
+
   useEffect(()=>{
     if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal ){
     console.log("djhsdusd", subType)
@@ -64,6 +89,10 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
+  };
+
+  const apllyOwnership = (e:any)=>{
+    setOwnership(e);
   };
 
   const handleOk = (e: any) => {
@@ -92,7 +121,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     {visibleAlert && <AlertView
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
-      setVisible = {setVisibleMaintenance}
+      setSave = {setSave}
      />}
      <Modal
        centered
@@ -143,7 +172,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Access Control <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <p className="switch-option">Public Access / Ownership <span><Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked /></span></p>
+                <p className="switch-option">Public Access / Ownership <span><Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked onChange={(ownership)=> apllyOwnership(ownership)}/></span></p>
               </Col>
             </Row>
             {visibleEligibility &&
@@ -179,7 +208,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             {/*Section*/}
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCountry = {setCountry}
+              setCounty = {setCounty}
             />
             <br/>
 

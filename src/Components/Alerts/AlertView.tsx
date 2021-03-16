@@ -5,8 +5,8 @@ import { RightOutlined } from '@ant-design/icons';
 const stateValue = {
   visible: false
 }
-export const AlertView = ({visibleAlert, setVisibleAlert, setVisible}:
-  {visibleAlert : boolean, setVisibleAlert: Function, setVisible: Function} ) => {
+export const AlertView = ({visibleAlert, setVisibleAlert, setSave}:
+  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function} ) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
@@ -20,7 +20,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setVisible}:
     auxState.visible = false;
     setVisibleAlert(false);
     setState(auxState);
-    setVisible(false);
+    setSave(true);
   };
 
   const handleCancel = (e: any) => {
