@@ -15,17 +15,19 @@ const columns = [
     title: 'Latitude',
     dataIndex: 'latitude',
     key: 'latitude',
+    ellipsis: true,
   },
   {
     title: 'Longitude',
     dataIndex: 'longitude',
     key: 'longitude',
+    ellipsis: true,
   },
 ];
 
 export const DropPin = ({typeProject, geom, setGeom}:
   {typeProject: string, geom: any, setGeom: Function}) => {
-  const onChange = (e: any)=>{ 
+  const onChange = (e: any)=>{
   }
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
@@ -34,7 +36,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
   const dataSource = [
     {
       latitude: latitude,
-      longitude:longitude,
+      longitude: longitude,
     },
   ];
   useEffect(()=>{
@@ -44,7 +46,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
       setLocation(specialLocation.geom);
     }
   }, [specialLocation]);
- 
+
   useEffect(()=>{
     if(acquisitionLocation.geom) {
       setLatitude(acquisitionLocation.geom.coordinates[0][1]);
@@ -54,7 +56,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
   }, [acquisitionLocation]);
 
   const applySave = ()=>{
-    setGeom(location);    
+    setGeom(location);
   };
   return(
     <>
