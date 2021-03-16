@@ -337,6 +337,10 @@ body{
     right: 40px !important;
     left: inherit;
   }
+  .ant-alert-success {
+    background-color: $green;
+    text-align: center;
+  }
 }
 .modal-confirm{
   h2{

@@ -5,7 +5,7 @@ import { RightOutlined } from '@ant-design/icons';
 const stateValue = {
   visible: false
 }
-export const AlertView = ({visibleAlert, setVisibleAlert, setVisible}: 
+export const AlertView = ({visibleAlert, setVisibleAlert, setVisible}:
   {visibleAlert : boolean, setVisibleAlert: Function, setVisible: Function} ) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
@@ -30,13 +30,14 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setVisible}:
     setVisibleAlert(false);
     setState(auxState);
   };
- return ( 
-  <> 
+ return (
+  <>
   {visibleAlert}
     <div>
-      {/*<div className="alert-mm">
+      <div className="alert-mm">
+        <Alert type="success" message="Jon Villines just commented on your project 'Piney Creek Channel Restoration'" banner />
         <Alert type="error" message="Jon Villines just commented on your project 'Piney Creek Channel Restoration'" banner />
-      </div>*/}
+      </div>
       <div >
         <Modal
           centered
