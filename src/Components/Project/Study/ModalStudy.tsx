@@ -5,6 +5,8 @@ import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
+import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -44,6 +46,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
   const [country, setCountry] = useState('');
+  const [isDraw, setIsDraw] = useState(false);
+  const {changeDrawState} = useProjectDispatch();
 
   const showModal = () => {
     const auxState = {...state};
@@ -69,6 +73,14 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     setVisibleStudy (false);
     setState(auxState);
   };
+
+  const onClickDraw = () => {
+    setIsDraw(!isDraw);
+  }
+  useEffect(()=>{
+    changeDrawState(isDraw);
+  },[isDraw]);
+
   return (
     <>
     {visibleAlert && <AlertView
@@ -86,9 +98,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <div>
-            here goes the map
-          </div>
+          <CreateProjectMap type="STUDY"></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">
@@ -124,7 +134,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                 <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
               </Row>
-            <div className="draw">
+            <div className="draw" onClick={onClickDraw}>
               <img src="/Icons/icon-08.svg" alt="" height="22px" />
               <p>Click on the icon and draw a polygon to select stream segments</p>
             </div>

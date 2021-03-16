@@ -6,7 +6,9 @@ const initState = {
   specialLocation: [],
   acquisitionLocation: [],
   userPolygon: [],
-  streamIntersected: []
+  streamIntersected: [],
+  isDraw: false,
+  streamsIntersectedIds: []
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -27,6 +29,18 @@ const projectReducer = (state = initState, action: any) => {
         return {
           ...state, 
           streamIntersected: action.streamIntersected
+        }
+      }
+      case types.CHANGE_DRAW_STATE: {
+        return {
+          ...state, 
+          isDraw: action.isDraw
+        }
+      }
+      case types.SET_STREAMS_IDS: {
+        return { 
+          ...state, 
+          streamsIntersectedIds: action.streamsIntersectedIds
         }
       }
       default: 

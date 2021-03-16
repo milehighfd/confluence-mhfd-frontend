@@ -1,12 +1,14 @@
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection } from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon } from '../store/actions/ProjectActions';
 import { RootState } from '../store/reducers';
 
 interface selectProjectState {
   specialLocation: any,
   acquisitionLocation: any,
-  streamIntersected: any
+  streamIntersected: any,
+  isDraw: boolean,
+  streamsIntersectedIds: any
 }
 
 let createSelectorHack: any = createSelector;
@@ -16,16 +18,16 @@ createSelectorHack(
   (state: any) => state.project.specialLocation,
   (state: any) => state.project.acquisitionLocation,
   (state: any) => state.project.streamIntersected,
-  (specialLocation: any, acquisitionLocation: any, streamIntersected: any) => ({
-    specialLocation, acquisitionLocation, streamIntersected
+  (state: any) => state.project.isDraw,
+  (state: any) => state.project.streamsIntersectedIds,
+  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any) => ({
+    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds
   })
 );
-
 
 export const useProjectState = () => {
   return useSelector((state: RootState) => selectProjectStates(state, undefined));
 }
-
  
 export const useProjectDispatch = () => {
    const dispatch = useDispatch();
@@ -55,7 +57,14 @@ export const useProjectDispatch = () => {
         dispatch(getStreamIntersection(geom));
       },
       getStreamIntersectionPolygon: (geom: any) => {
-        dispatch(getStreamIntersection(geom));
+        dispatch(getStreamIntersectionPolygon(geom));
+      },
+      //get the ids of streams 
+      getStreamsIntersectedPolygon: (geom: any) => {
+        dispatch(getStreamsIntersectedPolygon(geom));
+      },
+      changeDrawState: (isDraw: boolean) => {
+        dispatch(changeDrawState(isDraw));
       }
    }
 }

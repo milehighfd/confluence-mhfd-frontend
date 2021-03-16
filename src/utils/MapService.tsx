@@ -118,6 +118,12 @@ export class MapService {
     }
     this.controller = true;
   }
+  addDrawControllerTopLeft() {
+    if (!this.controller) {
+      this.map.addControl(this.draw, 'top-left');
+    }
+    this.controller = true;
+  }
   removeDrawController() {
     if (this.controller) {
       this.map.removeControl(this.draw);

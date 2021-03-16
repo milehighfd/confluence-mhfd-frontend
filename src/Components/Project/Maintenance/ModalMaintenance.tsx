@@ -7,6 +7,7 @@ import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { NEW_PROJECT_TYPES, PROJECT_INFORMATION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
+import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -40,7 +41,8 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
   const [visibleEligibility, setVisibleEligibility] = useState(false);
-
+  const [isDraw, setIsDraw] = useState(false);
+  const {changeDrawState} = useProjectDispatch();
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -78,6 +80,13 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     setVisibleMaintenance(false);
     setState(auxState);
   };
+
+  const onClickDraw = () => {
+    setIsDraw(!isDraw);
+  }
+  useEffect(()=>{
+    changeDrawState(isDraw);
+  },[isDraw]);
   return (
     <>
     {visibleAlert && <AlertView
@@ -155,7 +164,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
             {/*Second Section*/}
             <h5>2. Draw Activity <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
-            <div className="draw">
+            <div className="draw" onClick={onClickDraw}>
               <img src="/Icons/icon-08.svg" alt="" height="22px" />
               <p>Click on the icon and draw a polygon to draw the activity area</p>
             </div>

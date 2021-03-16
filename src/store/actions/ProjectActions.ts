@@ -70,11 +70,28 @@ export const getStreamIntersection = (geom: any) => {
   }
 }
 
+// get clipped streams
 export const getStreamIntersectionPolygon = (geom: any) => {
   return ( dispatch: Function) => {
-    datasets.postData(SERVER.GET_STREAM_INTERSECTION, {geom: geom}, datasets.getToken()).then(res => {
+    datasets.postData(SERVER.GET_STREAM_POLYGON, {geom: geom}, datasets.getToken()).then(res => {
       let streamIntersected = res;
         dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
     });
   }
 }
+
+// get the streams ids intersected 
+export const getStreamsIntersectedPolygon = (geom: any) => {
+  return ( dispatch: Function) => {
+    datasets.postData(SERVER.GET_STREAM_INTERSECTED, {geom: geom}, datasets.getToken()).then(res => {
+      let streamsIntersectedIds = res;
+        dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
+    });
+  }
+}
+
+export const changeDrawState = (isDraw: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.CHANGE_DRAW_STATE, isDraw});
+  }
+} 

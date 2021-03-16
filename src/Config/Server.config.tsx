@@ -87,7 +87,9 @@ export const SERVER = (function () {
     const MAINTENANCE = 'maintenance';
     const SPECIAL = 'special';
     const STUDY = 'study';
-    const GET_STREAM_INTERSECTION = 'get-stream';
+    const GET_STREAM_INTERSECTED = 'get-all-streams';
+    const GET_STREAM_INTERSECTION = 'get-stream-convexhull';
+    const GET_STREAM_POLYGON = 'get-stream'
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -165,6 +167,8 @@ export const SERVER = (function () {
         CREATE_MAINTENANCE:`${URL_BASE.BASE}/${CREATE}/${MAINTENANCE}`,
         CREATE_SPECIAL:`${URL_BASE.BASE}/${CREATE}/${SPECIAL}`,
         CREATE_STUDY:`${URL_BASE.BASE}/${CREATE}/${STUDY}`,
-        GET_STREAM_INTERSECTION: `${URL_BASE.BASE}/create/${GET_STREAM_INTERSECTION}`
+        GET_STREAM_INTERSECTED: `${URL_BASE.BASE}/create/${GET_STREAM_INTERSECTED}`,
+        GET_STREAM_INTERSECTION: `${URL_BASE.BASE}/create/${GET_STREAM_INTERSECTION}`,
+        GET_STREAM_POLYGON: `${URL_BASE.BASE}/create/${GET_STREAM_POLYGON}`
     }
 })();

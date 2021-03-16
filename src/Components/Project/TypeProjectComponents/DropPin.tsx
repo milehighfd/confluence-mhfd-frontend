@@ -22,11 +22,10 @@ const columns = [
 
 export const DropPin = ({typeProject}:
   {typeProject: string}) => {
-    console.log("type projcet", typeProject);
   const onChange = (e: any)=>{ 
   }
-  const [latitude, setLatitude] = useState('39.744137');
-  const [longitude, setLongitude] = useState('- 104.950050');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const {specialLocation, acquisitionLocation} = useProjectState();
   const dataSource = [
     {

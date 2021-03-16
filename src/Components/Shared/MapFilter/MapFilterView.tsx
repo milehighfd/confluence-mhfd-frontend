@@ -98,7 +98,7 @@ export const SEMSWA_SERVICE_AREA =
     boundaries: false
   });
   useEffect(() => {
-    console.log(switches);
+    // console.log(switches);
     const newGroups: any = {};
     if (switches[PROBLEMS_TRIGGER] && switches[PROJECTS_MAP_STYLES.name] && switches[COMPONENT_LAYERS.name]
       && switches[MEP_PROJECTS.name] && switches[ROUTINE_MAINTENANCE.name]) {
@@ -145,7 +145,7 @@ export const SEMSWA_SERVICE_AREA =
   useEffect(() => {
     const newSwitches: any = {};
     for (const layer of selectedLayers) {
-      console.log('layer ', layer);
+      // console.log('layer ', layer);
       if (layer.hasOwnProperty('name')) {
         const key: string = layer['name'];
         newSwitches[key] = true;

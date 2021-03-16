@@ -6,7 +6,7 @@ import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-
+import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -52,7 +52,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
   const [country, setCountry] = useState('');
-
+  const [isDraw, setIsDraw] = useState(false);
+  const {changeDrawState} = useProjectDispatch();
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
   };
@@ -77,6 +78,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setVisibleCapital (false);
     setState(auxState);
   };
+
+  const onClickDraw = () => {
+    setIsDraw(!isDraw);
+  }
+  useEffect(()=>{
+    changeDrawState(isDraw);
+  },[isDraw]);
   return (
     <>
     {visibleAlert && <AlertView
@@ -133,7 +141,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
-            <div className="draw">
+            <div className="draw active" onClick={onClickDraw}>
               <img src="" className="icon-draw" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p>Click on the icon above and draw a polygon to select components</p>
             </div>
