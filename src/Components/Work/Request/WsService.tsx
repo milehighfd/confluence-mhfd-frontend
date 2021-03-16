@@ -6,8 +6,12 @@ class WsService {
   private workPlanSocket: any;
 
   constructor() {
-    this.workRequestSocket = io("http://localhost:3003/work-request");
-    this.workPlanSocket = io("http://localhost:3003/work-plan");
+    const options = {
+      transports: ['websocket'],
+      upgrade: false
+    }
+    this.workRequestSocket = io(`${process.env.REACT_APP_API_URI}/work-request`, options);
+    this.workPlanSocket = io(`${process.env.REACT_APP_API_URI}/work-plan`, options);
   }
 
   sendUpdate(type: string, data: any) {
