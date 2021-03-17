@@ -55,13 +55,10 @@ export const saveMaintenance = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_MAINTENANCE, data, datasets.getToken()).then(res => {
       console.log(res,"RES");
-      let status ; 
       if(res.total_rows > 0){
-        status = 1;
-      }else{
-        status = 0;
+        console.log("save");
       }
-      dispatch({ type: types.SET_SAVE, status });
+      else console.log("no save ")
     })
   };
 };
@@ -70,13 +67,10 @@ export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_STUDY, data, datasets.getToken()).then(res => {
       console.log(res,"RES");
-      let status ; 
       if(res.total_rows > 0){
-        status = 1;
-      }else{
-        status = 0;
+        console.log("save");
       }
-      dispatch({ type: types.SET_SAVE, status });
+      else console.log("no save ")
     })
   };
 };
@@ -92,14 +86,15 @@ export const saveAcquisitionLocation = (acquisitionLocation: any) => {
   };
 };
 
+
 export const getStreamIntersection = (geom: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAM_INTERSECTION, {geom: geom}, datasets.getToken()).then(res => {
       let streamIntersected = res;
         dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
     });
-  };
-};
+  }
+}
 
 // get clipped streams
 export const getStreamIntersectionPolygon = (geom: any) => {
@@ -108,8 +103,8 @@ export const getStreamIntersectionPolygon = (geom: any) => {
       let streamIntersected = res;
         dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
     });
-  };
-};
+  }
+}
 
 // get the streams ids intersected 
 export const getStreamsIntersectedPolygon = (geom: any) => {
@@ -118,8 +113,8 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
       let streamsIntersectedIds = res;
         dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
     });
-  };
-};
+  }
+}
 
 export const changeDrawState = (isDraw: boolean) => {
   return (dispatch: Function) => {

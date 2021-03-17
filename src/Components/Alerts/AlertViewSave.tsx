@@ -35,13 +35,13 @@ export const AlertViewSave = ({status}:
     {showSave && 
     <div>
         <div className="alert-mm">
-        <Alert type="success" message="Save Project." banner onClose={endView} />
+        <Alert type="success" message="The project was saved successfully." banner onClose={endView} />
         </div>
     </div>}
     {showNoSave && 
     <div>
       <div className="alert-mm">
-        <Alert type="error" message="Don`t save Project." banner onClose={endView}  />
+        <Alert type="error" message="The project cannot be saved." banner onClose={endView}  />
       </div>
     </div>}
   </>)
