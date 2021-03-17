@@ -97,13 +97,11 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     const waiting = () => {
       html = document.getElementById('map3');
-      console.log("STATING", html);
       if (!html) {
         setTimeout(waiting, 50);
       } else {
         if (!map) {
           map = new MapService('map3');
-          console.log("NEW MAP SERVICE");
           setLayersSelectedOnInit();
         }
       }
@@ -130,7 +128,6 @@ const CreateProjectMap = (type: any) => {
       let eventToAddMarker = eventService.getRef('addmarker');
       map.map.on('click',eventToAddMarker);
     } else {
-      console.log("REMOVING FOLLOWER", isAddLocation);
       let eventToMove = eventService.getRef('move');
       map.map.off('mousemove', eventToMove);
       let eventToAddMarker = eventService.getRef('addmarker');
@@ -720,26 +717,54 @@ const CreateProjectMap = (type: any) => {
     }
 
   }
+  const addPopupMarker = (point: any, html: any) => {
+    popup.remove();
+    map.addPopUpOffset(point, html);
+
+      let menuElement = document.getElementById('menu-marker');
+      if (menuElement != null) {
+        menuElement.addEventListener('click',() => { 
+          map.removePopUpOffset();
+          marker.remove();
+          marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+          changeAddLocationState(false);
+        } );
+      }
+
+      // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
+
+  }
   const addMarker = (e: any) => {
-    marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
-    let sendLine = { geom: { type: 'MultiLineString', coordinates: [[[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng, e.lngLat.lat]]]} };
-    if (type.type === 'SPECIAL') {
-      saveSpecialLocation(sendLine);
-    } else if (type.type === 'ACQUISITION') {
-      saveAcquisitionLocation(sendLine);
+    const html = loadPopupMarker();
+    e.originalEvent.stopPropagation();
+    if (html) {
+      popup.remove();
+      marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
+      let point = e.lngLat;
+      marker.getElement().addEventListener('click', () => {
+        addPopupMarker(point,html);
+      });
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng, e.lngLat.lat]] } };
+      if (type.type === 'SPECIAL') {
+        saveSpecialLocation(sendLine);
+      } else if (type.type === 'ACQUISITION') {
+        saveAcquisitionLocation(sendLine);
+      }
+      let eventToMove = eventService.getRef('move');
+      map.map.off('mousemove', eventToMove);
+      let eventToAddMarker = eventService.getRef('addmarker');
+      map.map.off('click',eventToAddMarker);
+      // marker.setPopup(html);
+      // let eventToClick = eventService.getRef('click');
+      // map.map.on('click', eventToClick);
+      isPopup = true;
     }
-    let eventToMove = eventService.getRef('move');
-    map.map.off('mousemove', eventToMove);
-    let eventToAddMarker = eventService.getRef('addmarker');
-    map.map.off('click',eventToAddMarker);
-    // let eventToClick = eventService.getRef('click');
-    // map.map.on('click', eventToClick);
-    isPopup = true;
   }
   const eventMove = (e:any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
   const eventClick = (e: any) => {
+    
     if(!isPopup){
       return;
     }
@@ -1250,7 +1275,6 @@ const CreateProjectMap = (type: any) => {
 
         popup.remove();
         popup = new mapboxgl.Popup();
-        console.log("THERE IS POPUP TO ADD", html);
         popup.setLngLat(e.lngLat)
           .setHTML(html)
           .addTo(map.map);
@@ -1307,6 +1331,16 @@ const CreateProjectMap = (type: any) => {
           </div>
         </div>}
     </>
+  );
+  const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
+    <>
+          <div className="layer-popup">
+            <div>
+              <Button id='menu-marker' key='menu-0' className={"btn-transparent " + "menu-0"}><span className="text-popup-00"> Remove Marker</span> </Button>
+            </div>
+          </div>
+    </>
+    // <div id="popup-0" class="map-pop-01"><div class="ant-card ant-card-bordered ant-card-hoverable"><div class="ant-card-body"><div class="headmap">Components</div><div class="bodymap"><h4><i>Land Acquisition</i> </h4><p><i>Subtype: </i> Easement/ROW Acquisition</p><p><i>Estimated Cost: </i> $540,282</p><p><i>Status: </i> Proposed</p><p><i>Study Name: </i> Second Creek DIA DFA 0053 OSP Ph B</p><p><i>Jurisdiction: </i> Adams County</p><p><i>Problem: </i> Dataset in development</p></div></div></div></div>
   );
   const loadMenuPopup = () => ReactDOMServer.renderToStaticMarkup(
     <>

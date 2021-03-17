@@ -9,6 +9,7 @@ export class MapService {
   public map: Map;
   public draw: any;
   public popup: Popup;
+  public popupOffset: Popup;
   public user = 'vizonomy';
   public style = 'ckd9o19kq0e9x1ipdm8zdq98m';
   public styleSatellite = 'cjge6lf7w000v2spxkflkhlau';
@@ -30,6 +31,11 @@ export class MapService {
       closeButton: false,
       closeOnClick: false
      });
+     this.popupOffset = new mapboxgl.Popup({
+       offset: [0,-10],
+       closeButton: false,
+       closeOnClick: false
+     })
      const width = window.innerWidth;
      if (width < 800) {
       this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');  
@@ -232,6 +238,14 @@ export class MapService {
     this.popup.setLngLat(coordinates)
           .setHTML(html)
           .addTo(this.map);
+  }
+  addPopUpOffset(coordinates: any, html: any) {
+    this.popupOffset.setLngLat(coordinates)
+          .setHTML(html)
+          .addTo(this.map);
+  }
+  removePopUpOffset() {
+    this.popupOffset.remove();
   }
   getBoundingBox() {
     return this.map.getBounds();

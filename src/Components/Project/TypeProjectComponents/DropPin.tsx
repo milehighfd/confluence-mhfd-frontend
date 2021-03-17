@@ -31,7 +31,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
   }
   const [latitude, setLatitude] = useState('--');
   const [longitude, setLongitude] = useState('--');
-  const {specialLocation, acquisitionLocation} = useProjectState();
+  const {specialLocation, acquisitionLocation, isAddLocation} = useProjectState();
   const [location, setLocation] =useState();
   const [isLocation, setIsLocation] = useState(false);
   const {changeAddLocationState} = useProjectDispatch();
@@ -61,7 +61,11 @@ export const DropPin = ({typeProject, geom, setGeom}:
       setLocation(acquisitionLocation.geom);
     }
   }, [acquisitionLocation]);
-
+  useEffect(()=>{
+    if(!isAddLocation) {
+      setIsLocation(isAddLocation);
+    }
+  },[isAddLocation]);
   useEffect(()=>{
     changeAddLocationState(false);
   },[]);
@@ -73,7 +77,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
         <Table dataSource={dataSource} columns={columns} bordered />
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }}>
-            <Button className="btn-location" onClick={changeLocation}>Add Location</Button>
+            {!isLocation && <Button className="btn-location" onClick={changeLocation}>Add Location</Button>}
         </Col>
       </Row>
       <br/>
