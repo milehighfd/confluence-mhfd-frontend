@@ -730,6 +730,13 @@ const CreateProjectMap = (type: any) => {
           changeAddLocationState(false);
         } );
       }
+      let closeElement = document.getElementById('closepopupmarker');
+      if (closeElement != null) {
+        closeElement.addEventListener('click',() => { 
+          map.removePopUpOffset();
+        } );
+      }
+      
 
       // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
 
@@ -1334,11 +1341,12 @@ const CreateProjectMap = (type: any) => {
   );
   const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
     <>
-          <div className="layer-popup">
-            <div>
-              <Button id='menu-marker' key='menu-0' className={"btn-transparent " + "menu-0"}><span className="text-popup-00"> Remove Marker</span> </Button>
-            </div>
+        <div className="layer-popup">
+          <div id="closepopupmarker" style={{'float': 'right', 'paddingRight': '4px', 'height':'16px', 'cursor':'pointer' }}>&#x2716;</div>
+          <div>
+            <Button id='menu-marker' key='menu-0' className={"btn-transparent " + "menu-0"}><span className="text-popup-00"> Remove Marker</span> </Button>
           </div>
+        </div>
     </>
     // <div id="popup-0" class="map-pop-01"><div class="ant-card ant-card-bordered ant-card-hoverable"><div class="ant-card-body"><div class="headmap">Components</div><div class="bodymap"><h4><i>Land Acquisition</i> </h4><p><i>Subtype: </i> Easement/ROW Acquisition</p><p><i>Estimated Cost: </i> $540,282</p><p><i>Status: </i> Proposed</p><p><i>Study Name: </i> Second Creek DIA DFA 0053 OSP Ph B</p><p><i>Jurisdiction: </i> Adams County</p><p><i>Problem: </i> Dataset in development</p></div></div></div></div>
   );
