@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
-import { useProjectState } from '../../../hook/projectHook';
 import { Geom } from "../../../Classes/Project";
 import { geoNaturalEarth1 } from "d3-geo";
 import { saveSpecialLocation } from "../../../store/actions/ProjectActions";
+import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -29,16 +29,23 @@ export const DropPin = ({typeProject, geom, setGeom}:
   {typeProject: string, geom: any, setGeom: Function}) => {
   const onChange = (e: any)=>{
   }
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+  const [latitude, setLatitude] = useState('--');
+  const [longitude, setLongitude] = useState('--');
   const {specialLocation, acquisitionLocation} = useProjectState();
   const [location, setLocation] =useState();
+  const [isLocation, setIsLocation] = useState(false);
+  const {changeAddLocationState} = useProjectDispatch();
   const dataSource = [
     {
       latitude: latitude,
       longitude: longitude,
     },
   ];
+  const changeLocation = () => {
+    changeAddLocationState(!isLocation);
+    setIsLocation(!isLocation);
+    setGeom(location);
+  }
   useEffect(()=>{
     if(specialLocation.geom) {
       setLatitude(specialLocation.geom.coordinates[0][1]);
@@ -55,9 +62,9 @@ export const DropPin = ({typeProject, geom, setGeom}:
     }
   }, [acquisitionLocation]);
 
-  const applySave = ()=>{
-    setGeom(location);
-  };
+  useEffect(()=>{
+    changeAddLocationState(false);
+  },[]);
   return(
     <>
     <h5>2. Drop Pin <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" /></Button></h5>
@@ -66,7 +73,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
         <Table dataSource={dataSource} columns={columns} bordered />
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }}>
-            <Button className="btn-location" onClick={()=>applySave()}>Add Location</Button>
+            <Button className="btn-location" onClick={changeLocation}>Add Location</Button>
         </Col>
       </Row>
       <br/>

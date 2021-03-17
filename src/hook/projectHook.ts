@@ -1,6 +1,6 @@
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon } from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState } from '../store/actions/ProjectActions';
 import { RootState } from '../store/reducers';
 
 interface selectProjectState {
@@ -8,7 +8,8 @@ interface selectProjectState {
   acquisitionLocation: any,
   streamIntersected: any,
   isDraw: boolean,
-  streamsIntersectedIds: any
+  streamsIntersectedIds: any,
+  isAddLocation: boolean
 }
 
 let createSelectorHack: any = createSelector;
@@ -20,8 +21,9 @@ createSelectorHack(
   (state: any) => state.project.streamIntersected,
   (state: any) => state.project.isDraw,
   (state: any) => state.project.streamsIntersectedIds,
-  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any) => ({
-    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds
+  (state: any) => state.project.isAddLocation,
+  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any) => ({
+    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation
   })
 );
 
@@ -65,6 +67,9 @@ export const useProjectDispatch = () => {
       },
       changeDrawState: (isDraw: boolean) => {
         dispatch(changeDrawState(isDraw));
+      },
+      changeAddLocationState: (isAddLocation: boolean) => {
+        dispatch(changeAddLocationState(isAddLocation));
       }
    }
 }

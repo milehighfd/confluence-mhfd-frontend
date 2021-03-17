@@ -193,9 +193,9 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
             {/*Second Section*/}
             <h5>2. Draw Activity <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
-            <div className="draw" onClick={onClickDraw}>
-              <img src="/Icons/icon-08.svg" alt="" height="22px" />
-              <p>Click on the icon and draw a polygon to draw the activity area</p>
+            <div className={"draw "+(isDraw?'active':'')} onClick={onClickDraw}>
+              <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
+                <p>Click on the icon and draw a polygon to draw the activity area</p>
             </div>
             <br/>
 

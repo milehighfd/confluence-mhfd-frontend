@@ -165,8 +165,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
-            <div className="draw active" onClick={onClickDraw}>
-              <img src="" className="icon-draw" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
+            <div className={"draw "+(isDraw?'active':'')} onClick={onClickDraw}>
+              <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p>Click on the icon above and draw a polygon to select components</p>
             </div>
             <Collapse

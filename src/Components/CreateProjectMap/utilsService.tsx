@@ -1,4 +1,5 @@
 import * as turf from '@turf/turf';
+import ReactDOMServer from 'react-dom/server';
 
 
 export const getFeaturesIntersected = (features: any, userPolygon: any) => {
@@ -37,3 +38,17 @@ export const getHull = (featuresIntersected: any) => {
   return hull ;
 }
 
+// export const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
+
+//   <>
+//       <div className="map-pop-02">
+//         <div className="headmap">LAYERS</div>
+//         <div className="layer-popup">
+          
+//                 <div>
+//                   <Button id={'menu-marker'} key={'menu-0'} className={"btn-transparent " + "menu-marker"}><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+//                 </div>
+//           </div>
+//       </div>}
+//   </>
+// );

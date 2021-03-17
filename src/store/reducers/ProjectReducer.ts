@@ -8,7 +8,8 @@ const initState = {
   userPolygon: [],
   streamIntersected: [],
   isDraw: false,
-  streamsIntersectedIds: []
+  streamsIntersectedIds: [],
+  isAddLocation: false
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -41,6 +42,12 @@ const projectReducer = (state = initState, action: any) => {
         return { 
           ...state, 
           streamsIntersectedIds: action.streamsIntersectedIds
+        }
+      }
+      case types.ADD_LOCATION: {
+        return {
+          ...state, 
+          isAddLocation: action.isAddLocation
         }
       }
       default: 

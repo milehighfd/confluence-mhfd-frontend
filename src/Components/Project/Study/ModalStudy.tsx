@@ -136,8 +136,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                 <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
               </Row>
-            <div className="draw" onClick={onClickDraw}>
-              <img src="/Icons/icon-08.svg" alt="" height="22px" />
+            <div className={"draw "+(isDraw?'active':'')} onClick={onClickDraw}>
+            <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p>Click on the icon and draw a polygon to select stream segments</p>
             </div>
             <Collapse
