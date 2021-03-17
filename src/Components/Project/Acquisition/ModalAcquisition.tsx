@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import { AlertView } from "../../Alerts/AlertView";
@@ -33,8 +34,8 @@ const stateValue = {
   visibleAcqui: false,
 }
 
-export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject}:
-  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string} ) => {
+export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, status, setStatus}:
+  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, status:number, setStatus:Function} ) => {
   
   const {saveProjectAcquisition} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
@@ -62,10 +63,19 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       acquisition.acquisitionprogress = progress;
       acquisition.acquisitionanticipateddate = purchaseDate;
       saveProjectAcquisition(acquisition);
-      setVisibleAcquisition(false);
+     
     }
   },[save]);
+  const projectReturn = useSelector((state:any)=>({
+    state
+  }));
 
+  useEffect(()=>{
+    if(projectReturn.state.project.status != 2){
+      setStatus(projectReturn.state.project.status);
+      setVisibleAcquisition(false);
+    }
+  },[projectReturn.state.project.status]);
   useEffect(()=>{
     if(geom != undefined && description != '' && county != '' && serviceArea != '' && progress != '' && purchaseDate != '' ){
       setDisable(false);

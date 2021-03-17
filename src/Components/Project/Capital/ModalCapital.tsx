@@ -45,8 +45,8 @@ const genExtra05 = () => (
   </Row>
 );
 
-export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject}:
-  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string}) => {
+export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject,status, setStatus}:
+  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, status: number, setStatus:Function}) => {
   
   const {saveProjectCapital} = useProjectDispatch();
   const [state, setState] = useState(stateValue);

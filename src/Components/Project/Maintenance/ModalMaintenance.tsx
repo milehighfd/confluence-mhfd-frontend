@@ -31,8 +31,8 @@ const stateValue = {
   visibleMaintenance: false
 }
 
-export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject}:
-  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string }) => {
+export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject,status, setStatus}:
+  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, status:number, setStatus:Function }) => {
   
   const {saveProjectMaintenance} = useProjectDispatch();
   const [state, setState] = useState(stateValue);

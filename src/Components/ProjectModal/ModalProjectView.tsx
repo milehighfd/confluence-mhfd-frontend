@@ -8,6 +8,7 @@ import { ModalSpecial } from "../Project/Special/ModalSpecial";
 import { ModalStudy } from "../Project/Study/ModalStudy";
 import { buttonsNewProject, FILTER_TYPES, NEW_PROJECT_TYPES } from "../../constants/constants";
 import { createJsxAttribute } from "typescript";
+import { AlertViewSave } from "../Alerts/AlertViewSave";
 
 const stateValue = {
   visible: false
@@ -30,7 +31,15 @@ export const ModalProjectView = () => {
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
   const [disable, setDisable] = useState(true);
+  const [visibleSave, setVisibleSave] = useState(false);
   const [nameProject, setNameProject] = useState('');
+  const [status, setStatus] = useState(2);
+  useEffect(()=>{
+    if(status != 2){
+      setVisibleSave(true);
+    };
+  },[status]);
+
   const showModal = () => {
     const auxState = {...state};
     auxState.visible = true;
@@ -99,12 +108,17 @@ export const ModalProjectView = () => {
   };
   return (
     <>
+    {visibleSave && <AlertViewSave
+      status = {status}
+    />}
      {visibleCapital && <ModalCapital
       visibleCapital = {visibleCapital} 
       setVisibleCapital = {setVisibleCapital}
       nameProject = {nameProject}
       setNameProject = {setNameProject}
       typeProject = {typeProject}
+      status = {status}
+      setStatus = {setStatus}
      />}
      {visibleAcquisition && <ModalAcquisition
       visibleAcquisition = {visibleAcquisition} 
@@ -112,6 +126,8 @@ export const ModalProjectView = () => {
       nameProject = {nameProject}
       setNameProject = {setNameProject}
       typeProject = {typeProject}
+      status = {status}
+      setStatus = {setStatus}
      />}
      {visibleMaintenance && <ModalMaintenance
       visibleMaintenance = {visibleMaintenance} 
@@ -120,6 +136,8 @@ export const ModalProjectView = () => {
       setNameProject = {setNameProject}
       subType = {subType}
       typeProject = {typeProject}
+      status = {status}
+      setStatus = {setStatus}
      />}
      {visibleSpecial && <ModalSpecial
       visibleSpecial = {visibleSpecial} 
@@ -127,6 +145,8 @@ export const ModalProjectView = () => {
       nameProject = {nameProject}
       setNameProject = {setNameProject}
       typeProject = {typeProject}
+      status = {status}
+      setStatus = {setStatus}
      />}
      {visibleStudy && <ModalStudy
       visibleStudy = {visibleStudy} 
@@ -134,8 +154,10 @@ export const ModalProjectView = () => {
       nameProject = {nameProject}
       setNameProject = {setNameProject}
       typeProject = {typeProject}
+      status = {status}
+      setStatus = {setStatus}
      />}
-     
+     {visible}
     <Button type="primary" onClick={showModal}>
        Open Modal
      </Button>

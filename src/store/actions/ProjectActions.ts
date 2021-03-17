@@ -9,72 +9,88 @@ export const saveSpecial = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_SPECIAL, data, datasets.getToken()).then(res => {
       console.log(res,"RES");
+      let status ; 
       if(res.total_rows > 0){
-        console.log("save");
+        status = 1;
+      }else{
+        status = 0;
       }
-      else console.log("no save ")
+      dispatch({ type: types.SET_SAVE, status });
     })
- }
-}
+  };
+};
 
 export const saveAcquisition = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_ACQUISITION, data, datasets.getToken()).then(res => {
       console.log(res,"RES");
+      let status ; 
       if(res.total_rows > 0){
-        console.log("save");
+        status = 1;
+      }else{
+        status = 0;
       }
-      else console.log("no save ")
+      dispatch({ type: types.SET_SAVE, status });
     })
-  }
-}
+  };
+};
 
 export const saveCapital = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_CAPITAL, data, datasets.getToken()).then(res => {
       console.log(res,"RES");
+      console.log(res,"RES");
+      let status ; 
       if(res.total_rows > 0){
-        console.log("save");
+        status = 1;
+      }else{
+        status = 0;
       }
-      else console.log("no save ")
+      dispatch({ type: types.SET_SAVE, status });
     })
-  }
-}
+  };
+};
 
 export const saveMaintenance = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_MAINTENANCE, data, datasets.getToken()).then(res => {
       console.log(res,"RES");
+      let status ; 
       if(res.total_rows > 0){
-        console.log("save");
+        status = 1;
+      }else{
+        status = 0;
       }
-      else console.log("no save ")
+      dispatch({ type: types.SET_SAVE, status });
     })
-  }
-}
+  };
+};
 
 export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_STUDY, data, datasets.getToken()).then(res => {
       console.log(res,"RES");
+      let status ; 
       if(res.total_rows > 0){
-        console.log("save");
+        status = 1;
+      }else{
+        status = 0;
       }
-      else console.log("no save ")
+      dispatch({ type: types.SET_SAVE, status });
     })
-  }
-}
+  };
+};
 
 export const saveSpecialLocation = (specialLocation: any) => {
   return ( dispatch: Function ) => {
     dispatch({type: types.SET_PROJECT_LOCATION, specialLocation});
-  }
-}
+  };
+};
 export const saveAcquisitionLocation = (acquisitionLocation: any) => {
   return ( dispatch: Function ) => {
     dispatch({type: types.SET_ACQUISITION_LOCATION, acquisitionLocation});
-  }
-}
+  };
+};
 
 export const getStreamIntersection = (geom: any) => {
   return ( dispatch: Function) => {
@@ -82,8 +98,8 @@ export const getStreamIntersection = (geom: any) => {
       let streamIntersected = res;
         dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
     });
-  }
-}
+  };
+};
 
 // get clipped streams
 export const getStreamIntersectionPolygon = (geom: any) => {
@@ -92,8 +108,8 @@ export const getStreamIntersectionPolygon = (geom: any) => {
       let streamIntersected = res;
         dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
     });
-  }
-}
+  };
+};
 
 // get the streams ids intersected 
 export const getStreamsIntersectedPolygon = (geom: any) => {
@@ -102,8 +118,8 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
       let streamsIntersectedIds = res;
         dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
     });
-  }
-}
+  };
+};
 
 export const changeDrawState = (isDraw: boolean) => {
   return (dispatch: Function) => {

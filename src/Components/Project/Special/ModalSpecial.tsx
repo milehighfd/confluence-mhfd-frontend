@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
@@ -10,6 +11,8 @@ import { PROJECT_INFORMATION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectDispatch } from "../../../hook/projectHook";
 import { Geom, Project} from "../../../Classes/Project";
+import { setRouteRedirect } from "../../../store/actions/mapActions";
+import { AlertViewSave } from "../../Alerts/AlertViewSave";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -31,8 +34,8 @@ const stateValue = {
   visibleSpecial: false
 }
 
-export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject}:
-  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string}) => {
+export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, status, setStatus}:
+  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, status:number, setStatus:Function}) => {
   
   const {saveProjectSpecial} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
@@ -43,9 +46,10 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState();
+
   var date = new Date();
   var year = date.getFullYear();
-  
+  const dispatch = useDispatch();
   useEffect(()=>{
     if(save === true){
       var special = new Project();
@@ -55,9 +59,19 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.county = county;
       special.servicearea = serviceArea;
       saveProjectSpecial(special);
+    };
+  },[save]);
+  
+  const projectReturn = useSelector((state:any)=>({
+    state
+  }));
+
+  useEffect(()=>{
+    if(projectReturn.state.project.status != 2){
+      setStatus(projectReturn.state.project.status);
       setVisibleSpecial(false);
     }
-  },[save]);
+  },[projectReturn.state.project.status]);
 
   useEffect(()=>{
     if(geom != undefined && description != '' && county != '' && serviceArea != '' ){

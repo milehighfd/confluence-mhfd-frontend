@@ -38,8 +38,8 @@ const genExtra00 = () => (
 );
 
 
-export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject}:
-  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string }) => {
+export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, status, setStatus}:
+  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, status:number, setStatus: Function }) => {
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
