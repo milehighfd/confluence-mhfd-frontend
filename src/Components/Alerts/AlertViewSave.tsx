@@ -18,7 +18,7 @@ export const AlertViewSave = ({status}:
   };
   const endView = (e: any)=>{
     setShowSave(false);
-     setShowNoSave(false);
+    setShowNoSave(false);
   };
   useEffect(()=>{
     if(status === 1){
@@ -35,13 +35,13 @@ export const AlertViewSave = ({status}:
     {showSave && 
     <div>
         <div className="alert-mm">
-        <Alert type="success" message="The project was saved successfully." banner onClose={endView} />
+        <Alert type="success" message="The project was saved successfully." banner closable onClose={endView} />
         </div>
     </div>}
     {showNoSave && 
     <div>
       <div className="alert-mm">
-        <Alert type="error" message="The project cannot be saved." banner onClose={endView}  />
+        <Alert type="error" message="The project cannot be saved." banner closable onClose={endView}   />
       </div>
     </div>}
   </>)
