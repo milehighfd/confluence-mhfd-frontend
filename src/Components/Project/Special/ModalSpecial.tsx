@@ -41,11 +41,12 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
-  const [disable, setDisable] = useState(true);
+  const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState();
+  const [files, setFiles] = useState<any[]>([]);
 
   var date = new Date();
   var year = date.getFullYear();
@@ -171,6 +172,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             {/*Section*/}
             <UploadAttachment
               typeProject = {typeProject}
+              files={files}
+              setFiles={setFiles}
             />
           </div>
           <div className="footer-project">

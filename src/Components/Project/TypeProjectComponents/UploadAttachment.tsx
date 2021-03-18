@@ -6,8 +6,7 @@ const { TextArea } = Input;
 const { Option } = Select;
 const content06 = (<div className="popver-info"></div>);
 
-export const UploadAttachment = ({ typeProject }: { typeProject: string }) => {
-  const [files, setFiles] = useState<any[]>([]);
+export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject: string, files: any[], setFiles: Function }) => {
 
   const onChange: any = (e: any) => {
     let newFiles = e.target.files;

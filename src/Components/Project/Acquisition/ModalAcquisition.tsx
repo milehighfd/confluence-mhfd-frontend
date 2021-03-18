@@ -48,6 +48,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [purchaseDate, setPurchaseDate] = useState('');
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState();
+  const [files, setFiles] = useState<any[]>([]);
   var date = new Date();
 
   var year = date.getFullYear();
@@ -191,6 +192,8 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             {/*Section*/}
             <UploadAttachment
               typeProject = {typeProject}
+              files={files}
+              setFiles={setFiles}
             />
           </div>
           <div className="footer-project">

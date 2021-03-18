@@ -48,6 +48,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const {changeDrawState} = useProjectDispatch();
   const [save, setSave] = useState(false);
   const [ownership, setOwnership] = useState("true");
+  const [files, setFiles] = useState<any[]>([]);
   var geom = new Geom();
   const showModal = () => {
     const auxState = {...state};
@@ -215,6 +216,8 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             {/*Section*/}
             <UploadAttachment
               typeProject = {typeProject}
+              files={files}
+              setFiles={setFiles}
             />
           </div>
           <div className="footer-project">

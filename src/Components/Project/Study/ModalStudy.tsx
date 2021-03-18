@@ -48,6 +48,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [country, setCountry] = useState('');
   const [isDraw, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
+  const [files, setFiles] = useState<any[]>([]);
 
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
@@ -209,6 +210,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             {/*Section*/}
             <UploadAttachment
               typeProject = {typeProject}
+              files={files}
+              setFiles={setFiles}
             />
           </div>
           <div className="footer-project">

@@ -59,6 +59,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const {changeDrawState} = useProjectDispatch();
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
+  const [files, setFiles] = useState<any[]>([]);
   
   var geom = new Geom();
   
@@ -420,6 +421,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             {/*Section*/}
             <UploadAttachment
               typeProject = {typeProject}
+              files={files}
+              setFiles={setFiles}
             />
           </div>
           <div className="footer-project">
