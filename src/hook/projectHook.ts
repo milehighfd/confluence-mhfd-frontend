@@ -34,6 +34,9 @@ export const useProjectState = () => {
 export const useProjectDispatch = () => {
    const dispatch = useDispatch();
    return {
+      setSave: (status: number) => {
+        dispatch(setSave(status));//save project
+      },
       saveProjectSpecial: (special: any) => {
         dispatch(saveSpecial(special));
       },
@@ -70,9 +73,6 @@ export const useProjectDispatch = () => {
       },
       changeAddLocationState: (isAddLocation: boolean) => {
         dispatch(changeAddLocationState(isAddLocation));
-      },
-      setSave: (status: number) => {
-        dispatch(setSave(status));
       }
    }
 }
