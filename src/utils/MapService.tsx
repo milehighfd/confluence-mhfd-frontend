@@ -2,8 +2,8 @@ import { Map, Popup } from 'mapbox-gl';
 import { MAPBOX_TOKEN } from '../constants/constants';
 import * as mapboxgl from 'mapbox-gl';
 import { SERVER } from '../Config/Server.config';
-const MapboxDraw = require('@mapbox/mapbox-gl-draw');
-const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 export class MapService {
   public token: String = MAPBOX_TOKEN;
   public map: Map;

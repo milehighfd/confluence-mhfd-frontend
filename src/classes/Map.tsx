@@ -1,7 +1,7 @@
 import { Map, MapboxOptions, Popup } from 'mapbox-gl';
 import * as mapboxgl from 'mapbox-gl';
-const MapboxDraw = require('@mapbox/mapbox-gl-draw');
-const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import {
   MAP_DROPDOWN_ITEMS,
   MAPBOX_TOKEN, HERE_TOKEN,
