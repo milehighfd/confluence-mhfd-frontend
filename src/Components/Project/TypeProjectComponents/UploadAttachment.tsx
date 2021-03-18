@@ -11,7 +11,14 @@ export const UploadAttachment = ({ typeProject }: { typeProject: string }) => {
 
   const onChange: any = (e: any) => {
     let newFiles = e.target.files;
-    setFiles([...files, ...newFiles])
+    let newObjects = [];
+    for (var i = 0 ; i < newFiles.length ; i++) {
+      newObjects.push({
+        file: newFiles[i],
+        isCover: false
+      })
+    }
+    setFiles([...files, ...newObjects])
   };
   const formatBytes = (bytes: number, decimals = 2) =>{
     if (bytes === 0) return '0 Bytes';
@@ -36,6 +43,25 @@ export const UploadAttachment = ({ typeProject }: { typeProject: string }) => {
     setFiles(files.filter((_, i) => i !== index))
   }
 
+  const toggle = (index: number) => {
+    let newObjects;
+    if (files[index].isCover) {
+      newObjects = files.map((o, i) => {
+        return {
+          ...o,
+          isCover: false
+        }
+      })
+    } else {
+      newObjects = files.map((o, i) => {
+        return {
+          ...o,
+          isCover: i === index
+        }
+      })
+    }
+    setFiles(newObjects);
+  }
   console.log('files', files);
 
   return (
@@ -58,7 +84,7 @@ export const UploadAttachment = ({ typeProject }: { typeProject: string }) => {
           <Row key={i} className="card-image">
             <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
               {
-                f.type === 'image/png' ? (
+                f.file.type === 'image/png' ? (
                   <img src="/Icons/project/png.svg" alt="" height="27px" />
                 ) : (
                   <img src="/Icons/project/jpg.svg" alt="" height="27px" />
@@ -67,14 +93,14 @@ export const UploadAttachment = ({ typeProject }: { typeProject: string }) => {
               
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-              <p>{f.name}</p>
-              <label>{formatDate(f.lastModified)} • {formatBytes(f.size)}</label>
+              <p>{f.file.name}</p>
+              <label>{formatDate(f.file.lastModified)} • {formatBytes(f.file.size)}</label>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>
               <Button className="btn-transparent" onClick={() => removeFile(i)}>
                 <img src="/Icons/icon-16.svg" alt="" height="15px" />
               </Button>
-              <Checkbox />
+              <Checkbox checked={f.isCover} onChange={() => toggle(i)} />
             </Col>
           </Row>
         ))
