@@ -8,7 +8,6 @@ import { dispatch } from 'd3';
 export const saveSpecial = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_SPECIAL, data, datasets.getToken()).then(res => {
-      console.log(res,"RES");
       let status ; 
       if(res.total_rows > 0){
         status = 1;
@@ -23,7 +22,6 @@ export const saveSpecial = (data: any) => {
 export const saveAcquisition = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_ACQUISITION, data, datasets.getToken()).then(res => {
-      console.log(res,"RES");
       let status ; 
       if(res.total_rows > 0){
         status = 1;
@@ -38,7 +36,6 @@ export const saveAcquisition = (data: any) => {
 export const saveCapital = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_CAPITAL, data, datasets.getToken()).then(res => {
-      console.log(res,"RES");
       console.log(res,"RES");
       let status ; 
       if(res.total_rows > 0){
@@ -55,10 +52,13 @@ export const saveMaintenance = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_MAINTENANCE, data, datasets.getToken()).then(res => {
       console.log(res,"RES");
+      let status ; 
       if(res.total_rows > 0){
-        console.log("save");
+        status = 1;
+      }else{
+        status = 0;
       }
-      else console.log("no save ")
+      dispatch({ type: types.SET_SAVE, status });
     })
   };
 };
@@ -67,14 +67,22 @@ export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.CREATE_STUDY, data, datasets.getToken()).then(res => {
       console.log(res,"RES");
+      let status ; 
       if(res.total_rows > 0){
-        console.log("save");
+        status = 1;
+      }else{
+        status = 0;
       }
-      else console.log("no save ")
+      dispatch({ type: types.SET_SAVE, status });
     })
   };
 };
 
+export const setSave = (status: any) => {
+  return ( dispatch: Function ) => {
+    dispatch({type: types.SET_SAVE, status});
+  };
+}
 export const saveSpecialLocation = (specialLocation: any) => {
   return ( dispatch: Function ) => {
     dispatch({type: types.SET_PROJECT_LOCATION, specialLocation});
@@ -85,7 +93,6 @@ export const saveAcquisitionLocation = (acquisitionLocation: any) => {
     dispatch({type: types.SET_ACQUISITION_LOCATION, acquisitionLocation});
   };
 };
-
 
 export const getStreamIntersection = (geom: any) => {
   return ( dispatch: Function) => {

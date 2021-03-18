@@ -34,10 +34,6 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave}:
   <>
   {visibleAlert}
     <div>
-      <div className="alert-mm">
-        <Alert type="success" message="Jon Villines just commented on your project 'Piney Creek Channel Restoration'" banner />
-        <Alert type="error" message="Jon Villines just commented on your project 'Piney Creek Channel Restoration'" banner />
-      </div>
       <div >
         <Modal
           centered

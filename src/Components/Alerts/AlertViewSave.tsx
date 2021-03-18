@@ -6,8 +6,8 @@ import { RightOutlined } from '@ant-design/icons';
 const stateValue = {
   visible: false
 }
-export const AlertViewSave = ({status}:
-  {status : number} ) => {
+export const AlertViewSave = ({statusSave, setStatusSave, setVisibleSave}:
+  {statusSave : number,setStatusSave: Function , setVisibleSave: Function} ) => {
   const [state, setState] = useState(stateValue);
   const [showSave, setShowSave] = useState(false);
   const [showNoSave, setShowNoSave] = useState(false);
@@ -17,17 +17,15 @@ export const AlertViewSave = ({status}:
     setState(auxState);
   };
   const endView = (e: any)=>{
-    setShowSave(false);
-    setShowNoSave(false);
+    setVisibleSave(false);
   };
   useEffect(()=>{
-    if(status === 1){
+    if(statusSave === 1){
         setShowSave(true);
     }else{
-        if(status === 0){
+        if(statusSave === 0){
             setShowNoSave(true);
         }
-        
     }
   },[]);
  return (
