@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
@@ -60,8 +61,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
   const [files, setFiles] = useState<any[]>([]);
-  
-  var geom = new Geom();
+
+  const [geom, setGeom] = useState();
   
   useEffect(()=>{
     if(save === true){
@@ -78,6 +79,23 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setVisibleCapital(false);
     }
   },[save]);
+
+  const projectReturn = useSelector((state:any)=>({
+    state
+  }));
+
+  useEffect(()=>{
+    if(projectReturn.state.project.status != 2){
+      setStatus(projectReturn.state.project.status);
+      setVisibleCapital(false);
+    }
+  },[projectReturn.state.project.status]);
+
+  useEffect(()=>{
+    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
+      setDisable(false);
+    }
+  },[geom, description, county, serviceArea]);
 
   const onChange = (e: any)=>{
     setNameProject(e.target.value);

@@ -119,6 +119,7 @@
       margin: 10px 0px 15px 0px;
       padding: 18px 0px;
       color: $opacity;
+      display: block;
 
       p{
         font-size: 13px;
@@ -132,12 +133,23 @@
         transition: width 2s;
         padding: 9px;
       }
+      .icon-draw-01{
+        height: 0px;
+        width: 0px;
+        background: $purple;
+        transition: width 2s;
+        padding: 13px;
+      }
     }
     .draw:hover, .draw:focus, .draw:active, .draw.active{
       border: 1px dashed $green;
       color: $green;
     }
     .draw:hover > .icon-draw, .draw:focus > .icon-draw, .draw:active > .icon-draw, .draw.active > .icon-draw{
+      background: $green;
+    }
+    .draw:hover > .icon-draw-01, .draw:focus > .icon-draw-01,
+    .draw:active > .icon-draw-01, .draw.active > .icon-draw-01{
       background: $green;
     }
     hr{

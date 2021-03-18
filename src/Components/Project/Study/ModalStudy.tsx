@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import { AlertView } from "../../Alerts/AlertView";
@@ -7,6 +8,7 @@ import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
+import { Project } from "../../../Classes/Project";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -40,6 +42,7 @@ const genExtra00 = () => (
 
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, status, setStatus}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, status:number, setStatus: Function }) => {
+  const {saveProjectStudy} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -52,6 +55,41 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
 
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
+  const [geom, setGeom] = useState();
+
+  useEffect(()=>{
+    if(save === true){
+      var study = new Project();
+      study.projectname = nameProject;
+      study.description = description;
+      study.county = county;
+      study.servicearea = serviceArea;
+      study.geom = geom;
+      //capital.overheadcost = overheadcost;
+      //capital.acquisitionanticipateddate = purchaseDate;
+      console.log(study,"****+++Study******")
+      saveProjectStudy(study);
+      setVisibleStudy(false);
+    }
+  },[save]);
+
+  const projectReturn = useSelector((state:any)=>({
+    state
+  }));
+
+  useEffect(()=>{
+    if(projectReturn.state.project.status != 2){
+      setStatus(projectReturn.state.project.status);
+      setVisibleStudy(false);
+    }
+  },[projectReturn.state.project.status]);
+
+  useEffect(()=>{
+    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
+      setDisable(false);
+    }
+  },[geom, description, county, serviceArea]);
+
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleStudy = true;
