@@ -62,6 +62,9 @@ export const DropPin = ({typeProject, geom, setGeom}:
     }
   }, [acquisitionLocation]);
   useEffect(()=>{
+    setGeom(location);
+  },[location]);
+  useEffect(()=>{
     if(!isAddLocation) {
       setIsLocation(isAddLocation);
     }

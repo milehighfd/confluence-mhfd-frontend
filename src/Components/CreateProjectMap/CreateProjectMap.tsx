@@ -43,13 +43,13 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { containsNumber } from "@turf/turf";
 import { getFeaturesIntersected, getHull } from './utilsService';
-
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
 let map: any;
 let coordX = -1;
 let coordY = -1;
 let isPopup = true;
 let previousClick = false;
-const MapboxDraw = require('@mapbox/mapbox-gl-draw');
+// const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
 const CreateProjectMap = (type: any) => {

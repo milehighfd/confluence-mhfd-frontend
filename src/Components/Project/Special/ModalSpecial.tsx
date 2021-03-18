@@ -156,8 +156,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             />
 
             {/*Section*/}
-            <h5>3. GENERATE PROJECT <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Button className="btn-green">Show Project</Button>
+            {/* <h5>3. GENERATE PROJECT <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+            <Button className="btn-green">Show Project</Button> */}
             <br/>
 
             {/*Section*/}
