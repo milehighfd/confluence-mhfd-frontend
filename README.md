@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Deploy Staging
+
+gcloud app deploy -q staging.yaml --promote --stop-previous-version
+
 ## Available Scripts
 
 In the project directory, you can run:
