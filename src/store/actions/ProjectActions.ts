@@ -7,7 +7,19 @@ import { dispatch } from 'd3';
 
 export const saveSpecial = (data: any) => {
   return ( dispatch: Function) => {
-    datasets.postData(SERVER.CREATE_SPECIAL, data, datasets.getToken()).then(res => {
+    const formData = new FormData();
+    Object.keys(data).forEach((key: string) => {
+      if (key === 'geom') {
+        formData.append(key, JSON.stringify(data[key]));
+      } else if (key === 'files') {
+        data[key].forEach((o: any, i: number) => {
+          formData.append(key, o.file);
+        })
+      } else {
+        formData.append(key, data[key]);
+      }
+    })
+    datasets.postDataMultipart(SERVER.CREATE_SPECIAL, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res.total_rows > 0){
         status = 1;

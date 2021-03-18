@@ -59,6 +59,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.description = description;
       special.county = county;
       special.servicearea = serviceArea;
+      special.files = files;
       saveProjectSpecial(special);
     };
   },[save]);

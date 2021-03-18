@@ -23,6 +23,8 @@ export class Project {
     maintenanceeligibility: string;
     ownership: string ;
     attachment: any;
+    files: any[];
+
 
     constructor() {
         this.projectname = "special";
@@ -39,5 +41,6 @@ export class Project {
         this.frequency = "";
         this.maintenanceeligibility = "";
         this.ownership = "";
+        this.files = [];
     }
 }
