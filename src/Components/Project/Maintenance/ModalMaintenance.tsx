@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline, Switch } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import { AlertView } from "../../Alerts/AlertView";
@@ -48,7 +49,8 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const {changeDrawState} = useProjectDispatch();
   const [save, setSave] = useState(false);
   const [ownership, setOwnership] = useState("true");
-  var geom = new Geom();
+  const [geom, setGeom] = useState();
+
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -69,13 +71,28 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.ownership = ownership ;
       console.log(maintenance,"****++MAINTENANCE******")
       saveProjectMaintenance(maintenance);
-      setVisibleMaintenance(false);
     }
   },[save]);
 
+  const projectReturn = useSelector((state:any)=>({
+    state
+  }));
+
+  useEffect(()=>{
+    if(projectReturn.state.project.status != 2){
+      setStatus(projectReturn.state.project.status);
+      setVisibleMaintenance(false);
+    }
+  },[projectReturn.state.project.status]);
+
+  useEffect(()=>{
+    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
+      setDisable(false);
+    }
+  },[geom, description, county, serviceArea]);
+
   useEffect(()=>{
     if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal ){
-    console.log("djhsdusd", subType)
     setVisibleEligibility(true);
     }
   },[])

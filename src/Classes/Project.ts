@@ -22,7 +22,7 @@ export class Project {
     frequency: string;
     maintenanceeligibility: string;
     ownership: string ;
-
+    attachment: any;
 
     constructor() {
         this.projectname = "special";
