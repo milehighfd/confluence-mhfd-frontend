@@ -35,6 +35,7 @@ const stateValue = {
 export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject,status, setStatus}:
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, status:number, setStatus:Function }) => {
   
+  const {streamIntersected} = useProjectState();
   const {saveProjectMaintenance} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -65,11 +66,10 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.description = description;
       maintenance.county = county;
       maintenance.servicearea = serviceArea;
-      maintenance.geom = geom;
+      maintenance.geom = JSON.parse(streamIntersected.geom);
       maintenance.projectsubtype = subType;
       maintenance.frequency = frequency;
       maintenance.maintenanceeligibility = eligibility;
-      maintenance.ownership = ownership ;
       console.log(maintenance,"****++MAINTENANCE******")
       saveProjectMaintenance(maintenance);
     }
