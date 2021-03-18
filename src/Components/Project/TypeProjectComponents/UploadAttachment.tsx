@@ -68,9 +68,9 @@ export const UploadAttachment = ({ typeProject }: { typeProject: string }) => {
     <>
       <h5>5. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       <input id="uploader" type="file" style={{ display: 'none' }} onChange={onChange} multiple accept="image/png, image/jpeg" />
-      <label htmlFor="uploader">
+      <label htmlFor="uploader" className="draw">
         {/* <Button> */}
-        <img src="/Icons/icon-17.svg" alt="" height="20px" />
+        <img className="icon-draw-01" style={{WebkitMask: 'url("/Icons/icon-17.svg") center center no-repeat'}} />
         <p>Attach main image in PNG or JPEG format</p>
         {/* </Button> */}
       </label>
@@ -90,7 +90,7 @@ export const UploadAttachment = ({ typeProject }: { typeProject: string }) => {
                   <img src="/Icons/project/jpg.svg" alt="" height="27px" />
                 )
               }
-              
+
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
               <p>{f.file.name}</p>
