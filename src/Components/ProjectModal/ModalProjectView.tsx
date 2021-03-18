@@ -9,6 +9,8 @@ import { ModalStudy } from "../Project/Study/ModalStudy";
 import { buttonsNewProject, FILTER_TYPES, NEW_PROJECT_TYPES } from "../../constants/constants";
 import { createJsxAttribute } from "typescript";
 import { AlertViewSave } from "../Alerts/AlertViewSave";
+import { setSave } from "../../store/actions/ProjectActions";
+import { useProjectDispatch } from "../../hook/projectHook";
 
 const stateValue = {
   visible: false
@@ -21,6 +23,7 @@ const content04 = (<div className="popver-info">Re-establishing the natural proc
 
 
 export const ModalProjectView = () => {
+  const {setSave} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visible, setVisible] = useState(false);
   const [visibleCapital, setVisibleCapital] = useState(false);
@@ -34,12 +37,15 @@ export const ModalProjectView = () => {
   const [visibleSave, setVisibleSave] = useState(false);
   const [nameProject, setNameProject] = useState('');
   const [status, setStatus] = useState(2);
+  const [statusSave, setStatusSave] = useState(2);
   useEffect(()=>{
     if(status != 2){
+      setStatusSave(status);
+      setStatus(2);
       setVisibleSave(true);
+      setSave(2);
     };
   },[status]);
-
   const showModal = () => {
     const auxState = {...state};
     auxState.visible = true;
@@ -47,7 +53,6 @@ export const ModalProjectView = () => {
     setNameProject('');
   };
   const handleOk = (e: any) => {
-    console.log(typeProject, "entraaaa");
     const auxState = {...state};
     auxState.visible = false;
     setState(auxState);
@@ -109,7 +114,9 @@ export const ModalProjectView = () => {
   return (
     <>
     {visibleSave && <AlertViewSave
-      status = {status}
+      statusSave= {statusSave}
+      setStatusSave= {setStatusSave}
+      setVisibleSave= {setVisibleSave}
     />}
      {visibleCapital && <ModalCapital
       visibleCapital = {visibleCapital} 
