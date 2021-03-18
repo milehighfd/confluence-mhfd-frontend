@@ -201,8 +201,8 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
 
             {/*Section*/}
-            <h5>3. GENERATE PROJECT <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Button className="btn-green">Show Project</Button>
+            {/* <h5>3. GENERATE PROJECT <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+            <Button className="btn-green">Show Project</Button> */}
             <br/>
 
             {/*Section*/}
