@@ -82,7 +82,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
         <Table dataSource={dataSource} columns={columns} bordered />
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12}} xxl={{ span: 12 }}>
-            {!isLocation && <Button className="btn-location" onClick={changeLocation}>Add Location</Button>}
+           <Button className="btn-location" onClick={changeLocation}>{isAddLocation?'Remove Location':'Add Location'}</Button>
         </Col>
       </Row>
       <br/>

@@ -120,6 +120,7 @@ export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject
     }
     setFiles(newObjects);
   }
+  // console.log('files', files);
 
   return (
     <>

@@ -70,6 +70,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.projectsubtype = subType;
       maintenance.frequency = frequency;
       maintenance.maintenanceeligibility = eligibility;
+      maintenance.ownership = ownership ;
       console.log(maintenance,"****++MAINTENANCE******")
       saveProjectMaintenance(maintenance);
     }

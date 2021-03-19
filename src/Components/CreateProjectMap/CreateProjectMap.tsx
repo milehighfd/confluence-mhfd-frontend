@@ -49,6 +49,7 @@ let coordX = -1;
 let coordY = -1;
 let isPopup = true;
 let previousClick = false;
+let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 // const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
@@ -56,7 +57,7 @@ const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
   let draw: any;
   let popup = new mapboxgl.Popup();
-  let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+  
   const [isExtendedView, setCompleteView] = useState(false);
   let controller = false;
   const user = store.getState().profile.userInformation;
@@ -128,13 +129,17 @@ const CreateProjectMap = (type: any) => {
       let eventToAddMarker = eventService.getRef('addmarker');
       map.map.on('click',eventToAddMarker);
     } else {
+      
       let eventToMove = eventService.getRef('move');
       map.map.off('mousemove', eventToMove);
       let eventToAddMarker = eventService.getRef('addmarker');
       map.map.off('click',eventToAddMarker);
-      let eventToClick = eventService.getRef('click');
       isPopup = true;
       // map.map.on('click', eventToClick);
+      console.log("SUPOSABLY REMOVING", marker);
+      map.removePopUpOffset();
+      marker.remove();
+      marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
     }
     
   },[isAddLocation]); 
@@ -1341,10 +1346,17 @@ const CreateProjectMap = (type: any) => {
   );
   const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
     <>
-        <div className="layer-popup">
-          <div id="closepopupmarker" style={{'float': 'right', 'paddingRight': '4px', 'height':'16px', 'cursor':'pointer' }}>&#x2716;</div>
-          <div>
-            <Button id='menu-marker' key='menu-0' className={"btn-transparent " + "menu-0"}><span className="text-popup-00"> Remove Marker</span> </Button>
+        <div className="map-pop-02">
+          
+          <div className="headmap">PROPOSED PROJECT <div id="closepopupmarker" style={{'float': 'right', 'paddingRight': '4px', 'height':'16px', 'cursor':'pointer' }}>&#x2716;</div></div>
+          <div className="layer-popup" style={{padding: '21px 13px 0px 10px'}}>
+            
+            <div>
+              {/* <Button id='menu-marker' key='menu-0' className={"btn-transparent " + "menu-0"}><span className="text-popup-00"> Remove Marker</span> </Button> */}
+              <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
+                <Button style={{ color: '#28C499', width: '100%' }} id='menu-marker' className="btn-borde">Remove Marker</Button>
+              </div>
+            </div>
           </div>
         </div>
     </>
