@@ -1,3 +1,4 @@
+import { SET_LIST_COMPONENTS } from './../types/ProjectTypes';
 import { getStreamIntersection } from './../actions/ProjectActions';
 import * as types from '../types/ProjectTypes';
 
@@ -9,7 +10,9 @@ const initState = {
   isDraw: false,
   streamsIntersectedIds: [],
   isAddLocation: false,
-  status: 2
+  status: 2,
+  listComponents: [],
+  currentServiceAreaCounty: {}
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -53,13 +56,24 @@ const projectReducer = (state = initState, action: any) => {
         status: action.status
       }
     }
-      case types.ADD_LOCATION: {
-        return {
-          ...state, 
-          isAddLocation: action.isAddLocation
-        }
+    case types.ADD_LOCATION: {
+      return {
+        ...state, 
+        isAddLocation: action.isAddLocation
       }
-      
+    }
+    case types.SET_LIST_COMPONENTS: {
+      return {
+        ...state, 
+        listComponents: action.listComponents
+      }
+    } 
+    case types.SET_SERVICEAREA_COUNTY: {
+      return {
+        ...state, 
+        currentServiceAreaCounty: action.currentServiceAreaCounty
+      }
+    }
     
     default: 
       return state;

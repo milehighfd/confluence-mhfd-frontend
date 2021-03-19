@@ -64,7 +64,7 @@ const CreateProjectMap = (type: any) => {
   const { layers, selectedLayers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, updateSelectedLayers } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState } = useProjectDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams } = useProjectDispatch();
   const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation } = useProjectState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -146,7 +146,6 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     if(isDraw) {
       if (type.type != 'ACQUISITION' && type.type != 'SPECIAL') {
-        console.log("REMOVE CLIK");
         // let eventToClick = eventService.getRef('click');
         // map.map.off('click', eventToClick);
         isPopup = false;
@@ -254,12 +253,20 @@ const CreateProjectMap = (type: any) => {
     const userPolygon = event.features[0];
     if (type.type === 'CAPITAL') {
       getStreamIntersectionSave(userPolygon.geometry);
+      getListComponentsIntersected(userPolygon.geometry);
     } else if (type.type === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
+      getServiceAreaStreams(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
       getStreamsIntersectedPolygon(userPolygon.geometry);
     }
-
+    setTimeout(()=>{
+      let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_trash');
+      let element: HTMLElement = elements[0] as HTMLElement;
+      if(element) {
+        element.click();
+      }
+    },2500);
     // const polygonBoundingBox = turf.bbox(userPolygon);
     // const southWest = [polygonBoundingBox[0], polygonBoundingBox[1]];
     // const northEast = [polygonBoundingBox[2], polygonBoundingBox[3]];
@@ -762,6 +769,7 @@ const CreateProjectMap = (type: any) => {
       } else if (type.type === 'ACQUISITION') {
         saveAcquisitionLocation(sendLine);
       }
+      getServiceAreaPoint(sendLine);
       let eventToMove = eventService.getRef('move');
       map.map.off('mousemove', eventToMove);
       let eventToAddMarker = eventService.getRef('addmarker');

@@ -1,3 +1,4 @@
+import { getTimesLogin } from './usersActions';
 import { SET_PROJECT_LOCATION, SET_ACQUISITION_LOCATION } from './../types/ProjectTypes';
 import * as types from '../types/ProjectTypes';
 import * as datasets from "../../Config/datasets";
@@ -144,5 +145,36 @@ export const changeDrawState = (isDraw: boolean) => {
 export const changeAddLocationState = (isAddLocation: boolean) => {
   return (dispatch: Function) => {
     dispatch({type: types.ADD_LOCATION, isAddLocation});
+  }
+}
+
+export const getComponentsIntersected = (geom: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_LIST_COMPONENTS, {geom:geom}, datasets.getToken()).then(res => {
+      let listComponents = res;
+      dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
+    });  
+  }
+}
+
+export const setComponentIntersected = (listComponents: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
+  }
+} 
+
+export const getServiceAreaPoint = (geom:any ) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_SERVICEAREA_COUNTY_POINT, {geom: geom.geom}, datasets.getToken()).then(currentServiceAreaCounty => {
+      dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});
+    });
+  }
+}
+export const getServiceAreaStreams = (geom:any ) => {
+  return (dispatch: Function) => {
+    console.log("GEOM",geom);
+    datasets.postData(SERVER.GET_SERVICEAREA_COUNTY_STREAMS, {geom: geom}, datasets.getToken()).then(currentServiceAreaCounty => {
+      dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});
+    });
   }
 }
