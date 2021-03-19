@@ -157,15 +157,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />
+                <label data-value={value} className="input-sizer">
+                  <input type="text" value={value} onChange={handleChange} size={5} placeholder={nameProject}/>
+                </label>
+                {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />*/}
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>
                 <p>Cherry Creek Service Area · Aurora County</p>
-                {/*<label data-value={value} className="input-sizer">
-                  <span>Name: </span>
-                  <input type="text" value={value} onChange={handleChange} size={4} placeholder="John"/>
-                 </label>*/}
               </Col>
 
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
