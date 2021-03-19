@@ -65,6 +65,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       return;
     }
     let url, map: any, fileName: string ;
+    setLoading(true);
     if (type === FILTER_PROBLEMS_TRIGGER) {
       url = `${process.env.REACT_APP_API_URI}/gallery/problem-by-id/${data.problemid}/pdf`;
       fileName = 'problem.pdf';
@@ -73,8 +74,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
         map = await c.getCanvasBase64()
       }
     } else {
-      let params = `projectid=${data.projectid}`;
-      console.log('params ', params);
+      let params = `projectid=${data.id}`;
       url = `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`;
       fileName = 'project.pdf';
       let c: any = cipjRef.current;
@@ -85,7 +85,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     let body: any = { map };
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    setLoading(true);
     fetch(url, {
       method: 'POST',
       headers,
