@@ -48,7 +48,7 @@ const genExtra05 = () => (
 
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject,status, setStatus}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, status: number, setStatus:Function}) => {
-  
+
   const {saveProjectCapital} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -63,7 +63,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [files, setFiles] = useState<any[]>([]);
 
   const [geom, setGeom] = useState();
-  
+
   useEffect(()=>{
     if(save === true){
       var capital = new Project();
@@ -121,7 +121,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setVisibleCapital (false);
     setState(auxState);
   };
-
+  const [value, setValue] = useState('');
+  const [size, setSize] = useState(4);
+  const handleChange = (event:any) => {
+    setValue(event.target.value);
+    setSize(Math.min(4,event.target.value.length));
+  }
   const onClickDraw = () => {
     setIsDraw(!isDraw);
   }
@@ -157,6 +162,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>
                 <p>Cherry Creek Service Area · Aurora County</p>
+                {/*<label className="input-sizer">
+                  <span>Name: </span>
+                  <input type="text" value={value} onChange={handleChange} size={size} placeholder="John"/>
+                </label>*/}
               </Col>
 
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
