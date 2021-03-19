@@ -36,7 +36,7 @@ const stateValue = {
 
 export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, status, setStatus}:
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, status:number, setStatus:Function}) => {
-  
+
   const {saveProjectSpecial} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -63,7 +63,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       saveProjectSpecial(special);
     };
   },[save]);
-  
+
   const projectReturn = useSelector((state:any)=>({
     state
   }));
@@ -103,12 +103,18 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     setVisibleSpecial (false);
     setState(auxState);
   };
+  const [value, setValue] = useState('');
+  const [size, setSize] = useState(4);
+  const handleChange = (event:any) => {
+    setValue(event.target.value);
+    setSize(Math.min(4,event.target.value.length));
+  };
   return (
     <>
     {visibleAlert && <AlertView
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
-      setSave = {setSave} 
+      setSave = {setSave}
      />}
      <Modal
        centered
@@ -126,7 +132,10 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />
+                <label data-value={value} className="input-sizer">
+                  <input type="text" value={value} onChange={handleChange} size={5} placeholder={nameProject}/>
+                </label>
+                {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>

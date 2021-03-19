@@ -126,7 +126,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const handleChange = (event:any) => {
     setValue(event.target.value);
     setSize(Math.min(4,event.target.value.length));
-  }
+  };
   const onClickDraw = () => {
     setIsDraw(!isDraw);
   }

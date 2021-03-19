@@ -34,7 +34,7 @@ const stateValue = {
 
 export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject,status, setStatus}:
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, status:number, setStatus:Function }) => {
-  
+
   const {streamIntersected} = useProjectState();
   const {saveProjectMaintenance} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
@@ -128,7 +128,12 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     setVisibleMaintenance(false);
     setState(auxState);
   };
-
+  const [value, setValue] = useState('');
+  const [size, setSize] = useState(4);
+  const handleChange = (event:any) => {
+    setValue(event.target.value);
+    setSize(Math.min(4,event.target.value.length));
+  };
   const onClickDraw = () => {
     setIsDraw(!isDraw);
   }
@@ -158,7 +163,10 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 14 }}>
-                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />
+                <label data-value={value} className="input-sizer">
+                  <input type="text" value={value} onChange={handleChange} size={5} placeholder={nameProject}/>
+                </label>
+                {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>

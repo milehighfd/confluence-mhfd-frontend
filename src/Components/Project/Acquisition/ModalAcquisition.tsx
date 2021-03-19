@@ -36,7 +36,7 @@ const stateValue = {
 
 export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, status, setStatus}:
   {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, status:number, setStatus:Function} ) => {
-  
+
   const {saveProjectAcquisition} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -64,7 +64,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       acquisition.acquisitionprogress = progress;
       acquisition.acquisitionanticipateddate = purchaseDate;
       saveProjectAcquisition(acquisition);
-     
+
     }
   },[save]);
   const projectReturn = useSelector((state:any)=>({
@@ -105,6 +105,12 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
     setVisibleAcquisition(false);
     setState(auxState);
   };
+  const [value, setValue] = useState('');
+  const [size, setSize] = useState(4);
+  const handleChange = (event:any) => {
+    setValue(event.target.value);
+    setSize(Math.min(4,event.target.value.length));
+  };
   return (
     <>
      {visibleAlert && <AlertView
@@ -128,7 +134,10 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject}  />
+                <label data-value={value} className="input-sizer">
+                  <input type="text" value={value} onChange={handleChange} size={5} placeholder={nameProject}/>
+                </label>
+                {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject}  />*/}
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>

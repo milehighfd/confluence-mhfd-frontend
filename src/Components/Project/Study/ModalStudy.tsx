@@ -114,7 +114,12 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     setVisibleStudy (false);
     setState(auxState);
   };
-
+  const [value, setValue] = useState('');
+  const [size, setSize] = useState(4);
+  const handleChange = (event:any) => {
+    setValue(event.target.value);
+    setSize(Math.min(4,event.target.value.length));
+  };
   const onClickDraw = () => {
     setIsDraw(!isDraw);
   }
@@ -145,7 +150,10 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />
+                <label data-value={value} className="input-sizer">
+                  <input type="text" value={value} onChange={handleChange} size={5} placeholder={nameProject}/>
+                </label>
+                {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 <Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>
