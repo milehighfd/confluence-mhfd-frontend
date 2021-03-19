@@ -162,10 +162,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   <img src="/Icons/icon-04.svg" alt="" height="18px" />
                 </Button>
                 <p>Cherry Creek Service Area · Aurora County</p>
-                {/*<label className="input-sizer">
+                {/*<label data-value={value} className="input-sizer">
                   <span>Name: </span>
-                  <input type="text" value={value} onChange={handleChange} size={size} placeholder="John"/>
-                </label>*/}
+                  <input type="text" value={value} onChange={handleChange} size={4} placeholder="John"/>
+                 </label>*/}
               </Col>
 
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
