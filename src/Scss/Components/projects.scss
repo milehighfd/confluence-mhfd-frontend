@@ -46,6 +46,8 @@
         background: none;
         appearance: none;
         border: none;
+        max-width: 300px;
+        height: 25px;
       }
       &::after {
         content: attr(data-value) " ";
@@ -56,6 +58,7 @@
       &:focus-within {
         input:focus {
           outline: none;
+          border-bottom: 1px solid $green;
         }
       }
     }
@@ -63,7 +66,10 @@
       font-size: 14px;
       margin-bottom: 0px;
       color: $opacity;
-      margin-top: -4px;
+      margin-top: 4px;
+    }
+    .btn-transparent{
+      height:25px;
     }
     .tag-name{
       background: $light-purple;
@@ -544,12 +550,23 @@
 
       .input-sizer {
         font-size: 24px !important;
+        &::after, input {
+          max-width: 405px;
+          height: 35px;
+        }
       }
       p{
         font-size: 18px !important;
       }
       .tag-name{
         font-size: 16px !important;
+      }
+      .btn-transparent{
+        height: 35px;
+
+        img{
+          height: 22px;
+        }
       }
     }
     .body-project{
@@ -746,6 +763,11 @@
 
       .input-sizer {
         font-size: 32px !important;
+
+        &::after, input {
+          max-width: 540px;
+          height: 45px;
+        }
       }
       button img{
         height: 30px;
@@ -760,6 +782,13 @@
       .hh-img {
        margin-top: 8px;
        height: 30px;
+     }
+     .btn-transparent{
+       height: 45px;
+
+       img{
+         height: 28px;
+       }
      }
     }
     .body-project{
