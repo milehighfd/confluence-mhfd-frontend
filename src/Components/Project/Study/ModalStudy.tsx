@@ -55,7 +55,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
 
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
-  const [geom, setGeom] = useState();
+  const [ids, setIds] = useState();
 
   useEffect(()=>{
     if(save === true){
@@ -64,7 +64,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.description = description;
       study.county = county;
       study.servicearea = serviceArea;
-      study.geom = geom;
+      study.ids = ids;
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
     }
@@ -82,15 +82,14 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   },[projectReturn.state.project.status]);
   
   useEffect(()=>{
-    console.log(projectReturn.state.project, "help me")
-    //setGeom(projectReturn.state.project.streamsIntersectedIds);
+    setIds(projectReturn.state.project.streamsIntersectedIds);
   },[projectReturn.state.project ]);
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
+    if(ids != undefined && description != '' && county != '' && serviceArea != '' ){
       setDisable(false);
     }
-  },[geom, description, county, serviceArea]);
+  },[ids, description, county, serviceArea]);
 
   const showModal = () => {
     const auxState = {...state};

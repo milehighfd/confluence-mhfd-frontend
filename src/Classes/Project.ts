@@ -24,7 +24,7 @@ export class Project {
     ownership: string ;
     attachment: any;
     files: any[];
-
+    ids: any;
 
     constructor() {
         this.projectname = "special";
