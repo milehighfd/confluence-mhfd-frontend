@@ -29,6 +29,12 @@ const content10 = (<div className="popver-info"></div>);
 const stateValue = {
   visibleCapital: false
 }
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2
+});
 const genExtra = () => (
   <Row className="tab-head-project">
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>West Tollgate Creek GSB Drops </Col>
@@ -45,11 +51,35 @@ const genExtra05 = () => (
     <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>$450,200</Col>
   </Row>
 );
+const genTitleNoAvailable = (groups:any) => {
+  let totalSumCost = 0; 
+  for( let component of groups.components){
+    totalSumCost += component.original_cost;
+  }
+  
+  return (
+  <Row className="tab-head-project">
+    <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>No Problem Group Available</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}></Col>
+    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
+  <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>{formatter.format(totalSumCost)}</Col>
+  </Row>
+  )
+  }
+const genTitleProblem = (problem: any) => (
+  <Row className="tab-head-project">
+    <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.name}</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>{problem.jurisdiction}</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.status}</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>{problem.cost}</Col>
+  </Row>
+)
 
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject,status, setStatus}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, status: number, setStatus:Function}) => {
 
   const {saveProjectCapital} = useProjectDispatch();
+  const {listComponents} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -61,9 +91,22 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
   const [files, setFiles] = useState<any[]>([]);
+  const [groups,setGroups] = useState<any>({});
 
+  const [problems, setProblems] = useState({});
   const [geom, setGeom] = useState();
 
+ 
+ 
+  useEffect(()=>{
+    console.log("THESE ARE THE COMPONENTS", listComponents);
+    if(listComponents && listComponents.groups){
+      setGroups(listComponents.groups);
+    }
+    if(listComponents && listComponents.problems){
+      setProblems(listComponents.problems);
+    }
+  },[listComponents]);
   useEffect(()=>{
     if(save === true){
       var capital = new Project();
@@ -181,21 +224,22 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <br/>
             {/*Second Section*/}
             <h5>2. SELECT COMPONENTS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
-              <div className="tab-titles">
+              
+            <div className={"draw "+(isDraw?'active':'')} onClick={onClickDraw}>
+              <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
+              <p>Click on the icon above and draw a polygon to select components</p>
+            </div>
+            <div className="tab-titles">
                 <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10}}>Problem</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>Jurisdiction</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
-            <div className={"draw "+(isDraw?'active':'')} onClick={onClickDraw}>
-              <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
-              <p>Click on the icon above and draw a polygon to select components</p>
-            </div>
             <Collapse
               defaultActiveKey={['1']}
               expandIconPosition="right"
             >
-              <Panel header="" key="1" extra={genExtra()}>
+              {/* <Panel header="" key="1" extra={genExtra()}>
                 <div className="tab-body-project">
                   <Timeline>
                     <Timeline.Item color="green">
@@ -238,7 +282,35 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                     </Timeline.Item>
                   </Timeline>
                 </div>
-              </Panel>
+              </Panel> */}
+
+              {groups && Object.keys(groups).map((key: any,id:any) => {
+                if(key.toString() == '-1' ) {
+                  return ( 
+                  <Panel header="" key={id} extra={genTitleNoAvailable(groups[key])}>
+                    <div className="tab-body-project">
+                      <Timeline>
+                        {
+                          groups[key].components.map((component:any) => {
+                            return (
+                              <Timeline.Item color="green">
+                                <Row style={{marginLeft:'-18px'}}>
+                            <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
+                            <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{component.status}</Col>
+                            <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{formatter.format(component.original_cost)}</Col>
+                                  <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                                </Row>
+                              </Timeline.Item>
+                            );
+                          })
+                        }
+                        
+                      </Timeline>
+                    </div>
+                  </Panel>)
+                }
+              })
+              }
             </Collapse>
             <Button className="btn-transparent-green"><PlusCircleFilled /> Independent Component</Button>
 
