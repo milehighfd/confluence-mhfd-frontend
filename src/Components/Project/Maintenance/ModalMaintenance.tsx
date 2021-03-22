@@ -159,7 +159,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 14 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(nameProject)} size={5} placeholder={nameProject}/>
+                  <input type="text" value={nameProject} onChange={(nameProject) => onChange(nameProject)} size={5} placeholder={nameProject}/>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 <Button className="btn-transparent">
