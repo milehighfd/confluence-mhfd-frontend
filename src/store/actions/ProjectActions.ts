@@ -172,7 +172,6 @@ export const getServiceAreaPoint = (geom:any ) => {
 }
 export const getServiceAreaStreams = (geom:any ) => {
   return (dispatch: Function) => {
-    console.log("GEOM",geom);
     datasets.postData(SERVER.GET_SERVICEAREA_COUNTY_STREAMS, {geom: geom}, datasets.getToken()).then(currentServiceAreaCounty => {
       dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});
     });

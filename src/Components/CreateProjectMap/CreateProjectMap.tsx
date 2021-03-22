@@ -256,10 +256,10 @@ const CreateProjectMap = (type: any) => {
       getListComponentsIntersected(userPolygon.geometry);
     } else if (type.type === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
-      getServiceAreaStreams(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
       getStreamsIntersectedPolygon(userPolygon.geometry);
     }
+    getServiceAreaStreams(userPolygon.geometry);
     setTimeout(()=>{
       let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_trash');
       let element: HTMLElement = elements[0] as HTMLElement;

@@ -24,7 +24,6 @@ export const LocationInformation = ({setServiceArea, setCounty}:
     setSCounty(e);
   };
   useEffect(()=>{
-    console.log(currentServiceAreaCounty);
     if(currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
       setSArea(currentServiceAreaCounty['Service Area']);
       setServiceArea(currentServiceAreaCounty['Service Area']);
