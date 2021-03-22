@@ -103,12 +103,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     setVisibleSpecial (false);
     setState(auxState);
   };
-  const [value, setValue] = useState('');
-  const [size, setSize] = useState(4);
-  const handleChange = (event:any) => {
-    setValue(event.target.value);
-    setSize(Math.min(4,event.target.value.length));
-  };
+  
   return (
     <>
     {visibleAlert && <AlertView
@@ -132,8 +127,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-                <label data-value={value} className="input-sizer">
-                  <input type="text" value={value} onChange={handleChange} size={5} placeholder={nameProject}/>
+                <label data-value={nameProject} className="input-sizer">
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject}/>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 <Button className="btn-transparent">
