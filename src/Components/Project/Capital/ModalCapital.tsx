@@ -70,7 +70,7 @@ const genTitleProblem = (problem: any) => (
   <Row className="tab-head-project">
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.name}</Col>
     <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>{problem.jurisdiction}</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.status}</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
     <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>{problem.cost}</Col>
   </Row>
 )

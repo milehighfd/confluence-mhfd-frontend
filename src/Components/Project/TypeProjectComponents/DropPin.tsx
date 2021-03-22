@@ -70,6 +70,8 @@ export const DropPin = ({typeProject, geom, setGeom}:
     if(!isAddLocation) {
       setIsLocation(isAddLocation);
     }
+    setLatitude('--');
+    setLongitude('--'); 
   },[isAddLocation]);
   useEffect(()=>{
     changeAddLocationState(false);

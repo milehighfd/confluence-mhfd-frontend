@@ -1,5 +1,5 @@
 import { getTimesLogin } from './usersActions';
-import { SET_PROJECT_LOCATION, SET_ACQUISITION_LOCATION } from './../types/ProjectTypes';
+import { SET_PROJECT_LOCATION, SET_ACQUISITION_LOCATION, SET_LIST_STREAMS } from './../types/ProjectTypes';
 import * as types from '../types/ProjectTypes';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
@@ -177,3 +177,17 @@ export const getServiceAreaStreams = (geom:any ) => {
     });
   }
 }
+
+export const getStreamsList = (geom: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_LIST_STREAMS, {geom:geom}, datasets.getToken()).then(listStreams => {
+      dispatch({type: types.SET_LIST_STREAMS, listStreams});
+    })
+  }
+}
+
+export const setStreamsList = (listStreams: any) => {
+  return ( dispatch: Function) => {
+    dispatch({type: types.SET_LIST_STREAMS, listStreams});
+  }
+} 

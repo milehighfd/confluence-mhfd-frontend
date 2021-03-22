@@ -93,7 +93,7 @@ export const SERVER = (function () {
     const GET_LIST_COMPONENTS = 'showcomponents';
     const GET_SERVICEAREA_COUNTY_POINT = 'get-countyservicearea-for-point';
     const GET_SERVICEAREA_COUNTY_STREAMS = 'get-countyservicearea-for-polygon';
-    
+    const GET_LIST_STREAMS = 'streams-data';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -176,6 +176,7 @@ export const SERVER = (function () {
         GET_STREAM_POLYGON: `${URL_BASE.BASE}/create/${GET_STREAM_POLYGON}`,
         GET_LIST_COMPONENTS: `${URL_BASE.BASE}/create/${GET_LIST_COMPONENTS}`,
         GET_SERVICEAREA_COUNTY_POINT: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_POINT}`,
-        GET_SERVICEAREA_COUNTY_STREAMS: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_STREAMS}`
+        GET_SERVICEAREA_COUNTY_STREAMS: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_STREAMS}`,
+        GET_LIST_STREAMS: `${URL_BASE.BASE}/create/${GET_LIST_STREAMS}`
     }
 })();

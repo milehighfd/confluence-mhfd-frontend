@@ -1,6 +1,7 @@
+import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams } from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList } from '../store/actions/ProjectActions';
 import { RootState } from '../store/reducers';
 
 interface selectProjectState {
@@ -11,7 +12,8 @@ interface selectProjectState {
   streamsIntersectedIds: any,
   isAddLocation: boolean,
   listComponents: any,
-  currentServiceAreaCounty: any
+  currentServiceAreaCounty: any,
+  listStreams: any
 }
 
 let createSelectorHack: any = createSelector;
@@ -26,8 +28,9 @@ createSelectorHack(
   (state: any) => state.project.isAddLocation,
   (state: any) => state.project.listComponents,
   (state: any) => state.project.currentServiceAreaCounty,
-  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any) => ({
-    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty
+  (state: any) => state.project.listStreams,
+  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any, listStreams: any) => ({
+    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty, listStreams
   })
 );
 
@@ -89,6 +92,12 @@ export const useProjectDispatch = () => {
       },
       getServiceAreaStreams: (geom: any) => {
         dispatch(getServiceAreaStreams(geom));
+      },
+      getStreamsList: ( geom: any) => {
+        dispatch(getStreamsList(geom));
+      },
+      setStreamsList: ( listStreams: any) => {
+        dispatch(setStreamsList(listStreams));
       }
    }
 }

@@ -38,11 +38,16 @@ const genExtra00 = () => (
     <div>Lakewood Gulch</div>
   </div>
 );
-
+const genTitle = (streamName: any) => (
+  <div className="tab-head-project">
+    <div>{streamName}</div>
+  </div>
+)
 
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, status, setStatus}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, status:number, setStatus: Function }) => {
   const {saveProjectStudy} = useProjectDispatch();
+  const {listStreams} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -52,11 +57,17 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [isDraw, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
   const [files, setFiles] = useState<any[]>([]);
-
+  const [streamsList, setStreamsList] = useState<any>([]);
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
   const [ids, setIds] = useState();
 
+  useEffect(()=>{
+    console.log("WE GET LIST STREAMS", listStreams);
+    if(listStreams) {
+      setStreamsList(listStreams);
+    }
+  },[listStreams]);
   useEffect(()=>{
     if(save === true){
       var study = new Project();
@@ -117,6 +128,32 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const onClickDraw = () => {
     setIsDraw(!isDraw);
   }
+  const getTotalLength = () => {
+    let total = 0;
+    if(streamsList) {
+      for( let stream in streamsList){
+        // total += stream.length
+        for( let s of streamsList[stream]) {
+          total += s.length;
+        }
+      }
+    }
+    total = Math.round(total * 100) / 100
+    return total;
+  }
+  const getTotalDreinage = () => {
+    let total = 0;
+    if(streamsList) {
+      for( let stream in streamsList){
+        // total += stream.dreinage
+        for( let s of streamsList[stream]) {
+          total += s.drainage;
+        }
+      }
+    }
+    total = Math.round(total * 100) / 100
+    return total;
+  }
   useEffect(()=>{
     changeDrawState(isDraw);
   },[isDraw]);
@@ -172,20 +209,20 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
 
             {/*Second Section*/}
             <h5>2. SELECT STREAMS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
-              <Row className="streams">
-                <Col xs={{ span: 24 }} lg={{ span: 11}}>Stream Name</Col>
-                <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
-                <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
-              </Row>
             <div className={"draw "+(isDraw?'active':'')} onClick={onClickDraw}>
-            <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
-              <p>Click on the icon and draw a polygon to select stream segments</p>
+              <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
+                <p>Click on the icon and draw a polygon to select stream segments</p>
             </div>
+            <Row className="streams">
+              <Col xs={{ span: 24 }} lg={{ span: 11}}>Stream Name</Col>
+              <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
+              <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
+            </Row>
             <Collapse
               defaultActiveKey={['1']}
               expandIconPosition="right"
             >
-              <Panel header="" key="1" extra={genExtra()}>
+              {/* <Panel header="" key="1" extra={genExtra()}>
                 <div className="tab-body-project streams">
                     <Timeline>
                       <Timeline.Item color="purple">
@@ -210,8 +247,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                       </Timeline.Item>
                     </Timeline>
                 </div>
-              </Panel>
-              <Panel header="" key="2" extra={genExtra00()}>
+              </Panel> */}
+              {/* <Panel header="" key="2" extra={genExtra00()}>
                 <div className="tab-body-project streams">
                     <Timeline>
                       <Timeline.Item color="purple">
@@ -226,13 +263,39 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                       </Timeline.Item>
                     </Timeline>
                 </div>
-              </Panel>
+              </Panel> */}
+              {
+                streamsList && Object.keys(streamsList).map((key: any, id: any) => {
+                  return ( 
+                    <Panel header="" key={id+key} extra={genTitle(key)}>
+                      <div className="tab-body-project">
+                        <Timeline>
+                          {
+                            streamsList[key].map((stream:any) => {
+                              return (
+                                <Timeline.Item color="green">
+                                  <Row style={{marginLeft:'-18px'}}>
+                                    <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{stream.jurisdiction}</label></Col>
+                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{Math.round(stream.length*100)/100}</Col>
+                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{stream.drainage}</Col>
+                                    <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                                  </Row>
+                                </Timeline.Item>
+                              );
+                            })
+                          }
+                          
+                        </Timeline>
+                      </div>
+                    </Panel>)
+                })
+              }
             </Collapse>
             <hr/>
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>TOTAL</Col>
-              <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><b>5.8mi</b></Col>
-              <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7}}><b>141.1 sq mi</b></Col>
+              <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><b>{getTotalLength()}mi</b></Col>
+              <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7}}><b>{getTotalDreinage()} sq mi</b></Col>
             </Row>
             <br/>
 

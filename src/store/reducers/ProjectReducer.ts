@@ -12,7 +12,8 @@ const initState = {
   isAddLocation: false,
   status: 2,
   listComponents: [],
-  currentServiceAreaCounty: {}
+  currentServiceAreaCounty: {},
+  listStreams: []
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -74,7 +75,12 @@ const projectReducer = (state = initState, action: any) => {
         currentServiceAreaCounty: action.currentServiceAreaCounty
       }
     }
-    
+    case types.SET_LIST_STREAMS: {
+      return {
+        ...state, 
+        listStreams: action.listStreams 
+      }
+    }
     default: 
       return state;
   }

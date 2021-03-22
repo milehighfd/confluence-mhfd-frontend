@@ -64,7 +64,7 @@ const CreateProjectMap = (type: any) => {
   const { layers, selectedLayers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, updateSelectedLayers } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams } = useProjectDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList } = useProjectDispatch();
   const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation } = useProjectState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -258,6 +258,7 @@ const CreateProjectMap = (type: any) => {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
       getStreamsIntersectedPolygon(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry);
     }
     getServiceAreaStreams(userPolygon.geometry);
     setTimeout(()=>{
