@@ -41,9 +41,9 @@ export const ModalProjectView = () => {
   useEffect(()=>{
     if(status != 2){
       setStatusSave(status);
-      setStatus(2);
       setVisibleSave(true);
       setSave(2);
+      setStatus(2);
     };
   },[status]);
   const showModal = () => {

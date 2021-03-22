@@ -22,9 +22,11 @@ export const AlertViewSave = ({statusSave, setStatusSave, setVisibleSave}:
   useEffect(()=>{
     if(statusSave === 1){
         setShowSave(true);
+        setShowNoSave(false);
     }else{
         if(statusSave === 0){
             setShowNoSave(true);
+            setShowSave(false);
         }
     }
   },[]);

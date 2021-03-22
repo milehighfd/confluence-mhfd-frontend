@@ -40,7 +40,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
-  const [disable, setDisable] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState('');
   const [county, setCounty] = useState('');
   const [frequency, setFrequency] = useState('');
@@ -49,7 +49,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [isDraw, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
   const [save, setSave] = useState(false);
-  const [ownership, setOwnership] = useState("true");
+  const [ownership, setOwnership] = useState(true);
   const [files, setFiles] = useState<any[]>([]);
   const [geom, setGeom] = useState();
 
@@ -58,7 +58,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     auxState.visibleMaintenance = true;
     setState(auxState);
   };
-
+ 
   useEffect(()=>{
     if(save === true){
       var maintenance = new Project();
@@ -70,7 +70,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.projectsubtype = subType;
       maintenance.frequency = frequency;
       maintenance.maintenanceeligibility = eligibility;
-      maintenance.ownership = ownership ;
+      maintenance.ownership = ""+ownership ;
       console.log(maintenance,"****++MAINTENANCE******")
       saveProjectMaintenance(maintenance);
     }
@@ -86,12 +86,22 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       setVisibleMaintenance(false);
     }
   },[projectReturn.state.project.status]);
-
+ useEffect(()=>{
+    setGeom(projectReturn.state.project.streamIntersected);
+  },[projectReturn.state.project.streamIntersected]);
   useEffect(()=>{
+    //console.log(geom,"---", description,"---", county,"---", serviceArea,"---",ownership,"---",eligibility)
     if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
-      setDisable(false);
+      if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal  ){
+          if(eligibility != ''){
+            setDisable(false);
+          }
+        }
+        else{
+          setDisable(false);
+        }
     }
-  },[geom, description, county, serviceArea]);
+  },[geom, description, county, serviceArea, ownership,eligibility]);
 
   useEffect(()=>{
     if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal ){

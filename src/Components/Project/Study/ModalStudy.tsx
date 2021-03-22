@@ -46,7 +46,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
-  const [disable, setDisable] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState('');
   const [country, setCountry] = useState('');
   const [isDraw, setIsDraw] = useState(false);
@@ -65,11 +65,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.county = county;
       study.servicearea = serviceArea;
       study.geom = geom;
-      //capital.overheadcost = overheadcost;
-      //capital.acquisitionanticipateddate = purchaseDate;
-      console.log(study,"****+++Study******")
       saveProjectStudy(study);
-      setVisibleStudy(false);
+      console.log(study, "+++STUDY+++");
     }
   },[save]);
 
@@ -83,6 +80,11 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setVisibleStudy(false);
     }
   },[projectReturn.state.project.status]);
+  
+  useEffect(()=>{
+    console.log(projectReturn.state.project, "help me")
+    //setGeom(projectReturn.state.project.streamsIntersectedIds);
+  },[projectReturn.state.project ]);
 
   useEffect(()=>{
     if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
@@ -101,7 +103,6 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   };
 
   const handleOk = (e: any) => {
-    console.log(e);
     const auxState = {...state};
    // setVisibleStudy (false);
     setState(auxState);
@@ -109,7 +110,6 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   };
 
   const handleCancel = (e: any) => {
-    console.log(e);
     const auxState = {...state};
     setVisibleStudy (false);
     setState(auxState);
