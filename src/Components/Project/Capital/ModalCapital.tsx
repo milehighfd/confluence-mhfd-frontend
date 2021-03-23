@@ -74,7 +74,29 @@ const genTitleProblem = (problem: any) => (
     <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>{problem.cost}</Col>
   </Row>
 )
-
+const unnamedComponent = () => {
+  return (
+    <Collapse
+        defaultActiveKey={['1']}
+        expandIconPosition="right"
+      >
+      <Panel header="" key="5" extra={genExtra05()}>
+        <div className="tab-body-project">
+          <Timeline>
+            <Timeline.Item color="green">
+              <Row style={{marginLeft:'-18px'}}>
+                <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label><Input placeholder="Unnamed Component"  /></label></Col>
+                <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed" /></Col>
+                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}><Input placeholder="$200,000" /></Col>
+                <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+              </Row>
+            </Timeline.Item>
+          </Timeline>
+        </div>
+      </Panel>  
+    </Collapse>
+  )
+}
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject,status, setStatus}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, status: number, setStatus:Function}) => {
 
@@ -92,7 +114,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [save, setSave] = useState(false);
   const [files, setFiles] = useState<any[]>([]);
   const [groups,setGroups] = useState<any>({});
-
+  const [panelUnnamedComponent, setPanelUnnamedComponent] = useState<any[]>([]);
   const [problems, setProblems] = useState({});
   const [geom, setGeom] = useState();
   const [name, setName ] = useState(false);
@@ -184,6 +206,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     changeDrawState(isDraw);
   },[isDraw]);
+  const applyIndependentComponent = () => {
+    let newObjects = [];
+    newObjects.push(unnamedComponent());
+    setPanelUnnamedComponent([...panelUnnamedComponent, ...newObjects])
+  }
+
   return (
     <>
     {visibleAlert && <AlertView
@@ -320,12 +348,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
                       </Timeline>
                     </div>
-                  </Panel>)
+                  </Panel>) 
                 }
               })
               }
             </Collapse>
-            <Button className="btn-transparent-green"><PlusCircleFilled /> Independent Component</Button>
+            
+              {panelUnnamedComponent}
+            
+            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button>
 
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
