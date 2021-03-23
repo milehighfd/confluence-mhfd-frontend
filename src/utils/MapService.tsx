@@ -58,16 +58,16 @@ export class MapService {
           'id': 'gl-draw-polygon-fill-static',
           'type': 'fill',
           'paint': {
-            'fill-color': '#31404b',
-            'fill-outline-color': '#31404b',
+            'fill-color': '#F5C444',
+            'fill-outline-color': '#F5C444',
             'fill-opacity': 0.3
           }
         }, {
           'id': 'gl-draw-polygon-and-line-vertex-active',
           'type': 'circle',
           'paint': {
-            'circle-radius': 7,
-            'circle-color': '#31404b',
+            'circle-radius': 5,
+            'circle-color': '#F5C444',
           }
         }
       ]

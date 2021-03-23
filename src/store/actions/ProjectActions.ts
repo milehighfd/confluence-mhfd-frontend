@@ -163,6 +163,24 @@ export const setComponentIntersected = (listComponents: any) => {
   }
 } 
 
+export const getComponentsSorted = ( components: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_LIST_COMPONENTS_SORTED, components, datasets.getToken()).then(listComponents => {
+      dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
+    });
+  }
+}
+// this can receive geom or not, if geom add components, else just update components fields 
+export const addComponentsByPolygon = (components: any, geom: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.ADD_COMPONENTS_POLYGON, {components, geom}, datasets.getToken()).then(data => {
+      // set components and set streams 
+      // dispatch({type: types.SET_LIST_COMPONENTS, listComponents: data.components });
+      // dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected: data.geom});
+    });
+  }
+}
+
 export const getServiceAreaPoint = (geom:any ) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_SERVICEAREA_COUNTY_POINT, {geom: geom.geom}, datasets.getToken()).then(currentServiceAreaCounty => {
@@ -191,3 +209,9 @@ export const setStreamsList = (listStreams: any) => {
     dispatch({type: types.SET_LIST_STREAMS, listStreams});
   }
 } 
+
+export const setUserPolygon = (userPolygon: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_USER_POLYGON, userPolygon});
+  }
+}

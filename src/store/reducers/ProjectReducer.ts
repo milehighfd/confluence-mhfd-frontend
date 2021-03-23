@@ -81,6 +81,12 @@ const projectReducer = (state = initState, action: any) => {
         listStreams: action.listStreams 
       }
     }
+    case types.SET_USER_POLYGON: {
+      return {
+        ...state, 
+        userPolygon: action.userPolygon
+      }
+    }
     default: 
       return state;
   }

@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
-import { MainPopup, ComponentPopup } from './../Map/MapPopups';
+import { MainPopup, ComponentPopupCreate } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
@@ -49,6 +49,7 @@ let coordX = -1;
 let coordY = -1;
 let isPopup = true;
 let previousClick = false;
+let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 // const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
@@ -64,8 +65,8 @@ const CreateProjectMap = (type: any) => {
   const { layers, selectedLayers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, updateSelectedLayers } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation } = useProjectState();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon } = useProjectDispatch();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents } = useProjectState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -86,7 +87,7 @@ const CreateProjectMap = (type: any) => {
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   const empty: any[] = [];
   const [allLayers, setAllLayers] = useState(empty);
-  const [counterPopup, setCounterPopup] = useState({ componentes: 0 });
+  const [counterPopup, setCounterPopup] = useState({ componentes: 0 });  
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -114,6 +115,14 @@ const CreateProjectMap = (type: any) => {
     eventService.setRef('addmarker', addMarker);
     changeAddLocationState(false);
   }, []);
+  useEffect(()=>{
+    console.log("WHAT HAPP", listComponents);
+    if(listComponents && listComponents.result) {
+      console.log("IT SHOYLD BE FILLING");
+      componentsList = listComponents.result;
+    }
+  },[listComponents]);
+  
   useEffect(() => {
     if (data.problemid || data.cartoid) {
       setVisible(true);
@@ -261,6 +270,7 @@ const CreateProjectMap = (type: any) => {
       getStreamsList(userPolygon.geometry);
     }
     getServiceAreaStreams(userPolygon.geometry);
+    setUserPolygon(userPolygon.geometry);
     setTimeout(()=>{
       let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_trash');
       let element: HTMLElement = elements[0] as HTMLElement;
@@ -1263,6 +1273,11 @@ const CreateProjectMap = (type: any) => {
 
       for (const component of COMPONENT_LAYERS.tiles) {
         if (feature.source === component) {
+          let isAdded = componentsList.find( (i:any) => i.cartodb_id === feature.properties.cartodb_id); 
+          let status = 'add';
+          if(isAdded) {
+            status = 'remove';
+          } 
           const item = {
             layer: MENU_OPTIONS.COMPONENTS,
             type: feature.properties.type ? feature.properties.type : '-',
@@ -1271,7 +1286,8 @@ const CreateProjectMap = (type: any) => {
             estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
             studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
             jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-            problem: 'Dataset in development'
+            problem: 'Dataset in development',
+            added: status
           };
           const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
           menuOptions.push(name);
@@ -1286,7 +1302,7 @@ const CreateProjectMap = (type: any) => {
         }
       }
     }
-    console.log("POPUPS LENT", popups.length);
+    console.log("POPUPS LENT", popups, menuOptions);
     if (popups.length) {
       const html = loadMenuPopupWithData(menuOptions, popups);
       setMobilePopups(mobile);
@@ -1371,97 +1387,7 @@ const CreateProjectMap = (type: any) => {
     </>
     // <div id="popup-0" class="map-pop-01"><div class="ant-card ant-card-bordered ant-card-hoverable"><div class="ant-card-body"><div class="headmap">Components</div><div class="bodymap"><h4><i>Land Acquisition</i> </h4><p><i>Subtype: </i> Easement/ROW Acquisition</p><p><i>Estimated Cost: </i> $540,282</p><p><i>Status: </i> Proposed</p><p><i>Study Name: </i> Second Creek DIA DFA 0053 OSP Ph B</p><p><i>Jurisdiction: </i> Adams County</p><p><i>Problem: </i> Dataset in development</p></div></div></div></div>
   );
-  const loadMenuPopup = () => ReactDOMServer.renderToStaticMarkup(
-    <>
-      <div className="map-pop-02">
-        <div className="headmap">LAYERS</div>
-        <div className="layer-popup">
-          <Button id="cochi" className="btn-transparent"><img src="/Icons/icon-75.svg" alt="" /> Detention Facilities <RightOutlined /></Button>
-          <div id="xd" className="map-pop-00">
-            <Card hoverable>
-              <div className="bodymap">
-                <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
-                <h6>Denver</h6>
-                <h5>$$2,134,000 <span style={{ float: 'right' }}><b>4</b> Components</span></h5>
-                <hr />
-                <div style={{ display: 'flex', width: '100%', marginTop: '12px' }}>
-                  <p>Capital</p>
-                  <span>Initiated</span>
-                </div>
-              </div>
-              <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
-                <Button style={{ width: '50%', marginRight: '10px' }} className="btn-purple">Create Project</Button>
-                <Button style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
-              </div>
-            </Card>
-          </div>
-        </div>
-        <div className="layer-popup">
-          <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt="" /> Problems <RightOutlined /></Button>
-          <div className="map-pop-00">
-            <Card hoverable>
-              <div className="bodymap">
-                <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
-                <h6>Denver</h6>
-                <h5>$$2,134,000 <span style={{ float: 'right' }}><b>4</b> Components</span></h5>
-                <hr />
-                <div style={{ display: 'flex', width: '100%', marginTop: '12px' }}>
-                  <p>Capital</p>
-                  <span>Initiated</span>
-                </div>
-              </div>
-              <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
-                <Button style={{ width: '50%', marginRight: '10px' }} className="btn-purple">Create Project</Button>
-                <Button style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
-              </div>
-            </Card>
-          </div>
-        </div>
-        <div className="layer-popup">
-          <Button className="btn-transparent"><img src="/Icons/icon-75.svg" alt="" /> Watersheds <RightOutlined /></Button>
-          <div className="map-pop-00">
-            <Card hoverable>
-              <div className="bodymap">
-                <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
-                <h6>Denver</h6>
-                <h5>$$2,134,000 <span style={{ float: 'right' }}><b>4</b> Components</span></h5>
-                <hr />
-                <div style={{ display: 'flex', width: '100%', marginTop: '12px' }}>
-                  <p>Capital</p>
-                  <span>Initiated</span>
-                </div>
-              </div>
-              <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
-                <Button style={{ width: '50%', marginRight: '10px' }} className="btn-purple">Create Project</Button>
-                <Button style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
-              </div>
-            </Card>
-          </div>
-        </div>
-        <div className="layer-popup">
-          <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt="" /> MEP Referrals <RightOutlined /></Button>
-          <div className="map-pop-00">
-            <Card hoverable>
-              <div className="bodymap">
-                <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
-                <h6>Denver</h6>
-                <h5>$$2,134,000 <span style={{ float: 'right' }}><b>4</b> Components</span></h5>
-                <hr />
-                <div style={{ display: 'flex', width: '100%', marginTop: '12px' }}>
-                  <p>Capital</p>
-                  <span>Initiated</span>
-                </div>
-              </div>
-              <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
-                <Button style={{ width: '50%', marginRight: '10px' }} className="btn-purple">Create Project</Button>
-                <Button style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+ 
   const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) => (
     <>
       <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)}></MainPopup>
@@ -1470,20 +1396,20 @@ const CreateProjectMap = (type: any) => {
 
   const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
     <>
-      <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)}></ComponentPopup>
+      <ComponentPopupCreate id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)}></ComponentPopupCreate>
     </>
   );
 
-  const popUpContent = (trigger: string, item: any) => ReactDOMServer.renderToStaticMarkup(
-    <>
-      {trigger !== COMPONENTS_TRIGGER ?
-        <MainPopup
-          trigger={trigger}
-          item={item} /> :
-        <ComponentPopup
-          item={item} />}
-    </>
-  );
+  // const popUpContent = (trigger: string, item: any) => ReactDOMServer.renderToStaticMarkup(
+  //   <>
+  //     {trigger !== COMPONENTS_TRIGGER ?
+  //       <MainPopup
+  //         trigger={trigger}
+  //         item={item} /> :
+  //       <ComponentPopup
+  //         item={item} />}
+  //   </>
+  // );
 
   //geocoder 
   const renderOption = (item: any) => {
