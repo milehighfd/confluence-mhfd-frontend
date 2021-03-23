@@ -203,9 +203,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                   <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} disabled={disableName}/>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
-                <Button className="btn-transparent">
+                {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
-                </Button>
+                </Button>*/}
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
                 <label className="tag-name" style={{padding:'10px'}}>Study</label>

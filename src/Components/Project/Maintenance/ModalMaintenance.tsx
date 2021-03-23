@@ -59,7 +59,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     auxState.visibleMaintenance = true;
     setState(auxState);
   };
- 
+
   useEffect(()=>{
     if(save === true){
       var maintenance = new Project();
@@ -88,7 +88,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     }
   },[projectReturn.state.project.status]);
 
-  useEffect(()=>{    
+  useEffect(()=>{
      setGeom(projectReturn.state.project.userPolygon);
    },[projectReturn.state.project.userPolygon]);
 
@@ -152,7 +152,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     setVisibleMaintenance(false);
     setState(auxState);
   };
-  
+
   const onClickDraw = () => {
     setIsDraw(!isDraw);
   }
@@ -186,9 +186,9 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
                   <input type="text" value={nameProject} onChange={(nameProject) => onChange(nameProject)} size={5} placeholder={nameProject} disabled={disableName}/>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
-                <Button className="btn-transparent">
+                {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
-                </Button>
+                </Button>*/}
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{textAlign:'right'}}>
                 <label className="tag-name">Maintenance</label>

@@ -93,7 +93,7 @@ const unnamedComponent = () => {
             </Timeline.Item>
           </Timeline>
         </div>
-      </Panel>  
+      </Panel>
     </Collapse>
   )
 }
@@ -247,9 +247,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} disabled={disableName}/>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />*/}
-                <Button className="btn-transparent">
+                {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
-                </Button>
+                </Button>*/}
                 <p>Cherry Creek Service Area · Aurora County</p>
               </Col>
 
@@ -355,14 +355,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
                       </Timeline>
                     </div>
-                  </Panel>) 
+                  </Panel>)
                 }
               })
               }
             </Collapse>
-            
+
               {panelUnnamedComponent}
-            
+
             <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button>
 
             <Row className="cost-project">
