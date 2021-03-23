@@ -52,17 +52,17 @@ const genExtra05 = () => (
   </Row>
 );
 const genTitleNoAvailable = (groups:any) => {
-  let totalSumCost = 0; 
+  let totalSumCost = 0;
   for( let component of groups.components){
     totalSumCost += component.original_cost;
   }
-  
+
   return (
   <Row className="tab-head-project">
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>No Problem Group Available</Col>
     <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}></Col>
     <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
-  <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>{formatter.format(totalSumCost)}</Col>
+  <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }} style={{whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
   </Row>
   )
   }
@@ -97,8 +97,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [geom, setGeom] = useState();
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
- 
- 
+
+
   useEffect(()=>{
     console.log("THESE ARE THE COMPONENTS", listComponents);
     if(listComponents && listComponents.groups){
@@ -177,7 +177,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setVisibleCapital (false);
     setState(auxState);
   };
-  
+
   const onClickDraw = () => {
     setIsDraw(!isDraw);
   }
@@ -237,7 +237,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <br/>
             {/*Second Section*/}
             <h5>2. SELECT COMPONENTS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
-              
+
             <div className={"draw "+(isDraw?'active':'')} onClick={onClickDraw}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p>Click on the icon above and draw a polygon to select components</p>
@@ -299,7 +299,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
               {groups && Object.keys(groups).map((key: any,id:any) => {
                 if(key.toString() == '-1' ) {
-                  return ( 
+                  return (
                   <Panel header="" key={id} extra={genTitleNoAvailable(groups[key])}>
                     <div className="tab-body-project">
                       <Timeline>
@@ -317,7 +317,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                             );
                           })
                         }
-                        
+
                       </Timeline>
                     </div>
                   </Panel>)
