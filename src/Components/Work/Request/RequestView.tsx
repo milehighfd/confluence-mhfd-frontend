@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer } from 'antd';
-import { PlusCircleFilled, RightOutlined } from '@ant-design/icons';
+import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer, AutoComplete, Icon } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
+import { JURISDICTION } from "../../../constants/constants";
+import '../../../index.scss';
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -40,6 +42,11 @@ const content = (
 );
 
 export default () => {
+  // JURISDICTION
+  const dataAutocomplete = JURISDICTION;
+  const years = [ 2021, 2020, 2019, 2018 ];
+  const [selected, setSelected] = useState('Aurora');
+  const [year, setYear] = useState<any>(2021);
 
   const [columns, setColumns] = useState([
     {
@@ -157,6 +164,11 @@ export default () => {
     setColumns(newColumns);
   }
 
+  const onSelect = (value: any) => {
+    console.log('Selected:', value);
+    setSelected(value);
+  };
+
   return <>
     <Layout>
       <Navbar/>
@@ -178,13 +190,37 @@ export default () => {
               <div className="work-head">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                    <h2><i className="mdi mdi-circle"></i> Aurora Work Request</h2>
+                    <div className="auto-complete-map">
+                      {/* <h2><i className="mdi mdi-circle"></i></h2> */}
+                      <AutoComplete
+                        className={'ant-select-1'}
+                        dataSource={dataAutocomplete}
+                        placeholder={selected}
+                        filterOption={(inputValue, option: any) => {
+                          if (dataAutocomplete.includes(inputValue)) {
+                            return true;
+                          }
+                          return option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+                        }}
+                        onSelect={onSelect}
+                        value={selected}
+                        onSearch={(input2: any) => {
+                          setSelected(input2)
+                        }}
+                        >
+                        <Input suffix={<Icon type="down" className="certain-category-icon" />} />
+                      </AutoComplete>
+                    </div>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{textAlign:'right'}}>
-                    <Select placeholder="Year 2018">
-                       <Option value="jack">Year 2019</Option>
-                       <Option value="lucy">Year 2020</Option>
-                       <Option value="tom">Year 2021</Option>
+                    <Select
+                      defaultValue={year}
+                      className={'ant-select-2'}>
+                      {
+                        years.map((y, i) => (
+                          <Option key={i} value={y}>Year {y}</Option>
+                        ))
+                      }
                     </Select>
 
                     <ButtonGroup>

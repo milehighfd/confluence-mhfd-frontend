@@ -37,7 +37,11 @@
   .ant-select-selection{
     border: none;
   }
-  .ant-select{
+  .ant-select-1{
+    color: $opacity;
+    width: 50% !important;
+  }
+  .ant-select-2{
     color: $opacity;
     width: 110px;
   }
