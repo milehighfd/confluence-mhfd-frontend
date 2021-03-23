@@ -1,4 +1,3 @@
-import { setUserPolygon } from './../store/actions/ProjectActions';
 import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
