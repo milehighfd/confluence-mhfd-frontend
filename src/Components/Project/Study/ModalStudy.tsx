@@ -97,7 +97,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setVisibleStudy(false);
     }
   },[projectReturn.state.project.status]);
-  
+
   useEffect(()=>{
     setIds(projectReturn.state.project.streamsIntersectedIds);
   },[projectReturn.state.project ]);
@@ -142,7 +142,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     setVisibleStudy (false);
     setState(auxState);
   };
-  
+
   const onClickDraw = () => {
     setIsDraw(!isDraw);
   }
@@ -284,7 +284,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               </Panel> */}
               {
                 streamsList && Object.keys(streamsList).map((key: any, id: any) => {
-                  return ( 
+                  return (
                     <Panel header="" key={id+key} extra={genTitle(key)}>
                       <div className="tab-body-project">
                         <Timeline>
@@ -293,16 +293,16 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                               return (
                                 <Timeline.Item color="green">
                                   <Row style={{marginLeft:'-18px'}}>
-                                    <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{stream.jurisdiction}</label></Col>
+                                    <Col className="first" xs={{ span: 24 }} lg={{ span: 11}} xxl={{ span: 15 }}><label>{stream.jurisdiction}</label></Col>
                                     <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{Math.round(stream.length*100)/100}</Col>
-                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{stream.drainage}</Col>
+                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 7}} xxl={{ span: 3 }}>{stream.drainage}</Col>
                                     <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                   </Row>
                                 </Timeline.Item>
                               );
                             })
                           }
-                          
+
                         </Timeline>
                       </div>
                     </Panel>)
