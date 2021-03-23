@@ -25,6 +25,8 @@ export class Project {
     attachment: any;
     files: any[];
     ids: any;
+    sponsor: string;
+    cosponsor: string; 
 
     constructor() {
         this.projectname = "special";
@@ -42,5 +44,7 @@ export class Project {
         this.maintenanceeligibility = "";
         this.ownership = "";
         this.files = [];
+        this.sponsor = "";
+        this.cosponsor = "";
     }
 }

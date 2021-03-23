@@ -47,7 +47,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState();
   const [files, setFiles] = useState<any[]>([]);
-
+  const [name, setName ] = useState(false);
+  const [disableName, setDisableName ] = useState(true);
   var date = new Date();
   var year = date.getFullYear();
   const dispatch = useDispatch();
@@ -88,9 +89,20 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   };
 
   const onChange = (e: any)=>{
-    setNameProject(e.target.value);
+    if(name===true){
+      setNameProject(e.target.value);
+    }
   };
-
+  const apllyName = ()=>{
+    if(name === true){
+      setDisableName(true);
+      setName(false);
+    }
+    else{
+      setDisableName(false);
+      setName(true);
+    }
+  };
   const handleOk = (e: any) => {
     const auxState = {...state};
     //setVisibleSpecial (false);
@@ -128,11 +140,11 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject}/>
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} disabled={disableName}/>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 <Button className="btn-transparent">
-                  <img src="/Icons/icon-04.svg" alt="" height="18px" />
+                  <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()}/>
                 </Button>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>

@@ -52,7 +52,8 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [ownership, setOwnership] = useState(true);
   const [files, setFiles] = useState<any[]>([]);
   const [geom, setGeom] = useState();
-
+  const [name, setName ] = useState(false);
+  const [disableName, setDisableName ] = useState(true);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -117,9 +118,20 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   };
 
   const onChange = (e: any)=>{
-    setNameProject(e.target.value);
+    if(name===true){
+      setNameProject(e.target.value);
+    }
   };
-
+  const apllyName = ()=>{
+    if(name === true){
+      setDisableName(true);
+      setName(false);
+    }
+    else{
+      setDisableName(false);
+      setName(true);
+    }
+  };
   const apllyOwnership = (e:any)=>{
     setOwnership(e);
   };
@@ -169,11 +181,11 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 14 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(nameProject) => onChange(nameProject)} size={5} placeholder={nameProject}/>
+                  <input type="text" value={nameProject} onChange={(nameProject) => onChange(nameProject)} size={5} placeholder={nameProject} disabled={disableName}/>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 <Button className="btn-transparent">
-                  <img src="/Icons/icon-04.svg" alt="" height="18px" />
+                  <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
                 </Button>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{textAlign:'right'}}>

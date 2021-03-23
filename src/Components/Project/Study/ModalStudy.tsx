@@ -58,9 +58,13 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const {changeDrawState} = useProjectDispatch();
   const [files, setFiles] = useState<any[]>([]);
   const [streamsList, setStreamsList] = useState<any>([]);
+ const [sponsor, setSponsor] = useState('x');
+ const [cosponsor, setCosponsor] = useState('x');
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
   const [ids, setIds] = useState();
+  const [name, setName ] = useState(false);
+  const [disableName, setDisableName ] = useState(true);
 
   useEffect(()=>{
     console.log("WE GET LIST STREAMS", listStreams);
@@ -75,6 +79,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.description = description;
       study.county = county;
       study.servicearea = serviceArea;
+      study.sponsor = sponsor;
+      study.cosponsor = cosponsor;
       study.ids = ids;
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
@@ -109,7 +115,19 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   };
 
   const onChange = (e: any)=>{
-    setNameProject(e.target.value);
+    if(name===true){
+      setNameProject(e.target.value);
+    }
+  };
+  const apllyName = ()=>{
+    if(name === true){
+      setDisableName(true);
+      setName(false);
+    }
+    else{
+      setDisableName(false);
+      setName(true);
+    }
   };
 
   const handleOk = (e: any) => {
@@ -182,11 +200,11 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject}/>
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} disabled={disableName}/>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 <Button className="btn-transparent">
-                  <img src="/Icons/icon-04.svg" alt="" height="18px" />
+                  <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
                 </Button>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>

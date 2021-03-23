@@ -49,6 +49,8 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState();
   const [files, setFiles] = useState<any[]>([]);
+  const [name, setName ] = useState(false);
+  const [disableName, setDisableName ] = useState(true);
   var date = new Date();
 
   var year = date.getFullYear();
@@ -84,11 +86,23 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   },[geom, description, county, serviceArea,progress,purchaseDate]);
 
   const onChange = (e: any)=>{
-    setNameProject(e.target.value);
+    if(name===true){
+      setNameProject(e.target.value);
+    }
   };
-
+  const apllyName = ()=>{
+    if(name === true){
+      setDisableName(true);
+      setName(false);
+    }
+    else{
+      setDisableName(false);
+      setName(true);
+    }
+  };
   const handleOk = (e: any) => {
    //setVisibleAcquisition(false);
+  console.log(e, "Name");
     setVisibleAlert( true);
   };
 
@@ -130,11 +144,11 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject}/>
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} disabled={disableName}/>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject}  />*/}
                 <Button className="btn-transparent">
-                  <img src="/Icons/icon-04.svg" alt="" height="18px" />
+                  <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()}/>
                 </Button>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
