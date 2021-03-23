@@ -35,7 +35,7 @@ const stateValue = {
 export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject,status, setStatus}:
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, status:number, setStatus:Function }) => {
 
-  const {streamIntersected} = useProjectState();
+  const {userPolygon} = useProjectState();
   const {saveProjectMaintenance} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -67,7 +67,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.description = description;
       maintenance.county = county;
       maintenance.servicearea = serviceArea;
-      maintenance.geom = JSON.parse(streamIntersected.geom);
+      maintenance.geom = geom;
       maintenance.projectsubtype = subType;
       maintenance.frequency = frequency;
       maintenance.maintenanceeligibility = eligibility;
@@ -87,9 +87,11 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       setVisibleMaintenance(false);
     }
   },[projectReturn.state.project.status]);
- useEffect(()=>{
-    setGeom(projectReturn.state.project.streamIntersected);
-  },[projectReturn.state.project.streamIntersected]);
+
+  useEffect(()=>{    
+     setGeom(projectReturn.state.project.userPolygon);
+   },[projectReturn.state.project.userPolygon]);
+
   useEffect(()=>{
     //console.log(geom,"---", description,"---", county,"---", serviceArea,"---",ownership,"---",eligibility)
     if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
