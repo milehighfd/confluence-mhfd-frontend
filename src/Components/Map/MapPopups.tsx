@@ -193,7 +193,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent } : any) => {
           {item.servicearea ? <p><i>Service Area: </i> {item.servicearea}</p> : ''}
           {item.watershedmanager ? <p><i>Watershed Manager: </i> {item.watershedmanager}</p> : ''}
           {item.constructionmanagers ? <p><i>Construction Managers: </i> {item.constructionmanagers}</p> : ''}
-          {isComponent && <Button  style={{ width: '100%', marginTop: '10px'}} className="btn-purple">{item.added}</Button>}
+          {isComponent && <Button id={'component-'+id}  style={{ width: '100%', marginTop: '10px'}} className="btn-purple" >{item.added}</Button>}
       </div>
       </Card>
   </div>

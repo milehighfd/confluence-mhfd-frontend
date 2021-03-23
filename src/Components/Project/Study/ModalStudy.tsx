@@ -294,7 +294,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                                 <Timeline.Item color="green">
                                   <Row style={{marginLeft:'-18px'}}>
                                     <Col className="first" xs={{ span: 24 }} lg={{ span: 11}} xxl={{ span: 15 }}><label>{stream.jurisdiction}</label></Col>
-                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{Math.round(stream.length*100)/100}</Col>
+                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{Math.round(stream.length)}</Col>
                                     <Col className="third" xs={{ span: 24 }} lg={{ span: 7}} xxl={{ span: 3 }}>{stream.drainage}</Col>
                                     <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                   </Row>

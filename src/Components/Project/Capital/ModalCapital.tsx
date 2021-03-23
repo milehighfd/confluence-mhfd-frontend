@@ -108,9 +108,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
   const [country, setCountry] = useState('');
-  const [isDraw, setIsDraw] = useState(false);
+  const [isDrawState, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
   const [county, setCounty] = useState('');
+  const {isDraw} = useProjectState();
   const [save, setSave] = useState(false);
   const [files, setFiles] = useState<any[]>([]);
   const [groups,setGroups] = useState<any>({});
@@ -201,10 +202,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   };
 
   const onClickDraw = () => {
-    setIsDraw(!isDraw);
+    setIsDraw(!isDrawState);
   }
   useEffect(()=>{
-    changeDrawState(isDraw);
+    changeDrawState(isDrawState);
+  },[isDrawState]);
+  useEffect(()=>{
+    console.log("IS DRAW STATE", isDrawState, isDraw);
+    if(isDrawState && !isDraw){
+      setIsDraw(isDraw);
+    }
   },[isDraw]);
   const applyIndependentComponent = () => {
     let newObjects = [];
@@ -266,7 +273,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             {/*Second Section*/}
             <h5>2. SELECT COMPONENTS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
 
-            <div className={"draw "+(isDraw?'active':'')} onClick={onClickDraw}>
+            <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p>Click on the icon above and draw a polygon to select components</p>
             </div>

@@ -170,7 +170,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a Progress" style={{width:'100%'}} onChange={(progress)=> apllyProgress(progress)}>
+                <Select placeholder="Select a Status" style={{width:'100%'}} onChange={(progress)=> apllyProgress(progress)}>
                  {PROJECT_INFORMATION.PROGRESS.map((element) =>{
                     return <Option key={element} value={element}>{element}</Option>
                   })}

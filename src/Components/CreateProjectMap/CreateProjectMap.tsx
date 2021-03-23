@@ -44,6 +44,7 @@ import { Input, AutoComplete } from 'antd';
 import { containsNumber } from "@turf/turf";
 import { getFeaturesIntersected, getHull } from './utilsService';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import { AnyCnameRecord } from "dns";
 let map: any;
 let coordX = -1;
 let coordY = -1;
@@ -65,7 +66,7 @@ const CreateProjectMap = (type: any) => {
   const { layers, selectedLayers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, updateSelectedLayers } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon } = useProjectDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState } = useProjectDispatch();
   const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents } = useProjectState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -277,6 +278,7 @@ const CreateProjectMap = (type: any) => {
       if(element) {
         element.click();
       }
+      changeDrawState(false);
     },2500);
     // const polygonBoundingBox = turf.bbox(userPolygon);
     // const southWest = [polygonBoundingBox[0], polygonBoundingBox[1]];
@@ -1274,9 +1276,9 @@ const CreateProjectMap = (type: any) => {
       for (const component of COMPONENT_LAYERS.tiles) {
         if (feature.source === component) {
           let isAdded = componentsList.find( (i:any) => i.cartodb_id === feature.properties.cartodb_id); 
-          let status = 'add';
+          let status = 'Add';
           if(isAdded) {
-            status = 'remove';
+            status = 'Remove';
           } 
           const item = {
             layer: MENU_OPTIONS.COMPONENTS,
@@ -1302,7 +1304,6 @@ const CreateProjectMap = (type: any) => {
         }
       }
     }
-    console.log("POPUPS LENT", popups, menuOptions);
     if (popups.length) {
       const html = loadMenuPopupWithData(menuOptions, popups);
       setMobilePopups(mobile);
@@ -1327,12 +1328,18 @@ const CreateProjectMap = (type: any) => {
           if (buttonElement != null) {
             buttonElement.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
           }
-
+          let componentElement = document.getElementById('component-'+index);
+          if(componentElement) {
+            componentElement.addEventListener('click', addRemoveComponent.bind(popups[index],popups[index]));
+          }
           // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
 
         }
       }
     }
+  }
+  const addRemoveComponent = (item: any, event: any)=> {
+    console.log("ITEM", item);
   }
   useEffect(() => {
     if (allLayers.length < 100) {
