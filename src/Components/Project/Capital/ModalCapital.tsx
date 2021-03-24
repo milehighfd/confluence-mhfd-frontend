@@ -123,7 +123,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
 
   useEffect(()=>{
-    console.log("THESE ARE THE COMPONENTS", listComponents);
     if(listComponents && listComponents.groups){
       setGroups(listComponents.groups);
     }

@@ -1,5 +1,5 @@
 import { getTimesLogin } from './usersActions';
-import { SET_PROJECT_LOCATION, SET_ACQUISITION_LOCATION, SET_LIST_STREAMS } from './../types/ProjectTypes';
+import { SET_PROJECT_LOCATION, SET_ACQUISITION_LOCATION, SET_LIST_STREAMS, SET_STREAM_INTERSECTED } from './../types/ProjectTypes';
 import * as types from '../types/ProjectTypes';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
@@ -213,5 +213,30 @@ export const setStreamsList = (listStreams: any) => {
 export const setUserPolygon = (userPolygon: any) => {
   return (dispatch: Function) => {
     dispatch({type: types.SET_USER_POLYGON, userPolygon});
+  }
+}
+
+export const getListComponentsByComponentsAndPolygon = (components: any, geom: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken()).then(listComponents => {
+      dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
+    });
+  }
+}
+
+export const getStreamsByComponentsList = (components: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_STREAMS_BY_COMPONENTS, {components, geom:null}, datasets.getToken()).then( streamIntersected => {
+      console.log("TOTAL COMPONENTS ", components, streamIntersected);
+      dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
+    } )
+  }
+}
+
+export const getAllComponentsByProblemId = (problemId: any) => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_COMPONENTS_BY_PROBLEMID+'?problemid='+problemId, datasets.getToken()).then(listComponents => {
+      dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
+    });
   }
 }

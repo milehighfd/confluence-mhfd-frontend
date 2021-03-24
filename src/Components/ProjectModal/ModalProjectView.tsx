@@ -162,9 +162,9 @@ export const ModalProjectView = ({visible, setVisible, data}:
       setStatus = {setStatus}
      />}
      {/*<Button show modal */}
-     {/*<Button type="primary" onClick={showModal}>
+     <Button type="primary" onClick={showModal}>
        Open Modal
-     </Button>*/}
+     </Button>
      {visibleModal && <Modal
        title="Create Project"
        centered

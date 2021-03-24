@@ -1,7 +1,7 @@
 import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon } from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId } from '../store/actions/ProjectActions';
 import { RootState } from '../store/reducers';
 
 interface selectProjectState {
@@ -103,6 +103,15 @@ export const useProjectDispatch = () => {
       },
       setUserPolygon: (userPolygon: any) => {
         dispatch(setUserPolygon(userPolygon));
+      },
+      getStreamsByComponentsList: (components: any) => {
+        dispatch(getStreamsByComponentsList(components));
+      },
+      getListComponentsByComponentsAndPolygon: (components: any, geom: any) => {
+        dispatch(getListComponentsByComponentsAndPolygon(components, geom));
+      },
+      getAllComponentsByProblemId: (problemId: any) => {
+        dispatch(getAllComponentsByProblemId(problemId));
       }
    }
 }

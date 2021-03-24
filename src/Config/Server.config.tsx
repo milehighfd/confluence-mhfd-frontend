@@ -96,6 +96,9 @@ export const SERVER = (function () {
     const GET_SERVICEAREA_COUNTY_POINT = 'get-countyservicearea-for-point';
     const GET_SERVICEAREA_COUNTY_STREAMS = 'get-countyservicearea-for-polygon';
     const GET_LIST_STREAMS = 'streams-data';
+    const GET_COMPONENTS_WITH_GEOM = 'get-components-by-components-and-geom';
+    const GET_COMPONENTS_BY_PROBLEMID = 'components-by-problemid';
+    const GET_STREAMS_BY_COMPONENTS = 'get-stream-by-components-and-geom';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -181,6 +184,9 @@ export const SERVER = (function () {
         ADD_COMPONENTS_POLYGON: `${URL_BASE.BASE}/create/${ADD_COMPONENTS_POLYGON}`,
         GET_SERVICEAREA_COUNTY_POINT: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_POINT}`,
         GET_SERVICEAREA_COUNTY_STREAMS: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_STREAMS}`,
-        GET_LIST_STREAMS: `${URL_BASE.BASE}/create/${GET_LIST_STREAMS}`
+        GET_LIST_STREAMS: `${URL_BASE.BASE}/create/${GET_LIST_STREAMS}`,
+        GET_COMPONENTS_WITH_GEOM: `${URL_BASE.BASE}/create/${GET_COMPONENTS_WITH_GEOM}`,
+        GET_COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/create/${GET_COMPONENTS_BY_PROBLEMID}`,
+        GET_STREAMS_BY_COMPONENTS: `${URL_BASE.BASE}/create/${GET_STREAMS_BY_COMPONENTS}`
     }
 })();

@@ -66,7 +66,7 @@ const CreateProjectMap = (type: any) => {
   const { layers, selectedLayers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, updateSelectedLayers } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState } = useProjectDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected } = useProjectDispatch();
   const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents } = useProjectState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -117,9 +117,14 @@ const CreateProjectMap = (type: any) => {
     changeAddLocationState(false);
   }, []);
   useEffect(()=>{
-    console.log("WHAT HAPP", listComponents);
-    if(listComponents && listComponents.result) {
-      console.log("IT SHOYLD BE FILLING");
+    console.log('updated?', listComponents);
+    if(listComponents && listComponents.result && listComponents.result.length > 0) {
+      
+      if(type.type === 'CAPITAL') {
+        console.log("ENTERING HERE CAPITAL", listComponents);
+        getStreamsByComponentsList(listComponents.result);
+      }
+      
       componentsList = listComponents.result;
     }
   },[listComponents]);
@@ -262,8 +267,10 @@ const CreateProjectMap = (type: any) => {
   const onCreateDraw = (event: any) => {
     const userPolygon = event.features[0];
     if (type.type === 'CAPITAL') {
-      getStreamIntersectionSave(userPolygon.geometry);
-      getListComponentsIntersected(userPolygon.geometry);
+      // getStreamIntersectionSave(userPolygon.geometry);
+      // getListComponentsIntersected(userPolygon.geometry);
+      console.log("COMPONTNS ", componentsList);
+      getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
     } else if (type.type === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
@@ -1339,7 +1346,16 @@ const CreateProjectMap = (type: any) => {
     }
   }
   const addRemoveComponent = (item: any, event: any)=> {
-    console.log("ITEM", item);
+    console.log("ITEM", item, componentsList);
+    let newComponents:any = [];
+    if(item.added === 'Add') {
+      newComponents = [...componentsList, item];
+    } else {
+      newComponents = componentsList.filter( (comp: any) => comp.cartodb_id != item.cartodb_id);
+    }
+    console.log("NEW COMPONT ADd", newComponents);  
+    getStreamsByComponentsList(newComponents);
+    setComponentIntersected(newComponents);
   }
   useEffect(() => {
     if (allLayers.length < 100) {
