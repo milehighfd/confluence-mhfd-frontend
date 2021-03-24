@@ -55,6 +55,7 @@ import GenericTabView from '../Shared/GenericTab/GenericTabView';
 import { useFilterDispatch, useFilterState } from '../../hook/filtersHook';
 import MapService from './MapService';
 import MobilePopup from '../MobilePopup/MobilePopup';
+import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 const { Option } = AutoComplete;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
@@ -145,7 +146,7 @@ const Map = ({ leftWidth,
     const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
-
+    const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
     useEffect(()=> {
         console.log(mobilePopups);
 
@@ -182,8 +183,14 @@ const Map = ({ leftWidth,
     const {filters} = useFilterState();
     const [filterNames, setFilterNames] = useState<Array<any>>([]);
     const [mapService] = useState<MapService>(new MapService());
+    const [visibleCapital, setVisibleCapital] = useState(false);
+    const [visibleAcquisition, setVisibleAcquisition] = useState(false);
+    const [visibleMaintenance, setVisibleMaintenance] = useState(false);
+    const [visibleSpecial, setVisibleSpecial] = useState(false);
+    const [visibleStudy, setVisibleStudy] = useState(false);
+    const [visibleSave, setVisibleSave] = useState(false);
     const genExtra = () => (
-        <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+    <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
           <Col>
             <div className={'apply-filter-no-effect'}>
               Apply map view to filters
@@ -217,6 +224,14 @@ const Map = ({ leftWidth,
         cartoid: ''
     });
 
+    const [dataProblem, setDataProblem] = useState({
+        problemid: '',
+        id: '',
+        objectid: '',
+        value: '',
+        type: '',
+        cartoid: ''
+    });
     const polyMask = (mask: any, bounds: any) => {
         console.log('mask', mask);
         console.log('bounds', bounds);
@@ -1751,6 +1766,7 @@ const Map = ({ leftWidth,
                     for (const index in popups) {
                         document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
                         document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
+                        document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
                     }
                 }
             }
@@ -1778,6 +1794,19 @@ const Map = ({ leftWidth,
             });
         }
 
+    }
+    const createProject = (details: any, event: any) => {
+        if (details.problemid) {
+            setDataProblem({
+                id: '',
+                objectid: '',
+                cartoid: '',
+                type: '',
+                value: '',
+                problemid: details.problemid
+            });
+        }
+        setVisibleCreateProject(true);
     }
     const addMapListeners = async (key: string) => {
         const styles = { ...tileStyles as any };
@@ -2089,6 +2118,28 @@ const Map = ({ leftWidth,
     const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
 
     return (
+        <>
+        <div>
+            {visibleCreateProject && <ModalProjectView
+            visible= {visibleCreateProject}
+            setVisible= {setVisibleCreateProject}
+            visibleCapital= {visibleCapital}
+            setVisibleCapital= {setVisibleCapital}
+            visibleAcquisition= {visibleAcquisition}
+            setVisibleAcquisition= {setVisibleAcquisition}
+            visibleMaintenance= {visibleMaintenance}
+            setVisibleMaintenance= {setVisibleMaintenance}
+            visibleStudy= {visibleStudy}
+            setVisibleStudy= {setVisibleStudy}
+            visibleSpecial= {visibleSpecial}
+            setVisibleSpecial= {setVisibleSpecial}
+            data={dataProblem}
+            visibleSave={visibleSave}
+            setVisibleSave={setVisibleSave}
+            />
+            }
+        </div>
+        
         <div className="map">
             {visible && <DetailedModal
                 detailed={detailed}
@@ -2219,7 +2270,7 @@ const Map = ({ leftWidth,
                           // add some error here
                       } else {
                         navigator.geolocation.getCurrentPosition(success, error);
-
+                        
                       }
                 }}
                 /></Button>
@@ -2355,8 +2406,8 @@ const Map = ({ leftWidth,
              </Collapse>
             </div>
         </div>
-
-    )
+    </>
+    ) 
 }
 
 export default Map;

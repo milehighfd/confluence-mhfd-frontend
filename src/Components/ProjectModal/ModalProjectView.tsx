@@ -12,9 +12,7 @@ import { AlertViewSave } from "../Alerts/AlertViewSave";
 import { setSave } from "../../store/actions/ProjectActions";
 import { useProjectDispatch } from "../../hook/projectHook";
 
-const stateValue = {
-  visible: false
-}
+
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
 const content02 = (<div className="popver-info">Removal of accumulated sediment to maintain capacity in the system.</div>);
@@ -22,24 +20,20 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = () => {
+export const ModalProjectView = ({visible, setVisible, visibleCapital, setVisibleCapital, visibleAcquisition, setVisibleAcquisition,visibleMaintenance, setVisibleMaintenance, visibleSpecial, setVisibleSpecial, visibleStudy, setVisibleStudy, data , visibleSave, setVisibleSave}: 
+  {visible: boolean, setVisible: Function,visibleCapital: boolean, setVisibleCapital: Function, visibleAcquisition:boolean, setVisibleAcquisition: Function,visibleMaintenance: boolean, setVisibleMaintenance:Function, visibleSpecial: boolean, setVisibleSpecial: Function, visibleStudy:boolean, setVisibleStudy: Function, data: any, visibleSave: boolean, setVisibleSave: Function}) => {
   const {setSave} = useProjectDispatch();
-  const [state, setState] = useState(stateValue);
-  const [visible, setVisible] = useState(false);
-  const [visibleCapital, setVisibleCapital] = useState(false);
-  const [visibleAcquisition, setVisibleAcquisition] = useState(false);
-  const [visibleMaintenance, setVisibleMaintenance] = useState(false);
-  const [visibleSpecial, setVisibleSpecial] = useState(false);
-  const [visibleStudy, setVisibleStudy] = useState(false);
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
   const [disable, setDisable] = useState(true);
-  const [visibleSave, setVisibleSave] = useState(false);
   const [nameProject, setNameProject] = useState('');
   const [status, setStatus] = useState(2);
   const [statusSave, setStatusSave] = useState(2);
+  const [visibleSubType, setVisibleSubType] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(visible)
   useEffect(()=>{
     if(status != 2){
+      console.log(status,"status++++")
       setStatusSave(status);
       setVisibleSave(true);
       setSave(2);
@@ -47,16 +41,12 @@ export const ModalProjectView = () => {
     };
   },[status]);
   const showModal = () => {
-    const auxState = {...state};
-    auxState.visible = true;
-    setState(auxState);
+    setVisible(true);
     setNameProject('');
   };
-  const handleOk = (e: any) => {
-    const auxState = {...state};
-    auxState.visible = false;
-    setState(auxState);
+  const handleOk = (e: any) => {  
     if(typeProject === NEW_PROJECT_TYPES.Capital ){
+      console.log("capi")
       setVisibleCapital(true);
     }
     if(typeProject === NEW_PROJECT_TYPES.Acquisition ){
@@ -72,7 +62,8 @@ export const ModalProjectView = () => {
       setVisibleStudy(true);
     }
     setDisable(true);
-    setVisible(false);
+    setVisibleModal(false);
+    setVisibleSubType(false);
   };
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
@@ -94,20 +85,19 @@ export const ModalProjectView = () => {
     }
   };
   const handleCancel = (e: any) => {
-    const auxState = {...state};
-    auxState.visible = false;
-    setState(auxState);
+    setVisibleModal(false);
   };
   const chooseSubtypes = (e: any) => {
     setTypeProyect(e);
     if(e === NEW_PROJECT_TYPES.Maintenance){
-      setVisible(true);
+      setVisibleSubType(true);
     }
     else{
       if(nameProject !== '' ){
         setDisable(false);
+        setVisibleSubType(false);
       }
-      setVisible(false);
+     setVisibleSubType(false);
       setSubType('')
     }
   };
@@ -164,14 +154,13 @@ export const ModalProjectView = () => {
       status = {status}
       setStatus = {setStatus}
      />}
-     {visible}
-    <Button type="primary" onClick={showModal}>
+     {/*<Button type="primary" onClick={showModal}>
        Open Modal
-     </Button>
-     <Modal
+     </Button>*/}
+     {visibleModal && <Modal
        title="Create Project"
        centered
-       visible={state.visible}
+       visible={visible}
        onOk={handleOk}
        onCancel={handleCancel}
        className="new-project"
@@ -255,7 +244,7 @@ export const ModalProjectView = () => {
       <br/>
 
       {/*Buttons*/}
-      {visible && <> <h4>Choose a Subtype</h4>
+      {visibleSubType && <> <h4>Choose a Subtype</h4>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 8 }} onClick={()=> subTypeProject(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management)} >
           <Popover content={content00} ><Button className={subType===NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management? "btn-opacity-active btn-opacity" : "btn-opacity"}>Debris Management</Button></Popover>
@@ -276,7 +265,7 @@ export const ModalProjectView = () => {
         </Col>
       </Row></>}
       
-     </Modal>
+     </Modal>}
     </>
   );
 }
