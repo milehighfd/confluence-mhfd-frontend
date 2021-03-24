@@ -20,8 +20,8 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = ({visible, setVisible, visibleCapital, setVisibleCapital, visibleAcquisition, setVisibleAcquisition,visibleMaintenance, setVisibleMaintenance, visibleSpecial, setVisibleSpecial, visibleStudy, setVisibleStudy, data , visibleSave, setVisibleSave}: 
-  {visible: boolean, setVisible: Function,visibleCapital: boolean, setVisibleCapital: Function, visibleAcquisition:boolean, setVisibleAcquisition: Function,visibleMaintenance: boolean, setVisibleMaintenance:Function, visibleSpecial: boolean, setVisibleSpecial: Function, visibleStudy:boolean, setVisibleStudy: Function, data: any, visibleSave: boolean, setVisibleSave: Function}) => {
+export const ModalProjectView = ({visible, setVisible, data}: 
+  {visible: boolean, setVisible: Function, data: any}) => {
   const {setSave} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
@@ -31,6 +31,13 @@ export const ModalProjectView = ({visible, setVisible, visibleCapital, setVisibl
   const [statusSave, setStatusSave] = useState(2);
   const [visibleSubType, setVisibleSubType] = useState(false);
   const [visibleModal, setVisibleModal] = useState(visible)
+  const [visibleCapital, setVisibleCapital] = useState(false);
+  const [visibleAcquisition, setVisibleAcquisition] = useState(false);
+  const [visibleMaintenance, setVisibleMaintenance] = useState(false);
+  const [visibleSpecial, setVisibleSpecial] = useState(false);
+  const [visibleStudy, setVisibleStudy] = useState(false);
+  const [visibleSave, setVisibleSave] = useState(false);
+
   useEffect(()=>{
     if(status != 2){
       console.log(status,"status++++")
@@ -41,7 +48,7 @@ export const ModalProjectView = ({visible, setVisible, visibleCapital, setVisibl
     };
   },[status]);
   const showModal = () => {
-    setVisible(true);
+    setVisibleModal(true);
     setNameProject('');
   };
   const handleOk = (e: any) => {  
@@ -154,13 +161,14 @@ export const ModalProjectView = ({visible, setVisible, visibleCapital, setVisibl
       status = {status}
       setStatus = {setStatus}
      />}
+     {/*<Button show modal */}
      {/*<Button type="primary" onClick={showModal}>
        Open Modal
      </Button>*/}
      {visibleModal && <Modal
        title="Create Project"
        centered
-       visible={visible}
+       visible={visibleModal}
        onOk={handleOk}
        onCancel={handleCancel}
        className="new-project"

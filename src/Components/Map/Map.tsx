@@ -183,12 +183,6 @@ const Map = ({ leftWidth,
     const {filters} = useFilterState();
     const [filterNames, setFilterNames] = useState<Array<any>>([]);
     const [mapService] = useState<MapService>(new MapService());
-    const [visibleCapital, setVisibleCapital] = useState(false);
-    const [visibleAcquisition, setVisibleAcquisition] = useState(false);
-    const [visibleMaintenance, setVisibleMaintenance] = useState(false);
-    const [visibleSpecial, setVisibleSpecial] = useState(false);
-    const [visibleStudy, setVisibleStudy] = useState(false);
-    const [visibleSave, setVisibleSave] = useState(false);
     const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
           <Col>
@@ -2121,21 +2115,9 @@ const Map = ({ leftWidth,
         <>
         <div>
             {visibleCreateProject && <ModalProjectView
-            visible= {visibleCreateProject}
-            setVisible= {setVisibleCreateProject}
-            visibleCapital= {visibleCapital}
-            setVisibleCapital= {setVisibleCapital}
-            visibleAcquisition= {visibleAcquisition}
-            setVisibleAcquisition= {setVisibleAcquisition}
-            visibleMaintenance= {visibleMaintenance}
-            setVisibleMaintenance= {setVisibleMaintenance}
-            visibleStudy= {visibleStudy}
-            setVisibleStudy= {setVisibleStudy}
-            visibleSpecial= {visibleSpecial}
-            setVisibleSpecial= {setVisibleSpecial}
-            data={dataProblem}
-            visibleSave={visibleSave}
-            setVisibleSave={setVisibleSave}
+                visible= {visibleCreateProject}
+                setVisible= {setVisibleCreateProject}
+                data={dataProblem}
             />
             }
         </div>
@@ -2270,7 +2252,7 @@ const Map = ({ leftWidth,
                           // add some error here
                       } else {
                         navigator.geolocation.getCurrentPosition(success, error);
-                        
+
                       }
                 }}
                 /></Button>
