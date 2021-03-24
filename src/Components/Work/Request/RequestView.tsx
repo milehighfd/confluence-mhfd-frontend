@@ -93,9 +93,17 @@ export default () => {
   ])
 
   useEffect(() => {
-    WsService.receiveUpdate('work-request', (data: any) => {
+    let type = 'work-request';
+    WsService.connect(type, (socket: any) => {
+      console.log('connected', socket.id);
+    });
+    WsService.receiveUpdate(type, (data: any) => {
+      console.log('receiveUpdate', data);
       setColumns(data);
     })
+    return () => {
+      WsService.disconnect(type);
+    }
   }, [])
 
   const generateCard = (project: any) => {
@@ -168,6 +176,10 @@ export default () => {
     console.log('Selected:', value);
     setSelected(value);
   };
+
+  useEffect(() => {
+    console.log('year, selected', year, selected)
+  }, [year, selected])
 
   return <>
     <Layout>
