@@ -217,10 +217,8 @@ export const setUserPolygon = (userPolygon: any) => {
 }
 
 export const getListComponentsByComponentsAndPolygon = (components: any, geom: any) => {
-  console.log("SENDING TO GET COMPOENNTS ", components );
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken()).then(listComponents => {
-      console.log("IS NOT ADDING ???? ", listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     });
   }
@@ -229,7 +227,6 @@ export const getListComponentsByComponentsAndPolygon = (components: any, geom: a
 export const getStreamsByComponentsList = (components: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAMS_BY_COMPONENTS, {components, geom:null}, datasets.getToken()).then( streamIntersected => {
-      console.log("TOTAL COMPONENTS ", components, streamIntersected);
       dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
     } )
   }
@@ -241,4 +238,10 @@ export const getAllComponentsByProblemId = (problemId: any) => {
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     });
   }
+}
+
+export const setStreamIntersected = (streamIntersected: any) => {
+ return ( dispatch: Function) => {
+  dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
+ }
 }

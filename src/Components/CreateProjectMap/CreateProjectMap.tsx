@@ -66,7 +66,7 @@ const CreateProjectMap = (type: any) => {
   const { layers, selectedLayers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, updateSelectedLayers } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected } = useProjectDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected } = useProjectDispatch();
   const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents } = useProjectState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -115,17 +115,20 @@ const CreateProjectMap = (type: any) => {
     eventService.setRef('move', eventMove);
     eventService.setRef('addmarker', addMarker);
     changeAddLocationState(false);
+    // setComponentIntersected([]);
+    componentsList = [];
   }, []);
   useEffect(()=>{
-    console.log('updated?', listComponents);
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
       if(type.type === 'CAPITAL') {
-        console.log("ENTERING HERE CAPITAL", listComponents);
+
         getStreamsByComponentsList(listComponents.result);
       }
       
       componentsList = listComponents.result;
+    } else {
+      setStreamIntersected({geom:null});
     }
   },[listComponents]);
   
@@ -186,30 +189,36 @@ const CreateProjectMap = (type: any) => {
     let geom = undefined;
     if (streamIntersected && streamIntersected.geom) {
       geom = JSON.parse(streamIntersected.geom);
+      if (map && map.map.isStyleLoaded() && geom) {
+        map.removeLayer('streamIntersected');
+        map.removeSource('streamIntersected');
+        if (!map.map.getSource('streamIntersected')) {
+          map.map.addSource('streamIntersected', {
+            'type': 'geojson',
+            'data': { type: 'Feature', geometry: geom, properties: [] }
+          });
+        }
+        if (!map.getLayer('streamIntersected')) {
+          map.map.addLayer({
+            'id': 'streamIntersected',
+            'type': 'line',
+            'source': 'streamIntersected',
+            'layout': {},
+            'paint': {
+              'line-color': '#eae320',
+              'line-width': 3.5,
+            }
+          });
+        }
+      }
+    } else {
+      if (map && map.map.isStyleLoaded() ) {
+        map.removeLayer('streamIntersected');
+        map.removeSource('streamIntersected');
+      }
     }
 
-    if (map && map.map.isStyleLoaded() && geom) {
-      map.removeLayer('streamIntersected');
-      map.removeSource('streamIntersected');
-      if (!map.map.getSource('streamIntersected')) {
-        map.map.addSource('streamIntersected', {
-          'type': 'geojson',
-          'data': { type: 'Feature', geometry: geom, properties: [] }
-        });
-      }
-      if (!map.getLayer('streamIntersected')) {
-        map.map.addLayer({
-          'id': 'streamIntersected',
-          'type': 'line',
-          'source': 'streamIntersected',
-          'layout': {},
-          'paint': {
-            'line-color': '#eae320',
-            'line-width': 3.5,
-          }
-        });
-      }
-    }
+    
 
   }, [streamIntersected]);
   useEffect(()=>{
@@ -1361,9 +1370,8 @@ const CreateProjectMap = (type: any) => {
         type: item.type?item.type:''
       }];
     } else {
-      newComponents = componentsList.filter( (comp: any) => comp.cartodb_id != item.cartodb_id);
+      newComponents = componentsList.filter( (comp: any) => ( ! (comp.cartodb_id == item.cartodb_id && comp.table == item.table)));
     }
-    console.log("NEW COMPONT ADd", newComponents);  
     getListComponentsByComponentsAndPolygon(newComponents, null);
   }
   useEffect(() => {

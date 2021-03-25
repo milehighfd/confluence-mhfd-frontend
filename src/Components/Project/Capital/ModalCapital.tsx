@@ -100,7 +100,7 @@ const unnamedComponent = () => {
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject,status, setStatus}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, status: number, setStatus:Function}) => {
 
-  const {saveProjectCapital} = useProjectDispatch();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon} = useProjectDispatch();
   const {listComponents} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -123,11 +123,19 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
 
   useEffect(()=>{
-    if(listComponents && listComponents.groups){
+    setComponentIntersected([]);
+  },[]);
+  useEffect(()=>{
+    console.log("COM", listComponents);
+    if(listComponents && listComponents.groups && listComponents.result.length > 0){
       setGroups(listComponents.groups);
+    } else {
+      setGroups({});
     }
-    if(listComponents && listComponents.problems){
+    if(listComponents && listComponents.problems && listComponents.result.length > 0){
       setProblems(listComponents.problems);
+    } else {
+      setProblems({});
     }
   },[listComponents]);
   useEffect(()=>{
@@ -207,7 +215,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     changeDrawState(isDrawState);
   },[isDrawState]);
   useEffect(()=>{
-    console.log("IS DRAW STATE", isDrawState, isDraw);
     if(isDrawState && !isDraw){
       setIsDraw(isDraw);
     }
@@ -216,6 +223,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     let newObjects = [];
     newObjects.push(unnamedComponent());
     setPanelUnnamedComponent([...panelUnnamedComponent, ...newObjects])
+  }
+  const removeComponent = (component: any) => {
+    let newComponents: any = [];
+    let currentComponents = listComponents.result; 
+    // console.log("ITE M", component);
+    // console.log("CurrentCompon", currentComponents);
+    newComponents = currentComponents.filter( (comp: any) => ( ! (comp.cartodb_id == component.cartodb_id && comp.table == component.table)));
+    // console.log("filteresd", newComponents);
+    getListComponentsByComponentsAndPolygon(newComponents, null);
   }
 
   return (
@@ -342,10 +358,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                             return (
                               <Timeline.Item color="green">
                                 <Row style={{marginLeft:'-18px'}}>
-                            <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
-                            <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{component.status}</Col>
-                            <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{formatter.format(component.original_cost)}</Col>
-                                  <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                                  <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
+                                  <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{component.status}</Col>
+                                  <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{formatter.format(component.original_cost)}</Col>
+                                  <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
+                                    <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                 </Row>
                               </Timeline.Item>
                             );
