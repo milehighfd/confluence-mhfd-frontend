@@ -65,7 +65,8 @@ let popup = new mapboxgl.Popup();
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const highlightedLayers = ['problems', 'mhfd_projects'];
 type LayersType = string | ObjectLayerType;
-
+let coordX = -1;
+let coordY = -1;
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
 const { Panel } = Collapse;
@@ -1271,6 +1272,14 @@ const Map = ({ leftWidth,
             setActiveMobilePopups([]);
             setSelectedPopup(-1);
             let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
+            if (features.length === 0) {
+                return;
+              } 
+            if ((e.point.x === coordX || e.point.y === coordY)) {
+                return;
+            }
+            coordX = e.point.x;
+            coordY = e.point.y;
             const search = (id: number, source: string) => {
                 let index = 0;
                 for (const feature of features) {
@@ -1760,6 +1769,7 @@ const Map = ({ leftWidth,
                     for (const index in popups) {
                         document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
                         document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
+                        console.log('adding a click for button create ');
                         document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
                     }
                 }
@@ -1800,6 +1810,7 @@ const Map = ({ leftWidth,
                 problemid: details.problemid
             });
         }
+        console.log('cosito ');
         setVisibleCreateProject(true);
     }
     const addMapListeners = async (key: string) => {
