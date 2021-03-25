@@ -7,10 +7,11 @@ let counter = 0;
 export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject: string, files: any[], setFiles: Function }) => {
   const labelRef = useRef<HTMLDivElement>(null);
   const [draggin, setDraggin] = useState(false);
-
+  const [sw, setSw] = useState(false);
   const onChange: any = (e: any) => {
     let newFiles = e.target.files;
     updateFileState(newFiles)
+    setSw(true);
   };
 
   const handleDragNewFiles = (newFiles: any[]) => {
@@ -99,6 +100,9 @@ export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject
 
   const removeFile = (index: number) => {
     setFiles(files.filter((_, i) => i !== index))
+    if(files.length === 1){
+      setSw(false);
+    }
   }
 
   const toggle = (index: number) => {
@@ -127,24 +131,28 @@ export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject
       <h5>5. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       <input id="uploader" type="file" style={{ display: 'none' }} onChange={onChange} multiple accept="image/png, image/jpeg" />
       <div ref={labelRef}>
-        {draggin &&
+        {draggin && 
           <label htmlFor="uploader" className="draw" style={{ border: '1px dashed #28C499', color: '#28C499' }}>
             <img className="icon-draw-01" style={{ WebkitMask: 'url("/Icons/icon-17.svg") center center no-repeat', background: '#28C499' }} />
             <p>Attach main image in PNG or JPEG format</p>
-          </label>
+          </label>       
         }
         {
-          !draggin &&
+          !draggin && 
           <label htmlFor="uploader" className="draw">
             <img className="icon-draw-01" style={{ WebkitMask: 'url("/Icons/icon-17.svg") center center no-repeat' }} />
             <p>Attach main image in PNG or JPEG format</p>
           </label>
         }
       </div>
-      <Row className="title-galery">
-        <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
-        <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
-      </Row>
+      <>
+      {sw &&
+          <Row className="title-galery">
+            <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
+            <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
+          </Row>
+        }
+      </>
 
       {
         files.map((f, i) => (
