@@ -54,6 +54,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const dispatch = useDispatch();
   useEffect(()=>{
     if(save === true){
+      console.log("FILES", files);
       var special = new Project();
       special.geom =  geom;
       special.projectname = nameProject;

@@ -20,6 +20,7 @@ export const saveSpecial = (data: any) => {
         formData.append(key, data[key]);
       }
     })
+    console.log("S F D ", formData);
     datasets.postDataMultipart(SERVER.CREATE_SPECIAL, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res.total_rows > 0){
@@ -34,7 +35,20 @@ export const saveSpecial = (data: any) => {
 
 export const saveAcquisition = (data: any) => {
   return ( dispatch: Function) => {
-    datasets.postData(SERVER.CREATE_ACQUISITION, data, datasets.getToken()).then(res => {
+    const formData = new FormData();
+    Object.keys(data).forEach((key: string) => {
+      if (key === 'geom') {
+        formData.append(key, JSON.stringify(data[key]));
+      } else if (key === 'files') {
+        data[key].forEach((o: any, i: number) => {
+          formData.append(key, o.file);
+        })
+      } else {
+        formData.append(key, data[key]);
+      }
+    });
+    console.log("A F D ", formData);
+    datasets.postDataMultipart(SERVER.CREATE_ACQUISITION, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res.total_rows > 0){
         status = 1;
@@ -48,7 +62,19 @@ export const saveAcquisition = (data: any) => {
 
 export const saveCapital = (data: any) => {
   return ( dispatch: Function) => {
-    datasets.postData(SERVER.CREATE_CAPITAL, data, datasets.getToken()).then(res => {
+    const formData = new FormData();
+    Object.keys(data).forEach((key: string) => {
+      if (key === 'geom') {
+        formData.append(key, JSON.stringify(data[key]));
+      } else if (key === 'files') {
+        data[key].forEach((o: any, i: number) => {
+          formData.append(key, o.file);
+        })
+      } else {
+        formData.append(key, data[key]);
+      }
+    })
+    datasets.postDataMultipart(SERVER.CREATE_CAPITAL, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
       if(res.total_rows > 0){
@@ -63,7 +89,19 @@ export const saveCapital = (data: any) => {
 
 export const saveMaintenance = (data: any) => {
   return ( dispatch: Function) => {
-    datasets.postData(SERVER.CREATE_MAINTENANCE, data, datasets.getToken()).then(res => {
+    const formData = new FormData();
+    Object.keys(data).forEach((key: string) => {
+      if (key === 'geom') {
+        formData.append(key, JSON.stringify(data[key]));
+      } else if (key === 'files') {
+        data[key].forEach((o: any, i: number) => {
+          formData.append(key, o.file);
+        })
+      } else {
+        formData.append(key, data[key]);
+      }
+    })
+    datasets.postDataMultipart(SERVER.CREATE_MAINTENANCE, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
       if(res.total_rows > 0){
@@ -78,7 +116,19 @@ export const saveMaintenance = (data: any) => {
 
 export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
-    datasets.postData(SERVER.CREATE_STUDY, data, datasets.getToken()).then(res => {
+    const formData = new FormData();
+    Object.keys(data).forEach((key: string) => {
+      if (key === 'geom') {
+        formData.append(key, JSON.stringify(data[key]));
+      } else if (key === 'files') {
+        data[key].forEach((o: any, i: number) => {
+          formData.append(key, o.file);
+        })
+      } else {
+        formData.append(key, data[key]);
+      }
+    })
+    datasets.postDataMultipart(SERVER.CREATE_STUDY, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
       if(res.total_rows > 0){

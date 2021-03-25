@@ -82,6 +82,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.sponsor = sponsor;
       study.cosponsor = cosponsor;
       study.ids = ids;
+      study.files = files;
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
     }

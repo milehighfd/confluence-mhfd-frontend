@@ -146,6 +146,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.county = county;
       capital.servicearea = serviceArea;
       capital.geom = geom;
+      capital.files = files ;
       //capital.overheadcost = overheadcost;
       //capital.acquisitionanticipateddate = purchaseDate;
       console.log(capital,"****+++CAPITAL******")

@@ -57,6 +57,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 
   useEffect(()=>{
     if(save === true){
+      console.log("FILES", files);
       var acquisition = new Project();
       acquisition.projectname = nameProject;
       acquisition.description = description;
@@ -65,6 +66,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       acquisition.geom = geom;
       acquisition.acquisitionprogress = progress;
       acquisition.acquisitionanticipateddate = purchaseDate;
+      acquisition.files = files;
       saveProjectAcquisition(acquisition);
 
     }
