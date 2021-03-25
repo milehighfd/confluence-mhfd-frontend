@@ -1,7 +1,8 @@
+import { AnyLayer } from 'mapbox-gl';
 import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected } from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected, setComponentsFromMap } from '../store/actions/ProjectActions';
 import { RootState } from '../store/reducers';
 
 interface selectProjectState {
@@ -14,7 +15,8 @@ interface selectProjectState {
   listComponents: any,
   currentServiceAreaCounty: any,
   listStreams: any,
-  userPolygon: any 
+  userPolygon: any,
+  componentsFromMap: any
 }
 
 let createSelectorHack: any = createSelector;
@@ -31,8 +33,9 @@ createSelectorHack(
   (state: any) => state.project.currentServiceAreaCounty,
   (state: any) => state.project.listStreams,
   (state: any) => state.project.userPolygon,
-  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any, listStreams: any, userPolygon: any) => ({
-    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty, listStreams, userPolygon
+  (state: any) => state.project.componentsFromMap, 
+  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any, listStreams: any, userPolygon: any, componentsFromMap: any) => ({
+    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty, listStreams, userPolygon, componentsFromMap
   })
 );
 
@@ -115,6 +118,9 @@ export const useProjectDispatch = () => {
       },
       setStreamIntersected: (streamIntersected: any) => {
         dispatch(setStreamIntersected(streamIntersected));
+      },
+      setComponentsFromMap: (componentsFromMap: any) => {
+        dispatch(setComponentsFromMap(componentsFromMap));
       }
    }
 }

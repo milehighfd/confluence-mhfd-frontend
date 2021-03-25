@@ -13,7 +13,8 @@ const initState = {
   status: 2,
   listComponents: [],
   currentServiceAreaCounty: {},
-  listStreams: []
+  listStreams: [],
+  componentsFromMap: []
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -85,6 +86,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         userPolygon: action.userPolygon
+      }
+    }
+    case types.SET_COMPONENTS_MAP: {
+      return {
+        ...state, 
+        componentsFromMap: action.componentsFromMap
       }
     }
     default: 

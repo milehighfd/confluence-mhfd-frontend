@@ -101,7 +101,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, status: number, setStatus:Function}) => {
 
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon} = useProjectDispatch();
-  const {listComponents} = useProjectState();
+  const {listComponents, componentsFromMap, userPolygon} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -123,8 +123,17 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
 
   useEffect(()=>{
-    setComponentIntersected([]);
+    console.log("COMPONENTS FROM MAPS", componentsFromMap);
+    if(componentsFromMap.length > 0 ) {
+      getListComponentsByComponentsAndPolygon(componentsFromMap, null);
+    } else {
+      setComponentIntersected([]);
+    }
+    
   },[]);
+  useEffect(()=>{
+    setGeom(userPolygon);
+  },[userPolygon]);
   useEffect(()=>{
     console.log("COM", listComponents);
     if(listComponents && listComponents.groups && listComponents.result.length > 0){

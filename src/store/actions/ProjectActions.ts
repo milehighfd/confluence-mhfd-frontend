@@ -295,3 +295,9 @@ export const setStreamIntersected = (streamIntersected: any) => {
   dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
  }
 }
+
+export const setComponentsFromMap = (componentsFromMap: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_COMPONENTS_MAP, componentsFromMap});
+  }
+}

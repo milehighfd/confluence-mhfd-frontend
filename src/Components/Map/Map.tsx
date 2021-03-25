@@ -44,6 +44,7 @@ import { Input, AutoComplete } from 'antd';
 import { SelectProps } from 'antd/es/select';
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
+import { useProjectDispatch } from '../../hook/projectHook';
 import { style } from 'd3';
 import { setOpacityLayer } from '../../store/actions/mapActions';
 import { useProfileDispatch } from '../../hook/profileHook';
@@ -141,6 +142,7 @@ const Map = ({ leftWidth,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
     setSelectedPopup} = useMapDispatch();
+    const {setComponentsFromMap} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -1732,14 +1734,17 @@ const Map = ({ leftWidth,
                 for (const component of COMPONENT_LAYERS.tiles) {
                     if (feature.source === component) {
                         const item = {
-                            layer: MENU_OPTIONS.COMPONENTS,
-                            type: feature.properties.type ? feature.properties.type : '-',
-                            subtype: feature.properties.subtype ? feature.properties.subtype : '-',
-                            status: feature.properties.status ? feature.properties.status : '-',
-                            estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                            studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
-                            jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                            problem: 'Dataset in development'
+                          layer: MENU_OPTIONS.COMPONENTS,
+                          type: feature.properties.type ? feature.properties.type : '-',
+                          subtype: feature.properties.subtype ? feature.properties.subtype : '-',
+                          status: feature.properties.status ? feature.properties.status : '-',
+                          estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                          studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+                          jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+                          original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                          table: feature.source ? feature.source : '-',
+                          cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
+                          problem: 'Dataset in development',
                         };
                         const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
                         menuOptions.push(name);
@@ -1810,7 +1815,21 @@ const Map = ({ leftWidth,
                 problemid: details.problemid
             });
         }
-        console.log('cosito ');
+        if(details.layer === 'Components') {
+          let newComponents = [{
+            cartodb_id: details.cartodb_id?details.cartodb_id:'',
+            jurisdiction: details.jurisdiction?details.jurisdiction:'',
+            original_cost: details.original_cost?details.original_cost:'',
+            problemid: null,
+            status: details.status?details.status:'',
+            table: details.table?details.table:'',
+            type: details.type?details.type:''
+          }];
+          setComponentsFromMap(newComponents);
+        } else {
+          setComponentsFromMap([]);
+        }
+        console.log('cosito ', details);
         setVisibleCreateProject(true);
     }
     const addMapListeners = async (key: string) => {

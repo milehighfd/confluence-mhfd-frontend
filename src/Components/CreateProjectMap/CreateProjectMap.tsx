@@ -1373,6 +1373,7 @@ const CreateProjectMap = (type: any) => {
       newComponents = componentsList.filter( (comp: any) => ( ! (comp.cartodb_id == item.cartodb_id && comp.table == item.table)));
     }
     getListComponentsByComponentsAndPolygon(newComponents, null);
+    removePopup();
   }
   useEffect(() => {
     if (allLayers.length < 100) {
