@@ -1295,6 +1295,9 @@ const CreateProjectMap = (type: any) => {
             estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
             studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
             jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+            original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+            table: feature.source ? feature.source : '-',
+            cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
             problem: 'Dataset in development',
             added: status
           };
@@ -1346,16 +1349,22 @@ const CreateProjectMap = (type: any) => {
     }
   }
   const addRemoveComponent = (item: any, event: any)=> {
-    console.log("ITEM", item, componentsList);
     let newComponents:any = [];
     if(item.added === 'Add') {
-      newComponents = [...componentsList, item];
+      newComponents = [...componentsList, {
+        cartodb_id: item.cartodb_id?item.cartodb_id:'',
+        jurisdiction: item.jurisdiction?item.jurisdiction:'',
+        original_cost: item.original_cost?item.original_cost:'',
+        problemid: null,
+        status: item.status?item.status:'',
+        table: item.table?item.table:'',
+        type: item.type?item.type:''
+      }];
     } else {
       newComponents = componentsList.filter( (comp: any) => comp.cartodb_id != item.cartodb_id);
     }
     console.log("NEW COMPONT ADd", newComponents);  
-    getStreamsByComponentsList(newComponents);
-    setComponentIntersected(newComponents);
+    getListComponentsByComponentsAndPolygon(newComponents, null);
   }
   useEffect(() => {
     if (allLayers.length < 100) {

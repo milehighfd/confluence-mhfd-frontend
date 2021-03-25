@@ -217,8 +217,10 @@ export const setUserPolygon = (userPolygon: any) => {
 }
 
 export const getListComponentsByComponentsAndPolygon = (components: any, geom: any) => {
+  console.log("SENDING TO GET COMPOENNTS ", components );
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken()).then(listComponents => {
+      console.log("IS NOT ADDING ???? ", listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     });
   }
