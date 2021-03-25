@@ -4,101 +4,38 @@ const WS_URL = process.env.REACT_APP_WS_URL;
 
 class WsService {
 
-  private workRequestSocket: any;
-  private workPlanSocket: any;
+  private socket: any;
+  private options: any;
 
   constructor() {
-    const options = {
+    this.options = {
       transports: ['websocket', 'polling'],
       upgrade: true,
       autoConnect: false
     }
-    this.workRequestSocket = io(`${WS_URL}/work-request`, options);
-    this.workPlanSocket = io(`${WS_URL}/work-plan`, options);
-    this.workRequestSocket.on('connect', () => {
-      console.log('workRequestSocket connected');
-    });
-    this.workPlanSocket.on('connect', () => {
-      console.log('workPlanSocket connected');
-    });
-    this.workRequestSocket.on("disconnect", (reason: any) => {
-      console.log('reason', reason);
-      if (reason === "io server disconnect") {
-        this.workRequestSocket.connect();
-      }
-    });
-    this.workPlanSocket.on("disconnect", (reason: any) => {
-      console.log('reason', reason);
-      if (reason === "io server disconnect") {
-        this.workPlanSocket.connect();
-      }
-    });
-
-    this.workRequestSocket.on("disconnect", (reason: any) => {
-      console.log('reason', reason);
-      if (reason === "io server disconnect") {
-        this.workRequestSocket.connect();
-      }
-    });
-
-    this.workRequestSocket.on('connect_error', () => {
-      console.log('Client workRequestSocket connect_error');
-    });
-
-    this.workPlanSocket.on('connect_error', () => {
-      console.log('Client workPlanSocket connect_error');
-    });
-
-    this.workRequestSocket.onAny((event: any, ...args: any) => {
-      console.log('workRequestSocket onAny', event, args);
-    });
-
   }
 
   connect(type: string, cb: Function) {
-    console.log('Connecting to WS:' + type)
-    let socket: any;
-    if (type === 'work-request') {
-      socket = this.workRequestSocket;
-    } else {
-      socket = this.workPlanSocket;
-    }
-    socket.on('connect', () => {
-      cb(socket)
+    this.socket = io(`${WS_URL}/${type}`, this.options)
+    this.socket.on('connect', () => {
+      console.log(`Connected to ${type} WS.`);
     })
-    socket.connect();
+    this.socket.on('disconnect', (reason: any) => {
+      console.log(`Disconnected to ${type} WS. Reason: ${reason}`);
+    })
+    this.socket.connect();
   }
 
-  sendUpdate(type: string, data: any) {
-    let socket;
-    if (type === 'work-request') {
-      socket = this.workRequestSocket;
-    } else {
-      socket = this.workPlanSocket;
-    }
-    console.log('disconnected', socket.disconnected)
-    socket.emit('update', data);
+  sendUpdate(data: any) {
+    this.socket.emit('update', data);
   }
 
-  receiveUpdate(type: string, callback: Function) {
-    let socket;
-    if (type === 'work-request') {
-      socket = this.workRequestSocket;
-    } else {
-      socket = this.workPlanSocket;
-    }
-    socket.on('update', callback);
+  receiveUpdate(callback: Function) {
+    this.socket.on('update', callback);
   }
 
-  disconnect(type: string) {
-    console.log('Disconnecting to WS:' + type)
-    let socket;
-    if (type === 'work-request') {
-      socket = this.workRequestSocket;
-    } else {
-      socket = this.workPlanSocket;
-    }
-    socket.disconnect();
+  disconnect() {
+    this.socket.disconnect();
   }
 
 }
