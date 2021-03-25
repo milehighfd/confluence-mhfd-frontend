@@ -94,9 +94,9 @@ export default () => {
   ])
 
   useEffect(() => {
-    WsService.receiveUpdate('work-plan', (data: any) => {
-      setColumns(data);
-    })
+    // WsService.receiveUpdate('work-plan', (data: any) => {
+    //   setColumns(data);
+    // })
   }, [])
 
   const generateCard = (project: any) => {
@@ -161,7 +161,7 @@ export default () => {
       }
       return c;
     })
-    WsService.sendUpdate('work-plan', newColumns);
+    // WsService.sendUpdate('work-plan', newColumns);
     setColumns(newColumns);
   }
 

@@ -6,6 +6,8 @@ import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
 import { JURISDICTION } from "../../../constants/constants";
 import '../../../index.scss';
+import { postData } from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -41,38 +43,39 @@ const content = (
   </Menu>
 );
 
+const type = 'WORK_REQUEST';
+
+interface projectType {project: any, column: number, positon: number};
+
+const generateColumns = (projects: projectType[], year: number) => {
+  let columns: any[] = [];
+  for(var i = 0 ; i <= 5; i++) {
+    columns.push({
+      title: i === 0 ? 'Workspace' : year + i,
+      hasCreateOption: i === 0,
+      projects: []
+    })
+  }
+
+  projects.forEach((project) => {
+    columns[project.column].projects.push(project.project);
+  })
+  return columns;
+}
+
 export default () => {
   // JURISDICTION
   const dataAutocomplete = JURISDICTION;
   const years = [ 2021, 2020, 2019, 2018 ];
-  const [selected, setSelected] = useState('Aurora');
-  const [year, setYear] = useState<any>(2021);
+  const [locality, setLocality] = useState(dataAutocomplete[0]);
+  const [year, setYear] = useState<any>(years[0]);
+  const [namespaceId, setNamespaceId] = useState<string>('');
 
   const [columns, setColumns] = useState([
     {
       title: 'Workspace',
       hasCreateOption: true,
-      projects: [
-        {
-          projectid: '2',
-          projectname: 'West Tollgate Creek GSB Drops',
-          price: '$410,000',
-          jurisdiction: 'Aurora',
-          state: 'Draft'
-        }
-      ],
-    },
-    {
-      title: '2020',
-      projects: [
-        {
-          projectid: '1',
-          projectname: 'Dry Creek',
-          price: '$380,000',
-          jurisdiction: 'Aurora',
-          state: 'Draft'
-        }
-      ],
+      projects: [],
     },
     {
       title: '2021',
@@ -89,22 +92,50 @@ export default () => {
     {
       title: '2024',
       projects: [],
+    },
+    {
+      title: '2025',
+      projects: [],
     }
   ])
 
   useEffect(() => {
-    let type = 'work-request';
-    WsService.connect(type, (socket: any) => {
+    if (!namespaceId) {
+      return;
+    }
+    WsService.connect(namespaceId, (socket: any) => {
       console.log('connected', socket.id);
     });
-    WsService.receiveUpdate(type, (data: any) => {
+    WsService.receiveUpdate((data: any) => {
       console.log('receiveUpdate', data);
       setColumns(data);
     })
     return () => {
-      WsService.disconnect(type);
+      WsService.disconnect();
     }
-  }, [])
+  }, [namespaceId])
+
+  useEffect(() => {
+    let data = {
+      type,
+      year: `${year}`,
+      locality
+    }
+    postData(`${SERVER.URL_BASE}/board/`, data)
+      .then(
+        (r: any) => {
+          let { board, projects } = r;
+          if (board) {
+            setNamespaceId(board._id)
+            let cols = generateColumns(projects, year);
+            setColumns(cols);
+          }
+        }, 
+        (e) => {
+          console.log('e', e);
+        }
+      )
+  }, [year, locality]);
 
   const generateCard = (project: any) => {
     const {
@@ -128,7 +159,6 @@ export default () => {
   }
   
   const onDragStart = (e: any, id: any) => {
-    console.log('onDragStart', id)
     e.dataTransfer.setData('id', id);
   }
 
@@ -142,7 +172,7 @@ export default () => {
     let project: any;
     columns.map(r => r.projects).forEach((ps: any, i) => {
       ps.forEach((p: any) => {
-        if (p.projectid === id) {
+        if (p.projectid == id) {
           fromColumnIdx = i;
           project = p;
         }
@@ -157,7 +187,7 @@ export default () => {
       if (i === fromColumnIdx) {
         return {
           ...c,
-          projects: c.projects.filter((p: any) => p.projectid !== id)
+          projects: c.projects.filter((p: any) => p.projectid != id)
         }
       }
       if (i === columnIdx) {
@@ -168,18 +198,17 @@ export default () => {
       }
       return c;
     })
-    WsService.sendUpdate('work-request', newColumns);
+    WsService.sendUpdate(newColumns);
     setColumns(newColumns);
   }
 
   const onSelect = (value: any) => {
-    console.log('Selected:', value);
-    setSelected(value);
+    setLocality(value);
   };
 
   useEffect(() => {
-    console.log('year, selected', year, selected)
-  }, [year, selected])
+    console.log('year, locality', year, locality)
+  }, [year, locality])
 
   return <>
     <Layout>
@@ -207,7 +236,7 @@ export default () => {
                       <AutoComplete
                         className={'ant-select-1'}
                         dataSource={dataAutocomplete}
-                        placeholder={selected}
+                        placeholder={locality}
                         filterOption={(inputValue, option: any) => {
                           if (dataAutocomplete.includes(inputValue)) {
                             return true;
@@ -215,9 +244,9 @@ export default () => {
                           return option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
                         }}
                         onSelect={onSelect}
-                        value={selected}
+                        value={locality}
                         onSearch={(input2: any) => {
-                          setSelected(input2)
+                          setLocality(input2)
                         }}
                         >
                         <Input suffix={<Icon type="down" className="certain-category-icon" />} />
@@ -227,6 +256,7 @@ export default () => {
                   <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{textAlign:'right'}}>
                     <Select
                       defaultValue={year}
+                      onChange={(y: any) => setYear(y)}
                       className={'ant-select-2'}>
                       {
                         years.map((y, i) => (
