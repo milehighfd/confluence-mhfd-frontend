@@ -48,7 +48,7 @@ const genExtra05 = () => (
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>Independent Component</Col>
     <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>Aurora</Col>
     <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Final Design</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>$450,200</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }} >$4500{}</Col>
   </Row>
 );
 const genTitleNoAvailable = (groups:any) => {
@@ -74,32 +74,39 @@ const genTitleProblem = (problem: any) => (
     <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>{problem.cost}</Col>
   </Row>
 )
-const unnamedComponent = () => {
+const unnamedComponent = (Component: any) => {
+  const apllyType = (e: any) =>{
+    Component.type = e;
+  };
+  const apllyStatus = (e: any) =>{
+    Component.status = e;
+  };
+  const apllyOriginal_Cost = (e: any) =>{
+    Component.status = e;
+  };
   return (
-    <Collapse
-        defaultActiveKey={['1']}
-        expandIconPosition="right"
-      >
-      <Panel header="" key="5" extra={genExtra05()}>
-        <div className="tab-body-project">
-          <Timeline>
-            <Timeline.Item color="green">
-              <Row style={{marginLeft:'-18px'}}>
-                <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label><Input placeholder="Unnamed Component"  /></label></Col>
-                <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed" /></Col>
-                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}><Input placeholder="$200,000" /></Col>
-                <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
-              </Row>
-            </Timeline.Item>
-          </Timeline>
-        </div>
-      </Panel>
-    </Collapse>
+    <div className="tab-body-project">
+      <Timeline>
+        <Timeline.Item color="green">
+          <Row style={{marginLeft:'-18px'}}>
+            <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onChange={(e) => apllyType(e)} ><label><Input placeholder="Unnamed Component"  /></label></Col>
+            <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} onChange={(e) => apllyStatus(e)}><Input placeholder="Proposed" /></Col>
+            <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} onChange={(e) => apllyOriginal_Cost(e)}><Input placeholder="$200,000" /></Col>
+            <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+          </Row>
+        </Timeline.Item>
+      </Timeline>
+    </div>
   )
 }
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function}) => {
-
+  let Component = {
+    type:"Unnamend Component",
+    status:"Proposed",
+    original_cost:0,
+  };
+  const [independentComponent, setIndependentComponent] =  useState([]);
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon} = useProjectState();
   const [state, setState] = useState(stateValue);
@@ -120,7 +127,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [geom, setGeom] = useState();
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
-
+  const [ visibleUnnamedComponent, steVisibleUnnamedComponent ] = useState(false)
 
   useEffect(()=>{
     console.log("COMPONENTS FROM MAPS", componentsFromMap);
@@ -225,8 +232,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[isDraw]);
   const applyIndependentComponent = () => {
+    steVisibleUnnamedComponent(true);
     let newObjects = [];
-    newObjects.push(unnamedComponent());
+    newObjects.push(unnamedComponent(Component));
     setPanelUnnamedComponent([...panelUnnamedComponent, ...newObjects])
   }
   const removeComponent = (component: any) => {
@@ -381,9 +389,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               })
               }
             </Collapse>
-
-              {panelUnnamedComponent}
-
+            <Collapse
+              defaultActiveKey={['1']}
+              expandIconPosition="right"
+            >
+                {visibleUnnamedComponent &&
+                <Panel header="" key="5" extra={genExtra05()}>
+                  {panelUnnamedComponent}
+                </Panel>
+              }
+            </Collapse>
             <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button>
 
             <Row className="cost-project">

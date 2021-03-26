@@ -11,8 +11,7 @@ import { Redirect } from "react-router-dom";
 import { Layout, Row, Col, Button, message, Spin } from 'antd';
 import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
 import { useMapState } from '../hook/mapHook';
-import { useProjectState} from '../hook/projectHook';
-import { setSave } from '../store/actions/ProjectActions';
+import { useProjectDispatch, useProjectState} from '../hook/projectHook';
 import { AlertViewSave } from '../Components/Alerts/AlertViewSave';
 
 export default function (WrappedComponent : any, layers : MapLayersType) {
@@ -110,6 +109,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         const {status} = useProjectState(); 
         const [visibleSave, setVisibleSave] = useState(false);
         const [statusSave, setStatusSave] = useState(2);
+        const {setSave} = useProjectDispatch();
         useEffect(()=>{
           console.log(status,"status++++")
           if(status === 1 || status ===0){
