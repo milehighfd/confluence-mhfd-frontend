@@ -11,6 +11,9 @@ import { Redirect } from "react-router-dom";
 import { Layout, Row, Col, Button, message, Spin } from 'antd';
 import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
 import { useMapState } from '../hook/mapHook';
+import { useProjectState} from '../hook/projectHook';
+import { setSave } from '../store/actions/ProjectActions';
+import { AlertViewSave } from '../Components/Alerts/AlertViewSave';
 
 export default function (WrappedComponent : any, layers : MapLayersType) {
     return ({ problems,
@@ -104,8 +107,20 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         const [spinValue, setSpinValue] = useState(true);
         const [isExtendedView, setCompleteView] = useState(false);
         const { tutorialStatus } =useMapState();
+        const {status} = useProjectState(); 
+        const [visibleSave, setVisibleSave] = useState(false);
+        const [statusSave, setStatusSave] = useState(2);
+        useEffect(()=>{
+          console.log(status,"status++++")
+          if(status === 1 || status ===0){
+            setStatusSave(status);
+            setVisibleSave(true);
+            setSave(2);
+          };
+        },[status]);
+        
         let markerRef = useRef<HTMLDivElement>(null);
-        let polygonRef = useRef<HTMLDivElement>(null);
+        let polygonRef = useRef<HTMLDivElement>(null); 
         useEffect(() => {
           getProjectWithFilters();
         }, [getProjectWithFilters]);
@@ -162,8 +177,18 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         return (
             <Layout>
             <Navbar/>
+            
+               
             <Layout>
               <SidebarView></SidebarView>
+              {/*mostrar*/}
+            {visibleSave && 
+              <AlertViewSave
+                statusSave= {statusSave}
+                setStatusSave= {setStatusSave}
+                setVisibleSave= {setVisibleSave}
+              />
+            }
               <Layout className="map-00">
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>

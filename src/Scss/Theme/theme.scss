@@ -326,6 +326,9 @@ body{
   .ant-alert-error {
     background-color: #fb3740;
     text-align: center;
+    position: absolute;
+    z-index: 500;
+    width: 100%;
   }
   .ant-alert-message {
     color: $white;
@@ -340,6 +343,9 @@ body{
   .ant-alert-success {
     background-color: $green;
     text-align: center;
+    position: absolute;
+    z-index: 500;
+    width: 100%;
   }
 }
 .modal-confirm{

@@ -20,33 +20,20 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = ({visible, setVisible, data}: 
+export const ModalProjectView = ({visible, setVisible, data }: 
   {visible: boolean, setVisible: Function, data: any}) => {
   const {setSave} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
   const [disable, setDisable] = useState(true);
   const [nameProject, setNameProject] = useState('');
-  const [status, setStatus] = useState(2);
-  const [statusSave, setStatusSave] = useState(2);
-  const [visibleSubType, setVisibleSubType] = useState(false);
+ const [visibleSubType, setVisibleSubType] = useState(false);
   const [visibleModal, setVisibleModal] = useState(visible)
   const [visibleCapital, setVisibleCapital] = useState(false);
   const [visibleAcquisition, setVisibleAcquisition] = useState(false);
   const [visibleMaintenance, setVisibleMaintenance] = useState(false);
   const [visibleSpecial, setVisibleSpecial] = useState(false);
   const [visibleStudy, setVisibleStudy] = useState(false);
-  const [visibleSave, setVisibleSave] = useState(false);
-
-  useEffect(()=>{
-    if(status != 2){
-      console.log(status,"status++++")
-      setStatusSave(status);
-      setVisibleSave(true);
-      setSave(2);
-      setStatus(2);
-    };
-  },[status]);
   const showModal = () => {
     setVisibleModal(true);
     setNameProject('');
@@ -93,6 +80,7 @@ export const ModalProjectView = ({visible, setVisible, data}:
   };
   const handleCancel = (e: any) => {
     setVisibleModal(false);
+    setVisible(false);
   };
   const chooseSubtypes = (e: any) => {
     setTypeProyect(e);
@@ -110,19 +98,13 @@ export const ModalProjectView = ({visible, setVisible, data}:
   };
   return (
     <>
-    {visibleSave && <AlertViewSave
-      statusSave= {statusSave}
-      setStatusSave= {setStatusSave}
-      setVisibleSave= {setVisibleSave}
-    />}
      {visibleCapital && <ModalCapital
       visibleCapital = {visibleCapital} 
       setVisibleCapital = {setVisibleCapital}
       nameProject = {nameProject}
       setNameProject = {setNameProject}
       typeProject = {typeProject}
-      status = {status}
-      setStatus = {setStatus}
+      setVisible = {setVisible}
      />}
      {visibleAcquisition && <ModalAcquisition
       visibleAcquisition = {visibleAcquisition} 
@@ -130,8 +112,7 @@ export const ModalProjectView = ({visible, setVisible, data}:
       nameProject = {nameProject}
       setNameProject = {setNameProject}
       typeProject = {typeProject}
-      status = {status}
-      setStatus = {setStatus}
+      setVisible = {setVisible}
      />}
      {visibleMaintenance && <ModalMaintenance
       visibleMaintenance = {visibleMaintenance} 
@@ -140,8 +121,7 @@ export const ModalProjectView = ({visible, setVisible, data}:
       setNameProject = {setNameProject}
       subType = {subType}
       typeProject = {typeProject}
-      status = {status}
-      setStatus = {setStatus}
+      setVisible = {setVisible}
      />}
      {visibleSpecial && <ModalSpecial
       visibleSpecial = {visibleSpecial} 
@@ -149,8 +129,7 @@ export const ModalProjectView = ({visible, setVisible, data}:
       nameProject = {nameProject}
       setNameProject = {setNameProject}
       typeProject = {typeProject}
-      status = {status}
-      setStatus = {setStatus}
+      setVisible = {setVisible}
      />}
      {visibleStudy && <ModalStudy
       visibleStudy = {visibleStudy} 
@@ -158,13 +137,12 @@ export const ModalProjectView = ({visible, setVisible, data}:
       nameProject = {nameProject}
       setNameProject = {setNameProject}
       typeProject = {typeProject}
-      status = {status}
-      setStatus = {setStatus}
+      setVisible = {setVisible}
      />}
      {/*<Button show modal */}
-     <Button type="primary" onClick={showModal}>
+     {/*<Button type="primary" onClick={showModal}>
        Open Modal
-     </Button>
+     </Button>*/}
      {visibleModal && <Modal
        title="Create Project"
        centered

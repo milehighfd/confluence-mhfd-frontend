@@ -34,8 +34,8 @@ const stateValue = {
   visibleSpecial: false
 }
 
-export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, status, setStatus}:
-  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, status:number, setStatus:Function}) => {
+export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible}:
+  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function}) => {
 
   const {saveProjectSpecial} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
@@ -63,19 +63,14 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.servicearea = serviceArea;
       special.files = files;
       saveProjectSpecial(special);
+      setVisibleSpecial(false);
+      setVisible(false);
     };
   },[save]);
 
   const projectReturn = useSelector((state:any)=>({
     state
   }));
-
-  useEffect(()=>{
-    if(projectReturn.state.project.status != 2){
-      setStatus(projectReturn.state.project.status);
-      setVisibleSpecial(false);
-    }
-  },[projectReturn.state.project.status]);
 
   useEffect(()=>{
     if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
@@ -115,6 +110,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     const auxState = {...state};
     setVisibleSpecial (false);
     setState(auxState);
+    setVisible(false);
   };
 
   return (

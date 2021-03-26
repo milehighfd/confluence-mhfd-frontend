@@ -97,8 +97,8 @@ const unnamedComponent = () => {
     </Collapse>
   )
 }
-export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject,status, setStatus}:
-  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, status: number, setStatus:Function}) => {
+export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible}:
+  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function}) => {
 
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon} = useProjectState();
@@ -161,19 +161,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       console.log(capital,"****+++CAPITAL******")
       saveProjectCapital(capital);
       setVisibleCapital(false);
+      setVisible(false);
     }
   },[save]);
 
   const projectReturn = useSelector((state:any)=>({
     state
   }));
-
-  useEffect(()=>{
-    if(projectReturn.state.project.status != 2){
-      setStatus(projectReturn.state.project.status);
-      setVisibleCapital(false);
-    }
-  },[projectReturn.state.project.status]);
 
   useEffect(()=>{
     if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
@@ -216,6 +210,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     const auxState = {...state};
     setVisibleCapital (false);
     setState(auxState);
+    setVisible(false);
   };
 
   const onClickDraw = () => {

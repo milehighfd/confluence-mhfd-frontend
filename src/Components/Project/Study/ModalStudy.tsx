@@ -44,8 +44,8 @@ const genTitle = (streamName: any) => (
   </div>
 )
 
-export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, status, setStatus}:
-  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, status:number, setStatus: Function }) => {
+export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible}:
+  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function }) => {
   const {saveProjectStudy} = useProjectDispatch();
   const {listStreams} = useProjectState();
   const [state, setState] = useState(stateValue);
@@ -85,19 +85,14 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.files = files;
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
+      setVisibleStudy(false);
+      setVisible(false);
     }
   },[save]);
 
   const projectReturn = useSelector((state:any)=>({
     state
   }));
-
-  useEffect(()=>{
-    if(projectReturn.state.project.status != 2){
-      setStatus(projectReturn.state.project.status);
-      setVisibleStudy(false);
-    }
-  },[projectReturn.state.project.status]);
 
   useEffect(()=>{
     setIds(projectReturn.state.project.streamsIntersectedIds);
@@ -142,6 +137,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     const auxState = {...state};
     setVisibleStudy (false);
     setState(auxState);
+    setVisible(false);
   };
 
   const onClickDraw = () => {

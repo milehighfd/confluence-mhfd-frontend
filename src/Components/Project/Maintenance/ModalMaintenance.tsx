@@ -32,8 +32,8 @@ const stateValue = {
   visibleMaintenance: false
 }
 
-export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject,status, setStatus}:
-  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, status:number, setStatus:Function }) => {
+export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible}:
+  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function }) => {
 
   const {userPolygon} = useProjectState();
   const {saveProjectMaintenance} = useProjectDispatch();
@@ -75,19 +75,14 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.files = files;
       console.log(maintenance,"****++MAINTENANCE******")
       saveProjectMaintenance(maintenance);
+      setVisibleMaintenance(false);
+      setVisible(false);
     }
   },[save]);
 
   const projectReturn = useSelector((state:any)=>({
     state
   }));
-
-  useEffect(()=>{
-    if(projectReturn.state.project.status != 2){
-      setStatus(projectReturn.state.project.status);
-      setVisibleMaintenance(false);
-    }
-  },[projectReturn.state.project.status]);
 
   useEffect(()=>{
      setGeom(projectReturn.state.project.userPolygon);
@@ -152,6 +147,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     const auxState = {...state};
     setVisibleMaintenance(false);
     setState(auxState);
+    setVisible(false);
   };
 
   const onClickDraw = () => {

@@ -34,8 +34,8 @@ const stateValue = {
   visibleAcqui: false,
 }
 
-export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, status, setStatus}:
-  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, status:number, setStatus:Function} ) => {
+export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible}:
+  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function} ) => {
 
   const {saveProjectAcquisition} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
@@ -68,19 +68,14 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       acquisition.acquisitionanticipateddate = purchaseDate;
       acquisition.files = files;
       saveProjectAcquisition(acquisition);
-
+      setVisibleAcquisition(false);
+      setVisible(false);
     }
   },[save]);
   const projectReturn = useSelector((state:any)=>({
     state
   }));
 
-  useEffect(()=>{
-    if(projectReturn.state.project.status != 2){
-      setStatus(projectReturn.state.project.status);
-      setVisibleAcquisition(false);
-    }
-  },[projectReturn.state.project.status]);
   useEffect(()=>{
     if(geom != undefined && description != '' && county != '' && serviceArea != '' && progress != '' && purchaseDate != '' ){
       setDisable(false);
@@ -120,6 +115,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
     const auxState = {...state};
     setVisibleAcquisition(false);
     setState(auxState);
+    setVisible(false);
   };
 
   return (

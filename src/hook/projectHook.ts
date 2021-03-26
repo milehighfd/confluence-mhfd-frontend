@@ -17,6 +17,7 @@ interface selectProjectState {
   listStreams: any,
   userPolygon: any,
   componentsFromMap: any
+  status: number 
 }
 
 let createSelectorHack: any = createSelector;
@@ -34,8 +35,9 @@ createSelectorHack(
   (state: any) => state.project.listStreams,
   (state: any) => state.project.userPolygon,
   (state: any) => state.project.componentsFromMap, 
-  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any, listStreams: any, userPolygon: any, componentsFromMap: any) => ({
-    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty, listStreams, userPolygon, componentsFromMap
+  (state: any) => state.project.status,
+  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any, listStreams: any, userPolygon: any, componentsFromMap: any, status: number) => ({
+    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty, listStreams, userPolygon, componentsFromMap, status
   })
 );
 
@@ -121,6 +123,6 @@ export const useProjectDispatch = () => {
       },
       setComponentsFromMap: (componentsFromMap: any) => {
         dispatch(setComponentsFromMap(componentsFromMap));
-      }
+      }    
    }
 }
