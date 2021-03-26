@@ -328,7 +328,7 @@ body{
     text-align: center;
     position: absolute;
     z-index: 500;
-    width: 100%;
+    width: calc(100% - 58px);
   }
   .ant-alert-message {
     color: $white;
@@ -345,7 +345,7 @@ body{
     text-align: center;
     position: absolute;
     z-index: 500;
-    width: 100%;
+    width: calc(100% - 58px);
   }
 }
 .modal-confirm{
