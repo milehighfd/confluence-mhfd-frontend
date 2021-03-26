@@ -96,7 +96,9 @@ const generateColumns = (projects: projectType[], year: number, tabKey: string) 
   });
 
   projects.forEach((project) => {
-    columns[project.column].projects.push(project.project);
+    if (project.project) {
+      columns[project.column].projects.push(project.project);
+    }
   })
   return columns;
 }
