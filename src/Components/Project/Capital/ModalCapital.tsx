@@ -275,12 +275,19 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     
   }
   const getSubTotalCost = () => {
-    let subtotalcost = overheadCosts.reduce((a:any, b:any) => a + b, 0);
+    let subtotalcost = 0;
+    if(listComponents && listComponents.result) {
+      let totalcomponents = listComponents.result;
+      for( let component of totalcomponents) {
+        subtotalcost += component.original_cost;
+      }
+    }
     return subtotalcost;
   }
-  useEffect(()=>{
-    console.log("CHANGE",overheadCosts);
-  },[overheadCosts]);
+  const getOverheadCost = () => {
+    let overheadcost = overheadCosts.reduce((a:any, b:any) => a + b, 0);
+    return overheadcost;
+  }
   return (
     <>
     {visibleAlert && <AlertView
@@ -479,7 +486,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   <Option value="95">95%</Option>
                 </Select> */}
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(getSubTotalCost())}</Col>
+              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(getOverheadCost())}</Col>
             </Row>
 
             <Timeline className="sub-project" style={{marginTop:'10px'}}>
