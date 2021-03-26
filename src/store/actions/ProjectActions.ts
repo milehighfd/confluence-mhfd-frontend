@@ -284,8 +284,9 @@ export const getStreamsByComponentsList = (components: any) => {
 
 export const getAllComponentsByProblemId = (problemId: any) => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.GET_COMPONENTS_BY_PROBLEMID+'?problemid='+problemId, datasets.getToken()).then(listComponents => {
-      dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
+    datasets.getData(SERVER.GET_COMPONENTS_BY_PROBLEMID+'?problemid='+problemId, datasets.getToken()).then(componentsFromMap => {
+      console.log("BY PROB",componentsFromMap);
+      dispatch({type: types.SET_COMPONENTS_MAP, componentsFromMap: componentsFromMap.result});
     });
   }
 }

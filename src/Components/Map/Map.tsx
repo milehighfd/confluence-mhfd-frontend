@@ -142,7 +142,7 @@ const Map = ({ leftWidth,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
     setSelectedPopup} = useMapDispatch();
-    const {setComponentsFromMap} = useProjectDispatch();
+    const {setComponentsFromMap, getAllComponentsByProblemId} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -1815,6 +1815,7 @@ const Map = ({ leftWidth,
                 problemid: details.problemid
             });
         }
+        console.log("DETAILS", details);
         if(details.layer === 'Components') {
           let newComponents = [{
             cartodb_id: details.cartodb_id?details.cartodb_id:'',
@@ -1826,7 +1827,9 @@ const Map = ({ leftWidth,
             type: details.type?details.type:''
           }];
           setComponentsFromMap(newComponents);
-        } else {
+        } else if (details.type === 'problems') {
+          getAllComponentsByProblemId(details.problemid);
+        }else {
           setComponentsFromMap([]);
         }
         console.log('cosito ', details);

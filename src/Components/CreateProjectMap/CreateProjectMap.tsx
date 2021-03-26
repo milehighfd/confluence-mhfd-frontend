@@ -44,7 +44,7 @@ import { Input, AutoComplete } from 'antd';
 import { containsNumber } from "@turf/turf";
 import { getFeaturesIntersected, getHull } from './utilsService';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { AnyCnameRecord } from "dns";
+import { AnyCnameRecord, AnyAaaaRecord } from "dns";
 let map: any;
 let coordX = -1;
 let coordY = -1;
@@ -186,32 +186,38 @@ const CreateProjectMap = (type: any) => {
   }, [isDraw]);
   useEffect(() => {
     console.log("IS REACHING INTERSECTION", streamIntersected);
-    let geom = undefined;
+    let geom: any = undefined;
     if (streamIntersected && streamIntersected.geom) {
       geom = JSON.parse(streamIntersected.geom);
-      if (map && map.map.isStyleLoaded() && geom) {
-        map.removeLayer('streamIntersected');
-        map.removeSource('streamIntersected');
-        if (!map.map.getSource('streamIntersected')) {
-          map.map.addSource('streamIntersected', {
-            'type': 'geojson',
-            'data': { type: 'Feature', geometry: geom, properties: [] }
-          });
-        }
-        if (!map.getLayer('streamIntersected')) {
-          map.map.addLayer({
-            'id': 'streamIntersected',
-            'type': 'line',
-            'source': 'streamIntersected',
-            'layout': {},
-            'paint': {
-              'line-color': '#eae320',
-              'line-width': 3.5,
-            }
-          });
-        }
+      console.log("WHAT", geom);
+      if(geom) {
+        map.isStyleLoaded(() => {
+          map.removeLayer('streamIntersected');
+          map.removeSource('streamIntersected');
+          if (!map.map.getSource('streamIntersected')) {
+            map.map.addSource('streamIntersected', {
+              'type': 'geojson',
+              'data': { type: 'Feature', geometry: geom, properties: [] }
+            });
+          }
+          if (!map.getLayer('streamIntersected')) {
+            map.map.addLayer({
+              'id': 'streamIntersected',
+              'type': 'line',
+              'source': 'streamIntersected',
+              'layout': {},
+              'paint': {
+                'line-color': '#eae320',
+                'line-width': 3.5,
+              }
+            });
+          }
+  
+        });
       }
+    
     } else {
+      console.log("ELSE ");
       if (map && map.map.isStyleLoaded() ) {
         map.removeLayer('streamIntersected');
         map.removeSource('streamIntersected');
