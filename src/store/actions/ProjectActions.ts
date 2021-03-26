@@ -20,8 +20,8 @@ export const saveSpecial = (data: any) => {
         formData.append(key, data[key]);
       }
     })
-    console.log("S F D ", formData);
     datasets.postDataMultipart(SERVER.CREATE_SPECIAL, formData, datasets.getToken()).then(res => {
+    // datasets.postDataMultipart('http://localhost:3003/create/special', formData, datasets.getToken()).then(res => {
       let status ; 
       if(res.total_rows > 0){
         status = 1;
