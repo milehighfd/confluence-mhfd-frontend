@@ -112,6 +112,15 @@ export default () => {
   const [year, setYear] = useState<any>(years[0]);
   const [tabKey, setTabKey] = useState<string>(tabKeys[0]);
   const [namespaceId, setNamespaceId] = useState<string>('');
+  const [dataProblem, setDataProblem] = useState({
+    problemid: '',
+    id: '',
+    objectid: '',
+    value: '',
+    type: '',
+    cartoid: ''
+  });
+  const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
 
   const [columns, setColumns] = useState([
     {
@@ -251,11 +260,25 @@ export default () => {
     setLocality(value);
   };
 
+  const onClickNewProject = () => {
+    setVisibleCreateProject(true);
+  }
+
   useEffect(() => {
     console.log('year, locality', year, locality)
   }, [year, locality])
 
   return <>
+    <div>
+      {
+        visibleCreateProject &&
+        <ModalProjectView
+          visible={visibleCreateProject}
+          setVisible={setVisibleCreateProject}
+          data={dataProblem}
+        />
+      }
+    </div>
     <Layout>
       <Navbar />
       <Layout>
@@ -341,7 +364,13 @@ export default () => {
                               <div className="container-drag">
                                 <h3>{column.title}</h3>
                                 <div className="col-wr droppable" onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx, 'complete')}>
-                                  {column.hasCreateOption && <ModalProjectView visible={false} setVisible={() => {}} data={{}} />}
+                                  {
+                                    column.hasCreateOption &&
+                                    <Button className="btn-transparent" onClick={onClickNewProject} >
+                                      <img src="/Icons/icon-18.svg" alt=""/>
+                                      Create Project
+                                    </Button>
+                                  }
                                   {
                                     column.projects.map((p) => (
                                       generateCard(p)
