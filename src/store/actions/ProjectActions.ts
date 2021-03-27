@@ -48,6 +48,7 @@ export const saveAcquisition = (data: any) => {
       }
     });
     console.log("A F D ", formData);
+    // datasets.postDataMultipart('http://localhost:3003/create/acquisition', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.CREATE_ACQUISITION, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res.total_rows > 0){
@@ -74,6 +75,7 @@ export const saveCapital = (data: any) => {
         formData.append(key, data[key]);
       }
     })
+    // datasets.postDataMultipart('http://localhost:3003/create/capital', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.CREATE_CAPITAL, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
@@ -101,6 +103,7 @@ export const saveMaintenance = (data: any) => {
         formData.append(key, data[key]);
       }
     })
+    // datasets.postDataMultipart('http://localhost:3003/create/maintenance', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.CREATE_MAINTENANCE, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
@@ -128,6 +131,7 @@ export const saveStudy = (data: any) => {
         formData.append(key, data[key]);
       }
     })
+    // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.CREATE_STUDY, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
