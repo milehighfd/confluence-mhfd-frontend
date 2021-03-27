@@ -197,14 +197,14 @@ export default () => {
       projectname,
       price,
       jurisdiction,
-      state
+      status
     } = project;
     return (
       <div className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable onDragStart={e => onDragStart(e, projectid)}>
         <h4>{projectname}</h4>
         <h6>{price}</h6>
         <label className="purple">{jurisdiction}</label>
-        <label className="yellow">{state}</label>
+        <label className="yellow">{status}</label>
         <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
           <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
         </Popover>
@@ -265,8 +265,31 @@ export default () => {
   }
 
   useEffect(() => {
-    console.log('year, locality', year, locality)
-  }, [year, locality])
+    const interval = setInterval(() => {
+      let data = {
+        type,
+        year: `${year}`,
+        locality,
+        projecttype: tabKey
+      }
+      postData(`${SERVER.URL_BASE}/board/`, data)
+      // postData(`${'http://localhost:3003'}/board/`, data)
+        .then(
+          (r: any) => {
+            let { board, projects } = r;
+            if (board) {
+              setNamespaceId(board._id)
+              let cols = generateColumns(projects, year, tabKey);
+              setColumns(cols);
+            }
+          },
+          (e) => {
+            console.log('e', e);
+          }
+        )
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [namespaceId]);
 
   return <>
     <div>
