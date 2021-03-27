@@ -289,6 +289,7 @@ const CreateProjectMap = (type: any) => {
     } else if (type.type === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
+      type.setGeom(userPolygon.geometry);
       getStreamsIntersectedPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry);
     }
