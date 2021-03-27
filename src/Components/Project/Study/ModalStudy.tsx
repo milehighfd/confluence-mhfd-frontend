@@ -65,6 +65,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [ids, setIds] = useState();
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
+  const [geom, setGeom] = useState<any>('');
 
   useEffect(()=>{
     console.log("WE GET LIST STREAMS", listStreams);
@@ -83,6 +84,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.cosponsor = cosponsor;
       study.ids = ids;
       study.files = files;
+      study.geom = geom;
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
       setVisibleStudy(false);
@@ -190,7 +192,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="STUDY"></CreateProjectMap>
+          <CreateProjectMap type="STUDY" setGeom={setGeom}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">
