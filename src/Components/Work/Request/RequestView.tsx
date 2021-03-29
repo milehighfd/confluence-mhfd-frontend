@@ -299,6 +299,7 @@ export default () => {
           visible={visibleCreateProject}
           setVisible={setVisibleCreateProject}
           data={dataProblem}
+          defaultTab={tabKey}
         />
       }
     </div>
