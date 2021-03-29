@@ -9,7 +9,11 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { Project } from "../../../Classes/Project";
-
+import {
+  PROBLEMS_TRIGGER,
+  XSTREAMS,
+  MHFD_BOUNDARY_FILTERS,
+} from "../../../constants/constants";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -46,7 +50,7 @@ const genTitle = (streamName: any) => (
 
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function }) => {
-  const {saveProjectStudy} = useProjectDispatch();
+  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers} = useProjectDispatch();
   const {listStreams} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -57,7 +61,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [isDraw, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
   const [files, setFiles] = useState<any[]>([]);
-  const [streamsList, setStreamsList] = useState<any>([]);
+  const [streamsList, setThisStreamsList] = useState<any>([]);
  const [sponsor, setSponsor] = useState('x');
  const [cosponsor, setCosponsor] = useState('x');
   const [county, setCounty] = useState('');
@@ -69,9 +73,14 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [keys, setKeys] = useState<any>([]);
 
   useEffect(()=>{
-    console.log("WE GET LIST STREAMS", listStreams);
+    setStreamsList([]);
+    setStreamIntersected({geom:null});
+    updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS ]);
+  },[]);
+  useEffect(()=>{
+    console.log("LIST STREAMS", listStreams);
     if(listStreams) {
-      setStreamsList(listStreams);
+      setThisStreamsList(listStreams);
     }
   },[listStreams]);
   useEffect(()=>{
@@ -166,8 +175,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
         }
       }
     }
-    total = Math.round(total * 100) / 100
-    return total;
+    total = Math.round(total);
+    return formatter.format(total);
   }
   const getTotalDreinage = () => {
     let total = 0;
@@ -179,8 +188,16 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
         }
       }
     }
-    total = Math.round(total * 100) / 100
-    return total;
+    total = Math.round(total);
+    return formatter.format(total);
+  }
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
+  const removeStream = (stream:any) => {
+    console.log("WHAT IAM REMOVING?", stream);
   }
   useEffect(()=>{
     changeDrawState(isDraw);
@@ -305,9 +322,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                                 <Timeline.Item color="green">
                                   <Row style={{marginLeft:'-18px'}}>
                                     <Col className="first" xs={{ span: 24 }} lg={{ span: 11}} xxl={{ span: 15 }}><label>{stream.jurisdiction}</label></Col>
-                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{Math.round(stream.length)}</Col>
-                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 7}} xxl={{ span: 3 }}>{stream.drainage}</Col>
-                                    <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
+                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{ formatter.format(Math.round(stream.length))}</Col>
+                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 7}} xxl={{ span: 3 }}>{ formatter.format(stream.drainage)}</Col>
+                                    <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={()=> removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                   </Row>
                                 </Timeline.Item>
                               );

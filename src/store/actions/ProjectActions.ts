@@ -306,3 +306,8 @@ export const setComponentsFromMap = (componentsFromMap: any) => {
     dispatch({type: types.SET_COMPONENTS_MAP, componentsFromMap});
   }
 }
+export const updateSelectedLayers = (selectedLayer: any) => {
+  return (dispatch : Function) => {
+      dispatch({ type: types.SELECTED_LAYERS, selectedLayer });
+  }
+}

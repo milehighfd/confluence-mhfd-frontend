@@ -37,7 +37,7 @@ const stateValue = {
 export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible}:
   {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function} ) => {
 
-  const {saveProjectAcquisition} = useProjectDispatch();
+  const {saveProjectAcquisition, setStreamIntersected} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -82,6 +82,11 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
     }
   },[geom, description, county, serviceArea,progress,purchaseDate]);
 
+
+  useEffect(()=>{
+    setStreamIntersected({geom:null});
+  },[]);
+  
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
     /*if(name===true){

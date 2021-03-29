@@ -63,11 +63,11 @@ const CreateProjectMap = (type: any) => {
   const [isExtendedView, setCompleteView] = useState(false);
   let controller = false;
   const user = store.getState().profile.userInformation;
-  const { layers, selectedLayers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
+  const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
-  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, updateSelectedLayers } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents } = useProjectState();
+  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected, updateSelectedLayers } = useProjectDispatch();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers } = useProjectState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -154,7 +154,6 @@ const CreateProjectMap = (type: any) => {
       map.map.off('click',eventToAddMarker);
       isPopup = true;
       // map.map.on('click', eventToClick);
-      console.log("SUPOSABLY REMOVING", marker);
       map.removePopUpOffset();
       marker.remove();
       marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
@@ -185,11 +184,9 @@ const CreateProjectMap = (type: any) => {
     }
   }, [isDraw]);
   useEffect(() => {
-    console.log("IS REACHING INTERSECTION", streamIntersected);
     let geom: any = undefined;
     if (streamIntersected && streamIntersected.geom) {
       geom = JSON.parse(streamIntersected.geom);
-      console.log("WHAT", geom);
       if(geom) {
         map.isStyleLoaded(() => {
           map.removeLayer('streamIntersected');
@@ -217,7 +214,6 @@ const CreateProjectMap = (type: any) => {
       }
     
     } else {
-      console.log("ELSE ");
       if (map && map.map.isStyleLoaded() ) {
         map.removeLayer('streamIntersected');
         map.removeSource('streamIntersected');
@@ -269,14 +265,20 @@ const CreateProjectMap = (type: any) => {
   }, [map])
 
   useEffect(() => {
-    if (map && map.map.isStyleLoaded()) {
-      applyMapLayers();
+    console.log("SELEC", selectedLayers);
+    if (map ) {
+      map.isStyleLoaded(applyMapLayers);
     }
+    
 
   }, [selectedLayers]);
   const setLayersSelectedOnInit = () => {
     if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
       updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS, COMPONENT_LAYERS]);
+    } else if( type.type == 'STUDY') {
+      updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS ]);
+    } else {
+      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
     }
   }
   const onCreateDraw = (event: any) => {
@@ -342,6 +344,7 @@ const CreateProjectMap = (type: any) => {
 
   }
   const applyMapLayers = async () => {
+    console.log("IT REACHES HERER?");
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
         if (layer.tiles) {
@@ -374,7 +377,7 @@ const CreateProjectMap = (type: any) => {
     } else {
       filterProjectsNew.projecttype = "Maintenance,Capital";
     }
-    console.log("Filters ", filterProjects, filterProjectsNew);
+    // console.log("Filters ", filterProjects, filterProjectsNew);
     applyFilters('mhfd_projects', filterProjectsNew);
     if (type.type === "CAPITAL") {
       applyComponentFilter();

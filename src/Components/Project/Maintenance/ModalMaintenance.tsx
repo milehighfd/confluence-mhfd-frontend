@@ -36,7 +36,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function }) => {
 
   const {userPolygon} = useProjectState();
-  const {saveProjectMaintenance} = useProjectDispatch();
+  const {saveProjectMaintenance, setStreamIntersected} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -106,6 +106,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal ){
     setVisibleEligibility(true);
     }
+    setStreamIntersected({geom:null});
   },[])
 
   const apllyFrequency = (e: any)=>{

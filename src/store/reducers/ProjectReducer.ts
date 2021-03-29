@@ -1,6 +1,7 @@
 import { SET_LIST_COMPONENTS } from './../types/ProjectTypes';
 import { getStreamIntersection } from './../actions/ProjectActions';
 import * as types from '../types/ProjectTypes';
+import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS, XSTREAMS } from '../../constants/constants';
 
 const initState = {
   specialLocation: [],
@@ -14,7 +15,8 @@ const initState = {
   listComponents: [],
   currentServiceAreaCounty: {},
   listStreams: [],
-  componentsFromMap: []
+  componentsFromMap: [],
+  selectedLayers: [PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS],
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -92,6 +94,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         componentsFromMap: action.componentsFromMap
+      }
+    }
+    case types.SELECTED_LAYERS: {
+      return {
+          ...state,
+          selectedLayers: action.selectedLayer
       }
     }
     default: 

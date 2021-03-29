@@ -43,12 +43,12 @@ const genExtra = () => (
     <Col xs={{ span: 24 }} lg={{ span: 3}} xxl={{ span: 4 }}>$450,200</Col>
   </Row>
 );
-const genExtra05 = () => (
+const genExtra05 = (totalIndependentComp: any) => (
   <Row className="tab-head-project">
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>Independent Component</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>Aurora</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Final Design</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }} >$4500{}</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}></Col>
+    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
+    <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }} >{formatter.format(totalIndependentComp)}</Col>
   </Row>
 );
 const genTitleNoAvailable = (groups:any) => {
@@ -112,7 +112,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon} = useProjectDispatch();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -146,6 +146,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setComponentIntersected([]);
     }
     setOverheadCosts([0,0,0,0,0,0,0,0,0]);
+    setStreamIntersected({geom:null});
   },[]);
   useEffect(()=>{
     setGeom(userPolygon);
@@ -285,8 +286,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   const changeValue = (e:any, index:any) => {
     let newoverhead = [...overheadCosts];
-    newoverhead[index] = (e*getTotal())/100;
-    console.log("ovner",newoverhead);
+    newoverhead[index] = (e*getSubTotalCost())/100;
+    // console.log("ovner",newoverhead);
     setOverheadCosts(newoverhead);
     
   }
@@ -296,6 +297,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       let totalcomponents = listComponents.result;
       for( let component of totalcomponents) {
         subtotalcost += component.original_cost;
+      }
+    }
+    if(independentComponents.length > 0) {
+      for( let comp of independentComponents) {
+        subtotalcost += parseFloat(comp.original_cost) ;
       }
     }
     return subtotalcost;
@@ -319,6 +325,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     let currentComponents = [...independentComponents];
     currentComponents = currentComponents.filter( (comp: any) => ( comp.id != indComp.id ) );
     setIndependentComponents([...currentComponents]);
+  }
+  
+  const getTotalIndComp = () => {
+    let total = 0;
+    if(independentComponents.length > 0) {
+      for( let comp of independentComponents) {
+        total += parseFloat(comp.original_cost) ;
+      }
+    }
+    return total;
   }
   return (
     <>
@@ -453,7 +469,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               expandIconPosition="right"
             >
                 {visibleUnnamedComponent &&
-                <Panel header="" key="Unnamed Component" extra={genExtra05()}>
+                <Panel header="" key="5" extra={genExtra05(getTotalIndComp())}>
                   {
                     independentComponents.map((indComp:any) => {
                       return (

@@ -20,8 +20,8 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = ({visible, setVisible, data, template }: 
-  {visible: boolean, setVisible: Function, data: any, template?: any}) => {
+export const ModalProjectView = ({visible, setVisible, data, template, defaultTab }: 
+  {visible: boolean, setVisible: Function, data: any, template?: any, defaultTab?: any}) => {
   const {setSave} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
@@ -96,6 +96,11 @@ export const ModalProjectView = ({visible, setVisible, data, template }:
       setSubType('')
     }
   };
+  useEffect(()=>{
+    if(defaultTab) {
+      setTypeProyect(defaultTab);
+    }
+  },[defaultTab]);
   return (
     <>
      {visibleCapital && <ModalCapital
