@@ -66,6 +66,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
   const [geom, setGeom] = useState<any>('');
+  const [keys, setKeys] = useState<any>([]);
 
   useEffect(()=>{
     console.log("WE GET LIST STREAMS", listStreams);
@@ -73,6 +74,15 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setStreamsList(listStreams);
     }
   },[listStreams]);
+  useEffect(()=>{
+    if(streamsList) {
+      let idKey = keys;
+      Object.keys(streamsList).map((key: any, id: any) => {
+        idKey.push(`${id}${key}`);
+        setKeys(idKey);
+      })
+    }
+  },[streamsList]);
   useEffect(()=>{
     if(save === true){
       var study = new Project();
@@ -175,7 +185,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   useEffect(()=>{
     changeDrawState(isDraw);
   },[isDraw]);
-
+  
   return (
     <>
     {visibleAlert && <AlertView
@@ -237,7 +247,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
             </Row>
             <Collapse
-              defaultActiveKey={['1']}
+              defaultActiveKey={keys}
+              activeKey={keys}
               expandIconPosition="right"
             >
               {/* <Panel header="" key="1" extra={genExtra()}>
@@ -285,7 +296,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               {
                 streamsList && Object.keys(streamsList).map((key: any, id: any) => {
                   return (
-                    <Panel header="" key={id+key} extra={genTitle(key)}>
+                    <Panel header="" key={`${id}${key}`} extra={genTitle(key)}>
                       <div className="tab-body-project">
                         <Timeline>
                           {
