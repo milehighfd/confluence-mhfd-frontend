@@ -113,9 +113,10 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   };
 
   const onChange = (e: any)=>{
-    if(name===true){
+    setNameProject(e.target.value);
+    /*if(name===true){
       setNameProject(e.target.value);
-    }
+    }*/
   };
   const apllyName = ()=>{
     if(name === true){
@@ -199,7 +200,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} disabled={disableName}/>
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} /*disabled={disableName}*//>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 {/*<Button className="btn-transparent">

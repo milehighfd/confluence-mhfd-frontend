@@ -116,9 +116,10 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   };
 
   const onChange = (e: any)=>{
-    if(name===true){
+    setNameProject(e.target.value);
+    /*if(name===true){
       setNameProject(e.target.value);
-    }
+    }*/
   };
   const apllyName = ()=>{
     if(name === true){
@@ -180,7 +181,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 14 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(nameProject) => onChange(nameProject)} size={5} placeholder={nameProject} disabled={disableName}/>
+                  <input type="text" value={nameProject} onChange={(nameProject) => onChange(nameProject)} size={5} placeholder={nameProject} /*disabled={disableName}*//>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 {/*<Button className="btn-transparent">

@@ -80,7 +80,7 @@ const genTitleProblem = (problem: any) => {
     </Row>
   ) 
   }
-const unnamedComponent = (Component: any) => {
+ const unnamedComponent = (Component: any) => {
     const apllyType = (e: any) =>{
       Component.type = e;
     };
@@ -201,9 +201,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[geom, description, county, serviceArea]);
 
   const onChange = (e: any)=>{
-    if(name===true){
+    setNameProject(e.target.value);
+    /*if(name===true){
       setNameProject(e.target.value);
-    }
+    }*/
   };
   const apllyName = ()=>{
     if(name === true){
@@ -334,7 +335,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} />
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} /*disabled={disableName}*//>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />*/}
                 {/*<Button className="btn-transparent">
