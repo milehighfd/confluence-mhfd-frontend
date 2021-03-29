@@ -112,7 +112,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const [independentComponent, setIndependentComponent] =  useState([]);
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon} = useProjectState();
   const [state, setState] = useState(stateValue);
@@ -133,8 +132,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [geom, setGeom] = useState();
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
-  const [ visibleUnnamedComponent, steVisibleUnnamedComponent ] = useState(false)
-
+  const [ visibleUnnamedComponent, setVisibleUnnamedComponent ] = useState(false)
+  const [ independentComponents, setIndependentComponents] = useState<any[]>([]);
   const [totalOverHeadCos, setTotalOverheadCost] = useState(0);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   useEffect(()=>{
@@ -250,24 +249,30 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setIsDraw(isDraw);
     }
   },[isDraw]);
+  useEffect(()=>{
+    if(independentComponents.length > 0 ){
+      setVisibleUnnamedComponent(true);
+    } else {
+      setVisibleUnnamedComponent(false);
+    }
+  },[independentComponents]);
   const applyIndependentComponent = () => {
-    steVisibleUnnamedComponent(true);
-    let newObjects = [];
-    newObjects.push(unnamedComponent(Component));
-    setPanelUnnamedComponent([...panelUnnamedComponent, ...newObjects])
-  }
+    let component = {
+      id: Math.random()+'_'+Date.now(),
+      type:undefined,
+      status:undefined,
+      original_cost:0,
+    };
+    setIndependentComponents([...independentComponents,component]);
+  };
   const removeComponent = (component: any) => {
     let newComponents: any = [];
     let currentComponents = listComponents.result; 
-    // console.log("ITE M", component);
-    // console.log("CurrentCompon", currentComponents);
     newComponents = currentComponents.filter( (comp: any) => ( ! (comp.cartodb_id == component.cartodb_id && comp.table == component.table)));
-    // console.log("filteresd", newComponents);
     getListComponentsByComponentsAndPolygon(newComponents, null);
   }
 
   const changeValue = (e:any, index:any) => {
-    // console.log("changing", e, index, (e*getTotal())/100);
     let newoverhead = [...overheadCosts];
     newoverhead[index] = (e*getTotal())/100;
     console.log("ovner",newoverhead);
@@ -287,6 +292,22 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const getOverheadCost = () => {
     let overheadcost = overheadCosts.reduce((a:any, b:any) => a + b, 0);
     return overheadcost;
+  }
+  const changeValueIndComp = (value:any, key:any, indComp:any) => {
+    let currentComponents = [...independentComponents];
+    for(let ic of currentComponents) {
+      if( ic.id == indComp.id) {
+        let newIC = indComp;
+        newIC[key] = value.target.value;
+        ic = newIC;
+      }
+    }
+    setIndependentComponents([...currentComponents]);
+  }
+  const removeIndComponent = (indComp: any) => {
+    let currentComponents = [...independentComponents];
+    currentComponents = currentComponents.filter( (comp: any) => ( comp.id != indComp.id ) );
+    setIndependentComponents([...currentComponents]);
   }
   return (
     <>
@@ -313,7 +334,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 15 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} disabled={disableName}/>
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} />
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />*/}
                 {/*<Button className="btn-transparent">
@@ -356,50 +377,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               defaultActiveKey={['1']}
               expandIconPosition="right"
             >
-              {/* <Panel header="" key="1" extra={genExtra()}>
-                <div className="tab-body-project">
-                  <Timeline>
-                    <Timeline.Item color="green">
-                      <Row style={{marginLeft:'-18px'}}>
-                        <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>Aurora Grade Control Structure </label><Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Proposed</Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>$200,000</Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
-                      </Row>
-                    </Timeline.Item>
-                    <Timeline.Item color="orange">
-                      <Row style={{marginLeft:'-18px'}}>
-                        <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>Araphoe County Detention Facility</label> <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Proposed</Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>$200,000</Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
-                      </Row>
-                    </Timeline.Item>
-                    <Timeline.Item color="green">
-                      <Row style={{marginLeft:'-18px'}}>
-                        <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>Pipe Appurtenances</label> <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Proposed</Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>$200,000</Col>
-                        <Col xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
-                      </Row>
-                    </Timeline.Item>
-                  </Timeline>
-                </div>
-              </Panel>
-              <Panel header="" key="5" extra={genExtra05()}>
-                <div className="tab-body-project">
-                  <Timeline>
-                    <Timeline.Item color="green">
-                      <Row style={{marginLeft:'-18px'}}>
-                        <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label><Input placeholder="Unnamed Component" /></label></Col>
-                        <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed" /></Col>
-                        <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}><Input placeholder="$200,000" /></Col>
-                        <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
-                      </Row>
-                    </Timeline.Item>
-                  </Timeline>
-                </div>
-              </Panel> */}
+            
 
               {groups && Object.keys(groups).map((key: any,id:any) => {
                 if(key.toString() == '-1') {
@@ -462,7 +440,24 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             >
                 {visibleUnnamedComponent &&
                 <Panel header="" key="5" extra={genExtra05()}>
-                  {panelUnnamedComponent}
+                  {
+                    independentComponents.map((indComp:any) => {
+                      return (
+                        <div className="tab-body-project">
+                          <Timeline>
+                            <Timeline.Item color="green">
+                              <Row style={{marginLeft:'-18px'}}>
+                                <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'type',indComp)} value={indComp.type} /></label></Col>
+                                <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status}/></Col>
+                                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} ><Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'original_cost',indComp)} value={indComp.original_cost}/></Col>
+                                <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }} ><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" onClick={() => removeIndComponent(indComp)} /></Button></Col>
+                              </Row>
+                            </Timeline.Item>
+                          </Timeline>
+                        </div>
+                      )
+                    })
+                  }
                 </Panel>
               }
             </Collapse>
