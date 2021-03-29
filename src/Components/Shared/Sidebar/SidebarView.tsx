@@ -76,8 +76,9 @@ export default () => {
       {(appUser.designation !== 'guest') ?
       <Menu.Item key="4" className="menu-mobile">
         <Link to={'/work-request'}>
-          <img className="img-h anticon" src="/Icons/menu-white-14.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
-          <img className="img-a anticon" src="/Icons/menu-green-14.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <img className="img-h anticon mobile-display" src="/Icons/menu-white-14.svg" alt="" width="18px" />
+          <img className="img-a anticon mobile-display" src="/Icons/menu-green-14.svg" alt="" width="18px" />
+          <i className="anticon mdi mdi-map-legend menu-desktop"/>
           <span>Work Request</span>
         </Link>
       </Menu.Item> : ''}

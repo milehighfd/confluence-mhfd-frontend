@@ -1196,7 +1196,7 @@ export const ROLE = [
   'admin', 'staff', 'government_admin', 'government_staff', 'consultant', 'other'
 ];
 export const ROUTERS_SIDEBAR = [
-  '/profile-view', '/map', '/new-project-types', '/work-request', '/work-plan', '/user', '/upload-attachment'
+  '/profile-view', '/map', '/new-project-types', '/work-plan', '/work-request', '/user', '/upload-attachment'
 ];
 export const ROUTERS = {
   PROFILE_VIEW:'profile-view',
