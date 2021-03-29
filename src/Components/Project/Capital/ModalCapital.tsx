@@ -136,6 +136,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [ independentComponents, setIndependentComponents] = useState<any[]>([]);
   const [totalOverHeadCos, setTotalOverheadCost] = useState(0);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
+  const [keys, setKeys] = useState<any>([]);
   useEffect(()=>{
     console.log("COMPONENTS FROM MAPS", componentsFromMap);
     if(componentsFromMap.length > 0 ) {
@@ -162,6 +163,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setProblems({});
     }
   },[listComponents]);
+  useEffect(()=>{
+    let idKey = keys;
+    if(groups){
+      Object.keys(groups).map((key: any,id:any) => {
+        idKey.push(id);
+      });
+    }
+    setKeys(idKey);
+  },[groups])
   useEffect(()=>{
     if(save === true){
       var capital = new Project();
@@ -375,15 +385,18 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
             <Collapse
-              defaultActiveKey={['1']}
+              defaultActiveKey={keys}
+              activeKey={keys}
               expandIconPosition="right"
             >
             
 
               {groups && Object.keys(groups).map((key: any,id:any) => {
+                
                 if(key.toString() == '-1') {
-                  if(groups[key].components.length > 0){
+                  if(groups[key].components.length > 0){ 
                     return (
+                     
                       <Panel header="" key={id} extra={genTitleNoAvailable(groups[key])}>
                         <div className="tab-body-project">
                           <Timeline>
@@ -436,11 +449,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               }
             </Collapse>
             <Collapse
-              defaultActiveKey={['1']}
+              defaultActiveKey={["Unnamed Component"]}
               expandIconPosition="right"
             >
                 {visibleUnnamedComponent &&
-                <Panel header="" key="5" extra={genExtra05()}>
+                <Panel header="" key="Unnamed Component" extra={genExtra05()}>
                   {
                     independentComponents.map((indComp:any) => {
                       return (
