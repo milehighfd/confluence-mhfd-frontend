@@ -32,8 +32,8 @@ const stateValue = {
   visibleMaintenance: false
 }
 
-export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible}:
-  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function }) => {
+export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible, locality}:
+  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function, locality?:any }) => {
 
   const {userPolygon} = useProjectState();
   const {saveProjectMaintenance, setStreamIntersected} = useProjectDispatch();
@@ -175,7 +175,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="MAINTENANCE"></CreateProjectMap>
+          <CreateProjectMap type="MAINTENANCE" locality={locality}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

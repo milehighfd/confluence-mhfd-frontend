@@ -120,25 +120,32 @@ const CreateProjectMap = (type: any) => {
     // setComponentIntersected([]);
     componentsList = [];
   }, []);
+  const setBounds = (value:any) => {
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+      return {
+        aoi: element.aoi,
+        filter: element.filter,
+        coordinates: element.coordinates
+      }
+    });
+    if(zoomareaSelected[0]){
+      let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
+      let bbox = turf.bbox(poly);
+      if(bbox) {
+        map.isStyleLoaded(() => {
+          map.fitBounds(bbox);
+        });
+      }
+    }
+  }
   useEffect(()=>{
     let value = store.getState().profile.userInformation.zoomarea;
+    if(type.locality) {
+      value = type.locality;
+    }
+      // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
     if(groupOrganization.length > 0) {
-      const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
-        return {
-          aoi: element.aoi,
-          filter: element.filter,
-          coordinates: element.coordinates
-        }
-      });
-      if(zoomareaSelected[0]){
-        let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
-        let bbox = turf.bbox(poly);
-        if(bbox) {
-          map.isStyleLoaded(() => {
-            map.fitBounds(bbox);
-          });
-        }
-      }
+      setBounds(value);
     }
     
   },[groupOrganization, store.getState().profile.userInformation.zoomarea]);
@@ -296,6 +303,11 @@ const CreateProjectMap = (type: any) => {
     
 
   }, [selectedLayers]);
+  useEffect(()=>{
+    if(type.locality) {
+      
+    }
+  },[type.locality]);
   const setLayersSelectedOnInit = () => {
     if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
       updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS, COMPONENT_LAYERS]);

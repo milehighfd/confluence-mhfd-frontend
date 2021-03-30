@@ -20,8 +20,8 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = ({visible, setVisible, data, template, defaultTab, showDefaultTab }: 
-  {visible: boolean, setVisible: Function, data: any, template?: any, defaultTab?: any, showDefaultTab?: any}) => {
+export const ModalProjectView = ({visible, setVisible, data, template, defaultTab, showDefaultTab, locality }: 
+  {visible: boolean, setVisible: Function, data: any, template?: any, defaultTab?: any, showDefaultTab?: any, locality?: any}) => {
   const {setSave} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
@@ -40,7 +40,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
   };
   const handleOk = (e: any) => {  
     if(typeProject === NEW_PROJECT_TYPES.Capital ){
-      console.log("capi")
+      // console.log("capi")
       setVisibleCapital(true);
     }
     if(typeProject === NEW_PROJECT_TYPES.Acquisition ){
@@ -107,6 +107,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setNameProject('Name your project');
     }
   },[showDefaultTab]);
+
   return (
     <>
      {visibleCapital && <ModalCapital
@@ -116,6 +117,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setNameProject = {setNameProject}
       typeProject = {typeProject}
       setVisible = {setVisible}
+      locality = {locality}
      />}
      {visibleAcquisition && <ModalAcquisition
       visibleAcquisition = {visibleAcquisition} 
@@ -124,6 +126,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setNameProject = {setNameProject}
       typeProject = {typeProject}
       setVisible = {setVisible}
+      locality = {locality}
      />}
      {visibleMaintenance && <ModalMaintenance
       visibleMaintenance = {visibleMaintenance} 
@@ -133,6 +136,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       subType = {subType}
       typeProject = {typeProject}
       setVisible = {setVisible}
+      locality = {locality}
      />}
      {visibleSpecial && <ModalSpecial
       visibleSpecial = {visibleSpecial} 
@@ -141,6 +145,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setNameProject = {setNameProject}
       typeProject = {typeProject}
       setVisible = {setVisible}
+      locality = {locality}
      />}
      {visibleStudy && <ModalStudy
       visibleStudy = {visibleStudy} 
@@ -149,6 +154,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setNameProject = {setNameProject}
       typeProject = {typeProject}
       setVisible = {setVisible}
+      locality = {locality}
      />}
      {/*<Button show modal */}
      {/*<Button type="primary" onClick={showModal}>

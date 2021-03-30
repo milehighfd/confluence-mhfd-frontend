@@ -300,6 +300,7 @@ export default () => {
           setVisible={setVisibleCreateProject}
           data={dataProblem}
           defaultTab={tabKey}
+          locality={locality}
         />
       }
     </div>

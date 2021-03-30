@@ -34,8 +34,8 @@ const stateValue = {
   visibleSpecial: false
 }
 
-export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible}:
-  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function}) => {
+export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality}:
+  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any}) => {
 
   const {saveProjectSpecial, setStreamIntersected} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
@@ -134,7 +134,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-            <CreateProjectMap type="SPECIAL"></CreateProjectMap>
+            <CreateProjectMap type="SPECIAL" locality={locality}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

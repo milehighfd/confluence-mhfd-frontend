@@ -48,8 +48,8 @@ const genTitle = (streamName: any) => (
   </div>
 )
 
-export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible}:
-  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function }) => {
+export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality}:
+  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any }) => {
   const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers} = useProjectDispatch();
   const {listStreams} = useProjectState();
   const [state, setState] = useState(stateValue);
@@ -78,7 +78,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS ]);
   },[]);
   useEffect(()=>{
-    console.log("LIST STREAMS", listStreams);
+    // console.log("LIST STREAMS", listStreams);
     if(listStreams) {
       let idKey = keys;
       Object.keys(listStreams).map((key: any, id: any) => {
@@ -217,7 +217,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="STUDY" setGeom={setGeom}></CreateProjectMap>
+          <CreateProjectMap type="STUDY" setGeom={setGeom} locality={locality}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

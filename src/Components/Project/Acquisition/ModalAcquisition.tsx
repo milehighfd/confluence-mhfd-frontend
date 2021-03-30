@@ -34,8 +34,8 @@ const stateValue = {
   visibleAcqui: false,
 }
 
-export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible}:
-  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function} ) => {
+export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible, locality }:
+  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any} ) => {
 
   const {saveProjectAcquisition, setStreamIntersected} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
@@ -141,7 +141,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="ACQUISITION"></CreateProjectMap>
+          <CreateProjectMap type="ACQUISITION" locality={locality}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">
