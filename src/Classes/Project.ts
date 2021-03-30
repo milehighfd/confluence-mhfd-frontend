@@ -14,9 +14,9 @@ export class Project {
     geom: any ;
     acquisitionprogress: string;
     acquisitionanticipateddate: string;
-    overheadcost: string;
+    overheadcost: any[];
     overheadcostdescription: string;
-    additionalcost: string;
+    additionalcost: number;
     additionalcostdescription: string;
     projectsubtype: string;
     frequency: string;
@@ -27,7 +27,8 @@ export class Project {
     ids: any;
     sponsor: string;
     cosponsor: string; 
-
+    componets: any;
+    independetComponent: any;
     constructor() {
         this.projectname = "special";
         this.description = "";
@@ -35,9 +36,9 @@ export class Project {
         this.county = ""; 
         this.acquisitionprogress = "";
         this.acquisitionanticipateddate = "";
-        this.overheadcost = "";
+        this.overheadcost = [];
         this.overheadcostdescription = "";
-        this.additionalcost = "";
+        this.additionalcost = 0;
         this.additionalcostdescription = "";
         this.projectsubtype = "";
         this.frequency = "";
@@ -46,5 +47,7 @@ export class Project {
         this.files = [];
         this.sponsor = "";
         this.cosponsor = "";
+        this.componets = [];
+        this.independetComponent=[];
     }
 }

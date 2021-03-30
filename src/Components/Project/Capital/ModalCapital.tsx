@@ -119,7 +119,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
-  const [country, setCountry] = useState('');
   const [isDrawState, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
   const [county, setCounty] = useState('');
@@ -134,9 +133,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [disableName, setDisableName ] = useState(true);
   const [ visibleUnnamedComponent, setVisibleUnnamedComponent ] = useState(false)
   const [ independentComponents, setIndependentComponents] = useState<any[]>([]);
-  const [totalOverHeadCos, setTotalOverheadCost] = useState(0);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>([]);
+  const [additionalCost, setAdditionalCost] = useState(0);
+  const [additionalDescription, setAdditionalDescription] = useState("");
+  const [totalCost, setTotalCost] = useState();
+  const [overheadDescription, setOverheadDescription] = useState("");
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
@@ -152,7 +154,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
       let idKey = keys;
-      Object.keys(groups).map((key: any,id:any) => {
+      Object.keys(listComponents.groups).map((key: any,id:any) => {
         idKey.push(id);
       });
       setKeys(idKey);
@@ -176,8 +178,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.servicearea = serviceArea;
       capital.geom = geom;
       capital.files = files ;
-      //capital.overheadcost = overheadcost;
-      //capital.acquisitionanticipateddate = purchaseDate;
+      capital.overheadcost = overheadCosts;
+      capital.overheadcostdescription = overheadDescription;
+      capital.additionalcost = additionalCost;
+      capital.additionalcostdescription = additionalDescription;
+      capital.componets = groups;
+      capital.independetComponent = independentComponents;
       console.log(capital,"****+++CAPITAL******")
       saveProjectCapital(capital);
       setVisibleCapital(false);
@@ -185,6 +191,19 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[save]);
 
+  const onChangeAdditionalCost = (e: any) =>{
+    if(e.target.value){
+      setAdditionalCost(parseFloat(e.target.value));
+    }else{
+      setAdditionalCost(0);
+    }   
+  };
+  const onChangeAdditionalDescription = (e: any) =>{
+    setAdditionalDescription(e.target.value);
+  };
+  const onChangeOverheadDescription = (e: any) =>{
+    setOverheadDescription(e.target.value);
+  };
   const getTotal = () => {
     
     let totalSumCost = 0;
@@ -205,7 +224,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[geom, description, county, serviceArea]);
 
-  const onChange = (e: any)=>{
+  const onChange = (e: any) =>{
     setNameProject(e.target.value);
     /*if(name===true){
       setNameProject(e.target.value);
@@ -330,6 +349,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
     return total;
   }
+  const getTotalCost = () =>{
+    let n = getSubTotalCost() + additionalCost + getOverheadCost();
+    return(n);
+  }
+
   return (
     <>
     {visibleAlert && <AlertView
@@ -783,7 +807,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-                <Input placeholder="Enter Description" />
+              <Input placeholder="Enter Description" onChange={(description) => onChangeOverheadDescription(description)} value={overheadDescription}/>
               </Col>
             </Row>
             <br/>
@@ -792,17 +816,19 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
                 <p>Additional Cost <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>$8,230,000</Col>
+              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
+                <Input placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={additionalCost}/>
+              </Col>
             </Row>
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-                <Input placeholder="Enter Description" />
+                <Input placeholder="Enter Description" onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
               </Col>
             </Row>
             <hr/>
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL COST</Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>$8,230,000</b></Col>
+              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost())}</b></Col>
             </Row>
             <br/>
 
