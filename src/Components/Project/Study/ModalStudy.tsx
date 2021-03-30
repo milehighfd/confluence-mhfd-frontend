@@ -80,18 +80,15 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   useEffect(()=>{
     console.log("LIST STREAMS", listStreams);
     if(listStreams) {
+      let idKey = keys;
+      Object.keys(listStreams).map((key: any, id: any) => {
+        idKey.push(`${id}${key}`);
+      })
+      setKeys(idKey);
       setThisStreamsList(listStreams);
     }
   },[listStreams]);
-  useEffect(()=>{
-    if(streamsList) {
-      let idKey = keys;
-      Object.keys(streamsList).map((key: any, id: any) => {
-        idKey.push(`${id}${key}`);
-        setKeys(idKey);
-      })
-    }
-  },[streamsList]);
+
   useEffect(()=>{
     if(save === true){
       var study = new Project();

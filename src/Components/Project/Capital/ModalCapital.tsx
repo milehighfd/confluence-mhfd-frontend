@@ -154,6 +154,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     console.log("COM", listComponents);
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
+      let idKey = keys;
+      Object.keys(groups).map((key: any,id:any) => {
+        idKey.push(id);
+      });
+      setKeys(idKey);
       setGroups(listComponents.groups);
     } else {
       setGroups({});
@@ -164,15 +169,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setProblems({});
     }
   },[listComponents]);
-  useEffect(()=>{
-    let idKey = keys;
-    if(groups){
-      Object.keys(groups).map((key: any,id:any) => {
-        idKey.push(id);
-      });
-    }
-    setKeys(idKey);
-  },[groups])
+  
   useEffect(()=>{
     if(save === true){
       var capital = new Project();
@@ -469,7 +466,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               expandIconPosition="right"
             >
                 {visibleUnnamedComponent &&
-                <Panel header="" key="5" extra={genExtra05(getTotalIndComp())}>
+                <Panel header="" key="Unnamed Component" extra={genExtra05(getTotalIndComp())}>
                   {
                     independentComponents.map((indComp:any) => {
                       return (
