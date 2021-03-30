@@ -138,9 +138,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>([]);
   useEffect(()=>{
-    console.log("COMPONENTS FROM MAPS", componentsFromMap);
     if(componentsFromMap.length > 0 ) {
-      console.log("REACHING", componentsFromMap);
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
     } else {
       setComponentIntersected([]);
@@ -152,7 +150,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setGeom(userPolygon);
   },[userPolygon]);
   useEffect(()=>{
-    console.log("COM", listComponents);
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
       let idKey = keys;
       Object.keys(groups).map((key: any,id:any) => {

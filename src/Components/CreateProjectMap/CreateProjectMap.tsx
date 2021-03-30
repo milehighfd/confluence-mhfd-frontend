@@ -39,6 +39,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
+import { useProfileState, useProfileDispatch } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { containsNumber } from "@turf/turf";
@@ -68,6 +69,7 @@ const CreateProjectMap = (type: any) => {
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected, updateSelectedLayers } = useProjectDispatch();
   const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers } = useProjectState();
+  const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -118,6 +120,28 @@ const CreateProjectMap = (type: any) => {
     // setComponentIntersected([]);
     componentsList = [];
   }, []);
+  useEffect(()=>{
+    let value = store.getState().profile.userInformation.zoomarea;
+    if(groupOrganization.length > 0) {
+      const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+        return {
+          aoi: element.aoi,
+          filter: element.filter,
+          coordinates: element.coordinates
+        }
+      });
+      if(zoomareaSelected[0]){
+        let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
+        let bbox = turf.bbox(poly);
+        if(bbox) {
+          map.isStyleLoaded(() => {
+            map.fitBounds(bbox);
+          });
+        }
+      }
+    }
+    
+  },[groupOrganization, store.getState().profile.userInformation.zoomarea]);
   useEffect(()=>{
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
@@ -227,7 +251,7 @@ const CreateProjectMap = (type: any) => {
     if(streamsIntersectedIds.length > 0) {
       map.isStyleLoaded( () => {
         let filter = ['in','cartodb_id',...streamsIntersectedIds];
-        console.log("filter", filter);
+        // console.log("filter", filter);
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
           map.map.addLayer({
@@ -265,7 +289,7 @@ const CreateProjectMap = (type: any) => {
   }, [map])
 
   useEffect(() => {
-    console.log("SELEC", selectedLayers);
+    // console.log("SELEC", selectedLayers);
     if (map ) {
       map.isStyleLoaded(applyMapLayers);
     }
@@ -286,7 +310,6 @@ const CreateProjectMap = (type: any) => {
     if (type.type === 'CAPITAL') {
       // getStreamIntersectionSave(userPolygon.geometry);
       // getListComponentsIntersected(userPolygon.geometry);
-      console.log("COMPONTNS ", componentsList);
       getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
     } else if (type.type === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
@@ -344,7 +367,6 @@ const CreateProjectMap = (type: any) => {
 
   }
   const applyMapLayers = async () => {
-    console.log("IT REACHES HERER?");
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
         if (layer.tiles) {

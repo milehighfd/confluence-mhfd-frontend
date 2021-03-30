@@ -116,7 +116,7 @@ export class MapService {
     this.map.flyTo({center: coordinates});
   }
   fitBounds(coordinates: any) {
-    this.map.fitBounds(coordinates, {padding: 100});
+    this.map.fitBounds(coordinates, {padding: 40});
   }
   addDrawController() {
     if (!this.controller) {

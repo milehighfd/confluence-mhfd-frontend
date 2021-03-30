@@ -112,8 +112,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterProjects, setCountFilterProjects] = useState(0);
 
   const [valueA, setvalueA] = useState('');
-
+  const user = store.getState().profile.userInformation;
+  
   useEffect(() => {
+    console.log("ZOOM AREA", nameZoomArea, user);
     setvalueA(nameZoomArea);
   }, [nameZoomArea]);
   /* const logued = localStorage.getItem('mfx-token')
@@ -608,6 +610,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   useEffect(() => {
     setNameZoomArea(store.getState().profile.userInformation.zoomarea);
+    setTimeout(()=>{
+      onSelect(store.getState().profile.userInformation.zoomarea);
+    },5000);
   }, [store.getState().profile.userInformation.zoomarea])
 
   useEffect(() => {
@@ -856,7 +861,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         coordinates: element.coordinates
       }
     });
-    changeCenter(value, zoomareaSelected[0].coordinates)
+    if(zoomareaSelected[0]){
+      changeCenter(value, zoomareaSelected[0].coordinates)
+    }
     setBBOXComponents({ bbox: [], centroids: [] })
   };
 

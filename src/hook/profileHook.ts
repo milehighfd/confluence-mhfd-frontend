@@ -6,7 +6,8 @@ import { User } from '../Classes/TypeList';
 import { getTimesLogin } from '../store/actions/usersActions';
 
 interface selectProfileState {
-   timesLogged: number
+   timesLogged: number,
+   groupOrganization: any
  }
  
  
@@ -15,9 +16,10 @@ interface selectProfileState {
  const selectProfileStates: ParametricSelector<RootState, undefined, selectProfileState> =
    createSelectorHack(
        (state: any) => state.users.timesLogged,
+       (state: any) => state.profile.groupOrganization,
        //state => state.map.paramFilters,
-       (timesLogged: number) => ({
-         timesLogged   
+       (timesLogged: number, groupOrganization: any) => ({
+         timesLogged, groupOrganization   
       })
      );
  
