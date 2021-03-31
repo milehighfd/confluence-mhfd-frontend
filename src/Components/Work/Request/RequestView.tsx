@@ -6,7 +6,7 @@ import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
 import { JURISDICTION } from "../../../constants/constants";
 import '../../../index.scss';
-import { postData } from "../../../Config/datasets";
+import { getData, getToken, postData } from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectView';
 
@@ -104,11 +104,10 @@ const generateColumns = (projects: projectType[], year: number, tabKey: string) 
 }
 
 export default () => {
-  // JURISDICTION
-  const dataAutocomplete = JURISDICTION;
+  const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const years = [2021, 2020, 2019, 2018];
   const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-  const [locality, setLocality] = useState(dataAutocomplete[0]);
+  const [locality, setLocality] = useState('');
   const [year, setYear] = useState<any>(years[0]);
   const [tabKey, setTabKey] = useState<string>(tabKeys[0]);
   const [namespaceId, setNamespaceId] = useState<string>('');
@@ -149,47 +148,6 @@ export default () => {
       projects: [],
     }
   ])
-
-  useEffect(() => {
-    if (!namespaceId) {
-      return;
-    }
-    WsService.connect(namespaceId, (socket: any) => {
-      console.log('connected', socket.id);
-    });
-    WsService.receiveUpdate((data: any) => {
-      console.log('receiveUpdate', data);
-      setColumns(data);
-    })
-    return () => {
-      WsService.disconnect();
-    }
-  }, [namespaceId])
-
-  useEffect(() => {
-    let data = {
-      type,
-      year: `${year}`,
-      locality,
-      projecttype: tabKey
-    }
-    setColumns(defaultColumns);
-    postData(`${SERVER.URL_BASE}/board/`, data)
-    // postData(`${'http://localhost:3003'}/board/`, data)
-      .then(
-        (r: any) => {
-          let { board, projects } = r;
-          if (board) {
-            setNamespaceId(board._id)
-            let cols = generateColumns(projects, year, tabKey);
-            setColumns(cols);
-          }
-        },
-        (e) => {
-          console.log('e', e);
-        }
-      )
-  }, [year, locality, tabKey]);
 
   const generateCard = (project: any) => {
     const {
@@ -263,6 +221,66 @@ export default () => {
   const onClickNewProject = () => {
     setVisibleCreateProject(true);
   }
+
+  useEffect(() => {
+    getData(`${SERVER.URL_BASE}/locality/`, getToken())
+    // getData(`${'http://localhost:3003'}/locality/`, getToken())
+      .then(
+        (r: any) => {
+          setDataAutocomplete(r.localities.map((l: any) => l.name));
+          if (r.localities.length > 0) {
+            setLocality(r.localities[0].name)
+          }
+        },
+        (e) => {
+          console.log('e', e);
+        }
+      )
+  }, []);
+
+  useEffect(() => {
+    if (!locality) {
+      return;
+    }
+    let data = {
+      type,
+      year: `${year}`,
+      locality,
+      projecttype: tabKey
+    }
+    setColumns(defaultColumns);
+    postData(`${SERVER.URL_BASE}/board/`, data)
+    // postData(`${'http://localhost:3003'}/board/`, data)
+      .then(
+        (r: any) => {
+          let { board, projects } = r;
+          if (board) {
+            setNamespaceId(board._id)
+            let cols = generateColumns(projects, year, tabKey);
+            setColumns(cols);
+          }
+        },
+        (e) => {
+          console.log('e', e);
+        }
+      )
+  }, [year, locality, tabKey]);
+
+  useEffect(() => {
+    if (!namespaceId) {
+      return;
+    }
+    WsService.connect(namespaceId, (socket: any) => {
+      console.log('connected', socket.id);
+    });
+    WsService.receiveUpdate((data: any) => {
+      console.log('receiveUpdate', data);
+      setColumns(data);
+    })
+    return () => {
+      WsService.disconnect();
+    }
+  }, [namespaceId])
 
   useEffect(() => {
     const interval = setInterval(() => {
