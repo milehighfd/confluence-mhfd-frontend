@@ -78,7 +78,7 @@ const genTitleProblem = (problem: any) => {
       <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
       <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>{formatter.format(totalSumCost)}</Col>
     </Row>
-  ) 
+  )
   }
  const unnamedComponent = (Component: any) => {
     const apllyType = (e: any) =>{
@@ -168,7 +168,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setProblems({});
     }
   },[listComponents]);
-  
+
   useEffect(()=>{
     if(save === true){
       var capital = new Project();
@@ -196,7 +196,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setAdditionalCost(parseFloat(e.target.value));
     }else{
       setAdditionalCost(0);
-    }   
+    }
   };
   const onChangeAdditionalDescription = (e: any) =>{
     setAdditionalDescription(e.target.value);
@@ -205,7 +205,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setOverheadDescription(e.target.value);
   };
   const getTotal = () => {
-    
+
     let totalSumCost = 0;
     if(listComponents && listComponents.result) {
       for( let component in listComponents.result){
@@ -292,7 +292,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   };
   const removeComponent = (component: any) => {
     let newComponents: any = [];
-    let currentComponents = listComponents.result; 
+    let currentComponents = listComponents.result;
     newComponents = currentComponents.filter( (comp: any) => ( ! (comp.cartodb_id == component.cartodb_id && comp.table == component.table)));
     getListComponentsByComponentsAndPolygon(newComponents, null);
   }
@@ -302,7 +302,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     newoverhead[index] = (e*getSubTotalCost())/100;
     // console.log("ovner",newoverhead);
     setOverheadCosts(newoverhead);
-    
+
   }
   const getSubTotalCost = () => {
     let subtotalcost = 0;
@@ -339,7 +339,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     currentComponents = currentComponents.filter( (comp: any) => ( comp.id != indComp.id ) );
     setIndependentComponents([...currentComponents]);
   }
-  
+
   const getTotalIndComp = () => {
     let total = 0;
     if(independentComponents.length > 0) {
@@ -423,14 +423,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               activeKey={keys}
               expandIconPosition="right"
             >
-            
+
 
               {groups && Object.keys(groups).map((key: any,id:any) => {
-                
+
                 if(key.toString() == '-1') {
-                  if(groups[key].components.length > 0){ 
+                  if(groups[key].components.length > 0){
                     return (
-                     
+
                       <Panel header="" key={id} extra={genTitleNoAvailable(groups[key])}>
                         <div className="tab-body-project">
                           <Timeline>
@@ -449,11 +449,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                 );
                               })
                             }
-    
+
                           </Timeline>
                         </div>
                       </Panel>)
-                  }                  
+                  }
                 } else {
                   return (
                     <Panel header="" key={id} extra={genTitleProblem(groups[key])}>
@@ -474,7 +474,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                               );
                             })
                           }
-  
+
                         </Timeline>
                       </div>
                     </Panel>)
@@ -817,7 +817,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <p>Additional Cost <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
-                <Input placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={additionalCost}/>
+                <Input prefix={<i className="mdi mdi-currency-usd" style={{marginLeft:'-10px'}}/>} style={{paddingLeft:'15px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={additionalCost}/>
               </Col>
             </Row>
             <Row className="sub-project">
