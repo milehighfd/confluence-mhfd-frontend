@@ -311,3 +311,8 @@ export const updateSelectedLayers = (selectedLayer: any) => {
       dispatch({ type: types.SELECTED_LAYERS, selectedLayer });
   }
 }
+export const setHighlightedComponent = (highlightedComponent: any) => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.SET_HIGHLIGHTED, highlightedComponent});
+  }
+}

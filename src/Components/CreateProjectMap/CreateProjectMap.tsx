@@ -68,7 +68,7 @@ const CreateProjectMap = (type: any) => {
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected, updateSelectedLayers } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers } = useProjectState();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -79,7 +79,7 @@ const CreateProjectMap = (type: any) => {
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
     LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
     CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
-    PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE];
+    PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, COMPONENT_LAYERS.tiles];
   const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
   MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
   MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
@@ -120,6 +120,15 @@ const CreateProjectMap = (type: any) => {
     // setComponentIntersected([]);
     componentsList = [];
   }, []);
+  useEffect(()=>{
+    if (map) {
+      if (highlightedComponent.table) {
+          showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
+      } else {
+          hideHighlighted();
+      }
+    }
+  },[highlightedComponent]);
   const setBounds = (value:any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
       return {
@@ -427,6 +436,7 @@ const CreateProjectMap = (type: any) => {
   const applyComponentFilter = () => {
     const styles = { ...COMPONENT_LAYERS_STYLE as any };
     Object.keys(styles).forEach(element => {
+      console.log("COMPONENTS STYES TUKES ", element);
       for (let i = 0; i < styles[element].length; ++i) {
         if (map.map.getLayer(element + "_" + i)) {
           map.map.setFilter(element + '_' + i, ['!has', 'projectid']);
@@ -630,6 +640,7 @@ const CreateProjectMap = (type: any) => {
       }
 
       if (!hovereableLayers.includes(key)) {
+        console.log("NON HOVEREABLE", key);
         return;
       }
       if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {

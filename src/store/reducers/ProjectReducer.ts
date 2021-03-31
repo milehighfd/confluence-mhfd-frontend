@@ -1,5 +1,5 @@
 import { SET_LIST_COMPONENTS } from './../types/ProjectTypes';
-import { getStreamIntersection } from './../actions/ProjectActions';
+import { getStreamIntersection, setComponentsFromMap } from './../actions/ProjectActions';
 import * as types from '../types/ProjectTypes';
 import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS, XSTREAMS } from '../../constants/constants';
 
@@ -17,6 +17,10 @@ const initState = {
   listStreams: [],
   componentsFromMap: [],
   selectedLayers: [PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS],
+  highlightedComponent: {
+    type:'',
+    value: ''
+  }
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -91,6 +95,7 @@ const projectReducer = (state = initState, action: any) => {
       }
     }
     case types.SET_COMPONENTS_MAP: {
+      console.log("IS SETTING??", action.componentsFromMap);
       return {
         ...state, 
         componentsFromMap: action.componentsFromMap
@@ -100,6 +105,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
           ...state,
           selectedLayers: action.selectedLayer
+      }
+    }
+    case types.SET_HIGHLIGHTED: {
+      return {
+        ...state,
+        highlightedComponent: action.highlightedComponent
       }
     }
     default: 

@@ -112,7 +112,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected} = useProjectDispatch();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -148,6 +148,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setOverheadCosts([0,0,0,0,0,0,0,0,0]);
     setStreamIntersected({geom:null});
   },[]);
+  
+  useEffect(()=>{
+    if(componentsFromMap.length > 0 ) {
+      getListComponentsByComponentsAndPolygon(componentsFromMap, null);
+    }
+  },[componentsFromMap]);
+
   useEffect(()=>{
     setGeom(userPolygon);
   },[userPolygon]);
@@ -353,6 +360,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     let n = getSubTotalCost() + additionalCost + getOverheadCost();
     return(n);
   }
+  const setValuesComp = (comp: any) => {
+    setHighlightedComponent(comp);
+  }
 
   return (
     <>
@@ -437,8 +447,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                             {
                               groups[key].components.map((component:any) => {
                                 return (
+                                  <div>
                                   <Timeline.Item color="green">
-                                    <Row style={{marginLeft:'-18px'}}>
+                                    <Row style={{marginLeft:'-18px'}} 
+                                    onMouseEnter={() => setValuesComp(component)}
+                                    onMouseLeave={()=> setValuesComp({table:'', value:''})}>
                                       <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
                                       <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{component.status}</Col>
                                       <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{formatter.format(component.original_cost)}</Col>
@@ -446,6 +459,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                         <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                     </Row>
                                   </Timeline.Item>
+                                  </div>
                                 );
                               })
                             }
@@ -462,6 +476,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                           {
                             groups[key].components.map((component:any) => {
                               return (
+                                <div onMouseEnter={() => setValuesComp(component)} onMouseLeave={()=> setValuesComp({table:'', value:''})}>
                                 <Timeline.Item color="green">
                                   <Row style={{marginLeft:'-18px'}}>
                                     <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
@@ -471,6 +486,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                       <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                   </Row>
                                 </Timeline.Item>
+                                </div>
                               );
                             })
                           }
