@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Row, Col, Form, Button, Menu, Dropdown } from 'antd';
 import ReCAPTCHA from "react-google-recaptcha";
-import { ROLES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, CONSULTANT_CONTRACTOR, ORGANIZATION, OTHER, STAFF } from "../../constants/constants";
+import { ROLES, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, CONSULTANT_CONTRACTOR, JURISDICTION , OTHER, STAFF } from "../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
@@ -30,7 +30,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
         }}>
           <Menu.ItemGroup key="g1">
             {/* <label className="label-sg">{'Regional Agency'}</label> */}
-            {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+            {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
           </Menu.ItemGroup>
         {/* <Menu.ItemGroup key="g1">
           <label className="label-sg">{'Regional Agency'}</label>
