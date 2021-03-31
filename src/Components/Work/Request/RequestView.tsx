@@ -5,6 +5,7 @@ import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
 import { JURISDICTION } from "../../../constants/constants";
+import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import '../../../index.scss';
 import { getData, getToken, postData } from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
@@ -330,7 +331,7 @@ export default () => {
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
               <div className="map">
-                {/* here goes the map*/}
+                <CreateProjectMap type="CAPITAL" locality={locality}></CreateProjectMap>
               </div>
 
               <Button className="btn-coll" >
