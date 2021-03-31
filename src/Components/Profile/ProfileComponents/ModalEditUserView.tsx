@@ -6,7 +6,7 @@ import { User } from '../../../Classes/TypeList';
 import MenuAreaView from "../../User/UserComponents/MenuAreaView";
 
 import { VALIDATION_USER_PROFILE } from "../../../constants/validation";
-import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT, DROPDOWN_ORGANIZATION, OTHER } from "../../../constants/constants";
+import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT, DROPDOWN_ORGANIZATION, OTHER, JURISDICTION } from "../../../constants/constants";
 
 const content = (<div className="popoveer-00">Defines the Area-Of-Interest for the map and the respective projects and problems shown in the Map Gallery and My Confluence screens.</div>);
 
@@ -67,7 +67,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
           }}>
             <Menu.ItemGroup key="g1">
               {/* <label className="label-sg">{'Regional Agency'}</label> */}
-              {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+              {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
             </Menu.ItemGroup>
           {/* <Menu.ItemGroup key="g1">
             <label className="label-sg">{'Regional Agency'}</label>
