@@ -10,6 +10,7 @@ import '../../../index.scss';
 import { getData, getToken, postData } from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectView';
+import TrelloLikeCard from "./TrelloLikeCard";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -27,22 +28,6 @@ const genExtra = () => (
     <div>$1,000,000</div>
     <div>$1,000,000</div>
   </div>
-);
-const content = (
-  <Menu className="js-mm-00">
-    <Menu.Item>
-      <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Edit Project</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span><img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5' }} /> Edit Amount</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Zoom to</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span><img src="/Icons/icon-16.svg" alt="" width="10px" /> Delete</span>
-    </Menu.Item>
-  </Menu>
 );
 
 const type = 'WORK_REQUEST';
@@ -149,31 +134,6 @@ export default () => {
       projects: [],
     }
   ])
-
-  const generateCard = (project: any) => {
-    const {
-      projectid,
-      projectname,
-      price,
-      jurisdiction,
-      status
-    } = project;
-    return (
-      <div className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable onDragStart={e => onDragStart(e, projectid)}>
-        <h4>{projectname}</h4>
-        <h6>{price}</h6>
-        <label className="purple">{jurisdiction}</label>
-        <label className="yellow">{status}</label>
-        <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
-          <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
-        </Popover>
-      </div>
-    )
-  }
-
-  const onDragStart = (e: any, id: any) => {
-    e.dataTransfer.setData('id', id);
-  }
 
   const onDragOver = (e: any) => {
     e.preventDefault();
@@ -416,8 +376,8 @@ export default () => {
                                     </Button>
                                   }
                                   {
-                                    column.projects.map((p) => (
-                                      generateCard(p)
+                                    column.projects.map((p: any, i: number) => (
+                                      <TrelloLikeCard key={i} project={p} />
                                     ))
                                   }
                                 </div>
