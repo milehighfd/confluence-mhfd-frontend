@@ -160,7 +160,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[userPolygon]);
   useEffect(()=>{
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
-      let idKey = keys;
+      let idKey = [...keys];
       Object.keys(listComponents.groups).map((key: any,id:any) => {
         idKey.push(id);
       });
@@ -189,7 +189,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.overheadcostdescription = overheadDescription;
       capital.additionalcost = additionalCost;
       capital.additionalcostdescription = additionalDescription;
-      capital.componets = groups;
+      capital.componet = groups;
       capital.independetComponent = independentComponents;
       console.log(capital,"****+++CAPITAL******")
       saveProjectCapital(capital);
@@ -199,11 +199,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[save]);
 
   const onChangeAdditionalCost = (e: any) =>{
-    if(e.target.value){
-      setAdditionalCost(parseFloat(e.target.value));
-    }else{
-      setAdditionalCost(0);
-    }
+        let newValue=e.target.value
+        let vAlue = newValue.replace("$", ""); 
+        vAlue = vAlue.replace(",", ""); 
+        if(vAlue){
+          setAdditionalCost(parseInt(vAlue));
+        }else{
+          setAdditionalCost(parseInt ('0'));
+        }
   };
   const onChangeAdditionalDescription = (e: any) =>{
     setAdditionalDescription(e.target.value);
@@ -335,7 +338,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     for(let ic of currentComponents) {
       if( ic.id == indComp.id) {
         let newIC = indComp;
-        newIC[key] = value.target.value;
+        //newIC[key] = value.target.value;
+        let newValue=value.target.value
+        let vAlue = newValue.replace("$", ""); 
+        vAlue = vAlue.replace(",", ""); 
+        if(vAlue){
+          newIC[key] = parseInt (vAlue);
+        }else{
+          newIC[key] = parseInt ('0');
+        }
         ic = newIC;
       }
     }
@@ -351,7 +362,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     let total = 0;
     if(independentComponents.length > 0) {
       for( let comp of independentComponents) {
-        total += parseFloat(comp.original_cost) ;
+        let newValue= comp.original_cost+','
+        let value = newValue.replace("$", ""); 
+        value = value.replace(",", "");
+        console.log(newValue, " pppp", value)
+        total += parseFloat(value) ;
       }
     }
     return total;
@@ -513,7 +528,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                               <Row style={{marginLeft:'-18px'}}>
                                 <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'type',indComp)} value={indComp.type} /></label></Col>
                                 <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status}/></Col>
-                                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} ><Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'original_cost',indComp)} value={indComp.original_cost}/></Col>
+                                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} ><Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'original_cost',indComp)} value={formatter.format(indComp.original_cost)}/></Col>
                                 <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }} ><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" onClick={() => removeIndComponent(indComp)} /></Button></Col>
                               </Row>
                             </Timeline.Item>
@@ -833,7 +848,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <p>Additional Cost <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
-                <Input prefix={<i className="mdi mdi-currency-usd" style={{marginLeft:'-10px'}}/>} style={{paddingLeft:'15px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={additionalCost}/>
+                <Input style={{paddingLeft:'15px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost)}/>
               </Col>
             </Row>
             <Row className="sub-project">

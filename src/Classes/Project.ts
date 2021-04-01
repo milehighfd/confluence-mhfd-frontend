@@ -27,7 +27,7 @@ export class Project {
     ids: any;
     sponsor: string;
     cosponsor: string; 
-    componets: any;
+    componet: any;
     independetComponent: any;
     constructor() {
         this.projectname = "special";
@@ -47,7 +47,7 @@ export class Project {
         this.files = [];
         this.sponsor = "";
         this.cosponsor = "";
-        this.componets = [];
+        this.componet = [];
         this.independetComponent=[];
     }
 }
