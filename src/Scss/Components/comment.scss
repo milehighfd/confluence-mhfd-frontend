@@ -48,6 +48,7 @@
     justify-content: initial;
     padding: 6px 0 !important;
     font-size: 11px;
+    cursor: pointer;
   }
   i{
     font-size: 16px;
@@ -93,6 +94,7 @@
       font-size: 14px;
       color: $purple00;
       margin-bottom: 4px;
+      line-height: 16px;
     }
     h6{
       text-align: right;
@@ -116,7 +118,148 @@
 }
 
 // 1920x1080 DISPLAY
-@media (min-width: 1900px) and (max-width: 2499px){}
+@media (min-width: 1900px) and (max-width: 2499px){
+  // GENERAL
+  .comment-title{
+    h5{
+      font-size: 21px;
+      line-height: 23px;
+    }
+    .type-popover, .type-popover:hover, .type-popover:focus{
+      font-size: 16px;
+      height: 22px;
+    }
+    .ant-btn .anticon{
+      font-size: 12px;
+    }
+  }
+  .popover-note{
+    .ant-list-item {
+      padding: 6px 0 !important;
+      font-size: 14px;
+    }
+    i{
+      font-size: 21px;
+    }
+    button, button:hover, button:focus{
+      font-size: 14px;
+      height: 45px;
+    }
+    .anticon{
+      font-size: 12px;
+    }
+  }
+  .comment-drawer{
+    .ant-drawer-content-wrapper{
+      width: 425px !important;
+    }
+    .ant-drawer-header{
+      padding: 20px 25px;
+    }
+    .ant-drawer-body{
+      height: calc(100vh - 123px);
+    }
+    .ant-comment {
+      padding: 0px 20px;
+
+      p{
+        font-size: 18px;
+        line-height: 20px;
+      }
+      h6{
+        font-size: 14px;
+      }
+    }
+    .ant-comment-inner {
+      padding: 15px 0;
+    }
+    .ant-avatar-string{
+      font-size: 16px;
+    }
+    .ant-avatar{
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+    }
+    .btn-coll{
+      width: 50px;
+    }
+  }
+
+}
 
 // 2560x1440 DISPLAY
-@media (min-width: 2500px) and (max-width: 2999px){}
+@media (min-width: 2500px) and (max-width: 2999px){
+  // GENERAL
+  .comment-title{
+    height: 32px;
+    h5{
+      font-size: 28px;
+      line-height: 30px
+    }
+    .type-popover, .type-popover:hover, .type-popover:focus{
+      font-size: 21px;
+      height: 32px;
+    }
+    .ant-btn .anticon{
+      font-size: 16px;
+    }
+  }
+  .popover-note{
+    .ant-list-item {
+      padding: 6px 0 !important;
+      font-size: 18px;
+    }
+    i{
+      font-size: 24px;
+    }
+    button, button:hover, button:focus{
+      font-size: 18px;
+      height: 60px;
+      padding: 0px 30px;
+    }
+    .anticon{
+      font-size: 16px;
+    }
+  }
+  .comment-drawer{
+    .ant-drawer-content-wrapper{
+      width: 570px !important;
+    }
+    .ant-drawer-header{
+      padding: 20px 32px;
+    }
+    .ant-drawer-body{
+      height: calc(100vh - 132px);
+    }
+    .ant-comment {
+      padding: 0px 20px;
+
+      p{
+        font-size: 24px;
+        line-height: 26px;
+      }
+      h6{
+        font-size: 18px;
+      }
+    }
+    .ant-comment-inner {
+      padding: 18px 0;
+    }
+    .ant-avatar-string{
+      font-size: 21px;
+    }
+    .ant-avatar{
+      height: 50px;
+      width: 50px;
+      line-height: 50px;
+    }
+    .ant-comment-avatar{
+      margin-right: 20px;
+    }
+    .btn-coll{
+      height: 60px;
+      width: 50px;
+    }
+  }
+}
