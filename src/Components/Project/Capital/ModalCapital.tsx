@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
+import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline , Tooltip } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { AlertView } from "../../Alerts/AlertView";
@@ -165,7 +165,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         if (listComponents.groups[key].components.length) {
           idKey.push(id + '-collapse1');
         }
-      });
+      });    
       setKeys(idKey);
       setGroups(listComponents.groups);
     } else {
@@ -354,6 +354,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
     setIndependentComponents([...currentComponents]);
   }
+  
   const removeIndComponent = (indComp: any) => {
     let currentComponents = [...independentComponents];
     currentComponents = currentComponents.filter( (comp: any) => ( comp.id != indComp.id ) );
@@ -367,7 +368,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         let newValue= comp.original_cost+','
         let value = newValue.replace("$", ""); 
         value = value.replace(",", "");
-        console.log(newValue, " pppp", value)
         total += parseFloat(value) ;
       }
     }
@@ -445,12 +445,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
-             {keys && keys.length && 
+              {keys && keys.length && 
             <Collapse
-              defaultActiveKey={keys}
-              expandIconPosition="right"
-              onChange={(event: any)=> {console.log('has algo ', event, keys )}}
-            >
+            defaultActiveKey={keys}
+            expandIconPosition="right"
+            onChange={(event: any)=> {console.log('has algo ', event, keys )}}
+          >
 
 
               {groups && Object.keys(groups).map((key: any,id:any) => {
@@ -470,7 +470,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                     <Row style={{marginLeft:'-18px'}} 
                                     onMouseEnter={() => setValuesComp(component)}
                                     onMouseLeave={()=> setValuesComp({table:'', value:''})}>
-                                      <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type} asdfasdfsad</label></Col>
+                                      <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
                                       <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{component.status}</Col>
                                       <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{formatter.format(component.original_cost)}</Col>
                                       <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
@@ -516,8 +516,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               })
               }
             </Collapse>
-             }
-             <Collapse
+            }
+            <Collapse
               defaultActiveKey={["Unnamed Component"]}
               expandIconPosition="right"
             >
@@ -532,7 +532,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                               <Row style={{marginLeft:'-18px'}}>
                                 <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'type',indComp)} value={indComp.type} /></label></Col>
                                 <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status}/></Col>
-                                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} ><Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'original_cost',indComp)} value={formatter.format(indComp.original_cost)}/></Col>
+                                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} > 
+                                  <Tooltip placement="topLeft" title="Only numeric values are accepted.">
+                                    <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'original_cost',indComp)} value={formatter.format(indComp.original_cost)}/>
+                                  </Tooltip>
+                                </Col>
                                 <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }} ><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" onClick={() => removeIndComponent(indComp)} /></Button></Col>
                               </Row>
                             </Timeline.Item>
