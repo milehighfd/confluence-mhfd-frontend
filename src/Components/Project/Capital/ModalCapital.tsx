@@ -160,9 +160,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[userPolygon]);
   useEffect(()=>{
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
-      let idKey = [...keys];
+      const idKey = [...keys];
       Object.keys(listComponents.groups).map((key: any,id:any) => {
-        idKey.push(id);
+        if (listComponents.groups[key].components.length) {
+          idKey.push(id + '-collapse1');
+        }
       });
       setKeys(idKey);
       setGroups(listComponents.groups);
@@ -443,10 +445,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
+             {keys && keys.length && 
             <Collapse
               defaultActiveKey={keys}
-              activeKey={keys}
               expandIconPosition="right"
+              onChange={(event: any)=> {console.log('has algo ', event, keys )}}
             >
 
 
@@ -456,7 +459,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   if(groups[key].components.length > 0){
                     return (
 
-                      <Panel header="" key={id} extra={genTitleNoAvailable(groups[key])}>
+                      <Panel header="" key={id + '-collapse1'} extra={genTitleNoAvailable(groups[key])}>
                         <div className="tab-body-project">
                           <Timeline>
                             {
@@ -467,7 +470,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                     <Row style={{marginLeft:'-18px'}} 
                                     onMouseEnter={() => setValuesComp(component)}
                                     onMouseLeave={()=> setValuesComp({table:'', value:''})}>
-                                      <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
+                                      <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type} asdfasdfsad</label></Col>
                                       <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{component.status}</Col>
                                       <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{formatter.format(component.original_cost)}</Col>
                                       <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
@@ -485,7 +488,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   }
                 } else {
                   return (
-                    <Panel header="" key={id} extra={genTitleProblem(groups[key])}>
+                    <Panel header="" key={id + '-collapse1'} extra={genTitleProblem(groups[key])}>
                       <div className="tab-body-project">
                         <Timeline>
                           {
@@ -513,7 +516,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               })
               }
             </Collapse>
-            <Collapse
+             }
+             <Collapse
               defaultActiveKey={["Unnamed Component"]}
               expandIconPosition="right"
             >

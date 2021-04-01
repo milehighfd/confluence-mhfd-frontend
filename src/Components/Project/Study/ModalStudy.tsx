@@ -80,7 +80,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   useEffect(()=>{
     // console.log("LIST STREAMS", listStreams);
     if(listStreams) {
-      let idKey = keys;
+      const idKey = [...keys];
       Object.keys(listStreams).map((key: any, id: any) => {
         idKey.push(`${id}${key}`);
       })
@@ -260,9 +260,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
               <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
             </Row>
-            <Collapse
+            { keys && keys.length && 
+              <Collapse
               defaultActiveKey={keys}
-              activeKey={keys}
               expandIconPosition="right"
             >
               {/* <Panel header="" key="1" extra={genExtra()}>
@@ -334,6 +334,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                 })
               }
             </Collapse>
+            }
             <hr/>
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>TOTAL</Col>
