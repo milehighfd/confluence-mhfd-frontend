@@ -28,7 +28,7 @@ import StatusPlan from './Components/Work/Drawers/StatusPlan';
 import StatusDistrict from './Components/Work/Drawers/StatusDistrict';
 import Filter from './Components/Work/Drawers/Filter';
 import { AlertView } from './Components/Alerts/AlertView';
-
+import MapComment from './Components/Map/MapComment';
 //import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
 
 
@@ -169,6 +169,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={'/status-plan'} component={StatusPlan} />
       <Route path={'/status-district'} component={StatusDistrict} />
       <Route path={'/filter'} component={Filter} />
+      <Route path={'/comment'} component={MapComment} />
 
       {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />

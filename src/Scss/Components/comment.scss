@@ -1,0 +1,122 @@
+@import "../Theme/styles.scss";
+// GENERAL
+.comment-title{
+  display: flex;
+  position: relative;
+
+  h5{
+    font-size: 16px;
+    color: $purple00;
+    width: 50%;
+    margin-bottom: 0px;
+  }
+  .type-popover, .type-popover:hover, .type-popover:focus{
+    position: absolute;
+    right: 0px;
+    padding: 0px;
+    cursor: pointer;
+    font-size: 12px;
+    color: $opacity;
+    border: none;
+    box-shadow: none;
+    height: 20px;
+  }
+  .ant-btn .anticon{
+    color: $purple00;
+    font-size: 10px;
+    font-weight: bold;
+  }
+}
+.popover-note{
+  .ant-popover-inner-content{
+    padding: 0px;
+  }
+  .ant-list-bordered{
+    border: none !important;
+  }
+  .ant-list-something-after-last-item .ant-spin-container > .ant-list-items > .ant-list-item:last-child {
+      border-bottom: 1px solid $opacity00;
+  }
+  .ant-list-sm .ant-list-item{
+    margin: 0px 10px;
+  }
+  .ant-list-bordered.ant-list-sm .ant-list-item {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .ant-list-item {
+    justify-content: initial;
+    padding: 6px 0 !important;
+    font-size: 11px;
+  }
+  i{
+    font-size: 16px;
+  }
+  .ant-list-bordered.ant-list-sm .ant-list-header, .ant-list-bordered.ant-list-sm .ant-list-footer {
+    padding: 0px;
+  }
+  button, button:hover, button:focus{
+    border-radius: 0px;
+    border: none;
+    background: $opacity00;
+    font-size: 11px;
+    color: $purple00;
+    padding: 0 21px;
+    height: 35px;
+  }
+  .anticon{
+    position: absolute;
+    right: 12px;
+    font-size: 10px;
+    color: $green;
+  }
+}
+.comment-drawer{
+  .ant-drawer-content-wrapper{
+    width: 320px !important;
+  }
+  .ant-drawer-header{
+    padding: 20px 15px;
+    border-bottom: 2px solid $light-purple;
+  }
+  .ant-drawer-body{
+    padding: 0px;
+    height: calc(100vh - 122px);
+    overflow-y: auto;
+  }
+  .ant-comment {
+    padding: 0px 15px;
+    border-bottom: 2px solid $light-purple;
+    margin: 0px;
+
+    p{
+      font-size: 14px;
+      color: $purple00;
+      margin-bottom: 4px;
+    }
+    h6{
+      text-align: right;
+      color: $opacity;
+      font-size: 11px;
+      font-weight: normal;
+      margin-bottom: 0px;
+    }
+  }
+  .ant-comment-inner {
+    padding: 10px 0;
+  }
+  .ant-avatar-string{
+    font-size: 12px;
+  }
+  .btn-coll{
+    top: calc(100% - 95px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    width: 40px;
+  }
+}
+
+// 1920x1080 DISPLAY
+@media (min-width: 1900px) and (max-width: 2499px){}
+
+// 2560x1440 DISPLAY
+@media (min-width: 2500px) and (max-width: 2999px){}
