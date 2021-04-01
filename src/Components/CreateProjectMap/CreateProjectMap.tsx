@@ -57,7 +57,8 @@ let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
 const CreateProjectMap = (type: any) => {
-  let html = document.getElementById('map3');
+  let idOfCurrentMap = type.type == "REQUEST"?'map4':'map3';
+  let html = document.getElementById(idOfCurrentMap);
   let draw: any;
   let popup = new mapboxgl.Popup();
   
@@ -101,12 +102,12 @@ const CreateProjectMap = (type: any) => {
   });
   useEffect(() => {
     const waiting = () => {
-      html = document.getElementById('map3');
+      html = document.getElementById(idOfCurrentMap);
       if (!html) {
         setTimeout(waiting, 50);
       } else {
         if (!map) {
-          map = new MapService('map3');
+          map = new MapService(idOfCurrentMap);
           setLayersSelectedOnInit();
         }
       }
@@ -1541,7 +1542,7 @@ const CreateProjectMap = (type: any) => {
   }
   return <>
     <div className="map">
-      <div id="map3" style={{ height: '572px', width: '100%' }}></div>
+      <div id={idOfCurrentMap} style={{ height: '572px', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
         getDetailedPageProblem={getDetailedPageProblem}

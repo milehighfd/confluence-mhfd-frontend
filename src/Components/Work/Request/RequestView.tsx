@@ -291,7 +291,7 @@ export default () => {
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
               <div className="map">
-                <CreateProjectMap type="CAPITAL" locality={locality}></CreateProjectMap>
+                <CreateProjectMap type="REQUEST" locality={locality}></CreateProjectMap>
               </div>
 
               <Button className="btn-coll" >
