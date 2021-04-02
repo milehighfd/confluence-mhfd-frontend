@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Menu, Popover } from 'antd';
 import AmountModal from './AmountModal';
 
-const TrelloLikeCard = ({ project }: { project: any }) => {
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2
+});
+
+const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, columnIdx: number, saveData: Function }) => {
+
   const {
     projectid,
     projectname,
-    price,
     jurisdiction,
     status
-  } = project;
+  } = project.projectData;
+  const amount = project[`req${columnIdx}`];
 
   const [showAmountModal, setShowAmountModal] = useState(false);
 
@@ -35,15 +43,22 @@ const TrelloLikeCard = ({ project }: { project: any }) => {
   );
 
   const onDragStart = (e: any, id: any) => {
-    e.dataTransfer.setData('id', id);
+    e.dataTransfer.setData('text', JSON.stringify({id, fromColumnIdx: columnIdx}));
   }
 
   return (
     <>
-    <AmountModal visible={showAmountModal} setVisible={setShowAmountModal} />
+    <AmountModal
+      project={project}
+      projectId={projectid}
+      visible={showAmountModal}
+      setVisible={setShowAmountModal}
+      startYear={2021}
+      saveData={saveData}
+      />
     <div className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable onDragStart={e => onDragStart(e, projectid)}>
       <h4>{projectname}</h4>
-      <h6>{price}</h6>
+      <h6>{amount ? formatter.format(amount) : ''}</h6>
       <label className="purple">{jurisdiction}</label>
       <label className="yellow">{status}</label>
       {

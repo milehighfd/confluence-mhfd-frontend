@@ -32,7 +32,12 @@ const genExtra = () => (
 
 const type = 'WORK_REQUEST';
 
-interface projectType { project: any, column: number, positon: number };
+interface boardProject {
+  projectData: any,
+  project_id: number,
+  req1: number, req2: number, req3: number, req4: number, req5: number, 
+  positon0: number, positon1: number, positon2: number, positon3: number, positon4: number, positon5: number
+};
 
 const defaultColumns: any[] = [
   {
@@ -64,7 +69,7 @@ const defaultColumns: any[] = [
 
 const MaintenanceTypes = ['Debris Management', 'Vegetation Management', 'Sediment Removal', 'Minor Repairs', 'Restoration'];
 
-const generateColumns = (projects: projectType[], year: number, tabKey: string) => {
+const generateColumns = (boardProjects: boardProject[], year: number, tabKey: string) => {
   let columns: any[] = defaultColumns.map((dc: any, index: number) => {
     let title = dc.title;
     if (index > 0) {
@@ -80,16 +85,32 @@ const generateColumns = (projects: projectType[], year: number, tabKey: string) 
       projects: []
     }
   });
+  let temporalColumns: any = [[], [], [], [], [], []]
 
-  projects.forEach((project) => {
-    if (project.project) {
-      columns[project.column].projects.push(project.project);
+  boardProjects.forEach((boardProject: boardProject | any) => {
+    let isInAnyColumn = false;
+    for(var i = 1 ; i <= 5; i++) {
+      if (boardProject[`position${i}`] != null) {
+        isInAnyColumn = true;
+        temporalColumns[i].push(boardProject);
+      }
     }
+    if (!isInAnyColumn) {
+      temporalColumns[0].push(boardProject);
+    }
+  });
+
+  columns = columns.map((c, i) => {
+    return {
+      ...c,
+      projects: temporalColumns[i]
+    };
   })
+
   return columns;
 }
 
-export default () => {
+const RequestView = () => {
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const years = [2021, 2020, 2019, 2018];
   const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
@@ -97,14 +118,6 @@ export default () => {
   const [year, setYear] = useState<any>(years[0]);
   const [tabKey, setTabKey] = useState<string>(tabKeys[0]);
   const [namespaceId, setNamespaceId] = useState<string>('');
-  const [dataProblem, setDataProblem] = useState({
-    problemid: '',
-    id: '',
-    objectid: '',
-    value: '',
-    type: '',
-    cartoid: ''
-  });
   const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
 
   const [columns, setColumns] = useState([
@@ -140,39 +153,87 @@ export default () => {
   }
 
   const onDrop = (e: any, columnIdx: number, cat: string) => {
-    let id = e.dataTransfer.getData("id");
-    let fromColumnIdx = -1;
+    let txt = e.dataTransfer.getData("text");
+    let parsedObject = JSON.parse(txt);
+    let { id, fromColumnIdx } = parsedObject;
+
     let project: any;
-    columns.map(r => r.projects).forEach((ps: any, i) => {
-      ps.forEach((p: any) => {
-        if (p.projectid == id) {
-          fromColumnIdx = i;
-          project = p;
-        }
-      })
+    columns[fromColumnIdx].projects.forEach((p: any) => {
+      if (p.project_id == id) {
+        project = p;
+      }
+    })
+    console.log('project', project)
+
+    let destinyColumnHasProject = false;
+    columns[columnIdx].projects.forEach((p: any) => {
+      if (p.project_id == id) {
+        destinyColumnHasProject = true;
+      }
     })
 
     if (fromColumnIdx === columnIdx) {
       return;
     }
 
-    const newColumns = columns.map((c: any, i: number) => {
-      if (i === fromColumnIdx) {
+    if (destinyColumnHasProject) {
+      return;
+    } else {
+
+      let newObj = {
+        ...project,
+        [`position${columnIdx}`]: columns[columnIdx].projects.length,
+        [`req${columnIdx}`]: project[`req${fromColumnIdx}`],
+        [`req${fromColumnIdx}`]: null,
+        [`position${fromColumnIdx}`]: null,
+      }
+      let temporalColumns: any = columns.map((c) => {
         return {
           ...c,
-          projects: c.projects.filter((p: any) => p.projectid != id)
+          projects: c.projects
+          .filter((p: any, colIdx: number) => {
+            if (colIdx == fromColumnIdx && p.project_id == id) {
+              return false;
+            }
+            return true;
+          })
+          .map((p: any) => {
+            if (p.project_id == id) {
+              return newObj;
+            }
+            return p;
+          })
         }
-      }
-      if (i === columnIdx) {
-        return {
-          ...c,
-          projects: [...c.projects, project]
-        }
-      }
-      return c;
-    })
-    WsService.sendUpdate(newColumns);
-    setColumns(newColumns);
+      })
+      temporalColumns[columnIdx].projects.push(newObj);
+
+      console.log('temporalColumns', temporalColumns);
+
+      WsService.sendUpdate(temporalColumns);
+      setColumns(temporalColumns);
+
+    }
+
+    console.log('fromColumnIdx', fromColumnIdx, 'columnIdx', columnIdx)
+
+    
+
+    // const newColumns = columns.map((c: any, i: number) => {
+    //   if (i === fromColumnIdx) {
+    //     return {
+    //       ...c,
+    //       projects: c.projects.filter((p: any) => p.projectid != id)
+    //     }
+    //   }
+    //   if (i === columnIdx) {
+    //     return {
+    //       ...c,
+    //       projects: [...c.projects, project]
+    //     }
+    //   }
+    //   return c;
+    // })
+
   }
 
   const onSelect = (value: any) => {
@@ -270,6 +331,86 @@ export default () => {
     return () => clearInterval(interval);
   }, [namespaceId]);
 
+
+  const saveData = (data: { projectId: any, amounts: any[] }) => {
+    let projectData: any;
+    columns.forEach(c => {
+      c.projects.forEach((p: any) => {
+        if (p.project_id == data.projectId) {
+          projectData = p;
+        }
+      })
+    })
+    let hasData = data.amounts.some(r => !!r);
+    if (hasData) {
+      let newObj: any = {
+        project_id: data.projectId,
+        position0: null,
+        position1: null, position2: null, position3: null, position4: null, position5: null,
+        req1: data.amounts[0], req2: data.amounts[1], req3: data.amounts[2], req4: data.amounts[3], req5: data.amounts[4],
+        projectData: projectData.projectData
+      }
+      let temporalColumns = columns.map(r => r);
+      let positions = data.amounts.map((req: number, index: number) => {
+        let column = temporalColumns[index + 1];
+        let projects = column.projects;
+        let pos = null;
+        if (req) {
+          projects.forEach((p: any, projectIndex: number) => {
+            if (p.project_id == data.projectId) {
+              pos = projectIndex;
+            }
+          })
+          if (pos === null) {
+            pos = projects.length;
+          }
+        }
+        return pos;
+      })
+      positions.forEach((pos: any, posIdx: number) => {
+        newObj[`position${posIdx+1}`] = pos;
+      })
+
+      // Remove old references to project
+      temporalColumns = temporalColumns.map((tc: any) => {
+        return {
+          ...tc,
+          projects: tc.projects.filter((p: any) => {
+            return p.project_id != data.projectId;
+          })
+        }
+      })
+      positions.forEach((pos: any, posIdx: number) => {
+        if (pos != null) {
+          let ref: any = temporalColumns[posIdx+1].projects;
+          ref.push(newObj)
+        }
+      })
+      WsService.sendUpdate(temporalColumns)
+      setColumns(temporalColumns)
+
+    } else {
+      let temporalColumns = columns.map((col: any, colIndex) => {
+        return {
+          ...col,
+          projects: col.projects.filter((p: any) => {
+            return p.project_id != data.projectId
+          })
+        }
+      })
+      let newProjectData = {
+        project_id: data.projectId,
+        position0: 0,
+        position1: null, position2: null, position3: null, position4: null, position5: null,
+        req1: null, req2: null, req3: null, req4: null, req5: null,
+        projectData: projectData.projectData 
+      };
+      temporalColumns[0].projects.push(newProjectData);
+      WsService.sendUpdate(temporalColumns)
+      setColumns(temporalColumns);
+    }
+  }
+
   return <>
     <div>
       {
@@ -277,7 +418,7 @@ export default () => {
         <ModalProjectView
           visible={visibleCreateProject}
           setVisible={setVisibleCreateProject}
-          data={dataProblem}
+          data={{}}
           defaultTab={tabKey}
           locality={locality}
         />
@@ -377,7 +518,7 @@ export default () => {
                                   }
                                   {
                                     column.projects.map((p: any, i: number) => (
-                                      <TrelloLikeCard key={i} project={p} />
+                                      <TrelloLikeCard key={i} project={p} columnIdx={columnIdx} saveData={saveData} />
                                     ))
                                   }
                                 </div>
@@ -464,3 +605,5 @@ export default () => {
     </Layout>
   </>
 }
+
+export default RequestView;
