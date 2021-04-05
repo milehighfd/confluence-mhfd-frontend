@@ -19,16 +19,6 @@ const { Panel } = Collapse;
 const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
 const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const genExtra = () => (
-  <div className="tab-head-project">
-    <div><label>Total Cost</label></div>
-    <div>$1,000,000</div>
-    <div>$1,000,000</div>
-    <div>$1,000,000</div>
-    <div>$1,000,000</div>
-    <div>$1,000,000</div>
-  </div>
-);
 
 const type = 'WORK_REQUEST';
 
@@ -38,6 +28,24 @@ interface boardProject {
   req1: number, req2: number, req3: number, req4: number, req5: number, 
   positon0: number, positon1: number, positon2: number, positon3: number, positon4: number, positon5: number
 };
+
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2
+});
+
+const genExtra = (obj: any) => (
+  <div className="tab-head-project">
+    <div><label>Total Cost</label></div>
+    <div>{formatter.format(obj.req1)}</div>
+    <div>{formatter.format(obj.req2)}</div>
+    <div>{formatter.format(obj.req3)}</div>
+    <div>{formatter.format(obj.req4)}</div>
+    <div>{formatter.format(obj.req5)}</div>
+  </div>
+);
 
 const defaultColumns: any[] = [
   {
@@ -119,6 +127,8 @@ const RequestView = () => {
   const [tabKey, setTabKey] = useState<string>(tabKeys[0]);
   const [namespaceId, setNamespaceId] = useState<string>('');
   const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
+  const [sumByCounty, setSumByCounty] = useState<any[]>([]);
+  const [sumTotal, setSumTotal] = useState<any>({});
 
   const [columns, setColumns] = useState([
     {
@@ -331,6 +341,54 @@ const RequestView = () => {
     return () => clearInterval(interval);
   }, [namespaceId]);
 
+  useEffect(() => {
+
+    let allProjects = columns.reduce((acc: any[], cv: any) => {
+      return [...acc, ...cv.projects]
+    }, [])
+    let ht: any = {};
+    allProjects = allProjects.filter((p: any) => {
+      if (!ht[p.project_id]) {
+        ht[p.project_id] = p;
+        return true;
+      }
+      return false;
+    })
+
+    let countyMap: any = {}
+    allProjects.forEach((p: any) => {
+      let county = p.projectData.county;
+      if (!countyMap[county]) {
+        countyMap[county] = {
+          req1: 0,
+          req2: 0,
+          req3: 0,
+          req4: 0,
+          req5: 0,
+        }
+      }
+      for(var i = 1; i <= 5 ; i++) {
+        countyMap[county][`req${i}`] += p[`req${i}`];
+      }
+    })
+    let rows: any = [];
+    let totals: any = { req1: 0, req2: 0, req3: 0, req4: 0, req5: 0 };
+    Object.keys(countyMap).forEach((county: string) => {
+      let obj: any = {
+        county
+      }
+      for(var i = 1; i <= 5 ; i++) {
+        let amount = countyMap[county][`req${i}`];
+        obj[`req${i}`]= amount ? formatter.format(amount) : 0;
+        totals[`req${i}`] += amount;
+      }
+      rows.push(obj);
+    });
+    setSumTotal(totals);
+    console.log('rows', rows)
+    setSumByCounty(rows);
+    
+  }, [columns]);
 
   const saveData = (data: { projectId: any, amounts: any[] }) => {
     let projectData: any;
@@ -532,39 +590,29 @@ const RequestView = () => {
                             defaultActiveKey={['1']}
                             expandIconPosition="left"
                           >
-                            <Panel header="" key="1" extra={genExtra()}>
+                            <Panel header="" key="1" extra={genExtra(sumTotal)}>
                               <div className="tab-body-project streams">
                                 <Timeline>
-                                  <Timeline.Item color="purple">
-                                    <div className="tab-body-line">
-                                      <div><label>Boulder <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                    </div>
-                                  </Timeline.Item>
-                                  <Timeline.Item color="purple">
-                                    <div className="tab-body-line">
-                                      <div><label>Louisville <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                    </div>
-                                  </Timeline.Item>
-                                  <Timeline.Item color="purple">
-                                    <div className="tab-body-line">
-                                      <div><label>Superior <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label></div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                      <div>$170,000</div>
-                                    </div>
-                                  </Timeline.Item>
+                                  {
+                                    sumByCounty.map((countySum) => (
+                                      <Timeline.Item color="purple">
+                                        <div className="tab-body-line">
+                                          <div>
+                                            <label>
+                                              {countySum.county}
+                                              <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" />
+                                              </Popover>
+                                            </label>
+                                          </div>
+                                          <div>{countySum.req1}</div>
+                                          <div>{countySum.req2}</div>
+                                          <div>{countySum.req3}</div>
+                                          <div>{countySum.req4}</div>
+                                          <div>{countySum.req5}</div>
+                                        </div>
+                                      </Timeline.Item>    
+                                    ))
+                                  }
                                 </Timeline>
                               </div>
                             </Panel>
