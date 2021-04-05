@@ -139,11 +139,10 @@ const CreateProjectMap = (type: any) => {
     });
     if(zoomareaSelected[0]){
       let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
-      let bbox = turf.bbox(poly);
-      if(bbox) {
-        map.isStyleLoaded(() => {
-          map.map.fitBounds(bbox,{padding: 80});
-        });
+      let coord = turf.centroid(poly);
+      if(coord.geometry && coord.geometry.coordinates) {
+        let value = coord.geometry.coordinates;
+          map.map.flyTo({ center: value, zoom: 10 });
       }
     }
   }
