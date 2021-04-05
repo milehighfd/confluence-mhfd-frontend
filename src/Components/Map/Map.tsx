@@ -1277,7 +1277,7 @@ const Map = ({ leftWidth,
             let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
             if (features.length === 0) {
                 return;
-              } 
+              }
             if ((e.point.x === coordX || e.point.y === coordY)) {
                 return;
             }
@@ -2160,7 +2160,7 @@ const Map = ({ leftWidth,
             />
             }
         </div>
-        
+
         <div className="map">
             {visible && <DetailedModal
                 detailed={detailed}
@@ -2295,6 +2295,7 @@ const Map = ({ leftWidth,
                       }
                 }}
                 /></Button>
+                <Button style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
                 {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
             </div>
@@ -2428,7 +2429,7 @@ const Map = ({ leftWidth,
             </div>
         </div>
     </>
-    ) 
+    )
 }
 
 export default Map;

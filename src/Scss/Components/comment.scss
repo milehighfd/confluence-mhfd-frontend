@@ -116,7 +116,75 @@
     width: 40px;
   }
 }
+// POPUP MAP
+.popup-comment{
+  width: 280px;
+  padding: 0px;
+  min-height: 210px;
+  border-radius: 2px;
+  box-shadow: $shadow;
+  background-color: $white;
 
+  .headmap{
+   min-height: 34px;
+   border-radius: 1.3px 1.3px 0px 0px;
+   background: $light-purple;
+   font-size: 14px;
+   color: $opacity;
+   padding: 12px 15px;
+   text-transform: uppercase;
+   line-height: 16px;
+
+     button, button:hover, button:focus{
+       padding: 0px;
+       font-size: 12px;
+       color: $purple00;
+       border: none;
+       box-shadow: none;
+       height: 20px;
+       background: none;
+     }
+     .ant-btn .anticon{
+       color: $purple00;
+       font-size: 10px;
+       font-weight: bold;
+     }
+  }
+  .bodymap{
+    padding: 10px;
+    background: $white;
+
+    .ant-input{
+      border: 1px solid $opacity01;
+      color: $purple;
+      font-size: 12px;
+    }
+    button{
+      width: 100%;
+      border: 1px solid $opacity01;
+      color: $green;
+      height: 35px;
+      margin-top: 10px;
+    }
+  }
+}
+.popover-comment{
+  .ant-popover-inner-content{
+    padding: 0px;
+  }
+  ul{
+    padding: 0px !important;
+    width: 130px;
+  }
+  li{
+    display: block;
+    padding: 6px 0px !important;
+    font-size: 11px;
+    cursor: pointer;
+    border-bottom: 1px solid $light-purple;
+    margin: 0px 10px;
+  }
+}
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
   // GENERAL
@@ -185,7 +253,46 @@
       width: 50px;
     }
   }
+  // POPUP MAP
+  .popup-comment{
+    width: 370px;
 
+    .headmap{
+     min-height: 34px;
+     font-size: 14px;
+     padding: 12px 15px;
+     line-height: 16px;
+
+       button, button:hover, button:focus{
+         font-size: 16px;
+         height: 22px;
+       }
+       .ant-btn .anticon{
+         font-size: 12px;
+       }
+    }
+    .bodymap{
+      padding: 15px;
+
+      .ant-input{
+        font-size: 16px;
+      }
+      button{
+        height: 45px;
+        margin-top: 10px;
+        font-size: 16px;
+      }
+    }
+  }
+  .popover-comment{
+    ul{
+      width: 160px;
+    }
+    li{
+      padding: 8px 0px !important;
+      font-size: 14px;
+    }
+  }
 }
 
 // 2560x1440 DISPLAY
@@ -260,6 +367,46 @@
     .btn-coll{
       height: 60px;
       width: 50px;
+    }
+  }
+  // POPUP MAP
+  .popup-comment{
+    width: 490px;
+
+    .headmap{
+     min-height: 34px;
+     font-size: 14px;
+     padding: 12px 15px;
+     line-height: 16px;
+
+       button, button:hover, button:focus{
+         font-size: 21px;
+         height: 32px;
+       }
+       .ant-btn .anticon{
+         font-size: 16px;
+       }
+    }
+    .bodymap{
+      padding: 20px;
+
+      .ant-input{
+        font-size: 16px;
+      }
+      button{
+        height: 60px;
+        margin-top: 15px;
+        font-size: 21px;
+      }
+    }
+  }
+  .popover-comment{
+    ul{
+      width: 220px;
+    }
+    li{
+      padding: 12px 0px !important;
+      font-size: 19px;
     }
   }
 }

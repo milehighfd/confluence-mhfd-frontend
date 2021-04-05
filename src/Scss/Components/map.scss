@@ -303,6 +303,7 @@
     height: 25px;
     padding: 0px;
     border: none;
+    margin-top: 8px;
   }
    button .img-icon{
     -webkit-mask: url('/Icons/ic_boundary.svg') no-repeat center;
@@ -320,6 +321,21 @@
   .btn-green{
     display: none;
   }
+  button .img-icon-01{
+   -webkit-mask: url('/Icons/icon-03.svg') no-repeat center;
+   height: 100%;
+   width: 100%;
+   background: $purple00;
+  -webkit-mask-size: 20px 20px;
+ }
+ .ant-btn:hover > .img-icon-01 {
+   opacity: 1;
+   -webkit-mask: url('/Icons/icon-03.svg') no-repeat center;
+   height: 100%;
+   width:100%;
+   background: $green !important;
+   -webkit-mask-size: 20px 20px;
+ }
 }
 
 .filter-map{
