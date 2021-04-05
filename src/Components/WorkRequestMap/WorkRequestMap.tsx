@@ -56,8 +56,8 @@ let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 // const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
-const CreateProjectMap = (type: any) => {
-  let html = document.getElementById('map3');
+const WorkRequestMap = (type: any) => {
+  let html = document.getElementById('map4');
   let draw: any;
   let popup = new mapboxgl.Popup();
   
@@ -67,10 +67,10 @@ const CreateProjectMap = (type: any) => {
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected, updateSelectedLayers } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent } = useProjectState();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected, updateSelectedLayersWR } = useProjectDispatch();
+  const { listComponents, selectedLayersWR, highlightedComponent, boardProjects } = useProjectState();
   const {groupOrganization} = useProfileState();
-  const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
+  const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayersWR);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -99,14 +99,26 @@ const CreateProjectMap = (type: any) => {
     type: '',
     cartoid: ''
   });
+  const [boardProjectFilter, setBPF] = useState<any>([]);
+  useEffect(()=>{
+    if(layers) {
+      setLayerFilters(layers);
+    }
+  },[layers]);
+  useEffect(()=>{
+    if(map) {
+      map.isStyleLoaded(applyMapLayers);
+    }
+    
+  },[layerFilters]);
   useEffect(() => {
     const waiting = () => {
-      html = document.getElementById('map3');
+      html = document.getElementById('map4');
       if (!html) {
         setTimeout(waiting, 50);
       } else {
         if (!map) {
-          map = new MapService('map3');
+          map = new MapService('map4');
           setLayersSelectedOnInit();
         }
       }
@@ -129,6 +141,18 @@ const CreateProjectMap = (type: any) => {
       }
     }
   },[highlightedComponent]);
+  
+  useEffect(()=>{
+      if(boardProjects.length > 0 && boardProjects[0] != '-8888') {
+        let filterProjectsDraft = {...filterProjects}; 
+        filterProjectsDraft.projectType = '';
+        filterProjectsDraft.status = 'Draft';
+        map.isStyleLoaded(()=>{
+            showLayers('mhfd_projects_copy');
+            applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+        });
+      }
+  },[boardProjects]);
   const setBounds = (value:any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
       return {
@@ -139,25 +163,20 @@ const CreateProjectMap = (type: any) => {
     });
     if(zoomareaSelected[0]){
       let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
-      let bbox = turf.bbox(poly);
-      if(bbox) {
-        map.isStyleLoaded(() => {
-          map.map.fitBounds(bbox,{padding: 80});
-        });
+      let coord = turf.centroid(poly);
+      console.log("COROD", coord);
+      if(coord.geometry && coord.geometry.coordinates) {
+        let value = coord.geometry.coordinates;
+          map.map.flyTo({ center: value, zoom: 10 });
       }
     }
   }
   useEffect(()=>{
-    let value = store.getState().profile.userInformation.zoomarea;
     if(type.locality) {
-      value = type.locality;
+      console.log(type.locality);
+      map.isStyleLoaded(() => setBounds(type.locality));
     }
-      // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
-    if(groupOrganization.length > 0) {
-      setBounds(value);
-    }
-    
-  },[groupOrganization, store.getState().profile.userInformation.zoomarea]);
+  },[groupOrganization, type.locality]);
   useEffect(()=>{
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
@@ -177,216 +196,34 @@ const CreateProjectMap = (type: any) => {
       setVisible(true);
     }
   }, [data]);
-  useEffect(()=>{
-    if(isAddLocation){
-      let eventToClick = eventService.getRef('click');
-      // map.map.off('click', eventToClick);
-      isPopup = false;
-      let eventToMove = eventService.getRef('move');
-      map.map.on('mousemove',eventToMove);
-      let eventToAddMarker = eventService.getRef('addmarker');
-      map.map.on('click',eventToAddMarker);
-    } else {
-      
-      let eventToMove = eventService.getRef('move');
-      map.map.off('mousemove', eventToMove);
-      let eventToAddMarker = eventService.getRef('addmarker');
-      map.map.off('click',eventToAddMarker);
-      isPopup = true;
-      // map.map.on('click', eventToClick);
-      map.removePopUpOffset();
-      marker.remove();
-      marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
-    }
-    
-  },[isAddLocation]); 
-  useEffect(() => {
-    if(isDraw) {
-      if (type.type != 'ACQUISITION' && type.type != 'SPECIAL') {
-        // let eventToClick = eventService.getRef('click');
-        // map.map.off('click', eventToClick);
-        isPopup = false;
-        map.addDrawControllerTopLeft();
-        map.createDraw(onCreateDraw);
-        setTimeout(()=>{
-          let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_polygon');
-          let element: HTMLElement = elements[0] as HTMLElement;
-          if(element) {
-            element.click();
-          }
-        },500);
-      }
-    } else {
-      isPopup = true;
-      map.removeDrawController();
-      // let eventToClick = eventService.getRef('click');
-      // map.map.on('click', eventToClick);
-    }
-  }, [isDraw]);
-  useEffect(() => {
-    let geom: any = undefined;
-    if (streamIntersected && streamIntersected.geom) {
-      geom = JSON.parse(streamIntersected.geom);
-      if(geom) {
-        map.isStyleLoaded(() => {
-          map.removeLayer('streamIntersected');
-          map.removeSource('streamIntersected');
-          if (!map.map.getSource('streamIntersected')) {
-            map.map.addSource('streamIntersected', {
-              'type': 'geojson',
-              'data': { type: 'Feature', geometry: geom, properties: [] }
-            });
-          }
-          if (!map.getLayer('streamIntersected')) {
-            map.map.addLayer({
-              'id': 'streamIntersected',
-              'type': 'line',
-              'source': 'streamIntersected',
-              'layout': {},
-              'paint': {
-                'line-color': '#eae320',
-                'line-width': 3.5,
-              }
-            });
-          }
-  
-        });
-      }
-    
-    } else {
-      if (map && map.map.isStyleLoaded() ) {
-        map.removeLayer('streamIntersected');
-        map.removeSource('streamIntersected');
-      }
-    }
-
-    
-
-  }, [streamIntersected]);
-  useEffect(()=>{
-    if(streamsIntersectedIds.length > 0) {
-      map.isStyleLoaded( () => {
-        let filter = ['in','cartodb_id',...streamsIntersectedIds];
-        // console.log("filter", filter);
-        map.removeLayer('streams-intersects');
-        if (!map.getLayer('streams-intersects')) {
-          map.map.addLayer({
-            'id': 'streams-intersects',
-            'type': 'line',
-            'source': 'streams',
-            'source-layer': 'pluto15v1',
-            'layout': {},
-            'paint': {
-              'line-color': '#eae320',
-              'line-width': 3.5,
-            },
-            'filter':filter
-          });
-          
-        }
-      });
-        
-    }
-    
-    
-
-  },[streamsIntersectedIds]);
   useEffect(() => {
     if (map) {
       map.create();
       setLayerFilters(layers);
-      map.map.on('style.load', () => {
+      map.isStyleLoaded(()=>{
         applyMapLayers();
         let eventToClick = eventService.getRef('click');
         map.map.on('click',eventToClick);
-      });
+      })
+      // map.map.on('style.load', () => {
+        
+      // });
       
     }
   }, [map])
 
   useEffect(() => {
-    // console.log("SELEC", selectedLayers);
     if (map ) {
       map.isStyleLoaded(applyMapLayers);
     }
     
 
-  }, [selectedLayers]);
-  useEffect(()=>{
-    if(type.locality) {
-      
-    }
-  },[type.locality]);
+  }, [selectedLayersWR]);
+
   const setLayersSelectedOnInit = () => {
-    if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
-      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS, COMPONENT_LAYERS]);
-    } else if( type.type == 'STUDY') {
-      updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS ]);
-    } else {
-      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-    }
+    updateSelectedLayersWR([COMPONENT_LAYERS,MHFD_BOUNDARY_FILTERS, XSTREAMS]);
   }
-  const onCreateDraw = (event: any) => {
-    const userPolygon = event.features[0];
-    if (type.type === 'CAPITAL') {
-      // getStreamIntersectionSave(userPolygon.geometry);
-      // getListComponentsIntersected(userPolygon.geometry);
-      getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
-    } else if (type.type === 'MAINTENANCE') {
-      getStreamIntersectionPolygon(userPolygon.geometry);
-    } else if (type.type === 'STUDY') {
-      type.setGeom(userPolygon.geometry);
-      getStreamsIntersectedPolygon(userPolygon.geometry);
-      getStreamsList(userPolygon.geometry);
-    }
-    getServiceAreaStreams(userPolygon.geometry);
-    setUserPolygon(userPolygon.geometry);
-    setTimeout(()=>{
-      let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_trash');
-      let element: HTMLElement = elements[0] as HTMLElement;
-      if(element) {
-        element.click();
-      }
-      changeDrawState(false);
-    },2500);
-    // const polygonBoundingBox = turf.bbox(userPolygon);
-    // const southWest = [polygonBoundingBox[0], polygonBoundingBox[1]];
-    // const northEast = [polygonBoundingBox[2], polygonBoundingBox[3]];
-    // const northEastPointPixel = map.map.project(northEast);
-    // const southWestPointPixel = map.map.project(southWest);
-    // let totalFeatures: Array<any> = [];
-    // for(let key of COMPONENT_LAYERS.tiles) {
-    //     if(map.getLayer(key+'_0')) {
-    //       const featuresComponents = map.map.queryRenderedFeatures([southWestPointPixel, northEastPointPixel], {layers: [key+'_0']}); 
-    //       totalFeatures = [...totalFeatures, ...featuresComponents];
-    //     } 
-    // }
-    // let featuresIntersected = getFeaturesIntersected(totalFeatures, userPolygon);
-    // let hull: any = getHull(featuresIntersected);
-    // console.log("HULL DATA TP", hull);
-    // map.removeLayer('hull');
-    // map.removeSource('hull'); 
-    // if(!map.map.getSource('hull')) {
-    //   map.map.addSource('hull', {
-    //     'type': 'geojson',
-    //     'data': hull
-    //   });
-    // }
-    // if(!map.getLayer('hull')){
-    //   map.map.addLayer({
-    //     'id': 'hull',
-    //     'type': 'fill',
-    //     'source': 'hull',
-    //     'layout': {},
-    //     'paint': {
-    //     'fill-color': '#088',
-    //     'fill-opacity': 0.8
-    //     }
-    //   });
-    // }
 
-
-  }
   const applyMapLayers = async () => {
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
@@ -394,6 +231,7 @@ const CreateProjectMap = (type: any) => {
           layer.tiles.forEach((subKey: string) => {
             const tiles = layerFilters[layer.name] as any;
             if (tiles) {
+              // console.log("TILES", subKey);
               addLayersSource(subKey, tiles[subKey]);
             }
           });
@@ -402,7 +240,8 @@ const CreateProjectMap = (type: any) => {
         addLayersSource(layer, layerFilters[layer]);
       }
     });
-    await selectedLayers.forEach((layer: LayersType) => {
+    
+    await selectedLayersWR.forEach((layer: LayersType) => {
       if (typeof layer === 'object') {
         layer.tiles.forEach((subKey: string) => {
           showLayers(subKey);
@@ -412,16 +251,18 @@ const CreateProjectMap = (type: any) => {
       }
     });
     applyFilters('problems', filterProblems);
-    let filterProjectsNew = filterProjects;
+    let filterProjectsNew = {...filterProjects};
+    let filterProjectsDraft = {...filterProjects}; 
+    
     if (type.type === 'SPECIAL') {
       filterProjectsNew.projecttype = "Special";
     } else if (type.type === 'STUDY') {
       filterProjectsNew.projecttype = "Study";
     } else {
-      filterProjectsNew.projecttype = "Maintenance,Capital";
+      filterProjectsNew.projecttype = "";
     }
-    // console.log("Filters ", filterProjects, filterProjectsNew);
     applyFilters('mhfd_projects', filterProjectsNew);
+    
     if (type.type === "CAPITAL") {
       applyComponentFilter();
     }
@@ -445,7 +286,7 @@ const CreateProjectMap = (type: any) => {
     });
   }
   const showLayers = (key: string) => {
-
+    
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
@@ -582,7 +423,132 @@ const CreateProjectMap = (type: any) => {
       if (componentDetailIds && componentDetailIds[key]) {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
+      if(key ==='mhfd_projects_copy'){
+        allFilters.push(['in', ['get', 'cartodb_id'], ['literal', ['-1']]]);
+      }
+      if (map.getLayer(key + '_' + index)) {
+        // console.log(key + '_' + index, allFilters);
+        map.setFilter(key + '_' + index, allFilters);
+      }
+    });
+  };
+  const applyFiltersIDs = (key: string, toFilter: any) => {
+    const styles = { ...tileStyles as any };
+    styles[key].forEach((style: LayerStylesType, index: number) => {
+      if (!map.getLayer(key + '_' + index)) {
+        return;
+      }
+      const allFilters: any[] = ['all'];
+      for (const filterField in toFilter) {
+        const filters = toFilter[filterField];
+        if (filterField === 'component_type') {
+          showSelectedComponents(filters.split(','));
+        }
+        if (filterField === 'keyword') {
+          if (filters[key]) {
+            allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
+          }
+        }
+        if (filters && filters.length) {
+          const options: any[] = ['any'];
+          if (filterField === 'keyword') {
+            continue;
+          }
+          if (filterField === 'component_type') {
+            continue;
+          }
+          if (filterField === 'year_of_study') {
+            for (const years of filters.split(',')) {
+              const lowerArray: any[] = ['>=', ['get', filterField], +years];
+              const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
+              options.push(['all', lowerArray, upperArray]);
 
+            }
+            allFilters.push(options);
+            continue;
+          }
+          if (filterField === 'components') {
+            allFilters.push(['in', ['get', 'problemid'], ['literal', [...filters]]]);
+            continue;
+          }
+          if (filterField === 'problemtypeProjects') {
+            allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
+            continue;
+          }
+          if (filterField === 'problemname' || filterField === 'projectname') {
+            continue;
+          }
+          if (filterField === 'estimatedcost') {
+            for (const range of filters) {
+              const [lower, upper] = range.split(',');
+              const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
+              const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+              const allFilter = ['all', lowerArray, upperArray];
+              options.push(allFilter);
+            }
+            for (const range of toFilter['finalcost']) {
+              const [lower, upper] = range.split(',');
+              const lowerArray: any[] = ['>=', ['to-number', ['get', 'finalcost']], +lower];
+              const upperArray: any[] = ['<=', ['to-number', ['get', 'finalcost']], +upper];
+              const allFilter = ['all', lowerArray, upperArray];
+              options.push(allFilter);
+            }
+            allFilters.push(options);
+            continue;
+          }
+          if (filterField === 'finalcost') {
+            continue;
+          }
+          if (filterField === 'startyear') {
+            const lowerArray: any[] = ['>=', ['get', filterField], +filters];
+            const upperArray: any[] = ['<=', ['get', 'completedyear'], +toFilter['completedyear']];
+            if (+toFilter['completedyear'] !== 9999) {
+              allFilters.push(['all', lowerArray, upperArray]);
+            } else {
+              if (+filters) {
+                allFilters.push(lowerArray);
+              }
+            }
+            continue;
+          }
+          if (filterField === 'servicearea') {
+            allFilters.push(['==', ['get', filterField], filters]);
+            continue;
+          }
+          if (filterField === 'completedyear') {
+            continue;
+          }
+          if (typeof filters === 'object') {
+            for (const range of filters) {
+              const [lower, upper] = range.split(',');
+              const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
+              const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+              const allFilter = ['all', lowerArray, upperArray];
+              options.push(allFilter);
+            }
+          } else {
+            for (const filter of filters.split(',')) {
+              if (isNaN(+filter)) {
+                options.push(['==', ['get', filterField], filter]);
+              } else {
+                const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
+                options.push(equalFilter);
+              }
+            }
+          }
+          allFilters.push(options);
+        }
+      }
+      // if (componentDetailIds && componentDetailIds[key]) {
+      //   allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
+      // }
+      if(boardProjects && boardProjects.length > 0 && key ==='mhfd_projects_copy' && boardProjects[0]!='-8888'){
+        let boardids = boardProjects;
+        console.log("Ids", boardids);
+        allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...boardids]]]);
+      } else {
+        console.log("ENTRA AQUI TAMBIEN LA VAINA", boardProjects);
+      }
       if (map.getLayer(key + '_' + index)) {
         //console.log(key + '_' + index, allFilters);
         map.setFilter(key + '_' + index, allFilters);
@@ -591,11 +557,11 @@ const CreateProjectMap = (type: any) => {
   };
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
 
-    const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
+    const deleteLayers = selectedLayersWR.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
       removeTilesHandler(layer);
     });
-    updateSelectedLayers(selectedItems);
+    updateSelectedLayersWR(selectedItems);
   }
   const hideLayers = (key: string) => {
     if (map) {
@@ -629,7 +595,7 @@ const CreateProjectMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", style['source-layer']);
+      // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", style['source-layer']);
       map.map.addLayer({
         id: key + '_' + index,
         source: key,
@@ -1540,7 +1506,7 @@ const CreateProjectMap = (type: any) => {
   }
   return <>
     <div className="map">
-      <div id="map3" style={{ height: '572px', width: '100%' }}></div>
+      <div id="map4" style={{ height: '572px', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
         getDetailedPageProblem={getDetailedPageProblem}
@@ -1560,11 +1526,9 @@ const CreateProjectMap = (type: any) => {
         <Dropdown overlayClassName="dropdown-map-layers"
           visible={visibleDropdown}
           onVisibleChange={(flag: boolean) => {
-            // selectCheckboxes(selectedCheckBox);
             setVisibleDropdown(flag);
-
           }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
+          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: selectedLayersWR, setSelectedCheckBox, removePopup, isExtendedView})}
           trigger={['click']}>
           <Button>
             <span className="btn-02"></span>
@@ -1585,4 +1549,4 @@ const CreateProjectMap = (type: any) => {
   </>
 };
 
-export default CreateProjectMap;
+export default WorkRequestMap;

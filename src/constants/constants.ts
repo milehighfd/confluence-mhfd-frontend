@@ -162,6 +162,7 @@ export const ROUTINE_MAINTENANCE = {
 // Project Styles Filters
 export const  PROJECTS_POLYGONS = 'projects_polygon_';
 export const PROJECTS_LINE = 'mhfd_projects';
+export const PROJECTS_DRAFT = 'mhfd_projects_copy';
 export const STUDIES = 'studies';
 
 export const PROJECTS_MAP_STYLES = {
@@ -170,7 +171,12 @@ export const PROJECTS_MAP_STYLES = {
     PROJECTS_LINE
   ]
 }
-
+export const PROJECTS_DRAFT_MAP_STYLES = {
+  name: 'projects_draft',
+  tiles: [
+    PROJECTS_DRAFT
+  ]
+}
 /*new styles*/
 export const NRCS_SOILS = 'usda_nrcs_soils';
 export const DWR_DAM_SAFETY = 'dwr_dam_safety';
@@ -207,7 +213,8 @@ export const SELECT_ALL_FILTERS = [
   STUDIES,
   PROJECTS_MAP_STYLES,
   COMPONENT_LAYERS,
-  PROBLEMS_TRIGGER
+  PROBLEMS_TRIGGER,
+  PROJECTS_DRAFT_MAP_STYLES
 
 ];
 

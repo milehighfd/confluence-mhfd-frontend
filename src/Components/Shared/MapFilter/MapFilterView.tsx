@@ -50,8 +50,8 @@ const contentPopOver = (text: string) => {
   return <div className="popoveer-00"><i>{text}</i></div>
 }
 
-export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView }:
-  { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean }) => {
+export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView,  }:
+  { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean}) => {
   // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
   const [switches, setSwitches] = useState({
     [PROBLEMS_TRIGGER]: true,
@@ -98,7 +98,6 @@ export const SEMSWA_SERVICE_AREA =
     boundaries: false
   });
   useEffect(() => {
-    // console.log(switches);
     const newGroups: any = {};
     if (switches[PROBLEMS_TRIGGER] && switches[PROJECTS_MAP_STYLES.name] && switches[COMPONENT_LAYERS.name]
       && switches[MEP_PROJECTS.name] && switches[ROUTINE_MAINTENANCE.name]) {
@@ -108,7 +107,6 @@ export const SEMSWA_SERVICE_AREA =
       }
     if ( switches[WATERSHED_FILTERS] && switches[NRCS_SOILS]) {
       newGroups['hydrologic'] = true;
-      console.log('===> ', {...groups, 'hydrologic': true});
     } else {
       newGroups['hydrologic'] = false;
     }
@@ -140,12 +138,11 @@ export const SEMSWA_SERVICE_AREA =
     setGroups({...groups, ...newGroups});
   }, [switches]);
   useEffect(() => {
-    console.log(groups);
-  }, [groups]);
-  useEffect(() => {
-    const newSwitches: any = {};
+    const newSwitches: any = {...switches};
+    for(let val in newSwitches) {
+      newSwitches[val] = false;
+    }
     for (const layer of selectedLayers) {
-      // console.log('layer ', layer);
       if (layer.hasOwnProperty('name')) {
         const key: string = layer['name'];
         newSwitches[key] = true;
@@ -153,11 +150,12 @@ export const SEMSWA_SERVICE_AREA =
         newSwitches[layer] = true;
       }
     }
-    // console.log('my new switches ',  newSwitches);
-    setSwitches((switches: any) => {
-      // console.log('mirad y aprended ', {...switches, ...newSwitches});
-      return {...switches, ...newSwitches};
-    });
+
+    // setSwitches((switches: any) => {
+    //   return {...switches, ...newSwitches};
+    // });
+      setSwitches(newSwitches);
+    
   }, [selectedLayers]);
   const changeGroup = (value: boolean, elements: Array<any>, name: string) => {
     let switchSelected: any[] = [...selectedLayers];
@@ -279,17 +277,12 @@ export const SEMSWA_SERVICE_AREA =
     </div>
   )};
   const onChange = (value: boolean, item: any) => {
-    //console.log('mi grupo de switch', value, item, selectedLayers)
-    console.log(item, value);
     if (item.hasOwnProperty('name')) {
       setSwitches({...switches, [item['name']]: value});
     } else {
-      console.log(item, value);
-      console.log('new values ', {...switches, [item]: value});
       setSwitches({...switches, [item]: value});
     }
     let switchSelected: any[] = [...selectedLayers];
-    //console.log('mi array', switchSelected)
     if (value) {
       switchSelected.push(item);
     } else {
@@ -323,7 +316,6 @@ export const SEMSWA_SERVICE_AREA =
         }}><CloseOutlined /></Button>
       </div>
       <Checkbox.Group value={selectedLayers} onChange={(items) => {
-        console.log('deloschek', items, selectedLayers)
         setSelectedCheckBox(items);
         // setCheckboxes(items);
         selectCheckboxes(items);

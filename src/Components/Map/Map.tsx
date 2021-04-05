@@ -2109,6 +2109,7 @@ const Map = ({ leftWidth,
     };
 
     const onSelect = (value: any) => {
+      console.log("VALUE ON SELECT", value);
         console.log('onSelect:::', value);
         const keyword = value.split('?');
         const coord = keyword[0].split(',');

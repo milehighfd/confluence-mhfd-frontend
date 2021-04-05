@@ -142,15 +142,15 @@ export class MapService {
     }
   }
   isStyleLoaded(cb: any) {
-    console.log('1', this.map.isStyleLoaded());
+    // console.log('1', this.map.isStyleLoaded());
     
     if (this.map && this.map.isStyleLoaded()) {
-      console.log('2', this.map.isStyleLoaded());
+      // console.log('2', this.map.isStyleLoaded());
       cb();
       this.setOnMapLoad(cb);
     } else {
       setTimeout(() => {
-        console.log('3');
+        // console.log('3');
         this.isStyleLoaded(cb);
       }, 1000);
     }

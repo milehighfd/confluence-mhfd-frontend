@@ -5,13 +5,13 @@ import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
 import { JURISDICTION } from "../../../constants/constants";
-import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
+import WorkRequestMap from './../../WorkRequestMap/WorkRequestMap';
 import '../../../index.scss';
 import { getData, getToken, postData } from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectView';
 import TrelloLikeCard from "./TrelloLikeCard";
-
+import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -130,6 +130,7 @@ const RequestView = () => {
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
   const [sumTotal, setSumTotal] = useState<any>({});
 
+  const {setBoardProjects} = useProjectDispatch();
   const [columns, setColumns] = useState([
     {
       title: 'Workspace',
@@ -288,6 +289,16 @@ const RequestView = () => {
           let { board, projects } = r;
           if (board) {
             setNamespaceId(board._id)
+            let justProjects = projects.map((proj:any)=> { 
+              return proj.projectData.cartodb_id;
+            });
+            console.log("Projects",projects, justProjects);
+            if(projects.length>0){
+              setBoardProjects(justProjects);
+            } else {
+              setBoardProjects(['-1']);
+            }
+            
             let cols = generateColumns(projects, year, tabKey);
             setColumns(cols);
           }
@@ -326,12 +337,14 @@ const RequestView = () => {
       // postData(`${'http://localhost:3003'}/board/`, data)
         .then(
           (r: any) => {
-            let { board, projects } = r;
-            if (board) {
-              setNamespaceId(board._id)
-              let cols = generateColumns(projects, year, tabKey);
-              setColumns(cols);
-            }
+            if(r){
+              let { board, projects } = r;
+              if (board) {
+                setNamespaceId(board._id)
+                let cols = generateColumns(projects, year, tabKey);
+                setColumns(cols);
+              }
+            }            
           },
           (e) => {
             console.log('e', e);
@@ -489,9 +502,7 @@ const RequestView = () => {
         <Layout className="work">
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-              <div className="map">
-                <CreateProjectMap type="REQUEST" locality={locality}></CreateProjectMap>
-              </div>
+                <WorkRequestMap locality={locality}></WorkRequestMap>
 
               <Button className="btn-coll" >
                 <img src="/Icons/icon-34.svg" alt="" width="18px" style={{ transform: 'rotate(180deg)' }} />

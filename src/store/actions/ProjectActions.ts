@@ -311,8 +311,18 @@ export const updateSelectedLayers = (selectedLayer: any) => {
       dispatch({ type: types.SELECTED_LAYERS, selectedLayer });
   }
 }
+export const updateSelectedLayersWR = (selectedLayerWR: any) => {
+  return (dispatch : Function) => {
+      dispatch({ type: types.SELECTED_LAYERSWR, selectedLayerWR });
+  }
+}
 export const setHighlightedComponent = (highlightedComponent: any) => {
   return (dispatch: Function) => {
     dispatch({ type: types.SET_HIGHLIGHTED, highlightedComponent});
+  }
+}
+export const setBoardProjects = (boardProjects: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_BOARD_PROJECTS, boardProjects});
   }
 }

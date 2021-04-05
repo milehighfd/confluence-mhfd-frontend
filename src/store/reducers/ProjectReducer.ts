@@ -17,10 +17,12 @@ const initState = {
   listStreams: [],
   componentsFromMap: [],
   selectedLayers: [PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS],
+  selectedLayersWR: [MHFD_BOUNDARY_FILTERS, XSTREAMS],
   highlightedComponent: {
     type:'',
     value: ''
-  }
+  },
+  boardProjects: ['-8888']
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -107,10 +109,22 @@ const projectReducer = (state = initState, action: any) => {
           selectedLayers: action.selectedLayer
       }
     }
+    case types.SELECTED_LAYERSWR: {
+      return {
+          ...state,
+          selectedLayersWR: action.selectedLayerWR
+      }
+    }
     case types.SET_HIGHLIGHTED: {
       return {
         ...state,
         highlightedComponent: action.highlightedComponent
+      }
+    }
+    case types.SET_BOARD_PROJECTS: {
+      return {
+        ...state, 
+        boardProjects: action.boardProjects
       }
     }
     default: 
