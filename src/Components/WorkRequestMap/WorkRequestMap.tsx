@@ -70,6 +70,7 @@ const WorkRequestMap = (type: any) => {
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected, updateSelectedLayersWR } = useProjectDispatch();
   const { listComponents, selectedLayersWR, highlightedComponent, boardProjects } = useProjectState();
   const {groupOrganization} = useProfileState();
+  const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjects);
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayersWR);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -131,6 +132,7 @@ const WorkRequestMap = (type: any) => {
     changeAddLocationState(false);
     // setComponentIntersected([]);
     componentsList = [];
+    setIdsBoardProjects(['-8888']);
   }, []);
   useEffect(()=>{
     if (map) {
@@ -143,15 +145,24 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-      if(boardProjects.length > 0 && boardProjects[0] != '-8888') {
+      if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projectType = '';
         filterProjectsDraft.status = 'Draft';
-        map.isStyleLoaded(()=>{
-            showLayers('mhfd_projects_copy');
-            applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
-        });
+          // wait(()=>{
+            setTimeout(()=>{
+              map.isStyleLoaded(()=>{
+                showLayers('mhfd_projects_copy');
+             
+                applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+              });
+            },1500);
+            
+          // });
       }
+  },[idsBoardProjects]);
+  useEffect(()=>{
+    setIdsBoardProjects(boardProjects);
   },[boardProjects]);
   const setBounds = (value:any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
@@ -161,20 +172,33 @@ const WorkRequestMap = (type: any) => {
         coordinates: element.coordinates
       }
     });
+    // console.log("VALUELELE", value, zoomareaSelected);
     if(zoomareaSelected[0]){
       let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
       let coord = turf.centroid(poly);
-      console.log("COROD", coord);
+      // console.log("COROD", coord);
       if(coord.geometry && coord.geometry.coordinates) {
         let value = coord.geometry.coordinates;
           map.map.flyTo({ center: value, zoom: 10 });
       }
     }
   }
+  const wait = (cb:any) => {
+    
+    if (!map.map) {
+      setTimeout(wait, 50);
+    } else {
+        cb();
+    }
+  };
   useEffect(()=>{
+    let value = store.getState().profile.userInformation.zoomarea;
     if(type.locality) {
-      console.log(type.locality);
-      map.isStyleLoaded(() => setBounds(type.locality));
+      value = type.locality;
+    }
+      // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
+    if(groupOrganization.length > 0) {
+      wait(()=>setBounds(value));
     }
   },[groupOrganization, type.locality]);
   useEffect(()=>{
@@ -221,7 +245,7 @@ const WorkRequestMap = (type: any) => {
   }, [selectedLayersWR]);
 
   const setLayersSelectedOnInit = () => {
-    updateSelectedLayersWR([COMPONENT_LAYERS,MHFD_BOUNDARY_FILTERS, XSTREAMS]);
+    updateSelectedLayersWR([COMPONENT_LAYERS,MHFD_BOUNDARY_FILTERS]);
   }
 
   const applyMapLayers = async () => {
@@ -277,7 +301,6 @@ const WorkRequestMap = (type: any) => {
   const applyComponentFilter = () => {
     const styles = { ...COMPONENT_LAYERS_STYLE as any };
     Object.keys(styles).forEach(element => {
-      console.log("COMPONENTS STYES TUKES ", element);
       for (let i = 0; i < styles[element].length; ++i) {
         if (map.map.getLayer(element + "_" + i)) {
           map.map.setFilter(element + '_' + i, ['!has', 'projectid']);
@@ -286,10 +309,18 @@ const WorkRequestMap = (type: any) => {
     });
   }
   const showLayers = (key: string) => {
-    
+  //   if(key === 'mhfd_projects_copy') {
+  //     console.log("IS ABOUT TO SHOW1", key);
+  // }
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
+    //   if(key === 'mhfd_projects_copy') {
+    //     console.log("IS ABOUT TO SHOW2", key);
+    // }
       if (map.map.getLayer(key + '_' + index)) {
+        // if(key === 'mhfd_projects_copy') {
+        //     console.log("IS ABOUT TO SHOW3", key);
+        // }
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
           showSelectedComponents(filterComponents.component_type.split(','));
@@ -542,13 +573,10 @@ const WorkRequestMap = (type: any) => {
       // if (componentDetailIds && componentDetailIds[key]) {
       //   allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       // }
-      if(boardProjects && boardProjects.length > 0 && key ==='mhfd_projects_copy' && boardProjects[0]!='-8888'){
-        let boardids = boardProjects;
-        console.log("Ids", boardids);
+      if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_copy' && idsBoardProjects[0]!='-8888'){
+        let boardids = idsBoardProjects;
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...boardids]]]);
-      } else {
-        console.log("ENTRA AQUI TAMBIEN LA VAINA", boardProjects);
-      }
+      } 
       if (map.getLayer(key + '_' + index)) {
         //console.log(key + '_' + index, allFilters);
         map.setFilter(key + '_' + index, allFilters);
@@ -601,9 +629,9 @@ const WorkRequestMap = (type: any) => {
         source: key,
         ...style
       });
-      if (!key.includes('streams')) {
+      // if (!key.includes('streams')) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-      }
+      // }
 
       if (!hovereableLayers.includes(key)) {
         return;

@@ -292,7 +292,6 @@ const RequestView = () => {
             let justProjects = projects.map((proj:any)=> { 
               return proj.projectData.cartodb_id;
             });
-            console.log("Projects",projects, justProjects);
             if(projects.length>0){
               setBoardProjects(justProjects);
             } else {
@@ -398,7 +397,7 @@ const RequestView = () => {
       rows.push(obj);
     });
     setSumTotal(totals);
-    console.log('rows', rows)
+    // console.log('rows', rows)
     setSumByCounty(rows);
     
   }, [columns]);

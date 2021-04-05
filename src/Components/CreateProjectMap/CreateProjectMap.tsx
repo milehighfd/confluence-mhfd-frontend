@@ -6,6 +6,8 @@ import { RightOutlined } from '@ant-design/icons';
 import { MainPopup, ComponentPopupCreate } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
+import { getData, getToken, postData } from "../../Config/datasets";
+import { SERVER } from "../../Config/Server.config";
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import eventService from './eventService';
@@ -74,6 +76,7 @@ const CreateProjectMap = (type: any) => {
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [localAOI, setLocalAOI] = useState(type.locality);
   const hovereableLayers = [PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
     MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
@@ -119,6 +122,17 @@ const CreateProjectMap = (type: any) => {
     changeAddLocationState(false);
     // setComponentIntersected([]);
     componentsList = [];
+      getData(`${SERVER.URL_BASE}/locality/`, getToken())
+        .then(
+          (r: any) => {
+            if (r.localities.length > 0) {
+              setLocalAOI(r.localities[0].name);
+            }
+          },
+          (e) => {
+            console.log('e', e);
+          }
+        )
   }, []);
   useEffect(()=>{
     if (map) {
@@ -137,6 +151,7 @@ const CreateProjectMap = (type: any) => {
         coordinates: element.coordinates
       }
     });
+    console.log("VALULE", value, zoomareaSelected);
     if(zoomareaSelected[0]){
       let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
       let coord = turf.centroid(poly);
@@ -146,17 +161,24 @@ const CreateProjectMap = (type: any) => {
       }
     }
   }
-  useEffect(()=>{
-    let value = store.getState().profile.userInformation.zoomarea;
-    if(type.locality) {
-      value = type.locality;
+  const wait = (cb:any) => {
+    
+    if (!map.map) {
+      setTimeout(wait, 50);
+    } else {
+        cb();
     }
-      // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
+  };
+  useEffect(()=>{
+    if(localAOI) {
+      let value = localAOI;
+      console.log("CHECKER", value, "loc",  localAOI, "area");
     if(groupOrganization.length > 0) {
-      setBounds(value);
+      wait(() => setBounds(value));
     }
     
-  },[groupOrganization, store.getState().profile.userInformation.zoomarea]);
+    }
+  },[groupOrganization, localAOI]);
   useEffect(()=>{
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
@@ -311,11 +333,7 @@ const CreateProjectMap = (type: any) => {
     
 
   }, [selectedLayers]);
-  useEffect(()=>{
-    if(type.locality) {
-      
-    }
-  },[type.locality]);
+
   const setLayersSelectedOnInit = () => {
     if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
       updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS, COMPONENT_LAYERS]);
@@ -435,7 +453,6 @@ const CreateProjectMap = (type: any) => {
   const applyComponentFilter = () => {
     const styles = { ...COMPONENT_LAYERS_STYLE as any };
     Object.keys(styles).forEach(element => {
-      console.log("COMPONENTS STYES TUKES ", element);
       for (let i = 0; i < styles[element].length; ++i) {
         if (map.map.getLayer(element + "_" + i)) {
           map.map.setFilter(element + '_' + i, ['!has', 'projectid']);
@@ -628,7 +645,7 @@ const CreateProjectMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", style['source-layer']);
+      // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", style['source-layer']);
       map.map.addLayer({
         id: key + '_' + index,
         source: key,

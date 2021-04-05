@@ -439,12 +439,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p>Click on the icon above and draw a polygon to select components</p>
             </div>
+            {(keys && keys.length || visibleUnnamedComponent) &&
             <div className="tab-titles">
                 <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10}}>Problem</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>Jurisdiction</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
+             }
               {keys && keys.length && 
             <Collapse
             defaultActiveKey={keys}
@@ -458,7 +460,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 if(key.toString() == '-1') {
                   if(groups[key].components.length > 0){
                     return (
-
                       <Panel header="" key={id + '-collapse1'} extra={genTitleNoAvailable(groups[key])}>
                         <div className="tab-body-project">
                           <Timeline>
@@ -494,7 +495,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                           {
                             groups[key].components.map((component:any) => {
                               return (
-                                <div onMouseEnter={() => setValuesComp(component)} onMouseLeave={()=> setValuesComp({table:'', value:''})}>
+                                <div onMouseEnter={() => setValuesComp(component)} onMouseLeave={()=> setValuesComp({table:'', value:''})} key={key+'-'+Math.random()}>
                                 <Timeline.Item color="green">
                                   <Row style={{marginLeft:'-18px'}}>
                                     <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
