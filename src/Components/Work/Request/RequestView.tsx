@@ -4,7 +4,7 @@ import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
-import { JURISDICTION } from "../../../constants/constants";
+import { COMPLETE_SCREEN, EMPTY_SCREEN, JURISDICTION, MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT } from "../../../constants/constants";
 import WorkRequestMap from './../../WorkRequestMap/WorkRequestMap';
 import '../../../index.scss';
 import { getData, getToken, postData } from "../../../Config/datasets";
@@ -120,6 +120,10 @@ const generateColumns = (boardProjects: boardProject[], year: number, tabKey: st
 }
 
 const RequestView = () => {
+  const emptyStyle: React.CSSProperties = { transform: 'rotate(180deg)' };
+  const [rotationStyle, setRotationStyle] = useState(emptyStyle );
+  const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_LEFT - 1);
+  const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_RIGHT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const years = [2021, 2020, 2019, 2018];
   const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
@@ -166,7 +170,17 @@ const RequestView = () => {
   const onDragOver = (e: any) => {
     e.preventDefault();
   }
-
+  const updateWidth = () => {
+    if (leftWidth === MEDIUM_SCREEN_LEFT - 1) {
+      setLeftWidth(EMPTY_SCREEN);
+      setRightWitdh(COMPLETE_SCREEN);
+      setRotationStyle({});
+    } else {
+      setLeftWidth(MEDIUM_SCREEN_LEFT - 1);
+      setRightWitdh(MEDIUM_SCREEN_RIGHT + 1);
+      setRotationStyle(emptyStyle);
+    }
+  }
   const onDrop = (e: any, columnIdx: number, cat: string) => {
     let txt = e.dataTransfer.getData("text");
     let parsedObject = JSON.parse(txt);
@@ -537,15 +551,15 @@ const RequestView = () => {
         <SidebarView></SidebarView>
         <Layout className="work">
           <Row>
-            <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+            <Col xs={{ span: 24 }} lg={{ span: leftWidth }}>
                 <WorkRequestMap locality={locality}></WorkRequestMap>
 
-              <Button className="btn-coll" >
-                <img src="/Icons/icon-34.svg" alt="" width="18px" style={{ transform: 'rotate(180deg)' }} />
+              <Button onClick={updateWidth} className="btn-coll" >
+                <img src="/Icons/icon-34.svg" alt="" width="18px" style={rotationStyle} />
               </Button>
             </Col>
 
-            <Col xs={{ span: 24 }} lg={{ span: 16 }}>
+            <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
               <div className="work-head">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
