@@ -4,7 +4,7 @@ import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
-import { COMPLETE_SCREEN, EMPTY_SCREEN, JURISDICTION, MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT } from "../../../constants/constants";
+import { COMPLETE_SCREEN, EMPTY_SCREEN, JURISDICTION, MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, MAP_RESIZABLE_TRANSITION } from "../../../constants/constants";
 import WorkRequestMap from './../../WorkRequestMap/WorkRequestMap';
 import '../../../index.scss';
 import { getData, getToken, postData } from "../../../Config/datasets";
@@ -551,7 +551,7 @@ const RequestView = () => {
         <SidebarView></SidebarView>
         <Layout className="work">
           <Row>
-            <Col xs={{ span: 24 }} lg={{ span: leftWidth }}>
+            <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
                 <WorkRequestMap locality={locality}></WorkRequestMap>
             </Col>
 
