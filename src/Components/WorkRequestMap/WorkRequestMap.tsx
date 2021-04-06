@@ -115,8 +115,17 @@ const WorkRequestMap = (type: any) => {
   useEffect(()=>{
     console.log("ZOOM PROJECT", zoomProject);
     if(zoomProject) {
-      const features: any = map.map.querySourceFeatures('mhfd_projects_copy', {sourceLayer: 'mhfd_projects_copy'});
-      console.log(features);
+      const styles = { ...tileStyles as any };
+      let layersToCheck: any = [];
+      styles['mhfd_projects_copy'].forEach((style: LayerStylesType, index: number) => {
+        layersToCheck.push('mhfd_projects_copy_'+index);
+      });
+      const features: any = map.map.queryRenderedFeatures( {layers: layersToCheck});
+      const geometryZoomProject: any = features.map((feat:any) => {
+        if(zoomProject.cartodb_id === feat.properties.cartodb_id && zoomProject.projectid === feat.properties.projectid) {
+          return feat;
+        }
+      });
     }
   },[zoomProject]);
   useEffect(() => {
