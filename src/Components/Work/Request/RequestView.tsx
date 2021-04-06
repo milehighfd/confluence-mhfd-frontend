@@ -122,8 +122,8 @@ const generateColumns = (boardProjects: boardProject[], year: number, tabKey: st
 const RequestView = () => {
   const emptyStyle: React.CSSProperties = { transform: 'rotate(180deg)' };
   const [rotationStyle, setRotationStyle] = useState(emptyStyle );
-  const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_LEFT - 1);
-  const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_RIGHT + 1);
+  const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
+  const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const years = [2021, 2020, 2019, 2018];
   const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
@@ -171,13 +171,13 @@ const RequestView = () => {
     e.preventDefault();
   }
   const updateWidth = () => {
-    if (leftWidth === MEDIUM_SCREEN_LEFT - 1) {
+    if (leftWidth === MEDIUM_SCREEN_RIGHT - 1) {
       setLeftWidth(EMPTY_SCREEN);
       setRightWitdh(COMPLETE_SCREEN);
       setRotationStyle({});
     } else {
-      setLeftWidth(MEDIUM_SCREEN_LEFT - 1);
-      setRightWitdh(MEDIUM_SCREEN_RIGHT + 1);
+      setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
+      setRightWitdh(MEDIUM_SCREEN_LEFT + 1);
       setRotationStyle(emptyStyle);
     }
   }
