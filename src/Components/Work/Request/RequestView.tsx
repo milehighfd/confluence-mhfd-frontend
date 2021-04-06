@@ -12,6 +12,7 @@ import { SERVER } from "../../../Config/Server.config";
 import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectView';
 import TrelloLikeCard from "./TrelloLikeCard";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import Analytics from "../Drawers/Analytics";
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -39,11 +40,11 @@ const formatter = new Intl.NumberFormat('en-US', {
 const genExtra = (obj: any) => (
   <div className="tab-head-project">
     <div><label>Total Cost</label></div>
-    <div>{formatter.format(obj.req1)}</div>
-    <div>{formatter.format(obj.req2)}</div>
-    <div>{formatter.format(obj.req3)}</div>
-    <div>{formatter.format(obj.req4)}</div>
-    <div>{formatter.format(obj.req5)}</div>
+    <div>{obj.req1 ? formatter.format(obj.req1) : 0}</div>
+    <div>{obj.req2 ? formatter.format(obj.req2) : 0}</div>
+    <div>{obj.req3 ? formatter.format(obj.req3) : 0}</div>
+    <div>{obj.req4 ? formatter.format(obj.req4) : 0}</div>
+    <div>{obj.req5 ? formatter.format(obj.req5) : 0}</div>
   </div>
 );
 
@@ -126,9 +127,10 @@ const RequestView = () => {
   const [year, setYear] = useState<any>(years[0]);
   const [tabKey, setTabKey] = useState<string>(tabKeys[0]);
   const [namespaceId, setNamespaceId] = useState<string>('');
-  const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
+  const [visibleCreateProject, setVisibleCreateProject] = useState(false);
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
   const [sumTotal, setSumTotal] = useState<any>({});
+  const [showAnalytics, setShowAnalytics] = useState(false);
 
   const {setBoardProjects} = useProjectDispatch();
   const [columns, setColumns] = useState([
@@ -372,15 +374,17 @@ const RequestView = () => {
       let county = p.projectData.county;
       if (!countyMap[county]) {
         countyMap[county] = {
-          req1: 0,
-          req2: 0,
-          req3: 0,
-          req4: 0,
-          req5: 0,
+          req1: 0, req2: 0, req3: 0, req4: 0, req5: 0,
+          cnt1: 0, cnt2: 0, cnt3: 0, cnt4: 0, cnt5: 0,
+          projects: [],
         }
       }
+      countyMap[county].projects.push(p);
       for(var i = 1; i <= 5 ; i++) {
         countyMap[county][`req${i}`] += p[`req${i}`];
+        if (p[`req${i}`]) {
+          countyMap[county][`cnt${i}`]++;
+        }
       }
     })
     let rows: any = [];
@@ -391,7 +395,8 @@ const RequestView = () => {
       }
       for(var i = 1; i <= 5 ; i++) {
         let amount = countyMap[county][`req${i}`];
-        obj[`req${i}`]= amount ? formatter.format(amount) : 0;
+        obj[`req${i}`]= amount;
+        obj[`cnt${i}`]= countyMap[county][`cnt${i}`];
         totals[`req${i}`] += amount;
       }
       rows.push(obj);
@@ -482,6 +487,15 @@ const RequestView = () => {
   }
 
   return <>
+    {
+      <Analytics
+        visible={showAnalytics}
+        setVisible={setShowAnalytics}
+        showYearDropdown={tabKey !== 'Maintenance'}
+        data={sumByCounty}
+        initialYear={year}
+      />
+    }
     <div>
       {
         visibleCreateProject &&
@@ -537,7 +551,7 @@ const RequestView = () => {
                   <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
                     <Select
                       defaultValue={year}
-                      onChange={(y: any) => setYear(y)}
+                      onChange={setYear}
                       className={'ant-select-2'}>
                       {
                         years.map((y, i) => (
@@ -556,7 +570,7 @@ const RequestView = () => {
                     </ButtonGroup>
 
                     <ButtonGroup>
-                      <Button className="btn-opacity">
+                      <Button className="btn-opacity" onClick={() => setShowAnalytics(true)}>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }} src="" />
                       </Button>
                       <Button className="btn-opacity">

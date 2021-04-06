@@ -21,7 +21,11 @@ var transformSelectedData = (sData: any) => {
   return sData.map((r: any) => `${r}`)
 }
 
-const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, color, axisLabel }: any) => {
+const HorizontalBarChart = ({
+  data, type, selected, onSelect, defaultValue, color, axisLabel,
+  scrollClass='svg-scroll',
+  showControls=true
+}: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
@@ -131,6 +135,8 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
       } else if (type === status) {
         return d.value;
       } else if (type === component_type) {
+        return d.value;
+      } else {
         return d.value;
       }
     }
@@ -314,14 +320,19 @@ const HorizontalBarChart = ({ data, type, selected, onSelect, defaultValue, colo
 
   return (
     <>
-      <Button className="btn-svg" onClick={apply}>
-        <u>Apply</u>
-      </Button>
-      &nbsp;|&nbsp;
-      <Button className="btn-svg" onClick={reset}>
-        <u>Reset</u>
-      </Button>
-      <div className={'svg-scroll svg-top-pad'}>
+      {
+        showControls && 
+        <>
+          <Button className="btn-svg" onClick={apply}>
+            <u>Apply</u>
+          </Button>
+          &nbsp;|&nbsp;
+          <Button className="btn-svg" onClick={reset}>
+            <u>Reset</u>
+          </Button>
+        </>
+      }
+      <div className={(scrollClass ? scrollClass : '') + ' svg-top-pad'}>
         <svg ref={svgRef} className="horizontal-text" />
       </div>
       <div className="horizontal-axis-label">
