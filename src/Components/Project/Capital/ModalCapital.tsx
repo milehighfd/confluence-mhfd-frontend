@@ -193,7 +193,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.additionalcostdescription = additionalDescription;
       capital.componet = groups;
       capital.independetComponent = independentComponents;
-      console.log(capital,"****+++CAPITAL******")
+      console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       saveProjectCapital(capital);
       setVisibleCapital(false);
       setVisible(false);
@@ -342,12 +342,17 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         let newIC = indComp;
         //newIC[key] = value.target.value;
         let newValue=value.target.value
-        let vAlue = newValue.replace("$", ""); 
-        vAlue = vAlue.replace(",", ""); 
-        if(vAlue){
-          newIC[key] = parseInt (vAlue);
-        }else{
-          newIC[key] = parseInt ('0');
+        if(key === 'original_cost'){
+          let vAlue = newValue.replace("$", ""); 
+          vAlue = vAlue.replace(",", ""); 
+          if(vAlue){
+            newIC[key] = parseInt (vAlue);
+          }else{
+            newIC[key] = parseInt ('0');
+          }
+        }
+        else{
+          newIC[key] = newValue;
         }
         ic = newIC;
       }

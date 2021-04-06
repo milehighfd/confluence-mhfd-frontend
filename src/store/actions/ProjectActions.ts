@@ -66,7 +66,7 @@ export const saveCapital = (data: any) => {
     const formData = new FormData();
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
-        formData.append(key, JSON.stringify(data[key]));
+        formData.append(key, data[key]);
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
           formData.append(key, o.file);
@@ -94,7 +94,7 @@ export const saveMaintenance = (data: any) => {
     const formData = new FormData();
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
-        formData.append(key, JSON.stringify(data[key]));
+        formData.append(key, data[key]);
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
           formData.append(key, o.file);
