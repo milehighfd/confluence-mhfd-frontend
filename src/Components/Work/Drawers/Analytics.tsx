@@ -73,6 +73,7 @@ const Analytics = ({
           axisLabel={'Number of Projects'}
           scrollClass={'svg-scroll-analytics'}
           showControls={false}
+          withClickEvent={false}
         />
       </div>
 
@@ -87,6 +88,7 @@ const Analytics = ({
           axisLabel={'Dollars'}
           scrollClass={'svg-scroll-analytics'}
           showControls={false}
+          withClickEvent={false}
         />
       </div>
     </Drawer>

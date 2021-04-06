@@ -24,7 +24,8 @@ var transformSelectedData = (sData: any) => {
 const HorizontalBarChart = ({
   data, type, selected, onSelect, defaultValue, color, axisLabel,
   scrollClass='svg-scroll',
-  showControls=true
+  showControls=true,
+  withClickEvent=true
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
@@ -144,6 +145,9 @@ const HorizontalBarChart = ({
     let xInitialValue: any = x(0);
 
     let onClickFn = (d: any) => {
+      if (!withClickEvent) {
+        return;
+      }
       let index = getIndex(d);
       if (index !== -1) {
         setSelectedData(selectedData.filter((_, ind) => ind !== index))
