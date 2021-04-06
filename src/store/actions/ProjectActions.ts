@@ -23,7 +23,7 @@ export const saveSpecial = (data: any) => {
     datasets.postDataMultipart(SERVER.CREATE_SPECIAL, formData, datasets.getToken()).then(res => {
     // datasets.postDataMultipart('http://localhost:3003/create/special', formData, datasets.getToken()).then(res => {
       let status ; 
-      if(res.total_rows > 0){
+      if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
       }else{
         status = 0;
@@ -51,7 +51,7 @@ export const saveAcquisition = (data: any) => {
     // datasets.postDataMultipart('http://localhost:3003/create/acquisition', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.CREATE_ACQUISITION, formData, datasets.getToken()).then(res => {
       let status ; 
-      if(res.total_rows > 0){
+      if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
       }else{
         status = 0;
@@ -79,7 +79,7 @@ export const saveCapital = (data: any) => {
     datasets.postDataMultipart(SERVER.CREATE_CAPITAL, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
-      if(res.total_rows > 0){
+      if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
       }else{
         status = 0;
@@ -107,7 +107,7 @@ export const saveMaintenance = (data: any) => {
     datasets.postDataMultipart(SERVER.CREATE_MAINTENANCE, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
-      if(res.total_rows > 0){
+      if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
       }else{
         status = 0;
@@ -135,7 +135,7 @@ export const saveStudy = (data: any) => {
     datasets.postDataMultipart(SERVER.CREATE_STUDY, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
-      if(res.total_rows > 0){
+      if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
       }else{
         status = 0;

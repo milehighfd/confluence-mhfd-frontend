@@ -113,7 +113,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     original_cost:0,
   };
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent} = useProjectDispatch();
-  const {listComponents, componentsFromMap, userPolygon} = useProjectState();
+  const {listComponents, componentsFromMap, userPolygon, streamIntersected} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -185,7 +185,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.description = description;
       capital.county = county;
       capital.servicearea = serviceArea;
-      capital.geom = geom;
+      capital.geom = streamIntersected.geom;
       capital.files = files ;
       capital.overheadcost = overheadCosts;
       capital.overheadcostdescription = overheadDescription;
@@ -447,14 +447,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
              }
-              {keys && keys.length && 
+            {keys!=0 && keys.length && 
             <Collapse
             defaultActiveKey={keys}
             expandIconPosition="right"
             onChange={(event: any)=> {console.log('has algo ', event, keys )}}
           >
-
-
               {groups && Object.keys(groups).map((key: any,id:any) => {
 
                 if(key.toString() == '-1') {
@@ -513,8 +511,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                         </Timeline>
                       </div>
                     </Panel>)
-                }
-              })
+                  }
+                })
               }
             </Collapse>
             }
