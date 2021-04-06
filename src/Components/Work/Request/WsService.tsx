@@ -34,6 +34,14 @@ class WsService {
     this.socket.on('update', callback);
   }
 
+  sendReqmanager(data: any) {
+    this.socket.emit('reqmanager', data);
+  }
+
+  receiveReqmanager(callback: Function) {
+    this.socket.on('reqmanager', callback);
+  }
+
   disconnect() {
     this.socket.disconnect();
   }

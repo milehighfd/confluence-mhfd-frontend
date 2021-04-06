@@ -131,7 +131,9 @@ const RequestView = () => {
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
   const [sumTotal, setSumTotal] = useState<any>({});
   const [showAnalytics, setShowAnalytics] = useState(false);
-
+  const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
+  const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
+  
   const {setBoardProjects} = useProjectDispatch();
   const [columns, setColumns] = useState([
     {
@@ -291,6 +293,9 @@ const RequestView = () => {
           let { board, projects } = r;
           if (board) {
             setNamespaceId(board._id)
+            setReqManager([
+              board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
+            ])
             let justProjects = projects.map((proj:any)=> { 
               return proj.projectData.cartodb_id;
             });
@@ -321,6 +326,10 @@ const RequestView = () => {
       console.log('receiveUpdate', data);
       setColumns(data);
     })
+    WsService.receiveReqmanager((data: any) => {
+      console.log('receiveReqmanager', data);
+      setReqManager(data);
+    })
     return () => {
       WsService.disconnect();
     }
@@ -342,6 +351,9 @@ const RequestView = () => {
               let { board, projects } = r;
               if (board) {
                 setNamespaceId(board._id)
+                setReqManager([
+                  board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
+                ])
                 let cols = generateColumns(projects, year, tabKey);
                 setColumns(cols);
               }
@@ -406,6 +418,16 @@ const RequestView = () => {
     setSumByCounty(rows);
     
   }, [columns]);
+
+  useEffect(() => {
+    let diffTmp = []
+    for(var i = 1; i <= 5 ; i++) {
+      let d = reqManager[i-1] - sumTotal[`req${i}`];
+      diffTmp.push(d);
+    }
+    setDiff(diffTmp);
+
+  }, [reqManager]);
 
   const saveData = (data: { projectId: any, amounts: any[] }) => {
     let projectData: any;
@@ -643,19 +665,31 @@ const RequestView = () => {
                           </Collapse>
                           <div className="col-bg">
                             <div><h5>Target Cost</h5></div>
-                            <div><Input placeholder="Enter target cost" /></div>
-                            <div><Input placeholder="Enter target cost" /></div>
-                            <div><Input placeholder="Enter target cost" /></div>
-                            <div><Input placeholder="Enter target cost" /></div>
-                            <div><Input placeholder="Enter target cost" /></div>
+                            {
+                              reqManager.map((val: any, index: number) => (
+                                <div key={index}>
+                                  <Input placeholder="Enter target cost" value={val} onChange={(e: any) => {
+                                    let v = e.target.value;
+                                    let nv = reqManager.map((vl: any, i: number) => {
+                                      if (i === index) {
+                                        return v;
+                                      }
+                                      return vl;
+                                    })
+                                    WsService.sendReqmanager(nv);
+                                    setReqManager(nv);
+                                  }} />
+                                </div>
+                              ))
+                            }
                           </div>
                           <div className="col-bg">
                             <div><h5>Differential</h5></div>
-                            <div>$241,800</div>
-                            <div>$241,800</div>
-                            <div>$241,800</div>
-                            <div>$241,800</div>
-                            <div>$241,800</div>
+                            {
+                              diff.map((d: any, i) => (
+                                <div key={i}>{d ? formatter.format(d) : ''}</div>
+                              ))
+                            }
                           </div>
                         </div>
                       </TabPane>
