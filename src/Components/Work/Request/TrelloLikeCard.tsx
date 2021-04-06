@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Menu, Popover } from 'antd';
 import AmountModal from './AmountModal';
+import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -12,6 +13,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, columnIdx: number, saveData: Function }) => {
 
+  const {setZoomProject} = useProjectDispatch();
   const {
     projectid,
     projectname,
@@ -21,7 +23,7 @@ const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, column
   const amount = project[`req${columnIdx}`];
 
   const [showAmountModal, setShowAmountModal] = useState(false);
-
+  
   const content = (
     <Menu className="js-mm-00">
       <Menu.Item>
@@ -33,7 +35,7 @@ const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, column
           Edit Amount
         </span>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item onClick={()=> setZoomProject(project.projectData)}>
         <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Zoom to</span>
       </Menu.Item>
       <Menu.Item>

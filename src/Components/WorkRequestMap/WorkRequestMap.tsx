@@ -68,7 +68,7 @@ const WorkRequestMap = (type: any) => {
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected, updateSelectedLayersWR } = useProjectDispatch();
-  const { listComponents, selectedLayersWR, highlightedComponent, boardProjects } = useProjectState();
+  const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjects);
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayersWR);
@@ -112,6 +112,13 @@ const WorkRequestMap = (type: any) => {
     }
     
   },[layerFilters]);
+  useEffect(()=>{
+    console.log("ZOOM PROJECT", zoomProject);
+    if(zoomProject) {
+      const features: any = map.map.querySourceFeatures('mhfd_projects_copy', {sourceLayer: 'mhfd_projects_copy'});
+      console.log(features);
+    }
+  },[zoomProject]);
   useEffect(() => {
     const waiting = () => {
       html = document.getElementById('map4');
@@ -255,7 +262,6 @@ const WorkRequestMap = (type: any) => {
           layer.tiles.forEach((subKey: string) => {
             const tiles = layerFilters[layer.name] as any;
             if (tiles) {
-              // console.log("TILES", subKey);
               addLayersSource(subKey, tiles[subKey]);
             }
           });
@@ -1534,7 +1540,7 @@ const WorkRequestMap = (type: any) => {
   }
   return <>
     <div className="map">
-      <div id="map4" style={{ height: '572px', width: '100%' }}></div>
+      <div id="map4" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
         getDetailedPageProblem={getDetailedPageProblem}

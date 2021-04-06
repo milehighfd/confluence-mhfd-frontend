@@ -134,7 +134,7 @@ const RequestView = () => {
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
   
-  const {setBoardProjects} = useProjectDispatch();
+  const {setBoardProjects, setZoomProject} = useProjectDispatch();
   const [columns, setColumns] = useState([
     {
       title: 'Workspace',
@@ -273,6 +273,7 @@ const RequestView = () => {
           console.log('e', e);
         }
       )
+    setZoomProject(undefined);
   }, []);
 
   useEffect(() => {

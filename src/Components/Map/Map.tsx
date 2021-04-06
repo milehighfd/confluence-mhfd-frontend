@@ -463,6 +463,7 @@ const Map = ({ leftWidth,
             center: [user.coordinates.longitude, user.coordinates.latitude],
             zoom: 8
         });
+        console.log("DROP DOWN ITEMS STYLE ", dropdownItems.items[dropdownItems.default].style);
         map.loadImage('custom-sprite/30x30px.png', (error: any, image: any) => {
             if (error) {
                 console.log('error on load ', error);

@@ -22,7 +22,8 @@ const initState = {
     type:'',
     value: ''
   },
-  boardProjects: ['-8888']
+  boardProjects: ['-8888'],
+  zoomProject: undefined
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -125,6 +126,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         boardProjects: action.boardProjects
+      }
+    }
+    case types.SET_ZOOM_PROJECT: {
+      return {
+        ...state, 
+        zoomProject: action.zoomProject
       }
     }
     default: 

@@ -13,7 +13,8 @@ export class MapService {
   public user = 'vizonomy';
   public style = 'ckd9o19kq0e9x1ipdm8zdq98m';
   public styleSatellite = 'cjge6lf7w000v2spxkflkhlau';
-  public styleUrl = `${SERVER.URL_BASE}/style/${this.style}/milehighfd/${MAPBOX_TOKEN}`;
+  // public styleUrl = `${SERVER.URL_BASE}/style/${this.style}/milehighfd/${MAPBOX_TOKEN}`;
+  public styleUrl = `mapbox://styles/milehighfd/ckd9o19kq0e9x1ipdm8zdq98m`;
   public styleUrlSatelite = 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft';
   controller: boolean = false;
   constructor( id: string) {

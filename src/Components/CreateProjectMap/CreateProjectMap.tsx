@@ -1556,7 +1556,7 @@ const CreateProjectMap = (type: any) => {
   }
   return <>
     <div className="map">
-      <div id="map3" style={{ height: '572px', width: '100%' }}></div>
+      <div id="map3" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
         getDetailedPageProblem={getDetailedPageProblem}
