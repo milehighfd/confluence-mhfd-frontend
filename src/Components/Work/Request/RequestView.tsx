@@ -26,7 +26,7 @@ const type = 'WORK_REQUEST';
 interface boardProject {
   projectData: any,
   project_id: number,
-  req1: number, req2: number, req3: number, req4: number, req5: number, 
+  req1: number, req2: number, req3: number, req4: number, req5: number,
   positon0: number, positon1: number, positon2: number, positon3: number, positon4: number, positon5: number
 };
 
@@ -137,7 +137,7 @@ const RequestView = () => {
   const [showAnalytics, setShowAnalytics] = useState(false);
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
-  
+
   const {setBoardProjects, setZoomProject} = useProjectDispatch();
   const [columns, setColumns] = useState([
     {
@@ -245,7 +245,7 @@ const RequestView = () => {
 
     console.log('fromColumnIdx', fromColumnIdx, 'columnIdx', columnIdx)
 
-    
+
 
     // const newColumns = columns.map((c: any, i: number) => {
     //   if (i === fromColumnIdx) {
@@ -311,7 +311,7 @@ const RequestView = () => {
             setReqManager([
               board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
             ])
-            let justProjects = projects.map((proj:any)=> { 
+            let justProjects = projects.map((proj:any)=> {
               return proj.projectData.cartodb_id;
             });
             if(projects.length>0){
@@ -319,7 +319,7 @@ const RequestView = () => {
             } else {
               setBoardProjects(['-1']);
             }
-            
+
             let cols = generateColumns(projects, year, tabKey);
             setColumns(cols);
           }
@@ -372,7 +372,7 @@ const RequestView = () => {
                 let cols = generateColumns(projects, year, tabKey);
                 setColumns(cols);
               }
-            }            
+            }
           },
           (e) => {
             console.log('e', e);
@@ -431,7 +431,7 @@ const RequestView = () => {
     setSumTotal(totals);
     // console.log('rows', rows)
     setSumByCounty(rows);
-    
+
   }, [columns]);
 
   useEffect(() => {
@@ -515,7 +515,7 @@ const RequestView = () => {
         position0: 0,
         position1: null, position2: null, position3: null, position4: null, position5: null,
         req1: null, req2: null, req3: null, req4: null, req5: null,
-        projectData: projectData.projectData 
+        projectData: projectData.projectData
       };
       temporalColumns[0].projects.push(newProjectData);
       WsService.sendUpdate(temporalColumns)
@@ -553,13 +553,12 @@ const RequestView = () => {
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }}>
                 <WorkRequestMap locality={locality}></WorkRequestMap>
-
-              <Button onClick={updateWidth} className="btn-coll" >
-                <img src="/Icons/icon-34.svg" alt="" width="18px" style={rotationStyle} />
-              </Button>
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
+            <Button onClick={updateWidth} className="btn-coll" >
+              <img src="/Icons/icon-34.svg" alt="" width="18px" style={rotationStyle} />
+            </Button>
               <div className="work-head">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
@@ -671,7 +670,7 @@ const RequestView = () => {
                                           <div>{countySum.req4}</div>
                                           <div>{countySum.req5}</div>
                                         </div>
-                                      </Timeline.Item>    
+                                      </Timeline.Item>
                                     ))
                                   }
                                 </Timeline>
