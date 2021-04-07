@@ -63,52 +63,52 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       ]}
     >
       <p>{startYear}</p>
-      <InputNumber className="rheostat-input" size='large' min={0}
+      <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
         value={year0} onChange={setYear0}
       />
-      <Button onClick={() => setYear0(null)}>
+      <Button className="button-close" onClick={() => setYear0(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
 
       <p>{startYear + 1}</p>
-      <InputNumber className="rheostat-input" size='large' min={0}
+      <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
         value={year1} onChange={setYear1}
       />
-      <Button onClick={() => setYear1(null)}>
+      <Button className="button-close" onClick={() => setYear1(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
 
       <p>{startYear + 2}</p>
-      <InputNumber className="rheostat-input" size='large' min={0}
+      <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
         value={year2} onChange={setYear2}
       />
-      <Button onClick={() => setYear2(null)}>
+      <Button className="button-close" onClick={() => setYear2(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
 
       <p>{startYear + 3}</p>
-      <InputNumber className="rheostat-input" size='large' min={0}
+      <InputNumber  min={0}
         formatter={priceFormatter}
         parser={priceParser}
         value={year3} onChange={setYear3}
       />
-      <Button onClick={() => setYear3(null)}>
+      <Button className="button-close" onClick={() => setYear3(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
 
       <p>{startYear + 4}</p>
-      <InputNumber className="rheostat-input" size='large' min={0}
+      <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
         value={year4} onChange={setYear4}
       />
-      <Button onClick={() => setYear4(null)}>
+      <Button className="button-close" onClick={() => setYear4(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
 
