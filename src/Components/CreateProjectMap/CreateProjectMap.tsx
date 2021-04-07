@@ -157,6 +157,7 @@ const CreateProjectMap = (type: any) => {
       let coord = turf.centroid(poly);
       if(coord.geometry && coord.geometry.coordinates) {
         let value = coord.geometry.coordinates;
+        console.log("FLU TO ", value);
           map.map.flyTo({ center: value, zoom: 10 });
       }
     }

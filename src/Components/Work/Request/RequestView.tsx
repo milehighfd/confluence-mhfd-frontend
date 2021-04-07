@@ -384,6 +384,14 @@ const RequestView = () => {
                 ])
                 let cols = generateColumns(projects, year, tabKey);
                 setColumns(cols);
+                let justProjects = projects.map((proj:any)=> {
+                  return proj.projectData.cartodb_id;
+                });
+                if(projects.length>0){
+                  setBoardProjects(justProjects);
+                } else {
+                  setBoardProjects(['-1']);
+                }
               }
             }
           },
@@ -637,7 +645,7 @@ const RequestView = () => {
                         <div className="work-table">
                           {
                             columns.map((column, columnIdx) => (
-                              <div className="container-drag">
+                              <div className="container-drag" key={columnIdx+Math.random()}>
                                 <h3>{column.title}</h3>
                                 <div className="col-wr droppable" onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx, 'complete')}>
                                   {
@@ -668,7 +676,7 @@ const RequestView = () => {
                                 <Timeline>
                                   {
                                     sumByCounty.map((countySum) => (
-                                      <Timeline.Item color="purple">
+                                      <Timeline.Item color="purple" key={Math.random()}>
                                         <div className="tab-body-line">
                                           <div>
                                             <label>
