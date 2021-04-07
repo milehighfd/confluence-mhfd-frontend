@@ -48,6 +48,16 @@ const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, column
     e.dataTransfer.setData('text', JSON.stringify({id, fromColumnIdx: columnIdx}));
   }
 
+  let displayName = projectname;
+  if (projectname.length > 35) {
+    displayName = projectname.substr(0,35) + '...';
+  }
+
+  let displayJurisdiction = jurisdiction;
+  if (jurisdiction.startsWith('Unincorporated')) {
+    displayJurisdiction = jurisdiction.substr('Unincorporated'.length + 1);
+  }
+
   return (
     <>
     <AmountModal
@@ -59,9 +69,9 @@ const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, column
       saveData={saveData}
       />
     <div className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable onDragStart={e => onDragStart(e, projectid)}>
-      <h4>{projectname}</h4>
+      <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
-      <label className="purple">{jurisdiction}</label>
+      <label className="purple">{displayJurisdiction}</label>
       <label className="yellow">{status}</label>
       {
         !showAmountModal && 
