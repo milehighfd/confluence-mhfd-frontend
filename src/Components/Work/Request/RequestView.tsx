@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer, AutoComplete, Icon } from 'antd';
+import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer, AutoComplete, Icon, InputNumber } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
@@ -264,7 +264,20 @@ const RequestView = () => {
     // })
 
   }
+  const priceFormatter = (value: any) => {
+    return `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
 
+  const priceParser = (value: any) => {
+    value = value.replace(/\$\s?|(,*)/g, '');
+    if (value === '0') {
+      return value;
+    }
+    while (value.length > 0 && value[0] === '0') {
+      value = value.substr(1);
+    }
+    return value
+  }
   const onSelect = (value: any) => {
     setLocality(value);
   };
@@ -664,11 +677,11 @@ const RequestView = () => {
                                               </Popover>
                                             </label>
                                           </div>
-                                          <div>{countySum.req1}</div>
-                                          <div>{countySum.req2}</div>
-                                          <div>{countySum.req3}</div>
-                                          <div>{countySum.req4}</div>
-                                          <div>{countySum.req5}</div>
+                                          <div>{countySum.req1 ? formatter.format(countySum.req1) : `$0`}</div>
+                                          <div>{countySum.req2 ? formatter.format(countySum.req2) : `$0`}</div>
+                                          <div>{countySum.req3 ? formatter.format(countySum.req3) : `$0`}</div>
+                                          <div>{countySum.req4 ? formatter.format(countySum.req4) : `$0`}</div>
+                                          <div>{countySum.req5 ? formatter.format(countySum.req5) : `$0`}</div>
                                         </div>
                                       </Timeline.Item>
                                     ))
@@ -682,8 +695,11 @@ const RequestView = () => {
                             {
                               reqManager.map((val: any, index: number) => (
                                 <div key={index}>
-                                  <Input placeholder="Enter target cost" value={val} onChange={(e: any) => {
-                                    let v = e.target.value;
+                                  <InputNumber placeholder="Enter target cost"
+                                      formatter={priceFormatter}
+                                      parser={priceParser}
+                                      value={val} onChange={(e: any) => {
+                                    let v = e;
                                     let nv = reqManager.map((vl: any, i: number) => {
                                       if (i === index) {
                                         return v;
