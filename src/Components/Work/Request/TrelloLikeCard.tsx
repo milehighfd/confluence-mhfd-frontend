@@ -23,7 +23,7 @@ const TrelloLikeCard = ({ project, columnIdx, saveData}: { project: any, columnI
   } = project.projectData;
   const amount = project[`req${columnIdx}`];
   const [showAmountModal, setShowAmountModal] = useState(false);
-  const [showModalProject, setShowModalProject] = useState(false); 
+  const [showModalProject, setShowModalProject] = useState(false);
   const content = (
     <Menu className="js-mm-00">
       <Menu.Item onClick={() => setShowModalProject(true)}>
@@ -60,7 +60,7 @@ const TrelloLikeCard = ({ project, columnIdx, saveData}: { project: any, columnI
 
   return (
     <>
-    {showModalProject && 
+    {showModalProject &&
     <ModalProjectView
         visible= {showModalProject}
         setVisible= {setShowModalProject}
@@ -82,11 +82,11 @@ const TrelloLikeCard = ({ project, columnIdx, saveData}: { project: any, columnI
       <label className="purple">{displayJurisdiction}</label>
       <label className="yellow">{status}</label>
       {
-        !showAmountModal && 
+        !showAmountModal &&
         <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
           <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
         </Popover>
-      }     
+      }
     </div>
     </>
   )

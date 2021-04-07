@@ -660,7 +660,7 @@ const RequestView = () => {
                                           <div>
                                             <label>
                                               {countySum.county}
-                                              <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" />
+                                              <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginLeft:'4px'}} />
                                               </Popover>
                                             </label>
                                           </div>
