@@ -9,6 +9,8 @@ import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import eventService from './eventService';
+import { getData, getToken, postData } from "../../Config/datasets";
+import { SERVER } from "../../Config/Server.config";
 import {
   MAP_DROPDOWN_ITEMS,
   MAPBOX_TOKEN, HERE_TOKEN,
@@ -113,19 +115,22 @@ const WorkRequestMap = (type: any) => {
     
   },[layerFilters]);
   useEffect(()=>{
-    console.log("ZOOM PROJECT", zoomProject);
     if(zoomProject) {
-      const styles = { ...tileStyles as any };
-      let layersToCheck: any = [];
-      styles['mhfd_projects_copy'].forEach((style: LayerStylesType, index: number) => {
-        layersToCheck.push('mhfd_projects_copy_'+index);
-      });
-      const features: any = map.map.queryRenderedFeatures( {layers: layersToCheck});
-      const geometryZoomProject: any = features.map((feat:any) => {
-        if(zoomProject.cartodb_id === feat.properties.cartodb_id && zoomProject.projectid === feat.properties.projectid) {
-          return feat;
-        }
-      });
+      getData(`${SERVER.URL_BASE}/board/bbox/${zoomProject.projectid}`)
+        .then(
+          (r: any) => { 
+            if(r.bbox){
+              let BBoxPolygon = JSON.parse(r.bbox);
+              let bboxBounds = turf.bbox(BBoxPolygon);
+              if(map.map){
+                map.map.fitBounds(bboxBounds,{ padding:130});
+              }
+            }
+          },
+          (e:any) => {
+            console.log('Error getting bbox projectid', e);
+          }
+        )
     }
   },[zoomProject]);
   useEffect(() => {
