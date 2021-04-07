@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Modal, Button, Input } from 'antd';
+import { Modal, Button, Input, InputNumber } from 'antd';
 
 const stateValue = {
   visible: false
 }
 
-const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveData }: { project:any, projectId: any, visible: boolean, setVisible: Function, startYear: number, saveData: Function }) => {
+const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveData }: { project: any, projectId: any, visible: boolean, setVisible: Function, startYear: number, saveData: Function }) => {
   const [year0, setYear0] = useState(project.req1);
   const [year1, setYear1] = useState(project.req2);
   const [year2, setYear2] = useState(project.req3);
@@ -29,6 +29,21 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
     setVisible(false);
   };
 
+  const priceFormatter = (value: any) => {
+    return `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+
+  const priceParser = (value: any) => {
+    value = value.replace(/\$\s?|(,*)/g, '');
+    if (value === '0') {
+      return value;
+    }
+    while (value.length > 0 && value[0] === '0') {
+      value = value.substr(1);
+    }
+    return value
+  }
+
   return (
     <Modal
       title="Apply total requested financing amount for any applicable year:"
@@ -48,39 +63,54 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       ]}
     >
       <p>{startYear}</p>
-      <Input value={year0} onChange={(e: any) => setYear0(e.target.value)} prefix={
-        <Button onClick={() => setYear0(null)}>
-          <img src="/Icons/icon-23.svg" />
-        </Button>
-      } />
+      <InputNumber className="rheostat-input" size='large' min={0}
+        formatter={priceFormatter}
+        parser={priceParser}
+        value={year0} onChange={setYear0}
+      />
+      <Button onClick={() => setYear0(null)}>
+        <img src="/Icons/icon-23.svg" />
+      </Button>
 
       <p>{startYear + 1}</p>
-      <Input value={year1} onChange={(e: any) => setYear1(e.target.value)} prefix={
-        <Button onClick={() => setYear1(null)}>
-          <img src="/Icons/icon-23.svg" />
-        </Button>
-      } />
+      <InputNumber className="rheostat-input" size='large' min={0}
+        formatter={priceFormatter}
+        parser={priceParser}
+        value={year1} onChange={setYear1}
+      />
+      <Button onClick={() => setYear1(null)}>
+        <img src="/Icons/icon-23.svg" />
+      </Button>
 
       <p>{startYear + 2}</p>
-      <Input value={year2} onChange={(e: any) => setYear2(e.target.value)} prefix={
-        <Button onClick={() => setYear2(null)}>
-          <img src="/Icons/icon-23.svg" />
-        </Button>
-      } />
+      <InputNumber className="rheostat-input" size='large' min={0}
+        formatter={priceFormatter}
+        parser={priceParser}
+        value={year2} onChange={setYear2}
+      />
+      <Button onClick={() => setYear2(null)}>
+        <img src="/Icons/icon-23.svg" />
+      </Button>
 
       <p>{startYear + 3}</p>
-      <Input value={year3} onChange={(e: any) => setYear3(e.target.value)} prefix={
-        <Button onClick={() => setYear3(null)}>
-          <img src="/Icons/icon-23.svg" />
-        </Button>
-      } />
+      <InputNumber className="rheostat-input" size='large' min={0}
+        formatter={priceFormatter}
+        parser={priceParser}
+        value={year3} onChange={setYear3}
+      />
+      <Button onClick={() => setYear3(null)}>
+        <img src="/Icons/icon-23.svg" />
+      </Button>
 
       <p>{startYear + 4}</p>
-      <Input value={year4} onChange={(e: any) => setYear4(e.target.value)} prefix={
-        <Button onClick={() => setYear4(null)}>
-          <img src="/Icons/icon-23.svg" />
-        </Button>
-      } />
+      <InputNumber className="rheostat-input" size='large' min={0}
+        formatter={priceFormatter}
+        parser={priceParser}
+        value={year4} onChange={setYear4}
+      />
+      <Button onClick={() => setYear4(null)}>
+        <img src="/Icons/icon-23.svg" />
+      </Button>
 
     </Modal>
   )
