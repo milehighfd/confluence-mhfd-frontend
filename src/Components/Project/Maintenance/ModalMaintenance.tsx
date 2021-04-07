@@ -32,8 +32,8 @@ const stateValue = {
   visibleMaintenance: false
 }
 
-export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible, locality}:
-  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function, locality?:any }) => {
+export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible, locality, data}:
+  {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
 
   const {userPolygon, streamIntersected} = useProjectState();
   const {saveProjectMaintenance, setStreamIntersected} = useProjectDispatch();
@@ -59,9 +59,16 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     auxState.visibleMaintenance = true;
     setState(auxState);
   };
-
   useEffect(()=>{
-    if(save === true){
+    if(data!== 'no data' ) {
+      setCounty(data.county);
+      setDescription(data.description);
+      setNameProject(data.projectname);
+      setServiceArea(data.servicearea);
+    }
+  },[data]);
+  useEffect(()=>{
+    if(save === true){  
       var maintenance = new Project();
       maintenance.projectname = nameProject;
       maintenance.description = description;

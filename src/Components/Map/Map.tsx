@@ -2156,7 +2156,7 @@ const Map = ({ leftWidth,
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}
                 setVisible= {setVisibleCreateProject}
-                data={dataProblem}
+                data={"no data"}
                 showDefaultTab={showDefault}
             />
             }

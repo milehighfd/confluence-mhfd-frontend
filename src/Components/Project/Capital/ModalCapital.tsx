@@ -105,8 +105,8 @@ const genTitleProblem = (problem: any) => {
     </div>
   )
 }
-export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality}:
-  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any}) => {
+export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data}:
+  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any}) => {
   let Component = {
     type:"Unnamend Component",
     status:"Proposed",
@@ -139,7 +139,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [additionalCost, setAdditionalCost] = useState(0);
   const [additionalDescription, setAdditionalDescription] = useState("");
   const [totalCost, setTotalCost] = useState();
-  const [overheadDescription, setOverheadDescription] = useState("");
+  const [overheadDescription, setOverheadDescription] = useState("");  
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
@@ -150,7 +150,17 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setStreamIntersected({geom:null});
     
   },[]);
-  
+
+  useEffect(()=>{
+    if(data!== 'no data' ) {
+      setCounty(data.county);
+      setDescription(data.description);
+      setNameProject(data.projectname);
+      setServiceArea(data.servicearea);
+      
+    }
+  },[data]);
+
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);

@@ -34,8 +34,8 @@ const stateValue = {
   visibleAcqui: false,
 }
 
-export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible, locality }:
-  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any} ) => {
+export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible, locality, data }:
+  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data: any} ) => {
 
   const {saveProjectAcquisition, setStreamIntersected} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
@@ -75,6 +75,16 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const projectReturn = useSelector((state:any)=>({
     state
   }));
+  useEffect(()=>{
+    if(data!== 'no data' ) {
+      setCounty(data.county);
+      setDescription(data.description);
+      setNameProject(data.projectname);
+      setServiceArea(data.servicearea);
+      setProgress(data.progress);
+      setGeom(data.coordinates);
+    }
+  },[data]);
 
   useEffect(()=>{
     if(geom != undefined && description != '' && county != '' && serviceArea != '' && progress != '' && purchaseDate != '' ){

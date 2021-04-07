@@ -34,8 +34,8 @@ const stateValue = {
   visibleSpecial: false
 }
 
-export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality}:
-  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any}) => {
+export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality, data}:
+  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any}) => {
 
   const {saveProjectSpecial, setStreamIntersected} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
@@ -52,6 +52,14 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   var date = new Date();
   var year = date.getFullYear();
   const dispatch = useDispatch();
+  useEffect(()=>{
+    if(data!== 'no data' ) {
+      setCounty(data.county);
+      setDescription(data.description);
+      setNameProject(data.projectname);
+      setServiceArea(data.servicearea);
+    }
+  },[data]);
   useEffect(()=>{
     if(save === true){
       console.log("FILES", files);

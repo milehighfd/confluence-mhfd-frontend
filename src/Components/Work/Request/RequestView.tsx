@@ -539,7 +539,7 @@ const RequestView = () => {
         <ModalProjectView
           visible={visibleCreateProject}
           setVisible={setVisibleCreateProject}
-          data={{}}
+          data={"no data"}
           defaultTab={tabKey}
           locality={locality}
         />

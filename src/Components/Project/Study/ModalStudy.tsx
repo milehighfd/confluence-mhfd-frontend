@@ -48,10 +48,10 @@ const genTitle = (streamName: any) => (
   </div>
 )
 
-export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality}:
-  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any }) => {
+export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data}:
+  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
   const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers} = useProjectDispatch();
-  const {listStreams} = useProjectState();
+  const {listStreams, streamIntersected} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -88,7 +88,14 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setThisStreamsList(listStreams);
     }
   },[listStreams]);
-
+  useEffect(()=>{
+    if(data!== 'no data' ) {
+      setCounty(data.county);
+      setDescription(data.description);
+      setNameProject(data.projectname);
+      setServiceArea(data.servicearea);
+    }
+  },[data]);
   useEffect(()=>{
     if(save === true){
       var study = new Project();

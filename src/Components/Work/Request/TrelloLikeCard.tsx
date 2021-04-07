@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Menu, Popover } from 'antd';
 import AmountModal from './AmountModal';
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import { ModalProjectView } from './../../ProjectModal/ModalProjectView'
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -11,7 +12,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, columnIdx: number, saveData: Function }) => {
+const TrelloLikeCard = ({ project, columnIdx, saveData}: { project: any, columnIdx: number, saveData: Function}) => {
 
   const {setZoomProject} = useProjectDispatch();
   const {
@@ -21,12 +22,11 @@ const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, column
     status
   } = project.projectData;
   const amount = project[`req${columnIdx}`];
-
   const [showAmountModal, setShowAmountModal] = useState(false);
-  
+  const [showModalProject, setShowModalProject] = useState(false); 
   const content = (
     <Menu className="js-mm-00">
-      <Menu.Item>
+      <Menu.Item onClick={() => setShowModalProject(true)}>
         <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Edit Project</span>
       </Menu.Item>
       <Menu.Item onClick={() => setShowAmountModal(true)}>
@@ -60,6 +60,14 @@ const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, column
 
   return (
     <>
+    {showModalProject && 
+    <ModalProjectView
+        visible= {showModalProject}
+        setVisible= {setShowModalProject}
+        data={project.projectData}
+        showDefaultTab={true}
+    />
+    }
     <AmountModal
       project={project}
       projectId={projectid}
@@ -78,7 +86,7 @@ const TrelloLikeCard = ({ project, columnIdx, saveData }: { project: any, column
         <Popover placement="bottom" overlayClassName="work-popover" content={content} trigger="click">
           <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
         </Popover>
-      }
+      }     
     </div>
     </>
   )
