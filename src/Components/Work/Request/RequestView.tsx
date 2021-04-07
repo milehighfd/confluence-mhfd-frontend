@@ -13,6 +13,7 @@ import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectV
 import TrelloLikeCard from "./TrelloLikeCard";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import Analytics from "../Drawers/Analytics";
+import { CSVLink } from 'react-csv';
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -278,6 +279,58 @@ const RequestView = () => {
     }
     return value
   }
+
+  const generateCSV = () => {
+    console.log('generando');
+    const date = new Date();
+    const csvData = [['Exported on ' + date],
+    ['Jurisdiction:', locality ],
+    [],
+    ['Year:', year],
+    [],
+    ['Project Type:' , tabKey],
+    []
+    ];
+    const row: any = [];
+    const row2: any = [];
+    const dataByYear: any = {};
+    let maxSize = 0;
+    for (let i = 1; i < columns.length; i++) {
+      row.push(columns[i]['title']);
+      row.push('');
+      row.push('');
+      row.push('');
+      row2.push('Project Name');
+      row2.push('Jurisdiction');
+      row2.push('Status');
+      row2.push('Cost');
+      dataByYear[i] = [];
+      let project: any = null;
+      maxSize = Math.max(maxSize, columns[i].projects.length);
+      for (project of columns[i].projects) {
+        dataByYear[i].push([project.projectData.projectname,
+          project.projectData.jurisdiction,
+          project.projectData.status,
+          project['req' + i]]); 
+      }
+    }
+    csvData.push(row);
+    csvData.push(row2);
+    console.log(dataByYear);
+    for (let i = 0; i < maxSize; i++) {
+      let aux: any = [];
+      for (let j = 1; j < columns.length; j++) {
+        if (dataByYear[j].length > i) {
+          aux = aux.concat(dataByYear[j][i]);
+        } else {
+          aux = aux.concat('', '', '', '');
+        }
+      }
+      csvData.push(aux);
+    }
+    console.log(csvData);
+    return csvData;
+  }
   const onSelect = (value: any) => {
     setLocality(value);
   };
@@ -335,6 +388,7 @@ const RequestView = () => {
 
             let cols = generateColumns(projects, year, tabKey);
             setColumns(cols);
+            console.log('my cols ', cols);
           }
         },
         (e) => {
@@ -618,9 +672,9 @@ const RequestView = () => {
                     </Select>
 
                     <ButtonGroup>
-                      <Button className="btn-opacity">
+                      <CSVLink filename={'' + new Date().getTime() + '.csv'} data={generateCSV()} className="btn-opacity">
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }} src="" />
-                      </Button>
+                      </CSVLink>
                       <Button className="btn-opacity">
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }} src="" />
                       </Button>
