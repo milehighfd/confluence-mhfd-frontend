@@ -736,9 +736,14 @@ const RequestView = () => {
                     </Select>
 
                      <ButtonGroup>
-                      <CSVLink filename={'' + new Date().getTime() + '.csv'} data={generateCSV()} className="btn-opacity">
+                     <Button className="btn-opacity">
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }} src="" />
-
+                      </Button>
+                      <Button className="btn-opacity" onClick={() => setShowAnalytics(true)}>
+                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }} src="" />
+                      </Button>
+                      <CSVLink filename={'' + new Date().getTime() + '.csv'} data={generateCSV()} className="btn-opacity">
+                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }} src="" />
                       </CSVLink>
                       <Button className="btn-opacity" onClick={
                         () => {
@@ -751,12 +756,8 @@ const RequestView = () => {
                     </ButtonGroup> 
 
                     <ButtonGroup>
-                      <Button className="btn-opacity" onClick={() => setShowAnalytics(true)}>
-                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }} src="" />
-                      </Button>
-                      <Button className="btn-opacity">
-                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-03.svg') no-repeat center" }} src="" />
-                      </Button>
+                      
+                      
                     </ButtonGroup>
                   </Col>
                 </Row>
