@@ -147,6 +147,8 @@ const RequestView = () => {
   const [showBoardStatus, setShowBoardStatus] = useState(false);
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
+  const [boardStatus, setBoardStatus] = useState(null);
+  const [boardComment, setBoardComment] = useState(null);
 
   const history = useHistory();
 
@@ -430,6 +432,8 @@ const RequestView = () => {
         (r: any) => {
           let { board, projects } = r;
           if (board) {
+            setBoardStatus(board.status);
+            setBoardComment(board.comment);
             setNamespaceId(board._id)
             setReqManager([
               board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
@@ -499,6 +503,8 @@ const RequestView = () => {
             if(r){
               let { board, projects } = r;
               if (board) {
+                setBoardStatus(board.status);
+                setBoardComment(board.comment);
                 setNamespaceId(board._id)
                 setReqManager([
                   board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
@@ -675,9 +681,13 @@ const RequestView = () => {
       />
     }
     {
+      showBoardStatus &&
       <Status
+        boardId={namespaceId}
         visible={showBoardStatus}
         setVisible={setShowBoardStatus}
+        status={boardStatus}
+        comment={boardComment}
         />
     }
     <div>
