@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer, AutoComplete, Icon, InputNumber } from 'antd';
+import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Collapse, Timeline, AutoComplete, Icon, InputNumber } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
-import { COMPLETE_SCREEN, EMPTY_SCREEN, JURISDICTION, MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, MAP_RESIZABLE_TRANSITION } from "../../../constants/constants";
+import { COMPLETE_SCREEN, EMPTY_SCREEN, MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT } from "../../../constants/constants";
 import WorkRequestMap from './../../WorkRequestMap/WorkRequestMap';
 import '../../../index.scss';
 import { getData, getToken, postData } from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectView';
 import TrelloLikeCard from "./TrelloLikeCard";
-import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import { useProjectDispatch } from '../../../hook/projectHook';
 import Analytics from "../Drawers/Analytics";
+import { useHistory } from "react-router";
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
-const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 
 const type = 'WORK_REQUEST';
 
@@ -138,6 +137,8 @@ const RequestView = () => {
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
 
+  const history = useHistory();
+
   const {setBoardProjects, setZoomProject} = useProjectDispatch();
   const [columns, setColumns] = useState([
     {
@@ -242,27 +243,6 @@ const RequestView = () => {
       setColumns(temporalColumns);
 
     }
-
-    console.log('fromColumnIdx', fromColumnIdx, 'columnIdx', columnIdx)
-
-
-
-    // const newColumns = columns.map((c: any, i: number) => {
-    //   if (i === fromColumnIdx) {
-    //     return {
-    //       ...c,
-    //       projects: c.projects.filter((p: any) => p.projectid != id)
-    //     }
-    //   }
-    //   if (i === columnIdx) {
-    //     return {
-    //       ...c,
-    //       projects: [...c.projects, project]
-    //     }
-    //   }
-    //   return c;
-    // })
-
   }
   const priceFormatter = (value: any) => {
     return `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -287,19 +267,36 @@ const RequestView = () => {
   }
 
   useEffect(() => {
-    getData(`${SERVER.URL_BASE}/locality/`, getToken())
-    // getData(`${'http://localhost:3003'}/locality/`, getToken())
-      .then(
-        (r: any) => {
-          setDataAutocomplete(r.localities.map((l: any) => l.name));
-          if (r.localities.length > 0) {
-            setLocality(r.localities[0].name)
+    let params = new URLSearchParams(history.location.search)
+    let _year = params.get('year');
+    let _locality = params.get('locality');
+    let _tabKey = params.get('tabKey');
+    if (_locality) {
+      if (_year) {
+        setYear(_year)
+      }
+      if (_locality) {
+        setLocality(_locality)
+      }
+      if (_tabKey) {
+        setTabKey(_tabKey)
+      }
+      console.log('params', year, locality, tabKey)
+    } else {
+      getData(`${SERVER.URL_BASE}/locality/`, getToken())
+      // getData(`${'http://localhost:3003'}/locality/`, getToken())
+        .then(
+          (r: any) => {
+            setDataAutocomplete(r.localities.map((l: any) => l.name));
+            if (r.localities.length > 0) {
+              setLocality(r.localities[0].name)
+            }
+          },
+          (e) => {
+            console.log('e', e);
           }
-        },
-        (e) => {
-          console.log('e', e);
-        }
-      )
+        )
+    }
     setZoomProject(undefined);
   }, []);
 
@@ -341,6 +338,16 @@ const RequestView = () => {
           console.log('e', e);
         }
       )
+      let params = [
+        ['year', year],
+        ['locality', locality],
+        ['tabKey', tabKey]
+      ]
+      history.push({
+        pathname: '/work-request',
+        search: `?${params.map(p => p.join('=')).join('&')}`
+      })
+      
   }, [year, locality, tabKey]);
 
   useEffect(() => {
@@ -576,7 +583,6 @@ const RequestView = () => {
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                     <div className="auto-complete-map">
-                      {/* <h2><i className="mdi mdi-circle"></i></h2> */}
                       <AutoComplete
                         className={'ant-select-1'}
                         dataSource={dataAutocomplete}
@@ -600,6 +606,7 @@ const RequestView = () => {
                   <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
                     <Select
                       defaultValue={year}
+                      value={`Year ${year}`}
                       onChange={setYear}
                       className={'ant-select-2'}>
                       {
@@ -613,8 +620,10 @@ const RequestView = () => {
                       <Button className="btn-opacity">
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }} src="" />
                       </Button>
-                      <Button className="btn-opacity">
-                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }} src="" />
+                      <Button className="btn-opacity" onClick={
+                        () => navigator.clipboard.writeText(window.location.href)
+                      }>
+                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/ic_share1.svg') no-repeat center" }} src="" />
                       </Button>
                     </ButtonGroup>
 
@@ -630,7 +639,9 @@ const RequestView = () => {
                 </Row>
               </div>
               <div className="work-body">
-                <Tabs defaultActiveKey={tabKey}  onChange={(key) => setTabKey(key)} className="tabs-map">
+                <Tabs defaultActiveKey={tabKey}
+                activeKey={tabKey}
+                 onChange={(key) => setTabKey(key)} className="tabs-map">
                   {
                     tabKeys.map((tk: string) => (
                       <TabPane tab={tk} key={tk}>
