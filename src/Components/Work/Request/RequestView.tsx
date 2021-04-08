@@ -15,6 +15,7 @@ import { useProjectDispatch } from '../../../hook/projectHook';
 import Analytics from "../Drawers/Analytics";
 import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
+import { csv } from "d3-fetch";
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -282,8 +283,10 @@ const RequestView = () => {
     const row2: any = [];
     const dataByYear: any = {};
     let maxSize = 0;
+    const years: any = [];
     for (let i = 1; i < columns.length; i++) {
       row.push(columns[i]['title']);
+      years.push(columns[i]['title']);
       row.push('');
       row.push('');
       row.push('');
@@ -295,6 +298,9 @@ const RequestView = () => {
       let project: any = null;
       maxSize = Math.max(maxSize, columns[i].projects.length);
       for (project of columns[i].projects) {
+        if (!project.projectData) {
+          continue;
+        }
         dataByYear[i].push([project.projectData.projectname,
           project.projectData.jurisdiction,
           project.projectData.status,
@@ -303,7 +309,6 @@ const RequestView = () => {
     }
     csvData.push(row);
     csvData.push(row2);
-    console.log(dataByYear);
     for (let i = 0; i < maxSize; i++) {
       let aux: any = [];
       for (let j = 1; j < columns.length; j++) {
@@ -315,7 +320,52 @@ const RequestView = () => {
       }
       csvData.push(aux);
     }
-    console.log(csvData);
+//    console.log(csvData);
+    let sum: any = ['Sum:'];
+    let first = false;
+    for (let i = 0; i < years.length; i++) {
+      if (!first) {
+        sum = sum.concat(['', '', sumTotal['req' + (i + 1)]]);
+      } else {
+        sum = sum.concat(['', '', '', sumTotal['req' + (i + 1)]]);
+      }
+      first = true;
+    }
+    csvData.push(sum);
+    csvData.push([]);
+    csvData.push([]);
+    const yearRow = ['Year'];
+    for (const currentYear of years) {
+      yearRow.push(currentYear);
+    }
+    csvData.push(yearRow);
+    const totalCost = ['Total Cost'];
+    for (let i = 0; i < years.length; i++) {
+      totalCost.push(sumTotal['req' + (i + 1)]);
+    }
+    csvData.push(totalCost);
+    let county: any;
+    for (county of sumByCounty) {
+      const auxArray = [county.county];
+      for (let i = 0; i < years.length; i++) {
+        auxArray.push(county['req' + (i + 1)]);
+      }
+      csvData.push(auxArray);
+    }
+    const targetCost: any = ['Target Cost'];
+    for (const target of reqManager) {
+      if (target == null) {
+        targetCost.push(0);
+      } else {
+        targetCost.push(target);
+      }
+    }
+    csvData.push(targetCost);
+    const differental: any = ['Differential'];
+    for (const value of diff) {
+      differental.push(value);
+    }
+    csvData.push(differental);
     return csvData;
   }
   const onSelect = (value: any) => {
@@ -520,7 +570,6 @@ const RequestView = () => {
     setSumTotal(totals);
     // console.log('rows', rows)
     setSumByCounty(rows);
-
   }, [columns]);
 
   useEffect(() => {
