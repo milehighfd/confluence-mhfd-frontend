@@ -269,7 +269,7 @@ const RequestView = () => {
   }
 
   const generateCSV = () => {
-    console.log('generando');
+    // console.log('generando');
     const date = new Date();
     const csvData = [['Exported on ' + date],
     ['Jurisdiction:', locality ],
@@ -432,7 +432,7 @@ const RequestView = () => {
               board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
             ])
             let justProjects = projects.map((proj:any)=> {
-              return proj.projectData.cartodb_id;
+              return proj.projectData?.cartodb_id;
             });
             if(projects.length>0){
               setBoardProjects(justProjects);

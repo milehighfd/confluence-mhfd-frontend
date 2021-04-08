@@ -216,6 +216,7 @@ const WorkRequestMap = (type: any) => {
       // console.log("COROD", coord);
       if(coord.geometry && coord.geometry.coordinates) {
         let value = coord.geometry.coordinates;
+        console.log("FLU TO ", value);
           map.map.flyTo({ center: value, zoom: 10 });
       }
     }
@@ -238,19 +239,19 @@ const WorkRequestMap = (type: any) => {
       wait(()=>setBounds(value));
     }
   },[groupOrganization, type.locality]);
-  useEffect(()=>{
-    if(listComponents && listComponents.result && listComponents.result.length > 0) {
+  // useEffect(()=>{
+  //   if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
-      if(type.type === 'CAPITAL') {
+  //     if(type.type === 'CAPITAL') {
 
-        getStreamsByComponentsList(listComponents.result);
-      }
+  //       getStreamsByComponentsList(listComponents.result);
+  //     }
       
-      componentsList = listComponents.result;
-    } else {
-      setStreamIntersected({geom:null});
-    }
-  },[listComponents]);
+  //     componentsList = listComponents.result;
+  //   } else {
+  //     setStreamIntersected({geom:null});
+  //   }
+  // },[listComponents]);
   
   useEffect(() => {
     if (data.problemid || data.cartoid) {

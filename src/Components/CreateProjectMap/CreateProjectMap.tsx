@@ -158,7 +158,7 @@ const CreateProjectMap = (type: any) => {
       if(coord.geometry && coord.geometry.coordinates) {
         let value = coord.geometry.coordinates;
         console.log("FLU TO ", value);
-          map.map.flyTo({ center: value, zoom: 10 });
+          map.isStyleLoaded(()=> map.map.flyTo({ center: value, zoom: 10 }));
       }
     }
   }
@@ -171,15 +171,15 @@ const CreateProjectMap = (type: any) => {
     }
   };
   useEffect(()=>{
-    if(localAOI) {
-      let value = localAOI;
-      console.log("CHECKER", value, "loc",  localAOI, "area");
+    let value = localAOI;
+    if(type.locality) {
+      value = type.locality;
+    } 
+      // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
     if(groupOrganization.length > 0) {
-      wait(() => setBounds(value));
+      wait(()=>setBounds(value));
     }
-    
-    }
-  },[groupOrganization, localAOI]);
+  },[groupOrganization, type.locality, localAOI]);
   useEffect(()=>{
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
