@@ -166,6 +166,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
+    console.log("UPDATES ON NEW PROJECT??", idsBoardProjects);
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projectType = '';
@@ -173,9 +174,19 @@ const WorkRequestMap = (type: any) => {
           // wait(()=>{
             setTimeout(()=>{
               map.isStyleLoaded(()=>{
-                showLayers('mhfd_projects_copy');
-             
-                applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+                removeLayers('mhfd_projects_copy');
+                removeLayersSource('mhfd_projects_copy');
+                const tiles = layerFilters['projects_draft'] as any;
+                if (tiles) {
+                  // layer.name = projects_draft 
+                  // subKey = mhfd_projects_copy
+                  addLayersSource('mhfd_projects_copy', tiles['mhfd_projects_copy']);
+                  setTimeout(()=>{
+                    showLayers('mhfd_projects_copy');
+                    applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+                  },1200);
+                }
+                
               });
             },1500);
             
@@ -183,7 +194,12 @@ const WorkRequestMap = (type: any) => {
       }
   },[idsBoardProjects]);
   useEffect(()=>{
-    setIdsBoardProjects(boardProjects);
+    const equals = (a:any, b:any) =>
+      a.length === b.length &&
+      a.every((v:any, i:any) => v === b[i]);
+    if(!equals(boardProjects, idsBoardProjects)) {
+      setIdsBoardProjects(boardProjects);
+    }
   },[boardProjects]);
   const setBounds = (value:any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
@@ -276,11 +292,14 @@ const WorkRequestMap = (type: any) => {
           layer.tiles.forEach((subKey: string) => {
             const tiles = layerFilters[layer.name] as any;
             if (tiles) {
+              // layer.name = projects_draft 
+              // subKey = mhfd_projects_copy
               addLayersSource(subKey, tiles[subKey]);
             }
           });
         }
       } else {
+        // console.log("ADDDING SOURCE layer", layer, layerFilters[layer]);
         addLayersSource(layer, layerFilters[layer]);
       }
     });
@@ -348,7 +367,17 @@ const WorkRequestMap = (type: any) => {
       }
     });
   };
+  const removeLayers = (key: string) => {
 
+    const styles = { ...tileStyles as any };
+    styles[key].forEach((style: LayerStylesType, index: number) => {
+
+      if (map.map.getLayer(key + '_' + index)) {
+        map.map.removeLayer(key + '_' + index);
+        console.log("REMOVING LAYER", key + '_' + index);
+      }
+    });
+  }
   const showSelectedComponents = (components: string[]): void => {
     if (!components.length || components[0] === '') {
       return;
@@ -637,6 +666,12 @@ const WorkRequestMap = (type: any) => {
         tiles: tiles
       });
       addTilesLayers(key);
+    }
+  }
+  const removeLayersSource = (key: string) => {
+    if (map.getSource(key)) { 
+      console.log("REMOVING SOURCE", key);
+      map.map.removeSource(key);
     }
   }
 

@@ -250,9 +250,9 @@
     font-weight: 400;
     padding-left: 15px;
   }
-  .ant-input {
+  .ant-input, .ant-input-number{
     height: 25px;
-    padding: 4px 0px;
+    padding: 0px !important;
     color: $purple;
     font-size: 12px;
     line-height: 1.5;
@@ -260,8 +260,39 @@
     border-radius: 0px;
     border-bottom: 1px solid $opacity01;
     background: transparent;
+    width: 100% !important;
+    min-width: 100% !important;
   }
-  .ant-input:hover, .ant-input:focus {
+  .ant-input-number-input, .ant-input-number-input-wrap{
+    padding: 0px !important;
+  }
+  .ant-input-number-input-wrap{
+    width: 100% !important;
+    min-width: 100% !important;
+    padding: 0px;
+  }
+  .ant-input-number-handler-wrap{
+    display: none;
+  }
+  .ant-input-number-handler-down{
+    border: none !important;
+  }
+  .ant-input-number-handler-up:hover, .ant-input-number-handler-wrap:hover .ant-input-number-handler {
+    height: 50% !important;
+  }
+  .ant-input-number-handler-down:hover  {
+    height: 50% !important;
+  }
+  .ant-input-number-handler-up-inner, .ant-input-number-handler-down-inner
+  .ant-input-number-handler-down-inner:hover, .ant-input-number-handler-up-inner:hover,
+  .ant-input-number-handler:hover .ant-input-number-handler-up-inner,
+  .ant-input-number-handler:hover .ant-input-number-handler-down-inner{
+    color: $purple00;
+  }
+  .ant-input-number{
+    top: -3px;
+  }
+  .ant-input:hover, .ant-input:focus, .ant-input-number:hover, .ant-input-number:focus {
     box-shadow: none;
     border-color: $green;
   }
@@ -433,19 +464,32 @@
     right: 12px;
     left: inherit;
   }
-  .ant-input{
+  .ant-input, .ant-input-number, .ant-input-number-input{
     height: 44px;
     color: $purple00;
   }
-  .ant-input-affix-wrapper{
+  .ant-input-affix-wrapper, .ant-input-number{
     margin-bottom: 15px;
+    width: 100%;
   }
   .ant-input-affix-wrapper .ant-input:not(:first-child) {
     padding-left: 11px;
     padding-right: 35px;
   }
-  .ant-input:focus, .ant-input:hover, .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled){
+  .ant-input-number:focus, .ant-input-number:hover, .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled){
     border-color: $purple;
+    box-shadow: none !important;
+  }
+  .button-close, .button-close:hover, .button-close:focus{
+    position: absolute;
+    right: 35px;
+    padding: 0px;
+    height: 44px;
+    border: none;
+    background: transparent;
+  }
+  .ant-input-number-handler-wrap{
+    display: none;
   }
   .ant-modal-close-x {
     width: 30px;
@@ -749,7 +793,7 @@
     }
     .col-bg {
       height: 54px;
-          padding: 14px 20px;
+          padding: 14px 15px;
 
       div{
         min-width: 215px;
@@ -817,7 +861,7 @@
     h5{
       font-size: 16px;
     }
-    .ant-input {
+    .ant-input, .ant-input-number{
       height: 30px;
       font-size: 16px;
     }
@@ -845,7 +889,7 @@
     p{
       font-size: 16px;
     }
-    .ant-input{
+    .ant-input, .ant-input-number, .ant-input-number-input{
       height: 58px;
       font-size: 21px;
     }
@@ -856,6 +900,9 @@
     .ant-input-affix-wrapper .ant-input-prefix :not(.anticon),
     .ant-input-affix-wrapper .ant-input-suffix :not(.anticon) {
       height: 20px;
+    }
+    .button-close, .button-close:hover, .button-close:focus{
+      height: 58px;
     }
     .ant-modal-close-x {
       width: 40px;
@@ -1057,7 +1104,7 @@
     }
     .col-bg {
       height: 70px;
-      padding: 21px 20px;
+      padding: 21px 15px;
 
       div{
         min-width: 285px;
@@ -1134,7 +1181,7 @@
     h5{
       font-size: 21px;
     }
-    .ant-input {
+    .ant-input, .ant-input-number {
       height: 40px;
       font-size: 21px;
       margin-top: -5px;
@@ -1168,7 +1215,7 @@
     p{
       font-size: 21px;
     }
-    .ant-input{
+    .ant-input, .ant-input-number, .ant-input-number-input{
       height: 78px;
       font-size: 28px;
     }
@@ -1182,6 +1229,10 @@
     .ant-input-affix-wrapper .ant-input-prefix :not(.anticon),
     .ant-input-affix-wrapper .ant-input-suffix :not(.anticon) {
       height: 25px;
+    }
+    .button-close, .button-close:hover, .button-close:focus{
+      right: 55px;
+      height: 78px;
     }
     .ant-modal-close-x {
       width: 50px;

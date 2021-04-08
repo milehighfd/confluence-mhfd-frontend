@@ -14,6 +14,7 @@ import TrelloLikeCard from "./TrelloLikeCard";
 import { useProjectDispatch } from '../../../hook/projectHook';
 import Analytics from "../Drawers/Analytics";
 import { useHistory } from "react-router";
+import { CSVLink } from 'react-csv';
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -258,6 +259,58 @@ const RequestView = () => {
     }
     return value
   }
+
+  const generateCSV = () => {
+    console.log('generando');
+    const date = new Date();
+    const csvData = [['Exported on ' + date],
+    ['Jurisdiction:', locality ],
+    [],
+    ['Year:', year],
+    [],
+    ['Project Type:' , tabKey],
+    []
+    ];
+    const row: any = [];
+    const row2: any = [];
+    const dataByYear: any = {};
+    let maxSize = 0;
+    for (let i = 1; i < columns.length; i++) {
+      row.push(columns[i]['title']);
+      row.push('');
+      row.push('');
+      row.push('');
+      row2.push('Project Name');
+      row2.push('Jurisdiction');
+      row2.push('Status');
+      row2.push('Cost');
+      dataByYear[i] = [];
+      let project: any = null;
+      maxSize = Math.max(maxSize, columns[i].projects.length);
+      for (project of columns[i].projects) {
+        dataByYear[i].push([project.projectData.projectname,
+          project.projectData.jurisdiction,
+          project.projectData.status,
+          project['req' + i]]); 
+      }
+    }
+    csvData.push(row);
+    csvData.push(row2);
+    console.log(dataByYear);
+    for (let i = 0; i < maxSize; i++) {
+      let aux: any = [];
+      for (let j = 1; j < columns.length; j++) {
+        if (dataByYear[j].length > i) {
+          aux = aux.concat(dataByYear[j][i]);
+        } else {
+          aux = aux.concat('', '', '', '');
+        }
+      }
+      csvData.push(aux);
+    }
+    console.log(csvData);
+    return csvData;
+  }
   const onSelect = (value: any) => {
     setLocality(value);
   };
@@ -332,6 +385,7 @@ const RequestView = () => {
 
             let cols = generateColumns(projects, year, tabKey);
             setColumns(cols);
+            console.log('my cols ', cols);
           }
         },
         (e) => {
@@ -391,6 +445,14 @@ const RequestView = () => {
                 ])
                 let cols = generateColumns(projects, year, tabKey);
                 setColumns(cols);
+                let justProjects = projects.map((proj:any)=> {
+                  return proj.projectData.cartodb_id;
+                });
+                if(projects.length>0){
+                  setBoardProjects(justProjects);
+                } else {
+                  setBoardProjects(['-1']);
+                }
               }
             }
           },
@@ -617,9 +679,10 @@ const RequestView = () => {
                     </Select>
 
                     <ButtonGroup>
-                      <Button className="btn-opacity">
+                      <CSVLink filename={'' + new Date().getTime() + '.csv'} data={generateCSV()} className="btn-opacity">
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }} src="" />
-                      </Button>
+
+                      </CSVLink>
                       <Button className="btn-opacity" onClick={
                         () => navigator.clipboard.writeText(window.location.href)
                       }>
@@ -648,7 +711,7 @@ const RequestView = () => {
                         <div className="work-table">
                           {
                             columns.map((column, columnIdx) => (
-                              <div className="container-drag">
+                              <div className="container-drag" key={columnIdx+Math.random()}>
                                 <h3>{column.title}</h3>
                                 <div className="col-wr droppable" onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx, 'complete')}>
                                   {
@@ -679,7 +742,7 @@ const RequestView = () => {
                                 <Timeline>
                                   {
                                     sumByCounty.map((countySum) => (
-                                      <Timeline.Item color="purple">
+                                      <Timeline.Item color="purple" key={Math.random()}>
                                         <div className="tab-body-line">
                                           <div>
                                             <label>

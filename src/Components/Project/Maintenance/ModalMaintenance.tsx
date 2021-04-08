@@ -80,7 +80,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.maintenanceeligibility = eligibility;
       maintenance.ownership = ""+ownership ;
       maintenance.files = files;
-      console.log( JSON.stringify(maintenance, null, 2),"****++MAINTENANCE******")
+      // console.log( JSON.stringify(maintenance, null, 2),"****++MAINTENANCE******")
       saveProjectMaintenance(maintenance);
       setVisibleMaintenance(false);
       setVisible(false);
