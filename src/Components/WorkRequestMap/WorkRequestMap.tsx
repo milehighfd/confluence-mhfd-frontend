@@ -123,7 +123,7 @@ const WorkRequestMap = (type: any) => {
               let BBoxPolygon = JSON.parse(r.bbox);
               let bboxBounds = turf.bbox(BBoxPolygon);
               if(map.map){
-                map.map.fitBounds(bboxBounds,{ padding:130});
+                map.map.fitBounds(bboxBounds,{ padding:130, maxZoom: 13});
               }
             }
           },
@@ -183,7 +183,7 @@ const WorkRequestMap = (type: any) => {
                   addLayersSource('mhfd_projects_copy', tiles['mhfd_projects_copy']);
                   setTimeout(()=>{
                     showLayers('mhfd_projects_copy');
-                    applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+                    // applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
                   },1200);
                 }
                 
@@ -625,7 +625,8 @@ const WorkRequestMap = (type: any) => {
       // }
       if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_copy' && idsBoardProjects[0]!='-8888'){
         let boardids = idsBoardProjects;
-        allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...boardids]]]);
+        // allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...boardids]]]);
+        // allFilters.push(['in', ['get', 'projectid'], ['literal', [800099]]]);
       } 
       if (map.getLayer(key + '_' + index)) {
         //console.log(key + '_' + index, allFilters);
@@ -936,6 +937,7 @@ const WorkRequestMap = (type: any) => {
     if (features.length === 0) {
       return;
     }
+    console.log("FEATURES", features);
     const search = (id: number, source: string) => {
       let index = 0;
       for (const feature of features) {

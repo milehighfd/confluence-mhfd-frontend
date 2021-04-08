@@ -863,7 +863,7 @@ const CreateProjectMap = (type: any) => {
       marker.getElement().addEventListener('click', () => {
         addPopupMarker(point,html);
       });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng, e.lngLat.lat]] ]} };
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng+0.0038, e.lngLat.lat]] ]} };
       if (type.type === 'SPECIAL') {
         saveSpecialLocation(sendLine);
       } else if (type.type === 'ACQUISITION') {
