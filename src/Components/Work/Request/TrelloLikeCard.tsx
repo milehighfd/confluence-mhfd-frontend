@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 
 import { Menu, Popover } from 'antd';
 import AmountModal from './AmountModal';
-import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import { useProjectDispatch } from '../../../hook/projectHook';
 import { ModalProjectView } from './../../ProjectModal/ModalProjectView'
+import { deleteData, getToken } from '../../../Config/datasets';
+import { SERVER } from '../../../Config/Server.config';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -38,8 +40,19 @@ const TrelloLikeCard = ({ project, columnIdx, saveData}: { project: any, columnI
       <Menu.Item onClick={()=> setZoomProject(project.projectData)}>
         <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Zoom to</span>
       </Menu.Item>
-      <Menu.Item>
-        <span><img src="/Icons/icon-16.svg" alt="" width="10px" /> Delete</span>
+      <Menu.Item onClick={() => {
+        deleteData(`${SERVER.URL_BASE}/board/project/${projectid}`, getToken())
+        .then((r) => {
+          console.log('r', r)
+        })
+        .catch((e) => {
+          console.log('e', e)
+        })
+      }}>
+        <span>
+          <img src="/Icons/icon-16.svg" alt="" width="10px" />
+          Delete
+        </span>
       </Menu.Item>
     </Menu>
   );
