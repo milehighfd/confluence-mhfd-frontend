@@ -26,10 +26,10 @@
   background: #e9e7ef;
   border-radius: 5px;
 }
-.work-request::-webkit-scrollbar, #graph::-webkit-scrollbar, .work-table::-webkit-scrollbar, .cost-wr::-webkit-scrollbar{
+.work-request::-webkit-scrollbar, #graph::-webkit-scrollbar, .work-table::-webkit-scrollbar, .cost-wr::-webkit-scrollbar, .work-body .ant-tabs-tabpane-active::-webkit-scrollbar{
   height: 4px;
 }
-.work-request::-webkit-scrollbar-thumb, #graph::-webkit-scrollbar-thumb, .work-table::-webkit-scrollbar-thumb, .cost-wr::-webkit-scrollbar-thumb{
+.work-request::-webkit-scrollbar-thumb, #graph::-webkit-scrollbar-thumb, .work-table::-webkit-scrollbar-thumb, .cost-wr::-webkit-scrollbar-thumb, .work-body .ant-tabs-tabpane-active::-webkit-scrollbar-thumb{
   background: #e9e7ef;
   border-radius: 5px;
 }
