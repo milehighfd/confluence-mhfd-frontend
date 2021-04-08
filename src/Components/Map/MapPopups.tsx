@@ -41,7 +41,7 @@ const capitalize = (s : string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-export const MainPopup = ({id, item, test, sw } : any) => {
+export const MainPopup = ({id, item, test, sw, ep } : any) => {
     for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
@@ -66,9 +66,12 @@ export const MainPopup = ({id, item, test, sw } : any) => {
             <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? item.status : capitalize(item.status)}</span>
           </div>
         </div>
-        {  <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+        { !ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             {!sw && <Button id={"buttonCreate-" + id} style={{ width: '50%', marginRight: '10px'}} className="btn-purple" >Create Project</Button>}
             <Button id={"buttonPopup-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">See Details</Button>
+        </div>} 
+        { ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+            <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">Edit Project</Button>
         </div>}
       </Card>
     </div>

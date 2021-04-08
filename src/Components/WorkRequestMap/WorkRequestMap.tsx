@@ -933,11 +933,11 @@ const WorkRequestMap = (type: any) => {
     setMobilePopups([]);
     setActiveMobilePopups([]);
     setSelectedPopup(-1);
+    let isEditPopup = false;
     let features = map.map.queryRenderedFeatures(bbox, { layers: allLayers });
     if (features.length === 0) {
       return;
     }
-    console.log("FEATURES", features);
     const search = (id: number, source: string) => {
       let index = 0;
       for (const feature of features) {
@@ -987,13 +987,16 @@ const WorkRequestMap = (type: any) => {
         const filtered = galleryProjects.filter((item: any) =>
           item.cartodb_id === feature.properties.cartodb_id
         );
+        if(feature.source === 'mhfd_projects_copy') {
+          isEditPopup =true;
+        }
         const item = {
           type: 'project',
-          title: MENU_OPTIONS.PROJECT,
+          title: feature.source === 'mhfd_projects_copy'? (feature.properties.projecttype+" "+MENU_OPTIONS.PROJECT):MENU_OPTIONS.PROJECT,
           name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
-          organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
+          organization: feature.source === 'mhfd_projects_copy'? (feature.properties.jurisdiction?feature.properties.jurisdiction: type.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
           value: feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0',
-          projecctype: feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-',
+          projecctype: feature.source === 'mhfd_projects_copy'?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
           status: feature.properties.status ? feature.properties.status : '-',
           objectid: feature.properties.objectid,
           valueid: feature.properties.cartodb_id,
@@ -1430,7 +1433,7 @@ const WorkRequestMap = (type: any) => {
       }
     }
     if (popups.length) {
-      const html = loadMenuPopupWithData(menuOptions, popups);
+      const html = loadMenuPopupWithData(menuOptions, popups, isEditPopup);
       setMobilePopups(mobile);
       setActiveMobilePopups(mobileIds);
       setSelectedPopup(0);
@@ -1456,6 +1459,10 @@ const WorkRequestMap = (type: any) => {
           let componentElement = document.getElementById('component-'+index);
           if(componentElement) {
             componentElement.addEventListener('click', addRemoveComponent.bind(popups[index],popups[index]));
+          }
+          let editElement = document.getElementById('buttonEdit-' + index);
+          if (editElement != null) {
+            editElement.addEventListener('click', type.openEdit.bind(popups[index], popups[index]));
           }
           // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
 
@@ -1492,11 +1499,11 @@ const WorkRequestMap = (type: any) => {
       map.map.off(eventToClick);
     }
   }, [allLayers]);
-  const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
+  const loadMenuPopupWithData = (menuOptions: any[], popups: any[], ep?: boolean) => ReactDOMServer.renderToStaticMarkup(
 
     <>
       {menuOptions.length === 1 ? <> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
-        menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
+        menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true, ep) : loadMainPopup(0, popups[0], test)}
       </> :
         <div className="map-pop-02">
           <div className="headmap">LAYERS</div>
@@ -1535,9 +1542,9 @@ const WorkRequestMap = (type: any) => {
     // <div id="popup-0" class="map-pop-01"><div class="ant-card ant-card-bordered ant-card-hoverable"><div class="ant-card-body"><div class="headmap">Components</div><div class="bodymap"><h4><i>Land Acquisition</i> </h4><p><i>Subtype: </i> Easement/ROW Acquisition</p><p><i>Estimated Cost: </i> $540,282</p><p><i>Status: </i> Proposed</p><p><i>Study Name: </i> Second Creek DIA DFA 0053 OSP Ph B</p><p><i>Jurisdiction: </i> Adams County</p><p><i>Problem: </i> Dataset in development</p></div></div></div></div>
   );
  
-  const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) => (
+  const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean, ep?:boolean) => (
     <>
-      <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)}></MainPopup>
+      <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={ep?ep:false}></MainPopup>
     </>
   );
 

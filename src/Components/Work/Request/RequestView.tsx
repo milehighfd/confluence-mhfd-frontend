@@ -152,9 +152,9 @@ const RequestView = () => {
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
   const [boardStatus, setBoardStatus] = useState(null);
   const [boardComment, setBoardComment] = useState(null);
-
+  const [showModalProject, setShowModalProject] = useState(false);
   const history = useHistory();
-
+  const [currentProject, setCurrentProject] = useState(undefined);
   const {setBoardProjects, setZoomProject} = useProjectDispatch();
   const [columns, setColumns] = useState([
     {
@@ -596,6 +596,11 @@ const RequestView = () => {
 
   }, [reqManager]);
 
+  const openEdit = (project:any,event:any) => {
+    // setShowModalProject(true);
+    // setCurrentProject(project);
+    console.log("I HAVE ", project, event);
+  }
   const saveData = (data: { projectId: any, amounts: any[] }) => {
     let projectData: any;
     columns.forEach(c => {
@@ -676,6 +681,14 @@ const RequestView = () => {
   }
 
   return <>
+    {  showModalProject &&
+      <ModalProjectView
+          visible={showModalProject}
+          setVisible={setShowModalProject}
+          data={currentProject}
+          showDefaultTab={true}
+      />
+    }
     {
       <Analytics
         visible={showAnalytics}
@@ -714,7 +727,7 @@ const RequestView = () => {
         <Layout className="work">
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap locality={locality}></WorkRequestMap>
+                <WorkRequestMap locality={locality} openEdit={openEdit}></WorkRequestMap>
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>

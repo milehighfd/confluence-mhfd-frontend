@@ -1502,7 +1502,7 @@ const CreateProjectMap = (type: any) => {
  
   const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) => (
     <>
-      <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)}></MainPopup>
+      <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopup>
     </>
   );
 
