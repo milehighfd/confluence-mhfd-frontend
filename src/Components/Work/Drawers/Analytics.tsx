@@ -74,6 +74,7 @@ const Analytics = ({
           scrollClass={'svg-scroll-analytics'}
           showControls={false}
           withClickEvent={false}
+          withAnimation={false}
         />
       </div>
 
@@ -89,6 +90,7 @@ const Analytics = ({
           scrollClass={'svg-scroll-analytics'}
           showControls={false}
           withClickEvent={false}
+          withAnimation={false}
         />
       </div>
     </Drawer>

@@ -25,11 +25,12 @@ const HorizontalBarChart = ({
   data, type, selected, onSelect, defaultValue, color, axisLabel,
   scrollClass='svg-scroll',
   showControls=true,
-  withClickEvent=true
+  withClickEvent=true,
+  withAnimation=true
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
-
+  const transitionDuration = withAnimation ? 2000 : 0;
   useEffect(() => {
     let temporal = selected.split(',')
     .filter((r: any) => r !== '')
@@ -207,7 +208,7 @@ const HorizontalBarChart = ({
       })
 
     rects
-      .transition().duration(2000)
+      .transition().duration(transitionDuration)
       .attr("rx", 2)
       .attr("ry", 2)
       .attr("x", xInitialValue)
@@ -221,7 +222,7 @@ const HorizontalBarChart = ({
       .attr("class", "hrect")
     
     newRects
-      .transition().duration(2000)
+      .transition().duration(transitionDuration)
       .attr("rx", 2)
       .attr("ry", 2)
       .attr("x", xInitialValue)
@@ -253,7 +254,7 @@ const HorizontalBarChart = ({
       .attr("class", "hlabels")
     
     newLabels
-      .transition().duration(2000)
+      .transition().duration(transitionDuration)
       .text(labelTextFn)
       .attr("x", 0)
       .attr("y", (d: any) => {
@@ -263,7 +264,7 @@ const HorizontalBarChart = ({
       .style('opacity', 0.7);
     
     labels
-      .transition().duration(2000)
+      .transition().duration(transitionDuration)
       .text(labelTextFn)
       .attr("x", 0)
       .attr("y", (d: any) => {
@@ -294,7 +295,7 @@ const HorizontalBarChart = ({
       .attr('class', 'hcount')
 
     newCounts
-      .transition().duration(2000)
+      .transition().duration(transitionDuration)
       .text(countFn)
       .attr('x', countXFn)
       .attr('y', countYFn)
@@ -302,7 +303,7 @@ const HorizontalBarChart = ({
       .style('fill', 'white')
 
     counts
-      .transition().duration(2000)
+      .transition().duration(transitionDuration)
       .text(countFn)
       .attr('x', countXFn)
       .attr('y', countYFn)
