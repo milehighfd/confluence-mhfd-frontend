@@ -694,9 +694,9 @@ const RequestView = () => {
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
-            <Button onClick={updateWidth} className="btn-coll" >
+            {/* <Button onClick={updateWidth} className="btn-coll" >
               <img src="/Icons/icon-34.svg" alt="" width="18px" style={rotationStyle} />
-            </Button>
+            </Button> */}
               <div className="work-head">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
@@ -734,7 +734,7 @@ const RequestView = () => {
                       }
                     </Select>
 
-                    <ButtonGroup>
+                     <ButtonGroup>
                       <CSVLink filename={'' + new Date().getTime() + '.csv'} data={generateCSV()} className="btn-opacity">
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }} src="" />
 
@@ -747,7 +747,7 @@ const RequestView = () => {
                       }>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/ic_share1.svg') no-repeat center" }} src="" />
                       </Button>
-                    </ButtonGroup>
+                    </ButtonGroup> 
 
                     <ButtonGroup>
                       <Button className="btn-opacity" onClick={() => setShowAnalytics(true)}>
