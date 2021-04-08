@@ -15,26 +15,18 @@ const menu = (
   </Menu>
 );
 
-export default () => {
-  const [visible, setVisible] = useState(false);
-   const showDrawer = () => {
-     setVisible(true);
-   };
-   const onClose = () => {
-     setVisible(false);
-   };
+export default ({ visible, setVisible }: {
+  visible: boolean,
+  setVisible: Function,
+}) => {
+
   return (
-    <>
-    <Button onClick={showDrawer} >
-      Drawer
-    </Button>
     <Drawer
       title={<h5>
-              <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> STATUS
-              <Button className="btn-transparent"><CloseOutlined /></Button>
-             </h5>}
+        <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> STATUS</h5>
+      }
       placement="right"
-      closable={false}
+      closable={true}
       onClose={() => setVisible(false)}
       visible={visible}
       className="work-utilities"
@@ -49,16 +41,13 @@ export default () => {
       </Dropdown>
 
       <p>Notes <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
-      <div className="note">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-      fugiat nulla pariatur.</div>
+      <textarea className="note" rows={8}>
+
+      </textarea>
 
       <div className="footer-drawer">
         <Button className="btn-purple">Save</Button>
       </div>
     </Drawer>
-  </>
   )
 }

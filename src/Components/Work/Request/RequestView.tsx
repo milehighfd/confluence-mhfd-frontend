@@ -16,6 +16,7 @@ import Analytics from "../Drawers/Analytics";
 import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
 import { csv } from "d3-fetch";
+import Status from "../Drawers/Status";
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -143,6 +144,7 @@ const RequestView = () => {
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
   const [sumTotal, setSumTotal] = useState<any>({});
   const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showBoardStatus, setShowBoardStatus] = useState(false);
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
 
@@ -672,6 +674,12 @@ const RequestView = () => {
         initialYear={year}
       />
     }
+    {
+      <Status
+        visible={showBoardStatus}
+        setVisible={setShowBoardStatus}
+        />
+    }
     <div>
       {
         visibleCreateProject &&
@@ -736,7 +744,7 @@ const RequestView = () => {
                     </Select>
 
                      <ButtonGroup>
-                     <Button className="btn-opacity">
+                     <Button className="btn-opacity" onClick={() => setShowBoardStatus(true) }>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }} src="" />
                       </Button>
                       <Button className="btn-opacity" onClick={() => setShowAnalytics(true)}>

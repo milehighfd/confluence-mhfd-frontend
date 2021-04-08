@@ -13,11 +13,11 @@ const Analytics = ({
   showYearDropdown: boolean,
   initialYear: number
 }) => {
-  const [year, setYear] = useState(initialYear);
+  const [year, setYear] = useState(+initialYear);
 
   const years = [];
   for (var i = 0 ; i < 5 ; i++) {
-    years.push(initialYear + i);
+    years.push(+initialYear + i);
   }
 
   let quantityData = data.map((d: any) => {
@@ -46,7 +46,7 @@ const Analytics = ({
           <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> STATUS
           {
             showYearDropdown && 
-            <Select defaultValue={year} onChange={setYear} style={{ width: 75 }}>
+            <Select defaultValue={year} onChange={setYear} style={{ width: 100 }}>
               {
                 years.map((y, i) => (
                   <Option key={i} value={y}>{y}</Option>
