@@ -325,9 +325,9 @@ const RequestView = () => {
     let first = false;
     for (let i = 0; i < years.length; i++) {
       if (!first) {
-        sum = sum.concat(['', '', sumTotal['req' + (i + 1)]]);
+        sum = sum.concat(['', '', formatter.format(sumTotal['req' + (i + 1)])]);
       } else {
-        sum = sum.concat(['', '', '', sumTotal['req' + (i + 1)]]);
+        sum = sum.concat(['', '', '', formatter.format(sumTotal['req' + (i + 1)])]);
       }
       first = true;
     }
@@ -336,34 +336,35 @@ const RequestView = () => {
     csvData.push([]);
     const yearRow = ['Year'];
     for (const currentYear of years) {
+     //console.log(currentYear, "year",years)
       yearRow.push(currentYear);
     }
     csvData.push(yearRow);
     const totalCost = ['Total Cost'];
     for (let i = 0; i < years.length; i++) {
-      totalCost.push(sumTotal['req' + (i + 1)]);
+      totalCost.push(formatter.format(sumTotal['req' + (i + 1)]));
     }
     csvData.push(totalCost);
     let county: any;
     for (county of sumByCounty) {
       const auxArray = [county.county];
       for (let i = 0; i < years.length; i++) {
-        auxArray.push(county['req' + (i + 1)]);
+        auxArray.push(formatter.format(county['req' + (i + 1)]));
       }
       csvData.push(auxArray);
     }
     const targetCost: any = ['Target Cost'];
     for (const target of reqManager) {
       if (target == null) {
-        targetCost.push(0);
+        targetCost.push(formatter.format(0));
       } else {
-        targetCost.push(target);
+        targetCost.push(formatter.format(target));
       }
     }
     csvData.push(targetCost);
     const differental: any = ['Differential'];
     for (const value of diff) {
-      differental.push(value);
+      differental.push(formatter.format(value));
     }
     csvData.push(differental);
     return csvData;
