@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Collapse, Timeline, AutoComplete, Icon, InputNumber } from 'antd';
+import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Collapse, Timeline, AutoComplete, Icon, InputNumber, notification } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
@@ -118,6 +118,13 @@ const generateColumns = (boardProjects: boardProject[], year: number, tabKey: st
 
   return columns;
 }
+
+const openNotification = () => {
+  notification.open({
+    message: `Share URL Copied to clipboard`,
+    duration: 5
+  });
+};
 
 const RequestView = () => {
   const emptyStyle: React.CSSProperties = { transform: 'rotate(180deg)' };
@@ -684,7 +691,10 @@ const RequestView = () => {
 
                       </CSVLink>
                       <Button className="btn-opacity" onClick={
-                        () => navigator.clipboard.writeText(window.location.href)
+                        () => {
+                          navigator.clipboard.writeText(window.location.href);
+                          openNotification();
+                        }
                       }>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/ic_share1.svg') no-repeat center" }} src="" />
                       </Button>
