@@ -308,7 +308,7 @@ const RequestView = () => {
         dataByYear[i].push([project.projectData.projectname,
           project.projectData.jurisdiction,
           project.projectData.status,
-          project['req' + i]]); 
+          project['req' + i]]);
       }
     }
     csvData.push(row);
@@ -465,7 +465,7 @@ const RequestView = () => {
         pathname: '/work-request',
         search: `?${params.map(p => p.join('=')).join('&')}`
       })
-      
+
   }, [year, locality, tabKey]);
 
   useEffect(() => {
@@ -760,22 +760,22 @@ const RequestView = () => {
                       <Button className="btn-opacity" onClick={() => setShowAnalytics(true)}>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }} src="" />
                       </Button>
+                    </ButtonGroup>
+
+                    <ButtonGroup>
+                    <Button className="btn-opacity">
                       <CSVLink filename={'' + new Date().getTime() + '.csv'} data={generateCSV()} className="btn-opacity">
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }} src="" />
                       </CSVLink>
-                      <Button className="btn-opacity" onClick={
-                        () => {
-                          navigator.clipboard.writeText(window.location.href);
-                          openNotification();
-                        }
-                      }>
-                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/ic_share1.svg') no-repeat center" }} src="" />
-                      </Button>
-                    </ButtonGroup> 
-
-                    <ButtonGroup>
-                      
-                      
+                    </Button>
+                    <Button className="btn-opacity" onClick={
+                      () => {
+                        navigator.clipboard.writeText(window.location.href);
+                        openNotification();
+                      }
+                    }>
+                      <img className="icon-bt" style={{ WebkitMask: "url('/Icons/ic_share1.svg') no-repeat center" }} src="" />
+                    </Button>
                     </ButtonGroup>
                   </Col>
                 </Row>
