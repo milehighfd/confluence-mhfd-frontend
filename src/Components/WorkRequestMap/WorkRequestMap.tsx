@@ -148,8 +148,8 @@ const WorkRequestMap = (type: any) => {
     map = undefined;
     waiting();
     eventService.setRef('click',eventClick);
-    eventService.setRef('move', eventMove);
-    eventService.setRef('addmarker', addMarker);
+    // eventService.setRef('move', eventMove);
+    // eventService.setRef('addmarker', addMarker);
     changeAddLocationState(false);
     // setComponentIntersected([]);
     componentsList = [];
@@ -887,33 +887,33 @@ const WorkRequestMap = (type: any) => {
       // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
 
   }
-  const addMarker = (e: any) => {
-    const html = loadPopupMarker();
-    e.originalEvent.stopPropagation();
-    if (html) {
-      popup.remove();
-      marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
-      let point = e.lngLat;
-      marker.getElement().addEventListener('click', () => {
-        addPopupMarker(point,html);
-      });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng, e.lngLat.lat]] ]} };
-      if (type.type === 'SPECIAL') {
-        saveSpecialLocation(sendLine);
-      } else if (type.type === 'ACQUISITION') {
-        saveAcquisitionLocation(sendLine);
-      }
-      getServiceAreaPoint(sendLine);
-      let eventToMove = eventService.getRef('move');
-      map.map.off('mousemove', eventToMove);
-      let eventToAddMarker = eventService.getRef('addmarker');
-      map.map.off('click',eventToAddMarker);
-      // marker.setPopup(html);
-      // let eventToClick = eventService.getRef('click');
-      // map.map.on('click', eventToClick);
-      isPopup = true;
-    }
-  }
+  // const addMarker = (e: any) => {
+  //   const html = loadPopupMarker();
+  //   e.originalEvent.stopPropagation();
+  //   if (html) {
+  //     popup.remove();
+  //     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
+  //     let point = e.lngLat;
+  //     marker.getElement().addEventListener('click', () => {
+  //       addPopupMarker(point,html);
+  //     });
+  //     let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng, e.lngLat.lat]] ]} };
+  //     if (type.type === 'SPECIAL') {
+  //       saveSpecialLocation(sendLine);
+  //     } else if (type.type === 'ACQUISITION') {
+  //       saveAcquisitionLocation(sendLine);
+  //     }
+  //     getServiceAreaPoint(sendLine);
+  //     let eventToMove = eventService.getRef('move');
+  //     map.map.off('mousemove', eventToMove);
+  //     let eventToAddMarker = eventService.getRef('addmarker');
+  //     map.map.off('click',eventToAddMarker);
+  //     // marker.setPopup(html);
+  //     // let eventToClick = eventService.getRef('click');
+  //     // map.map.on('click', eventToClick);
+  //     isPopup = true;
+  //   }
+  // }
   const eventMove = (e:any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
@@ -982,7 +982,7 @@ const WorkRequestMap = (type: any) => {
       }
       let html: any = null;
       let itemValue;
-      if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects') {
+      if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_copy') {
         getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
         const filtered = galleryProjects.filter((item: any) =>
           item.cartodb_id === feature.properties.cartodb_id
