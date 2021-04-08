@@ -70,7 +70,7 @@ export default ({ boardId, visible, setVisible, status, comment }: {
       </Dropdown>
 
       <p>Notes <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
-      <textarea className="note" rows={8} value={boardComment} onChange={e => setBoardComment(e.target.value)}>
+      <textarea className="note" rows={8} value={boardComment} onChange={e => setBoardComment(e.target.value)} style={{width:'100%'}}>
       </textarea>
 
       <div className="footer-drawer">
@@ -80,7 +80,7 @@ export default ({ boardId, visible, setVisible, status, comment }: {
       </div>
       {
         showError &&
-        <div className="footer-drawer">
+        <div className="footer-drawer" style={{color:'red'}}>
             An error has ocurred, please try again later
         </div>
       }
