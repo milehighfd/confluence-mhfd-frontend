@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { Menu, Popover } from 'antd';
 import AmountModal from './AmountModal';
@@ -7,6 +7,8 @@ import { ModalProjectView } from './../../ProjectModal/ModalProjectView'
 import { deleteData, getToken } from '../../../Config/datasets';
 import { SERVER } from '../../../Config/Server.config';
 
+import CardStatService from './CardService';
+
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
@@ -14,8 +16,13 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ project, columnIdx, saveData}: { project: any, columnIdx: number, saveData: Function}) => {
-
+const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData }: {
+  project: any,
+  columnIdx: number,
+  rowIdx: number,
+  saveData: Function
+}) => {
+  const divRef = useRef(null);
   const {setZoomProject} = useProjectDispatch();
   const {
     projectid,
@@ -89,7 +96,29 @@ const TrelloLikeCard = ({ project, columnIdx, saveData}: { project: any, columnI
       startYear={2021}
       saveData={saveData}
       />
-    <div className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable onDragStart={e => onDragStart(e, projectid)}>
+    <div ref={divRef} className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable onDragStart={e => onDragStart(e, projectid)}
+      onDrop={(e: any) => {
+        console.log('point', e.clientX, e.clientY)
+        console.log('droppen on top trello like card');
+        let dr: any = divRef.current;
+        let bounds = dr.getBoundingClientRect();
+        let halfY = bounds.bottom - bounds.top;
+
+        let isBottomHalf = e.clientY >= halfY;
+        if (isBottomHalf) {
+          CardStatService.setPosition(rowIdx)
+        } else {
+          CardStatService.setPosition(rowIdx + 1)
+        }
+        
+        console.log('isBottomHalf', isBottomHalf)
+
+        let isInsideX = bounds.left <= e.clientX && e.clientX <= bounds.right;
+        console.log('isInsideX', isInsideX)
+
+        console.log ('getBoundingClientRect', dr.getBoundingClientRect());
+        e.preventDefault();
+      }}>
       <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
       <label className="purple">{displayJurisdiction}</label>

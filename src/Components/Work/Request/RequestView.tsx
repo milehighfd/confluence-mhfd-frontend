@@ -17,6 +17,9 @@ import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
 import { csv } from "d3-fetch";
 import Status from "../Drawers/Status";
+
+import CardStatService from './CardService';
+
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -196,6 +199,7 @@ const RequestView = () => {
     }
   }
   const onDrop = (e: any, columnIdx: number, cat: string) => {
+    console.log('moved', CardStatService.getPosition())
     let txt = e.dataTransfer.getData("text");
     let parsedObject = JSON.parse(txt);
     let { id, fromColumnIdx } = parsedObject;
@@ -230,11 +234,12 @@ const RequestView = () => {
         [`req${fromColumnIdx}`]: null,
         [`position${fromColumnIdx}`]: null,
       }
-      let temporalColumns: any = columns.map((c) => {
+
+      let temporalColumns: any = columns.map((c, colIdx: number) => {
         return {
           ...c,
           projects: c.projects
-          .filter((p: any, colIdx: number) => {
+          .filter((p: any) => {
             if (colIdx == fromColumnIdx && p.project_id == id) {
               return false;
             }
@@ -802,7 +807,7 @@ const RequestView = () => {
                                   }
                                   {
                                     column.projects.map((p: any, i: number) => (
-                                      <TrelloLikeCard key={i} project={p} columnIdx={columnIdx} saveData={saveData} />
+                                      <TrelloLikeCard key={i} project={p} columnIdx={columnIdx} rowIdx={i} saveData={saveData} />
                                     ))
                                   }
                                 </div>
