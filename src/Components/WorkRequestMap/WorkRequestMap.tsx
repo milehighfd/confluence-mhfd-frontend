@@ -169,7 +169,7 @@ const WorkRequestMap = (type: any) => {
     console.log("UPDATES ON NEW PROJECT??", idsBoardProjects);
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
-        filterProjectsDraft.projectType = '';
+        filterProjectsDraft.projecttype = '';
         filterProjectsDraft.status = 'Draft';
           // wait(()=>{
             setTimeout(()=>{
@@ -183,7 +183,7 @@ const WorkRequestMap = (type: any) => {
                   addLayersSource('mhfd_projects_copy', tiles['mhfd_projects_copy']);
                   setTimeout(()=>{
                     showLayers('mhfd_projects_copy');
-                    // applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+                    applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
                   },1200);
                 }
                 
@@ -515,6 +515,7 @@ const WorkRequestMap = (type: any) => {
   };
   const applyFiltersIDs = (key: string, toFilter: any) => {
     const styles = { ...tileStyles as any };
+    console.log("TO FILTER", toFilter);
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (!map.getLayer(key + '_' + index)) {
         return;
@@ -625,8 +626,7 @@ const WorkRequestMap = (type: any) => {
       // }
       if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_copy' && idsBoardProjects[0]!='-8888'){
         let boardids = idsBoardProjects;
-        // allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...boardids]]]);
-        // allFilters.push(['in', ['get', 'projectid'], ['literal', [800099]]]);
+        allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...boardids]]]);
       } 
       if (map.getLayer(key + '_' + index)) {
         //console.log(key + '_' + index, allFilters);
