@@ -98,25 +98,15 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData }: {
       />
     <div ref={divRef} className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable onDragStart={e => onDragStart(e, projectid)}
       onDrop={(e: any) => {
-        console.log('point', e.clientX, e.clientY)
-        console.log('droppen on top trello like card');
         let dr: any = divRef.current;
         let bounds = dr.getBoundingClientRect();
         let halfY = bounds.bottom - bounds.top;
-
         let isBottomHalf = e.clientY >= halfY;
         if (isBottomHalf) {
           CardStatService.setPosition(rowIdx)
         } else {
           CardStatService.setPosition(rowIdx + 1)
         }
-        
-        console.log('isBottomHalf', isBottomHalf)
-
-        let isInsideX = bounds.left <= e.clientX && e.clientX <= bounds.right;
-        console.log('isInsideX', isInsideX)
-
-        console.log ('getBoundingClientRect', dr.getBoundingClientRect());
         e.preventDefault();
       }}>
       <h4>{displayName}</h4>
