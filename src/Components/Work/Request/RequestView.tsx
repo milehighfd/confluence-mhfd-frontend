@@ -15,10 +15,10 @@ import { useProjectDispatch } from '../../../hook/projectHook';
 import Analytics from "../Drawers/Analytics";
 import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
-import { csv } from "d3-fetch";
 import Status from "../Drawers/Status";
 
 import CardStatService from './CardService';
+import { compareColumns, defaultColumns, formatter, generateColumns, priceFormatter, priceParser } from "./RequestViewUtil";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -27,20 +27,6 @@ const { Panel } = Collapse;
 const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
 
 const type = 'WORK_REQUEST';
-
-interface boardProject {
-  projectData: any,
-  project_id: number,
-  req1: number, req2: number, req3: number, req4: number, req5: number,
-  positon0: number, positon1: number, positon2: number, positon3: number, positon4: number, positon5: number
-};
-
-const formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  minimumFractionDigits: 0,
-  maximumFractionDigits: 2
-});
 
 const genExtra = (obj: any) => (
   <div className="tab-head-project">
@@ -52,77 +38,6 @@ const genExtra = (obj: any) => (
     <div>{obj.req5 ? formatter.format(obj.req5) : 0}</div>
   </div>
 );
-
-const defaultColumns: any[] = [
-  {
-    title: 'Workspace',
-    hasCreateOption: true,
-    projects: [],
-  },
-  {
-    title: '',
-    projects: [],
-  },
-  {
-    title: '',
-    projects: [],
-  },
-  {
-    title: '',
-    projects: [],
-  },
-  {
-    title: '',
-    projects: [],
-  },
-  {
-    title: '',
-    projects: [],
-  }
-]
-
-const MaintenanceTypes = ['Debris Management', 'Vegetation Management', 'Sediment Removal', 'Minor Repairs', 'Restoration'];
-
-const generateColumns = (boardProjects: boardProject[], year: number, tabKey: string) => {
-  let columns: any[] = defaultColumns.map((dc: any, index: number) => {
-    let title = dc.title;
-    if (index > 0) {
-      if (tabKey === 'Maintenance') {
-        title = MaintenanceTypes[index - 1];
-      } else {
-        title = year + index - 1;
-      }
-    }
-    return {
-      ...dc,
-      title,
-      projects: []
-    }
-  });
-  let temporalColumns: any = [[], [], [], [], [], []]
-
-  boardProjects.forEach((boardProject: boardProject | any) => {
-    let isInAnyColumn = false;
-    for(var i = 1 ; i <= 5; i++) {
-      if (boardProject[`position${i}`] != null) {
-        isInAnyColumn = true;
-        temporalColumns[i].push(boardProject);
-      }
-    }
-    if (!isInAnyColumn) {
-      temporalColumns[0].push(boardProject);
-    }
-  });
-
-  columns = columns.map((c, i) => {
-    return {
-      ...c,
-      projects: temporalColumns[i]
-    };
-  })
-
-  return columns;
-}
 
 const openNotification = () => {
   notification.open({
@@ -156,33 +71,7 @@ const RequestView = () => {
   const history = useHistory();
   const [currentProject, setCurrentProject] = useState(undefined);
   const {setBoardProjects, setZoomProject} = useProjectDispatch();
-  const [columns, setColumns] = useState([
-    {
-      title: 'Workspace',
-      hasCreateOption: true,
-      projects: [],
-    },
-    {
-      title: '2021',
-      projects: [],
-    },
-    {
-      title: '2022',
-      projects: [],
-    },
-    {
-      title: '2023',
-      projects: [],
-    },
-    {
-      title: '2024',
-      projects: [],
-    },
-    {
-      title: '2025',
-      projects: [],
-    }
-  ])
+  const [columns, setColumns] = useState(defaultColumns);
 
   const onDragOver = (e: any) => {
     e.preventDefault();
@@ -261,20 +150,6 @@ const RequestView = () => {
       setColumns(temporalColumns);
 
     }
-  }
-  const priceFormatter = (value: any) => {
-    return `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
-  const priceParser = (value: any) => {
-    value = value.replace(/\$\s?|(,*)/g, '');
-    if (value === '0') {
-      return value;
-    }
-    while (value.length > 0 && value[0] === '0') {
-      value = value.substr(1);
-    }
-    return value
   }
 
   const generateCSV = () => {
@@ -508,23 +383,43 @@ const RequestView = () => {
             if(r){
               let { board, projects } = r;
               if (board) {
-                setBoardStatus(board.status);
-                setBoardComment(board.comment);
-                setNamespaceId(board._id)
-                setReqManager([
-                  board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
-                ])
-                let cols = generateColumns(projects, year, tabKey);
-                setColumns(cols);
-                let justProjects = projects.map((proj:any)=> {
-                  return proj.projectData.cartodb_id;
-                });
-                if(projects.length>0){
-                  setBoardProjects(justProjects);
-                } else {
-                  setBoardProjects(['-1']);
+                if (board.status !== boardStatus) {
+                  setBoardStatus(board.status);
+                }
+                if (board.comment !== boardComment) {
+                  setBoardComment(board.comment);
+                }
+                if (board._id !== namespaceId) {
+                  setNamespaceId(board._id)
+                }
+                let reqManagerEq = true;
+                for (var i = 1 ; i <= 5; i++) {
+                  if (board[`reqmanager${i}`] != reqManager[i-1]) {
+                    reqManagerEq = false;
+                  }
+                }
+                if (!reqManagerEq) {
+                  setReqManager([
+                    board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
+                  ])
                 }
               }
+              if (projects) {
+                let cols = generateColumns(projects, year, tabKey);
+                let areEqual: boolean = compareColumns(columns, cols);
+                if (!areEqual) {
+                  setColumns(cols);
+                  let justProjects = projects.map((proj:any)=> {
+                    return proj.projectData.cartodb_id;
+                  });
+                  if(projects.length>0){
+                    setBoardProjects(justProjects);
+                  } else {
+                    setBoardProjects(['-1']);
+                  }
+                }
+              }
+
             }
           },
           (e) => {
@@ -533,7 +428,7 @@ const RequestView = () => {
         )
     }, 5000);
     return () => clearInterval(interval);
-  }, [namespaceId]);
+  }, [namespaceId, columns]);
 
   useEffect(() => {
 
@@ -731,9 +626,6 @@ const RequestView = () => {
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
-            {/* <Button onClick={updateWidth} className="btn-coll" >
-              <img src="/Icons/icon-34.svg" alt="" width="18px" style={rotationStyle} />
-            </Button> */}
               <div className="work-head">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
