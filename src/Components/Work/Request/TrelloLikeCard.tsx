@@ -100,12 +100,12 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData }: {
       onDrop={(e: any) => {
         let dr: any = divRef.current;
         let bounds = dr.getBoundingClientRect();
-        let halfY = bounds.bottom - bounds.top;
+        let halfY = (bounds.bottom + bounds.top) / 2;
         let isBottomHalf = e.clientY >= halfY;
         if (isBottomHalf) {
-          CardStatService.setPosition(rowIdx)
-        } else {
           CardStatService.setPosition(rowIdx + 1)
+        } else {
+          CardStatService.setPosition(rowIdx)
         }
         e.preventDefault();
       }}>
