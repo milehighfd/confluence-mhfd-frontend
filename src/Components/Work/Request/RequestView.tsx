@@ -69,7 +69,7 @@ const RequestView = () => {
   const [boardComment, setBoardComment] = useState(null);
   const [showModalProject, setShowModalProject] = useState(false);
   const history = useHistory();
-  const [currentProject, setCurrentProject] = useState(undefined);
+  const [currentProject, setCurrentProject] = useState({});
   const {setBoardProjects, setZoomProject} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
@@ -461,6 +461,13 @@ const RequestView = () => {
                   let justProjects = projects.map((proj:any)=> {
                     return proj.projectData.cartodb_id;
                   });
+                  let projectAmounts = projects.map((proj:any)=> {
+                    return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)), 
+                    cartodb_id: proj.projectData?.cartodb_id
+                    } 
+                  });
+                  console.log("WAHT2", projectAmounts);
+                  setProjectAmounts(projectAmounts);
                   if(projects.length>0){
                     setBoardProjects(justProjects);
                   } else {
@@ -480,7 +487,7 @@ const RequestView = () => {
   }, [namespaceId, columns]);
 
   useEffect(() => {
-    console.log("Do I have it here?", columns);
+    console.log("Do I have it here Columns?", columns);
     let allProjects = columns.reduce((acc: any[], cv: any) => {
       return [...acc, ...cv.projects]
     }, [])
@@ -543,7 +550,23 @@ const RequestView = () => {
   const openEdit = (project:any,event:any) => {
     // setShowModalProject(true);
     // setCurrentProject(project);
-    console.log("I HAVE ", project, event);
+    setShowModalEdit(project);
+  }
+  const setShowModalEdit = (project: any) => {
+    let projectswithid: any = new Set();
+    for(let col of columns) {
+      let projectsFiltered = col.projects.filter((proj:any) => (proj.project_id == project.id.toString()));
+      if(projectsFiltered.length>0){
+        projectswithid.add(projectsFiltered[0]);
+      }
+    }
+    let newArray = [...projectswithid.values()];
+    if(newArray[0]){
+      setShowModalProject(true);
+      setCurrentProject(newArray[0]);
+    } else {
+      setCurrentProject({});
+    }
   }
   const saveData = (data: { projectId: any, amounts: any[] }) => {
     let projectData: any;
