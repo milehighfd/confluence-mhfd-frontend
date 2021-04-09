@@ -75,7 +75,7 @@ export const generateColumns = (boardProjects: boardProject[], year: number, tab
       if (tabKey === 'Maintenance') {
         title = MaintenanceTypes[index - 1];
       } else {
-        title = year + index - 1;
+        title = +year + index - 1;
       }
     }
     return {
