@@ -29,6 +29,7 @@ import StatusDistrict from './Components/Work/Drawers/StatusDistrict';
 import Filter from './Components/Work/Drawers/Filter';
 import { AlertView } from './Components/Alerts/AlertView';
 import MapComment from './Components/Map/MapComment';
+import Raster from './Components/Raster/Raster';
 //import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
 
 
@@ -162,6 +163,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={'/new-project'} component={ModalProjectView} />
       <Route path={'/work-request'} component={RequestView} />
+      <Route path={'/raster-map'} component={Raster} />
       <Route path={'/work-plan'} component={PlanView} />
       <Route path={'/chat'} component={Chat} />
       <Route path={'/status'} component={Status} />
