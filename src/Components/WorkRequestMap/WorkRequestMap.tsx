@@ -123,7 +123,7 @@ const WorkRequestMap = (type: any) => {
               let BBoxPolygon = JSON.parse(r.bbox);
               let bboxBounds = turf.bbox(BBoxPolygon);
               if(map.map){
-                map.map.fitBounds(bboxBounds,{ padding:130, maxZoom: 13});
+                map.map.fitBounds(bboxBounds,{ padding:70, maxZoom: 13});
               }
             }
           },
@@ -375,7 +375,7 @@ const WorkRequestMap = (type: any) => {
 
       if (map.map.getLayer(key + '_' + index)) {
         map.map.removeLayer(key + '_' + index);
-        console.log("REMOVING LAYER", key + '_' + index);
+        // console.log("REMOVING LAYER", key + '_' + index);
       }
     });
   }
@@ -917,6 +917,22 @@ const WorkRequestMap = (type: any) => {
   const eventMove = (e:any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
+  const getTotalAmount = (cartodb_id: any) => {
+    if(type.projectsAmounts.length>0) {
+      let newAmounts = [...type.projectsAmounts];
+      let value = newAmounts.filter((val:any) => val.cartodb_id === cartodb_id);
+      if(value[0]){
+        console.log("GETTING TOTAL AMOUNT PICHOCLO", value, value[0].totalAmount);
+        let res = value[0].totalAmount;
+        console.log("RETUNR", res);
+        return res;
+      } else {
+        return 0;
+      }
+    } else {
+      return 0;
+    }
+  }
   const eventClick = (e: any) => {
     
     if(!isPopup){
@@ -981,7 +997,7 @@ const WorkRequestMap = (type: any) => {
         continue;
       }
       let html: any = null;
-      let itemValue;
+      let itemValue: any = {};
       if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_copy') {
         getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
         const filtered = galleryProjects.filter((item: any) =>
@@ -995,7 +1011,7 @@ const WorkRequestMap = (type: any) => {
           title: feature.source === 'mhfd_projects_copy'? (feature.properties.projecttype+" "+MENU_OPTIONS.PROJECT):MENU_OPTIONS.PROJECT,
           name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
           organization: feature.source === 'mhfd_projects_copy'? (feature.properties.jurisdiction?feature.properties.jurisdiction: type.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
-          value: feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0',
+          value: feature.source === 'mhfd_projects_copy'? getTotalAmount(feature.properties.cartodb_id) :(feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0'),
           projecctype: feature.source === 'mhfd_projects_copy'?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
           status: feature.properties.status ? feature.properties.status : '-',
           objectid: feature.properties.objectid,
@@ -1012,6 +1028,9 @@ const WorkRequestMap = (type: any) => {
                         feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
                           '/projectImages/debris_management.png') : '/Icons/eje.png')
         };
+
+        itemValue = { ...JSON.parse(JSON.stringify(item)) };
+        
         mobile.push({
           type: 'project',
           name: item.name,
@@ -1023,12 +1042,12 @@ const WorkRequestMap = (type: any) => {
           objectid: item.objectid,
           valueid: item.valueid
         });
-        itemValue = { ...item };
         // itemValue.value = item.valueid;
         menuOptions.push(MENU_OPTIONS.PROJECT);
         popups.push(itemValue);
         mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+        
       }
       if (feature.source === MENU_OPTIONS.PROBLEMS) {
         getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);

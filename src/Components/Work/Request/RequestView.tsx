@@ -72,7 +72,7 @@ const RequestView = () => {
   const [currentProject, setCurrentProject] = useState(undefined);
   const {setBoardProjects, setZoomProject} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
-
+  const [projectsAmounts, setProjectAmounts] = useState([]);
   const onDragOver = (e: any) => {
     e.preventDefault();
   }
@@ -330,6 +330,13 @@ const RequestView = () => {
             let justProjects = projects.map((proj:any)=> {
               return proj.projectData?.cartodb_id;
             });
+            let projectAmounts = projects.map((proj:any)=> {
+              return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)), 
+              cartodb_id: proj.projectData?.cartodb_id
+              } 
+            });
+            console.log("WAHT", projectAmounts);
+            setProjectAmounts(projectAmounts);
             if(projects.length>0){
               setBoardProjects(justProjects);
             } else {
@@ -440,7 +447,7 @@ const RequestView = () => {
   }, [namespaceId, columns]);
 
   useEffect(() => {
-
+    console.log("Do I have it here?", columns);
     let allProjects = columns.reduce((acc: any[], cv: any) => {
       return [...acc, ...cv.projects]
     }, [])
@@ -631,7 +638,7 @@ const RequestView = () => {
         <Layout className="work">
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap locality={locality} openEdit={openEdit}></WorkRequestMap>
+                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts}></WorkRequestMap>
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
