@@ -841,7 +841,6 @@ const RequestView = () => {
               </div>
 
               <div className="work-footer">
-                <Button className="btn-borde">Save Work Request</Button>
                 <Button className="btn-purple">Submit to County Manager</Button>
               </div>
 
