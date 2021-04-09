@@ -14,6 +14,7 @@ import {
   XSTREAMS,
   MHFD_BOUNDARY_FILTERS,
 } from "../../../constants/constants";
+import { forceLink } from "d3";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -50,7 +51,7 @@ const genTitle = (streamName: any) => (
 
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
-  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers} = useProjectDispatch();
+  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds} = useProjectDispatch();
   const {listStreams, streamIntersected} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -66,7 +67,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
  const [cosponsor, setCosponsor] = useState('x');
   const [county, setCounty] = useState('');
   const [save, setSave] = useState(false);
-  const [ids, setIds] = useState();
+  const [ids, setIds] = useState([]);
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
   const [geom, setGeom] = useState<any>('');
@@ -201,7 +202,28 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     maximumFractionDigits: 0
   });
   const removeStream = (stream:any) => {
-    console.log("WHAT IAM REMOVING?", stream);
+    console.log("WHAT IAM REMOVING?, data comes from strem list", stream, streamsList, 'ids', projectReturn.state.project.streamsIntersectedIds);
+    let cartodbIdToRemove = stream.cartodb_id;
+    let copyList = {...streamsList};
+    for( let jurisdiction in copyList) {
+      let newArray = [...copyList[jurisdiction]].filter((st:any)=> st.cartodb_id != cartodbIdToRemove);
+      copyList[jurisdiction] = newArray;
+    }
+    let newCopyList:any = {};
+    for(let jurisdiction in copyList) {
+      if(copyList[jurisdiction].length > 0) {
+        newCopyList[jurisdiction] = copyList[jurisdiction];
+      }
+    }
+
+    setStreamsList(newCopyList);
+    console.log("NEW LIST", copyList);
+    if(ids.length > 0) {
+      let newIds = [...ids].filter((id:any) => id != cartodbIdToRemove);
+      console.log("NEW IDS", newIds);
+      setStreamsIds(newIds);
+    }
+    
   }
   useEffect(()=>{
     changeDrawState(isDraw);

@@ -185,8 +185,15 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAM_INTERSECTED, {geom: geom}, datasets.getToken()).then(res => {
       let streamsIntersectedIds = res;
+      console.log("GETTING CHECK", res);
         dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
     });
+  }
+}
+
+export const setStreamsIds = (streamsIntersectedIds: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
   }
 }
 
@@ -253,6 +260,7 @@ export const getServiceAreaStreams = (geom:any ) => {
 export const getStreamsList = (geom: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_LIST_STREAMS, {geom:geom}, datasets.getToken()).then(listStreams => {
+      console.log("GETTING CHCHC", listStreams)
       dispatch({type: types.SET_LIST_STREAMS, listStreams});
     })
   }

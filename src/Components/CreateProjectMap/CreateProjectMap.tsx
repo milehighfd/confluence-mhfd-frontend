@@ -248,6 +248,7 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     let geom: any = undefined;
     if (streamIntersected && streamIntersected.geom) {
+      console.log("OR HERE", streamIntersected);
       geom = JSON.parse(streamIntersected.geom);
       if(geom) {
         map.isStyleLoaded(() => {
@@ -287,6 +288,7 @@ const CreateProjectMap = (type: any) => {
   }, [streamIntersected]);
   useEffect(()=>{
     if(streamsIntersectedIds.length > 0) {
+      console.log("IS HERER??", streamsIntersectedIds);
       map.isStyleLoaded( () => {
         let filter = ['in','cartodb_id',...streamsIntersectedIds];
         // console.log("filter", filter);
@@ -354,8 +356,8 @@ const CreateProjectMap = (type: any) => {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
       type.setGeom(userPolygon.geometry);
-      getStreamsIntersectedPolygon(userPolygon.geometry);
-      getStreamsList(userPolygon.geometry);
+      getStreamsIntersectedPolygon(userPolygon.geometry); // just set the ids 
+      getStreamsList(userPolygon.geometry); // get the list with data 
     }
     getServiceAreaStreams(userPolygon.geometry);
     setUserPolygon(userPolygon.geometry);
