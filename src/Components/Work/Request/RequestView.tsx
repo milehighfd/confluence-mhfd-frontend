@@ -88,7 +88,6 @@ const RequestView = () => {
     }
   }
   const onDrop = (e: any, columnIdx: number, cat: string) => {
-    console.log('moved', CardStatService.getPosition())
     let txt = e.dataTransfer.getData("text");
     let parsedObject = JSON.parse(txt);
     let { id, fromColumnIdx } = parsedObject;
@@ -115,10 +114,10 @@ const RequestView = () => {
     if (destinyColumnHasProject) {
       return;
     } else {
-
+      let newCardPos = CardStatService.getPosition();
       let newObj = {
         ...project,
-        [`position${columnIdx}`]: columns[columnIdx].projects.length,
+        [`position${columnIdx}`]: newCardPos === -1 ? columns[columnIdx].projects.length : newCardPos,
         [`req${columnIdx}`]: project[`req${fromColumnIdx}`],
         [`req${fromColumnIdx}`]: null,
         [`position${fromColumnIdx}`]: null,
@@ -142,10 +141,20 @@ const RequestView = () => {
           })
         }
       })
-      temporalColumns[columnIdx].projects.push(newObj);
-
-      console.log('temporalColumns', temporalColumns);
-
+      
+      if (newCardPos === -1) {
+        temporalColumns[columnIdx].projects.push(newObj);
+      } else {
+        let arr = [];
+        for (var i = 0 ; i < temporalColumns[columnIdx].projects.length ; i++) {
+          let p = temporalColumns[columnIdx].projects[i];
+          if (newCardPos === i) {
+            arr.push(newObj);
+          }
+          arr.push(p)
+        }
+        temporalColumns[columnIdx].projects = arr;
+      }
       WsService.sendUpdate(temporalColumns);
       setColumns(temporalColumns);
 

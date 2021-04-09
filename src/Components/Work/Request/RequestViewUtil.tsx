@@ -99,6 +99,13 @@ export const generateColumns = (boardProjects: boardProject[], year: number, tab
     }
   });
 
+  temporalColumns = temporalColumns.map((tc: boardProject[], idx: number) => {
+    let arr = tc.sort((a: any, b: any) => {
+      return a[`position${idx}`] - b[`position${idx}`]
+    })
+    return arr;
+  })
+
   columns = columns.map((c, i) => {
     return {
       ...c,
