@@ -106,15 +106,48 @@ const RequestView = () => {
         destinyColumnHasProject = true;
       }
     })
-
+    let newCardPos = CardStatService.getPosition();
     if (fromColumnIdx === columnIdx) {
+      let beforePos = -1;
+      columns[columnIdx].projects.forEach((p: any, posBef: number) => {
+        if (p.project_id == id) {
+          beforePos = posBef;
+        }
+      })
+      let projects: any[] = [];
+      if (newCardPos === -1) {
+        projects = [].concat(columns[columnIdx].projects);
+        projects.splice(beforePos, 1);
+        projects.push(project);
+      } else {
+        if (beforePos === newCardPos) {
+          return;
+        } else {
+          columns[columnIdx].projects.forEach((p: any, pos: number) => {
+            if (pos === newCardPos) {
+              projects.push(project);
+            }
+            projects.push(p);
+          })
+          if (newCardPos === columns[columnIdx].projects.length) {
+            projects.push(project);
+          }
+          projects.splice(newCardPos > beforePos ? beforePos : beforePos + 1, 1);
+        }
+      }
+      let temporalColumns: any = columns.map((c, colIdx: number) => {
+        return {
+          ...c,
+          projects: colIdx === fromColumnIdx ? projects: c.projects
+        }
+      });
+      WsService.sendUpdate(temporalColumns);
+      setColumns(temporalColumns);
       return;
     }
-
     if (destinyColumnHasProject) {
       return;
     } else {
-      let newCardPos = CardStatService.getPosition();
       let newObj = {
         ...project,
         [`position${columnIdx}`]: newCardPos === -1 ? columns[columnIdx].projects.length : newCardPos,
