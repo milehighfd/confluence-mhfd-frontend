@@ -99,6 +99,9 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
   };
   useEffect(()=>{
     if(defaultTab) {
+      if(defaultTab === NEW_PROJECT_TYPES.Maintenance){
+        setVisibleSubType(true);
+      }
       setTypeProyect(defaultTab);
     }
   },[defaultTab]);
