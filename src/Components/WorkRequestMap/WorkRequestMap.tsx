@@ -55,6 +55,7 @@ let isPopup = true;
 let previousClick = false;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+let amounts: any = [];
 // const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
@@ -283,7 +284,7 @@ const WorkRequestMap = (type: any) => {
   }, [selectedLayersWR]);
 
   const setLayersSelectedOnInit = () => {
-    updateSelectedLayersWR([COMPONENT_LAYERS,MHFD_BOUNDARY_FILTERS]);
+    updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS]);
   }
 
   const applyMapLayers = async () => {
@@ -917,14 +918,15 @@ const WorkRequestMap = (type: any) => {
   const eventMove = (e:any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
+  useEffect(()=>{
+    amounts = type.projectsAmounts;
+  },[type.projectsAmounts]);
   const getTotalAmount = (cartodb_id: any) => {
     if(type.projectsAmounts.length>0) {
-      let newAmounts = [...type.projectsAmounts];
+      let newAmounts = [...amounts];
       let value = newAmounts.filter((val:any) => val.cartodb_id === cartodb_id);
       if(value[0]){
-        console.log("GETTING TOTAL AMOUNT PICHOCLO", value, value[0].totalAmount);
-        let res = value[0].totalAmount;
-        console.log("RETUNR", res);
+        let res = value[0].totalAmount;      
         return res;
       } else {
         return 0;

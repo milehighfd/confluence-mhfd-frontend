@@ -896,7 +896,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <p>Additional Cost <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
-                <Input style={{paddingLeft:'15px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost)}/>
+                <Input style={{paddingLeft:'0px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost)}/>
               </Col>
             </Row>
             <Row className="sub-project">

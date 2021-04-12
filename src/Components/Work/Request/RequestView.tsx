@@ -407,6 +407,7 @@ const RequestView = () => {
     WsService.receiveUpdate((data: any) => {
       console.log('receiveUpdate', data);
       setColumns(data);
+      splitColumns(data);
     })
     WsService.receiveReqmanager((data: any) => {
       console.log('receiveReqmanager', data);
@@ -418,6 +419,7 @@ const RequestView = () => {
   }, [namespaceId])
 
   useEffect(() => {
+    console.log("ON UPDATE COLUMN ? ", columns);
     const interval = setInterval(() => {
       let data = {
         type,
@@ -547,6 +549,22 @@ const RequestView = () => {
 
   }, [reqManager]);
 
+  const splitColumns = (cols: any) => {
+    let mySet:any = new Set();
+    for(let c of cols){
+      let projs = [...c.projects];
+      for(let p of projs) {
+        mySet.add(p);
+      }
+    }
+    let newArray = [...mySet.values()];
+    let projectAmounts:any = newArray.map((proj:any)=> {
+      return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)), 
+      cartodb_id: proj.projectData?.cartodb_id
+      } 
+    });
+    setProjectAmounts(projectAmounts);
+  }
   const openEdit = (project:any,event:any) => {
     // setShowModalProject(true);
     // setCurrentProject(project);
