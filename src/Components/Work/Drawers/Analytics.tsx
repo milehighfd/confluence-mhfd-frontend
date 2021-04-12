@@ -81,6 +81,8 @@ const Analytics = ({
           spaceBetween={40}
           width={220}
           opacityOpaque={CHART_CONSTANTS.opacityFull}
+          labelOverflowRight={true}
+          minBarSize={0}
         />
       </div>
 
@@ -103,6 +105,8 @@ const Analytics = ({
             return formatter.format(d.counter)
           }}
           opacityOpaque={CHART_CONSTANTS.opacityFull}
+          labelOverflowRight={true}
+          minBarSize={0}
         />
       </div>
     </Drawer>

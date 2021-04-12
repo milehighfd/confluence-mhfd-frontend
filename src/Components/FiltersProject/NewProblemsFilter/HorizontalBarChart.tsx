@@ -34,6 +34,8 @@ const HorizontalBarChart = ({
   width=180,
   opacityFull=CHART_CONSTANTS.opacityFull,
   opacityOpaque=CHART_CONSTANTS.opacityOpaque,
+  labelOverflowRight=false,
+  minBarSize=17
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
@@ -94,7 +96,7 @@ const HorizontalBarChart = ({
       return 20 + index * spaceBetween;
     }
 
-    let xCountFn: any = (d: any) => Math.max(17, x(d.counter) || 0);
+    let xCountFn: any = (d: any) => Math.max(minBarSize, x(d.counter) || 0);
 
     var yFn: any = (d: any) => y(d.value);
 
@@ -279,7 +281,23 @@ const HorizontalBarChart = ({
     var countXFn = (d: any) => {
       let string = `${barLabelFormatter(d)}`;
       let size = string.length;
-      return xCountFn(d) - (size * 6) - 4;
+      let textLength = size * 6;
+      if ((textLength + 10) > xCountFn(d) && labelOverflowRight) {
+        return xCountFn(d) + 2;
+      } else {
+        return xCountFn(d) - textLength - 4;
+      }
+    }
+
+    var fontFill = (d: any) => {
+      let string = `${barLabelFormatter(d)}`;
+      let size = string.length;
+      let textLength = size * 6;
+      if ((textLength + 10) > xCountFn(d) && labelOverflowRight) {
+        return 'black';
+      } else {
+        return 'white';
+      }
     }
 
     var countYFn = (d: any) => {
@@ -304,7 +322,7 @@ const HorizontalBarChart = ({
       .attr('x', countXFn)
       .attr('y', countYFn)
       .style("font-size", fontSizeFn)
-      .style('fill', 'white')
+      .style('fill', fontFill)
 
     counts
       .transition().duration(transitionDuration)
@@ -312,7 +330,7 @@ const HorizontalBarChart = ({
       .attr('x', countXFn)
       .attr('y', countYFn)
       .style("font-size", fontSizeFn)
-      .style('fill', 'white')
+      .style('fill', fontFill)
 
     counts.on('click', onClickFn)
     newCounts.on('click', onClickFn)
