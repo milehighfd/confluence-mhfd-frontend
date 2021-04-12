@@ -153,7 +153,8 @@ const CreateProjectMap = (type: any) => {
   }
   useEffect(() => {
     let mask
-    if (coordinatesJurisdiction.length > 0) {
+    map.isStyleLoaded(()=>{
+      if (coordinatesJurisdiction.length > 0) {
         mask = turf.multiPolygon(coordinatesJurisdiction);
         let miboundsmap = map.map.getBounds();
         // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
@@ -178,38 +179,40 @@ const CreateProjectMap = (type: any) => {
                 }
             });
         } else {
-            map.map.setLayoutProperty('mask', 'visibility', 'visible');
-            map.map.removeLayer('mask');
-            map.map.removeSource('mask');
-            map.map.addSource('mask', {
-                "type": "geojson",
-                "data": polyMask(mask, arrayBounds)
-            });
+                map.map.setLayoutProperty('mask', 'visibility', 'visible');
+                map.map.removeLayer('mask');
+                map.map.removeSource('mask');
+                map.map.addSource('mask', {
+                    "type": "geojson",
+                    "data": polyMask(mask, arrayBounds)
+                });
 
-            map.map.addLayer({
-                "id": "mask",
-                "source": "mask",
-                "type": "fill",
-                "paint": {
-                    "fill-color": "black",
-                    'fill-opacity': 0.8
-                }
-            });
+                map.map.addLayer({
+                    "id": "mask",
+                    "source": "mask",
+                    "type": "fill",
+                    "paint": {
+                        "fill-color": "black",
+                        'fill-opacity': 0.8
+                    }
+                });
 
-        }
-    } else {
-        if (opacityLayer) {
-            if  (map.map.loaded()) {
-                // console.log('hide opacity');
-                if (map.map.getLayer('mask')) {
-                    map.map.setLayoutProperty('mask', 'visibility', 'visible');
-                    map.map.removeLayer('mask');
-                    map.map.removeSource('mask');
+            }
+        } else {
+            if (opacityLayer) {
+                if  (map.map.loaded()) {
+                    // console.log('hide opacity');
+                    if (map.map.getLayer('mask')) {
+                        map.map.setLayoutProperty('mask', 'visibility', 'visible');
+                        map.map.removeLayer('mask');
+                        map.map.removeSource('mask');
+                    }
                 }
             }
-        }
 
-    }
+        }
+    });
+    
 }, [coordinatesJurisdiction]);
   const setBounds = (value:any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
