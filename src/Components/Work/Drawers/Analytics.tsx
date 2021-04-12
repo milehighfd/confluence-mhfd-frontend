@@ -44,7 +44,7 @@ const Analytics = ({
     <Drawer
       title={
         <h5>
-          <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> STATUS
+          <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
           {
             showYearDropdown && 
             <Select defaultValue={year} onChange={setYear} style={{ width: 100 }}>
@@ -62,6 +62,7 @@ const Analytics = ({
       onClose={() => setVisible(false)}
       visible={visible}
       className="work-utilities"
+      mask={false}
     >
       <h6>Requests by County <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">

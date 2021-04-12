@@ -45,6 +45,7 @@ export default ({ boardId, visible, setVisible, status, comment }: {
       onClose={() => setVisible(false)}
       visible={visible}
       className="work-utilities"
+      mask={false}
     >
       <h6>Status Management</h6>
       <p>Work Request Status <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
