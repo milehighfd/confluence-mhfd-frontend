@@ -30,7 +30,8 @@ const HorizontalBarChart = ({
   spaceBetween=45,
   barLabelFormatter=(d: any) => {
     return d.counter;
-  }
+  },
+  width=180
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
@@ -73,7 +74,6 @@ const HorizontalBarChart = ({
       })
     }
 
-    const width = 180;
     const height = Math.max(data.length * spaceBetween, 140);
 
     let maxi: any = d3.max(data, (d: any) => d.counter);
@@ -91,8 +91,6 @@ const HorizontalBarChart = ({
       })
       return 20 + index * spaceBetween;
     }
-
-    var countFn: any = (d: any) => d.counter;
 
     let xCountFn: any = (d: any) => Math.max(17, x(d.counter) || 0);
 
@@ -341,7 +339,7 @@ const HorizontalBarChart = ({
           </Button>
         </>
         ) : (
-          <div style={{marginBottom: 25}}></div>
+          <div style={{marginBottom: 10}}></div>
         )
       }
       <div className={(scrollClass ? scrollClass : '') + ' svg-top-pad'}>

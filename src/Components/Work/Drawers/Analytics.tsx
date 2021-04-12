@@ -78,6 +78,7 @@ const Analytics = ({
           withClickEvent={false}
           withAnimation={false}
           spaceBetween={40}
+          width={220}
         />
       </div>
 
@@ -95,6 +96,7 @@ const Analytics = ({
           withClickEvent={false}
           withAnimation={false}
           spaceBetween={40}
+          width={220}
           barLabelFormatter={(d: any)=> {
             return formatter.format(d.counter)
           }}
