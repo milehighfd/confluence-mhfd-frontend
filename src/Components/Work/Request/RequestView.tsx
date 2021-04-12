@@ -199,9 +199,9 @@ const RequestView = () => {
     const date = new Date();
     const csvData = [['Exported on ' + date],
     ['Jurisdiction:', locality ],
-    [],
+    // [],
     ['Year:', year],
-    [],
+    // [],
     ['Project Type:' , tabKey],
     []
     ];
@@ -230,7 +230,7 @@ const RequestView = () => {
         dataByYear[i].push([project.projectData.projectname,
           project.projectData.jurisdiction,
           project.projectData.status,
-          project['req' + i]]);
+          formatter.format(project['req' + i])]);
       }
     }
     csvData.push(row);
