@@ -212,7 +212,8 @@ const WorkRequestMap = (type: any) => {
   }
   useEffect(() => {
     let mask
-    if (coordinatesJurisdiction.length > 0) {
+    map.isStyleLoaded(()=>{ 
+      if (coordinatesJurisdiction.length > 0) {
         mask = turf.multiPolygon(coordinatesJurisdiction);
         let miboundsmap = map.map.getBounds();
         // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
@@ -269,6 +270,8 @@ const WorkRequestMap = (type: any) => {
         }
 
     }
+    })
+    
 }, [coordinatesJurisdiction]);
 
   const setBounds = (value:any) => {

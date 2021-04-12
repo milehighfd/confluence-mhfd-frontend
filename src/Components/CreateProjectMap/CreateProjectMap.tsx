@@ -402,6 +402,8 @@ const CreateProjectMap = (type: any) => {
         }
       });
         
+    } else {
+      map.removeLayer('streams-intersects');
     }
     
     
