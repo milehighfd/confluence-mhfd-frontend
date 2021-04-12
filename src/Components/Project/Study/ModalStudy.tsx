@@ -289,7 +289,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
               <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
             </Row>
-            { keys && keys.length && 
+            { keys!=0 && keys.length && 
               <Collapse
               defaultActiveKey={keys}
               expandIconPosition="right"
