@@ -153,65 +153,68 @@ const CreateProjectMap = (type: any) => {
   }
   useEffect(() => {
     let mask
-    map.isStyleLoaded(()=>{
-      if (coordinatesJurisdiction.length > 0) {
-        mask = turf.multiPolygon(coordinatesJurisdiction);
-        let miboundsmap = map.map.getBounds();
-        // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
-        let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-
-        // console.log('porque', boundingBox1)
-        var arrayBounds = misbounds.split(',');
-        setOpacityLayer(true);
-        if (!map.map.getLayer('mask')) {
-            map.map.addSource('mask', {
-                "type": "geojson",
-                "data": polyMask(mask, arrayBounds)
-            });
-
-            map.map.addLayer({
-                "id": "mask",
-                "source": "mask",
-                "type": "fill",
-                "paint": {
-                    "fill-color": "black",
-                    'fill-opacity': 0.8
-                }
-            });
-        } else {
-                map.map.setLayoutProperty('mask', 'visibility', 'visible');
-                map.map.removeLayer('mask');
-                map.map.removeSource('mask');
-                map.map.addSource('mask', {
-                    "type": "geojson",
-                    "data": polyMask(mask, arrayBounds)
-                });
-
-                map.map.addLayer({
-                    "id": "mask",
-                    "source": "mask",
-                    "type": "fill",
-                    "paint": {
-                        "fill-color": "black",
-                        'fill-opacity': 0.8
-                    }
-                });
-
-            }
-        } else {
-            if (opacityLayer) {
-                if  (map.map.loaded()) {
-                    // console.log('hide opacity');
-                    if (map.map.getLayer('mask')) {
-                        map.map.setLayoutProperty('mask', 'visibility', 'visible');
-                        map.map.removeLayer('mask');
-                        map.map.removeSource('mask');
-                    }
-                }
-            }
-
-        }
-    });
+    setTimeout(() => {
+      map.isStyleLoaded(()=>{
+        if (coordinatesJurisdiction.length > 0) {
+          mask = turf.multiPolygon(coordinatesJurisdiction);
+          let miboundsmap = map.map.getBounds();
+          // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
+          let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+  
+          // console.log('porque', boundingBox1)
+          var arrayBounds = misbounds.split(',');
+          setOpacityLayer(true);
+          if (!map.map.getLayer('mask')) {
+              map.map.addSource('mask', {
+                  "type": "geojson",
+                  "data": polyMask(mask, arrayBounds)
+              });
+  
+              map.map.addLayer({
+                  "id": "mask",
+                  "source": "mask",
+                  "type": "fill",
+                  "paint": {
+                      "fill-color": "black",
+                      'fill-opacity': 0.8
+                  }
+              });
+          } else {
+                  map.map.setLayoutProperty('mask', 'visibility', 'visible');
+                  map.map.removeLayer('mask');
+                  map.map.removeSource('mask');
+                  map.map.addSource('mask', {
+                      "type": "geojson",
+                      "data": polyMask(mask, arrayBounds)
+                  });
+  
+                  map.map.addLayer({
+                      "id": "mask",
+                      "source": "mask",
+                      "type": "fill",
+                      "paint": {
+                          "fill-color": "black",
+                          'fill-opacity': 0.8
+                      }
+                  });
+  
+              }
+          } else {
+              if (opacityLayer) {
+                  if  (map.map.loaded()) {
+                      // console.log('hide opacity');
+                      if (map.map.getLayer('mask')) {
+                          map.map.setLayoutProperty('mask', 'visibility', 'visible');
+                          map.map.removeLayer('mask');
+                          map.map.removeSource('mask');
+                      }
+                  }
+              }
+  
+          }
+      });  
+    }, 1000);
+    
     
 }, [coordinatesJurisdiction]);
   const setBounds = (value:any) => {
@@ -380,7 +383,6 @@ const CreateProjectMap = (type: any) => {
   }, [streamIntersected]);
   useEffect(()=>{
     if(streamsIntersectedIds.length > 0) {
-      console.log("IS HERER??", streamsIntersectedIds);
       map.isStyleLoaded( () => {
         let filter = ['in','cartodb_id',...streamsIntersectedIds];
         // console.log("filter", filter);
