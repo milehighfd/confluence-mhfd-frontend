@@ -75,6 +75,12 @@ body{
   background-color: #e6f7ff !important;
   font-weight:bold;
 }
+.menu-item-custom .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: white;
+}
+.menu-item-custom .js-mm-00 span:hover {
+  color: #28C499 !important;
+}
 .ant-select-focused .ant-select-selection,
 .ant-select-selection:focus, .ant-select-selection:active {
   border-color: none !important;
