@@ -171,6 +171,27 @@ const CreateProjectMap = (type: any) => {
     }
   };
   useEffect(()=>{
+    if(type.projectid != -1) {
+      getData(`${SERVER.URL_BASE}/board/bbox/${type.projectid}`)
+      .then(
+        (r: any) => { 
+          if(r.bbox){
+            let BBoxPolygon = JSON.parse(r.bbox);
+            let bboxBounds = turf.bbox(BBoxPolygon);
+            if(map.map){
+              setTimeout(()=>{
+                map.isStyleLoaded(() => map.map.fitBounds(bboxBounds,{ padding:70, maxZoom: 13}));
+              }, 2000);              
+            }
+          }
+        },
+        (e:any) => {
+          console.log('Error getting bbox projectid', e);
+        }
+      )
+    }
+  },[type.projectid]);
+  useEffect(()=>{
     let value = localAOI;
     if(type.locality) {
       value = type.locality;

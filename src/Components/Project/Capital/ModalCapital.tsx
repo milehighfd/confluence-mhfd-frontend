@@ -122,6 +122,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [isDrawState, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
   const [county, setCounty] = useState('');
+  const [projectid, setProjectId ] = useState(-1);
   const {isDraw} = useProjectState();
   const [save, setSave] = useState(false);
   const [files, setFiles] = useState<any[]>([]);
@@ -157,7 +158,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setDescription(data.description);
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
-      
+      setProjectId(data.projectid);
     }
   },[data]);
 
@@ -440,7 +441,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
           {/* mapitash */}
-          <CreateProjectMap type="CAPITAL" locality={locality}></CreateProjectMap>
+          <CreateProjectMap type="CAPITAL" locality={locality} projectid={projectid}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

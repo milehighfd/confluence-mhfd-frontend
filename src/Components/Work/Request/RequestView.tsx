@@ -27,6 +27,7 @@ const { Panel } = Collapse;
 const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
 
 const type = 'WORK_REQUEST';
+let currentProject: any = {};
 
 const genExtra = (obj: any) => (
   <div className="tab-head-project">
@@ -69,7 +70,6 @@ const RequestView = () => {
   const [boardComment, setBoardComment] = useState(null);
   const [showModalProject, setShowModalProject] = useState(false);
   const history = useHistory();
-  const [currentProject, setCurrentProject] = useState({});
   const {setBoardProjects, setZoomProject} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
@@ -580,10 +580,10 @@ const RequestView = () => {
     }
     let newArray = [...projectswithid.values()];    
     if(newArray[0]){
-      setShowModalProject(true);
-      setCurrentProject(newArray[0].projectData);
-    } else {
-      setCurrentProject({});
+      currentProject = {...newArray[0].projectData};
+      setTimeout(()=>{
+        setShowModalProject(true);
+      },200);
     }
   }
   const saveData = (data: { projectId: any, amounts: any[] }) => {
