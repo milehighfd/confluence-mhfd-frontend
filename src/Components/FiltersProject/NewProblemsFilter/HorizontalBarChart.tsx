@@ -26,7 +26,11 @@ const HorizontalBarChart = ({
   scrollClass='svg-scroll',
   showControls=true,
   withClickEvent=true,
-  withAnimation=true
+  withAnimation=true,
+  spaceBetween=45,
+  barLabelFormatter=(d: any) => {
+    return d.counter;
+  }
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
@@ -69,7 +73,6 @@ const HorizontalBarChart = ({
       })
     }
 
-    const spaceBetween = 45;
     const width = 180;
     const height = Math.max(data.length * spaceBetween, 140);
 
@@ -274,8 +277,9 @@ const HorizontalBarChart = ({
       .style('opacity', 0.7);
 
     var countXFn = (d: any) => {
-      let digits = Math.floor(Math.log10(d.counter === 0 ? 1 : d.counter)) + 1;
-      return xCountFn(d) - (digits * 8);
+      let string = `${barLabelFormatter(d)}`;
+      let size = string.length;
+      return xCountFn(d) - (size * 6) - 4;
     }
 
     var countYFn = (d: any) => {
@@ -296,7 +300,7 @@ const HorizontalBarChart = ({
 
     newCounts
       .transition().duration(transitionDuration)
-      .text(countFn)
+      .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
       .style("font-size", fontSizeFn)
@@ -304,7 +308,7 @@ const HorizontalBarChart = ({
 
     counts
       .transition().duration(transitionDuration)
-      .text(countFn)
+      .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
       .style("font-size", fontSizeFn)
@@ -326,7 +330,7 @@ const HorizontalBarChart = ({
   return (
     <>
       {
-        showControls && 
+        showControls ? (
         <>
           <Button className="btn-svg" onClick={apply}>
             <u>Apply</u>
@@ -336,6 +340,9 @@ const HorizontalBarChart = ({
             <u>Reset</u>
           </Button>
         </>
+        ) : (
+          <div style={{marginBottom: 25}}></div>
+        )
       }
       <div className={(scrollClass ? scrollClass : '') + ' svg-top-pad'}>
         <svg ref={svgRef} className="horizontal-text" />

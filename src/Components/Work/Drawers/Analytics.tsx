@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Drawer, Select } from 'antd';
 import HorizontalBarChart from "../../FiltersProject/NewProblemsFilter/HorizontalBarChart";
+import { formatter } from "../Request/RequestViewUtil";
 
 const { Option } = Select;
 
@@ -70,11 +71,12 @@ const Analytics = ({
           onSelect={() => {}}
           defaultValue={[]}
           color={barsColor}
-          axisLabel={'Number of Projects'}
+          axisLabel={''}
           scrollClass={'svg-scroll-analytics'}
           showControls={false}
           withClickEvent={false}
           withAnimation={false}
+          spaceBetween={40}
         />
       </div>
 
@@ -86,11 +88,15 @@ const Analytics = ({
           onSelect={() => {}}
           defaultValue={[]}
           color={barsColor}
-          axisLabel={'Dollars'}
+          axisLabel={''}
           scrollClass={'svg-scroll-analytics'}
           showControls={false}
           withClickEvent={false}
           withAnimation={false}
+          spaceBetween={40}
+          barLabelFormatter={(d: any)=> {
+            return formatter.format(d.counter)
+          }}
         />
       </div>
     </Drawer>
