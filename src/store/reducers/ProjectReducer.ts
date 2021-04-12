@@ -67,6 +67,12 @@ const projectReducer = (state = initState, action: any) => {
         status: action.status
       }
     }
+    case types.SET_EDIT:{
+      return {
+        ...state,
+        status: action.status
+      }
+    }
     case types.ADD_LOCATION: {
       return {
         ...state, 

@@ -13,6 +13,7 @@ import { useProjectDispatch } from "../../../hook/projectHook";
 import { Geom, Project} from "../../../Classes/Project";
 import { setRouteRedirect } from "../../../store/actions/mapActions";
 import { AlertViewSave } from "../../Alerts/AlertViewSave";
+import { editSpecial } from "../../../store/actions/ProjectActions";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -37,7 +38,7 @@ const stateValue = {
 export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality, data}:
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any}) => {
 
-  const {saveProjectSpecial, setStreamIntersected} = useProjectDispatch();
+  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -49,15 +50,22 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [files, setFiles] = useState<any[]>([]);
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
+  const [swSave, setSwSave] = useState(false);
+  const [editprojectid, setEditsetprojectid] = useState("");
   var date = new Date();
   var year = date.getFullYear();
   const dispatch = useDispatch();
   useEffect(()=>{
     if(data!== 'no data' ) {
+      setSwSave(true);
+      console.log("Jorge");
+      //console.log(data, "DAAAATAAAA")
       setCounty(data.county);
       setDescription(data.description);
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
+      setGeom(data.coordinates);
+      setEditsetprojectid(data.projectid);
     }
   },[data]);
   useEffect(()=>{
@@ -70,7 +78,12 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.county = county;
       special.servicearea = serviceArea;
       special.files = files;
-      saveProjectSpecial(special);
+      special.editProject = editprojectid;
+      if(swSave){
+        editProjectSpecial(special);
+      }else{
+        saveProjectSpecial(special);
+      }
       setVisibleSpecial(false);
       setVisible(false);
     };

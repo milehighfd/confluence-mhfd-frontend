@@ -29,6 +29,7 @@ export class Project {
     cosponsor: string; 
     componet: any;
     independetComponent: any;
+    editProject: any;
     constructor() {
         this.projectname = "special";
         this.description = "";
@@ -49,5 +50,6 @@ export class Project {
         this.cosponsor = "";
         this.componet = [];
         this.independetComponent=[];
+        this.editProject = "";
     }
 }

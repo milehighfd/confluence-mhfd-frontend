@@ -188,6 +188,21 @@ export const SERVER = (function () {
         GET_LIST_STREAMS: `${URL_BASE.BASE}/create/${GET_LIST_STREAMS}`,
         GET_COMPONENTS_WITH_GEOM: `${URL_BASE.BASE}/create/${GET_COMPONENTS_WITH_GEOM}`,
         GET_COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/create/${GET_COMPONENTS_BY_PROBLEMID}`,
-        GET_STREAMS_BY_COMPONENTS: `${URL_BASE.BASE}/create/${GET_STREAMS_BY_COMPONENTS}`
+        GET_STREAMS_BY_COMPONENTS: `${URL_BASE.BASE}/create/${GET_STREAMS_BY_COMPONENTS}`,
+        EDIT_ACQUISITION: (projectId: any)=>{
+            return  `${URL_BASE.BASE}/${CREATE}/${ACQUISITION}/${projectId}`
+        },
+        EDIT_CAPITAL: (projectId: any)=>{
+            return  `${URL_BASE.BASE}/${CREATE}/${CAPITAL}/${projectId}`
+        },
+        EDIT_MAINTENANCE: (projectId: any)=>{
+            return  `${URL_BASE.BASE}/${CREATE}/${MAINTENANCE}/${projectId}`
+        },
+        EDIT_SPECIAL: (projectId: any)=>{
+            return  `${URL_BASE.BASE}/${CREATE}/${SPECIAL}/${projectId}`
+        },
+        EDIT_STUDY: (projectId: any)=>{
+            return  `${URL_BASE.BASE}/${CREATE}/${STUDY}/${projectId}`
+        }
     }
 })();

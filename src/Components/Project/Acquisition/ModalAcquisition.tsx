@@ -37,7 +37,7 @@ const stateValue = {
 export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible, locality, data }:
   {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data: any} ) => {
 
-  const {saveProjectAcquisition, setStreamIntersected} = useProjectDispatch();
+  const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -51,6 +51,8 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [files, setFiles] = useState<any[]>([]);
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
+  const [swSave, setSwSave] = useState(false);
+  const [editprojectid, setEditsetprojectid] = useState("");
   var date = new Date();
 
   var year = date.getFullYear();
@@ -67,7 +69,12 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       acquisition.acquisitionprogress = progress;
       acquisition.acquisitionanticipateddate = purchaseDate;
       acquisition.files = files;
-      saveProjectAcquisition(acquisition);
+      acquisition.editProject = editprojectid;
+      if(swSave){
+        editProjectAcquisition(acquisition);
+      }else{
+        saveProjectAcquisition(acquisition);
+      }
       setVisibleAcquisition(false);
       setVisible(false);
     }
@@ -77,12 +84,15 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   }));
   useEffect(()=>{
     if(data!== 'no data' ) {
+      setSwSave(true);
       setCounty(data.county);
       setDescription(data.description);
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
       setProgress(data.progress);
       setGeom(data.coordinates);
+      console.log("Jorge");
+      setEditsetprojectid(data.projectid);
     }
   },[data]);
 

@@ -41,6 +41,13 @@ export const DropPin = ({typeProject, geom, setGeom}:
       longitude: longitude,
     },
   ];
+  useEffect(()=>{
+    if(geom) {
+      setLatitude(geom[0]);
+      setLongitude(geom[1]);
+      console.log(geom[0], "Jorge", geom[1]); //Maybe this is wrong, the geom has the coordinates
+    }
+  }, []);
   const changeLocation = () => {
     changeAddLocationState(!isLocation);
     setIsLocation(!isLocation);

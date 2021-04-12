@@ -131,7 +131,7 @@ export const saveStudy = (data: any) => {
         formData.append(key, data[key]);
       }
     })
-    // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {
+    // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {    
     datasets.postDataMultipart(SERVER.CREATE_STUDY, formData, datasets.getToken()).then(res => {
       console.log(res,"RES");
       let status ; 
@@ -145,6 +145,61 @@ export const saveStudy = (data: any) => {
   };
 };
 
+export const editSpecial = (data: any) => {
+  return ( dispatch: Function) => {
+    const formData = new FormData();
+    Object.keys(data).forEach((key: string) => {
+      if (key === 'geom') {
+        formData.append(key, JSON.stringify(data[key]));
+      } else if (key === 'files') {
+        data[key].forEach((o: any, i: number) => {
+          formData.append(key, o.file);
+        })
+      } else {
+        formData.append(key, data[key]);
+      }
+    })
+    // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.EDIT_SPECIAL(data.editProject), formData, datasets.getToken()).then(res => {
+      console.log(res,"RES");
+      let status ; 
+      if(res && res.total_rows && res.total_rows > 0 ){
+        status = 1;
+      }else{
+        status = 0;
+      }
+      dispatch({ type: types.SET_EDIT, status });
+    })
+  };
+};
+export const editAcquisition = (data: any) => {
+  return ( dispatch: Function) => {
+    const formData = new FormData();
+    Object.keys(data).forEach((key: string) => {
+      if (key === 'geom') {
+        formData.append(key, JSON.stringify(data[key]));
+      } else if (key === 'files') {
+        data[key].forEach((o: any, i: number) => {
+          formData.append(key, o.file);
+        })
+      } else {
+        formData.append(key, data[key]);
+      }
+    })
+    console.log(formData," **Acquisition**")
+    // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.EDIT_ACQUISITION(data.editProject), formData, datasets.getToken()).then(res => {
+      console.log(res,"RES");
+      let status ; 
+      if(res && res.total_rows && res.total_rows > 0 ){
+        status = 1;
+      }else{
+        status = 0;
+      }
+      dispatch({ type: types.SET_EDIT, status });
+    })
+  };
+};
 export const setSave = (status: any) => {
   return ( dispatch: Function ) => {
     dispatch({type: types.SET_SAVE, status});
