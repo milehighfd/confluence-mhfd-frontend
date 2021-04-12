@@ -203,8 +203,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.overheadcostdescription = overheadDescription;
       capital.additionalcost = additionalCost;
       capital.additionalcostdescription = additionalDescription;
-      capital.componet = groups;
-      capital.independetComponent = independentComponents;
+      capital.componet = JSON.stringify(groups, null,2);
+      capital.independetComponent = JSON.stringify(independentComponents, null,2);
       console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       saveProjectCapital(capital);
       setVisibleCapital(false);
@@ -321,10 +321,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[independentComponents, listComponents])
   const applyIndependentComponent = () => {
     let component = {
-      id: Math.random()+'_'+Date.now(),
-      type:undefined,
+      index: Math.random()+'_'+Date.now(),
+      name:undefined,
       status:undefined,
-      original_cost:0,
+      cost:0,
     };
     setIndependentComponents([...independentComponents,component]);
   };
@@ -362,7 +362,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
     if(independentComponents.length > 0) {
       for( let comp of independentComponents) {
-        subtotalcost += parseFloat(comp.original_cost) ;
+        subtotalcost += parseFloat(comp.cost) ;
       }
     }
     return subtotalcost;
@@ -374,11 +374,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const changeValueIndComp = (value:any, key:any, indComp:any) => {
     let currentComponents = [...independentComponents];
     for(let ic of currentComponents) {
-      if( ic.id == indComp.id) {
+      if( ic.index == indComp.index) {
         let newIC = indComp;
         //newIC[key] = value.target.value;
         let newValue=value.target.value
-        if(key === 'original_cost'){
+        if(key === 'cost'){
           let vAlue = newValue.replace("$", ""); 
           vAlue = vAlue.replace(",", ""); 
           if(vAlue){
@@ -406,7 +406,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     let total = 0;
     if(independentComponents.length > 0) {
       for( let comp of independentComponents) {
-        let newValue= comp.original_cost+','
+        let newValue= comp.cost+','
         let value = newValue.replace("$", ""); 
         value = value.replace(",", "");
         total += parseFloat(value) ;
@@ -570,11 +570,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                           <Timeline>
                             <Timeline.Item color="green">
                               <Row style={{marginLeft:'-18px'}}>
-                                <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'type',indComp)} value={indComp.type} /></label></Col>
+                                <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'name',indComp)} value={indComp.name} /></label></Col>
                                 <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status}/></Col>
                                 <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} > 
                                   <Tooltip placement="topLeft" title="Only numeric values are accepted.">
-                                    <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'original_cost',indComp)} value={formatter.format(indComp.original_cost)}/>
+                                    <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'cost',indComp)} value={formatter.format(indComp.cost)}/>
                                   </Tooltip>
                                 </Col>
                                 <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }} ><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" onClick={() => removeIndComponent(indComp)} /></Button></Col>
