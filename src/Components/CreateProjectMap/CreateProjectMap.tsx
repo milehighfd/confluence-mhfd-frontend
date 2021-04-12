@@ -255,7 +255,7 @@ const CreateProjectMap = (type: any) => {
             if(map.map){
               setTimeout(()=>{
                 map.isStyleLoaded(() => map.map.fitBounds(bboxBounds,{ padding:70, maxZoom: 13}));
-              }, 2000);              
+              }, 3000);              
             }
           }
         },
