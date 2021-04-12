@@ -578,10 +578,10 @@ const RequestView = () => {
         projectswithid.add(projectsFiltered[0]);
       }
     }
-    let newArray = [...projectswithid.values()];
+    let newArray = [...projectswithid.values()];    
     if(newArray[0]){
       setShowModalProject(true);
-      setCurrentProject(newArray[0]);
+      setCurrentProject(newArray[0].projectData);
     } else {
       setCurrentProject({});
     }
