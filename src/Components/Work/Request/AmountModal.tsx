@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { Modal, Button, Input, InputNumber } from 'antd';
+import { Modal, Button, InputNumber } from 'antd';
+import { MaintenanceTypes } from "./RequestViewUtil";
 
-const stateValue = {
-  visible: false
-}
-
-const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveData }: { project: any, projectId: any, visible: boolean, setVisible: Function, startYear: number, saveData: Function }) => {
+const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveData, tabKey, projectsubtype }: {
+  project: any,
+  projectId: any,
+  visible: boolean,
+  setVisible: Function,
+  startYear: number,
+  saveData: Function,
+  tabKey: string,
+  projectsubtype: string,
+}) => {
   const [year0, setYear0] = useState(project.req1);
   const [year1, setYear1] = useState(project.req2);
   const [year2, setYear2] = useState(project.req3);
@@ -44,6 +50,26 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
     return value
   }
 
+  let showFirst = true;
+  let showSecond = true;
+  let showThird = true;
+  let showFourth = true;
+  let showFifth = true;
+  if (tabKey === 'Maintenance') {
+    showFirst = projectsubtype === MaintenanceTypes[0];
+    showSecond = projectsubtype === MaintenanceTypes[1];
+    showThird = projectsubtype === MaintenanceTypes[2];
+    showFourth = projectsubtype === MaintenanceTypes[3];
+    showFifth = projectsubtype === MaintenanceTypes[4];
+  }
+
+  let labels = []
+  if (tabKey === 'Maintenance') {
+    labels = [2021, 2021, 2021, 2021, 2021];
+  } else {
+    labels = [startYear, startYear + 1, startYear + 2, startYear + 3, startYear + 4]
+  }
+
   return (
     <Modal
       title="Apply total requested financing amount for any applicable year:"
@@ -62,7 +88,10 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
           </Button>,
       ]}
     >
-      <p>{startYear}</p>
+      {
+        showFirst &&
+        <>
+      <p>{labels[0]}</p>
       <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
@@ -71,8 +100,12 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       <Button className="button-close" onClick={() => setYear0(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
-
-      <p>{startYear + 1}</p>
+        </>
+      }
+      {
+        showSecond &&
+        <>
+      <p>{labels[1]}</p>
       <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
@@ -81,8 +114,12 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       <Button className="button-close" onClick={() => setYear1(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
-
-      <p>{startYear + 2}</p>
+        </>
+      }
+      {
+        showThird &&
+        <>
+      <p>{labels[2]}</p>
       <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
@@ -91,8 +128,12 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       <Button className="button-close" onClick={() => setYear2(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
-
-      <p>{startYear + 3}</p>
+        </>
+      }
+      {
+        showFourth &&
+        <>
+      <p>{labels[3]}</p>
       <InputNumber  min={0}
         formatter={priceFormatter}
         parser={priceParser}
@@ -101,8 +142,12 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       <Button className="button-close" onClick={() => setYear3(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
-
-      <p>{startYear + 4}</p>
+        </>
+      }
+      {
+        showFifth &&
+        <>
+      <p>{labels[4]}</p>
       <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
@@ -111,7 +156,8 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       <Button className="button-close" onClick={() => setYear4(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
-
+        </>
+      }
     </Modal>
   )
 }

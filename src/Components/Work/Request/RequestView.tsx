@@ -802,7 +802,7 @@ const RequestView = () => {
                                   }
                                   {
                                     column.projects.map((p: any, i: number) => (
-                                      <TrelloLikeCard key={i} project={p} columnIdx={columnIdx} rowIdx={i} saveData={saveData} />
+                                      <TrelloLikeCard key={i} project={p} columnIdx={columnIdx} rowIdx={i} saveData={saveData} tabKey={tabKey} />
                                     ))
                                   }
                                 </div>

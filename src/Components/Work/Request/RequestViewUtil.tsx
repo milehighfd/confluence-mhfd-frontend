@@ -66,7 +66,7 @@ export const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const MaintenanceTypes = ['Debris Management', 'Vegetation Management', 'Sediment Removal', 'Minor Repairs', 'Restoration'];
+export const MaintenanceTypes = ['Debris Management', 'Vegetation Management', 'Sediment Removal', 'Minor Repairs', 'Restoration'];
 
 export const generateColumns = (boardProjects: boardProject[], year: number, tabKey: string) => {
   let columns: any[] = defaultColumns.map((dc: any, index: number) => {

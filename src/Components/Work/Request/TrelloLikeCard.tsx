@@ -16,11 +16,12 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData }: {
+const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey }: {
   project: any,
   columnIdx: number,
   rowIdx: number,
-  saveData: Function
+  saveData: Function,
+  tabKey: string
 }) => {
   const divRef = useRef(null);
   const {setZoomProject} = useProjectDispatch();
@@ -28,8 +29,10 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData }: {
     projectid,
     projectname,
     jurisdiction,
-    status
+    status,
+    projectsubtype
   } = project.projectData;
+
   const amount = project[`req${columnIdx}`];
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
@@ -95,6 +98,8 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData }: {
       setVisible={setShowAmountModal}
       startYear={2021}
       saveData={saveData}
+      tabKey={tabKey}
+      projectsubtype={projectsubtype}
       />
     <div ref={divRef} className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable onDragStart={e => onDragStart(e, projectid)}
       onDrop={(e: any) => {
