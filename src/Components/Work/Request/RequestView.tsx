@@ -145,7 +145,7 @@ const RequestView = () => {
       setColumns(temporalColumns);
       return;
     }
-    if (destinyColumnHasProject) {
+    if (destinyColumnHasProject || tabKey === 'Maintenance') {
       return;
     } else {
       let newObj = {
