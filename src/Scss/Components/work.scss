@@ -627,9 +627,12 @@
     }
   }
 }
+.status-dd-option {
+  line-height: 14px !important;
+}
 .menu-utilities{
   h6{
-    font-size: 12px;
+    font-size: 14px;
     color: $purple00;
     margin-bottom: -5px;
   }
@@ -637,6 +640,7 @@
     font-size: 9px;
     color: $opacity;
     padding-left: 12px;
+    margin-top: 5px;
     margin-bottom: 0px;
     white-space: normal;
     width: 257px;
