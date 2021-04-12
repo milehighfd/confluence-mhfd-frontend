@@ -340,7 +340,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     
     let newOverheadCosts = [...overheadCosts];
     overheadValues.forEach((element:any, index:any) => {
-      console.log("OVERHEAD VALES ", element, index);
+      
       newOverheadCosts[index] = (element*getSubTotalCost())/100;      
     });
     setOverheadCosts(newOverheadCosts);

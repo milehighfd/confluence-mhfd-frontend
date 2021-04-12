@@ -66,6 +66,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
  const [sponsor, setSponsor] = useState('x');
  const [cosponsor, setCosponsor] = useState('x');
   const [county, setCounty] = useState('');
+  const [projectid, setProjectId] = useState(-1);
   const [save, setSave] = useState(false);
   const [ids, setIds] = useState([]);
   const [name, setName ] = useState(false);
@@ -95,6 +96,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setDescription(data.description);
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
+      setProjectId(data.projectid);
     }
   },[data]);
   useEffect(()=>{

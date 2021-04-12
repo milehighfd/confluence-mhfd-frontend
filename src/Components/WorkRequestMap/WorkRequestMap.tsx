@@ -78,6 +78,7 @@ const WorkRequestMap = (type: any) => {
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
   const hovereableLayers = [PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
     MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
@@ -167,7 +168,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    console.log("UPDATES ON NEW PROJECT??", idsBoardProjects);
+    // console.log("UPDATES ON NEW PROJECT??", idsBoardProjects);
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -202,6 +203,74 @@ const WorkRequestMap = (type: any) => {
       setIdsBoardProjects(boardProjects);
     }
   },[boardProjects]);
+  const [opacityLayer, setOpacityLayer] = useState(false);
+  const polyMask = (mask: any, bounds: any) => {
+    if (mask !== undefined && bounds.length > 0) {
+        var bboxPoly = turf.bboxPolygon(bounds);
+        return turf.difference(bboxPoly, mask);
+    }
+  }
+  useEffect(() => {
+    let mask
+    if (coordinatesJurisdiction.length > 0) {
+        mask = turf.multiPolygon(coordinatesJurisdiction);
+        let miboundsmap = map.map.getBounds();
+        // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
+        let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+
+        // console.log('porque', boundingBox1)
+        var arrayBounds = misbounds.split(',');
+        setOpacityLayer(true);
+        if (!map.map.getLayer('mask')) {
+            map.map.addSource('mask', {
+                "type": "geojson",
+                "data": polyMask(mask, arrayBounds)
+            });
+
+            map.map.addLayer({
+                "id": "mask",
+                "source": "mask",
+                "type": "fill",
+                "paint": {
+                    "fill-color": "black",
+                    'fill-opacity': 0.8
+                }
+            });
+        } else {
+            map.map.setLayoutProperty('mask', 'visibility', 'visible');
+            map.map.removeLayer('mask');
+            map.map.removeSource('mask');
+            map.map.addSource('mask', {
+                "type": "geojson",
+                "data": polyMask(mask, arrayBounds)
+            });
+
+            map.map.addLayer({
+                "id": "mask",
+                "source": "mask",
+                "type": "fill",
+                "paint": {
+                    "fill-color": "black",
+                    'fill-opacity': 0.8
+                }
+            });
+
+        }
+    } else {
+        if (opacityLayer) {
+            if  (map.map.loaded()) {
+                // console.log('hide opacity');
+                if (map.map.getLayer('mask')) {
+                    map.map.setLayoutProperty('mask', 'visibility', 'visible');
+                    map.map.removeLayer('mask');
+                    map.map.removeSource('mask');
+                }
+            }
+        }
+
+    }
+}, [coordinatesJurisdiction]);
+
   const setBounds = (value:any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
       return {
@@ -212,12 +281,13 @@ const WorkRequestMap = (type: any) => {
     });
     // console.log("VALUELELE", value, zoomareaSelected);
     if(zoomareaSelected[0]){
+      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
       let coord = turf.centroid(poly);
       // console.log("COROD", coord);
       if(coord.geometry && coord.geometry.coordinates) {
         let value = coord.geometry.coordinates;
-        console.log("FLU TO ", value);
+        // console.log("FLU TO ", value);
           map.map.flyTo({ center: value, zoom: 10 });
       }
     }
@@ -267,6 +337,13 @@ const WorkRequestMap = (type: any) => {
         applyMapLayers();
         let eventToClick = eventService.getRef('click');
         map.map.on('click',eventToClick);
+        map.map.on('movestart', () => {
+          if (map.map.getLayer('mask')) {
+              map.map.setLayoutProperty('mask', 'visibility', 'visible');
+              map.map.removeLayer('mask');
+              map.map.removeSource('mask');
+          }
+        })
       })
       // map.map.on('style.load', () => {
         
@@ -516,7 +593,7 @@ const WorkRequestMap = (type: any) => {
   };
   const applyFiltersIDs = (key: string, toFilter: any) => {
     const styles = { ...tileStyles as any };
-    console.log("TO FILTER", toFilter);
+    
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (!map.getLayer(key + '_' + index)) {
         return;
@@ -673,7 +750,7 @@ const WorkRequestMap = (type: any) => {
   }
   const removeLayersSource = (key: string) => {
     if (map.getSource(key)) { 
-      console.log("REMOVING SOURCE", key);
+      
       map.map.removeSource(key);
     }
   }
