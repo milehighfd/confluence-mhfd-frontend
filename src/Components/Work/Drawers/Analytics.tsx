@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Drawer, Select } from 'antd';
 import HorizontalBarChart from "../../FiltersProject/NewProblemsFilter/HorizontalBarChart";
 import { formatter } from "../Request/RequestViewUtil";
+import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
 
 const { Option } = Select;
 
@@ -79,6 +80,7 @@ const Analytics = ({
           withAnimation={false}
           spaceBetween={40}
           width={220}
+          opacityOpaque={CHART_CONSTANTS.opacityFull}
         />
       </div>
 
@@ -100,6 +102,7 @@ const Analytics = ({
           barLabelFormatter={(d: any)=> {
             return formatter.format(d.counter)
           }}
+          opacityOpaque={CHART_CONSTANTS.opacityFull}
         />
       </div>
     </Drawer>

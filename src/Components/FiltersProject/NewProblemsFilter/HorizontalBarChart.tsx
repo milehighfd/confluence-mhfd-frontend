@@ -31,7 +31,9 @@ const HorizontalBarChart = ({
   barLabelFormatter=(d: any) => {
     return d.counter;
   },
-  width=180
+  width=180,
+  opacityFull=CHART_CONSTANTS.opacityFull,
+  opacityOpaque=CHART_CONSTANTS.opacityOpaque,
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
@@ -202,9 +204,9 @@ const HorizontalBarChart = ({
       .style("opacity", (d: any) => {
         let index = getIndex(d);
         if (index !== -1) {
-          return CHART_CONSTANTS.opacityFull;
+          return opacityFull;
         } else {
-          return CHART_CONSTANTS.opacityOpaque;
+          return opacityOpaque;
         }
       })
 
