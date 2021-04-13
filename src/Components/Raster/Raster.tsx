@@ -114,7 +114,7 @@ const Raster = (type: any) => {
             map.map.addSource('wms-test-source', {
               'type': 'raster',
               'tiles': [
-              'https://api.nearmap.com/wms/v1/latest/apikey/NzA3ZjlkODYtMTNiMC00Y2E3LWE1MzAtYzU3NWUzMmJjMGUw'
+                'https://api.nearmap.com/tiles/v3/North/{z}/{x}/{y}.png?apikey=NzA3ZjlkODYtMTNiMC00Y2E3LWE1MzAtYzU3NWUzMmJjMGUw'
               ],
               'tileSize': 256
               });
