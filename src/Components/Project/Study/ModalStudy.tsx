@@ -15,6 +15,7 @@ import {
   MHFD_BOUNDARY_FILTERS,
 } from "../../../constants/constants";
 import { forceLink } from "d3";
+import { useProfileState } from "../../../hook/profileHook";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -52,6 +53,7 @@ const genTitle = (streamName: any) => (
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
   const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds} = useProjectDispatch();
+  const {organization, groupOrganization} = useProfileState();
   const {listStreams, streamIntersected} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -63,8 +65,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const {changeDrawState} = useProjectDispatch();
   const [files, setFiles] = useState<any[]>([]);
   const [streamsList, setThisStreamsList] = useState<any>([]);
- const [sponsor, setSponsor] = useState('x');
- const [cosponsor, setCosponsor] = useState('x');
+ const [sponsor, setSponsor] = useState(organization+"");
+ const [cosponsor, setCosponsor] = useState([]);
   const [county, setCounty] = useState('');
   const [projectid, setProjectId] = useState(-1);
   const [save, setSave] = useState(false);
@@ -110,7 +112,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.cosponsor = cosponsor;
       study.ids = ids;
       study.files = files;
-      study.geom = geom;
+      study.geom = streamsList;
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
       setVisibleStudy(false);
@@ -161,7 +163,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     setState(auxState);
     setVisibleAlert( true);
   };
-
+  const apllyCoSponsor = (e: any)=>{
+    setCosponsor(e);
+  };
   const handleCancel = (e: any) => {
     const auxState = {...state};
     setVisibleStudy (false);
@@ -384,7 +388,25 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               setCounty = {setCounty}
             />
             <br/>
-
+            
+            <Row gutter={[16, 16]}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+                <Select placeholder={sponsor+""}style={{width:'100%'}} >
+                  <Option value={sponsor+""}>{sponsor+""}</Option>
+                </Select>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+                <Select  mode="multiple" placeholder="Select a Co-Sponsor" style={{width:'100%'}} onChange={(coSponsor:any)=> apllyCoSponsor(coSponsor)}>
+                  {groupOrganization.map((element:any) =>{
+                    if(element.aoi !== sponsor){
+                      return <Option key={element.aoi} value={element.aoi}>{element.aoi}</Option>
+                    }
+                  })}
+                </Select>
+              </Col>
+            </Row>
             {/*Section*/}
             <UploadAttachment
               typeProject = {typeProject}
