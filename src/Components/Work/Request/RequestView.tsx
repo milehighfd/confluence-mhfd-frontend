@@ -19,6 +19,7 @@ import Status from "../Drawers/Status";
 
 import CardStatService from './CardService';
 import { compareColumns, defaultColumns, formatter, generateColumns, priceFormatter, priceParser } from "./RequestViewUtil";
+import { boardType } from "./RequestTypes";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -26,7 +27,6 @@ const { TabPane } = Tabs;
 const { Panel } = Collapse;
 const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
 
-const type = 'WORK_REQUEST';
 let currentProject: any = {};
 
 const genExtra = (obj: any) => (
@@ -47,7 +47,9 @@ const openNotification = () => {
   });
 };
 
-const RequestView = () => {
+const RequestView = ({ type }: {
+  type: boardType
+}) => {
   const emptyStyle: React.CSSProperties = { transform: 'rotate(180deg)' };
   const [rotationStyle, setRotationStyle] = useState(emptyStyle );
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
@@ -391,7 +393,7 @@ const RequestView = () => {
         ['tabKey', tabKey]
       ]
       history.push({
-        pathname: '/work-request',
+        pathname: type === "WORK_REQUEST" ? '/work-request' :  '/work-plan',
         search: `?${params.map(p => p.join('=')).join('&')}`
       })
 

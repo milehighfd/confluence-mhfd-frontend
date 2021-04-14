@@ -45,6 +45,8 @@ import { resetMap } from './store/actions/mapActions';
 import SampleMap from './Components/SampleMap/SampleMap';
 import MobilePopup from './Components/MobilePopup/MobilePopup';
 import { ModalProjectView } from './Components/ProjectModal/ModalProjectView';
+import WorkRequest from './Components/Work/Request/WorkRequest';
+import WorkPlan from './Components/Work/Plan/WorkPlan';
 
 
 
@@ -162,9 +164,9 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/alert-view`} component={AlertView} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={'/new-project'} component={ModalProjectView} />
-      <Route path={'/work-request'} component={RequestView} />
+      <Route path={'/work-request'} component={WorkRequest} />
       <Route path={'/raster-map'} component={Raster} />
-      <Route path={'/work-plan'} component={PlanView} />
+      <Route path={'/work-plan'} component={WorkPlan} />
       <Route path={'/chat'} component={Chat} />
       <Route path={'/status'} component={Status} />
       <Route path={'/analytics'} component={Analytics} />

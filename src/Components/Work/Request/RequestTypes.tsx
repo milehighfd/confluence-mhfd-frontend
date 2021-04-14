@@ -1,3 +1,5 @@
+export type boardType = 'WORK_REQUEST' | 'WORK_PLAN';
+
 export interface boardProject {
   projectData: any,
   project_id: number,

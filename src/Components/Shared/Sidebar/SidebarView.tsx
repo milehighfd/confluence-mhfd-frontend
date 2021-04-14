@@ -67,10 +67,10 @@ export default () => {
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
       <Menu.Item key="3" className="menu-mobile">
-        <Link to={'/map'}>
+        <Link to={'/work-plan'}>
           <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
-          <span>Work Plan - Under Construction</span>
+          <span>Work Plan</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
