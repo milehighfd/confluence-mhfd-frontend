@@ -7,7 +7,8 @@ import { getTimesLogin } from '../store/actions/usersActions';
 
 interface selectProfileState {
    timesLogged: number,
-   groupOrganization: any
+   groupOrganization: any,
+   organization: any
  }
  
  
@@ -17,9 +18,10 @@ interface selectProfileState {
    createSelectorHack(
        (state: any) => state.users.timesLogged,
        (state: any) => state.profile.groupOrganization,
+       (state: any) => state.profile.userInformation.organization,
        //state => state.map.paramFilters,
-       (timesLogged: number, groupOrganization: any) => ({
-         timesLogged, groupOrganization   
+       (timesLogged: number, groupOrganization: any, organization: any) => ({
+         timesLogged, groupOrganization, organization   
       })
      );
  
