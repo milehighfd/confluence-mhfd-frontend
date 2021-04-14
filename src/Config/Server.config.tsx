@@ -99,6 +99,7 @@ export const SERVER = (function () {
     const GET_COMPONENTS_WITH_GEOM = 'get-components-by-components-and-geom';
     const GET_COMPONENTS_BY_PROBLEMID = 'components-by-problemid';
     const GET_STREAMS_BY_COMPONENTS = 'get-stream-by-components-and-geom';
+    const NOTES = 'notes';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -189,6 +190,11 @@ export const SERVER = (function () {
         GET_COMPONENTS_WITH_GEOM: `${URL_BASE.BASE}/create/${GET_COMPONENTS_WITH_GEOM}`,
         GET_COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/create/${GET_COMPONENTS_BY_PROBLEMID}`,
         GET_STREAMS_BY_COMPONENTS: `${URL_BASE.BASE}/create/${GET_STREAMS_BY_COMPONENTS}`,
+        CREATE_NOTE: `${URL_BASE.BASE}/${NOTES}`,
+        LIST_NOTES: `${URL_BASE.BASE}/${NOTES}`,
+        DELETE_NOTE: (id: any) => {
+            return  `${URL_BASE.BASE}/${NOTES}/${id}`
+        },
         EDIT_ACQUISITION: (projectId: any)=>{
             return  `${URL_BASE.BASE}/${CREATE}/${ACQUISITION}/${projectId}`
         },
