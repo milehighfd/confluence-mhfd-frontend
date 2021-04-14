@@ -322,8 +322,8 @@ const RequestView = ({ type }: {
       }
       console.log('params', year, locality, tabKey)
     } else {
-      getData(`${SERVER.URL_BASE}/locality/`, getToken())
-      // getData(`${'http://localhost:3003'}/locality/`, getToken())
+      getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
+      // getData(`${'http://localhost:3003'}/locality/${type}`, getToken())
         .then(
           (r: any) => {
             setDataAutocomplete(r.localities.map((l: any) => l.name));
