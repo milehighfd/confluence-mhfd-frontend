@@ -1289,6 +1289,7 @@ const Map = ({ leftWidth,
                 const div = document.getElementById('color-list');
                 if (div != null) {
                     const ul = document.createElement('ul');
+                    ul.classList.add("list-popup-comment");
                     const inner = `
                     <li><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
                     <li><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>

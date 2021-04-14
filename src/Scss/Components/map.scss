@@ -1476,6 +1476,7 @@
     font-size: 40px !important;
   }
 }
+
 .filter-title {
   margin-bottom: -5px !important;
 }
@@ -1509,5 +1510,26 @@
 }
 .map-pop-00, .map-pop-01, .map-pop-02{
   display: inline-block;
+}
+.list-popup-comment{
+  position: absolute;
+  background: white;
+  z-index: 200;
+  padding: 0px 10px;
+  width: 130px;
+  box-shadow: 0 3px 6px rgba(00,00,00,0.2);
+  border-radius: 4px;
+  text-align: left;
+
+  li{
+    display: block;
+    padding: 8px 0px;
+    border-bottom: 1px solid $light-purple;
+  }
+  i{
+    font-size: 16px;
+    top: 2px;
+    position: relative;
+  }
 }
 // FILTERS MAP
