@@ -148,7 +148,7 @@ export default () => {
         }
       />
 
-      <Button className="btn-coll">
+      <Button className="btn-coll" onClick={onClose}>
         <img src="/Icons/icon-34.svg" alt="" width="18px" style={{ transform: 'rotate(180deg)' }} />
       </Button>
     </Drawer>
@@ -156,7 +156,12 @@ export default () => {
     <br/>
     <div className="popup-comment">
       <div className="headmap">
-      <Popover trigger="click" placement="bottomRight" content={content00} overlayClassName="popover-comment">
+      <Popover trigger="click" placement="bottomRight" content={<ul>
+    <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
+    <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
+    <li><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey</li>
+    <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
+  </ul>} overlayClassName="popover-comment">
         <Button className="type-popover"><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Leave a Comment <DownOutlined /></Button>
       </Popover>
       </div>
