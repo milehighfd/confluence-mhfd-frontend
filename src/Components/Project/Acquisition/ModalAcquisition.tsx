@@ -89,7 +89,8 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       setDescription(data.description);
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
-      setProgress(data.progress);
+      setProgress(data.acquisitionprogress);
+      setPurchaseDate(data.acquisitionanticipateddate);
       setGeom(data.coordinates);
       console.log("Jorge");
       setEditsetprojectid(data.projectid);
@@ -125,7 +126,6 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   };
   const handleOk = (e: any) => {
    //setVisibleAcquisition(false);
-  console.log(e, "Name");
     setVisibleAlert( true);
   };
 
@@ -137,7 +137,6 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
     setPurchaseDate(e);
   };
   const handleCancel = (e: any) => {
-    console.log(e);
     const auxState = {...state};
     setVisibleAcquisition(false);
     setState(auxState);
@@ -194,7 +193,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a Status" style={{width:'100%'}} onChange={(progress)=> apllyProgress(progress)}>
+                <Select placeholder={swSave? progress+"": "Select a Status" }  style={{width:'100%'}} onChange={(progress)=> apllyProgress(progress)}>
                  {PROJECT_INFORMATION.PROGRESS.map((element) =>{
                     return <Option key={element} value={element}>{element}</Option>
                   })}
@@ -202,7 +201,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Anticipated Purchase Date <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a Purchase Date" style={{width:'100%'}} onChange={(purchaseDate)=> apllyPurchaseDate(purchaseDate)} >
+                <Select placeholder={swSave? purchaseDate   +"": "Select a Purchase Date"} style={{width:'100%'}} onChange={(purchaseDate)=> apllyPurchaseDate(purchaseDate)} >
                   {selec.map((element) =>{
                     var newYear = year+element;
                     return <Option key={newYear} value={newYear}>{newYear}</Option>
