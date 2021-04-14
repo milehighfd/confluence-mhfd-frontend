@@ -20,6 +20,7 @@ import Status from "../Drawers/Status";
 import CardStatService from './CardService';
 import { compareColumns, defaultColumns, formatter, generateColumns, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
+import { SubmitModal } from "./SubmitModal";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -68,13 +69,14 @@ const RequestView = ({ type }: {
   const [showBoardStatus, setShowBoardStatus] = useState(false);
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
-  const [boardStatus, setBoardStatus] = useState(null);
+  const [boardStatus, setBoardStatus] = useState<any>(null);
   const [boardComment, setBoardComment] = useState(null);
   const [showModalProject, setShowModalProject] = useState(false);
   const history = useHistory();
   const {setBoardProjects, setZoomProject} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
+  const [visibleAlert, setVisibleAlert] = useState(false);
   const onDragOver = (e: any) => {
     e.preventDefault();
   }
@@ -666,8 +668,19 @@ const RequestView = ({ type }: {
       setColumns(temporalColumns);
     }
   }
+  const submit = () => {
+    console.log('setSave submit')
+    setVisibleAlert(true);
+  }
 
   return <>
+    { visibleAlert && <SubmitModal
+      visibleAlert = {visibleAlert}
+      setVisibleAlert ={setVisibleAlert}
+      setSave = {submit}
+      boardStatus={boardStatus}
+     />
+    }
     {  showModalProject &&
       <ModalProjectView
           visible={showModalProject}
@@ -884,7 +897,9 @@ const RequestView = ({ type }: {
               </div>
 
               <div className="work-footer">
-                <Button className="btn-purple">Submit to County Manager</Button>
+                <Button className="btn-purple" onClick={submit}>
+                  Submit to County Manager
+                </Button>
               </div>
 
               <Button className="btn-scroll"><RightOutlined /></Button>
