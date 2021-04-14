@@ -10,9 +10,10 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { MainPopup, ComponentPopup } from './MapPopups';
-import { Dropdown, Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
+import { Dropdown,  Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, DownOutlined } from '@ant-design/icons';
+
 //import { opacityLayer } from '../../constants/mapStyles';
 import { MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import {
@@ -57,7 +58,10 @@ import { useFilterDispatch, useFilterState } from '../../hook/filtersHook';
 import MapService from './MapService';
 import MobilePopup from '../MobilePopup/MobilePopup';
 import { ModalProjectView } from '../ProjectModal/ModalProjectView';
+import SideBarComment from './SideBarComment';
+import { useNoteDispatch } from '../../hook/notesHook';
 const { Option } = AutoComplete;
+const { TextArea } = Input;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 
@@ -79,7 +83,7 @@ let contents: any = [];
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 
-
+let commentAvailable = false;
 const Map = ({ leftWidth,
     layers,
     components,
@@ -142,6 +146,7 @@ const Map = ({ leftWidth,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
     setSelectedPopup} = useMapDispatch();
+    const { getNotes } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
@@ -150,6 +155,7 @@ const Map = ({ leftWidth,
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
+    const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
     useEffect(()=> {
         console.log(mobilePopups);
 
@@ -186,6 +192,7 @@ const Map = ({ leftWidth,
     const {filters} = useFilterState();
     const [filterNames, setFilterNames] = useState<Array<any>>([]);
     const [mapService] = useState<MapService>(new MapService());
+    const [commentVisible, setCommentVisible] = useState(false);
     const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
           <Col>
@@ -343,7 +350,12 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         mapService.autocomplete = autocomplete;
-    }, [autocomplete])
+    }, [autocomplete]);
+
+    useEffect(() => {
+        commentAvailable = commentVisible;
+    }, [commentVisible]);
+
 
     useEffect(() => {
         if (map) {
@@ -454,6 +466,7 @@ const Map = ({ leftWidth,
     }, [filterComponents, componentDetailIds]);
 
     useEffect(() => {
+        getNotes();
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
@@ -1264,6 +1277,28 @@ const Map = ({ leftWidth,
             return;
         }
         map.on('click', (e: any) => {
+            if (commentAvailable) {
+                console.log('enter here ', e.LngLat);
+                marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map);
+                popup.remove();
+                const html = commentPopup();
+                popup = new mapboxgl.Popup();
+                popup.setLngLat(e.lngLat)
+                    .setHTML(html)
+                    .addTo(map);
+                const div = document.getElementById('color-list');
+                if (div != null) {
+                    const ul = document.createElement('ul');
+                    const inner = `
+                    <li><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
+                    <li><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
+                    <li><i class="mdi mdi-circle-medium" style="color:rgba(00, 00, 00, 0.3);"></i> Grey</li>
+                    <li><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
+                    ul.innerHTML = inner;
+                    div.appendChild(ul);
+                }
+                return;
+            }
             hideHighlighted();
             const popups: any = [];
             const mobile: any = [];
@@ -1898,7 +1933,25 @@ const Map = ({ leftWidth,
         }
     }
 
-
+    const commentPopup = () => ReactDOMServer.renderToStaticMarkup(
+    <>
+        <div className="popup-comment">
+        <div className="headmap">
+        <Popover trigger="click" placement="bottomRight" content={<ul>
+        <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
+        <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
+        <li><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey</li>
+        <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
+    </ul>} overlayClassName="popover-comment">
+            <Button id="color-list" className="type-popover"><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Leave a Comment <DownOutlined /></Button>
+        </Popover>
+        </div>
+        <div className="bodymap">
+            <TextArea rows={5} placeholder="Add Comments…" />
+            <Button>Save</Button>
+        </div>
+        </div>
+    </>);
     const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
 
         <>
@@ -2152,6 +2205,7 @@ const Map = ({ leftWidth,
 
     return (
         <>
+        <SideBarComment visible={commentVisible} setVisible={setCommentVisible}></SideBarComment>
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}
@@ -2296,7 +2350,9 @@ const Map = ({ leftWidth,
                       }
                 }}
                 /></Button>
-                <Button style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
+                <Button onClick={() => {
+                    setCommentVisible(commentVisible => !commentVisible);
+                    }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
                 {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
             </div>
