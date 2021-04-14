@@ -11,7 +11,8 @@ import filterReducer from './filterReducer';
 import panelReducer from './panelReducer';
 import carouselImages from './carouselImagesReducer';
 import uploadAttachment from './uploadAttachmentReducer';
-import detailedReducer from './detailedReducer';
+import detailedReducer from './detailedReducer'; 
+import notesReducer from './notesReducer';
 
 const appReducer = (history: any) => combineReducers({
   router: connectRouter(history),
@@ -25,6 +26,7 @@ const appReducer = (history: any) => combineReducers({
   carouselImages,
   uploadAttachment,
   project,
+  notes: notesReducer,
   detailed: detailedReducer
 });
 
