@@ -22,6 +22,22 @@ const content = (
   />
 );
 
+const contentmenu = (
+  <Menu className="js-mm-00">
+    <Menu.Item>
+      <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Edit Project</span>
+    </Menu.Item>
+    <Menu.Item>
+      <span><img src="/Icons/icon-90.svg" alt="" width="8px" style={{opacity:'0.5'}}/> Edit Amount</span>
+    </Menu.Item>
+    <Menu.Item>
+      <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
+    </Menu.Item>
+    <Menu.Item>
+      <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
+    </Menu.Item>
+  </Menu>
+);
 
 
 const SideBarComment = ({visible, setVisible}: {visible: boolean, setVisible: Function}) => {
@@ -95,12 +111,15 @@ const SideBarComment = ({visible, setVisible}: {visible: boolean, setVisible: Fu
             {note.content}
           </p>
           <h6>{timeAgo(note.createdAt)}</h6>
+          <Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu} trigger="click">
+            <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
+          </Popover>
           </>
         }
         />)
       })
       }
-     
+
 
       <Button className="btn-coll" onClick={onClose}>
         <img src="/Icons/icon-34.svg" alt="" width="18px" style={{ transform: 'rotate(180deg)' }} />
