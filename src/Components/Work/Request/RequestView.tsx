@@ -47,6 +47,7 @@ const openNotification = () => {
     duration: 5
   });
 };
+const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
 
 const RequestView = ({ type }: {
   type: boardType
@@ -57,10 +58,9 @@ const RequestView = ({ type }: {
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const years = [2021, 2020, 2019, 2018];
-  const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
   const [locality, setLocality] = useState('');
   const [year, setYear] = useState<any>(years[0]);
-  const [tabKey, setTabKey] = useState<string>(tabKeys[0]);
+  const [tabKey, setTabKey] = useState<any>(null);
   const [namespaceId, setNamespaceId] = useState<string>('');
   const [visibleCreateProject, setVisibleCreateProject] = useState(false);
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
@@ -76,7 +76,7 @@ const RequestView = ({ type }: {
   const {setBoardProjects, setZoomProject} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
-  const [visibleAlert, setVisibleAlert] = useState(false);
+  const [localities, setLocalities] = useState<any[]>([]);
   const onDragOver = (e: any) => {
     e.preventDefault();
   }
@@ -301,6 +301,18 @@ const RequestView = ({ type }: {
   }
   const onSelect = (value: any) => {
     setLocality(value);
+    let l = localities.find((p: any) => {
+      return p.name === value;
+    })
+    if (l) {
+      let displayedTabKey: string[] = [];
+      if (l.type === 'COUNTY') {
+        displayedTabKey = ['Capital', 'Maintenance']
+      } else if (l.type === 'SERVICE_AREA') {
+        displayedTabKey = ['Study', 'Acquisition', 'Special'];
+      }
+      setTabKey(displayedTabKey[0]);
+    }
   };
 
   const onClickNewProject = () => {
@@ -312,32 +324,49 @@ const RequestView = ({ type }: {
     let _year = params.get('year');
     let _locality = params.get('locality');
     let _tabKey = params.get('tabKey');
-    if (_locality) {
-      if (_year) {
-        setYear(_year)
-      }
-      if (_locality) {
-        setLocality(_locality)
-      }
-      if (_tabKey) {
-        setTabKey(_tabKey)
-      }
-      console.log('params', year, locality, tabKey)
-    } else {
-      getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
-      // getData(`${'http://localhost:3003'}/locality/${type}`, getToken())
-        .then(
-          (r: any) => {
-            setDataAutocomplete(r.localities.map((l: any) => l.name));
-            if (r.localities.length > 0) {
-              setLocality(r.localities[0].name)
+
+    getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
+    // getData(`${'http://localhost:3003'}/locality/${type}`, getToken())
+      .then(
+        (r: any) => {
+          setLocalities(r.localities);
+          setDataAutocomplete(r.localities.map((l: any) => l.name));
+            if (_year) {
+              setYear(_year)
             }
-          },
-          (e) => {
-            console.log('e', e);
-          }
-        )
-    }
+            if (_locality) {
+              setLocality(_locality)
+            } else {
+              if (r.localities.length > 0) {
+                setLocality(r.localities[0].name)
+                _locality = r.localities[0].name;
+              }
+            }
+            if (_tabKey) {
+              setTabKey(_tabKey)
+            } else {
+              if (type === "WORK_REQUEST") {
+
+              } else {
+                let l = r.localities.find((p: any) => {
+                  return p.name === _locality;
+                })
+                if (l) {
+                  let displayedTabKey: string[] = [];
+                  if (l.type === 'COUNTY') {
+                    displayedTabKey = ['Capital', 'Maintenance']
+                  } else if (l.type === 'SERVICE_AREA') {
+                    displayedTabKey = ['Study', 'Acquisition', 'Special'];
+                  }
+                  setTabKey(displayedTabKey[0]);
+                }
+              }
+            }
+        },
+        (e) => {
+          console.log('e', e);
+        }
+      )
     setZoomProject(undefined);
   }, []);
 
@@ -668,19 +697,24 @@ const RequestView = ({ type }: {
       setColumns(temporalColumns);
     }
   }
-  const submit = () => {
-    console.log('setSave submit')
-    setVisibleAlert(true);
+
+  let displayedTabKey = tabKeys;
+  if (type === "WORK_PLAN") {
+    console.log('localities', localities);
+    console.log('locality', locality)
+    let l = localities.find((p: any) => {
+      return p.name === locality;
+    })
+    if (l) {
+      if (l.type === 'COUNTY') {
+        displayedTabKey = ['Capital', 'Maintenance']
+      } else if (l.type === 'SERVICE_AREA') {
+        displayedTabKey = ['Study', 'Acquisition', 'Special'];
+      }
+    }
   }
 
   return <>
-    { visibleAlert && <SubmitModal
-      visibleAlert = {visibleAlert}
-      setVisibleAlert ={setVisibleAlert}
-      setSave = {submit}
-      boardStatus={boardStatus}
-     />
-    }
     {  showModalProject &&
       <ModalProjectView
           visible={showModalProject}
@@ -796,11 +830,11 @@ const RequestView = ({ type }: {
                 </Row>
               </div>
               <div className="work-body">
-                <Tabs defaultActiveKey={tabKey}
+                <Tabs defaultActiveKey={displayedTabKey[0]} 
                 activeKey={tabKey}
                  onChange={(key) => setTabKey(key)} className="tabs-map">
                   {
-                    tabKeys.map((tk: string) => (
+                    displayedTabKey.map((tk: string) => (
                       <TabPane tab={tk} key={tk}>
                         <div className="work-table">
                           {
@@ -895,13 +929,6 @@ const RequestView = ({ type }: {
                   }
                 </Tabs>
               </div>
-
-              <div className="work-footer">
-                <Button className="btn-purple" onClick={submit}>
-                  Submit to County Manager
-                </Button>
-              </div>
-
               <Button className="btn-scroll"><RightOutlined /></Button>
             </Col>
           </Row>
