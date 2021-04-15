@@ -195,6 +195,9 @@ export const SERVER = (function () {
         DELETE_NOTE: (id: any) => {
             return  `${URL_BASE.BASE}/${NOTES}/${id}`
         },
+        EDIT_NOTE: (id: any) => {
+            return  `${URL_BASE.BASE}/${NOTES}/${id}`
+        },
         EDIT_ACQUISITION: (projectId: any)=>{
             return  `${URL_BASE.BASE}/${CREATE}/${ACQUISITION}/${projectId}`
         },

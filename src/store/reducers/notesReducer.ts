@@ -23,6 +23,16 @@ const notesReducer = (state = initState, action : any) => {
         ...state,
         notes: action.notes
       }
+    case types.EDIT_NOTES:
+      return {
+        ...state,
+        notes: state.notes.map(note => {
+          if (note['_id'] === action.note['_id']) {
+            return action.note;
+          }
+          return note;
+        })
+      }
     default: 
         return state;
   }
