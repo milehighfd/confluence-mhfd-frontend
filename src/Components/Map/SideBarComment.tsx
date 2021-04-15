@@ -22,9 +22,42 @@ const content = (
   />
 );
 
+
+
 const SideBarComment = ({visible, setVisible}: {visible: boolean, setVisible: Function}) => {
   const { notes } = useNotesState();
 
+  const calculateTimeAgo = (time: Date): string => {
+    const currentTime = new Date();
+    const ms = currentTime.getTime() - time.getTime();
+    const seconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+
+    if (ms === 0) {
+        return 'Just now';
+    } if (seconds < 60) {
+        return seconds + ' seconds Ago';
+    } if (minutes < 60) {
+        return minutes + ' minutes Ago';
+    } if (hours < 24) {
+        return hours + ' hours Ago';
+    } if (days < 30) {
+        return days + ' days Ago';
+    } if (months < 12) {
+        return months + ' months Ago';
+    } else {
+        return years + ' years Ago';
+    }
+  }
+  const timeAgo = (time: string): string => {
+    const parsedTime = time.split(/T|-|:|Z|\./);
+    const originalTime = new Date(Date.UTC(+parsedTime[0], +parsedTime[1] - 1, +parsedTime[2], +parsedTime[3], +parsedTime[4], +parsedTime[5], +parsedTime[6]));
+    return calculateTimeAgo(originalTime);
+  }
   useEffect(() => {
     console.log(notes);
   }, []);
@@ -61,7 +94,7 @@ const SideBarComment = ({visible, setVisible}: {visible: boolean, setVisible: Fu
           <p>
             {note.content}
           </p>
-          <h6>2 mins ago</h6>
+          <h6>{timeAgo(note.createdAt)}</h6>
           </>
         }
         />)
