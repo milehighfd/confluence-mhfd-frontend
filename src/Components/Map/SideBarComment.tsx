@@ -25,10 +25,7 @@ const content = (
 const contentmenu = (
   <Menu className="js-mm-00">
     <Menu.Item>
-      <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Edit Project</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span><img src="/Icons/icon-90.svg" alt="" width="8px" style={{opacity:'0.5'}}/> Edit Amount</span>
+      <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Edit Comment</span>
     </Menu.Item>
     <Menu.Item>
       <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
