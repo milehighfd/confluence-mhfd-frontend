@@ -1,52 +1,50 @@
 import React from "react";
 import { Modal } from 'antd';
 
-export const SubmitModal = ({ visibleAlert, setVisibleAlert, setSave, boardStatus }: {
+export const SubmitModal = ({ visibleAlert, setVisibleAlert, setSave, boardStatus, currentStatus }: {
   visibleAlert: boolean,
   setVisibleAlert: Function,
   setSave: Function,
-  boardStatus: string
+  boardStatus: string,
+  currentStatus: string
 }) => {
 
   const handleOk = (e: any) => {
-    if (boardStatus !== 'Approved') {
+    if (currentStatus !== 'Approved') {
       setSave();
-    } else {
-      setVisibleAlert(false);
     }
-  };
-
-  const handleCancel = (e: any) => {
     setVisibleAlert(false);
   };
 
+  const handleCancel = (e: any) => {
+    setVisibleAlert(false); 
+  };
+
+  let currentApproved = currentStatus === 'Approved';
   let approved = boardStatus === 'Approved';
 
-
   return (
-    <>
-      {visibleAlert}
-      <div>
-        <div >
-          <Modal
-            centered
-            visible={visibleAlert}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            className="modal-confirm"
-            width="400px"
-          >
-            <h2>{approved ? 'Already Submitted' : 'Submit Work Request?'}</h2>
-            {
-              !approved &&
-              <button className="btn-borde" onClick={handleCancel}>Cancel</button>
-            }
-            <button className="btn-purple" onClick={handleOk}>
-              { approved ? 'OK' : 'Submit' }
-            </button>
-          </Modal>
-        </div>
+    <div>
+      <div >
+        <Modal
+          centered
+          visible={visibleAlert}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          className="modal-confirm"
+          width="400px"
+        >
+          <h2>{currentApproved ? 'Already Submitted' : 'By approving, you will no longer be able to edit.'}</h2>
+          {
+            !approved &&
+            <button className="btn-borde" onClick={handleCancel}>Cancel</button>
+          }
+          <button className="btn-purple" onClick={handleOk}>
+            { currentApproved ? 'OK' : 'Approve' }
+          </button>
+        </Modal>
       </div>
-    </>)
+    </div>
+  )
 
 };

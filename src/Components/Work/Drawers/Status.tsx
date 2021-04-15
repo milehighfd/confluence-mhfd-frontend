@@ -3,6 +3,7 @@ import { Drawer, Button, Dropdown, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { SERVER } from "../../../Config/Server.config";
 import { getToken, putData } from "../../../Config/datasets";
+import { SubmitModal } from "../Request/SubmitModal";
 
 export default ({ boardId, visible, setVisible, status, comment }: {
   boardId: any,
@@ -14,6 +15,7 @@ export default ({ boardId, visible, setVisible, status, comment }: {
   const [boardStatus, setBoardStatus] = useState(status);
   const [boardComment, setBoardComment] = useState(comment);
   const [showError, setShowError] = useState(false);
+  const [visibleAlert, setVisibleAlert] = useState(false);
 
   const save = () => {
     putData(`${SERVER.URL_BASE}/board/${boardId}`, {
@@ -36,6 +38,15 @@ export default ({ boardId, visible, setVisible, status, comment }: {
   }
 
   return (
+    <>
+    { visibleAlert && <SubmitModal
+      visibleAlert = {visibleAlert}
+      setVisibleAlert ={setVisibleAlert}
+      setSave = {save}
+      currentStatus={status}
+      boardStatus={boardStatus}
+     />
+    }
     <Drawer
       title={<h5>
         <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> STATUS</h5>
@@ -56,11 +67,14 @@ export default ({ boardId, visible, setVisible, status, comment }: {
             <h6><i className="mdi mdi-circle" style={{color:'#29C499'}}></i> Approved</h6>
             <p>MHFD Staff approves the Work Request.</p>
           </Menu.Item>
-          <Menu.Item key="1" onClick={() => setBoardStatus('Under Review')}>
-            <h6><i className="mdi mdi-circle" style={{color:'#FFC664'}}></i> Under Review</h6>
-            <p>MHFD Staff are developing or reviewing the Work Request.</p>
-          </Menu.Item>
-        </Menu>
+          {
+            status !== 'Approved' &&
+            <Menu.Item key="1" onClick={() => setBoardStatus('Under Review')}>
+              <h6><i className="mdi mdi-circle" style={{color:'#FFC664'}}></i> Under Review</h6>
+              <p>MHFD Staff are developing or reviewing the Work Request.</p>
+            </Menu.Item>
+          }
+          </Menu>
       } trigger={['click']}>
         <Button className="ant-dropdown-link">
           {
@@ -71,11 +85,20 @@ export default ({ boardId, visible, setVisible, status, comment }: {
       </Dropdown>
 
       <p>Notes <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
-      <textarea className="note" rows={8} value={boardComment} onChange={e => setBoardComment(e.target.value)} style={{width:'100%'}}>
+      <textarea className="note" rows={8} value={boardComment} onChange={e => {
+        if (status === 'Approved') return;
+        setBoardComment(e.target.value)
+      }} style={{width:'100%'}}>
       </textarea>
 
       <div className="footer-drawer">
-        <Button className="btn-purple" onClick={() => save()}>
+        <Button className="btn-purple" onClick={() => {
+          if (boardStatus === 'Approved') {
+            setVisibleAlert(true)
+          } else {
+            save();
+          }
+        }}>
           Save
         </Button>
       </div>
@@ -86,5 +109,6 @@ export default ({ boardId, visible, setVisible, status, comment }: {
         </div>
       }
     </Drawer>
+    </>
   )
 }
