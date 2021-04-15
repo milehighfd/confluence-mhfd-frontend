@@ -3,7 +3,7 @@ import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { FilterNamesTypes } from '../Classes/MapTypes';
 import { removeFilter } from '../store/actions/filterActions';
-import { createNote, deleteNote, getNotes } from '../store/actions/notesActions';
+import { createNote, deleteNote, editNote, getNotes } from '../store/actions/notesActions';
 
 interface notesState {
   notes: []
@@ -42,6 +42,9 @@ export const useNoteDispatch = () => {
       },
       deleteNote: (id: any) => {
         dispatch(deleteNote(id));
+      },
+      editNote: (note: any) => {
+        dispatch(editNote(note));
       }
    }
 };
