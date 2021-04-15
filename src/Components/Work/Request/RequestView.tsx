@@ -346,7 +346,7 @@ const RequestView = ({ type }: {
               setTabKey(_tabKey)
             } else {
               if (type === "WORK_REQUEST") {
-
+                setTabKey(tabKeys[0])
               } else {
                 let l = r.localities.find((p: any) => {
                   return p.name === _locality;
