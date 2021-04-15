@@ -16,12 +16,13 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey }: {
+const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardStatus }: {
   project: any,
   columnIdx: number,
   rowIdx: number,
   saveData: Function,
-  tabKey: string
+  tabKey: string,
+  boardStatus: string
 }) => {
   const divRef = useRef(null);
   const {setZoomProject} = useProjectDispatch();
@@ -101,7 +102,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey }: {
       tabKey={tabKey}
       projectsubtype={projectsubtype}
       />
-    <div ref={divRef} className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable onDragStart={e => onDragStart(e, projectid)}
+    <div ref={divRef} className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable={boardStatus!== 'Approved'} onDragStart={e => onDragStart(e, projectid)}
       onDrop={(e: any) => {
         let dr: any = divRef.current;
         let bounds = dr.getBoundingClientRect();
