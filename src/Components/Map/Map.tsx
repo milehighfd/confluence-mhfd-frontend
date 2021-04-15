@@ -146,7 +146,7 @@ const Map = ({ leftWidth,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
     setSelectedPopup} = useMapDispatch();
-    const { getNotes } = useNoteDispatch();
+    const { getNotes, createNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
@@ -161,6 +161,13 @@ const Map = ({ leftWidth,
 
     }, [mobilePopups]);
     const [zoomValue, setZoomValue] = useState(0);
+    const colors = {
+        RED: '#FF0000',
+        ORANGE: '#FA6400',
+        GREY: 'rgba(00, 00, 00, 0.3)',
+        GREEN: '#29C499'
+    };
+    const [noteColor, setNoteColor] = useState(colors.GREEN);
     const { TabPane } = Tabs;
     const listDescription = false;
     const accordionRow: Array<any> = [
@@ -1279,24 +1286,97 @@ const Map = ({ leftWidth,
         map.on('click', (e: any) => {
             if (commentAvailable) {
                 console.log('enter here ', e.LngLat);
-                marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map);
-                popup.remove();
                 const html = commentPopup();
+                popup.remove();
                 popup = new mapboxgl.Popup();
-                popup.setLngLat(e.lngLat)
-                    .setHTML(html)
-                    .addTo(map);
+                marker.setPopup(popup);
+                popup.setHTML(html);
+                marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
                 const div = document.getElementById('color-list');
                 if (div != null) {
                     const ul = document.createElement('ul');
+                    ul.style.display = 'none';
                     ul.classList.add("list-popup-comment");
+                    div.addEventListener('click', () => {
+                        if (ul.style.display === 'none') {
+                            ul.style.display = 'block';
+                        } else {
+                            ul.style.display = 'none';
+                        }
+                    });
                     const inner = `
-                    <li><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
-                    <li><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
-                    <li><i class="mdi mdi-circle-medium" style="color:rgba(00, 00, 00, 0.3);"></i> Grey</li>
-                    <li><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
+                    <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
+                    <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
+                    <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgba(00, 00, 00, 0.3);"></i> Grey</li>
+                    <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
                     ul.innerHTML = inner;
                     div.appendChild(ul);
+                    const colorable = document.getElementById('colorable');
+                    const red = document.getElementById('red');
+                    if (red != null) {
+                        red.addEventListener('click', () => {
+                            setNoteColor(colors.RED);
+                            if (colorable != null) {
+                                colorable.style.color = colors.RED;
+                            }
+                        });
+                    }
+                    const orange = document.getElementById('orange');
+                    if (orange != null) {
+                        orange.addEventListener('click', () => {
+                            setNoteColor(colors.ORANGE);
+                            if (colorable != null) {
+                                colorable.style.color = colors.ORANGE;
+                            }
+                        });
+                    }
+                    const grey = document.getElementById('grey');
+                    if (grey != null) {
+                        grey.addEventListener('click', () => {
+                            setNoteColor(colors.GREY);
+                            if (colorable != null) {
+                                colorable.style.color = colors.GREY;
+                            }
+                        });
+                    }
+                    const green = document.getElementById('green');
+                    if (green != null) {
+                        green.addEventListener('click', () => {
+                            setNoteColor(colors.GREEN);
+                            if (colorable != null) {
+                                colorable.style.color = colors.GREEN;
+                            }
+                        });
+                    }
+                    const save = document.getElementById('save-comment');
+                    if (save != null) {
+                        save.addEventListener('click', () => {
+                            const textarea = (document.getElementById('textarea') as HTMLInputElement);
+                            if (textarea != null) {
+                                console.log(textarea.value);
+                                let color = '';
+                                if (colorable != null) {
+                                    if (colorable.style.color === colors.RED) {
+                                        color = 'red';
+                                    } else if (colorable.style.color === colors.ORANGE) {
+                                        color = 'orange';
+                                    } else if (colorable.style.color === colors.GREY) {
+                                        color = 'grey';
+                                    } else {
+                                        color = 'green';
+                                    }
+                                }
+                                const note = {
+                                    color: color,
+                                    content: textarea.value,
+                                    latitude: e.lngLat.lat,
+                                    longitude: e.lngLat.lng
+                                };
+                                console.log(note);
+                                createNote(note);
+                            }
+                        });
+                    }
                 }
                 return;
             }
@@ -1944,12 +2024,12 @@ const Map = ({ leftWidth,
         <li><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
     </ul>} overlayClassName="popover-comment">
-            <Button id="color-list" className="type-popover"><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Leave a Comment <DownOutlined /></Button>
+            <Button id="color-list" className="type-popover"><i id="colorable" className="mdi mdi-circle-medium" style={{color: colors.GREEN}}></i> Leave a Comment <DownOutlined /></Button>
         </Popover>
         </div>
         <div className="bodymap">
-            <TextArea rows={5} placeholder="Add Comments…" />
-            <Button>Save</Button>
+            <TextArea id="textarea" rows={5} placeholder="Add Comments…" />
+            <Button id="save-comment">Save</Button>
         </div>
         </div>
     </>);
