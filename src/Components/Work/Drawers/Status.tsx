@@ -14,23 +14,27 @@ export default ({ boardId, visible, setVisible, status, comment }: {
 }) => {
   const [boardStatus, setBoardStatus] = useState(status);
   const [boardComment, setBoardComment] = useState(comment);
-  const [showError, setShowError] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const [visibleAlert, setVisibleAlert] = useState(false);
+  const [message, setMessage] = useState('An Error has ocurred, please try again later');
 
   const save = () => {
     putData(`${SERVER.URL_BASE}/board/${boardId}`, {
+    // putData(`${'http://localhost:3003'}/board/${boardId}`, {
       status: boardStatus,
       comment: boardComment
     }, getToken())
         .then((r) => {
           if (!r) {
-            setShowError(true);
-            setTimeout(() => {
-              setShowError(false);
-            }, 5000)
+            setMessage('An Error has ocurred, please try again later');
           } else {
-            setVisible(false)
+            setMessage(`Projects sent to County ${r.toCounty} and Service Area ${r.toServiceArea}`);
           }
+          setShowMessage(true);
+          setTimeout(() => {
+            setShowMessage(false);
+            setVisible(false)
+          }, 10000)
         })
         .catch((e) => {
           console.log('e', e)
@@ -103,9 +107,9 @@ export default ({ boardId, visible, setVisible, status, comment }: {
         </Button>
       </div>
       {
-        showError &&
+        showMessage &&
         <div className="footer-drawer" style={{color:'red'}}>
-            An error has ocurred, please try again later
+            {message}
         </div>
       }
     </Drawer>

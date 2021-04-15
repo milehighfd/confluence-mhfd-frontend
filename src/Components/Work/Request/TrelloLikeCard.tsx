@@ -42,15 +42,20 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardSta
       <Menu.Item onClick={() => setShowModalProject(true)}>
         <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Edit Project</span>
       </Menu.Item>
-      <Menu.Item onClick={() => setShowAmountModal(true)}>
-        <span>
-          <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5' }} />
-          Edit Amount
-        </span>
-      </Menu.Item>
+      {
+        boardStatus!== 'Approved' && 
+        <Menu.Item onClick={() => setShowAmountModal(true)}>
+          <span>
+            <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5' }} />
+            Edit Amount
+          </span>
+        </Menu.Item>
+      }
       <Menu.Item onClick={()=> setZoomProject(project.projectData)}>
         <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Zoom to</span>
       </Menu.Item>
+      {
+        boardStatus!== 'Approved' && 
       <Menu.Item onClick={() => {
         deleteData(`${SERVER.URL_BASE}/board/project/${projectid}`, getToken())
         .then((r) => {
@@ -65,6 +70,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardSta
           Delete
         </span>
       </Menu.Item>
+      }
     </Menu>
   );
 
