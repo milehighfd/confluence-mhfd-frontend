@@ -37,7 +37,7 @@ const stateValue = {
 export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible, locality, data }:
   {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data: any} ) => {
 
-  const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition} = useProjectDispatch();
+  const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -92,8 +92,10 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       setProgress(data.acquisitionprogress);
       setPurchaseDate(data.acquisitionanticipateddate);
       setGeom(data.coordinates);
-      console.log("Jorge");
       setEditsetprojectid(data.projectid);
+      setEditLocation(data.coordinates);
+    } else {
+      setEditLocation(undefined);
     }
   },[data]);
 
@@ -160,7 +162,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="ACQUISITION" locality={locality}></CreateProjectMap>
+          <CreateProjectMap type="ACQUISITION" locality={locality} projectid={editprojectid}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

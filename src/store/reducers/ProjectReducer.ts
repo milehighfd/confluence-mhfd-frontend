@@ -1,9 +1,9 @@
-import { SET_LIST_COMPONENTS } from './../types/ProjectTypes';
 import { getStreamIntersection, setComponentsFromMap } from './../actions/ProjectActions';
 import * as types from '../types/ProjectTypes';
 import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS, XSTREAMS } from '../../constants/constants';
 
 const initState = {
+  editLocation: [],
   specialLocation: [],
   acquisitionLocation: [],
   userPolygon: [],
@@ -138,6 +138,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         zoomProject: action.zoomProject
+      }
+    }
+    case types.SET_EDIT_LOCATION: {
+      return {
+        ...state,
+        editLocation: action.editLocation
       }
     }
     default: 

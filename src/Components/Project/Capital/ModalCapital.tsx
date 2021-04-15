@@ -159,6 +159,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
       setProjectId(data.projectid);
+      setTimeout(()=>{        
+        setStreamIntersected({geom:data.createdCoordinates});
+      },2200);
     }
   },[data]);
 

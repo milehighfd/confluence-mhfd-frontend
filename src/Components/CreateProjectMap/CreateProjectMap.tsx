@@ -70,7 +70,7 @@ const CreateProjectMap = (type: any) => {
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected, updateSelectedLayers } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent } = useProjectState();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -135,6 +135,13 @@ const CreateProjectMap = (type: any) => {
           }
         )
   }, []);
+  useEffect(()=>{
+    if(editLocation){
+      setTimeout(()=>{
+        map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0]});})
+      },1300);
+    }
+  },[editLocation]);
   useEffect(()=>{
     if (map) {
       if (highlightedComponent.table) {
@@ -245,11 +252,13 @@ const CreateProjectMap = (type: any) => {
     }
   };
   useEffect(()=>{
-    if(type.projectid != -1) {
+    console.log("GET BBOX OF PROJECTid", type.projectid);
+    if(type.projectid != -1 && type.projectid) {
       getData(`${SERVER.URL_BASE}/board/bbox/${type.projectid}`)
       .then(
         (r: any) => { 
           if(r.bbox){
+            console.log("GET BBOX OF PROJECTid", type.projectid);
             let BBoxPolygon = JSON.parse(r.bbox);
             let bboxBounds = turf.bbox(BBoxPolygon);
             if(map.map){
@@ -342,6 +351,7 @@ const CreateProjectMap = (type: any) => {
   }, [isDraw]);
   useEffect(() => {
     let geom: any = undefined;
+    console.log("IS ABOUT TO ADD TO MAP", streamIntersected);
     if (streamIntersected && streamIntersected.geom) {
       console.log("OR HERE", streamIntersected);
       geom = JSON.parse(streamIntersected.geom);
@@ -957,6 +967,24 @@ const CreateProjectMap = (type: any) => {
 
       // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
 
+  }
+  const AddMarkerEdit = (e: any) => {
+    const html = loadPopupMarker();
+    if (html) {
+      popup.remove();
+      marker.setLngLat([e.lng, e.lat]).addTo(map.map);
+      let point = {lng:e.lng, lat: e.lat};
+      marker.getElement().addEventListener('click', () => {
+        addPopupMarker(point,html);
+      });
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lng, e.lat], [e.lng+0.0038, e.lat]] ]} };
+      if (type.type === 'SPECIAL') {
+        saveSpecialLocation(sendLine);
+      } else if (type.type === 'ACQUISITION') {
+        saveAcquisitionLocation(sendLine);
+      }
+      isPopup = true;
+    }
   }
   const addMarker = (e: any) => {
     const html = loadPopupMarker();

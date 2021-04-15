@@ -601,6 +601,7 @@ const RequestView = ({ type }: {
   const openEdit = (project:any,event:any) => {
     // setShowModalProject(true);
     // setCurrentProject(project);
+    console.log("REACHES OPEN EDIT", project );
     setShowModalEdit(project);
   }
   const setShowModalEdit = (project: any) => {

@@ -38,7 +38,7 @@ const stateValue = {
 export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality, data}:
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any}) => {
 
-  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial} = useProjectDispatch();
+  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -58,14 +58,15 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   useEffect(()=>{
     if(data!== 'no data' ) {
       setSwSave(true);
-      console.log("Jorge");
-      //console.log(data, "DAAAATAAAA")
       setCounty(data.county);
       setDescription(data.description);
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
       setGeom(data.coordinates);
       setEditsetprojectid(data.projectid);
+      setEditLocation(data.coordinates);
+    } else {
+      setEditLocation(undefined);
     }
   },[data]);
   useEffect(()=>{
@@ -155,7 +156,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-            <CreateProjectMap type="SPECIAL" locality={locality}></CreateProjectMap>
+            <CreateProjectMap type="SPECIAL" locality={locality} projectid={editprojectid}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

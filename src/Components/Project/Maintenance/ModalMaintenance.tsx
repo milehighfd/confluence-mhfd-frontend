@@ -54,6 +54,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [geom, setGeom] = useState();
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
+  const [projectid, setProjectId ] = useState(-1);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -65,6 +66,11 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       setDescription(data.description);
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
+      setProjectId(data.projectid);
+      setTimeout(()=>{        
+        setStreamIntersected({geom:data.createdCoordinates});
+      },2200);
+      
     }
   },[data]);
   useEffect(()=>{
@@ -182,7 +188,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="MAINTENANCE" locality={locality}></CreateProjectMap>
+          <CreateProjectMap type="MAINTENANCE" locality={locality} projectid={projectid}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

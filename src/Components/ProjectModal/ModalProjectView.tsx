@@ -22,7 +22,7 @@ const content04 = (<div className="popver-info">Re-establishing the natural proc
 
 export const ModalProjectView = ({visible, setVisible, data, template, defaultTab, showDefaultTab, locality }: 
   {visible: boolean, setVisible: Function, data: any, template?: any, defaultTab?: any, showDefaultTab?: any, locality?: any}) => {
-    console.log("DATA", data);
+    console.log("DATA XX", data);
   const {setSave} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');

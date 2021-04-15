@@ -252,7 +252,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="STUDY" setGeom={setGeom} locality={locality}></CreateProjectMap>
+          <CreateProjectMap type="STUDY" setGeom={setGeom} locality={locality} projectid={projectid}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

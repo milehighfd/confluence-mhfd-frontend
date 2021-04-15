@@ -43,9 +43,8 @@ export const DropPin = ({typeProject, geom, setGeom}:
   ];
   useEffect(()=>{
     if(geom) {
-      setLatitude(geom[0]);
-      setLongitude(geom[1]);
-      console.log(geom[0], "Jorge", geom[1]); //Maybe this is wrong, the geom has the coordinates
+      // setLatitude(geom[0][0]);
+      // setLongitude(geom[0][1]); 
     }
   }, []);
   const changeLocation = () => {
@@ -55,8 +54,9 @@ export const DropPin = ({typeProject, geom, setGeom}:
   }
   useEffect(()=>{
     if(specialLocation.geom) {
-      setLatitude( parseFloat(specialLocation.geom.coordinates[0][1]).toFixed(2) );
-      setLongitude( parseFloat(specialLocation.geom.coordinates[0][0]).toFixed(2) );
+      console.log("SPC:", acquisitionLocation.geom);
+      setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(2) );
+      setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(2) );
       setLocation(specialLocation.geom);
       setGeom(specialLocation.geom);
     }
@@ -64,8 +64,9 @@ export const DropPin = ({typeProject, geom, setGeom}:
 
   useEffect(()=>{
     if(acquisitionLocation.geom) {
-      setLatitude(parseFloat(acquisitionLocation.geom.coordinates[0][1]).toFixed(2)    );
-      setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0]).toFixed(2)   );
+      console.log("ACQ:", acquisitionLocation.geom);
+      setLatitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][1]).toFixed(2)    );
+      setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][0]).toFixed(2)   );
       setLocation(acquisitionLocation.geom);
       setGeom(acquisitionLocation.geom);
     }

@@ -394,3 +394,8 @@ export const setZoomProject = (zoomProject: any) => {
     dispatch({type: types.SET_ZOOM_PROJECT, zoomProject});
   }
 }
+export const setEditLocation = (editLocation: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_EDIT_LOCATION, editLocation});
+  }
+}

@@ -117,7 +117,7 @@ const WorkRequestMap = (type: any) => {
     
   },[layerFilters]);
   useEffect(()=>{
-    if(zoomProject) {
+    if(zoomProject && zoomProject.projectid) {
       getData(`${SERVER.URL_BASE}/board/bbox/${zoomProject.projectid}`)
         .then(
           (r: any) => { 
