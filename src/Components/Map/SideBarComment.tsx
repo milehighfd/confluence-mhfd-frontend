@@ -15,7 +15,6 @@ const data = [
 const content = (
   <List
     size="small"
-    footer={<Button>Leave a Comment</Button>}
     bordered
     dataSource={data}
     renderItem={item => <List.Item>{item}</List.Item>}

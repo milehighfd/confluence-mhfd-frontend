@@ -39,6 +39,7 @@
   }
   .ant-list-sm .ant-list-item{
     margin: 0px 10px;
+    width: 110px;
   }
   .ant-list-bordered.ant-list-sm .ant-list-item {
     padding-right: 0px;
@@ -224,6 +225,9 @@
     .anticon{
       font-size: 12px;
     }
+    .ant-list-sm .ant-list-item{
+      width: 130px;
+    }
   }
   .comment-drawer{
     .ant-drawer-content-wrapper{
@@ -335,6 +339,9 @@
     }
     .anticon{
       font-size: 16px;
+    }
+    .ant-list-sm .ant-list-item{
+      width: 160px;
     }
   }
   .comment-drawer{
