@@ -52,7 +52,7 @@ const SideBarComment = ({visible, setVisible}: {visible: boolean, setVisible: Fu
     if (ms === 0) {
         return 'Just now';
     } if (seconds < 60) {
-        return seconds + ' seconds Ago';
+        return 'a few seconds Ago';
     } if (minutes < 60) {
         return minutes + ' minutes Ago';
     } if (hours < 24) {
