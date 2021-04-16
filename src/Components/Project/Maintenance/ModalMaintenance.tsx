@@ -36,7 +36,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
 
   const {userPolygon, streamIntersected} = useProjectState();
-  const {saveProjectMaintenance, setStreamIntersected} = useProjectDispatch();
+  const {saveProjectMaintenance, setStreamIntersected, setEditLocation} = useProjectDispatch();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -71,6 +71,9 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
         setStreamIntersected({geom:data.createdCoordinates});
       },2200);
       
+    } else {
+      setStreamIntersected([]);
+      setEditLocation(undefined);
     }
   },[data]);
   useEffect(()=>{

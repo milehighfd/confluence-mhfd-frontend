@@ -120,7 +120,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [disable, setDisable] = useState(false);
   const [serviceArea, setServiceArea] = useState('');
   const [isDrawState, setIsDraw] = useState(false);
-  const {changeDrawState} = useProjectDispatch();
+  const {changeDrawState, setEditLocation} = useProjectDispatch();
   const [county, setCounty] = useState('');
   const [projectid, setProjectId ] = useState(-1);
   const {isDraw} = useProjectState();
@@ -162,6 +162,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setTimeout(()=>{        
         setStreamIntersected({geom:data.createdCoordinates});
       },2200);
+    } else {
+      setStreamIntersected([]);
+      setEditLocation(undefined);
     }
   },[data]);
 

@@ -158,21 +158,29 @@ const Map = ({ leftWidth,
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
     const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
     useEffect(()=> {
-        console.log(mobilePopups);
+        // console.log(mobilePopups);
 
     }, [mobilePopups]);
     const [zoomValue, setZoomValue] = useState(0);
     const colors = {
         RED: '#FF0000',
         ORANGE: '#FA6400',
-        GREY: 'rgba(00, 00, 00, 0.3)',
+        GREY: 'rgba(0, 0, 0, 0.3)',
         GREEN: '#29C499'
     };
+    const colorsCodes = {
+      RED: 'rgb(255, 0, 0)',
+      ORANGE:  'rgb(250, 100, 0)',
+      GREY: 'rgba(0, 0, 0, 0.3)',
+      GREEN: '#29C499'
+    }
     const [noteColor, setNoteColor] = useState(colors.GREEN);
     const [noteGeoJSON, setNoteGeoJSON] = useState({
         "type": "FeatureCollection",
         "features": []
     });
+    const [markersNotes, setMarkerNotes] = useState([]) ;
+
     const { TabPane } = Tabs;
     const listDescription = false;
     const accordionRow: Array<any> = [
@@ -394,20 +402,50 @@ const Map = ({ leftWidth,
     }, [data]);
 
     useEffect(() => {
+        let totalmarkers:any = [];
         if (map) {
-            if (map.getSource('note-geojson')) {
-                map.removeSource('note-geojson');
-                map.addSource('note-geojson', {
-                    type: 'geojson',
-                    data: noteGeoJSON
-                });
-                if (map.getLayer('note-geojson')) {
-                    map.removeLayer('note-geojson');
-                }
+          notes.forEach( (note: any) => {
+            let colorOfMarker = '';
+            switch(note.color) {
+              case 'green': 
+                colorOfMarker = colors.GREEN;
+                break;
+              case 'grey':
+                colorOfMarker = colors.GREY;
+                break;
+              case 'orange':
+                colorOfMarker = colors.ORANGE;
+                break;
+              case 'red':
+                colorOfMarker = colors.RED;
+                break;
+              default: 
+                colorOfMarker = colors.GREY;
             }
+            const newmarker = new mapboxgl.Marker({ color: colorOfMarker, scale: 0.7 });
+            console.log("NOTE SENDNG", note);
+            const html = commentPopup(note);  
+                let newpopup = new mapboxgl.Popup();
+                newmarker.setPopup(newpopup);
+                newpopup.setHTML(html);
+                newmarker.setLngLat([note.longitude, note.latitude]).setPopup(newpopup);
+            totalmarkers.push(newmarker);
+          });
+          setMarkerNotes(totalmarkers);   
         }
     }, [notes]);
-
+    useEffect(()=>{
+      console.log("MARKERS NIOTES", markersNotes);
+      if(commentVisible && markersNotes.length > 0) {
+        markersNotes.forEach((marker:any) => {
+          marker.addTo(map)
+        });
+      } else if(markersNotes.length > 0 ){
+        markersNotes.forEach((marker:any) => {
+          marker.remove(map)
+        });
+      }
+    },[markersNotes, commentVisible]);
     useEffect(() => {
         let mask
         if (coordinatesJurisdiction.length > 0) {
@@ -1376,11 +1414,11 @@ const Map = ({ leftWidth,
                                 console.log(textarea.value);
                                 let color = '';
                                 if (colorable != null) {
-                                    if (colorable.style.color === colors.RED) {
+                                    if (colorable.style.color === colorsCodes.RED) {
                                         color = 'red';
-                                    } else if (colorable.style.color === colors.ORANGE) {
+                                    } else if (colorable.style.color === colorsCodes.ORANGE) {
                                         color = 'orange';
-                                    } else if (colorable.style.color === colors.GREY) {
+                                    } else if (colorable.style.color === colorsCodes.GREY) {
                                         color = 'grey';
                                     } else {
                                         color = 'green';
@@ -1394,6 +1432,8 @@ const Map = ({ leftWidth,
                                 };
                                 console.log(note);
                                 createNote(note);
+                                popup.remove();
+                                marker.remove();
                             }
                         });
                     }
@@ -2034,7 +2074,21 @@ const Map = ({ leftWidth,
         }
     }
 
-    const commentPopup = () => ReactDOMServer.renderToStaticMarkup(
+    const getColor = (color: any) => {
+      switch(color) {
+        case 'green': 
+          return colors.GREEN;
+        case 'grey':
+          return colors.GREY;
+        case 'orange':
+          return colors.ORANGE;
+        case 'red':
+          return colors.RED;
+        default: 
+          return colors.GREEN;
+      }
+    };
+    const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
     <>
         <div className="popup-comment">
         <div className="headmap">
@@ -2044,11 +2098,11 @@ const Map = ({ leftWidth,
         <li><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
     </ul>} overlayClassName="popover-comment">
-            <Button id="color-list" className="type-popover"><i id="colorable" className="mdi mdi-circle-medium" style={{color: colors.GREEN}}></i> Leave a Comment <DownOutlined /></Button>
+            <Button id="color-list" className="type-popover"><i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> { note?note.color:'Leave a Comment' }<DownOutlined /></Button>
         </Popover>
         </div>
         <div className="bodymap">
-            <TextArea id="textarea" rows={5} placeholder="Add Comments…" />
+            <TextArea id="textarea" rows={5} placeholder={note? note.content:"Add Comments…"} />
             <div style={{display:'flex'}}>
                 <Button style={{color:'red', marginRight:'5px'}}>Delete</Button> 
                 <Button id="save-comment">Save</Button>
