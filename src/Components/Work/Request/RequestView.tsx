@@ -17,9 +17,8 @@ import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
 import Status from "../Drawers/Status";
 
-import { compareColumns, defaultColumns, formatter, generateColumns, getCsv, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
+import { compareColumns, defaultColumns, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
-import { SubmitModal } from "./SubmitModal";
 import StatusPlan from "../Drawers/StatusPlan";
 import StatusDistrict from "../Drawers/StatusDistrict";
 import Filter from "../Drawers/Filter";
@@ -81,6 +80,10 @@ const RequestView = ({ type }: {
   const [localities, setLocalities] = useState<any[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [localityFilter, setLocalityFilter] = useState('');
+  const [jurisdictionFilterList, setJurisdictionFilterList] = useState([]);
+  const [csaFilterList, setCsaFilterList] = useState([]);
+  const [jurisdictionSelected, setJurisdictionSelected] = useState([]);
+  const [csaSelected, setCsaSelected] = useState([]);
 
   const onDragOver = (e: any) => {
     e.preventDefault();
@@ -329,53 +332,24 @@ const RequestView = ({ type }: {
   }, [namespaceId, columns]);
 
   useEffect(() => {
-    console.log("Do I have it here Columns?", columns);
-    let allProjects = columns.reduce((acc: any[], cv: any) => {
-      return [...acc, ...cv.projects]
-    }, [])
-    let ht: any = {};
-    allProjects = allProjects.filter((p: any) => {
-      if (!ht[p.project_id]) {
-        ht[p.project_id] = p;
-        return true;
-      }
-      return false;
+    let [rows, totals] = getTotalsByProperty(columns, 'county');
+    let [a, b] = getTotalsByProperty(columns, 'servicearea');
+    let [c, d] = getTotalsByProperty(columns, 'jurisdiction');
+    let uniqueServiceArea = a.map((p: any) => p.locality);
+    let uniqueJurisdictions = c.map((p: any) => p.locality);
+    let uniqueCounties = rows.map((p: any) => p.locality);
+    setJurisdictionFilterList(uniqueJurisdictions);
+    let l = localities.find((p: any) => {
+      return p.name === locality;
     })
-
-    let countyMap: any = {}
-    allProjects.forEach((p: any) => {
-      let county = p.projectData.county;
-      if (!countyMap[county]) {
-        countyMap[county] = {
-          req1: 0, req2: 0, req3: 0, req4: 0, req5: 0,
-          cnt1: 0, cnt2: 0, cnt3: 0, cnt4: 0, cnt5: 0,
-          projects: [],
-        }
+    if (l) {
+      if (l.type === 'COUNTY') {
+        setCsaFilterList(uniqueCounties);
+      } else {
+        setCsaFilterList(uniqueServiceArea);
       }
-      countyMap[county].projects.push(p);
-      for(var i = 1; i <= 5 ; i++) {
-        countyMap[county][`req${i}`] += p[`req${i}`];
-        if (p[`req${i}`]) {
-          countyMap[county][`cnt${i}`]++;
-        }
-      }
-    })
-    let rows: any = [];
-    let totals: any = { req1: 0, req2: 0, req3: 0, req4: 0, req5: 0 };
-    Object.keys(countyMap).forEach((county: string) => {
-      let obj: any = {
-        county
-      }
-      for(var i = 1; i <= 5 ; i++) {
-        let amount = countyMap[county][`req${i}`];
-        obj[`req${i}`]= amount;
-        obj[`cnt${i}`]= countyMap[county][`cnt${i}`];
-        totals[`req${i}`] += amount;
-      }
-      rows.push(obj);
-    });
+    }
     setSumTotal(totals);
-    // console.log('rows', rows)
     setSumByCounty(rows);
   }, [columns]);
 
@@ -552,8 +526,15 @@ const RequestView = ({ type }: {
         />
     }
     {
-      showFilters && 
-        <Filter visible={showFilters} setVisible={setShowFilters} />
+      showFilters && <Filter
+        visible={showFilters}
+        setVisible={setShowFilters}
+        data={sumByCounty}
+        jurisdictionFilterList={jurisdictionFilterList}
+        csaFilterList={csaFilterList}
+        setJS={setJurisdictionSelected}
+        setCS={setCsaSelected}
+        />
     }
     <div>
       {
@@ -697,7 +678,7 @@ const RequestView = ({ type }: {
                                         <div className="tab-body-line">
                                           <div>
                                             <label>
-                                              {countySum.county}
+                                              {countySum.locality}
                                               <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginLeft:'4px'}} />
                                               </Popover>
                                             </label>

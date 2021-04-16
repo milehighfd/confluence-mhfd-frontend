@@ -329,3 +329,51 @@ export const getCsv = (
     csvData.push(differental);
     return csvData;
 }
+
+export const getTotalsByProperty = (columns: any[], property: string) => {
+  let allProjects = columns.reduce((acc: any[], cv: any) => {
+    return [...acc, ...cv.projects]
+  }, [])
+  let ht: any = {};
+  allProjects = allProjects.filter((p: any) => {
+    if (!ht[p.project_id]) {
+      ht[p.project_id] = p;
+      return true;
+    }
+    return false;
+  })
+
+  let localityMap: any = {}
+  allProjects.forEach((p: any) => {
+    let locality = p.projectData[property];
+    if (!localityMap[locality]) {
+      localityMap[locality] = {
+        req1: 0, req2: 0, req3: 0, req4: 0, req5: 0,
+        cnt1: 0, cnt2: 0, cnt3: 0, cnt4: 0, cnt5: 0,
+        projects: [],
+      }
+    }
+    localityMap[locality].projects.push(p);
+    for(var i = 1; i <= 5 ; i++) {
+      localityMap[locality][`req${i}`] += p[`req${i}`];
+      if (p[`req${i}`]) {
+        localityMap[locality][`cnt${i}`]++;
+      }
+    }
+  })
+  let rows: any = [];
+  let totals: any = { req1: 0, req2: 0, req3: 0, req4: 0, req5: 0 };
+  Object.keys(localityMap).forEach((locality: string) => {
+    let obj: any = {
+      locality
+    }
+    for(var i = 1; i <= 5 ; i++) {
+      let amount = localityMap[locality][`req${i}`];
+      obj[`req${i}`]= amount;
+      obj[`cnt${i}`]= localityMap[locality][`cnt${i}`];
+      totals[`req${i}`] += amount;
+    }
+    rows.push(obj);
+  });
+  return [rows, totals];
+}

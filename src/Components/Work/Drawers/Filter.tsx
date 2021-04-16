@@ -1,11 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { Drawer, Row, Col, Input, Button, Dropdown, Menu, Checkbox } from 'antd';
+import React, { useEffect, useState } from "react";
+import { Drawer, Button, Checkbox } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
-export default ({visible, setVisible}: {
+export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterList, setJS, setCS }: {
   visible: boolean,
   setVisible: Function,
+  data: any[],
+  jurisdictionFilterList: string[],
+  csaFilterList: string[],
+  setJS: Function,
+  setCS: Function,
 }) => {
+  const [jurisdictionSelected, setJurisdictionSelected] = useState<any[]>([]);
+  const [csaSelected, setCsaSelected] = useState<any[]>([]);
+
+  useEffect(() => {
+    setJurisdictionSelected(jurisdictionFilterList.map(r => true));
+    setCsaSelected(csaFilterList.map(r => true));
+  }, [jurisdictionFilterList, csaFilterList])
+
+  const applyFilters = () => {
+    setJS(jurisdictionFilterList.filter((_, index) => {
+      return jurisdictionSelected[index];
+    }))
+    setJS(jurisdictionFilterList.filter((_, index) => {
+      return jurisdictionSelected[index];
+    }))
+  }
+
   return (
     <Drawer
       title={<h5>
@@ -21,27 +43,55 @@ export default ({visible, setVisible}: {
       <div className="filter-plan">
         <div className="head-f-p">JURISDICTION</div>
         <div className="body-f-p">
-          <p>Boulder <span><Checkbox/></span></p>
-          <p>Erie <span><Checkbox/></span></p>
-          <p>Lafayette <span><Checkbox/></span></p>
-          <p>Louisville <span><Checkbox/></span></p>
-          <p>Superior <span><Checkbox/></span></p>
-          <p>Unincorporated Boulder County <span><Checkbox/></span></p>
+          {
+            jurisdictionFilterList.map((cn: string, index: number) => (
+              <p>
+                {cn}
+                <span>
+                <Checkbox checked={jurisdictionSelected[index]} onChange={e => {
+                  let v = e.target.checked;
+                  setJurisdictionSelected(jurisdictionSelected.map((w, i) => {
+                    if (i === index) {
+                      return v;
+                    }
+                    return w;
+                  }))
+                }} />
+                </span>
+              </p>
+            ))
+          }
+        
         </div>
       </div>
 
       <div className="filter-plan">
         <div className="head-f-p">SERVICE AREA</div>
         <div className="body-f-p">
-          <p>North <span><Checkbox/></span></p>
-          <p>Cherry Creek <span><Checkbox/></span></p>
-          <p>Boulder Creek <span><Checkbox/></span></p>
-          <p>West <span><Checkbox/></span></p>
-          <p>Sand Creek <span><Checkbox/></span></p>
+          {
+            csaFilterList.map((cn: string, index: number) => (
+              <p>
+                {cn}
+                <span>
+                <Checkbox checked={csaSelected[index]} onChange={e => {
+                  let v = e.target.checked;
+                  setCsaSelected(csaSelected.map((w, i) => {
+                    if (i === index) {
+                      return v;
+                    }
+                    return w;
+                  }))
+                }} />
+                </span>
+              </p>
+            ))
+          }
         </div>
       </div>
       <div className="footer-drawer">
-        <Button className="btn-purple">Apply</Button>
+        <Button className="btn-purple" onClick={applyFilters}>
+          Apply
+        </Button>
       </div>
     </Drawer>
   )
