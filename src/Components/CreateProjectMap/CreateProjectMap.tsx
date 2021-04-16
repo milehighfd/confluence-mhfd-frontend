@@ -235,11 +235,18 @@ const CreateProjectMap = (type: any) => {
     // console.log("VALULE", value, zoomareaSelected);
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
-      let coord = turf.centroid(poly);
-      if(coord.geometry && coord.geometry.coordinates) {
-        let value = coord.geometry.coordinates;
-          map.isStyleLoaded(()=> map.map.flyTo({ center: value, zoom: 10 }));
+      // mask = turf.multiPolygon(coordinatesJurisdiction);
+      let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
+      // let coord = turf.centroid(poly);
+      // // console.log("COROD", coord);
+      // if(coord.geometry && coord.geometry.coordinates) {
+      //   let value = coord.geometry.coordinates;
+      //   // console.log("FLU TO ", value);
+      //     map.map.flyTo({ center: value, zoom: 10 });
+      // }
+      let bboxBounds = turf.bbox(poly);
+      if(map.map){
+        map.map.fitBounds(bboxBounds,{ padding:70, maxZoom: 13});
       }
     }
   }
@@ -275,14 +282,16 @@ const CreateProjectMap = (type: any) => {
     }
   },[type.projectid]);
   useEffect(()=>{
-    let value = localAOI;
-    if(type.locality) {
-      value = type.locality;
-    } 
-      // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
-    if(groupOrganization.length > 0) {
-      wait(()=>setBounds(value));
-    }
+    setTimeout(()=>{
+      let value = localAOI;
+      if(type.locality) {
+        value = type.locality;
+      } 
+        // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
+      if(groupOrganization.length > 0) {
+        wait(()=>setBounds(value));
+      }
+    },500);
   },[groupOrganization, type.locality, localAOI]);
   useEffect(()=>{
     if(listComponents && listComponents.result && listComponents.result.length > 0) {

@@ -168,7 +168,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    // console.log("UPDATES ON NEW PROJECT??", idsBoardProjects);
+    console.log("UPDATES ON NEW PROJECT??", idsBoardProjects);
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -184,13 +184,14 @@ const WorkRequestMap = (type: any) => {
                   // subKey = mhfd_projects_copy
                   addLayersSource('mhfd_projects_copy', tiles['mhfd_projects_copy']);
                   setTimeout(()=>{
+                    console.log("IS ABOUT TO SHOW MHFD PROJECT _ COPY");
                     showLayers('mhfd_projects_copy');
                     applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
                   },1200);
                 }
                 
               });
-            },1500);
+            },1000);
             
           // });
       }
@@ -282,16 +283,20 @@ const WorkRequestMap = (type: any) => {
         coordinates: element.coordinates
       }
     });
-    // console.log("VALUELELE", value, zoomareaSelected);
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
-      let coord = turf.centroid(poly);
-      // console.log("COROD", coord);
-      if(coord.geometry && coord.geometry.coordinates) {
-        let value = coord.geometry.coordinates;
-        // console.log("FLU TO ", value);
-          map.map.flyTo({ center: value, zoom: 10 });
+      // mask = turf.multiPolygon(coordinatesJurisdiction);
+      let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
+      // let coord = turf.centroid(poly);
+      // // console.log("COROD", coord);
+      // if(coord.geometry && coord.geometry.coordinates) {
+      //   let value = coord.geometry.coordinates;
+      //   // console.log("FLU TO ", value);
+      //     map.map.flyTo({ center: value, zoom: 10 });
+      // }
+      let bboxBounds = turf.bbox(poly);
+      if(map.map){
+        map.map.fitBounds(bboxBounds,{ padding:70, maxZoom: 13});
       }
     }
   }
@@ -304,14 +309,16 @@ const WorkRequestMap = (type: any) => {
     }
   };
   useEffect(()=>{
-    let value = store.getState().profile.userInformation.zoomarea;
-    if(type.locality) {
-      value = type.locality;
-    }
-      // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
-    if(groupOrganization.length > 0) {
-      wait(()=>setBounds(value));
-    }
+    setTimeout(()=>{
+      let value = store.getState().profile.userInformation.zoomarea;
+      if(type.locality) {
+        value = type.locality;
+      }
+        // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
+      if(groupOrganization.length > 0) {
+        wait(()=>setBounds(value));
+      }
+    },500);
   },[groupOrganization, type.locality]);
   // useEffect(()=>{
   //   if(listComponents && listComponents.result && listComponents.result.length > 0) {
@@ -340,13 +347,13 @@ const WorkRequestMap = (type: any) => {
         applyMapLayers();
         let eventToClick = eventService.getRef('click');
         map.map.on('click',eventToClick);
-        map.map.on('movestart', () => {
-          if (map.map.getLayer('mask')) {
-              map.map.setLayoutProperty('mask', 'visibility', 'visible');
-              map.map.removeLayer('mask');
-              map.map.removeSource('mask');
-          }
-        })
+        // map.map.on('movestart', () => {
+        //   if (map.map.getLayer('mask')) {
+        //       map.map.setLayoutProperty('mask', 'visibility', 'visible');
+        //       map.map.removeLayer('mask');
+        //       map.map.removeSource('mask');
+        //   }
+        // })
       })
       // map.map.on('style.load', () => {
         
@@ -586,6 +593,7 @@ const WorkRequestMap = (type: any) => {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
       if(key ==='mhfd_projects_copy'){
+        console.log("OR IS ADDING THIS THINGS at apply filters");
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', ['-1']]]);
       }
       if (map.getLayer(key + '_' + index)) {
@@ -767,7 +775,7 @@ const WorkRequestMap = (type: any) => {
         source: key,
         ...style
       });
-      // if (!key.includes('streams')) {
+      // if (!key.includes('mhfd_projects_copy')) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       // }
 
