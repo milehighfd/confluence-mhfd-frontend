@@ -2444,7 +2444,7 @@ const Map = ({ leftWidth,
                               latitude: filterMarker[0].note.latitude,
                               longitude: filterMarker[0].note.longitude
                           };
-                          // editNote(note); uncomment to edit
+                          editNote(note); 
                             
                         }
                     });
