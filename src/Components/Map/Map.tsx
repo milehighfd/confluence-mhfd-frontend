@@ -59,7 +59,7 @@ import MapService from './MapService';
 import MobilePopup from '../MobilePopup/MobilePopup';
 import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 import SideBarComment from './SideBarComment';
-import { useNoteDispatch } from '../../hook/notesHook';
+import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
 
@@ -146,6 +146,7 @@ const Map = ({ leftWidth,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
     setSelectedPopup} = useMapDispatch();
+    const { notes } = useNotesState();
     const { getNotes, createNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
@@ -168,6 +169,10 @@ const Map = ({ leftWidth,
         GREEN: '#29C499'
     };
     const [noteColor, setNoteColor] = useState(colors.GREEN);
+    const [noteGeoJSON, setNoteGeoJSON] = useState({
+        "type": "FeatureCollection",
+        "features": []
+    });
     const { TabPane } = Tabs;
     const listDescription = false;
     const accordionRow: Array<any> = [
@@ -387,6 +392,21 @@ const Map = ({ leftWidth,
             setVisible(true);
         }
     }, [data]);
+
+    useEffect(() => {
+        if (map) {
+            if (map.getSource('note-geojson')) {
+                map.removeSource('note-geojson');
+                map.addSource('note-geojson', {
+                    type: 'geojson',
+                    data: noteGeoJSON
+                });
+                if (map.getLayer('note-geojson')) {
+                    map.removeLayer('note-geojson');
+                }
+            }
+        }
+    }, [notes]);
 
     useEffect(() => {
         let mask
@@ -2010,7 +2030,7 @@ const Map = ({ leftWidth,
             });
             map.on('mouseleave', key, () => {
                 map.getCanvas().style.cursor = '';
-            })
+            });
         }
     }
 
@@ -2258,6 +2278,12 @@ const Map = ({ leftWidth,
         setKeyword(placeName);
     };
     //end geocoder
+    const flyTo = (longitude: number, latitude: number) => {
+        map.flyTo({
+            center: [longitude, latitude],
+            zoom: 12
+            });
+    }
 
     const showMHFD = () => {
         setAutocomplete('')
@@ -2290,7 +2316,8 @@ const Map = ({ leftWidth,
 
     return (
         <>
-        <SideBarComment visible={commentVisible} setVisible={setCommentVisible}></SideBarComment>
+        <SideBarComment visible={commentVisible} setVisible={setCommentVisible} 
+        flyTo={flyTo}></SideBarComment>
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}

@@ -42,6 +42,7 @@ const SideBarComment = ({visible, setVisible, flyTo}: {visible: boolean, setVisi
         <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
       </Menu.Item>
       <Menu.Item onClick={() => {
+        //it's destroying the app , but the endpoint works well :) <3
         deleteNote(note._id);
       }}>
         <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
