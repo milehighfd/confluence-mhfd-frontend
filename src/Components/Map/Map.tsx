@@ -147,7 +147,7 @@ const Map = ({ leftWidth,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
     setSelectedPopup} = useMapDispatch();
     const { notes } = useNotesState();
-    const { getNotes, createNote } = useNoteDispatch();
+    const { getNotes, createNote, editNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
@@ -1441,6 +1441,17 @@ const Map = ({ leftWidth,
                             }
                         });
                     }
+                    const edit = document.getElementById('edit-comment');
+                      if (edit != null) {
+                        
+                          edit.addEventListener('click', () => {
+                              const textarea = (document.getElementById('textarea') as HTMLInputElement);
+                              if (textarea != null) {
+                                  console.log("VAL", textarea.value);
+                                  
+                              }
+                          });
+                      }
                 }
                 return;
             }
@@ -2109,7 +2120,7 @@ const Map = ({ leftWidth,
             <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}}>
                 <Button style={{color:'red', marginRight:'5px'}}>Delete</Button> 
-                <Button id="save-comment">Save</Button>
+                { note? (<Button id="edit-comment">Edit</Button>): (<Button id="save-comment">Save</Button>) }
             </div>
 
         </div>
@@ -2344,9 +2355,102 @@ const Map = ({ leftWidth,
     }
     const openEditNote = (note: any) => {
       flyTo(note.longitude, note.latitude);
+      markersNotes.forEach((marker:any) => {
+        let popupC = marker.marker.getPopup();
+        popupC.remove();
+      });
       let filterMarker: any = markersNotes.filter((marker:any) => marker.note._id == note._id  );
       if(filterMarker.length > 0) { 
         filterMarker[0].marker.togglePopup();
+        setTimeout(()=>{
+          const div = document.getElementById('color-list');
+          if (div != null) {
+              const ul = document.createElement('ul');
+              ul.style.display = 'none';
+              ul.classList.add("list-popup-comment");
+              div.addEventListener('click', () => {
+                  if (ul.style.display === 'none') {
+                      ul.style.display = 'block';
+                  } else {
+                      ul.style.display = 'none';
+                  }
+              });
+              const inner = `
+              <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
+              <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
+              <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgba(00, 00, 00, 0.3);"></i> Grey</li>
+              <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
+              ul.innerHTML = inner;
+              div.appendChild(ul);
+                const colorable = document.getElementById('colorable');
+                const red = document.getElementById('red');
+                if (red != null) {
+                    red.addEventListener('click', () => {
+                        setNoteColor(colors.RED);
+                        if (colorable != null) {
+                            colorable.style.color = colors.RED;
+                        }
+                    });
+                }
+                const orange = document.getElementById('orange');
+                if (orange != null) {
+                    orange.addEventListener('click', () => {
+                        setNoteColor(colors.ORANGE);
+                        if (colorable != null) {
+                            colorable.style.color = colors.ORANGE;
+                        }
+                    });
+                }
+                const grey = document.getElementById('grey');
+                if (grey != null) {
+                    grey.addEventListener('click', () => {
+                        setNoteColor(colors.GREY);
+                        if (colorable != null) {
+                            colorable.style.color = colors.GREY;
+                        }
+                    });
+                }
+                const green = document.getElementById('green');
+                if (green != null) {
+                    green.addEventListener('click', () => {
+                        setNoteColor(colors.GREEN);
+                        if (colorable != null) {
+                            colorable.style.color = colors.GREEN;
+                        }
+                    });
+                }
+                const edit = document.getElementById('edit-comment');
+                if (edit != null) {
+                    edit.addEventListener('click', () => {
+                        const textarea = (document.getElementById('textarea') as HTMLInputElement);
+                        if (textarea != null) {
+                          console.log(textarea.value);
+                          let color = '';
+                          if (colorable != null) {
+                              if (colorable.style.color === colorsCodes.RED) {
+                                  color = 'red';
+                              } else if (colorable.style.color === colorsCodes.ORANGE) {
+                                  color = 'orange';
+                              } else if (colorable.style.color === colorsCodes.GREY) {
+                                  color = 'grey';
+                              } else {
+                                  color = 'green';
+                              }
+                          }
+                          const note = {
+                              _id: filterMarker[0].note._id,
+                              color: color,
+                              content: textarea.value,
+                              latitude: filterMarker[0].note.latitude,
+                              longitude: filterMarker[0].note.longitude
+                          };
+                          // editNote(note); uncomment to edit
+                            
+                        }
+                    });
+                }
+            }
+        },300);
       } 
     }
     const showMHFD = () => {

@@ -31,6 +31,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
   }
   const [latitude, setLatitude] = useState('--');
   const [longitude, setLongitude] = useState('--');
+  const {saveSpecialLocation, saveAcquisitionLocation} = useProjectDispatch();
   const {specialLocation, acquisitionLocation, isAddLocation} = useProjectState();
   const [location, setLocation] =useState();
   const [isLocation, setIsLocation] = useState(false);
@@ -45,6 +46,11 @@ export const DropPin = ({typeProject, geom, setGeom}:
     if(geom) {
       // setLatitude(geom[0][0]);
       // setLongitude(geom[0][1]); 
+      setLatitude(geom[0][0]);
+      setLongitude(geom[0][1]);
+      console.log(geom, "Jorgex"); //Maybe this is wrong, the geom has the coordinates
+      saveSpecialLocation({geom: {coordinates: [geom[0]]}});
+      saveAcquisitionLocation({geom: {coordinates: [geom[0]]}})
     }
   }, []);
   const changeLocation = () => {
