@@ -231,3 +231,101 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
     return temporalColumns;
   }
 }
+
+export const getCsv = (
+  columns: any[],
+  locality: string,
+  year: any,
+  tabKey: string,
+  sumTotal: any,
+  sumByCounty: any,
+  reqManager: any,
+  diff: any
+) => {
+  const date = new Date();
+    const csvData = [['Exported on ' + date], ['Jurisdiction:', locality ], ['Year:', year], ['Project Type:' , tabKey], []];
+    const row: any = [], row2: any = [], dataByYear: any = {}, years: any = [];
+    let maxSize = 0;
+    for (let i = 1; i < columns.length; i++) {
+      row.push(columns[i]['title']);
+      years.push(columns[i]['title']);
+      row.push('');
+      row.push('');
+      row.push('');
+      row2.push('Project Name');
+      row2.push('Jurisdiction');
+      row2.push('Status');
+      row2.push('Cost');
+      dataByYear[i] = [];
+      let project: any = null;
+      maxSize = Math.max(maxSize, columns[i].projects.length);
+      for (project of columns[i].projects) {
+        if (!project.projectData) {
+          continue;
+        }
+        dataByYear[i].push([project.projectData.projectname,
+          project.projectData.jurisdiction,
+          project.projectData.status,
+          formatter.format(project['req' + i])]);
+      }
+    }
+    csvData.push(row);
+    csvData.push(row2);
+    for (let i = 0; i < maxSize; i++) {
+      let aux: any = [];
+      for (let j = 1; j < columns.length; j++) {
+        if (dataByYear[j].length > i) {
+          aux = aux.concat(dataByYear[j][i]);
+        } else {
+          aux = aux.concat('', '', '', '');
+        }
+      }
+      csvData.push(aux);
+    }
+    let sum: any = ['Sum:'];
+    let first = false;
+    for (let i = 0; i < years.length; i++) {
+      if (!first) {
+        sum = sum.concat(['', '', formatter.format(sumTotal['req' + (i + 1)])]);
+      } else {
+        sum = sum.concat(['', '', '', formatter.format(sumTotal['req' + (i + 1)])]);
+      }
+      first = true;
+    }
+    csvData.push(sum);
+    csvData.push([]);
+    csvData.push([]);
+    const yearRow = ['Year'];
+    for (const currentYear of years) {
+      yearRow.push(currentYear);
+    }
+    csvData.push(yearRow);
+    const totalCost = ['Total Cost'];
+    for (let i = 0; i < years.length; i++) {
+      totalCost.push(formatter.format(sumTotal['req' + (i + 1)]));
+    }
+    csvData.push(totalCost);
+    let county: any;
+    for (county of sumByCounty) {
+      const auxArray = [county.county];
+      for (let i = 0; i < years.length; i++) {
+        auxArray.push(formatter.format(county['req' + (i + 1)]));
+      }
+      csvData.push(auxArray);
+    }
+    const targetCost: any = ['Target Cost'];
+    for (const target of reqManager) {
+      if (target == null) {
+        targetCost.push(formatter.format(0));
+      } else {
+        targetCost.push(formatter.format(target));
+      }
+    }
+    csvData.push(targetCost);
+    const differental: any = ['Differential'];
+    for (const value of diff) {
+      differental.push(formatter.format(value));
+    }
+    csvData.push(differental);
+    return csvData;
+}

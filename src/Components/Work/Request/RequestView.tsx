@@ -17,7 +17,7 @@ import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
 import Status from "../Drawers/Status";
 
-import { compareColumns, defaultColumns, formatter, generateColumns, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
+import { compareColumns, defaultColumns, formatter, generateColumns, getCsv, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
 import { SubmitModal } from "./SubmitModal";
 import StatusPlan from "../Drawers/StatusPlan";
@@ -81,19 +81,9 @@ const RequestView = ({ type }: {
   const [localities, setLocalities] = useState<any[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [localityFilter, setLocalityFilter] = useState('');
+
   const onDragOver = (e: any) => {
     e.preventDefault();
-  }
-  const updateWidth = () => {
-    if (leftWidth === MEDIUM_SCREEN_RIGHT - 1) {
-      setLeftWidth(EMPTY_SCREEN);
-      setRightWitdh(COMPLETE_SCREEN);
-      setRotationStyle({});
-    } else {
-      setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
-      setRightWitdh(MEDIUM_SCREEN_LEFT + 1);
-      setRotationStyle(emptyStyle);
-    }
   }
 
   const onDrop = (e: any, columnIdx: number) => {
@@ -106,106 +96,9 @@ const RequestView = ({ type }: {
   }
 
   const generateCSV = () => {
-    // console.log('generando');
-    const date = new Date();
-    const csvData = [['Exported on ' + date],
-    ['Jurisdiction:', locality ],
-    // [],
-    ['Year:', year],
-    // [],
-    ['Project Type:' , tabKey],
-    []
-    ];
-    const row: any = [];
-    const row2: any = [];
-    const dataByYear: any = {};
-    let maxSize = 0;
-    const years: any = [];
-    for (let i = 1; i < columns.length; i++) {
-      row.push(columns[i]['title']);
-      years.push(columns[i]['title']);
-      row.push('');
-      row.push('');
-      row.push('');
-      row2.push('Project Name');
-      row2.push('Jurisdiction');
-      row2.push('Status');
-      row2.push('Cost');
-      dataByYear[i] = [];
-      let project: any = null;
-      maxSize = Math.max(maxSize, columns[i].projects.length);
-      for (project of columns[i].projects) {
-        if (!project.projectData) {
-          continue;
-        }
-        dataByYear[i].push([project.projectData.projectname,
-          project.projectData.jurisdiction,
-          project.projectData.status,
-          formatter.format(project['req' + i])]);
-      }
-    }
-    csvData.push(row);
-    csvData.push(row2);
-    for (let i = 0; i < maxSize; i++) {
-      let aux: any = [];
-      for (let j = 1; j < columns.length; j++) {
-        if (dataByYear[j].length > i) {
-          aux = aux.concat(dataByYear[j][i]);
-        } else {
-          aux = aux.concat('', '', '', '');
-        }
-      }
-      csvData.push(aux);
-    }
-//    console.log(csvData);
-    let sum: any = ['Sum:'];
-    let first = false;
-    for (let i = 0; i < years.length; i++) {
-      if (!first) {
-        sum = sum.concat(['', '', formatter.format(sumTotal['req' + (i + 1)])]);
-      } else {
-        sum = sum.concat(['', '', '', formatter.format(sumTotal['req' + (i + 1)])]);
-      }
-      first = true;
-    }
-    csvData.push(sum);
-    csvData.push([]);
-    csvData.push([]);
-    const yearRow = ['Year'];
-    for (const currentYear of years) {
-     //console.log(currentYear, "year",years)
-      yearRow.push(currentYear);
-    }
-    csvData.push(yearRow);
-    const totalCost = ['Total Cost'];
-    for (let i = 0; i < years.length; i++) {
-      totalCost.push(formatter.format(sumTotal['req' + (i + 1)]));
-    }
-    csvData.push(totalCost);
-    let county: any;
-    for (county of sumByCounty) {
-      const auxArray = [county.county];
-      for (let i = 0; i < years.length; i++) {
-        auxArray.push(formatter.format(county['req' + (i + 1)]));
-      }
-      csvData.push(auxArray);
-    }
-    const targetCost: any = ['Target Cost'];
-    for (const target of reqManager) {
-      if (target == null) {
-        targetCost.push(formatter.format(0));
-      } else {
-        targetCost.push(formatter.format(target));
-      }
-    }
-    csvData.push(targetCost);
-    const differental: any = ['Differential'];
-    for (const value of diff) {
-      differental.push(formatter.format(value));
-    }
-    csvData.push(differental);
-    return csvData;
+    return getCsv(columns, locality, year, tabKey, sumTotal, sumByCounty, reqManager, diff);
   }
+
   const onSelect = (value: any) => {
     setLocality(value);
     setLocalityFilter(value);
