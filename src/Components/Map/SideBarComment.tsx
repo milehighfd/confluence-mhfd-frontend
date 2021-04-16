@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Drawer, Row, Col, Input, Button, Menu, Select, Popover, Comment, Avatar, List } from 'antd';
 import { DownOutlined, CheckOutlined } from '@ant-design/icons';
-import { useNotesState } from "../../hook/notesHook";
+import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
 const { Option } = Select;
 const { TextArea } = Input;
 const data = [
@@ -21,24 +21,34 @@ const content = (
   />
 );
 
-const contentmenu = (
-  <Menu className="js-mm-00">
-    <Menu.Item>
-      <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Edit Comment</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
-    </Menu.Item>
-  </Menu>
-);
 
 
-const SideBarComment = ({visible, setVisible}: {visible: boolean, setVisible: Function}) => {
+
+const SideBarComment = ({visible, setVisible, flyTo}: {visible: boolean, setVisible: Function, flyTo: Function}) => {
   const { notes } = useNotesState();
-
+  const { editNote, deleteNote } = useNoteDispatch();
+  const contentmenu = (note: any) =>  {
+    return (
+    <Menu className="js-mm-00">
+      <Menu.Item onClick={() => {
+        console.log('clicked');
+        // I don't know how this will be work
+      }}>
+        <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Edit Comment</span>
+      </Menu.Item>
+      <Menu.Item onClick={() => {
+        flyTo(note.longitude, note.latitude);
+      }}>
+        <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
+      </Menu.Item>
+      <Menu.Item onClick={() => {
+        deleteNote(note._id);
+      }}>
+        <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
+      </Menu.Item>
+    </Menu>
+  )
+  };
   const calculateTimeAgo = (time: Date): string => {
     const currentTime = new Date();
     const ms = currentTime.getTime() - time.getTime();
@@ -107,7 +117,7 @@ const SideBarComment = ({visible, setVisible}: {visible: boolean, setVisible: Fu
             {note.content}
           </p>
           <h6>{timeAgo(note.createdAt)}</h6>
-          <Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu} trigger="click">
+          <Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(note)} trigger="click">
             <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
           </Popover>
           </>
