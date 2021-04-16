@@ -1347,7 +1347,6 @@ const Map = ({ leftWidth,
         }
         map.on('click', (e: any) => {
             if (commentAvailable) {
-                console.log('enter here ', e.LngLat);
                 const html = commentPopup();
                 popup.remove();
                 popup = new mapboxgl.Popup();
@@ -2355,6 +2354,7 @@ const Map = ({ leftWidth,
     }
     const openEditNote = (note: any) => {
       flyTo(note.longitude, note.latitude);
+      popup.remove();
       markersNotes.forEach((marker:any) => {
         let popupC = marker.marker.getPopup();
         popupC.remove();
