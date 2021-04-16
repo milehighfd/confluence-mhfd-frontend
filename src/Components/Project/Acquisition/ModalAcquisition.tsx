@@ -10,7 +10,7 @@ import { DropPin } from "../TypeProjectComponents/DropPin";
 import { PROJECT_INFORMATION } from "../../../constants/constants";
 import { selectedComponents } from "../../../constants/mapStyles";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { useProjectDispatch } from "../../../hook/projectHook";
+import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
 import { Project, Geom } from "../../../Classes/Project";
 
 const { TextArea } = Input;
@@ -38,6 +38,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data: any} ) => {
 
   const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation} = useProjectDispatch();
+  const {currentServiceAreaCounty} =useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -127,8 +128,12 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
     }
   };
   const handleOk = (e: any) => {
-   //setVisibleAcquisition(false);
+   if(locality === currentServiceAreaCounty.jurisdiction){
     setVisibleAlert( true);
+   }
+   else{
+     alert("It is not within your jurisdiction.");
+   }
   };
 
   const apllyProgress = (e: any)=>{

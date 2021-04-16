@@ -53,6 +53,7 @@ const genTitle = (streamName: any) => (
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
   const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds} = useProjectDispatch();
+  const {currentServiceAreaCounty} =useProjectState();
   const {organization, groupOrganization} = useProfileState();
   const {listStreams, streamIntersected} = useProjectState();
   const [state, setState] = useState(stateValue);
@@ -158,10 +159,12 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   };
 
   const handleOk = (e: any) => {
-    const auxState = {...state};
-   // setVisibleStudy (false);
-    setState(auxState);
-    setVisibleAlert( true);
+    if(locality === currentServiceAreaCounty.jurisdiction){
+      setVisibleAlert( true);
+     }
+     else{
+       alert("It is not within your jurisdiction.");
+     }
   };
   const apllyCoSponsor = (e: any)=>{
     setCosponsor(e);

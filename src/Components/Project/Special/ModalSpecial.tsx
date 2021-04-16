@@ -9,7 +9,7 @@ import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { DropPin } from "../TypeProjectComponents/DropPin";
 import { PROJECT_INFORMATION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { useProjectDispatch } from "../../../hook/projectHook";
+import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
 import { Geom, Project} from "../../../Classes/Project";
 import { setRouteRedirect } from "../../../store/actions/mapActions";
 import { AlertViewSave } from "../../Alerts/AlertViewSave";
@@ -39,6 +39,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any}) => {
 
   const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation} = useProjectDispatch();
+  const { currentServiceAreaCounty} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -127,9 +128,15 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   };
   const handleOk = (e: any) => {
     const auxState = {...state};
+    if(locality === currentServiceAreaCounty.jurisdiction){
+     setVisibleAlert( true);
+    }
+    else{
+      alert("It is not within your jurisdiction.");
+    }
     //setVisibleSpecial (false);
     setState(auxState);
-    setVisibleAlert( true);
+   
   };
 
   const handleCancel = (e: any) => {

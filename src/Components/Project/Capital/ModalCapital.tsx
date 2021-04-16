@@ -113,6 +113,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     original_cost:0,
   };
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent} = useProjectDispatch();
+  const {currentServiceAreaCounty} =useProjectState();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -279,11 +280,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   };
 
   const handleOk = (e: any) => {
-    console.log(e);
-    const auxState = {...state};
-    //setVisibleCapital (false);
-    setState(auxState);
-    setVisibleAlert( true);
+    if(locality === currentServiceAreaCounty.jurisdiction){
+      setVisibleAlert( true);
+     }
+     else{
+       alert("It is not within your jurisdiction.");
+     }
   };
 
   const handleCancel = (e: any) => {

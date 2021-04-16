@@ -35,8 +35,8 @@ const stateValue = {
 export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible, locality, data}:
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
 
-  const {userPolygon, streamIntersected} = useProjectState();
   const {saveProjectMaintenance, setStreamIntersected, setEditLocation} = useProjectDispatch();
+  const {userPolygon, streamIntersected, currentServiceAreaCounty} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -153,11 +153,12 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   };
 
   const handleOk = (e: any) => {
-    console.log(e);
-    const auxState = {...state};
-   // setVisibleMaintenance(false);
-    setState(auxState);
-    setVisibleAlert( true);
+    if(locality === currentServiceAreaCounty.jurisdiction){
+      setVisibleAlert( true);
+     }
+     else{
+       alert("It is not within your jurisdiction.");
+     }
   };
 
   const handleCancel = (e: any) => {
