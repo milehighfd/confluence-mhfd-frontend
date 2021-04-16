@@ -374,6 +374,10 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         commentAvailable = commentVisible;
+        if(!commentVisible){
+          marker.remove();
+          popup.remove();
+        }
     }, [commentVisible]);
 
 
@@ -404,6 +408,9 @@ const Map = ({ leftWidth,
     useEffect(() => {
         let totalmarkers:any = [];
         if (map) {
+          markersNotes.forEach((marker:any) => {
+            marker.marker.remove()
+          });
           notes.forEach( (note: any) => {
             let colorOfMarker = '';
             switch(note.color) {
@@ -423,26 +430,24 @@ const Map = ({ leftWidth,
                 colorOfMarker = colors.GREY;
             }
             const newmarker = new mapboxgl.Marker({ color: colorOfMarker, scale: 0.7 });
-            console.log("NOTE SENDNG", note);
             const html = commentPopup(note);  
                 let newpopup = new mapboxgl.Popup();
                 newmarker.setPopup(newpopup);
                 newpopup.setHTML(html);
                 newmarker.setLngLat([note.longitude, note.latitude]).setPopup(newpopup);
-            totalmarkers.push(newmarker);
+            totalmarkers.push({ marker: newmarker, note: note});
           });
           setMarkerNotes(totalmarkers);   
         }
     }, [notes]);
     useEffect(()=>{
-      console.log("MARKERS NIOTES", markersNotes);
       if(commentVisible && markersNotes.length > 0) {
         markersNotes.forEach((marker:any) => {
-          marker.addTo(map)
+          marker.marker.addTo(map)
         });
       } else if(markersNotes.length > 0 ){
         markersNotes.forEach((marker:any) => {
-          marker.remove(map)
+          marker.marker.remove()
         });
       }
     },[markersNotes, commentVisible]);
@@ -456,7 +461,6 @@ const Map = ({ leftWidth,
 
             // console.log('porque', boundingBox1)
             var arrayBounds = misbounds.split(',');
-            console.log('BOUNDS', boundsMap);
             setOpacityLayer(true);
             if (!map.getLayer('mask')) {
                 map.addSource('mask', {
@@ -1433,7 +1437,7 @@ const Map = ({ leftWidth,
                                 console.log(note);
                                 createNote(note);
                                 popup.remove();
-                                marker.remove();
+                                // marker.remove(map);
                             }
                         });
                     }
@@ -2102,7 +2106,7 @@ const Map = ({ leftWidth,
         </Popover>
         </div>
         <div className="bodymap">
-            <TextArea id="textarea" rows={5} placeholder={note? note.content:"Add Comments…"} />
+            <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}}>
                 <Button style={{color:'red', marginRight:'5px'}}>Delete</Button> 
                 <Button id="save-comment">Save</Button>
@@ -2338,7 +2342,13 @@ const Map = ({ leftWidth,
             zoom: 12
             });
     }
-
+    const openEditNote = (note: any) => {
+      flyTo(note.longitude, note.latitude);
+      let filterMarker: any = markersNotes.filter((marker:any) => marker.note._id == note._id  );
+      if(filterMarker.length > 0) { 
+        filterMarker[0].marker.togglePopup();
+      } 
+    }
     const showMHFD = () => {
         setAutocomplete('')
         const user = store.getState().profile.userInformation;
@@ -2371,7 +2381,7 @@ const Map = ({ leftWidth,
     return (
         <>
         <SideBarComment visible={commentVisible} setVisible={setCommentVisible} 
-        flyTo={flyTo}></SideBarComment>
+        flyTo={flyTo} openEditNote={openEditNote}></SideBarComment>
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}

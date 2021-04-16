@@ -429,13 +429,13 @@ const CreateProjectMap = (type: any) => {
         applyMapLayers();
         let eventToClick = eventService.getRef('click');
         map.map.on('click',eventToClick);
-        map.map.on('movestart', () => {
-          if (map.map.getLayer('mask')) {
-              map.map.setLayoutProperty('mask', 'visibility', 'visible');
-              map.map.removeLayer('mask');
-              map.map.removeSource('mask');
-          }
-        })
+        // map.map.on('movestart', () => {
+        //   if (map.map.getLayer('mask')) {
+        //       map.map.setLayoutProperty('mask', 'visibility', 'visible');
+        //       map.map.removeLayer('mask');
+        //       map.map.removeSource('mask');
+        //   }
+        // })
       });
       
     }

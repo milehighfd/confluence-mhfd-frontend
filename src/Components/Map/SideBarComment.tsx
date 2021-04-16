@@ -24,15 +24,14 @@ const content = (
 
 
 
-const SideBarComment = ({visible, setVisible, flyTo}: {visible: boolean, setVisible: Function, flyTo: Function}) => {
+const SideBarComment = ({visible, setVisible, flyTo, openEditNote}: {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function}) => {
   const { notes } = useNotesState();
   const { editNote, deleteNote } = useNoteDispatch();
   const contentmenu = (note: any) =>  {
     return (
     <Menu className="js-mm-00">
       <Menu.Item onClick={() => {
-        console.log('clicked');
-        // I don't know how this will be work
+        openEditNote(note);
       }}>
         <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Edit Comment</span>
       </Menu.Item>
