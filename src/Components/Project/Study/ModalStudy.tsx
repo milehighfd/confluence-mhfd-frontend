@@ -229,12 +229,12 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       console.log("NEW IDS", newIds);
       setStreamsIds(newIds);
     }
-    
+
   }
   useEffect(()=>{
     changeDrawState(isDraw);
   },[isDraw]);
-  
+
   return (
     <>
     {visibleAlert && <AlertView
@@ -295,7 +295,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
               <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
             </Row>
-            { keys!=0 && keys.length && 
+            { keys!=0 && keys.length &&
               <Collapse
               defaultActiveKey={keys}
               expandIconPosition="right"
@@ -388,7 +388,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               setCounty = {setCounty}
             />
             <br/>
-            
+
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
@@ -398,13 +398,15 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select  mode="multiple" placeholder="Select a Co-Sponsor" style={{width:'100%'}} onChange={(coSponsor:any)=> apllyCoSponsor(coSponsor)}>
-                  {groupOrganization.map((element:any) =>{
-                    if(element.aoi !== sponsor){
-                      return <Option key={element.aoi} value={element.aoi}>{element.aoi}</Option>
-                    }
-                  })}
-                </Select>
+                <div className="sponsor-select">
+                  <Select  mode="multiple" placeholder="Select a Co-Sponsor" style={{width:'100%'}} onChange={(coSponsor:any)=> apllyCoSponsor(coSponsor)}>
+                    {groupOrganization.map((element:any) =>{
+                      if(element.aoi !== sponsor){
+                        return <Option key={element.aoi} value={element.aoi}>{element.aoi}</Option>
+                      }
+                    })}
+                  </Select>
+                </div>
               </Col>
             </Row>
             {/*Section*/}

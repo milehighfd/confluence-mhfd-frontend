@@ -539,6 +539,28 @@
 .menu-medium{
   width: 100px !important;
 }
+.sponsor-select{
+  .ant-select-selection{
+    height: auto !important;
+  }
+  .ant-select-selection--multiple .ant-select-selection__placeholder {
+    margin-left: 0px;
+  }
+  .ant-select-selection--multiple .ant-select-selection__rendered {
+    height: auto;
+    margin-bottom: 0px;
+    margin-left: 0px;
+  }
+  .ant-select-selection--multiple > ul > li, .ant-select-selection--multiple .ant-select-selection__rendered > ul > li {
+    height: 24px;
+    margin-top: 10px;
+    line-height: 22px;
+    margin-left: -2px;
+  }
+  .ant-select-selection--multiple .ant-select-selection__choice__content{
+    font-size: 12px;
+  }
+}
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
   // CAPITAL
