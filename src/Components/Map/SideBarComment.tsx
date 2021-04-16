@@ -112,7 +112,7 @@ const SideBarComment = ({visible, setVisible, flyTo}: {visible: boolean, setVisi
         <Comment avatar={
           <Avatar style={{ color: '#11093C', backgroundColor: 'rgba(00,00,00,0.2)' }}>AA</Avatar>
         }
-        content={
+        content={note &&
           <>
           <p>
             {note.content}

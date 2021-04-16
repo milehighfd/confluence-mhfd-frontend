@@ -21,7 +21,7 @@ export const createNote = (note: any) => {
 export const deleteNote = (id: any) => {
   return (dispatch: Function) => {
     datasets.deleteData(SERVER.DELETE_NOTE(id), datasets.getToken()).then(note => {
-      dispatch({type: types.CREATE_NOTE, id});
+      dispatch({type: types.DELETE_NOTE, id});
     });
   };
 };
