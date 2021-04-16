@@ -21,6 +21,9 @@ import CardStatService from './CardService';
 import { compareColumns, defaultColumns, formatter, generateColumns, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
 import { SubmitModal } from "./SubmitModal";
+import StatusPlan from "../Drawers/StatusPlan";
+import StatusDistrict from "../Drawers/StatusDistrict";
+import Filter from "../Drawers/Filter";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -77,6 +80,8 @@ const RequestView = ({ type }: {
   const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
   const [localities, setLocalities] = useState<any[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
+  const [localityFilter, setLocalityFilter] = useState('');
   const onDragOver = (e: any) => {
     e.preventDefault();
   }
@@ -301,17 +306,22 @@ const RequestView = ({ type }: {
   }
   const onSelect = (value: any) => {
     setLocality(value);
+    setLocalityFilter(value);
     let l = localities.find((p: any) => {
       return p.name === value;
     })
     if (l) {
-      let displayedTabKey: string[] = [];
-      if (l.type === 'COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance']
-      } else if (l.type === 'SERVICE_AREA') {
-        displayedTabKey = ['Study', 'Acquisition', 'Special'];
+      if (type === 'WORK_PLAN') {
+        let displayedTabKey: string[] = [];
+        if (l.type === 'COUNTY') {
+          displayedTabKey = ['Capital', 'Maintenance']
+        } else if (l.type === 'SERVICE_AREA') {
+          displayedTabKey = ['Study', 'Acquisition', 'Special'];
+        }
+        setTabKey(displayedTabKey[0]);
+      } else {
+        setTabKey(tabKeys[0]);
       }
-      setTabKey(displayedTabKey[0]);
     }
   };
 
@@ -336,9 +346,11 @@ const RequestView = ({ type }: {
             }
             if (_locality) {
               setLocality(_locality)
+              setLocalityFilter(_locality)
             } else {
               if (r.localities.length > 0) {
                 setLocality(r.localities[0].name)
+                setLocalityFilter(r.localities[0].name)
                 _locality = r.localities[0].name;
               }
             }
@@ -743,6 +755,10 @@ const RequestView = ({ type }: {
         comment={boardComment}
         />
     }
+    {
+      showFilters && 
+        <Filter visible={showFilters} setVisible={setShowFilters} />
+    }
     <div>
       {
         visibleCreateProject &&
@@ -773,7 +789,7 @@ const RequestView = ({ type }: {
                       <AutoComplete
                         className={'ant-select-1'}
                         dataSource={dataAutocomplete}
-                        placeholder={locality}
+                        placeholder={localityFilter}
                         filterOption={(inputValue, option: any) => {
                           if (dataAutocomplete.includes(inputValue)) {
                             return true;
@@ -781,12 +797,17 @@ const RequestView = ({ type }: {
                           return option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
                         }}
                         onSelect={onSelect}
-                        value={locality}
+                        value={localityFilter}
                         onSearch={(input2: any) => {
-                          setLocality(input2)
+                          setLocalityFilter(input2);
+                          if (localities.map(r => r.name).indexOf(input2) !== -1) {
+                            setLocality(input2)
+                          }
                         }}
                       >
-                        <Input suffix={<Icon type="down" className="certain-category-icon" />} />
+                        <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
+                          prefix={<i className="mdi mdi-circle"></i>}
+                          suffix={<Icon type="down" className="certain-category-icon" />} />
                       </AutoComplete>
                     </div>
                   </Col>
@@ -831,6 +852,11 @@ const RequestView = ({ type }: {
                 </Row>
               </div>
               <div className="work-body">
+                { type === 'WORK_PLAN' &&
+                  <Button className="btn-filter-d" onClick={() => setShowFilters(true)}>
+                    <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>
+                  </Button>
+                }
                 <Tabs defaultActiveKey={displayedTabKey[0]} 
                 activeKey={tabKey}
                  onChange={(key) => setTabKey(key)} className="tabs-map">

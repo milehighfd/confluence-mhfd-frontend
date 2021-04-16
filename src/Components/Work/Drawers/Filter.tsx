@@ -2,19 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Drawer, Row, Col, Input, Button, Dropdown, Menu, Checkbox } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
-export default () => {
-  const [visible, setVisible] = useState(false);
-   const showDrawer = () => {
-     setVisible(true);
-   };
-   const onClose = () => {
-     setVisible(false);
-   };
+export default ({visible, setVisible}: {
+  visible: boolean,
+  setVisible: Function,
+}) => {
   return (
-    <>
-    <Button onClick={showDrawer} >
-      Drawer
-    </Button>
     <Drawer
       title={<h5>
               <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> FILTER
@@ -52,6 +44,5 @@ export default () => {
         <Button className="btn-purple">Apply</Button>
       </div>
     </Drawer>
-  </>
   )
 }
