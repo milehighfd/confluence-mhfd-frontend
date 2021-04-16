@@ -35,7 +35,7 @@ const stateValue = {
 export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible, locality, data}:
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
 
-  const {saveProjectMaintenance, setStreamIntersected, setEditLocation} = useProjectDispatch();
+  const {saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance} = useProjectDispatch();
   const {userPolygon, streamIntersected, currentServiceAreaCounty} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -55,6 +55,9 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
   const [projectid, setProjectId ] = useState(-1);
+  const [swSave, setSwSave] = useState(false);
+  const [editprojectid, setEditsetprojectid] = useState("");
+ 
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -62,15 +65,19 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   };
   useEffect(()=>{
     if(data!== 'no data' ) {
+      setSwSave(true);
       setCounty(data.county);
       setDescription(data.description);
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
       setProjectId(data.projectid);
+      setEligibility(data.maintenanceeligibility);
+      setFrequency(data.frequency);
+      setEditsetprojectid(data.projectid);
       setTimeout(()=>{        
         setStreamIntersected({geom:data.createdCoordinates});
-      },2200);
-      
+      },2200);  
+
     } else {
       setStreamIntersected([]);
       setEditLocation(undefined);
@@ -89,8 +96,13 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.maintenanceeligibility = eligibility;
       maintenance.ownership = ""+ownership ;
       maintenance.files = files;
+      maintenance.editProject = editprojectid;
       // console.log( JSON.stringify(maintenance, null, 2),"****++MAINTENANCE******")
-      saveProjectMaintenance(maintenance);
+      if(swSave){
+        editProjectMainetnance(maintenance);
+      }else{
+        saveProjectMaintenance(maintenance);
+      }
       setVisibleMaintenance(false);
       setVisible(false);
     }
@@ -226,7 +238,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder="Select a Frequency" style={{width:'100%'}} onChange={(frequency)=> apllyFrequency(frequency)}>
+                <Select placeholder={swSave? frequency   +"": "Select a Frequency"} style={{width:'100%'}} onChange={(frequency)=> apllyFrequency(frequency)}>
                   {selec.map((element) =>{
                     return <Option key={element} value={element}>{element}</Option>
                   })}
@@ -241,7 +253,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
               <Row gutter={[16, 16]}>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                  <Select placeholder="Select a Eligibility" style={{width:'100%'}} onChange={(eligibilit)=> apllyEligibility(eligibilit)}>
+                  <Select placeholder={swSave? eligibility   +"": "Select a Eligibility"} style={{width:'100%'}} onChange={(eligibilit)=> apllyEligibility(eligibilit)}>
                     {PROJECT_INFORMATION.MAINTENANCE_ELIGIBILITY.map((element) =>{
                       return <Option key={element} value={element}>{element}</Option>
                     })}
