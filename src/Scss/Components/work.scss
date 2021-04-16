@@ -34,6 +34,12 @@
 .work-head, .work-body{
   background: $white;
 }
+.approved .mdi-circle::before {
+  color: $green;
+}
+.not-approved .mdi-circle::before {
+  color: $red;
+}
 .work-head{
   padding: 15px 20px 0px 15px;
 
