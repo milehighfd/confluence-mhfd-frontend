@@ -16,13 +16,14 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardStatus }: {
+const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardStatus, locality }: {
   project: any,
   columnIdx: number,
   rowIdx: number,
   saveData: Function,
   tabKey: string,
-  boardStatus: string
+  boardStatus: string,
+  locality: any
 }) => {
   const divRef = useRef(null);
   const {setZoomProject} = useProjectDispatch();
@@ -96,6 +97,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardSta
         setVisible= {setShowModalProject}
         data={project.projectData}
         showDefaultTab={true}
+        locality={locality}
     />
     }
     <AmountModal

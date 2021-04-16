@@ -284,7 +284,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setVisibleAlert( true);
      }
      else{
+      if(locality === "no locality"){
+        setVisibleAlert( true);
+      }
+      else{
        alert("It is not within your jurisdiction.");
+      }
      }
   };
 

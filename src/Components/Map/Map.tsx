@@ -2492,6 +2492,7 @@ const Map = ({ leftWidth,
                 setVisible= {setVisibleCreateProject}
                 data={"no data"}
                 showDefaultTab={showDefault}
+                locality= {"no locality"}
             />
             }
         </div>

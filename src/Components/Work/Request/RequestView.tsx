@@ -529,6 +529,7 @@ const RequestView = ({ type }: {
           setVisible={setShowModalProject}
           data={currentProject}
           showDefaultTab={true}
+          locality={locality}
       />
     }
     {
@@ -673,7 +674,7 @@ const RequestView = ({ type }: {
                                   }
                                   {
                                     column.projects.map((p: any, i: number) => (
-                                      <TrelloLikeCard key={i} project={p} columnIdx={columnIdx} rowIdx={i} saveData={saveData} tabKey={tabKey} boardStatus={boardStatus} />
+                                      <TrelloLikeCard key={i} project={p} columnIdx={columnIdx} rowIdx={i} saveData={saveData} tabKey={tabKey} boardStatus={boardStatus} locality={locality}/>
                                     ))
                                   }
                                 </div>
