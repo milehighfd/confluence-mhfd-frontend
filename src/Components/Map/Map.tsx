@@ -2050,7 +2050,7 @@ const Map = ({ leftWidth,
         <div className="bodymap">
             <TextArea id="textarea" rows={5} placeholder="Add Comments…" />
             <div style={{display:'flex'}}>
-                <Button id="save-comment" style={{color:'red', marginRight:'5px'}}>Delete</Button> 
+                <Button style={{color:'red', marginRight:'5px'}}>Delete</Button> 
                 <Button id="save-comment">Save</Button>
             </div>
 
