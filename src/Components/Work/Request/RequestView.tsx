@@ -17,8 +17,7 @@ import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
 import Status from "../Drawers/Status";
 
-import CardStatService from './CardService';
-import { compareColumns, defaultColumns, formatter, generateColumns, priceFormatter, priceParser } from "./RequestViewUtil";
+import { compareColumns, defaultColumns, formatter, generateColumns, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
 import { SubmitModal } from "./SubmitModal";
 import StatusPlan from "../Drawers/StatusPlan";
@@ -96,110 +95,13 @@ const RequestView = ({ type }: {
       setRotationStyle(emptyStyle);
     }
   }
-  const onDrop = (e: any, columnIdx: number, cat: string) => {
+
+  const onDrop = (e: any, columnIdx: number) => {
     let txt = e.dataTransfer.getData("text");
-    let parsedObject = JSON.parse(txt);
-    let { id, fromColumnIdx } = parsedObject;
-
-    let project: any;
-    columns[fromColumnIdx].projects.forEach((p: any) => {
-      if (p.project_id == id) {
-        project = p;
-      }
-    })
-    console.log('project', project)
-
-    let destinyColumnHasProject = false;
-    columns[columnIdx].projects.forEach((p: any) => {
-      if (p.project_id == id) {
-        destinyColumnHasProject = true;
-      }
-    })
-    let newCardPos = CardStatService.getPosition();
-    if (fromColumnIdx === columnIdx) {
-      let beforePos = -1;
-      columns[columnIdx].projects.forEach((p: any, posBef: number) => {
-        if (p.project_id == id) {
-          beforePos = posBef;
-        }
-      })
-      let projects: any[] = [];
-      if (newCardPos === -1) {
-        projects = [].concat(columns[columnIdx].projects);
-        projects.splice(beforePos, 1);
-        projects.push(project);
-      } else {
-        if (beforePos === newCardPos) {
-          return;
-        } else {
-          columns[columnIdx].projects.forEach((p: any, pos: number) => {
-            if (pos === newCardPos) {
-              projects.push(project);
-            }
-            projects.push(p);
-          })
-          if (newCardPos === columns[columnIdx].projects.length) {
-            projects.push(project);
-          }
-          projects.splice(newCardPos > beforePos ? beforePos : beforePos + 1, 1);
-        }
-      }
-      let temporalColumns: any = columns.map((c, colIdx: number) => {
-        return {
-          ...c,
-          projects: colIdx === fromColumnIdx ? projects: c.projects
-        }
-      });
-      WsService.sendUpdate(temporalColumns);
-      setColumns(temporalColumns);
-      return;
-    }
-    if (destinyColumnHasProject || tabKey === 'Maintenance') {
-      return;
-    } else {
-      let newObj = {
-        ...project,
-        [`position${columnIdx}`]: newCardPos === -1 ? columns[columnIdx].projects.length : newCardPos,
-        [`req${columnIdx}`]: project[`req${fromColumnIdx}`],
-        [`req${fromColumnIdx}`]: null,
-        [`position${fromColumnIdx}`]: null,
-      }
-
-      let temporalColumns: any = columns.map((c, colIdx: number) => {
-        return {
-          ...c,
-          projects: c.projects
-          .filter((p: any) => {
-            if (colIdx == fromColumnIdx && p.project_id == id) {
-              return false;
-            }
-            return true;
-          })
-          .map((p: any) => {
-            if (p.project_id == id) {
-              return newObj;
-            }
-            return p;
-          })
-        }
-      })
-      
-      if (newCardPos === -1) {
-        temporalColumns[columnIdx].projects.push(newObj);
-      } else {
-        let arr = [];
-        for (var i = 0 ; i < temporalColumns[columnIdx].projects.length ; i++) {
-          let p = temporalColumns[columnIdx].projects[i];
-          if (newCardPos === i) {
-            arr.push(newObj);
-          }
-          arr.push(p)
-        }
-        temporalColumns[columnIdx].projects = arr;
-      }
-      WsService.sendUpdate(temporalColumns);
-      setColumns(temporalColumns);
-
+    let cols = onDropFn(txt, columns, columnIdx, tabKey);
+    if (cols) {
+      WsService.sendUpdate(cols);
+      setColumns(cols);
     }
   }
 
@@ -868,7 +770,7 @@ const RequestView = ({ type }: {
                             columns.map((column, columnIdx) => (
                               <div className="container-drag" key={columnIdx+Math.random()}>
                                 <h3>{column.title}</h3>
-                                <div className="col-wr droppable" onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx, 'complete')}>
+                                <div className="col-wr droppable" onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx)}>
                                   {
                                     column.hasCreateOption &&
                                     <Button className="btn-transparent" onClick={onClickNewProject} >
