@@ -24,7 +24,7 @@ const Analytics = ({
 
   let quantityData = data.map((d: any) => {
     return {
-      value: d.county,
+      value: d.locality,
       counter: d[`cnt${year - initialYear + 1}`],
       selected: true
     }
@@ -32,13 +32,13 @@ const Analytics = ({
 
   let amountData = data.map((d: any) => {
     return {
-      value: d.county,
+      value: d.locality,
       counter: d[`req${year - initialYear + 1}`],
       selected: true
     }
   })
 
-  let countiesNames = data.map((d: any) => d.county).join(',');
+  let countiesNames = data.map((d: any) => d.locality).join(',');
   let barsColor = '#261964';
 
   return (

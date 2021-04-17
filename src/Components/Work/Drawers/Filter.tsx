@@ -20,12 +20,14 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
   }, [jurisdictionFilterList, csaFilterList])
 
   const applyFilters = () => {
-    setJS(jurisdictionFilterList.filter((_, index) => {
+    let js = jurisdictionFilterList.filter((_, index) => {
       return jurisdictionSelected[index];
-    }))
-    setJS(jurisdictionFilterList.filter((_, index) => {
-      return jurisdictionSelected[index];
-    }))
+    });
+    setJS(js)
+    let cs = csaFilterList.filter((_, index) => {
+      return csaSelected[index];
+    })
+    setCS(cs)
   }
 
   return (

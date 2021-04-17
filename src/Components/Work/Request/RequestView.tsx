@@ -82,8 +82,8 @@ const RequestView = ({ type }: {
   const [localityFilter, setLocalityFilter] = useState('');
   const [jurisdictionFilterList, setJurisdictionFilterList] = useState([]);
   const [csaFilterList, setCsaFilterList] = useState([]);
-  const [jurisdictionSelected, setJurisdictionSelected] = useState([]);
-  const [csaSelected, setCsaSelected] = useState([]);
+  const [jurisdictionSelected, setJurisdictionSelected] = useState<string[]>([]);
+  const [csaSelected, setCsaSelected] = useState<string[]>([]);
 
   const onDragOver = (e: any) => {
     e.preventDefault();
@@ -339,14 +339,17 @@ const RequestView = ({ type }: {
     let uniqueJurisdictions = c.map((p: any) => p.locality);
     let uniqueCounties = rows.map((p: any) => p.locality);
     setJurisdictionFilterList(uniqueJurisdictions);
+    setJurisdictionSelected(uniqueJurisdictions);
     let l = localities.find((p: any) => {
       return p.name === locality;
     })
     if (l) {
       if (l.type === 'COUNTY') {
         setCsaFilterList(uniqueCounties);
+        setCsaSelected(uniqueCounties)
       } else {
         setCsaFilterList(uniqueServiceArea);
+        setCsaSelected(uniqueServiceArea)
       }
     }
     setSumTotal(totals);
@@ -654,7 +657,14 @@ const RequestView = ({ type }: {
                                     </Button>
                                   }
                                   {
-                                    column.projects.map((p: any, i: number) => (
+                                    column.projects
+                                    .filter((p: any) => {
+                                      return jurisdictionSelected.includes(p.projectData.jurisdiction) && (
+                                        csaSelected.includes(p.projectData.county) ||
+                                        csaSelected.includes(p.projectData.servicearea)
+                                      );
+                                    })
+                                    .map((p: any, i: number) => (
                                       <TrelloLikeCard key={i} project={p} columnIdx={columnIdx} rowIdx={i} saveData={saveData} tabKey={tabKey} boardStatus={boardStatus} locality={locality}/>
                                     ))
                                   }
