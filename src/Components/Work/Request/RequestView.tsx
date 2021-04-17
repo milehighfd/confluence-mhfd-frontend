@@ -17,7 +17,7 @@ import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
 import Status from "../Drawers/Status";
 
-import { compareColumns, defaultColumns, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
+import { compareArrays, compareColumns, defaultColumns, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
 import StatusPlan from "../Drawers/StatusPlan";
 import StatusDistrict from "../Drawers/StatusDistrict";
@@ -500,6 +500,8 @@ const RequestView = ({ type }: {
     }
   }
 
+  let equalArrays = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
+
   return <>
     {  showModalProject &&
       <ModalProjectView
@@ -536,6 +538,8 @@ const RequestView = ({ type }: {
         data={sumByCounty}
         jurisdictionFilterList={jurisdictionFilterList}
         csaFilterList={csaFilterList}
+        selJS={jurisdictionSelected}
+        selCS={csaSelected}
         setJS={setJurisdictionSelected}
         setCS={setCsaSelected}
         l={l}
@@ -667,7 +671,15 @@ const RequestView = ({ type }: {
                                       );
                                     })
                                     .map((p: any, i: number) => (
-                                      <TrelloLikeCard key={i} project={p} columnIdx={columnIdx} rowIdx={i} saveData={saveData} tabKey={tabKey} boardStatus={boardStatus} locality={locality}/>
+                                      <TrelloLikeCard key={i}
+                                        project={p}
+                                        columnIdx={columnIdx}
+                                        rowIdx={i}
+                                        saveData={saveData}
+                                        tabKey={tabKey}
+                                        editable={boardStatus !== 'Approved'}
+                                        filtered={!equalArrays}
+                                        locality={locality} />
                                     ))
                                   }
                                 </div>

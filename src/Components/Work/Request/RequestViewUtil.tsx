@@ -377,3 +377,7 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
   });
   return [rows, totals];
 }
+
+export const compareArrays = (a: string[], b: string[]) => {
+  return JSON.stringify(a) == JSON.stringify(b);
+}

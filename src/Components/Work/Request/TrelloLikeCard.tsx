@@ -16,13 +16,14 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardStatus, locality }: {
+const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered }: {
   project: any,
   columnIdx: number,
   rowIdx: number,
   saveData: Function,
   tabKey: string,
-  boardStatus: string,
+  editable: boolean,
+  filtered: boolean,
   locality: any
 }) => {
   const divRef = useRef(null);
@@ -44,7 +45,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardSta
         <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Edit Project</span>
       </Menu.Item>
       {
-        boardStatus!== 'Approved' && 
+        editable && 
         <Menu.Item onClick={() => setShowAmountModal(true)}>
           <span>
             <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5' }} />
@@ -56,7 +57,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardSta
         <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Zoom to</span>
       </Menu.Item>
       {
-        boardStatus!== 'Approved' && 
+        editable && 
       <Menu.Item onClick={() => {
         deleteData(`${SERVER.URL_BASE}/board/project/${projectid}`, getToken())
         .then((r) => {
@@ -110,7 +111,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, boardSta
       tabKey={tabKey}
       projectsubtype={projectsubtype}
       />
-    <div ref={divRef} className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable={boardStatus!== 'Approved'} onDragStart={e => onDragStart(e, projectid)}
+    <div ref={divRef} className="card-wr" style={{ borderLeft: '3px solid #9faeb1' }} draggable={editable && !filtered} onDragStart={e => onDragStart(e, projectid)}
       onDrop={(e: any) => {
         let dr: any = divRef.current;
         let bounds = dr.getBoundingClientRect();

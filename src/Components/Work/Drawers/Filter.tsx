@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Drawer, Button, Checkbox } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
-export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterList, setJS, setCS, l }: {
+export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterList, setJS, setCS, l, selJS, selCS }: {
   visible: boolean,
   setVisible: Function,
   data: any[],
@@ -10,7 +10,9 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
   csaFilterList: string[],
   setJS: Function,
   setCS: Function,
-  l: any
+  l: any,
+  selJS: string[],
+  selCS: string[]
 }) => {
   const [jurisdictionSelected, setJurisdictionSelected] = useState<any[]>([]);
   const [csaSelected, setCsaSelected] = useState<any[]>([]);
@@ -19,6 +21,19 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
     setJurisdictionSelected(jurisdictionFilterList.map(r => true));
     setCsaSelected(csaFilterList.map(r => true));
   }, [jurisdictionFilterList, csaFilterList])
+
+  useEffect(() => {
+    setJurisdictionSelected(
+      jurisdictionFilterList.map((j) => {
+        return selJS.includes(j)
+      })
+    );
+    setCsaSelected(
+      csaFilterList.map((j) => {
+        return selCS.includes(j)
+      })
+    );
+  }, [selJS, selCS])
 
   const applyFilters = () => {
     let js = jurisdictionFilterList.filter((_, index) => {
@@ -40,15 +55,18 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
 
   return (
     <Drawer
-      title={<h5>
-              <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> FILTER
-              <Button className="btn-transparent"><CloseOutlined /></Button>
-             </h5>}
+      title={
+        <h5>
+          <img src="/Icons/work/chat.svg" alt="" className="menu-wr" />
+          FILTER
+        </h5>
+      }
       placement="right"
-      closable={false}
+      closable={true}
       onClose={() => setVisible(false)}
       visible={visible}
       className="work-utilities"
+      mask={false}
     >
       <div className="filter-plan">
         <div className="head-f-p">JURISDICTION</div>
