@@ -484,10 +484,11 @@ const RequestView = ({ type }: {
   }
 
   let displayedTabKey = tabKeys;
+  let l;
   if (type === "WORK_PLAN") {
     console.log('localities', localities);
     console.log('locality', locality)
-    let l = localities.find((p: any) => {
+    l = localities.find((p: any) => {
       return p.name === locality;
     })
     if (l) {
@@ -537,6 +538,7 @@ const RequestView = ({ type }: {
         csaFilterList={csaFilterList}
         setJS={setJurisdictionSelected}
         setCS={setCsaSelected}
+        l={l}
         />
     }
     <div>

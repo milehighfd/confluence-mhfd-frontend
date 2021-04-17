@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Drawer, Button, Checkbox } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
-export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterList, setJS, setCS }: {
+export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterList, setJS, setCS, l }: {
   visible: boolean,
   setVisible: Function,
   data: any[],
@@ -10,6 +10,7 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
   csaFilterList: string[],
   setJS: Function,
   setCS: Function,
+  l: any
 }) => {
   const [jurisdictionSelected, setJurisdictionSelected] = useState<any[]>([]);
   const [csaSelected, setCsaSelected] = useState<any[]>([]);
@@ -28,6 +29,13 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
       return csaSelected[index];
     })
     setCS(cs)
+  }
+
+  let label;
+  if (l.type === 'COUNTY') {
+    label = 'COUNTY';
+  } else if (l.type === 'SERVICE_AREA') {
+    label = 'SERVICE AREA';
   }
 
   return (
@@ -68,7 +76,7 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
       </div>
 
       <div className="filter-plan">
-        <div className="head-f-p">SERVICE AREA</div>
+        <div className="head-f-p">{label}</div>
         <div className="body-f-p">
           {
             csaFilterList.map((cn: string, index: number) => (
