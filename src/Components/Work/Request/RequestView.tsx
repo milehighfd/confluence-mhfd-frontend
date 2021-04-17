@@ -99,7 +99,22 @@ const RequestView = ({ type }: {
   }
 
   const generateCSV = () => {
-    return getCsv(columns, locality, year, tabKey, sumTotal, sumByCounty, reqManager, diff);
+    let localityLabel = '';
+    if (type === "WORK_REQUEST") {
+      localityLabel = 'Jurisdiction';
+    } else {
+      let l = localities.find((p: any) => {
+        return p.name === locality;
+      })
+      if (l) {
+        if (l.type === 'COUNTY') {
+          localityLabel = 'County';
+        } else {
+          localityLabel = 'Service Area';
+        }
+      }
+    }
+    return getCsv(columns, locality, year, tabKey, sumTotal, sumByCounty, reqManager, diff, localityLabel);
   }
 
   const onSelect = (value: any) => {

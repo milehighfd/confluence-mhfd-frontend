@@ -240,10 +240,11 @@ export const getCsv = (
   sumTotal: any,
   sumByCounty: any,
   reqManager: any,
-  diff: any
+  diff: any,
+  localityLabel: string
 ) => {
   const date = new Date();
-    const csvData = [['Exported on ' + date], ['Jurisdiction:', locality ], ['Year:', year], ['Project Type:' , tabKey], []];
+    const csvData = [['Exported on ' + date], [`${localityLabel}:`, locality ], ['Year:', year], ['Project Type:' , tabKey], []];
     const row: any = [], row2: any = [], dataByYear: any = {}, years: any = [];
     let maxSize = 0;
     for (let i = 1; i < columns.length; i++) {
