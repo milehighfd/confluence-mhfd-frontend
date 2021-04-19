@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Collapse, Timeline, AutoComplete, Icon, InputNumber, notification } from 'antd';
+import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, Icon, InputNumber, notification } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
@@ -23,41 +23,15 @@ import { boardType } from "./RequestTypes";
 import StatusPlan from "../Drawers/StatusPlan";
 import StatusDistrict from "../Drawers/StatusDistrict";
 import Filter from "../Drawers/Filter";
+import TotalHeader from "./TotalHeader";
+import CostTableBody from "./CostTableBody";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
-const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
 
 let currentProject: any = {};
-
-const genExtra = (columns: any[], jurisdictionSelected: any[], csaSelected: any[]) => {
-  let totals = [0, 0, 0, 0, 0];
-  columns.forEach((col: any, colIdx: number) => {
-    if (colIdx === 0) return;
-    col.projects.filter((p: any) => {
-      return jurisdictionSelected.includes(p.projectData.jurisdiction) && (
-        csaSelected.includes(p.projectData.county) ||
-        csaSelected.includes(p.projectData.servicearea)
-      );
-    })
-    .forEach((p: any) => {
-      totals[colIdx - 1] += p[`req${colIdx}`];
-    })
-
-  })
-  return (
-    <div className="tab-head-project">
-      <div><label>Total Cost</label></div>
-      {
-        totals.map((t, i) => (
-          <div key={i}>{t ? formatter.format(t) : 0}</div>
-        ))
-      }
-    </div>
-  )
-};
 
 const openNotification = () => {
   notification.open({
@@ -529,7 +503,7 @@ const RequestView = ({ type }: {
     }
   }
 
-  let equalArrays = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
+  let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
 
   return <>
     {  showModalProject &&
@@ -713,7 +687,7 @@ const RequestView = ({ type }: {
                                         saveData={saveData}
                                         tabKey={tabKey}
                                         editable={boardStatus !== 'Approved'}
-                                        filtered={!equalArrays}
+                                        filtered={!notIsFiltered}
                                         locality={locality}
                                         borderColor={ColorService.getColor(type, p, arr)} />
                                     ))
@@ -729,26 +703,18 @@ const RequestView = ({ type }: {
                             defaultActiveKey={['1']}
                             expandIconPosition="left"
                           >
-                            <Panel header="" key="1" extra={genExtra(columns, jurisdictionSelected, csaSelected)}>
+                            <Panel header="" key="1" extra={
+                                <TotalHeader
+                                  columns={columns}
+                                  jurisdictionSelected={jurisdictionSelected}
+                                  csaSelected={csaSelected} />
+                              }>
                               <div className="tab-body-project streams">
                                 <Timeline>
                                   {
                                     sumByCounty.map((countySum) => (
                                       <Timeline.Item color="purple" key={Math.random()}>
-                                        <div className="tab-body-line">
-                                          <div>
-                                            <label>
-                                              {countySum.locality}
-                                              <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginLeft:'4px'}} />
-                                              </Popover>
-                                            </label>
-                                          </div>
-                                          <div>{countySum.req1 ? formatter.format(countySum.req1) : `$0`}</div>
-                                          <div>{countySum.req2 ? formatter.format(countySum.req2) : `$0`}</div>
-                                          <div>{countySum.req3 ? formatter.format(countySum.req3) : `$0`}</div>
-                                          <div>{countySum.req4 ? formatter.format(countySum.req4) : `$0`}</div>
-                                          <div>{countySum.req5 ? formatter.format(countySum.req5) : `$0`}</div>
-                                        </div>
+                                        <CostTableBody countySum={countySum} isFiltered={!notIsFiltered}/>
                                       </Timeline.Item>
                                     ))
                                   }
