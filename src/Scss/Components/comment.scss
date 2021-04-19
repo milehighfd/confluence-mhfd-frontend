@@ -40,6 +40,9 @@
   .ant-list-sm .ant-list-item{
     margin: 0px 10px;
     width: 110px;
+    div{
+      width: 100%;
+    }
   }
   .ant-list-bordered.ant-list-sm .ant-list-item {
     padding-right: 0px;
@@ -71,6 +74,7 @@
     right: 12px;
     font-size: 10px;
     color: $green;
+    margin-top: 8px;
   }
 }
 .comment-drawer{
