@@ -3,31 +3,32 @@ import { Drawer, Row, Col, Input, Button, Menu, Select, Popover, Comment, Avatar
 import { DownOutlined, CheckOutlined } from '@ant-design/icons';
 import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
 const { Option } = Select;
-const { TextArea } = Input;
-const data = [
-  <><i className="mdi mdi-circle-medium" style={{color:'rgba(37, 24, 99, 0.5)'}}></i> All Types <CheckOutlined /></> ,
-  <><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</> ,
-  <><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</> ,
-  <><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey</> ,
-  <><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</> ,
-];
-
-const content = (
-  <List
-    size="small"
-    bordered
-    dataSource={data}
-    renderItem={item => <List.Item>{item}</List.Item>}
-  />
-);
-
-
-
+const { TextArea } = Input; 
 
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap}: 
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function}) => {
+  
   const { notes } = useNotesState();
   const {  deleteNote } = useNoteDispatch();
+  const [filter, setFilter] = useState('all');
+
+  const data = [
+    <><div onClick={() => {setFilter('all')}}> <i className="mdi mdi-circle-medium" style={{color:'rgba(37, 24, 99, 0.5)'}}></i> All Types {filter === 'all' ? <CheckOutlined /> : <></>}</div></> ,
+    <><div onClick={() => {setFilter('red'); console.log('red');}}><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red {filter === 'red' ? <CheckOutlined /> : <></>}</div></> ,
+    <><div onClick={() => setFilter('orange')}><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange {filter === 'orange' ? <CheckOutlined /> : <></>}</div></> ,
+    <><div onClick={() => setFilter('grey')}><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey {filter === 'grey' ? <CheckOutlined /> : <></>}</div></> ,
+    <><div onClick={() => setFilter('green')}><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green {filter === 'green' ? <CheckOutlined /> : <></>}</div></> ,
+  ];
+
+  const content = (
+    <List
+      size="small"
+      bordered
+      dataSource={data}
+      renderItem={item => <List.Item>{item}</List.Item>}
+    />
+  );
+
   const contentmenu = (note: any) =>  {
     return (
     <Menu className="js-mm-00">
@@ -108,7 +109,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap}:
       visible={visible}
       className="comment-drawer"
     >
-      {notes.map((note: any) => {
+      {filter === 'all' ? notes.map((note: any) => {
         return (
         <Comment avatar={
           <Avatar style={{ color: '#11093C', backgroundColor: 'rgba(00,00,00,0.2)' }}>AA</Avatar>
@@ -125,6 +126,27 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap}:
           </>
         }
         />)
+      }) : notes.flatMap((note: any) => {
+        if (note.color === filter) {
+          return [(
+          <Comment avatar={
+            <Avatar style={{ color: '#11093C', backgroundColor: 'rgba(00,00,00,0.2)' }}>AA</Avatar>
+          }
+          content={note &&
+            <>
+            <p>
+              {note.content}
+            </p>
+            <h6>{timeAgo(note.createdAt)}</h6>
+            <Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(note)} trigger="click">
+              <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
+            </Popover>
+            </>
+          }
+          />)];
+        } else {
+          return [];
+        }
       })
       }
 
