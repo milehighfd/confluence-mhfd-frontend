@@ -234,6 +234,10 @@ const WorkRequestMap = (type: any) => {
                   "data": polyMask(mask, arrayBounds)
               });
               console.log('ADDS FUCH MASK');
+              let bf = '';
+              if(map.getLayer('mhfd_projects_copy_0')){
+                bf = 'mhfd_projects_copy_0';
+              }
               map.map.addLayer({
                   "id": "mask",
                   "source": "mask",
@@ -242,7 +246,7 @@ const WorkRequestMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              });
+              }, bf);
               map.map.addLayer({
                 "id": "mask-border",
                 "source": "mask",
@@ -251,7 +255,7 @@ const WorkRequestMap = (type: any) => {
                   'line-color': '#28c499',
                   'line-width': 1,
                 }
-              });
+              },bf);
           } else {
               map.map.setLayoutProperty('mask', 'visibility', 'visible');
               // map.map.removeLayer('mask');
@@ -301,7 +305,7 @@ const WorkRequestMap = (type: any) => {
       // }
       })
       
-    }, 900);
+    }, 1400);
   
 }, [coordinatesJurisdiction]);
 
