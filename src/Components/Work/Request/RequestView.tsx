@@ -4,7 +4,7 @@ import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
-import { COMPLETE_SCREEN, EMPTY_SCREEN, MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT } from "../../../constants/constants";
+import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT } from "../../../constants/constants";
 import WorkRequestMap from './../../WorkRequestMap/WorkRequestMap';
 import '../../../index.scss';
 import { getData, getToken, postData } from "../../../Config/datasets";
@@ -16,6 +16,7 @@ import Analytics from "../Drawers/Analytics";
 import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
 import Status from "../Drawers/Status";
+import ColorService from './ColorService';
 
 import { compareArrays, compareColumns, defaultColumns, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
@@ -60,6 +61,7 @@ const RequestView = ({ type }: {
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const years = [2021, 2020, 2019, 2018];
   const [locality, setLocality] = useState('');
+  const [localityType, setLocalityType] = useState('');
   const [year, setYear] = useState<any>(years[0]);
   const [tabKey, setTabKey] = useState<any>(null);
   const [namespaceId, setNamespaceId] = useState<string>('');
@@ -124,6 +126,7 @@ const RequestView = ({ type }: {
       return p.name === value;
     })
     if (l) {
+      setLocalityType(l.type);
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
         if (l.type === 'COUNTY') {
@@ -167,15 +170,18 @@ const RequestView = ({ type }: {
                 _locality = r.localities[0].name;
               }
             }
+            let l = r.localities.find((p: any) => {
+              return p.name === _locality;
+            })
+            if (l) {
+              setLocalityType(l.type);
+            }
             if (_tabKey) {
               setTabKey(_tabKey)
             } else {
               if (type === "WORK_REQUEST") {
                 setTabKey(tabKeys[0])
               } else {
-                let l = r.localities.find((p: any) => {
-                  return p.name === _locality;
-                })
                 if (l) {
                   let displayedTabKey: string[] = [];
                   if (l.type === 'COUNTY') {
@@ -501,17 +507,10 @@ const RequestView = ({ type }: {
   let displayedTabKey = tabKeys;
   let l;
   if (type === "WORK_PLAN") {
-    console.log('localities', localities);
-    console.log('locality', locality)
-    l = localities.find((p: any) => {
-      return p.name === locality;
-    })
-    if (l) {
-      if (l.type === 'COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance']
-      } else if (l.type === 'SERVICE_AREA') {
-        displayedTabKey = ['Study', 'Acquisition', 'Special'];
-      }
+    if (localityType === 'COUNTY') {
+      displayedTabKey = ['Capital', 'Maintenance']
+    } else if (localityType === 'SERVICE_AREA') {
+      displayedTabKey = ['Study', 'Acquisition', 'Special'];
     }
   }
 
@@ -603,6 +602,12 @@ const RequestView = ({ type }: {
                           setLocalityFilter(input2);
                           if (localities.map(r => r.name).indexOf(input2) !== -1) {
                             setLocality(input2)
+                            let l = localities.find((p: any) => {
+                              return p.name === locality;
+                            })
+                            if (l) {
+                              setLocalityType(l.type);
+                            }
                           }
                         }}
                       >
@@ -685,7 +690,7 @@ const RequestView = ({ type }: {
                                         csaSelected.includes(p.projectData.servicearea)
                                       );
                                     })
-                                    .map((p: any, i: number) => (
+                                    .map((p: any, i: number, arr: any[]) => (
                                       <TrelloLikeCard key={i}
                                         project={p}
                                         columnIdx={columnIdx}
@@ -694,7 +699,8 @@ const RequestView = ({ type }: {
                                         tabKey={tabKey}
                                         editable={boardStatus !== 'Approved'}
                                         filtered={!equalArrays}
-                                        locality={locality} />
+                                        locality={locality}
+                                        borderColor={ColorService.getColor(type, p, arr)} />
                                     ))
                                   }
                                 </div>
