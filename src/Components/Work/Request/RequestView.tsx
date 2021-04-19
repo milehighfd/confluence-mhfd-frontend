@@ -728,6 +728,8 @@ const RequestView = ({ type }: {
                               reqManager.map((val: any, index: number) => (
                                 <div key={index}>
                                   <InputNumber placeholder="Enter target cost"
+                                      style={{opacity: !notIsFiltered ? 0.5 : 1 }}
+                                      readOnly={!notIsFiltered}
                                       formatter={priceFormatter}
                                       parser={priceParser}
                                       value={val} onChange={(e: any) => {
@@ -749,7 +751,7 @@ const RequestView = ({ type }: {
                             <div><h5>Differential</h5></div>
                             {
                               diff.map((d: any, i) => (
-                                <div key={i}>{d ? formatter.format(d) : ''}</div>
+                                <div key={i} style={{opacity: !notIsFiltered ? 0.5 : 1 }} >{d ? formatter.format(d) : ''}</div>
                               ))
                             }
                           </div>
