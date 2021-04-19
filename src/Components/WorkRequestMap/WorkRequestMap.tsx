@@ -172,8 +172,8 @@ const WorkRequestMap = (type: any) => {
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
-        // filterProjectsDraft.status = 'Draft';
-          // wait(()=>{
+        filterProjectsDraft.status = 'Draft';
+          wait(()=>{
             setTimeout(()=>{
               map.isStyleLoaded(()=>{
                 removeLayers('mhfd_projects_copy');
@@ -193,7 +193,7 @@ const WorkRequestMap = (type: any) => {
               });
             },2000);
             
-          // });
+          });
       }
   },[idsBoardProjects]);
   useEffect(()=>{
@@ -215,7 +215,7 @@ const WorkRequestMap = (type: any) => {
     let mask
     setTimeout(() => {
       map.isStyleLoaded(()=>{ 
-        
+        console.log("ADDING OPACITY");
         if (coordinatesJurisdiction.length > 0) {
           mask = turf.multiPolygon(coordinatesJurisdiction);
           let miboundsmap = map.map.getBounds();
