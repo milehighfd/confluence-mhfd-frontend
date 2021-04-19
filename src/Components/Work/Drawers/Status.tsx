@@ -1,22 +1,26 @@
-import React, { useState } from "react";
-import { Drawer, Button, Dropdown, Menu } from 'antd';
+import React, { useEffect, useState } from "react";
+import { Drawer, Button, Dropdown, Menu, List } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { SERVER } from "../../../Config/Server.config";
-import { getToken, putData } from "../../../Config/datasets";
+import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
+import { boardType } from "../Request/RequestTypes";
 
-export default ({ boardId, visible, setVisible, status, comment }: {
+export default ({ boardId, visible, setVisible, status, comment, type }: {
   boardId: any,
   visible: boolean,
   setVisible: Function,
   status: any,
-  comment: any
+  comment: any,
+  type: boardType
 }) => {
   const [boardStatus, setBoardStatus] = useState(status);
   const [boardComment, setBoardComment] = useState(comment);
   const [showMessage, setShowMessage] = useState(false);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [message, setMessage] = useState('An Error has ocurred, please try again later');
+  const [boardsData, setBoardsData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const save = () => {
     putData(`${SERVER.URL_BASE}/board/${boardId}`, {
@@ -40,6 +44,21 @@ export default ({ boardId, visible, setVisible, status, comment }: {
           console.log('e', e)
         })
   }
+
+  useEffect(() => {
+    setLoading(true);
+    getData(`${SERVER.URL_BASE}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
+    // getData(`${'http://localhost:3003'}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
+      .then((r) => {
+        setBoardsData(r.boards);
+      })
+      .catch((e) => {
+        console.log('e', e)
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+  }, [])
 
   return (
     <>
@@ -87,6 +106,33 @@ export default ({ boardId, visible, setVisible, status, comment }: {
         <DownOutlined />
         </Button>
       </Dropdown>
+
+      {
+        type === 'WORK_PLAN' && 
+        <>
+          <p>Work Request <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
+          {
+            loading ? (<div>Loading...</div>) : (
+            <List
+              itemLayout="horizontal"
+              dataSource={boardsData}
+              renderItem={item => (
+                <List.Item className="menu-utilities">
+                  <List.Item.Meta
+                    title={<h6><i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00'}}></i> {item.locality}</h6>}
+                    description={
+                      <p style={{width:'100%'}}>
+                        {'description'}
+                        <img src="/Icons/icon-64.svg" alt="" height="8px" style={{opacity:'0.3'}}/>
+                      </p>
+                    }
+                  />
+                </List.Item>
+              )}
+            />)
+          }
+        </>
+      }
 
       <p>Notes <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
       <textarea className="note" rows={8} value={boardComment} onChange={e => {

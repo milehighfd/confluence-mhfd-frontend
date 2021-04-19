@@ -532,6 +532,7 @@ const RequestView = ({ type }: {
         setVisible={setShowBoardStatus}
         status={boardStatus}
         comment={boardComment}
+        type={type}
         />
     }
     {
