@@ -5,13 +5,16 @@ import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
 const { Option } = Select;
 const { TextArea } = Input; 
 
-const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap}: 
-  {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function}) => {
+const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter}: 
+  {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function}) => {
   
   const { notes } = useNotesState();
   const {  deleteNote } = useNoteDispatch();
   const [filter, setFilter] = useState('all');
 
+  useEffect(()=>{
+    changeFilter(filter);
+  },[filter]);
   const data = [
     <><div onClick={() => {setFilter('all')}}> <i className="mdi mdi-circle-medium" style={{color:'rgba(37, 24, 99, 0.5)'}}></i> All Types {filter === 'all' ? <CheckOutlined /> : <></>}</div></> ,
     <><div onClick={() => {setFilter('red'); console.log('red');}}><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red {filter === 'red' ? <CheckOutlined /> : <></>}</div></> ,

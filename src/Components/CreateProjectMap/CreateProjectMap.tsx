@@ -185,27 +185,44 @@ const CreateProjectMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              });
+              }, "streams_4");
+              map.map.addLayer({
+                "id": "mask-border",
+                "source": "mask",
+                "type": "line",
+                "paint": {
+                  'line-color': '#28c499',
+                  'line-width': 1,
+                }
+              }, "streams_4");
           } else {
-                  map.map.setLayoutProperty('mask', 'visibility', 'visible');
-                  map.map.removeLayer('mask');
-                  map.map.removeSource('mask');
-                  map.map.addSource('mask', {
-                      "type": "geojson",
-                      "data": polyMask(mask, arrayBounds)
-                  });
-  
-                  map.map.addLayer({
-                      "id": "mask",
-                      "source": "mask",
-                      "type": "fill",
-                      "paint": {
-                          "fill-color": "black",
-                          'fill-opacity': 0.8
-                      }
-                  });
-  
-              }
+              map.map.setLayoutProperty('mask', 'visibility', 'visible');
+              map.map.removeLayer('mask');
+              map.map.removeSource('mask');
+              map.map.addSource('mask', {
+                  "type": "geojson",
+                  "data": polyMask(mask, arrayBounds)
+              });
+
+              map.map.addLayer({
+                  "id": "mask",
+                  "source": "mask",
+                  "type": "fill",
+                  "paint": {
+                      "fill-color": "black",
+                      'fill-opacity': 0.8
+                  }
+              }, "streams_4");
+              map.map.addLayer({
+                "id": "mask-border",
+                "source": "mask",
+                "type": "line",
+                "paint": {
+                  'line-color': '#28c499',
+                  'line-width': 1,
+                }
+              }, "streams_4");
+          }
           } else {
               if (opacityLayer) {
                   if  (map.map.loaded()) {
@@ -215,12 +232,17 @@ const CreateProjectMap = (type: any) => {
                           map.map.removeLayer('mask');
                           map.map.removeSource('mask');
                       }
+                      if (map.map.getLayer('mask-border')) {
+                        map.map.setLayoutProperty('mask-border', 'visibility', 'visible');
+                        map.map.removeLayer('mask-border');
+                        map.map.removeSource('mask-border');
+                    }
                   }
               }
   
           }
       });  
-    }, 1000);
+    }, 1500);
     
     
 }, [coordinatesJurisdiction]);
@@ -246,7 +268,7 @@ const CreateProjectMap = (type: any) => {
       // }
       let bboxBounds = turf.bbox(poly);
       if(map.map){
-        map.map.fitBounds(bboxBounds,{ padding:70, maxZoom: 13});
+        map.map.fitBounds(bboxBounds,{ padding:10, maxZoom: 13});
       }
     }
   }
@@ -462,11 +484,11 @@ const CreateProjectMap = (type: any) => {
 
   const setLayersSelectedOnInit = () => {
     if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
-      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS, COMPONENT_LAYERS]);
+      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS]);
     } else if( type.type == 'STUDY') {
-      updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS ]);
+      updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS  ]);
     } else {
-      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
+      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS]);
     }
   }
   const onCreateDraw = (event: any) => {

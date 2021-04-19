@@ -158,6 +158,7 @@ const Map = ({ leftWidth,
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
     const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+    const [notesFilter, setNotesFilter] = useState('all');
     useEffect(()=> {
         // console.log(mobilePopups);
 
@@ -413,34 +414,37 @@ const Map = ({ leftWidth,
             marker.marker.remove()
           });
           notes.forEach( (note: any) => {
-            let colorOfMarker = '';
-            switch(note.color) {
-              case 'green': 
-                colorOfMarker = colors.GREEN;
-                break;
-              case 'grey':
-                colorOfMarker = colors.GREY;
-                break;
-              case 'orange':
-                colorOfMarker = colors.ORANGE;
-                break;
-              case 'red':
-                colorOfMarker = colors.RED;
-                break;
-              default: 
-                colorOfMarker = colors.GREY;
-            }
-            const newmarker = new mapboxgl.Marker({ color: colorOfMarker, scale: 0.7 });
-            const html = commentPopup(note);  
-                let newpopup = new mapboxgl.Popup();
-                newmarker.setPopup(newpopup);
-                newpopup.setHTML(html);
-                newmarker.setLngLat([note.longitude, note.latitude]).setPopup(newpopup);
-            totalmarkers.push({ marker: newmarker, note: note});
+            console.log("FILTER ", notesFilter, note.color);
+            if(!(notesFilter != 'all' && notesFilter != note.color)) {
+              let colorOfMarker = '';
+              switch(note.color) {
+                case 'green': 
+                  colorOfMarker = colors.GREEN;
+                  break;
+                case 'grey':
+                  colorOfMarker = colors.GREY;
+                  break;
+                case 'orange':
+                  colorOfMarker = colors.ORANGE;
+                  break;
+                case 'red':
+                  colorOfMarker = colors.RED;
+                  break;
+                default: 
+                  colorOfMarker = colors.GREY;
+              }
+              const newmarker = new mapboxgl.Marker({ color: colorOfMarker, scale: 0.7 });
+              const html = commentPopup(note);  
+                  let newpopup = new mapboxgl.Popup();
+                  newmarker.setPopup(newpopup);
+                  newpopup.setHTML(html);
+                  newmarker.setLngLat([note.longitude, note.latitude]).setPopup(newpopup);
+              totalmarkers.push({ marker: newmarker, note: note});
+            } 
           });
           setMarkerNotes(totalmarkers);   
         }
-    }, [notes]);
+    }, [notes, notesFilter]);
     useEffect(()=>{
       if(commentVisible && markersNotes.length > 0) {
         markersNotes.forEach((marker:any) => {
@@ -2494,7 +2498,7 @@ const Map = ({ leftWidth,
     return (
         <>
         <SideBarComment visible={commentVisible} setVisible={setCommentVisible} 
-        flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap}></SideBarComment>
+        flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap} changeFilter={setNotesFilter}></SideBarComment>
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}
