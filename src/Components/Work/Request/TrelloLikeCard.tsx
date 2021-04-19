@@ -33,7 +33,6 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, editable
     projectid,
     projectname,
     jurisdiction,
-    status,
     projectsubtype
   } = project.projectData;
 
@@ -128,7 +127,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, editable
       <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
       <label className="purple">{displayJurisdiction}</label>
-      <label className="yellow">{status}</label>
+      <label className="yellow">{editable ? 'Draft' : 'Requested'}</label>
       {
         !showAmountModal &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom" content={content} trigger="click">
