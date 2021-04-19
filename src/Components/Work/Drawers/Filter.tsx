@@ -73,7 +73,7 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
         <div className="body-f-p">
           {
             jurisdictionFilterList.map((cn: string, index: number) => (
-              <p>
+              <p key={`filter-jp${index}`}>
                 {cn}
                 <span>
                 <Checkbox checked={jurisdictionSelected[index]} onChange={e => {
@@ -98,7 +98,7 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
         <div className="body-f-p">
           {
             csaFilterList.map((cn: string, index: number) => (
-              <p>
+              <p key={`filter-cp${index}`}>
                 {cn}
                 <span>
                 <Checkbox checked={csaSelected[index]} onChange={e => {

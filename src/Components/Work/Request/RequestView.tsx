@@ -32,16 +32,32 @@ const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, cons
 
 let currentProject: any = {};
 
-const genExtra = (obj: any) => (
-  <div className="tab-head-project">
-    <div><label>Total Cost</label></div>
-    <div>{obj.req1 ? formatter.format(obj.req1) : 0}</div>
-    <div>{obj.req2 ? formatter.format(obj.req2) : 0}</div>
-    <div>{obj.req3 ? formatter.format(obj.req3) : 0}</div>
-    <div>{obj.req4 ? formatter.format(obj.req4) : 0}</div>
-    <div>{obj.req5 ? formatter.format(obj.req5) : 0}</div>
-  </div>
-);
+const genExtra = (columns: any[], jurisdictionSelected: any[], csaSelected: any[]) => {
+  let totals = [0, 0, 0, 0, 0];
+  columns.forEach((col: any, colIdx: number) => {
+    if (colIdx === 0) return;
+    col.projects.filter((p: any) => {
+      return jurisdictionSelected.includes(p.projectData.jurisdiction) && (
+        csaSelected.includes(p.projectData.county) ||
+        csaSelected.includes(p.projectData.servicearea)
+      );
+    })
+    .forEach((p: any) => {
+      totals[colIdx - 1] += p[`req${colIdx}`];
+    })
+
+  })
+  return (
+    <div className="tab-head-project">
+      <div><label>Total Cost</label></div>
+      {
+        totals.map((t, i) => (
+          <div key={i}>{t ? formatter.format(t) : 0}</div>
+        ))
+      }
+    </div>
+  )
+};
 
 const openNotification = () => {
   notification.open({
@@ -713,7 +729,7 @@ const RequestView = ({ type }: {
                             defaultActiveKey={['1']}
                             expandIconPosition="left"
                           >
-                            <Panel header="" key="1" extra={genExtra(sumTotal)}>
+                            <Panel header="" key="1" extra={genExtra(columns, jurisdictionSelected, csaSelected)}>
                               <div className="tab-body-project streams">
                                 <Timeline>
                                   {
