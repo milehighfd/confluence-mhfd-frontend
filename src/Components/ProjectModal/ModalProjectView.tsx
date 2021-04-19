@@ -206,7 +206,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
      >
      {/*Name*/}
       <h4>Name</h4>
-      <Input placeholder="Name your project" onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />
+      <Input placeholder="Name your project" onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} onPressEnter = {handleOk}  />
       <br/><br/>
       {/*Buttons*/}
       <h4>Choose a Project Type</h4>
