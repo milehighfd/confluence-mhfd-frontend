@@ -177,16 +177,16 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">
             <Row>
-              <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+              <Col xs={{ span: 24 }} lg={{ span: 17 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} /*disabled={disableName}*//>
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={45} placeholder={nameProject} /*disabled={disableName}*//>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()}/>
                 </Button>*/}
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
+              <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
                 <label className="tag-name" style={{padding:'10px'}}>Special</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />

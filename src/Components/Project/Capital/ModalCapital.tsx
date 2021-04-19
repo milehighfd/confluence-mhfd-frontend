@@ -483,7 +483,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 17 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={30} placeholder={nameProject} /*disabled={disableName}*//>
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={45} placeholder={nameProject} /*disabled={disableName}*//>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />*/}
                 {/*<Button className="btn-transparent">
