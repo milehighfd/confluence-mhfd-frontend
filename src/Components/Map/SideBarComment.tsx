@@ -4,11 +4,11 @@ import { DownOutlined, CheckOutlined } from '@ant-design/icons';
 import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
 import { useProfileState } from "../../hook/profileHook";
 const { Option } = Select;
-const { TextArea } = Input; 
+const { TextArea } = Input;
 
-const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter}: 
+const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function}) => {
-  
+
   const { notes } = useNotesState();
   const {  deleteNote } = useNoteDispatch();
   const [filter, setFilter] = useState('all');
@@ -100,8 +100,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     <Drawer
       title={<div className="comment-title">
               <h5>Map Notes</h5>
-              <Button onClick={() => addToMap()}>+</Button>
-              <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note" >
+              <Button className="btn-opacity" onClick={() => addToMap()}>+</Button>
+              <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">
                 <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> {filter === 'all' ? 'All Types' : filter[0].toUpperCase() + filter.slice(1)} <DownOutlined /></Button>
               </Popover>
             </div>}

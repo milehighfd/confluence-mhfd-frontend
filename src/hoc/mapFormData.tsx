@@ -106,7 +106,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         const [spinValue, setSpinValue] = useState(true);
         const [isExtendedView, setCompleteView] = useState(false);
         const { tutorialStatus } =useMapState();
-        const {status} = useProjectState(); 
+        const {status} = useProjectState();
         const [visibleSave, setVisibleSave] = useState(false);
         const [statusSave, setStatusSave] = useState(2);
         const {setSave} = useProjectDispatch();
@@ -118,9 +118,9 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             setSave(2);
           };
         },[status]);
-        
+
         let markerRef = useRef<HTMLDivElement>(null);
-        let polygonRef = useRef<HTMLDivElement>(null); 
+        let polygonRef = useRef<HTMLDivElement>(null);
         useEffect(() => {
           getProjectWithFilters();
         }, [getProjectWithFilters]);
@@ -177,12 +177,12 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         return (
             <Layout>
             <Navbar/>
-            
-               
+
+
             <Layout>
               <SidebarView></SidebarView>
               {/*mostrar*/}
-            {visibleSave && 
+            {visibleSave &&
               <AlertViewSave
                 statusSave= {statusSave}
                 setStatusSave= {setStatusSave}
@@ -192,7 +192,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <Layout className="map-00">
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
-                    <Col xs={{ span: 24 }} className="height-mobile" style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} lg={leftWidth}>{/*span={15}*/}
+                    <Col xs={{ span: 24 }} className="height-mobile padding-comment" style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} lg={leftWidth}>{/*span={15}*/}
                         <Map
                             leftWidth={leftWidth}
                             layers={layers}
