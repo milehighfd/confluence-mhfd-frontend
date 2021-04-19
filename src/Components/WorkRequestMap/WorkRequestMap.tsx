@@ -48,6 +48,7 @@ import { containsNumber } from "@turf/turf";
 import { getFeaturesIntersected, getHull } from './utilsService';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { AnyCnameRecord, AnyAaaaRecord } from "dns";
+let firstTime = true;
 let map: any;
 let coordX = -1;
 let coordY = -1;
@@ -168,7 +169,8 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    console.log("UPDATES ON NEW PROJECT??", idsBoardProjects);
+    console.log("UPDATES ON NEW PROJECT??", idsBoardProjects, firstTime);
+    let time = firstTime?6000:1200;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -176,8 +178,8 @@ const WorkRequestMap = (type: any) => {
           wait(()=>{
             setTimeout(()=>{
               map.isStyleLoaded(()=>{
-                removeLayers('mhfd_projects_copy');
-                removeLayersSource('mhfd_projects_copy');
+                // removeLayers('mhfd_projects_copy');
+                // removeLayersSource('mhfd_projects_copy');
                 const tiles = layerFilters['projects_draft'] as any;
                 if (tiles) {
                   // layer.name = projects_draft 
@@ -187,11 +189,12 @@ const WorkRequestMap = (type: any) => {
                     console.log("IS ABOUT TO SHOW MHFD PROJECT _ COPY");
                     showLayers('mhfd_projects_copy');
                     applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+                    firstTime = false;
                   },1200);
                 }
                 
               });
-            },2000);
+            },time);
             
           });
       }
@@ -215,7 +218,7 @@ const WorkRequestMap = (type: any) => {
     let mask
     setTimeout(() => {
       map.isStyleLoaded(()=>{ 
-        console.log("ADDING OPACITY");
+        console.log("ADDING OPACITY",coordinatesJurisdiction);
         if (coordinatesJurisdiction.length > 0) {
           mask = turf.multiPolygon(coordinatesJurisdiction);
           let miboundsmap = map.map.getBounds();
@@ -225,12 +228,12 @@ const WorkRequestMap = (type: any) => {
           // console.log('porque', boundingBox1)
           var arrayBounds = misbounds.split(',');
           setOpacityLayer(true);
-          if (!map.map.getLayer('mask')) {
+          if (!map.map.getSource('mask')) {
               map.map.addSource('mask', {
                   "type": "geojson",
                   "data": polyMask(mask, arrayBounds)
               });
-  
+              console.log('ADDS FUCH MASK');
               map.map.addLayer({
                   "id": "mask",
                   "source": "mask",
@@ -239,7 +242,7 @@ const WorkRequestMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              });
+              },'mhfd_projects_copy_0');
               map.map.addLayer({
                 "id": "mask-border",
                 "source": "mask",
@@ -248,18 +251,22 @@ const WorkRequestMap = (type: any) => {
                   'line-color': '#28c499',
                   'line-width': 1,
                 }
-              });
+              },'mhfd_projects_copy_0');
           } else {
               map.map.setLayoutProperty('mask', 'visibility', 'visible');
-              map.map.removeLayer('mask');
-              map.map.removeLayer('mask-border');
+              // map.map.removeLayer('mask');
+              // map.map.removeLayer('mask-border');
               // map.map.removeSource('mask');
               // map.map.addSource('mask', {
               //     "type": "geojson",
               //     "data": polyMask(mask, arrayBounds)
               // });
-  
-              map.map.addLayer({
+              let beneathLayer = 'mhfd_projects_copy_0';
+              if(!map.getLayer('mhfd_projects_copy_0')) {
+                beneathLayer = '';
+              }
+              if(!map.getLayer('mask')) {
+                map.map.addLayer({
                   "id": "mask",
                   "source": "mask",
                   "type": "fill",
@@ -267,34 +274,38 @@ const WorkRequestMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              });
-              map.map.addLayer({
-                "id": "mask-border",
-                "source": "mask",
-                "type": "line",
-                "paint": {
-                  'line-color': '#28c499',
-                  'line-width': 1,
-                }
-              });
-  
-          }
-      } else {
-          if (opacityLayer) {
-              if  (map.map.loaded()) {
-                  // console.log('hide opacity');
-                  if (map.map.getLayer('mask')) {
-                      map.map.setLayoutProperty('mask', 'visibility', 'visible');
-                      map.map.removeLayer('mask');
-                      map.map.removeSource('mask');
+              },beneathLayer);
+              }
+              if(!map.getLayer('mask-border')) {
+                map.map.addLayer({
+                  "id": "mask-border",
+                  "source": "mask",
+                  "type": "line",
+                  "paint": {
+                    'line-color': '#28c499',
+                    'line-width': 1,
                   }
+                },beneathLayer);
               }
           }
+      } 
+      // else {
+      //   console.log("");
+      //     if (opacityLayer) {
+      //         if  (map.map.loaded()) {
+      //             // console.log('hide opacity');
+      //             if (map.map.getLayer('mask')) {
+      //                 map.map.setLayoutProperty('mask', 'visibility', 'visible');
+      //                 map.map.removeLayer('mask');
+      //                 map.map.removeSource('mask');
+      //             }
+      //         }
+      //     }
   
-      }
+      // }
       })
       
-    }, 600);
+    }, 900);
   
 }, [coordinatesJurisdiction]);
 
@@ -319,7 +330,6 @@ const WorkRequestMap = (type: any) => {
       //     map.map.flyTo({ center: value, zoom: 10 });
       // }
       let bboxBounds = turf.bbox(poly);
-      console.log("IS ZOOMING?");
       if(map.map){
         map.map.fitBounds(bboxBounds,{ padding:20, maxZoom: 13});
       }
@@ -618,7 +628,6 @@ const WorkRequestMap = (type: any) => {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
       if(key ==='mhfd_projects_copy'){
-        console.log("OR IS ADDING THIS THINGS at apply filters");
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', ['-1']]]);
       }
       if (map.getLayer(key + '_' + index)) {
@@ -801,8 +810,9 @@ const WorkRequestMap = (type: any) => {
         source: key,
         ...style
       });
-      // if (!key.includes('mhfd_projects_copy')) {
-        // console.log("HIDING LAYER AAA",key + '_' + index);
+      if (key.includes('mhfd_projects_copy')) {
+        console.log("HIDING LAYER AAA",key + '_' + index);
+      }
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       // }
 
