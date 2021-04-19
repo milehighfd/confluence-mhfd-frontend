@@ -112,7 +112,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent} = useProjectDispatch();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds} = useProjectDispatch();
   const {currentServiceAreaCounty} =useProjectState();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected} = useProjectState();
   const [state, setState] = useState(stateValue);
@@ -150,6 +150,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
     
     setStreamIntersected({geom:null});
+    setStreamsIds([]);
     
   },[]);
 

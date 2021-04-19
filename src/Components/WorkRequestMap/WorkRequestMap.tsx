@@ -191,7 +191,7 @@ const WorkRequestMap = (type: any) => {
                 }
                 
               });
-            },1000);
+            },1500);
             
           // });
       }

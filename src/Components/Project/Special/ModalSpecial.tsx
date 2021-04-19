@@ -38,7 +38,7 @@ const stateValue = {
 export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality, data}:
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any}) => {
 
-  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation} = useProjectDispatch();
+  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds} = useProjectDispatch();
   const { currentServiceAreaCounty} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -106,6 +106,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
   useEffect(()=>{
     setStreamIntersected({geom:null});
+    setStreamsIds([]);
   },[]);
   const showModal = () => {
     const auxState = {...state};

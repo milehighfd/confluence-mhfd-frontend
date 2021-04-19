@@ -35,7 +35,7 @@ const stateValue = {
 export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible, locality, data}:
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
 
-  const {saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance} = useProjectDispatch();
+  const {saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance, setStreamsIds} = useProjectDispatch();
   const {userPolygon, streamIntersected, currentServiceAreaCounty} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -138,6 +138,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     setVisibleEligibility(true);
     }
     setStreamIntersected({geom:null});
+    setStreamsIds([]);
   },[])
 
   const apllyFrequency = (e: any)=>{
