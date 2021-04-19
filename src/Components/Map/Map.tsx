@@ -80,6 +80,7 @@ const { Panel } = Collapse;
 );*/}
 
 let contents: any = [];
+let canAdd = false;
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 
@@ -1164,6 +1165,12 @@ const Map = ({ leftWidth,
             });
         }
     };
+
+    const addToMap = () => {
+        console.log('adding');
+        canAdd = true;
+    }
+
     const addTilesLayers = (key: string) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
@@ -1346,7 +1353,9 @@ const Map = ({ leftWidth,
             return;
         }
         map.on('click', (e: any) => {
-            if (commentAvailable) {
+            console.log(canAdd);
+            if (commentAvailable && canAdd) {
+                canAdd = false;
                 const html = commentPopup();
                 popup.remove();
                 popup = new mapboxgl.Popup();
@@ -2485,7 +2494,7 @@ const Map = ({ leftWidth,
     return (
         <>
         <SideBarComment visible={commentVisible} setVisible={setCommentVisible} 
-        flyTo={flyTo} openEditNote={openEditNote}></SideBarComment>
+        flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap}></SideBarComment>
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}

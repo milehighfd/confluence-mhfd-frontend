@@ -24,9 +24,10 @@ const content = (
 
 
 
-const SideBarComment = ({visible, setVisible, flyTo, openEditNote}: {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function}) => {
+const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap}: 
+  {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function}) => {
   const { notes } = useNotesState();
-  const { editNote, deleteNote } = useNoteDispatch();
+  const {  deleteNote } = useNoteDispatch();
   const contentmenu = (note: any) =>  {
     return (
     <Menu className="js-mm-00">
@@ -94,6 +95,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote}: {visible: bo
     <Drawer
       title={<div className="comment-title">
               <h5>Map Notes</h5>
+              <Button onClick={() => addToMap()}>+</Button>
               <Popover trigger="click" placement="bottomRight" content={content} overlayClassName="popover-note">
                 <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> All Types <DownOutlined /></Button>
               </Popover>
