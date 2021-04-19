@@ -98,7 +98,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap}:
               <h5>Map Notes</h5>
               <Button onClick={() => addToMap()}>+</Button>
               <Popover trigger="click" placement="bottomRight" content={content} overlayClassName="popover-note">
-                <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> All Types <DownOutlined /></Button>
+                <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> {filter === 'all' ? 'All Types' : filter[0].toUpperCase() + filter.slice(1)} <DownOutlined /></Button>
               </Popover>
             </div>}
       placement="left"
