@@ -47,9 +47,9 @@ export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterLi
   }
 
   let label;
-  if (l.type === 'COUNTY') {
+  if (l === 'COUNTY') {
     label = 'COUNTY';
-  } else if (l.type === 'SERVICE_AREA') {
+  } else if (l === 'SERVICE_AREA') {
     label = 'SERVICE AREA';
   }
 

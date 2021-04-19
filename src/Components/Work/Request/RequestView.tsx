@@ -505,7 +505,6 @@ const RequestView = ({ type }: {
   }
 
   let displayedTabKey = tabKeys;
-  let l;
   if (type === "WORK_PLAN") {
     if (localityType === 'COUNTY') {
       displayedTabKey = ['Capital', 'Maintenance']
@@ -556,7 +555,7 @@ const RequestView = ({ type }: {
         selCS={csaSelected}
         setJS={setJurisdictionSelected}
         setCS={setCsaSelected}
-        l={l}
+        l={localityType}
         />
     }
     <div>
