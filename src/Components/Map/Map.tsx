@@ -148,7 +148,7 @@ const Map = ({ leftWidth,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
     setSelectedPopup} = useMapDispatch();
     const { notes } = useNotesState();
-    const { getNotes, createNote, editNote } = useNoteDispatch();
+    const { getNotes, createNote, editNote, setOpen } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
@@ -376,7 +376,8 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         commentAvailable = commentVisible;
-        if(!commentVisible){
+        setOpen(commentVisible);
+        if (!commentVisible){
           marker.remove();
           popup.remove();
         }
@@ -2490,6 +2491,11 @@ const Map = ({ leftWidth,
         setBBOXComponents({ bbox: [], centroids: [] })
         //setArea(name);
     }
+    
+    const setSideBarStatus = (status: boolean) => {
+        setCommentVisible(status);
+        setOpen(status);
+    }
 
     const layerObjects: any = selectedLayers.filter(element => typeof element === 'object');
     const layerStrings = selectedLayers.filter(element => typeof element !== 'object');
@@ -2497,7 +2503,7 @@ const Map = ({ leftWidth,
 
     return (
         <>
-        <SideBarComment visible={commentVisible} setVisible={setCommentVisible} 
+        <SideBarComment visible={commentVisible} setVisible={setSideBarStatus} 
         flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap} changeFilter={setNotesFilter} ></SideBarComment>
         <div>
             {visibleCreateProject && <ModalProjectView

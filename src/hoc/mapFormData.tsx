@@ -13,6 +13,7 @@ import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
 import { useMapState } from '../hook/mapHook';
 import { useProjectDispatch, useProjectState} from '../hook/projectHook';
 import { AlertViewSave } from '../Components/Alerts/AlertViewSave';
+import { useNotesState } from '../hook/notesHook';
 
 export default function (WrappedComponent : any, layers : MapLayersType) {
     return ({ problems,
@@ -109,6 +110,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         const {status} = useProjectState();
         const [visibleSave, setVisibleSave] = useState(false);
         const [statusSave, setStatusSave] = useState(2);
+        const { open } = useNotesState();
         const {setSave} = useProjectDispatch();
         useEffect(()=>{
           console.log(status,"status++++")
@@ -192,7 +194,7 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
               <Layout className="map-00">
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
-                    <Col xs={{ span: 24 }} className="height-mobile padding-comment" style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} lg={leftWidth}>{/*span={15}*/}
+                    <Col xs={{ span: 24 }} className={open ? "height-mobile padding-comment" : "height-mobile"} style={{transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's'}} lg={leftWidth}>{/*span={15}*/}
                         <Map
                             leftWidth={leftWidth}
                             layers={layers}
