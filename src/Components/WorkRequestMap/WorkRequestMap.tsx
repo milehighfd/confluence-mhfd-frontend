@@ -191,7 +191,7 @@ const WorkRequestMap = (type: any) => {
                 }
                 
               });
-            },1500);
+            },2000);
             
           // });
       }
@@ -239,7 +239,7 @@ const WorkRequestMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              }, 'waterway-label');
+              });
               map.map.addLayer({
                 "id": "mask-border",
                 "source": "mask",
@@ -248,7 +248,7 @@ const WorkRequestMap = (type: any) => {
                   'line-color': '#28c499',
                   'line-width': 1,
                 }
-              }, "waterway-label");
+              });
           } else {
               map.map.setLayoutProperty('mask', 'visibility', 'visible');
               map.map.removeLayer('mask');
@@ -267,7 +267,7 @@ const WorkRequestMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              }, 'waterway-label');
+              });
               map.map.addLayer({
                 "id": "mask-border",
                 "source": "mask",
@@ -276,7 +276,7 @@ const WorkRequestMap = (type: any) => {
                   'line-color': '#28c499',
                   'line-width': 1,
                 }
-              }, "waterway-label");
+              });
   
           }
       } else {
@@ -801,10 +801,10 @@ const WorkRequestMap = (type: any) => {
         source: key,
         ...style
       });
-      if (!key.includes('mhfd_projects_copy')) {
-        console.log("HIDING LAYER AAA",key + '_' + index);
+      // if (!key.includes('mhfd_projects_copy')) {
+        // console.log("HIDING LAYER AAA",key + '_' + index);
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-      }
+      // }
 
       if (!hovereableLayers.includes(key)) {
         return;

@@ -185,7 +185,7 @@ const CreateProjectMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              }, "streams_4");
+              });
               map.map.addLayer({
                 "id": "mask-border",
                 "source": "mask",
@@ -194,7 +194,7 @@ const CreateProjectMap = (type: any) => {
                   'line-color': '#28c499',
                   'line-width': 1,
                 }
-              }, "streams_4");
+              });
           } else {
               map.map.setLayoutProperty('mask', 'visibility', 'visible');
               map.map.removeLayer('mask');
@@ -212,7 +212,7 @@ const CreateProjectMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              }, "streams_4");
+              });
               map.map.addLayer({
                 "id": "mask-border",
                 "source": "mask",
@@ -221,7 +221,7 @@ const CreateProjectMap = (type: any) => {
                   'line-color': '#28c499',
                   'line-width': 1,
                 }
-              }, "streams_4");
+              });
           }
           } else {
               if (opacityLayer) {
