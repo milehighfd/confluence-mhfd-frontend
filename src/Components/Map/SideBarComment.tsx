@@ -50,7 +50,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         //it's destroying the app , but the endpoint works well :) <3
         deleteNote(note._id);
       }}>
-        <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
+        <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop:'-3px'}}/> Delete</span>
       </Menu.Item>
     </Menu>
   )
@@ -112,7 +112,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       onClose={() => setVisible(false)}
       visible={visible}
       className="comment-drawer"
-      style={{'paddingLeft':'59px'}}
+      style={{'paddingLeft':'58px'}}
     >
       {filter === 'all' ? notes.map((note: any) => {
         return (
