@@ -1,7 +1,8 @@
 import * as types from '../types/notesTypes';
 
 const initState = {
-  notes: []
+  notes: [],
+  open: false
 };
 
 const notesReducer = (state = initState, action : any) => {
@@ -32,6 +33,11 @@ const notesReducer = (state = initState, action : any) => {
           }
           return note;
         })
+      }
+    case types.SIDEBAR_STATUS: 
+      return {
+        ...state,
+        open: action.open
       }
     default: 
         return state;

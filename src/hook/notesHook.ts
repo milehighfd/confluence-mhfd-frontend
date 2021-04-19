@@ -3,10 +3,11 @@ import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { FilterNamesTypes } from '../Classes/MapTypes';
 import { removeFilter } from '../store/actions/filterActions';
-import { createNote, deleteNote, editNote, getNotes } from '../store/actions/notesActions';
+import { createNote, deleteNote, editNote, getNotes, setOpen } from '../store/actions/notesActions';
 
 interface notesState {
-  notes: []
+  notes: [],
+  open: boolean
 }
 
  
@@ -16,9 +17,11 @@ interface notesState {
  const selectNotes: ParametricSelector<RootState, undefined, notesState> =
    createSelectorHack(
        (state: any) => state.notes.notes,
+       (state: any) => state.notes.open,
        //state => state.map.paramFilters,
-       (notes: []) => ({
-         notes   
+       (notes: [], open: boolean) => ({
+         notes,
+         open
       })
      );
  
@@ -45,6 +48,9 @@ export const useNoteDispatch = () => {
       },
       editNote: (note: any) => {
         dispatch(editNote(note));
+      },
+      setOpen: (open: boolean) => {
+        dispatch(setOpen(open));
       }
    }
 };

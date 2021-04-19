@@ -33,3 +33,9 @@ export const editNote = (note: any) => {
     });
   };
 }
+
+export const setOpen = (open: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SIDEBAR_STATUS, open});
+  };
+}
