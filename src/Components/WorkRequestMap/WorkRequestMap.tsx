@@ -242,7 +242,7 @@ const WorkRequestMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              },'mhfd_projects_copy_0');
+              });
               map.map.addLayer({
                 "id": "mask-border",
                 "source": "mask",
@@ -251,7 +251,7 @@ const WorkRequestMap = (type: any) => {
                   'line-color': '#28c499',
                   'line-width': 1,
                 }
-              },'mhfd_projects_copy_0');
+              });
           } else {
               map.map.setLayoutProperty('mask', 'visibility', 'visible');
               // map.map.removeLayer('mask');
@@ -261,10 +261,6 @@ const WorkRequestMap = (type: any) => {
               //     "type": "geojson",
               //     "data": polyMask(mask, arrayBounds)
               // });
-              let beneathLayer = 'mhfd_projects_copy_0';
-              if(!map.getLayer('mhfd_projects_copy_0')) {
-                beneathLayer = '';
-              }
               if(!map.getLayer('mask')) {
                 map.map.addLayer({
                   "id": "mask",
@@ -274,7 +270,7 @@ const WorkRequestMap = (type: any) => {
                       "fill-color": "black",
                       'fill-opacity': 0.8
                   }
-              },beneathLayer);
+              });
               }
               if(!map.getLayer('mask-border')) {
                 map.map.addLayer({
@@ -285,7 +281,7 @@ const WorkRequestMap = (type: any) => {
                     'line-color': '#28c499',
                     'line-width': 1,
                   }
-                },beneathLayer);
+                });
               }
           }
       } 
