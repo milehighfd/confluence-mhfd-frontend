@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Drawer, Row, Col, Input, Button, Menu, Select, Popover, Comment, Avatar, List } from 'antd';
 import { DownOutlined, CheckOutlined } from '@ant-design/icons';
 import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
+import { useProfileState } from "../../hook/profileHook";
 const { Option } = Select;
 const { TextArea } = Input; 
 
@@ -11,7 +12,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   const { notes } = useNotesState();
   const {  deleteNote } = useNoteDispatch();
   const [filter, setFilter] = useState('all');
-
+  const { userInformation } = useProfileState();
   useEffect(()=>{
     changeFilter(filter);
   },[filter]);
@@ -116,7 +117,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       {filter === 'all' ? notes.map((note: any) => {
         return (
         <Comment avatar={
-          <Avatar style={{ color: '#11093C', backgroundColor: 'rgba(00,00,00,0.2)' }}>AA</Avatar>
+          <Avatar style={{ color: '#11093C', backgroundColor: 'rgba(00,00,00,0.2)' }}>{userInformation ? (userInformation.firstName[0] + userInformation.lastName[0]).toUpperCase(): ''}</Avatar>
         }
         content={note &&
           <>

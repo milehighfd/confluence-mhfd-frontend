@@ -8,7 +8,8 @@ import { getTimesLogin } from '../store/actions/usersActions';
 interface selectProfileState {
    timesLogged: number,
    groupOrganization: any,
-   organization: any
+   organization: any,
+   userInformation: any
  }
  
  
@@ -19,9 +20,10 @@ interface selectProfileState {
        (state: any) => state.users.timesLogged,
        (state: any) => state.profile.groupOrganization,
        (state: any) => state.profile.userInformation.organization,
+       (state: any) => state.profile.userInformation,
        //state => state.map.paramFilters,
-       (timesLogged: number, groupOrganization: any, organization: any) => ({
-         timesLogged, groupOrganization, organization   
+       (timesLogged: number, groupOrganization: any, organization: any, userInformation: any) => ({
+         timesLogged, groupOrganization, organization, userInformation
       })
      );
  
