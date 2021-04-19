@@ -116,13 +116,19 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   },[]);
   
   useEffect(()=>{
-    if(currentServiceAreaCounty.jurisdiction ){
+    if(swSave === true){
       if(locality !== currentServiceAreaCounty.jurisdiction){
-         alert("It is not within your jurisdiction.");
-       }
+        alert("It is not within your jurisdiction.");
+      }
+    }else{
+      if(currentServiceAreaCounty.jurisdiction ){
+        if(locality !== currentServiceAreaCounty.jurisdiction){
+          alert("It is not within your jurisdiction.");
+        }
+      }
     }
-    console.log(currentServiceAreaCounty.jurisdiction, "AAAAAA");
   },[currentServiceAreaCounty.jurisdiction]);
+  
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
     /*if(name===true){

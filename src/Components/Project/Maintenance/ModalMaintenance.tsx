@@ -176,14 +176,21 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
        alert("It is not within your jurisdiction.");
      }
   };
+  
   useEffect(()=>{
-    if(currentServiceAreaCounty.jurisdiction ){
+    if(swSave === true){
       if(locality !== currentServiceAreaCounty.jurisdiction){
-         alert("It is not within your jurisdiction.");
-       }
+        alert("It is not within your jurisdiction.");
+      }
+    }else{
+      if(currentServiceAreaCounty.jurisdiction ){
+        if(locality !== currentServiceAreaCounty.jurisdiction){
+          alert("It is not within your jurisdiction.");
+        }
+      }
     }
-    console.log(currentServiceAreaCounty.jurisdiction, "AAAAAA");
   },[currentServiceAreaCounty.jurisdiction]);
+
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};

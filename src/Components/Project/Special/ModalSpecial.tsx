@@ -131,24 +131,21 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     }
   };
   const handleOk = (e: any) => {
-    const auxState = {...state};
-    if(locality === currentServiceAreaCounty.jurisdiction){
      setVisibleAlert( true);
-    }
-    else{
-      alert("It is not within your jurisdiction.");
-    }
-    //setVisibleSpecial (false);
-    setState(auxState);
-   
   };
+
   useEffect(()=>{
-    if(currentServiceAreaCounty.jurisdiction ){
+    if(swSave === true){
       if(locality !== currentServiceAreaCounty.jurisdiction){
-         alert("It is not within your jurisdiction.");
-       }
+        alert("It is not within your jurisdiction.");
+      }
+    }else{
+      if(currentServiceAreaCounty.jurisdiction ){
+        if(locality !== currentServiceAreaCounty.jurisdiction){
+          alert("It is not within your jurisdiction.");
+        }
+      }
     }
-    console.log(currentServiceAreaCounty.jurisdiction, "AAAAAA");
   },[currentServiceAreaCounty.jurisdiction]);
 
   const handleCancel = (e: any) => {

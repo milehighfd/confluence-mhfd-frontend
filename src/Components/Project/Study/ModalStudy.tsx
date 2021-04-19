@@ -76,6 +76,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [disableName, setDisableName ] = useState(true);
   const [geom, setGeom] = useState<any>('');
   const [keys, setKeys] = useState<any>([]);
+  const [swSave, setSwSave] = useState(false);
+  const [editprojectid, setEditsetprojectid] = useState("");
 
   useEffect(()=>{
     setStreamsList([]);
@@ -95,6 +97,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   },[listStreams]);
   useEffect(()=>{
     if(data!== 'no data' ) {
+      setSwSave(true);
       setCounty(data.county);
       setDescription(data.description);
       setNameProject(data.projectname);
@@ -162,26 +165,22 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   };
 
   const handleOk = (e: any) => {
-    if(locality === currentServiceAreaCounty.jurisdiction){
-      setVisibleAlert( true);
-     }
-     else{
-       alert("It is not within your jurisdiction.");
-     }
+    setVisibleAlert( true);
   };
 
-
   useEffect(()=>{
-    if(currentServiceAreaCounty.jurisdiction ){
+    if(swSave === true){
       if(locality !== currentServiceAreaCounty.jurisdiction){
-         alert("It is not within your jurisdiction.");
-       }
+        alert("It is not within your jurisdiction.");
+      }
+    }else{
+      if(currentServiceAreaCounty.jurisdiction ){
+        if(locality !== currentServiceAreaCounty.jurisdiction){
+          alert("It is not within your jurisdiction.");
+        }
+      }
     }
-    console.log(currentServiceAreaCounty.jurisdiction, "AAAAAA");
   },[currentServiceAreaCounty.jurisdiction]);
-
-
-
 
   const apllyCoSponsor = (e: any)=>{
     setCosponsor(e);
