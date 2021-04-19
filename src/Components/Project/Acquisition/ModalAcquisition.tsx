@@ -101,16 +101,27 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   },[data]);
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county != '' && serviceArea != '' && progress != '' && purchaseDate != '' ){
+    if(geom != undefined && description != '' && locality === currentServiceAreaCounty.jurisdiction && progress != '' && purchaseDate != '' ){
       setDisable(false);
     }
-  },[geom, description, county, serviceArea,progress,purchaseDate]);
+    else{
+      setDisable(true);
+    }
+  },[geom, description,progress,purchaseDate, currentServiceAreaCounty.jurisdiction]);
 
 
   useEffect(()=>{
     setStreamIntersected({geom:null});
   },[]);
   
+  useEffect(()=>{
+    if(currentServiceAreaCounty.jurisdiction ){
+      if(locality !== currentServiceAreaCounty.jurisdiction){
+         alert("It is not within your jurisdiction.");
+       }
+    }
+    console.log(currentServiceAreaCounty.jurisdiction, "AAAAAA");
+  },[currentServiceAreaCounty.jurisdiction]);
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
     /*if(name===true){
@@ -127,13 +138,9 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       setName(true);
     }
   };
+  
   const handleOk = (e: any) => {
-   if(locality === currentServiceAreaCounty.jurisdiction){
     setVisibleAlert( true);
-   }
-   else{
-     alert("It is not within your jurisdiction.");
-   }
   };
 
   const apllyProgress = (e: any)=>{

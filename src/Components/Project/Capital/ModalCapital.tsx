@@ -251,10 +251,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }));
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
+    if(geom != undefined && description != '' && locality === currentServiceAreaCounty.jurisdiction ){
       setDisable(false);
     }
-  },[geom, description, county, serviceArea]);
+    else{
+      setDisable(true);
+    }
+  },[geom, description, county, serviceArea,currentServiceAreaCounty.jurisdiction]);
 
   const onChange = (e: any) =>{
     setNameProject(e.target.value);
@@ -293,6 +296,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
      }
   };
 
+  useEffect(()=>{
+    if(currentServiceAreaCounty.jurisdiction ){
+      if(locality !== currentServiceAreaCounty.jurisdiction){
+         alert("It is not within your jurisdiction.");
+       }
+    }
+    console.log(currentServiceAreaCounty.jurisdiction, "AAAAAA");
+  },[currentServiceAreaCounty.jurisdiction]);
+
+  
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};

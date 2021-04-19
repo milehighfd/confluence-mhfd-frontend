@@ -130,10 +130,13 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   },[projectReturn.state.project ]);
 
   useEffect(()=>{
-    if(ids != undefined && description != '' && county != '' && serviceArea != '' ){
+    if(ids != undefined && description != '' && county != '' && serviceArea != '' && locality === currentServiceAreaCounty.jurisdiction ){
       setDisable(false);
     }
-  },[ids, description, county, serviceArea]);
+    else{
+      setDisable(true);
+    }
+  },[ids, description, county, serviceArea, currentServiceAreaCounty.jurisdiction]);
 
   const showModal = () => {
     const auxState = {...state};
@@ -166,6 +169,20 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
        alert("It is not within your jurisdiction.");
      }
   };
+
+
+  useEffect(()=>{
+    if(currentServiceAreaCounty.jurisdiction ){
+      if(locality !== currentServiceAreaCounty.jurisdiction){
+         alert("It is not within your jurisdiction.");
+       }
+    }
+    console.log(currentServiceAreaCounty.jurisdiction, "AAAAAA");
+  },[currentServiceAreaCounty.jurisdiction]);
+
+
+
+
   const apllyCoSponsor = (e: any)=>{
     setCosponsor(e);
   };

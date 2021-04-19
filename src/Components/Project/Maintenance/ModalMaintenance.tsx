@@ -118,7 +118,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
   useEffect(()=>{
     //console.log(geom,"---", description,"---", county,"---", serviceArea,"---",ownership,"---",eligibility)
-    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
+    if(geom != undefined && description != '' && county != '' && serviceArea != '' && locality === currentServiceAreaCounty.jurisdiction){
       if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal  ){
           if(eligibility != ''){
             setDisable(false);
@@ -128,7 +128,10 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
           setDisable(false);
         }
     }
-  },[geom, description, county, serviceArea, ownership,eligibility]);
+    else{
+      setDisable(true);
+    }
+  },[geom, description, county, serviceArea, ownership,eligibility,currentServiceAreaCounty.jurisdiction]);
 
   useEffect(()=>{
     if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal ){
@@ -172,7 +175,14 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
        alert("It is not within your jurisdiction.");
      }
   };
-
+  useEffect(()=>{
+    if(currentServiceAreaCounty.jurisdiction ){
+      if(locality !== currentServiceAreaCounty.jurisdiction){
+         alert("It is not within your jurisdiction.");
+       }
+    }
+    console.log(currentServiceAreaCounty.jurisdiction, "AAAAAA");
+  },[currentServiceAreaCounty.jurisdiction]);
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};

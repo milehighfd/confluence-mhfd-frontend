@@ -96,10 +96,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   }));
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
+    if(geom != undefined && description != '' && county != '' && serviceArea != '' && locality === currentServiceAreaCounty.jurisdiction){
       setDisable(false);
     }
-  },[geom, description, county, serviceArea]);
+    else{
+      setDisable(true);
+    }
+  },[geom, description, county, serviceArea,currentServiceAreaCounty.jurisdiction]);
 
   useEffect(()=>{
     setStreamIntersected({geom:null});
@@ -138,6 +141,14 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     setState(auxState);
    
   };
+  useEffect(()=>{
+    if(currentServiceAreaCounty.jurisdiction ){
+      if(locality !== currentServiceAreaCounty.jurisdiction){
+         alert("It is not within your jurisdiction.");
+       }
+    }
+    console.log(currentServiceAreaCounty.jurisdiction, "AAAAAA");
+  },[currentServiceAreaCounty.jurisdiction]);
 
   const handleCancel = (e: any) => {
     const auxState = {...state};
