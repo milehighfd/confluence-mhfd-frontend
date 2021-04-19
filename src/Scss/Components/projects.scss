@@ -46,7 +46,7 @@
         background: none;
         appearance: none;
         border: none;
-        max-width: 300px;
+        max-width: 430px;
         height: 25px;
       }
       &::after {
@@ -550,11 +550,11 @@
     height: auto;
     margin-bottom: 0px;
     margin-left: 0px;
-    line-height: 30px !important;
+    line-height: 26px !important;
   }
   .ant-select-selection--multiple > ul > li, .ant-select-selection--multiple .ant-select-selection__rendered > ul > li {
     height: 24px;
-    margin: 1px 0px !important;
+    margin: 1px 2px 1px 0px !important;
     line-height: 22px;
     margin-left: -2px;
   }
@@ -562,7 +562,7 @@
     font-size: 12px;
   }
  .ant-select-selection {
-    padding: 6px 15px !important;
+    padding: 8px 15px !important;
   }
 }
 // 1920x1080 DISPLAY
@@ -774,6 +774,11 @@
         font-size: 18px;
         padding: 0px 30px;
       }
+    }
+  }
+  .sponsor-select{
+    .ant-select-selection {
+      padding: 15px 15px !important;
     }
   }
 }
@@ -1034,5 +1039,13 @@
   }
   .ant-select-dropdown-menu-item{
     font-size: 18px !important;
+  }
+  .sponsor-select{
+    .ant-select-selection {
+      padding: 23px 15px !important;
+    }
+    .ant-select-selection--multiple .ant-select-selection__choice__content {
+      font-size: 20px;
+    }
   }
 }

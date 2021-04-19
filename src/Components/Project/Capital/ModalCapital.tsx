@@ -141,7 +141,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [additionalCost, setAdditionalCost] = useState(0);
   const [additionalDescription, setAdditionalDescription] = useState("");
   const [totalCost, setTotalCost] = useState();
-  const [overheadDescription, setOverheadDescription] = useState("");  
+  const [overheadDescription, setOverheadDescription] = useState("");
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   useEffect(()=>{
@@ -150,10 +150,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     } else {
       setComponentIntersected([]);
     }
-    
+
     setStreamIntersected({geom:null});
     setStreamsIds([]);
-    
+
   },[]);
 
   useEffect(()=>{
@@ -164,7 +164,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
       setProjectId(data.projectid);
-      setTimeout(()=>{        
+      setTimeout(()=>{
         setStreamIntersected({geom:data.createdCoordinates});
       },2200);
     } else {
@@ -189,7 +189,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         if (listComponents.groups[key].components.length) {
           idKey.push(id + '-collapse1');
         }
-      });    
+      });
       setKeys(idKey);
       setGroups(listComponents.groups);
     } else {
@@ -226,8 +226,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   const onChangeAdditionalCost = (e: any) =>{
         let newValue=e.target.value
-        let vAlue = newValue.replace("$", ""); 
-        vAlue = vAlue.replace(",", ""); 
+        let vAlue = newValue.replace("$", "");
+        vAlue = vAlue.replace(",", "");
         if(vAlue){
           setAdditionalCost(parseInt(vAlue));
         }else{
@@ -310,11 +310,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           if(locality !== "no locality"){
            alert("It is not within your jurisdiction.");
           }
-        } 
+        }
       }
     }
   },[currentServiceAreaCounty.jurisdiction]);
-  
+
   const handleCancel = (e: any) => {
     console.log(e);
     const auxState = {...state};
@@ -372,11 +372,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }
 
   useEffect(()=>{
-    
+
     let newOverheadCosts = [...overheadCosts];
     overheadValues.forEach((element:any, index:any) => {
-      
-      newOverheadCosts[index] = (element*getSubTotalCost())/100;      
+
+      newOverheadCosts[index] = (element*getSubTotalCost())/100;
     });
     setOverheadCosts(newOverheadCosts);
   },[overheadValues]);
@@ -415,8 +415,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         //newIC[key] = value.target.value;
         let newValue=value.target.value
         if(key === 'cost'){
-          let vAlue = newValue.replace("$", ""); 
-          vAlue = vAlue.replace(",", ""); 
+          let vAlue = newValue.replace("$", "");
+          vAlue = vAlue.replace(",", "");
           if(vAlue){
             newIC[key] = parseInt (vAlue);
           }else{
@@ -431,7 +431,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
     setIndependentComponents([...currentComponents]);
   }
-  
+
   const removeIndComponent = (indComp: any) => {
     let currentComponents = [...independentComponents];
     currentComponents = currentComponents.filter( (comp: any) => ( comp.id != indComp.id ) );
@@ -443,7 +443,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     if(independentComponents.length > 0) {
       for( let comp of independentComponents) {
         let newValue= comp.cost+','
-        let value = newValue.replace("$", ""); 
+        let value = newValue.replace("$", "");
         value = value.replace(",", "");
         total += parseFloat(value) ;
       }
@@ -481,9 +481,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">
             <Row>
-              <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+              <Col xs={{ span: 24 }} lg={{ span: 17 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={5} placeholder={nameProject} /*disabled={disableName}*//>
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={30} placeholder={nameProject} /*disabled={disableName}*//>
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />*/}
                 {/*<Button className="btn-transparent">
@@ -492,7 +492,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <p>Cherry Creek Service Area · Aurora County</p>
               </Col>
 
-              <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{textAlign:'right'}}>
+              <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
                 <label className="tag-name" style={{padding:'10px'}}>Capital Project</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
@@ -524,7 +524,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
              }
-            {keys!=0 && keys.length && 
+            {keys!=0 && keys.length &&
             <Collapse
             defaultActiveKey={keys}
             expandIconPosition="right"
@@ -543,7 +543,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                 return (
                                   <div>
                                   <Timeline.Item color="green">
-                                    <Row style={{marginLeft:'-18px'}} 
+                                    <Row style={{marginLeft:'-18px'}}
                                     onMouseEnter={() => setValuesComp(component)}
                                     onMouseLeave={()=> setValuesComp({table:'', value:''})}>
                                       <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
@@ -608,7 +608,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                               <Row style={{marginLeft:'-18px'}}>
                                 <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'name',indComp)} value={indComp.name} /></label></Col>
                                 <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status}/></Col>
-                                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} > 
+                                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} >
                                   <Tooltip placement="topLeft" title="Only numeric values are accepted.">
                                     <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'cost',indComp)} value={formatter.format(indComp.cost)}/>
                                   </Tooltip>
