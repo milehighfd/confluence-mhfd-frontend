@@ -2498,7 +2498,7 @@ const Map = ({ leftWidth,
     return (
         <>
         <SideBarComment visible={commentVisible} setVisible={setCommentVisible} 
-        flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap} changeFilter={setNotesFilter}></SideBarComment>
+        flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap} changeFilter={setNotesFilter} ></SideBarComment>
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}

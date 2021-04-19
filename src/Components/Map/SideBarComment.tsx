@@ -111,6 +111,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       onClose={() => setVisible(false)}
       visible={visible}
       className="comment-drawer"
+      style={{'paddingLeft':'59px'}}
     >
       {filter === 'all' ? notes.map((note: any) => {
         return (
