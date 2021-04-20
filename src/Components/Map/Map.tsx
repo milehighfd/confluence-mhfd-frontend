@@ -1363,9 +1363,8 @@ const Map = ({ leftWidth,
             return;
         }
         map.on('click', (e: any) => {
-            console.log(canAdd);
             if (commentAvailable && canAdd) {
-                canAdd = false;
+                //canAdd = false;
                 const html = commentPopup();
                 popup.remove();
                 popup = new mapboxgl.Popup();
@@ -1455,7 +1454,8 @@ const Map = ({ leftWidth,
                                 console.log(note);
                                 createNote(note);
                                 popup.remove();
-                                // marker.remove(map);
+                                canAdd = false;
+                                marker.remove();
                             }
                         });
                     }
@@ -1473,8 +1473,8 @@ const Map = ({ leftWidth,
                     const del = document.getElementById('delete-comment');
                     if (del != null) {
                         del.addEventListener('click', () => {
-                            // marker.remove();
-                            console.log("IS CLICKING CHECK", del);
+                            marker.remove();
+                            canAdd = false;
                         });
                     }
                 }
@@ -2144,7 +2144,7 @@ const Map = ({ leftWidth,
         <div className="bodymap">
             <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}}>
-                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''}>Delete</Button> 
+                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}}>Delete</Button> 
                 { note? (<Button id="edit-comment">Save</Button>): (<Button id="save-comment">Save</Button>) }
             </div>
 
