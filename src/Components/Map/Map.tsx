@@ -377,6 +377,11 @@ const Map = ({ leftWidth,
     useEffect(() => {
         commentAvailable = commentVisible;
         setOpen(commentVisible);
+        if (map) {
+            setTimeout(() => {
+                map.resize();
+            }, 2000);
+        }
         if (!commentVisible){
           marker.remove();
           popup.remove();
