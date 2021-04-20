@@ -1470,6 +1470,12 @@ const Map = ({ leftWidth,
                               }
                           });
                       }
+                    const del = document.getElementById('delete-comment');
+                    if (del != null) {
+                        del.addEventListener('click', () => {
+                            marker.remove();
+                        });
+                    }
                 }
                 return;
             }
@@ -2137,7 +2143,7 @@ const Map = ({ leftWidth,
         <div className="bodymap">
             <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}}>
-                <Button style={{color:'red', marginRight:'5px'}}>Delete</Button> 
+                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}}>Delete</Button> 
                 { note? (<Button id="edit-comment">Edit</Button>): (<Button id="save-comment">Save</Button>) }
             </div>
 
