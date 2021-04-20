@@ -1809,6 +1809,7 @@ export const NEW_PROJECT_TYPES = {
 
 export const PROJECT_INFORMATION ={
   COUNTRY_PROJECT : [
+    'Aurora County',
     'Arapahoe County',
     'Adams County',
     'Boulder County',

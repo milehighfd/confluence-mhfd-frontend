@@ -182,7 +182,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="ACQUISITION" locality={locality} projectid={editprojectid}></CreateProjectMap>
+          <CreateProjectMap type="ACQUISITION" locality={locality} projectid={editprojectid} isEdit={swSave}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

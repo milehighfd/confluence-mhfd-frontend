@@ -483,12 +483,20 @@ const CreateProjectMap = (type: any) => {
   }, [selectedLayers]);
 
   const setLayersSelectedOnInit = () => {
+    let ppArray:any = [];
+    if(!type.isEdit) { 
+      if(type.type!="STUDY") {
+        ppArray = [PROJECTS_MAP_STYLES];
+      } else { 
+        ppArray = [PROBLEMS_TRIGGER];
+      }
+    }
     if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
-      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS]);
+      updateSelectedLayers([ ...ppArray, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS]);
     } else if( type.type == 'STUDY') {
-      updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS  ]);
+      updateSelectedLayers([ MHFD_BOUNDARY_FILTERS  ]);
     } else {
-      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS]);
+      updateSelectedLayers([ ...ppArray, MHFD_BOUNDARY_FILTERS]);
     }
   }
   const onCreateDraw = (event: any) => {

@@ -173,7 +173,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-            <CreateProjectMap type="SPECIAL" locality={locality} projectid={editprojectid}></CreateProjectMap>
+            <CreateProjectMap type="SPECIAL" locality={locality} projectid={editprojectid} isEdit={swSave}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

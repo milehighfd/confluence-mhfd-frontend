@@ -407,6 +407,7 @@ const RequestView = ({ type }: {
         projectswithid.add(projectsFiltered[0]);
       }
     }
+    console.log("PROJECT SHOW ", project.id, projectswithid);
     let newArray = [...projectswithid.values()];    
     if(newArray[0]){
       currentProject = {...newArray[0].projectData};

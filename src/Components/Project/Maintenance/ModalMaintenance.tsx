@@ -224,7 +224,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="MAINTENANCE" locality={locality} projectid={projectid}></CreateProjectMap>
+          <CreateProjectMap type="MAINTENANCE" locality={locality} projectid={projectid} isEdit={swSave}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

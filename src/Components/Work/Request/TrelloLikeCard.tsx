@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Menu, Popover } from 'antd';
 import AmountModal from './AmountModal';
@@ -28,7 +28,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, editable
   borderColor: string
 }) => {
   const divRef = useRef(null);
-  const {setZoomProject} = useProjectDispatch();
+  const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const {
     projectid,
     projectname,
@@ -89,7 +89,11 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, editable
   if (jurisdiction.startsWith('Unincorporated')) {
     displayJurisdiction = jurisdiction.substr('Unincorporated'.length + 1);
   }
-
+  useEffect(()=>{
+    if(showModalProject) {
+      updateSelectedLayers([]);
+    } 
+  },[showModalProject]);
   return (
     <>
     {showModalProject &&
