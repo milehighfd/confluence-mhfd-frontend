@@ -1618,6 +1618,9 @@ const Map = ({ leftWidth,
                 }
                 return;
             }
+            if (commentAvailable) { 
+                return;
+            }
             hideHighlighted();
             const popups: any = [];
             const mobile: any = [];
