@@ -78,7 +78,7 @@ const { Panel } = Collapse;
 {/*const genExtra = () => (
   <CloseOutlined />
 );*/}
-
+const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let contents: any = [];
 let canAdd = false;
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
@@ -157,7 +157,7 @@ const Map = ({ leftWidth,
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
-    const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+    
     const [notesFilter, setNotesFilter] = useState('all');
     useEffect(()=> {
         // console.log(mobilePopups);
