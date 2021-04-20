@@ -1613,8 +1613,7 @@ const Map = ({ leftWidth,
                     if (del != null) {
                       del.addEventListener('click', () => {
                         setSwSave(false);
-                        let noteId = del.getAttribute('value');
-                        deleteNote(noteId);
+                        marker.remove();
                         canAdd = false;
                       });
                     }
