@@ -1500,9 +1500,7 @@ const Map = ({ leftWidth,
             return;
         }
         map.on('click', (e: any) => {
-           
             if (commentAvailable && canAdd) {
-                canAdd = false;
                 const html = commentPopup();
                 popup.remove();
                 popup = new mapboxgl.Popup();
