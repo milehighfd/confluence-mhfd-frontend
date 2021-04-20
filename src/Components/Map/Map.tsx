@@ -2144,7 +2144,7 @@ const Map = ({ leftWidth,
             <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}}>
                 <Button id="delete-comment" style={{color:'red', marginRight:'5px'}}>Delete</Button> 
-                { note? (<Button id="edit-comment">Edit</Button>): (<Button id="save-comment">Save</Button>) }
+                { note? (<Button id="edit-comment">Save</Button>): (<Button id="save-comment">Save</Button>) }
             </div>
 
         </div>
