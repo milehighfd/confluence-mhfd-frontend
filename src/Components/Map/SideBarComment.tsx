@@ -6,14 +6,13 @@ import { useProfileState } from "../../hook/profileHook";
 const { Option } = Select;
 const { TextArea } = Input;
 
-const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter}:
-  {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function}) => {
+const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, swSave, setSwSave}:
+  {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
 
   const { notes } = useNotesState();
   const {  deleteNote } = useNoteDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
-  const [ editNotE, seteditNotE] = useState(false);
   useEffect(()=>{
     changeFilter(filter);
   },[filter]);
@@ -101,7 +100,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     <Drawer
       title={<div className="comment-title">
               <h5>Map Notes</h5>
-              <Button className={editNotE===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); seteditNotE(true);}}  >+</Button>
+              <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
               <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">
                 <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> {filter === 'all' ? 'All Types' : filter[0].toUpperCase() + filter.slice(1)} <DownOutlined /></Button>
               </Popover>

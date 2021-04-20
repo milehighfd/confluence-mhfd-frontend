@@ -215,6 +215,7 @@ const Map = ({ leftWidth,
     const [filterNames, setFilterNames] = useState<Array<any>>([]);
     const [mapService] = useState<MapService>(new MapService());
     const [commentVisible, setCommentVisible] = useState(false);
+    const [swSave, setSwSave] = useState(false);
     const genExtra = () => (
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
           <Col>
@@ -1494,10 +1495,12 @@ const Map = ({ leftWidth,
     
 
     useEffect(() => {
+
         if (allLayers.length < 100) {
             return;
         }
         map.on('click', (e: any) => {
+           
             if (commentAvailable && canAdd) {
                 canAdd = false;
                 const html = commentPopup();
@@ -1565,6 +1568,7 @@ const Map = ({ leftWidth,
                     const save = document.getElementById('save-comment');
                     if (save != null) {
                         save.addEventListener('click', () => {
+                            setSwSave(false);
                             const textarea = (document.getElementById('textarea') as HTMLInputElement);
                             if (textarea != null) {
                                 console.log(textarea.value);
@@ -1596,8 +1600,8 @@ const Map = ({ leftWidth,
                     }
                     const edit = document.getElementById('edit-comment');
                       if (edit != null) {
-                        
                           edit.addEventListener('click', () => {
+                            setSwSave(false);
                               const textarea = (document.getElementById('textarea') as HTMLInputElement);
                               if (textarea != null) {
                                   console.log("VAL", textarea.value);
@@ -1608,6 +1612,7 @@ const Map = ({ leftWidth,
                     const del = document.getElementById('delete-comment');
                     if (del != null) {
                       del.addEventListener('click', () => {
+                        setSwSave(false);
                         let noteId = del.getAttribute('value');
                         deleteNote(noteId);
                         canAdd = false;
@@ -2651,7 +2656,6 @@ const Map = ({ leftWidth,
         setCommentVisible(status);
         setOpen(status);
     }
-
     const layerObjects: any = selectedLayers.filter(element => typeof element === 'object');
     const layerStrings = selectedLayers.filter(element => typeof element !== 'object');
     const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
@@ -2659,7 +2663,7 @@ const Map = ({ leftWidth,
     return (
         <>
         <SideBarComment visible={commentVisible} setVisible={setSideBarStatus} 
-        flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap} changeFilter={setNotesFilter} ></SideBarComment>
+        flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap} changeFilter={setNotesFilter} swSave={swSave} setSwSave={setSwSave}></SideBarComment>
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}
