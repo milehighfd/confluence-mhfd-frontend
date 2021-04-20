@@ -60,6 +60,17 @@ export default ({ boardId, visible, setVisible, status, comment, type }: {
       })
   }, [])
 
+  const format = (_date: string) => {
+    let date = new Date(_date);
+    let y = date.getFullYear();
+    let m = date.getMonth()+1;
+    let d = date.getDay();
+    let pad = (v: number) => {
+      return v < 10 ? `0${v}`: v;
+    }
+    return `Submitted ${pad(d)}/${pad(m)}/${y}.`;
+  }
+
   return (
     <>
     { visibleAlert && <SubmitModal
@@ -122,7 +133,7 @@ export default ({ boardId, visible, setVisible, status, comment, type }: {
                     title={<h6><i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00'}}></i> {item.locality}</h6>}
                     description={
                       <p style={{width:'100%'}}>
-                        {'description'}
+                        {`${item.submissionDate ? format(item.submissionDate) : 'Pending' }`}
                         <img src="/Icons/icon-64.svg" alt="" height="8px" style={{opacity:'0.3'}}/>
                       </p>
                     }
