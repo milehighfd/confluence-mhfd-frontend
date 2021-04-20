@@ -2285,7 +2285,7 @@ const Map = ({ leftWidth,
         <div className="bodymap">
             <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}}>
-                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}}>Delete</Button> 
+                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''}>Delete</Button> 
                 { note? (<Button id="edit-comment">Save</Button>): (<Button id="save-comment">Save</Button>) }
             </div>
 
@@ -2619,6 +2619,7 @@ const Map = ({ leftWidth,
                 const del = document.getElementById('delete-comment');
                 if (del != null) {
                     del.addEventListener('click', () => {
+                      console.log("GUAT DELETE" );
                         let noteId = del.getAttribute('value');
                         deleteNote(noteId);
                     });
