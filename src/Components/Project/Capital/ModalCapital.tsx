@@ -260,7 +260,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       // if(locality === "no locality" ){
       //   setDisable(false);
       // }else{
-        setDisable(true);
+        setDisable(false);
       // }
     }
     else{
