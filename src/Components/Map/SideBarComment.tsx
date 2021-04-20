@@ -68,17 +68,17 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     if (ms === 0) {
         return 'Just now';
     } if (seconds < 60) {
-        return 'a few seconds Ago';
+        return 'a few seconds ago';
     } if (minutes < 60) {
-        return minutes + ' minutes Ago';
+        return minutes + ' minutes ago';
     } if (hours < 24) {
-        return hours + ' hours Ago';
+        return hours + ' hours ago';
     } if (days < 30) {
-        return days + ' days Ago';
+        return days + ' days ago';
     } if (months < 12) {
-        return months + ' months Ago';
+        return months + ' months ago';
     } else {
-        return years + ' years Ago';
+        return years + ' years ago';
     }
   }
   const timeAgo = (time: string): string => {
