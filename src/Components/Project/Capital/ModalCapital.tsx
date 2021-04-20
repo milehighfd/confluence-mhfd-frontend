@@ -217,6 +217,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.additionalcostdescription = additionalDescription;
       capital.componet = JSON.stringify(groups, null,2);
       capital.independetComponent = JSON.stringify(independentComponents, null,2);
+      capital.locality = locality? locality:'';
       console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       saveProjectCapital(capital);
       setVisibleCapital(false);
@@ -256,21 +257,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     if(geom != undefined && description != '' ){
-      if(locality === currentServiceAreaCounty.jurisdiction){
-        setDisable(false);
-      }
-      else{
-        if(locality === "no locality" ){
-          setDisable(false);
-        }else{
-          setDisable(true);
-        }
-      }
+      // if(locality === "no locality" ){
+      //   setDisable(false);
+      // }else{
+        setDisable(true);
+      // }
     }
     else{
       setDisable(true);
     }
-  },[geom, description, county, serviceArea,currentServiceAreaCounty.jurisdiction]);
+  },[geom, description, county, serviceArea]);
 
   const onChange = (e: any) =>{
     setNameProject(e.target.value);
@@ -299,21 +295,21 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setVisibleAlert( true);
   };
 
-  useEffect(()=>{
-    if(swSave === true){
-      if(locality !== currentServiceAreaCounty.jurisdiction){
-        alert("It is not within your jurisdiction.");
-      }
-    }else{
-      if(currentServiceAreaCounty.jurisdiction ){
-        if(locality !== currentServiceAreaCounty.jurisdiction){
-          if(locality !== "no locality"){
-           alert("It is not within your jurisdiction.");
-          }
-        }
-      }
-    }
-  },[currentServiceAreaCounty.jurisdiction]);
+  // useEffect(()=>{
+  //   if(swSave === true){
+  //     // if(locality !== currentServiceAreaCounty.jurisdiction){
+  //     //   alert("It is not within your jurisdiction.");
+  //     // }
+  //   }else{
+  //     if(currentServiceAreaCounty.jurisdiction ){
+  //       // if(locality !== currentServiceAreaCounty.jurisdiction){
+  //       //   if(locality !== "no locality"){
+  //       //    alert("It is not within your jurisdiction.");
+  //       //   }
+  //       // }
+  //     }
+  //   }
+  // },[currentServiceAreaCounty.jurisdiction]);
 
   const handleCancel = (e: any) => {
     console.log(e);

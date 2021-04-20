@@ -117,6 +117,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.ids = ids;
       study.files = files;
       study.geom = streamsList;
+      study.locality = locality? locality:'';
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
       setVisibleStudy(false);
@@ -133,13 +134,13 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   },[projectReturn.state.project ]);
 
   useEffect(()=>{
-    if(ids != undefined && description != '' && county != '' && serviceArea != '' && locality === currentServiceAreaCounty.jurisdiction ){
+    if(ids != undefined && description != '' && county != '' && serviceArea != ''  ){
       setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[ids, description, county, serviceArea, currentServiceAreaCounty.jurisdiction]);
+  },[ids, description, county, serviceArea]);
 
   const showModal = () => {
     const auxState = {...state};
@@ -168,19 +169,19 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     setVisibleAlert( true);
   };
 
-  useEffect(()=>{
-    if(swSave === true){
-      if(locality !== currentServiceAreaCounty.jurisdiction){
-        alert("It is not within your jurisdiction.");
-      }
-    }else{
-      if(currentServiceAreaCounty.jurisdiction ){
-        if(locality !== currentServiceAreaCounty.jurisdiction){
-          alert("It is not within your jurisdiction.");
-        }
-      }
-    }
-  },[currentServiceAreaCounty.jurisdiction]);
+  // useEffect(()=>{
+  //   if(swSave === true){
+  //     if(locality !== currentServiceAreaCounty.jurisdiction){
+  //       alert("It is not within your jurisdiction.");
+  //     }
+  //   }else{
+  //     if(currentServiceAreaCounty.jurisdiction ){
+  //       if(locality !== currentServiceAreaCounty.jurisdiction){
+  //         alert("It is not within your jurisdiction.");
+  //       }
+  //     }
+  //   }
+  // },[currentServiceAreaCounty.jurisdiction]);
 
   const apllyCoSponsor = (e: any)=>{
     setCosponsor(e);

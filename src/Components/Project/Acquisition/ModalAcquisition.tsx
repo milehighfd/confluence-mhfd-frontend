@@ -71,6 +71,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       acquisition.acquisitionanticipateddate = purchaseDate;
       acquisition.files = files;
       acquisition.editProject = editprojectid;
+      acquisition.locality = locality? locality:'';
       if(swSave){
         editProjectAcquisition(acquisition);
       }else{
@@ -101,13 +102,13 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   },[data]);
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && locality === currentServiceAreaCounty.jurisdiction && progress != '' && purchaseDate != '' ){
+    if(geom != undefined && description != '' && progress != '' && purchaseDate != '' ){
       setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[geom, description,progress,purchaseDate, currentServiceAreaCounty.jurisdiction]);
+  },[geom, description,progress,purchaseDate]);
 
 
   useEffect(()=>{
@@ -115,19 +116,19 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
     setStreamsIds([]);
   },[]);
   
-  useEffect(()=>{
-    if(swSave === true){
-      if(locality !== currentServiceAreaCounty.jurisdiction){
-        alert("It is not within your jurisdiction.");
-      }
-    }else{
-      if(currentServiceAreaCounty.jurisdiction ){
-        if(locality !== currentServiceAreaCounty.jurisdiction){
-          alert("It is not within your jurisdiction.");
-        }
-      }
-    }
-  },[currentServiceAreaCounty.jurisdiction]);
+  // useEffect(()=>{
+  //   if(swSave === true){
+  //     if(locality !== currentServiceAreaCounty.jurisdiction){
+  //       alert("It is not within your jurisdiction.");
+  //     }
+  //   }else{
+  //     if(currentServiceAreaCounty.jurisdiction ){
+  //       if(locality !== currentServiceAreaCounty.jurisdiction){
+  //         alert("It is not within your jurisdiction.");
+  //       }
+  //     }
+  //   }
+  // },[currentServiceAreaCounty.jurisdiction]);
   
   const onChange = (e: any)=>{
     setNameProject(e.target.value);

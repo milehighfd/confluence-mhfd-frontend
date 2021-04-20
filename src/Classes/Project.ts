@@ -9,7 +9,7 @@ export class Geom {
 export class Project {
     projectname: string;
     description: string;
-	servicearea: string;
+	  servicearea: string;
     county: string;
     geom: any ;
     acquisitionprogress: string;
@@ -30,6 +30,7 @@ export class Project {
     componet: any;
     independetComponent: any;
     editProject: any;
+    locality: any;
     constructor() {
         this.projectname = "special";
         this.description = "";
@@ -51,5 +52,6 @@ export class Project {
         this.componet = [];
         this.independetComponent=[];
         this.editProject = "";
+        this.locality = '';
     }
 }

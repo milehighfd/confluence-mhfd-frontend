@@ -148,7 +148,7 @@ const Map = ({ leftWidth,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
     setSelectedPopup} = useMapDispatch();
     const { notes } = useNotesState();
-    const { getNotes, createNote, editNote, setOpen } = useNoteDispatch();
+    const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
@@ -1473,7 +1473,8 @@ const Map = ({ leftWidth,
                     const del = document.getElementById('delete-comment');
                     if (del != null) {
                         del.addEventListener('click', () => {
-                            marker.remove();
+                            // marker.remove();
+                            console.log("IS CLICKING CHECK", del);
                         });
                     }
                 }
@@ -2143,7 +2144,7 @@ const Map = ({ leftWidth,
         <div className="bodymap">
             <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}}>
-                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}}>Delete</Button> 
+                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''}>Delete</Button> 
                 { note? (<Button id="edit-comment">Save</Button>): (<Button id="save-comment">Save</Button>) }
             </div>
 
@@ -2472,6 +2473,13 @@ const Map = ({ leftWidth,
                           editNote(note); 
                             
                         }
+                    });
+                }
+                const del = document.getElementById('delete-comment');
+                if (del != null) {
+                    del.addEventListener('click', () => {
+                        // marker.remove();
+                        console.log("IS CLICKING CHECK", del);
                     });
                 }
             }

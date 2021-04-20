@@ -81,6 +81,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.servicearea = serviceArea;
       special.files = files;
       special.editProject = editprojectid;
+      special.locality = locality? locality:'';
       if(swSave){
         editProjectSpecial(special);
       }else{
@@ -96,13 +97,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   }));
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county != '' && serviceArea != '' && locality === currentServiceAreaCounty.jurisdiction){
+    if(geom != undefined && description != '' && county != '' && serviceArea != ''){
       setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[geom, description, county, serviceArea,currentServiceAreaCounty.jurisdiction]);
+  },[geom, description, county, serviceArea]);
 
   useEffect(()=>{
     setStreamIntersected({geom:null});
@@ -134,19 +135,19 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
      setVisibleAlert( true);
   };
 
-  useEffect(()=>{
-    if(swSave === true){
-      if(locality !== currentServiceAreaCounty.jurisdiction){
-        alert("It is not within your jurisdiction.");
-      }
-    }else{
-      if(currentServiceAreaCounty.jurisdiction ){
-        if(locality !== currentServiceAreaCounty.jurisdiction){
-          alert("It is not within your jurisdiction.");
-        }
-      }
-    }
-  },[currentServiceAreaCounty.jurisdiction]);
+  // useEffect(()=>{
+  //   if(swSave === true){
+  //     if(locality !== currentServiceAreaCounty.jurisdiction){
+  //       alert("It is not within your jurisdiction.");
+  //     }
+  //   }else{
+  //     if(currentServiceAreaCounty.jurisdiction ){
+  //       if(locality !== currentServiceAreaCounty.jurisdiction){
+  //         alert("It is not within your jurisdiction.");
+  //       }
+  //     }
+  //   }
+  // },[currentServiceAreaCounty.jurisdiction]);
 
   const handleCancel = (e: any) => {
     const auxState = {...state};

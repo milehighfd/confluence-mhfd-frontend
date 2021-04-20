@@ -97,6 +97,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.ownership = ""+ownership ;
       maintenance.files = files;
       maintenance.editProject = editprojectid;
+      maintenance.locality = locality? locality:'';
       // console.log( JSON.stringify(maintenance, null, 2),"****++MAINTENANCE******")
       if(swSave){
         editProjectMainetnance(maintenance);
@@ -118,7 +119,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
   useEffect(()=>{
     //console.log(geom,"---", description,"---", county,"---", serviceArea,"---",ownership,"---",eligibility)
-    if(geom != undefined && description != '' && county != '' && serviceArea != '' && locality === currentServiceAreaCounty.jurisdiction){
+    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
       if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal  ){
           if(eligibility != ''){
             setDisable(false);
@@ -131,7 +132,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     else{
       setDisable(true);
     }
-  },[geom, description, county, serviceArea, ownership,eligibility,currentServiceAreaCounty.jurisdiction]);
+  },[geom, description, county, serviceArea, ownership,eligibility]);
 
   useEffect(()=>{
     if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal ){
@@ -169,27 +170,27 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   };
 
   const handleOk = (e: any) => {
-    if(locality === currentServiceAreaCounty.jurisdiction){
-      setVisibleAlert( true);
-     }
-     else{
-       alert("It is not within your jurisdiction.");
-     }
+    // if(locality === currentServiceAreaCounty.jurisdiction){
+    //   setVisibleAlert( true);
+    //  }
+    //  else{
+    //    alert("It is not within your jurisdiction.");
+    //  }
   };
   
-  useEffect(()=>{
-    if(swSave === true){
-      if(locality !== currentServiceAreaCounty.jurisdiction){
-        alert("It is not within your jurisdiction.");
-      }
-    }else{
-      if(currentServiceAreaCounty.jurisdiction ){
-        if(locality !== currentServiceAreaCounty.jurisdiction){
-          alert("It is not within your jurisdiction.");
-        }
-      }
-    }
-  },[currentServiceAreaCounty.jurisdiction]);
+  // useEffect(()=>{
+  //   if(swSave === true){
+  //     if(locality !== currentServiceAreaCounty.jurisdiction){
+  //       alert("It is not within your jurisdiction.");
+  //     }
+  //   }else{
+  //     if(currentServiceAreaCounty.jurisdiction ){
+  //       if(locality !== currentServiceAreaCounty.jurisdiction){
+  //         alert("It is not within your jurisdiction.");
+  //       }
+  //     }
+  //   }
+  // },[currentServiceAreaCounty.jurisdiction]);
 
   const handleCancel = (e: any) => {
     console.log(e);
