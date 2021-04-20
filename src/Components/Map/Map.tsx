@@ -167,13 +167,13 @@ const Map = ({ leftWidth,
     const colors = {
         RED: '#FF0000',
         ORANGE: '#FA6400',
-        GREY: 'rgba(0, 0, 0, 0.3)',
+        GREY: 'rgb(142, 132, 132)',
         GREEN: '#29C499'
     };
     const colorsCodes = {
       RED: 'rgb(255, 0, 0)',
       ORANGE:  'rgb(250, 100, 0)',
-      GREY: 'rgba(0, 0, 0, 0.3)',
+      GREY: 'rgb(142, 132, 132)',
       GREEN: '#29C499'
     }
     const [noteColor, setNoteColor] = useState(colors.GREEN);
@@ -445,12 +445,146 @@ const Map = ({ leftWidth,
                   newmarker.setPopup(newpopup);
                   newpopup.setHTML(html);
                   newmarker.setLngLat([note.longitude, note.latitude]).setPopup(newpopup);
+                  newmarker.getElement().addEventListener('click', () => {
+                    addEvents(note);
+                  });
               totalmarkers.push({ marker: newmarker, note: note});
             } 
           });
           setMarkerNotes(totalmarkers);   
         }
     }, [notes, notesFilter]);
+    const addEvents = (noteClicked: any) => {
+      console.log("noteClicked CLICKEd", noteClicked);
+      setTimeout(()=>{
+        const div = document.getElementById('color-list');
+        if (div != null) {
+            const ul = document.createElement('ul');
+            ul.style.display = 'none';
+            ul.classList.add("list-popup-comment");
+            div.addEventListener('click', () => {
+                if (ul.style.display === 'none') {
+                    ul.style.display = 'block';
+                } else {
+                    ul.style.display = 'none';
+                }
+            });
+            const inner = `
+            <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
+            <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
+            <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
+            <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
+            ul.innerHTML = inner;
+            div.appendChild(ul);
+            const colorable = document.getElementById('colorable');
+            const red = document.getElementById('red');
+            if (red != null) {
+                red.addEventListener('click', () => {
+                    setNoteColor(colors.RED);
+                    if (colorable != null) {
+                        colorable.style.color = colors.RED;
+                    }
+                });
+            }
+            const orange = document.getElementById('orange');
+            if (orange != null) {
+                orange.addEventListener('click', () => {
+                    setNoteColor(colors.ORANGE);
+                    if (colorable != null) {
+                        colorable.style.color = colors.ORANGE;
+                    }
+                });
+            }
+            const grey = document.getElementById('grey');
+            if (grey != null) {
+                grey.addEventListener('click', () => {
+                    setNoteColor(colors.GREY);
+                    if (colorable != null) {
+                        colorable.style.color = colors.GREY;
+                    }
+                });
+            }
+            const green = document.getElementById('green');
+            if (green != null) {
+                green.addEventListener('click', () => {
+                    setNoteColor(colors.GREEN);
+                    if (colorable != null) {
+                        colorable.style.color = colors.GREEN;
+                    }
+                });
+            }
+            const save = document.getElementById('save-comment');
+            if (save != null) {
+                save.addEventListener('click', () => {
+                    const textarea = (document.getElementById('textarea') as HTMLInputElement);
+                    if (textarea != null) {
+                        console.log(textarea.value);
+                        let color = '';
+                        if (colorable != null) {
+                            if (colorable.style.color === colorsCodes.RED) {
+                                color = 'red';
+                            } else if (colorable.style.color === colorsCodes.ORANGE) {
+                                color = 'orange';
+                            } else if (colorable.style.color === colorsCodes.GREY) {
+                                color = 'grey';
+                            } else {
+                                color = 'green';
+                            }
+                        }
+                        const note = {
+                            color: color,
+                            content: textarea.value,
+                            latitude: noteClicked.latitude,
+                            longitude: noteClicked.longitude
+                        };
+                        createNote(note);
+                        popup.remove();
+                        // marker.remove(map);
+                    }
+                });
+            }
+            const edit = document.getElementById('edit-comment');
+            if (edit != null) {
+              edit.addEventListener('click', () => {
+                  const textarea = (document.getElementById('textarea') as HTMLInputElement);
+                  if (textarea != null) {
+                    console.log(textarea.value);
+                    let color = '';
+                    if (colorable != null) {
+                        if (colorable.style.color === colorsCodes.RED) {
+                            color = 'red';
+                        } else if (colorable.style.color === colorsCodes.ORANGE) {
+                            color = 'orange';
+                        } else if (colorable.style.color === colorsCodes.GREY) {
+                            color = 'grey';
+                        } else {
+                            color = 'green';
+                        }
+                    }
+                    const note = {
+                        _id: noteClicked._id,
+                        color: color,
+                        content: textarea.value,
+                        latitude: noteClicked.latitude,
+                        longitude: noteClicked.longitude
+                    };
+                    editNote(note); 
+                      
+                  }
+              });
+            }
+            const del = document.getElementById('delete-comment');
+            console.log("DEL", del);
+            if (del != null) {
+              del.addEventListener('click', () => {
+                let noteId = del.getAttribute('value');
+                deleteNote(noteId);
+              });
+            }
+        }
+        return;
+      },1000);
+    }
     useEffect(()=>{
       if(commentVisible && markersNotes.length > 0) {
         markersNotes.forEach((marker:any) => {
@@ -1357,6 +1491,7 @@ const Map = ({ leftWidth,
         }
         return;
     }
+    
 
     useEffect(() => {
         if (allLayers.length < 100) {
@@ -1364,7 +1499,7 @@ const Map = ({ leftWidth,
         }
         map.on('click', (e: any) => {
             if (commentAvailable && canAdd) {
-                //canAdd = false;
+                canAdd = false;
                 const html = commentPopup();
                 popup.remove();
                 popup = new mapboxgl.Popup();
@@ -1386,7 +1521,7 @@ const Map = ({ leftWidth,
                     const inner = `
                     <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
                     <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
-                    <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgba(00, 00, 00, 0.3);"></i> Grey</li>
+                    <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
                     <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
                     ul.innerHTML = inner;
                     div.appendChild(ul);
@@ -1472,10 +1607,11 @@ const Map = ({ leftWidth,
                       }
                     const del = document.getElementById('delete-comment');
                     if (del != null) {
-                        del.addEventListener('click', () => {
-                            marker.remove();
-                            canAdd = false;
-                        });
+                      del.addEventListener('click', () => {
+                        let noteId = del.getAttribute('value');
+                        deleteNote(noteId);
+                        canAdd = false;
+                      });
                     }
                 }
                 return;
@@ -2135,7 +2271,7 @@ const Map = ({ leftWidth,
         <Popover trigger="click" placement="bottomRight" content={<ul>
         <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
-        <li><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey</li>
+        <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
     </ul>} overlayClassName="popover-comment">
             <Button id="color-list" className="type-popover"><i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> { note?note.color:'Leave a Comment' }<DownOutlined /></Button>
@@ -2404,7 +2540,7 @@ const Map = ({ leftWidth,
               const inner = `
               <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
               <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
-              <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgba(00, 00, 00, 0.3);"></i> Grey</li>
+              <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
               <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
               ul.innerHTML = inner;
               div.appendChild(ul);
@@ -2478,8 +2614,8 @@ const Map = ({ leftWidth,
                 const del = document.getElementById('delete-comment');
                 if (del != null) {
                     del.addEventListener('click', () => {
-                        // marker.remove();
-                        console.log("IS CLICKING CHECK", del);
+                        let noteId = del.getAttribute('value');
+                        deleteNote(noteId);
                     });
                 }
             }
