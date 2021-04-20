@@ -176,6 +176,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     //  else{
     //    alert("It is not within your jurisdiction.");
     //  }
+    setVisibleAlert( true);
   };
   
   // useEffect(()=>{
