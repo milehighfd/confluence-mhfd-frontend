@@ -36,6 +36,11 @@
     right: -30px;
     margin-bottom: -3px;
   }
+  .ant-btn:active, .ant-btn.active, .btn-opacity:hover, .btn-opacity:focus {
+    color: $white !important;
+    background-color: $purple !important;
+    border-color: $purple !important;
+  }
 }
 .popover-note{
   .ant-popover-inner-content{
@@ -110,6 +115,7 @@
       color: $purple00;
       margin-bottom: 4px;
       line-height: 16px;
+      min-height: 16px;
     }
     h6{
       text-align: right;
@@ -271,6 +277,7 @@
       p{
         font-size: 18px;
         line-height: 20px;
+         min-height: 20px;
       }
       h6{
         font-size: 14px;
@@ -398,6 +405,7 @@
       p{
         font-size: 24px;
         line-height: 26px;
+        min-height: 26px;
       }
       h6{
         font-size: 18px;
