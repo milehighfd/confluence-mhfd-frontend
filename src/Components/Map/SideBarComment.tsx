@@ -39,12 +39,12 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       <Menu.Item onClick={() => {
         openEditNote(note);
       }}>
-        <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Edit Comment</span>
+        <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Edit Comment</span>
       </Menu.Item>
       <Menu.Item onClick={() => {
         flyTo(note.longitude, note.latitude);
       }}>
-        <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
+        <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Zoom to</span>
       </Menu.Item>
       <Menu.Item onClick={() => {
         //it's destroying the app , but the endpoint works well :) <3
