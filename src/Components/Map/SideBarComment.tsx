@@ -13,6 +13,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   const {  deleteNote } = useNoteDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
+  const [ editNotE, seteditNotE] = useState(false);
   useEffect(()=>{
     changeFilter(filter);
   },[filter]);
@@ -100,7 +101,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     <Drawer
       title={<div className="comment-title">
               <h5>Map Notes</h5>
-              <Button className="btn-opacity" onClick={() => addToMap()}>+</Button>
+              <Button className={editNotE===true? "ant-btn.active" :"btn-opacity" } onClick={() => {addToMap(); seteditNotE(true);}}  >+</Button>
               <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">
                 <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> {filter === 'all' ? 'All Types' : filter[0].toUpperCase() + filter.slice(1)} <DownOutlined /></Button>
               </Popover>
