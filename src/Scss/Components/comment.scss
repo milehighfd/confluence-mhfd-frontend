@@ -36,10 +36,18 @@
     right: -30px;
     margin-bottom: -3px;
   }
-  .ant-btn:active, .ant-btn.active, .btn-opacity:hover, .btn-opacity:focus {
+  .button-active, .btn-opacity:active, .btn-opacity.active, .btn-opacity:hover, .btn-opacity:focus,  {
     color: $white !important;
     background-color: $purple !important;
     border-color: $purple !important;
+    width: 25px;
+    height: 25px;
+    padding: 0px;
+    font-size: 16px;
+    position: relative;
+    top: -2px;
+    right: -30px;
+    margin-bottom: -3px;
   }
 }
 .popover-note{
