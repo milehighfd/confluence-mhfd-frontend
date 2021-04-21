@@ -1,7 +1,7 @@
 import { boardProject, columnProject } from "./RequestTypes";
 import CardStatService from './CardService';
 let fields = ['project_id', 'req1', 'req2', 'req3', 'req4', 'req5', 'positon0', 'positon1', 'positon2', 'positon3', 'positon4', 'positon5'];
-
+let fields2 = ['description', 'projectname'];
 export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
   let colsLhs: columnProject[] = _colsLhs;
   let colsRhs: columnProject[] = _colsRhs;
@@ -20,6 +20,11 @@ export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
         let rp: any = colRhs.projects[i];
         fields.forEach((f) => {
           if (lp[f] != rp[f]) {
+            areEqual = false;
+          }
+        })
+        fields2.forEach((f) => {
+          if (lp.projectData[f] != rp.projectData[f]) {
             areEqual = false;
           }
         })
