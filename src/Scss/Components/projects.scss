@@ -504,6 +504,9 @@
       height: 44px;
       margin-left: 10px;
     }
+    .btn-purple:hover > span, .btn-purple:focus > span{
+      text-decoration: underline;
+    }
   }
   #map3{
     height: 100% !important;

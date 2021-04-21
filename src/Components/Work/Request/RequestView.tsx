@@ -604,7 +604,7 @@ const RequestView = ({ type }: {
                           }
                         }}
                       >
-                        <Input size="default" className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
+                        <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
                           prefix={<i className="mdi mdi-circle"></i>}
                           suffix={<Icon type="down" className="certain-category-icon" />} />
                       </AutoComplete>
@@ -634,7 +634,7 @@ const RequestView = ({ type }: {
 
                     <ButtonGroup>
                     <Button className="btn-opacity">
-                      <CSVLink filename={'' + new Date().getTime() + '.csv'} data={generateCSV()} className="btn-opacity">
+                      <CSVLink filename={'' + new Date().getTime() + '.csv'} data={generateCSV()} className="btn-opacity" style={{padding:'0px'}}>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }} src="" />
                       </CSVLink>
                     </Button>

@@ -785,16 +785,22 @@
       padding: 0px 12px;
     }
     .ant-input-affix-wrapper{
-      width: 390px !important;
+      width: 470px !important;
     }
     .ant-input{
-      font-size: 27px;
+      font-size: 27px !important;
       padding: 0px 11px;
       height: 40px;
     }
     .ant-input-affix-wrapper .ant-input:not(:first-child) {
       padding-left: 30px;
     }
+    .ant-select-1 {
+      max-width: 470px;
+    }
+  }
+  .ant-select-dropdown-menu-item{
+    font-size: 18px !important;
   }
   .work-body{
     .ant-tabs-nav .ant-tabs-tab {
@@ -1097,15 +1103,24 @@
       padding: 0px 18px;
     }
     .ant-input-affix-wrapper{
-      width: 500px !important;
+      width: 620px !important;
     }
     .ant-input{
-      font-size: 36px;
+      font-size: 36px !important;
       height: 52px;
     }
     .ant-input-affix-wrapper .ant-input:not(:first-child) {
       padding-left: 40px;
     }
+    .ant-select-1 {
+      max-width: 620px;
+    }
+  }
+  .ant-select-dropdown-menu-item{
+    font-size: 21px !important;
+  }
+  .auto-complete-map {
+    margin-top: 10px;
   }
   .work-body{
     .ant-tabs-nav .ant-tabs-tab {

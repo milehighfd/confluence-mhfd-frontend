@@ -45,7 +45,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave}:
         >
           <h2>Saving will create a draft project within your jurisdiction's Work Request. Do you want to continue?</h2>
           <button className="btn-borde" onClick={handleCancel}>Cancel</button>
-          <button className="btn-purple" onClick={handleOk}>Save</button>
+          <button className="btn-purple" onClick={handleOk}><span>Save</span></button>
         </Modal>
       </div>
     </div>

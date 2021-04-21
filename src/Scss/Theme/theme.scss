@@ -379,6 +379,9 @@ body{
     margin-top: 10px;
     border: none;
   }
+  .btn-purple:hover > span, .btn-purple:focus > span{
+    text-decoration: underline;
+  }
   .btn-borde{
     width: 130px;
     height: 45px;
