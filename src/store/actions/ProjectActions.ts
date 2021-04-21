@@ -121,7 +121,7 @@ export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
     Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
+      if (key === 'geom' || key === 'ids') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
@@ -322,7 +322,6 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAM_INTERSECTED, {geom: geom}, datasets.getToken()).then(res => {
       let streamsIntersectedIds = res;
-      console.log("GETTING CHECK", res);
         dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
     });
   }
@@ -437,6 +436,14 @@ export const getAllComponentsByProblemId = (problemId: any) => {
       console.log("BY PROB",componentsFromMap);
       dispatch({type: types.SET_COMPONENTS_MAP, componentsFromMap: componentsFromMap.result});
     });
+  }
+}
+
+export const getStreamsByProjectId = (projectId: any) => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_STREAMS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
+      console.log("STREAMS BY PROJ ID", res); 
+    })
   }
 }
 

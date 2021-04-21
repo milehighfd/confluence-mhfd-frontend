@@ -53,7 +53,7 @@ const genTitle = (streamName: any) => (
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any, editable:boolean }) => {
   const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds} = useProjectDispatch();
-  const {currentServiceAreaCounty} =useProjectState();
+  const {streamsIntersectedIds} =useProjectState();
   const {organization, groupOrganization} = useProfileState();
   const {listStreams, streamIntersected} = useProjectState();
   const [state, setState] = useState(stateValue);
@@ -107,6 +107,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   },[data]);
   useEffect(()=>{
     if(save === true){
+      
+      let mhfd_codes = streamsIntersectedIds.map((str:any) => str.mhfd_code);
+      console.log("streams", mhfd_codes);
       var study = new Project();
       study.projectname = nameProject;
       study.description = description;
@@ -114,9 +117,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.servicearea = serviceArea;
       study.sponsor = sponsor;
       study.cosponsor = cosponsor;
-      study.ids = ids;
+      study.ids = mhfd_codes;
       study.files = files;
-      study.geom = streamsList;
+      study.geom = mhfd_codes;
       study.locality = locality? locality:'';
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
@@ -243,10 +246,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     }
 
     setStreamsList(newCopyList);
-    console.log("NEW LIST", copyList);
     if(ids.length > 0) {
-      let newIds = [...ids].filter((id:any) => id != cartodbIdToRemove);
-      console.log("NEW IDS", newIds);
+      let newIds = [...ids].filter((id:any) => id.cartodb_id != cartodbIdToRemove);
       setStreamsIds(newIds);
     }
 

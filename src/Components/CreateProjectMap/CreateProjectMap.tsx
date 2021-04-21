@@ -281,7 +281,6 @@ const CreateProjectMap = (type: any) => {
     }
   };
   useEffect(()=>{
-    console.log("GET BBOX OF PROJECTid", type.projectid);
     if(type.projectid != -1 && type.projectid) {
       getData(`${SERVER.URL_BASE}/board/bbox/${type.projectid}`)
       .then(
@@ -383,9 +382,7 @@ const CreateProjectMap = (type: any) => {
   }, [isDraw]);
   useEffect(() => {
     let geom: any = undefined;
-    console.log("IS ABOUT TO ADD TO MAP", streamIntersected);
     if (streamIntersected && streamIntersected.geom) {
-      console.log("OR HERE", streamIntersected);
       geom = JSON.parse(streamIntersected.geom);
       if(geom) {
         map.isStyleLoaded(() => {
@@ -425,8 +422,9 @@ const CreateProjectMap = (type: any) => {
   }, [streamIntersected]);
   useEffect(()=>{
     if(streamsIntersectedIds.length > 0) {
+      let streamsCodes:any = streamsIntersectedIds.map((str:any) => str.mhfd_code);
       map.isStyleLoaded( () => {
-        let filter = ['in','cartodb_id',...streamsIntersectedIds];
+        let filter = ['in','mhfd_code',...streamsCodes];
         // console.log("filter", filter);
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {

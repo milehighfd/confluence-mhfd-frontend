@@ -24,7 +24,7 @@ export class Project {
     ownership: string ;
     attachment: any;
     files: any[];
-    ids: any;
+    ids: any[];
     sponsor: string;
     cosponsor: any[]; 
     componet: any;
@@ -53,5 +53,6 @@ export class Project {
         this.independetComponent=[];
         this.editProject = "";
         this.locality = '';
+        this.ids = []
     }
 }
