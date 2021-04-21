@@ -34,8 +34,17 @@ const stateValue = {
   visibleAcqui: false,
 }
 
-export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible, locality, data }:
-  {visibleAcquisition: boolean, setVisibleAcquisition: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data: any} ) => {
+export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible, locality, data, editable }:
+  {visibleAcquisition: boolean, 
+    setVisibleAcquisition: Function, 
+    nameProject: string , 
+    setNameProject: Function, 
+    typeProject: string, 
+    setVisible: Function, 
+    locality?:any, 
+    data: any,
+    editable: boolean
+  } ) => {
 
   const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds} = useProjectDispatch();
   const {currentServiceAreaCounty} =useProjectState();
@@ -249,6 +258,9 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             <LocationInformation
               setServiceArea = {setServiceArea}
               setCounty = {setCounty}
+              serviceArea = {serviceArea}
+              county = {county} 
+              editable= {editable}
             />
             <br/>
 

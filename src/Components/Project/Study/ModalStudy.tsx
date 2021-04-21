@@ -50,8 +50,8 @@ const genTitle = (streamName: any) => (
   </div>
 )
 
-export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data}:
-  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any }) => {
+export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
+  {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any, editable:boolean }) => {
   const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds} = useProjectDispatch();
   const {currentServiceAreaCounty} =useProjectState();
   const {organization, groupOrganization} = useProfileState();
@@ -406,6 +406,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             <LocationInformation
               setServiceArea = {setServiceArea}
               setCounty = {setCounty}
+              serviceArea = {serviceArea}
+              county = {county} 
+              editable= {editable}
             />
             <br/>
 

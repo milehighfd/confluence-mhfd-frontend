@@ -103,6 +103,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, editable
         data={project.projectData}
         showDefaultTab={true}
         locality={locality}
+        editable= {editable}
     />
     }
     <AmountModal

@@ -2672,6 +2672,7 @@ const Map = ({ leftWidth,
                 data={"no data"}
                 showDefaultTab={showDefault}
                 locality= {"no locality"}
+                editable = {true}
             />
             }
         </div>

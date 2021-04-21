@@ -105,8 +105,8 @@ const genTitleProblem = (problem: any) => {
     </div>
   )
 }
-export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data}:
-  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any}) => {
+export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
+  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean}) => {
   let Component = {
     type:"Unnamend Component",
     status:"Proposed",
@@ -952,6 +952,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <LocationInformation
               setServiceArea = {setServiceArea}
               setCounty = {setCounty}
+              serviceArea = {serviceArea}
+              county = {county} 
+              editable= {editable}
             />
             <br/>
 

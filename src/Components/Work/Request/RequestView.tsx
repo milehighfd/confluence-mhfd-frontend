@@ -514,6 +514,7 @@ const RequestView = ({ type }: {
           data={currentProject}
           showDefaultTab={true}
           locality={locality}
+          editable={true}
       />
     }
     {
@@ -559,6 +560,7 @@ const RequestView = ({ type }: {
           data={"no data"}
           defaultTab={tabKey}
           locality={locality}
+          editable = {true}
         />
       }
     </div>

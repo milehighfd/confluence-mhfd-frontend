@@ -35,8 +35,8 @@ const stateValue = {
   visibleSpecial: false
 }
 
-export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality, data}:
-  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any}) => {
+export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
+  {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any, editable:boolean}) => {
 
   const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds} = useProjectDispatch();
   const { currentServiceAreaCounty} = useProjectState();
@@ -222,6 +222,9 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             <LocationInformation
               setServiceArea = {setServiceArea}
               setCounty = {setCounty}
+              serviceArea = {serviceArea}
+              county = {county} 
+              editable= {editable}
             />
 
             <br/>

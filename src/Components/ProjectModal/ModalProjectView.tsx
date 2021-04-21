@@ -20,9 +20,9 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = ({visible, setVisible, data, template, defaultTab, showDefaultTab, locality }: 
-  {visible: boolean, setVisible: Function, data: any, template?: any, defaultTab?: any, showDefaultTab?: any, locality?: any}) => {
-    console.log("DATA XX", data);
+export const ModalProjectView = ({visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable }: 
+  {visible: boolean, setVisible: Function, data: any, template?: any, defaultTab?: any, showDefaultTab?: any, locality?: any, editable:boolean}) => {
+    console.log("DATA XX", data, editable);
   const {setSave} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
@@ -142,6 +142,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setVisible = {setVisible}
       locality = {locality}
       data={data}
+      editable= {editable}
      />}
      {visibleAcquisition && <ModalAcquisition
       visibleAcquisition = {visibleAcquisition} 
@@ -152,6 +153,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setVisible = {setVisible}
       locality = {locality}
       data={data}
+      editable= {editable}
      />}
      {visibleMaintenance && <ModalMaintenance
       visibleMaintenance = {visibleMaintenance} 
@@ -163,6 +165,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setVisible = {setVisible}
       locality = {locality}
       data={data}
+      editable= {editable}
      />}
      {visibleSpecial && <ModalSpecial
       visibleSpecial = {visibleSpecial} 
@@ -173,6 +176,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setVisible = {setVisible}
       locality = {locality}
       data={data}
+      editable= {editable}
      />}
      {visibleStudy && <ModalStudy
       visibleStudy = {visibleStudy} 
@@ -183,6 +187,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       setVisible = {setVisible}
       locality = {locality}
       data={data}
+      editable= {editable}
      />}
      {/*<Button show modal */}
      {/*<Button type="primary" onClick={showModal}>
