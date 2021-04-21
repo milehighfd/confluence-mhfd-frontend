@@ -1,12 +1,13 @@
 import React from "react";
 import { Modal } from 'antd';
 
-export const SubmitModal = ({ visibleAlert, setVisibleAlert, setSave, boardStatus, currentStatus }: {
+export const SubmitModal = ({ visibleAlert, setVisibleAlert, setSave, boardStatus, currentStatus, pending  }: {
   visibleAlert: boolean,
   setVisibleAlert: Function,
   setSave: Function,
   boardStatus: string,
-  currentStatus: string
+  currentStatus: string,
+  pending: boolean
 }) => {
 
   const handleOk = (e: any) => {
@@ -20,7 +21,7 @@ export const SubmitModal = ({ visibleAlert, setVisibleAlert, setSave, boardStatu
 
   let currentApproved = currentStatus === 'Approved';
   let approved = boardStatus === 'Approved';
-
+console.log(pending, "PENDING")
   return (
     <div>
       <div >
@@ -31,15 +32,20 @@ export const SubmitModal = ({ visibleAlert, setVisibleAlert, setSave, boardStatu
           onCancel={handleCancel}
           className="modal-confirm"
           width="400px"
-        >
-          <h2>{currentApproved ? 'Only notes will be updated.' : 'By approving, you will no longer be able to edit.'}</h2>
-          {
+        >{
+          !pending && <h2>{currentApproved ? 'Only notes will be updated.' : 'By approving, you will no longer be able to edit.'}</h2>
+        }
+        {
+          pending && <h2>Can not submit while still have pending work request</h2> 
+        }
+        {
             !approved &&
             <button className="btn-borde" onClick={handleCancel}>Cancel</button>
           }
-          <button className="btn-purple" onClick={handleOk}>
+          {!pending &&
+            <button className="btn-purple" onClick={handleOk}>
             { currentApproved ? 'OK' : 'Approve' }
-          </button>
+          </button>}
         </Modal>
       </div>
     </div>

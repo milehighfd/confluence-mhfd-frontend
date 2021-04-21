@@ -21,7 +21,7 @@ export default ({ boardId, visible, setVisible, status, comment, type }: {
   const [message, setMessage] = useState('An Error has ocurred, please try again later');
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const [pending, setpending] = useState(false);
   const save = () => {
     putData(`${SERVER.URL_BASE}/board/${boardId}`, {
     // putData(`${'http://localhost:3003'}/board/${boardId}`, {
@@ -83,6 +83,7 @@ export default ({ boardId, visible, setVisible, status, comment, type }: {
       setSave = {save}
       currentStatus={status}
       boardStatus={boardStatus}
+      pending = {pending}
      />
     }
     <Drawer
@@ -137,6 +138,7 @@ export default ({ boardId, visible, setVisible, status, comment, type }: {
                     title={<h6><i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00'}}></i> {item.locality}</h6>}
                     description={
                       <p style={{width:'100%'}}>
+                        {item.submissionDate === null?  setpending(true): pending}
                         {`${item.submissionDate ? format(item.submissionDate) : 'Pending' }`}
                         <img src="/Icons/icon-64.svg" alt="" height="8px" style={{opacity:'0.3'}}/>
                       </p>
@@ -162,7 +164,7 @@ export default ({ boardId, visible, setVisible, status, comment, type }: {
             setVisibleAlert(true)
           } else {
             save();
-          }
+          }        
         }}>
           Save
         </Button>
