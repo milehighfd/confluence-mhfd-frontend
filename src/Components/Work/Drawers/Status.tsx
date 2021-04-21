@@ -32,7 +32,11 @@ export default ({ boardId, visible, setVisible, status, comment, type }: {
           if (!r) {
             setMessage('An Error has ocurred, please try again later');
           } else {
-            setMessage(`Projects sent to County ${r.toCounty} and Service Area ${r.toServiceArea}`);
+            if (r.hasOwnProperty('toCounty') && r.hasOwnProperty('toServiceArea')) {
+              setMessage(`Projects sent to County ${r.toCounty} and Service Area ${r.toServiceArea}`);
+            } else {
+              setMessage(`Saved`);
+            }
           }
           setShowMessage(true);
           setTimeout(() => {
