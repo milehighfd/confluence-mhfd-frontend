@@ -15,6 +15,7 @@ export const LocationInformation = ({setServiceArea, setCounty, serviceArea, cou
   const {currentServiceAreaCounty} = useProjectState();
   const [sArea, setSArea] = useState(undefined);
   const [sCounty, setSCounty] = useState(undefined);
+  const [disable , setdisable ] = useState(!editable);
   const apllyServiceArea = (e: any)=>{
     setServiceArea(e);
     setSArea(e);
@@ -42,7 +43,7 @@ export const LocationInformation = ({setServiceArea, setCounty, serviceArea, cou
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select placeholder="Select a Service Area" style={{width:'100%'}} value={serviceArea} onChange={(serviceArea:any)=> apllyServiceArea(serviceArea)}>
+        <Select placeholder="Select a Service Area" style={{width:'100%'}} value={serviceArea} onChange={(serviceArea:any)=> apllyServiceArea(serviceArea)} disabled={disable}>
           {SERVICE_AREA.map((element) =>{
             if(element!= 'None'){
               if(element != 'Boulder Service Area'){
@@ -53,7 +54,7 @@ export const LocationInformation = ({setServiceArea, setCounty, serviceArea, cou
       </Col>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select placeholder="Select a County" style={{width:'100%'}} value={county} onChange={(county:any)=> apllyCounty(county)} >
+        <Select placeholder="Select a County" style={{width:'100%'}} value={county} onChange={(county:any)=> apllyCounty(county)} disabled={disable}>
           {PROJECT_INFORMATION.COUNTRY_PROJECT.map((element) =>{
             return <Option key={element} value={element}>{element}</Option>
           })}
