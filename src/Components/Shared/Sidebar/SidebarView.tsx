@@ -58,11 +58,12 @@ export default () => {
         </Link>
       </Menu.Item>
       {(appUser.designation !== 'guest') ?
-      <Menu.Item key="2" className="menu-mobile">
-        <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="18px" style={{opacity: '0.2'}} />
-          <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
-          <span>Watershed Story - Under Construction</span>
+      <Menu.Item key="4" className="menu-mobile">
+        <Link to={'/work-request'}>
+          <img className="img-h anticon mobile-display" src="/Icons/menu-white-14.svg" alt="" width="18px" />
+          <img className="img-a anticon mobile-display" src="/Icons/menu-green-14.svg" alt="" width="18px" />
+          <i className="anticon mdi mdi-map-legend menu-desktop"/>
+          <span>Work Request</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
@@ -74,12 +75,11 @@ export default () => {
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
-      <Menu.Item key="4" className="menu-mobile">
-        <Link to={'/work-request'}>
-          <img className="img-h anticon mobile-display" src="/Icons/menu-white-14.svg" alt="" width="18px" />
-          <img className="img-a anticon mobile-display" src="/Icons/menu-green-14.svg" alt="" width="18px" />
-          <i className="anticon mdi mdi-map-legend menu-desktop"/>
-          <span>Work Request</span>
+      <Menu.Item key="2" className="menu-mobile">
+        <Link to={'/map'}>
+          <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="18px" style={{opacity: '0.2'}} />
+          <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <span>Watershed Story - Under Construction</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
