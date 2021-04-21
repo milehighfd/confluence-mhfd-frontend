@@ -203,6 +203,9 @@
       height: 35px;
       margin-top: 10px;
     }
+    button:hover, button:focus{
+      background-color: #F2F2F2 !important;
+    }
   }
 }
 .popover-comment{
