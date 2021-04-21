@@ -218,9 +218,9 @@ const RequestView = ({ type }: {
               return proj.projectData?.cartodb_id;
             });
             let projectAmounts = projects.map((proj:any)=> {
-              return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)), 
+              return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
               cartodb_id: proj.projectData?.cartodb_id
-              } 
+              }
             });
             console.log("WAHT", projectAmounts);
             setProjectAmounts(projectAmounts);
@@ -318,9 +318,9 @@ const RequestView = ({ type }: {
                     return proj.projectData.cartodb_id;
                   });
                   let projectAmounts = projects.map((proj:any)=> {
-                    return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)), 
+                    return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
                     cartodb_id: proj.projectData?.cartodb_id
-                    } 
+                    }
                   });
                   console.log("WAHT2", projectAmounts);
                   setProjectAmounts(projectAmounts);
@@ -387,9 +387,9 @@ const RequestView = ({ type }: {
     }
     let newArray = [...mySet.values()];
     let projectAmounts:any = newArray.map((proj:any)=> {
-      return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)), 
+      return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
       cartodb_id: proj.projectData?.cartodb_id
-      } 
+      }
     });
     setProjectAmounts(projectAmounts);
   }
@@ -408,7 +408,7 @@ const RequestView = ({ type }: {
       }
     }
     console.log("PROJECT SHOW ", project.id, projectswithid);
-    let newArray = [...projectswithid.values()];    
+    let newArray = [...projectswithid.values()];
     if(newArray[0]){
       currentProject = {...newArray[0].projectData};
       setTimeout(()=>{
@@ -604,7 +604,7 @@ const RequestView = ({ type }: {
                           }
                         }}
                       >
-                        <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
+                        <Input size="default" className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
                           prefix={<i className="mdi mdi-circle"></i>}
                           suffix={<Icon type="down" className="certain-category-icon" />} />
                       </AutoComplete>
@@ -656,7 +656,7 @@ const RequestView = ({ type }: {
                     <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>
                   </Button>
                 }
-                <Tabs defaultActiveKey={displayedTabKey[0]} 
+                <Tabs defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
                  onChange={(key) => setTabKey(key)} className="tabs-map">
                   {

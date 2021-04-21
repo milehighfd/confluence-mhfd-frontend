@@ -76,7 +76,10 @@
   }
   .ant-select-1{
     color: $opacity;
-    width: 50% !important;
+    width: 100% !important;
+    min-width: 100px;
+    max-width: 390px;
+    width: 100%;
   }
   .ant-select-2{
     color: $opacity;
