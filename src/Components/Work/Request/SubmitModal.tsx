@@ -10,9 +10,7 @@ export const SubmitModal = ({ visibleAlert, setVisibleAlert, setSave, boardStatu
 }) => {
 
   const handleOk = (e: any) => {
-    if (currentStatus !== 'Approved') {
-      setSave();
-    }
+    setSave();
     setVisibleAlert(false);
   };
 
@@ -34,7 +32,7 @@ export const SubmitModal = ({ visibleAlert, setVisibleAlert, setSave, boardStatu
           className="modal-confirm"
           width="400px"
         >
-          <h2>{currentApproved ? 'Already Submitted' : 'By approving, you will no longer be able to edit.'}</h2>
+          <h2>{currentApproved ? 'Only notes will be updated.' : 'By approving, you will no longer be able to edit.'}</h2>
           {
             !approved &&
             <button className="btn-borde" onClick={handleCancel}>Cancel</button>
