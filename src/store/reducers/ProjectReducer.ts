@@ -16,6 +16,7 @@ const initState = {
   currentServiceAreaCounty: {},
   listStreams: [],
   componentsFromMap: [],
+  independentComponents:[],
   selectedLayers: [MHFD_BOUNDARY_FILTERS, XSTREAMS],
   selectedLayersWR: [MHFD_BOUNDARY_FILTERS],
   highlightedComponent: {
@@ -104,7 +105,6 @@ const projectReducer = (state = initState, action: any) => {
       }
     }
     case types.SET_COMPONENTS_MAP: {
-      console.log("IS SETTING??", action.componentsFromMap);
       return {
         ...state, 
         componentsFromMap: action.componentsFromMap
@@ -144,6 +144,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         editLocation: action.editLocation
+      }
+    }
+    case types.SET_IND_COMPONENTS: {
+      return {
+        ...state, 
+        independentComponents: action.independentComponents
       }
     }
     default: 

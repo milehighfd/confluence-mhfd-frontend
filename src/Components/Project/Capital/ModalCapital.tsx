@@ -112,9 +112,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds} = useProjectDispatch();
-  const {currentServiceAreaCounty} =useProjectState();
-  const {listComponents, componentsFromMap, userPolygon, streamIntersected} = useProjectState();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents} = useProjectDispatch();
+  const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -128,13 +127,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [save, setSave] = useState(false);
   const [files, setFiles] = useState<any[]>([]);
   const [groups,setGroups] = useState<any>({});
+  const [componentsToSave, setComponentsToSave] = useState([]);
   const [panelUnnamedComponent, setPanelUnnamedComponent] = useState<any[]>([]);
   const [problems, setProblems] = useState({});
   const [geom, setGeom] = useState();
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
   const [ visibleUnnamedComponent, setVisibleUnnamedComponent ] = useState(false)
-  const [ independentComponents, setIndependentComponents] = useState<any[]>([]);
+  const [ thisIndependentComponents, setIndependentComponents] = useState<any[]>([]);
   const [overheadValues, setOverheadValues] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>([]);
@@ -169,10 +169,17 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       },2200);
     } else {
       setStreamIntersected([]);
+      setIndComponents([]);
       setEditLocation(undefined);
     }
   },[data]);
 
+  useEffect(()=>{
+    console.log("I C", independentComponents);
+    if(independentComponents.length > 0) {
+      setIndependentComponents(independentComponents);
+    }
+  },[independentComponents]);
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
@@ -183,6 +190,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setGeom(userPolygon);
   },[userPolygon]);
   useEffect(()=>{
+    console.log("list components to filter ", listComponents);
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
       const idKey = [...keys];
       Object.keys(listComponents.groups).map((key: any,id:any) => {
@@ -192,6 +200,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       });
       setKeys(idKey);
       setGroups(listComponents.groups);
+      let newC = listComponents.result.map((c:any) => {
+        return { table: c.table, objectid: c.objectid}
+      })
+      console.log("NEW C", newC);
+      setComponentsToSave(newC);
     } else {
       setGroups({});
     }
@@ -203,6 +216,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[listComponents]);
 
   useEffect(()=>{
+
     if(save === true){
       var capital = new Project();
       capital.projectname = nameProject;
@@ -215,8 +229,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.overheadcostdescription = overheadDescription;
       capital.additionalcost = additionalCost;
       capital.additionalcostdescription = additionalDescription;
-      capital.componet = JSON.stringify(groups, null,2);
-      capital.independetComponent = JSON.stringify(independentComponents, null,2);
+      capital.components = JSON.stringify(componentsToSave, null, 2 );
+      capital.independetComponent = JSON.stringify(thisIndependentComponents, null,2);
       capital.locality = locality? locality:'';
       console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       saveProjectCapital(capital);
@@ -331,15 +345,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[isDraw]);
   useEffect(()=>{
-    if(independentComponents.length > 0 ){
+    if(thisIndependentComponents.length > 0 ){
       setVisibleUnnamedComponent(true);
     } else {
       setVisibleUnnamedComponent(false);
     }
-  },[independentComponents]);
+  },[thisIndependentComponents]);
   useEffect(()=>{
-    console.log("YYX",listComponents, independentComponents , flagInit);
-    if((((listComponents && listComponents.groups && listComponents.result.length > 0)) || independentComponents.length > 0) && !flagInit) {
+    console.log("YYX",listComponents, thisIndependentComponents , flagInit);
+    if((((listComponents && listComponents.groups && listComponents.result.length > 0)) || thisIndependentComponents.length > 0) && !flagInit) {
       let newoverhead = [...overheadValues];
       newoverhead[1] = 5;
       newoverhead[4] = 5;
@@ -350,7 +364,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setOverheadValues(newoverhead);
       flagInit = true;
     }
-  },[independentComponents, listComponents])
+  },[thisIndependentComponents, listComponents])
   const applyIndependentComponent = () => {
     let component = {
       index: Math.random()+'_'+Date.now(),
@@ -358,7 +372,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       status:undefined,
       cost:0,
     };
-    setIndependentComponents([...independentComponents,component]);
+    setIndependentComponents([...thisIndependentComponents,component]);
   };
   const removeComponent = (component: any) => {
     let newComponents: any = [];
@@ -392,8 +406,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         subtotalcost += component.original_cost;
       }
     }
-    if(independentComponents.length > 0) {
-      for( let comp of independentComponents) {
+    if(thisIndependentComponents.length > 0) {
+      for( let comp of thisIndependentComponents) {
         subtotalcost += parseFloat(comp.cost) ;
       }
     }
@@ -404,7 +418,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     return overheadcost;
   }
   const changeValueIndComp = (value:any, key:any, indComp:any) => {
-    let currentComponents = [...independentComponents];
+    let currentComponents = [...thisIndependentComponents];
     for(let ic of currentComponents) {
       if( ic.index == indComp.index) {
         let newIC = indComp;
@@ -429,15 +443,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }
 
   const removeIndComponent = (indComp: any) => {
-    let currentComponents = [...independentComponents];
+    let currentComponents = [...thisIndependentComponents];
     currentComponents = currentComponents.filter( (comp: any) => ( comp.id != indComp.id ) );
     setIndependentComponents([...currentComponents]);
   }
 
   const getTotalIndComp = () => {
     let total = 0;
-    if(independentComponents.length > 0) {
-      for( let comp of independentComponents) {
+    if(thisIndependentComponents.length > 0) {
+      for( let comp of thisIndependentComponents) {
         let newValue= comp.cost+','
         let value = newValue.replace("$", "");
         value = value.replace(",", "");
@@ -596,7 +610,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 {visibleUnnamedComponent &&
                 <Panel header="" key="Unnamed Component" extra={genExtra05(getTotalIndComp())}>
                   {
-                    independentComponents.map((indComp:any) => {
+                    thisIndependentComponents.map((indComp:any) => {
                       return (
                         <div className="tab-body-project">
                           <Timeline>

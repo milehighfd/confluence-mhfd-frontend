@@ -121,6 +121,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.files = files;
       study.geom = mhfd_codes;
       study.locality = locality? locality:'';
+      study.streams = listStreams;
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
       setVisibleStudy(false);

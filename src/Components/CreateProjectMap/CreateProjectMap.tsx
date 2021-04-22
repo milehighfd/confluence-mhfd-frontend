@@ -315,10 +315,11 @@ const CreateProjectMap = (type: any) => {
     },500);
   },[groupOrganization, type.locality, localAOI]);
   useEffect(()=>{
+    console.log("REACH LIST COMPONENTS ", listComponents);
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
       if(type.type === 'CAPITAL') {
-
+        console.log("IT SHOOULD SEND HERE");
         getStreamsByComponentsList(listComponents.result);
       }
       

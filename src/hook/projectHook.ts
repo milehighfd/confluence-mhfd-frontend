@@ -2,7 +2,7 @@ import { AnyLayer } from 'mapbox-gl';
 import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected, setComponentsFromMap, updateSelectedLayers, setHighlightedComponent, updateSelectedLayersWR, setBoardProjects, setZoomProject, setStreamsIds, editSpecial, editAcquisition ,setEditLocation, editMaintenance, getStreamsByProjectId} from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected, setComponentsFromMap, updateSelectedLayers, setHighlightedComponent, updateSelectedLayersWR, setBoardProjects, setZoomProject, setStreamsIds, editSpecial, editAcquisition ,setEditLocation, editMaintenance, getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setIndComponents} from '../store/actions/ProjectActions';
 import { RootState } from '../store/reducers';
 
 interface selectProjectState {
@@ -23,7 +23,8 @@ interface selectProjectState {
   selectedLayersWR: any,
   boardProjects: any,
   zoomProject: any,
-  editLocation: any
+  editLocation: any,
+  independentComponents: any
 }
 
 let createSelectorHack: any = createSelector;
@@ -48,8 +49,9 @@ createSelectorHack(
   (state: any) => state.project.boardProjects,
   (state: any) => state.project.zoomProject, 
   (state: any) => state.project.editLocation,
-  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any, listStreams: any, userPolygon: any, componentsFromMap: any, status: number, selectedLayers: any, selectedLayersWR: any, highlightedComponent:any, boardProjects:any, zoomProject: any, editLocation:any) => ({
-    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty, listStreams, userPolygon, componentsFromMap, status, selectedLayers, highlightedComponent, selectedLayersWR, boardProjects, zoomProject, editLocation
+  (state: any) => state.project.independentComponents,
+  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any, listStreams: any, userPolygon: any, componentsFromMap: any, status: number, selectedLayers: any, selectedLayersWR: any, highlightedComponent:any, boardProjects:any, zoomProject: any, editLocation:any, independentComponents: any) => ({
+    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty, listStreams, userPolygon, componentsFromMap, status, selectedLayers, highlightedComponent, selectedLayersWR, boardProjects, zoomProject, editLocation, independentComponents
   })
 );
 
@@ -168,6 +170,16 @@ export const useProjectDispatch = () => {
       },
       getStreamsByProjectId: (projectId: any) => {
         dispatch(getStreamsByProjectId(projectId))
+      },
+      getIndependentComponentsByProjectId: (projectId: any) => {
+        dispatch(getIndependentComponentsByProjectId(projectId))
+      },
+      getComponentsByProjectId: (projectId: any) => {
+        dispatch(getComponentsByProjectId(projectId))
+      },
+      setIndComponents: (independentComponents: any) => {
+        dispatch(setIndComponents(independentComponents));
       }
+      
    }
 }

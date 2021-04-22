@@ -396,7 +396,6 @@ export const getServiceAreaStreams = (geom:any ) => {
 export const getStreamsList = (geom: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_LIST_STREAMS, {geom:geom}, datasets.getToken()).then(listStreams => {
-      console.log("GETTING CHCHC", listStreams)
       dispatch({type: types.SET_LIST_STREAMS, listStreams});
     })
   }
@@ -446,6 +445,21 @@ export const getStreamsByProjectId = (projectId: any) => {
     })
   }
 }
+export const getComponentsByProjectId = (projectId: any) => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_COMPONENTS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
+      dispatch(getListComponentsByComponentsAndPolygon(res, null));
+    })
+  }
+}
+export const getIndependentComponentsByProjectId = (projectId: any) => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_INDEPENDENTCOMPONENTS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
+      console.log("independentcomponents BY PROJ ID", res); 
+      dispatch(setIndComponents(res));
+    })
+  }
+}
 
 export const setStreamIntersected = (streamIntersected: any) => {
  return ( dispatch: Function) => {
@@ -486,5 +500,11 @@ export const setZoomProject = (zoomProject: any) => {
 export const setEditLocation = (editLocation: any) => {
   return (dispatch: Function) => {
     dispatch({type: types.SET_EDIT_LOCATION, editLocation});
+  }
+}
+export const setIndComponents = (independentComponents: any) => {
+  return (dispatch: Function) => {
+    console.log("SETING IND COMP", independentComponents);
+    dispatch({type: types.SET_IND_COMPONENTS, independentComponents})
   }
 }

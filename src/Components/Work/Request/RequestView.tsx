@@ -223,7 +223,6 @@ const RequestView = ({ type }: {
               cartodb_id: proj.projectData?.cartodb_id
               }
             });
-            console.log("WAHT", projectAmounts);
             setProjectAmounts(projectAmounts);
             if(projects.length>0){
               setBoardProjects(justProjects);
@@ -274,7 +273,6 @@ const RequestView = ({ type }: {
   }, [namespaceId])
 
   useEffect(() => {
-    console.log("ON UPDATE COLUMN ? ", columns);
     const interval = setInterval(() => {
       let data = {
         type,
@@ -323,7 +321,6 @@ const RequestView = ({ type }: {
                     cartodb_id: proj.projectData?.cartodb_id
                     }
                   });
-                  console.log("WAHT2", projectAmounts);
                   setProjectAmounts(projectAmounts);
                   if(projects.length>0){
                     setBoardProjects(justProjects);

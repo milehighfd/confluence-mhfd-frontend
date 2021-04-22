@@ -770,7 +770,7 @@ const WorkRequestMap = (type: any) => {
       const styles = { ...tileStyles as any };
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (map.map.getLayer(key + '_' + index)) {
-          console.log("HIDING LAYER",key + '_' + index);
+          // console.log("HIDING LAYER",key + '_' + index);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         }
       });
@@ -811,7 +811,7 @@ const WorkRequestMap = (type: any) => {
         ...style
       });
       if (key.includes('mhfd_projects_copy')) {
-        console.log("HIDING LAYER AAA",key + '_' + index);
+        // console.log("HIDING LAYER AAA",key + '_' + index);
       }
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       // }

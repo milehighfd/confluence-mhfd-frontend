@@ -88,6 +88,8 @@ export const SERVER = (function () {
     const SPECIAL = 'special';
     const STUDY = 'study';
     const GET_STREAMS_BY_PROJ_ID = 'get-streams-by-projectid';
+    const GET_COMPONENTS_BY_PROJ_ID = 'get-components-by-projectid';
+    const GET_INDEPENDENTCOMPONENTS_BY_PROJ_ID = 'get-independent-components-by-projectid';
     const GET_STREAM_INTERSECTED = 'get-all-streams';
     const GET_STREAM_INTERSECTION = 'get-stream-convexhull';
     const GET_STREAM_POLYGON = 'get-stream'
@@ -216,6 +218,12 @@ export const SERVER = (function () {
         },
         GET_STREAMS_BY_PROJECT: (projectId: any) => {
             return  `${URL_BASE.BASE}/${CREATE}/${GET_STREAMS_BY_PROJ_ID}/${projectId}`
+        },
+        GET_COMPONENTS_BY_PROJECT: (projectId: any) => {
+          return  `${URL_BASE.BASE}/${CREATE}/${GET_COMPONENTS_BY_PROJ_ID}/${projectId}`
+        },
+        GET_INDEPENDENTCOMPONENTS_BY_PROJECT: (projectId: any) => {
+          return  `${URL_BASE.BASE}/${CREATE}/${GET_INDEPENDENTCOMPONENTS_BY_PROJ_ID}/${projectId}`
         }
     }
 })();

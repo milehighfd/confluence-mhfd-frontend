@@ -27,9 +27,10 @@ export class Project {
     ids: any[];
     sponsor: string;
     cosponsor: any[]; 
-    componet: any;
+    components: any;
     independetComponent: any;
     editProject: any;
+    streams: any;
     locality: any;
     constructor() {
         this.projectname = "special";
@@ -49,10 +50,11 @@ export class Project {
         this.files = [];
         this.sponsor = "";
         this.cosponsor = [];
-        this.componet = [];
+        this.components = [];
         this.independetComponent=[];
         this.editProject = "";
         this.locality = '';
-        this.ids = []
+        this.ids = [];
+        this.streams = [];
     }
 }
