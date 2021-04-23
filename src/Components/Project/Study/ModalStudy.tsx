@@ -52,7 +52,7 @@ const genTitle = (streamName: any) => (
 
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any, editable:boolean }) => {
-  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds} = useProjectDispatch();
+  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy} = useProjectDispatch();
   const {streamsIntersectedIds} =useProjectState();
   const {organization, groupOrganization} = useProfileState();
   const {listStreams, streamIntersected} = useProjectState();
@@ -104,6 +104,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
       setProjectId(data.projectid);
+      setEditsetprojectid(data.projectid);
     }
   },[data]);
   useEffect(()=>{
@@ -124,7 +125,12 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.locality = locality? locality:'';
       console.log("LIST STREAMS", listStreams);
       study.streams = listStreams;
-      saveProjectStudy(study);
+      study.editProject = editprojectid;
+      if(swSave){
+        editProjectStudy(study);
+      }else{
+        saveProjectStudy(study);
+      }
       console.log(study, "+++STUDY+++");
       setVisibleStudy(false);
       setVisible(false);

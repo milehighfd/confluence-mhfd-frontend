@@ -74,6 +74,11 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       setEligibility(data.maintenanceeligibility);
       setFrequency(data.frequency);
       setEditsetprojectid(data.projectid);
+      if(data.ownership === "true"){
+        setOwnership(true);
+      }else{
+        setOwnership(false);
+      }
       setTimeout(()=>{        
         // setStreamIntersected({geom:data.createdCoordinates});
         getGEOMByProjectId(data.projectid);
@@ -268,7 +273,9 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Access Control <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <p className="switch-option">Public Access / Ownership <span><Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked onChange={(ownership)=> apllyOwnership(ownership)}/></span></p>
+                <p className="switch-option">Public Access / Ownership <span>
+                    <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked={ownership} onChange={(ownership)=> apllyOwnership(ownership)}/>
+                  </span></p>
               </Col>
             </Row>
             {visibleEligibility &&

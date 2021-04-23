@@ -112,7 +112,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId} = useProjectDispatch();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -168,7 +168,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         // setStreamIntersected({geom:data.createdCoordinates});
         getGEOMByProjectId(data.projectid)
       },2200);
-      
+      setEditsetprojectid(data.projectid);
     } else {
       setStreamIntersected([]);
       setIndComponents([]);
@@ -234,8 +234,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.components = JSON.stringify(componentsToSave, null, 2 );
       capital.independetComponent = JSON.stringify(thisIndependentComponents, null,2);
       capital.locality = locality? locality:'';
+      capital.editProject = editprojectid;
       console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
-      saveProjectCapital(capital);
+      if(swSave){
+        editProjectCapital(capital);
+      }
+      else{
+        saveProjectCapital(capital);
+      }
       setVisibleCapital(false);
       setVisible(false);
     }

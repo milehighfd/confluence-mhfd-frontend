@@ -203,7 +203,7 @@ export const editStudy = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
     Object.keys(data).forEach((key: string) => {
-      if (key === 'geom') {
+      if (key === 'geom' || key === 'ids' || key === 'streams') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
@@ -259,7 +259,7 @@ export const editCapital = (data: any) => {
     const formData = new FormData();
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
-        formData.append(key, JSON.stringify(data[key]));
+        formData.append(key, data[key]);
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
           formData.append(key, o.file);
