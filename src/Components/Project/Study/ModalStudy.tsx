@@ -124,17 +124,17 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.geom = mhfd_codes;
       study.locality = locality? locality:'';
       study.editProject = editprojectid;
-      if(swSave){
-        editProjectStudy(study);
-      }else{
-        saveProjectStudy(study);
-      }
+      
       let newStreamsArray: any = [];
       for(let str in listStreams) {
         newStreamsArray = [...newStreamsArray, ...listStreams[str]];
       }
       study.streams = newStreamsArray;
-      saveProjectStudy(study);
+      if(swSave){
+        editProjectStudy(study);
+      }else{
+        saveProjectStudy(study);
+      }
       console.log(study, "+++STUDY+++");
       setVisibleStudy(false);
       setVisible(false);
@@ -244,7 +244,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     maximumFractionDigits: 0
   });
   const removeStream = (stream:any) => {
-    console.log("WHAT IAM REMOVING?, data comes from strem list", stream, streamsList, 'ids', projectReturn.state.project.streamsIntersectedIds);
+    // console.log("WHAT IAM REMOVING?, data comes from strem list", stream, streamsList, 'ids', projectReturn.state.project.streamsIntersectedIds);
     let cartodbIdToRemove = stream.mhfd_code;
     let copyList = {...streamsList};
     for( let jurisdiction in copyList) {

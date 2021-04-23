@@ -455,7 +455,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   const removeIndComponent = (indComp: any) => {
     let currentComponents = [...thisIndependentComponents];
-    currentComponents = currentComponents.filter( (comp: any) => ( comp.id != indComp.id ) );
+    currentComponents = currentComponents.filter( (comp: any) => ( comp._id != indComp._id ) );
+    console.log("IND to be eraased", indComp,"PREV EDT", thisIndependentComponents, "DELETED??", currentComponents);
     setIndependentComponents([...currentComponents]);
   }
 

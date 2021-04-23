@@ -118,6 +118,7 @@ export const saveMaintenance = (data: any) => {
 };
 
 export const saveStudy = (data: any) => {
+  console.log("ABOUT TO SAVE STUDY", data);
   return ( dispatch: Function) => {
     const formData = new FormData();
     Object.keys(data).forEach((key: string) => {
@@ -468,6 +469,7 @@ export const getStreamsByProjectId = (projectId: any) => {
 export const getComponentsByProjectId = (projectId: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_COMPONENTS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
+      console.log("GETS COMPONETNS BY PROJECT ID", projectId, res);
       dispatch(getListComponentsByComponentsAndPolygon(res, null));
     })
   }
