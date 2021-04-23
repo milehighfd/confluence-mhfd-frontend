@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
-import ReCAPTCHA from "react-google-recaptcha";
+import { GoogleReCaptcha, GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 const keyCaptcha = SERVER.CAPTCHA;
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -46,49 +46,49 @@ export default () => {
   if (redirect) {
     return <Redirect to="/login" />
   }
-  return <Layout style={{ background: '#fff' }}>
-    <Row>
-      <CarouselAutoPlayView />
-        <Col span={11} className="login-hh">
-          <div className="login-step01">
-            <div>
-            <Row className="returnText">
-              <Col span={12}>
-              <Button shape="circle" icon="arrow-left" onClick={ () => setRedirect(true)} /><span className="respo-tt">Back</span>
-              </Col>
-            </Row>
-            </div>
-            <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit}>
-              <h1>
-                  Reset your password
-              </h1>
-              <Row className="resetText">
-                <p>Enter your email address below and we’ll send you a link to reset your password.</p>
-              </Row>
-              <div className="group">
-                <input placeholder="Email" type="email" name="email" onChange={handleChange}
-                  style={(errors.email && touched.email) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
-                <span className="highlight"></span>
-                <span className="bar"></span>
-                {/*<label style={(values.email) ? {top: "-20px"}:{top: "10px"}}>Email</label>*/}
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={keyCaptcha}>
+      <Layout style={{ background: '#fff' }}>
+        <Row>
+          <CarouselAutoPlayView />
+            <Col span={11} className="login-hh">
+              <div className="login-step01">
+                <div>
+                <Row className="returnText">
+                  <Col span={12}>
+                  <Button shape="circle" icon="arrow-left" onClick={ () => setRedirect(true)} /><span className="respo-tt">Back</span>
+                  </Col>
+                </Row>
+                </div>
+                <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit}>
+                  <h1>
+                      Reset your password
+                  </h1>
+                  <Row className="resetText">
+                    <p>Enter your email address below and we’ll send you a link to reset your password.</p>
+                  </Row>
+                  <div className="group">
+                    <input placeholder="Email" type="email" name="email" onChange={handleChange}
+                      style={(errors.email && touched.email) ? {borderBottom: 'solid red 1px', paddingLeft: '10px'}:{paddingLeft: '10px'}}/>
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                  </div>
+                  <GoogleReCaptcha onVerify={(token: string) => {
+                    values.recaptcha = '' + (token !== 'null' ? token : '');
+                  }} />
+                  <div style={{height: '35px'}}>
+                    <span style={{color: message.color}}>{message.message}</span>
+                  </div>
+                  <Form.Item>
+                    <Button className="btn-purple" block htmlType="submit">
+                        Send Password Reset Email
+                    </Button>
+                  </Form.Item>
+                </Form>
               </div>
-              <ReCAPTCHA
-                sitekey={"" + keyCaptcha}
-                onChange={(event) => {
-                  values.recaptcha = '' + (event !== 'null' ? event : '');
-                }}
-              />
-              <div style={{height: '35px'}}>
-                <span style={{color: message.color}}>{message.message}</span>
-              </div>
-              <Form.Item>
-                <Button className="btn-purple" block htmlType="submit">
-                    Send Password Reset Email
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
-        </Col>
-    </Row>
-  </Layout>
+            </Col>
+        </Row>
+      </Layout>
+    </GoogleReCaptchaProvider>
+  )
 }
