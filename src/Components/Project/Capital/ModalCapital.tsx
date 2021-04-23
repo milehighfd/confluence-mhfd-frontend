@@ -164,11 +164,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
       setProjectId(data.projectid);
+      setEditsetprojectid(data.projectid);
+      setAdditionalCost(data.additionalcost);
+      setAdditionalDescription(data.additionalcostdescription);
+      setOverheadDescription(data.overheadcostdescription);
       setTimeout(()=>{
         // setStreamIntersected({geom:data.createdCoordinates});
         getGEOMByProjectId(data.projectid)
       },2200);
-      setEditsetprojectid(data.projectid);
     } else {
       setStreamIntersected([]);
       setIndComponents([]);
@@ -940,7 +943,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-              <Input placeholder="Enter Description" onChange={(description) => onChangeOverheadDescription(description)} value={overheadDescription}/>
+              <Input placeholder={overheadDescription!==""? overheadDescription  +"": "Enter Description"} onChange={(description) => onChangeOverheadDescription(description)} value={overheadDescription}/>
               </Col>
             </Row>
             <br/>
@@ -955,7 +958,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             </Row>
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-                <Input placeholder="Enter Description" onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+                <Input placeholder={additionalDescription!==""? additionalDescription  +"":"Enter Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
               </Col>
             </Row>
             <hr/>
