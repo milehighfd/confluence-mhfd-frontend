@@ -16,7 +16,8 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor }: {
+const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor }: {
+  namespaceId: string,
   project: any,
   columnIdx: number,
   rowIdx: number,
@@ -59,7 +60,7 @@ const TrelloLikeCard = ({ project, columnIdx, rowIdx, saveData, tabKey, editable
       {
         editable &&
       <Menu.Item onClick={() => {
-        deleteData(`${SERVER.URL_BASE}/board/project/${projectid}`, getToken())
+        deleteData(`${SERVER.URL_BASE}/board/project/${projectid}/${namespaceId}`, getToken())
         .then((r) => {
           console.log('r', r)
         })

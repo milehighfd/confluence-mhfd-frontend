@@ -683,6 +683,7 @@ const RequestView = ({ type }: {
                                     })
                                     .map((p: any, i: number, arr: any[]) => (
                                       <TrelloLikeCard key={i}
+                                        namespaceId={namespaceId}
                                         project={p}
                                         columnIdx={columnIdx}
                                         rowIdx={i}
