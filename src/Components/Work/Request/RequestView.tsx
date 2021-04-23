@@ -124,6 +124,9 @@ const RequestView = ({ type }: {
         } else if (l.type === 'SERVICE_AREA') {
           displayedTabKey = ['Study', 'Acquisition', 'Special'];
         }
+        if (l.name === 'MHFD District Work Plan') {
+          displayedTabKey = tabKeys;
+        }
         setTabKey(displayedTabKey[0]);
       } else {
         setTabKey(tabKeys[0]);
@@ -179,6 +182,9 @@ const RequestView = ({ type }: {
                     displayedTabKey = ['Capital', 'Maintenance']
                   } else if (l.type === 'SERVICE_AREA') {
                     displayedTabKey = ['Study', 'Acquisition', 'Special'];
+                  }
+                  if (l.name === 'MHFD District Work Plan') {
+                    displayedTabKey = tabKeys;
                   }
                   setTabKey(displayedTabKey[0]);
                 }
@@ -499,6 +505,9 @@ const RequestView = ({ type }: {
       displayedTabKey = ['Capital', 'Maintenance']
     } else if (localityType === 'SERVICE_AREA') {
       displayedTabKey = ['Study', 'Acquisition', 'Special'];
+    }
+    if (locality === 'MHFD District Work Plan') {
+      displayedTabKey = tabKeys;
     }
   }
 
