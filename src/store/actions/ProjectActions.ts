@@ -461,7 +461,6 @@ export const getStreamsByProjectId = (projectId: any) => {
           mhfd_code:i
         })
       };
-      console.log("WORKS MOTHERFUCK", streamsIntersectedIds);
       dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
     })
   }
