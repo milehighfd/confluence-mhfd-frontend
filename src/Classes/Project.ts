@@ -26,7 +26,7 @@ export class Project {
     files: any[];
     ids: any[];
     sponsor: string;
-    cosponsor: any[]; 
+    cosponsor: string; 
     components: any;
     independetComponent: any;
     editProject: any;
@@ -49,7 +49,7 @@ export class Project {
         this.ownership = "";
         this.files = [];
         this.sponsor = "";
-        this.cosponsor = [];
+        this.cosponsor = "";
         this.components = [];
         this.independetComponent=[];
         this.editProject = "";

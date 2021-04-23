@@ -105,6 +105,20 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setServiceArea(data.servicearea);
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
+      setSponsor(data.sponsor);
+      let csponsor = [];
+      let sponsor = '';
+      for (var i = 0 ; i < data.cosponsor.length ; i++){        
+        if(data.cosponsor[i] === ','){
+          sponsor = '';
+        }
+        else{
+          sponsor = sponsor+data.cosponsor[i];
+        }
+      }
+      csponsor.push(sponsor);
+      apllyCoSponsor(csponsor);
+      //setCosponsor(csponsor);
     }
   },[data]);
   useEffect(()=>{
@@ -118,13 +132,20 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.county = county;
       study.servicearea = serviceArea;
       study.sponsor = sponsor;
-      study.cosponsor = cosponsor;
+      let csponsor = "";
+      cosponsor.map((element) => {
+        csponsor= csponsor + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        csponsor = csponsor.substring(0, csponsor.length-1)
+      }
+      study.cosponsor = csponsor;
       study.ids = mhfd_codes;
       study.files = files;
       study.geom = mhfd_codes;
       study.locality = locality? locality:'';
       study.editProject = editprojectid;
-      
+
       let newStreamsArray: any = [];
       for(let str in listStreams) {
         newStreamsArray = [...newStreamsArray, ...listStreams[str]];
@@ -436,7 +457,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                 <div className="sponsor-select">
-                  <Select  mode="multiple" placeholder="Select a Co-Sponsor" style={{width:'100%'}} onChange={(coSponsor:any)=> apllyCoSponsor(coSponsor)}>
+                  <Select  mode="multiple" placeholder={cosponsor.length!=0? cosponsor : "Select a Co-Sponsor"} style={{width:'100%'}} onChange={(coSponsor:any)=> apllyCoSponsor(coSponsor)}>
                     {groupOrganization.map((element:any) =>{
                       if(element.aoi !== sponsor){
                         return <Option key={element.aoi} value={element.aoi}>{element.aoi}</Option>
