@@ -86,10 +86,6 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
     displayName = projectname.substr(0,35) + '...';
   }
 
-  let displayJurisdiction = jurisdiction;
-  if (jurisdiction.startsWith('Unincorporated')) {
-    displayJurisdiction = jurisdiction.substr('Unincorporated'.length + 1);
-  }
   useEffect(()=>{
     if(showModalProject) {
       updateSelectedLayers([]);
@@ -132,7 +128,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
       }}>
       <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
-      <label className="purple">{displayJurisdiction}</label>
+      <label className="purple">{project.from}</label>
       <label className="yellow">{editable ? 'Draft' : 'Requested'}</label>
       {
         !showAmountModal &&
