@@ -123,14 +123,18 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.files = files;
       study.geom = mhfd_codes;
       study.locality = locality? locality:'';
-      console.log("LIST STREAMS", listStreams);
-      study.streams = listStreams;
       study.editProject = editprojectid;
       if(swSave){
         editProjectStudy(study);
       }else{
         saveProjectStudy(study);
       }
+      let newStreamsArray: any = [];
+      for(let str in listStreams) {
+        newStreamsArray = [...newStreamsArray, ...listStreams[str]];
+      }
+      study.streams = newStreamsArray;
+      saveProjectStudy(study);
       console.log(study, "+++STUDY+++");
       setVisibleStudy(false);
       setVisible(false);
@@ -241,10 +245,10 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   });
   const removeStream = (stream:any) => {
     console.log("WHAT IAM REMOVING?, data comes from strem list", stream, streamsList, 'ids', projectReturn.state.project.streamsIntersectedIds);
-    let cartodbIdToRemove = stream.cartodb_id;
+    let cartodbIdToRemove = stream.mhfd_code;
     let copyList = {...streamsList};
     for( let jurisdiction in copyList) {
-      let newArray = [...copyList[jurisdiction]].filter((st:any)=> st.cartodb_id != cartodbIdToRemove);
+      let newArray = [...copyList[jurisdiction]].filter((st:any)=> st.mhfd_code != cartodbIdToRemove);
       copyList[jurisdiction] = newArray;
     }
     let newCopyList:any = {};
@@ -256,7 +260,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
 
     setStreamsList(newCopyList);
     if(ids.length > 0) {
-      let newIds = [...ids].filter((id:any) => id.cartodb_id != cartodbIdToRemove);
+      let newIds = [...ids].filter((id:any) => id.mhfd_code != cartodbIdToRemove);
       setStreamsIds(newIds);
     }
 

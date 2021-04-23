@@ -322,6 +322,7 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAM_INTERSECTED, {geom: geom}, datasets.getToken()).then(res => {
       let streamsIntersectedIds = res;
+      console.log("HOW SHOUOLD IDS BE", streamsIntersectedIds);
         dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
     });
   }
@@ -441,8 +442,27 @@ export const getAllComponentsByProblemId = (problemId: any) => {
 export const getStreamsByProjectId = (projectId: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_STREAMS_BY_PROJECT(projectId), datasets.getToken()).then( listStreams => {
-      console.log("STREAMS BY PROJ ID", listStreams); 
-      // dispatch({type: types.SET_LIST_STREAMS, listStreams});
+      let independentStreams: any = [];
+      for(let str in listStreams) {
+        independentStreams = [...independentStreams, ...listStreams[str]];
+      }
+      independentStreams = independentStreams.map((indStr:any) => indStr.mhfd_code);
+      const setMHFD:any = new Set();
+      for(let i = 0; i < independentStreams.length; ++i) {
+        setMHFD.add(independentStreams[i])
+      }
+      
+      dispatch({type: types.SET_LIST_STREAMS, listStreams});
+      let setArray = [...setMHFD];
+      let streamsIntersectedIds: any = [];
+      for(let i of setArray){
+        streamsIntersectedIds.push({
+          cartodb_id: undefined,
+          mhfd_code:i
+        })
+      };
+      console.log("WORKS MOTHERFUCK", streamsIntersectedIds);
+      dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
     })
   }
 }
@@ -515,7 +535,6 @@ export const getGEOMByProjectId = ( projectid : any) => {
     datasets.getData(SERVER.GET_GEOM_BY_PROJECTID(projectid), datasets.getToken()).then(res => {
       
       if(res.createdCoordinates) {
-        console.log("IS RETURNING GEOM OF PROJECT", projectid, res.createdCoordinates);
         dispatch(setStreamIntersected({geom:res.createdCoordinates} ));
       }
     });
