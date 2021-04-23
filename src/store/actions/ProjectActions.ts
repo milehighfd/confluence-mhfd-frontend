@@ -463,6 +463,7 @@ export const getIndependentComponentsByProjectId = (projectId: any) => {
 }
 
 export const setStreamIntersected = (streamIntersected: any) => {
+  console.log("IS ABOUT TO SET STREAMS ", streamIntersected);
  return ( dispatch: Function) => {
   dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
  }
@@ -511,8 +512,12 @@ export const setIndComponents = (independentComponents: any) => {
 }
 export const getGEOMByProjectId = ( projectid : any) => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.GET_STREAMS_BY_PROJECT(projectid), datasets.getToken()).then(res => {
-      dispatch(setStreamIntersected(res));
+    datasets.getData(SERVER.GET_GEOM_BY_PROJECTID(projectid), datasets.getToken()).then(res => {
+      
+      if(res.createdCoordinates) {
+        console.log("IS RETURNING GEOM OF PROJECT", projectid, res.createdCoordinates);
+        dispatch(setStreamIntersected({geom:res.createdCoordinates} ));
+      }
     });
   }
 }

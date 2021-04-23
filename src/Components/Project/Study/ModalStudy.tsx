@@ -85,7 +85,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS ]);
   },[]);
   useEffect(()=>{
-    // console.log("LIST STREAMS", listStreams);
+    console.log("LIST STREAMS", listStreams);
     if(listStreams) {
       const idKey = [...keys];
       Object.keys(listStreams).map((key: any, id: any) => {
@@ -96,6 +96,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     }
   },[listStreams]);
   useEffect(()=>{
+    console.log("DATA WAHTTT", data);
     if(data!== 'no data' ) {
       setSwSave(true);
       setCounty(data.county);
@@ -121,6 +122,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.files = files;
       study.geom = mhfd_codes;
       study.locality = locality? locality:'';
+      console.log("LIST STREAMS", listStreams);
       study.streams = listStreams;
       saveProjectStudy(study);
       console.log(study, "+++STUDY+++");

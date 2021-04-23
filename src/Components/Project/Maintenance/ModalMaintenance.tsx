@@ -74,10 +74,11 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       setEligibility(data.maintenanceeligibility);
       setFrequency(data.frequency);
       setEditsetprojectid(data.projectid);
-      // setTimeout(()=>{        
-      //   setStreamIntersected({geom:data.createdCoordinates});
-      // },2200);  
-      getGEOMByProjectId(data.projectid);
+      setTimeout(()=>{        
+        // setStreamIntersected({geom:data.createdCoordinates});
+        getGEOMByProjectId(data.projectid);
+      },2200);  
+      
 
     } else {
       setStreamIntersected([]);
