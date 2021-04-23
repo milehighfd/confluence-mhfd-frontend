@@ -112,7 +112,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents} = useProjectDispatch();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -164,9 +164,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
       setProjectId(data.projectid);
-      setTimeout(()=>{
-        setStreamIntersected({geom:data.createdCoordinates});
-      },2200);
+      // setTimeout(()=>{
+      //   setStreamIntersected({geom:data.createdCoordinates});
+      // },2200);
+      getGEOMByProjectId(data.projectid)
     } else {
       setStreamIntersected([]);
       setIndComponents([]);

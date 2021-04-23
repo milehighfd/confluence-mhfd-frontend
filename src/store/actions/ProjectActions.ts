@@ -121,7 +121,7 @@ export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
     Object.keys(data).forEach((key: string) => {
-      if (key === 'geom' || key === 'ids') {
+      if (key === 'geom' || key === 'ids' || key === 'streams') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
@@ -440,8 +440,9 @@ export const getAllComponentsByProblemId = (problemId: any) => {
 
 export const getStreamsByProjectId = (projectId: any) => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.GET_STREAMS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
-      console.log("STREAMS BY PROJ ID", res); 
+    datasets.getData(SERVER.GET_STREAMS_BY_PROJECT(projectId), datasets.getToken()).then( listStreams => {
+      console.log("STREAMS BY PROJ ID", listStreams); 
+      // dispatch({type: types.SET_LIST_STREAMS, listStreams});
     })
   }
 }
@@ -506,5 +507,12 @@ export const setIndComponents = (independentComponents: any) => {
   return (dispatch: Function) => {
     console.log("SETING IND COMP", independentComponents);
     dispatch({type: types.SET_IND_COMPONENTS, independentComponents})
+  }
+}
+export const getGEOMByProjectId = ( projectid : any) => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_STREAMS_BY_PROJECT(projectid), datasets.getToken()).then(res => {
+      dispatch(setStreamIntersected(res));
+    });
   }
 }

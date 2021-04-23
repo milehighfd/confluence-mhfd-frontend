@@ -35,7 +35,7 @@ const stateValue = {
 export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible, locality, data, editable}:
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function, locality?:any, data:any , editable:boolean}) => {
 
-  const {saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance, setStreamsIds} = useProjectDispatch();
+  const {saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance, setStreamsIds, getGEOMByProjectId} = useProjectDispatch();
   const {userPolygon, streamIntersected, currentServiceAreaCounty} = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -74,9 +74,10 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       setEligibility(data.maintenanceeligibility);
       setFrequency(data.frequency);
       setEditsetprojectid(data.projectid);
-      setTimeout(()=>{        
-        setStreamIntersected({geom:data.createdCoordinates});
-      },2200);  
+      // setTimeout(()=>{        
+      //   setStreamIntersected({geom:data.createdCoordinates});
+      // },2200);  
+      getGEOMByProjectId(data.projectid);
 
     } else {
       setStreamIntersected([]);

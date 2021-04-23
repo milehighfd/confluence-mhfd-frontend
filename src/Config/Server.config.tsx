@@ -1,3 +1,5 @@
+import { projection } from "@turf/turf";
+
 const URL = process.env.REACT_APP_API_URI;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const CAPTCHA = process.env.REACT_APP_CAPTCHA;
@@ -224,6 +226,9 @@ export const SERVER = (function () {
         },
         GET_INDEPENDENTCOMPONENTS_BY_PROJECT: (projectId: any) => {
           return  `${URL_BASE.BASE}/${CREATE}/${GET_INDEPENDENTCOMPONENTS_BY_PROJ_ID}/${projectId}`
+        }, 
+        GET_GEOM_BY_PROJECTID: (projectId: any) => {
+          return `${URL_BASE.BASE}/board/coordinates/${projectId}`
         }
     }
 })();
