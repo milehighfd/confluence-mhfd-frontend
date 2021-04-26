@@ -136,6 +136,7 @@ const CreateProjectMap = (type: any) => {
         )
   }, []);
   useEffect(()=>{
+    console.log("EDIT LOCATION", editLocation);
     if(editLocation && editLocation[0]){
       setTimeout(()=>{
         map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0]});})

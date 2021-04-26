@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
-import { PlusCircleFilled } from '@ant-design/icons';
+import { SERVER } from "../../../Config/Server.config";
 import { AlertView } from "../../Alerts/AlertView";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { DropPin } from "../TypeProjectComponents/DropPin";
 import { PROJECT_INFORMATION } from "../../../constants/constants";
-import { selectedComponents } from "../../../constants/mapStyles";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
+import { getData, getToken, postData } from "../../../Config/datasets";
 import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
 import { Project, Geom } from "../../../Classes/Project";
 
@@ -102,10 +102,25 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       setServiceArea(data.servicearea);
       setProgress(data.acquisitionprogress);
       setPurchaseDate(data.acquisitionanticipateddate);
-      setGeom(data.coordinates);
       setEditsetprojectid(data.projectid);
-      setEditLocation(data.coordinates);
+      setTimeout(()=>{
+        getData(SERVER.GET_GEOM_BY_PROJECTID(data.projectid), getToken())
+        .then(
+          (r: any) => {
+            let coor = JSON.parse(r.createdCoordinates);
+            let coordinates = coor.coordinates[0];
+            setGeom(coordinates);
+            setEditLocation(coordinates);
+          },
+          (e) => {
+            console.log('e', e);
+          }
+        )  
+      },1200);
     } else {
+      setCounty('');
+      setDescription('');
+      setServiceArea('');
       setEditLocation(undefined);
     }
   },[data]);

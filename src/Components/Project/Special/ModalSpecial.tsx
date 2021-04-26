@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
+import { SERVER } from "../../../Config/Server.config";
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { DropPin } from "../TypeProjectComponents/DropPin";
+import { getData, getToken, postData } from "../../../Config/datasets";
 import { PROJECT_INFORMATION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
@@ -63,10 +65,27 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setDescription(data.description);
       setNameProject(data.projectname);
       setServiceArea(data.servicearea);
-      setGeom(data.coordinates);
+      // setGeom(data.coordinates);
+      setTimeout(()=>{
+        getData(SERVER.GET_GEOM_BY_PROJECTID(data.projectid), getToken())
+        .then(
+          (r: any) => {
+            let coor = JSON.parse(r.createdCoordinates);
+            let coordinates = coor.coordinates[0];
+            setGeom(coordinates);
+            setEditLocation(coordinates);
+          },
+          (e) => {
+            console.log('e', e);
+          }
+        )  
+      },1200);
       setEditsetprojectid(data.projectid);
-      setEditLocation(data.coordinates);
+      
     } else {
+      setCounty('');
+      setDescription('');
+      setServiceArea('');
       setEditLocation(undefined);
     }
   },[data]);

@@ -344,6 +344,7 @@ const WorkRequestMap = (type: any) => {
     }
   };
   useEffect(()=>{
+    console.log("CHANGE LOCALITY>", type.locality);
     setTimeout(()=>{
       let value = store.getState().profile.userInformation.zoomarea;
       if(type.locality) {
