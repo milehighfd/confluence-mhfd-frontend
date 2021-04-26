@@ -22,7 +22,9 @@ const Analytics = ({
     years.push(+initialYear + i);
   }
 
+  let maxiQ = 0;
   let quantityData = data.map((d: any) => {
+    maxiQ = Math.max(maxiQ, d[`cnt${year - initialYear + 1}`]);
     return {
       value: d.locality,
       counter: d[`cnt${year - initialYear + 1}`],
@@ -30,7 +32,9 @@ const Analytics = ({
     }
   })
 
+  let maxiA = 0;
   let amountData = data.map((d: any) => {
+    maxiA = Math.max(maxiA, d[`req${year - initialYear + 1}`]);
     return {
       value: d.locality,
       counter: d[`req${year - initialYear + 1}`],
@@ -67,6 +71,7 @@ const Analytics = ({
     >
       <h6>Requests by County <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">
+        {maxiQ > 0 && 
         <HorizontalBarChart
           data={quantityData}
           selected={countiesNames}
@@ -84,10 +89,12 @@ const Analytics = ({
           labelOverflowRight={true}
           minBarSize={0}
         />
+        }
       </div>
 
       <h6>Dollars Requested by County <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">
+      {maxiA && 
       <HorizontalBarChart
           data={amountData}
           selected={countiesNames}
@@ -108,6 +115,7 @@ const Analytics = ({
           labelOverflowRight={true}
           minBarSize={0}
         />
+      }
       </div>
     </Drawer>
   )
