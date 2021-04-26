@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, Icon, InputNumber, notification } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
@@ -75,6 +75,8 @@ const RequestView = ({ type }: {
   const [csaFilterList, setCsaFilterList] = useState([]);
   const [jurisdictionSelected, setJurisdictionSelected] = useState<string[]>([]);
   const [csaSelected, setCsaSelected] = useState<string[]>([]);
+
+  const wrtRef = useRef(null);
 
   const onDragOver = (e: any) => {
     e.preventDefault();
@@ -495,6 +497,12 @@ const RequestView = ({ type }: {
     }
   }
 
+  const scrollToRight = () => {
+    let element: any = wrtRef.current;
+    let parent = element.parentElement;
+    parent.scroll(parent.scrollWidth, 0);
+  }
+
   let displayedTabKey = tabKeys;
   if (type === "WORK_PLAN") {
     if (localityType === 'COUNTY') {
@@ -665,7 +673,7 @@ const RequestView = ({ type }: {
                   {
                     displayedTabKey.map((tk: string) => (
                       <TabPane tab={tk} key={tk}>
-                        <div className="work-table">
+                        <div className="work-table" ref={wrtRef}>
                           {
                             columns.map((column, columnIdx) => (
                               <div className="container-drag" key={columnIdx+Math.random()}>
@@ -769,7 +777,9 @@ const RequestView = ({ type }: {
                   }
                 </Tabs>
               </div>
-              <Button className="btn-scroll"><RightOutlined /></Button>
+              <Button className="btn-scroll" onClick={() => scrollToRight()}>
+                <RightOutlined />
+              </Button>
             </Col>
           </Row>
         </Layout>
