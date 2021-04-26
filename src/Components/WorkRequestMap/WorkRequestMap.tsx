@@ -199,11 +199,53 @@ const WorkRequestMap = (type: any) => {
       }
   },[idsBoardProjects]);
   useEffect(()=>{
+    console.log("BP",boardProjects);
     const equals = (a:any, b:any) =>
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
-    if(!equals(boardProjects, idsBoardProjects)) {
-      setIdsBoardProjects(boardProjects);
+    if(boardProjects.cartoids && boardProjects.cartoids[0] != '-8888') {
+      if(!equals(boardProjects.cartoids, idsBoardProjects)) {
+        setIdsBoardProjects(boardProjects.cartoids);
+        console.log("IDS", boardProjects.ids);
+        postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
+          (r: any) => { 
+            if(r.bbox){
+              let BBoxPolygon = JSON.parse(r.bbox);
+              let bboxBounds = turf.bbox(BBoxPolygon);
+              
+              if(map.map){
+                setTimeout(()=>{
+                  map.map.fitBounds(bboxBounds,{ padding:100});
+                },2200);
+              }
+            }
+          },
+          (e:any) => {
+            console.log('Error getting bbox projectid', e);
+          }
+        )
+
+      }
+    } 
+    if(boardProjects.ids && boardProjects.ids[0] != '-8888') {
+      console.log("AT LEA HE", boardProjects);
+      postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
+        (r: any) => { 
+          if(r.bbox){
+            let BBoxPolygon = JSON.parse(r.bbox);
+            let bboxBounds = turf.bbox(BBoxPolygon);
+            console.log("r.bbox", r.bbox);
+            if(map.map){
+              setTimeout(()=>{
+                map.map.fitBounds(bboxBounds,{ padding:100});
+              },2400);
+            }
+          }
+        },
+        (e:any) => {
+          console.log('Error getting bbox projectid', e);
+        }
+      )
     }
   },[boardProjects]);
   const [opacityLayer, setOpacityLayer] = useState(false);

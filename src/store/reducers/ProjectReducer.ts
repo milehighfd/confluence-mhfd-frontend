@@ -23,7 +23,7 @@ const initState = {
     type:'',
     value: ''
   },
-  boardProjects: ['-8888'],
+  boardProjects: {cartoids:['-8888'], ids:['-8888'] },
   zoomProject: undefined
 }
 

@@ -223,8 +223,12 @@ const RequestView = ({ type }: {
             setReqManager([
               board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
             ])
+            console.log("PROEJCTs", projects);
             let justProjects = projects.map((proj:any)=> {
               return proj.projectData?.cartodb_id;
+            });
+            let idsProjects = projects.map((proj:any)=> {
+              return proj.projectData?.projectid;
             });
             let projectAmounts = projects.map((proj:any)=> {
               return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
@@ -233,7 +237,7 @@ const RequestView = ({ type }: {
             });
             setProjectAmounts(projectAmounts);
             if(projects.length>0){
-              setBoardProjects(justProjects);
+              setBoardProjects({cartoids:justProjects, ids: idsProjects});
             } else {
               setBoardProjects(['-1']);
             }

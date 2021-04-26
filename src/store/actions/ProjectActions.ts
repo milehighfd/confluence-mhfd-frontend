@@ -541,3 +541,10 @@ export const getGEOMByProjectId = ( projectid : any) => {
     });
   }
 }
+// export const getBBOXProjects = (projects : any) => {
+//   return (dispatch: Function) => {
+//     datasets.postData(SERVER.SET_BBOX_PROJECTS, projects, datasets.getToken()).then(res => {
+
+//     })
+//   }
+// }
