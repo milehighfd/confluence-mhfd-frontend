@@ -94,7 +94,7 @@ const Analytics = ({
 
       <h6>Dollars Requested by County <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">
-      {maxiA && 
+      {maxiA > 0 && 
       <HorizontalBarChart
           data={amountData}
           selected={countiesNames}
