@@ -504,8 +504,8 @@
       height: 44px;
       margin-left: 10px;
     }
-    .btn-purple:hover > span, .btn-purple:focus > span{
-      text-decoration: underline;
+    .btn-purple:hover, .btn-purple:focus{
+      border-bottom: 4px solid $green !important;
     }
   }
   #map3{
