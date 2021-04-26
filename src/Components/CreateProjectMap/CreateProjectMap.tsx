@@ -343,6 +343,7 @@ const CreateProjectMap = (type: any) => {
       isPopup = false;
       let eventToMove = eventService.getRef('move');
       map.map.on('mousemove',eventToMove);
+      
       let eventToAddMarker = eventService.getRef('addmarker');
       map.map.on('click',eventToAddMarker);
     } else {
@@ -986,6 +987,7 @@ const CreateProjectMap = (type: any) => {
   }
   const addPopupMarker = (point: any, html: any) => {
     popup.remove();
+
     map.addPopUpOffset(point, html);
 
       let menuElement = document.getElementById('menu-marker');
@@ -1009,6 +1011,7 @@ const CreateProjectMap = (type: any) => {
 
   }
   const AddMarkerEdit = (e: any) => {
+    
     const html = loadPopupMarker();
     if (html) {
       popup.remove();
@@ -1030,6 +1033,7 @@ const CreateProjectMap = (type: any) => {
     const html = loadPopupMarker();
     e.originalEvent.stopPropagation();
     if (html) {
+      map.removePopUpOffset();
       popup.remove();
       marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
       let point = e.lngLat;
