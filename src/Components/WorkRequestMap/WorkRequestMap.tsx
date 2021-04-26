@@ -44,10 +44,7 @@ import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
 import { useProfileState, useProfileDispatch } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
-import { containsNumber } from "@turf/turf";
-import { getFeaturesIntersected, getHull } from './utilsService';
-import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { AnyCnameRecord, AnyAaaaRecord } from "dns";
+
 let firstTime = true;
 let map: any;
 let coordX = -1;
@@ -125,8 +122,10 @@ const WorkRequestMap = (type: any) => {
             if(r.bbox){
               let BBoxPolygon = JSON.parse(r.bbox);
               let bboxBounds = turf.bbox(BBoxPolygon);
+              
               if(map.map){
-                map.map.fitBounds(bboxBounds,{ padding:70, maxZoom: 13});
+                
+                map.map.fitBounds(bboxBounds,{ padding:140});
               }
             }
           },
@@ -310,17 +309,16 @@ const WorkRequestMap = (type: any) => {
 // }, [coordinatesJurisdiction]);
 
   const setBounds = (value:any) => {
-    console.log("SETTING OUNDS PLIS", value);
-    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+    const zoomareaSelected = groupOrganization.filter((x: any) => value.includes(x.aoi)).map((element: any) => {
       return {
         aoi: element.aoi,
         filter: element.filter,
         coordinates: element.coordinates
       }
     });
+    console.log("ZZOM,", groupOrganization);
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      // mask = turf.multiPolygon(coordinatesJurisdiction);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
       // let coord = turf.centroid(poly);
       // // console.log("COROD", coord);
