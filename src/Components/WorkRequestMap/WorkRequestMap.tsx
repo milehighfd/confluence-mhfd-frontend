@@ -35,7 +35,7 @@ import {
 } from "../../constants/constants";
 import { MapHOCProps, ProjectTypes, MapLayersType, MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
-import { Dropdown, Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
+import { Dropdown, Button, Spin } from 'antd';
 import { tileStyles, COMPONENT_LAYERS_STYLE } from '../../constants/mapStyles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -1744,6 +1744,7 @@ const WorkRequestMap = (type: any) => {
   }
   return <>
     <div className="map">
+    <Spin className="loading-01" spinning={1 > 0}></Spin>
       <div id="map4" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
