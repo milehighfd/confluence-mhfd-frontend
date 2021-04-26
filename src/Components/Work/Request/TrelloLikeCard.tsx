@@ -114,7 +114,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
       tabKey={tabKey}
       projectsubtype={projectsubtype}
       />
-    <div ref={divRef} className="card-wr" style={{ borderLeft: `3px solid ${borderColor}` }} draggable={editable && !filtered} onDragStart={e => onDragStart(e, projectid)}
+    <div ref={divRef} className="card-wr" style={{ borderLeft: `3px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered} onDragStart={e => onDragStart(e, projectid)}
       onDrop={(e: any) => {
         let dr: any = divRef.current;
         let bounds = dr.getBoundingClientRect();
