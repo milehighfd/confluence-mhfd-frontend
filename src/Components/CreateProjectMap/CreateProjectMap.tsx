@@ -1020,7 +1020,7 @@ const CreateProjectMap = (type: any) => {
       marker.getElement().addEventListener('click', () => {
         addPopupMarker(point,html);
       });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lng, e.lat], [e.lng+0.0038, e.lat]] ]} };
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lng, e.lat], [e.lng+0.0010, e.lat]] ]} };
       if (type.type === 'SPECIAL') {
         saveSpecialLocation(sendLine);
       } else if (type.type === 'ACQUISITION') {
@@ -1040,7 +1040,7 @@ const CreateProjectMap = (type: any) => {
       marker.getElement().addEventListener('click', () => {
         addPopupMarker(point,html);
       });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng+0.0038, e.lngLat.lat]] ]} };
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng+0.0010, e.lngLat.lat]] ]} };
       if (type.type === 'SPECIAL') {
         saveSpecialLocation(sendLine);
       } else if (type.type === 'ACQUISITION') {
