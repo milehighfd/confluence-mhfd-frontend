@@ -19,10 +19,8 @@ import Status from "../Drawers/Status";
 import ColorService from './ColorService';
 import ProjectEditService from './ProjectEditService';
 
-import { compareArrays, compareColumns, defaultColumns, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
+import { compareArrays, compareColumns, csvFileName, defaultColumns, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
-import StatusPlan from "../Drawers/StatusPlan";
-import StatusDistrict from "../Drawers/StatusDistrict";
 import Filter from "../Drawers/Filter";
 import TotalHeader from "./TotalHeader";
 import CostTableBody from "./CostTableBody";
@@ -639,7 +637,7 @@ const RequestView = ({ type }: {
 
                     <ButtonGroup>
                     <Button className="btn-opacity">
-                      <CSVLink filename={'' + new Date().getTime() + '.csv'} data={generateCSV()} className="btn-opacity" style={{padding:'0px'}}>
+                      <CSVLink filename={csvFileName(year, locality, type)} data={generateCSV()} className="btn-opacity" style={{padding:'0px'}}>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }} src="" />
                       </CSVLink>
                     </Button>

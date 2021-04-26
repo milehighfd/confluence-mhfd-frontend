@@ -68,7 +68,7 @@ export default ({ boardId, visible, setVisible, status, comment, type }: {
     let date = new Date(_date);
     let y = date.getFullYear();
     let m = date.getMonth()+1;
-    let d = date.getDay();
+    let d = date.getDate();
     let pad = (v: number) => {
       return v < 10 ? `0${v}`: v;
     }

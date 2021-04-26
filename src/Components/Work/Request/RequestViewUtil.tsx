@@ -237,6 +237,20 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
   }
 }
 
+export const csvFileName = (year: any, locality: string, type: string) => {
+  let date =  new Date();
+  let y = date.getFullYear() % 100;
+  let m = date.getMonth()+1;
+  let d = date.getDate();
+  let pad = (v: number) => {
+    return v < 10 ? `0${v}`: v;
+  }
+  let dateLabel = `${pad(m)}${pad(d)}${y}`;
+  let localityLabel = locality.split(' ').join('');
+  let typeLabel = type === 'WORK_REQUEST' ? 'WorkRequest' : 'WorkPlan';
+  return `${year}_${localityLabel}_${typeLabel}_${dateLabel}.csv`;
+}
+
 export const getCsv = (
   columns: any[],
   locality: string,
