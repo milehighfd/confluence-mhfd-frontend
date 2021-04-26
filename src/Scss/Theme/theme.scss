@@ -369,6 +369,20 @@ body{
   .ant-modal-footer{
     display: none;
   }
+  .btn-danger {
+    width: 130px;
+    height: 45px;
+    border-radius: 4px;
+    background-color: #FA4659;
+    font-size: 14px;
+    color: $white;
+    margin-top: 10px;
+    border: none;
+    font-weight: bold;
+  }
+  .btn-danger:hover, .btn-danger:focus {
+    border-bottom: 4px solid #E5E5E5 !important;
+  }
   .btn-purple{
     width: 130px;
     height: 45px;

@@ -8,6 +8,7 @@ import { deleteData, getToken } from '../../../Config/datasets';
 import { SERVER } from '../../../Config/Server.config';
 
 import CardStatService from './CardService';
+import { DeleteAlert } from './DeleteAlert';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -41,6 +42,18 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
+  const deleteProject = () => {
+    deleteData(`${SERVER.URL_BASE}/board/project/${projectid}/${namespaceId}`, getToken())
+      .then((r) => {
+        console.log('r', r)
+      })
+      .catch((e) => {
+        console.log('e', e)
+      })
+  }
+
   const content = (
     <Menu className="js-mm-00">
       <Menu.Item onClick={() => setShowModalProject(true)}>
@@ -60,15 +73,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
       </Menu.Item>
       {
         editable &&
-      <Menu.Item onClick={() => {
-        deleteData(`${SERVER.URL_BASE}/board/project/${projectid}/${namespaceId}`, getToken())
-        .then((r) => {
-          console.log('r', r)
-        })
-        .catch((e) => {
-          console.log('e', e)
-        })
-      }}>
+      <Menu.Item onClick={() => setShowDeleteAlert(true)}>
         <span>
           <img src="/Icons/icon-16.svg" alt="" width="10px" style={{marginTop:'-3px'}} />
           Delete
@@ -94,6 +99,15 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
   },[showModalProject]);
   return (
     <>
+    {
+      showDeleteAlert &&
+      <DeleteAlert
+        visibleAlert={showDeleteAlert}
+        setVisibleAlert={setShowDeleteAlert}
+        action={deleteProject}
+        name={projectname}
+        />
+    }
     {showModalProject &&
     <ModalProjectView
         visible= {showModalProject}
@@ -132,7 +146,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
       <label className="purple">{project.from}</label>
       <label className="yellow">{editable ? 'Draft' : 'Requested'}</label>
       {
-        !(showAmountModal || showModalProject) &&
+        !(showAmountModal || showModalProject || showDeleteAlert) &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click">
           <svg xmlns="http://www.w3.org/2000/svg" className="menu-wr" width="3" height="13" viewBox="0 0 3 13"
             onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
