@@ -139,7 +139,7 @@ const CreateProjectMap = (type: any) => {
     console.log("EDIT LOCATION", editLocation);
     if(editLocation && editLocation[0]){
       setTimeout(()=>{
-        map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0] + 0.005});})
+        map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0] + 0.0005});})
       },1300);
     }
   },[editLocation]);

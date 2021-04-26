@@ -1744,7 +1744,7 @@ const WorkRequestMap = (type: any) => {
   }
   return <>
     <div className="map">
-    <Spin className="loading-01" spinning={1 > 0}></Spin>
+    {/* <Spin className="loading-01" spinning={1 > 0}></Spin> */}
       <div id="map4" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
