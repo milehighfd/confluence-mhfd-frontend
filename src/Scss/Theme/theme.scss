@@ -379,8 +379,8 @@ body{
     margin-top: 10px;
     border: none;
   }
-  .btn-purple:hover > span, .btn-purple:focus > span{
-    text-decoration: underline;
+  .btn-purple:hover, .btn-purple:focus{
+    border-bottom: 4px solid $green !important;
   }
   .btn-borde{
     width: 130px;
