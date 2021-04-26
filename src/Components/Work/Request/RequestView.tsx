@@ -17,6 +17,7 @@ import { useHistory } from "react-router";
 import { CSVLink } from 'react-csv';
 import Status from "../Drawers/Status";
 import ColorService from './ColorService';
+import ProjectEditService from './ProjectEditService';
 
 import { compareArrays, compareColumns, defaultColumns, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
@@ -214,6 +215,7 @@ const RequestView = ({ type }: {
       .then(
         (r: any) => {
           let { board, projects } = r;
+          ProjectEditService.setProjects(projects);
           if (board) {
             setBoardStatus(board.status);
             setBoardComment(board.comment);
@@ -292,6 +294,7 @@ const RequestView = ({ type }: {
           (r: any) => {
             if(r){
               let { board, projects } = r;
+              ProjectEditService.setProjects(projects);
               if (board) {
                 if (board.status !== boardStatus) {
                   setBoardStatus(board.status);
@@ -398,18 +401,13 @@ const RequestView = ({ type }: {
     setProjectAmounts(projectAmounts);
   }
   const openEdit = (project:any,event:any) => {
-    // setShowModalProject(true);
-    // setCurrentProject(project);
-    console.log("REACHES OPEN EDIT", project );
     setShowModalEdit(project);
   }
   const setShowModalEdit = (project: any) => {
     let projectswithid: any = new Set();
-    for(let col of columns) {
-      let projectsFiltered = col.projects.filter((proj:any) => (proj.project_id == project.id.toString()));
-      if(projectsFiltered.length>0){
-        projectswithid.add(projectsFiltered[0]);
-      }
+    let projectsFiltered = ProjectEditService.getProjects().filter((proj:any) => (proj.project_id == project.id.toString()));
+    if(projectsFiltered.length>0){
+      projectswithid.add(projectsFiltered[0]);
     }
     console.log("PROJECT SHOW ", project.id, projectswithid);
     let newArray = [...projectswithid.values()];
