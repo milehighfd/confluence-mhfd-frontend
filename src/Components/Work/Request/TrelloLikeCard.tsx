@@ -131,7 +131,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
       <label className="purple">{project.from}</label>
       <label className="yellow">{editable ? 'Draft' : 'Requested'}</label>
       {
-        !showAmountModal &&
+        !(showAmountModal || showModalProject) &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom" content={content} trigger="click">
           <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
         </Popover>
