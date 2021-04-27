@@ -503,12 +503,11 @@ const WorkRequestMap = (type: any) => {
         
         if(key === 'mhfd_projects_copy') {
           let allFilters:any = ['in', ['get', 'projectid'], ['literal', []]];
-          // if(idsBoardProjects && idsBoardProjects.length > 0 ){
-          //   let boardids = idsBoardProjects;
-          //   allFilters = ['all',['in', ['get', 'projectid'], ['literal', [...boardids]]]];
-          // } 
+          if(idsBoardProjects && idsBoardProjects.length > 0 ){
+            let boardids = idsBoardProjects;
+            allFilters = ['all',['in', ['get', 'projectid'], ['literal', [...boardids]]]];
+          } 
           map.map.setFilter(key + '_' + index, allFilters);
-          console.log("WHOS", key + '_' + index,  allFilters);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
           
         } else {
@@ -540,6 +539,7 @@ const WorkRequestMap = (type: any) => {
     for (const key of COMPONENT_LAYERS.tiles) {
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (!components.includes(key)) {
+          // console.log("SETTING FILTER",key + '_' + index);
           map.setFilter(key + '_' + index, ['in', 'cartodb_id', -1]);
         }
       });
@@ -657,11 +657,12 @@ const WorkRequestMap = (type: any) => {
       if (componentDetailIds && componentDetailIds[key]) {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
-      if(key ==='mhfd_projects_copy'){
-        allFilters.push(['in', ['get', 'cartodb_id'], ['literal', ['-1']]]);
-      }
+      // if(key ==='mhfd_projects_copy'){
+      //   allFilters.push(['in', ['get', 'cartodb_id'], ['literal', ['-1']]]);
+      // }
       if (map.getLayer(key + '_' + index)) {
         // console.log(key + '_' + index, allFilters);
+        // console.log("SETTING FILTER",key + '_' + index);
         map.setFilter(key + '_' + index, allFilters);
       }
     });
