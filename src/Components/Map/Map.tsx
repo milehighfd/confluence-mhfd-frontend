@@ -2226,6 +2226,9 @@ const Map = ({ leftWidth,
                 });
                 */
                 map.on('mousemove', key + '_' + index, (e: any) => {
+                    if (commentAvailable) {
+                        return;
+                    }
                     if (hovereableLayers.includes(key)) {
                         showHighlighted(key, e.features[0].properties.cartodb_id);
                     }
@@ -2237,6 +2240,9 @@ const Map = ({ leftWidth,
                     }
                 });
                 map.on('mouseleave', key + '_' + index, (e: any) => {
+                    if (commentAvailable) {
+                        return;
+                    }
                     if (hovereableLayers.includes(key)) {
                         hideOneHighlighted(key);
                     }
