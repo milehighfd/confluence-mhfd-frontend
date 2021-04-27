@@ -10,7 +10,12 @@ import {
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
   getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync,
   setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents,
-  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter, getComponentsCounter, getProjectCounter, getProblemCounter, mapSearchQuery, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,getComponentsByProblemId
+  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, 
+  setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, 
+  setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter, 
+  getComponentsCounter, getProjectCounter, getProblemCounter, mapSearchQuery, setSelectedOnMap, 
+  existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,
+  getComponentsByProblemId,getMapTables
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -294,6 +299,9 @@ export const useMapDispatch = () => {
     },
     getComponentsByProblemId: (data:any) => {
       dispatch(getComponentsByProblemId(data));
+    },
+    getMapTables: (trigger: any, name?: any) => {
+      dispatch(getMapTables(trigger,name));
     }
   }
 }

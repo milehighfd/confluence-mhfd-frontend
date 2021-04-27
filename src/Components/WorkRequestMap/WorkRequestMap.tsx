@@ -12,22 +12,9 @@ import eventService from './eventService';
 import { getData, getToken, postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import {
-  MAP_DROPDOWN_ITEMS,
-  MAPBOX_TOKEN, HERE_TOKEN,
   PROBLEMS_TRIGGER,
-  PROJECTS_TRIGGER,
-  COMPONENTS_TRIGGER,
-  PROJECTS_MAP_STYLES,
   COMPONENT_LAYERS,
-  XSTREAMS,
-  MEP_PROJECTS,
-  ROUTINE_MAINTENANCE,
-  FLOODPLAINS_FEMA_FILTERS,
-  STREAMS_FILTERS,
-  WATERSHED_FILTERS,
-  SERVICE_AREA_FILTERS,
-  MUNICIPALITIES_FILTERS,
-  COUNTIES_FILTERS,
+  PROJECTS_DRAFT_MAP_STYLES,
   MHFD_BOUNDARY_FILTERS,
   SELECT_ALL_FILTERS,
   MENU_OPTIONS,
@@ -67,8 +54,8 @@ const WorkRequestMap = (type: any) => {
   const user = store.getState().profile.userInformation;
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
-  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setComponentIntersected, setStreamIntersected, updateSelectedLayersWR } = useProjectDispatch();
+  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables } = useMapDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR } = useProjectDispatch();
   const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjects);
@@ -168,8 +155,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    console.log("UPDATES ON NEW PROJECT??", idsBoardProjects, firstTime);
-    let time = firstTime?6000:1200;
+    let time = 300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -177,22 +163,18 @@ const WorkRequestMap = (type: any) => {
           wait(()=>{
             setTimeout(()=>{
               map.isStyleLoaded(()=>{
-                console.log("IS REACHING HERE WRM STYEL LOADED" );
-                // removeLayers('mhfd_projects_copy');
-                // removeLayersSource('mhfd_projects_copy');
-                const tiles = layerFilters['projects_draft'] as any;
-                if (tiles) {
-                  console.log("IS REACHING HERE INSIDE TILES", tiles );
-                  // layer.name = projects_draft 
-                  // subKey = mhfd_projects_copy
-                  addLayersSource('mhfd_projects_copy', tiles['mhfd_projects_copy']);
+                removeLayers('mhfd_projects_copy');
+                removeLayersSource('mhfd_projects_copy');
+                // const tiles = layerFilters['projects_draft'] as any;
+                let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
+                postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
+                  addLayersSource('mhfd_projects_copy', tiles);
+                  showLayers('mhfd_projects_copy');
                   setTimeout(()=>{
-                    console.log("IS ABOUT TO SHOW MHFD PROJECT _ COPY");
-                    showLayers('mhfd_projects_copy');
                     applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
-                    firstTime = false;
                   },1200);
-                }
+                  firstTime = false;
+                });
                 
               });
             },time);
@@ -201,15 +183,12 @@ const WorkRequestMap = (type: any) => {
       }
   },[idsBoardProjects]);
   useEffect(()=>{
-    console.log("BP",boardProjects);
     const equals = (a:any, b:any) =>
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
     if(boardProjects.cartoids && boardProjects.cartoids[0] != '-8888') {
-      console.log("BORADPROEJCTs", boardProjects.cartoids);
       if(!equals(boardProjects.cartoids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjects.cartoids);
-        console.log("IDS", boardProjects.ids);
         postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
           (r: any) => { 
             if(r.bbox){
@@ -231,7 +210,6 @@ const WorkRequestMap = (type: any) => {
       }
     } 
     if(boardProjects.ids && boardProjects.ids[0] != '-8888') {
-      console.log("AT LEA HE", boardProjects);
       postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
         (r: any) => { 
           if(r.bbox){
@@ -404,6 +382,11 @@ const WorkRequestMap = (type: any) => {
     }
     applyFilters('mhfd_projects', filterProjectsNew);
     
+      filterProjectsDraft.projecttype = '';
+      filterProjectsDraft.status = 'Draft';
+
+    applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+
     if (type.type === "CAPITAL") {
       applyComponentFilter();
     }
@@ -426,19 +409,18 @@ const WorkRequestMap = (type: any) => {
     });
   }
   const showLayers = (key: string) => {
-  //   if(key === 'mhfd_projects_copy') {
-  //     console.log("IS ABOUT TO SHOW1", key);
-  // }
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-    //   if(key === 'mhfd_projects_copy') {
-    //     console.log("IS ABOUT TO SHOW2", key);
-    // }
       if (map.map.getLayer(key + '_' + index)) {
-        // if(key === 'mhfd_projects_copy') {
-        //     console.log("IS ABOUT TO SHOW3", key);
-        // }
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        if(key === 'mhfd_projects_copy') {
+          let allFilters:any = ['in', ['get', 'cartodb_id'], ['literal', [-8888]]];
+          if(idsBoardProjects && idsBoardProjects.length > 0 ){
+            let boardids = idsBoardProjects;
+            allFilters = ['in', ['get', 'cartodb_id'], ['literal', [...boardids]]];
+          } 
+          map.map.setFilter(key + '_' + index, allFilters);
+        }
         if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
           showSelectedComponents(filterComponents.component_type.split(','));
         }
@@ -706,7 +688,6 @@ const WorkRequestMap = (type: any) => {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...boardids]]]);
       } 
       if (map.getLayer(key + '_' + index)) {
-        //console.log(key + '_' + index, allFilters);
         map.setFilter(key + '_' + index, allFilters);
       }
     });
@@ -724,7 +705,6 @@ const WorkRequestMap = (type: any) => {
       const styles = { ...tileStyles as any };
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (map.map.getLayer(key + '_' + index)) {
-          // console.log("HIDING LAYER",key + '_' + index);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         }
       });
@@ -768,8 +748,6 @@ const WorkRequestMap = (type: any) => {
         // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", JSON.stringify(style));
       }
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-      // }
-
       if (!hovereableLayers.includes(key)) {
         return;
       }
