@@ -689,7 +689,8 @@ const Map = ({ leftWidth,
             touchZoomRotate: true,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
             center: [user.coordinates.longitude, user.coordinates.latitude],
-            zoom: 8
+            zoom: 8,
+            attributionControl: false
         });
         console.log("DROP DOWN ITEMS STYLE ", dropdownItems.items[dropdownItems.default].style);
         map.loadImage('custom-sprite/30x30px.png', (error: any, image: any) => {
@@ -775,7 +776,7 @@ const Map = ({ leftWidth,
             unit: 'imperial'
         }), 'bottom-right');
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-
+        map.addControl( new mapboxgl.AttributionControl({compact:true}) )
         addMapGeocoder(map, geocoderRef);
 
         // Uncomment to see coords when a position in map is clicked
