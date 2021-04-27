@@ -177,10 +177,12 @@ const WorkRequestMap = (type: any) => {
           wait(()=>{
             setTimeout(()=>{
               map.isStyleLoaded(()=>{
+                console.log("IS REACHING HERE WRM STYEL LOADED" );
                 // removeLayers('mhfd_projects_copy');
                 // removeLayersSource('mhfd_projects_copy');
                 const tiles = layerFilters['projects_draft'] as any;
                 if (tiles) {
+                  console.log("IS REACHING HERE INSIDE TILES", tiles );
                   // layer.name = projects_draft 
                   // subKey = mhfd_projects_copy
                   addLayersSource('mhfd_projects_copy', tiles['mhfd_projects_copy']);
@@ -204,6 +206,7 @@ const WorkRequestMap = (type: any) => {
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
     if(boardProjects.cartoids && boardProjects.cartoids[0] != '-8888') {
+      console.log("BORADPROEJCTs", boardProjects.cartoids);
       if(!equals(boardProjects.cartoids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjects.cartoids);
         console.log("IDS", boardProjects.ids);
@@ -255,100 +258,6 @@ const WorkRequestMap = (type: any) => {
         return turf.difference(bboxPoly, mask);
     }
   }
-//   useEffect(() => {
-//     let mask
-//     setTimeout(() => {
-//       map.isStyleLoaded(()=>{ 
-//         console.log("ADDING OPACITY",coordinatesJurisdiction);
-//         if (coordinatesJurisdiction.length > 0) {
-//           mask = turf.multiPolygon(coordinatesJurisdiction);
-//           let miboundsmap = map.map.getBounds();
-//           // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
-//           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-  
-//           // console.log('porque', boundingBox1)
-//           var arrayBounds = misbounds.split(',');
-//           setOpacityLayer(true);
-//           if (!map.map.getSource('mask')) {
-//               map.map.addSource('mask', {
-//                   "type": "geojson",
-//                   "data": polyMask(mask, arrayBounds)
-//               });
-//               console.log('ADDS FUCH MASK');
-//               let bf = '';
-//               if(map.getLayer('mhfd_projects_copy_0')){
-//                 bf = 'mhfd_projects_copy_0';
-//               }
-//               map.map.addLayer({
-//                   "id": "mask",
-//                   "source": "mask",
-//                   "type": "fill",
-//                   "paint": {
-//                       "fill-color": "black",
-//                       'fill-opacity': 0.8
-//                   }
-//               }, bf);
-//               map.map.addLayer({
-//                 "id": "mask-border",
-//                 "source": "mask",
-//                 "type": "line",
-//                 "paint": {
-//                   'line-color': '#28c499',
-//                   'line-width': 1,
-//                 }
-//               },bf);
-//           } else {
-//               map.map.setLayoutProperty('mask', 'visibility', 'visible');
-//               // map.map.removeLayer('mask');
-//               // map.map.removeLayer('mask-border');
-//               // map.map.removeSource('mask');
-//               // map.map.addSource('mask', {
-//               //     "type": "geojson",
-//               //     "data": polyMask(mask, arrayBounds)
-//               // });
-//               if(!map.getLayer('mask')) {
-//                 map.map.addLayer({
-//                   "id": "mask",
-//                   "source": "mask",
-//                   "type": "fill",
-//                   "paint": {
-//                       "fill-color": "black",
-//                       'fill-opacity': 0.8
-//                   }
-//               });
-//               }
-//               if(!map.getLayer('mask-border')) {
-//                 map.map.addLayer({
-//                   "id": "mask-border",
-//                   "source": "mask",
-//                   "type": "line",
-//                   "paint": {
-//                     'line-color': '#28c499',
-//                     'line-width': 1,
-//                   }
-//                 });
-//               }
-//           }
-//       } 
-//       // else {
-//       //   console.log("");
-//       //     if (opacityLayer) {
-//       //         if  (map.map.loaded()) {
-//       //             // console.log('hide opacity');
-//       //             if (map.map.getLayer('mask')) {
-//       //                 map.map.setLayoutProperty('mask', 'visibility', 'visible');
-//       //                 map.map.removeLayer('mask');
-//       //                 map.map.removeSource('mask');
-//       //             }
-//       //         }
-//       //     }
-  
-//       // }
-//       })
-      
-//     }, 1400);
-  
-// }, [coordinatesJurisdiction]);
 
   const setBounds = (value:any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => value.includes(x.aoi)).map((element: any) => {
@@ -358,7 +267,6 @@ const WorkRequestMap = (type: any) => {
         coordinates: element.coordinates
       }
     });
-    console.log("ZZOM,", groupOrganization);
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
@@ -439,6 +347,7 @@ const WorkRequestMap = (type: any) => {
   }, [map])
 
   useEffect(() => {
+    console.log("SELECTED LAYERS WR", selectedLayersWR);
     if (map ) {
       map.isStyleLoaded(applyMapLayers);
     }
@@ -470,6 +379,10 @@ const WorkRequestMap = (type: any) => {
     });
     
     await selectedLayersWR.forEach((layer: LayersType) => {
+      if(layer === 'area_based_mask' || layer === 'border') {
+        console.log("LAYERS", layer);
+        return;
+      }
       if (typeof layer === 'object') {
         layer.tiles.forEach((subKey: string) => {
           showLayers(subKey);
@@ -499,7 +412,7 @@ const WorkRequestMap = (type: any) => {
   const applyMhfdFilter = () => {
     const styles = { ...tileStyles as any };
     styles['mhfd_projects'].forEach((style: LayerStylesType, index: number) => {
-      console.log("HEY", map.map.getFilter('mhfd_projects_' + index));
+      // console.log("HEY", map.map.getFilter('mhfd_projects_' + index));
     });
   }
   const applyComponentFilter = () => {
@@ -845,14 +758,14 @@ const WorkRequestMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", style['source-layer']);
+      
       map.map.addLayer({
         id: key + '_' + index,
         source: key,
         ...style
       });
       if (key.includes('mhfd_projects_copy')) {
-        // console.log("HIDING LAYER AAA",key + '_' + index);
+        // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", JSON.stringify(style));
       }
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       // }
@@ -1809,7 +1722,7 @@ const WorkRequestMap = (type: any) => {
           onVisibleChange={(flag: boolean) => {
             setVisibleDropdown(flag);
           }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: selectedLayersWR, setSelectedCheckBox, removePopup, isExtendedView})}
+          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: selectedLayersWR, setSelectedCheckBox, removePopup, isExtendedView, isWR: true})}
           trigger={['click']}>
           <Button>
             <span className="btn-02"></span>

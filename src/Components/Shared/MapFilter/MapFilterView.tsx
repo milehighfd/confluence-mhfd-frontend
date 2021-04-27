@@ -31,7 +31,9 @@ import {
   BCZ_UTE_LADIES_TRESSES_ORCHID,
   RESEARCH_MONITORING,
   CLIMB_TO_SAFETY,
-  SEMSWA_SERVICE_AREA
+  SEMSWA_SERVICE_AREA,
+  BORDER,
+  AREA_BASED_MASK
 } from '../../../constants/constants';
 
 
@@ -50,8 +52,8 @@ const contentPopOver = (text: string) => {
   return <div className="popoveer-00"><i>{text}</i></div>
 }
 
-export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView,  }:
-  { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean}) => {
+export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView,  isWR }:
+  { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean, isWR?: boolean}) => {
   // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
   const [switches, setSwitches] = useState({
     [PROBLEMS_TRIGGER]: true,
@@ -74,6 +76,9 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     [CLIMB_TO_SAFETY]: false,
     [SEMSWA_SERVICE_AREA]: false
   });
+  // if(isWR) {
+  //   setSwitches({...switches,...{[BORDER]:false, [AREA_BASED_MASK]:false}})
+  // }
   /**
  export const NRCS_SOILS = 'usda_nrcs_soils';
 export const DWR_DAM_SAFETY = 'dwr_dam_safety';
@@ -88,7 +93,16 @@ export const CLIMB_TO_SAFETY = 'climb_to_safety_signs';
 export const SEMSWA_SERVICE_AREA =
 'semswa_service_area';
  */
-  const [groups, setGroups] = useState({
+  const [groups, setGroups] = useState( isWR? {
+    MHFDData: false,
+    hydrologic: false,
+    hydraulic: false,
+    geomorphology: false,
+    environmental: false,
+    humanConnection: false,
+    boundaries: false,
+    workrequest: false
+  }:{
     MHFDData: false,
     hydrologic: false,
     hydraulic: false,
@@ -97,6 +111,9 @@ export const SEMSWA_SERVICE_AREA =
     humanConnection: false,
     boundaries: false
   });
+  // if(isWR){
+  //   setGroups({...groups, ...{workrequest:false}});
+  // }
   useEffect(() => {
     const newGroups: any = {};
     if (switches[PROBLEMS_TRIGGER] && switches[PROJECTS_MAP_STYLES.name] && switches[COMPONENT_LAYERS.name]
@@ -135,6 +152,13 @@ export const SEMSWA_SERVICE_AREA =
     } else {
       newGroups['humanConnection'] = false;
     }
+    if(isWR) {
+      if(switches[BORDER] && switches[AREA_BASED_MASK]) {
+        newGroups['workrequest'] = true;
+      } else {
+        newGroups['workrequest'] = false;
+      }
+    }
     setGroups({...groups, ...newGroups});
   }, [switches]);
   useEffect(() => {
@@ -157,6 +181,11 @@ export const SEMSWA_SERVICE_AREA =
       setSwitches(newSwitches);
     
   }, [selectedLayers]);
+  useEffect(()=>{
+    if(isWR) {
+      setSwitches({...switches,...{[BORDER]:false, [AREA_BASED_MASK]:false}})
+    }
+  },[]);
   const changeGroup = (value: boolean, elements: Array<any>, name: string) => {
     let switchSelected: any[] = [...selectedLayers];
     const newSwitches: any = {};
@@ -276,6 +305,15 @@ export const SEMSWA_SERVICE_AREA =
        }/>
     </div>
   )};
+  const genExtra07 = () => (
+    <div className="filter-coll-header">
+      <div style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>{/* <img src="/Icons/icon-79.svg" alt="" />*/} WORK REQUEST</div>
+      <Switch checked={groups['workrequest']} size="small" onClick={(value, event) => {
+          event.stopPropagation();
+          changeGroup(value, [BORDER,AREA_BASED_MASK], 'workrequest')
+        }}/>
+    </div>
+  );
   const onChange = (value: boolean, item: any) => {
     if (item.hasOwnProperty('name')) {
       setSwitches({...switches, [item['name']]: value});
@@ -528,6 +566,25 @@ export const SEMSWA_SERVICE_AREA =
             </p>
 
     </Panel> */}
+        { isWR && 
+        <Panel header="" key="6" extra={genExtra07()}>
+            <p>
+              <img src="/Icons/Filters/ic_climb.png" width="18px" alt="" />
+                  Borders
+                  <Popover arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders)}>
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch size="small" checked={switches[BORDER]} onClick={(value) => onChange(value, BORDER)} />
+            </p>
+            <p>
+              <img src="/Icons/Filters/ic_research.png" width="18px" alt=""  />
+                  Area Based Mask
+                  <Popover arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask)}>
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch size="small" checked={switches[AREA_BASED_MASK]} onClick={(value) => onChange(value, AREA_BASED_MASK)} />
+            </p>
+          </Panel>}
         </Collapse>
       </Checkbox.Group>
     </div>

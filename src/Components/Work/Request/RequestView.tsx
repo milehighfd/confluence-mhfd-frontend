@@ -329,6 +329,9 @@ const RequestView = ({ type }: {
                   let justProjects = projects.map((proj:any)=> {
                     return proj.projectData.cartodb_id;
                   });
+                  let idsProjects = projects.map((proj:any)=> {
+                    return proj.projectData?.projectid;
+                  });
                   let projectAmounts = projects.map((proj:any)=> {
                     return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
                     cartodb_id: proj.projectData?.cartodb_id
@@ -336,7 +339,7 @@ const RequestView = ({ type }: {
                   });
                   setProjectAmounts(projectAmounts);
                   if(projects.length>0){
-                    setBoardProjects(justProjects);
+                    setBoardProjects({cartoids:justProjects, ids: idsProjects});
                   } else {
                     setBoardProjects(['-1']);
                   }
