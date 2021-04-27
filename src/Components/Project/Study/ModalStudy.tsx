@@ -243,8 +243,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
         }
       }
     }
-    total = Math.round(total);
-    return formatter.format(total);
+    total = total * 0.000621371;
+    return formatterDec.format(total);
   }
   const getTotalDreinage = () => {
     let total = 0;
@@ -263,6 +263,11 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     style: 'decimal',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
+  });
+  const formatterDec = new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 4
   });
   const removeStream = (stream:any) => {
     // console.log("WHAT IAM REMOVING?, data comes from strem list", stream, streamsList, 'ids', projectReturn.state.project.streamsIntersectedIds);
@@ -408,9 +413,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                               return (
                                 <Timeline.Item color="green">
                                   <Row style={{marginLeft:'-18px'}}>
-                                    <Col className="first" xs={{ span: 24 }} lg={{ span: 11}} xxl={{ span: 15 }}><label>{stream.jurisdiction}</label></Col>
-                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{ formatter.format(Math.round(stream.length))}</Col>
-                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 7}} xxl={{ span: 3 }}>{ formatter.format(stream.drainage)}</Col>
+                                    <Col className="first" xs={{ span: 24 }} lg={{ span: 11}} xxl={{ span: 11 }}><label>{stream.jurisdiction}</label></Col>
+                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{ formatterDec.format(stream.length * 0.000621371)}</Col>
+                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 7}} xxl={{ span: 7 }}>{ formatter.format(stream.drainage)}</Col>
                                     <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={()=> removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                   </Row>
                                 </Timeline.Item>
