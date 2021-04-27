@@ -78,7 +78,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [keys, setKeys] = useState<any>([]);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-
+  const [jurisdiccion, setJurisdiccion] = useState("");
   useEffect(()=>{
     setStreamsList([]);
     setStreamIntersected({geom:null});
@@ -446,9 +446,11 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             <LocationInformation
               setServiceArea = {setServiceArea}
               setCounty = {setCounty}
+              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
               county = {county} 
               editable= {editable}
+              jurisdiccion={jurisdiccion}
             />
             <br/>
 

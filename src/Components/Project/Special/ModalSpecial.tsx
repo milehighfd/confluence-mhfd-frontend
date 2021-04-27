@@ -55,6 +55,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [disableName, setDisableName ] = useState(true);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
+  const [jurisdiccion, setJurisdiccion] = useState("");
   var date = new Date();
   var year = date.getFullYear();
   const dispatch = useDispatch();
@@ -241,11 +242,12 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             <LocationInformation
               setServiceArea = {setServiceArea}
               setCounty = {setCounty}
+              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
               county = {county} 
               editable= {editable}
+              jurisdiccion={jurisdiccion}
             />
-
             <br/>
 
             {/*Section*/}

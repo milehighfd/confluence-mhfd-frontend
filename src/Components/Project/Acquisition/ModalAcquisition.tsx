@@ -63,6 +63,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [disableName, setDisableName ] = useState(true);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
+  const [jurisdiccion, setJurisdiccion] = useState("");
   var date = new Date();
 
   var year = date.getFullYear();
@@ -273,9 +274,11 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             <LocationInformation
               setServiceArea = {setServiceArea}
               setCounty = {setCounty}
+              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
-              county = {county} 
+              county = {county}
               editable= {editable}
+              jurisdiccion={jurisdiccion}
             />
             <br/>
 

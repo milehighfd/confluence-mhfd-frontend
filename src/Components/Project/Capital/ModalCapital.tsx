@@ -144,6 +144,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [overheadDescription, setOverheadDescription] = useState("");
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
+  const [jurisdiccion, setJurisdiccion] = useState("");
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
@@ -978,12 +979,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <LocationInformation
               setServiceArea = {setServiceArea}
               setCounty = {setCounty}
+              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
               county = {county} 
               editable= {editable}
+              jurisdiccion={jurisdiccion}
             />
             <br/>
-
 
             {/*Section*/}
             <UploadAttachment

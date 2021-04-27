@@ -57,7 +57,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [projectid, setProjectId ] = useState(-1);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
- 
+  const [jurisdiccion, setJurisdiccion] = useState("");
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -312,9 +312,11 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             <LocationInformation
               setServiceArea = {setServiceArea}
               setCounty = {setCounty}
+              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
               county = {county} 
               editable= {editable}
+              jurisdiccion={jurisdiccion}
             />
             <br/>
 
