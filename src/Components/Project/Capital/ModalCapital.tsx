@@ -9,6 +9,7 @@ import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Geom, Project } from "../../../Classes/Project";
+import { useProfileState } from "../../../hook/profileHook";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -114,6 +115,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   };
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
+  const {userInformation} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -512,7 +514,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
                 </Button>*/}
-                <p>Cherry Creek Service Area · Aurora County</p>
+                <p>{userInformation.serviceArea} · {userInformation.county} County</p>
               </Col>
 
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
