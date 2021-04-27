@@ -16,6 +16,7 @@ import { Geom, Project} from "../../../Classes/Project";
 import { setRouteRedirect } from "../../../store/actions/mapActions";
 import { AlertViewSave } from "../../Alerts/AlertViewSave";
 import { editSpecial } from "../../../store/actions/ProjectActions";
+import { useProfileState } from "../../../hook/profileHook";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -42,6 +43,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
   const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds} = useProjectDispatch();
   const { currentServiceAreaCounty} = useProjectState();
+  const {userInformation} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -206,6 +208,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
                 {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()}/>
                 </Button>*/}
+                <p>{userInformation.serviceArea} · {userInformation.county} County</p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
                 <label className="tag-name" style={{padding:'10px'}}>Special</label>

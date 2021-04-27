@@ -10,6 +10,7 @@ import { NEW_PROJECT_TYPES, PROJECT_INFORMATION } from "../../../constants/const
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Geom, Project } from "../../../Classes/Project";
+import { useProfileState } from "../../../hook/profileHook";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -37,6 +38,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
   const {saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance, setStreamsIds, getGEOMByProjectId} = useProjectDispatch();
   const {userPolygon, streamIntersected, currentServiceAreaCounty} = useProjectState();
+  const {userInformation} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -244,6 +246,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
                 {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
                 </Button>*/}
+                <p>{userInformation.serviceArea} · {userInformation.county} County</p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{textAlign:'right'}}>
                 <label className="tag-name">Maintenance</label>

@@ -54,6 +54,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any, editable:boolean }) => {
   const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy} = useProjectDispatch();
   const {streamsIntersectedIds} =useProjectState();
+  const {userInformation} = useProfileState();
   const {organization, groupOrganization} = useProfileState();
   const {listStreams, streamIntersected} = useProjectState();
   const [state, setState] = useState(stateValue);
@@ -325,6 +326,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                 {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
                 </Button>*/}
+                <p>{userInformation.serviceArea} · {userInformation.county} County</p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
                 <label className="tag-name" style={{padding:'10px'}}>Study</label>

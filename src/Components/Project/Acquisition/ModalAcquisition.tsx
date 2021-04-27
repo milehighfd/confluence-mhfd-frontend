@@ -12,6 +12,7 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { getData, getToken, postData } from "../../../Config/datasets";
 import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
 import { Project, Geom } from "../../../Classes/Project";
+import { useProfileState } from "../../../hook/profileHook";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -48,6 +49,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 
   const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds} = useProjectDispatch();
   const {currentServiceAreaCounty} =useProjectState();
+  const {userInformation} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -220,6 +222,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
                 {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()}/>
                 </Button>*/}
+                <p>{userInformation.serviceArea} · {userInformation.county} County</p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
                 <label className="tag-name" style={{padding:'10px'}}>Acquisition</label>
