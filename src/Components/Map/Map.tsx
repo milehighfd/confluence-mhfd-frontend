@@ -157,7 +157,7 @@ const Map = ({ leftWidth,
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
-    
+
     const [notesFilter, setNotesFilter] = useState('all');
     useEffect(()=> {
         // console.log(mobilePopups);
@@ -425,7 +425,7 @@ const Map = ({ leftWidth,
             if(!(notesFilter != 'all' && notesFilter != note.color)) {
               let colorOfMarker = '';
               switch(note.color) {
-                case 'green': 
+                case 'green':
                   colorOfMarker = colors.GREEN;
                   break;
                 case 'grey':
@@ -437,11 +437,11 @@ const Map = ({ leftWidth,
                 case 'red':
                   colorOfMarker = colors.RED;
                   break;
-                default: 
+                default:
                   colorOfMarker = colors.GREY;
               }
               const newmarker = new mapboxgl.Marker({ color: colorOfMarker, scale: 0.7 });
-              const html = commentPopup(note);  
+              const html = commentPopup(note);
                   let newpopup = new mapboxgl.Popup();
                   newmarker.setPopup(newpopup);
                   newpopup.setHTML(html);
@@ -450,9 +450,9 @@ const Map = ({ leftWidth,
                     addEvents(note);
                   });
               totalmarkers.push({ marker: newmarker, note: note});
-            } 
+            }
           });
-          setMarkerNotes(totalmarkers);   
+          setMarkerNotes(totalmarkers);
         }
     }, [notes, notesFilter]);
     const addEvents = (noteClicked: any) => {
@@ -569,8 +569,8 @@ const Map = ({ leftWidth,
                         latitude: noteClicked.latitude,
                         longitude: noteClicked.longitude
                     };
-                    editNote(note); 
-                      
+                    editNote(note);
+
                   }
               });
             }
@@ -1493,7 +1493,7 @@ const Map = ({ leftWidth,
         }
         return;
     }
-    
+
 
     useEffect(() => {
 
@@ -1604,7 +1604,7 @@ const Map = ({ leftWidth,
                               const textarea = (document.getElementById('textarea') as HTMLInputElement);
                               if (textarea != null) {
                                   console.log("VAL", textarea.value);
-                                  
+
                               }
                           });
                       }
@@ -1619,7 +1619,7 @@ const Map = ({ leftWidth,
                 }
                 return;
             }
-            if (commentAvailable) { 
+            if (commentAvailable) {
                 return;
             }
             hideHighlighted();
@@ -2264,7 +2264,7 @@ const Map = ({ leftWidth,
 
     const getColor = (color: any) => {
       switch(color) {
-        case 'green': 
+        case 'green':
           return colors.GREEN;
         case 'grey':
           return colors.GREY;
@@ -2272,7 +2272,7 @@ const Map = ({ leftWidth,
           return colors.ORANGE;
         case 'red':
           return colors.RED;
-        default: 
+        default:
           return colors.GREEN;
       }
     };
@@ -2292,7 +2292,7 @@ const Map = ({ leftWidth,
         <div className="bodymap">
             <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}}>
-                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''}>Delete</Button> 
+                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''}>Delete</Button>
                 { note? (<Button id="edit-comment">Save</Button>): (<Button id="save-comment">Save</Button>) }
             </div>
 
@@ -2534,7 +2534,7 @@ const Map = ({ leftWidth,
         popupC.remove();
       });
       let filterMarker: any = markersNotes.filter((marker:any) => marker.note._id == note._id  );
-      if(filterMarker.length > 0) { 
+      if(filterMarker.length > 0) {
         filterMarker[0].marker.togglePopup();
         setTimeout(()=>{
           const div = document.getElementById('color-list');
@@ -2618,8 +2618,8 @@ const Map = ({ leftWidth,
                               latitude: filterMarker[0].note.latitude,
                               longitude: filterMarker[0].note.longitude
                           };
-                          editNote(note); 
-                            
+                          editNote(note);
+
                         }
                     });
                 }
@@ -2633,7 +2633,7 @@ const Map = ({ leftWidth,
                 }
             }
         },300);
-      } 
+      }
     }
     const showMHFD = () => {
         setAutocomplete('')
@@ -2659,7 +2659,7 @@ const Map = ({ leftWidth,
         setBBOXComponents({ bbox: [], centroids: [] })
         //setArea(name);
     }
-    
+
     const setSideBarStatus = (status: boolean) => {
         setCommentVisible(status);
         setOpen(status);
@@ -2670,7 +2670,7 @@ const Map = ({ leftWidth,
 
     return (
         <>
-        <SideBarComment visible={commentVisible} setVisible={setSideBarStatus} 
+        <SideBarComment visible={commentVisible} setVisible={setSideBarStatus}
         flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap} changeFilter={setNotesFilter} swSave={swSave} setSwSave={setSwSave}></SideBarComment>
         <div>
             {visibleCreateProject && <ModalProjectView
@@ -2818,7 +2818,7 @@ const Map = ({ leftWidth,
                       }
                 }}
                 /></Button>
-                <Button onClick={() => {
+                <Button className="btn-none" onClick={() => {
                     setCommentVisible(commentVisible => !commentVisible);
                     }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>

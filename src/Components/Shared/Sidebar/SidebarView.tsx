@@ -38,7 +38,7 @@ export default () => {
   const indexOf = "" + ROUTERS_SIDEBAR.indexOf(location.pathname);
 
 
-  return <Sider collapsedWidth="58" collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} style={{'zIndex': 2000}}>
+  return <Sider collapsedWidth="58" collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} style={{'zIndex': 1000}}>
     <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline" >
       {(appUser.designation !== 'guest') ?
       <Menu.Item key="0">
