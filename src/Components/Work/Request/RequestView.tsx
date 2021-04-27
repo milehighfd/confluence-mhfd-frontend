@@ -544,6 +544,7 @@ const RequestView = ({ type }: {
     {
       showBoardStatus &&
       <Status
+        locality={locality}
         boardId={namespaceId}
         visible={showBoardStatus}
         setVisible={setShowBoardStatus}

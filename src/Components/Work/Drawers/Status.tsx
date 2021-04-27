@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Button, Dropdown, Menu, List } from 'antd';
+import { Drawer, Button, Dropdown, Menu, List, Row, Col, Checkbox } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { SERVER } from "../../../Config/Server.config";
 import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
 
-export default ({ boardId, visible, setVisible, status, comment, type }: {
+export default ({ locality, boardId, visible, setVisible, status, comment, type }: {
+  locality: string,
   boardId: any,
   visible: boolean,
   setVisible: Function,
@@ -126,27 +127,38 @@ export default ({ boardId, visible, setVisible, status, comment, type }: {
       {
         type === 'WORK_PLAN' && 
         <>
-          <p>Work Request <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
+          <Row>
+            <Col lg={{ span: 12 }}><p>Work Plan <img src="/Icons/icon-19.svg" alt="" height="10px" /></p></Col>
+            {
+              locality === 'MHFD District Work Plan' &&
+              <Col lg={{ span: 12 }}><p style={{textAlign:'right'}}>Reviewed</p></Col>
+            }
+          </Row>
           {
             loading ? (<div>Loading...</div>) : (
-            <List
-              itemLayout="horizontal"
-              dataSource={boardsData}
-              renderItem={item => (
-                <List.Item className="menu-utilities">
-                  <List.Item.Meta
-                    title={<h6><i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00'}}></i> {item.locality}</h6>}
-                    description={
-                      <p style={{width:'100%'}}>
-                        {item.submissionDate === null?  setpending(true): pending}
-                        {`${item.submissionDate ? format(item.submissionDate) : 'Pending' }`}
-                        <img src="/Icons/icon-64.svg" alt="" height="8px" style={{opacity:'0.3'}}/>
-                      </p>
+              <List
+                itemLayout="horizontal"
+                dataSource={boardsData}
+                renderItem={item => (
+                  <List.Item className="menu-utilities">
+                    <List.Item.Meta
+                      title={<h6><i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00'}}></i> {item.locality}</h6>}
+                      description={
+                        <p style={{width:'100%'}}>
+                          {item.submissionDate === null?  setpending(true): pending}
+                          {`${item.submissionDate ? format(item.submissionDate) : 'Pending' }`}
+                          <img src="/Icons/icon-64.svg" alt="" height="8px" style={{opacity:'0.3'}}/>
+                        </p>
+                      }
+                    />
+                    {
+                      locality === 'MHFD District Work Plan' &&
+                      <Checkbox />
                     }
-                  />
-                </List.Item>
-              )}
-            />)
+                  </List.Item>
+                )}
+              />
+            )
           }
         </>
       }
