@@ -170,9 +170,11 @@ const WorkRequestMap = (type: any) => {
                 postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
                   addLayersSource('mhfd_projects_copy', tiles);
                   showLayers('mhfd_projects_copy');
-                  setTimeout(()=>{
-                    applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
-                  },1200);
+                  map.isStyleLoaded(()=>{
+                    setTimeout(()=>{
+                      applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+                    },2300);
+                  });
                   firstTime = false;
                 });
                 
@@ -182,13 +184,99 @@ const WorkRequestMap = (type: any) => {
           });
       }
   },[idsBoardProjects]);
+  useEffect(() => {
+    let mask
+    setTimeout(() => {
+      map.isStyleLoaded(()=>{ 
+        
+        if (false) {
+          mask = turf.multiPolygon(coordinatesJurisdiction);
+          let miboundsmap = map.map.getBounds();
+          // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
+          let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+  
+          // console.log('porque', boundingBox1)
+          var arrayBounds = misbounds.split(',');
+          setOpacityLayer(true);
+          if (!map.map.getLayer('mask')) {
+              map.map.addSource('mask', {
+                  "type": "geojson",
+                  "data": polyMask(mask, arrayBounds)
+              });
+  
+              map.map.addLayer({
+                  "id": "mask",
+                  "source": "mask",
+                  "type": "fill",
+                  "paint": {
+                      "fill-color": "black",
+                      'fill-opacity': 0.8
+                  }
+              });
+              map.map.addLayer({
+                "id": "mask-border",
+                "source": "mask",
+                "type": "line",
+                "paint": {
+                  'line-color': '#28c499',
+                  'line-width': 1,
+                }
+              });
+          } else {
+              map.map.setLayoutProperty('mask', 'visibility', 'visible');
+              map.map.removeLayer('mask');
+              map.map.removeLayer('mask-border');
+              // map.map.removeSource('mask');
+              // map.map.addSource('mask', {
+              //     "type": "geojson",
+              //     "data": polyMask(mask, arrayBounds)
+              // });
+  
+              map.map.addLayer({
+                  "id": "mask",
+                  "source": "mask",
+                  "type": "fill",
+                  "paint": {
+                      "fill-color": "black",
+                      'fill-opacity': 0.8
+                  }
+              });
+              map.map.addLayer({
+                "id": "mask-border",
+                "source": "mask",
+                "type": "line",
+                "paint": {
+                  'line-color': '#28c499',
+                  'line-width': 1,
+                }
+              });
+  
+          }
+      } else {
+          if (opacityLayer) {
+              if  (map.map.loaded()) {
+                  // console.log('hide opacity');
+                  if (map.map.getLayer('mask')) {
+                      map.map.setLayoutProperty('mask', 'visibility', 'visible');
+                      map.map.removeLayer('mask');
+                      map.map.removeSource('mask');
+                  }
+              }
+          }
+  
+      }
+      })
+      
+    }, 600);
+  
+}, [coordinatesJurisdiction]);
   useEffect(()=>{
     const equals = (a:any, b:any) =>
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
     if(boardProjects.cartoids && boardProjects.cartoids[0] != '-8888') {
       if(!equals(boardProjects.cartoids, idsBoardProjects)) {
-        setIdsBoardProjects(boardProjects.cartoids);
+        setIdsBoardProjects(boardProjects.ids);
         postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
           (r: any) => { 
             if(r.bbox){
@@ -412,15 +500,21 @@ const WorkRequestMap = (type: any) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
-        map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        
         if(key === 'mhfd_projects_copy') {
-          let allFilters:any = ['in', ['get', 'cartodb_id'], ['literal', [-8888]]];
-          if(idsBoardProjects && idsBoardProjects.length > 0 ){
-            let boardids = idsBoardProjects;
-            allFilters = ['in', ['get', 'cartodb_id'], ['literal', [...boardids]]];
-          } 
+          let allFilters:any = ['in', ['get', 'projectid'], ['literal', []]];
+          // if(idsBoardProjects && idsBoardProjects.length > 0 ){
+          //   let boardids = idsBoardProjects;
+          //   allFilters = ['all',['in', ['get', 'projectid'], ['literal', [...boardids]]]];
+          // } 
           map.map.setFilter(key + '_' + index, allFilters);
+          console.log("WHOS", key + '_' + index,  allFilters);
+          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+          
+        } else {
+          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         }
+        
         if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
           showSelectedComponents(filterComponents.component_type.split(','));
         }
@@ -685,7 +779,7 @@ const WorkRequestMap = (type: any) => {
       // }
       if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_copy' && idsBoardProjects[0]!='-8888'){
         let boardids = idsBoardProjects;
-        allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...boardids]]]);
+        allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
       } 
       if (map.getLayer(key + '_' + index)) {
         map.setFilter(key + '_' + index, allFilters);
@@ -738,14 +832,20 @@ const WorkRequestMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      
-      map.map.addLayer({
-        id: key + '_' + index,
-        source: key,
-        ...style
-      });
       if (key.includes('mhfd_projects_copy')) {
+        map.map.addLayer({
+          id: key + '_' + index,
+          source: key,
+          filter: ['in', ['get', 'projectid'], ['literal', []]],
+          ...style
+        });
         // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", JSON.stringify(style));
+            } else {
+        map.map.addLayer({
+          id: key + '_' + index,
+          source: key,
+          ...style
+        });
       }
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       if (!hovereableLayers.includes(key)) {
