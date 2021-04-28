@@ -96,31 +96,24 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setThisStreamsList(listStreams);
     }
   },[listStreams]);
+  const parseStringToArray = (list:string) => {
+    if( list ){
+      return list.split(',');
+    }
+ }
   useEffect(()=>{
     console.log("DATA WAHTTT", data);
     if(data!== 'no data' ) {
       setSwSave(true);
-      setCounty(data.county);
       setDescription(data.description);
+      setCounty(parseStringToArray(data.county));
+      setServiceArea(parseStringToArray(data.servicearea));
+      setJurisdiccion(parseStringToArray(data.jurisdiction));
+      setCosponsor(parseStringToArray(data.cosponsor));
       setNameProject(data.projectname);
-      setServiceArea(data.servicearea);
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
       setSponsor(data.sponsor);
-      let csponsor:any = [];
-      let sponsor = '';
-      for (var i = 0 ; i < data.cosponsor.length ; i++){        
-        if(data.cosponsor[i] === ','){
-          sponsor = '';
-        }
-        else{
-          sponsor = sponsor+data.cosponsor[i];
-        }
-      }
-      csponsor.push(sponsor);
-      console.log("cooooo", csponsor);
-      setCosponsor(csponsor);
-      //setCosponsor(csponsor);
     }
   },[data]);
   useEffect(()=>{
@@ -134,27 +127,24 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       serviceArea.map((element:any) => {
         cservice= cservice + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(cservice.length != 0 ){
         cservice = cservice.substring(0, cservice.length-1)
       }
       let ccounty = "";
       county.map((element:any) => {
         ccounty= ccounty + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjuridiccion = "";
       serviceArea.map((element:any) => {
         cjuridiccion= cjuridiccion + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(cjuridiccion.length != 0 ){
         cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
       }
-      study.servicearea = cservice;
-      study.county = ccounty;
-      study.locality= cjuridiccion;
-      study.sponsor = sponsor;
+      
       let csponsor = "";
       cosponsor.map((element:any) => {
         csponsor= csponsor + element + ",";
@@ -162,7 +152,10 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       if(cosponsor.length != 0 ){
         csponsor = csponsor.substring(0, csponsor.length-1)
       }
-
+      study.servicearea = cservice;
+      study.county = ccounty;
+      study.locality= cjuridiccion;
+      study.sponsor = sponsor;
       study.cosponsor = csponsor;
       study.ids = mhfd_codes;
       study.files = files;

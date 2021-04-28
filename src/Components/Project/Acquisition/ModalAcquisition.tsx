@@ -81,26 +81,36 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       serviceArea.map((element:any) => {
         cservice= cservice + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(cservice.length != 0 ){
         cservice = cservice.substring(0, cservice.length-1)
       }
       let ccounty = "";
       county.map((element:any) => {
         ccounty= ccounty + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjuridiccion = "";
       serviceArea.map((element:any) => {
         cjuridiccion= cjuridiccion + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(cjuridiccion.length != 0 ){
         cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      }
+      
+      let csponsor = "";
+      cosponsor.map((element:any) => {
+        csponsor= csponsor + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        csponsor = csponsor.substring(0, csponsor.length-1)
       }
       acquisition.servicearea = cservice;
       acquisition.county = ccounty;
       acquisition.locality= cjuridiccion;
+      acquisition.sponsor = sponsor;
+      acquisition.cosponsor = csponsor;
       acquisition.projectname = nameProject;
       acquisition.description = description;
       acquisition.geom = geom;
@@ -121,16 +131,24 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const projectReturn = useSelector((state:any)=>({
     state
   }));
+  const parseStringToArray = (list:string) => {
+    if( list ){
+      return list.split(',');
+    }
+ }
   useEffect(()=>{
     if(data!== 'no data' ) {
       setSwSave(true);
-      setCounty(data.county);
       setDescription(data.description);
       setNameProject(data.projectname);
-      setServiceArea(data.servicearea);
       setProgress(data.acquisitionprogress);
       setPurchaseDate(data.acquisitionanticipateddate);
       setEditsetprojectid(data.projectid);
+      setCounty(parseStringToArray(data.county));
+      setServiceArea(parseStringToArray(data.servicearea));
+      setJurisdiccion(parseStringToArray(data.jurisdiction));
+      setCosponsor(parseStringToArray(data.cosponsor));
+      setSponsor(data.sponsor);
       setTimeout(()=>{
         getData(SERVER.GET_GEOM_BY_PROJECTID(data.projectid), getToken())
         .then(

@@ -160,19 +160,26 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setStreamsIds([]);
 
   },[]);
-
+  const parseStringToArray = (list:string) => {
+    if( list ){
+      return list.split(',');
+    }
+ }
   useEffect(()=>{
     if(data!== 'no data' ) {
       setSwSave(true);
-      setCounty(data.county);
+      setCounty(parseStringToArray(data.county));
+      setServiceArea(parseStringToArray(data.servicearea));
+      setJurisdiccion(parseStringToArray(data.jurisdiction));
+      setCosponsor(parseStringToArray(data.cosponsor));
       setDescription(data.description);
       setNameProject(data.projectname);
-      setServiceArea(data.servicearea);
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
       setAdditionalCost(data.additionalcost);
       setAdditionalDescription(data.additionalcostdescription);
       setOverheadDescription(data.overheadcostdescription);
+      setSponsor(data.sponsor);
       setTimeout(()=>{
         // setStreamIntersected({geom:data.createdCoordinates});
         getGEOMByProjectId(data.projectid)
@@ -229,32 +236,40 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
     if(save === true){
       var capital = new Project();
-
       let cservice = "";
       serviceArea.map((element:any) => {
         cservice= cservice + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(cservice.length != 0 ){
         cservice = cservice.substring(0, cservice.length-1)
       }
       let ccounty = "";
       county.map((element:any) => {
         ccounty= ccounty + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjuridiccion = "";
       serviceArea.map((element:any) => {
         cjuridiccion= cjuridiccion + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(cjuridiccion.length != 0 ){
         cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      }
+      
+      let csponsor = "";
+      cosponsor.map((element:any) => {
+        csponsor= csponsor + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        csponsor = csponsor.substring(0, csponsor.length-1)
       }
       capital.servicearea = cservice;
       capital.county = ccounty;
       capital.locality= cjuridiccion;
-
+      capital.sponsor = sponsor;
+      capital.cosponsor = csponsor;
       capital.projectname = nameProject;
       capital.description = description;
       capital.geom = streamIntersected.geom;

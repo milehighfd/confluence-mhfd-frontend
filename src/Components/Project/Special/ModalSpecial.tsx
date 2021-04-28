@@ -72,15 +72,22 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     console.log(uploadAttachment, "ATTACH");
       //setFiles(attachments);
   },[attachments,uploadAttachment]);
-
+  const parseStringToArray = (list:string) => {
+    if( list ){
+      return list.split(',');
+    }
+ }
   useEffect(()=>{
     if(data!== 'no data' ) {
       getAttachmentProjectId(data.projectid);
       setSwSave(true);
-      setCounty(data.county);
       setDescription(data.description);
       setNameProject(data.projectname);
-      setServiceArea(data.servicearea);
+      setCounty(parseStringToArray(data.county));
+      setServiceArea(parseStringToArray(data.servicearea));
+      setJurisdiccion(parseStringToArray(data.jurisdiction));
+      setCosponsor(parseStringToArray(data.cosponsor));
+      setSponsor(data.sponsor);
       // setGeom(data.coordinates);
       setTimeout(()=>{
         getData(SERVER.GET_GEOM_BY_PROJECTID(data.projectid), getToken())
@@ -112,26 +119,36 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       serviceArea.map((element:any) => {
         cservice= cservice + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(cservice.length != 0 ){
         cservice = cservice.substring(0, cservice.length-1)
       }
       let ccounty = "";
       county.map((element:any) => {
         ccounty= ccounty + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjuridiccion = "";
       serviceArea.map((element:any) => {
         cjuridiccion= cjuridiccion + element + ",";
       })
-      if(cosponsor.length != 0 ){
+      if(cjuridiccion.length != 0 ){
         cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      }
+      
+      let csponsor = "";
+      cosponsor.map((element:any) => {
+        csponsor= csponsor + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        csponsor = csponsor.substring(0, csponsor.length-1)
       }
       special.servicearea = cservice;
       special.county = ccounty;
       special.locality= cjuridiccion;
+      special.sponsor = sponsor;
+      special.cosponsor = csponsor;
       special.geom =  geom;
       special.projectname = nameProject;
       special.description = description;

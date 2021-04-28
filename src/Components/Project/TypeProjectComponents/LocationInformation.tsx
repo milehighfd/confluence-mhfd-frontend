@@ -91,7 +91,7 @@ export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion,
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
-          <Select  mode="multiple" placeholder={cosponsor.length!=0? cosponsor : "Select a Co-Sponsor"} style={{width:'100%'}} onChange={(coSponsor:any)=> setCoSponsor(coSponsor)}>
+          <Select  mode="multiple" placeholder={cosponsor.length!=0?cosponsor: "Select a Co-Sponsor"} style={{width:'100%'}} onChange={(coSponsor:any)=> setCoSponsor(coSponsor)} value={cosponsor}>
             {groupOrganization.map((element:any) =>{
               if(element.aoi !== sponsor){
                 return <Option key={element.aoi} value={element.aoi}>{element.aoi}</Option>
