@@ -115,15 +115,17 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   };
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
-  const {userInformation} = useProfileState();
+  const {userInformation,organization} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [disable, setDisable] = useState(false);
-  const [serviceArea, setServiceArea] = useState('');
+  const [serviceArea, setServiceArea] = useState<any>([]);
   const [isDrawState, setIsDraw] = useState(false);
   const {changeDrawState, setEditLocation} = useProjectDispatch();
-  const [county, setCounty] = useState('');
+  const [sponsor, setSponsor] = useState(organization+"");
+  const [cosponsor, setCosponsor] = useState<any>([]);
+  const [county, setCounty] = useState<any>([]);
   const [projectid, setProjectId ] = useState(-1);
   const {isDraw} = useProjectState();
   const [save, setSave] = useState(false);
@@ -146,7 +148,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [overheadDescription, setOverheadDescription] = useState("");
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdiccion, setJurisdiccion] = useState("");
+  const [jurisdiccion, setJurisdiccion] = useState<any>([]);
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
@@ -980,12 +982,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             {/*Section*/}
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCounty = {setCounty}
-              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
+              setCounty = {setCounty}
               county = {county} 
-              editable= {editable}
+              setJurisdiccion={setJurisdiccion}
               jurisdiccion={jurisdiccion}
+              setCoSponsor={setCosponsor}
+              cosponsor={cosponsor}
+              setSponsor={setSponsor}
+              sponsor={sponsor}
+              editable= {editable}
             />
             <br/>
 

@@ -49,13 +49,16 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 
   const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds} = useProjectDispatch();
   const {currentServiceAreaCounty} =useProjectState();
+  const {organization, groupOrganization} = useProfileState();
   const {userInformation} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
   const [disable, setDisable] = useState(true);
-  const [serviceArea, setServiceArea] = useState('');
-  const [county, setCounty] = useState('');
+  const [serviceArea, setServiceArea] = useState<any>([]);
+  const [county, setCounty] = useState<any>([]);
+  const [sponsor, setSponsor] = useState(organization+"");
+  const [cosponsor, setCosponsor] = useState<any>([]);
   const [progress, setProgress] = useState('');
   const [purchaseDate, setPurchaseDate] = useState('');
   const [save, setSave] = useState(false);
@@ -65,7 +68,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [disableName, setDisableName ] = useState(true);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdiccion, setJurisdiccion] = useState("");
+  const [jurisdiccion, setJurisdiccion] = useState<any>([]);
   var date = new Date();
 
   var year = date.getFullYear();
@@ -276,12 +279,16 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             {/*Section*/}
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCounty = {setCounty}
-              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
-              county = {county}
-              editable= {editable}
+              setCounty = {setCounty}
+              county = {county} 
+              setJurisdiccion={setJurisdiccion}
               jurisdiccion={jurisdiccion}
+              setCoSponsor={setCosponsor}
+              cosponsor={cosponsor}
+              setSponsor={setSponsor}
+              sponsor={sponsor}
+              editable= {editable}
             />
             <br/>
 

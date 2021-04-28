@@ -38,13 +38,16 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
   const {saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance, setStreamsIds, getGEOMByProjectId} = useProjectDispatch();
   const {userPolygon, streamIntersected, currentServiceAreaCounty} = useProjectState();
+  const {organization, groupOrganization} = useProfileState();
   const {userInformation} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
   const [disable, setDisable] = useState(true);
-  const [serviceArea, setServiceArea] = useState('');
-  const [county, setCounty] = useState('');
+  const [serviceArea, setServiceArea] = useState<any>([]);
+  const [county, setCounty] = useState<any>([]);
+  const [sponsor, setSponsor] = useState(organization+"");
+  const [cosponsor, setCosponsor] = useState<any>([]);
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
   const [visibleEligibility, setVisibleEligibility] = useState(false);
@@ -59,7 +62,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [projectid, setProjectId ] = useState(-1);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdiccion, setJurisdiccion] = useState("");
+  const [jurisdiccion, setJurisdiccion] = useState<any>([]);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -314,12 +317,16 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             {/*Section*/}
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCounty = {setCounty}
-              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
+              setCounty = {setCounty}
               county = {county} 
-              editable= {editable}
+              setJurisdiccion={setJurisdiccion}
               jurisdiccion={jurisdiccion}
+              setCoSponsor={setCosponsor}
+              cosponsor={cosponsor}
+              setSponsor={setSponsor}
+              sponsor={sponsor}
+              editable= {editable}
             />
             <br/>
 

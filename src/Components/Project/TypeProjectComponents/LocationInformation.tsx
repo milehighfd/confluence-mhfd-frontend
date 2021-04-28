@@ -3,19 +3,24 @@ import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbo
 import { PlusCircleFilled } from '@ant-design/icons';
 import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, SERVICE_AREA_VALUE } from "../../../constants/constants";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import { useProfileState } from '../../../hook/profileHook';
+
 
 const { TextArea } = Input;
 const { Option } = Select;
 const content08 = (<div className="popver-info"></div>);
 const content01 = (<div className="popver-info"></div>);
 const content02 = (<div className="popver-info"></div>);
-
-export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion, serviceArea, county, editable, jurisdiccion }:
-  {setServiceArea: Function, setCounty: Function, setJurisdiccion:Function, serviceArea: string, county:string, editable:boolean, jurisdiccion:string }) => {
+const content03 = (<div className="popver-info"><b>Sponsor</b> is the Jurisdiction that requested the project.</div>);
+const content04 = (<div className="popver-info"><b>Co-Sponsor</b> is any additional Jurisdiction that will be contributing funding to the project.</div>);
+export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion, serviceArea, county, editable, jurisdiccion, setCoSponsor, setSponsor, cosponsor,sponsor }:
+  {setServiceArea: Function, setCounty: Function, setJurisdiccion:Function, serviceArea: string, county:string, editable:boolean, jurisdiccion:string, setCoSponsor:Function, setSponsor: Function, cosponsor:any, sponsor:any }) => {
   const {currentServiceAreaCounty} = useProjectState();
+  const {groupOrganization} = useProfileState();
   const [sArea, setSArea] = useState(undefined);
   const [sCounty, setSCounty] = useState(undefined);
   const [disable , setdisable ] = useState(!editable);
+  
   const apllyServiceArea = (e: any)=>{
     setServiceArea(e);
     setSArea(e);
@@ -49,7 +54,7 @@ export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion,
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select placeholder="Select a Service Area" style={{width:'100%'}} value={serviceArea} onChange={(serviceArea:any)=> apllyServiceArea(serviceArea)} disabled={disable}>
+        <Select mode="multiple" placeholder={serviceArea.length!=0?serviceArea:"Select a Service Area"} style={{width:'100%'}} onChange={(serviceArea:any)=> setServiceArea(serviceArea)} >
           {SERVICE_AREA.map((element) =>{
             if(element!= 'None'){
               if(element != 'Boulder Service Area'){
@@ -60,7 +65,7 @@ export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion,
       </Col>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select placeholder="Select a County" style={{width:'100%'}} value={county} onChange={(county:any)=> apllyCounty(county)} disabled={disable}>
+        <Select mode="multiple" placeholder={county.length!=0?county:"Select a County"} style={{width:'100%'}} value={county} onChange={(county:any)=> apllyCounty(county)} disabled={disable}>
           {PROJECT_INFORMATION.COUNTRY_PROJECT.map((element) =>{
             return <Option key={element} value={element}>{element}</Option>
           })}
@@ -68,11 +73,32 @@ export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion,
       </Col>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Jurisdiccion <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select placeholder="Select a Jurisdiccion" style={{width:'100%'}} value={jurisdiccion} onChange={(jurisdiccion:any)=> apllyJuridiccion(jurisdiccion)} disabled={disable}>
+        <Select mode="multiple" placeholder={jurisdiccion.length!=0?jurisdiccion:"Select a Jurisdiccion"} style={{width:'100%'}} value={jurisdiccion} onChange={(jurisdiccion:any)=> setJurisdiccion(jurisdiccion)}>
         {JURISDICTION.map((element:string ) =>{
             return <Option key={element} value={element}>{element}</Option>
           })}
         </Select>
+      </Col>
+    </Row>
+    <br/>
+    <Row gutter={[16, 16]}>
+      <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+        <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+        <Select placeholder={sponsor+""}style={{width:'100%'}} >
+          <Option value={sponsor+""}>{sponsor+""}</Option>
+        </Select>
+      </Col>
+      <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+        <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+        <div className="sponsor-select">
+          <Select  mode="multiple" placeholder={cosponsor.length!=0? cosponsor : "Select a Co-Sponsor"} style={{width:'100%'}} onChange={(coSponsor:any)=> setCoSponsor(coSponsor)}>
+            {groupOrganization.map((element:any) =>{
+              if(element.aoi !== sponsor){
+                return <Option key={element.aoi} value={element.aoi}>{element.aoi}</Option>
+              }
+            })}
+          </Select>
+        </div>
       </Col>
     </Row>
     </>

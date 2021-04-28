@@ -4,6 +4,7 @@ import * as mapboxgl from 'mapbox-gl';
 import { SERVER } from '../Config/Server.config';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import * as turf from '@turf/turf';
 export class MapService {
   public token: String = MAPBOX_TOKEN;
   public map: Map;
@@ -296,5 +297,35 @@ export class MapService {
   }
   getMoveZoom(cb: any) {
     this.map.on('move', cb);
+  }
+
+  addSourceOpacity(data :any) {
+    if(this.map.getSource('mask')) {
+      this.map.removeSource('mask');
+      this.map.addSource('mask', {
+        "type": "geojson",
+        "data": data
+      });
+    }
+  }
+  addLayersMask(){
+    this.map.addLayer({
+      "id": "mask",
+      "source": "mask",
+      "type": "fill",
+      "paint": {
+          "fill-color": "black",
+          'fill-opacity': 0.8
+      }
+    });
+    this.map.addLayer({
+      "id": "mask-border",
+      "source": "mask",
+      "type": "line",
+      "paint": {
+        'line-color': '#28c499',
+        'line-width': 1,
+      }
+    });
   }
 }

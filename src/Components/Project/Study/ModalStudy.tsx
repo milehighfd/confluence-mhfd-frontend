@@ -23,8 +23,8 @@ const content = (<div className="popver-info">Master plans that set goals for th
 const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content01 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content02 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
-const content03 = (<div className="popver-info"><b>Sponsor</b> is the Jurisdiction that requested the project.</div>);
-const content04 = (<div className="popver-info"><b>Co-Sponsor</b> is any additional Jurisdiction that will be contributing funding to the project.</div>);
+
+
 const content05 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content06 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
 const content07 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>);
@@ -61,15 +61,15 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
   const [disable, setDisable] = useState(true);
-  const [serviceArea, setServiceArea] = useState('');
+  const [serviceArea, setServiceArea] = useState<any>([]);
   const [country, setCountry] = useState('');
   const [isDraw, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
   const [files, setFiles] = useState<any[]>([]);
   const [streamsList, setThisStreamsList] = useState<any>([]);
- const [sponsor, setSponsor] = useState(organization+"");
- const [cosponsor, setCosponsor] = useState([]);
-  const [county, setCounty] = useState('');
+  const [sponsor, setSponsor] = useState(organization+"");
+  const [cosponsor, setCosponsor] = useState<any>([]);
+  const [county, setCounty] = useState<any>([]);
   const [projectid, setProjectId] = useState(-1);
   const [save, setSave] = useState(false);
   const [ids, setIds] = useState([]);
@@ -79,7 +79,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [keys, setKeys] = useState<any>([]);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdiccion, setJurisdiccion] = useState("");
+  const [jurisdiccion, setJurisdiccion] = useState<any>([]);
   useEffect(()=>{
     setStreamsList([]);
     setStreamIntersected({geom:null});
@@ -118,7 +118,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
         }
       }
       csponsor.push(sponsor);
-      apllyCoSponsor(csponsor);
+      setCosponsor(csponsor);
       //setCosponsor(csponsor);
     }
   },[data]);
@@ -134,7 +134,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.servicearea = serviceArea;
       study.sponsor = sponsor;
       let csponsor = "";
-      cosponsor.map((element) => {
+      cosponsor.map((element:any) => {
         csponsor= csponsor + element + ",";
       })
       if(cosponsor.length != 0 ){
@@ -447,35 +447,18 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
 
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCounty = {setCounty}
-              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
+              setCounty = {setCounty}
               county = {county} 
-              editable= {editable}
+              setJurisdiccion={setJurisdiccion}
               jurisdiccion={jurisdiccion}
+              setCoSponsor={setCosponsor}
+              cosponsor={cosponsor}
+              setSponsor={setSponsor}
+              sponsor={sponsor}
+              editable= {editable}
             />
-            <br/>
-
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder={sponsor+""}style={{width:'100%'}} >
-                  <Option value={sponsor+""}>{sponsor+""}</Option>
-                </Select>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <div className="sponsor-select">
-                  <Select  mode="multiple" placeholder={cosponsor.length!=0? cosponsor : "Select a Co-Sponsor"} style={{width:'100%'}} onChange={(coSponsor:any)=> apllyCoSponsor(coSponsor)}>
-                    {groupOrganization.map((element:any) =>{
-                      if(element.aoi !== sponsor){
-                        return <Option key={element.aoi} value={element.aoi}>{element.aoi}</Option>
-                      }
-                    })}
-                  </Select>
-                </div>
-              </Col>
-            </Row>
+            
             <br/>
             {/*Section*/}
             <UploadAttachment

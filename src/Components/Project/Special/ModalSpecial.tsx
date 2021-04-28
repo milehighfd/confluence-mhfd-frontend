@@ -46,13 +46,16 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const {getAttachmentProjectId} = useAttachmentDispatch();
   const {attachments, uploadAttachment} = useAttachmentState();
   const { currentServiceAreaCounty} = useProjectState();
+  const {organization, groupOrganization} = useProfileState();
   const {userInformation} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
   const [disable, setDisable] = useState(true);
-  const [serviceArea, setServiceArea] = useState('');
+  const [serviceArea, setServiceArea] = useState<any>([]);
   const [county, setCounty] = useState('');
+  const [sponsor, setSponsor] = useState(organization+"");
+  const [cosponsor, setCosponsor] = useState<any>([]);
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState();
   const [files, setFiles] = useState<any[]>([]);
@@ -60,7 +63,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [disableName, setDisableName ] = useState(true);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdiccion, setJurisdiccion] = useState("");
+  const [jurisdiccion, setJurisdiccion] = useState<any>([]);
   var date = new Date();
   var year = date.getFullYear();
   const dispatch = useDispatch();
@@ -253,12 +256,16 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             {/*Section*/}
             <LocationInformation
               setServiceArea = {setServiceArea}
-              setCounty = {setCounty}
-              setJurisdiccion={setJurisdiccion}
               serviceArea = {serviceArea}
+              setCounty = {setCounty}
               county = {county} 
-              editable= {editable}
+              setJurisdiccion={setJurisdiccion}
               jurisdiccion={jurisdiccion}
+              setCoSponsor={setCosponsor}
+              cosponsor={cosponsor}
+              setSponsor={setSponsor}
+              sponsor={sponsor}
+              editable= {editable}
             />
             <br/>
 
