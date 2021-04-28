@@ -138,6 +138,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
  }
   useEffect(()=>{
     if(data!== 'no data' ) {
+      console.log("HERE IS THE DATA ", data);
       setSwSave(true);
       setDescription(data.description);
       setNameProject(data.projectname);
