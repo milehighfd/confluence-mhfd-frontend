@@ -17,6 +17,7 @@ import { setRouteRedirect } from "../../../store/actions/mapActions";
 import { AlertViewSave } from "../../Alerts/AlertViewSave";
 import { editSpecial } from "../../../store/actions/ProjectActions";
 import { useProfileState } from "../../../hook/profileHook";
+import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -42,6 +43,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any, editable:boolean}) => {
 
   const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds} = useProjectDispatch();
+  const {getAttachmentProjectId} = useAttachmentDispatch();
+  const {attachments, uploadAttachment} = useAttachmentState();
   const { currentServiceAreaCounty} = useProjectState();
   const {userInformation} = useProfileState();
   const [state, setState] = useState(stateValue);
@@ -62,7 +65,14 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   var year = date.getFullYear();
   const dispatch = useDispatch();
   useEffect(()=>{
+    console.log(attachments, "ATTACH");
+    console.log(uploadAttachment, "ATTACH");
+      //setFiles(attachments);
+  },[attachments,uploadAttachment]);
+
+  useEffect(()=>{
     if(data!== 'no data' ) {
+      getAttachmentProjectId(data.projectid);
       setSwSave(true);
       setCounty(data.county);
       setDescription(data.description);
@@ -81,10 +91,9 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
           (e) => {
             console.log('e', e);
           }
-        )  
+        )
       },1200);
       setEditsetprojectid(data.projectid);
-      
     } else {
       setCounty('');
       setDescription('');

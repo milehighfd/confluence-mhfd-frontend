@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Row, Col, Popover, Checkbox } from 'antd';
+import { useProfileState } from "../../../hook/profileHook";
+import { useProjectDispatch } from "../../../hook/projectHook";
 const content06 = (<div className="popver-info"></div>);
 
 let counter = 0;
@@ -8,12 +10,12 @@ export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject
   const labelRef = useRef<HTMLDivElement>(null);
   const [draggin, setDraggin] = useState(false);
   const [sw, setSw] = useState(false);
+  //console.log(files, "ATTACHHHH");
   const onChange: any = (e: any) => {
     let newFiles = e.target.files;
     updateFileState(newFiles)
     setSw(true);
   };
-
   const handleDragNewFiles = (newFiles: any[]) => {
     updateFileState(newFiles)
   }
@@ -124,7 +126,7 @@ export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject
     }
     setFiles(newObjects);
   }
-  // console.log('files', files);
+   console.log('files', files);
 
   return (
     <>
