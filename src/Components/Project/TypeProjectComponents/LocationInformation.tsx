@@ -1,25 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
-import { PlusCircleFilled } from '@ant-design/icons';
-import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, SERVICE_AREA_VALUE } from "../../../constants/constants";
-import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import { Input, Row, Col, Popover, Select } from 'antd';
+import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
+import { useProjectState } from '../../../hook/projectHook';
 import { useProfileState } from '../../../hook/profileHook';
 
+import store from '../../../store';
 
-const { TextArea } = Input;
 const { Option } = Select;
 const content08 = (<div className="popver-info"></div>);
 const content01 = (<div className="popver-info"></div>);
 const content02 = (<div className="popver-info"></div>);
 const content03 = (<div className="popver-info"><b>Sponsor</b> is the Jurisdiction that requested the project.</div>);
 const content04 = (<div className="popver-info"><b>Co-Sponsor</b> is any additional Jurisdiction that will be contributing funding to the project.</div>);
-export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion, serviceArea, county, editable, jurisdiccion, setCoSponsor, setSponsor, cosponsor,sponsor, isEdit }:
-  {setServiceArea: Function, setCounty: Function, setJurisdiccion:Function, serviceArea: string, county:string, editable:boolean, jurisdiccion:string, setCoSponsor:Function, setSponsor: Function, cosponsor:any, sponsor:any, isEdit: boolean }) => {
+export const LocationInformation = ({
+  setServiceArea, setCounty, setJurisdiccion, serviceArea, county, editable, jurisdiccion, setCoSponsor, setSponsor, cosponsor,sponsor, isEdit
+}: {
+  setServiceArea: Function,
+  setCounty: Function,
+  setJurisdiccion:Function,
+  serviceArea: string,
+  county:string,
+  editable:boolean,
+  jurisdiccion:string,
+  setCoSponsor:Function,
+  setSponsor: any,
+  cosponsor:any,
+  sponsor:any,
+  isEdit: boolean
+}) => {
   const {currentServiceAreaCounty} = useProjectState();
   const {groupOrganization} = useProfileState();
   const [sArea, setSArea] = useState(undefined);
   const [sCounty, setSCounty] = useState(undefined);
   const [disable , setdisable ] = useState(!editable);
+  const user = store.getState().profile.userInformation;
+
+  let isLocalGovernment = user.designation === GOVERNMENT_STAFF;
 
   const apllyServiceArea = (e: any)=>{
     setServiceArea(e);
@@ -92,8 +108,16 @@ export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion,
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select placeholder={sponsor+""}style={{width:'100%'}} >
-          <Option value={sponsor+""}>{sponsor+""}</Option>
+        <Select style={{width:'100%'}} placeholder={sponsor}  disabled={isLocalGovernment} onChange={setSponsor}>
+          {
+            isLocalGovernment ? (
+              <Option value={sponsor+""}>{sponsor+""}</Option>
+            ) : (
+              JURISDICTION.map((element:string) => {
+                return <Option key={element} value={element}>{element}</Option>
+              })
+            )
+          }
         </Select>
       </Col>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
