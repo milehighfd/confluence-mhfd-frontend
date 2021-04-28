@@ -229,10 +229,34 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
     if(save === true){
       var capital = new Project();
+
+      let cservice = "";
+      serviceArea.map((element:any) => {
+        cservice= cservice + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cservice = cservice.substring(0, cservice.length-1)
+      }
+      let ccounty = "";
+      county.map((element:any) => {
+        ccounty= ccounty + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        ccounty = ccounty.substring(0, ccounty.length-1)
+      }
+      let cjuridiccion = "";
+      serviceArea.map((element:any) => {
+        cjuridiccion= cjuridiccion + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      }
+      capital.servicearea = cservice;
+      capital.county = ccounty;
+      capital.locality= cjuridiccion;
+
       capital.projectname = nameProject;
       capital.description = description;
-      capital.county = county;
-      capital.servicearea = serviceArea;
       capital.geom = streamIntersected.geom;
       capital.files = files ;
       capital.overheadcost = overheadCosts;
@@ -241,7 +265,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.additionalcostdescription = additionalDescription;
       capital.components = JSON.stringify(componentsToSave, null, 2 );
       capital.independetComponent = JSON.stringify(thisIndependentComponents, null,2);
-      capital.locality = locality? locality:'';
+     // capital.locality = locality? locality:'';
       capital.editProject = editprojectid;
       console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       if(swSave){

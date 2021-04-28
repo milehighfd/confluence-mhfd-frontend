@@ -107,7 +107,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
       setSponsor(data.sponsor);
-      let csponsor = [];
+      let csponsor:any = [];
       let sponsor = '';
       for (var i = 0 ; i < data.cosponsor.length ; i++){        
         if(data.cosponsor[i] === ','){
@@ -118,20 +118,42 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
         }
       }
       csponsor.push(sponsor);
+      console.log("cooooo", csponsor);
       setCosponsor(csponsor);
       //setCosponsor(csponsor);
     }
   },[data]);
   useEffect(()=>{
     if(save === true){
-      
       let mhfd_codes = streamsIntersectedIds.map((str:any) => str.mhfd_code);
       console.log("streams", mhfd_codes);
       var study = new Project();
       study.projectname = nameProject;
       study.description = description;
-      study.county = county;
-      study.servicearea = serviceArea;
+      let cservice = "";
+      serviceArea.map((element:any) => {
+        cservice= cservice + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cservice = cservice.substring(0, cservice.length-1)
+      }
+      let ccounty = "";
+      county.map((element:any) => {
+        ccounty= ccounty + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        ccounty = ccounty.substring(0, ccounty.length-1)
+      }
+      let cjuridiccion = "";
+      serviceArea.map((element:any) => {
+        cjuridiccion= cjuridiccion + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      }
+      study.servicearea = cservice;
+      study.county = ccounty;
+      study.locality= cjuridiccion;
       study.sponsor = sponsor;
       let csponsor = "";
       cosponsor.map((element:any) => {
@@ -140,6 +162,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       if(cosponsor.length != 0 ){
         csponsor = csponsor.substring(0, csponsor.length-1)
       }
+
       study.cosponsor = csponsor;
       study.ids = mhfd_codes;
       study.files = files;

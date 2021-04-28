@@ -54,7 +54,7 @@ export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion,
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select mode="multiple" placeholder={serviceArea.length!=0?serviceArea:"Select a Service Area"} style={{width:'100%'}} onChange={(serviceArea:any)=> setServiceArea(serviceArea)} >
+        <Select mode="multiple" placeholder={serviceArea.length!=0?serviceArea:"Select a Service Area"} style={{width:'100%'}} onChange={(serviceArea:any)=> setServiceArea(serviceArea)} value={serviceArea}>
           {SERVICE_AREA.map((element) =>{
             if(element!= 'None'){
               if(element != 'Boulder Service Area'){

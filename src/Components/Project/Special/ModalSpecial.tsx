@@ -53,7 +53,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [description, setDescription] =useState('');
   const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState<any>([]);
-  const [county, setCounty] = useState('');
+  const [county, setCounty] = useState<any>([]);
   const [sponsor, setSponsor] = useState(organization+"");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [save, setSave] = useState(false);
@@ -108,11 +108,33 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     if(save === true){
       console.log("FILES", files);
       var special = new Project();
+      let cservice = "";
+      serviceArea.map((element:any) => {
+        cservice= cservice + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cservice = cservice.substring(0, cservice.length-1)
+      }
+      let ccounty = "";
+      county.map((element:any) => {
+        ccounty= ccounty + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        ccounty = ccounty.substring(0, ccounty.length-1)
+      }
+      let cjuridiccion = "";
+      serviceArea.map((element:any) => {
+        cjuridiccion= cjuridiccion + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      }
+      special.servicearea = cservice;
+      special.county = ccounty;
+      special.locality= cjuridiccion;
       special.geom =  geom;
       special.projectname = nameProject;
       special.description = description;
-      special.county = county;
-      special.servicearea = serviceArea;
       special.files = files;
       special.editProject = editprojectid;
       special.locality = locality? locality:'';

@@ -98,10 +98,32 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   useEffect(()=>{
     if(save === true){  
       var maintenance = new Project();
+      let cservice = "";
+      serviceArea.map((element:any) => {
+        cservice= cservice + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cservice = cservice.substring(0, cservice.length-1)
+      }
+      let ccounty = "";
+      county.map((element:any) => {
+        ccounty= ccounty + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        ccounty = ccounty.substring(0, ccounty.length-1)
+      }
+      let cjuridiccion = "";
+      serviceArea.map((element:any) => {
+        cjuridiccion= cjuridiccion + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      }
+      maintenance.servicearea = cservice;
+      maintenance.county = ccounty;
+      maintenance.locality= cjuridiccion;
       maintenance.projectname = nameProject;
       maintenance.description = description;
-      maintenance.county = county;
-      maintenance.servicearea = serviceArea;
       maintenance.geom = streamIntersected.geom;
       maintenance.projectsubtype = subType;
       maintenance.frequency = frequency;
@@ -109,7 +131,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.ownership = ""+ownership ;
       maintenance.files = files;
       maintenance.editProject = editprojectid;
-      maintenance.locality = locality? locality:'';
+      //maintenance.locality = locality? locality:'';
       // console.log( JSON.stringify(maintenance, null, 2),"****++MAINTENANCE******")
       if(swSave){
         editProjectMainetnance(maintenance);

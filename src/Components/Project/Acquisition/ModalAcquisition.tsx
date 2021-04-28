@@ -77,10 +77,32 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
     if(save === true){
       console.log("FILES", files);
       var acquisition = new Project();
+      let cservice = "";
+      serviceArea.map((element:any) => {
+        cservice= cservice + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cservice = cservice.substring(0, cservice.length-1)
+      }
+      let ccounty = "";
+      county.map((element:any) => {
+        ccounty= ccounty + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        ccounty = ccounty.substring(0, ccounty.length-1)
+      }
+      let cjuridiccion = "";
+      serviceArea.map((element:any) => {
+        cjuridiccion= cjuridiccion + element + ",";
+      })
+      if(cosponsor.length != 0 ){
+        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      }
+      acquisition.servicearea = cservice;
+      acquisition.county = ccounty;
+      acquisition.locality= cjuridiccion;
       acquisition.projectname = nameProject;
       acquisition.description = description;
-      acquisition.county = county;
-      acquisition.servicearea = serviceArea;
       acquisition.geom = geom;
       acquisition.acquisitionprogress = progress;
       acquisition.acquisitionanticipateddate = purchaseDate;
