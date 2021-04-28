@@ -1031,6 +1031,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               setSponsor={setSponsor}
               sponsor={sponsor}
               editable= {editable}
+              isEdit={swSave}
             />
             <br/>
 

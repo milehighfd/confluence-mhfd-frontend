@@ -13,8 +13,8 @@ const content01 = (<div className="popver-info"></div>);
 const content02 = (<div className="popver-info"></div>);
 const content03 = (<div className="popver-info"><b>Sponsor</b> is the Jurisdiction that requested the project.</div>);
 const content04 = (<div className="popver-info"><b>Co-Sponsor</b> is any additional Jurisdiction that will be contributing funding to the project.</div>);
-export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion, serviceArea, county, editable, jurisdiccion, setCoSponsor, setSponsor, cosponsor,sponsor }:
-  {setServiceArea: Function, setCounty: Function, setJurisdiccion:Function, serviceArea: string, county:string, editable:boolean, jurisdiccion:string, setCoSponsor:Function, setSponsor: Function, cosponsor:any, sponsor:any }) => {
+export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion, serviceArea, county, editable, jurisdiccion, setCoSponsor, setSponsor, cosponsor,sponsor, isEdit }:
+  {setServiceArea: Function, setCounty: Function, setJurisdiccion:Function, serviceArea: string, county:string, editable:boolean, jurisdiccion:string, setCoSponsor:Function, setSponsor: Function, cosponsor:any, sponsor:any, isEdit: boolean }) => {
   const {currentServiceAreaCounty} = useProjectState();
   const {groupOrganization} = useProfileState();
   const [sArea, setSArea] = useState(undefined);
@@ -33,7 +33,7 @@ export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion,
     setJurisdiccion(e);
   };
   useEffect(()=>{
-    if(editable){
+    if(editable && !isEdit){
       console.log(currentServiceAreaCounty, "couuuuun")
       if(currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
         setSArea(currentServiceAreaCounty['Service Area']);

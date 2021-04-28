@@ -77,9 +77,18 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       return list.split(',');
     }
  }
+ useEffect(()=>{
+  console.log("COUNTY CHANGE", county);
+ },[county]);
+ useEffect(()=>{
+  console.log("SERA CHANGE", serviceArea);
+ },[serviceArea]);
+ useEffect(()=>{
+  console.log("JURIS CHANGE", jurisdiccion);
+ },[jurisdiccion]);
   useEffect(()=>{
     if(data!== 'no data' ) {
-      console.log("HERE IS THE DATA ", data);
+      console.log("HERE IS THE DATA YEYEEYEY", data);
       getAttachmentProjectId(data.projectid);
       setSwSave(true);
       setDescription(data.description);
@@ -306,6 +315,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
               setSponsor={setSponsor}
               sponsor={sponsor}
               editable= {editable}
+              isEdit={swSave}
             />
             <br/>
 

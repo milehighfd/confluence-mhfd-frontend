@@ -330,6 +330,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
               setSponsor={setSponsor}
               sponsor={sponsor}
               editable= {editable}
+              isEdit={swSave}
             />
             <br/>
 

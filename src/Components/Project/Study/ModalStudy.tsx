@@ -473,6 +473,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               setSponsor={setSponsor}
               sponsor={sponsor}
               editable= {editable}
+              isEdit={swSave}
             />
             
             <br/>

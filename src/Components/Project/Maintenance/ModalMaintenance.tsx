@@ -365,6 +365,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
               setSponsor={setSponsor}
               sponsor={sponsor}
               editable= {editable}
+              isEdit={swSave}
             />
             <br/>
 
