@@ -32,6 +32,7 @@ export class Project {
     editProject: any;
     streams: any;
     locality: any;
+    jurisdiction: any;
     constructor() {
         this.projectname = "special";
         this.description = "";
@@ -54,6 +55,7 @@ export class Project {
         this.independetComponent=[];
         this.editProject = "";
         this.locality = '';
+        this.jurisdiction = '';
         this.ids = [];
         this.streams = [];
     }

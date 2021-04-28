@@ -79,6 +79,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
  }
   useEffect(()=>{
     if(data!== 'no data' ) {
+      console.log("HERE IS THE DATA ", data);
       getAttachmentProjectId(data.projectid);
       setSwSave(true);
       setDescription(data.description);
@@ -129,12 +130,12 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
-      let cjuridiccion = "";
-      serviceArea.map((element:any) => {
-        cjuridiccion= cjuridiccion + element + ",";
+      let cjurisdiction = "";
+      jurisdiccion.map((element:any) => {
+        cjurisdiction= cjurisdiction + element + ",";
       })
-      if(cjuridiccion.length != 0 ){
-        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      if(cjurisdiction.length != 0 ){
+        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
       }
       
       let csponsor = "";
@@ -146,7 +147,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       }
       special.servicearea = cservice;
       special.county = ccounty;
-      special.locality= cjuridiccion;
+      special.jurisdiction= cjurisdiction;
       special.sponsor = sponsor;
       special.cosponsor = csponsor;
       special.geom =  geom;

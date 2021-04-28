@@ -137,12 +137,12 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
-      let cjuridiccion = "";
-      serviceArea.map((element:any) => {
-        cjuridiccion= cjuridiccion + element + ",";
+      let cjurisdiction = "";
+      jurisdiccion.map((element:any) => {
+        cjurisdiction= cjurisdiction + element + ",";
       })
-      if(cjuridiccion.length != 0 ){
-        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      if(cjurisdiction.length != 0 ){
+        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
       }
       
       let csponsor = "";
@@ -154,7 +154,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       }
       study.servicearea = cservice;
       study.county = ccounty;
-      study.locality= cjuridiccion;
+      study.jurisdiction = cjurisdiction;
       study.sponsor = sponsor;
       study.cosponsor = csponsor;
       study.ids = mhfd_codes;
@@ -427,7 +427,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                       <div className="tab-body-project">
                         <Timeline>
                           {
-                            streamsList[key].map((stream:any) => {
+                            streamsList[key] && streamsList[key].map((stream:any) => {
                               return (
                                 <Timeline.Item color="green">
                                   <Row style={{marginLeft:'-18px'}}>

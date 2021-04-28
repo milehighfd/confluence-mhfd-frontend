@@ -484,7 +484,7 @@ export const getIndependentComponentsByProjectId = (projectId: any) => {
 }
 
 export const setStreamIntersected = (streamIntersected: any) => {
-  console.log("IS ABOUT TO SET STREAMS ", streamIntersected);
+  // console.log("IS ABOUT TO SET STREAMS ", streamIntersected);
  return ( dispatch: Function) => {
   dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
  }

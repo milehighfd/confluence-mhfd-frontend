@@ -60,7 +60,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
   }
   useEffect(()=>{
     if(specialLocation.geom) {
-      console.log("SPC:", acquisitionLocation.geom);
+      // console.log("SPC:", acquisitionLocation.geom);
       setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(2) );
       setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(2) );
       setLocation(specialLocation.geom);
@@ -70,7 +70,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
 
   useEffect(()=>{
     if(acquisitionLocation.geom) {
-      console.log("ACQ:", acquisitionLocation.geom);
+      // console.log("ACQ:", acquisitionLocation.geom);
       setLatitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][1]).toFixed(2)    );
       setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][0]).toFixed(2)   );
       setLocation(acquisitionLocation.geom);

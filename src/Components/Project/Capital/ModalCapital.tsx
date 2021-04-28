@@ -250,12 +250,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
-      let cjuridiccion = "";
-      serviceArea.map((element:any) => {
-        cjuridiccion= cjuridiccion + element + ",";
+      let cjurisdiction = "";
+      jurisdiccion.map((element:any) => {
+        cjurisdiction= cjurisdiction + element + ",";
       })
-      if(cjuridiccion.length != 0 ){
-        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      if(cjurisdiction.length != 0 ){
+        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
       }
       
       let csponsor = "";
@@ -267,7 +267,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       }
       capital.servicearea = cservice;
       capital.county = ccounty;
-      capital.locality= cjuridiccion;
+      capital.jurisdiction= cjurisdiction;
       capital.sponsor = sponsor;
       capital.cosponsor = csponsor;
       capital.projectname = nameProject;

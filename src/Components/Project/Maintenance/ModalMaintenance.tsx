@@ -119,14 +119,13 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
-      let cjuridiccion = "";
-      serviceArea.map((element:any) => {
-        cjuridiccion= cjuridiccion + element + ",";
+      let cjurisdiction = "";
+      jurisdiccion.map((element:any) => {
+        cjurisdiction= cjurisdiction + element + ",";
       })
-      if(cjuridiccion.length != 0 ){
-        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      if(cjurisdiction.length != 0 ){
+        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
       }
-      
       let csponsor = "";
       cosponsor.map((element:any) => {
         csponsor= csponsor + element + ",";
@@ -136,7 +135,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       }
       maintenance.servicearea = cservice;
       maintenance.county = ccounty;
-      maintenance.locality= cjuridiccion;
+      maintenance.jurisdiction= cjurisdiction;
       maintenance.sponsor = sponsor;
       maintenance.cosponsor = csponsor;
       maintenance.projectname = nameProject;

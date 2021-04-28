@@ -316,7 +316,7 @@ const CreateProjectMap = (type: any) => {
     },500);
   },[groupOrganization, type.locality, localAOI]);
   useEffect(()=>{
-    console.log("REACH LIST COMPONENTS ", listComponents);
+    // console.log("REACH LIST COMPONENTS ", listComponents);
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
       if(type.type === 'CAPITAL') {
@@ -425,9 +425,10 @@ const CreateProjectMap = (type: any) => {
   }, [streamIntersected]);
   useEffect(()=>{
     if(streamsIntersectedIds.length > 0) {
+      console.log("STREAMS INTERSECTED", streamsIntersectedIds);
       let streamsCodes:any = streamsIntersectedIds.map((str:any) => str.mhfd_code);
       map.isStyleLoaded( () => {
-        let filter = ['in','mhfd_code',...streamsCodes];
+        let filter = ['in','unique_mhfd_code',...streamsCodes];
         // console.log("filter", filter);
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {

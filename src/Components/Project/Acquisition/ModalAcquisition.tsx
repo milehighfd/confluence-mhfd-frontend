@@ -91,12 +91,12 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
-      let cjuridiccion = "";
-      serviceArea.map((element:any) => {
-        cjuridiccion= cjuridiccion + element + ",";
+      let cjurisdiction = "";
+      jurisdiccion.map((element:any) => {
+        cjurisdiction= cjurisdiction + element + ",";
       })
-      if(cjuridiccion.length != 0 ){
-        cjuridiccion = cjuridiccion.substring(0, cjuridiccion.length-1)
+      if(cjurisdiction.length != 0 ){
+        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
       }
       
       let csponsor = "";
@@ -108,7 +108,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       }
       acquisition.servicearea = cservice;
       acquisition.county = ccounty;
-      acquisition.locality= cjuridiccion;
+      acquisition.jurisdiction= cjurisdiction;
       acquisition.sponsor = sponsor;
       acquisition.cosponsor = csponsor;
       acquisition.projectname = nameProject;

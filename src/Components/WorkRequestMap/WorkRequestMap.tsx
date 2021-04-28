@@ -173,7 +173,7 @@ const WorkRequestMap = (type: any) => {
                   map.isStyleLoaded(()=>{
                     setTimeout(()=>{
                       applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
-                    },2300);
+                    },1300);
                   });
                   firstTime = false;
                 });
@@ -498,7 +498,7 @@ const WorkRequestMap = (type: any) => {
             let boardids = idsBoardProjects;
             allFilters = ['all',['in', ['get', 'projectid'], ['literal', [...boardids]]]];
           } 
-          map.map.setFilter(key + '_' + index, allFilters);
+          // map.map.setFilter(key + '_' + index, allFilters);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
           
         } else {
@@ -531,7 +531,7 @@ const WorkRequestMap = (type: any) => {
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (!components.includes(key)) {
           // console.log("SETTING FILTER",key + '_' + index);
-          map.setFilter(key + '_' + index, ['in', 'cartodb_id', -1]);
+          map.setFilter(key + '_' + index, ['in', 'cartodb_id', []]);
         }
       });
     }
@@ -831,8 +831,7 @@ const WorkRequestMap = (type: any) => {
           filter: ['in', ['get', 'projectid'], ['literal', []]],
           ...style
         });
-        // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", JSON.stringify(style));
-            } else {
+       } else {
         map.map.addLayer({
           id: key + '_' + index,
           source: key,
