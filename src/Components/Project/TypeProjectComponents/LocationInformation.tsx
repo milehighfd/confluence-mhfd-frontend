@@ -75,6 +75,8 @@ export const LocationInformation = ({setServiceArea, setCounty, setJurisdiccion,
           </Select>
         </div>
       </Col>
+    </Row>
+    <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Jurisdiccion <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
