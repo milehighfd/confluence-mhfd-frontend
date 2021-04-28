@@ -9,7 +9,7 @@ class WsService {
 
   constructor() {
     this.options = {
-      transports: ['websocket', 'polling'],
+      transports: ['polling'],
       upgrade: true,
       autoConnect: false
     }

@@ -821,7 +821,7 @@ export const JURISDICTION = [
   'Littleton',
   'Lochbuie',
   'Lone Tree',
-  'Lousiville',
+  'Louisville',
   'Federal Heights',
   'Greenwood Village',
   'Lafayette',
