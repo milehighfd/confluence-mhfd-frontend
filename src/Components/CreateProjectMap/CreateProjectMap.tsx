@@ -428,7 +428,7 @@ const CreateProjectMap = (type: any) => {
       console.log("STREAMS INTERSECTED", streamsIntersectedIds);
       let streamsCodes:any = streamsIntersectedIds.map((str:any) => str.mhfd_code);
       map.isStyleLoaded( () => {
-        let filter = ['in','unique_mhfd_code',...streamsCodes];
+        let filter = ['in','mhfd_code',...streamsCodes];
         // console.log("filter", filter);
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {

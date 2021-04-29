@@ -300,12 +300,14 @@ export class MapService {
   }
 
   addSourceOpacity(data :any) {
+    
     if(!this.map.getSource('mask')) {
       this.map.addSource('mask', {
         "type": "geojson",
         "data": data
       });
     } else {
+      
       if(this.map.getLayer('area_based_maskMASK')) {
         this.map.removeLayer('area_based_maskMASK');
       }
@@ -318,7 +320,7 @@ export class MapService {
           "type": "geojson",
           "data": data
         });
-      },200);
+      },300);
     }
   }
   addLayerMask(id: any) {

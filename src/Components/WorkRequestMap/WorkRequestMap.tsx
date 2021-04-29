@@ -191,18 +191,18 @@ const WorkRequestMap = (type: any) => {
   },[idsBoardProjects]);
   
   useEffect(() => {
-    console.log("Coordinate jur", coordinatesJurisdiction);
     let mask
     setTimeout(() => {
       map.isStyleLoaded(()=>{ 
-        if (coordinatesJurisdiction) {
+        if (coordinatesJurisdiction.length > 0) {
           mask = turf.multiPolygon(coordinatesJurisdiction);
           let miboundsmap = map.map.getBounds();
           // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
           // console.log('porque', boundingBox1)
           var arrayBounds = misbounds.split(',');
-          map.addSourceOpacity(polyMask(mask, arrayBounds));
+          let poly = polyMask(mask, arrayBounds);
+          map.addSourceOpacity(poly);
 
         } 
       });
@@ -274,6 +274,7 @@ const WorkRequestMap = (type: any) => {
     });
     console.log("VALUE SET BOUNDS ", value, zoomareaSelected);
     if(zoomareaSelected[0]){
+      console.log("SETING CJ ", JSON.stringify(zoomareaSelected[0].coordinates));
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
       // let coord = turf.centroid(poly);
