@@ -49,6 +49,21 @@ const attachmentReducer = (state = initState, action : any) => {
       }
     case types.CLEAR:
       return initState;
+    case types.TOGGLE:
+      return {
+        ...state,
+        attachments: {
+          attachments: state.attachments.attachments.map((_: any, i: number) => {
+            if (i === action.index) {
+              return {
+                ..._,
+                isCover: !_.isCover
+              }
+            }
+            return _;
+          })
+        },
+      }
     default: 
         return state;
   }

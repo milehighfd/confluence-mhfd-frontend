@@ -34,6 +34,14 @@ export const getAttachment = (idProject: any) => {
     });
   }
 }
+export const toggleAttachment = (index: number, _id: string) => {
+  return (dispatch: Function) => {
+    datasets.putData(`${SERVER.TOGGLE_ATTACHMENT}/${_id}`, {}, datasets.getToken()).then(res => {
+      dispatch({ type: types.TOGGLE, index });
+    })
+  }
+}
+
 export const deleteAttachment = (index: number, _id: string) => {
   return (dispatch: Function) => {
     datasets.deleteData(`${SERVER.DELETE_ATTACHMENT}/${_id}`, datasets.getToken()).then(res => {

@@ -4,3 +4,4 @@ export const LOADING = 'LOADING';
 export const GET_ATTACHMENT = 'GET_ATTACHMENT';
 export const REMOVE = 'REMOVE';
 export const CLEAR = 'CLEAR';
+export const TOGGLE = 'TOGGLE';

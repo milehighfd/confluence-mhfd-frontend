@@ -59,6 +59,7 @@ export const SERVER = (function () {
     const GET_POSITION = 'get-position';
     const GET_FILES = 'get-files';
     const REMOVE = 'remove'
+    const TOGGLE = 'toggle'
     const PROBLEM_BY_ID = 'problem-by-id';
     const PROJECT_BY_ID = 'project-by-id';
     const DETAILED_PAGE_PROJECT = 'project-by-ids';
@@ -153,6 +154,7 @@ export const SERVER = (function () {
         GET_INITIAL_MAP_VIEW: `${URL_BASE.BASE}/${USER}/${GET_POSITION}`,
         GET_ALL_ATTACHMENTS: `${URL_BASE.BASE}/${ATTACHMENT}/${GET_FILES}`,
         DELETE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${REMOVE}`,
+        TOGGLE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${TOGGLE}`,
         PROBLEM_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROBLEM_BY_ID}`,
         PROJECT_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROJECT_BY_ID}`,
         DETAILED_PAGE_PROJECT: `${URL_BASE.BASE}/${GALLERY}/${DETAILED_PAGE_PROJECT}`,

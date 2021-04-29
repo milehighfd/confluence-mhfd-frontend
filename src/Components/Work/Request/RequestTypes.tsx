@@ -12,3 +12,17 @@ export interface columnProject {
   hasCreateOption?: boolean,
   projects: boardProject[]
 }
+
+export interface Attachment {
+  _id: string;
+  value: string;
+  filename: string;
+  mimetype: string;
+  user_id: string;
+  register_date: string;
+  filesize: number;
+  project_id: string;
+  createdAt: string;
+  updatedAt: string;
+  isCover: boolean;
+}

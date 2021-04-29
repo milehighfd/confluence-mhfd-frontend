@@ -1,7 +1,7 @@
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/reducers';
-import { clear, deleteAttachment, getAllAttachment, getAttachment, getAttachmentByProject } from '../store/actions/uploadAttachmentActions';
+import { clear, deleteAttachment, getAllAttachment, getAttachment, getAttachmentByProject, toggleAttachment } from '../store/actions/uploadAttachmentActions';
 
 interface selectAttachmentState {
   attachments: any,
@@ -34,6 +34,9 @@ export const useAttachmentDispatch = () => {
       },
       deleteAttachment:(index: number, _id: string) => {
         dispatch(deleteAttachment(index, _id));
+      },
+      toggleAttachment:(index: number, _id: string) => {
+        dispatch(toggleAttachment(index, _id));
       },
       getAttachment: (projectid: any) => {
         dispatch(getAllAttachment(projectid));
