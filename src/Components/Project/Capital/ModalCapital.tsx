@@ -1037,7 +1037,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
             {/*Section*/}
             <UploadAttachment
-              typeProject = {typeProject}
               files={files}
               setFiles={setFiles}
             />

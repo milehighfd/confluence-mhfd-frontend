@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover } from 'antd';
-import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { ModalCapital } from "../Project/Capital/ModalCapital";
 import { ModalAcquisition } from "../Project/Acquisition/ModalAcquisition";
 import { ModalMaintenance } from "../Project/Maintenance/ModalMaintenance";
 import { ModalSpecial } from "../Project/Special/ModalSpecial";
 import { ModalStudy } from "../Project/Study/ModalStudy";
-import { buttonsNewProject, FILTER_TYPES, NEW_PROJECT_TYPES } from "../../constants/constants";
-import { createJsxAttribute } from "typescript";
-import { AlertViewSave } from "../Alerts/AlertViewSave";
-import { setSave } from "../../store/actions/ProjectActions";
+import { NEW_PROJECT_TYPES } from "../../constants/constants";
 import { useProjectDispatch } from "../../hook/projectHook";
+import { useAttachmentDispatch } from "../../hook/attachmentHook";
 
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
@@ -35,6 +32,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
   const [visibleMaintenance, setVisibleMaintenance] = useState(false);
   const [visibleSpecial, setVisibleSpecial] = useState(false);
   const [visibleStudy, setVisibleStudy] = useState(false);
+  const {getAttachmentByProject} = useAttachmentDispatch();
   const showModal = () => {
     setVisibleModal(true);
     setNameProject('');
@@ -112,6 +110,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
         setVisibleCapital(true);
         setNameProject('Name your project');
       } else {
+        getAttachmentByProject(data.projectid);
         console.log("DATA", data);
         if( data.projecttype == 'Study'){
           getStreamsByProjectId(data.projectid);

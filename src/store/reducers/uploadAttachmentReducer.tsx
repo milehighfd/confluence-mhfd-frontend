@@ -1,7 +1,9 @@
 import * as types from '../types/uploadAttachmentTypes';
 
 const initState = {
-  attachments: [],
+  attachments: {
+    attachments: []
+  },
   loading: false.valueOf,
   _id: "",
   value: "",
@@ -35,6 +37,18 @@ const attachmentReducer = (state = initState, action : any) => {
         attachment: action.attachment,
         loading: false
       }
+    case types.REMOVE:
+      return {
+        ...state,
+        loading: false,
+        attachments: {
+          attachments: state.attachments.attachments.filter((_: any, i: number) => {
+            return i !== action.index;
+          })
+        },
+      }
+    case types.CLEAR:
+      return initState;
     default: 
         return state;
   }

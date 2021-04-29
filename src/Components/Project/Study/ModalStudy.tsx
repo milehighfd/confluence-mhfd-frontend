@@ -479,7 +479,6 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             <br/>
             {/*Section*/}
             <UploadAttachment
-              typeProject = {typeProject}
               files={files}
               setFiles={setFiles}
             />

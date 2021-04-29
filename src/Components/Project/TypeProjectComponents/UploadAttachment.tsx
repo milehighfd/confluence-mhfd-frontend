@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Row, Col, Popover, Checkbox } from 'antd';
-import { useProfileState } from "../../../hook/profileHook";
-import { useProjectDispatch } from "../../../hook/projectHook";
+import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
 const content06 = (<div className="popver-info"></div>);
 
 let counter = 0;
 
-export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject: string, files: any[], setFiles: Function }) => {
+export const UploadAttachment = ({ files, setFiles }: {
+  files: any[],
+  setFiles: Function
+}) => {
   const labelRef = useRef<HTMLDivElement>(null);
   const [draggin, setDraggin] = useState(false);
-  const [sw, setSw] = useState(false);
-  //console.log(files, "ATTACHHHH");
+
+  const { attachments } = useAttachmentState();
+  const { deleteAttachment } = useAttachmentDispatch();
+
   const onChange: any = (e: any) => {
     let newFiles = e.target.files;
     updateFileState(newFiles)
-    setSw(true);
   };
   const handleDragNewFiles = (newFiles: any[]) => {
     updateFileState(newFiles)
@@ -102,9 +105,6 @@ export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject
 
   const removeFile = (index: number) => {
     setFiles(files.filter((_, i) => i !== index))
-    if(files.length === 1){
-      setSw(false);
-    }
   }
 
   const toggle = (index: number) => {
@@ -126,7 +126,31 @@ export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject
     }
     setFiles(newObjects);
   }
-   console.log('files', files);
+
+  const toggle2 = (index: number) => {
+    let newObjects;
+    if (files[index].isCover) {
+      newObjects = files.map((o, i) => {
+        return {
+          ...o,
+          isCover: false
+        }
+      })
+    } else {
+      newObjects = files.map((o, i) => {
+        return {
+          ...o,
+          isCover: i === index
+        }
+      })
+    }
+    setFiles(newObjects);
+  }
+
+  const removeFile2 = (index: number) => {
+    deleteAttachment(index, attachments[index]._id);
+    setFiles(files.filter((_, i) => i !== index))
+  }
 
   return (
     <>
@@ -147,15 +171,46 @@ export const UploadAttachment = ({ typeProject, files, setFiles }: { typeProject
           </label>
         }
       </div>
-      <>
-      {sw &&
-          <Row className="title-galery">
-            <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
-            <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
+      <Row className="title-galery">
+        <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
+        <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
+      </Row>
+      {
+        attachments && attachments.map((a: {
+          _id: string;
+          value: string;
+          filename: string;
+          mimetype: string;
+          user_id: string;
+          register_date: string;
+          filesize: number;
+          project_id: string;
+          createdAt: string;
+          updatedAt: string;
+        }, i:number) => (
+          <Row key={i} className="card-image">
+            <Col xs={{ span: 24 }} lg={{ span: 2 }} xxl={{ span: 1 }}>
+              {
+                a.mimetype === 'image/png' ? (
+                  <img src="/Icons/project/png.svg" alt="" height="27px" />
+                ) : (
+                  <img src="/Icons/project/jpg.svg" alt="" height="27px" />
+                )
+              }
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
+              <p>{a.filename}</p>
+              <label>{formatDate(new Date(a.updatedAt).getTime())} • {formatBytes(a.filesize)}</label>
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>
+              <Button className="btn-transparent" onClick={() => removeFile2(i)}>
+                <img src="/Icons/icon-16.svg" alt="" height="15px" />
+              </Button>
+              <Checkbox checked={false} onChange={() => toggle2(i)} />
+            </Col>
           </Row>
-        }
-      </>
-
+        ))
+      }
       {
         files.map((f, i) => (
           <Row key={i} className="card-image">

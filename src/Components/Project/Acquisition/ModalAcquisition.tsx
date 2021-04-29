@@ -336,7 +336,6 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 
             {/*Section*/}
             <UploadAttachment
-              typeProject = {typeProject}
               files={files}
               setFiles={setFiles}
             />

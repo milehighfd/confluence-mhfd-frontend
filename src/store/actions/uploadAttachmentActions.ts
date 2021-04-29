@@ -15,6 +15,12 @@ export const getAllAttachment = (url: string) => {
   }
 }
 
+export const clear = () => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.CLEAR })
+  }
+}
+
 export const getAttachment = (idProject: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_ALL_ATTACHMENTS + '?projectid=' + idProject , datasets.getToken()).then(attachments => {
@@ -28,16 +34,22 @@ export const getAttachment = (idProject: any) => {
     });
   }
 }
-export const getAttachmentByProject = (idProject: any) => {
+export const deleteAttachment = (index: number, _id: string) => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.GET_ATTACHMENTS_BY_PROJECT(idProject) , datasets.getToken()).then(attachments => {
-      console.log(attachments, "ATTAAAA")
-      if (attachments?.data) {
-        console.log(attachments, "ATTAAAA")
-        dispatch({ type: types.GET_FILES, attachments });
+    datasets.deleteData(`${SERVER.DELETE_ATTACHMENT}/${_id}`, datasets.getToken()).then(res => {
+      if (res?.message) {
+        dispatch({ type: types.REMOVE, index });
       } else {
         dispatch(setLoading(false));
       }
+    })
+  }
+}
+
+export const getAttachmentByProject = (idProject: any) => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_ATTACHMENTS_BY_PROJECT(idProject) , datasets.getToken()).then(attachments => {
+      dispatch({ type: types.GET_FILES, attachments });
     });
   }
 }

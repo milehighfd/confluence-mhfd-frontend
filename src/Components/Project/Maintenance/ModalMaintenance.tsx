@@ -371,7 +371,6 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
             {/*Section*/}
             <UploadAttachment
-              typeProject = {typeProject}
               files={files}
               setFiles={setFiles}
             />

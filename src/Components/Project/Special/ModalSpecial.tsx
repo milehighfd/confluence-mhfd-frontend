@@ -324,7 +324,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
             {/*Section*/}
             <UploadAttachment
-              typeProject = {typeProject}
               files={files}
               setFiles={setFiles}
             />

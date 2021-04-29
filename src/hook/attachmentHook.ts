@@ -1,9 +1,7 @@
-import { AnyLayer } from 'mapbox-gl';
-import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/reducers';
-import { getAllAttachment, getAttachment, getAttachmentByProject } from '../store/actions/uploadAttachmentActions';
+import { clear, deleteAttachment, getAllAttachment, getAttachment, getAttachmentByProject } from '../store/actions/uploadAttachmentActions';
 
 interface selectAttachmentState {
   attachments: any,
@@ -14,7 +12,7 @@ let createSelectorHack: any = createSelector;
 
 const selectAttachmentStates: ParametricSelector<RootState, undefined, selectAttachmentState> =
 createSelectorHack(
-  (state: any) => state.uploadAttachment.attachments.data,
+  (state: any) => state.uploadAttachment.attachments.attachments,
   (state: any) => state.uploadAttachment,
   (attachments: any, uploadAttachment:any) => ({
     attachments, uploadAttachment
@@ -28,8 +26,14 @@ export const useAttachmentState = () => {
 export const useAttachmentDispatch = () => {
    const dispatch = useDispatch();
    return {
+      clear: () => {
+        dispatch(clear())
+      },
       getAttachmentProjectId: (projectid: any) => {
         dispatch(getAttachment(projectid));
+      },
+      deleteAttachment:(index: number, _id: string) => {
+        dispatch(deleteAttachment(index, _id));
       },
       getAttachment: (projectid: any) => {
         dispatch(getAllAttachment(projectid));

@@ -24,6 +24,7 @@ import { boardType } from "./RequestTypes";
 import Filter from "../Drawers/Filter";
 import TotalHeader from "./TotalHeader";
 import CostTableBody from "./CostTableBody";
+import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -75,7 +76,7 @@ const RequestView = ({ type }: {
   const [csaFilterList, setCsaFilterList] = useState([]);
   const [jurisdictionSelected, setJurisdictionSelected] = useState<string[]>([]);
   const [csaSelected, setCsaSelected] = useState<string[]>([]);
-
+  const {clear} = useAttachmentDispatch();
   const wrtRef = useRef(null);
 
   const onDragOver = (e: any) => {
@@ -136,6 +137,7 @@ const RequestView = ({ type }: {
   };
 
   const onClickNewProject = () => {
+    clear();
     setVisibleCreateProject(true);
     setStreamsIds([]);
   }
