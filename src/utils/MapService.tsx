@@ -300,32 +300,51 @@ export class MapService {
   }
 
   addSourceOpacity(data :any) {
-    if(this.map.getSource('mask')) {
-      this.map.removeSource('mask');
+    if(!this.map.getSource('mask')) {
       this.map.addSource('mask', {
         "type": "geojson",
         "data": data
       });
+    } else {
+      if(this.map.getLayer('area_based_maskMASK')) {
+        this.map.removeLayer('area_based_maskMASK');
+      }
+      if(this.map.getLayer('borderMASK')) {
+        this.map.removeLayer('borderMASK');
+      }
+      this.map.removeSource('mask');
+      setTimeout(()=>{
+        this.map.addSource('mask', {
+          "type": "geojson",
+          "data": data
+        });
+      },200);
     }
   }
-  addLayersMask(){
-    this.map.addLayer({
-      "id": "mask",
-      "source": "mask",
-      "type": "fill",
-      "paint": {
-          "fill-color": "black",
-          'fill-opacity': 0.8
-      }
-    });
-    this.map.addLayer({
-      "id": "mask-border",
-      "source": "mask",
-      "type": "line",
-      "paint": {
-        'line-color': '#28c499',
-        'line-width': 1,
-      }
-    });
+  addLayerMask(id: any) {
+    if(id == 'area_based_mask' && !this.map.getLayer(id+"MASK")) {
+      this.map.addLayer({
+        "id": id+'MASK',
+        "source": "mask",
+        "type": "fill",
+        "paint": {
+            "fill-color": "black",
+            'fill-opacity': 0.8
+        }
+      });
+    } else if (id == 'border' &&  !this.map.getLayer(id+"MASK")) {
+      this.map.addLayer({
+        "id": id+'MASK',
+        "source": "mask",
+        "type": "line",
+        "paint": {
+          'line-color': '#28c499',
+          'line-width': 1,
+        }
+      });
+    }
+  }
+  removeLayerMask(id: any) {
+    this.map.removeLayer(id+'MASK');
   }
 }

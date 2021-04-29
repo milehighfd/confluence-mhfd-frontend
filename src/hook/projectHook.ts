@@ -2,7 +2,7 @@ import { AnyLayer } from 'mapbox-gl';
 import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected, setComponentsFromMap, updateSelectedLayers, setHighlightedComponent, updateSelectedLayersWR, setBoardProjects, setZoomProject, setStreamsIds, editSpecial, editAcquisition ,setEditLocation, editMaintenance, getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setIndComponents, getGEOMByProjectId, editCapital, editStudy, setServiceAreaCounty} from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected, setComponentsFromMap, updateSelectedLayers, setHighlightedComponent, updateSelectedLayersWR, setBoardProjects, setZoomProject, setStreamsIds, editSpecial, editAcquisition ,setEditLocation, editMaintenance, getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setIndComponents, getGEOMByProjectId, editCapital, editStudy, setServiceAreaCounty, getJurisdictionPolygon} from '../store/actions/ProjectActions';
 
 import { RootState } from '../store/reducers';
 
@@ -193,6 +193,9 @@ export const useProjectDispatch = () => {
       },
       setServiceAreaCounty: (currentServiceAreaCounty:any) => {
         dispatch(setServiceAreaCounty(currentServiceAreaCounty));
+      },
+      getJurisdictionPolygon: (geom: any) => {
+        dispatch(getJurisdictionPolygon(geom));
       }
    }
 }

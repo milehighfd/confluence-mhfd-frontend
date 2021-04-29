@@ -189,81 +189,24 @@ const WorkRequestMap = (type: any) => {
         });
       } 
   },[idsBoardProjects]);
+  
   useEffect(() => {
+    console.log("Coordinate jur", coordinatesJurisdiction);
     let mask
     setTimeout(() => {
       map.isStyleLoaded(()=>{ 
-        
-        if (false) {
+        if (coordinatesJurisdiction) {
           mask = turf.multiPolygon(coordinatesJurisdiction);
           let miboundsmap = map.map.getBounds();
           // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-          map.addSourceOpacity(polyMask(mask, arrayBounds));
           // console.log('porque', boundingBox1)
           var arrayBounds = misbounds.split(',');
-          setOpacityLayer(true);
-          if (!map.map.getLayer('mask')) {
-              map.map.addLayer({
-                  "id": "mask",
-                  "source": "mask",
-                  "type": "fill",
-                  "paint": {
-                      "fill-color": "black",
-                      'fill-opacity': 0.8
-                  },
-                  "visibility":'none'
-              });
-              map.map.addLayer({
-                "id": "mask-border",
-                "source": "mask",
-                "type": "line",
-                "paint": {
-                  'line-color': '#28c499',
-                  'line-width': 1,
-                },
-                "visibility":'none'
-              });
-          } else {
-              map.map.setLayoutProperty('mask', 'visibility', 'visible');
-              map.map.removeLayer('mask');
-              map.map.removeLayer('mask-border');
-              map.map.addLayer({
-                  "id": "mask",
-                  "source": "mask",
-                  "type": "fill",
-                  "paint": {
-                      "fill-color": "black",
-                      'fill-opacity': 0.8
-                  }
-              });
-              map.map.addLayer({
-                "id": "mask-border",
-                "source": "mask",
-                "type": "line",
-                "paint": {
-                  'line-color': '#28c499',
-                  'line-width': 1,
-                }
-              });
-  
-          }
-      } else {
-          if (opacityLayer) {
-              if  (map.map.loaded()) {
-                  // console.log('hide opacity');
-                  if (map.map.getLayer('mask')) {
-                      map.map.setLayoutProperty('mask', 'visibility', 'visible');
-                      map.map.removeLayer('mask');
-                      map.map.removeSource('mask');
-                  }
-              }
-          }
-  
-      }
-      })
-      
-    }, 600);
+          map.addSourceOpacity(polyMask(mask, arrayBounds));
+
+        } 
+      });
+    }, 1200);
   
 }, [coordinatesJurisdiction]);
   useEffect(()=>{
@@ -329,6 +272,7 @@ const WorkRequestMap = (type: any) => {
         coordinates: element.coordinates
       }
     });
+    console.log("VALUE SET BOUNDS ", value, zoomareaSelected);
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
@@ -442,7 +386,7 @@ const WorkRequestMap = (type: any) => {
     
     await selectedLayersWR.forEach((layer: LayersType) => {
       if(layer === 'area_based_mask' || layer === 'border') {
-        console.log("LAYERS", layer);
+        map.addLayerMask(layer);
         return;
       }
       if (typeof layer === 'object') {
@@ -785,19 +729,26 @@ const WorkRequestMap = (type: any) => {
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
 
     const deleteLayers = selectedLayersWR.filter((layer: any) => !selectedItems.includes(layer as string));
+    
     deleteLayers.forEach((layer: LayersType) => {
-      removeTilesHandler(layer);
+      if(layer === 'border' || layer === 'area_based_mask') {
+        map.removeLayerMask(layer);
+      } else {
+        removeTilesHandler(layer);
+      }
     });
     updateSelectedLayersWR(selectedItems);
   }
   const hideLayers = (key: string) => {
     if (map) {
       const styles = { ...tileStyles as any };
-      styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (map.map.getLayer(key + '_' + index)) {
-          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-        }
-      });
+      if(styles[key]) {
+        styles[key].forEach((style: LayerStylesType, index: number) => {
+          if (map.map.getLayer(key + '_' + index)) {
+            map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+          }
+        });
+      }
     }
   };
   const removeTilesHandler = (selectedLayer: LayersType) => {

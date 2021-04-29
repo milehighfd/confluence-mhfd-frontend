@@ -261,7 +261,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       let csponsor = "";
       cosponsor.map((element:any) => {
         csponsor= csponsor + element + ",";
-      })
+      });
       if(cosponsor.length != 0 ){
         csponsor = csponsor.substring(0, csponsor.length-1)
       }

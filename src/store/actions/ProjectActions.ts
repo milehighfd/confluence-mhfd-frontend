@@ -399,6 +399,13 @@ export const setServiceAreaCounty = (currentServiceAreaCounty: any) => {
     dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});
   }
 }
+export const getJurisdictionPolygon = (geom: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_JURISDICTION_POLYGON, {geom: geom}, datasets.getToken()).then(jurisdiction => {
+      console.log("JURISDICTION", jurisdiction);
+    });
+  }
+}
 
 export const getStreamsList = (geom: any) => {
   return (dispatch: Function) => {
