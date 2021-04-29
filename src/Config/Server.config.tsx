@@ -107,6 +107,7 @@ export const SERVER = (function () {
     const GET_STREAMS_BY_COMPONENTS = 'get-stream-by-components-and-geom';
     const NOTES = 'notes';
     const PROJECTS_BBOX = 'projects-bbox';
+    const BY_PROJECT = 'by-project';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -233,6 +234,9 @@ export const SERVER = (function () {
         GET_GEOM_BY_PROJECTID: (projectId: any) => {
           return `${URL_BASE.BASE}/board/coordinates/${projectId}`
         },
+        GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
+            return `${URL_BASE.BASE}/${ATTACHMENT}/${BY_PROJECT}/${projectId}`
+          },
         GET_BBOX_PROJECTS: `${URL_BASE.BASE}/board/${PROJECTS_BBOX}`
     }
 })();

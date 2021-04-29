@@ -43,7 +43,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any, editable:boolean}) => {
 
   const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds} = useProjectDispatch();
-  const {getAttachmentProjectId} = useAttachmentDispatch();
+  const {getAttachmentProjectId, getAttachmentByProject} = useAttachmentDispatch();
   const {attachments, uploadAttachment} = useAttachmentState();
   const { currentServiceAreaCounty} = useProjectState();
   const {organization, groupOrganization} = useProfileState();
@@ -68,8 +68,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   var year = date.getFullYear();
   const dispatch = useDispatch();
   useEffect(()=>{
-    console.log(attachments, "ATTACH");
-    console.log(uploadAttachment, "ATTACH");
+    console.log(attachments, "*ATTACH*");
+    console.log(uploadAttachment, "**ATTACH**");
       //setFiles(attachments);
   },[attachments,uploadAttachment]);
   const parseStringToArray = (list:string) => {
@@ -89,7 +89,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   useEffect(()=>{
     if(data!== 'no data' ) {
       console.log("HERE IS THE DATA YEYEEYEY", data);
-      getAttachmentProjectId(data.projectid);
+      //getAttachmentProjectId(data.projectid);
+      getAttachmentByProject(data.projectid);
       setSwSave(true);
       setDescription(data.description);
       setNameProject(data.projectname);
@@ -124,11 +125,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   useEffect(()=>{
     if(save === true){
       console.log("FILES", files);
-      var special = new Project();
-      let cservice = "";
-      serviceArea.map((element:any) => {
-        cservice= cservice + element + ",";
-      })
+     var special = new Project();
+     /* let cservice = "";
+      if(serviceArea){
+        serviceArea.map((element:any) => {
+          cservice= cservice + element + ",";
+        })
+      }
       if(cservice.length != 0 ){
         cservice = cservice.substring(0, cservice.length-1)
       }
@@ -153,12 +156,12 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       })
       if(cosponsor.length != 0 ){
         csponsor = csponsor.substring(0, csponsor.length-1)
-      }
-      special.servicearea = cservice;
-      special.county = ccounty;
-      special.jurisdiction= cjurisdiction;
+      }*/
+      special.servicearea = serviceArea+ "";
+      special.county = county+"";
+      special.jurisdiction= jurisdiccion+"";
       special.sponsor = sponsor;
-      special.cosponsor = csponsor;
+      special.cosponsor = cosponsor + "";
       special.geom =  geom;
       special.projectname = nameProject;
       special.description = description;

@@ -3,7 +3,7 @@ import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/reducers';
-import { getAllAttachment, getAttachment } from '../store/actions/uploadAttachmentActions';
+import { getAllAttachment, getAttachment, getAttachmentByProject } from '../store/actions/uploadAttachmentActions';
 
 interface selectAttachmentState {
   attachments: any,
@@ -33,6 +33,9 @@ export const useAttachmentDispatch = () => {
       },
       getAttachment: (projectid: any) => {
         dispatch(getAllAttachment(projectid));
+      },
+      getAttachmentByProject: (projectid:any) =>{
+        dispatch(getAttachmentByProject(projectid));
       }
    }
 }

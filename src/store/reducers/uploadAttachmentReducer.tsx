@@ -2,7 +2,18 @@ import * as types from '../types/uploadAttachmentTypes';
 
 const initState = {
   attachments: [],
-  loading: false
+  loading: false.valueOf,
+  _id: "",
+  value: "",
+  filename: "",
+  mimetype: "",
+  user_id: "",
+  register_date: "",
+  filesize: 0,
+  project_id: "",
+  createdAt: "",
+  updatedAt: "",
+  attachment: {}
 };
 
 const attachmentReducer = (state = initState, action : any) => {
@@ -17,6 +28,12 @@ const attachmentReducer = (state = initState, action : any) => {
       return {
         ...state,
         loading: action.loading
+      }
+    case types.GET_ATTACHMENT: 
+      return {
+        ...state,
+        attachment: action.attachment,
+        loading: false
       }
     default: 
         return state;

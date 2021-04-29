@@ -28,6 +28,19 @@ export const getAttachment = (idProject: any) => {
     });
   }
 }
+export const getAttachmentByProject = (idProject: any) => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_ATTACHMENTS_BY_PROJECT(idProject) , datasets.getToken()).then(attachments => {
+      console.log(attachments, "ATTAAAA")
+      if (attachments?.data) {
+        console.log(attachments, "ATTAAAA")
+        dispatch({ type: types.GET_FILES, attachments });
+      } else {
+        dispatch(setLoading(false));
+      }
+    });
+  }
+}
 
 export const uploadFile = (files: Array<any>, url: string) => {
   return (dispatch: Function) => {
