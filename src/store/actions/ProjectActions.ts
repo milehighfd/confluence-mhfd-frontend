@@ -394,6 +394,11 @@ export const getServiceAreaStreams = (geom:any ) => {
     });
   }
 }
+export const setServiceAreaCounty = (currentServiceAreaCounty: any) => {
+  return (dispatch:Function) => {
+    dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});
+  }
+}
 
 export const getStreamsList = (geom: any) => {
   return (dispatch: Function) => {

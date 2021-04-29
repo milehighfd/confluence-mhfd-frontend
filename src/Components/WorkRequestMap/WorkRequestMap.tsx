@@ -173,7 +173,7 @@ const WorkRequestMap = (type: any) => {
                   map.isStyleLoaded(()=>{
                     setTimeout(()=>{
                       applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
-                    },1000);
+                    },700);
                   });
                   firstTime = false;
                 });
@@ -182,7 +182,12 @@ const WorkRequestMap = (type: any) => {
             },time);
             
           });
-      }
+      } else {
+        map.isStyleLoaded(()=>{
+          removeLayers('mhfd_projects_copy');
+          removeLayersSource('mhfd_projects_copy');
+        });
+      } 
   },[idsBoardProjects]);
   useEffect(() => {
     let mask
@@ -276,8 +281,8 @@ const WorkRequestMap = (type: any) => {
               
               if(map.map){
                 setTimeout(()=>{
-                  map.map.fitBounds(bboxBounds,{ padding:100});
-                },2200);
+                  map.map.fitBounds(bboxBounds,{ padding:60});
+                },1200);
               }
             }
           },
@@ -297,8 +302,8 @@ const WorkRequestMap = (type: any) => {
             console.log("r.bbox", r.bbox);
             if(map.map){
               setTimeout(()=>{
-                map.map.fitBounds(bboxBounds,{ padding:100});
-              },2400);
+                map.map.fitBounds(bboxBounds,{ padding:60});
+              },1200);
             }
           }
         },

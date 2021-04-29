@@ -287,7 +287,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
                 {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
                 </Button>*/}
-                <p>{userInformation.serviceArea} · {userInformation.county} County</p>
+                <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} · {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{textAlign:'right'}}>
                 <label className="tag-name">Maintenance</label>
