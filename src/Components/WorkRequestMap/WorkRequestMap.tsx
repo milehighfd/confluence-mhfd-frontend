@@ -173,7 +173,7 @@ const WorkRequestMap = (type: any) => {
                   map.isStyleLoaded(()=>{
                     setTimeout(()=>{
                       applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
-                    },1300);
+                    },1000);
                   });
                   firstTime = false;
                 });
@@ -464,8 +464,6 @@ const WorkRequestMap = (type: any) => {
       filterProjectsDraft.projecttype = '';
       filterProjectsDraft.status = 'Draft';
 
-    applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
-
     if (type.type === "CAPITAL") {
       applyComponentFilter();
     }
@@ -482,6 +480,7 @@ const WorkRequestMap = (type: any) => {
     Object.keys(styles).forEach(element => {
       for (let i = 0; i < styles[element].length; ++i) {
         if (map.map.getLayer(element + "_" + i)) {
+          // console.log("SET FILTER 4",element + '_' + i, ['!has', 'projectid']);
           map.map.setFilter(element + '_' + i, ['!has', 'projectid']);
         }
       }
@@ -498,7 +497,8 @@ const WorkRequestMap = (type: any) => {
             let boardids = idsBoardProjects;
             allFilters = ['all',['in', ['get', 'projectid'], ['literal', [...boardids]]]];
           } 
-          // map.map.setFilter(key + '_' + index, allFilters);
+          // console.log("SET FILTER 1",key + '_' + index, allFilters);
+          map.map.setFilter(key + '_' + index, allFilters);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
           
         } else {
@@ -531,6 +531,7 @@ const WorkRequestMap = (type: any) => {
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (!components.includes(key)) {
           // console.log("SETTING FILTER",key + '_' + index);
+          // console.log("SET FILTER 2",key + '_' + index, ['in', 'cartodb_id', []]);
           map.setFilter(key + '_' + index, ['in', 'cartodb_id', []]);
         }
       });
@@ -766,14 +767,12 @@ const WorkRequestMap = (type: any) => {
           allFilters.push(options);
         }
       }
-      // if (componentDetailIds && componentDetailIds[key]) {
-      //   allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
-      // }
       if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_copy' && idsBoardProjects[0]!='-8888'){
         let boardids = idsBoardProjects;
         allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
       } 
       if (map.getLayer(key + '_' + index)) {
+        // console.log("SET FILTER 5",key + '_' + index, allFilters);
         map.setFilter(key + '_' + index, allFilters);
       }
     });
