@@ -49,6 +49,7 @@ export const LocationInformation = ({
     setJurisdiccion(e);
   };
   useEffect(()=>{
+    console.log("PAPAPAPAPA", jurisdiction);
     if(!isLocalGovernment) {
       console.log("SETTING JURISDICTION", jurisdiction);
       setSponsor([jurisdiction]);

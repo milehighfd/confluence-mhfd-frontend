@@ -11,6 +11,7 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Geom, Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
+import { JURISDICTION } from "../../../constants/constants";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -74,6 +75,14 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       return list.split(',');
     }
  }
+ useEffect(()=>{
+  let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
+  if(juris) {
+    setSponsor(organization);
+  } else {
+    setSponsor(locality);
+  }
+},[organization]);
   useEffect(()=>{
     if(data!== 'no data' ) {
       setSwSave(true);

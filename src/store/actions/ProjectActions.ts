@@ -396,7 +396,7 @@ export const getServiceAreaStreams = (geom:any ) => {
 }
 export const getServiceAreaPolygonofStreams = (geom:any ) => {
   return (dispatch: Function) => {
-    datasets.postData(SERVER.GET_SERVICEAREA_COUNTY_GEOM, {geom: geom}, datasets.getToken()).then(currentServiceAreaCounty => {
+    datasets.postData(SERVER.GET_SERVICEAREA_COUNTY_GEOM, {geom: JSON.parse(geom)}, datasets.getToken()).then(currentServiceAreaCounty => {
       console.log("CONSOLE ", currentServiceAreaCounty);
       dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});
     });
