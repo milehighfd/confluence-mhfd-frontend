@@ -33,6 +33,7 @@ export class Project {
     streams: any;
     locality: any;
     jurisdiction: any;
+    cover: any;
     constructor() {
         this.projectname = "special";
         this.description = "";

@@ -69,6 +69,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiccion, setJurisdiccion] = useState<any>([]);
+  const [cover, setCover] = useState('');
   var date = new Date();
 
   var year = date.getFullYear();
@@ -119,6 +120,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       acquisition.files = files;
       acquisition.editProject = editprojectid;
       acquisition.locality = locality? locality:'';
+      acquisition.cover = cover;
       if(swSave){
         editProjectAcquisition(acquisition);
       }else{
@@ -338,6 +340,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             <UploadAttachment
               files={files}
               setFiles={setFiles}
+              setCover={setCover}
             />
           </div>
           <div className="footer-project">

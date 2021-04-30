@@ -66,6 +66,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [isDraw, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
   const [files, setFiles] = useState<any[]>([]);
+  const [cover, setCover] = useState('');
   const [streamsList, setThisStreamsList] = useState<any>([]);
   const [sponsor, setSponsor] = useState(organization+"");
   const [cosponsor, setCosponsor] = useState<any>([]);
@@ -162,7 +163,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.geom = mhfd_codes;
       study.locality = locality? locality:'';
       study.editProject = editprojectid;
-
+      study.cover = cover;
       let newStreamsArray: any = [];
       for(let str in listStreams) {
         newStreamsArray = [...newStreamsArray, ...listStreams[str]];
@@ -481,6 +482,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             <UploadAttachment
               files={files}
               setFiles={setFiles}
+              setCover={setCover}
             />
           </div>
           <div className="footer-project">

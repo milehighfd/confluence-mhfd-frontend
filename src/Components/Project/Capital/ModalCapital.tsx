@@ -149,6 +149,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiccion, setJurisdiccion] = useState<any>([]);
+  const [cover, setCover] = useState('');
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
@@ -282,6 +283,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.independetComponent = JSON.stringify(thisIndependentComponents, null,2);
      // capital.locality = locality? locality:'';
       capital.editProject = editprojectid;
+      capital.cover = cover;
       console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       if(swSave){
         editProjectCapital(capital);
@@ -1039,6 +1041,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <UploadAttachment
               files={files}
               setFiles={setFiles}
+              setCover={setCover}
             />
           </div>
           <div className="footer-project">

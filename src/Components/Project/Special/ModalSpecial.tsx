@@ -59,6 +59,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState();
   const [files, setFiles] = useState<any[]>([]);
+  const [cover, setCover] = useState('');
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
   const [swSave, setSwSave] = useState(false);
@@ -168,6 +169,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.files = files;
       special.editProject = editprojectid;
       special.locality = locality? locality:'';
+      special.cover = cover;
       if(swSave){
         editProjectSpecial(special);
       }else{
@@ -326,6 +328,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             <UploadAttachment
               files={files}
               setFiles={setFiles}
+              setCover={setCover}
             />
           </div>
           <div className="footer-project">

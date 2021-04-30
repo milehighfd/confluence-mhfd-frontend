@@ -56,6 +56,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [save, setSave] = useState(false);
   const [ownership, setOwnership] = useState(true);
   const [files, setFiles] = useState<any[]>([]);
+  const [cover, setCover] = useState('');
   const [geom, setGeom] = useState();
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
@@ -147,6 +148,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       maintenance.ownership = ""+ownership ;
       maintenance.files = files;
       maintenance.editProject = editprojectid;
+      maintenance.cover = cover;
       //maintenance.locality = locality? locality:'';
       // console.log( JSON.stringify(maintenance, null, 2),"****++MAINTENANCE******")
       if(swSave){
@@ -373,6 +375,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             <UploadAttachment
               files={files}
               setFiles={setFiles}
+              setCover={setCover}
             />
           </div>
           <div className="footer-project">

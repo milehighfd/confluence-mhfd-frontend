@@ -6,9 +6,10 @@ const content06 = (<div className="popver-info"></div>);
 
 let counter = 0;
 
-export const UploadAttachment = ({ files, setFiles }: {
+export const UploadAttachment = ({ files, setFiles, setCover }: {
   files: any[],
-  setFiles: Function
+  setFiles: Function,
+  setCover: Function
 }) => {
   const labelRef = useRef<HTMLDivElement>(null);
   const [draggin, setDraggin] = useState(false);
@@ -111,6 +112,8 @@ export const UploadAttachment = ({ files, setFiles }: {
   const toggle = (index: number) => {
     let newObjects;
     if (files[index].isCover) {
+      console.log('setCover', '');
+      setCover('')
       newObjects = files.map((o, i) => {
         return {
           ...o,
@@ -118,6 +121,8 @@ export const UploadAttachment = ({ files, setFiles }: {
         }
       })
     } else {
+      console.log('setCover', files[index].file.name);
+      setCover(files[index].file.name)
       newObjects = files.map((o, i) => {
         return {
           ...o,
@@ -141,6 +146,8 @@ export const UploadAttachment = ({ files, setFiles }: {
       }
     })
     setFiles(files.map((o) => ({ ...o, isCover: false })));
+    console.log('setCover', '');
+    setCover('')
   }
 
   const removeFile2 = (index: number) => {
