@@ -293,6 +293,10 @@
         margin-bottom: 0px;
         margin: -2px 0px -6px 0px;
       }
+      p:hover {
+        text-decoration: underline;
+        font-weight: bold;
+      }
       label{
         font-size: 9px;
         color: $opacity02;

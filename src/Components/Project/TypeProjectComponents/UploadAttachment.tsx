@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button, Row, Col, Popover, Checkbox } from 'antd';
 import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
 import { Attachment } from "../../Work/Request/RequestTypes";
+import { saveAs } from 'file-saver';
+
 const content06 = (<div className="popver-info"></div>);
 
 let counter = 0;
@@ -155,6 +157,14 @@ export const UploadAttachment = ({ files, setFiles, setCover }: {
     setFiles(files.filter((_, i) => i !== index))
   }
 
+  const downloadAttachment = (a: Attachment) => {
+    saveAs(a.value, a.filename)
+  }
+
+  const downloadFile = (f: any) => {
+    saveAs(f, f.name);
+  }
+
   return (
     <>
       <h5>5. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
@@ -194,7 +204,7 @@ export const UploadAttachment = ({ files, setFiles, setCover }: {
               }
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-              <p>{a.filename}</p>
+              <p onClick={()=> downloadAttachment(a)}>{a.filename}</p>
               <label>{formatDate(new Date(a.updatedAt).getTime())} • {formatBytes(a.filesize)}</label>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>
@@ -220,7 +230,7 @@ export const UploadAttachment = ({ files, setFiles, setCover }: {
 
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 19 }} xxl={{ span: 20 }}>
-              <p>{f.file.name}</p>
+              <p onClick={()=> downloadFile(f.file)}>{f.file.name}</p>
               <label>{formatDate(f.file.lastModified)} • {formatBytes(f.file.size)}</label>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>
