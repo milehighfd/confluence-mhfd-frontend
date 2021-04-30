@@ -174,10 +174,13 @@ export const UploadAttachment = ({ files, setFiles, setCover }: {
           </label>
         }
       </div>
-      <Row className="title-galery">
+      {
+        (attachments && attachments.length > 0 && files && files.length > 0) &&
+        <Row className="title-galery">
         <Col xs={{ span: 24 }} lg={{ span: 21 }} xxl={{ span: 21 }}>Uploaded</Col>
         <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }}>Cover Image</Col>
-      </Row>
+        </Row>
+      }
       {
         attachments && attachments.map((a: Attachment, i:number) => (
           <Row key={i} className="card-image">
