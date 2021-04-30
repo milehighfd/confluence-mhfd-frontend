@@ -13,6 +13,7 @@ import { getData, getToken, postData } from "../../../Config/datasets";
 import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
 import { Project, Geom } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
+import { JURISDICTION } from "../../../constants/constants";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -138,6 +139,14 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       return list.split(',');
     }
  }
+ useEffect(()=>{
+  let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
+  if(juris) {
+    setSponsor(organization);
+  } else {
+    setSponsor(locality);
+  }
+},[organization]);
   useEffect(()=>{
     if(data!== 'no data' ) {
       console.log("HERE IS THE DATA ", data);

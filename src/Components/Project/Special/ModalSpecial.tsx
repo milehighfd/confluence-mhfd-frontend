@@ -18,6 +18,7 @@ import { AlertViewSave } from "../../Alerts/AlertViewSave";
 import { editSpecial } from "../../../store/actions/ProjectActions";
 import { useProfileState } from "../../../hook/profileHook";
 import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
+import { JURISDICTION } from "../../../constants/constants";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -209,6 +210,14 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setNameProject(e.target.value);
     }*/
   };
+  useEffect(()=>{
+    let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
+    if(juris) {
+      setSponsor(organization);
+    } else {
+      setSponsor(locality);
+    }
+  },[organization]);
   const apllyName = ()=>{
     if(name === true){
       setDisableName(true);

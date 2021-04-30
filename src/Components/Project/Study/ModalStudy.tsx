@@ -9,6 +9,7 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { Project } from "../../../Classes/Project";
+import { JURISDICTION } from "../../../constants/constants";
 import {
   PROBLEMS_TRIGGER,
   XSTREAMS,
@@ -309,6 +310,14 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     }
 
   }
+  useEffect(()=>{
+    let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
+    if(juris) {
+      setSponsor(organization);
+    } else {
+      setSponsor(locality);
+    }
+  },[organization]);
   useEffect(()=>{
     changeDrawState(isDraw);
   },[isDraw]);

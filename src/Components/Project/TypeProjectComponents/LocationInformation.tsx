@@ -77,8 +77,8 @@ export const LocationInformation = ({
           if(service){setCounty([...county, element]);}
         });
       }
-      if(currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
-        currentServiceAreaCounty['jurisdiction'].map((element:any) => {
+      if(currentServiceAreaCounty && currentServiceAreaCounty['Jurisdiction']) {
+        currentServiceAreaCounty['Jurisdiction'].map((element:any) => {
           let service = true;
           jurisdiccion.map((data:any) => {
             if(data === element){service = false;}
