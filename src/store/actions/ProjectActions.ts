@@ -408,8 +408,10 @@ export const setServiceAreaCounty = (currentServiceAreaCounty: any) => {
 }
 export const getJurisdictionPolygon = (geom: any) => {
   return (dispatch: Function) => {
-    datasets.postData(SERVER.GET_JURISDICTION_POLYGON, {geom: geom}, datasets.getToken()).then(jurisdiction => {
-      console.log("JURISDICTION", jurisdiction);
+    datasets.postData(SERVER.GET_JURISDICTION_POLYGON, {geom: geom}, datasets.getToken()).then(res => {
+      console.log("JURISDICTION", res);
+      let jurisdiction = res.jurisdiction;
+      dispatch({type: types.SET_JURISDICTION_SPONSOR, jurisdiction});
     });
   }
 }

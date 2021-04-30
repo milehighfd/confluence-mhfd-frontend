@@ -28,7 +28,7 @@ export const LocationInformation = ({
   sponsor:any,
   isEdit: boolean
 }) => {
-  const {currentServiceAreaCounty} = useProjectState();
+  const {currentServiceAreaCounty, jurisdiction} = useProjectState();
   const {groupOrganization} = useProfileState();
   const [sArea, setSArea] = useState(undefined);
   const [sCounty, setSCounty] = useState(undefined);
@@ -48,6 +48,12 @@ export const LocationInformation = ({
   const apllyJuridiccion = (e: any)=>{
     setJurisdiccion(e);
   };
+  useEffect(()=>{
+    if(!isLocalGovernment) {
+      console.log("SETTING JURISDICTION", jurisdiction);
+      setSponsor([jurisdiction]);
+    }
+  },[jurisdiction]);
   useEffect(()=>{
     if(editable && !isEdit){
       console.log(currentServiceAreaCounty, "couuuuun")

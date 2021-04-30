@@ -24,7 +24,8 @@ const initState = {
     value: ''
   },
   boardProjects: {cartoids:['-8888'], ids:['-8888'] },
-  zoomProject: undefined
+  zoomProject: undefined,
+  jurisdiction: undefined
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -150,6 +151,13 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         independentComponents: action.independentComponents
+      }
+    }
+    case types.SET_JURISDICTION_SPONSOR: {
+      console.log("THE FUCK", action.jurisdiction);
+      return {
+        ...state, 
+        jurisdiction: action.jurisdiction
       }
     }
     default: 

@@ -25,7 +25,8 @@ interface selectProjectState {
   boardProjects: any,
   zoomProject: any,
   editLocation: any,
-  independentComponents: any
+  independentComponents: any,
+  jurisdiction: any
 }
 
 let createSelectorHack: any = createSelector;
