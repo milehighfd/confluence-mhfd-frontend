@@ -69,7 +69,7 @@ const CreateProjectMap = (type: any) => {
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon } = useProjectDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams } = useProjectDispatch();
   const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
@@ -513,8 +513,9 @@ const CreateProjectMap = (type: any) => {
       type.setGeom(userPolygon.geometry);
       getStreamsIntersectedPolygon(userPolygon.geometry); // just set the ids 
       getStreamsList(userPolygon.geometry); // get the list with data 
+      getServiceAreaStreams(userPolygon.geometry); 
     }
-    getServiceAreaStreams(userPolygon.geometry);
+    
     getJurisdictionPolygon(userPolygon.geometry);
     setUserPolygon(userPolygon.geometry);
     setTimeout(()=>{

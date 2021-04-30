@@ -394,6 +394,13 @@ export const getServiceAreaStreams = (geom:any ) => {
     });
   }
 }
+export const getServiceAreaPolygonofStreams = (geom:any ) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_SERVICEAREA_COUNTY_GEOM, {geom: geom}, datasets.getToken()).then(currentServiceAreaCounty => {
+      dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});
+    });
+  }
+}
 export const setServiceAreaCounty = (currentServiceAreaCounty: any) => {
   return (dispatch:Function) => {
     dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});

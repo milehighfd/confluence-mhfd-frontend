@@ -101,6 +101,7 @@ export const SERVER = (function () {
     const ADD_COMPONENTS_POLYGON = 'showcomponents';
     const GET_SERVICEAREA_COUNTY_POINT = 'get-countyservicearea-for-point';
     const GET_SERVICEAREA_COUNTY_STREAMS = 'get-countyservicearea-for-polygon';
+    const GET_SERVICEAREA_COUNTY_GEOM = 'get-countyservicearea-for-geom';
     const GET_JURISDICTION_POLYGON = 'get-jurisdiction-for-polygon';
     const GET_LIST_STREAMS = 'streams-data';
     const GET_COMPONENTS_WITH_GEOM = 'get-components-by-components-and-geom';
@@ -196,6 +197,7 @@ export const SERVER = (function () {
         ADD_COMPONENTS_POLYGON: `${URL_BASE.BASE}/create/${ADD_COMPONENTS_POLYGON}`,
         GET_SERVICEAREA_COUNTY_POINT: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_POINT}`,
         GET_SERVICEAREA_COUNTY_STREAMS: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_STREAMS}`,
+        GET_SERVICEAREA_COUNTY_GEOM: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_GEOM}`,
         GET_JURISDICTION_POLYGON: `${URL_BASE.BASE}/create/${GET_JURISDICTION_POLYGON}`,
         GET_LIST_STREAMS: `${URL_BASE.BASE}/create/${GET_LIST_STREAMS}`,
         GET_COMPONENTS_WITH_GEOM: `${URL_BASE.BASE}/create/${GET_COMPONENTS_WITH_GEOM}`,

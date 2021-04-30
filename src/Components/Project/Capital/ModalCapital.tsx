@@ -557,7 +557,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 {/*<Button className="btn-transparent">
                   <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
                 </Button>*/}
-                <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} · {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
+                <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea && county)?'·':''} {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
 
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>

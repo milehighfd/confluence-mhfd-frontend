@@ -360,6 +360,25 @@ export const SEMSWA_SERVICE_AREA =
         removePopup();
       }}>
         <Collapse defaultActiveKey={['1', '2', '3', '4', '5', '6', '7', '8']}>
+          { isWR && 
+          <Panel header="" key="6" extra={genExtra07()}>
+            <p>
+              <img src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
+                  Borders
+                  <Popover arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders)}>
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch size="small" checked={switches[BORDER]} onClick={(value) => onChange(value, BORDER)} />
+            </p>
+            <p>
+              <img src="/Icons/Filters/ic_mask.png" width="18px" alt=""  />
+                  Area Based Mask
+                  <Popover arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask)}>
+                <img className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch size="small" checked={switches[AREA_BASED_MASK]} onClick={(value) => onChange(value, AREA_BASED_MASK)} />
+            </p>
+          </Panel>}
           <Panel header="" key="1" extra={genExtra()}>
             <p>
               <img src="/Icons/Filters/ic_problems.png" width="18px" alt="" />
@@ -566,25 +585,7 @@ export const SEMSWA_SERVICE_AREA =
             </p>
 
     </Panel> */}
-        { isWR && 
-        <Panel header="" key="6" extra={genExtra07()}>
-            <p>
-              <img src="/Icons/Filters/ic_climb.png" width="18px" alt="" />
-                  Borders
-                  <Popover arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders)}>
-                <img className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
-              </Popover>
-              <Switch size="small" checked={switches[BORDER]} onClick={(value) => onChange(value, BORDER)} />
-            </p>
-            <p>
-              <img src="/Icons/Filters/ic_research.png" width="18px" alt=""  />
-                  Area Based Mask
-                  <Popover arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask)}>
-                <img className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
-              </Popover>
-              <Switch size="small" checked={switches[AREA_BASED_MASK]} onClick={(value) => onChange(value, AREA_BASED_MASK)} />
-            </p>
-          </Panel>}
+        
         </Collapse>
       </Checkbox.Group>
     </div>
