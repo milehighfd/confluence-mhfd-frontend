@@ -49,9 +49,7 @@ export const LocationInformation = ({
     setJurisdiccion(e);
   };
   useEffect(()=>{
-    console.log("PAPAPAPAPA", jurisdiction);
     if(!isLocalGovernment) {
-      console.log("SETTING JURISDICTION", jurisdiction);
       setSponsor([jurisdiction]);
     }
   },[jurisdiction]);
@@ -59,32 +57,40 @@ export const LocationInformation = ({
     if(editable){
       if(currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
         setSArea(currentServiceAreaCounty['Service Area']);
+        let SA = serviceArea;
         currentServiceAreaCounty['Service Area'].map((element:any) => {
           let service = true;
-          serviceArea.map((data:any) => {
+          SA.map((data:any) => {
             if(data === element){service = false;}
           });
-          if(service){setServiceArea([...serviceArea, element]);}
+          if(service){SA = [...SA, element];}
         });
+        setServiceArea(SA);
       }
       if(currentServiceAreaCounty && currentServiceAreaCounty['County']) {
         setSCounty(currentServiceAreaCounty['County']);
+        let C = county;
         currentServiceAreaCounty['County'].map((element:any) => {
           let service = true;
-          county.map((data:any) => {
+          C.map((data:any) => {
             if(data === element){service = false;}
           });
-          if(service){setCounty([...county, element]);}
+          if(service){C = [...C, element];}
         });
+        setCounty(C);
       }
-      if(currentServiceAreaCounty && currentServiceAreaCounty['Jurisdiction']) {
-        currentServiceAreaCounty['Jurisdiction'].map((element:any) => {
+      if(currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
+        console.log("JURISSS", currentServiceAreaCounty['jurisdiction']);
+        let J = jurisdiccion;
+        currentServiceAreaCounty['jurisdiction'].map((element:any) => {
+          
           let service = true;
-          jurisdiccion.map((data:any) => {
+          J.map((data:any) => {
             if(data === element){service = false;}
           });
-          if(service){setJurisdiccion([...jurisdiccion, element]);}
+          if(service){J = [...J, element];}
         });
+        setJurisdiccion(J);
       }
     }
   },[currentServiceAreaCounty]);
