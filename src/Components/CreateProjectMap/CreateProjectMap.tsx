@@ -387,6 +387,11 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     let geom: any = undefined;
     if (streamIntersected && streamIntersected.geom) {
+      console.log("REACHES INTERSECTED RGHT???", type);
+      if(type.type == 'CAPITAL' || type.type == 'MAINTENANCE') {
+        console.log("BOUT TO SEND");
+        getServiceAreaPolygonofStreams(streamIntersected.geom);
+      }
       geom = JSON.parse(streamIntersected.geom);
       if(geom) {
         map.isStyleLoaded(() => {

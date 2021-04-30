@@ -10,6 +10,7 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Geom, Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
+import { JURISDICTION } from "../../../constants/constants";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -150,6 +151,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiccion, setJurisdiccion] = useState<any>([]);
   const [cover, setCover] = useState('');
+  useEffect(()=>{
+    let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
+    if(juris) {
+      setSponsor(organization);
+    } else {
+      setSponsor(locality);
+    }
+  },[organization]);
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);

@@ -154,7 +154,6 @@ const projectReducer = (state = initState, action: any) => {
       }
     }
     case types.SET_JURISDICTION_SPONSOR: {
-      console.log("THE FUCK", action.jurisdiction);
       return {
         ...state, 
         jurisdiction: action.jurisdiction
