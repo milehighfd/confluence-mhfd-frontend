@@ -18,10 +18,10 @@ export const LocationInformation = ({
   setServiceArea: Function,
   setCounty: Function,
   setJurisdiccion:Function,
-  serviceArea: string,
-  county:string,
+  serviceArea: any,
+  county: any,
   editable:boolean,
-  jurisdiccion:string,
+  jurisdiccion: any,
   setCoSponsor:Function,
   setSponsor: any,
   cosponsor:any,
@@ -55,18 +55,35 @@ export const LocationInformation = ({
     }
   },[jurisdiction]);
   useEffect(()=>{
-    if(editable && !isEdit){
-      console.log(currentServiceAreaCounty, "couuuuun")
+    if(editable){
       if(currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
         setSArea(currentServiceAreaCounty['Service Area']);
-        setServiceArea(currentServiceAreaCounty['Service Area']);
+        currentServiceAreaCounty['Service Area'].map((element:any) => {
+          let service = true;
+          serviceArea.map((data:any) => {
+            if(data === element){service = false;}
+          });
+          if(service){setServiceArea([...serviceArea, element]);}
+        });
       }
       if(currentServiceAreaCounty && currentServiceAreaCounty['County']) {
         setSCounty(currentServiceAreaCounty['County']);
-        setCounty(currentServiceAreaCounty['County']);
+        currentServiceAreaCounty['County'].map((element:any) => {
+          let service = true;
+          county.map((data:any) => {
+            if(data === element){service = false;}
+          });
+          if(service){setCounty([...county, element]);}
+        });
       }
       if(currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
-        setJurisdiccion(currentServiceAreaCounty['jurisdiction']);
+        currentServiceAreaCounty['jurisdiction'].map((element:any) => {
+          let service = true;
+          jurisdiccion.map((data:any) => {
+            if(data === element){service = false;}
+          });
+          if(service){setJurisdiccion([...jurisdiccion, element]);}
+        });
       }
     }
   },[currentServiceAreaCounty]);
