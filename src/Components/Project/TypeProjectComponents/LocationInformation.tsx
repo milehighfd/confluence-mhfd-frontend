@@ -45,14 +45,14 @@ export const LocationInformation = ({
     setCounty(e);
     setSCounty(e);
   };
-  const apllyJuridiccion = (e: any)=>{
-    setJurisdiccion(e);
-  };
-  useEffect(()=>{
-    if(!isLocalGovernment) {
-      setSponsor([jurisdiction]);
-    }
-  },[jurisdiction]);
+  //const apllyJuridiccion = (e: any)=>{
+  //   setJurisdiccion(e);
+  // };
+  // useEffect(()=>{
+  //   if(!isLocalGovernment) {
+  //     setSponsor([jurisdiction]);
+  //   }
+  // },[jurisdiction]);
   useEffect(()=>{
     if(editable){
       if(currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
@@ -138,7 +138,7 @@ export const LocationInformation = ({
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select style={{width:'100%'}} placeholder={sponsor}  disabled={isLocalGovernment} onChange={setSponsor}>
+        <Select style={{width:'100%'}} placeholder={sponsor} value={sponsor} disabled={isLocalGovernment} onChange={setSponsor}>
           {
             isLocalGovernment ? (
               <Option value={sponsor+""}>{sponsor+""}</Option>
