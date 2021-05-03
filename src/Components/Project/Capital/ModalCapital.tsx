@@ -161,9 +161,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[organization]);
   useEffect(()=>{
     setServiceAreaCounty({});
-    setServiceArea('');
-    setCounty('');
-    setJurisdiccion('');
     setDescription('');
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);

@@ -118,9 +118,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       },1200);
       setEditsetprojectid(data.projectid);
     } else {
-      setCounty('');
-      setDescription('');
-      setServiceArea('');
       setEditLocation(undefined);
     }
   },[data]);

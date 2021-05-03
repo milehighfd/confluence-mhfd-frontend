@@ -176,9 +176,6 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
         )  
       },1200);
     } else {
-      setCounty('');
-      setDescription('');
-      setServiceArea('');
       setEditLocation(undefined);
     }
   },[data]);
@@ -195,9 +192,6 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 
   useEffect(()=>{
     setServiceAreaCounty({});
-    setServiceArea('');
-    setCounty('');
-    setDescription('');
     setStreamIntersected({geom:null});
     setStreamsIds([]);
   },[]);
