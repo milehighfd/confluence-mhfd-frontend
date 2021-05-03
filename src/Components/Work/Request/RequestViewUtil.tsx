@@ -36,6 +36,25 @@ export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
   return areEqual;
 }
 
+export const filterByJurisdictionAndCsaSelected = (jurisdictionSelected: string[], csaSelected: string[], p: any) => {
+  if (!jurisdictionSelected.includes(p.projectData.sponsor)) {
+    return false;
+  } else {
+    let found = false;
+    p.projectData.county.split(',').forEach((county: string) => {
+      if (csaSelected.includes(county)) {
+        found = true;
+      }
+    })
+    p.projectData.servicearea.split(',').forEach((servicearea: string) => {
+      if (csaSelected.includes(servicearea)) {
+        found = true;
+      }
+    })
+    return found;
+  }
+}
+
 export const defaultColumns: any[] = [
   {
     title: 'Workspace',
@@ -365,19 +384,23 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
 
   let localityMap: any = {}
   allProjects.forEach((p: any) => {
-    let locality = p.projectData[property];
-    if (!localityMap[locality]) {
-      localityMap[locality] = {
-        req1: 0, req2: 0, req3: 0, req4: 0, req5: 0,
-        cnt1: 0, cnt2: 0, cnt3: 0, cnt4: 0, cnt5: 0,
-        projects: [],
+    let arr = p.projectData[property].split(',');
+    for (let j = 0 ; j < arr.length ; j++) {
+      let locality = arr[j];
+
+      if (!localityMap[locality]) {
+        localityMap[locality] = {
+          req1: 0, req2: 0, req3: 0, req4: 0, req5: 0,
+          cnt1: 0, cnt2: 0, cnt3: 0, cnt4: 0, cnt5: 0,
+          projects: [],
+        }
       }
-    }
-    localityMap[locality].projects.push(p);
-    for(var i = 1; i <= 5 ; i++) {
-      localityMap[locality][`req${i}`] += p[`req${i}`];
-      if (p[`req${i}`]) {
-        localityMap[locality][`cnt${i}`]++;
+      localityMap[locality].projects.push(p);
+      for(var i = 1; i <= 5 ; i++) {
+        localityMap[locality][`req${i}`] += (p[`req${i}`] / arr.length);
+        if (p[`req${i}`]) {
+          localityMap[locality][`cnt${i}`]++;
+        }
       }
     }
   })

@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatter } from './RequestViewUtil';
+import { filterByJurisdictionAndCsaSelected, formatter } from './RequestViewUtil';
 
 const TotalHeader = ({ columns, jurisdictionSelected, csaSelected }: {
     columns: any[],
@@ -9,16 +9,10 @@ const TotalHeader = ({ columns, jurisdictionSelected, csaSelected }: {
     let totals = [0, 0, 0, 0, 0];
     columns.forEach((col: any, colIdx: number) => {
       if (colIdx === 0) return;
-      col.projects.filter((p: any) => {
-        return jurisdictionSelected.includes(p.projectData.jurisdiction) && (
-          csaSelected.includes(p.projectData.county) ||
-          csaSelected.includes(p.projectData.servicearea)
-        );
-      })
+      col.projects.filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, p))
       .forEach((p: any) => {
         totals[colIdx - 1] += p[`req${colIdx}`];
       })
-  
     })
     return (
       <div className="tab-head-project">

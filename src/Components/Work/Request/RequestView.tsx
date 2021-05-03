@@ -19,7 +19,7 @@ import Status from "../Drawers/Status";
 import ColorService from './ColorService';
 import ProjectEditService from './ProjectEditService';
 
-import { compareArrays, compareColumns, csvFileName, defaultColumns, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
+import { compareArrays, compareColumns, csvFileName, defaultColumns, filterByJurisdictionAndCsaSelected, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
 import Filter from "../Drawers/Filter";
 import TotalHeader from "./TotalHeader";
@@ -361,7 +361,7 @@ const RequestView = ({ type }: {
   useEffect(() => {
     let [rows, totals] = getTotalsByProperty(columns, 'county');
     let [a, b] = getTotalsByProperty(columns, 'servicearea');
-    let [c, d] = getTotalsByProperty(columns, 'jurisdiction');
+    let [c, d] = getTotalsByProperty(columns, 'sponsor');
     let uniqueServiceArea = a.map((p: any) => p.locality);
     let uniqueJurisdictions = c.map((p: any) => p.locality);
     let uniqueCounties = rows.map((p: any) => p.locality);
@@ -562,7 +562,6 @@ const RequestView = ({ type }: {
       showFilters && <Filter
         visible={showFilters}
         setVisible={setShowFilters}
-        data={sumByCounty}
         jurisdictionFilterList={jurisdictionFilterList}
         csaFilterList={csaFilterList}
         selJS={jurisdictionSelected}
@@ -698,12 +697,7 @@ const RequestView = ({ type }: {
                                   }
                                   {
                                     column.projects
-                                    .filter((p: any) => {
-                                      return jurisdictionSelected.includes(p.projectData.jurisdiction) && (
-                                        csaSelected.includes(p.projectData.county) ||
-                                        csaSelected.includes(p.projectData.servicearea)
-                                      );
-                                    })
+                                    .filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, p))
                                     .map((p: any, i: number, arr: any[]) => (
                                       <TrelloLikeCard key={i}
                                         namespaceId={namespaceId}

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, Button, Checkbox } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
 
-export default ({ visible, setVisible, data, jurisdictionFilterList, csaFilterList, setJS, setCS, l, selJS, selCS }: {
+export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, setJS, setCS, l, selJS, selCS }: {
   visible: boolean,
   setVisible: Function,
-  data: any[],
   jurisdictionFilterList: string[],
   csaFilterList: string[],
   setJS: Function,
