@@ -802,7 +802,7 @@ export const ORGANIZATION = [
 
 export const JURISDICTION = [
   'Arvada',
-  'Broomfield City and County',
+  'Broomfield',
   'Castle Pines',
   'Centennial',
   'Aurora',
@@ -816,7 +816,7 @@ export const JURISDICTION = [
   'Unincorporated Arapahoe County',
   'Unincorporated Adams County',
   'Commerce City',
-  'Denver City and County',
+  'Denver',
   'Englewood',
   'Littleton',
   'Lochbuie',
