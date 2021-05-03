@@ -192,13 +192,13 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   },[projectReturn.state.project ]);
 
   useEffect(()=>{
-    if(ids != undefined && description != '' && county != '' && serviceArea != ''  ){
+    if(ids.length !== 0 && description != '' && county.length !== 0 && serviceArea.length !== 0 && cosponsor.length !== 0  && sponsor !== '' && jurisdiccion.length !== 0 && streamsIntersectedIds != null && listStreams !== 0){
       setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[ids, description, county, serviceArea]);
+  },[ids, description, county, serviceArea, cosponsor, sponsor, jurisdiccion, streamsIntersectedIds, listStreams]);
 
   const showModal = () => {
     const auxState = {...state};

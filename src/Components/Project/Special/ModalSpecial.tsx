@@ -69,11 +69,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   var date = new Date();
   var year = date.getFullYear();
   const dispatch = useDispatch();
-  useEffect(()=>{
-    console.log(attachments, "*ATTACH*");
-    console.log(uploadAttachment, "**ATTACH**");
-      //setFiles(attachments);
-  },[attachments,uploadAttachment]);
   const parseStringToArray = (list:string) => {
     if( list ){
       return list.split(',');
@@ -183,13 +178,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   }));
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county != '' && serviceArea != ''){
+    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && cosponsor.length !== 0  && sponsor !== '' && jurisdiccion.length !== 0 ){
       setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[geom, description, county, serviceArea]);
+  },[geom, description, county, serviceArea, cosponsor, sponsor, jurisdiccion]);
 
   useEffect(()=>{
     setStreamIntersected({geom:null});
