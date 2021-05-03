@@ -120,7 +120,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
-  const [disable, setDisable] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [isDrawState, setIsDraw] = useState(false);
   const {changeDrawState, setEditLocation} = useProjectDispatch();
@@ -339,17 +339,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }));
 
   useEffect(()=>{
-    if(geom != undefined && description != '' ){
+    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && cosponsor.length !== 0 && nameProject !== '' && overheadDescription !== '' && componentsToSave.length !== 0 && additionalCost !== 0 && additionalDescription !== ''){
       // if(locality === "no locality" ){
       //   setDisable(false);
       // }else{
         setDisable(false);
-      // }
+      // }\
     }
-    else{
-      setDisable(true);
-    }
-  },[geom, description, county, serviceArea]);
+    else{setDisable(true);}
+  },[geom, description, county, serviceArea , sponsor, cosponsor, nameProject, overheadDescription, componentsToSave, additionalCost ]);
 
   const onChange = (e: any) =>{
     setNameProject(e.target.value);

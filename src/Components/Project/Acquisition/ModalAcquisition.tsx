@@ -181,13 +181,13 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   },[data]);
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && progress != '' && purchaseDate != '' ){
+    if(nameProject !== '' && geom != undefined && description != '' && progress != '' && purchaseDate != '' && serviceArea.length !== 0  && county.length !== 0  && jurisdiccion.length !== 0  && sponsor !== ''  && cosponsor.length !== 0 ){
       setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[geom, description,progress,purchaseDate]);
+  },[nameProject, geom, description,progress,purchaseDate, serviceArea, county,jurisdiccion, sponsor, cosponsor]);
 
 
   useEffect(()=>{
