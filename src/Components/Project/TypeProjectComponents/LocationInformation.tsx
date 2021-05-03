@@ -34,7 +34,13 @@ export const LocationInformation = ({
   const [sCounty, setSCounty] = useState(undefined);
   const [disable , setdisable ] = useState(!editable);
   const user = store.getState().profile.userInformation;
-
+  const officialS_A = SERVICE_AREA.map((elem:any)=> {
+    if(elem == 'Boulder Service Area') {
+      return 'Boulder Creek Service Area';
+    } else {
+      return elem;
+    }
+  })
   let isLocalGovernment = user.designation === GOVERNMENT_STAFF;
 
   const apllyServiceArea = (e: any)=>{
@@ -58,6 +64,7 @@ export const LocationInformation = ({
       if(currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
         setSArea(currentServiceAreaCounty['Service Area']);
         let SA = serviceArea;
+        console.log("SA", SA);
         currentServiceAreaCounty['Service Area'].map((element:any) => {
           let service = true;
           SA.map((data:any) => {
@@ -71,6 +78,10 @@ export const LocationInformation = ({
         setSCounty(currentServiceAreaCounty['County']);
         let C = county;
         currentServiceAreaCounty['County'].map((element:any) => {
+          console.log("element", element);
+          if(element == 'Broomfield' || element == 'Denver') {
+            element += ' County'
+          }
           let service = true;
           C.map((data:any) => {
             if(data === element){service = false;}
@@ -102,7 +113,7 @@ export const LocationInformation = ({
         <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
           <Select mode="multiple" placeholder={serviceArea?.length!=0?serviceArea:"Select a Service Area"} style={{width:'100%'}} onChange={(serviceArea:any)=> setServiceArea(serviceArea)} value={serviceArea}>
-            {SERVICE_AREA.map((element) =>{
+            {officialS_A.map((element) =>{
               if(element!= 'None'){
                 if(element != 'Boulder Service Area'){
                   return <Option key={element} value={element}>{element}</Option>

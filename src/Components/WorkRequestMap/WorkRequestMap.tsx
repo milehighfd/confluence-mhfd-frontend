@@ -272,9 +272,7 @@ const WorkRequestMap = (type: any) => {
         coordinates: element.coordinates
       }
     });
-    console.log("VALUE SET BOUNDS ", value, zoomareaSelected);
     if(zoomareaSelected[0]){
-      console.log("SETING CJ ", JSON.stringify(zoomareaSelected[0].coordinates));
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
       // let coord = turf.centroid(poly);

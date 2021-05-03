@@ -128,6 +128,7 @@ const CreateProjectMap = (type: any) => {
         .then(
           (r: any) => {
             if (r.localities.length > 0) {
+              console.log("SETTING AOI based on ENDPOINT", r.localities[0]);
               setLocalAOI(r.localities[0].name);
             }
           },
@@ -249,7 +250,8 @@ const CreateProjectMap = (type: any) => {
     
 // }, [coordinatesJurisdiction]);
   const setBounds = (value:any) => {
-    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+    // console.log("WHY NOT EVEN HERE in Group Organization", groupOrganization, value);
+    const zoomareaSelected = groupOrganization.filter((x: any) => value.includes(x.aoi)).map((element: any) => {
       return {
         aoi: element.aoi,
         filter: element.filter,
@@ -268,8 +270,10 @@ const CreateProjectMap = (type: any) => {
       //   // console.log("FLU TO ", value);
       //     map.map.flyTo({ center: value, zoom: 10 });
       // }
+      // console.log("ENTERS HERE", zoomareaSelected[0]);
       let bboxBounds = turf.bbox(poly);
       if(map.map){
+        // console.log("NOT ENTERS HERE");
         map.map.fitBounds(bboxBounds,{ padding:10, maxZoom: 13});
       }
     }
@@ -310,8 +314,9 @@ const CreateProjectMap = (type: any) => {
       if(type.locality) {
         value = type.locality;
       } 
-        // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
+        console.log("CHECKER the one AOI", localAOI, "locatlity that reach to component",  type.locality, "area");
       if(groupOrganization.length > 0) {
+        console.log("SETTING OBUNDS");
         wait(()=>setBounds(value));
       }
     },500);
