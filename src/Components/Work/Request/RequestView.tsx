@@ -541,7 +541,7 @@ const RequestView = ({ type }: {
       <Analytics
         visible={showAnalytics}
         setVisible={setShowAnalytics}
-        showYearDropdown={tabKey !== 'Maintenance'}
+        tabKey={tabKey}
         data={sumByCounty}
         initialYear={year}
       />

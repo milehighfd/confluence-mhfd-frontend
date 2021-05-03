@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Drawer, Select } from 'antd';
 import HorizontalBarChart from "../../FiltersProject/NewProblemsFilter/HorizontalBarChart";
-import { formatter } from "../Request/RequestViewUtil";
+import { formatter, MaintenanceTypes } from "../Request/RequestViewUtil";
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
 
 const { Option } = Select;
 
 const Analytics = ({
-  visible, setVisible, data, showYearDropdown, initialYear
+  visible, setVisible, data, tabKey, initialYear
 }: {
   visible: boolean,
   setVisible: Function,
   data: any,
-  showYearDropdown: boolean,
+  tabKey: string,
   initialYear: number
 }) => {
   const [year, setYear] = useState(+initialYear);
@@ -50,16 +50,15 @@ const Analytics = ({
       title={
         <h5>
           <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
-          {
-            showYearDropdown && 
-            <Select defaultValue={year} onChange={setYear} style={{ width: 100 }}>
-              {
-                years.map((y, i) => (
-                  <Option key={i} value={y}>{y}</Option>
-                ))
-              }
-            </Select>
-          }
+          <Select defaultValue={year} onChange={setYear} style={{ width: 100 }}>
+            {
+              years.map((y, i) => (
+                <Option key={i} value={y}>{
+                  tabKey !== 'Maintenance' ? y : MaintenanceTypes[i]
+                }</Option>
+              ))
+            }
+          </Select>
         </h5>
       }
       placement="right"
