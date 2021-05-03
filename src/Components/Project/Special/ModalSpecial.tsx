@@ -43,7 +43,7 @@ const stateValue = {
 export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any, editable:boolean}) => {
 
-  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds} = useProjectDispatch();
+  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds, setServiceAreaCounty} = useProjectDispatch();
   const {getAttachmentProjectId, getAttachmentByProject} = useAttachmentDispatch();
   const {attachments, uploadAttachment} = useAttachmentState();
   const { currentServiceAreaCounty} = useProjectState();
@@ -197,6 +197,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   useEffect(()=>{
     setStreamIntersected({geom:null});
     setStreamsIds([]);
+    setServiceAreaCounty({});
   },[]);
   const showModal = () => {
     const auxState = {...state};

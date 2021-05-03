@@ -114,7 +114,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital} = useProjectDispatch();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
   const {userInformation,organization} = useProfileState();
   const [state, setState] = useState(stateValue);
@@ -160,15 +160,18 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[organization]);
   useEffect(()=>{
+    setServiceAreaCounty({});
+    setServiceArea('');
+    setCounty('');
+    setJurisdiccion('');
+    setDescription('');
     if(componentsFromMap.length > 0 ) {
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
     } else {
       setComponentIntersected([]);
     }
-
     setStreamIntersected({geom:null});
     setStreamsIds([]);
-
   },[]);
   const parseStringToArray = (list:string) => {
     if( list ){

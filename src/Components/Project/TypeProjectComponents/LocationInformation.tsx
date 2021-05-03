@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Input, Row, Col, Popover, Select } from 'antd';
 import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
-import { useProjectState } from '../../../hook/projectHook';
+import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 import { useProfileState } from '../../../hook/profileHook';
 
 import store from '../../../store';
@@ -29,11 +29,13 @@ export const LocationInformation = ({
   isEdit: boolean
 }) => {
   const {currentServiceAreaCounty, jurisdiction} = useProjectState();
+  const {setServiceAreaCounty} = useProjectDispatch();
   const {groupOrganization} = useProfileState();
   const [sArea, setSArea] = useState(undefined);
   const [sCounty, setSCounty] = useState(undefined);
   const [disable , setdisable ] = useState(!editable);
   const user = store.getState().profile.userInformation;
+
   const officialS_A = SERVICE_AREA.map((elem:any)=> {
     if(elem == 'Boulder Service Area') {
       return 'Boulder Creek Service Area';
@@ -41,8 +43,8 @@ export const LocationInformation = ({
       return elem;
     }
   })
-  let isLocalGovernment = user.designation === GOVERNMENT_STAFF;
 
+  let isLocalGovernment = user.designation === GOVERNMENT_STAFF;
   const apllyServiceArea = (e: any)=>{
     setServiceArea(e);
     setSArea(e);
@@ -64,12 +66,13 @@ export const LocationInformation = ({
       if(currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
         setSArea(currentServiceAreaCounty['Service Area']);
         let SA = serviceArea;
-        console.log("SA", SA);
         currentServiceAreaCounty['Service Area'].map((element:any) => {
           let service = true;
-          SA.map((data:any) => {
-            if(data === element){service = false;}
-          });
+          if(SA) {
+            SA.map((data:any) => {
+              if(data === element){service = false;}
+            });
+          }
           if(service){SA = [...SA, element];}
         });
         setServiceArea(SA);
@@ -83,9 +86,11 @@ export const LocationInformation = ({
             element += ' County'
           }
           let service = true;
-          C.map((data:any) => {
-            if(data === element){service = false;}
-          });
+          if(C) {
+            C.map((data:any) => {
+              if(data === element){service = false;}
+            });
+          }
           if(service){C = [...C, element];}
         });
         setCounty(C);
@@ -94,11 +99,13 @@ export const LocationInformation = ({
         console.log("JURISSS", currentServiceAreaCounty['jurisdiction']);
         let J = jurisdiccion;
         currentServiceAreaCounty['jurisdiction'].map((element:any) => {
-          
+
           let service = true;
-          J.map((data:any) => {
-            if(data === element){service = false;}
-          });
+          if(J){
+            J.map((data:any) => {
+              if(data === element){service = false;}
+            });
+          }
           if(service){J = [...J, element];}
         });
         setJurisdiccion(J);
@@ -113,7 +120,7 @@ export const LocationInformation = ({
         <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
           <Select mode="multiple" placeholder={serviceArea?.length!=0?serviceArea:"Select a Service Area"} style={{width:'100%'}} onChange={(serviceArea:any)=> setServiceArea(serviceArea)} value={serviceArea}>
-            {officialS_A.map((element) =>{
+          {officialS_A.map((element) =>{
               if(element!= 'None'){
                 if(element != 'Boulder Service Area'){
                   return <Option key={element} value={element}>{element}</Option>
