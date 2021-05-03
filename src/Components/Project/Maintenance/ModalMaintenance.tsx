@@ -180,7 +180,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
   useEffect(()=>{
     //console.log(geom,"---", description,"---", county,"---", serviceArea,"---",ownership,"---",eligibility)
-    if(geom != undefined && description != '' && county != '' && serviceArea != '' ){
+    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && cosponsor.length !== 0 && jurisdiccion.length !== 0 && nameProject !== '' && streamIntersected.geom && streamIntersected.geom != null && frequency !== '' ){
       if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal  ){
           if(eligibility != ''){
             setDisable(false);
@@ -193,7 +193,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
     else{
       setDisable(true);
     }
-  },[geom, description, county, serviceArea, ownership,eligibility]);
+  },[geom, description, county, serviceArea, eligibility, sponsor, cosponsor, nameProject, jurisdiccion,streamIntersected.geom, frequency]);
 
   useEffect(()=>{
     setServiceAreaCounty({});

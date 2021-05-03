@@ -340,7 +340,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }));
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && cosponsor.length !== 0 && nameProject !== '' && overheadDescription !== '' && componentsToSave.length !== 0 && additionalCost !== 0 && additionalDescription !== ''){
+    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && cosponsor.length !== 0 && nameProject !== '' && overheadDescription !== '' && componentsToSave.length !== 0 && additionalCost > -1 && additionalDescription !== ''){
       // if(locality === "no locality" ){
       //   setDisable(false);
       // }else{
