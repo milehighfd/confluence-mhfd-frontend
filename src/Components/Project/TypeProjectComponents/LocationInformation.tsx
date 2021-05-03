@@ -42,7 +42,7 @@ export const LocationInformation = ({
     } else {
       return elem;
     }
-  })
+  }).filter((elem: any) => elem != 'South Platte River Service Area');
 
   let isLocalGovernment = user.designation === GOVERNMENT_STAFF;
   const apllyServiceArea = (e: any)=>{
@@ -112,6 +112,9 @@ export const LocationInformation = ({
       }
     }
   },[currentServiceAreaCounty]);
+  useEffect(()=>{
+    console.log("serviceArea, county, jurisdiccion", typeof serviceArea,"-", typeof county,"-", typeof jurisdiccion);
+  },[serviceArea, county, jurisdiccion]);
   return(
     <>
     <h5>4. Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
