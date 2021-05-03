@@ -119,7 +119,7 @@ export const LocationInformation = ({
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
-          <Select mode="multiple" placeholder={serviceArea?.length!=0?serviceArea:"Select a Service Area"} style={{width:'100%'}} onChange={(serviceArea:any)=> setServiceArea(serviceArea)} value={serviceArea}>
+          <Select mode="multiple" placeholder={serviceArea?.length!=0?serviceArea:"Select a Service Area"} style={{width:'100%'}} onChange={(serviceArea:any)=> setServiceArea(serviceArea)} value={serviceArea} disabled={disable}>
           {officialS_A.map((element) =>{
               if(element!= 'None'){
                 if(element != 'Boulder Service Area'){
