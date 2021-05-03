@@ -360,8 +360,8 @@ const RequestView = ({ type }: {
 
   useEffect(() => {
     let [rows, totals] = getTotalsByProperty(columns, 'county');
-    let [a, b] = getTotalsByProperty(columns, 'servicearea');
-    let [c, d] = getTotalsByProperty(columns, 'sponsor');
+    let [a] = getTotalsByProperty(columns, 'servicearea');
+    let [c] = getTotalsByProperty(columns, 'sponsor');
     let uniqueServiceArea = a.map((p: any) => p.locality);
     let uniqueJurisdictions = c.map((p: any) => p.locality);
     let uniqueCounties = rows.map((p: any) => p.locality);

@@ -418,6 +418,7 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
     }
     rows.push(obj);
   });
+  rows.sort((a: any, b: any) => a.locality.localeCompare(b.locality))
   return [rows, totals];
 }
 
