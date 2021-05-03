@@ -416,6 +416,11 @@ export const getJurisdictionPolygon = (geom: any) => {
     });
   }
 }
+export const setJurisdictionSponsor = (jurisdiction: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_JURISDICTION_SPONSOR, jurisdiction});
+  }
+}
 
 export const getStreamsList = (geom: any) => {
   return (dispatch: Function) => {

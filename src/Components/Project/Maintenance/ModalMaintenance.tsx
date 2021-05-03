@@ -37,7 +37,7 @@ const stateValue = {
 export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible, locality, data, editable}:
   {visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string , setNameProject: Function, subType:string, typeProject:string, setVisible: Function, locality?:any, data:any , editable:boolean}) => {
 
-  const {saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance, setStreamsIds, getGEOMByProjectId,setServiceAreaCounty} = useProjectDispatch();
+  const {saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance, setStreamsIds, getGEOMByProjectId,setServiceAreaCounty, setJurisdictionSponsor} = useProjectDispatch();
   const {userPolygon, streamIntersected, currentServiceAreaCounty} = useProjectState();
   const {organization, groupOrganization} = useProfileState();
   const {userInformation} = useProfileState();
@@ -197,6 +197,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
   useEffect(()=>{
     setServiceAreaCounty({});
+    setJurisdictionSponsor(undefined);
     if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal ){
     setVisibleEligibility(true);
     }

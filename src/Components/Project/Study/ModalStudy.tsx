@@ -53,7 +53,7 @@ const genTitle = (streamName: any) => (
 
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any, editable:boolean }) => {
-  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy, setServiceAreaCounty} = useProjectDispatch();
+  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor} = useProjectDispatch();
   const {streamsIntersectedIds} =useProjectState();
   const {userInformation} = useProfileState();
   const {organization, groupOrganization} = useProfileState();
@@ -85,6 +85,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   useEffect(()=>{
     setServiceAreaCounty({});
     setStreamsList([]);
+    setJurisdictionSponsor(undefined);
     setStreamIntersected({geom:null});
     updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS ]);
   },[]);

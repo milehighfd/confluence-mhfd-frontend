@@ -56,11 +56,11 @@ export const LocationInformation = ({
   //const apllyJuridiccion = (e: any)=>{
   //   setJurisdiccion(e);
   // };
-  // useEffect(()=>{
-  //   if(!isLocalGovernment) {
-  //     setSponsor([jurisdiction]);
-  //   }
-  // },[jurisdiction]);
+  useEffect(()=>{
+    if(!isLocalGovernment && jurisdiction) {
+      setSponsor([jurisdiction]);
+    }
+  },[jurisdiction]);
   useEffect(()=>{
     if(editable){
       if(currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {

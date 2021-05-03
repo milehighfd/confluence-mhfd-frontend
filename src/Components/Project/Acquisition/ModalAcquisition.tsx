@@ -48,7 +48,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
     editable: boolean
   } ) => {
 
-  const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds, setServiceAreaCounty} = useProjectDispatch();
+  const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor} = useProjectDispatch();
   const {currentServiceAreaCounty} =useProjectState();
   const {organization, groupOrganization} = useProfileState();
   const {userInformation} = useProfileState();
@@ -192,6 +192,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 
   useEffect(()=>{
     setServiceAreaCounty({});
+    setJurisdictionSponsor(undefined);
     setStreamIntersected({geom:null});
     setStreamsIds([]);
   },[]);
