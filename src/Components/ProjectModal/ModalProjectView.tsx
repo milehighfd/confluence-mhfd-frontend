@@ -85,6 +85,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
     setTypeProyect(e);
     if(e === NEW_PROJECT_TYPES.Maintenance){
       setVisibleSubType(true);
+      setSubType(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management);
     }
     else{
       if(nameProject !== '' ){
