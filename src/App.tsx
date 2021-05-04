@@ -164,9 +164,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route path={`/alert-view`} component={AlertView} />
       <Route path={'/mobile-popup'} component={MobilePopup} />
       <Route path={'/new-project'} component={ModalProjectView} />
-      <Route path={'/work-request'} component={WorkRequest} />
       <Route path={'/raster-map'} component={Raster} />
-      <Route path={'/work-plan'} component={WorkPlan} />
       <Route path={'/chat'} component={Chat} />
       <Route path={'/status'} component={Status} />
       <Route path={'/analytics'} component={Analytics} />
@@ -180,9 +178,13 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       <Route exact path="/" render={() => (
           <Redirect to="/login"/>
       )}/>
-
+      
       {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileContainer} />}
       {datasets.getToken() && appUser.email && <Route path={`/map/:projectId?`} component={MapView} />}
+      {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
+        appUser.designation === 'staff') /*&& (appUser.status === 'approved')*/ && <Route path={'/work-plan'} component={WorkPlan}  />}
+      {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
+        appUser.designation === 'staff') /*&& (appUser.status === 'approved')*/ && <Route path={'/work-request'} component={WorkRequest} />}
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserContainer} />}
       {(appUser.designation === 'admin' ||

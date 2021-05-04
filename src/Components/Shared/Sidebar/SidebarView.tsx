@@ -57,7 +57,7 @@ export default () => {
           <span>Map View</span>
         </Link>
       </Menu.Item>
-      {(appUser.designation !== 'guest') ?
+      {(appUser.designation !== 'guest' && appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff') ?
       <Menu.Item key="4" className="menu-mobile">
         <Link to={'/work-request'}>
           <img className="img-h anticon mobile-display" src="/Icons/menu-white-14.svg" alt="" width="18px" />
@@ -66,7 +66,7 @@ export default () => {
           <span>Work Request</span>
         </Link>
       </Menu.Item> : ''}
-      {(appUser.designation !== 'guest') ?
+      {(appUser.designation !== 'guest' &&  appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff') ?
       <Menu.Item key="3" className="menu-mobile">
         <Link to={'/work-plan'}>
           <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="18px"/>
