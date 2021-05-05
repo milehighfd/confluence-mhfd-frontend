@@ -803,7 +803,6 @@ const CreateProjectMap = (type: any) => {
     }
   }
   const addLayersSource = (key: string, tiles: Array<string>) => {
-    console.log("KEY0,, e",key, tiles);
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
       map.map.addSource(key, {
         type: 'vector',
