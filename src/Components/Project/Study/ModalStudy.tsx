@@ -81,7 +81,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [keys, setKeys] = useState<any>([]);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdiccion, setJurisdiccion] = useState<any>([]);
+  const [jurisdicion, setjurisdicion] = useState<any>([]);
   useEffect(()=>{
     setServiceAreaCounty({});
     setStreamsList([]);
@@ -112,7 +112,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setDescription(data.description);
       setCounty(parseStringToArray(data.county));
       setServiceArea(parseStringToArray(data.servicearea));
-      setJurisdiccion(parseStringToArray(data.jurisdiction));
+      setjurisdicion(parseStringToArray(data.jurisdiction));
       setCosponsor(parseStringToArray(data.cosponsor));
       setNameProject(data.projectname);
       setProjectId(data.projectid);
@@ -142,7 +142,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjurisdiction = "";
-      jurisdiccion.map((element:any) => {
+      jurisdicion.map((element:any) => {
         cjurisdiction= cjurisdiction + element + ",";
       })
       if(cjurisdiction.length != 0 ){
@@ -192,13 +192,13 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   },[projectReturn.state.project ]);
 
   useEffect(()=>{
-    if(ids.length !== 0 && description != '' && county.length !== 0 && serviceArea.length !== 0 && cosponsor.length !== 0  && sponsor !== '' && jurisdiccion.length !== 0 && streamsIntersectedIds != null && listStreams !== 0){
+    if(ids.length !== 0 && description != '' && county.length !== 0 && serviceArea.length !== 0 && cosponsor.length !== 0  && sponsor !== '' && jurisdicion.length !== 0 && streamsIntersectedIds != null && listStreams !== 0){
       setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[ids, description, county, serviceArea, cosponsor, sponsor, jurisdiccion, streamsIntersectedIds, listStreams]);
+  },[ids, description, county, serviceArea, cosponsor, sponsor, jurisdicion, streamsIntersectedIds, listStreams]);
 
   const showModal = () => {
     const auxState = {...state};
@@ -478,8 +478,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               serviceArea = {serviceArea}
               setCounty = {setCounty}
               county = {county} 
-              setJurisdiccion={setJurisdiccion}
-              jurisdiccion={jurisdiccion}
+              setjurisdicion={setjurisdicion}
+              jurisdicion={jurisdicion}
               setCoSponsor={setCosponsor}
               cosponsor={cosponsor}
               setSponsor={setSponsor}

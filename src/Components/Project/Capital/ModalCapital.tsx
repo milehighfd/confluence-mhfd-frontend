@@ -149,7 +149,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [overheadDescription, setOverheadDescription] = useState("");
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdiccion, setJurisdiccion] = useState<any>([]);
+  const [jurisdicion, setjurisdicion] = useState<any>([]);
   const [cover, setCover] = useState('');
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
@@ -163,7 +163,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setServiceAreaCounty({});
     setServiceArea([]);
     setCounty([]);
-    setJurisdiccion([]);
+    setjurisdicion([]);
     setJurisdictionSponsor(undefined);
     setDescription('');
     if(componentsFromMap.length > 0 ) {
@@ -184,7 +184,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setSwSave(true);
       setCounty(parseStringToArray(data.county));
       setServiceArea(parseStringToArray(data.servicearea));
-      setJurisdiccion(parseStringToArray(data.jurisdiction));
+      setjurisdicion(parseStringToArray(data.jurisdiction));
       setCosponsor(parseStringToArray(data.cosponsor));
       setDescription(data.description);
       setNameProject(data.projectname);
@@ -265,7 +265,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjurisdiction = "";
-      jurisdiccion.map((element:any) => {
+      jurisdicion.map((element:any) => {
         cjurisdiction= cjurisdiction + element + ",";
       })
       if(cjurisdiction.length != 0 ){
@@ -1037,8 +1037,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               serviceArea = {serviceArea}
               setCounty = {setCounty}
               county = {county} 
-              setJurisdiccion={setJurisdiccion}
-              jurisdiccion={jurisdiccion}
+              setjurisdicion={setjurisdicion}
+              jurisdicion={jurisdicion}
               setCoSponsor={setCosponsor}
               cosponsor={cosponsor}
               setSponsor={setSponsor}
