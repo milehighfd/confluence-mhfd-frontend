@@ -201,7 +201,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         setOverheadDescription("");
       }
       else{
-        setOverheadDescription(data.data.overheadcostdescription);
+        setOverheadDescription(data.overheadcostdescription);
       }
       setSponsor(data.sponsor);
       setTimeout(()=>{

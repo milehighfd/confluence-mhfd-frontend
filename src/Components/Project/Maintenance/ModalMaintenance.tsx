@@ -93,8 +93,16 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       setjurisdiction(parseStringToArray(data.jurisdiction));
       setCosponsor(parseStringToArray(data.cosponsor));
       setProjectId(data.projectid);
-      setEligibility(data.maintenanceeligibility);
-      setFrequency(data.frequency);
+      if(data.maintenanceeligibility === null){
+        setEligibility('');
+      }else{
+        setEligibility(data.maintenanceeligibility);
+      }
+      if(data.frequency === null){
+        setFrequency('');
+      }else{
+        setFrequency(data.frequency);
+      }
       setEditsetprojectid(data.projectid);
       setSponsor(data.sponsor);
       if(data.ownership === "true"){
@@ -325,7 +333,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder={swSave? frequency   +"": "Select a Frequency"} style={{width:'100%'}} onChange={(frequency)=> apllyFrequency(frequency)}>
+                <Select placeholder={frequency!=''? frequency   +"": "Select a Frequency"} style={{width:'100%'}} onChange={(frequency)=> apllyFrequency(frequency)}>
                   {selec.map((element) =>{
                     return <Option key={element} value={element}>{element}</Option>
                   })}
@@ -342,7 +350,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
               <Row gutter={[16, 16]}>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                  <Select placeholder={swSave? eligibility   +"": "Select a Eligibility"} style={{width:'100%'}} onChange={(eligibilit)=> apllyEligibility(eligibilit)}>
+                  <Select placeholder={eligibility!=''? eligibility   +"": "Select a Eligibility"} style={{width:'100%'}} onChange={(eligibilit)=> apllyEligibility(eligibilit)}>
                     {PROJECT_INFORMATION.MAINTENANCE_ELIGIBILITY.map((element) =>{
                       return <Option key={element} value={element}>{element}</Option>
                     })}
