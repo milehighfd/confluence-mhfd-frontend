@@ -64,7 +64,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [projectid, setProjectId ] = useState(-1);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdicion, setjurisdicion] = useState<any>([]);
+  const [jurisdiction, setjurisdiction] = useState<any>([]);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -90,7 +90,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       setNameProject(data.projectname);
       setCounty(parseStringToArray(data.county));
       setServiceArea(parseStringToArray(data.servicearea));
-      setjurisdicion(parseStringToArray(data.jurisdiction));
+      setjurisdiction(parseStringToArray(data.jurisdiction));
       setCosponsor(parseStringToArray(data.cosponsor));
       setProjectId(data.projectid);
       setEligibility(data.maintenanceeligibility);
@@ -130,18 +130,20 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjurisdiction = "";
-      jurisdicion.map((element:any) => {
+      jurisdiction.map((element:any) => {
         cjurisdiction= cjurisdiction + element + ",";
       })
       if(cjurisdiction.length != 0 ){
         cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
       }
       let csponsor = "";
-      cosponsor.map((element:any) => {
-        csponsor= csponsor + element + ",";
-      })
-      if(cosponsor.length != 0 ){
-        csponsor = csponsor.substring(0, csponsor.length-1)
+      if(cosponsor){
+        cosponsor.map((element:any) => {
+          csponsor= csponsor + element + ",";
+        }); 
+        if(cosponsor.length != 0 ){
+          csponsor = csponsor.substring(0, csponsor.length-1)
+        }
       }
       maintenance.servicearea = cservice;
       maintenance.county = ccounty;
@@ -180,20 +182,21 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
 
   useEffect(()=>{
     //console.log(geom,"---", description,"---", county,"---", serviceArea,"---",ownership,"---",eligibility)
-    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && cosponsor.length !== 0 && jurisdicion.length !== 0 && nameProject !== '' && streamIntersected.geom && streamIntersected.geom != null && frequency !== '' ){
-      if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal  ){
+    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && jurisdiction.length !== 0 && nameProject !== '' && streamIntersected.geom && streamIntersected.geom != null ){
+      /*if(subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal  ){
           if(eligibility != ''){
             setDisable(false);
           }
         }
         else{
           setDisable(false);
-        }
+        }*/
+        setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[geom, description, county, serviceArea, eligibility, sponsor, cosponsor, nameProject, jurisdicion,streamIntersected.geom, frequency]);
+  },[geom, description, county, serviceArea, sponsor, cosponsor, nameProject, jurisdiction,streamIntersected.geom]);
 
   useEffect(()=>{
     setServiceAreaCounty({});
@@ -371,8 +374,8 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
               serviceArea = {serviceArea}
               setCounty = {setCounty}
               county = {county} 
-              setjurisdicion={setjurisdicion}
-              jurisdicion={jurisdicion}
+              setjurisdiction={setjurisdiction}
+              jUrisdiction={jurisdiction}
               setCoSponsor={setCosponsor}
               cosponsor={cosponsor}
               setSponsor={setSponsor}

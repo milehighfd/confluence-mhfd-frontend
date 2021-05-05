@@ -13,15 +13,15 @@ const content02 = (<div className="popver-info"></div>);
 const content03 = (<div className="popver-info"><b>Sponsor</b> is the Jurisdiction that requested the project.</div>);
 const content04 = (<div className="popver-info"><b>Co-Sponsor</b> is any additional Jurisdiction that will be contributing funding to the project.</div>);
 export const LocationInformation = ({
-  setServiceArea, setCounty, setjurisdicion, serviceArea, county, editable, jurisdicion, setCoSponsor, setSponsor, cosponsor,sponsor, isEdit
+  setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor,sponsor, isEdit
 }: {
   setServiceArea: Function,
   setCounty: Function,
-  setjurisdicion:Function,
+  setjurisdiction:Function,
   serviceArea: any,
   county: any,
   editable:boolean,
-  jurisdicion: any,
+  jUrisdiction: any,
   setCoSponsor:Function,
   setSponsor: any,
   cosponsor:any,
@@ -36,7 +36,7 @@ export const LocationInformation = ({
   const [disable , setdisable ] = useState(!editable);
   const user = store.getState().profile.userInformation;
 
-  
+
   const officialS_A = SERVICE_AREA.map((elem:any)=> {
     if(elem == 'Boulder Service Area') {
       return 'Boulder Creek Service Area';
@@ -57,7 +57,7 @@ export const LocationInformation = ({
     setSCounty(e);
   };
   //const apllyJuridiccion = (e: any)=>{
-  //   setjurisdicion(e);
+  //   setjurisdiction(e);
   // };
   useEffect(()=>{
     if(!isLocalGovernment && jurisdiction) {
@@ -100,7 +100,7 @@ export const LocationInformation = ({
       }
       if(currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
         console.log("JURISSS", currentServiceAreaCounty['jurisdiction']);
-        let J = jurisdicion;
+        let J = jUrisdiction;
         currentServiceAreaCounty['jurisdiction'].map((element:any) => {
 
           let service = true;
@@ -111,13 +111,13 @@ export const LocationInformation = ({
           }
           if(service){J = [...J, element];}
         });
-        setjurisdicion(J);
+        setjurisdiction(J);
       }
     }
   },[currentServiceAreaCounty]);
   useEffect(()=>{
-    console.log("serviceArea, county, jurisdicion", typeof serviceArea,"-", typeof county,"-", typeof jurisdicion);
-  },[serviceArea, county, jurisdicion]);
+    console.log("serviceArea, county, jurisdiction", typeof serviceArea,"-", typeof county,"-", typeof jUrisdiction);
+  },[serviceArea, county, jUrisdiction]);
   return(
     <>
     <h5>4. Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
@@ -148,9 +148,9 @@ export const LocationInformation = ({
     </Row>
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-        <label className="sub-title">Jurisdicion <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+        <label className="sub-title">Jurisdiction <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
-          <Select mode="multiple" placeholder={jurisdicion?.length!=0?jurisdicion:"Select a Jurisdicion"} style={{width:'100%'}} value={jurisdicion} onChange={(jurisdicion:any)=> setjurisdicion(jurisdicion)}>
+          <Select mode="multiple" placeholder={jUrisdiction?.length!=0?jUrisdiction:"Select a Jurisdiction"} style={{width:'100%'}} value={jUrisdiction} onChange={(jUrisdiction:any)=> setjurisdiction(jUrisdiction)}>
           {JURISDICTION.map((element:string ) =>{
               return <Option key={element} value={element}>{element}</Option>
             })}

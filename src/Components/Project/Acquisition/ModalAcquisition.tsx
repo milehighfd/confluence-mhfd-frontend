@@ -69,7 +69,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [disableName, setDisableName ] = useState(true);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdicion, setjurisdicion] = useState<any>([]);
+  const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [cover, setCover] = useState('');
   var date = new Date();
 
@@ -94,7 +94,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjurisdiction = "";
-      jurisdicion.map((element:any) => {
+      jurisdiction.map((element:any) => {
         cjurisdiction= cjurisdiction + element + ",";
       })
       if(cjurisdiction.length != 0 ){
@@ -102,11 +102,13 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       }
       
       let csponsor = "";
-      cosponsor.map((element:any) => {
-        csponsor= csponsor + element + ",";
-      })
-      if(cosponsor.length != 0 ){
-        csponsor = csponsor.substring(0, csponsor.length-1)
+      if(cosponsor){
+        cosponsor.map((element:any) => {
+          csponsor= csponsor + element + ",";
+        }); 
+        if(cosponsor.length != 0 ){
+          csponsor = csponsor.substring(0, csponsor.length-1)
+        }
       }
       acquisition.servicearea = cservice;
       acquisition.county = ccounty;
@@ -158,7 +160,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       setEditsetprojectid(data.projectid);
       setCounty(parseStringToArray(data.county));
       setServiceArea(parseStringToArray(data.servicearea));
-      setjurisdicion(parseStringToArray(data.jurisdiction));
+      setjurisdiction(parseStringToArray(data.jurisdiction));
       setCosponsor(parseStringToArray(data.cosponsor));
       setSponsor(data.sponsor);
       setTimeout(()=>{
@@ -181,13 +183,13 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   },[data]);
 
   useEffect(()=>{
-    if(nameProject !== '' && geom != undefined && description != '' && progress != '' && purchaseDate != '' && serviceArea.length !== 0  && county.length !== 0  && jurisdicion.length !== 0  && sponsor !== ''  && cosponsor.length !== 0 ){
+    if(nameProject !== '' && geom != undefined && description != ''  && serviceArea.length !== 0  && county.length !== 0  && jurisdiction.length !== 0  && sponsor !== ''){
       setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[nameProject, geom, description,progress,purchaseDate, serviceArea, county,jurisdicion, sponsor, cosponsor]);
+  },[nameProject, geom, description, serviceArea, county,jurisdiction, sponsor]);
 
 
   useEffect(()=>{
@@ -333,8 +335,8 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
               serviceArea = {serviceArea}
               setCounty = {setCounty}
               county = {county} 
-              setjurisdicion={setjurisdicion}
-              jurisdicion={jurisdicion}
+              setjurisdiction={setjurisdiction}
+              jUrisdiction={jurisdiction}
               setCoSponsor={setCosponsor}
               cosponsor={cosponsor}
               setSponsor={setSponsor}

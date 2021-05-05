@@ -65,7 +65,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [disableName, setDisableName ] = useState(true);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdicion, setjurisdicion] = useState<any>([]);
+  const [jurisdiction, setjurisdiction] = useState<any>([]);
   var date = new Date();
   var year = date.getFullYear();
   const dispatch = useDispatch();
@@ -81,8 +81,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   console.log("SERA CHANGE", serviceArea);
  },[serviceArea]);
  useEffect(()=>{
-  console.log("JURIS CHANGE", jurisdicion);
- },[jurisdicion]);
+  console.log("JURIS CHANGE", jurisdiction);
+ },[jurisdiction]);
   useEffect(()=>{
     if(data!== 'no data' ) {
       console.log("HERE IS THE DATA YEYEEYEY", data);
@@ -93,7 +93,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setNameProject(data.projectname);
       setCounty(parseStringToArray(data.county));
       setServiceArea(parseStringToArray(data.servicearea));
-      setjurisdicion(parseStringToArray(data.jurisdiction));
+      setjurisdiction(parseStringToArray(data.jurisdiction));
       setCosponsor(parseStringToArray(data.cosponsor));
       setSponsor(data.sponsor);
       // setGeom(data.coordinates);
@@ -137,7 +137,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjurisdiction = "";
-      jurisdicion.map((element:any) => {
+      jurisdiction.map((element:any) => {
         cjurisdiction= cjurisdiction + element + ",";
       })
       if(cjurisdiction.length != 0 ){
@@ -153,7 +153,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       }*/
       special.servicearea = serviceArea+ "";
       special.county = county+"";
-      special.jurisdiction= jurisdicion+"";
+      special.jurisdiction= jurisdiction+"";
       special.sponsor = sponsor;
       special.cosponsor = cosponsor + "";
       special.geom =  geom;
@@ -178,13 +178,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   }));
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && cosponsor.length !== 0  && sponsor !== '' && jurisdicion.length !== 0 ){
+    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0  && sponsor !== '' && jurisdiction.length !== 0 ){
       setDisable(false);
     }
     else{
       setDisable(true);
     }
-  },[geom, description, county, serviceArea, cosponsor, sponsor, jurisdicion]);
+  },[geom, description, county, serviceArea, sponsor, jurisdiction]);
 
   useEffect(()=>{
     setStreamIntersected({geom:null});
@@ -316,8 +316,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
               serviceArea = {serviceArea}
               setCounty = {setCounty}
               county = {county} 
-              setjurisdicion={setjurisdicion}
-              jurisdicion={jurisdicion}
+              setjurisdiction={setjurisdiction}
+              jUrisdiction={jurisdiction}
               setCoSponsor={setCosponsor}
               cosponsor={cosponsor}
               setSponsor={setSponsor}

@@ -149,7 +149,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [overheadDescription, setOverheadDescription] = useState("");
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
-  const [jurisdicion, setjurisdicion] = useState<any>([]);
+  const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [cover, setCover] = useState('');
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
@@ -163,7 +163,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setServiceAreaCounty({});
     setServiceArea([]);
     setCounty([]);
-    setjurisdicion([]);
+    setjurisdiction([]);
     setJurisdictionSponsor(undefined);
     setDescription('');
     if(componentsFromMap.length > 0 ) {
@@ -184,15 +184,25 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setSwSave(true);
       setCounty(parseStringToArray(data.county));
       setServiceArea(parseStringToArray(data.servicearea));
-      setjurisdicion(parseStringToArray(data.jurisdiction));
+      setjurisdiction(parseStringToArray(data.jurisdiction));
       setCosponsor(parseStringToArray(data.cosponsor));
       setDescription(data.description);
       setNameProject(data.projectname);
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
       setAdditionalCost(data.additionalcost);
-      setAdditionalDescription(data.additionalcostdescription);
-      setOverheadDescription(data.overheadcostdescription);
+      if(data.additionalcostdescription == null){
+        setAdditionalDescription("");
+      }
+      else{
+        setAdditionalDescription(data.additionalcostdescription);
+      }
+      if(data.overheadcostdescription == null){
+        setOverheadDescription("");
+      }
+      else{
+        setOverheadDescription(data.data.overheadcostdescription);
+      }
       setSponsor(data.sponsor);
       setTimeout(()=>{
         // setStreamIntersected({geom:data.createdCoordinates});
@@ -265,19 +275,21 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjurisdiction = "";
-      jurisdicion.map((element:any) => {
+      jurisdiction.map((element:any) => {
         cjurisdiction= cjurisdiction + element + ",";
       })
       if(cjurisdiction.length != 0 ){
         cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
       }
-      
+
       let csponsor = "";
-      cosponsor.map((element:any) => {
-        csponsor= csponsor + element + ",";
-      });
-      if(cosponsor.length != 0 ){
-        csponsor = csponsor.substring(0, csponsor.length-1)
+      if(cosponsor){
+        cosponsor.map((element:any) => {
+          csponsor= csponsor + element + ",";
+        }); 
+        if(cosponsor.length != 0 ){
+          csponsor = csponsor.substring(0, csponsor.length-1)
+        }
       }
       capital.servicearea = cservice;
       capital.county = ccounty;
@@ -340,7 +352,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }));
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && cosponsor.length !== 0 && nameProject !== '' && overheadDescription !== '' && componentsToSave.length !== 0 && additionalCost > -1 && additionalDescription !== ''){
+    if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== ''  && nameProject !== '' && componentsToSave.length !== 0  ){
       // if(locality === "no locality" ){
       //   setDisable(false);
       // }else{
@@ -348,7 +360,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       // }\
     }
     else{setDisable(true);}
-  },[geom, description, county, serviceArea , sponsor, cosponsor, nameProject, overheadDescription, componentsToSave, additionalCost ]);
+  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, ]);
 
   const onChange = (e: any) =>{
     setNameProject(e.target.value);
@@ -1037,8 +1049,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               serviceArea = {serviceArea}
               setCounty = {setCounty}
               county = {county} 
-              setjurisdicion={setjurisdicion}
-              jurisdicion={jurisdicion}
+              setjurisdiction={setjurisdiction}
+              jUrisdiction={jurisdiction}
               setCoSponsor={setCosponsor}
               cosponsor={cosponsor}
               setSponsor={setSponsor}
