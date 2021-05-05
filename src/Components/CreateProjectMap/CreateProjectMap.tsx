@@ -250,7 +250,6 @@ const CreateProjectMap = (type: any) => {
     
 // }, [coordinatesJurisdiction]);
   const setBounds = (value:any) => {
-    console.log("WHY NOT EVEN HERE in Group Organization", groupOrganization, value);
     const zoomareaSelected = groupOrganization.filter((x: any) => value.includes(x.aoi)).map((element: any) => {
       return {
         aoi: element.aoi,
@@ -436,17 +435,17 @@ const CreateProjectMap = (type: any) => {
   }, [streamIntersected]);
   useEffect(()=>{
     if(streamsIntersectedIds.length > 0) {
-      console.log("STREAMS INTERSECTED", streamsIntersectedIds);
       let streamsCodes:any = streamsIntersectedIds.map((str:any) => str.mhfd_code);
       map.isStyleLoaded( () => {
-        let filter = ['in','mhfd_code',...streamsCodes];
-        // console.log("filter", filter);
+        let filter = ['in',['get','unique_mhfd_code'],['literal',[...streamsCodes]]];
+        // ['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]
+        console.log("filter", filter);
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
           map.map.addLayer({
             'id': 'streams-intersects',
             'type': 'line',
-            'source': 'streams',
+            'source': 'mhfd_stream_reaches',
             'source-layer': 'pluto15v1',
             'layout': {},
             'paint': {
@@ -804,6 +803,7 @@ const CreateProjectMap = (type: any) => {
     }
   }
   const addLayersSource = (key: string, tiles: Array<string>) => {
+    console.log("KEY0,, e",key, tiles);
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
       map.map.addSource(key, {
         type: 'vector',
@@ -815,6 +815,7 @@ const CreateProjectMap = (type: any) => {
 
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
+    console.log("KEY TILES PREV FORE", key, styles);
     styles[key].forEach((style: LayerStylesType, index: number) => {
       // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", style['source-layer']);
       map.map.addLayer({
@@ -822,6 +823,7 @@ const CreateProjectMap = (type: any) => {
         source: key,
         ...style
       });
+      console.log("ADDING LAYERSSSS", key,'_', index);
       if (!key.includes('streams')) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }

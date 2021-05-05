@@ -47,7 +47,8 @@ import {
   BCZ_UTE_LADIES_TRESSES_ORCHID,
   RESEARCH_MONITORING,
   CLIMB_TO_SAFETY,
-  SEMSWA_SERVICE_AREA
+  SEMSWA_SERVICE_AREA,
+  MHFD_STREAMS_FILTERS
 } from "./constants";
 
 export const localComponents = {
@@ -2825,6 +2826,162 @@ export const tileStyles = {
     }
   }], 
   [STREAMS_FILTERS]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 0%, 0.12)",
+          10.5,
+          "hsla(210, 69%, 51%, 0.34)",
+          11,
+          "hsla(210, 71%, 35%, 0.67)",
+          12,
+          "hsl(210, 71%, 37%)",
+          12.58,
+          "hsl(210, 69%, 62%)",
+          22,
+          "hsl(210, 69%, 77%)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          0.5,
+          640,
+          1,
+          6400,
+          4,
+          1131411.35931,
+          12
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 0%, 0.12)",
+          10.5,
+          "hsla(210, 69%, 51%, 0.34)",
+          11,
+          "hsla(210, 71%, 35%, 0.67)",
+          12,
+          "hsl(210, 71%, 37%)",
+          12.58,
+          "hsl(210, 69%, 62%)",
+          22,
+          "hsl(210, 69%, 77%)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          0.5,
+          640,
+          1,
+          6400,
+          4,
+          1131411.35931,
+          12
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 0%, 0.12)",
+          10.5,
+          "hsla(210, 69%, 51%, 0.34)",
+          11,
+          "hsla(210, 71%, 35%, 0.67)",
+          12,
+          "hsl(210, 71%, 37%)",
+          12.58,
+          "hsl(210, 69%, 62%)",
+          22,
+          "hsl(210, 69%, 77%)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          0.5,
+          640,
+          1,
+          6400,
+          4,
+          1131411.35931,
+          12
+      ]
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-size": 12,
+      "text-variable-anchor": ["center"],
+      "text-max-angle": 0,
+      "symbol-spacing": 550,
+      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
+      "symbol-placement": "line-center",
+      "text-justify": "auto",
+      "text-padding": 1,
+      "text-rotation-alignment": "map",
+      "text-field": [
+          "coalesce",
+          ["get", "name_en"],
+          ["get", "name"],
+          ["get", "str_name"]
+      ],
+      "text-max-width": 111
+    },
+    "paint": {
+        "text-color": "hsl(0, 0%, 100%)",
+        "text-translate": [10, 0],
+        "text-translate-anchor": "viewport"
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-size": 12,
+      "text-variable-anchor": ["center"],
+      "text-max-angle": 0,
+      "symbol-spacing": 550,
+      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
+      "symbol-placement": "line-center",
+      "text-justify": "auto",
+      "text-padding": 1,
+      "text-rotation-alignment": "map",
+      "text-field": ["to-string", ["get", "str_name"]],
+      "text-max-width": 111
+    },
+    "paint": {
+        "text-color": "hsl(0, 0%, 100%)",
+        "text-translate": [10, 0],
+        "text-translate-anchor": "viewport"
+    }
+  }], 
+  [MHFD_STREAMS_FILTERS]: [{
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
