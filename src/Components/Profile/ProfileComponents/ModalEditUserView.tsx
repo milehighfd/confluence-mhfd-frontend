@@ -259,7 +259,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
         </div>
         <hr></hr>
         <div className="gutter-example">
-          <h3>DEFAULT MAP ZOOM AREA <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h3>
+          <h6>DEFAULT MAP ZOOM AREA <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h6>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               {/* <p>ORGANIZATION</p> */}

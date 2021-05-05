@@ -289,8 +289,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   });
   const formatterDec = new Intl.NumberFormat('en-US', {
     style: 'decimal',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 4
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
   });
   const removeStream = (stream:any) => {
     // console.log("WHAT IAM REMOVING?, data comes from strem list", stream, streamsList, 'ids', projectReturn.state.project.streamsIntersectedIds);
