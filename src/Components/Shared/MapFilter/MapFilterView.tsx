@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Checkbox, Row, Col, Button, Collapse, Popover, Switch } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
+import { useLocation } from "react-router-dom";
 import {
   FLOODPLAINS_FEMA_FILTERS,
   FLOODPLAINS_NON_FEMA_FILTERS,
@@ -114,6 +115,7 @@ export const SEMSWA_SERVICE_AREA =
   // if(isWR){
   //   setGroups({...groups, ...{workrequest:false}});
   // }
+  let locationType = useLocation().pathname.includes('work-request')?'WORK REQUEST':'WORK PLAN';
   useEffect(() => {
     const newGroups: any = {};
     if (switches[PROBLEMS_TRIGGER] && switches[PROJECTS_MAP_STYLES.name] && switches[COMPONENT_LAYERS.name]
@@ -305,9 +307,9 @@ export const SEMSWA_SERVICE_AREA =
        }/>
     </div>
   )};
-  const genExtra07 = () => (
+  const genExtra07 = (title: any) => (
     <div className="filter-coll-header">
-      <div style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>{/* <img src="/Icons/icon-79.svg" alt="" />*/} WORK REQUEST</div>
+      <div style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>{/* <img src="/Icons/icon-79.svg" alt="" />*/} {title} </div>
       <Switch checked={groups['workrequest']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [BORDER,AREA_BASED_MASK], 'workrequest')
@@ -361,7 +363,7 @@ export const SEMSWA_SERVICE_AREA =
       }}>
         <Collapse defaultActiveKey={['1', '2', '3', '4', '5', '6', '7', '8']}>
           { isWR && 
-          <Panel header="" key="6" extra={genExtra07()}>
+          <Panel header="" key="6" extra={genExtra07(locationType)}>
             <p>
               <img src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
                   Borders
@@ -372,7 +374,7 @@ export const SEMSWA_SERVICE_AREA =
             </p>
             <p>
               <img src="/Icons/Filters/ic_mask.png" width="18px" alt=""  />
-                  Area Based Mask
+                  Area-Based Mask
                   <Popover arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask)}>
                 <img className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
