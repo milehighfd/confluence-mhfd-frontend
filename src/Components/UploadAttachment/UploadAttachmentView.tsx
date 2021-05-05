@@ -22,7 +22,8 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, s
           <div style={{ padding: '6px 0px' }}> {filename.mimetype.includes('image/') ? <a href={filename.value} target="_blank" ><img  className="img-up" src={filename.value} height="30px" width="30px" /></a>
           : <a href={filename.value} target="_blank" ><img  className="img-up" src="/Icons/documents.png" height="30px" width="30px" /></a> } </div> <div style={{alignSelf: 'center'}}>{filename.filename} </div> </div>)
       },
-      sorter: true
+      sorter: true,
+      width: 630,
     },
     {
       title: 'Type',

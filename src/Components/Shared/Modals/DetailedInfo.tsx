@@ -109,8 +109,14 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>MHFD Manager</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 20 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{detailed.mhfdmanager ? detailed.mhfdmanager : 'N/A'}</p>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+          <label><i>OnBase</i></label>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+          <p>{detailed.onbaseid ? detailed.onbaseid : 'N/A'}</p>
         </Col>
       </Row>}
       {(detailed.problemtype || (detailed.projecttype === 'Capital')) && <Row>

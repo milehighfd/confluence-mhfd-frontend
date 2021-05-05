@@ -113,7 +113,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const [valueA, setvalueA] = useState('');
   const user = store.getState().profile.userInformation;
-  
+
   useEffect(() => {
     console.log("ZOOM AREA", nameZoomArea, user);
     setvalueA(nameZoomArea);
@@ -1062,7 +1062,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}
               >
 
-              <Input id={'miclase'} suffix={<Icon type="down" className="certain-category-icon" />} />
+              <Input id={'miclase'} suffix={<Icon type="down" className="certain-category-icon rotate-icon" />} />
             </AutoComplete>
             {/* </Popover> */}
           </div>
