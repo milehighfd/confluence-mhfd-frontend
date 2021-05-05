@@ -36,6 +36,7 @@ export const LocationInformation = ({
   const [disable , setdisable ] = useState(!editable);
   const user = store.getState().profile.userInformation;
 
+  
   const officialS_A = SERVICE_AREA.map((elem:any)=> {
     if(elem == 'Boulder Service Area') {
       return 'Boulder Creek Service Area';
@@ -43,6 +44,8 @@ export const LocationInformation = ({
       return elem;
     }
   }).filter((elem: any) => elem != 'South Platte River Service Area');
+
+
 
   let isLocalGovernment = user.designation === GOVERNMENT_STAFF;
   const apllyServiceArea = (e: any)=>{
@@ -172,7 +175,7 @@ export const LocationInformation = ({
         </Select>
       </Col>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-        <label className="sub-title">Potencial Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+        <label className="sub-title">Potential Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
           <Select  mode="multiple" placeholder={cosponsor?.length!=0?cosponsor: "Select a Co-Sponsor"} style={{width:'100%'}} onChange={(coSponsor:any)=> setCoSponsor(coSponsor)} value={cosponsor}>
             {groupOrganization.map((element:any) =>{
