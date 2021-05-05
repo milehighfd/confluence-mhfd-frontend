@@ -75,19 +75,19 @@ export default () => {
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
-      <Menu.Item key="2" className="menu-mobile">
-        <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="18px" style={{opacity: '0.2'}} />
-          <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
-          <span>Watershed Story - Under Construction</span>
-        </Link>
-      </Menu.Item> : ''}
-      {(appUser.designation !== 'guest') ?
       <Menu.Item key="5" className="menu-mobile">
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
           <span>Project Management - Under Construction</span>
+        </Link>
+      </Menu.Item> : ''}
+      {(appUser.designation !== 'guest') ?
+      <Menu.Item key="2" className="menu-mobile">
+        <Link to={'/map'}>
+          <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="18px" style={{opacity: '0.2'}} />
+          <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="18px" style={{opacity: '0.2'}}  />
+          <span>Watershed Story - Under Construction</span>
         </Link>
       </Menu.Item> : ''}
       {/* {(appUser.designation === 'admin' ||
