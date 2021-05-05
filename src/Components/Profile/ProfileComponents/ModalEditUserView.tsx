@@ -226,7 +226,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
           <h6>Areas of Interest</h6>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
-              <p>CITY</p>
+              <p>JURISDICTION</p>
               <Dropdown overlay={MenuAreaView(CITIES, 'city', values, setTitle)}>
                 <Button className="btn-borde">
                   {values.city ? values.city : 'City'} <img src="/Icons/icon-12.svg" alt="" />
