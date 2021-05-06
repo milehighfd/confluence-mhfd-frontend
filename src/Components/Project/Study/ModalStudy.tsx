@@ -447,7 +447,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                                   <Row style={{marginLeft:'-18px'}}>
                                     <Col className="first" xs={{ span: 24 }} lg={{ span: 11}} xxl={{ span: 11 }}><label>{stream.jurisdiction}</label></Col>
                                     <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{ formatterDec.format(stream.length * 0.000621371)}</Col>
-                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 7}} xxl={{ span: 7 }}>{ formatter.format(stream.drainage)}</Col>
+                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 7}} xxl={{ span: 7 }}>{ formatter.format(stream.drainage)}</Col>
                                     <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={()=> removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                   </Row>
                                 </Timeline.Item>
