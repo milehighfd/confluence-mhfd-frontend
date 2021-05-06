@@ -8,6 +8,7 @@ import { ModalStudy } from "../Project/Study/ModalStudy";
 import { NEW_PROJECT_TYPES } from "../../constants/constants";
 import { useProjectDispatch } from "../../hook/projectHook";
 import { useAttachmentDispatch } from "../../hook/attachmentHook";
+import { getAllowedBasedOnLocality } from "../Work/Request/RequestViewUtil";
 
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
@@ -17,21 +18,29 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = ({visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable }: 
-  {visible: boolean, setVisible: Function, data: any, template?: any, defaultTab?: any, showDefaultTab?: any, locality?: any, editable:boolean}) => {
-    console.log("DATA XX", data, editable);
+export const ModalProjectView = ({ visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable }: {
+  visible: boolean,
+  setVisible: Function,
+  data: any,
+  template?: any,
+  defaultTab?: any,
+  showDefaultTab?: any,
+  locality?: any,
+  editable:boolean
+}) => {
   const {getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
   const [disable, setDisable] = useState(true);
   const [nameProject, setNameProject] = useState('');
- const [visibleSubType, setVisibleSubType] = useState(false);
+  const [visibleSubType, setVisibleSubType] = useState(false);
   const [visibleModal, setVisibleModal] = useState(visible)
   const [visibleCapital, setVisibleCapital] = useState(false);
   const [visibleAcquisition, setVisibleAcquisition] = useState(false);
   const [visibleMaintenance, setVisibleMaintenance] = useState(false);
   const [visibleSpecial, setVisibleSpecial] = useState(false);
   const [visibleStudy, setVisibleStudy] = useState(false);
+  const [allowed, setAllowed] = useState<string[]>([]);
   const {getAttachmentByProject} = useAttachmentDispatch();
   const showModal = () => {
     setVisibleModal(true);
@@ -39,7 +48,6 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
   };
   const handleOk = (e: any) => {  
     if(typeProject === NEW_PROJECT_TYPES.Capital ){
-      // console.log("capi")
       setVisibleCapital(true);
     }
     if(typeProject === NEW_PROJECT_TYPES.Acquisition ){
@@ -140,6 +148,10 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
     }
   },[showDefaultTab]);
 
+  useEffect(() => {
+    setAllowed(getAllowedBasedOnLocality(locality));
+  }, [locality]);
+
   return (
     <>
      {visibleCapital && <ModalCapital
@@ -226,7 +238,9 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
       {/*Buttons*/}
       <h4>Choose a Project Type</h4>
       <Row gutter={[16, 16]} >
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Capital) }>
+        {
+          allowed.includes(NEW_PROJECT_TYPES.Capital) &&
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Capital) }>
           <Button className={typeProject===NEW_PROJECT_TYPES.Capital?"button-project button-project-active" : "button-project" } >
             <div className="project-img">
               <img src="/Icons/project/capital.svg" alt="" height="30px" />
@@ -237,7 +251,10 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
             </div>
           </Button>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Maintenance) }>
+        }
+        {
+          allowed.includes(NEW_PROJECT_TYPES.Maintenance) &&
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Maintenance) }>
         <Button className={typeProject===NEW_PROJECT_TYPES.Maintenance?"button-project button-project-active" : "button-project" }>
           <div className="project-img">
             <img src="/Icons/project/maintenance.svg" alt="" height="30px" />
@@ -248,9 +265,12 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
           </div>
         </Button>
         </Col>
+        }
       </Row>
       <Row gutter={[16, 16]}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Study) }>
+        {
+          allowed.includes(NEW_PROJECT_TYPES.Study) &&
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Study) }>
           <Button className={typeProject===NEW_PROJECT_TYPES.Study?"button-project button-project-active" : "button-project" } >
             <div className="project-img">
               <img src="/Icons/project/study.svg" alt="" height="30px" />
@@ -261,7 +281,10 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
             </div>
           </Button>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Acquisition) }>
+        }
+        {
+          allowed.includes(NEW_PROJECT_TYPES.Acquisition) &&
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Acquisition) }>
         <Button className={typeProject===NEW_PROJECT_TYPES.Acquisition?"button-project button-project-active" : "button-project" }>
           <div className="project-img">
             <img src="/Icons/project/acquisition.svg" alt="" height="30px" />
@@ -272,9 +295,12 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
           </div>
         </Button>
         </Col>
+        }
       </Row>
       <Row gutter={[16, 16]}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) }>
+        {
+          allowed.includes(NEW_PROJECT_TYPES.Special) &&
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) }>
           <Button className={typeProject===NEW_PROJECT_TYPES.Special?"button-project button-project-active" : "button-project" }>
             <div className="project-img">
               <img src="/Icons/project/special.svg" alt="" height="30px" />
@@ -285,6 +311,7 @@ export const ModalProjectView = ({visible, setVisible, data, template, defaultTa
             </div>
           </Button>
         </Col>
+        }
       </Row>
       <br/>
 

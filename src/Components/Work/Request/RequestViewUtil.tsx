@@ -1,5 +1,6 @@
 import { boardProject, columnProject } from "./RequestTypes";
 import CardStatService from './CardService';
+import { NEW_PROJECT_TYPES } from "../../../constants/constants";
 let fields = ['project_id', 'req1', 'req2', 'req3', 'req4', 'req5', 'positon0', 'positon1', 'positon2', 'positon3', 'positon4', 'positon5'];
 let fields2 = ['description', 'projectname', 'jurisdiction','county','servicearea','sponsor','cosponsor'];
 export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
@@ -89,6 +90,19 @@ export const formatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 0,
   maximumFractionDigits: 2
 });
+
+export const getAllowedBasedOnLocality = (locality: string) => {
+  let all = [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Special, NEW_PROJECT_TYPES.Study]; 
+  if (locality.startsWith('Unincorporated') && locality.endsWith('County')) {
+    return all;
+  } else if (locality.endsWith('County')) {
+    return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance]
+  } else if (locality.endsWith('Service Area')) {
+    return [NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special, NEW_PROJECT_TYPES.Study];
+  } else {
+    return all;
+  }
+}
 
 export const MaintenanceTypes = ['Debris Management', 'Vegetation Management', 'Sediment Removal', 'Minor Repairs', 'Restoration'];
 
