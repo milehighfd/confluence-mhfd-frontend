@@ -183,14 +183,14 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
 
             <Layout>
               <SidebarView></SidebarView>
-              {/*mostrar*/}
-            {visibleSave &&
+              {/*
+            visibleSave &&
               <AlertViewSave
                 statusSave= {statusSave}
                 setStatusSave= {setStatusSave}
                 setVisibleSave= {setVisibleSave}
               />
-            }
+            */}
               <Layout className="map-00">
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>
