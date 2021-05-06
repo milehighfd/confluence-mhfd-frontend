@@ -112,6 +112,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const [countFilterProjects, setCountFilterProjects] = useState(0);
 
   const [valueA, setvalueA] = useState('');
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const user = store.getState().profile.userInformation;
 
   useEffect(() => {
@@ -1047,6 +1048,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           <div className="auto-complete-map">
             <AutoComplete
               style={{ width: '200' }}
+              onDropdownVisibleChange={setDropdownIsOpen}
               dataSource={dataAutocomplete}
               placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
               filterOption={(inputValue, option: any) => {
@@ -1062,7 +1064,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}
               >
 
-              <Input id={'miclase'} suffix={<Icon type="down" className="certain-category-icon rotate-icon" />} />
+              <Input id={'miclase'} suffix={<Icon type="down" className={'certain-category-icon ' + (dropdownIsOpen ? 'rotate-icon': '')} />} />
             </AutoComplete>
             {/* </Popover> */}
           </div>

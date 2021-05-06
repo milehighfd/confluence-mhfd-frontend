@@ -76,6 +76,7 @@ const RequestView = ({ type }: {
   const [csaFilterList, setCsaFilterList] = useState([]);
   const [jurisdictionSelected, setJurisdictionSelected] = useState<string[]>([]);
   const [csaSelected, setCsaSelected] = useState<string[]>([]);
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const {clear} = useAttachmentDispatch();
   const wrtRef = useRef(null);
 
@@ -600,6 +601,7 @@ const RequestView = ({ type }: {
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                     <div className="auto-complete-map">
                       <AutoComplete
+                        onDropdownVisibleChange={setDropdownIsOpen}
                         className={'ant-select-1'}
                         dataSource={dataAutocomplete}
                         placeholder={localityFilter}
@@ -626,7 +628,7 @@ const RequestView = ({ type }: {
                       >
                         <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
                           prefix={<i className="mdi mdi-circle"></i>}
-                          suffix={<Icon type="down" className="certain-category-icon" />} />
+                          suffix={<Icon type="down" className={'certain-category-icon ' + (dropdownIsOpen ? 'rotate-icon': '')} />} />
                       </AutoComplete>
                     </div>
                   </Col>
