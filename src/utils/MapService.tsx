@@ -316,10 +316,12 @@ export class MapService {
       }
       this.map.removeSource('mask');
       setTimeout(()=>{
-        this.map.addSource('mask', {
-          "type": "geojson",
-          "data": data
-        });
+        if (!this.map.getSource('mask')) {
+          this.map.addSource('mask', {
+            "type": "geojson",
+            "data": data
+          });
+        }
       },300);
     }
   }

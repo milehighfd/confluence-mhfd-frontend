@@ -266,6 +266,7 @@ const WorkRequestMap = (type: any) => {
   }
 
   const setBounds = (value:any) => {
+    if (!value) return;
     const zoomareaSelected = groupOrganization.filter((x: any) => value.includes(x.aoi)).map((element: any) => {
       return {
         aoi: element.aoi,
