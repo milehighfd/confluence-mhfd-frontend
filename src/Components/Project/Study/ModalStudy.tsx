@@ -90,7 +90,6 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS ]);
   },[]);
   useEffect(()=>{
-    console.log("LIST STREAMS", listStreams);
     if(listStreams) {
       const idKey = [...keys];
       Object.keys(listStreams).map((key: any, id: any) => {

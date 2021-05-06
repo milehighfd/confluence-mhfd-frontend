@@ -47,7 +47,6 @@ export const saveAcquisition = (data: any) => {
         formData.append(key, data[key]);
       }
     });
-    console.log("A F D ", formData);
     // datasets.postDataMultipart('http://localhost:3003/create/acquisition', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.CREATE_ACQUISITION, formData, datasets.getToken()).then(res => {
       let status ; 
@@ -77,7 +76,6 @@ export const saveCapital = (data: any) => {
     })
     // datasets.postDataMultipart('http://localhost:3003/create/capital', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.CREATE_CAPITAL, formData, datasets.getToken()).then(res => {
-      console.log(res,"RES");
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -118,7 +116,6 @@ export const saveMaintenance = (data: any) => {
 };
 
 export const saveStudy = (data: any) => {
-  console.log("ABOUT TO SAVE STUDY", data);
   return ( dispatch: Function) => {
     const formData = new FormData();
     Object.keys(data).forEach((key: string) => {
@@ -134,7 +131,6 @@ export const saveStudy = (data: any) => {
     })
     // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {    
     datasets.postDataMultipart(SERVER.CREATE_STUDY, formData, datasets.getToken()).then(res => {
-      console.log(res,"RES");
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -162,7 +158,6 @@ export const editSpecial = (data: any) => {
     })
     // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.EDIT_SPECIAL(data.editProject), formData, datasets.getToken()).then(res => {
-      console.log(res,"RES");
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -189,7 +184,7 @@ export const editAcquisition = (data: any) => {
     })
     // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.EDIT_ACQUISITION(data.editProject), formData, datasets.getToken()).then(res => {
-      console.log(res,"RES");
+      
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -216,7 +211,7 @@ export const editStudy = (data: any) => {
     })
     // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.EDIT_STUDY(data.editProject), formData, datasets.getToken()).then(res => {
-      console.log(res,"RES");
+      
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -243,7 +238,7 @@ export const editMaintenance = (data: any) => {
     })
     // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.EDIT_MAINTENANCE(data.editProject), formData, datasets.getToken()).then(res => {
-      console.log(res,"RES");
+      
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -271,7 +266,7 @@ export const editCapital = (data: any) => {
     })
     // datasets.postDataMultipart('http://localhost:3003/create/study', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.EDIT_CAPITAL(data.editProject), formData, datasets.getToken()).then(res => {
-      console.log(res,"RES");
+      
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -323,7 +318,6 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAM_INTERSECTED, {geom: geom}, datasets.getToken()).then(res => {
       let streamsIntersectedIds = res;
-      console.log("HOW SHOUOLD IDS BE", streamsIntersectedIds);
         dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
     });
   }
@@ -397,7 +391,7 @@ export const getServiceAreaStreams = (geom:any ) => {
 export const getServiceAreaPolygonofStreams = (geom:any ) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_SERVICEAREA_COUNTY_GEOM, {geom: JSON.parse(geom)}, datasets.getToken()).then(currentServiceAreaCounty => {
-      console.log("CONSOLE ", currentServiceAreaCounty);
+
       dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});
     });
   }
@@ -410,7 +404,7 @@ export const setServiceAreaCounty = (currentServiceAreaCounty: any) => {
 export const getJurisdictionPolygon = (geom: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_JURISDICTION_POLYGON, {geom: geom}, datasets.getToken()).then(res => {
-      console.log("JURISDICTION", res);
+
       let jurisdiction = res.jurisdiction;
       dispatch({type: types.SET_JURISDICTION_SPONSOR, jurisdiction});
     });
@@ -423,6 +417,7 @@ export const setJurisdictionSponsor = (jurisdiction: any) => {
 }
 
 export const getStreamsList = (geom: any) => {
+  console.log("ON CREATE IS CALLING ", new Date(), geom);
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_LIST_STREAMS, {geom:geom}, datasets.getToken()).then(listStreams => {
       dispatch({type: types.SET_LIST_STREAMS, listStreams});

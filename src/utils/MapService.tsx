@@ -289,6 +289,9 @@ export class MapService {
   createDraw(cb: any) {
     this.map.on('draw.create', cb);
   }
+  deleteDraw(cb: any) {
+    this.map.off('draw.create', cb);
+  }
   updateDraw(cb: any) {
     this.map.on('draw.update', cb);
   }

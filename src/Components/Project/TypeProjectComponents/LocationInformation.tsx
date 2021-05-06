@@ -84,7 +84,6 @@ export const LocationInformation = ({
         setSCounty(currentServiceAreaCounty['County']);
         let C = county;
         currentServiceAreaCounty['County'].map((element:any) => {
-          console.log("element", element);
           if(element == 'Broomfield' || element == 'Denver') {
             element += ' County'
           }
@@ -99,7 +98,6 @@ export const LocationInformation = ({
         setCounty(C);
       }
       if(currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
-        console.log("JURISSS", currentServiceAreaCounty['jurisdiction']);
         let J = jUrisdiction;
         currentServiceAreaCounty['jurisdiction'].map((element:any) => {
 
@@ -115,9 +113,7 @@ export const LocationInformation = ({
       }
     }
   },[currentServiceAreaCounty]);
-  useEffect(()=>{
-    console.log("serviceArea, county, jurisdiction", typeof serviceArea,"-", typeof county,"-", typeof jUrisdiction);
-  },[serviceArea, county, jUrisdiction]);
+  
   return(
     <>
     <h5>4. Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>

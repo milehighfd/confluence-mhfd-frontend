@@ -121,6 +121,7 @@ const CreateProjectMap = (type: any) => {
     eventService.setRef('click',eventClick);
     eventService.setRef('move', eventMove);
     eventService.setRef('addmarker', addMarker);
+    eventService.setRef('oncreatedraw', onCreateDraw);
     changeAddLocationState(false);
     // setComponentIntersected([]);
     componentsList = [];
@@ -128,7 +129,6 @@ const CreateProjectMap = (type: any) => {
         .then(
           (r: any) => {
             if (r.localities.length > 0) {
-              console.log("SETTING AOI based on ENDPOINT", r.localities[0]);
               setLocalAOI(r.localities[0].name);
             }
           },
@@ -138,7 +138,6 @@ const CreateProjectMap = (type: any) => {
         )
   }, []);
   useEffect(()=>{
-    console.log("EDIT LOCATION", editLocation);
     if(editLocation && editLocation[0]){
       setTimeout(()=>{
         map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0] + 0.0005});})
@@ -372,14 +371,18 @@ const CreateProjectMap = (type: any) => {
         // map.map.off('click', eventToClick);
         isPopup = false;
         map.addDrawControllerTopLeft();
-        map.createDraw(onCreateDraw);
+        let drawEvent = eventService.getRef('oncreatedraw');
+        map.deleteDraw(drawEvent);
         setTimeout(()=>{
-          let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_polygon');
-          let element: HTMLElement = elements[0] as HTMLElement;
-          if(element) {
-            element.click();
-          }
-        },500);
+          map.createDraw(drawEvent);
+          setTimeout(()=>{
+            let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_polygon');
+            let element: HTMLElement = elements[0] as HTMLElement;
+            if(element) {
+              element.click();
+            }
+          },500);
+        },200);
       }
     } else {
       isPopup = true;
@@ -512,6 +515,7 @@ const CreateProjectMap = (type: any) => {
     }
   }
   const onCreateDraw = (event: any) => {
+    console.log("ON CREATE DRAW", event);
     const userPolygon = event.features[0];
     if (type.type === 'CAPITAL') {
       // getStreamIntersectionSave(userPolygon.geometry);
@@ -814,7 +818,6 @@ const CreateProjectMap = (type: any) => {
 
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
-    console.log("KEY TILES PREV FORE", key, styles);
     styles[key].forEach((style: LayerStylesType, index: number) => {
       // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", style['source-layer']);
       map.map.addLayer({
@@ -822,7 +825,6 @@ const CreateProjectMap = (type: any) => {
         source: key,
         ...style
       });
-      console.log("ADDING LAYERSSSS", key,'_', index);
       if (!key.includes('streams')) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }
