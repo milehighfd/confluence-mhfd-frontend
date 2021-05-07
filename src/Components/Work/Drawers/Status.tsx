@@ -167,7 +167,8 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
           <Row>
             <Col lg={{ span: 12 }}>
               <p>{type === 'WORK_REQUEST' ? 'Project Type' : 'Work Plan'}
-                <Popover content={type === 'WORK_REQUEST' ? 'Once all project types are selected, the Work Request may be submitted.' : ''}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover>
+                &nbsp;&nbsp;
+                <Popover content={type === 'WORK_REQUEST' ? <div>Once all project types are selected<br/> the Work Request may be submitted.</div> : ''}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover>
               </p>
             </Col>
             {
