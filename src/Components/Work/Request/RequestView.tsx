@@ -63,6 +63,7 @@ const RequestView = ({ type }: {
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
   const [boardStatus, setBoardStatus] = useState<any>(null);
+  const [boardSubstatus, setBoardSubstatus] = useState<any>(null);
   const [boardComment, setBoardComment] = useState(null);
   const [showModalProject, setShowModalProject] = useState(false);
   const history = useHistory();
@@ -221,6 +222,7 @@ const RequestView = ({ type }: {
           ProjectEditService.setProjects(projects);
           if (board) {
             setBoardStatus(board.status);
+            setBoardSubstatus(board.substatus);
             setBoardComment(board.comment);
             setNamespaceId(board._id)
             setReqManager([
@@ -295,8 +297,8 @@ const RequestView = ({ type }: {
         locality,
         projecttype: tabKey
       }
-      postData(`${SERVER.URL_BASE}/board/`, data)
-      // postData(`${'http://localhost:3003'}/board/`, data)
+      // postData(`${SERVER.URL_BASE}/board/`, data)
+      postData(`${'http://localhost:3003'}/board/`, data)
         .then(
           (r: any) => {
             if(r){
@@ -305,6 +307,9 @@ const RequestView = ({ type }: {
               if (board) {
                 if (board.status !== boardStatus) {
                   setBoardStatus(board.status);
+                }
+                if (board.substatus !== boardSubstatus) {
+                  setBoardSubstatus(board.substatus);
                 }
                 if (board.comment !== boardComment) {
                   setBoardComment(board.comment);
@@ -555,6 +560,7 @@ const RequestView = ({ type }: {
         visible={showBoardStatus}
         setVisible={setShowBoardStatus}
         status={boardStatus}
+        substatus={boardSubstatus}
         comment={boardComment}
         type={type}
         />

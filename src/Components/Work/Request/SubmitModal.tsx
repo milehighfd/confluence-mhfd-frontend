@@ -1,7 +1,9 @@
 import React from "react";
 import { Modal } from 'antd';
+import { boardType } from "./RequestTypes";
 
-export const SubmitModal = ({ visibleAlert, setVisibleAlert, setSave, boardStatus, currentStatus, pending  }: {
+export const SubmitModal = ({ type, visibleAlert, setVisibleAlert, setSave, boardStatus, currentStatus, pending  }: {
+  type: boardType,
   visibleAlert: boolean,
   setVisibleAlert: Function,
   setSave: Function,
@@ -36,7 +38,9 @@ console.log(pending, "PENDING")
           !pending && <h2>{currentApproved ? 'Only notes will be updated.' : 'By approving, you will no longer be able to edit.'}</h2>
         }
         {
-          pending && <h2>Can not submit while still have pending work request</h2> 
+          pending && <h2>{ type === 'WORK_REQUEST' ?
+            'Work Request submission is unavailable until all project types are selected for approval.' :
+            'Can not submit while still have pending work request' }</h2> 
         }
         {
             !approved &&
