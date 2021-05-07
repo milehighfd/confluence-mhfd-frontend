@@ -297,8 +297,8 @@ const RequestView = ({ type }: {
         locality,
         projecttype: tabKey
       }
-      // postData(`${SERVER.URL_BASE}/board/`, data)
-      postData(`${'http://localhost:3003'}/board/`, data)
+      postData(`${SERVER.URL_BASE}/board/`, data)
+      // postData(`${'http://localhost:3003'}/board/`, data)
         .then(
           (r: any) => {
             if(r){
