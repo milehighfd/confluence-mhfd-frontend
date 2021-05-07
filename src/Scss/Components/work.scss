@@ -35,7 +35,14 @@
  //    position: absolute;
  //    bottom: 0px;
  //    background: $white;
+ //    width: auto;
  // }
+ .ant-timeline-item-tail {
+    position: absolute;
+    top: 6px;
+    left: 2.8px;
+    height: calc(100% - 4px);
+  }
 }
 .work-head, .work-body{
   background: $white;
@@ -174,14 +181,15 @@
   .col-wr{
     min-width: 160px;
     width: 160px;
-    height: 515px;
-    min-height: 515px;
+    height: calc(100vh - 330px);
+    // min-height: 515px;
     border-radius: 4px;
     background-color: $light-purple;
     margin-right: 10px;
     padding: 40px 6px 20px 6px;
     position: relative;
     overflow-y: auto;
+    margin-top: 25px;
   }
   .btn-transparent{
     padding: 0px;
@@ -210,6 +218,10 @@
     text-transform: uppercase;
     text-align: center;
     width: 160px;
+    position: fixed;
+    margin-bottom: 20px;
+    background: white;
+    z-index: 10000;
   }
   h4{
     font-size: 14px;
@@ -253,7 +265,7 @@
   }
 }
 .cost-wr{
-  margin-top: 20px;
+  margin-top: 15px;
   // overflow-x: auto;
   color: $red;
   font-size: 12px;
@@ -780,6 +792,11 @@
 
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
+  .work{
+    .ant-timeline-item-tail {
+       left: 3.8px;
+     }
+  }
   .work-head{
     h2{
       font-size: 27px;
@@ -839,8 +856,9 @@
     .col-wr {
       min-width: 215px;
       width: 215px;
-      height: 685px;
-      min-height: 685px;
+      height: calc(100vh - 385px);
+      // min-height: 685px;
+      margin-top: 35px;
     }
     .btn-transparent {
       font-size: 16px;
@@ -894,6 +912,13 @@
     .ant-input, .ant-input-number{
       height: 30px;
       font-size: 16px;
+    }
+    .streams{
+      .ant-timeline-item-head {
+        width: 8px !important;
+        height: 8px !important;
+        margin-top: 3px;
+      }
     }
   }
   .work-footer{
@@ -1098,6 +1123,12 @@
 }
 // 2560x1440 DISPLAY
 @media (min-width: 2500px) and (max-width: 2999px){
+  .work{
+    .ant-timeline-item-tail {
+      top: 11px;
+      left: 3.8px;
+    }
+  }
   .work-head{
     h2{
       font-size: 36px;
@@ -1159,10 +1190,11 @@
     .col-wr {
       min-width: 285px;
       width: 285px;
-      height: 915px;
-      min-height: 915px;
+      height: calc(100vh - 425px);
+      // min-height: 915px;
       margin-right: 15px;
       padding: 50px 10px 20px 10px;
+      margin-top: 40px;
     }
     .btn-transparent {
       font-size: 21px;
@@ -1176,15 +1208,25 @@
     .card-wr {
       width: 265px;
       height: 175px;
+      padding: 10px;
     }
     h4 {
       font-size: 24px;
+      line-height: 26px;
     }
     h6{
       font-size: 19px;
     }
     .purple, .yellow{
       font-size: 17px;
+    }
+    .purple{
+      bottom: 10px;
+      left: 10px;
+    }
+    .yellow{
+      bottom: 10px;
+      right: 10px;
     }
     .menu-wr {
       top: 12px;
@@ -1224,6 +1266,13 @@
       height: 40px;
       font-size: 21px;
       margin-top: -5px;
+    }
+    .streams{
+      .ant-timeline-item-head {
+        width: 10px !important;
+        height: 10px !important;
+        margin-top: 3px;
+      }
     }
   }
   .work-footer{
