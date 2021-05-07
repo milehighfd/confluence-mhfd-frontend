@@ -30,6 +30,12 @@
     left: -5px;
     border-radius: 0px 10px 10px 0px !important;
   }
+ //  .cost-wr {
+ //    padding-top: 15px;
+ //    position: absolute;
+ //    bottom: 0px;
+ //    background: $white;
+ // }
 }
 .work-head, .work-body{
   background: $white;
@@ -156,7 +162,7 @@
     }
   }
   .ant-tabs-tabpane-active{
-    height: calc(100vh - 254px);
+    height: calc(100vh - 174px);
     overflow-x: auto;
   }
 }
@@ -808,7 +814,7 @@
       font-size: 16px;
     }
     .ant-tabs-tabpane-active {
-      height: calc(100vh - 281px);
+      height: calc(100vh - 192px);
     }
     .col-bg {
       height: 54px;
@@ -1128,7 +1134,7 @@
       font-size: 21px;
     }
     .ant-tabs-tabpane-active {
-      height: calc(100vh - 330px);
+      height: calc(100vh - 217px);
     }
     .col-bg {
       height: 70px;
