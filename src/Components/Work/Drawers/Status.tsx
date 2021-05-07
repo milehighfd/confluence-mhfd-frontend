@@ -68,7 +68,13 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       getData(`${SERVER.URL_BASE}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
       // getData(`${'http://localhost:3003'}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
         .then((r) => {
-          setBoardsData(r.boards);
+          let list = substatus ? substatus.split(',') : [];
+          setBoardsData(r.boards.map((b: any) => {
+            return {
+              ...b,
+              status: b.status === 'Approved' ? 'Approved' : (list.includes(b.locality) ? 'Approved' : 'Under Review')
+            }
+          }));
         })
         .catch((e) => {
           console.log('e', e)
