@@ -188,7 +188,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
                           { item.status !== 'Approved' ? setpending(true) : pending }
                           <i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00'}}>
                           </i>
-                          {item.locality}
+                          &nbsp; {item.locality}
                         </h6>
                       }
                       // description={
@@ -208,7 +208,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
               />
             )
           }
-
+      <br />
       <p>Notes <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
       <textarea className="note" rows={8} value={boardComment} onChange={e => {
         if (status === 'Approved') return;
