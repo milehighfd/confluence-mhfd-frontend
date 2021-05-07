@@ -166,7 +166,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
             </Col>
             {
               (type === 'WORK_REQUEST' || locality === 'MHFD District Work Plan') &&
-              <Col lg={{ span: 12 }}><p style={{textAlign:'right'}}>Reviewed</p></Col>
+              <Col lg={{ span: 12 }}><p style={{textAlign:'right', paddingRight: 8}}>Reviewed</p></Col>
             }
           </Row>
           {
