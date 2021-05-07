@@ -59,7 +59,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
   useEffect(() => {
     if (type === 'WORK_REQUEST') {
       let list = substatus ? substatus.split(',') : [];
-      let ls = ['Capital', 'Acquisition', 'Maintenance', 'Special', 'Study']
+      let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special']
       setBoardsData(ls.map((l) => {
         return {locality: l, status: list.includes(l) ? 'Approved' : 'Under Review'}
       }))
