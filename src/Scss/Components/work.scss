@@ -221,7 +221,7 @@
     position: fixed;
     margin-bottom: 20px;
     background: white;
-    z-index: 10000;
+    z-index: 998;
   }
   h4{
     font-size: 14px;
@@ -425,6 +425,7 @@
       background-color: $purple !important;
       width: 7px !important;
       height: 7px !important;
+      border-radius: 50%;
     }
     .ant-timeline-item-head-green {
       color: $green !important;
@@ -436,6 +437,9 @@
       border-color: $orange !important;
       background: $orange !important;
     }
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
+    left: 12px;
   }
 }
 .work-footer{
