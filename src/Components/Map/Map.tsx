@@ -157,6 +157,7 @@ const Map = ({ leftWidth,
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
+    const [problemid, setProblemId ] = useState(undefined);
 
     const [notesFilter, setNotesFilter] = useState('all');
     useEffect(()=> {
@@ -2190,6 +2191,7 @@ const Map = ({ leftWidth,
           setShowDefault(true);
         } else if (details.type === 'problems') {
           getAllComponentsByProblemId(details.problemid);
+          setProblemId(details.problemid);
           setShowDefault(true);
         }else {
           setShowDefault(false);
@@ -2680,6 +2682,7 @@ const Map = ({ leftWidth,
                 showDefaultTab={showDefault}
                 locality= {"no locality"}
                 editable = {true}
+                problemId= {problemid}
             />
             }
         </div>

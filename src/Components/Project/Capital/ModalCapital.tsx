@@ -107,8 +107,8 @@ const genTitleProblem = (problem: any) => {
     </div>
   )
 }
-export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
-  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean}) => {
+export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data, editable, problemId}:
+  {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean, problemId?: any}) => {
   let Component = {
     type:"Unnamend Component",
     status:"Proposed",
@@ -562,7 +562,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
           {/* mapitash */}
-          <CreateProjectMap type="CAPITAL" locality={locality} projectid={projectid} isEdit={swSave}></CreateProjectMap>
+          <CreateProjectMap type="CAPITAL" locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           <div className="head-project">

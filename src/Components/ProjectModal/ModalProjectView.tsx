@@ -18,7 +18,7 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = ({ visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable }: {
+export const ModalProjectView = ({ visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable, problemId }: {
   visible: boolean,
   setVisible: Function,
   data: any,
@@ -26,7 +26,8 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   defaultTab?: any,
   showDefaultTab?: any,
   locality?: any,
-  editable:boolean
+  editable:boolean,
+  problemId?: any
 }) => {
   const {getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
@@ -120,7 +121,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         setNameProject('Name your project');
       } else {
         getAttachmentByProject(data.projectid);
-        console.log("DATA", data);
+        // console.log("DATA", data);
         if( data.projecttype == 'Study'){
           getStreamsByProjectId(data.projectid);
         } else if( data.projecttype == 'Capital') {
@@ -164,6 +165,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
       locality = {locality}
       data={data}
       editable= {editable}
+      problemId= {problemId}
      />}
      {visibleAcquisition && <ModalAcquisition
       visibleAcquisition = {visibleAcquisition} 

@@ -285,7 +285,7 @@ const CreateProjectMap = (type: any) => {
   };
   useEffect(()=>{
     if(type.projectid != -1 && type.projectid) {
-      getData(`${SERVER.URL_BASE}/board/bbox/${type.projectid}`)
+      getData(`${SERVER.URL_BASE}/board/bbox/${type.projzectid}`)
       .then(
         (r: any) => { 
           if(r.bbox){
@@ -311,7 +311,7 @@ const CreateProjectMap = (type: any) => {
       if(type.locality) {
         value = type.locality;
       } 
-        console.log("CHECKER the one AOI", localAOI, "locatlity that reach to component",  type.locality, "area");
+        // console.log("CHECKER the one AOI", localAOI, "locatlity that reach to component",  type.locality, "area");
       if(groupOrganization.length > 0) {
         // console.log("SETTING OBUNDS");
         wait(()=>setBounds(value));
@@ -396,6 +396,13 @@ const CreateProjectMap = (type: any) => {
         getServiceAreaPolygonofStreams(streamIntersected.geom);
       }
       geom = JSON.parse(streamIntersected.geom);
+      if(type.problemId) {
+        let poly = turf.multiLineString(geom.coordinates);
+        let bboxBounds = turf.bbox(poly);
+        if(map.map){
+          map.map.fitBounds(bboxBounds,{ padding:80});
+        }
+      }
       if(geom) {
         map.isStyleLoaded(() => {
           map.removeLayer('streamIntersected');
