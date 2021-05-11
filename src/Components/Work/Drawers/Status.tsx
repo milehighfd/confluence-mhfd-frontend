@@ -29,8 +29,8 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
   console.log('substatus', substatus);
 
   const save = () => {
-    // putData(`${SERVER.URL_BASE}/board/${boardId}`, {
-    putData(`${'http://localhost:3003'}/board/${boardId}`, {
+    putData(`${SERVER.URL_BASE}/board/${boardId}`, {
+    // putData(`${'http://localhost:3003'}/board/${boardId}`, {
       status: boardStatus,
       comment: boardComment,
       substatus: boardSubstatus
