@@ -268,10 +268,9 @@ const CreateProjectMap = (type: any) => {
       //   // console.log("FLU TO ", value);
       //     map.map.flyTo({ center: value, zoom: 10 });
       // }
-      console.log("ENTERS HERE", zoomareaSelected[0]);
+      // console.log("ENTERS HERE", zoomareaSelected[0]);
       let bboxBounds = turf.bbox(poly);
       if(map.map){
-        console.log("NOT ENTERS HERE");
         map.map.fitBounds(bboxBounds,{ padding:10, maxZoom: 13});
       }
     }
@@ -290,7 +289,7 @@ const CreateProjectMap = (type: any) => {
       .then(
         (r: any) => { 
           if(r.bbox){
-            console.log("GET BBOX OF PROJECTid", type.projectid);
+            // console.log("GET BBOX OF PROJECTid", type.projectid);
             let BBoxPolygon = JSON.parse(r.bbox);
             let bboxBounds = turf.bbox(BBoxPolygon);
             if(map.map){
@@ -301,7 +300,7 @@ const CreateProjectMap = (type: any) => {
           }
         },
         (e:any) => {
-          console.log('Error getting bbox projectid', e);
+          console.error('Error getting bbox projectid', e);
         }
       )
     }
@@ -314,7 +313,7 @@ const CreateProjectMap = (type: any) => {
       } 
         console.log("CHECKER the one AOI", localAOI, "locatlity that reach to component",  type.locality, "area");
       if(groupOrganization.length > 0) {
-        console.log("SETTING OBUNDS");
+        // console.log("SETTING OBUNDS");
         wait(()=>setBounds(value));
       }
     },500);
@@ -324,7 +323,6 @@ const CreateProjectMap = (type: any) => {
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
       if(type.type === 'CAPITAL') {
-        console.log("IT SHOOULD SEND HERE");
         getStreamsByComponentsList(listComponents.result);
       }
       
@@ -394,9 +392,7 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     let geom: any = undefined;
     if (streamIntersected && streamIntersected.geom) {
-      console.log("REACHES INTERSECTED RGHT???", type);
       if(type.type == 'CAPITAL' || type.type == 'MAINTENANCE') {
-        console.log("BOUT TO SEND");
         getServiceAreaPolygonofStreams(streamIntersected.geom);
       }
       geom = JSON.parse(streamIntersected.geom);
@@ -442,7 +438,7 @@ const CreateProjectMap = (type: any) => {
       map.isStyleLoaded( () => {
         let filter = ['in',['get','unique_mhfd_code'],['literal',[...streamsCodes]]];
         // ['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]
-        console.log("filter", filter);
+        
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
           map.map.addLayer({
@@ -515,7 +511,6 @@ const CreateProjectMap = (type: any) => {
     }
   }
   const onCreateDraw = (event: any) => {
-    console.log("ON CREATE DRAW", event);
     const userPolygon = event.features[0];
     if (type.type === 'CAPITAL') {
       // getStreamIntersectionSave(userPolygon.geometry);

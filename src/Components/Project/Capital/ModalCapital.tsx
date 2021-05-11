@@ -216,7 +216,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[data]);
 
   useEffect(()=>{
-    console.log("I C", independentComponents);
     if(independentComponents.length > 0) {
       setIndependentComponents(independentComponents);
     }
@@ -231,7 +230,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setGeom(userPolygon);
   },[userPolygon]);
   useEffect(()=>{
-    console.log("list components to filter ", listComponents);
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
       const idKey = [...keys];
       Object.keys(listComponents.groups).map((key: any,id:any) => {
@@ -244,7 +242,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       let newC = listComponents.result.map((c:any) => {
         return { table: c.table, objectid: c.objectid}
       })
-      console.log("NEW C", newC);
       setComponentsToSave(newC);
     } else {
       setGroups({});
@@ -432,7 +429,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[thisIndependentComponents]);
   useEffect(()=>{
-    console.log("YYX",listComponents, thisIndependentComponents , flagInit);
     if((((listComponents && listComponents.groups && listComponents.result.length > 0)) || thisIndependentComponents.length > 0) && !flagInit) {
       let newoverhead = [...overheadValues];
       newoverhead[1] = 5;
@@ -525,7 +521,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const removeIndComponent = (indComp: any) => {
     let currentComponents = [...thisIndependentComponents];
     currentComponents = currentComponents.filter( (comp: any) => ( comp._id != indComp._id ) );
-    console.log("IND to be eraased", indComp,"PREV EDT", thisIndependentComponents, "DELETED??", currentComponents);
     setIndependentComponents([...currentComponents]);
   }
 

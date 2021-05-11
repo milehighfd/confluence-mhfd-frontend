@@ -417,7 +417,6 @@ export const setJurisdictionSponsor = (jurisdiction: any) => {
 }
 
 export const getStreamsList = (geom: any) => {
-  console.log("ON CREATE IS CALLING ", new Date(), geom);
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_LIST_STREAMS, {geom:geom}, datasets.getToken()).then(listStreams => {
       dispatch({type: types.SET_LIST_STREAMS, listStreams});
@@ -456,7 +455,6 @@ export const getStreamsByComponentsList = (components: any) => {
 export const getAllComponentsByProblemId = (problemId: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_COMPONENTS_BY_PROBLEMID+'?problemid='+problemId, datasets.getToken()).then(componentsFromMap => {
-      console.log("BY PROB",componentsFromMap);
       dispatch({type: types.SET_COMPONENTS_MAP, componentsFromMap: componentsFromMap.result});
     });
   }
@@ -491,7 +489,6 @@ export const getStreamsByProjectId = (projectId: any) => {
 export const getComponentsByProjectId = (projectId: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_COMPONENTS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
-      console.log("GETS COMPONETNS BY PROJECT ID", projectId, res);
       dispatch(getListComponentsByComponentsAndPolygon(res, null));
     })
   }
@@ -499,7 +496,7 @@ export const getComponentsByProjectId = (projectId: any) => {
 export const getIndependentComponentsByProjectId = (projectId: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_INDEPENDENTCOMPONENTS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
-      console.log("independentcomponents BY PROJ ID", res); 
+
       dispatch(setIndComponents(res));
     })
   }
@@ -549,7 +546,6 @@ export const setEditLocation = (editLocation: any) => {
 }
 export const setIndComponents = (independentComponents: any) => {
   return (dispatch: Function) => {
-    console.log("SETING IND COMP", independentComponents);
     dispatch({type: types.SET_IND_COMPONENTS, independentComponents})
   }
 }
