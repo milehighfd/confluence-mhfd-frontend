@@ -25,7 +25,8 @@ const initState = {
   },
   boardProjects: {cartoids:['-8888'], ids:['-8888'] },
   zoomProject: undefined,
-  jurisdiction: undefined
+  jurisdiction: undefined,
+  componentGeom: undefined
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -157,6 +158,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         jurisdiction: action.jurisdiction
+      }
+    }
+    case types.SET_COMPONENT_GEOM: {
+      return {
+        ...state,
+        componentGeom: action.componentGeom
       }
     }
     default: 

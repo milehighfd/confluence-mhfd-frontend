@@ -71,7 +71,7 @@ const CreateProjectMap = (type: any) => {
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation } = useProjectState();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -321,7 +321,7 @@ const CreateProjectMap = (type: any) => {
   useEffect(()=>{
     // console.log("REACH LIST COMPONENTS ", listComponents);
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
-      
+      console.log("LIST COMPONENTS SINLGLGLGL", listComponents.result);
       if(type.type === 'CAPITAL') {
         getStreamsByComponentsList(listComponents.result);
       }
@@ -396,9 +396,21 @@ const CreateProjectMap = (type: any) => {
         getServiceAreaPolygonofStreams(streamIntersected.geom);
       }
       geom = JSON.parse(streamIntersected.geom);
-      if(type.problemId) {
+      let cg = componentGeom?JSON.parse(componentGeom.geom):undefined;
+      if(type.problemId && geom.coordinates.length > 0) {
         let poly = turf.multiLineString(geom.coordinates);
         let bboxBounds = turf.bbox(poly);
+        // console.log("POLYBOUNDs", poly, bboxBounds);
+        if(map.map){
+          map.map.fitBounds(bboxBounds,{ padding:80});
+        }
+      } else if( type.problemId && cg){
+        console.log(cg.coordinates);
+        let poly = turf.multiLineString(cg.coordinates);
+        // let point = turf.point(cg.coordinates);
+        let bboxBounds = turf.bbox(poly);
+        // let bboxBoundsP = turf.bbox(point);
+        // console.log("POLYBOUNDsPP", point, bboxBoundsP);
         if(map.map){
           map.map.fitBounds(bboxBounds,{ padding:80});
         }

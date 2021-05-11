@@ -105,6 +105,7 @@ export const SERVER = (function () {
     const GET_JURISDICTION_POLYGON = 'get-jurisdiction-for-polygon';
     const GET_LIST_STREAMS = 'streams-data';
     const GET_COMPONENTS_WITH_GEOM = 'get-components-by-components-and-geom';
+    const GET_COMPONENT_GEOM = 'component-geom';
     const GET_COMPONENTS_BY_PROBLEMID = 'components-by-problemid';
     const GET_STREAMS_BY_COMPONENTS = 'get-stream-by-components-and-geom';
     const NOTES = 'notes';
@@ -200,6 +201,7 @@ export const SERVER = (function () {
         GET_SERVICEAREA_COUNTY_GEOM: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_GEOM}`,
         GET_JURISDICTION_POLYGON: `${URL_BASE.BASE}/create/${GET_JURISDICTION_POLYGON}`,
         GET_LIST_STREAMS: `${URL_BASE.BASE}/create/${GET_LIST_STREAMS}`,
+        GET_COMPONENT_GEOM: `${URL_BASE.BASE}/create/${GET_COMPONENT_GEOM}`,
         GET_COMPONENTS_WITH_GEOM: `${URL_BASE.BASE}/create/${GET_COMPONENTS_WITH_GEOM}`,
         GET_COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/create/${GET_COMPONENTS_BY_PROBLEMID}`,
         GET_STREAMS_BY_COMPONENTS: `${URL_BASE.BASE}/create/${GET_STREAMS_BY_COMPONENTS}`,

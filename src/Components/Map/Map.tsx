@@ -149,7 +149,7 @@ const Map = ({ leftWidth,
     setSelectedPopup} = useMapDispatch();
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
-    const {setComponentsFromMap, getAllComponentsByProblemId} = useProjectDispatch();
+    const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -157,7 +157,7 @@ const Map = ({ leftWidth,
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
-    const [problemid, setProblemId ] = useState(undefined);
+    const [problemid, setProblemId ] = useState<any>(undefined);
 
     const [notesFilter, setNotesFilter] = useState('all');
     useEffect(()=> {
@@ -2094,6 +2094,7 @@ const Map = ({ leftWidth,
 
                 for (const component of COMPONENT_LAYERS.tiles) {
                     if (feature.source === component) {
+                      console.log("FEAT", feature.properties);
                         const item = {
                           layer: MENU_OPTIONS.COMPONENTS,
                           type: feature.properties.type ? feature.properties.type : '-',
@@ -2106,6 +2107,7 @@ const Map = ({ leftWidth,
                           table: feature.source ? feature.source : '-',
                           cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
                           problem: 'Dataset in development',
+                          objectid: feature.properties.objectid?feature.properties.objectid:'-'
                         };
                         const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
                         menuOptions.push(name);
@@ -2176,7 +2178,6 @@ const Map = ({ leftWidth,
                 problemid: details.problemid
             });
         }
-        console.log("DETAILS", details);
         if(details.layer === 'Components') {
           let newComponents = [{
             cartodb_id: details.cartodb_id?details.cartodb_id:'',
@@ -2185,9 +2186,12 @@ const Map = ({ leftWidth,
             problemid: null,
             status: details.status?details.status:'',
             table: details.table?details.table:'',
-            type: details.type?details.type:''
+            type: details.type?details.type:'',
+            objectid: details.type?details.objectid:''
           }];
           setComponentsFromMap(newComponents);
+          getComponentGeom(details.table, details.objectid);
+          setProblemId('-1');
           setShowDefault(true);
         } else if (details.type === 'problems') {
           getAllComponentsByProblemId(details.problemid);
