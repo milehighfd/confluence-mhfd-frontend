@@ -25,6 +25,7 @@ import Filter from "../Drawers/Filter";
 import TotalHeader from "./TotalHeader";
 import CostTableBody from "./CostTableBody";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
+import { AlertStatus } from "./AlertStatus";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -78,6 +79,8 @@ const RequestView = ({ type }: {
   const [jurisdictionSelected, setJurisdictionSelected] = useState<string[]>([]);
   const [csaSelected, setCsaSelected] = useState<string[]>([]);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertStatus, setAlertStatus] = useState<any>({});
   const {clear} = useAttachmentDispatch();
   const wrtRef = useRef(null);
 
@@ -563,6 +566,7 @@ const RequestView = ({ type }: {
         substatus={boardSubstatus}
         comment={boardComment}
         type={type}
+        setAlertStatus={setAlertStatus}
         />
     }
     {
@@ -595,6 +599,7 @@ const RequestView = ({ type }: {
       <Navbar />
       <Layout>
         <SidebarView></SidebarView>
+        <AlertStatus {...alertStatus} />
         <Layout className="work">
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>

@@ -6,7 +6,7 @@ import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
 
-export default ({ locality, boardId, visible, setVisible, status, comment, type, substatus }: {
+export default ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus }: {
   locality: string,
   boardId: any,
   visible: boolean,
@@ -14,14 +14,13 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
   status: any,
   comment: any,
   type: boardType,
-  substatus: any
+  substatus: any,
+  setAlertStatus: Function
 }) => {
   const [boardStatus, setBoardStatus] = useState(status);//from backend
   const [boardComment, setBoardComment] = useState(comment);
   const [boardSubstatus, setBoardSubstatus] = useState(substatus);
-  const [showMessage, setShowMessage] = useState(false);
   const [visibleAlert, setVisibleAlert] = useState(false);
-  const [message, setMessage] = useState('An Error has ocurred, please try again later');
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [pending, setpending] = useState(false);
@@ -36,20 +35,16 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       substatus: boardSubstatus
     }, getToken())
         .then((r) => {
-          if (!r) {
-            setMessage('An Error has ocurred, please try again later');
-          } else {
-            if (r.hasOwnProperty('toCounty') && r.hasOwnProperty('toServiceArea')) {
-              setMessage(`Projects sent to County ${r.toCounty} and Service Area ${r.toServiceArea}`);
-            } else {
-              setMessage(`Saved`);
-            }
+          let alertStatus: { type: 'success' | 'error', message: string, int: number} = {
+            type: 'error',
+            message: 'An error has ocurred, please try again later.',
+            int: Math.random()
+          };
+          if (r) {
+            alertStatus.type = 'success';
+            alertStatus.message = `${locality}'s ${type === 'WORK_PLAN' ? 'Work Plan': 'Work Request'} status has been updated.`;
           }
-          setShowMessage(true);
-          setTimeout(() => {
-            setShowMessage(false);
-            setVisible(false)
-          }, 10000)
+          setAlertStatus(alertStatus);
         })
         .catch((e) => {
           console.log('e', e)
@@ -228,12 +223,6 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
           Save
         </Button>
       </div>
-      {
-        showMessage &&
-        <div className="footer-drawer" style={{color:'red'}}>
-            {message}
-        </div>
-      }
     </Drawer>
     </>
   )
