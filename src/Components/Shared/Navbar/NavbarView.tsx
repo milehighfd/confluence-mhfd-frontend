@@ -13,7 +13,7 @@ import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
-const content = (<div className="popoveer-00">Notifications (Under Construction)</div>
+const content = (<div className="popoveer-00">Notifications (Coming soon)</div>
 );
 
 export default ({user, updateUserInformation, groupOrganization, getGroupOrganization}:
