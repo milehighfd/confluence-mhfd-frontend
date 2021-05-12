@@ -54,10 +54,7 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, se
   return (
     <Drawer
       title={
-        <h5>
-          <img src="/Icons/work/chat.svg" alt="" className="menu-wr" />
-          FILTER
-        </h5>
+        <h5><img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> FILTER</h5>
       }
       placement="right"
       closable={true}
@@ -87,7 +84,7 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, se
               </p>
             ))
           }
-        
+
         </div>
       </div>
 
