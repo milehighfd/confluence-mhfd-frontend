@@ -668,7 +668,14 @@ export const getComponentsByProblemId = (data: any) => {
     return (dispatch: Function) => {
         dispatch({type: types.LOADER_TABLE_COMPONENTS, spin: true})
         if(data.id) {
-          datasets.postData(SERVER.COMPONENTS_BY_ENTITYID, data, datasets.getToken()).then(params => {
+          datasets.postData(SERVER.COMPONENTS_BY_ENTITYID, data, datasets.getToken()).then(data => {
+            let params = data.map((value:any) => {
+              return {
+                ...value, 
+                estimated_cost: Math.round(value.estimated_cost)
+              }
+            });
+            console.log("PARAMS", params);
             dispatch({type: types.GET_COMPONENTS_BY_PROBLEMID, params});
             dispatch({type: types.LOADER_TABLE_COMPONENTS, spin: false});
           })  

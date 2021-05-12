@@ -280,7 +280,7 @@ export class MapService {
     return this.map.getZoom();
   }
   click(layer: string, cb: any) {
-    console.log(layer);
+    // console.log(layer);
     this.map.on('click', layer, cb);
   }
   clickOnMap(cb: any) {
