@@ -558,6 +558,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   return (
     <>
     {visibleAlert && <AlertView
+      sponsor={sponsor}
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
       setSave = {setSave}

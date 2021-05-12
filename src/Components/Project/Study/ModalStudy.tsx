@@ -336,6 +336,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   return (
     <>
     {visibleAlert && <AlertView
+      sponsor={sponsor}
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
       setSave = {setSave}

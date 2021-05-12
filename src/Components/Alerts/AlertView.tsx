@@ -5,8 +5,8 @@ import { RightOutlined } from '@ant-design/icons';
 const stateValue = {
   visible: false
 }
-export const AlertView = ({visibleAlert, setVisibleAlert, setSave}:
-  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function} ) => {
+export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor}:
+  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string} ) => {
   const [state, setState] = useState(stateValue);
   const showModal = () => {
     const auxState = {...state};
@@ -43,7 +43,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave}:
           className="modal-confirm"
           width="400px"
         >
-          <h2>Saving will create a draft project within your jurisdiction's Work Request. Do you want to continue?</h2>
+          <h2>Saving will create a draft project within your {sponsor}'s Work Request. Do you want to continue?</h2>
           <button className="btn-borde" onClick={handleCancel}>Cancel</button>
           <button className="btn-purple" onClick={handleOk}><span>Save</span></button>
         </Modal>
