@@ -211,14 +211,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     } else {
       setStreamIntersected([]);
       setIndComponents([]);
+      setIndependentComponents([]);
       setEditLocation(undefined);
     }
   },[data]);
 
   useEffect(()=>{
-    if(independentComponents.length > 0) {
+    // if(independentComponents.length > 0) {
       setIndependentComponents(independentComponents);
-    }
+    // }
   },[independentComponents]);
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
