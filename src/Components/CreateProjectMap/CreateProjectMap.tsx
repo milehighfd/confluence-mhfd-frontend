@@ -285,7 +285,7 @@ const CreateProjectMap = (type: any) => {
   };
   useEffect(()=>{
     if(type.projectid != -1 && type.projectid) {
-      getData(`${SERVER.URL_BASE}/board/bbox/${type.projzectid}`)
+      getData(`${SERVER.URL_BASE}/board/bbox/${type.projectid}`)
       .then(
         (r: any) => { 
           if(r.bbox){
@@ -294,7 +294,7 @@ const CreateProjectMap = (type: any) => {
             let bboxBounds = turf.bbox(BBoxPolygon);
             if(map.map){
               setTimeout(()=>{
-                map.isStyleLoaded(() => map.map.fitBounds(bboxBounds,{ padding:70, maxZoom: 13}));
+                map.isStyleLoaded(() => map.map.fitBounds(bboxBounds,{ padding:90 }));
               }, 3000);              
             }
           }
