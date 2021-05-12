@@ -552,7 +552,7 @@ export const existDetailedPageProject = (url: string) => {
     return (dispatch: Function) => {
         dispatch({type: detailedTypes.DISPLAY_MODAL, spin: false});
         datasets.getData(SERVER.DETAILED_PAGE_PROJECT  + '?' + url, datasets.getToken()).then(detailed => {
-            console.log(detailed);
+            // console.log(detailed);
             if(detailed?.cartodb_id) {
                 dispatch({type: detailedTypes.DISPLAY_MODAL, spin: true});
             }
@@ -878,7 +878,7 @@ export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: 
 
 export const changeTutorialStatus = (tutorialStatus: boolean) => {
     return (dispatch: Function) => {
-        console.log('tutorial ', tutorialStatus);
+        // console.log('tutorial ', tutorialStatus);
         console.log({type: types.TUTORIAL_STATUS, tutorialStatus});
         dispatch({type: types.TUTORIAL_STATUS, tutorialStatus});
     }

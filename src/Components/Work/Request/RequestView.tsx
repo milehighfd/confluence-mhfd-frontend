@@ -231,7 +231,6 @@ const RequestView = ({ type }: {
             setReqManager([
               board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
             ])
-            console.log("PROEJCTs", projects);
             let justProjects = projects.map((proj:any)=> {
               return proj.projectData?.cartodb_id;
             });

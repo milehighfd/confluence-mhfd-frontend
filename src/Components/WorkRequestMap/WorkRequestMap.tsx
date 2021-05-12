@@ -243,7 +243,7 @@ const WorkRequestMap = (type: any) => {
           if(r.bbox){
             let BBoxPolygon = JSON.parse(r.bbox);
             let bboxBounds = turf.bbox(BBoxPolygon);
-            console.log("r.bbox", r.bbox);
+            // console.log("r.bbox", r.bbox);
             if(map.map){
               setTimeout(()=>{
                 map.map.fitBounds(bboxBounds,{ padding:60});
@@ -299,7 +299,7 @@ const WorkRequestMap = (type: any) => {
     }
   };
   useEffect(()=>{
-    console.log("CHANGE LOCALITY>", type.locality);
+    // console.log("CHANGE LOCALITY>", type.locality);
     setTimeout(()=>{
       let value = store.getState().profile.userInformation.zoomarea;
       if(type.locality) {
@@ -354,7 +354,7 @@ const WorkRequestMap = (type: any) => {
   }, [map])
 
   useEffect(() => {
-    console.log("SELECTED LAYERS WR", selectedLayersWR);
+    // console.log("SELECTED LAYERS WR", selectedLayersWR);
     if (map ) {
       map.isStyleLoaded(applyMapLayers);
     }
