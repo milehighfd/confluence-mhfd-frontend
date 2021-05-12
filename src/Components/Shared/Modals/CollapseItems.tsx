@@ -325,15 +325,15 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       },
       {
         title: '% Complete',
-        dataIndex: 'percen',
-        render: (percen: number) => Math.round(percen * 10) /10 + '%',
+        dataIndex: 'original_cost',
+        render: (original_cost: number) => Math.round(original_cost * 10) /10 + '%',
         sorter: true
       },
       {
         title: '% of Total Cost',
-        dataIndex: 'original_cost',
+        dataIndex: 'percen',
         sorter: true,
-        render: (original_cost: number) => Math.round(original_cost * 10)/10 + '%'
+        render: (percen: any) => percen
         /* new Intl.NumberFormat("en-EN").format(original_cost) + '%' */
       }
     ];
@@ -353,15 +353,15 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       },
       {
         title: '% Complete',
-        dataIndex: 'percen',
-        render: (percen: number) => Math.round(percen * 10) /10 + '%',
+        dataIndex: 'original_cost',
+        render: (original_cost: number) => Math.round(original_cost * 10) /10 + '%',
         sorter: true,
       },
       {
         title: '% of Total Cost',
         dataIndex: 'original_cost',
         sorter: true,
-        render: (original_cost: number) => Math.round(original_cost * 10)/10 + '%'
+        render: (percen: any) => percen
         /* new Intl.NumberFormat("en-EN").format(original_cost) */
       }
     ];
@@ -398,7 +398,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
     </div>
   };
 
-
+  console.log('data', data);
   return <div className="tabs-detailed">
     <Collapse defaultActiveKey={active} onChange={(e: any) => {
       setActive(e);
