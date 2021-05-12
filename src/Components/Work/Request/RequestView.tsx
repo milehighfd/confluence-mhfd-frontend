@@ -118,6 +118,7 @@ const RequestView = ({ type }: {
 
   const onSelect = (value: any) => {
     setLocality(value);
+    setYear(2021);
     setLocalityFilter(value);
     let l = localities.find((p: any) => {
       return p.name === value;
