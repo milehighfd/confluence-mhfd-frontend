@@ -36,7 +36,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   const updateModal = (problemId: number) => {
     //console.log('PROBLEM ID ', problemId);
     setTypeDetail(FILTER_PROBLEMS_TRIGGER);
-    //console.log('CAMBIO DE TIPO ', typeDetail);
     getDetailedPageProblem(problemId);
     getComponentsByProblemId({id: problemId, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
   }

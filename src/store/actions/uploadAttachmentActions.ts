@@ -24,9 +24,7 @@ export const clear = () => {
 export const getAttachment = (idProject: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_ALL_ATTACHMENTS + '?projectid=' + idProject , datasets.getToken()).then(attachments => {
-
       if (attachments?.data) {
-        console.log(attachments, "ATTAAAA")
         dispatch({ type: types.GET_FILES, attachments });
       } else {
         dispatch(setLoading(false));

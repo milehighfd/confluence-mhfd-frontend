@@ -120,7 +120,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
   const history = useHistory()
 
   /* const redirectGuest = () => {
-    console.log('redirect de la app');
+    console.log('redirect app');
     datasets.getData(SERVER.GUEST).then(async res => {
       if (res?.token) {
         localStorage.setItem('mfx-token', res.token);
@@ -146,9 +146,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
   },[history]);
 
  /* if(appUser.email === '') {
-    console.log('comprobando', appUser)
     redirectGuest();
-    console.log('comprobando2', appUser)
   }
   if(redirect) {
     return <Redirect to="/map" />

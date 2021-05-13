@@ -75,7 +75,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
    const showModal1 = () => {
      const auxState = {...state};
      auxState.visible1 = true;
-     console.log('estoy entrando aca ', auxState);
      setState(auxState);
    };
    const handleOk1 = (e: any) => {

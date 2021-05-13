@@ -109,7 +109,6 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     }
  }
   useEffect(()=>{
-    console.log("DATA WAHTTT", data);
     if(data!== 'no data' ) {
       setSwSave(true);
       setDescription(data.description);
@@ -300,7 +299,6 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     maximumFractionDigits: 10
   });
   const removeStream = (stream:any) => {
-    // console.log("WHAT IAM REMOVING?, data comes from strem list", stream, streamsList, 'ids', projectReturn.state.project.streamsIntersectedIds);
     let cartodbIdToRemove = stream.mhfd_code;
     let copyList = {...streamsList};
     for( let jurisdiction in copyList) {

@@ -9,7 +9,6 @@ export default ({setListFiles, listFiles } : any) => {
    //const { handleGetFiles } = props;
   //console.log('listado ' + listFiles);
   //  console.log(setListFiles);
-  //  console.log('ejemplo');
   const props2 = {
     name: 'file'
   };

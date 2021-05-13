@@ -85,7 +85,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
  },[jurisdiction]);
   useEffect(()=>{
     if(data!== 'no data' ) {
-      console.log("HERE IS THE DATA YEYEEYEY", data);
+      console.log("HERE IS THE DATA", data);
       //getAttachmentProjectId(data.projectid);
       getAttachmentByProject(data.projectid);
       setSwSave(true);

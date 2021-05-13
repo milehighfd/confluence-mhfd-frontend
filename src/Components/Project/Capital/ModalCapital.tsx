@@ -628,7 +628,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <Collapse
             defaultActiveKey={keys}
             expandIconPosition="right"
-            onChange={(event: any)=> {console.log('has algo ', event, keys )}}
+            onChange={(event: any)=> {console.log(event, keys )}}
           >
               {groups && Object.keys(groups).map((key: any,id:any) => {
 
