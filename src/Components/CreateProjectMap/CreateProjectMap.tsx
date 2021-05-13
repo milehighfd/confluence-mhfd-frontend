@@ -503,11 +503,12 @@ const CreateProjectMap = (type: any) => {
   }, [map])
 
   useEffect(() => {
-    // console.log("SELEC", selectedLayers);
+    console.log("SELEC", selectedLayers);
     if (map ) {
       map.isStyleLoaded(applyMapLayers);
     }
-    
+    eventService.setRef('oncreatedraw', onCreateDraw);
+    eventService.setRef('addmarker', addMarker);
 
   }, [selectedLayers]);
 
@@ -528,7 +529,22 @@ const CreateProjectMap = (type: any) => {
       updateSelectedLayers([ ...ppArray, MHFD_BOUNDARY_FILTERS]);
     }
   }
+  const removeProjectLayer = () => {
+    let filterLayers = selectedLayers.filter( (Layer:any) => {
+      if(Layer.name) {
+        return !(Layer.name == 'projects')
+      } else {
+        return true;
+      }
+    });
+    const deleteLayers = selectedLayers.filter((layer: any) => !filterLayers.includes(layer as string));
+    deleteLayers.forEach((layer: LayersType) => {
+      removeTilesHandler(layer);
+    });
+    updateSelectedLayers(filterLayers);
+  }
   const onCreateDraw = (event: any) => {
+    removeProjectLayer();
     const userPolygon = event.features[0];
     if (type.type === 'CAPITAL') {
       // getStreamIntersectionSave(userPolygon.geometry);
@@ -793,11 +809,12 @@ const CreateProjectMap = (type: any) => {
     });
   };
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
-
+    console.log("SELECTED ITEMS", selectedItems);
     const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
       removeTilesHandler(layer);
     });
+    console.log("DELETE ITEMS", deleteLayers);
     updateSelectedLayers(selectedItems);
   }
   const hideLayers = (key: string) => {
@@ -1060,6 +1077,7 @@ const CreateProjectMap = (type: any) => {
     }
   }
   const addMarker = (e: any) => {
+    removeProjectLayer();
     const html = loadPopupMarker();
     e.originalEvent.stopPropagation();
     if (html) {
