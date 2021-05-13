@@ -460,8 +460,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     let newOverheadCosts = [...overheadCosts];
+    let sum = overheadValues.reduce((prev: any, curr: any) => prev + curr, 0);
     overheadValues.forEach((element:any, index:any) => {
-      if (element === 0) {
+      if (sum === 0) {
         if ([1, 4, 6].includes(index)) {
           newOverheadCosts[index] = (5*getSubTotalCost())/100;
         } else if (index === 5) {
@@ -474,6 +475,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       } else {
         newOverheadCosts[index] = (element*getSubTotalCost())/100;
       }
+      newOverheadCosts[index] = parseInt(newOverheadCosts[index]);
     });
     setOverheadCosts(newOverheadCosts);
   },[overheadValues]);
