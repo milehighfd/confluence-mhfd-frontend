@@ -607,7 +607,7 @@ const RequestView = ({ type }: {
         <Layout className="work">
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts}></WorkRequestMap>
+                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey}></WorkRequestMap>
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
