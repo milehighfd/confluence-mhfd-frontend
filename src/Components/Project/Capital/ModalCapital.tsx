@@ -143,7 +143,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [overheadValues, setOverheadValues] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>([]);
-  const [additionalCost, setAdditionalCost] = useState(0);
+  const [additionalCost, setAdditionalCost] = useState<number>(0);
   const [additionalDescription, setAdditionalDescription] = useState("");
   const [totalCost, setTotalCost] = useState();
   const [overheadDescription, setOverheadDescription] = useState("");
@@ -190,7 +190,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setNameProject(data.projectname);
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
-      setAdditionalCost(data.additionalcost);
+      setAdditionalCost(parseInt(data.additionalcost));
       if(data.additionalcostdescription == null){
         setAdditionalDescription("");
       }
