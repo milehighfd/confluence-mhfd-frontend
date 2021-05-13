@@ -131,7 +131,7 @@ const Map = ({ leftWidth,
     filterProjectOptions,
     filterComponentOptions
 }: MapProps) => {
-    // console.log( mapSearch);=
+    
     let geocoderRef = useRef<HTMLDivElement>(null);
     const hovereableLayers = [ PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
         MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
@@ -161,7 +161,7 @@ const Map = ({ leftWidth,
 
     const [notesFilter, setNotesFilter] = useState('all');
     useEffect(()=> {
-        // console.log(mobilePopups);
+        
 
     }, [mobilePopups]);
     const [zoomValue, setZoomValue] = useState(0);
@@ -606,7 +606,7 @@ const Map = ({ leftWidth,
             // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
             let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
 
-            // console.log('porque', boundingBox1)
+            
             var arrayBounds = misbounds.split(',');
             setOpacityLayer(true);
             if (!map.getLayer('mask')) {
@@ -1145,7 +1145,7 @@ const Map = ({ leftWidth,
     }
 
     const applyFilters = (key: string, toFilter: any) => {
-        // console.log('enter here for ', key);
+        
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (!map.getLayer(key + '_' + index)) {
@@ -1457,7 +1457,7 @@ const Map = ({ leftWidth,
         }
 
         /* Get the coords on Drawing */
-        // console.log(draw.getAll().features[0].geometry.coordinates);
+        
     }
     const test = (item: any) => {
 

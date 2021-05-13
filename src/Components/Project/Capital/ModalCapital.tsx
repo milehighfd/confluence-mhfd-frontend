@@ -480,10 +480,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setOverheadCosts(newOverheadCosts);
   },[overheadValues]);
   const changeValue = (e:any, index:any) => {
-    // console.log("I AM CHANGING WAT", e , index);
     let newoverhead = [...overheadValues];
     newoverhead[index] = e;
-    // console.log("ovner",newoverhead);
     setOverheadValues(newoverhead);
 
   }

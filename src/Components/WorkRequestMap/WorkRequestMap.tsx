@@ -242,7 +242,7 @@ const WorkRequestMap = (type: any) => {
           if(r.bbox){
             let BBoxPolygon = JSON.parse(r.bbox);
             let bboxBounds = turf.bbox(BBoxPolygon);
-            // console.log("r.bbox", r.bbox);
+            
             if(map.map){
               setTimeout(()=>{
                 map.map.fitBounds(bboxBounds,{ padding:60});
@@ -277,10 +277,10 @@ const WorkRequestMap = (type: any) => {
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
       // let coord = turf.centroid(poly);
-      // // console.log("COROD", coord);
+      
       // if(coord.geometry && coord.geometry.coordinates) {
       //   let value = coord.geometry.coordinates;
-      //   // console.log("FLU TO ", value);
+      
       //     map.map.flyTo({ center: value, zoom: 10 });
       // }
       let bboxBounds = turf.bbox(poly);
@@ -298,13 +298,13 @@ const WorkRequestMap = (type: any) => {
     }
   };
   useEffect(()=>{
-    // console.log("CHANGE LOCALITY>", type.locality);
+    
     setTimeout(()=>{
       let value = store.getState().profile.userInformation.zoomarea;
       if(type.locality) {
         value = type.locality;
       }
-        // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
+        
       if(groupOrganization.length > 0) {
         wait(()=>setBounds(value));
       }
@@ -353,7 +353,7 @@ const WorkRequestMap = (type: any) => {
   }, [map])
 
   useEffect(() => {
-    // console.log("SELECTED LAYERS WR", selectedLayersWR);
+    
     if (map ) {
       map.isStyleLoaded(applyMapLayers);
     }
@@ -379,7 +379,7 @@ const WorkRequestMap = (type: any) => {
           });
         }
       } else {
-        // console.log("ADDDING SOURCE layer", layer, layerFilters[layer]);
+        
         addLayersSource(layer, layerFilters[layer]);
       }
     });
@@ -421,7 +421,7 @@ const WorkRequestMap = (type: any) => {
   const applyMhfdFilter = () => {
     const styles = { ...tileStyles as any };
     styles['mhfd_projects'].forEach((style: LayerStylesType, index: number) => {
-      // console.log("HEY", map.map.getFilter('mhfd_projects_' + index));
+      
     });
   }
   const applyComponentFilter = () => {
@@ -429,7 +429,7 @@ const WorkRequestMap = (type: any) => {
     Object.keys(styles).forEach(element => {
       for (let i = 0; i < styles[element].length; ++i) {
         if (map.map.getLayer(element + "_" + i)) {
-          // console.log("SET FILTER 4",element + '_' + i, ['!has', 'projectid']);
+          
           map.map.setFilter(element + '_' + i, ['!has', 'projectid']);
         }
       }
@@ -446,7 +446,7 @@ const WorkRequestMap = (type: any) => {
             let boardids = idsBoardProjects;
             allFilters = ['all',['in', ['get', 'projectid'], ['literal', [...boardids]]]];
           } 
-          // console.log("SET FILTER 1",key + '_' + index, allFilters);
+          
           map.map.setFilter(key + '_' + index, allFilters);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
           
@@ -467,7 +467,7 @@ const WorkRequestMap = (type: any) => {
 
       if (map.map.getLayer(key + '_' + index)) {
         map.map.removeLayer(key + '_' + index);
-        // console.log("REMOVING LAYER", key + '_' + index);
+        
       }
     });
   }
@@ -479,8 +479,8 @@ const WorkRequestMap = (type: any) => {
     for (const key of COMPONENT_LAYERS.tiles) {
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (!components.includes(key)) {
-          // console.log("SETTING FILTER",key + '_' + index);
-          // console.log("SET FILTER 2",key + '_' + index, ['in', 'cartodb_id', []]);
+          
+          
           map.setFilter(key + '_' + index, ['in', 'cartodb_id', []]);
         }
       });
@@ -488,7 +488,7 @@ const WorkRequestMap = (type: any) => {
   }
 
   const applyFilters = (key: string, toFilter: any) => {
-    // console.log('enter here for ', key);
+    
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (!map.getLayer(key + '_' + index)) {
@@ -602,8 +602,8 @@ const WorkRequestMap = (type: any) => {
       //   allFilters.push(['in', ['get', 'cartodb_id'], ['literal', ['-1']]]);
       // }
       if (map.getLayer(key + '_' + index)) {
-        // console.log(key + '_' + index, allFilters);
-        // console.log("SETTING FILTER",key + '_' + index);
+        
+        
         map.setFilter(key + '_' + index, allFilters);
       }
     });
@@ -721,7 +721,7 @@ const WorkRequestMap = (type: any) => {
         allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
       } 
       if (map.getLayer(key + '_' + index)) {
-        // console.log("SET FILTER 5",key + '_' + index, allFilters);
+        
         map.setFilter(key + '_' + index, allFilters);
       }
     });
@@ -1436,7 +1436,7 @@ const WorkRequestMap = (type: any) => {
           scale: 'District',//feature.properties.scale,
           date_created: '01/07/2019' //feature.properties.date_created,
         }
-        // console.log(item, feature.properties);
+        
         menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
         popups.push(item);
         mobile.push({
@@ -1568,7 +1568,7 @@ const WorkRequestMap = (type: any) => {
         popup.setLngLat(e.lngLat)
           .setHTML(html)
           .addTo(map.map);
-        // console.log("HTML", html);
+        
         for (const index in popups) {
 
           let arrayElements = document.getElementsByClassName('menu-' + index);

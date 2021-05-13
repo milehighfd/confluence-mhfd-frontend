@@ -125,7 +125,6 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   useEffect(()=>{
     if(save === true){
       let mhfd_codes = streamsIntersectedIds.map((str:any) => str.mhfd_code);
-      console.log("streams", mhfd_codes);
       var study = new Project();
       study.projectname = nameProject;
       study.description = description;

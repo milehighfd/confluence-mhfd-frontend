@@ -77,7 +77,6 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 
   useEffect(()=>{
     if(save === true){
-      console.log("FILES", files);
       var acquisition = new Project();
       let cservice = "";
       serviceArea.map((element:any) => {
@@ -151,7 +150,6 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 },[organization]);
   useEffect(()=>{
     if(data!== 'no data' ) {
-      console.log("HERE IS THE DATA ", data);
       setSwSave(true);
       setDescription(data.description);
       setNameProject(data.projectname);

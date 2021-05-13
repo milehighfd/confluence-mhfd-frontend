@@ -227,7 +227,6 @@ const CreateProjectMap = (type: any) => {
 //           } else {
 //               if (opacityLayer) {
 //                   if  (map.map.loaded()) {
-//                       // console.log('hide opacity');
 //                       if (map.map.getLayer('mask')) {
 //                           map.map.setLayoutProperty('mask', 'visibility', 'visible');
 //                           map.map.removeLayer('mask');
@@ -255,19 +254,15 @@ const CreateProjectMap = (type: any) => {
         coordinates: element.coordinates
       }
     });
-    // console.log("VALULE", value, zoomareaSelected);
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       // mask = turf.multiPolygon(coordinatesJurisdiction);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
       // let coord = turf.centroid(poly);
-      // // console.log("COROD", coord);
       // if(coord.geometry && coord.geometry.coordinates) {
       //   let value = coord.geometry.coordinates;
-      //   // console.log("FLU TO ", value);
       //     map.map.flyTo({ center: value, zoom: 10 });
       // }
-      // console.log("ENTERS HERE", zoomareaSelected[0]);
       let bboxBounds = turf.bbox(poly);
       if(map.map){
         map.map.fitBounds(bboxBounds,{ padding:10, maxZoom: 13});
@@ -288,7 +283,6 @@ const CreateProjectMap = (type: any) => {
       .then(
         (r: any) => { 
           if(r.bbox){
-            // console.log("GET BBOX OF PROJECTid", type.projectid);
             let BBoxPolygon = JSON.parse(r.bbox);
             let bboxBounds = turf.bbox(BBoxPolygon);
             if(map.map){
@@ -310,17 +304,13 @@ const CreateProjectMap = (type: any) => {
       if(type.locality) {
         value = type.locality;
       } 
-        // console.log("CHECKER the one AOI", localAOI, "locatlity that reach to component",  type.locality, "area");
       if(groupOrganization.length > 0) {
-        // console.log("SETTING OBUNDS");
         wait(()=>setBounds(value));
       }
     },500);
   },[groupOrganization, type.locality, localAOI]);
   useEffect(()=>{
-    // console.log("REACH LIST COMPONENTS ", listComponents);
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
-      console.log("LIST COMPONENTS SINLGLGLGL", listComponents.result);
       if(type.type === 'CAPITAL') {
         getStreamsByComponentsList(listComponents.result);
       }
@@ -399,17 +389,14 @@ const CreateProjectMap = (type: any) => {
       if(type.problemId && geom.coordinates.length > 0) {
         let poly = turf.multiLineString(geom.coordinates);
         let bboxBounds = turf.bbox(poly);
-        // console.log("POLYBOUNDs", poly, bboxBounds);
         if(map.map){
           map.map.fitBounds(bboxBounds,{ padding:80});
         }
       } else if( type.problemId && cg){
-        console.log(cg.coordinates);
         let poly = turf.multiLineString(cg.coordinates);
         // let point = turf.point(cg.coordinates);
         let bboxBounds = turf.bbox(poly);
         // let bboxBoundsP = turf.bbox(point);
-        // console.log("POLYBOUNDsPP", point, bboxBoundsP);
         if(map.map){
           map.map.fitBounds(bboxBounds,{ padding:80});
         }
@@ -503,7 +490,6 @@ const CreateProjectMap = (type: any) => {
   }, [map])
 
   useEffect(() => {
-    console.log("SELEC", selectedLayers);
     if (map ) {
       map.isStyleLoaded(applyMapLayers);
     }
@@ -583,7 +569,6 @@ const CreateProjectMap = (type: any) => {
     // }
     // let featuresIntersected = getFeaturesIntersected(totalFeatures, userPolygon);
     // let hull: any = getHull(featuresIntersected);
-    // console.log("HULL DATA TP", hull);
     // map.removeLayer('hull');
     // map.removeSource('hull'); 
     // if(!map.map.getSource('hull')) {
@@ -640,7 +625,6 @@ const CreateProjectMap = (type: any) => {
     } else {
       filterProjectsNew.projecttype = "Maintenance,Capital";
     }
-    // console.log("Filters ", filterProjects, filterProjectsNew);
     applyFilters('mhfd_projects', filterProjectsNew);
     if (type.type === "CAPITAL") {
       applyComponentFilter();
@@ -691,7 +675,6 @@ const CreateProjectMap = (type: any) => {
   }
 
   const applyFilters = (key: string, toFilter: any) => {
-    // console.log('enter here for ', key);
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (!map.getLayer(key + '_' + index)) {
@@ -809,12 +792,10 @@ const CreateProjectMap = (type: any) => {
     });
   };
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
-    console.log("SELECTED ITEMS", selectedItems);
     const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
       removeTilesHandler(layer);
     });
-    console.log("DELETE ITEMS", deleteLayers);
     updateSelectedLayers(selectedItems);
   }
   const hideLayers = (key: string) => {
@@ -849,7 +830,6 @@ const CreateProjectMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", style['source-layer']);
       map.map.addLayer({
         id: key + '_' + index,
         source: key,
@@ -1053,8 +1033,6 @@ const CreateProjectMap = (type: any) => {
         } );
       }
       
-
-      // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
 
   }
   const AddMarkerEdit = (e: any) => {
@@ -1499,7 +1477,6 @@ const CreateProjectMap = (type: any) => {
           scale: 'District',//feature.properties.scale,
           date_created: '01/07/2019' //feature.properties.date_created,
         }
-        // console.log(item, feature.properties);
         menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
         popups.push(item);
         mobile.push({
@@ -1631,7 +1608,6 @@ const CreateProjectMap = (type: any) => {
         popup.setLngLat(e.lngLat)
           .setHTML(html)
           .addTo(map.map);
-        // console.log("HTML", html);
         for (const index in popups) {
 
           let arrayElements = document.getElementsByClassName('menu-' + index);
@@ -1647,7 +1623,6 @@ const CreateProjectMap = (type: any) => {
           if(componentElement) {
             componentElement.addEventListener('click', addRemoveComponent.bind(popups[index],popups[index]));
           }
-          // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
 
         }
       }

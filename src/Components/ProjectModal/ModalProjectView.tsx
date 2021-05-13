@@ -121,7 +121,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         setNameProject('Name your project');
       } else {
         getAttachmentByProject(data.projectid);
-        // console.log("DATA", data);
         if( data.projecttype == 'Study'){
           getStreamsByProjectId(data.projectid);
         } else if( data.projecttype == 'Capital') {

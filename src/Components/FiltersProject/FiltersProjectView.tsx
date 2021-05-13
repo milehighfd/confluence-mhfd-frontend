@@ -209,7 +209,6 @@ export default ({ tabActive, tabPosition, setTabPosition, filterNames, setFilter
 
     const { boundsMap, spinCardProblems, spinCardProjects, totals } = useMapState();
     const emptyStyle: React.CSSProperties = {};
-    // console.log(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded );
     const genExtra = () => (
         <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col>

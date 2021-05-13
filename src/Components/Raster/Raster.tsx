@@ -193,7 +193,7 @@ const Raster = (type: any) => {
     if(type.locality) {
       value = type.locality;
     } 
-      // console.log("CHECKER", value, "loc",  type.locality, "area", store.getState().profile.userInformation.zoomarea);
+      
     if(groupOrganization.length > 0) {
       // wait(()=>setBounds(value));
     }
@@ -309,7 +309,7 @@ const Raster = (type: any) => {
       console.log("IS HERER??", streamsIntersectedIds);
       map.isStyleLoaded( () => {
         let filter = ['in','cartodb_id',...streamsIntersectedIds];
-        // console.log("filter", filter);
+        
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
           map.map.addLayer({
@@ -347,7 +347,7 @@ const Raster = (type: any) => {
   }, [map])
 
   useEffect(() => {
-    // console.log("SELEC", selectedLayers);
+    
     if (map ) {
       // map.isStyleLoaded(applyMapLayers);
     }
@@ -401,7 +401,7 @@ const Raster = (type: any) => {
     // }
     // let featuresIntersected = getFeaturesIntersected(totalFeatures, userPolygon);
     // let hull: any = getHull(featuresIntersected);
-    // console.log("HULL DATA TP", hull);
+    
     // map.removeLayer('hull');
     // map.removeSource('hull'); 
     // if(!map.map.getSource('hull')) {
@@ -458,7 +458,7 @@ const Raster = (type: any) => {
     } else {
       filterProjectsNew.projecttype = "Maintenance,Capital";
     }
-    // console.log("Filters ", filterProjects, filterProjectsNew);
+    
     applyFilters('mhfd_projects', filterProjectsNew);
     if (type.type === "CAPITAL") {
       applyComponentFilter();
@@ -509,7 +509,7 @@ const Raster = (type: any) => {
   }
 
   const applyFilters = (key: string, toFilter: any) => {
-    // console.log('enter here for ', key);
+    
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (!map.getLayer(key + '_' + index)) {
@@ -666,7 +666,7 @@ const Raster = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      // console.log("ADDING LAYR", key + '_' + index, "source", key, "Soutcestyle", style['source-layer']);
+      
       map.map.addLayer({
         id: key + '_' + index,
         source: key,
@@ -1294,7 +1294,7 @@ const Raster = (type: any) => {
           scale: 'District',//feature.properties.scale,
           date_created: '01/07/2019' //feature.properties.date_created,
         }
-        // console.log(item, feature.properties);
+        
         menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
         popups.push(item);
         mobile.push({
@@ -1426,7 +1426,7 @@ const Raster = (type: any) => {
         popup.setLngLat(e.lngLat)
           .setHTML(html)
           .addTo(map.map);
-        // console.log("HTML", html);
+        
         for (const index in popups) {
 
           let arrayElements = document.getElementsByClassName('menu-' + index);
