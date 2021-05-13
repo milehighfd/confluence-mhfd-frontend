@@ -19,15 +19,7 @@ import {
   COMPONENTS_TRIGGER,
   PROJECTS_MAP_STYLES,
   COMPONENT_LAYERS,
-  XSTREAMS,
-  MEP_PROJECTS,
   ROUTINE_MAINTENANCE,
-  FLOODPLAINS_FEMA_FILTERS,
-  STREAMS_FILTERS,
-  WATERSHED_FILTERS,
-  SERVICE_AREA_FILTERS,
-  MUNICIPALITIES_FILTERS,
-  COUNTIES_FILTERS,
   MHFD_BOUNDARY_FILTERS,
   SELECT_ALL_FILTERS,
   MENU_OPTIONS,
@@ -490,12 +482,13 @@ const CreateProjectMap = (type: any) => {
   }, [map])
 
   useEffect(() => {
+    console.log("BEFORE APPLY MAP LAYERS",selectedLayers);
     if (map ) {
+      // deleteUpdateLayers(selectedLayers);
       map.isStyleLoaded(applyMapLayers);
     }
     eventService.setRef('oncreatedraw', onCreateDraw);
     eventService.setRef('addmarker', addMarker);
-
   }, [selectedLayers]);
 
   const setLayersSelectedOnInit = () => {
@@ -507,13 +500,15 @@ const CreateProjectMap = (type: any) => {
         ppArray = [PROBLEMS_TRIGGER];
       }
     }
+    let thisSL = [ ...ppArray, MHFD_BOUNDARY_FILTERS];
     if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
-      updateSelectedLayers([ ...ppArray, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS]);
+      thisSL = [ ...ppArray, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS];
     } else if( type.type == 'STUDY') {
-      updateSelectedLayers([ MHFD_BOUNDARY_FILTERS  ]);
-    } else {
-      updateSelectedLayers([ ...ppArray, MHFD_BOUNDARY_FILTERS]);
-    }
+      thisSL = [ MHFD_BOUNDARY_FILTERS  ];
+    } else if (type.type == 'MAINTENANCE') {
+      thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, ROUTINE_MAINTENANCE]
+    } 
+    updateSelectedLayers(thisSL);
   }
   const removeProjectLayer = () => {
     let filterLayers = selectedLayers.filter( (Layer:any) => {
@@ -607,6 +602,10 @@ const CreateProjectMap = (type: any) => {
         addLayersSource(layer, layerFilters[layer]);
       }
     });
+    const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayers.includes(layer as string));
+    await deleteLayers.forEach((layer: LayersType) => {
+      removeTilesHandler(layer);
+    });
     await selectedLayers.forEach((layer: LayersType) => {
       if (typeof layer === 'object') {
         layer.tiles.forEach((subKey: string) => {
@@ -629,7 +628,7 @@ const CreateProjectMap = (type: any) => {
     if (type.type === "CAPITAL") {
       applyComponentFilter();
     }
-
+    
   }
   const applyMhfdFilter = () => {
     const styles = { ...tileStyles as any };
@@ -791,6 +790,17 @@ const CreateProjectMap = (type: any) => {
       }
     });
   };
+  const deleteUpdateLayers = (selectedItems: Array<LayersType>) => {
+    const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedItems.includes(layer as string));
+    setTimeout(()=>{
+      map.isStyleLoaded(() => {
+        deleteLayers.forEach((layer: LayersType) => {
+          removeTilesHandler(layer);
+        });
+      })
+    },300);
+    
+  }
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {

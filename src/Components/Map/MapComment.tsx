@@ -44,7 +44,7 @@ export default () => {
     </Button>
     <Drawer
       title={<div className="comment-title">
-              <h5>Map Notes</h5>
+              <h5>My Map Notes</h5>
               <Popover trigger="click" placement="bottomRight" content={content} overlayClassName="popover-note">
                 <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> All Types <DownOutlined /></Button>
               </Popover>
