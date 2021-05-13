@@ -35,7 +35,8 @@ const HorizontalBarChart = ({
   opacityFull=CHART_CONSTANTS.opacityFull,
   opacityOpaque=CHART_CONSTANTS.opacityOpaque,
   labelOverflowRight=false,
-  minBarSize=17
+  minBarSize=17,
+  minHeight=140
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
@@ -78,7 +79,7 @@ const HorizontalBarChart = ({
       })
     }
 
-    const height = Math.max(data.length * spaceBetween, 140);
+    const height = Math.max(data.length * spaceBetween, minHeight);
 
     let maxi: any = d3.max(data, (d: any) => d.counter);
 

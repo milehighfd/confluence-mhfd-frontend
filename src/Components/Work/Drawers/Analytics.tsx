@@ -83,6 +83,7 @@ const Analytics = ({
           withClickEvent={false}
           withAnimation={false}
           spaceBetween={40}
+          minHeight={120}
           width={220}
           opacityOpaque={CHART_CONSTANTS.opacityFull}
           labelOverflowRight={true}
@@ -106,6 +107,7 @@ const Analytics = ({
           withClickEvent={false}
           withAnimation={false}
           spaceBetween={40}
+          minHeight={120}
           width={220}
           barLabelFormatter={(d: any)=> {
             return formatter.format(d.counter)
