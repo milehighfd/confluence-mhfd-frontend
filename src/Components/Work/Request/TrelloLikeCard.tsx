@@ -63,19 +63,19 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
         editable &&
         <Menu.Item onClick={() => setShowAmountModal(true)}>
           <span>
-            <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5', marginTop:'-2px' }} />
+            <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5', marginTop:'-2px', marginRight:'8.8px' }} />
             Edit Amount
           </span>
         </Menu.Item>
       }
       <Menu.Item onClick={()=> setZoomProject(project.projectData)}>
-        <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop:'-2px' }} /> Zoom to</span>
+        <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop:'-2px', marginRight:'4.6px' }} /> Zoom to</span>
       </Menu.Item>
       {
         editable &&
       <Menu.Item onClick={() => setShowDeleteAlert(true)}>
         <span>
-          <img src="/Icons/icon-16.svg" alt="" width="10px" style={{marginTop:'-3px'}} />
+          <img src="/Icons/icon-16.svg" alt="" width="10px" style={{marginTop:'-3px', marginRight:'6.8px'}} />
           Delete
         </span>
       </Menu.Item>
@@ -95,7 +95,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
   useEffect(()=>{
     if(showModalProject) {
       updateSelectedLayers([]);
-    } 
+    }
   },[showModalProject]);
   return (
     <>
@@ -148,7 +148,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
       {
         !(showAmountModal || showModalProject || showDeleteAlert) &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click">
-          <svg xmlns="http://www.w3.org/2000/svg" className="menu-wr" width="3" height="13" viewBox="0 0 3 13"
+          <div className="dot-position"><svg xmlns="http://www.w3.org/2000/svg" className="menu-wr" width="3" height="13" viewBox="0 0 3 13"
             onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
             >
             <defs>
@@ -162,6 +162,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
               </g>
             </g>
           </svg>
+          </div>
         </Popover>
       }
     </div>

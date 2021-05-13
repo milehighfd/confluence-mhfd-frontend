@@ -239,10 +239,21 @@
     color: $purple;
     font-weight: normal;
   }
-  .menu-wr{
+  .dot-position{
     position: absolute;
     top: 5px;
     right: 5px;
+    width: 20px;
+    height: 20px;
+  }
+  .menu-wr{
+    // position: absolute;
+    // top: 5px;
+    // right: 5px;
+    float: right;
+    margin-right: 2px;
+    height: 18px;
+    width: 4px;
   }
   .purple{
     background: $light-purple;

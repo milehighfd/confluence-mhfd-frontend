@@ -119,7 +119,7 @@ export default () => {
       </div>
     )
   }
-  
+
   const onDragStart = (e: any, id: any) => {
     console.log('onDragStart', id)
     e.dataTransfer.setData('id', id);
