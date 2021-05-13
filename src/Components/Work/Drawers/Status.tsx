@@ -6,7 +6,7 @@ import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
 
-export default ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus }: {
+export default ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert }: {
   locality: string,
   boardId: any,
   visible: boolean,
@@ -15,7 +15,8 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
   comment: any,
   type: boardType,
   substatus: any,
-  setAlertStatus: Function
+  setAlertStatus: Function,
+  setShowAlert: Function
 }) => {
   const [boardStatus, setBoardStatus] = useState(status);//from backend
   const [boardComment, setBoardComment] = useState(comment);
@@ -35,16 +36,19 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       substatus: boardSubstatus
     }, getToken())
         .then((r) => {
-          let alertStatus: { type: 'success' | 'error', message: string, int: number} = {
+          let alertStatus: { type: 'success' | 'error', message: string } = {
             type: 'error',
-            message: 'An error has ocurred, please try again later.',
-            int: Math.random()
+            message: 'An error has ocurred, please try again later.'
           };
           if (r) {
             alertStatus.type = 'success';
             alertStatus.message = `${locality}'s ${type === 'WORK_PLAN' ? 'Work Plan': 'Work Request'} status has been updated.`;
           }
           setAlertStatus(alertStatus);
+          setShowAlert(true);
+          setTimeout(() => {
+            setShowAlert(false)
+          }, 4000);
         })
         .catch((e) => {
           console.log('e', e)

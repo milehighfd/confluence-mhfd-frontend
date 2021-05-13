@@ -567,6 +567,7 @@ const RequestView = ({ type }: {
         comment={boardComment}
         type={type}
         setAlertStatus={setAlertStatus}
+        setShowAlert={setShowAlert}
         />
     }
     {
@@ -599,7 +600,10 @@ const RequestView = ({ type }: {
       <Navbar />
       <Layout>
         <SidebarView></SidebarView>
-        <AlertStatus {...alertStatus} />
+        {
+          showAlert &&
+          <AlertStatus type={alertStatus.type} message={alertStatus.message} />
+        }
         <Layout className="work">
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
