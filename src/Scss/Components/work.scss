@@ -159,7 +159,7 @@
     margin-bottom: 5px;
     display: flex;
     height: 40px;
-    width: 72vw;
+    width: 78vw;
 
     div{
       width: 160px;
@@ -382,7 +382,7 @@
   .ant-collapse{
     border: none;
     background-color: $white;
-    width: 72vw;
+    width: 78vw;
   }
   .ant-collapse-content{
     border-top: none;
@@ -479,7 +479,7 @@
   width: 25px;
   height: 40px !important;
   border-radius: 0px !important;
-  z-index: 1000;
+  z-index: 998;
   color: $purple !important;
 }
 .work-popover{
