@@ -418,7 +418,19 @@ export const setJurisdictionSponsor = (jurisdiction: any) => {
 
 export const getStreamsList = (geom: any) => {
   return (dispatch: Function) => {
-    datasets.postData(SERVER.GET_LIST_STREAMS, {geom:geom}, datasets.getToken()).then(listStreams => {
+    datasets.postData(SERVER.GET_LIST_STREAMS, {geom:geom}, datasets.getToken()).then(dataStreams => {
+      let keysSorted = Object.keys(dataStreams).sort(function(a:any,b:any){return  a.toLowerCase().localeCompare(b.toLowerCase());})
+      let listStreams: any = {}; 
+      for(let k of keysSorted) {
+        let objArray = [...dataStreams[k]];
+        objArray.sort(function(a:any, b:any) {
+          var textA = a.jurisdiction.toUpperCase();
+          var textB = b.jurisdiction.toUpperCase();
+          return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
+        console.log(dataStreams[k], objArray);
+        listStreams[k] = [...objArray];
+      }
       dispatch({type: types.SET_LIST_STREAMS, listStreams});
     })
   }
