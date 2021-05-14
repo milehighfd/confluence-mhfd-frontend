@@ -141,7 +141,6 @@ const RequestView = ({ type }: {
       }
     }
   };
-
   const onClickNewProject = () => {
     clear();
     setVisibleCreateProject(true);
@@ -159,7 +158,9 @@ const RequestView = ({ type }: {
       .then(
         (r: any) => {
           setLocalities(r.localities);
-          setDataAutocomplete(r.localities.map((l: any) => l.name));
+          let localitiesData = r.localities.map((l: any) => l.name);
+          localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
+          setDataAutocomplete(localitiesData);
             if (_year) {
               setYear(_year)
             }
@@ -252,7 +253,7 @@ const RequestView = ({ type }: {
 
             let cols = generateColumns(projects, year, tabKey);
             setColumns(cols);
-            console.log('my cols ', cols);
+            // console.log('my cols ', cols);
           }
         },
         (e) => {
@@ -427,7 +428,6 @@ const RequestView = ({ type }: {
     if(projectsFiltered.length>0){
       projectswithid.add(projectsFiltered[0]);
     }
-    console.log("PROJECT SHOW ", project.id, projectswithid);
     let newArray = [...projectswithid.values()];
     if(newArray[0]){
       currentProject = {...newArray[0].projectData};
@@ -707,7 +707,7 @@ const RequestView = ({ type }: {
                                 <div className="col-wr droppable" onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx)}>
                                   {
                                     column.hasCreateOption &&
-                                    <Button className="btn-transparent" onClick={onClickNewProject} >
+                                    <Button className="btn-transparent" onClick={onClickNewProject} disabled={locality === 'MHFD District Work Plan'}>
                                       <img src="/Icons/icon-18.svg" alt=""/>
                                       Create Project
                                     </Button>
