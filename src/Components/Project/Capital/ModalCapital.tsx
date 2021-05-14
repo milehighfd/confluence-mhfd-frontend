@@ -252,6 +252,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     } else {
       setProblems({});
     }
+    updateOverheadCosts();
   },[listComponents]);
 
   useEffect(()=>{
@@ -428,6 +429,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     } else {
       setVisibleUnnamedComponent(false);
     }
+    updateOverheadCosts();
   },[thisIndependentComponents]);
   useEffect(()=>{
     if((((listComponents && listComponents.groups && listComponents.result.length > 0)) || thisIndependentComponents.length > 0) && !flagInit) {
@@ -457,7 +459,27 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     newComponents = currentComponents.filter( (comp: any) => ( ! (comp.cartodb_id == component.cartodb_id && comp.table == component.table)));
     getListComponentsByComponentsAndPolygon(newComponents, null);
   }
-
+  const updateOverheadCosts = () => {
+    let newOverheadCosts = [...overheadCosts];
+    let sum = overheadValues.reduce((prev: any, curr: any) => prev + curr, 0);
+    overheadValues.forEach((element:any, index:any) => {
+      if (sum === 0) {
+        if ([1, 4, 6].includes(index)) {
+          newOverheadCosts[index] = (5*getSubTotalCost())/100;
+        } else if (index === 5) {
+          newOverheadCosts[index] = (15*getSubTotalCost())/100;
+        } else if (index === 7) {
+          newOverheadCosts[index] = (10*getSubTotalCost())/100;
+        } else if (index === 8) {
+          newOverheadCosts[index] = (25*getSubTotalCost())/100;
+        }
+      } else {
+        newOverheadCosts[index] = (element*getSubTotalCost())/100;
+      }
+      newOverheadCosts[index] = parseInt(newOverheadCosts[index]);
+    });
+    setOverheadCosts(newOverheadCosts);
+  }
   useEffect(()=>{
     let newOverheadCosts = [...overheadCosts];
     let sum = overheadValues.reduce((prev: any, curr: any) => prev + curr, 0);
@@ -531,7 +553,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   const removeIndComponent = (indComp: any) => {
     let currentComponents = [...thisIndependentComponents];
-    currentComponents = currentComponents.filter( (comp: any) => ( comp._id != indComp._id ) );
+    currentComponents = currentComponents.filter( (comp: any) => ( comp.index != indComp.index ) );
     setIndependentComponents([...currentComponents]);
   }
 
