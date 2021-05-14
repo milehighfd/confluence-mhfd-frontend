@@ -68,13 +68,13 @@ const genTitleNoAvailable = (groups:any) => {
   </Row>
   )
   }
-const genTitleProblem = (problem: any) => {
+const genTitleProblem = (problem: any, key:any, setValuesProblem:Function) => {
   let totalSumCost = 0;
   for( let component of problem.components){
     totalSumCost += component.original_cost;
   }
   return (
-    <Row className="tab-head-project">
+    <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)}>
       <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>{problem.jurisdiction}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
@@ -114,7 +114,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor} = useProjectDispatch();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
   const {userInformation,organization} = useProfileState();
   const [state, setState] = useState(stateValue);
@@ -575,6 +575,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }
   const setValuesComp = (comp: any) => {
     setHighlightedComponent(comp);
+    if(comp.table && comp.objectid) {
+      getZoomGeomComp(comp.table, comp.objectid);
+    }
+  }
+  const setValuesProblem = (problemid:any, problemname:any) => {
+    getZoomGeomProblem(problemid);
   }
 
   return (
@@ -684,7 +690,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   }
                 } else {
                   return (
-                    <Panel header="" key={id + '-collapse1'} extra={genTitleProblem(groups[key])}>
+                    <Panel header="" key={id + '-collapse1'} extra={genTitleProblem(groups[key], key, setValuesProblem)}>
                       <div className="tab-body-project">
                         <Timeline>
                           {

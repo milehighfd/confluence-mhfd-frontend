@@ -388,7 +388,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       dataIndex: 'problempriority'
     }
   ];
-
   const genExtra = (key: string) => {
     html = document.getElementById('map2');
     return <div key={key} className="divider" onClick={() => {
@@ -455,6 +454,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
           </Row>
         </div>
       </Panel> */}
+
 
       <Panel header={type === PROBLEMS_MODAL ? 'Solution Components' : 'Solution Components'} key="3" extra={genExtra('3')}>
         <div className="scroll-mobile">

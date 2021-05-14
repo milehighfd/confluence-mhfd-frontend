@@ -62,8 +62,8 @@ const CreateProjectMap = (type: any) => {
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
-    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom } = useProjectState();
+    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom } = useProjectDispatch();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -109,6 +109,7 @@ const CreateProjectMap = (type: any) => {
       }
     };
     map = undefined;
+    setZoomGeom(undefined);
     waiting();
     eventService.setRef('click',eventClick);
     eventService.setRef('move', eventMove);
@@ -136,6 +137,33 @@ const CreateProjectMap = (type: any) => {
       },1300);
     }
   },[editLocation]);
+  useEffect(()=>{
+    if(zoomGeom && zoomGeom.geom) {
+      let cg = zoomGeom.geom?JSON.parse(zoomGeom.geom):undefined;
+      if(cg.type === 'MultiLineString') {
+        let poly = turf.multiLineString(cg.coordinates);
+        let bboxBounds = turf.bbox(poly);
+        if(map.map){
+          map.map.fitBounds(bboxBounds,{ padding:80});
+        }
+      } else if(cg.type === 'Point') {
+        let poly = turf.point(cg.coordinates);
+        let bboxBounds = turf.bbox(poly);
+        if(map.map){
+          map.map.fitBounds(bboxBounds,{ padding:80});
+        }
+      } else if ( cg.type === 'MultiPolygon'){
+        let poly = turf.multiPolygon(cg.coordinates);
+        let bboxBounds = turf.bbox(poly);
+        if(map.map){
+          map.map.fitBounds(bboxBounds,{ padding:80});
+        }
+      } else {
+        console.log("DIFF", cg);
+      }
+        
+    }
+  },[zoomGeom])
   useEffect(()=>{
     if (map) {
       if (highlightedComponent.table) {
@@ -482,7 +510,6 @@ const CreateProjectMap = (type: any) => {
   }, [map])
 
   useEffect(() => {
-    console.log("BEFORE APPLY MAP LAYERS",selectedLayers);
     if (map ) {
       // deleteUpdateLayers(selectedLayers);
       map.isStyleLoaded(applyMapLayers);

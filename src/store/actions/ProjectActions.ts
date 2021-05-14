@@ -459,16 +459,32 @@ export const getListComponentsByComponentsAndPolygon = (components: any, geom: a
 export const getComponentGeom = (table:any, objectid: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENT_GEOM,{table, objectid}, datasets.getToken()).then( componentGeom => {
-      console.log("NOW PARSEABLE?",componentGeom);
-      console.log("COMPONENT GEOM", componentGeom, JSON.parse(componentGeom.geom));
       dispatch({type: types.SET_COMPONENT_GEOM, componentGeom})
     })
+  }
+}
+export const getZoomGeomComp = (table:any, objectid: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_COMPONENT_GEOM,{table, objectid}, datasets.getToken()).then( zoomGeom => {
+      dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
+    })
+  }
+}
+export const getZoomGeomProblem = (problemid: any) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.GET_PROBLEM_GEOM,{problemid}, datasets.getToken()).then( zoomGeom => {
+      dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
+    })
+  }
+}
+export const setZoomGeom = (zoomGeom: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
   }
 }
 export const getStreamsByComponentsList = (components: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAMS_BY_COMPONENTS, {components, geom:null}, datasets.getToken()).then( streamIntersected => {
-      console.log("REACHESSS??", streamIntersected);
       dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected});
     } )
   }

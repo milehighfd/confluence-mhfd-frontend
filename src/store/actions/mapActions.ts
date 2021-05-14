@@ -543,6 +543,7 @@ export const getDetailedPageProblem = (id: string) => {
     return (dispatch: Function) => {
         dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})
         datasets.getData(SERVER.PROBLEM_BY_ID + '/' + id, datasets.getToken()).then(detailed => {
+          console.log("DETAILS OF PROBL", detailed);
             dispatch({type: detailedTypes.REPLACE_DETAILED_PAGE, detailed});
         });
     }
@@ -672,7 +673,9 @@ export const getComponentsByProblemId = (data: any) => {
             let params = data.map((value:any) => {
               return {
                 ...value, 
-                estimated_cost: Math.round(value.estimated_cost)
+                estimated_cost: Math.round(value.estimated_cost),
+                percen: Math.round(parseFloat(value.percen)) + '%',
+                original_cost: Math.round(value.original_cost)
               }
             });
             console.log("PARAMS", params);

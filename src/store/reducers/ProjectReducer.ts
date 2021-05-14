@@ -23,10 +23,12 @@ const initState = {
     type:'',
     value: ''
   },
+  problemid: undefined,
   boardProjects: {cartoids:['-8888'], ids:['-8888'] },
   zoomProject: undefined,
   jurisdiction: undefined,
-  componentGeom: undefined
+  componentGeom: undefined,
+  zoomGeom: undefined
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -124,10 +126,22 @@ const projectReducer = (state = initState, action: any) => {
           selectedLayersWR: action.selectedLayerWR
       }
     }
+    case types.SET_ZOOM_GEOM: {
+      return {
+        ...state, 
+        zoomGeom: action.zoomGeom
+      }
+    }
     case types.SET_HIGHLIGHTED: {
       return {
         ...state,
         highlightedComponent: action.highlightedComponent
+      }
+    }
+    case types.SET_PROBLEMID: {
+      return {
+        ...state,
+        problemid: action.problemid
       }
     }
     case types.SET_BOARD_PROJECTS: {
