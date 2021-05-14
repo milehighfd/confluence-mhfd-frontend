@@ -329,7 +329,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       {
         title: '% Complete',
         dataIndex: 'original_cost',
-        render: (original_cost: number) => Math.round(original_cost * 10) /10 + '%',
+        render: `${(original_cost: number) => Math.round(original_cost * 10) /10}%`,
         sorter: true
       },
       {
@@ -357,7 +357,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       {
         title: '% Complete',
         dataIndex: 'original_cost',
-        render: (original_cost: number) => Math.round(original_cost * 10) /10 + '%',
+        render: `${(original_cost: number) => Math.round(original_cost * 10) /10}%`,
         sorter: true,
       },
       {
