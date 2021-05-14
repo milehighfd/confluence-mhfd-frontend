@@ -9,6 +9,7 @@ import { SERVER } from '../../../Config/Server.config';
 
 import CardStatService from './CardService';
 import { DeleteAlert } from './DeleteAlert';
+import LoadingView from '../../Loading/LoadingView';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -37,6 +38,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
     jurisdiction,
     projectsubtype
   } = project.projectData;
+  const [goingToBeDeleted, setGoingToBeDeleted] = useState(false);
 
   const amount = project[`req${columnIdx}`];
   const [showAmountModal, setShowAmountModal] = useState(false);
@@ -45,6 +47,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   const deleteProject = () => {
+    setGoingToBeDeleted(true);
     deleteData(`${SERVER.URL_BASE}/board/project/${projectid}/${namespaceId}`, getToken())
       .then((r) => {
         console.log('r', r)
@@ -97,6 +100,13 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
       updateSelectedLayers([]);
     }
   },[showModalProject]);
+
+  if (goingToBeDeleted) {
+    return <div className="card-wr">
+      <LoadingView />
+    </div>
+  }
+
   return (
     <>
     {
