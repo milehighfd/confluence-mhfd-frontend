@@ -246,6 +246,79 @@ export class MapService {
           .setHTML(html)
           .addTo(this.map);
   }
+  loadImages() {
+    this.map.loadImage('custom-sprite/30x30px.png', (error: any, image: any) => {
+      if (error) {
+          console.log('error on load ', error);
+          return;
+      }
+      if (!this.map.hasImage('adjust-24px')) {
+          this.map.addImage('adjust-24px', image);
+      }
+    });
+    this.map.loadImage('custom-sprite/dollar.png', (error: any, image: any) => {
+        if (error) {
+            console.log('error on load ', error);
+            return;
+        }
+        if (!this.map.hasImage('dollar')) {
+            this.map.addImage('dollar', image);
+        }
+    });
+    this.map.loadImage('custom-sprite/fema-floodway.png', (error: any, image: any) => {
+        if (error) {
+            console.log('error on load ', error);
+            return;
+        }
+        if (!this.map.hasImage('fema-floodway')) {
+            this.map.addImage('fema-floodway', image);
+        }
+    });
+    this.map.loadImage('custom-sprite/Frame13a.png', (error: any, image: any) => {
+        if (error) {
+            console.log('error on load ', error);
+            return;
+        }
+        if (!this.map.hasImage('Frame13a')) {
+            this.map.addImage('Frame13a', image);
+        }
+    });
+    this.map.loadImage('custom-sprite/Frame17m2t.png', (error: any, image: any) => {
+        if (error) {
+            console.log('error on load ', error);
+            return;
+        }
+        if (!this.map.hasImage('Frame17m2t')) {
+            this.map.addImage('Frame17m2t', image);
+        }
+    });
+    this.map.loadImage('custom-sprite/Frame21C.png', (error: any, image: any) => {
+        if (error) {
+            console.log('error on load ', error);
+            return;
+        }
+        if (!this.map.hasImage('Frame21C')) {
+            this.map.addImage('Frame21C', image);
+        }
+    });
+    this.map.loadImage('custom-sprite/pjm2.png', (error: any, image: any) => {
+        if (error) {
+            console.log('error on load ', error);
+        }
+        if (!this.map.hasImage('pjm2')) {
+            this.map.addImage('pjm2', image);
+        }
+    });
+    this.map.loadImage('custom-sprite/Urbanclimbtosafetysign_origclean-50.png', (error: any, image: any) => {
+        if (error) {
+            console.log('error on load ', error);
+            return;
+        }
+        if (!this.map.hasImage('Urbanclimbtosafetysign_origclean')) {
+            this.map.addImage('Urbanclimbtosafetysign_origclean', image);
+        }
+    });
+  }
   removePopUpOffset() {
     this.popupOffset.remove();
   }

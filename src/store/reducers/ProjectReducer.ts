@@ -23,6 +23,10 @@ const initState = {
     type:'',
     value: ''
   },
+  highlightedProblem: {
+    problemid: undefined, 
+    checker: undefined
+  },
   problemid: undefined,
   boardProjects: {cartoids:['-8888'], ids:['-8888'] },
   zoomProject: undefined,
@@ -136,6 +140,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         highlightedComponent: action.highlightedComponent
+      }
+    }
+    case types.SET_HIGHLIGHTED_PROB: {
+      return {
+        ...state,
+        highlightedProblem: {problemid: action.highlightedProblem, checker: Math.random()}
       }
     }
     case types.SET_PROBLEMID: {

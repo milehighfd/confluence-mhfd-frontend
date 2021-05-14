@@ -74,7 +74,7 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function) => {
     totalSumCost += component.original_cost;
   }
   return (
-    <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)}>
+    <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)}>
       <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>{problem.jurisdiction}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
@@ -114,7 +114,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     status:"Proposed",
     original_cost:0,
   };
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem} = useProjectDispatch();
+  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
   const {userInformation,organization} = useProfileState();
   const [state, setState] = useState(stateValue);
@@ -581,6 +581,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }
   const setValuesProblem = (problemid:any, problemname:any) => {
     getZoomGeomProblem(problemid);
+    setHighlightedProblem(problemid);
   }
 
   return (

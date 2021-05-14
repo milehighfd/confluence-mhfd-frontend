@@ -566,6 +566,11 @@ export const setHighlightedComponent = (highlightedComponent: any) => {
     dispatch({ type: types.SET_HIGHLIGHTED, highlightedComponent});
   }
 }
+export const setHighlightedProblem = (highlightedProblem: any) => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.SET_HIGHLIGHTED_PROB, highlightedProblem});
+  }
+}
 export const setBoardProjects = (boardProjects: any) => {
   return (dispatch: Function) => {
     dispatch({type: types.SET_BOARD_PROJECTS, boardProjects});

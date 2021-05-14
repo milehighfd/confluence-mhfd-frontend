@@ -63,7 +63,7 @@ const CreateProjectMap = (type: any) => {
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom } = useProjectState();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -105,6 +105,7 @@ const CreateProjectMap = (type: any) => {
         if (!map) {
           map = new MapService('map3');
           setLayersSelectedOnInit();
+          map.loadImages();
         }
       }
     };
@@ -173,6 +174,15 @@ const CreateProjectMap = (type: any) => {
       }
     }
   },[highlightedComponent]);
+  useEffect(()=>{
+    if (map) {
+      if (highlightedProblem.problemid) {
+          showHighlightedProblem(highlightedProblem.problemid);
+      } else {
+          hideHighlighted();
+      }
+    }
+  },[highlightedProblem]);
   const [opacityLayer, setOpacityLayer] = useState(false);
   const polyMask = (mask: any, bounds: any) => {
     if (mask !== undefined && bounds.length > 0) {
@@ -653,7 +663,7 @@ const CreateProjectMap = (type: any) => {
     }
     applyFilters('mhfd_projects', filterProjectsNew);
     if (type.type === "CAPITAL") {
-      applyComponentFilter();
+      // applyComponentFilter();
     }
     
   }
@@ -674,7 +684,6 @@ const CreateProjectMap = (type: any) => {
     });
   }
   const showLayers = (key: string) => {
-
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
@@ -694,7 +703,7 @@ const CreateProjectMap = (type: any) => {
     for (const key of COMPONENT_LAYERS.tiles) {
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (!components.includes(key)) {
-          map.setFilter(key + '_' + index, ['in', 'cartodb_id', -1]);
+          // map.setFilter(key + '_' + index, ['in', 'cartodb_id', -1]);
         }
       });
     }
@@ -880,20 +889,37 @@ const CreateProjectMap = (type: any) => {
         return;
       }
       if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
-        map.map.addLayer({
-          id: key + '_highlight_' + index,
-          source: key,
-          type: 'line',
-          'source-layer': 'pluto15v1',
-          layout: {
-            visibility: 'visible'
-          },
-          paint: {
-            'line-color': '#fff',
-            'line-width': 7,
-          },
-          filter: ['in', 'cartodb_id']
-        });
+        if(key != 'problems') {
+          map.map.addLayer({
+            id: key + '_highlight_' + index,
+            source: key,
+            type: 'line',
+            'source-layer': 'pluto15v1',
+            layout: {
+              visibility: 'visible'
+            },
+            paint: {
+              'line-color': '#fff',
+              'line-width': 7,
+            },
+            filter: ['in', 'cartodb_id']
+          });  
+        } else {
+          map.map.addLayer({
+            id: key + '_highlight_' + index,
+            source: key,
+            type: 'line',
+            'source-layer': 'pluto15v1',
+            layout: {
+              visibility: 'visible'
+            },
+            paint: {
+              'line-color': '#fff',
+              'line-width': 7,
+            },
+            filter: ['in','problemid']
+          });
+        }
       }
       if (style.type === 'circle' || style.type === 'symbol') {
         map.map.addLayer({
@@ -983,8 +1009,21 @@ const CreateProjectMap = (type: any) => {
       existDetailedPageProject(url);
     }
   }
+  const showHighlightedProblem = (problemid: string) => {
+    const styles = { ...tileStyles as any }
+    // console.log("SHOW HL", key, cartodb_id);
+    styles['problems'].forEach((style: LayerStylesType, index: number) => {
+      // console.log("ENTERDS ", index, map.getLayer('problems' + '_' + index), map.getLayer('problems' + '_highlight_' + index, 'visibility'));
+      if (map.getLayer('problems' + '_' + index)) {
+        // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
+        map.setFilter('problems' + '_highlight_' + index, ['in','problemid', parseInt(problemid)])
+        
+      }
+    });
+  }
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...tileStyles as any }
+    // console.log("SHOW HL", key, cartodb_id);
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
         map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
