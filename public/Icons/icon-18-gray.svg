@@ -1,4 +1,4 @@
-<svg width={"17"} height={"17"} viewBox={"0 0 17 17"} style={{marginTop: 6}}>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" viewBox="0 0 17 17">
   <defs>
     <clipPath id="clip-path">
       <path id="Trazado_128" data-name="Trazado 128" d="M8.5-17A8.5,8.5,0,0,1,17-8.5,8.5,8.5,0,0,1,8.5,0,8.5,8.5,0,0,1,0-8.5,8.5,8.5,0,0,1,8.5-17Z" fill="none" clip-rule="evenodd"/>
@@ -9,10 +9,10 @@
   </defs>
   <g id="Grupo_93" data-name="Grupo 93" transform="translate(0 17)">
     <g id="Grupo_91" data-name="Grupo 91" clip-path="url(#clip-path)">
-      <path id="Trazado_127" data-name="Trazado 127" d="M-5-22H22V5H-5Z" fill='gray'/>
+      <path id="Trazado_127" data-name="Trazado 127" d="M-5-22H22V5H-5Z" fill="gray"/>
     </g>
     <g id="Grupo_92" data-name="Grupo 92" clip-path="url(#clip-path-2)">
       <path id="Trazado_129" data-name="Trazado 129" d="M0-17H17V0H0Z" fill="#fff"/>
     </g>
   </g>
-</svg> 
+</svg>
