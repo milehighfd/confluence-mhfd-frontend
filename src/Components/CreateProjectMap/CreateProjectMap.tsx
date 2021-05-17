@@ -178,6 +178,8 @@ const CreateProjectMap = (type: any) => {
     if (map) {
       if (highlightedProblem.problemid) {
           showHighlightedProblem(highlightedProblem.problemid);
+          console.log("UPDATE");
+          updateSelectedLayers([...selectedLayers,PROBLEMS_TRIGGER]);;
       } else {
           hideHighlighted();
       }
