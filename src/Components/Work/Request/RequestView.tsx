@@ -26,6 +26,7 @@ import TotalHeader from "./TotalHeader";
 import CostTableBody from "./CostTableBody";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { AlertStatus } from "./AlertStatus";
+import LoadingView from "../../Loading/LoadingView";
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -81,11 +82,24 @@ const RequestView = ({ type }: {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertStatus, setAlertStatus] = useState<any>({});
+  const [loading, setLoading] = useState(false);
   const {clear} = useAttachmentDispatch();
   const wrtRef = useRef(null);
 
   const onDragOver = (e: any) => {
     e.preventDefault();
+  }
+
+  const deleteProject = (pid: string) => {
+    let newcols = columns.map((col: any) => {
+      return {
+        ...col,
+        projects: col.projects.filter((p: any) => {
+          return p.project_id != pid;
+        })
+      }
+    });
+    setColumns(newcols);
   }
 
   const onDrop = (e: any, columnIdx: number) => {
@@ -605,7 +619,11 @@ const RequestView = ({ type }: {
           <AlertStatus type={alertStatus.type} message={alertStatus.message} />
         }
         <Layout className="work">
-          <Row>
+          {
+            loading && <LoadingView />
+          }
+          {
+            !loading &&<Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
                 <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey}></WorkRequestMap>
             </Col>
@@ -717,6 +735,8 @@ const RequestView = ({ type }: {
                                     .filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, p))
                                     .map((p: any, i: number, arr: any[]) => (
                                       <TrelloLikeCard key={i}
+                                        setLoading={setLoading}
+                                        delProject={deleteProject}
                                         namespaceId={namespaceId}
                                         project={p}
                                         columnIdx={columnIdx}
@@ -803,6 +823,7 @@ const RequestView = ({ type }: {
               </Button>
             </Col>
           </Row>
+          }
         </Layout>
       </Layout>
     </Layout>

@@ -18,8 +18,10 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor }: {
+const TrelloLikeCard = ({ namespaceId, setLoading, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor }: {
   namespaceId: string,
+  setLoading: Function,
+  delProject: Function,
   project: any,
   columnIdx: number,
   rowIdx: number,
@@ -28,7 +30,7 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
   editable: boolean,
   filtered: boolean,
   locality: any,
-  borderColor: string
+  borderColor: string,
 }) => {
   const divRef = useRef(null);
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
@@ -47,13 +49,16 @@ const TrelloLikeCard = ({ namespaceId, project, columnIdx, rowIdx, saveData, tab
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   const deleteProject = () => {
-    setGoingToBeDeleted(true);
+    delProject(projectid)
+    setLoading(true);
     deleteData(`${SERVER.URL_BASE}/board/project/${projectid}/${namespaceId}`, getToken())
       .then((r) => {
         console.log('r', r)
+        setLoading(false)
       })
       .catch((e) => {
         console.log('e', e)
+        setLoading(false)
       })
   }
 
