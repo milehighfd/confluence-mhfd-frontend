@@ -708,24 +708,7 @@ const RequestView = ({ type }: {
                                   {
                                     column.hasCreateOption &&
                                     <Button className="btn-transparent" onClick={onClickNewProject} disabled={locality === 'MHFD District Work Plan'}>
-                                      <svg width={"17"} height={"17"} viewBox={"0 0 17 17"} style={{marginTop: 6}}>
-                                        <defs>
-                                          <clipPath id="clip-path">
-                                            <path id="Trazado_128" data-name="Trazado 128" d="M8.5-17A8.5,8.5,0,0,1,17-8.5,8.5,8.5,0,0,1,8.5,0,8.5,8.5,0,0,1,0-8.5,8.5,8.5,0,0,1,8.5-17Z" fill="none" clip-rule="evenodd"/>
-                                          </clipPath>
-                                          <clipPath id="clip-path-2">
-                                            <path id="Trazado_130" data-name="Trazado 130" d="M8.5-12a.5.5,0,0,1,.5.5V-9h2.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5H9v2.5a.5.5,0,0,1-.5.5A.5.5,0,0,1,8-5.5V-8H5.5A.5.5,0,0,1,5-8.5.5.5,0,0,1,5.5-9H8v-2.5A.5.5,0,0,1,8.5-12Z" fill="none" clip-rule="evenodd"/>
-                                          </clipPath>
-                                        </defs>
-                                        <g id="Grupo_93" data-name="Grupo 93" transform="translate(0 17)">
-                                          <g id="Grupo_91" data-name="Grupo 91" clip-path="url(#clip-path)">
-                                            <path id="Trazado_127" data-name="Trazado 127" d="M-5-22H22V5H-5Z" fill={locality === 'MHFD District Work Plan' ? 'gray': "#241862"}/>
-                                          </g>
-                                          <g id="Grupo_92" data-name="Grupo 92" clip-path="url(#clip-path-2)">
-                                            <path id="Trazado_129" data-name="Trazado 129" d="M0-17H17V0H0Z" fill="#fff"/>
-                                          </g>
-                                        </g>
-                                      </svg> &nbsp;
+                                      {locality === 'MHFD District Work Plan' ? <img src="/Icons/icon-29.svg" alt=""/>: <img src="/Icons/icon-18.svg" alt=""/>}
                                       Create Project
                                     </Button>
                                   }
