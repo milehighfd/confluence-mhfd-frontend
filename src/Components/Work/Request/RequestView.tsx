@@ -726,7 +726,7 @@ const RequestView = ({ type }: {
                                   {
                                     column.hasCreateOption &&
                                     <Button className="btn-transparent" onClick={onClickNewProject} disabled={locality === 'MHFD District Work Plan'}>
-                                      {locality === 'MHFD District Work Plan' ? <img src="/Icons/icon-18-gray.svg" alt=""/>: <img src="/Icons/icon-18.svg" alt=""/>}
+                                      {locality === 'MHFD District Work Plan' ? <img src="/Icons/icon-18-gray.svg" style={{marginBottom:'2px'}} alt=""/>: <img src="/Icons/icon-18.svg" style={{marginBottom:'2px'}} alt=""/>}
                                       Create Project
                                     </Button>
                                   }

@@ -40,6 +40,7 @@ import { containsNumber } from "@turf/turf";
 import { getFeaturesIntersected, getHull } from './utilsService';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { AnyCnameRecord, AnyAaaaRecord } from "dns";
+import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
 let map: any;
 let coordX = -1;
 let coordY = -1;
@@ -63,7 +64,7 @@ const CreateProjectMap = (type: any) => {
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem } = useProjectState();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -71,6 +72,7 @@ const CreateProjectMap = (type: any) => {
   const [visible, setVisible] = useState(false);
   const [localAOI, setLocalAOI] = useState(type.locality);
   const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
+  const [loading, setLoading] = useState(false);
   const hovereableLayers = [PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
     MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
@@ -138,6 +140,9 @@ const CreateProjectMap = (type: any) => {
       },1300);
     }
   },[editLocation]);
+  useEffect(()=>{
+    setLoading(false);
+  },[listStreams]);
   useEffect(()=>{
     if(zoomGeom && zoomGeom.geom) {
       let cg = zoomGeom.geom?JSON.parse(zoomGeom.geom):undefined;
@@ -343,6 +348,9 @@ const CreateProjectMap = (type: any) => {
   },[groupOrganization, type.locality, localAOI]);
   useEffect(()=>{
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
+      setTimeout(()=>{
+        setLoading(false);
+      },1500);
       if(type.type === 'CAPITAL') {
         getStreamsByComponentsList(listComponents.result);
       }
@@ -415,6 +423,9 @@ const CreateProjectMap = (type: any) => {
     if (streamIntersected && streamIntersected.geom) {
       if(type.type == 'CAPITAL' || type.type == 'MAINTENANCE') {
         getServiceAreaPolygonofStreams(streamIntersected.geom);
+      }
+      if(type.type === 'MAINTENANCE') {
+        setLoading(false);
       }
       geom = JSON.parse(streamIntersected.geom);
       let cg = componentGeom?JSON.parse(componentGeom.geom):undefined;
@@ -564,7 +575,8 @@ const CreateProjectMap = (type: any) => {
     updateSelectedLayers(filterLayers);
   }
   const onCreateDraw = (event: any) => {
-    removeProjectLayer();
+    removeProjectLayer();    
+    setLoading(true);
     const userPolygon = event.features[0];
     if (type.type === 'CAPITAL') {
       // getStreamIntersectionSave(userPolygon.geometry);
@@ -1834,6 +1846,7 @@ const CreateProjectMap = (type: any) => {
     popup.remove();
   }
   return <>
+    
     <div className="map">
       <div id="map3" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
@@ -1877,6 +1890,7 @@ const CreateProjectMap = (type: any) => {
         </AutoComplete>
       </div>
     </div>
+    {loading && <LoadingViewOverall></LoadingViewOverall>}
   </>
 };
 

@@ -11,6 +11,16 @@
   left: 0;
   top: 0;
 }
+.loading-overall {
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 5;
+}
 @-webkit-keyframes loader-spin {
   0% {
     -webkit-transform: rotate(0deg);

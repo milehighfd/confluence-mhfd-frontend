@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 
 export default () => {
-  return <div className="loading">
+  return <div className="loading-overall">
     <div className="loader">
       <svg>
         <defs>
