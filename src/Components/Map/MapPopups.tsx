@@ -42,6 +42,7 @@ const capitalize = (s : string) => {
 }
 
 export const MainPopup = ({id, item, test, sw, ep } : any) => {
+  console.log("ITEM", item, ep);
     for (const key in item) {
         if (!item[key]) {
             item[key] = '-';

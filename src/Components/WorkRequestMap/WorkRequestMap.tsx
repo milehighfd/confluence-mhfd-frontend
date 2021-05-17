@@ -38,10 +38,12 @@ let firstTime = true;
 let map: any;
 let coordX = -1;
 let coordY = -1;
+let featuresCount = 0;
 let isPopup = true;
 let previousClick = false;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+let popup = new mapboxgl.Popup();
 let amounts: any = [];
 // const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
@@ -49,7 +51,7 @@ const { Option } = AutoComplete;
 const WorkRequestMap = (type: any) => {
   let html = document.getElementById('map4');
   let draw: any;
-  let popup = new mapboxgl.Popup();
+  
   
   const [isExtendedView, setCompleteView] = useState(false);
   let controller = false;
@@ -1054,6 +1056,7 @@ const WorkRequestMap = (type: any) => {
     if(!isPopup){
       return;
     }
+
     hideHighlighted();
     const popups: any = [];
     const mobile: any = [];
@@ -1080,11 +1083,12 @@ const WorkRequestMap = (type: any) => {
       }
       return -1;
     }
-    if ((e.point.x === coordX || e.point.y === coordY)) {
+    if ((e.point.x === coordX || e.point.y === coordY) && featuresCount === features.length) {
       return;
     }
     coordX = e.point.x;
     coordY = e.point.y;
+    featuresCount = features.length;
     if (features.length != 0) {
       previousClick = true;
     }
@@ -1568,6 +1572,7 @@ const WorkRequestMap = (type: any) => {
       }
     }
     if (popups.length) {
+      console.log("MENUS", menuOptions);
       const html = loadMenuPopupWithData(menuOptions, popups, isEditPopup);
       setMobilePopups(mobile);
       setActiveMobilePopups(mobileIds);
@@ -1637,19 +1642,25 @@ const WorkRequestMap = (type: any) => {
   const loadMenuPopupWithData = (menuOptions: any[], popups: any[], ep?: boolean) => ReactDOMServer.renderToStaticMarkup(
 
     <>
-      {menuOptions.length === 1 ? <> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
-        menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true, ep) : loadMainPopup(0, popups[0], test)}
+      {menuOptions.length === 1 ? <> {
+      (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? 
+      loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
+      menuOptions[0] === 'Project' ? 
+      loadMainPopup(0, popups[0], test, true, ep) : 
+      loadMainPopup(0, popups[0], test)
+      }
       </> :
         <div className="map-pop-02">
           <div className="headmap">LAYERS</div>
           <div className="layer-popup">
             {
               menuOptions.map((menu: any, index: number) => {
+                console.log("MENU", menu, popups[index], ep);
                 return (
                   <div>
                     <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
                     {(menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) :
-                      menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
+                      menu.includes('Project') ? loadMainPopup(index, popups[index], test, true, ep) : loadMainPopup(index, popups[index], test)}
                   </div>
                 )
               })
