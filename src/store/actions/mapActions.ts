@@ -795,6 +795,13 @@ export const setApplyFilter = (applyFilter: boolean) => {
         dispatch({type: types.SET_APPLY_FILTERS, applyFilter });
     }
 }
+export const getComponentsByProjid = (projectid: number, setCounter: Function) => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_COMPONENTS_BY_PROJECT(projectid), datasets.getToken()).then(components => {
+      setCounter(components.length);
+    });
+  }
+}
 export const getComponentCounter = (id: number, type: string, setCountComponents: Function) => {
     return (dispatch: Function) => {
         datasets.postData(SERVER.COMPONENT_COUNTER, {value: id, column: type}, datasets.getToken()).then(components => {

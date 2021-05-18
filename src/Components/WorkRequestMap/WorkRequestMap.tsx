@@ -58,7 +58,7 @@ const WorkRequestMap = (type: any) => {
   const user = store.getState().profile.userInformation;
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
-  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables } = useMapDispatch();
+  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables, getComponentsByProjid } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR } = useProjectDispatch();
   const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
@@ -159,7 +159,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    let time = 300;
+    let time = firstTime?800:300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -1051,6 +1051,12 @@ const WorkRequestMap = (type: any) => {
       return 0;
     }
   }
+  useEffect(()=>{
+    let buttonElement = document.getElementById('popupproject');
+      if (buttonElement != null) {
+        buttonElement.innerHTML = counterPopup+'';
+      }
+  },[counterPopup]);
   const eventClick = (e: any) => {
     
     if(!isPopup){
@@ -1119,7 +1125,8 @@ const WorkRequestMap = (type: any) => {
       let html: any = null;
       let itemValue: any = {};
       if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_copy') {
-        getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
+        // getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
+        getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         const filtered = galleryProjects.filter((item: any) =>
           item.cartodb_id === feature.properties.cartodb_id
         );
@@ -1137,7 +1144,7 @@ const WorkRequestMap = (type: any) => {
           objectid: feature.properties.objectid,
           valueid: feature.properties.cartodb_id,
           id: feature.properties.projectid,
-          popupId: 'popup',
+          popupId: 'popupproject',
           image: filtered.length && filtered[0].attachments ? filtered[0].attachments : (
             feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
               feature.properties.projecttype === 'Study' ? '/projectImages/study.jpg' :
@@ -1572,7 +1579,6 @@ const WorkRequestMap = (type: any) => {
       }
     }
     if (popups.length) {
-      console.log("MENUS", menuOptions);
       const html = loadMenuPopupWithData(menuOptions, popups, isEditPopup);
       setMobilePopups(mobile);
       setActiveMobilePopups(mobileIds);
@@ -1655,7 +1661,6 @@ const WorkRequestMap = (type: any) => {
           <div className="layer-popup">
             {
               menuOptions.map((menu: any, index: number) => {
-                console.log("MENU", menu, popups[index], ep);
                 return (
                   <div>
                     <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>

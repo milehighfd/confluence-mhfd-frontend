@@ -15,7 +15,8 @@ import {
   setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter, 
   getComponentsCounter, getProjectCounter, getProblemCounter, mapSearchQuery, setSelectedOnMap, 
   existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,
-  getComponentsByProblemId,getMapTables
+  getComponentsByProblemId,getMapTables,
+  getComponentsByProjid
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -302,6 +303,9 @@ export const useMapDispatch = () => {
     },
     getMapTables: (trigger: any, name?: any) => {
       dispatch(getMapTables(trigger,name));
+    },
+    getComponentsByProjid: (projectid: any, setCounter: Function) => {
+      dispatch(getComponentsByProjid(projectid, setCounter));
     }
   }
 }
