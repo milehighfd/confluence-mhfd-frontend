@@ -10,6 +10,7 @@ import { SERVER } from '../../../Config/Server.config';
 import CardStatService from './CardService';
 import { DeleteAlert } from './DeleteAlert';
 import LoadingView from '../../Loading/LoadingView';
+import { boardType } from './RequestTypes';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -18,7 +19,8 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ namespaceId, setLoading, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor }: {
+const TrelloLikeCard = ({ type, namespaceId, setLoading, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor }: {
+  type: boardType,
   namespaceId: string,
   setLoading: Function,
   delProject: Function,
@@ -159,7 +161,7 @@ const TrelloLikeCard = ({ namespaceId, setLoading, delProject, project, columnId
       <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
       <label className="purple">{project.from}</label>
-      <label className="yellow">{editable ? 'Draft' : 'Requested'}</label>
+      <label className="yellow">{editable ? 'Draft' : (type === 'WORK_REQUEST' ? 'Requested' : 'Approved')}</label>
       {
         !(showAmountModal || showModalProject || showDeleteAlert) &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click">

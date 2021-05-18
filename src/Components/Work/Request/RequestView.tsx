@@ -735,6 +735,7 @@ const RequestView = ({ type }: {
                                     .filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, p))
                                     .map((p: any, i: number, arr: any[]) => (
                                       <TrelloLikeCard key={i}
+                                        type={type}
                                         setLoading={setLoading}
                                         delProject={deleteProject}
                                         namespaceId={namespaceId}
