@@ -32,7 +32,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   const { favorites, favoriteProblemCards, favoriteProjectCards } = useMapState();
   const { saveUserInformation } = useProfileDispatch();
   const showComponents = () => {
-    console.log(data);
     const id = data.type === 'problems' ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
   }

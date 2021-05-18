@@ -77,6 +77,41 @@ export const MainPopup = ({id, item, test, sw, ep } : any) => {
       </Card>
     </div>
 };
+export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
+    for (const key in item) {
+        if (!item[key]) {
+            item[key] = '-';
+        }
+    }
+    let priorityType: string = '';
+    if (item.priority) {
+        priorityType = item.priority.split(' ')[0];
+    }
+    return <div id={"popup-" + id} className="map-pop-00">
+      <Card hoverable>
+        <div className="headmap">
+            {capitalize(item.title)}
+        </div>
+        <div className="bodymap">
+          <h4>{item.name}</h4>
+          <h6>{item.organization}</h6>
+          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b id={item.popupId}>0</b> Components</span></h5>
+          <hr/>
+          <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+            <p style={item.type === 'problems' ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>
+            <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? item.status : capitalize(item.status)}</span>
+          </div>
+        </div>
+        { !ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+            {!sw && <Button id={"buttonComponents-" + id} style={{ width: '50%', marginRight: '10px'}} className="btn-purple" >Components</Button>}
+            <Button id={"buttonPopup-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">See Details</Button>
+        </div>} 
+        { ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+            <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">Edit Project</Button>
+        </div>}
+      </Card>
+    </div>
+};
 
 export const ComponentPopup = ({ id, item, isComponent } : any) => {
     return <div id={'popup-' + id} className="map-pop-01">

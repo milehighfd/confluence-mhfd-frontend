@@ -1052,9 +1052,13 @@ const WorkRequestMap = (type: any) => {
     }
   }
   useEffect(()=>{
-    let buttonElement = document.getElementById('popupproject');
+    let buttonElement = document.getElementById('popup');
       if (buttonElement != null) {
-        buttonElement.innerHTML = counterPopup+'';
+        if(counterPopup.componentes) {
+          buttonElement.innerHTML = counterPopup.componentes+'';
+        } else {
+          buttonElement.innerHTML = counterPopup+'';
+        }
       }
   },[counterPopup]);
   const eventClick = (e: any) => {
@@ -1144,7 +1148,7 @@ const WorkRequestMap = (type: any) => {
           objectid: feature.properties.objectid,
           valueid: feature.properties.cartodb_id,
           id: feature.properties.projectid,
-          popupId: 'popupproject',
+          popupId: 'popup',
           image: filtered.length && filtered[0].attachments ? filtered[0].attachments : (
             feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
               feature.properties.projecttype === 'Study' ? '/projectImages/study.jpg' :

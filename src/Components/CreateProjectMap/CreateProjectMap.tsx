@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
-import { MainPopup, ComponentPopupCreate } from './../Map/MapPopups';
+import { MainPopupCreateMap, ComponentPopupCreate } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import { getData, getToken, postData } from "../../Config/datasets";
@@ -11,6 +11,8 @@ import { SERVER } from "../../Config/Server.config";
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import eventService from './eventService';
+import {MapboxLayer} from '@deck.gl/mapbox';
+import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import {
   MAP_DROPDOWN_ITEMS,
   MAPBOX_TOKEN, HERE_TOKEN,
@@ -59,9 +61,9 @@ const CreateProjectMap = (type: any) => {
   const [isExtendedView, setCompleteView] = useState(false);
   let controller = false;
   const user = store.getState().profile.userInformation;
-  const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
+  const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents, bboxComponents } = useMapState();
 
-  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId } = useMapDispatch();
+  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom } = useProjectDispatch();
   const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams } = useProjectState();
@@ -684,7 +686,7 @@ const CreateProjectMap = (type: any) => {
   const applyMhfdFilter = () => {
     const styles = { ...tileStyles as any };
     styles['mhfd_projects'].forEach((style: LayerStylesType, index: number) => {
-      console.log("HEY", map.map.getFilter('mhfd_projects_' + index));
+      // console.log("HEY", map.map.getFilter('mhfd_projects_' + index));
     });
   }
   const applyComponentFilter = () => {
@@ -1176,8 +1178,18 @@ const CreateProjectMap = (type: any) => {
   const eventMove = (e:any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
+  
+  useEffect(()=>{
+    let buttonElement = document.getElementById('popup');
+      if (buttonElement != null) {
+        if(counterPopup.componentes) {
+          buttonElement.innerHTML = counterPopup.componentes+'';
+        } else {
+          buttonElement.innerHTML = counterPopup+'';
+        }
+      }
+  },[counterPopup]);
   const eventClick = (e: any) => {
-    
     if(!isPopup){
       return;
     }
@@ -1241,7 +1253,7 @@ const CreateProjectMap = (type: any) => {
       let html: any = null;
       let itemValue;
       if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects') {
-        getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
+        getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         const filtered = galleryProjects.filter((item: any) =>
           item.cartodb_id === feature.properties.cartodb_id
         );
@@ -1713,10 +1725,86 @@ const CreateProjectMap = (type: any) => {
           if(componentElement) {
             componentElement.addEventListener('click', addRemoveComponent.bind(popups[index],popups[index]));
           }
-
+          let getcomponentElement = document.getElementById('buttonComponents-'+index);
+          if(getcomponentElement) {
+            getcomponentElement.addEventListener('click', getComponentsFromProjProb.bind(popups[index],popups[index]));
+          }
         }
       }
     }
+  }
+  useEffect(() => {
+      if (map.map.getLayer('mapboxArcs')) {
+          map.map.removeLayer('mapboxArcs')
+      }
+      if (map.map.getLayer('arcs')) {
+          map.map.removeLayer('arcs')
+      }
+      if (bboxComponents.centroids && bboxComponents.centroids.length <= 1) {
+          setTimeout(() => {
+              map.map.setPitch(0)
+          }, 3000)
+      } else {
+          const SOURCE_COLOR = [189, 56, 68];
+          const TARGET_COLOR = [13, 87, 73];
+          const YELLOW_SOLID = [118, 239, 213];
+          let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
+              return {
+                  position: c.centroid,
+                  name: c.component,
+                  total: 1,
+                  color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR
+              }
+          });
+          let arcs: any[] = [];
+
+          for (let i = 1;  i < bboxComponents.centroids.length ; i++) {
+              arcs.push({
+                  source: bboxComponents.centroids[0].centroid,
+                  target: bboxComponents.centroids[i].centroid,
+                  value: bboxComponents.centroids[i].arcWidth
+              });
+          }
+          let mapboxArcsLayer = new MapboxLayer({
+              type: ScatterplotLayer,
+              id: 'mapboxArcs',
+              data: scatterData,
+              opacity: 1,
+              pickable: true,
+              getRadius: (d: any) => {
+                  if (d.name === 'self') {
+                      return 2;
+                  } else {
+                      return 1;
+                  }
+              },
+              getColor: (d: any) => d.color
+          });
+
+          let arcsLayer = new MapboxLayer({
+              type: ArcLayer,
+              id: 'arcs',
+              data: arcs,
+              brushRadius: 100000,
+              getStrokeWidth: (d: any) => 4,
+              opacity: 1,
+              getSourcePosition: (d: any) => d.source,
+              getTargetPosition: (d: any) => d.target,
+              getWidth: (d: any) => d.value * 2,
+              getHeight: 0.7,
+              getSourceColor: YELLOW_SOLID,
+              getTargetColor: YELLOW_SOLID
+          });
+          map.map.setPitch(80)
+          map.map.addLayer(mapboxArcsLayer);
+          map.map.addLayer(arcsLayer);
+      }
+  }, [bboxComponents])
+
+  const getComponentsFromProjProb = (item: any, event: any) => {
+    let id = item.type == 'project'? item.id: item.problemid;
+    getBBOXComponents(item.type, id);
+    removePopup();
   }
   const addRemoveComponent = (item: any, event: any)=> {
     let newComponents:any = [];
@@ -1751,7 +1839,7 @@ const CreateProjectMap = (type: any) => {
 
     <>
       {menuOptions.length === 1 ? <> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
-        menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
+        loadMainPopup(0, popups[0], test)}
       </> :
         <div className="map-pop-02">
           <div className="headmap">LAYERS</div>
@@ -1760,9 +1848,15 @@ const CreateProjectMap = (type: any) => {
               menuOptions.map((menu: any, index: number) => {
                 return (
                   <div>
-                    <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-                    {(menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) :
-                      menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
+                    <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span          className="text-popup-00"> {menu}</span> <RightOutlined />
+                    </Button>
+                    {(menu !== 'Project' && menu !== 'Problem') ? 
+                      loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) 
+                      :
+                      menu === 'Project' ? 
+                        loadMainPopup(index, popups[index], test, true) 
+                      : 
+                        loadMainPopup(index, popups[index], test)}
                   </div>
                 )
               })
@@ -1792,7 +1886,7 @@ const CreateProjectMap = (type: any) => {
  
   const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) => (
     <>
-      <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopup>
+      <MainPopupCreateMap id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopupCreateMap>
     </>
   );
 
