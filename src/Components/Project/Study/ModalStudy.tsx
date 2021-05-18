@@ -340,6 +340,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
      />}
      <Modal
        centered
+       maskClosable={false}
        visible={visibleStudy}
        onOk={handleOk}
        onCancel={handleCancel}

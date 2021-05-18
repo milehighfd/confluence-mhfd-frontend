@@ -248,6 +248,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
      />}
      <Modal
        centered
+       maskClosable={false}
        visible={visibleSpecial}
        onOk={handleOk}
        onCancel={handleCancel}

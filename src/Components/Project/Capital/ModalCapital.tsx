@@ -594,6 +594,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
      />}
      <Modal
        centered
+       maskClosable={false}
        visible={visibleCapital}
        onOk={handleOk}
        onCancel={handleCancel}

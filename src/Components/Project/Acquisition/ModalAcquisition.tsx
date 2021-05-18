@@ -264,6 +264,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
      />}
      <Modal
        centered
+       maskClosable={false}
        visible={visibleAcquisition}
        onOk={handleOk}
        onCancel={handleCancel}

@@ -291,6 +291,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
      />}
      <Modal
        centered
+       maskClosable={false}
        visible={visibleMaintenance}
        onOk={handleOk}
        onCancel={handleCancel}
