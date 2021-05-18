@@ -218,6 +218,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
      {visibleModal && <Modal
        title="Create Project"
        centered
+       maskClosable={false}
        visible={visibleModal}
        onOk={handleOk}
        onCancel={handleCancel}
