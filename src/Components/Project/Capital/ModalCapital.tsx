@@ -648,7 +648,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             {(keys && keys.length || visibleUnnamedComponent) &&
             <div className="tab-titles">
                 <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10}}>Problem</Col>
-                <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>Jurisdiction</Col>
+                <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>Status <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }}>Cost</Col>
               </div>
