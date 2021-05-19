@@ -1683,7 +1683,8 @@ const CreateProjectMap = (type: any) => {
             table: feature.source ? feature.source : '-',
             cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
             problem: 'Dataset in development',
-            added: status
+            added: status,
+            objectid: feature.properties.objectid? feature.properties.objectid: ''
           };
           const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
           menuOptions.push(name);
@@ -1808,6 +1809,7 @@ const CreateProjectMap = (type: any) => {
   }
   const addRemoveComponent = (item: any, event: any)=> {
     let newComponents:any = [];
+    console.log("ITEM", item);
     if(item.added === 'Add') {
       newComponents = [...componentsList, {
         cartodb_id: item.cartodb_id?item.cartodb_id:'',
@@ -1816,11 +1818,13 @@ const CreateProjectMap = (type: any) => {
         problemid: null,
         status: item.status?item.status:'',
         table: item.table?item.table:'',
-        type: item.type?item.type:''
+        type: item.type?item.type:'',
+        objectid: item.objectid?item.objectid:''
       }];
     } else {
       newComponents = componentsList.filter( (comp: any) => ( ! (comp.cartodb_id == item.cartodb_id && comp.table == item.table)));
     }
+    console.log("THIS ARE THE NEW COMPONENTS", newComponents);
     getListComponentsByComponentsAndPolygon(newComponents, null);
     removePopup();
   }

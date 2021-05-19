@@ -16,7 +16,7 @@ const Analytics = ({
   initialYear: number
 }) => {
   const [year, setYear] = useState(+initialYear);
-
+  const analiticsBy = (tabKey === 'Study' || tabKey === 'Special' || tabKey === 'Acquisition')?'Service Area':'County'
   const years = [];
   for (var i = 0 ; i < 5 ; i++) {
     years.push(+initialYear + i);
@@ -68,7 +68,7 @@ const Analytics = ({
       className="work-utilities"
       mask={false}
     >
-      <h6>Requests by County <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
+      <h6>Requests by {analiticsBy} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">
         {maxiQ > 0 && 
         <HorizontalBarChart
@@ -92,7 +92,7 @@ const Analytics = ({
         }
       </div>
 
-      <h6>Dollars Requested by County <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
+      <h6>Dollars Requested by {analiticsBy} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">
       {maxiA > 0 && 
       <HorizontalBarChart
