@@ -145,7 +145,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [keys, setKeys] = useState<any>([]);
   const [additionalCost, setAdditionalCost] = useState<number>(0);
   const [additionalDescription, setAdditionalDescription] = useState("");
-  const [totalCost, setTotalCost] = useState();
+  const [totalCost, setTotalCost] = useState(0);
   const [overheadDescription, setOverheadDescription] = useState("");
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
@@ -308,6 +308,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
      // capital.locality = locality? locality:'';
       capital.editProject = editprojectid;
       capital.cover = cover;
+      capital.totalcost = getTotalCost();
       console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       if(swSave){
         editProjectCapital(capital);

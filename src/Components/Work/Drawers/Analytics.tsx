@@ -16,7 +16,6 @@ const Analytics = ({
   initialYear: number
 }) => {
   const [year, setYear] = useState(+initialYear);
-
   const years = [];
   for (var i = 0 ; i < 5 ; i++) {
     years.push(+initialYear + i);
