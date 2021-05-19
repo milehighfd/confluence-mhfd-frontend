@@ -44,6 +44,7 @@ const Analytics = ({
 
   let countiesNames = data.map((d: any) => d.locality).join(',');
   let barsColor = '#261964';
+  let groupingType = ['Capital', 'Maintenance'].includes(tabKey) ? 'County': 'Service Area';
 
   return (
     <Drawer
@@ -68,7 +69,7 @@ const Analytics = ({
       className="work-utilities"
       mask={false}
     >
-      <h6>Requests by County <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
+      <h6>Requests by {groupingType} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">
         {maxiQ > 0 && 
         <HorizontalBarChart
@@ -92,7 +93,7 @@ const Analytics = ({
         }
       </div>
 
-      <h6>Dollars Requested by County <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
+      <h6>Dollars Requested by {groupingType} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">
       {maxiA > 0 && 
       <HorizontalBarChart

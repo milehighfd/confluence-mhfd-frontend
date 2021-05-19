@@ -404,8 +404,12 @@ const RequestView = ({ type }: {
       }
     }
     setSumTotal(totals);
-    setSumByCounty(rows);
-  }, [columns]);
+    if (['Capital', 'Maintenance'].includes(tabKey)) {
+      setSumByCounty(rows);
+    } else {
+      setSumByCounty(a);
+    }
+  }, [columns, tabKey]);
 
   useEffect(() => {
     let diffTmp = []
