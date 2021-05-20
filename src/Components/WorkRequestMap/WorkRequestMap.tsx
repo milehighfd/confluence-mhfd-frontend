@@ -149,6 +149,9 @@ const WorkRequestMap = (type: any) => {
     setIdsBoardProjects(['-8888']);
   }, []);
   useEffect(()=>{
+    popup.remove();
+  },[type.change]);
+  useEffect(()=>{
     if (map) {
       if (highlightedComponent.table) {
           showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);

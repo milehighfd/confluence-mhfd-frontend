@@ -160,7 +160,10 @@ const RequestView = ({ type }: {
     setVisibleCreateProject(true);
     setStreamsIds([]);
   }
-
+  const [changes, setChanges] = useState(0);
+  useEffect(()=>{
+    setChanges(Math.random());
+  },[locality, tabKey,year]);
   useEffect(() => {
     let params = new URLSearchParams(history.location.search)
     let _year = params.get('year');
@@ -629,7 +632,7 @@ const RequestView = ({ type }: {
           {
             !loading &&<Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey}></WorkRequestMap>
+                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes}></WorkRequestMap>
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
