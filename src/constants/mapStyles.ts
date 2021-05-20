@@ -2371,33 +2371,11 @@ export const PROJECTS_STYLES = {
         "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
       },
       "paint": {
-          "text-color": [
-              "interpolate",
-              ["exponential", 1],
-              ["zoom"],
-              0,
-              "hsla(0, 0%, 100%, 0)",
-              12.66,
-              "hsla(0, 0%, 100%, 0)",
-              13,
-              "hsla(0, 0%, 100%, 0.74)",
-              22,
-              "hsl(0, 0%, 100%)"
-          ],
-          "text-halo-color": [
-              "step",
-              ["zoom"],
-              "hsla(0, 0%, 0%, 0)",
-              13,
-              "hsla(0, 0%, 0%, 0.25)",
-              15,
-              "hsl(0, 0%, 0%)",
-              22,
-              "hsla(0, 0%, 0%, 0.61)"
-          ],
+          "text-color": "hsla(0, 0%, 100%, 0.74)",
+          "text-halo-color": "hsla(0, 0%, 0%, 0.25)",
           "text-halo-width": 0.25,
           "text-halo-blur": 35,
-          "text-opacity": ["step", ["zoom"], 0, 14, 1, 22, 1]
+          "text-opacity": ["step", ["zoom"], 0.7, 14, 1, 22, 1]
       }
     }
   ]
