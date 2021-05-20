@@ -34,7 +34,7 @@ export class Project {
     locality: any;
     jurisdiction: any;
     cover: any;
-    totalcost?: any;
+    finalcost?: any;
     constructor() {
         this.projectname = "special";
         this.description = "";
@@ -60,6 +60,6 @@ export class Project {
         this.jurisdiction = '';
         this.ids = [];
         this.streams = [];
-        this.totalcost = 0;
+        this.finalcost = 0;
     }
 }
