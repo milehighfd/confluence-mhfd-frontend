@@ -140,7 +140,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [disableName, setDisableName ] = useState(true);
   const [ visibleUnnamedComponent, setVisibleUnnamedComponent ] = useState(false)
   const [ thisIndependentComponents, setIndependentComponents] = useState<any[]>([]);
-  const [overheadValues, setOverheadValues] = useState<any>([0,0,0,0,0,0,0,0,0]);
+  const [overheadValues, setOverheadValues] = useState<any>([0,5,0,0,5,15,5,10,25]);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>([]);
   const [additionalCost, setAdditionalCost] = useState<number>(0);
@@ -191,6 +191,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
       setAdditionalCost(parseInt(data.additionalcost));
+      let newOV = data.overheadcost.split(',').map((x:any)=>{
+        return parseInt(x);
+      })
+      setTimeout(()=>{
+        setOverheadValues(newOV);
+      },1000);
       if(data.additionalcostdescription == null){
         setAdditionalDescription("");
       }
@@ -299,7 +305,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.description = description;
       capital.geom = streamIntersected.geom;
       capital.files = files ;
-      capital.overheadcost = overheadCosts;
+      capital.overheadcost = overheadValues;
       capital.overheadcostdescription = overheadDescription;
       capital.additionalcost = additionalCost;
       capital.additionalcostdescription = additionalDescription;
@@ -434,14 +440,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[thisIndependentComponents]);
   useEffect(()=>{
     if((((listComponents && listComponents.groups && listComponents.result.length > 0)) || thisIndependentComponents.length > 0) && !flagInit) {
-      let newoverhead = [...overheadValues];
-      newoverhead[1] = 5;
-      newoverhead[4] = 5;
-      newoverhead[5] = 15;
-      newoverhead[6] = 5;
-      newoverhead[7] = 10;
-      newoverhead[8] = 25;
-      setOverheadValues(newoverhead);
       flagInit = true;
     }
   },[thisIndependentComponents, listComponents])
@@ -501,10 +499,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       newOverheadCosts[index] = parseInt(newOverheadCosts[index]);
     });
     setOverheadCosts(newOverheadCosts);
-  },[overheadValues]);
+  },[overheadValues, thisIndependentComponents, listComponents]);
   const changeValue = (e:any, index:any) => {
     let newoverhead = [...overheadValues];
-    newoverhead[index] = e;
+    newoverhead[index] = parseInt(e);
     setOverheadValues(newoverhead);
 
   }
@@ -781,7 +779,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Overhead Cost</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                    <Select placeholder="0%" dropdownClassName="menu-medium" onSelect={(e:any)=>changeValue(e, 0)}>
+                    <Select placeholder="0%" dropdownClassName="menu-medium" value={overheadValues[0] + '%'} onSelect={(e:any)=>changeValue(e, 0)}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -811,7 +809,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Mobilization</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                  <Select placeholder="5%" dropdownClassName="menu-medium" onSelect={(e:any)=>changeValue(e, 1)}>
+                  <Select placeholder="5%" dropdownClassName="menu-medium" value={overheadValues[1] + '%'} onSelect={(e:any)=>changeValue(e, 1)}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -841,7 +839,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Traffic Control</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                  <Select placeholder="0%" dropdownClassName="menu-medium" onSelect={(e:any)=>changeValue(e, 2)}>
+                  <Select placeholder="0%" dropdownClassName="menu-medium" value={overheadValues[2] + '%'} onSelect={(e:any)=>changeValue(e, 2)}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -871,7 +869,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Utility Coordination / Relocation</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                    <Select placeholder="0%" dropdownClassName="menu-medium" onSelect={(e:any)=>changeValue(e, 3)}>
+                    <Select placeholder="0%" dropdownClassName="menu-medium" value={overheadValues[3] + '%'} onSelect={(e:any)=>changeValue(e, 3)}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -901,7 +899,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Stormwater Management / Erosion Control</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                    <Select placeholder="5%" dropdownClassName="menu-medium" onSelect={(e:any)=>changeValue(e, 4)}>
+                    <Select placeholder="5%" dropdownClassName="menu-medium" value={overheadValues[4] + '%'} onSelect={(e:any)=>changeValue(e, 4)}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -931,7 +929,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Engineering</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                    <Select placeholder="15%" dropdownClassName="menu-medium" onSelect={(e:any)=>changeValue(e, 5)}>
+                    <Select placeholder="15%" dropdownClassName="menu-medium" value={overheadValues[5] + '%'} onSelect={(e:any)=>changeValue(e, 5)}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -961,7 +959,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Legal / Administrative</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                    <Select placeholder="5%" dropdownClassName="menu-medium" onSelect={(e:any)=>changeValue(e, 6)}>
+                    <Select placeholder="5%" dropdownClassName="menu-medium" value={overheadValues[6] + '%'} onSelect={(e:any)=>changeValue(e, 6)}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -991,7 +989,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contract Admin / Construction Management</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                    <Select placeholder="10%" dropdownClassName="menu-medium" onSelect={(e:any)=>changeValue(e, 7)}>
+                    <Select placeholder="10%" dropdownClassName="menu-medium" value={overheadValues[7] + '%'} onSelect={(e:any)=>changeValue(e, 7)}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -1021,7 +1019,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contingency</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                    <Select placeholder="25%" dropdownClassName="menu-medium" onSelect={(e:any)=>changeValue(e, 8)}>
+                    <Select placeholder="25%" dropdownClassName="menu-medium" value={overheadValues[8] + '%'} onSelect={(e:any)=>changeValue(e, 8)}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
