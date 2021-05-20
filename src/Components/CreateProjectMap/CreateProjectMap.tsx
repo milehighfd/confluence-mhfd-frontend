@@ -1896,7 +1896,7 @@ const CreateProjectMap = (type: any) => {
 
   const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
     <>
-      <ComponentPopupCreate id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)}></ComponentPopupCreate>
+      <ComponentPopupCreate id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)} isWR={false}></ComponentPopupCreate>
     </>
   );
 
