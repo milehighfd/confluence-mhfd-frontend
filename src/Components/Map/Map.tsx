@@ -445,6 +445,7 @@ const Map = ({ leftWidth,
               const html = commentPopup(note);
                   let newpopup = new mapboxgl.Popup();
                   newpopup.on('close', (e: any)=> {
+                    console.log("CLOSE CLO SEL");
                     momentaryMarker.remove();
                   });
                   newmarker.setPopup(newpopup);
@@ -462,6 +463,7 @@ const Map = ({ leftWidth,
     const eventsOnClickNotes = (noteClicked:any) => {
       const div = document.getElementById('color-list');
         if (div != null) {
+            momentaryMarker.remove(); 
             const ul = document.createElement('ul');
             ul.style.display = 'none';
             ul.classList.add("list-popup-comment");
@@ -518,6 +520,10 @@ const Map = ({ leftWidth,
                     if(textColor != null){
                       textColor.textContent = "Red";
                     }
+                    momentaryMarker.remove();
+                    momentaryMarker = new mapboxgl.Marker({color:colors.RED, scale: 0.7});
+                    momentaryMarker.setLngLat([noteClicked.longitude, noteClicked.latitude]);
+                    momentaryMarker.addTo(map);
                 });
             }
             const orange = document.getElementById('orange');
@@ -532,6 +538,10 @@ const Map = ({ leftWidth,
                     if(textColor != null){
                       textColor.textContent = "Orange";
                     }
+                    momentaryMarker.remove();
+                    momentaryMarker = new mapboxgl.Marker({color:colors.ORANGE, scale: 0.7});
+                    momentaryMarker.setLngLat([noteClicked.longitude, noteClicked.latitude]);
+                    momentaryMarker.addTo(map);
                 });
             }
             const grey = document.getElementById('grey');
@@ -546,6 +556,10 @@ const Map = ({ leftWidth,
                     if(textColor != null){
                       textColor.textContent = "Grey";
                     }
+                    momentaryMarker.remove();
+                    momentaryMarker = new mapboxgl.Marker({color:colors.GREY, scale: 0.7});
+                    momentaryMarker.setLngLat([noteClicked.longitude, noteClicked.latitude]);
+                    momentaryMarker.addTo(map);
                 });
             }
             const green = document.getElementById('green');
@@ -560,6 +574,10 @@ const Map = ({ leftWidth,
                     if(textColor != null){
                       textColor.textContent = "Green";
                     }
+                    momentaryMarker.remove();
+                    momentaryMarker = new mapboxgl.Marker({color:colors.GREEN, scale: 0.7});
+                    momentaryMarker.setLngLat([noteClicked.longitude, noteClicked.latitude]);
+                    momentaryMarker.addTo(map);
                 });
             }
             const save = document.getElementById('save-comment');
@@ -567,7 +585,6 @@ const Map = ({ leftWidth,
                 save.addEventListener('click', () => {
                     const textarea = (document.getElementById('textarea') as HTMLInputElement);
                     if (textarea != null) {
-                        console.log(textarea.value);
                         let color = '';
                         if (colorable != null) {
                             if (colorable.style.color === colorsCodes.RED) {
@@ -597,7 +614,6 @@ const Map = ({ leftWidth,
               edit.addEventListener('click', () => {
                   const textarea = (document.getElementById('textarea') as HTMLInputElement);
                   if (textarea != null) {
-                    console.log(textarea.value);
                     let color = '';
                     if (colorable != null) {
                         if (colorable.style.color === colorsCodes.RED) {
@@ -632,7 +648,7 @@ const Map = ({ leftWidth,
         }
     }
     const addEvents = (noteClicked: any, coord:any) => {
-      console.log("noteClicked CLICKEd", noteClicked, document.getElementById('id-list-popup')  );
+      
       
       setTimeout(()=>{
         eventsOnClickNotes(noteClicked);
@@ -750,7 +766,6 @@ const Map = ({ leftWidth,
             zoom: 8,
             attributionControl: false
         });
-        console.log("DROP DOWN ITEMS STYLE ", dropdownItems.items[dropdownItems.default].style);
         map.loadImage('custom-sprite/30x30px.png', (error: any, image: any) => {
             if (error) {
                 console.log('error on load ', error);
