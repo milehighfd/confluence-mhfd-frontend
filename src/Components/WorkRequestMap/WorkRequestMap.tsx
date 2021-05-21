@@ -1145,7 +1145,11 @@ const WorkRequestMap = (type: any) => {
           title: feature.source === 'mhfd_projects_copy'? (feature.properties.projecttype+" "+MENU_OPTIONS.PROJECT):MENU_OPTIONS.PROJECT,
           name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
           organization: feature.source === 'mhfd_projects_copy'? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replace(',',', ')): type.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
-          value: feature.source === 'mhfd_projects_copy'? getTotalAmount(feature.properties.cartodb_id) :(feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0'),
+          value: feature.source === 'mhfd_projects_copy' ? (
+            feature.properties.projecttype.toLowerCase() === 'capital' ? feature.properties.finalcost : getTotalAmount(feature.properties.cartodb_id)
+          ) : (
+            feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0'
+          ),
           projecctype: feature.source === 'mhfd_projects_copy'?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
           status: feature.properties.status ? feature.properties.status : '-',
           objectid: feature.properties.objectid,
