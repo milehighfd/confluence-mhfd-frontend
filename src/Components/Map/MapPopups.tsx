@@ -35,6 +35,7 @@ const projectStyle = {
 }
 
 const numberWithCommas = (x : number) => {
+    if (!x) x = 0;
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -99,7 +100,7 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={item.type === 'problems' ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>
-            <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? item.status : capitalize(item.status)}</span>
+            <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>X {item.type === 'problems' ? item.status : capitalize(item.status)}</span>
           </div>
         </div>
         { !ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
