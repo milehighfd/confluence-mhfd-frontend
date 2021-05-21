@@ -487,6 +487,26 @@ const Map = ({ leftWidth,
             }            
             const colorable = document.getElementById('colorable');
             const textColor = document.getElementById('color-text');
+            if(textColor!=null) {
+              textColor.textContent = capitalize(noteClicked.color);
+            }
+            if(colorable != null) {
+              let notecolor = null;
+              switch(noteClicked.color){
+                case 'red':
+                  notecolor = colors.RED;
+                  break;
+                case 'oragen':
+                  notecolor = colors.ORANGE;
+                  break;
+                case 'grey':
+                  notecolor = colors.GREY;
+                  break;
+                case 'green':
+                  notecolor = colors.GREEN;
+              }
+              colorable.style.color = colors.RED;
+            }
             const red = document.getElementById('red');
             if (red != null) {
                 red.addEventListener('click', () => {
