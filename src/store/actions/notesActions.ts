@@ -27,6 +27,7 @@ export const deleteNote = (id: any) => {
 };
 
 export const editNote = (note: any) => {
+  console.log("NOTE EDIt", note);
   return (dispatch: Function) => {
     datasets.putData(SERVER.EDIT_NOTE(note['_id']), note, datasets.getToken()).then(note => {
       dispatch({type: types.EDIT_NOTES, note});

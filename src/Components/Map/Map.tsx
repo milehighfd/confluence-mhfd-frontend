@@ -79,6 +79,7 @@ const { Panel } = Collapse;
   <CloseOutlined />
 );*/}
 const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
 let contents: any = [];
 let canAdd = false;
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
@@ -422,7 +423,6 @@ const Map = ({ leftWidth,
             marker.marker.remove()
           });
           notes.forEach( (note: any) => {
-            console.log("FILTER ", notesFilter, note.color);
             if(!(notesFilter != 'all' && notesFilter != note.color)) {
               let colorOfMarker = '';
               switch(note.color) {
@@ -444,11 +444,14 @@ const Map = ({ leftWidth,
               const newmarker = new mapboxgl.Marker({ color: colorOfMarker, scale: 0.7 });
               const html = commentPopup(note);
                   let newpopup = new mapboxgl.Popup();
+                  newpopup.on('close', (e: any)=> {
+                    momentaryMarker.remove();
+                  });
                   newmarker.setPopup(newpopup);
                   newpopup.setHTML(html);
                   newmarker.setLngLat([note.longitude, note.latitude]).setPopup(newpopup);
                   newmarker.getElement().addEventListener('click', () => {
-                    addEvents(note);
+                    addEvents(note, [note.longitude, note.latitude]);
                   });
               totalmarkers.push({ marker: newmarker, note: note});
             }
@@ -456,14 +459,13 @@ const Map = ({ leftWidth,
           setMarkerNotes(totalmarkers);
         }
     }, [notes, notesFilter]);
-    const addEvents = (noteClicked: any) => {
-      console.log("noteClicked CLICKEd", noteClicked);
-      setTimeout(()=>{
-        const div = document.getElementById('color-list');
+    const eventsOnClickNotes = (noteClicked:any) => {
+      const div = document.getElementById('color-list');
         if (div != null) {
             const ul = document.createElement('ul');
             ul.style.display = 'none';
             ul.classList.add("list-popup-comment");
+            ul.setAttribute('id','id-list-popup');
             div.addEventListener('click', () => {
                 if (ul.style.display === 'none') {
                     ul.style.display = 'block';
@@ -477,41 +479,66 @@ const Map = ({ leftWidth,
             <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
             <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
             ul.innerHTML = inner;
-            div.appendChild(ul);
+            
+            let c= div.childNodes;
+            // to not add ul multiple times and just the first one 
+            if(!c[3]){
+              div.appendChild(ul);
+            }            
             const colorable = document.getElementById('colorable');
+            const textColor = document.getElementById('color-text');
             const red = document.getElementById('red');
             if (red != null) {
                 red.addEventListener('click', () => {
-                    setNoteColor(colors.RED);
+                  ul.style.display = 'block'; 
+                  setNoteColor(colors.RED);
                     if (colorable != null) {
                         colorable.style.color = colors.RED;
+                    }
+                    if(textColor != null){
+                      textColor.textContent = "Red";
                     }
                 });
             }
             const orange = document.getElementById('orange');
             if (orange != null) {
                 orange.addEventListener('click', () => {
+                  console.log("CLCKs",colors.ORANGE);
+                  ul.style.display = 'block'; 
                     setNoteColor(colors.ORANGE);
                     if (colorable != null) {
                         colorable.style.color = colors.ORANGE;
+                    }
+                    if(textColor != null){
+                      textColor.textContent = "Orange";
                     }
                 });
             }
             const grey = document.getElementById('grey');
             if (grey != null) {
                 grey.addEventListener('click', () => {
+                  console.log("CLCKs",colors.GREY);
+                  ul.style.display = 'block'; 
                     setNoteColor(colors.GREY);
                     if (colorable != null) {
                         colorable.style.color = colors.GREY;
+                    }
+                    if(textColor != null){
+                      textColor.textContent = "Grey";
                     }
                 });
             }
             const green = document.getElementById('green');
             if (green != null) {
                 green.addEventListener('click', () => {
+                  console.log("CLCKs",colors.GREEN);
+                  ul.style.display = 'block'; 
                     setNoteColor(colors.GREEN);
                     if (colorable != null) {
                         colorable.style.color = colors.GREEN;
+                    }
+                    if(textColor != null){
+                      textColor.textContent = "Green";
                     }
                 });
             }
@@ -576,7 +603,6 @@ const Map = ({ leftWidth,
               });
             }
             const del = document.getElementById('delete-comment');
-            console.log("DEL", del);
             if (del != null) {
               del.addEventListener('click', () => {
                 let noteId = del.getAttribute('value');
@@ -584,6 +610,17 @@ const Map = ({ leftWidth,
               });
             }
         }
+    }
+    const addEvents = (noteClicked: any, coord:any) => {
+      console.log("noteClicked CLICKEd", noteClicked, document.getElementById('id-list-popup')  );
+      
+      setTimeout(()=>{
+        eventsOnClickNotes(noteClicked);
+          const div = document.getElementById('id-list-popup');
+          if (div != null){
+              div.style.display = 'none';
+          }
+
         return;
       },1000);
     }
@@ -1514,6 +1551,7 @@ const Map = ({ leftWidth,
                     const ul = document.createElement('ul');
                     ul.style.display = 'none';
                     ul.classList.add("list-popup-comment");
+                    ul.setAttribute('id','id-list-popup');
                     div.addEventListener('click', () => {
                         if (ul.style.display === 'none') {
                             ul.style.display = 'block';
@@ -1527,6 +1565,12 @@ const Map = ({ leftWidth,
                     <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
                     <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
                     ul.innerHTML = inner;
+
+                    let c= div.childNodes;
+                    // to not add ul multiple times and just the first one 
+                    if(!c[3]){
+                      div.appendChild(ul);
+                    }            
                     div.appendChild(ul);
                     const colorable = document.getElementById('colorable');
                     const red = document.getElementById('red');
@@ -2286,6 +2330,33 @@ const Map = ({ leftWidth,
       if (typeof s !== 'string') return '';
       return s.charAt(0).toUpperCase() + s.slice(1);
   }
+  const commentPopupCopy = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
+    <>
+        <div className="popup-comment">
+        <div className="headmap">
+        <Popover trigger="click" placement="bottomRight" content={<ul>
+        <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
+        <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
+        <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
+        <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
+    </ul>} overlayClassName="popover-comment">
+            <Button id={"color-list"+note?('-'+note._id):''} className="type-popover">
+              <i id={"colorable"+note?('-'+note._id):''} className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
+              <span id={"color-text"+note?('-'+note._id):''}>{ note?capitalize(note.color):'Leave a Comment' }</span>
+              <DownOutlined />
+            </Button>
+        </Popover>
+        </div>
+        <div className="bodymap">
+            <TextArea id={"textarea"+note?('-'+note._id):''} rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
+            <div style={{display:'flex'}}>
+                <Button id={"delete-comment"+note?('-'+note._id):''} style={{color:'red', marginRight:'5px'}} value={note?note._id:''}>Delete</Button>
+                { note? (<Button id={"edit-comment"+note?('-'+note._id):''}>Save</Button>): (<Button id={"save-comment"+note?('-'+note._id):''}>Save</Button>) }
+            </div>
+
+        </div>
+        </div>
+    </>);
     const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
     <>
         <div className="popup-comment">
@@ -2296,7 +2367,11 @@ const Map = ({ leftWidth,
         <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
     </ul>} overlayClassName="popover-comment">
-            <Button id="color-list" className="type-popover"><i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> { note?capitalize(note.color):'Leave a Comment' }<DownOutlined /></Button>
+            <Button id="color-list" className="type-popover">
+              <i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
+              <span id="color-text">{ note?capitalize(note.color):'Leave a Comment' }</span>
+              <DownOutlined />
+            </Button>
         </Popover>
         </div>
         <div className="bodymap">
@@ -2547,101 +2622,7 @@ const Map = ({ leftWidth,
       if(filterMarker.length > 0) {
         filterMarker[0].marker.togglePopup();
         setTimeout(()=>{
-          const div = document.getElementById('color-list');
-          if (div != null) {
-              const ul = document.createElement('ul');
-              ul.style.display = 'none';
-              ul.classList.add("list-popup-comment");
-              div.addEventListener('click', () => {
-                  if (ul.style.display === 'none') {
-                      ul.style.display = 'block';
-                  } else {
-                      ul.style.display = 'none';
-                  }
-              });
-              const inner = `
-              <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
-              <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
-              <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
-              <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
-              ul.innerHTML = inner;
-              div.appendChild(ul);
-                const colorable = document.getElementById('colorable');
-                const red = document.getElementById('red');
-                if (red != null) {
-                    red.addEventListener('click', () => {
-                        setNoteColor(colors.RED);
-                        if (colorable != null) {
-                            colorable.style.color = colors.RED;
-                        }
-                    });
-                }
-                const orange = document.getElementById('orange');
-                if (orange != null) {
-                    orange.addEventListener('click', () => {
-                        setNoteColor(colors.ORANGE);
-                        if (colorable != null) {
-                            colorable.style.color = colors.ORANGE;
-                        }
-                    });
-                }
-                const grey = document.getElementById('grey');
-                if (grey != null) {
-                    grey.addEventListener('click', () => {
-                        setNoteColor(colors.GREY);
-                        if (colorable != null) {
-                            colorable.style.color = colors.GREY;
-                        }
-                    });
-                }
-                const green = document.getElementById('green');
-                if (green != null) {
-                    green.addEventListener('click', () => {
-                        setNoteColor(colors.GREEN);
-                        if (colorable != null) {
-                            colorable.style.color = colors.GREEN;
-                        }
-                    });
-                }
-                const edit = document.getElementById('edit-comment');
-                if (edit != null) {
-                    edit.addEventListener('click', () => {
-                        const textarea = (document.getElementById('textarea') as HTMLInputElement);
-                        if (textarea != null) {
-                          console.log(textarea.value);
-                          let color = '';
-                          if (colorable != null) {
-                              if (colorable.style.color === colorsCodes.RED) {
-                                  color = 'red';
-                              } else if (colorable.style.color === colorsCodes.ORANGE) {
-                                  color = 'orange';
-                              } else if (colorable.style.color === colorsCodes.GREY) {
-                                  color = 'grey';
-                              } else {
-                                  color = 'green';
-                              }
-                          }
-                          const note = {
-                              _id: filterMarker[0].note._id,
-                              color: color,
-                              content: textarea.value,
-                              latitude: filterMarker[0].note.latitude,
-                              longitude: filterMarker[0].note.longitude
-                          };
-                          editNote(note);
-
-                        }
-                    });
-                }
-                const del = document.getElementById('delete-comment');
-                if (del != null) {
-                    del.addEventListener('click', () => {
-                      console.log("GUAT DELETE" );
-                        let noteId = del.getAttribute('value');
-                        deleteNote(noteId);
-                    });
-                }
-            }
+          eventsOnClickNotes(filterMarker[0].note);
         },300);
       }
     }
