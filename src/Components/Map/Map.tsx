@@ -493,7 +493,7 @@ const Map = ({ leftWidth,
               textColor.textContent = capitalize(noteClicked.color);
             }
             if(colorable != null) {
-              let notecolor = null;
+              let notecolor = colors.GREEN;
               switch(noteClicked.color){
                 case 'red':
                   notecolor = colors.RED;
