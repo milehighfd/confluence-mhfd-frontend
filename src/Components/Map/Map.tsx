@@ -2282,6 +2282,10 @@ const Map = ({ leftWidth,
           return colors.GREEN;
       }
     };
+    const capitalize = (s : string) => {
+      if (typeof s !== 'string') return '';
+      return s.charAt(0).toUpperCase() + s.slice(1);
+  }
     const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
     <>
         <div className="popup-comment">
@@ -2292,7 +2296,7 @@ const Map = ({ leftWidth,
         <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
     </ul>} overlayClassName="popover-comment">
-            <Button id="color-list" className="type-popover"><i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> { note?note.color:'Leave a Comment' }<DownOutlined /></Button>
+            <Button id="color-list" className="type-popover"><i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> { note?capitalize(note.color):'Leave a Comment' }<DownOutlined /></Button>
         </Popover>
         </div>
         <div className="bodymap">
