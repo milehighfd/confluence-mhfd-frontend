@@ -68,13 +68,13 @@ const genTitleNoAvailable = (groups:any) => {
   </Row>
   )
   }
-const genTitleProblem = (problem: any, key:any, setValuesProblem:Function) => {
+const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setValueZoomProb: Function) => {
   let totalSumCost = 0;
   for( let component of problem.components){
     totalSumCost += component.original_cost;
   }
   return (
-    <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)}>
+    <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)} onClick={()=>setValueZoomProb(key)}>
       <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>{problem.jurisdiction}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
@@ -574,13 +574,17 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }
   const setValuesComp = (comp: any) => {
     setHighlightedComponent(comp);
+  }
+  const setValueZoomComp = (comp: any) => {
     if(comp.table && comp.objectid) {
       getZoomGeomComp(comp.table, comp.objectid);
     }
   }
   const setValuesProblem = (problemid:any, problemname:any) => {
-    getZoomGeomProblem(problemid);
     setHighlightedProblem(problemid);
+  }
+  const setValueZoomProb = (problemid: any) => {
+    getZoomGeomProblem(problemid);
   }
 
   return (
@@ -672,7 +676,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                   <Timeline.Item color="green">
                                     <Row style={{marginLeft:'-18px'}}
                                     onMouseEnter={() => setValuesComp(component)}
-                                    onMouseLeave={()=> setValuesComp({table:'', value:''})}>
+                                    onMouseLeave={()=> setValuesComp({table:'', value:''})}
+                                    onClick={()=>setValueZoomComp(component)}
+                                    >
                                       <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}><label>{component.type}</label></Col>
                                       <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{component.status}</Col>
                                       <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{formatter.format(component.original_cost)}</Col>
@@ -691,7 +697,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   }
                 } else {
                   return (
-                    <Panel header="" key={id + '-collapse1'} extra={genTitleProblem(groups[key], key, setValuesProblem)}>
+                    <Panel header="" key={id + '-collapse1'} extra={genTitleProblem(groups[key], key, setValuesProblem, setValueZoomProb)}>
                       <div className="tab-body-project">
                         <Timeline>
                           {
