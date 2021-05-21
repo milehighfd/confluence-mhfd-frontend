@@ -507,7 +507,7 @@ const Map = ({ leftWidth,
                 case 'green':
                   notecolor = colors.GREEN;
               }
-              colorable.style.color = colors.RED;
+              colorable.style.color = notecolor;
             }
             const red = document.getElementById('red');
             if (red != null) {
