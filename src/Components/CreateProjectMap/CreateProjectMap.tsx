@@ -138,7 +138,7 @@ const CreateProjectMap = (type: any) => {
   useEffect(()=>{
     if(editLocation && editLocation[0]){
       setTimeout(()=>{
-        map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0] + 0.0005});})
+        map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0] + 0.00009});})
       },1300);
     }
   },[editLocation]);
@@ -1137,7 +1137,7 @@ const CreateProjectMap = (type: any) => {
       marker.getElement().addEventListener('click', () => {
         addPopupMarker(point,html);
       });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lng-0.0005, e.lat], [e.lng+0.0005, e.lat]] ]} };
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lng-0.00009, e.lat], [e.lng+0.00009, e.lat]] ]} };
       if (type.type === 'SPECIAL') {
         saveSpecialLocation(sendLine);
       } else if (type.type === 'ACQUISITION') {
@@ -1158,7 +1158,7 @@ const CreateProjectMap = (type: any) => {
       marker.getElement().addEventListener('click', () => {
         addPopupMarker(point,html);
       });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng-0.0005, e.lngLat.lat], [e.lngLat.lng+0.0005, e.lngLat.lat]] ]} };
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng-0.00009, e.lngLat.lat], [e.lngLat.lng+0.00009, e.lngLat.lat]] ]} };
       if (type.type === 'SPECIAL') {
         saveSpecialLocation(sendLine);
       } else if (type.type === 'ACQUISITION') {
