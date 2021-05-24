@@ -25,6 +25,7 @@ import {
   MHFD_BOUNDARY_FILTERS,
   SELECT_ALL_FILTERS,
   MENU_OPTIONS,
+  PROJECTS_DRAFT_MAP_STYLES,
   MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF
 } from "../../constants/constants";
 import { MapHOCProps, ProjectTypes, MapLayersType, MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
@@ -47,6 +48,9 @@ let map: any;
 let coordX = -1;
 let coordY = -1;
 let isPopup = true;
+
+let firstTime = true;
+let firstTimeApplyMapLayers = true;
 let previousClick = false;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
@@ -66,9 +70,10 @@ const CreateProjectMap = (type: any) => {
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams } = useProjectState();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjects } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
+  const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjects);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -181,6 +186,70 @@ const CreateProjectMap = (type: any) => {
       }
     }
   },[highlightedComponent]);
+  const removeLayers = (key: string) => {
+
+    const styles = { ...tileStyles as any };
+    styles[key].forEach((style: LayerStylesType, index: number) => {
+
+      if (map.map.getLayer(key + '_' + index)) {
+        map.map.removeLayer(key + '_' + index);
+        
+      }
+    });
+  }
+  const removeLayersSource = (key: string) => {
+    if (map.getSource(key)) { 
+      
+      map.map.removeSource(key);
+    }
+  }
+
+  useEffect(()=>{
+    let time = firstTime?4600:3500;
+    console.log("AREA THE BOARD IDS?", idsBoardProjects);
+      if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
+        let filterProjectsDraft = {...filterProjects}; 
+        filterProjectsDraft.projecttype = '';
+        filterProjectsDraft.status = 'Draft';
+          wait(()=>{
+            setTimeout(()=>{
+              map.isStyleLoaded(()=>{
+                removeLayers('mhfd_projects_copy');
+                removeLayersSource('mhfd_projects_copy');
+                // const tiles = layerFilters['projects_draft'] as any;
+                let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
+                postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
+                  addLayersSource('mhfd_projects_copy', tiles);
+                  showLayers('mhfd_projects_copy');
+                  map.isStyleLoaded(()=>{
+                    setTimeout(()=>{
+                      applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+                    },700);
+                  });
+                  firstTime = false;
+                });
+                
+              });
+            },time);
+            
+          });
+      } else {
+        map.isStyleLoaded(()=>{
+          removeLayers('mhfd_projects_copy');
+          removeLayersSource('mhfd_projects_copy');
+        });
+      } 
+  },[idsBoardProjects]);
+  useEffect(()=>{
+    const equals = (a:any, b:any) =>
+      a.length === b.length &&
+      a.every((v:any, i:any) => v === b[i]);
+    if(boardProjects.cartoids && boardProjects.cartoids[0] != '-8888') {
+      if(!equals(boardProjects.cartoids, idsBoardProjects)) {
+        setIdsBoardProjects(boardProjects.ids);
+      }
+    } 
+  },[boardProjects]);
   useEffect(()=>{
     if (map) {
       if (highlightedProblem.problemid) {
@@ -519,7 +588,8 @@ const CreateProjectMap = (type: any) => {
       map.create();
       setLayerFilters(layers);
       map.map.on('style.load', () => {
-        applyMapLayers();
+          // console.log("FIRST APPLY MAP", new Date());
+          // applyMapLayers();
         let eventToClick = eventService.getRef('click');
         map.map.on('click',eventToClick);
         // map.map.on('movestart', () => {
@@ -537,7 +607,12 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     if (map ) {
       // deleteUpdateLayers(selectedLayers);
-      map.isStyleLoaded(applyMapLayers);
+      console.log("FIRST APPLY MA 2 2 2P", new Date());
+      let time = firstTimeApplyMapLayers?2000:200;
+      setTimeout(()=>{
+        map.isStyleLoaded(applyMapLayers);
+        firstTimeApplyMapLayers=false;
+      },time);
     }
     eventService.setRef('oncreatedraw', onCreateDraw);
     eventService.setRef('addmarker', addMarker);
@@ -572,6 +647,7 @@ const CreateProjectMap = (type: any) => {
     });
     const deleteLayers = selectedLayers.filter((layer: any) => !filterLayers.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
+      // console.log("SENDING FROM !", layer);
       removeTilesHandler(layer);
     });
     updateSelectedLayers(filterLayers);
@@ -657,6 +733,7 @@ const CreateProjectMap = (type: any) => {
     });
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayers.includes(layer as string));
     await deleteLayers.forEach((layer: LayersType) => {
+      // console.log("SENDING FROM applymaplayer", layer);
       removeTilesHandler(layer);
     });
     await selectedLayers.forEach((layer: LayersType) => {
@@ -703,7 +780,19 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
-        map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        if(key === 'mhfd_projects_copy') {
+          let allFilters:any = ['in', ['get', 'projectid'], ['literal', []]];
+          if(idsBoardProjects && idsBoardProjects.length > 0 ){
+            let boardids = idsBoardProjects;
+            allFilters = ['all',['in', ['get', 'projectid'], ['literal', [...boardids]]]];
+          } 
+          
+          map.map.setFilter(key + '_' + index, allFilters);
+          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+          
+        } else {
+          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        }
         if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
           showSelectedComponents(filterComponents.component_type.split(','));
         }
@@ -724,7 +813,124 @@ const CreateProjectMap = (type: any) => {
       });
     }
   }
+  const applyFiltersIDs = (key: string, toFilter: any) => {
+    const styles = { ...tileStyles as any };
+    
+    styles[key].forEach((style: LayerStylesType, index: number) => {
+      if (!map.getLayer(key + '_' + index)) {
+        return;
+      }
+      const allFilters: any[] = ['all'];
+      for (const filterField in toFilter) {
+        const filters = toFilter[filterField];
+        if (filterField === 'component_type') {
+          showSelectedComponents(filters.split(','));
+        }
+        if (filterField === 'keyword') {
+          if (filters[key]) {
+            allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
+          }
+        }
+        if (filters && filters.length) {
+          const options: any[] = ['any'];
+          if (filterField === 'keyword') {
+            continue;
+          }
+          if (filterField === 'component_type') {
+            continue;
+          }
+          if (filterField === 'year_of_study') {
+            for (const years of filters.split(',')) {
+              const lowerArray: any[] = ['>=', ['get', filterField], +years];
+              const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
+              options.push(['all', lowerArray, upperArray]);
 
+            }
+            allFilters.push(options);
+            continue;
+          }
+          if (filterField === 'components') {
+            allFilters.push(['in', ['get', 'problemid'], ['literal', [...filters]]]);
+            continue;
+          }
+          if (filterField === 'problemtypeProjects') {
+            allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
+            continue;
+          }
+          if (filterField === 'problemname' || filterField === 'projectname') {
+            continue;
+          }
+          if (filterField === 'estimatedcost') {
+            for (const range of filters) {
+              const [lower, upper] = range.split(',');
+              const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
+              const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+              const allFilter = ['all', lowerArray, upperArray];
+              options.push(allFilter);
+            }
+            for (const range of toFilter['finalcost']) {
+              const [lower, upper] = range.split(',');
+              const lowerArray: any[] = ['>=', ['to-number', ['get', 'finalcost']], +lower];
+              const upperArray: any[] = ['<=', ['to-number', ['get', 'finalcost']], +upper];
+              const allFilter = ['all', lowerArray, upperArray];
+              options.push(allFilter);
+            }
+            allFilters.push(options);
+            continue;
+          }
+          if (filterField === 'finalcost') {
+            continue;
+          }
+          if (filterField === 'startyear') {
+            const lowerArray: any[] = ['>=', ['get', filterField], +filters];
+            const upperArray: any[] = ['<=', ['get', 'completedyear'], +toFilter['completedyear']];
+            if (+toFilter['completedyear'] !== 9999) {
+              allFilters.push(['all', lowerArray, upperArray]);
+            } else {
+              if (+filters) {
+                allFilters.push(lowerArray);
+              }
+            }
+            continue;
+          }
+          if (filterField === 'servicearea') {
+            allFilters.push(['==', ['get', filterField], filters]);
+            continue;
+          }
+          if (filterField === 'completedyear') {
+            continue;
+          }
+          if (typeof filters === 'object') {
+            for (const range of filters) {
+              const [lower, upper] = range.split(',');
+              const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
+              const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+              const allFilter = ['all', lowerArray, upperArray];
+              options.push(allFilter);
+            }
+          } else {
+            for (const filter of filters.split(',')) {
+              if (isNaN(+filter)) {
+                options.push(['==', ['get', filterField], filter]);
+              } else {
+                const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
+                options.push(equalFilter);
+              }
+            }
+          }
+          allFilters.push(options);
+        }
+      }
+      if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_copy' && idsBoardProjects[0]!='-8888'){
+        let boardids = idsBoardProjects;
+        allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
+      } 
+      if (map.getLayer(key + '_' + index)) {
+        
+        map.setFilter(key + '_' + index, allFilters);
+      }
+    });
+  };
   const applyFilters = (key: string, toFilter: any) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
@@ -847,6 +1053,7 @@ const CreateProjectMap = (type: any) => {
     setTimeout(()=>{
       map.isStyleLoaded(() => {
         deleteLayers.forEach((layer: LayersType) => {
+          // console.log("SENDING FROM delete", layer);
           removeTilesHandler(layer);
         });
       })
@@ -856,11 +1063,13 @@ const CreateProjectMap = (type: any) => {
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
+      // console.log("SENDING FROM selectechceckc", layer);
       removeTilesHandler(layer);
     });
     updateSelectedLayers(selectedItems);
   }
   const hideLayers = (key: string) => {
+    
     if (map) {
       const styles = { ...tileStyles as any };
       styles[key].forEach((style: LayerStylesType, index: number) => {
@@ -892,11 +1101,20 @@ const CreateProjectMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      map.map.addLayer({
-        id: key + '_' + index,
-        source: key,
-        ...style
-      });
+      if (key.includes('mhfd_projects_copy')) {
+        map.map.addLayer({
+          id: key + '_' + index,
+          source: key,
+          filter: ['in', ['get', 'projectid'], ['literal', []]],
+          ...style
+        });
+       } else {
+        map.map.addLayer({
+          id: key + '_' + index,
+          source: key,
+          ...style
+        });
+      }
       if (!key.includes('streams')) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }
@@ -1252,7 +1470,7 @@ const CreateProjectMap = (type: any) => {
       }
       let html: any = null;
       let itemValue;
-      if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects') {
+      if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_copy') {
         getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         const filtered = galleryProjects.filter((item: any) =>
           item.cartodb_id === feature.properties.cartodb_id

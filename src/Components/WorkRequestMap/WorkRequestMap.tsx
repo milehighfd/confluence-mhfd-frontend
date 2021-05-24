@@ -162,7 +162,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    let time = firstTime?800:300;
+    let time = firstTime?2300:300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -340,7 +340,7 @@ const WorkRequestMap = (type: any) => {
       map.create();
       setLayerFilters(layers);
       map.isStyleLoaded(()=>{
-        applyMapLayers();
+        // applyMapLayers();
         let eventToClick = eventService.getRef('click');
         map.map.on('click',eventToClick);
         // map.map.on('movestart', () => {
@@ -1144,7 +1144,7 @@ const WorkRequestMap = (type: any) => {
           type: 'project',
           title: feature.source === 'mhfd_projects_copy'? (feature.properties.projecttype+" "+MENU_OPTIONS.PROJECT):MENU_OPTIONS.PROJECT,
           name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
-          organization: feature.source === 'mhfd_projects_copy'? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replace(',',', ')): type.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
+          organization: feature.source === 'mhfd_projects_copy'? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replaceAll(',',', ')): type.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
           value: feature.source === 'mhfd_projects_copy' ? (
             feature.properties.projecttype.toLowerCase() === 'capital' ? feature.properties.finalcost : getTotalAmount(feature.properties.cartodb_id)
           ) : (
