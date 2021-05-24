@@ -69,7 +69,7 @@ const RequestView = ({ type }: {
   const [boardComment, setBoardComment] = useState(null);
   const [showModalProject, setShowModalProject] = useState(false);
   const history = useHistory();
-  const {setBoardProjects, setZoomProject, setStreamsIds} = useProjectDispatch();
+  const {setBoardProjects, setZoomProject, setStreamsIds, setComponentsFromMap} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
   const [localities, setLocalities] = useState<any[]>([]);
@@ -159,6 +159,7 @@ const RequestView = ({ type }: {
     clear();
     setVisibleCreateProject(true);
     setStreamsIds([]);
+    setComponentsFromMap([]);
   }
   const [changes, setChanges] = useState(0);
   useEffect(()=>{

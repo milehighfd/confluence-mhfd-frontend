@@ -96,7 +96,7 @@ const CreateProjectMap = (type: any) => {
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   const empty: any[] = [];
   const [allLayers, setAllLayers] = useState(empty);
-  const [counterPopup, setCounterPopup] = useState({ componentes: 0 });  
+  const [counterPopup, setCounterPopup] = useState( 0 );  
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -206,7 +206,6 @@ const CreateProjectMap = (type: any) => {
 
   useEffect(()=>{
     let time = firstTime?4600:3500;
-    console.log("AREA THE BOARD IDS?", idsBoardProjects);
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -254,7 +253,6 @@ const CreateProjectMap = (type: any) => {
     if (map) {
       if (highlightedProblem.problemid) {
           showHighlightedProblem(highlightedProblem.problemid);
-          console.log("UPDATE");
           updateSelectedLayers([...selectedLayers,PROBLEMS_TRIGGER]);;
       } else {
           hideHighlighted();
@@ -507,11 +505,20 @@ const CreateProjectMap = (type: any) => {
           map.map.fitBounds(bboxBounds,{ padding:80});
         }
       } else if( type.problemId && cg){
-        let poly = turf.multiLineString(cg.coordinates);
+        let poly = undefined;
+        if(cg.type.includes('Polygon')) {
+          poly = turf.multiPolygon(cg.coordinates);
+        } else if(cg.type.includes('LineString')){
+          poly = turf.multiLineString(cg.coordinates);
+        } else if(cg.type.includes('Point')) {
+          poly = turf.multiPoint(cg.coordinates);
+        }
         // let point = turf.point(cg.coordinates);
-        let bboxBounds = turf.bbox(poly);
+        
         // let bboxBoundsP = turf.bbox(point);
-        if(map.map){
+        
+        if(map.map && poly){
+          let bboxBounds = turf.bbox(poly);
           map.map.fitBounds(bboxBounds,{ padding:80});
         }
       }
@@ -1396,16 +1403,16 @@ const CreateProjectMap = (type: any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
   
-  useEffect(()=>{
-    let buttonElement = document.getElementById('popup');
-      if (buttonElement != null) {
-        if(counterPopup.componentes) {
-          buttonElement.innerHTML = counterPopup.componentes+'';
-        } else {
-          buttonElement.innerHTML = counterPopup+'';
-        }
-      }
-  },[counterPopup]);
+  // useEffect(()=>{
+  //   let buttonElement = document.getElementById('popup');
+  //     if (buttonElement != null) {
+  //       if(counterPopup) {
+  //         buttonElement.innerHTML = counterPopup+'';
+  //       } else {
+  //         buttonElement.innerHTML = counterPopup+'';
+  //       }
+  //     }
+  // },[counterPopup]);
   const eventClick = (e: any) => {
     if(!isPopup){
       return;
@@ -2040,7 +2047,6 @@ const CreateProjectMap = (type: any) => {
     } else {
       newComponents = componentsList.filter( (comp: any) => ( ! (comp.cartodb_id == item.cartodb_id && comp.table == item.table)));
     }
-    console.log("THIS ARE THE NEW COMPONENTS", newComponents);
     getListComponentsByComponentsAndPolygon(newComponents, null);
     removePopup();
   }

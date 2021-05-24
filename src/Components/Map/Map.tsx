@@ -405,6 +405,7 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         const div = document.getElementById('popup');
+        console.log("SECOND COUNTER", counterPopup);
         if (div != null) {
             div.innerHTML = `${counterPopup.componentes}`;
         }
