@@ -50,7 +50,7 @@ const Analytics = ({
       title={
         <h5>
           <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
-          <Select defaultValue={year} onChange={setYear} style={{ width: tabKey !== 'Maintenance' ? 100 : 200 }}>
+          <Select defaultValue={year} onChange={setYear}>
             {
               years.map((y, i) => (
                 <Option key={i} value={y}>{
@@ -70,7 +70,7 @@ const Analytics = ({
     >
       <h6>Requests by {groupingType} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">
-        {maxiQ > 0 && 
+        {maxiQ > 0 &&
         <HorizontalBarChart
           data={quantityData}
           selected={countiesNames}
@@ -94,7 +94,7 @@ const Analytics = ({
 
       <h6>Dollars Requested by {groupingType} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
       <div className="graph">
-      {maxiA > 0 && 
+      {maxiA > 0 &&
       <HorizontalBarChart
           data={amountData}
           selected={countiesNames}
