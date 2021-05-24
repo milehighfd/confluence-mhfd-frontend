@@ -45,6 +45,16 @@
     border-left: 1.5px solid #e8e8e8;
   }
 }
+.ant-timeline-item-last {
+  .ant-timeline-item-tail {
+    position: absolute;
+    top: 6px;
+    left: 4px;
+    height: calc(100% - 4px);
+    border-left: 1.5px solid #ff0000;
+    display: none;
+  }
+}
 .work-head, .work-body{
   background: $white;
 }

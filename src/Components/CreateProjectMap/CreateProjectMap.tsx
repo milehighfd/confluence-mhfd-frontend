@@ -143,7 +143,7 @@ const CreateProjectMap = (type: any) => {
   useEffect(()=>{
     if(editLocation && editLocation[0]){
       setTimeout(()=>{
-        map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0] + 0.00009});})
+        map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0] + 0.00003});})
       },1300);
     }
   },[editLocation]);
@@ -607,7 +607,6 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     if (map ) {
       // deleteUpdateLayers(selectedLayers);
-      console.log("FIRST APPLY MA 2 2 2P", new Date());
       let time = firstTimeApplyMapLayers?2000:200;
       setTimeout(()=>{
         map.isStyleLoaded(applyMapLayers);
@@ -1355,7 +1354,7 @@ const CreateProjectMap = (type: any) => {
       marker.getElement().addEventListener('click', () => {
         addPopupMarker(point,html);
       });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lng-0.00009, e.lat], [e.lng+0.00009, e.lat]] ]} };
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lng-0.00003, e.lat], [e.lng+0.00003, e.lat]] ]} };
       if (type.type === 'SPECIAL') {
         saveSpecialLocation(sendLine);
       } else if (type.type === 'ACQUISITION') {
@@ -1376,7 +1375,7 @@ const CreateProjectMap = (type: any) => {
       marker.getElement().addEventListener('click', () => {
         addPopupMarker(point,html);
       });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng-0.00009, e.lngLat.lat], [e.lngLat.lng+0.00009, e.lngLat.lat]] ]} };
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng-0.00003, e.lngLat.lat], [e.lngLat.lng+0.00003, e.lngLat.lat]] ]} };
       if (type.type === 'SPECIAL') {
         saveSpecialLocation(sendLine);
       } else if (type.type === 'ACQUISITION') {
@@ -2027,7 +2026,6 @@ const CreateProjectMap = (type: any) => {
   }
   const addRemoveComponent = (item: any, event: any)=> {
     let newComponents:any = [];
-    console.log("ITEM", item);
     if(item.added === 'Add') {
       newComponents = [...componentsList, {
         cartodb_id: item.cartodb_id?item.cartodb_id:'',
