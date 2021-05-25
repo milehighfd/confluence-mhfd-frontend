@@ -583,6 +583,7 @@ const CreateProjectMap = (type: any) => {
                 'line-width': 3.5,
               }
             });
+            map.map.moveLayer('streamIntersected');
           }
   
         });
@@ -693,7 +694,7 @@ const CreateProjectMap = (type: any) => {
     });
     const deleteLayers = selectedLayers.filter((layer: any) => !filterLayers.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
-      // console.log("SENDING FROM !", layer);
+      console.log("SENDING HIDE FROM !", layer);
       removeTilesHandler(layer);
     });
     updateSelectedLayers(filterLayers);
