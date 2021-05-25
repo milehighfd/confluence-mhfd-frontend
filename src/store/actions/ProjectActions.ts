@@ -472,6 +472,7 @@ export const setComponentGeom = (componentGeom: any) => {
 export const getZoomGeomComp = (table:any, objectid: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENT_GEOM,{table, objectid}, datasets.getToken()).then( zoomGeom => {
+      console.log("AFTER GETTING ", zoomGeom);
       dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
     })
   }

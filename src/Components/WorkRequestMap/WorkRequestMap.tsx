@@ -406,7 +406,6 @@ const WorkRequestMap = (type: any) => {
     }else {
       setComponentsFromMap([]);
     }
-    console.log('cosito ', details);
     // setVisibleCreateProject(true);
     setTimeout(()=>{
       type.openModal(true);
