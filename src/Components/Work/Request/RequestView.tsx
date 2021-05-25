@@ -4,7 +4,7 @@ import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
-import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT } from "../../../constants/constants";
+import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../../constants/constants";
 import WorkRequestMap from './../../WorkRequestMap/WorkRequestMap';
 import '../../../index.scss';
 import { getData, getToken, postData } from "../../../Config/datasets";
@@ -91,8 +91,8 @@ const RequestView = ({ type }: {
 
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
-      setLeftWidth(MEDIUM_SCREEN_LEFT);
-      setRightWitdh(MEDIUM_SCREEN_RIGHT);
+      setLeftWidth(COMPLETE_SCREEN);
+      setRightWitdh(EMPTY_SCREEN);
       setRotationStyle({transform: 'rotate(180deg)', marginRight:'-4px', right:'4px', position:'relative'});
     } else {
       setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
