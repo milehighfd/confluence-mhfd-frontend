@@ -159,6 +159,7 @@ const WorkRequestMap = (type: any) => {
   }, []);
   useEffect(()=>{
     popup.remove();
+    map.resize()
   },[type.change]);
   useEffect(()=>{
     if (map) {

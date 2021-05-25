@@ -47,7 +47,7 @@ const RequestView = ({ type }: {
   type: boardType
 }) => {
   const emptyStyle: React.CSSProperties = { transform: 'rotate(180deg)' };
-  const [rotationStyle, setRotationStyle] = useState(emptyStyle );
+  const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
@@ -88,6 +88,22 @@ const RequestView = ({ type }: {
   const wrtRef = useRef(null);
   const [problemid, setProblemId ] = useState<any>(undefined);
   
+
+  const updateWidth = () => {
+    if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
+      setLeftWidth(MEDIUM_SCREEN_LEFT);
+      setRightWitdh(MEDIUM_SCREEN_RIGHT);
+      setRotationStyle({transform: 'rotate(180deg)', marginRight:'-4px', right:'4px', position:'relative'});
+    } else {
+      setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
+      setRightWitdh(MEDIUM_SCREEN_LEFT + 1);
+      setRotationStyle(emptyStyle);
+    }
+    setTimeout( () => {
+      setChanges(Math.random())
+    }, 1500)
+  }
+
   const onDragOver = (e: any) => {
     e.preventDefault();
   }
@@ -645,7 +661,10 @@ const RequestView = ({ type }: {
           {
             !loading &&<Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId}></WorkRequestMap>
+                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} />
+                <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
+                  <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
+                </Button>
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
