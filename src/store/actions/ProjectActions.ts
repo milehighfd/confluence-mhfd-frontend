@@ -346,7 +346,6 @@ export const getComponentsIntersected = (geom: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_LIST_COMPONENTS, {geom:geom}, datasets.getToken()).then(res => {
       let listComponents = res;
-      console.log("HRERE", listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     });  
   }
@@ -354,7 +353,6 @@ export const getComponentsIntersected = (geom: any) => {
 
 export const setComponentIntersected = (listComponents: any) => {
   return (dispatch: Function) => {
-    console.log("HRERE2", listComponents);
     dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
   }
 } 
@@ -362,7 +360,6 @@ export const setComponentIntersected = (listComponents: any) => {
 export const getComponentsSorted = ( components: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_LIST_COMPONENTS_SORTED, components, datasets.getToken()).then(listComponents => {
-      console.log("HRERE2223", listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     });
   }

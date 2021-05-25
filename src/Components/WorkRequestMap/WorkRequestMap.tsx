@@ -59,10 +59,10 @@ const WorkRequestMap = (type: any) => {
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables, getComponentsByProjid } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId } = useProjectDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects } = useProjectDispatch();
   const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
-  const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjects);
+  const [idsBoardProjects, setIdsBoardProjects]= useState<any>([]);
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayersWR);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -135,6 +135,8 @@ const WorkRequestMap = (type: any) => {
     }
   },[zoomProject]);
   useEffect(() => {
+    console.log("boardProjects",boardProjects);
+    setIdsBoardProjects(['-8888']);
     const waiting = () => {
       html = document.getElementById('map4');
       if (!html) {
@@ -155,7 +157,6 @@ const WorkRequestMap = (type: any) => {
     changeAddLocationState(false);
     // setComponentIntersected([]);
     componentsList = [];
-    setIdsBoardProjects(['-8888']);
   }, []);
   useEffect(()=>{
     popup.remove();
@@ -173,6 +174,7 @@ const WorkRequestMap = (type: any) => {
   
   useEffect(()=>{
     let time = firstTime?2500:300;
+    console.log("IDSBOARDPROJECTs", idsBoardProjects);
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -200,6 +202,7 @@ const WorkRequestMap = (type: any) => {
             
           });
       } else {
+        console.log('should remove plis ');
         map.isStyleLoaded(()=>{
           removeLayers('mhfd_projects_copy');
           removeLayersSource('mhfd_projects_copy');
@@ -229,8 +232,13 @@ const WorkRequestMap = (type: any) => {
     const equals = (a:any, b:any) =>
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
-    if(boardProjects.cartoids && boardProjects.cartoids[0] != '-8888') {
-      if(!equals(boardProjects.cartoids, idsBoardProjects)) {
+      
+    console.log("HERE REACHES THE CURRENT BOARD PROJECTS ", boardProjects);
+    if(!boardProjects.ids) {
+      setIdsBoardProjects(boardProjects);
+    }
+    if(boardProjects.ids && boardProjects.ids[0] != '-8888') {
+      if(!equals(boardProjects.ids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjects.ids);
         postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
           (r: any) => { 
@@ -436,6 +444,7 @@ const WorkRequestMap = (type: any) => {
     });
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayersWR.includes(layer as string));
     await deleteLayers.forEach((layer: LayersType) => {
+      // console.log("REMOVE TILE HANDLEr 3", layer);
       removeTilesHandler(layer);
     });
     await selectedLayersWR.forEach((layer: LayersType) => {
@@ -788,6 +797,7 @@ const WorkRequestMap = (type: any) => {
       if(layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
       } else {
+        // console.log("REMOVE TILE HANDLEr2 ", layer);
         removeTilesHandler(layer);
       }
     });
@@ -817,10 +827,11 @@ const WorkRequestMap = (type: any) => {
   }
   const addLayersSource = (key: string, tiles: Array<string>) => {
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
-      map.map.addSource(key, {
-        type: 'vector',
-        tiles: tiles
-      });
+      map.addVectorSource(key,tiles);
+      // map.map.addSource(key, {
+      //   type: 'vector',
+      //   tiles: tiles
+      // });
       addTilesLayers(key);
     }
   }

@@ -155,6 +155,7 @@ const projectReducer = (state = initState, action: any) => {
       }
     }
     case types.SET_BOARD_PROJECTS: {
+      console.log("IS SETTING BOARD PROJECT", state.boardProjects, action.boardProjects);
       return {
         ...state, 
         boardProjects: action.boardProjects
