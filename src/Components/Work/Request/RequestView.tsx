@@ -46,7 +46,7 @@ const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
 const RequestView = ({ type }: {
   type: boardType
 }) => {
-  const emptyStyle: React.CSSProperties = { transform: 'rotate(180deg)' };
+  const emptyStyle: React.CSSProperties = {  };
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
@@ -648,7 +648,6 @@ const RequestView = ({ type }: {
         l={localityType}
         />
     }
-    <div>
       {
         visibleCreateProject &&
         <ModalProjectView
@@ -660,7 +659,6 @@ const RequestView = ({ type }: {
           editable = {true}
         />
       }
-    </div>
     <Layout>
       <Navbar />
       <Layout>
@@ -675,7 +673,7 @@ const RequestView = ({ type }: {
           }
           {
             !loading &&<Row>
-            <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
+            <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
                 <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} />
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
