@@ -557,7 +557,6 @@ const CreateProjectMap = (type: any) => {
         if(map.map && poly){
           
           let bboxBounds = turf.bbox(poly);
-          console.log("BBB", poly, bboxBounds);
           map.isStyleLoaded(()=>{
             map.map.fitBounds(bboxBounds,{ padding:80});
           });
@@ -1292,9 +1291,8 @@ const CreateProjectMap = (type: any) => {
   }
   const showHighlightedProblem = (problemid: string) => {
     const styles = { ...tileStyles as any }
-    // console.log("SHOW HL", key, cartodb_id);
     styles['problems'].forEach((style: LayerStylesType, index: number) => {
-      // console.log("ENTERDS ", index, map.getLayer('problems' + '_' + index), map.getLayer('problems' + '_highlight_' + index, 'visibility'));
+      
       if (map.getLayer('problems' + '_' + index)) {
         // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
         map.setFilter('problems' + '_highlight_' + index, ['in','problemid', parseInt(problemid)])
@@ -1304,7 +1302,6 @@ const CreateProjectMap = (type: any) => {
   }
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...tileStyles as any }
-    // console.log("SHOW HL", key, cartodb_id);
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
         map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])

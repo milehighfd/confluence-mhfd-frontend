@@ -70,7 +70,7 @@ const RequestView = ({ type }: {
   const [showModalProject, setShowModalProject] = useState(false);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
-  const {setBoardProjects, setZoomProject, setStreamsIds, setComponentsFromMap} = useProjectDispatch();
+  const {setBoardProjects, setZoomProject, setStreamsIds, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
   const [localities, setLocalities] = useState<any[]>([]);
@@ -104,6 +104,21 @@ const RequestView = ({ type }: {
     }, 1500)
   }
 
+  const resetOnClose = () => {
+    setStreamIntersected([]);
+    setComponentIntersected([]);
+    setComponentsFromMap([]);
+  }
+  useEffect(()=>{
+    if(!showModalProject){
+     resetOnClose();
+    }
+  },[showModalProject]);
+  useEffect(()=>{
+    if(!showCreateProject){
+      resetOnClose();
+    }
+  },[showCreateProject]);
   const onDragOver = (e: any) => {
     e.preventDefault();
   }

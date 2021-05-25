@@ -167,6 +167,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setJurisdictionSponsor(undefined);
     setDescription('');
     if(componentsFromMap.length > 0 ) {
+      console.log("IS SENDING FROM HERE 1", componentsFromMap);
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
     } else {
       setComponentIntersected([]);
@@ -229,6 +230,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[independentComponents]);
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
+      console.log("COMP FROM MAP", componentsFromMap);
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
     }
   },[componentsFromMap]);
