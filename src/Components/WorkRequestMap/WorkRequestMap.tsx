@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
-import { MainPopup, ComponentPopupCreate } from './../Map/MapPopups';
+import { MainPopup, ComponentPopup } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
@@ -59,7 +59,7 @@ const WorkRequestMap = (type: any) => {
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables, getComponentsByProjid } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR } = useProjectDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId } = useProjectDispatch();
   const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjects);
@@ -93,6 +93,14 @@ const WorkRequestMap = (type: any) => {
     type: '',
     cartoid: ''
   });
+  const [dataProblem, setDataProblem] = useState({
+    problemid: '',
+    id: '',
+    objectid: '',
+    value: '',
+    type: '',
+    cartoid: ''
+});
   const [boardProjectFilter, setBPF] = useState<any>([]);
   useEffect(()=>{
     if(layers) {
@@ -135,6 +143,7 @@ const WorkRequestMap = (type: any) => {
         if (!map) {
           map = new MapService('map4');
           setLayersSelectedOnInit();
+          map.loadImages();
         }
       }
     };
@@ -162,7 +171,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    let time = firstTime?2300:300;
+    let time = firstTime?2500:300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -366,7 +375,43 @@ const WorkRequestMap = (type: any) => {
     
 
   }, [selectedLayersWR]);
-
+  const createProject = (details: any, event: any) => {
+    if (details.problemid) {
+        setDataProblem({
+            id: '',
+            objectid: '',
+            cartoid: '',
+            type: '',
+            value: '',
+            problemid: details.problemid
+        });
+    }
+    if(details.layer === 'Components') {
+      let newComponents = [{
+        cartodb_id: details.cartodb_id?details.cartodb_id:'',
+        jurisdiction: details.jurisdiction?details.jurisdiction:'',
+        original_cost: details.original_cost?details.original_cost:'',
+        problemid: null,
+        status: details.status?details.status:'',
+        table: details.table?details.table:'',
+        type: details.type?details.type:'',
+        objectid: details.type?details.objectid:''
+      }];
+      setComponentsFromMap(newComponents);
+      getComponentGeom(details.table, details.objectid);
+      type.setProblemId('-1');
+    } else if (details.type === 'problems') {
+      getAllComponentsByProblemId(details.problemid);
+      type.setProblemId(details.problemid);
+    }else {
+      setComponentsFromMap([]);
+    }
+    console.log('cosito ', details);
+    // setVisibleCreateProject(true);
+    setTimeout(()=>{
+      type.openModal(true);
+    },35);
+}
   const setLayersSelectedOnInit = () => {
     updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS]);
   }
@@ -749,6 +794,7 @@ const WorkRequestMap = (type: any) => {
     updateSelectedLayersWR(selectedItems);
   }
   const hideLayers = (key: string) => {
+
     if (map) {
       const styles = { ...tileStyles as any };
       if(styles[key]) {
@@ -1574,7 +1620,8 @@ const WorkRequestMap = (type: any) => {
             table: feature.source ? feature.source : '-',
             cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
             problem: 'Dataset in development',
-            added: status
+            added: status,
+            objectid: feature.properties.objectid?feature.properties.objectid:'-'
           };
           const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
           menuOptions.push(name);
@@ -1621,6 +1668,7 @@ const WorkRequestMap = (type: any) => {
           if (editElement != null) {
             editElement.addEventListener('click', type.openEdit.bind(popups[index], popups[index]));
           }
+          document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
           // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
 
         }
@@ -1712,7 +1760,7 @@ const WorkRequestMap = (type: any) => {
 
   const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
     <>
-      <ComponentPopupCreate id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)} isWR={true}></ComponentPopupCreate>
+      <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)} isWR={true}></ComponentPopup>
     </>
   );
 

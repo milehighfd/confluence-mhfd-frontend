@@ -489,38 +489,75 @@ const CreateProjectMap = (type: any) => {
   }, [isDraw]);
   useEffect(() => {
     let geom: any = undefined;
-    if (streamIntersected && streamIntersected.geom) {
+    console.log("REACHES STREAM INTERSECTED ", streamIntersected, componentGeom);
+    let thisStreamIntersected = streamIntersected;
+    if (thisStreamIntersected && thisStreamIntersected.geom) {
+      //parsed geom
+      geom = JSON.parse(thisStreamIntersected.geom);
+      // parsed component geom
+      let cg = componentGeom?JSON.parse(componentGeom.geom):undefined;
+      console.log("CG, GEOM, geom.coordinates.length", cg, geom, geom.coordinates.length);
+      if(geom.coordinates.length == 0 && cg) {
+        console.log("SET cg to geom");
+        // update parsed and not parsed geom when no coord
+        geom = cg;
+        thisStreamIntersected.geom = componentGeom.geom;
+      } else if(geom.coordinates.length == 0){
+        console.log("breaj");
+        // break everything if nothing to be shown
+        return;
+      }
       if(type.type == 'CAPITAL' || type.type == 'MAINTENANCE') {
-        getServiceAreaPolygonofStreams(streamIntersected.geom);
+        getServiceAreaPolygonofStreams(thisStreamIntersected.geom);
       }
       if(type.type === 'MAINTENANCE') {
         setLoading(false);
       }
-      geom = JSON.parse(streamIntersected.geom);
-      let cg = componentGeom?JSON.parse(componentGeom.geom):undefined;
+      
+      console.log("CURRENT GEOM streamintersected, geom and CG", thisStreamIntersected, geom, cg);
       if(type.problemId && geom.coordinates.length > 0) {
-        let poly = turf.multiLineString(geom.coordinates);
-        let bboxBounds = turf.bbox(poly);
-        if(map.map){
-          map.map.fitBounds(bboxBounds,{ padding:80});
+        console.log("NOT",type.problemId);
+        let poly = undefined;
+        if(geom.type.includes('Polygon')) {
+          poly = turf.multiPolygon(geom.coordinates);
+        } else if(geom.type.includes('LineString')){
+          poly = turf.multiLineString(geom.coordinates);
+        } else if(geom.type.includes('Point')) {
+          poly = turf.point(geom.coordinates);
+        } else {
+          console.log("CG diff", geom);
+        }
+        if(map.map && poly){ 
+          
+          let bboxBounds = turf.bbox(poly);
+          console.log("AAA", poly, bboxBounds);
+          map.isStyleLoaded(()=>{
+            map.map.fitBounds(bboxBounds,{ padding:80});
+          });
+          
         }
       } else if( type.problemId && cg){
+        console.log("NOT HERE");
         let poly = undefined;
         if(cg.type.includes('Polygon')) {
           poly = turf.multiPolygon(cg.coordinates);
         } else if(cg.type.includes('LineString')){
           poly = turf.multiLineString(cg.coordinates);
         } else if(cg.type.includes('Point')) {
-          poly = turf.multiPoint(cg.coordinates);
+          poly = turf.point(cg.coordinates);
+        } else {
+          console.log("CG diff", cg);
         }
-        // let point = turf.point(cg.coordinates);
-        
-        // let bboxBoundsP = turf.bbox(point);
-        
         if(map.map && poly){
+          
           let bboxBounds = turf.bbox(poly);
-          map.map.fitBounds(bboxBounds,{ padding:80});
+          console.log("BBB", poly, bboxBounds);
+          map.isStyleLoaded(()=>{
+            map.map.fitBounds(bboxBounds,{ padding:80});
+          });
         }
+      } else {
+        console.log("AQUI SI", type.problemId, geom, cg);
       }
       if(geom) {
         map.isStyleLoaded(() => {

@@ -68,6 +68,7 @@ const RequestView = ({ type }: {
   const [boardSubstatus, setBoardSubstatus] = useState<any>(null);
   const [boardComment, setBoardComment] = useState(null);
   const [showModalProject, setShowModalProject] = useState(false);
+  const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
   const {setBoardProjects, setZoomProject, setStreamsIds, setComponentsFromMap} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
@@ -85,7 +86,8 @@ const RequestView = ({ type }: {
   const [loading, setLoading] = useState(false);
   const {clear} = useAttachmentDispatch();
   const wrtRef = useRef(null);
-
+  const [problemid, setProblemId ] = useState<any>(undefined);
+  
   const onDragOver = (e: any) => {
     e.preventDefault();
   }
@@ -567,6 +569,16 @@ const RequestView = ({ type }: {
           locality={locality}
           editable={true}
       />
+    }{  showCreateProject &&
+      <ModalProjectView
+          visible={showCreateProject}
+          setVisible={setShowCreateProject}
+          data={"no data"}
+          showDefaultTab={true}
+          locality={locality}
+          editable={true}
+          problemId= {problemid}
+      />
     }
     {
       <Analytics
@@ -633,7 +645,7 @@ const RequestView = ({ type }: {
           {
             !loading &&<Row>
             <Col xs={{ span: 24 }} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes}></WorkRequestMap>
+                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId}></WorkRequestMap>
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>

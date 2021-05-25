@@ -3,6 +3,7 @@ import { Card, Button } from 'antd';
 import { getData, getToken, postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import { getComponentCounter } from '../../store/actions/mapActions';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 const problemStyle: any = {
     status: {
         'Low': {
@@ -44,6 +45,7 @@ const capitalize = (s : string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 export const MainPopup = ({id, item, test, sw, ep } : any) => {
+  console.log("COMM POPddUP",sw);
     for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
@@ -79,7 +81,8 @@ export const MainPopup = ({id, item, test, sw, ep } : any) => {
     </div>
 };
 export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
-    for (const key in item) {
+  console.log("HEY", item);
+  for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
         }
@@ -115,6 +118,7 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
 };
 
 export const ComponentPopup = ({ id, item, isComponent } : any) => {
+  console.log("COMM POPUP",isComponent);
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable>
         <div className="headmap">
@@ -178,6 +182,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
 
 
 export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
+  console.log("ANOTHER POPUP", isComponent, item);
   return <div id={'popup-' + id} className="map-pop-01">
       <Card hoverable>
       <div className="headmap">

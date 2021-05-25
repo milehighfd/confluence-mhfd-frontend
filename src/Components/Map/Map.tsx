@@ -405,7 +405,7 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
         const div = document.getElementById('popup');
-        console.log("SECOND COUNTER", counterPopup);
+        // console.log("SECOND COUNTER", counterPopup);
         if (div != null) {
             div.innerHTML = `${counterPopup.componentes}`;
         }
@@ -446,7 +446,6 @@ const Map = ({ leftWidth,
               const html = commentPopup(note);
                   let newpopup = new mapboxgl.Popup();
                   newpopup.on('close', (e: any)=> {
-                    console.log("CLOSE CLO SEL");
                     momentaryMarker.remove();
                   });
                   newmarker.setPopup(newpopup);

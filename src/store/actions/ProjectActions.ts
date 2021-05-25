@@ -459,8 +459,14 @@ export const getListComponentsByComponentsAndPolygon = (components: any, geom: a
 export const getComponentGeom = (table:any, objectid: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENT_GEOM,{table, objectid}, datasets.getToken()).then( componentGeom => {
+      console.log("GET COMPOENNT GEOM", componentGeom);
       dispatch({type: types.SET_COMPONENT_GEOM, componentGeom})
     })
+  }
+}
+export const setComponentGeom = (componentGeom: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_COMPONENT_GEOM, componentGeom});
   }
 }
 export const getZoomGeomComp = (table:any, objectid: any) => {

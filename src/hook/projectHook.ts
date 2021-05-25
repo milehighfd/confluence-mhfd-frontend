@@ -2,7 +2,7 @@ import { AnyLayer } from 'mapbox-gl';
 import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected, setComponentsFromMap, updateSelectedLayers, setHighlightedComponent, updateSelectedLayersWR, setBoardProjects, setZoomProject, setStreamsIds, editSpecial, editAcquisition ,setEditLocation, editMaintenance, getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setIndComponents, getGEOMByProjectId, editCapital, editStudy, setServiceAreaCounty, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setJurisdictionSponsor, getComponentGeom, getZoomGeomComp, getZoomGeomProblem, setZoomGeom, setHighlightedProblem} from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected, setComponentsFromMap, updateSelectedLayers, setHighlightedComponent, updateSelectedLayersWR, setBoardProjects, setZoomProject, setStreamsIds, editSpecial, editAcquisition ,setEditLocation, editMaintenance, getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setIndComponents, getGEOMByProjectId, editCapital, editStudy, setServiceAreaCounty, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setJurisdictionSponsor, getComponentGeom, getZoomGeomComp, getZoomGeomProblem, setZoomGeom, setHighlightedProblem, setComponentGeom} from '../store/actions/ProjectActions';
 
 import { RootState } from '../store/reducers';
 
@@ -225,6 +225,9 @@ export const useProjectDispatch = () => {
       },
       setHighlightedProblem: (highlightedProblem: any) => {
         dispatch(setHighlightedProblem(highlightedProblem));
+      },
+      setComponentGeom: (componentGeom: any) => {
+        dispatch(setComponentGeom(componentGeom))
       }
    }
 }
