@@ -26,7 +26,15 @@ import {
   SELECT_ALL_FILTERS,
   MENU_OPTIONS,
   PROJECTS_DRAFT_MAP_STYLES,
-  MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF
+  ROUTINE_NATURAL_AREAS, 
+  PROJECTS_DRAFT,
+  ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, 
+  ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, 
+  PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, 
+  MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, 
+  LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, 
+  CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, 
+  PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF
 } from "../../constants/constants";
 import { MapHOCProps, ProjectTypes, MapLayersType, MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -585,7 +593,9 @@ const CreateProjectMap = (type: any) => {
                 'line-width': 3.5,
               }
             });
-            map.map.moveLayer('streamIntersected');
+            setTimeout(()=>{
+              map.map.moveLayer('streamIntersected');
+            }, 5000); 
           }
   
         });
@@ -615,12 +625,13 @@ const CreateProjectMap = (type: any) => {
             'type': 'line',
             'source': 'mhfd_stream_reaches',
             'source-layer': 'pluto15v1',
-            'layout': {},
-            'paint': {
-              'line-color': '#eae320',
-              'line-width': 3.5,
+            "layout": {"line-cap": "round", "line-join": "round"},
+            "paint": {
+                "line-color": "hsl(50, 100%, 50%)",
+                "line-width": 25,
             },
             'filter':filter
+          
           });
           
         }
@@ -653,14 +664,23 @@ const CreateProjectMap = (type: any) => {
       
     }
   }, [map])
-
+  const [compareSL, setCompareSL] = useState('');
   useEffect(() => {
     if (map ) {
       // deleteUpdateLayers(selectedLayers);
-      let time = firstTimeApplyMapLayers?2000:200;
+      let time = firstTimeApplyMapLayers?4000:200;
       setTimeout(()=>{
-        map.isStyleLoaded(applyMapLayers);
-        firstTimeApplyMapLayers=false;
+        if(JSON.stringify(selectedLayers) != compareSL) { 
+          if(map){
+            if(selectedLayers.length == 0) {
+              // deleteUpdateLayers(selectedLayers);
+            } else {
+              map.isStyleLoaded(applyMapLayers);
+              firstTimeApplyMapLayers=false;
+              setCompareSL(JSON.stringify(selectedLayers));
+            }
+          }
+        }
       },time);
     }
     eventService.setRef('oncreatedraw', onCreateDraw);
@@ -696,7 +716,6 @@ const CreateProjectMap = (type: any) => {
     });
     const deleteLayers = selectedLayers.filter((layer: any) => !filterLayers.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
-      console.log("SENDING HIDE FROM !", layer);
       removeTilesHandler(layer);
     });
     updateSelectedLayers(filterLayers);
@@ -782,7 +801,6 @@ const CreateProjectMap = (type: any) => {
     });
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayers.includes(layer as string));
     await deleteLayers.forEach((layer: LayersType) => {
-      // console.log("SENDING FROM applymaplayer", layer);
       removeTilesHandler(layer);
     });
     await selectedLayers.forEach((layer: LayersType) => {

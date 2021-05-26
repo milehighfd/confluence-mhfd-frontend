@@ -2256,7 +2256,7 @@ export const PROJECTS_STYLES = {
         ]
       },
       "paint": {
-          "line-color": "hsl(52, 100%, 50%)",
+          "line-color": "hsl(40, 100%, 50%)",
           "line-width": [
               "interpolate",
               ["linear"],
@@ -2296,7 +2296,7 @@ export const PROJECTS_STYLES = {
       "source-layer": "pluto15v1",
       "layout": {"line-cap": "round", "line-join": "round"},
       "paint": {
-          "line-color": "hsl(60, 100%, 50%)",
+          "line-color": "hsl(50, 100%, 50%)",
           "line-width": 10,
           "line-blur": ["interpolate", ["linear"], ["zoom"], 0, 4, 22, 4],
           "line-opacity": [
