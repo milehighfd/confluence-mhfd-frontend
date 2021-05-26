@@ -33,6 +33,7 @@ import { useProfileState, useProfileDispatch } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { group } from "d3-array";
+import { useAttachmentDispatch } from "../../hook/attachmentHook";
 
 let firstTime = true;
 let map: any;
@@ -57,7 +58,7 @@ const WorkRequestMap = (type: any) => {
   let controller = false;
   const user = store.getState().profile.userInformation;
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
-
+  const {clear} = useAttachmentDispatch();
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables, getComponentsByProjid } = useMapDispatch();
   const { changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects } = useProjectDispatch();
   const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
@@ -399,6 +400,7 @@ const WorkRequestMap = (type: any) => {
   }, [map])
 
   const createProject = (details: any, event: any) => {
+    clear();
     if (details.problemid) {
         setDataProblem({
             id: '',
