@@ -46,7 +46,7 @@ const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
 const RequestView = ({ type }: {
   type: boardType
 }) => {
-  const emptyStyle: React.CSSProperties = {  };
+  const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
