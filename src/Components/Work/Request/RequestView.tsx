@@ -300,7 +300,6 @@ const RequestView = ({ type, isFirstRendering }: {
             });
             setProjectAmounts(projectAmounts);
             if(projects.length>0){
-              console.log("IS ABOUT TO SET BOARD PROJECT FROM BOARD REST 2", JSON.stringify({cartoids:justProjects, ids: idsProjects}), projects);
               setBoardProjects({cartoids:justProjects, ids: idsProjects});
             } else {
               setBoardProjects(['-8888']);
@@ -406,7 +405,6 @@ const RequestView = ({ type, isFirstRendering }: {
                   });
                   setProjectAmounts(projectAmounts);
                   if(projects.length>0){
-                    console.log("IS ABOUT TO SET BOARD PROJECT FROM BOARD REST", JSON.stringify({cartoids:justProjects, ids: idsProjects}), projects);
                     setBoardProjects({cartoids:justProjects, ids: idsProjects});
                   } else {
                     setBoardProjects(['-8888']);

@@ -233,10 +233,10 @@ const CreateProjectMap = (type: any) => {
             
           });
       } else {
-        map.isStyleLoaded(()=>{
+        if(map.map){
           removeLayers('mhfd_projects_copy');
           removeLayersSource('mhfd_projects_copy');
-        });
+        }
       } 
   },[idsBoardProjects]);
   useEffect(()=>{

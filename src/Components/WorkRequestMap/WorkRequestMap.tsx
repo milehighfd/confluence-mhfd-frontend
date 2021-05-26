@@ -108,12 +108,27 @@ const WorkRequestMap = (type: any) => {
       setLayerFilters(layers);
     }
   },[layers]);
+  const [compareLayerFilter, setCompareLayerFilter] = useState('');
   useEffect(()=>{
-    if(map) {
-      map.isStyleLoaded(applyMapLayers);
+    if(JSON.stringify(layerFilters) != compareLayerFilter) {
+      if(map) {
+        setCompareLayerFilter(JSON.stringify(layerFilters));
+        map.isStyleLoaded(applyMapLayers);
+      }
     }
     
   },[layerFilters]);
+
+  const [compareSLWR, setCompareSLWR] = useState('');
+  useEffect(() => {
+    if(JSON.stringify(selectedLayersWR) != compareSLWR) {
+      if (map ) {
+        map.isStyleLoaded(applyMapLayers);
+        setCompareSLWR(JSON.stringify(selectedLayersWR));
+      }
+    }
+  }, [selectedLayersWR]);
+  
   useEffect(()=>{
     if(zoomProject && zoomProject.projectid) {
       getData(`${SERVER.URL_BASE}/board/bbox/${zoomProject.projectid}`)
@@ -136,7 +151,6 @@ const WorkRequestMap = (type: any) => {
     }
   },[zoomProject]);
   useEffect(() => {
-    console.log("AL EMPEZAR boardProjects are",boardProjects);
     const waiting = () => {
       html = document.getElementById('map4');
       if (!html) {
@@ -176,7 +190,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    let time = firstTime?2500:300;
+    let time = firstTime?500:300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -204,11 +218,11 @@ const WorkRequestMap = (type: any) => {
             
           });
       } else {
-        console.log('should remove mhfd project copy because idsboardprojects are ', idsBoardProjects);
-        map.isStyleLoaded(()=>{
+        if(map.map){
           removeLayers('mhfd_projects_copy');
           removeLayersSource('mhfd_projects_copy');
-        });
+        }
+        
       } 
   },[idsBoardProjects]);
   
@@ -237,10 +251,8 @@ const WorkRequestMap = (type: any) => {
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
       
-    console.log("HERE REACHES THE CURRENT BOARD PROJECTS ", boardProjects, firstRendering);
     if (firstRendering) {
       setFirstRendering(false)
-      console.log('returning because of flag')
       return;
     }
     if(!boardProjects.ids) {  
@@ -385,14 +397,6 @@ const WorkRequestMap = (type: any) => {
     }
   }, [map])
 
-  useEffect(() => {
-    
-    if (map ) {
-      map.isStyleLoaded(applyMapLayers);
-    }
-    
-
-  }, [selectedLayersWR]);
   const createProject = (details: any, event: any) => {
     if (details.problemid) {
         setDataProblem({
@@ -453,7 +457,6 @@ const WorkRequestMap = (type: any) => {
     });
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayersWR.includes(layer as string));
     await deleteLayers.forEach((layer: LayersType) => {
-      // console.log("REMOVE TILE HANDLEr 3", layer);
       removeTilesHandler(layer);
     });
     await selectedLayersWR.forEach((layer: LayersType) => {
@@ -513,12 +516,12 @@ const WorkRequestMap = (type: any) => {
       if (map.map.getLayer(key + '_' + index)) {
         
         if(key === 'mhfd_projects_copy') {
+          
           let allFilters:any = ['in', ['get', 'projectid'], ['literal', []]];
           if(idsBoardProjects && idsBoardProjects.length > 0 ){
             let boardids = idsBoardProjects;
             allFilters = ['all',['in', ['get', 'projectid'], ['literal', [...boardids]]]];
           } 
-          
           map.map.setFilter(key + '_' + index, allFilters);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
           
@@ -806,7 +809,6 @@ const WorkRequestMap = (type: any) => {
       if(layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
       } else {
-        // console.log("REMOVE TILE HANDLEr2 ", layer);
         removeTilesHandler(layer);
       }
     });
