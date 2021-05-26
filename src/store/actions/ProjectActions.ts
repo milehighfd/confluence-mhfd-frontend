@@ -452,6 +452,7 @@ export const setUserPolygon = (userPolygon: any) => {
 export const getListComponentsByComponentsAndPolygon = (components: any, geom: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken()).then(listComponents => {
+      console.log("THIS IS THE LIST OF COMPONENTS ", listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     });
   }

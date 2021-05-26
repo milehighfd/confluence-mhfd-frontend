@@ -78,7 +78,7 @@ const CreateProjectMap = (type: any) => {
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
-    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom } = useProjectDispatch();
+    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom } = useProjectDispatch();
   const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjects } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
@@ -148,6 +148,12 @@ const CreateProjectMap = (type: any) => {
             console.log('e', e);
           }
         )
+    return () => {
+      setStreamIntersected([]);
+      setStreamsIds([]);
+      setComponentIntersected([]);
+      setComponentGeom(undefined);
+    }
   }, []);
   useEffect(()=>{
     if(editLocation && editLocation[0]){
@@ -497,7 +503,25 @@ const CreateProjectMap = (type: any) => {
       // map.map.on('click', eventToClick);
     }
   }, [isDraw]);
+  const getTurfGeom = ( geom: any)=>{
+    if(geom.type.includes('MultiPolygon')) {
+      return turf.multiPolygon(geom.coordinates);
+    } else if(geom.type.includes('Polygon')) {
+      return turf.polygon(geom.coordinates);
+    } else if(geom.type.includes('MultiLineString')){
+      return turf.multiLineString(geom.coordinates);
+    } else if(geom.type.includes('LineString')){
+      return turf.lineString(geom.coordinates);
+    } else if(geom.type.includes('MultiPoint')) {
+      return turf.multiPoint(geom.coordinates);
+    } else if(geom.type.includes('Point')) {
+      return turf.point(geom.coordinates);
+    } else {
+      console.log("CG diff", geom.type);
+    }
+  }
   useEffect(() => {
+    console.log("STREAM INTERSECTED", streamIntersected);
     let geom: any = undefined;
     let thisStreamIntersected = streamIntersected;
     let drawStream = true;
@@ -523,22 +547,7 @@ const CreateProjectMap = (type: any) => {
       }
       
       if(type.problemId && geom.coordinates.length > 0) {
-        let poly = undefined;
-        if(geom.type.includes('MultiPolygon')) {
-          poly = turf.multiPolygon(geom.coordinates);
-        } else if(geom.type.includes('Polygon')) {
-          poly = turf.polygon(geom.coordinates);
-        } else if(geom.type.includes('MultiLineString')){
-          poly = turf.multiLineString(geom.coordinates);
-        } else if(geom.type.includes('LineString')){
-          poly = turf.lineString(geom.coordinates);
-        } else if(geom.type.includes('MultiPoint')) {
-          poly = turf.multiPoint(geom.coordinates);
-        } else if(geom.type.includes('Point')) {
-          poly = turf.point(geom.coordinates);
-        } else {
-          console.log("CG diff", cg);
-        }
+        let poly = getTurfGeom(geom);
         if(map.map && poly){ 
           
           let bboxBounds = turf.bbox(poly);
@@ -548,22 +557,7 @@ const CreateProjectMap = (type: any) => {
           
         }
       } else if( type.problemId && cg){
-        let poly = undefined;
-        if(cg.type.includes('MultiPolygon')) {
-          poly = turf.multiPolygon(cg.coordinates);
-        } else if(cg.type.includes('Polygon')) {
-          poly = turf.polygon(cg.coordinates);
-        } else if(cg.type.includes('MultiLineString')){
-          poly = turf.multiLineString(cg.coordinates);
-        } else if(cg.type.includes('LineString')){
-          poly = turf.lineString(cg.coordinates);
-        } else if(geom.type.includes('MultiPoint')) {
-          poly = turf.multiPoint(geom.coordinates);
-        } else if(cg.type.includes('Point')) {
-          poly = turf.point(cg.coordinates);
-        } else {
-          console.log("CG diff", cg);
-        }
+        let poly = getTurfGeom(cg);
         if(map.map && poly){
           
           let bboxBounds = turf.bbox(poly);
@@ -590,7 +584,7 @@ const CreateProjectMap = (type: any) => {
               'layout': {},
               'paint': {
                 'line-color': '#eae320',
-                'line-width': 3.5,
+                'line-width': 5,
               }
             });
             setTimeout(()=>{
@@ -601,6 +595,16 @@ const CreateProjectMap = (type: any) => {
         });
       }
     
+    } else if(thisStreamIntersected && componentGeom && thisStreamIntersected.geom == null && componentGeom.geom) {
+      let cg = componentGeom?JSON.parse(componentGeom.geom):undefined;
+      let poly = getTurfGeom(cg);
+        if(map.map && poly){
+          
+          let bboxBounds = turf.bbox(poly);
+          map.isStyleLoaded(()=>{
+            map.map.fitBounds(bboxBounds,{ padding:80});
+          });
+        }
     } else {
       if (map && map.map.isStyleLoaded() ) {
         map.removeLayer('streamIntersected');
@@ -628,7 +632,7 @@ const CreateProjectMap = (type: any) => {
             "layout": {"line-cap": "round", "line-join": "round"},
             "paint": {
                 "line-color": "hsl(50, 100%, 50%)",
-                "line-width": 25,
+                "line-width": 10,
             },
             'filter':filter
           

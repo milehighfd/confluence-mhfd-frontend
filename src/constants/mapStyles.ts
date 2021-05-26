@@ -2296,7 +2296,7 @@ export const PROJECTS_STYLES = {
       "source-layer": "pluto15v1",
       "layout": {"line-cap": "round", "line-join": "round"},
       "paint": {
-          "line-color": "hsl(50, 100%, 50%)",
+          "line-color": "hsl(40, 100%, 50%)",
           "line-width": 10,
           "line-blur": ["interpolate", ["linear"], ["zoom"], 0, 4, 22, 4],
           "line-opacity": [
@@ -2316,7 +2316,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "layout": {"line-join": "round"},
       "paint": {
-          "line-color": "hsl(65, 100%, 50%)",
+          "line-color": "hsl(40, 100%, 50%)",
           "line-blur": 1,
           "line-gap-width": 6,
           "line-opacity": [
@@ -2340,7 +2340,7 @@ export const PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       "paint": {
-        "line-color": "hsl(69, 100%, 50%)",
+        "line-color": "hsl(40, 100%, 50%)",
         "line-blur": 1,
         "line-gap-width": 6,
         "line-opacity": [

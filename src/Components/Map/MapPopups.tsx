@@ -118,7 +118,6 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
 };
 
 export const ComponentPopup = ({ id, item, isComponent } : any) => {
-  console.log("COMM POPUP",isComponent);
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable>
         <div className="headmap">
