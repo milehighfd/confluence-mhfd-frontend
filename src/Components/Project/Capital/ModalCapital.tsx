@@ -535,7 +535,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         let newValue=value.target.value
         if(key === 'cost'){
           let vAlue = newValue.replace("$", "");
-          vAlue = vAlue.replace(",", "");
+          vAlue = vAlue.replaceAll(",", "");
           if(vAlue){
             newIC[key] = parseInt (vAlue);
           }else{
