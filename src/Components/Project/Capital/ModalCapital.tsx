@@ -461,42 +461,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }
   const updateOverheadCosts = () => {
     let newOverheadCosts = [...overheadCosts];
-    let sum = overheadValues.reduce((prev: any, curr: any) => prev + curr, 0);
     overheadValues.forEach((element:any, index:any) => {
-      if (sum === 0) {
-        if ([1, 4, 6].includes(index)) {
-          newOverheadCosts[index] = (5*getSubTotalCost())/100;
-        } else if (index === 5) {
-          newOverheadCosts[index] = (15*getSubTotalCost())/100;
-        } else if (index === 7) {
-          newOverheadCosts[index] = (10*getSubTotalCost())/100;
-        } else if (index === 8) {
-          newOverheadCosts[index] = (25*getSubTotalCost())/100;
-        }
-      } else {
-        newOverheadCosts[index] = (element*getSubTotalCost())/100;
-      }
+      newOverheadCosts[index] = (element*getSubTotalCost())/100;
       newOverheadCosts[index] = parseInt(newOverheadCosts[index]);
     });
     setOverheadCosts(newOverheadCosts);
   }
   useEffect(()=>{
     let newOverheadCosts = [...overheadCosts];
-    let sum = overheadValues.reduce((prev: any, curr: any) => prev + curr, 0);
     overheadValues.forEach((element:any, index:any) => {
-      if (sum === 0) {
-        if ([1, 4, 6].includes(index)) {
-          newOverheadCosts[index] = (5*getSubTotalCost())/100;
-        } else if (index === 5) {
-          newOverheadCosts[index] = (15*getSubTotalCost())/100;
-        } else if (index === 7) {
-          newOverheadCosts[index] = (10*getSubTotalCost())/100;
-        } else if (index === 8) {
-          newOverheadCosts[index] = (25*getSubTotalCost())/100;
-        }
-      } else {
-        newOverheadCosts[index] = (element*getSubTotalCost())/100;
-      }
+      newOverheadCosts[index] = (element*getSubTotalCost())/100;
       newOverheadCosts[index] = parseInt(newOverheadCosts[index]);
     });
     setOverheadCosts(newOverheadCosts);
