@@ -412,7 +412,7 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
       localityMap[locality].projects.push(p);
       for(var i = 1; i <= 5 ; i++) {
         localityMap[locality][`req${i}`] += (p[`req${i}`] / arr.length);
-        if (p.hasOwnProperty(`position${i}`)) {
+        if (p[`position${i}`] != null) {
           localityMap[locality][`cnt${i}`]++;
         }
       }
