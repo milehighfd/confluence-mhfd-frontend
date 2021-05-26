@@ -450,10 +450,8 @@ export const setUserPolygon = (userPolygon: any) => {
 }
 
 export const getListComponentsByComponentsAndPolygon = (components: any, geom: any) => {
-  console.log("GETTING AGAIN THE SAME ", components, geom);
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENTS_WITH_GEOM, {components, geom}, datasets.getToken()).then(listComponents => {
-      console.log("HRERE234", listComponents);
       dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
     });
   }
@@ -475,7 +473,6 @@ export const setComponentGeom = (componentGeom: any) => {
 export const getZoomGeomComp = (table:any, objectid: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENT_GEOM,{table, objectid}, datasets.getToken()).then( zoomGeom => {
-      console.log("AFTER GETTING ", zoomGeom);
       dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
     })
   }

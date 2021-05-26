@@ -192,6 +192,7 @@ const WorkRequestMap = (type: any) => {
   useEffect(()=>{
     let time = firstTime?500:300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
+        
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
         filterProjectsDraft.status = 'Draft';
@@ -259,7 +260,7 @@ const WorkRequestMap = (type: any) => {
       setIdsBoardProjects(boardProjects);
     }
     if(boardProjects.ids && boardProjects.ids[0] != '-8888') {
-      if(!equals(boardProjects.ids, idsBoardProjects)) {
+      // if(!equals(boardProjects.ids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjects.ids);
         postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
           (r: any) => { 
@@ -279,7 +280,7 @@ const WorkRequestMap = (type: any) => {
           }
         )
 
-      }
+      // }
     } 
     if(boardProjects.ids && boardProjects.ids[0] != '-8888') {
       postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(

@@ -44,6 +44,7 @@ import { getFeaturesIntersected, getHull } from './utilsService';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { AnyCnameRecord, AnyAaaaRecord } from "dns";
 import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
+import { valueFromAST } from "graphql";
 let map: any;
 let coordX = -1;
 let coordY = -1;
@@ -237,6 +238,7 @@ const CreateProjectMap = (type: any) => {
           removeLayers('mhfd_projects_copy');
           removeLayersSource('mhfd_projects_copy');
         }
+        
       } 
   },[idsBoardProjects]);
   useEffect(()=>{
@@ -969,7 +971,8 @@ const CreateProjectMap = (type: any) => {
         }
       }
       if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_copy' && idsBoardProjects[0]!='-8888'){
-        let boardids = idsBoardProjects;
+        let boardids = [...idsBoardProjects];
+        boardids = boardids.filter((x:any) => x != type.projectid);
         allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
       } 
       if (map.getLayer(key + '_' + index)) {
