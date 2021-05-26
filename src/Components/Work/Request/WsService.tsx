@@ -31,7 +31,7 @@ class WsService {
   }
 
   receiveUpdate(callback: Function) {
-    this.socket.on('update', callback);
+    // this.socket.on('update', callback);
   }
 
   sendReqmanager(data: any) {

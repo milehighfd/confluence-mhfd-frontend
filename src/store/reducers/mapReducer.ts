@@ -814,10 +814,10 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.TUTORIAL_STATUS: {
-            console.log({
-                ...state,
-                tutorialStatus: action.tutorialStatus
-            });
+            // console.log({
+            //     ...state,
+            //     tutorialStatus: action.tutorialStatus
+            // });
             return {
                 ...state,
                 tutorialStatus: action.tutorialStatus

@@ -303,7 +303,7 @@ const RequestView = ({ type, isFirstRendering }: {
               console.log("IS ABOUT TO SET BOARD PROJECT FROM BOARD REST 2", JSON.stringify({cartoids:justProjects, ids: idsProjects}), projects);
               setBoardProjects({cartoids:justProjects, ids: idsProjects});
             } else {
-              setBoardProjects(['-8889']);
+              setBoardProjects(['-8888']);
             }
 
             let cols = generateColumns(projects, year, tabKey);
@@ -409,7 +409,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     console.log("IS ABOUT TO SET BOARD PROJECT FROM BOARD REST", JSON.stringify({cartoids:justProjects, ids: idsProjects}), projects);
                     setBoardProjects({cartoids:justProjects, ids: idsProjects});
                   } else {
-                    setBoardProjects(['-8881']);
+                    setBoardProjects(['-8888']);
                   }
                 }
               }

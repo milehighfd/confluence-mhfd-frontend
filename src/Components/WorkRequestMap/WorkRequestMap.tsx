@@ -136,8 +136,7 @@ const WorkRequestMap = (type: any) => {
     }
   },[zoomProject]);
   useEffect(() => {
-    console.log("boardProjects",boardProjects);
-    setIdsBoardProjects(['-8888']);
+    console.log("AL EMPEZAR boardProjects are",boardProjects);
     const waiting = () => {
       html = document.getElementById('map4');
       if (!html) {
@@ -160,7 +159,6 @@ const WorkRequestMap = (type: any) => {
     componentsList = [];
     return () => {
       setBoardProjects(['-8888'])
-      // boardProjects
     }
   }, []);
   useEffect(()=>{
@@ -179,7 +177,6 @@ const WorkRequestMap = (type: any) => {
   
   useEffect(()=>{
     let time = firstTime?2500:300;
-    console.log("IDSBOARDPROJECTs", idsBoardProjects);
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -207,7 +204,7 @@ const WorkRequestMap = (type: any) => {
             
           });
       } else {
-        console.log('should remove plis ');
+        console.log('should remove mhfd project copy because idsboardprojects are ', idsBoardProjects);
         map.isStyleLoaded(()=>{
           removeLayers('mhfd_projects_copy');
           removeLayersSource('mhfd_projects_copy');
@@ -226,8 +223,10 @@ const WorkRequestMap = (type: any) => {
           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
           var arrayBounds = misbounds.split(',');
           let poly = polyMask(mask, arrayBounds);
-          map.addSourceOpacity(poly);
-
+          map.isStyleLoaded(()=>{
+            map.addSourceOpacity(poly);
+          })
+          
         } 
       });
     }, 1200);
