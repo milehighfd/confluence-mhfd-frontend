@@ -59,7 +59,7 @@ const WorkRequestMap = (type: any) => {
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables, getComponentsByProjid } = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects } = useProjectDispatch();
+  const { changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects } = useProjectDispatch();
   const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [idsBoardProjects, setIdsBoardProjects]= useState<any>([]);
@@ -68,6 +68,7 @@ const WorkRequestMap = (type: any) => {
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
   const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
+  const [firstRendering, setFirstRendering] = useState(type.isFirstRendering);
   const hovereableLayers = [PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
     MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
@@ -157,6 +158,10 @@ const WorkRequestMap = (type: any) => {
     changeAddLocationState(false);
     // setComponentIntersected([]);
     componentsList = [];
+    return () => {
+      setBoardProjects(['-8888'])
+      // boardProjects
+    }
   }, []);
   useEffect(()=>{
     popup.remove();
@@ -233,8 +238,13 @@ const WorkRequestMap = (type: any) => {
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
       
-    console.log("HERE REACHES THE CURRENT BOARD PROJECTS ", boardProjects);
-    if(!boardProjects.ids) {
+    console.log("HERE REACHES THE CURRENT BOARD PROJECTS ", boardProjects, firstRendering);
+    if (firstRendering) {
+      setFirstRendering(false)
+      console.log('returning because of flag')
+      return;
+    }
+    if(!boardProjects.ids) {  
       setIdsBoardProjects(boardProjects);
     }
     if(boardProjects.ids && boardProjects.ids[0] != '-8888') {

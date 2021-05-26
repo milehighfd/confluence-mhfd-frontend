@@ -43,8 +43,9 @@ const openNotification = () => {
 };
 const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
 
-const RequestView = ({ type }: {
-  type: boardType
+const RequestView = ({ type, isFirstRendering }: {
+  type: boardType,
+  isFirstRendering: boolean
 }) => {
   const emptyStyle: React.CSSProperties = {};
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
@@ -678,7 +679,7 @@ const RequestView = ({ type }: {
           {
             !loading &&<Row>
             <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} />
+                <WorkRequestMap isFirstRendering={isFirstRendering} locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} />
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                 </Button>

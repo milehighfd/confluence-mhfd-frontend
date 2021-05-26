@@ -4,7 +4,7 @@ import RequestView from './RequestView';
 const WorkRequest = () => {
 
     return (
-        <RequestView type={'WORK_REQUEST'} />
+        <RequestView type={'WORK_REQUEST'} isFirstRendering={true} />
     )
 }
 
