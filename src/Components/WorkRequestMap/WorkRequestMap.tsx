@@ -249,10 +249,23 @@ const WorkRequestMap = (type: any) => {
   
 }, [coordinatesJurisdiction]);
   useEffect(()=>{
+    console.log("BOARD PROECT", boardProjects);
     const equals = (a:any, b:any) =>
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
       
+    if(boardProjects[0] == '-8888'){
+      setTimeout(()=>{
+        let value = store.getState().profile.userInformation.zoomarea;
+        if(type.locality) {
+          value = type.locality;
+        }
+          
+        if(groupOrganization.length > 0) {
+          wait(()=>setBounds(value));
+        }
+      },500);
+    }
     if (firstRendering) {
       setFirstRendering(false)
       return;
@@ -345,7 +358,6 @@ const WorkRequestMap = (type: any) => {
     }
   };
   useEffect(()=>{
-    
     setTimeout(()=>{
       let value = store.getState().profile.userInformation.zoomarea;
       if(type.locality) {

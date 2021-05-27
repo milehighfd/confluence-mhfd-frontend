@@ -360,6 +360,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
+    console.log("STREAM VALIDATION", streamValidation, streamIntersected);
     if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== ''  && nameProject !== '' && componentsToSave.length !== 0  && streamValidation != undefined && streamValidation.coordinates.length > 0){
       // if(locality === "no locality" ){
       //   setDisable(false);

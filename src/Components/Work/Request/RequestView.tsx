@@ -27,6 +27,7 @@ import CostTableBody from "./CostTableBody";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { AlertStatus } from "./AlertStatus";
 import LoadingView from "../../Loading/LoadingView";
+import LoadingViewOverall from '../../Loading-overall/LoadingViewOverall';
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -325,7 +326,13 @@ const RequestView = ({ type, isFirstRendering }: {
       })
 
   }, [year, locality, tabKey]);
-
+  const [loadingTransp, setLoadingT] = useState(false);
+  useEffect(()=>{
+    setLoadingT(true);
+    setTimeout(()=>{
+      setLoadingT(false);
+    },2500);
+  },[tabKey]);
   useEffect(() => {
     if (!namespaceId) {
       return;
@@ -674,6 +681,7 @@ const RequestView = ({ type, isFirstRendering }: {
           {
             loading && <LoadingView />
           }
+          { loadingTransp && <LoadingViewOverall></LoadingViewOverall>}
           {
             !loading &&<Row>
             <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>

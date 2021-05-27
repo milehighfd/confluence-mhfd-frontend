@@ -203,6 +203,9 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
     setJurisdictionSponsor(undefined);
     setStreamIntersected({geom:null});
     setStreamsIds([]);
+    return () => {
+      setGeom('');
+    }
   },[]);
   
   // useEffect(()=>{
