@@ -359,7 +359,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }));
 
   useEffect(()=>{
-    if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== ''  && nameProject !== '' && componentsToSave.length !== 0  ){
+    let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
+    if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== ''  && nameProject !== '' && componentsToSave.length !== 0  && streamValidation != undefined && streamValidation.coordinates.length > 0){
       // if(locality === "no locality" ){
       //   setDisable(false);
       // }else{
@@ -367,7 +368,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       // }\
     }
     else{setDisable(true);}
-  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, ]);
+  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected]);
 
   const onChange = (e: any) =>{
     setNameProject(e.target.value);
