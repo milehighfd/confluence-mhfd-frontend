@@ -583,13 +583,13 @@ const CreateProjectMap = (type: any) => {
               'source': 'streamIntersected',
               'layout': {},
               'paint': {
-                'line-color': '#eae320',
-                'line-width': 5,
+                'line-color': 'hsl(40, 100%, 50%)',
+                'line-width': 6,
               }
             });
             setTimeout(()=>{
               map.map.moveLayer('streamIntersected');
-            }, 5000); 
+            }, 4500); 
           }
   
         });
@@ -631,8 +631,8 @@ const CreateProjectMap = (type: any) => {
             'source-layer': 'pluto15v1',
             "layout": {"line-cap": "round", "line-join": "round"},
             "paint": {
-                "line-color": "hsl(50, 100%, 50%)",
-                "line-width": 10,
+                "line-color": "hsl(40, 100%, 50%)",
+                "line-width": 7,
             },
             'filter':filter
           
