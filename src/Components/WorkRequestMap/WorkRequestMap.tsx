@@ -942,24 +942,26 @@ const WorkRequestMap = (type: any) => {
               }
           });
           */
-        map.map.on('mousemove', key + '_' + index, (e: any) => {
-          if (hovereableLayers.includes(key)) {
-            showHighlighted(key, e.features[0].properties.cartodb_id);
+          if(style.type != 'symbol') { 
+            map.map.on('mousemove', key + '_' + index, (e: any) => {
+              if (hovereableLayers.includes(key)) {
+                showHighlighted(key, e.features[0].properties.cartodb_id);
+              }
+              if (key.includes('projects') || key === 'problems') {
+                map.map.getCanvas().style.cursor = 'pointer';
+                setSelectedOnMap(e.features[0].properties.cartodb_id, key);
+              } else {
+                setSelectedOnMap(-1, '');
+              }
+            });
+            map.map.on('mouseleave', key + '_' + index, (e: any) => {
+              if (hovereableLayers.includes(key)) {
+                hideOneHighlighted(key);
+              }
+              map.map.getCanvas().style.cursor = '';
+              setSelectedOnMap(-1, '');
+            });
           }
-          if (key.includes('projects') || key === 'problems') {
-            map.map.getCanvas().style.cursor = 'pointer';
-            setSelectedOnMap(e.features[0].properties.cartodb_id, key);
-          } else {
-            setSelectedOnMap(-1, '');
-          }
-        });
-        map.map.on('mouseleave', key + '_' + index, (e: any) => {
-          if (hovereableLayers.includes(key)) {
-            hideOneHighlighted(key);
-          }
-          map.map.getCanvas().style.cursor = '';
-          setSelectedOnMap(-1, '');
-        });
       });
       setAllLayers(allLayers => [...allLayers, ...availableLayers]);
 
