@@ -153,6 +153,7 @@ const CreateProjectMap = (type: any) => {
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
+      marker.remove();
     }
   }, []);
   useEffect(()=>{
@@ -521,7 +522,6 @@ const CreateProjectMap = (type: any) => {
     }
   }
   useEffect(() => {
-    console.log("STREAM INTERSECTED", streamIntersected);
     let geom: any = undefined;
     let thisStreamIntersected = streamIntersected;
     let drawStream = true;
