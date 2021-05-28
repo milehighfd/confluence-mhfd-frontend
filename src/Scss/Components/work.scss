@@ -819,9 +819,15 @@
   right: 0;
   width: 310px !important;
 }
+.hide-when-1 {
+  display: none !important;
+}
 
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
+  .hide-when-1 {
+    display: inline-block !important;
+  }
   .work{
     .ant-timeline-item-tail {
        left: 3px !important;
@@ -1158,6 +1164,9 @@
 }
 // 2560x1440 DISPLAY
 @media (min-width: 2500px) and (max-width: 2999px){
+  .hide-when-1 {
+    display: inline-block !important;
+  }
   .work{
     .ant-timeline-item-tail {
       top: 11px !important;

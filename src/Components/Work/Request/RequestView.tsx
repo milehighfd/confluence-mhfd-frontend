@@ -105,7 +105,7 @@ const RequestView = ({ type, isFirstRendering }: {
     }
     setTimeout( () => {
       setChanges(Math.random())
-    }, 1500)
+    }, 1000)
   }
 
   const resetOnClose = () => {
@@ -750,7 +750,7 @@ const RequestView = ({ type, isFirstRendering }: {
                       </Button>
                     </ButtonGroup>
 
-                    <ButtonGroup>
+                    <ButtonGroup className={leftWidth === (MEDIUM_SCREEN_RIGHT - 1) ? '' : 'hide-when-1' }>
                     <Button className="btn-opacity">
                       <CSVLink filename={csvFileName(year, locality, type)} data={generateCSV()} className="btn-opacity" style={{padding:'0px'}}>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }} src="" />
