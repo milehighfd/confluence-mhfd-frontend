@@ -2,7 +2,7 @@ import { boardProject, columnProject } from "./RequestTypes";
 import CardStatService from './CardService';
 import { NEW_PROJECT_TYPES } from "../../../constants/constants";
 let fields = ['project_id', 'req1', 'req2', 'req3', 'req4', 'req5', 'positon0', 'positon1', 'positon2', 'positon3', 'positon4', 'positon5'];
-let fields2 = ['description', 'projectname', 'jurisdiction','county','servicearea','sponsor','cosponsor','components', 'finalcost','the_geom'];
+let fields2 = ['description', 'projectname', 'jurisdiction','county','servicearea','sponsor','cosponsor','components', 'finalcost','the_geom','streams'];
 export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
   let colsLhs: columnProject[] = _colsLhs;
   let colsRhs: columnProject[] = _colsRhs;
@@ -25,9 +25,16 @@ export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
           }
         })
         fields2.forEach((f) => {
-          if (lp.projectData[f] != rp.projectData[f]) {
-            areEqual = false;
+          if(f == 'streams') {
+            if (JSON.stringify(lp.projectData[f]) != JSON.stringify(rp.projectData[f])) {
+              areEqual = false;
+            }
+          } else {
+            if (lp.projectData[f] != rp.projectData[f]) {
+              areEqual = false;
+            }
           }
+          
         })
       }
     } else  {

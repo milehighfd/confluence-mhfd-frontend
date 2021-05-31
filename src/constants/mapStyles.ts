@@ -2209,7 +2209,7 @@ export const PROJECTS_STYLES = {
         "symbol-placement": "line"
       },
       "paint": {
-          "text-color": "hsl(52, 0%, 100%)",
+          "text-color": "hsl(40, 100%, 50%)",
           "text-halo-color": "hsl(52, 100%, 31%)",
           "text-halo-width": 5
       }
@@ -2237,7 +2237,7 @@ export const PROJECTS_STYLES = {
         "symbol-placement": "line"
       },
       "paint": {
-          "text-color": "hsl(52, 0%, 100%)",
+          "text-color": "hsl(40, 100%, 50%)",
           "text-halo-color": "hsl(52, 100%, 31%)",
           "text-halo-width": 5
       }
@@ -2371,8 +2371,8 @@ export const PROJECTS_STYLES = {
         "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
       },
       "paint": {
-          "text-color": "hsla(0, 0%, 100%, 0.74)",
-          "text-halo-color": "hsla(0, 0%, 0%, 0.25)",
+          "text-color": "hsl(40, 78%, 50%)",
+          "text-halo-color": "hsla(0, 0%, 0%, 0.5)",
           "text-halo-width": 0.25,
           "text-halo-blur": 35,
           "text-opacity": ["step", ["zoom"], 0.7, 14, 1, 22, 1]

@@ -624,20 +624,22 @@ const CreateProjectMap = (type: any) => {
         
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
-          map.map.addLayer({
-            'id': 'streams-intersects',
-            'type': 'line',
-            'source': 'mhfd_stream_reaches',
-            'source-layer': 'pluto15v1',
-            "layout": {"line-cap": "round", "line-join": "round"},
-            "paint": {
-                "line-color": "hsl(40, 100%, 50%)",
-                "line-width": 7,
-            },
-            'filter':filter
-          
-          });
-          
+          let timer = map.getSource('mhfd_stream_reaches')?50:2300;
+          setTimeout(()=>{
+            map.map.addLayer({
+              'id': 'streams-intersects',
+              'type': 'line',
+              'source': 'mhfd_stream_reaches',
+              'source-layer': 'pluto15v1',
+              "layout": {"line-cap": "round", "line-join": "round"},
+              "paint": {
+                  "line-color": "hsl(40, 100%, 50%)",
+                  "line-width": 7,
+              },
+              'filter':filter
+            
+            });
+          },timer);
         }
       });
         

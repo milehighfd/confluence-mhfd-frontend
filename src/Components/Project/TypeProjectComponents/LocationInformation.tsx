@@ -60,7 +60,7 @@ export const LocationInformation = ({
   //   setjurisdiction(e);
   // };
   useEffect(()=>{
-    if(!isLocalGovernment && jurisdiction) {
+    if(!isLocalGovernment && jurisdiction && !isEdit) {
       setSponsor([jurisdiction]);
     }
   },[jurisdiction]);
@@ -158,7 +158,7 @@ export const LocationInformation = ({
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-        <Select style={{width:'100%'}} placeholder={sponsor} value={sponsor} disabled={isLocalGovernment} onChange={setSponsor}>
+        <Select style={{width:'100%'}} placeholder={sponsor} value={sponsor} disabled={isLocalGovernment || isEdit} onChange={setSponsor}>
           {
             isLocalGovernment ? (
               <Option value={sponsor+""}>{sponsor+""}</Option>
