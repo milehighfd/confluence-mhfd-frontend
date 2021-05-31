@@ -65,9 +65,15 @@ const projectReducer = (state = initState, action: any) => {
       }
     }
     case types.SET_STREAMS_IDS: {
+      let array: any[] = [...state.streamsIntersectedIds];
+      action.streamsIntersectedIds.forEach((streamIntersected: any) => {
+        if (!array.map((r:any) => r.mhfd_code).includes(streamIntersected.mhfd_code)) {
+          array.push(streamIntersected);
+        }
+      })
       return { 
         ...state, 
-        streamsIntersectedIds: action.streamsIntersectedIds
+        streamsIntersectedIds: array
       }
     }
     case types.SET_SAVE:{
@@ -95,15 +101,37 @@ const projectReducer = (state = initState, action: any) => {
       }
     } 
     case types.SET_SERVICEAREA_COUNTY: {
+      let newLocation: any = {};
+      ['jurisdiction', 'County', 'Service Area'].forEach((key: string) => {
+        let set = new Set();
+        if (state.currentServiceAreaCounty) {
+          let obj: any = state.currentServiceAreaCounty;
+          obj[key] && obj[key].forEach((loc: string) => {
+            set.add(loc);
+          })
+        }
+        if (action.currentServiceAreaCounty) {
+          let obj: any = action.currentServiceAreaCounty;
+          obj[key] && obj[key].forEach((loc: string) => {
+            set.add(loc);
+          })
+        }
+        newLocation[key] = Array.from(set);
+      })
+
       return {
         ...state, 
-        currentServiceAreaCounty: action.currentServiceAreaCounty
+        currentServiceAreaCounty: newLocation
       }
     }
     case types.SET_LIST_STREAMS: {
+      let listStreams: any = state.listStreams;
       return {
         ...state, 
-        listStreams: action.listStreams 
+        listStreams: Array.isArray(state.listStreams) ? action.listStreams : {
+          ...listStreams,
+          ...action.listStreams
+        }
       }
     }
     case types.SET_USER_POLYGON: {
