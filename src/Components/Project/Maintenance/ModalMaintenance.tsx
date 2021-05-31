@@ -370,13 +370,11 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
                 <p>Click on the icon and draw a polygon to draw the activity area</p>
             </div>
-            <br/>
 
 
             {/*Section*/}
             {/* <h5>3. GENERATE PROJECT <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Button className="btn-green">Show Project</Button> */}
-            <br/>
 
             {/*Section*/}
             <LocationInformation

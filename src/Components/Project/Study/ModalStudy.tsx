@@ -437,12 +437,10 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><b>{getTotalLength()}mi</b></Col>
               <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7}}><b>{getTotalDreinage()} sq mi</b></Col>
             </Row>
-            <br/>
 
             {/*Section*/}
             {/* <h5>3. GENERATE PROJECT <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Button className="btn-green">Show Project</Button> */}
-            <br/>
 
             <LocationInformation
               setServiceArea = {setServiceArea}

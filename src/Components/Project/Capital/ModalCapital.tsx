@@ -1055,12 +1055,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL COST</Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost())}</b></Col>
             </Row>
-            <br/>
 
             {/*Section*/}
             {/* <h5>3. GENERATE PROJECT <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
             <Button className="btn-green">Show Project</Button> */}
-            <br/>
 
             {/*Section*/}
             <LocationInformation
