@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
-import { MainPopupCreateMap, ComponentPopupCreate } from './../Map/MapPopups';
+import { MainPopupCreateMap, ComponentPopupCreate, StreamPopup } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import { getData, getToken, postData } from "../../Config/datasets";
@@ -1521,7 +1521,8 @@ const CreateProjectMap = (type: any) => {
     setMobilePopups([]);
     setActiveMobilePopups([]);
     setSelectedPopup(-1);
-    let features = map.map.queryRenderedFeatures(bbox, { layers: allLayers });
+    let features = map.map.queryRenderedFeatures(bbox, { layers: [...allLayers,'streams-intersects'] });
+    console.log("FEATUES", features);
     if (features.length === 0) {
       return;
     }
@@ -1540,6 +1541,7 @@ const CreateProjectMap = (type: any) => {
     }
     coordX = e.point.x;
     coordY = e.point.y;
+
     if (features.length != 0) {
       previousClick = true;
     }
@@ -1980,7 +1982,16 @@ const CreateProjectMap = (type: any) => {
         popups.push(item);
         ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       }
-
+      if (feature.source === MHFD_STREAMS_FILTERS ) {
+       console.log("FEATURES STREAM", feature);
+        const item = {
+          type: 'streams-reaches',
+          title: feature.properties.str_name ? feature.properties.str_name : 'Unnamed Stream'
+        }
+        menuOptions.push(MENU_OPTIONS.MHFD_STREAMS_REACHES);
+        popups.push(item);
+        ids.push({ layer:feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id })
+      }
       for (const component of COMPONENT_LAYERS.tiles) {
         if (feature.source === component) {
           let isAdded = componentsList.find( (i:any) => i.cartodb_id === feature.properties.cartodb_id); 
@@ -2157,9 +2168,15 @@ const CreateProjectMap = (type: any) => {
   const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
 
     <>
-      {menuOptions.length === 1 ? <> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
-        loadMainPopup(0, popups[0], test)}
-      </> :
+      {menuOptions.length === 1 ? 
+        menuOptions[0] == MHFD_STREAMS_FILTERS ? 
+        loadStreamPopup(0, popups[0])
+          :
+         (<> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') 
+           ? loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
+             loadMainPopup(0, popups[0], test)}
+        </>) 
+        :
         <div className="map-pop-02">
           <div className="headmap">LAYERS</div>
           <div className="layer-popup">
@@ -2212,6 +2229,11 @@ const CreateProjectMap = (type: any) => {
   const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
     <>
       <ComponentPopupCreate id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)} isWR={false}></ComponentPopupCreate>
+    </>
+  );
+  const loadStreamPopup = (index: number, item: any) => (
+    <>
+      <StreamPopup id={index} item={item} ></StreamPopup>
     </>
   );
 

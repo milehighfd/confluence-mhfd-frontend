@@ -1791,7 +1791,8 @@ export const MENU_OPTIONS =
     CLIMB_TO_SAFETY:'Climb to Safety',
     PROJECT:'Project',
     PROJECTS: 'projects',
-    PROBLEMS: 'problems'
+    PROBLEMS: 'problems',
+    MHFD_STREAMS_REACHES: MHFD_STREAMS_FILTERS
   }
 ;
 

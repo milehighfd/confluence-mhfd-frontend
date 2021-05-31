@@ -45,7 +45,6 @@ const capitalize = (s : string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 export const MainPopup = ({id, item, test, sw, ep } : any) => {
-  console.log("COMM POPddUP",sw);
     for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
@@ -80,8 +79,27 @@ export const MainPopup = ({id, item, test, sw, ep } : any) => {
       </Card>
     </div>
 };
+export const StreamPopup = ({id, item} : any) => {
+  
+  for (const key in item) {
+      if (!item[key]) {
+          item[key] = '-';
+      }
+  }
+  
+  return <div id={"popup-" + id} className="map-pop-00">
+    <Card hoverable>
+      <div className="headmap">
+          STREAM
+      </div>
+      <div className="bodymap">
+        <h4>{capitalize(item.title)}</h4>
+      </div>
+    </Card>
+  </div>
+};
 export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
-  console.log("HEY", item);
+  
   for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
