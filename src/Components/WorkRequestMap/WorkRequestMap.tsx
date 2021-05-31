@@ -284,7 +284,7 @@ const WorkRequestMap = (type: any) => {
               
               if(map.map){
                 setTimeout(()=>{
-                  map.map.fitBounds(bboxBounds,{ padding:60});
+                  map.map.fitBounds(bboxBounds,{ padding:60, maxZoom:17.5});
                 },1200);
               }
             }
@@ -296,25 +296,6 @@ const WorkRequestMap = (type: any) => {
 
       // }
     } 
-    if(boardProjects.ids && boardProjects.ids[0] != '-8888') {
-      postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
-        (r: any) => { 
-          if(r.bbox){
-            let BBoxPolygon = JSON.parse(r.bbox);
-            let bboxBounds = turf.bbox(BBoxPolygon);
-            
-            if(map.map){
-              setTimeout(()=>{
-                map.map.fitBounds(bboxBounds,{ padding:60});
-              },1200);
-            }
-          }
-        },
-        (e:any) => {
-          console.log('Error getting bbox projectid', e);
-        }
-      )
-    }
   },[boardProjects]);
   const [opacityLayer, setOpacityLayer] = useState(false);
   const polyMask = (mask: any, bounds: any) => {

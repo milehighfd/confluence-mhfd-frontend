@@ -33,7 +33,7 @@ import {
   PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, 
   MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, 
   LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, 
-  CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, 
+  CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, MHFD_STREAMS_FILTERS,
   PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF
 } from "../../constants/constants";
 import { MapHOCProps, ProjectTypes, MapLayersType, MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
@@ -79,7 +79,7 @@ const CreateProjectMap = (type: any) => {
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjects } = useProjectState();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjects, highlightedStream } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjects);
@@ -94,7 +94,7 @@ const CreateProjectMap = (type: any) => {
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
     LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
     CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
-    PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, COMPONENT_LAYERS.tiles];
+    PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, COMPONENT_LAYERS.tiles, MHFD_STREAMS_FILTERS];
   const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
   MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
   MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
@@ -276,6 +276,17 @@ const CreateProjectMap = (type: any) => {
       }
     }
   },[highlightedProblem]);
+  useEffect(()=>{
+    if(map){
+      if(highlightedStream.streamId) {
+        console.log("STREAM ID", highlightedStream.streamId);
+        showHighlightedStream(highlightedStream.streamId);
+      } else {
+        console.log("HIDE STREAM");
+        hideHighlighted();
+      }
+    }
+  },[highlightedStream]);
   const [opacityLayer, setOpacityLayer] = useState(false);
   const polyMask = (mask: any, bounds: any) => {
     if (mask !== undefined && bounds.length > 0) {
@@ -595,7 +606,7 @@ const CreateProjectMap = (type: any) => {
             if(map.map && poly){ 
               let bboxBounds = turf.bbox(poly);
               map.isStyleLoaded(()=>{
-                map.map.fitBounds(bboxBounds,{ padding:120});
+                map.map.fitBounds(bboxBounds,{ padding:80});
               });
               
             }
@@ -634,6 +645,9 @@ const CreateProjectMap = (type: any) => {
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
           let timer = map.getSource('mhfd_stream_reaches')?50:2300;
+          if(!map.getSource('mhfd_stream_reaches')) {
+            addLayersSource('mhfd_stream_reaches', layerFilters['mhfd_stream_reaches']);
+          }
           setTimeout(()=>{
             map.map.addLayer({
               'id': 'streams-intersects',
@@ -1206,37 +1220,27 @@ const CreateProjectMap = (type: any) => {
         return;
       }
       if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
-        if(key != 'problems') {
-          map.map.addLayer({
-            id: key + '_highlight_' + index,
-            source: key,
-            type: 'line',
-            'source-layer': 'pluto15v1',
-            layout: {
-              visibility: 'visible'
-            },
-            paint: {
-              'line-color': '#fff',
-              'line-width': 7,
-            },
-            filter: ['in', 'cartodb_id']
-          });  
-        } else {
-          map.map.addLayer({
-            id: key + '_highlight_' + index,
-            source: key,
-            type: 'line',
-            'source-layer': 'pluto15v1',
-            layout: {
-              visibility: 'visible'
-            },
-            paint: {
-              'line-color': '#fff',
-              'line-width': 7,
-            },
-            filter: ['in','problemid']
-          });
+        let filter = ['in', 'cartodb_id'];
+        if(key == 'problems') {
+          filter = ['in','problemid'];
+        } else if (key == 'mhfd_stream_reaches') {
+          filter = ['in','mhfd_code'];
         }
+          map.map.addLayer({
+            id: key + '_highlight_' + index,
+            source: key,
+            type: 'line',
+            'source-layer': 'pluto15v1',
+            layout: {
+              visibility: 'visible'
+            },
+            paint: {
+              'line-color': '#fff',
+              'line-width': 7,
+            },
+            filter: filter
+          });  
+        
       }
       if (style.type === 'circle' || style.type === 'symbol') {
         map.map.addLayer({
@@ -1328,6 +1332,17 @@ const CreateProjectMap = (type: any) => {
       const url = 'projectid' + (item.projectid || item.id) + '&type=' + item.type;
       existDetailedPageProject(url);
     }
+  }
+  const showHighlightedStream = (mhfd_code: string) => {
+    const styles = { ...tileStyles as any }
+    styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
+      if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
+        // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
+        let filter = ['in',['get','unique_mhfd_code'],['literal',[mhfd_code]]];
+        map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
+        map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
+      }
+    });
   }
   const showHighlightedProblem = (problemid: string) => {
     const styles = { ...tileStyles as any }

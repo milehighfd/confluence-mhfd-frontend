@@ -27,6 +27,10 @@ const initState = {
     problemid: undefined, 
     checker: undefined
   },
+  highlightedStream: {
+    streamId: undefined, 
+    checked: undefined
+  },
   problemid: undefined,
   boardProjects: {cartoids:['-8888'], ids:['-8888'] },
   zoomProject: undefined,
@@ -168,6 +172,13 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         highlightedComponent: action.highlightedComponent
+      }
+    }
+
+    case types.SET_HIGHLIGHTED_STREAM: {
+      return {
+        ...state,
+        highlightedStream: {streamId: action.highlightedStream, checker: Math.random()}
       }
     }
     case types.SET_HIGHLIGHTED_PROB: {

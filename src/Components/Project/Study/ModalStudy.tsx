@@ -45,15 +45,15 @@ const genExtra00 = () => (
     <div>Lakewood Gulch</div>
   </div>
 );
-const genTitle = (streamName: any) => (
-  <div className="tab-head-project">
-    <div>{streamName}</div>
+const genTitle = (streamName: any, streamData:any, setHighlightedStream: Function) => (
+  <div className="tab-head-project" onMouseEnter={()=>setHighlightedStream(streamData[0].mhfd_code)} onMouseLeave={()=>setHighlightedStream(undefined)}>
+    <div>{streamName} </div>
   </div>
 )
 
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any, editable:boolean }) => {
-  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor} = useProjectDispatch();
+  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream} = useProjectDispatch();
   const {streamsIntersectedIds} =useProjectState();
   const {userInformation} = useProfileState();
   const {organization, groupOrganization} = useProfileState();
@@ -95,6 +95,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       Object.keys(listStreams).map((key: any, id: any) => {
         idKey.push(`${id}${key}`);
       })
+      console.log("LIT STREAM", listStreams);
       setKeys((keys: any) => [...idKey]);
       setThisStreamsList(listStreams);
     }
@@ -404,7 +405,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                 streamsList && Object.keys(streamsList).map((key: any, id: any) => {
                   return (
                     
-                    <Panel header="" key={`${id}${key}`} extra={genTitle(key)}>
+                    <Panel header="" key={`${id}${key}`} extra={genTitle(key, streamsList[key], setHighlightedStream)}>
                       <div key={Math.random() + ''} className="tab-body-project">
                         <Timeline>
                           {
