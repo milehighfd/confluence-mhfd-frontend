@@ -47,7 +47,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       if (type === FILTER_PROBLEMS_TRIGGER) {
         url = `problemid=${data.problemid}`;
       } else {
-        url = `type=${data.type}&projectid=${data.id ? data.id: ''}`;
+        url = `type=${data.type}&projectid=${data.id ? data.id : data.projectid}`;
       }
       event.clipboardData.setData('text/plain', SERVER.SHARE_MAP_PROJECT + '?' + url);
       event.preventDefault();
@@ -74,7 +74,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
         map = await c.getCanvasBase64()
       }
     } else {
-      let params = `projectid=${data.id}`;
+      let params = `projectid=${data.id ? data.id : data.projectid}`;
       url = `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`;
       fileName = 'project.pdf';
       let c: any = cipjRef.current;
