@@ -525,6 +525,7 @@ const CreateProjectMap = (type: any) => {
     let geom: any = undefined;
     let thisStreamIntersected = streamIntersected;
     let drawStream = true;
+    console.log("STREAM INTERSECTEd",streamIntersected);
     if (thisStreamIntersected && thisStreamIntersected.geom) {
       //parsed geom
       geom = JSON.parse(thisStreamIntersected.geom);
@@ -590,6 +591,14 @@ const CreateProjectMap = (type: any) => {
             setTimeout(()=>{
               map.map.moveLayer('streamIntersected');
             }, 4500); 
+            let poly = getTurfGeom(geom);
+            if(map.map && poly){ 
+              let bboxBounds = turf.bbox(poly);
+              map.isStyleLoaded(()=>{
+                map.map.fitBounds(bboxBounds,{ padding:120});
+              });
+              
+            }
           }
   
         });
