@@ -1061,6 +1061,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <Button className="btn-green">Show Project</Button> */}
 
             {/*Section*/}
+            <br></br>
             <LocationInformation
               setServiceArea = {setServiceArea}
               serviceArea = {serviceArea}
