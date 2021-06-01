@@ -128,14 +128,29 @@ const RequestView = ({ type, isFirstRendering }: {
   }
 
   const deleteProject = (pid: string) => {
+    let array: any[] = [];
     let newcols = columns.map((col: any) => {
       return {
         ...col,
         projects: col.projects.filter((p: any) => {
+          if (!array.map((x: any) => x.project_id).includes(p.project_id) && p.project_id != pid) {
+            array.push(p);
+          }
           return p.project_id != pid;
         })
       }
     });
+    let justProjects = array.map((proj:any)=> {
+      return proj.projectData?.cartodb_id;
+    });
+    let idsProjects = array.map((proj:any)=> {
+      return proj.projectData?.projectid;
+    });
+    if(array.length>0){
+      setBoardProjects({cartoids:justProjects, ids: idsProjects});
+    } else {
+      setBoardProjects(['-8888']);
+    }
     setColumns(newcols);
   }
 
