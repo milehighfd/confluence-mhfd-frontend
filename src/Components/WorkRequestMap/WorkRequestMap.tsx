@@ -254,7 +254,7 @@ const WorkRequestMap = (type: any) => {
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
       
-    if(boardProjects[0] == '-8888'){
+    if(boardProjects && boardProjects[0] == '-8888'){
       setTimeout(()=>{
         let value = store.getState().profile.userInformation.zoomarea;
         if(type.locality) {
@@ -270,10 +270,10 @@ const WorkRequestMap = (type: any) => {
       setFirstRendering(false)
       return;
     }
-    if(!boardProjects.ids) {  
+    if(boardProjects && !boardProjects.ids) {  
       setIdsBoardProjects(boardProjects);
     }
-    if(boardProjects.ids && boardProjects.ids[0] != '-8888') {
+    if(boardProjects && boardProjects.ids && boardProjects.ids[0] != '-8888') {
       // if(!equals(boardProjects.ids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjects.ids);
         postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(

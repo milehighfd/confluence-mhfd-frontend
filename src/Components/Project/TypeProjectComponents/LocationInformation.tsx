@@ -13,7 +13,7 @@ const content02 = (<div className="popver-info"></div>);
 const content03 = (<div className="popver-info"><b>Sponsor</b> is the Jurisdiction that requested the project.</div>);
 const content04 = (<div className="popver-info"><b>Co-Sponsor</b> is any additional Jurisdiction that will be contributing funding to the project.</div>);
 export const LocationInformation = ({
-  setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor,sponsor, isEdit
+  setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor,sponsor, isEdit, isCapital
 }: {
   setServiceArea: Function,
   setCounty: Function,
@@ -26,7 +26,8 @@ export const LocationInformation = ({
   setSponsor: any,
   cosponsor:any,
   sponsor:any,
-  isEdit: boolean
+  isEdit: boolean,
+  isCapital?: boolean
 }) => {
   const {currentServiceAreaCounty, jurisdiction} = useProjectState();
   const {setServiceAreaCounty} = useProjectDispatch();
@@ -116,7 +117,7 @@ export const LocationInformation = ({
   
   return(
     <>
-    <h5>3. Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+    <h5>{isCapital?'4.':'3.'} Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
         <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>

@@ -9,6 +9,7 @@ const initState = {
   userPolygon: [],
   streamIntersected: [],
   isDraw: false,
+  isDrawCapital: false,
   streamsIntersectedIds: [],
   isAddLocation: false,
   status: 2,
@@ -67,6 +68,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         isDraw: action.isDraw
+      }
+    }
+    case types.CHANGE_DRAW_STATE_CAPITAL: {
+      return {
+        ...state, 
+        isDrawCapital: action.isDrawCapital
       }
     }
     case types.SET_SAVE:{

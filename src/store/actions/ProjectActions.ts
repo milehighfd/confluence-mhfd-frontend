@@ -334,6 +334,11 @@ export const changeDrawState = (isDraw: boolean) => {
     dispatch({type: types.CHANGE_DRAW_STATE, isDraw});
   }
 } 
+export const changeDrawStateCapital = (isDrawCapital: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.CHANGE_DRAW_STATE_CAPITAL, isDrawCapital});
+  }
+} 
 
 export const changeAddLocationState = (isAddLocation: boolean) => {
   return (dispatch: Function) => {

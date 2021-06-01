@@ -123,12 +123,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [isDrawState, setIsDraw] = useState(false);
-  const {changeDrawState, setEditLocation} = useProjectDispatch();
+  const [isDrawStateCapital, setIsDrawCapital] = useState(false);
+  const {changeDrawState, changeDrawStateCapital, setEditLocation} = useProjectDispatch();
   const [sponsor, setSponsor] = useState(organization+"");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
   const [projectid, setProjectId ] = useState(-1);
-  const {isDraw} = useProjectState();
+  const {isDraw, isDrawCapital} = useProjectState();
   const [save, setSave] = useState(false);
   const [files, setFiles] = useState<any[]>([]);
   const [groups,setGroups] = useState<any>({});
@@ -424,6 +425,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   const onClickDraw = () => {
     setIsDraw(!isDrawState);
+    setIsDrawCapital(false);
   }
   useEffect(()=>{
     changeDrawState(isDrawState);
@@ -433,6 +435,19 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setIsDraw(isDraw);
     }
   },[isDraw]);
+
+  const onClickDrawCapital = () => {
+    setIsDrawCapital(!isDrawStateCapital);
+    setIsDraw(false);
+  }
+  useEffect(()=>{
+    changeDrawStateCapital(isDrawStateCapital);
+  },[isDrawStateCapital]);
+  useEffect(()=>{
+    if(isDrawStateCapital && !isDrawCapital){
+      setIsDrawCapital(isDrawCapital);
+    }
+  },[isDrawCapital]);
   useEffect(()=>{
     if(thisIndependentComponents.length > 0 ){
       setVisibleUnnamedComponent(true);
@@ -735,7 +750,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               }
             </Collapse>
             <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button>
+            <h5>3. PROJECT GEOMETRY <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
 
+            <div className={"draw "+(isDrawStateCapital?'active':'')} style={{height:'113px'}} onClick={onClickDrawCapital}>
+              <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
+              <p style={{padding: "10px 120px 10px 120px"}}>Click on the icon above and draw a polygon to define the project geometry based on the streams layer</p>
+            </div>
+            <br></br>
+            <h5>4. FINANCIAL INFORMATION <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>
@@ -1075,6 +1097,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               sponsor={sponsor}
               editable= {editable}
               isEdit={swSave}
+              isCapital={true}
             />
             <br/>
 

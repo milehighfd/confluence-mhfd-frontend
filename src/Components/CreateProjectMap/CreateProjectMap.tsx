@@ -63,6 +63,7 @@ let firstTimeApplyMapLayers = true;
 let previousClick = false;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+let currentDraw = 'polygon';
 // const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
@@ -79,7 +80,7 @@ const CreateProjectMap = (type: any) => {
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream } = useProjectState();
+  const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjectsCreate);
@@ -422,7 +423,7 @@ const CreateProjectMap = (type: any) => {
             let bboxBounds = turf.bbox(BBoxPolygon);
             if(map.map){
               setTimeout(()=>{
-                map.isStyleLoaded(() => map.map.fitBounds(bboxBounds,{ padding:90 }));
+                map.isStyleLoaded(() => map.map.fitBounds(bboxBounds,{ padding:90, maxZoom: 16 }));
               }, 3000);              
             }
           }
@@ -450,7 +451,7 @@ const CreateProjectMap = (type: any) => {
         setLoading(false);
       },1500);
       if(type.type === 'CAPITAL') {
-        getStreamsByComponentsList(listComponents.result);
+        // getStreamsByComponentsList(listComponents.result);
       }
       
       componentsList = listComponents.result;
@@ -489,8 +490,14 @@ const CreateProjectMap = (type: any) => {
     }
     
   },[isAddLocation]); 
+  const [isAlreadyDraw, setIsAlreadyDraw] = useState(false);
   useEffect(() => {
-    if(isDraw) {
+    if(isDraw || isDrawCapital) {
+      currentDraw = isDraw?'polygon':(isDrawCapital?'capitalpolygon':'polygon');
+      if(isAlreadyDraw) {
+        map.removeDrawController();
+      }
+      setIsAlreadyDraw(true);
       if (type.type != 'ACQUISITION' && type.type != 'SPECIAL') {
         // let eventToClick = eventService.getRef('click');
         // map.map.off('click', eventToClick);
@@ -512,10 +519,12 @@ const CreateProjectMap = (type: any) => {
     } else {
       isPopup = true;
       map.removeDrawController();
+      setIsAlreadyDraw(false);
       // let eventToClick = eventService.getRef('click');
       // map.map.on('click', eventToClick);
     }
-  }, [isDraw]);
+  }, [isDraw, isDrawCapital]);
+
   const getTurfGeom = ( geom: any)=>{
     if(geom.type.includes('MultiPolygon')) {
       return turf.multiPolygon(geom.coordinates);
@@ -554,10 +563,11 @@ const CreateProjectMap = (type: any) => {
       }
       if(type.type == 'CAPITAL' || type.type == 'MAINTENANCE') {
         getServiceAreaPolygonofStreams(thisStreamIntersected.geom);
-      }
-      if(type.type === 'MAINTENANCE') {
         setLoading(false);
       }
+      // if(type.type === 'MAINTENANCE') {
+      //   setLoading(false);
+      // }
       
       if(type.problemId && geom.coordinates.length > 0) {
         let poly = getTurfGeom(geom);
@@ -751,13 +761,19 @@ const CreateProjectMap = (type: any) => {
     updateSelectedLayers(filterLayers);
   }
   const onCreateDraw = (event: any) => {
+    console.log(currentDraw);
     removeProjectLayer();    
     setLoading(true);
     const userPolygon = event.features[0];
     if (type.type === 'CAPITAL') {
       // getStreamIntersectionSave(userPolygon.geometry);
       // getListComponentsIntersected(userPolygon.geometry);
-      getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
+      if(currentDraw == 'polygon') {
+        getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
+      } else {
+        getStreamIntersectionPolygon(userPolygon.geometry);  
+      }
+      
     } else if (type.type === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
@@ -777,41 +793,6 @@ const CreateProjectMap = (type: any) => {
       }
       changeDrawState(false);
     },2500);
-    // const polygonBoundingBox = turf.bbox(userPolygon);
-    // const southWest = [polygonBoundingBox[0], polygonBoundingBox[1]];
-    // const northEast = [polygonBoundingBox[2], polygonBoundingBox[3]];
-    // const northEastPointPixel = map.map.project(northEast);
-    // const southWestPointPixel = map.map.project(southWest);
-    // let totalFeatures: Array<any> = [];
-    // for(let key of COMPONENT_LAYERS.tiles) {
-    //     if(map.getLayer(key+'_0')) {
-    //       const featuresComponents = map.map.queryRenderedFeatures([southWestPointPixel, northEastPointPixel], {layers: [key+'_0']}); 
-    //       totalFeatures = [...totalFeatures, ...featuresComponents];
-    //     } 
-    // }
-    // let featuresIntersected = getFeaturesIntersected(totalFeatures, userPolygon);
-    // let hull: any = getHull(featuresIntersected);
-    // map.removeLayer('hull');
-    // map.removeSource('hull'); 
-    // if(!map.map.getSource('hull')) {
-    //   map.map.addSource('hull', {
-    //     'type': 'geojson',
-    //     'data': hull
-    //   });
-    // }
-    // if(!map.getLayer('hull')){
-    //   map.map.addLayer({
-    //     'id': 'hull',
-    //     'type': 'fill',
-    //     'source': 'hull',
-    //     'layout': {},
-    //     'paint': {
-    //     'fill-color': '#088',
-    //     'fill-opacity': 0.8
-    //     }
-    //   });
-    // }
-
 
   }
   const applyMapLayers = async () => {
