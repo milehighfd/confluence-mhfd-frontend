@@ -318,7 +318,7 @@ export const getStreamsIntersectedPolygon = (geom: any) => {
   return ( dispatch: Function) => {
     datasets.postData(SERVER.GET_STREAM_INTERSECTED, {geom: geom}, datasets.getToken()).then(res => {
       let streamsIntersectedIds = res;
-        dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
+        dispatch({type: types.SET_STREAMS_IDS_ADD, streamsIntersectedIds});
     });
   }
 }
@@ -385,7 +385,7 @@ export const getServiceAreaPoint = (geom:any ) => {
 export const getServiceAreaStreams = (geom:any ) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_SERVICEAREA_COUNTY_STREAMS, {geom: geom}, datasets.getToken()).then(currentServiceAreaCounty => {
-      dispatch({type: types.SET_SERVICEAREA_COUNTY, currentServiceAreaCounty});
+      dispatch({type: types.SET_SERVICEAREA_COUNTY_ADD, currentServiceAreaCounty});
     });
   }
 }
@@ -432,7 +432,7 @@ export const getStreamsList = (geom: any) => {
         console.log(dataStreams[k], objArray);
         listStreams[k] = [...objArray];
       }
-      dispatch({type: types.SET_LIST_STREAMS, listStreams});
+      dispatch({type: types.SET_LIST_STREAMS_ADD, listStreams});
     })
   }
 }
@@ -526,7 +526,7 @@ export const getStreamsByProjectId = (projectId: any) => {
           mhfd_code:i
         })
       };
-      dispatch({type: types.SET_STREAMS_IDS, streamsIntersectedIds});
+      dispatch({type: types.SET_STREAMS_IDS_ADD, streamsIntersectedIds});
     })
   }
 }

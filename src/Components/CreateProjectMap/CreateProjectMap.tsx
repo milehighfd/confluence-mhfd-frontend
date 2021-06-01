@@ -1522,7 +1522,6 @@ const CreateProjectMap = (type: any) => {
     setActiveMobilePopups([]);
     setSelectedPopup(-1);
     let features = map.map.queryRenderedFeatures(bbox, { layers: [...allLayers,'streams-intersects'] });
-    console.log("FEATUES", features);
     if (features.length === 0) {
       return;
     }

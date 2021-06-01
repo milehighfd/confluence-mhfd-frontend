@@ -88,6 +88,12 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     setJurisdictionSponsor(undefined);
     setStreamIntersected({geom:null});
     updateSelectedLayers([ PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS ]);
+    return () => {
+      setServiceArea({});
+      setStreamsList([]);
+      setStreamIntersected({geom:null});
+      setStreamsIds([]);
+    }
   },[]);
   useEffect(()=>{
     if(listStreams) {
