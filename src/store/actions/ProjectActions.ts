@@ -587,6 +587,12 @@ export const setBoardProjects = (boardProjects: any) => {
     dispatch({type: types.SET_BOARD_PROJECTS, boardProjects});
   }
 }
+export const setBoardProjectsCreate = (boardProjectsCreate: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_BOARD_PROJECTS_CREATE, boardProjectsCreate});
+  }
+}
+
 export const setZoomProject = (zoomProject: any) => {
   return (dispatch: Function) => {
     dispatch({type: types.SET_ZOOM_PROJECT, zoomProject});

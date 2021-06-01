@@ -79,10 +79,10 @@ const CreateProjectMap = (type: any) => {
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom } = useProjectDispatch();
-  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjects, highlightedStream } = useProjectState();
+  const { streamIntersected, isDraw, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
-  const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjects);
+  const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjectsCreate);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -260,12 +260,13 @@ const CreateProjectMap = (type: any) => {
     const equals = (a:any, b:any) =>
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
-    if(boardProjects.cartoids && boardProjects.cartoids[0] != '-8888') {
-      if(!equals(boardProjects.cartoids, idsBoardProjects)) {
-        setIdsBoardProjects(boardProjects.ids);
+      console.log("THIS IS THE THING", boardProjectsCreate);
+    if(boardProjectsCreate.cartoids && boardProjectsCreate.cartoids[0] != '-8888') {
+      if(!equals(boardProjectsCreate.cartoids, idsBoardProjects)) {
+        setIdsBoardProjects(boardProjectsCreate.ids);
       }
     } 
-  },[boardProjects]);
+  },[boardProjectsCreate]);
   useEffect(()=>{
     if (map) {
       if (highlightedProblem.problemid) {

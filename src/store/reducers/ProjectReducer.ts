@@ -33,6 +33,7 @@ const initState = {
   },
   problemid: undefined,
   boardProjects: {cartoids:['-8888'], ids:['-8888'] },
+  boardProjectsCreate: {cartoids:['-8888'], ids:['-8888'] },
   zoomProject: undefined,
   jurisdiction: undefined,
   componentGeom: undefined,
@@ -226,6 +227,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state, 
         boardProjects: action.boardProjects
+      }
+    }
+    case types.SET_BOARD_PROJECTS_CREATE: {
+      return {
+        ...state, 
+        boardProjectsCreate: action.boardProjectsCreate
       }
     }
     case types.SET_ZOOM_PROJECT: {

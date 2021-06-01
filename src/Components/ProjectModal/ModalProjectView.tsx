@@ -9,6 +9,8 @@ import { NEW_PROJECT_TYPES } from "../../constants/constants";
 import { useProjectDispatch } from "../../hook/projectHook";
 import { useAttachmentDispatch } from "../../hook/attachmentHook";
 import { getAllowedBasedOnLocality } from "../Work/Request/RequestViewUtil";
+import { postData } from "../../Config/datasets";
+import { SERVER } from "../../Config/Server.config";
 
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
@@ -18,7 +20,7 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = ({ visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable, problemId }: {
+export const ModalProjectView = ({ visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable, problemId, currentData }: {
   visible: boolean,
   setVisible: Function,
   data: any,
@@ -27,9 +29,10 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   showDefaultTab?: any,
   locality?: any,
   editable:boolean,
-  problemId?: any
+  problemId?: any,
+  currentData?: any
 }) => {
-  const {getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId} = useProjectDispatch();
+  const {getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setBoardProjectsCreate} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
   const [disable, setDisable] = useState(true);
@@ -48,6 +51,31 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
     setNameProject('');
   };
   const handleOk = (e: any) => {  
+    let dataForBoard = {...currentData};
+    dataForBoard.projecttype = typeProject;
+    console.log("GUATTT", dataForBoard,currentData);
+    postData(`${SERVER.URL_BASE}/board/`, dataForBoard)
+    // postData(`${'http://localhost:3003'}/board/`, data)
+      .then(
+        (r: any) => {
+          let { board, projects } = r; 
+          if (projects) { 
+            let justProjects = projects.map((proj:any)=> {
+              return proj.projectData?.cartodb_id;
+            });
+            let idsProjects = projects.map((proj:any)=> {
+              return proj.projectData?.projectid;
+            });
+            console.log("BOARDs SENDING WITH tHIS data", dataForBoard, 'And sending this projects', projects);
+            if(projects.length>0){
+              setBoardProjectsCreate({cartoids:justProjects, ids: idsProjects});
+            } else {
+              setBoardProjectsCreate(['-8888']);
+            }
+
+          }
+        }
+      )
     if(typeProject === NEW_PROJECT_TYPES.Capital ){
       setVisibleCapital(true);
     }
@@ -152,6 +180,11 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
     setAllowed(getAllowedBasedOnLocality(locality));
   }, [locality]);
 
+  useEffect(() => {
+    return () => {
+      setBoardProjectsCreate([]);
+    }
+  },[]);
   return (
     <>
      {visibleCapital && <ModalCapital

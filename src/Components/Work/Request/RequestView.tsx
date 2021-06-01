@@ -89,7 +89,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const {clear} = useAttachmentDispatch();
   const wrtRef = useRef(null);
   const [problemid, setProblemId ] = useState<any>(undefined);
-  
+  const [currentDataForBoard, setCurrentDataForBoard] = useState({});
 
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
@@ -107,6 +107,9 @@ const RequestView = ({ type, isFirstRendering }: {
       setChanges(Math.random())
     }, 1000)
   }
+  useEffect(()=>{
+    console.log("/ON EVETY CHANGE", currentDataForBoard);
+  },[currentDataForBoard]);
 
   const resetOnClose = () => {
     setStreamIntersected([]);
@@ -288,6 +291,7 @@ const RequestView = ({ type, isFirstRendering }: {
       locality,
       projecttype: tabKey
     }
+    setCurrentDataForBoard(data);
     setColumns(defaultColumns);
     postData(`${SERVER.URL_BASE}/board/`, data)
     // postData(`${'http://localhost:3003'}/board/`, data)
@@ -624,6 +628,7 @@ const RequestView = ({ type, isFirstRendering }: {
           showDefaultTab={true}
           locality={locality}
           editable={true}
+          currentData={currentDataForBoard}
       />
     }{  showCreateProject &&
       <ModalProjectView
@@ -634,6 +639,7 @@ const RequestView = ({ type, isFirstRendering }: {
           locality={locality}
           editable={true}
           problemId= {problemid}
+          currentData={currentDataForBoard}
       />
     }
     {
@@ -682,6 +688,7 @@ const RequestView = ({ type, isFirstRendering }: {
           defaultTab={tabKey}
           locality={locality}
           editable = {true}
+          currentData={currentDataForBoard}
         />
       }
     <Layout>
@@ -694,11 +701,11 @@ const RequestView = ({ type, isFirstRendering }: {
         }
         <Layout className="work">
           {
-            loading && <LoadingView />
+            // loading && <LoadingView />
           }
-          { loadingTransp && <LoadingViewOverall></LoadingViewOverall>}
+          { (loadingTransp || loading ) &&<LoadingViewOverall></LoadingViewOverall>}
           {
-            !loading &&<Row>
+            <Row>
             <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
                 <WorkRequestMap isFirstRendering={isFirstRendering} locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} />
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
