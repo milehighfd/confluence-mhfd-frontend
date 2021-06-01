@@ -107,6 +107,7 @@ const CreateProjectMap = (type: any) => {
   const empty: any[] = [];
   const [allLayers, setAllLayers] = useState(empty);
   const [counterPopup, setCounterPopup] = useState( 0 );  
+  const [componentsHover, setComponentsHover] = useState([]);
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -261,7 +262,6 @@ const CreateProjectMap = (type: any) => {
     const equals = (a:any, b:any) =>
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
-      console.log("THIS IS THE THING", boardProjectsCreate);
     if(boardProjectsCreate.cartoids && boardProjectsCreate.cartoids[0] != '-8888') {
       if(!equals(boardProjectsCreate.cartoids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjectsCreate.ids);
@@ -281,10 +281,8 @@ const CreateProjectMap = (type: any) => {
   useEffect(()=>{
     if(map){
       if(highlightedStream.streamId) {
-        console.log("STREAM ID", highlightedStream.streamId);
         showHighlightedStream(highlightedStream.streamId);
       } else {
-        console.log("HIDE STREAM");
         hideHighlighted();
       }
     }
@@ -447,6 +445,11 @@ const CreateProjectMap = (type: any) => {
   },[groupOrganization, type.locality, localAOI]);
   useEffect(()=>{
     if(listComponents && listComponents.result && listComponents.result.length > 0) {
+      let componentsHovers:any = {};
+      for(let i of listComponents.result) {
+        componentsHovers[i.table] = componentsHovers[i.table]? [...componentsHovers[i.table],i.cartodb_id]: [i.cartodb_id];
+      }
+      setComponentsHover(componentsHovers);
       setTimeout(()=>{
         setLoading(false);
       },1500);
@@ -490,10 +493,22 @@ const CreateProjectMap = (type: any) => {
     }
     
   },[isAddLocation]); 
+  const showHoverComponents = ()=>{
+    if(listComponents && listComponents.result && listComponents.result.length > 0) { 
+      Object.keys(componentsHover).forEach((key:any) => {
+        showHighlightedArray(key,componentsHover[key]);
+      }); 
+    }
+  };
   const [isAlreadyDraw, setIsAlreadyDraw] = useState(false);
   useEffect(() => {
     if(isDraw || isDrawCapital) {
       currentDraw = isDraw?'polygon':(isDrawCapital?'capitalpolygon':'polygon');
+      if(isDrawCapital) {
+        showHoverComponents();
+      } else {
+        hideHighlighted();
+      }
       if(isAlreadyDraw) {
         map.removeDrawController();
       }
@@ -546,7 +561,6 @@ const CreateProjectMap = (type: any) => {
     let geom: any = undefined;
     let thisStreamIntersected = streamIntersected;
     let drawStream = true;
-    console.log("STREAM INTERSECTEd",streamIntersected);
     if (thisStreamIntersected && thisStreamIntersected.geom) {
       //parsed geom
       geom = JSON.parse(thisStreamIntersected.geom);
@@ -771,6 +785,7 @@ const CreateProjectMap = (type: any) => {
       if(currentDraw == 'polygon') {
         getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
       } else {
+        hideHighlighted();
         getStreamIntersectionPolygon(userPolygon.geometry);  
       }
       
@@ -1342,6 +1357,15 @@ const CreateProjectMap = (type: any) => {
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
         map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+      }
+    });
+  };
+  const showHighlightedArray = (key: string, cartodb_ids: any) => {
+    const styles = { ...tileStyles as any }
+    styles[key].forEach((style: LayerStylesType, index: number) => {
+      if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+        let filter = ['in',['get','cartodb_id'],['literal',[...cartodb_ids]]];
+        map.setFilter(key + '_highlight_' + index, filter);
       }
     });
   };
@@ -1964,7 +1988,6 @@ const CreateProjectMap = (type: any) => {
         ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       }
       if (feature.source === MHFD_STREAMS_FILTERS ) {
-       console.log("FEATURES STREAM", feature);
         const item = {
           type: 'streams-reaches',
           title: feature.properties.str_name ? feature.properties.str_name : 'Unnamed Stream'

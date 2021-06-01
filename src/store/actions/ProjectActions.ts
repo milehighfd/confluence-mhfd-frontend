@@ -577,6 +577,7 @@ export const setHighlightedComponent = (highlightedComponent: any) => {
     dispatch({ type: types.SET_HIGHLIGHTED, highlightedComponent});
   }
 }
+
 export const setHighlightedStream = (highlightedStream: any) => {
   return (dispatch: Function) => {
     dispatch({type: types.SET_HIGHLIGHTED_STREAM, highlightedStream});

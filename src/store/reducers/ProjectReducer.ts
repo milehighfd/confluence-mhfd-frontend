@@ -24,6 +24,7 @@ const initState = {
     type:'',
     value: ''
   },
+  highlightedComponents: [],
   highlightedProblem: {
     problemid: undefined, 
     checker: undefined
@@ -211,7 +212,12 @@ const projectReducer = (state = initState, action: any) => {
         highlightedComponent: action.highlightedComponent
       }
     }
-
+    case types.SET_HIGHLIGHTED_COMPONENTS: {
+      return {
+        ...state,
+        highlightedComponents: action.highlightedComponents
+      }
+    }
     case types.SET_HIGHLIGHTED_STREAM: {
       return {
         ...state,
