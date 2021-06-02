@@ -673,7 +673,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                     >
                                       <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onClick={()=>setValueZoomComp(component)}><label>{component.type}</label></Col>
                                       <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
-                                      <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}> {formatter.format(component.original_cost)}</Col>
+                                      <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}> {formatter.format(Math.floor(component.original_cost))}</Col>
                                       <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
                                         <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                     </Row>
