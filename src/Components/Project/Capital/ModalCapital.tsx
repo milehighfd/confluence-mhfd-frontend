@@ -361,7 +361,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    console.log("STREAM VALIDATION", streamValidation, streamIntersected);
+    
     if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== ''  && nameProject !== '' && componentsToSave.length !== 0  && streamValidation != undefined && streamValidation.coordinates.length > 0){
       // if(locality === "no locality" ){
       //   setDisable(false);
@@ -752,9 +752,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button>
             <h5>3. PROJECT GEOMETRY <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
 
-            <div className={"draw "+(isDrawStateCapital?'active':'')} style={{height:'113px'}} onClick={onClickDrawCapital}>
+            <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
-              <p style={{padding: "10px 120px 10px 120px"}}>Click on the icon above and draw a polygon to define the project geometry based on the streams layer</p>
+              <p >Click on the icon above and draw a polygon to define the project feature</p>
             </div>
             <h5>4. FINANCIAL INFORMATION <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
             <Row className="cost-project">
@@ -1105,6 +1105,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               files={files}
               setFiles={setFiles}
               setCover={setCover}
+              isCapital={true}
             />
           </div>
           <div className="footer-project">

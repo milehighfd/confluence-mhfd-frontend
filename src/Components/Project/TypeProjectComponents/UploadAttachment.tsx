@@ -8,10 +8,11 @@ const content06 = (<div className="popver-info"></div>);
 
 let counter = 0;
 
-export const UploadAttachment = ({ files, setFiles, setCover }: {
+export const UploadAttachment = ({ files, setFiles, setCover , isCapital}: {
   files: any[],
   setFiles: Function,
-  setCover: Function
+  setCover: Function,
+  isCapital?: any
 }) => {
   const labelRef = useRef<HTMLDivElement>(null);
   const [draggin, setDraggin] = useState(false);
@@ -167,7 +168,7 @@ export const UploadAttachment = ({ files, setFiles, setCover }: {
 
   return (
     <>
-      <h5>4. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+      <h5>{isCapital?'5':'4'}. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       <input id="uploader" type="file" style={{ display: 'none' }} onChange={onChange} multiple accept="image/png, image/jpeg" />
       <div ref={labelRef}>
         {draggin && 

@@ -551,6 +551,7 @@ const CreateProjectMap = (type: any) => {
       isPopup = true;
       map.removeDrawController();
       setIsAlreadyDraw(false);
+      currentDraw = 'none';
       // let eventToClick = eventService.getRef('click');
       // map.map.on('click', eventToClick);
     }
@@ -791,7 +792,6 @@ const CreateProjectMap = (type: any) => {
     updateSelectedLayers(filterLayers);
   }
   const onCreateDraw = (event: any) => {
-    console.log(currentDraw);
     removeProjectLayer();    
     setLoading(true);
     const userPolygon = event.features[0];
@@ -1306,7 +1306,7 @@ const CreateProjectMap = (type: any) => {
           */
          if(style.type != 'symbol') {
           map.map.on('mousemove', key + '_' + index, (e: any) => {
-            if (hovereableLayers.includes(key)) {
+            if (hovereableLayers.includes(key) && currentDraw!='capitalpolygon') {
               showHighlighted(key, e.features[0].properties.cartodb_id);
             }
             if (key.includes('projects') || key === 'problems') {
@@ -1317,7 +1317,7 @@ const CreateProjectMap = (type: any) => {
             }
           });
           map.map.on('mouseleave', key + '_' + index, (e: any) => {
-            if (hovereableLayers.includes(key)) {
+            if (hovereableLayers.includes(key) && currentDraw!='capitalpolygon') {
               hideOneHighlighted(key);
             }
             map.map.getCanvas().style.cursor = '';
