@@ -35,7 +35,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   minimumFractionDigits: 0,
-  maximumFractionDigits: 2
+  maximumFractionDigits: 0
 });
 const genExtra = () => (
   <Row className="tab-head-project">
@@ -756,7 +756,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p style={{padding: "10px 120px 10px 120px"}}>Click on the icon above and draw a polygon to define the project geometry based on the streams layer</p>
             </div>
-            <br></br>
             <h5>4. FINANCIAL INFORMATION <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
