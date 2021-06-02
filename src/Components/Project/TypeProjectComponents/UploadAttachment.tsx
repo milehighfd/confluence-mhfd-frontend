@@ -168,7 +168,7 @@ export const UploadAttachment = ({ files, setFiles, setCover , isCapital}: {
 
   return (
     <>
-      <h5>{isCapital?'5':'4'}. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+      <h5>{isCapital?'6':'4'}. Upload Attachments <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
       <input id="uploader" type="file" style={{ display: 'none' }} onChange={onChange} multiple accept="image/png, image/jpeg" />
       <div ref={labelRef}>
         {draggin && 
