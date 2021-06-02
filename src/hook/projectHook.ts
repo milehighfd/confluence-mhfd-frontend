@@ -2,7 +2,7 @@ import { AnyLayer } from 'mapbox-gl';
 import { dispatch } from 'd3';
 import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, changeDrawStateCapital, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected, setComponentsFromMap, updateSelectedLayers, setHighlightedComponent, updateSelectedLayersWR, setBoardProjects, setBoardProjectsCreate, setZoomProject, setStreamsIds, editSpecial, editAcquisition ,setEditLocation, editMaintenance, getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setIndComponents, getGEOMByProjectId, editCapital, editStudy, setServiceAreaCounty, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setJurisdictionSponsor, getComponentGeom, getZoomGeomComp, getZoomGeomProblem, setZoomGeom, setHighlightedProblem, setComponentGeom, setHighlightedStream} from '../store/actions/ProjectActions';
+import { saveAcquisition, saveCapital, saveMaintenance, saveSpecial, saveStudy, saveSpecialLocation, saveAcquisitionLocation, getStreamIntersection, changeDrawState, changeDrawStateCapital, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, setSave, getComponentsIntersected, setComponentIntersected, getServiceAreaPoint, getServiceAreaStreams, getStreamsList, setStreamsList, setUserPolygon, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, getAllComponentsByProblemId, setStreamIntersected, setComponentsFromMap, updateSelectedLayers, setHighlightedComponent, updateSelectedLayersWR, setBoardProjects, setBoardProjectsCreate, setZoomProject, setStreamsIds, editSpecial, editAcquisition ,setEditLocation, editMaintenance, getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setIndComponents, getGEOMByProjectId, editCapital, editStudy, setServiceAreaCounty, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setJurisdictionSponsor, getComponentGeom, getZoomGeomComp, getZoomGeomProblem, setZoomGeom, setHighlightedProblem, setComponentGeom, setHighlightedStream,setHighlightedStreams} from '../store/actions/ProjectActions';
 
 import { RootState } from '../store/reducers';
 
@@ -32,7 +32,8 @@ interface selectProjectState {
   zoomGeom: any,
   highlightedProblem: any,
   highlightedStream: any,
-  isDrawCapital: any
+  isDrawCapital: any,
+  highlightedStreams: any
 }
 
 let createSelectorHack: any = createSelector;
@@ -65,8 +66,9 @@ createSelectorHack(
   (state: any) => state.project.highlightedStream,
   (state: any) => state.project.boardProjectsCreate,
   (state: any) => state.project.isDrawCapital,
-  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any, listStreams: any, userPolygon: any, componentsFromMap: any, status: number, selectedLayers: any, selectedLayersWR: any, highlightedComponent:any, boardProjects:any, zoomProject: any, editLocation:any, independentComponents: any, jurisdiction:any, componentGeom:any, zoomGeom:any, highlightedProblem:any, highlightedStream:any, boardProjectsCreate:any, isDrawCapital:any) => ({
-    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty, listStreams, userPolygon, componentsFromMap, status, selectedLayers, highlightedComponent, selectedLayersWR, boardProjects, zoomProject, editLocation, independentComponents, jurisdiction,componentGeom, zoomGeom, highlightedProblem, highlightedStream, boardProjectsCreate, isDrawCapital
+  (state: any) => state.project.highlightedStreams,
+  (specialLocation: any, acquisitionLocation: any, streamIntersected: any, isDraw: boolean, streamsIntersectedIds: any, isAddLocation:any, listComponents: any, currentServiceAreaCounty:any, listStreams: any, userPolygon: any, componentsFromMap: any, status: number, selectedLayers: any, selectedLayersWR: any, highlightedComponent:any, boardProjects:any, zoomProject: any, editLocation:any, independentComponents: any, jurisdiction:any, componentGeom:any, zoomGeom:any, highlightedProblem:any, highlightedStream:any, boardProjectsCreate:any, isDrawCapital:any, highlightedStreams:any) => ({
+    specialLocation, acquisitionLocation, streamIntersected, isDraw, streamsIntersectedIds, isAddLocation,listComponents, currentServiceAreaCounty, listStreams, userPolygon, componentsFromMap, status, selectedLayers, highlightedComponent, selectedLayersWR, boardProjects, zoomProject, editLocation, independentComponents, jurisdiction,componentGeom, zoomGeom, highlightedProblem, highlightedStream, boardProjectsCreate, isDrawCapital, highlightedStreams
   })
 );
 
@@ -240,6 +242,9 @@ export const useProjectDispatch = () => {
       },
       setHighlightedStream: (highlightedStream: any) => {
         dispatch(setHighlightedStream(highlightedStream));
+      },
+      setHighlightedStreams: (highlightedStreams: any) => {
+        dispatch(setHighlightedStreams(highlightedStreams));
       },
       setComponentGeom: (componentGeom: any) => {
         dispatch(setComponentGeom(componentGeom))

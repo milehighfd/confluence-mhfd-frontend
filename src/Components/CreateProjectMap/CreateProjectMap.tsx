@@ -80,7 +80,7 @@ const CreateProjectMap = (type: any) => {
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom } = useProjectDispatch();
-  const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream } = useProjectState();
+  const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream,highlightedStreams } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjectsCreate);
@@ -279,6 +279,7 @@ const CreateProjectMap = (type: any) => {
     }
   },[highlightedProblem]);
   useEffect(()=>{
+    console.log(highlightedStream);
     if(map){
       if(highlightedStream.streamId) {
         showHighlightedStream(highlightedStream.streamId);
@@ -287,6 +288,21 @@ const CreateProjectMap = (type: any) => {
       }
     }
   },[highlightedStream]);
+  useEffect(()=>{
+    if(highlightedStreams.ids){
+      let codes = highlightedStreams.ids.map( (hs:any) => hs.mhfd_code);
+      if(map){
+        if(codes.length > 0) {
+          showHighlightedStreams(codes);
+        } else {
+          hideHighlighted();
+        }
+      }
+    } else {
+      if(map){hideHighlighted()};
+    }
+    
+  },[highlightedStreams]);
   const [opacityLayer, setOpacityLayer] = useState(false);
   const polyMask = (mask: any, bounds: any) => {
     if (mask !== undefined && bounds.length > 0) {
@@ -1330,12 +1346,25 @@ const CreateProjectMap = (type: any) => {
       existDetailedPageProject(url);
     }
   }
-  const showHighlightedStream = (mhfd_code: string) => {
+  const showHighlightedStream = (mhfd_code: any) => {
     const styles = { ...tileStyles as any }
     styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
         // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
         let filter = ['in',['get','unique_mhfd_code'],['literal',[mhfd_code]]];
+        console.log("FILTEr", filter);
+        map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
+        map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
+      }
+    });
+  }
+  const showHighlightedStreams = (mhfd_codes: any) => {
+    const styles = { ...tileStyles as any }
+    styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
+      if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
+        // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
+        let filter = ['in',['get','unique_mhfd_code'],['literal',[...mhfd_codes]]];
+        console.log("SETTING FILTER", filter);
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
       }

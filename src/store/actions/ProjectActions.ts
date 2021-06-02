@@ -583,6 +583,11 @@ export const setHighlightedStream = (highlightedStream: any) => {
     dispatch({type: types.SET_HIGHLIGHTED_STREAM, highlightedStream});
   }
 }
+export const setHighlightedStreams = (highlightedStreams: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_HIGHLIGHTED_STREAMS, highlightedStreams});
+  }
+}
 export const setHighlightedProblem = (highlightedProblem: any) => {
   return (dispatch: Function) => {
     dispatch({ type: types.SET_HIGHLIGHTED_PROB, highlightedProblem});

@@ -50,10 +50,15 @@ const genTitle = (streamName: any, streamData:any, setHighlightedStream: Functio
     <div>{streamName} </div>
   </div>
 )
+const genTitleUnnamed = (streamName: any, streamData:any, setHighlightedStreams: Function) => (
+  <div className="tab-head-project" onMouseEnter={()=>setHighlightedStreams(streamData)} onMouseLeave={()=>setHighlightedStreams(undefined)}>
+    <div>{streamName} </div>
+  </div>
+)
 
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any, editable:boolean }) => {
-  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream} = useProjectDispatch();
+  const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream,setHighlightedStreams} = useProjectDispatch();
   const {streamsIntersectedIds} =useProjectState();
   const {userInformation} = useProfileState();
   const {organization, groupOrganization} = useProfileState();
@@ -411,7 +416,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                 streamsList && Object.keys(streamsList).map((key: any, id: any) => {
                   return (
                     
-                    <Panel header="" key={`${id}${key}`} extra={genTitle(key, streamsList[key], setHighlightedStream)}>
+                    <Panel header="" key={`${id}${key}`} extra={ key == 'Unnamed Streams'? genTitleUnnamed(key,streamsList[key], setHighlightedStreams) :genTitle(key, streamsList[key], setHighlightedStream)}>
                       <div key={Math.random() + ''} className="tab-body-project">
                         <Timeline>
                           {
