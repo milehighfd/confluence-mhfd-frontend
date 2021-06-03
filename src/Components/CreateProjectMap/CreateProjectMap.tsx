@@ -1556,7 +1556,11 @@ const CreateProjectMap = (type: any) => {
     setMobilePopups([]);
     setActiveMobilePopups([]);
     setSelectedPopup(-1);
-    let features = map.map.queryRenderedFeatures(bbox, { layers: [...allLayers,'streams-intersects'] });
+    let layersToClick = [...allLayers];
+    if(map.map.getLayer('streams-intersects')) {
+      layersToClick = [...layersToClick, 'streams-intersects'];
+    }
+    let features = map.map.queryRenderedFeatures(bbox, { layers: layersToClick });
     if (features.length === 0) {
       return;
     }

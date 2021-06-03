@@ -107,9 +107,6 @@ const RequestView = ({ type, isFirstRendering }: {
       setChanges(Math.random())
     }, 1000)
   }
-  useEffect(()=>{
-    console.log("/ON EVETY CHANGE", currentDataForBoard);
-  },[currentDataForBoard]);
 
   const resetOnClose = () => {
     setStreamIntersected([]);

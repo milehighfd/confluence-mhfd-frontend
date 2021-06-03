@@ -173,7 +173,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setComponentIntersected([]);
     }
     setStreamIntersected({geom:null});
-    setStreamsIds([]);
+    setStreamsIds([]); 
+    return () => {
+      setIndependentComponents([]);
+    }
   },[]);
   const parseStringToArray = (list:string) => {
     if( list ){
@@ -317,7 +320,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.editProject = editprojectid;
       capital.cover = cover;
       capital.finalcost = getTotalCost();
-      console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
+      // console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       if(swSave){
         editProjectCapital(capital);
       }
@@ -544,7 +547,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   const removeIndComponent = (indComp: any) => {
     let currentComponents = [...thisIndependentComponents];
-    currentComponents = currentComponents.filter( (comp: any) => ( comp.index != indComp.index ) );
+    currentComponents = currentComponents.filter( (comp: any) => ( comp._id != indComp._id ) );
     setIndependentComponents([...currentComponents]);
   }
 

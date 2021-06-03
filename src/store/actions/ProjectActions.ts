@@ -103,7 +103,6 @@ export const saveMaintenance = (data: any) => {
     })
     // datasets.postDataMultipart('http://localhost:3003/create/maintenance', formData, datasets.getToken()).then(res => {
     datasets.postDataMultipart(SERVER.CREATE_MAINTENANCE, formData, datasets.getToken()).then(res => {
-      console.log(res,"RES");
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -434,7 +433,6 @@ export const getStreamsList = (geom: any) => {
           var textB = b.jurisdiction.toUpperCase();
           return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
         });
-        console.log(dataStreams[k], objArray);
         listStreams[k] = [...objArray];
       }
       dispatch({type: types.SET_LIST_STREAMS_ADD, listStreams});

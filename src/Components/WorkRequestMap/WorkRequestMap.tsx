@@ -249,7 +249,7 @@ const WorkRequestMap = (type: any) => {
   
 }, [coordinatesJurisdiction]);
   useEffect(()=>{
-    console.log("BOARD PROECT", boardProjects);
+    popup.remove();
     const equals = (a:any, b:any) =>
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
@@ -1135,7 +1135,7 @@ const WorkRequestMap = (type: any) => {
     if(!isPopup){
       return;
     }
-
+    setCounterPopup({componentes:0});
     hideHighlighted();
     const popups: any = [];
     const mobile: any = [];
