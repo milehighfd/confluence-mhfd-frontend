@@ -319,7 +319,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
      // capital.locality = locality? locality:'';
       capital.editProject = editprojectid;
       capital.cover = cover;
-      capital.finalcost = getTotalCost();
+      capital.estimatedcost = getTotalCost();
       // console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       if(swSave){
         editProjectCapital(capital);

@@ -1204,7 +1204,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   ),
                   requestName: project.projectname ? project.projectname : project.requestedname,
                   sponsor: project.sponsor,
-                  estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
+                  estimatedCost: project.estimatedcost ?  project.estimatedcost: project.finalcost,
                   status: project.status,
                   projecttype: project.projecttype,
                   objectid: project.objectid,
