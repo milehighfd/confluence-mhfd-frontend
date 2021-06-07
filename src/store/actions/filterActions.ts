@@ -9,17 +9,17 @@ import { PROJECT_TYPES } from '../../constants/constants';
 export const getProjectWithFilters = (filters : FilterTypes) => {
   return (dispatch : Function) => {
       const data = filters?filters:{};
-      datasets.postData(SERVER.FILTER_PROJECT, data, datasets.getToken()).then(projects => {
-          if(data.hasOwnProperty('requestName')) delete data['requestName'];
-          const filteredProjects : any = {};
-          PROJECT_TYPES.forEach((type : string) => {
-            filteredProjects[type] = filterProjectsByType(projects, type);
-          });
+      // datasets.postData(SERVER.FILTER_PROJECT, data, datasets.getToken()).then(projects => {
+      //     if(data.hasOwnProperty('requestName')) delete data['requestName'];
+      //     const filteredProjects : any = {};
+      //     PROJECT_TYPES.forEach((type : string) => {
+      //       filteredProjects[type] = filterProjectsByType(projects, type);
+      //     });
 
-          dispatch({ type: FILTER_PROJECTS, projects });
-          dispatch({ type: GET_PROJECTS_BY_TYPES, filteredProjects });
-          dispatch({ type: types.SET_FILTERS, data });
-      });
+      //     dispatch({ type: FILTER_PROJECTS, projects });
+      //     dispatch({ type: GET_PROJECTS_BY_TYPES, filteredProjects });
+      //     dispatch({ type: types.SET_FILTERS, data });
+      // });
   } 
 }
 
