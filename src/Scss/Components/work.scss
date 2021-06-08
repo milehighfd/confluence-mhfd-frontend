@@ -822,7 +822,9 @@
 .hide-when-1 {
   display: none !important;
 }
-
+.ant-select-disabled .ant-select-selection {
+  background-color: transparent !important;
+}
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
   .hide-when-1 {
@@ -912,6 +914,7 @@
     }
     h4 {
       font-size: 18px;
+      line-height: 21px !important;
     }
     h6{
       font-size: 14px;

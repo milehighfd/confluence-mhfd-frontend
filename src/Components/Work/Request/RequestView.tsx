@@ -4,7 +4,7 @@ import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
-import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, COMPLETE_SCREEN, EMPTY_SCREEN } from "../../../constants/constants";
+import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from "../../../constants/constants";
 import WorkRequestMap from './../../WorkRequestMap/WorkRequestMap';
 import '../../../index.scss';
 import { getData, getToken, postData } from "../../../Config/datasets";
@@ -18,7 +18,7 @@ import { CSVLink } from 'react-csv';
 import Status from "../Drawers/Status";
 import ColorService from './ColorService';
 import ProjectEditService from './ProjectEditService';
-
+import store from '../../../store';
 import { compareArrays, compareColumns, csvFileName, defaultColumns, filterByJurisdictionAndCsaSelected, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
 import Filter from "../Drawers/Filter";
@@ -90,7 +90,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const wrtRef = useRef(null);
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
-
+  const user = store.getState().profile.userInformation;
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
@@ -615,7 +615,7 @@ const RequestView = ({ type, isFirstRendering }: {
   }
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
-
+  console.log(user.designation != GOVERNMENT_STAFF , user.designation, GOVERNMENT_STAFF);
   return <>
     {  showModalProject &&
       <ModalProjectView
@@ -711,7 +711,7 @@ const RequestView = ({ type, isFirstRendering }: {
             </Col>
 
             <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
-              <div className="work-head">
+              <div className="work-head" >
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                     <div className="auto-complete-map">
@@ -740,6 +740,7 @@ const RequestView = ({ type, isFirstRendering }: {
                             }
                           }
                         }}
+                        disabled={user.designation == GOVERNMENT_STAFF}
                       >
                         <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
                           prefix={<i className="mdi mdi-circle"></i>}

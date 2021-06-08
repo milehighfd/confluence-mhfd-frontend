@@ -230,7 +230,8 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
     });
     return temporalColumns;
   }
-  if (destinyColumnHasProject || tabKey === 'Maintenance') {
+  // if (destinyColumnHasProject || tabKey === 'Maintenance') {
+  if (destinyColumnHasProject) {
     return;
   } else {
     let newObj = {

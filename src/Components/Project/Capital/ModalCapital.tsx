@@ -233,7 +233,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[independentComponents]);
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
-      console.log("REACH COMPOENNT SELECTED", componentsFromMap);
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
     }
   },[componentsFromMap]);
@@ -320,7 +319,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.editProject = editprojectid;
       capital.cover = cover;
       capital.estimatedcost = getTotalCost();
-      console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
+      // console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       if(swSave){
         editProjectCapital(capital);
       }
