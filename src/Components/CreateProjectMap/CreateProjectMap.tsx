@@ -259,6 +259,26 @@ const CreateProjectMap = (type: any) => {
         
       } 
   },[idsBoardProjects]);
+  useEffect(() => {
+    let mask
+    setTimeout(() => {
+      map.isStyleLoaded(()=>{ 
+        if (coordinatesJurisdiction.length > 0) {
+          mask = turf.multiPolygon(coordinatesJurisdiction);
+          let miboundsmap = map.map.getBounds();
+          // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
+          let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+          var arrayBounds = misbounds.split(',');
+          let poly = polyMask(mask, arrayBounds);
+          map.isStyleLoaded(()=>{
+            map.addSourceOpacity(poly);
+          })
+          
+        } 
+      });
+    }, 1200);
+  
+}, [coordinatesJurisdiction]);
   useEffect(()=>{
     const equals = (a:any, b:any) =>
       a.length === b.length &&
@@ -408,6 +428,7 @@ const CreateProjectMap = (type: any) => {
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       // mask = turf.multiPolygon(coordinatesJurisdiction);
+      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
       // let coord = turf.centroid(poly);
       // if(coord.geometry && coord.geometry.coordinates) {
@@ -847,6 +868,10 @@ const CreateProjectMap = (type: any) => {
       removeTilesHandler(layer);
     });
     await selectedLayers.forEach((layer: LayersType) => {
+      if(layer === 'area_based_mask' || layer === 'border') {
+        map.addLayerMask(layer);
+        return;
+      }
       if (typeof layer === 'object') {
         layer.tiles.forEach((subKey: string) => {
           showLayers(subKey);
@@ -1175,7 +1200,11 @@ const CreateProjectMap = (type: any) => {
     const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
       // console.log("SENDING FROM selectechceckc", layer);
-      removeTilesHandler(layer);
+      if(layer === 'border' || layer === 'area_based_mask') {
+        map.removeLayerMask(layer);
+      } else {
+        removeTilesHandler(layer);
+      }
     });
     updateSelectedLayers(selectedItems);
   }
@@ -2363,7 +2392,7 @@ const CreateProjectMap = (type: any) => {
             setVisibleDropdown(flag);
 
           }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
+          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView, isWR: true })}
           trigger={['click']}>
           <Button>
             <span className="btn-02"></span>
