@@ -19,7 +19,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
   }
   const [ fileImage, setFileImage ] = useState({ uid: ''});
   let total = 0;
-  countProjects.forEach(element => {
+  (countProjects || []).forEach(element => {
     total += element.count
   });
   const beforeUpload = (file: any) => {

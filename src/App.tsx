@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import './App.scss';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import ReactGA from 'react-ga';
@@ -8,58 +8,33 @@ import {initGA} from './index';
 
 import * as datasets from "./Config/datasets"
 import { SERVER } from "./Config/Server.config";
-import store from './store';
 
-import LoginContainer from './Components/Login/LoginContainer';
-import ResetPasswordContainer from './Components/ResetPassword/ResetPasswordContainer';
-import ConfirmPasswordContainer from './Components/ConfirmPassword/ConfirmPasswordContainer';
-import SignUpContainer from './Components/SignUp/SignUpContainer';
-import UserContainer from './Components/User/UserContainer';
-import ProfileContainer from './Components/Profile/ProfileContainer';
-import DetailedContainer from './Components/DetailedProblem/DetailedContainer';
-import Unauthorized from './Components/Unauthorized/Unauthorized';
-import LoadingView from './Components/Loading/LoadingView';
-import RequestView from './Components/Work/Request/RequestView';
-import PlanView from './Components/Work/Plan/PlanView';
-import Chat from './Components/Work/Drawers/Chat';
-import Status from './Components/Work/Drawers/Status';
-import Analytics from './Components/Work/Drawers/Analytics';
-import StatusPlan from './Components/Work/Drawers/StatusPlan';
-import StatusDistrict from './Components/Work/Drawers/StatusDistrict';
-import Filter from './Components/Work/Drawers/Filter';
-import { AlertView } from './Components/Alerts/AlertView';
-import MapComment from './Components/Map/MapComment';
-import Raster from './Components/Raster/Raster';
-//import NewProjectContainer from './Components/NewProjectModal/NewProjectContainer';
-
-
-/* In use of Map/Form HOC */
-import MapView from './Components/Map/MapView';
-import UploadAttachmentContainer from './Components/UploadAttachment/UploadAttachmentContainer';
 import { SELECT_ALL_FILTERS } from './constants/constants';
-import Prueba from './Components/algo/Prueba';
-import DetailedPageContainer from './Components/DetailedPage/DetailedPageContainer';
-import { resetProfile, saveUserInformation } from './store/actions/ProfileActions';
+import { resetProfile } from './store/actions/ProfileActions';
 import { resetAppUser } from './store/actions/appUser';
 import { resetMap } from './store/actions/mapActions';
-import SampleMap from './Components/SampleMap/SampleMap';
-import MobilePopup from './Components/MobilePopup/MobilePopup';
-import { ModalProjectView } from './Components/ProjectModal/ModalProjectView';
-import WorkRequest from './Components/Work/Request/WorkRequest';
-import WorkPlan from './Components/Work/Plan/WorkPlan';
 
+import LoadingView from './Components/Loading/LoadingView';
 
+const MapView = lazy(()=> import('./Components/Map/MapView'));
+const LoginContainer = lazy(()=> import('./Components/Login/LoginContainer'));
+const SignUpContainer = lazy(()=> import('./Components/SignUp/SignUpContainer'));
+const Unauthorized = lazy(()=> import('./Components/Unauthorized/Unauthorized'));
+const ResetPasswordContainer = lazy(()=> import('./Components/ResetPassword/ResetPasswordContainer'));
+const ConfirmPasswordContainer = lazy(()=> import('./Components/ConfirmPassword/ConfirmPasswordContainer'));
+const DetailedPageContainer = lazy(()=> import('./Components/DetailedPage/DetailedPageContainer'));
+const ProfileContainer = lazy(()=> import('./Components/Profile/ProfileContainer'));
+const WorkPlan = lazy(()=> import('./Components/Work/Plan/WorkPlan'));
+const WorkRequest = lazy(()=> import('./Components/Work/Request/WorkRequest'));
+const UserContainer = lazy(()=> import('./Components/User/UserContainer'));
+const UploadAttachmentContainer = lazy(()=> import('./Components/UploadAttachment/UploadAttachmentContainer'));
+const DetailedContainer = lazy(()=> import('./Components/DetailedProblem/DetailedContainer'));
 
-
-function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, getParamsFilter,
-          setFilterProblemOptions, setFilterProjectOptions, setFilterComponentOptions, filterProblemOptions,
-          filterProjectOptions, filterComponentOptions, replaceFilterCoordinates, getGroupOrganization }
+function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, replaceFilterCoordinates, getGroupOrganization }
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
              getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
              filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function, getGroupOrganization: Function }) {
   const [ loading, setLoading ] = useState(true);
-  const [redirect, setRedirect] = useState(false);
-  const [message, setMessage] = useState({message: '', color: '#28C499'});
   useEffect(() => {
     resetAppUser();
     resetProfile();
@@ -119,25 +94,6 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
   }, []);
   const history = useHistory()
 
-  /* const redirectGuest = () => {
-    console.log('redirect app');
-    datasets.getData(SERVER.GUEST).then(async res => {
-      if (res?.token) {
-        localStorage.setItem('mfx-token', res.token);
-        await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
-          replaceAppUser(result);
-          saveUserInformation(result)
-        });
-        setRedirect(true);
-      } else {
-        const auxMessage = {...message};
-        auxMessage.message = 'Could not connect, check your email and password';
-        auxMessage.color = 'red';
-        setMessage(auxMessage);
-      }
-    })
-  } */
-
 
   useEffect(() => {
       return history.listen((location) => {
@@ -145,51 +101,31 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       })
   },[history]);
 
- /* if(appUser.email === '') {
-    redirectGuest();
-  }
-  if(redirect) {
-    return <Redirect to="/map" />
-  } */
   return <Switch>
-      <Route path={'/test-map'} component={SampleMap}/>
-      <Route path={'/prueba'} component={Prueba} />
+    <Suspense fallback={<div>...</div>}>
       <Route path={`/login`} component={LoginContainer} />
       <Route path={`/sign-up`} component={SignUpContainer} />
       <Route path={'/404'} component={Unauthorized} />
       <Route path={`/reset-password`} component={ResetPasswordContainer} />
       <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
-      <Route path={`/alert-view`} component={AlertView} />
-      <Route path={'/mobile-popup'} component={MobilePopup} />
-      <Route path={'/new-project'} component={ModalProjectView} />
-      <Route path={'/raster-map'} component={Raster} />
-      <Route path={'/chat'} component={Chat} />
-      <Route path={'/status'} component={Status} />
-      <Route path={'/analytics'} component={Analytics} />
-      <Route path={'/status-plan'} component={StatusPlan} />
-      <Route path={'/status-district'} component={StatusDistrict} />
-      <Route path={'/filter'} component={Filter} />
-      <Route path={'/comment'} component={MapComment} />
-
-      {/* <Route path={`/upload-attachment`} component={UploadAttachmentContainer} /> */}
       <Route path={`/detailed-page`} component={DetailedPageContainer} />
       <Route exact path="/" render={() => (
           <Redirect to="/login"/>
       )}/>
-      
       {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileContainer} />}
       {datasets.getToken() && appUser.email && <Route path={`/map/:projectId?`} component={MapView} />}
       {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
-        appUser.designation === 'staff') /*&& (appUser.status === 'approved')*/ && <Route path={'/work-plan'} component={WorkPlan}  />}
+        appUser.designation === 'staff') && <Route path={'/work-plan'} component={WorkPlan}  />}
       {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
-        appUser.designation === 'staff') /*&& (appUser.status === 'approved')*/ && <Route path={'/work-request'} component={WorkRequest} />}
+        appUser.designation === 'staff') && <Route path={'/work-request'} component={WorkRequest} />}
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserContainer} />}
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />}
       {(appUser.designation === 'admin') && (appUser.status === 'approved') && <Route path={`/detailed-view`} component={DetailedContainer} />}
       {(loading && <Route path={`/`} component={LoadingView} />)}
-      <Route path={`/`} component={Unauthorized} />
+      {/* <Route path={`/`} component={Unauthorized} /> */}
+    </Suspense>
   </Switch>
 
 }
