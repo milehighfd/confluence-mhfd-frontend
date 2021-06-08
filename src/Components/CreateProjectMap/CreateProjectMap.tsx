@@ -2111,7 +2111,6 @@ const CreateProjectMap = (type: any) => {
           }
         }
       }
-      console.log("MENU OPT", menuOptions, popups);
       if (popups.length) {
         const html = loadMenuPopupWithData(menuOptions, popups);
         setMobilePopups(mobile);

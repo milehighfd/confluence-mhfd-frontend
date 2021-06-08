@@ -166,7 +166,9 @@ export class MapService {
     }
   }
   offEvent(propertie: string, cb: any) {
-    this.map.off(propertie, cb);
+    if(this.map) {
+      this.map.off(propertie, cb);
+    }
   }
   setStyle(type: string) {
     if (type === 'satellite') {
@@ -363,7 +365,9 @@ export class MapService {
     this.map.on('draw.create', cb);
   }
   deleteDraw(cb: any) {
-    this.map.off('draw.create', cb);
+    if(this.map) {
+      this.map.off('draw.create', cb);
+    }
   }
   updateDraw(cb: any) {
     this.map.on('draw.update', cb);

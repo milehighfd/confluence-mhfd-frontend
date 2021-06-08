@@ -218,7 +218,7 @@ export const SEMSWA_SERVICE_AREA =
     return (<div className="filter-coll-header" key={Math.random()}>
       <div key={Math.random()} style={(switches[PROBLEMS_TRIGGER] || switches[PROJECTS_MAP_STYLES.name] ||
         switches[MEP_PROJECTS.name] || switches[ROUTINE_MAINTENANCE.name] || switches[COMPONENT_LAYERS.name])
-        ? weightStyle : emptyStyle }>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} MHFD DATA </div>
+        ? emptyStyle : emptyStyle }>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} MHFD DATA </div>
        <Switch key={Math.random()} checked={groups['MHFDData']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [PROBLEMS_TRIGGER,

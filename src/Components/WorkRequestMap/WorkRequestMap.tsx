@@ -1212,9 +1212,9 @@ const WorkRequestMap = (type: any) => {
           name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
           organization: feature.source === 'mhfd_projects_copy'? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replaceAll(',',', ')): type.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
           value: feature.source === 'mhfd_projects_copy' ? (
-            feature.properties.projecttype.toLowerCase() === 'capital' ? feature.properties.finalcost : getTotalAmount(feature.properties.cartodb_id)
+            feature.properties.projecttype.toLowerCase() === 'capital' ? feature.properties.estimatedcost : getTotalAmount(feature.properties.cartodb_id)
           ) : (
-            feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '0'
+            feature.properties.estimatedcost ? feature.properties.estimated : feature.properties.finalcost ? feature.properties.finalcost : '0'
           ),
           projecctype: feature.source === 'mhfd_projects_copy'?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
           status: feature.properties.status ? feature.properties.status : '-',

@@ -91,14 +91,17 @@ const RequestView = ({ type, isFirstRendering }: {
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const user = store.getState().profile.userInformation;
+  
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
+      console.log("SE updatea con ", MEDIUM_SCREEN_LEFT);
       setLeftWidth(MEDIUM_SCREEN_LEFT);
       setRightWitdh(MEDIUM_SCREEN_RIGHT);
       // setLeftWidth(COMPLETE_SCREEN);
       // setRightWitdh(EMPTY_SCREEN);
       setRotationStyle({transform: 'rotate(180deg)', marginRight:'-4px', right:'4px', position:'relative'});
     } else {
+      console.log("SE updatea con MEDIUM", MEDIUM_SCREEN_RIGHT);
       setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
       setRightWitdh(MEDIUM_SCREEN_LEFT + 1);
       setRotationStyle(emptyStyle);
