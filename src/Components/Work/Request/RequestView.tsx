@@ -615,7 +615,6 @@ const RequestView = ({ type, isFirstRendering }: {
   }
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
-  console.log(user.designation != GOVERNMENT_STAFF , user.designation, GOVERNMENT_STAFF);
   return <>
     {  showModalProject &&
       <ModalProjectView
