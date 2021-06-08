@@ -825,6 +825,18 @@
 .ant-select-disabled .ant-select-selection {
   background-color: transparent !important;
 }
+.ant-input-disabled {
+  color: #251863 !important;
+}
+.ant-input-affix-wrapper .ant-input-disabled ~ .ant-input-suffix .anticon {
+  color: #251863 !important;
+}
+.ant-input-color {
+  color: rgba(17, 9, 60, 0.5) !important;
+}
+.work-body .ant-tabs-tabpane-active {
+  overflow-y: hidden;
+}
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
   .hide-when-1 {

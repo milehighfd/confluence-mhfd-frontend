@@ -98,7 +98,7 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
         <Timeline.Item color="green">
           <Row style={{marginLeft:'-18px'}}>
             <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onChange={(e) => apllyType(e)} ><label><Input placeholder="Unnamed Component"  /></label></Col>
-            <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} onChange={(e) => apllyStatus(e)}><Input placeholder="Proposed" /></Col>
+            <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} onChange={(e) => apllyStatus(e)}><Input placeholder="Proposexxd"  style={{ color: 'rgba(17, 9, 60, 0.5) !important'}}/></Col>
             <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} onChange={(e) => apllyOriginal_Cost(e)}><Input placeholder="$200,000" /></Col>
             <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
           </Row>
@@ -111,7 +111,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean, problemId?: any}) => {
   let Component = {
     type:"Unnamend Component",
-    status:"Proposed",
+    status:"Proposssssed",
     original_cost:0,
   };
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem} = useProjectDispatch();
@@ -734,7 +734,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                             <Timeline.Item color="green">
                               <Row style={{marginLeft:'-18px'}}>
                                 <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'name',indComp)} value={indComp.name} /></label></Col>
-                                <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input placeholder="Proposed"  defaultValue="Proposed" onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status} disabled={true}/></Col>
+                                <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input className='ant-input-color' placeholder="Proposed"  defaultValue="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status} disabled={true} /></Col>
                                 <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} >
                                   <Tooltip placement="topLeft" title="Only numeric values are accepted.">
                                     <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'cost',indComp)} value={formatter.format(indComp.cost)}/>
