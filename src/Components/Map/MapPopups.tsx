@@ -200,8 +200,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
 
 
 export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
-  console.log("ANOTHER POPUP", isComponent, item);
-  return <div id={'popup-' + id} className="map-pop-01">
+    return <div id={'popup-' + id} className="map-pop-01">
       <Card hoverable>
       <div className="headmap">
           {item.layer}

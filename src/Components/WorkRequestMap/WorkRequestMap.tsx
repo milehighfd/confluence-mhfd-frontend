@@ -1780,7 +1780,8 @@ const WorkRequestMap = (type: any) => {
 
   const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
     <>
-      <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)} isWR={true}></ComponentPopup>
+      {/* <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)} isWR={true}></ComponentPopup> */}
+      <ComponentPopup id={index} item={item} isComponent={isComponent} isWR={true}></ComponentPopup>
     </>
   );
 
