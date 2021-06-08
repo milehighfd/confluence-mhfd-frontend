@@ -436,6 +436,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     if(isDrawState && !isDraw){
       setIsDraw(isDraw);
     }
+    if(isDrawStateCapital && !isDraw) {
+      setIsDrawCapital(isDraw);
+    }
   },[isDraw]);
 
   const onClickDrawCapital = () => {
