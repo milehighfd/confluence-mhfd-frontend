@@ -4,7 +4,7 @@ import * as mapboxgl from 'mapbox-gl';
 import { SERVER } from '../Config/Server.config';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import * as turf from '@turf/turf';
+
 export class MapService {
   public token: String = MAPBOX_TOKEN;
   public map: Map;

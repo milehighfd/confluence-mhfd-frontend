@@ -1,5 +1,3 @@
-import { projection } from "@turf/turf";
-
 const URL = process.env.REACT_APP_API_URI;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const CAPTCHA = process.env.REACT_APP_CAPTCHA;

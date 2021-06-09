@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Card, Popover, Menu, Dropdown, Button, Icon } from "antd";
-import { ComponentType } from "../../../Classes/MapTypes";
+import { Col, Card, Popover, Menu, Button } from "antd";
 import DetailedModal from "../Modals/DetailedModal";
 
 import { numberWithCommas } from '../../../utils/utils';
@@ -10,11 +9,9 @@ import { useProfileDispatch } from "../../../hook/profileHook";
 
 import { useSelector } from "react-redux";
 
-
-import bbox from "@turf/bbox";
 import store from "../../../store";
 import { COMPONENT_LAYERS } from "../../../constants/constants";
-import { stat } from "fs";
+
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);

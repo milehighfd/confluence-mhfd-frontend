@@ -47,7 +47,6 @@ import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
 import { useProfileState, useProfileDispatch } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
-import { containsNumber } from "@turf/turf";
 import { getFeaturesIntersected, getHull } from './utilsService';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { AnyCnameRecord, AnyAaaaRecord } from "dns";
