@@ -91,17 +91,15 @@ const RequestView = ({ type, isFirstRendering }: {
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const user = store.getState().profile.userInformation;
-  
+  console.log("USER", store.getState().profile);
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
-      console.log("SE updatea con ", MEDIUM_SCREEN_LEFT);
       setLeftWidth(MEDIUM_SCREEN_LEFT);
       setRightWitdh(MEDIUM_SCREEN_RIGHT);
       // setLeftWidth(COMPLETE_SCREEN);
       // setRightWitdh(EMPTY_SCREEN);
       setRotationStyle({transform: 'rotate(180deg)', marginRight:'-4px', right:'4px', position:'relative'});
     } else {
-      console.log("SE updatea con MEDIUM", MEDIUM_SCREEN_RIGHT);
       setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
       setRightWitdh(MEDIUM_SCREEN_LEFT + 1);
       setRotationStyle(emptyStyle);
@@ -220,12 +218,17 @@ const RequestView = ({ type, isFirstRendering }: {
   useEffect(()=>{
     setChanges(Math.random());
   },[locality, tabKey,year]);
+  useEffect(()=>{
+    console.log("USER", user);
+  },[user]);
   useEffect(() => {
     let params = new URLSearchParams(history.location.search)
     let _year = params.get('year');
     let _locality = params.get('locality');
     let _tabKey = params.get('tabKey');
-
+    if( _locality != user.organization && user.designation == GOVERNMENT_STAFF) {
+      _locality = user.organization;
+    }
     getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
     // getData(`${'http://localhost:3003'}/locality/${type}`, getToken())
       .then(
