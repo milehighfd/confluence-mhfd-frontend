@@ -2,7 +2,8 @@ import React from "react";
 import { Modal } from 'antd';
 import { boardType } from "./RequestTypes";
 
-export const SubmitModal = ({ type, visibleAlert, setVisibleAlert, setSave, boardStatus, currentStatus, pending  }: {
+export const SubmitModal = ({ boardSubstatus, type, visibleAlert, setVisibleAlert, setSave, boardStatus, currentStatus, pending  }: {
+  boardSubstatus: string,
   type: boardType,
   visibleAlert: boolean,
   setVisibleAlert: Function,
@@ -23,7 +24,10 @@ export const SubmitModal = ({ type, visibleAlert, setVisibleAlert, setSave, boar
 
   let currentApproved = currentStatus === 'Approved';
   let approved = boardStatus === 'Approved';
-console.log(pending, "PENDING")
+
+  let ls = boardSubstatus ? boardSubstatus.split(',') : [];
+
+
   return (
     <div>
       <div >
@@ -35,10 +39,10 @@ console.log(pending, "PENDING")
           className="modal-confirm"
           width="400px"
         >{
-          !pending && <h2>{currentApproved ? 'Only notes will be updated.' : 'By approving, you will no longer be able to edit.'}</h2>
+          (!pending || ls.length == 5) && <h2>{currentApproved ? 'Only notes will be updated.' : 'By approving, you will no longer be able to edit.'}</h2>
         }
         {
-          pending && <h2>{ type === 'WORK_REQUEST' ?
+          (pending && ls.length < 5) && <h2>{ type === 'WORK_REQUEST' ?
             'Work Request submission is unavailable until all project types are selected for approval.' :
             'Can not submit while still have pending work request' }</h2> 
         }

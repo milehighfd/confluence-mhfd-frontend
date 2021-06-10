@@ -117,6 +117,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
   return (
     <>
     { visibleAlert && <SubmitModal
+      boardSubstatus={boardSubstatus}
       type={type}
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
