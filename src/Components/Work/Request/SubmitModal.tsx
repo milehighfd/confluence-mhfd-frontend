@@ -39,7 +39,7 @@ export const SubmitModal = ({ boardSubstatus, type, visibleAlert, setVisibleAler
           className="modal-confirm"
           width="400px"
         >{
-          (!pending || ls.length == 5) && <h2>{currentApproved ? 'Only notes will be updated.' : 'By approving, you will no longer be able to edit.'}</h2>
+          (!pending || ls.length == 5) && <h2>{currentApproved ? 'Only notes will be updated.' : <div>By approving, you will<br/>no longer be able to edit.</div> }</h2>
         }
         {
           (pending && ls.length < 5) && <h2>{ type === 'WORK_REQUEST' ?
