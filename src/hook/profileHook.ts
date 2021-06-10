@@ -1,7 +1,7 @@
 import { ParametricSelector, createSelector } from 'reselect';
 import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveUserInformation, updateUserInformation } from '../store/actions/ProfileActions';
+import { saveUserInformation, updateUserInformation, getGroupOrganization } from '../store/actions/ProfileActions';
 import { User } from '../Classes/TypeList';
 import { getTimesLogin } from '../store/actions/usersActions';
 
@@ -44,6 +44,9 @@ export const useProfileDispatch = () => {
       },
       getTimesLogin: () => {
          dispatch(getTimesLogin());
+      },
+      getGroupOrganization: () => {
+         dispatch(getGroupOrganization());
       }
    }
 }

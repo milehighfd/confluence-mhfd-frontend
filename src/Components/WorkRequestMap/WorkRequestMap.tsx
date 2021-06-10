@@ -63,6 +63,7 @@ const WorkRequestMap = (type: any) => {
   const { changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects } = useProjectDispatch();
   const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
+  const {getGroupOrganization} = useProfileDispatch();
   const [idsBoardProjects, setIdsBoardProjects]= useState<any>([]);
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayersWR);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -260,7 +261,6 @@ const WorkRequestMap = (type: any) => {
         if(type.locality) {
           value = type.locality;
         }
-          
         if(groupOrganization.length > 0) {
           wait(()=>setBounds(value));
         }
@@ -326,7 +326,7 @@ const WorkRequestMap = (type: any) => {
       // }
       let bboxBounds = turf.bbox(poly);
       if(map.map){
-        map.map.fitBounds(bboxBounds,{ padding:20, maxZoom: 13});
+        map.map.fitBounds(bboxBounds,{ padding:20, maxZoom: 14});
       }
     }
   }
@@ -339,6 +339,9 @@ const WorkRequestMap = (type: any) => {
     }
   };
   useEffect(()=>{
+    if(groupOrganization.length == 0) {
+      getGroupOrganization();
+    }
     setTimeout(()=>{
       let value = store.getState().profile.userInformation.zoomarea;
       if(type.locality) {
