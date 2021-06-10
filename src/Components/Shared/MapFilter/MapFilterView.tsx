@@ -115,7 +115,7 @@ export const SEMSWA_SERVICE_AREA =
   // if(isWR){
   //   setGroups({...groups, ...{workrequest:false}});
   // }
-  let locationType = useLocation().pathname.includes('work-request')?'WORK REQUEST':'WORK PLAN';
+  let locationType =  'GUIDELINES' // useLocation().pathname.includes('work-request')?'WORK REQUEST':'WORK PLAN';
   useEffect(() => {
     const newGroups: any = {};
     if (switches[PROBLEMS_TRIGGER] && switches[PROJECTS_MAP_STYLES.name] && switches[COMPONENT_LAYERS.name]

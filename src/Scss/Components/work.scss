@@ -386,6 +386,8 @@
     }
     label{
       padding-left: 15px;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
     }
   }
   .ant-collapse{

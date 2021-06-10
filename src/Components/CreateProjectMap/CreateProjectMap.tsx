@@ -64,6 +64,7 @@ let previousClick = false;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let currentDraw = 'polygon';
+let firstCallDraw = false;
 // const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
@@ -175,19 +176,19 @@ const CreateProjectMap = (type: any) => {
         let poly = turf.multiLineString(cg.coordinates);
         let bboxBounds = turf.bbox(poly);
         if(map.map){
-          map.map.fitBounds(bboxBounds,{ padding:80});
+          map.map.fitBounds(bboxBounds,{ padding:80, maxZoom: 16});
         }
       } else if(cg.type === 'Point') {
         let poly = turf.point(cg.coordinates);
         let bboxBounds = turf.bbox(poly);
         if(map.map){
-          map.map.fitBounds(bboxBounds,{ padding:80});
+          map.map.fitBounds(bboxBounds,{ padding:80,  maxZoom: 16});
         }
       } else if ( cg.type === 'MultiPolygon'){
         let poly = turf.multiPolygon(cg.coordinates);
         let bboxBounds = turf.bbox(poly);
         if(map.map){
-          map.map.fitBounds(bboxBounds,{ padding:80});
+          map.map.fitBounds(bboxBounds,{ padding:80 , maxZoom: 16});
         }
       } else {
         console.log("DIFF", cg);
@@ -813,6 +814,10 @@ const CreateProjectMap = (type: any) => {
     updateSelectedLayers(filterLayers);
   }
   const onCreateDraw = (event: any) => {
+    if(firstCallDraw) {
+      return;
+    }
+    firstCallDraw = true;
     removeProjectLayer();    
     setLoading(true);
     const userPolygon = event.features[0];
@@ -830,6 +835,7 @@ const CreateProjectMap = (type: any) => {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
       type.setGeom(userPolygon.geometry);
+      console.log("TIMEs ARE SEND", Date.now());
       getStreamsIntersectedPolygon(userPolygon.geometry); // just set the ids 
       getStreamsList(userPolygon.geometry); // get the list with data 
       getServiceAreaStreams(userPolygon.geometry); 
@@ -847,6 +853,7 @@ const CreateProjectMap = (type: any) => {
       if(element) {
         element.click();
       }
+      firstCallDraw = false;
     },2500);
 
   }

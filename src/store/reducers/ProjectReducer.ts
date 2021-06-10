@@ -2,6 +2,35 @@ import { getStreamIntersection, setComponentsFromMap } from './../actions/Projec
 import * as types from '../types/ProjectTypes';
 import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS, XSTREAMS } from '../../constants/constants';
 
+function shallowEqual(object1: any, object2:any ) {
+  const keys1 = Object.keys(object1);
+  const keys2 = Object.keys(object2);
+
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+
+  for (let key of keys1) {
+    if (object1[key] !== object2[key]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+function ObjInsideArray(object1: any, array:any) {
+  if(!array) {
+    return false;
+  }
+  for(let j = 0 ; j < array.length ; ++j) {
+    if(shallowEqual(object1, array[j])) {
+      console.log("IS INSIDE", object1, array);
+      return true;
+    }
+  }
+  console.log("NOT INSIDE", object1, array);
+  return false;
+}
 const initState = {
   editLocation: [],
   specialLocation: [],
@@ -148,8 +177,16 @@ const projectReducer = (state = initState, action: any) => {
           newStreams[key] = newStreams[key]? [...newStreams[key],...listStreams[key]] :[...listStreams[key]] 
         });
         Object.keys(action.listStreams).forEach((key:any) => {
-          newStreams[key] = newStreams[key]? [...newStreams[key],...action.listStreams[key]] :[...action.listStreams[key]] 
+          
+          for(let i = 0 ; i < action.listStreams[key].length; ++i) {
+            let newStreamObj = action.listStreams[key][i];
+            if(!ObjInsideArray(newStreamObj, newStreams[key])){
+              newStreams[key] = newStreams[key]? [...newStreams[key],newStreamObj] :[newStreamObj] 
+            }
+          }
+          
         })
+        
         return {
           ...state, 
           listStreams: newStreams

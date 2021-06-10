@@ -59,7 +59,7 @@ const genTitleUnnamed = (streamName: any, streamData:any, setHighlightedStreams:
 export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
   {visibleStudy: boolean, setVisibleStudy: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any, data:any, editable:boolean }) => {
   const {saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream,setHighlightedStreams} = useProjectDispatch();
-  const {streamsIntersectedIds} =useProjectState();
+  const {streamsIntersectedIds, isDraw} =useProjectState();
   const {userInformation} = useProfileState();
   const {organization, groupOrganization} = useProfileState();
   const {listStreams, streamIntersected} = useProjectState();
@@ -69,7 +69,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [country, setCountry] = useState('');
-  const [isDraw, setIsDraw] = useState(false);
+  const [isDrawState, setIsDraw] = useState(false);
   const {changeDrawState} = useProjectDispatch();
   const [files, setFiles] = useState<any[]>([]);
   const [cover, setCover] = useState('');
@@ -100,6 +100,11 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setStreamsIds([]);
     }
   },[]);
+  useEffect(()=>{
+    if(isDrawState && !isDraw){
+      setIsDraw(isDraw);
+    }
+  },[isDraw]);
   useEffect(()=>{
     if(listStreams) {
       const idKey: any = [];
@@ -267,7 +272,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   };
 
   const onClickDraw = () => {
-    setIsDraw(!isDraw);
+    setIsDraw(!isDrawState);
   }
   const getTotalLength = () => {
     let total = 0;
@@ -339,8 +344,8 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
     }
   },[organization]);
   useEffect(()=>{
-    changeDrawState(isDraw);
-  },[isDraw]);
+    changeDrawState(isDrawState);
+  },[isDrawState]);
 
   return (
     <>
@@ -396,7 +401,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
 
             {/*Second Section*/}
             <h5>2. SELECT STREAMS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
-            <div className={"draw "+(isDraw?'active':'')} onClick={onClickDraw}>
+            <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
                 <p>Click on the icon and draw a polygon to select stream segments</p>
             </div>

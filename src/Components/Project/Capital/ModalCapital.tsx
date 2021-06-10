@@ -573,7 +573,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setHighlightedComponent(comp);
   }
   const setValueZoomComp = (comp: any) => {
-    console.log("GETTING GEOM CPMP", comp);
     if(comp.table && comp.objectid) {
       getZoomGeomComp(comp.table, comp.objectid);
     }

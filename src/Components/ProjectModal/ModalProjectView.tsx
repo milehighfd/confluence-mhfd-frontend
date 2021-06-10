@@ -53,7 +53,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   const handleOk = (e: any) => {  
     let dataForBoard = {...currentData};
     dataForBoard.projecttype = typeProject;
-    console.log("GUATTT", dataForBoard,currentData);
     postData(`${SERVER.URL_BASE}/board/`, dataForBoard)
     // postData(`${'http://localhost:3003'}/board/`, data)
       .then(
