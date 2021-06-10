@@ -22,13 +22,17 @@ export const UploadAttachment = ({ files, setFiles, setCover , isCapital}: {
 
   const onChange: any = (e: any) => {
     let newFiles = e.target.files;
+    console.log('onChange', newFiles)
     updateFileState(newFiles)
   };
   const handleDragNewFiles = (newFiles: any[]) => {
+    console.log('handleDragNewFiles', newFiles)
     updateFileState(newFiles)
   }
 
   const updateFileState = (newFiles: any[]) => {
+    console.log('files', files);
+    console.log('newFiles', newFiles);
     let newObjects = [];
     for (var i = 0; i < newFiles.length; i++) {
       newObjects.push({
@@ -86,7 +90,7 @@ export const UploadAttachment = ({ files, setFiles, setCover , isCapital}: {
         div.removeEventListener('drop', handleDrop)
       })
     }
-  }, [])
+  }, [files])
 
   const formatBytes = (bytes: number, decimals = 2) => {
     if (bytes === 0) return '0 Bytes';
