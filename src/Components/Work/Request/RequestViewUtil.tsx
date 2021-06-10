@@ -230,7 +230,12 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
     });
     return temporalColumns;
   }
-  // if (destinyColumnHasProject || tabKey === 'Maintenance') {
+  if (tabKey === 'Maintenance') {
+    var destinyColumn = MaintenanceTypes.indexOf(project.projectData.projectsubtype) + 1;
+    if (!(columnIdx === 0 || columnIdx === destinyColumn)) {
+      return;
+    }
+  }
   if (destinyColumnHasProject) {
     return;
   } else {
