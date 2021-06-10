@@ -91,7 +91,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const user = store.getState().profile.userInformation;
-  console.log("USER", store.getState().profile);
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
@@ -218,69 +217,70 @@ const RequestView = ({ type, isFirstRendering }: {
   useEffect(()=>{
     setChanges(Math.random());
   },[locality, tabKey,year]);
-  useEffect(()=>{
-    console.log("USER", user);
-  },[user]);
+
   useEffect(() => {
     let params = new URLSearchParams(history.location.search)
     let _year = params.get('year');
     let _locality = params.get('locality');
     let _tabKey = params.get('tabKey');
-    if( _locality != user.organization && user.designation == GOVERNMENT_STAFF) {
-      _locality = user.organization;
-    }
-    getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
-    // getData(`${'http://localhost:3003'}/locality/${type}`, getToken())
-      .then(
-        (r: any) => {
-          setLocalities(r.localities);
-          let localitiesData = r.localities.map((l: any) => l.name);
-          localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
-          setDataAutocomplete(localitiesData);
-            if (_year) {
-              setYear(_year)
-            }
-            if (_locality) {
-              setLocality(_locality)
-              setLocalityFilter(_locality)
-            } else {
-              if (r.localities.length > 0) {
-                setLocality(r.localities[0].name)
-                setLocalityFilter(r.localities[0].name)
-                _locality = r.localities[0].name;
+    getData(SERVER.ME, getToken()).then( userResponse => {
+      if( _locality != userResponse.organization && userResponse.designation == GOVERNMENT_STAFF) {
+        _locality = userResponse.organization;
+      }
+      getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
+      // getData(`${'http://localhost:3003'}/locality/${type}`, getToken())
+        .then(
+          (r: any) => {
+            setLocalities(r.localities);
+            let localitiesData = r.localities.map((l: any) => l.name);
+            localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
+            setDataAutocomplete(localitiesData);
+              if (_year) {
+                setYear(_year)
               }
-            }
-            let l = r.localities.find((p: any) => {
-              return p.name === _locality;
-            })
-            if (l) {
-              setLocalityType(l.type);
-            }
-            if (_tabKey) {
-              setTabKey(_tabKey)
-            } else {
-              if (type === "WORK_REQUEST") {
-                setTabKey(tabKeys[0])
+              if (_locality) {
+                setLocality(_locality)
+                setLocalityFilter(_locality)
               } else {
-                if (l) {
-                  let displayedTabKey: string[] = [];
-                  if (l.type === 'COUNTY') {
-                    displayedTabKey = ['Capital', 'Maintenance']
-                  } else if (l.type === 'SERVICE_AREA') {
-                    displayedTabKey = ['Study', 'Acquisition', 'Special'];
-                  }
-                  if (l.name === 'MHFD District Work Plan') {
-                    displayedTabKey = tabKeys;
-                  }
-                  setTabKey(displayedTabKey[0]);
+                if (r.localities.length > 0) {
+                  setLocality(r.localities[0].name)
+                  setLocalityFilter(r.localities[0].name)
+                  _locality = r.localities[0].name;
                 }
               }
-            }
-        },
-        (e) => {
-          console.log('e', e);
-        }
-      )
+              let l = r.localities.find((p: any) => {
+                return p.name === _locality;
+              })
+              if (l) {
+                setLocalityType(l.type);
+              }
+              if (_tabKey) {
+                setTabKey(_tabKey)
+              } else {
+                if (type === "WORK_REQUEST") {
+                  setTabKey(tabKeys[0])
+                } else {
+                  if (l) {
+                    let displayedTabKey: string[] = [];
+                    if (l.type === 'COUNTY') {
+                      displayedTabKey = ['Capital', 'Maintenance']
+                    } else if (l.type === 'SERVICE_AREA') {
+                      displayedTabKey = ['Study', 'Acquisition', 'Special'];
+                    }
+                    if (l.name === 'MHFD District Work Plan') {
+                      displayedTabKey = tabKeys;
+                    }
+                    setTabKey(displayedTabKey[0]);
+                  }
+                }
+              }
+          },
+          (e) => {
+            console.log('e', e);
+          }
+        )  
+    })
+    
     setZoomProject(undefined);
   }, []);
 
