@@ -44,7 +44,8 @@ const Analytics = ({
   let countiesNames = data.map((d: any) => d.locality).join(',');
   let barsColor = '#261964';
   let groupingType = ['Capital', 'Maintenance'].includes(tabKey) ? 'County': 'Service Area';
-
+  let counterCounties = data.length;
+  console.log("counter", counterCounties);
   return (
     <Drawer
       title={
@@ -69,7 +70,7 @@ const Analytics = ({
       mask={false}
     >
       <h6>Requests by {groupingType} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
-      <div className="graph">
+      <div className="graph" style={{height: counterCounties*50 + 'px'}}>
         {maxiQ > 0 &&
         <HorizontalBarChart
           data={quantityData}
@@ -88,12 +89,14 @@ const Analytics = ({
           opacityOpaque={CHART_CONSTANTS.opacityFull}
           labelOverflowRight={true}
           minBarSize={0}
+          counterCounties={counterCounties}
+          lastChart={false}
         />
         }
       </div>
 
       <h6>Dollars Requested by {groupingType} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
-      <div className="graph">
+      <div className="graph" style={{height: counterCounties*50 + 'px'}}>
       {maxiA > 0 &&
       <HorizontalBarChart
           data={amountData}
@@ -115,6 +118,8 @@ const Analytics = ({
           opacityOpaque={CHART_CONSTANTS.opacityFull}
           labelOverflowRight={true}
           minBarSize={0}
+          counterCounties={counterCounties}
+          lastChart={true}
         />
       }
       </div>

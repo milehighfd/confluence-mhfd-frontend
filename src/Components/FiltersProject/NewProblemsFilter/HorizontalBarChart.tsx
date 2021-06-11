@@ -22,7 +22,7 @@ var transformSelectedData = (sData: any) => {
 }
 
 const HorizontalBarChart = ({
-  data, type, selected, onSelect, defaultValue, color, axisLabel,
+  data, type, selected, onSelect, defaultValue, color, axisLabel, counterCounties, lastChart,
   scrollClass='svg-scroll',
   showControls=true,
   withClickEvent=true,
@@ -79,7 +79,7 @@ const HorizontalBarChart = ({
       })
     }
 
-    const height = Math.max(data.length * spaceBetween, minHeight);
+    let height = Math.max(data.length * spaceBetween, minHeight);
 
     let maxi: any = d3.max(data, (d: any) => d.counter);
 
@@ -162,7 +162,9 @@ const HorizontalBarChart = ({
         setSelectedData([...selectedData, getValueToPush(d)])
       }
     }
-
+    // if( lastChart ) {
+    //   height = 740 - (2*counterCounties*50);
+    // }
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
       // .attr("width", width)
@@ -176,7 +178,7 @@ const HorizontalBarChart = ({
       .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
       .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
       .attr("y1", 0)
-      .attr("y2", height)
+      .attr("y2", 5000)
       .attr('stroke-width', '0.1%')
       .style("stroke-dasharray","2,2")
       .style("stroke", 'black')
@@ -189,7 +191,7 @@ const HorizontalBarChart = ({
       .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
       .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
       .attr("y1", 0)
-      .attr("y2", height)
+      .attr("y2", 5000)
       .attr('stroke-width', '0.1%')
       .style("stroke-dasharray","2,2")
       .style("stroke", 'black')
@@ -363,7 +365,7 @@ const HorizontalBarChart = ({
           <div style={{marginBottom: 10}}></div>
         )
       }
-      <div className={(scrollClass ? scrollClass : '') + ' svg-top-pad'}>
+      <div className={(scrollClass ? scrollClass : '') + ' svg-top-pad'} style={{height: counterCounties*50 + 'px'}}>
         <svg ref={svgRef} className="horizontal-text" />
       </div>
       <div className="horizontal-axis-label">
