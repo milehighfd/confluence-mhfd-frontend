@@ -163,7 +163,7 @@ const HorizontalBarChart = ({
       }
     }
     if( lastChart ) {
-      height =  (640 - (height));
+      height =  (640 - (height)) > 0 && (640 - (height)) > height ? (640 - (height)) : height ;
     }
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
