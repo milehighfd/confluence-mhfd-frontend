@@ -162,9 +162,9 @@ const HorizontalBarChart = ({
         setSelectedData([...selectedData, getValueToPush(d)])
       }
     }
-    // if( lastChart ) {
-    //   height = 740 - (2*counterCounties*50);
-    // }
+    if( lastChart ) {
+      height =  (640 - (height));
+    }
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
       // .attr("width", width)
