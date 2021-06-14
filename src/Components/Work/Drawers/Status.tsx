@@ -68,7 +68,11 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       // getData(`${'http://localhost:3003'}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
         .then((r) => {
           let list = substatus ? substatus.split(',') : [];
-          setBoardsData(r.boards.map((b: any) => {
+          let newBoardsSorted = [...r.boards];
+          newBoardsSorted.sort(function(a, b) {
+            return a.locality.localeCompare(b.locality);
+         });;
+          setBoardsData(newBoardsSorted.map((b: any) => {
             return {
               ...b,
               status: b.status === 'Approved' ? 'Approved' : (list.includes(b.locality) ? 'Approved' : 'Under Review')
@@ -139,7 +143,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       mask={false}
     >
       <h6>Status Management</h6>
-      <p>Work Request Status <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
+      <p>{type === 'WORK_REQUEST'? 'Work Request Status': 'Work Plan Status'} <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
 
       <Dropdown overlay={
         <Menu className="menu-utilities">

@@ -183,6 +183,8 @@ const RequestView = ({ type, isFirstRendering }: {
   }
 
   const onSelect = (value: any) => {
+    setShowAnalytics(false);
+    setShowBoardStatus(false);
     setLocality(value);
     setYear(2021);
     setLocalityFilter(value);
