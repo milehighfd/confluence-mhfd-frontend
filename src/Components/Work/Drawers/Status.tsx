@@ -23,6 +23,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
   const [boardSubstatus, setBoardSubstatus] = useState(substatus);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [boardsData, setBoardsData] = useState<any[]>([]);
+  const [boardsLength, setBoardsLength] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const [pending, setpending] = useState(false);
 
@@ -62,6 +63,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       setBoardsData(ls.map((l) => {
         return {locality: l, status: list.includes(l) ? 'Approved' : 'Under Review'}
       }))
+      setBoardsLength(ls.length);
     } else {
       setLoading(true);
       getData(`${SERVER.URL_BASE}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
@@ -70,7 +72,19 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
           let list = substatus ? substatus.split(',') : [];
           let newBoardsSorted = [...r.boards];
           newBoardsSorted.sort(function(a, b) {
-            return a.locality.localeCompare(b.locality);
+            if (locality !== 'MHFD District Work Plan') {
+              return a.locality.localeCompare(b.locality);
+            } else {
+              if (a.locality.includes('County') && b.locality.includes('County')) {
+                return a.locality.localeCompare(b.locality);
+              } else if (a.locality.includes('Service Area') && b.locality.includes('Service Area')) {
+                return a.locality.localeCompare(b.locality);
+              } else if (a.locality.includes('County')) {
+                return -1;
+              } else {
+                return 1;
+              }
+            }
          });;
           setBoardsData(newBoardsSorted.map((b: any) => {
             return {
@@ -78,6 +92,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
               status: b.status === 'Approved' ? 'Approved' : (list.includes(b.locality) ? 'Approved' : 'Under Review')
             }
           }));
+          setBoardsLength(newBoardsSorted.length)
         })
         .catch((e) => {
           console.log('e', e)
@@ -121,7 +136,9 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
   return (
     <>
     { visibleAlert && <SubmitModal
+      locality={locality}
       boardSubstatus={boardSubstatus}
+      boardsLength={boardsLength}
       type={type}
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
