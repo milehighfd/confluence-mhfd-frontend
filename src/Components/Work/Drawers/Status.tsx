@@ -92,7 +92,8 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
           setBoardsData(newBoardsSorted.map((b: any) => {
             return {
               ...b,
-              status: b.status === 'Approved' ? 'Approved' : (list.includes(b.locality) ? 'Approved' : 'Under Review')
+              status: b.status === 'Approved' ? 'Approved' : 'Under Review',
+              checked: list.includes(b.locality) ? 'Approved' : 'Under Review'
             }
           }));
           setBoardsLength(newBoardsSorted.length)
@@ -119,7 +120,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       boardsData.map((bd) => {
         return {
           ...bd,
-          status: ls.includes(bd.locality) ? 'Approved' : 'Under Review'
+          checked: ls.includes(bd.locality) ? 'Approved' : 'Under Review'
         }
       })
     )
@@ -226,7 +227,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
                     />
                     {
                       (type === 'WORK_REQUEST' || locality === 'MHFD District Work Plan') &&
-                      <Checkbox checked={item.status === 'Approved'} onClick={() => onCheck(item.locality)} />
+                      <Checkbox checked={item.checked === 'Approved'} onClick={() => onCheck(item.locality)} />
                     }
                   </List.Item>
                 )}
