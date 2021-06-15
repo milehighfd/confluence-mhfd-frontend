@@ -210,6 +210,7 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   };
   const onClickNewProject = () => {
+    if (locality === 'MHFD District Work Plan') return;
     clear();
     setVisibleCreateProject(true);
     setStreamsIds([]);
@@ -815,7 +816,7 @@ const RequestView = ({ type, isFirstRendering }: {
                                 <div className="col-wr droppable" onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx)}>
                                   {
                                     column.hasCreateOption &&
-                                    <Button className="btn-transparent" onClick={onClickNewProject} disabled={locality === 'MHFD District Work Plan'}>
+                                    <Button className="btn-transparent" onClick={onClickNewProject} >
                                       {locality === 'MHFD District Work Plan' ? <img src="/Icons/icon-18-gray.svg" style={{marginBottom:'2px'}} alt=""/>: <img src="/Icons/icon-18.svg" style={{marginBottom:'2px'}} alt=""/>}
                                       Create Project
                                     </Button>
