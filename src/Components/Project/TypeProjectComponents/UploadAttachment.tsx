@@ -4,16 +4,37 @@ import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachm
 import { Attachment } from "../../Work/Request/RequestTypes";
 import { saveAs } from 'file-saver';
 
-const content06 = (<div className="popver-info"></div>);
+
 
 let counter = 0;
 
-export const UploadAttachment = ({ files, setFiles, setCover , isCapital}: {
+export const UploadAttachment = ({ files, setFiles, setCover , isCapital, originModal}: {
   files: any[],
   setFiles: Function,
   setCover: Function,
-  isCapital?: any
+  isCapital?: any,
+  originModal?: any
 }) => {
+  
+  const getLabel = () => {
+    if(originModal == 'Study') {
+      return 'Study'
+    }
+    if(originModal == 'Acquisition') {
+      return 'acquisition'
+    }
+    return 'project';
+  }
+  const getLabelCap = () => {
+    if(originModal == 'Study') {
+      return 'study'
+    }
+    if(originModal == 'Acquisition') {
+      return 'acquisition'
+    }
+    return 'Project';
+  }
+  const content06 = (<div className="popver-info">This is a place to upload photos and images (including plans) related to the {getLabel()}. One image can be selected as the "Cover Image" for the {getLabel()} that will show up on the {getLabelCap()} Card once the {getLabel()} is Initiated.</div>);
   const labelRef = useRef<HTMLDivElement>(null);
   const [draggin, setDraggin] = useState(false);
 

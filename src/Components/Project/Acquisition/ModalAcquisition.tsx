@@ -22,8 +22,8 @@ const content = (<div className="popver-info">The purchase of property that is s
 const content00 = (<div className="popver-info"></div>);
 const content01 = (<div className="popver-info"></div>);
 const content02 = (<div className="popver-info"></div>);
-const content03 = (<div className="popver-info"></div>);
-const content04 = (<div className="popver-info"></div>);
+const content03 = (<div className="popver-info">Progress indicates the current status of the acquisition.</div>);
+const content04 = (<div className="popver-info">This is the best available estimate of when the acquisition will close.</div>);
 const content05 = (<div className="popver-info"></div>);
 const content06 = (<div className="popver-info"></div>);
 const content08 = (<div className="popver-info"></div>);
@@ -63,7 +63,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [progress, setProgress] = useState('');
   const [purchaseDate, setPurchaseDate] = useState('');
   const [save, setSave] = useState(false);
-  const [geom, setGeom] = useState();
+  const [geom, setGeom] = useState<any>();
   const [files, setFiles] = useState<any[]>([]);
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
@@ -354,6 +354,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
               sponsor={sponsor}
               editable= {editable}
               isEdit={swSave}
+              originModal="Acquisition"
             />
             <br/>
 
@@ -362,6 +363,7 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
               files={files}
               setFiles={setFiles}
               setCover={setCover}
+              originModal="Acquisition"
             />
           </div>
           <div className="footer-project">

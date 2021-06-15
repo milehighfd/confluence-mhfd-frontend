@@ -6,6 +6,9 @@ import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
 
+const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
+const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
+const content02 = (<div className="popver-info">This is a place to add notes on a Local Government work request. Notes will be visible to any user from the same Local Government as well as MHFD staff.</div>);
 export default ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert }: {
   locality: string,
   boardId: any,
@@ -160,7 +163,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       mask={false}
     >
       <h6>Status Management</h6>
-      <p>{type === 'WORK_REQUEST'? 'Work Request Status': 'Work Plan Status'} <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
+      <p>{type === 'WORK_REQUEST'? 'Work Request Status': 'Work Plan Status'} <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" />  </Popover></p>
 
       <Dropdown overlay={
         <Menu className="menu-utilities">
@@ -189,7 +192,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
             <Col lg={{ span: 12 }}>
               <p>{type === 'WORK_REQUEST' ? 'Project Type' : 'Work Plan'}
                 &nbsp;&nbsp;
-                <Popover content={type === 'WORK_REQUEST' ? <div>Once all project types are selected<br/> the Work Request may be submitted.</div> : ''}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover>
+                <Popover content={type === 'WORK_REQUEST' ? content01 : ''}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover>
               </p>
             </Col>
             {
@@ -231,7 +234,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
             )
           }
       <br />
-      <p>Notes <img src="/Icons/icon-19.svg" alt="" height="10px" /></p>
+      <p>Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
       <textarea className="note" rows={8} value={boardComment} onChange={e => {
         if (status === 'Approved') return;
         setBoardComment(e.target.value)

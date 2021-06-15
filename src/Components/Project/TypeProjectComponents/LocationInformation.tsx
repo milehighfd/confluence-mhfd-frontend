@@ -7,13 +7,8 @@ import { useProfileState } from '../../../hook/profileHook';
 import store from '../../../store';
 
 const { Option } = Select;
-const content08 = (<div className="popver-info"></div>);
-const content01 = (<div className="popver-info"></div>);
-const content02 = (<div className="popver-info"></div>);
-const content03 = (<div className="popver-info"><b>Sponsor</b> is the Jurisdiction that requested the project.</div>);
-const content04 = (<div className="popver-info"><b>Co-Sponsor</b> is any additional Jurisdiction that will be contributing funding to the project.</div>);
 export const LocationInformation = ({
-  setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor,sponsor, isEdit, isCapital
+  setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor,sponsor, isEdit, isCapital, originModal
 }: {
   setServiceArea: Function,
   setCounty: Function,
@@ -27,8 +22,42 @@ export const LocationInformation = ({
   cosponsor:any,
   sponsor:any,
   isEdit: boolean,
-  isCapital?: boolean
+  isCapital?: boolean,
+  originModal?: string
+
 }) => {
+  const getLabel = () => {
+    if(originModal == 'Study') {
+      return 'Study'
+    }
+    if(originModal == 'Acquisition') {
+      return 'acquisition'
+    }
+    return 'project';
+  }
+  const getLabelCap = () => {
+    if(originModal == 'Study') {
+      return 'study'
+    }
+    if(originModal == 'Acquisition') {
+      return 'acquisition'
+    }
+    return 'Project';
+  }
+
+const contentLocInf = (<div className="popver-info">Some Location Information fields are populated automatically when the { getLabelCap() } Location is drawn. Please check them for accuracy and make changes as-necessary.</div>);
+const contentSerAre = (<div className="popver-info">This is the MHFD Service Area where the { getLabel() } is located.</div>);
+const contentCounty = (<div className="popver-info">This is the County or Counties where the { getLabel() } is located.</div>);
+const contentJuris = (<div className="popver-info">This is the Local Government(s) where the { getLabel() } is located.</div>);
+const content0001 = (<div className="popver-info"></div>);
+const content0002 = (<div className="popver-info"></div>);
+const content0003 = (<div className="popver-info"></div>);
+const content0004 = (<div className="popver-info"></div>);
+const content0005 = (<div className="popver-info"></div>);
+const content03 = (<div className="popver-info">This is the primary local government sponsor that is requesting the { getLabel() }.
+</div>);
+const content04 = (<div className="popver-info">This is a list of all potential local government co-sponsors which might contribute funding or otherwise participate in the { getLabel() }.</div>);
+
   const {currentServiceAreaCounty, jurisdiction} = useProjectState();
   const {setServiceAreaCounty} = useProjectDispatch();
   const {groupOrganization} = useProfileState();
@@ -117,10 +146,10 @@ export const LocationInformation = ({
   
   return(
     <>
-    <h5>{isCapital?'5.':'3.'} Location Information <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
+    <h5>{isCapital?'5.':'3.'} Location Information <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-        <label className="sub-title">Service Area <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+        <label className="sub-title">Service Area <Popover content={contentSerAre}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
           <Select mode="multiple" placeholder={serviceArea?.length!=0?serviceArea:"Select a Service Area"} style={{width:'100%'}} onChange={(serviceArea:any)=> setServiceArea(serviceArea)} value={serviceArea} disabled={disable}>
           {officialS_A.map((element) =>{
@@ -133,7 +162,7 @@ export const LocationInformation = ({
         </div>
       </Col>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-        <label className="sub-title">County <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+        <label className="sub-title">County <Popover content={contentCounty}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
           <Select mode="multiple" placeholder={county?.length!=0?county:"Select a County"} style={{width:'100%'}} value={county} onChange={(county:any)=> apllyCounty(county)} disabled={disable}>
             {PROJECT_INFORMATION.COUNTRY_PROJECT.map((element) =>{
@@ -145,7 +174,7 @@ export const LocationInformation = ({
     </Row>
     <Row gutter={[16, 16]}>
       <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-        <label className="sub-title">Jurisdiction <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+        <label className="sub-title">Jurisdiction <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
         <div className="sponsor-select">
           <Select mode="multiple" placeholder={jUrisdiction?.length!=0?jUrisdiction:"Select a Jurisdiction"} style={{width:'100%'}} value={jUrisdiction} onChange={(jUrisdiction:any)=> setjurisdiction(jUrisdiction)}>
           {JURISDICTION.map((element:string ) =>{

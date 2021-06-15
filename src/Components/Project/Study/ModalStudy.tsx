@@ -472,6 +472,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               sponsor={sponsor}
               editable= {editable}
               isEdit={swSave}
+              originModal="Study"
             />
             
             <br/>
@@ -480,6 +481,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               files={files}
               setFiles={setFiles}
               setCover={setCover}
+              originModal="Study"
             />
           </div>
           <div className="footer-project">

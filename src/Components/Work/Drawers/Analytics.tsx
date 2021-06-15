@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Drawer, Select } from 'antd';
+import { Drawer, Select, Popover } from 'antd';
 import HorizontalBarChart from "../../FiltersProject/NewProblemsFilter/HorizontalBarChart";
 import { formatter, MaintenanceTypes } from "../Request/RequestViewUtil";
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
 
 const { Option } = Select;
-
+const contentCounty = (<div className="popver-info">This graphic indicates the number of requests within each Jurisdiction broken out by County.</div>);
+const contentDollars = (<div className="popver-info"> This graphic indicates the dollar amount of requests within each Jurisdiction broken out by County.</div>);
 const Analytics = ({
   visible, setVisible, data, tabKey, initialYear
 }: {
@@ -67,7 +68,7 @@ const Analytics = ({
       className="work-utilities"
       mask={false}
     >
-      <h6>Requests by {groupingType} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
+      <h6>Requests by {groupingType} <Popover content={contentCounty}> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       <div className="graph" style={{height: maxiQ > 0? counterCounties*50 + 'px' :  2*50 + 'px'}}>
         {maxiQ > 0 &&
         <HorizontalBarChart
@@ -93,7 +94,7 @@ const Analytics = ({
         }
       </div>
 
-      <h6>Dollars Requested by {groupingType} <img src="/Icons/icon-19.svg" alt="" height="10px" /></h6>
+      <h6>Dollars Requested by {groupingType} <Popover content={contentDollars}> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       <div className="graph" style={{height: maxiA > 0 ?counterCounties*50 + 'px': 2*50 + 'px'}}>
       {maxiA > 0 &&
       <HorizontalBarChart

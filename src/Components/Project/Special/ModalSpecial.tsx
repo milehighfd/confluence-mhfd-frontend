@@ -29,7 +29,7 @@ const content01 = (<div className="popver-info"></div>);
 const content02 = (<div className="popver-info"></div>);
 const content03 = (<div className="popver-info"></div>);
 const content04 = (<div className="popver-info"></div>);
-const content05 = (<div className="popver-info"></div>);
+
 const content06 = (<div className="popver-info"></div>);
 const content08 = (<div className="popver-info"></div>);
 const selec = [1];
@@ -317,6 +317,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
               sponsor={sponsor}
               editable= {editable}
               isEdit={swSave}
+              originModal="Special"
             />
             <br/>
 
@@ -325,6 +326,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
               files={files}
               setFiles={setFiles}
               setCover={setCover}
+              originModal="Special"
             />
           </div>
           <div className="footer-project">

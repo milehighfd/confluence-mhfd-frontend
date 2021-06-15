@@ -2,7 +2,7 @@ import { Popover } from 'antd';
 import React from 'react';
 import { formatter } from './RequestViewUtil';
 
-const content00 = (<div className="popver-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>);
+const content00 = (<div className="popver-info">Breakdown of project budget requests by County within each Jurisdiction, where applicable.</div>);
 
 const CostTableBody = ({ countySum, isFiltered }: {
   countySum: any,
@@ -14,7 +14,8 @@ const CostTableBody = ({ countySum, isFiltered }: {
       <div>
         <label>
           {countySum.locality}
-          <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{ marginLeft: '4px' }} />
+          <Popover content={content00}>
+            <img src="/Icons/icon-19.svg" alt="" height="10px" style={{ marginLeft: '4px' }} />
           </Popover>
         </label>
       </div>

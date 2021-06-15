@@ -16,14 +16,14 @@ const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>);
-const content00 = (<div className="popver-info"></div>);
+const contentIndComp = (<div className="popver-info">Independent Components should be added to represent any known project components that are not already shown in the Components layer. Independent Component costs should reflect only the cost of construction; they will have Overhead Costs applied to them</div>);
 const content01 = (<div className="popver-info"></div>);
 const content02 = (<div className="popver-info"></div>);
 const content03 = (<div className="popver-info"></div>);
 const content04 = (<div className="popver-info"></div>);
 const content05 = (<div className="popver-info"></div>);
-const content06 = (<div className="popver-info"></div>);
-const content07 = (<div className="popver-info"></div>);
+const contentOverheadCost = (<div className="popver-info"> Overhead Cost includes all costs beyond the costs of physical construction (Subtotal Cost). The default values shown here can and should be changed when different percentages are anticipated, such as in urban settings. Please add a description explaining any changes from default values. </div>);
+const contentAdditionalCost = (<div className="popver-info"> Enter any additional costs here that were not captured previously as Components, Independent Components, or Overhead Costs. Additional Costs (unlike Independent Components) will NOT have Overhead Costs applied to them. </div>);
 const content08 = (<div className="popver-info"></div>);
 const content09 = (<div className="popver-info"></div>);
 const content10 = (<div className="popver-info"></div>);
@@ -753,7 +753,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 </Panel>
               }
             </Collapse>
-            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button>
+            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover>
             <h5>3. PROJECT GEOMETRY <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
 
             <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
@@ -768,7 +768,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <hr/>
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
-                <p>Overhead Cost <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
+                <p>Overhead Cost <Popover content={contentOverheadCost}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
                 {/* <Select placeholder="75%" dropdownClassName="menu-medium" >
@@ -1064,7 +1064,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
-                <p>Additional Cost <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
+                <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
                 <Input style={{paddingLeft:'0px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost)}/>
@@ -1101,6 +1101,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               editable= {editable}
               isEdit={swSave}
               isCapital={true}
+              originModal="Capital"
             />
             <br/>
 
@@ -1110,6 +1111,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               setFiles={setFiles}
               setCover={setCover}
               isCapital={true}
+              originModal="Capital"
             />
           </div>
           <div className="footer-project">

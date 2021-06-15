@@ -6,7 +6,7 @@ import {  PROJECT_INFORMATION, SERVICE_AREA, SERVICE_AREA_VALUE } from "../../..
 
 const { TextArea } = Input;
 const { Option } = Select;
-const content00 = (<div className="popver-info"></div>);
+const content00 = (<div className="popver-info">Please include all known information relating to the origin, purpose, need, and scope of this project. Description is a required field.</div>);
 
 export const ProjectInformation = ({description, setDescription}:
   {description: string, setDescription: Function}) => {

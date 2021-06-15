@@ -29,6 +29,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
   {typeProject: string, geom: any, setGeom: Function}) => {
   const onChange = (e: any)=>{
   }
+  const content05 = (<div className="popver-info">If the Special Project does not have a physical location (i.e. research study, criteria update, etc.), please drop a pin on the Local Government's City Hall or MHFD Office.</div>);
   const [latitude, setLatitude] = useState('--');
   const [longitude, setLongitude] = useState('--');
   const {saveSpecialLocation, saveAcquisitionLocation} = useProjectDispatch();
@@ -91,7 +92,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
   },[]);
   return(
     <>
-    <h5>2. Drop Pin <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" /></Button></h5>
+    <h5>2. Drop Pin <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" /></Button> {typeProject == 'Special'? <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover>:''} </h5>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }} xxl={{ span: 12 }}>
         <Table dataSource={dataSource} columns={columns} bordered />

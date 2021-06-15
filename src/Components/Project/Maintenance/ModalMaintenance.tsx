@@ -20,9 +20,9 @@ const content = (<div className="popver-info"> Projects that repair or restore e
 const content00 = (<div className="popver-info"></div>);
 const content01 = (<div className="popver-info"></div>);
 const content02 = (<div className="popver-info"></div>);
-const content03 = (<div className="popver-info"><b>Frequency:</b> The number of times per year the maintenance activity should be done.</div>);
-const content04 = (<div className="popver-info"><b>Access Control:</b> Is any part of the project on private property without an easement?</div>);
-const content05 = (<div className="popver-info"><b>Maintenance Eligibility:</b> The maintenance eligibility status for the project. </div>);
+const content03 = (<div className="popver-info">Frequency indicates the number of times per-year that a maintenance activity is requested for routine activities. For example, select 2 for twice-per-year, or select 12 for monthly.</div>);
+const content04 = (<div className="popver-info">Flip this switch to indicate that the project is located on a property to which the Local Government has legal right-of-access. This is a requirement for all Maintenance Projects.</div>);
+const content05 = (<div className="popver-info"> Indicate why this project is eligible for MHFD maintenance.</div>);
 const content06 = (<div className="popver-info"></div>);
 const content07 = (<div className="popver-info"></div>);
 const content08 = (<div className="popver-info"></div>);
@@ -390,6 +390,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
               sponsor={sponsor}
               editable= {editable}
               isEdit={swSave}
+              originModal="Maintenance"
             />
             <br/>
 
@@ -398,6 +399,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
               files={files}
               setFiles={setFiles}
               setCover={setCover}
+              originModal="Maintenance"
             />
           </div>
           <div className="footer-project">
