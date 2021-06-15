@@ -2102,7 +2102,8 @@ const CreateProjectMap = (type: any) => {
               cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
               problem: 'Dataset in development',
               added: status,
-              objectid: feature.properties.objectid? feature.properties.objectid: ''
+              objectid: feature.properties.objectid? feature.properties.objectid: '',
+              projectid : feature.properties.projectid? feature.properties.projectid: undefined 
             };
             const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
             menuOptions.push(name);

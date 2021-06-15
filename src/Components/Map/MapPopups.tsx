@@ -192,7 +192,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.servicearea ? <p><i>Service Area: </i> {item.servicearea}</p> : ''}
             {item.watershedmanager ? <p><i>Watershed Manager: </i> {item.watershedmanager}</p> : ''}
             {item.constructionmanagers ? <p><i>Construction Managers: </i> {item.constructionmanagers}</p> : ''}
-            {isComponent && <Button id={"buttonCreate-" + id} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
+            {isComponent && item.projectid === undefined && <Button id={"buttonCreate-" + id} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
         </div>
         </Card>
     </div>
@@ -255,7 +255,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
           {item.servicearea ? <p><i>Service Area: </i> {item.servicearea}</p> : ''}
           {item.watershedmanager ? <p><i>Watershed Manager: </i> {item.watershedmanager}</p> : ''}
           {item.constructionmanagers ? <p><i>Construction Managers: </i> {item.constructionmanagers}</p> : ''}
-          {isComponent && !isWR && <Button id={'component-'+id}  style={{ width: '100%', marginTop: '10px'}} className="btn-purple" >{item.added}</Button>}
+          {isComponent && !isWR && item.projectid === undefined && <Button id={'component-'+id}  style={{ width: '100%', marginTop: '10px'}} className="btn-purple" >{item.added}</Button>}
       </div>
       </Card>
   </div>
