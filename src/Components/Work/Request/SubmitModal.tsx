@@ -33,9 +33,9 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
     isPending = pending;
   }
 
+  
   let currentApproved = currentStatus === 'Approved';
   let approved = boardStatus === 'Approved';
-
   let hasChecksAlertText = `${type === 'WORK_REQUEST' ? 'Work Request': 'District Work Plan'} submission is unavailable until all ${type === 'WORK_REQUEST' ? 'project types' : 'Work Plans'} are selected for approval.`;
   let notChecksAlertText = `Can not submit while still have pending work request`;
 
@@ -58,7 +58,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
           {
             (isPending) && <h2>{ hasChecks ? hasChecksAlertText : notChecksAlertText }</h2> 
           }
-          <button className="btn-borde" onClick={handleCancel}>Cancel</button>
+          { !isPending && <button className="btn-borde" onClick={handleCancel}>Cancel</button>}
           {
             isPending ? (
               <button className="btn-purple" onClick={handleCancel}>
