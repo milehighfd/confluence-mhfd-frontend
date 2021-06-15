@@ -15,8 +15,7 @@ import { resetAppUser } from './store/actions/appUser';
 import { resetMap } from './store/actions/mapActions';
 
 import LoadingView from './Components/Loading/LoadingView';
-
-const MapView = lazy(()=> import('./Components/Map/MapView'));
+import MapView from './Components/Map/MapView';
 const LoginContainer = lazy(()=> import('./Components/Login/LoginContainer'));
 const SignUpContainer = lazy(()=> import('./Components/SignUp/SignUpContainer'));
 const Unauthorized = lazy(()=> import('./Components/Unauthorized/Unauthorized'));
@@ -29,6 +28,7 @@ const WorkRequest = lazy(()=> import('./Components/Work/Request/WorkRequest'));
 const UserContainer = lazy(()=> import('./Components/User/UserContainer'));
 const UploadAttachmentContainer = lazy(()=> import('./Components/UploadAttachment/UploadAttachmentContainer'));
 const DetailedContainer = lazy(()=> import('./Components/DetailedProblem/DetailedContainer'));
+
 
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, replaceFilterCoordinates, getGroupOrganization }
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,

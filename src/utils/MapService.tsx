@@ -260,7 +260,7 @@ export class MapService {
     });
     this.map.loadImage('custom-sprite/dollar.png', (error: any, image: any) => {
         if (error) {
-            console.log('error on load ', error);
+            console.log('error on load dollar', error);
             return;
         }
         if (!this.map.hasImage('dollar')) {
@@ -269,7 +269,7 @@ export class MapService {
     });
     this.map.loadImage('custom-sprite/fema-floodway.png', (error: any, image: any) => {
         if (error) {
-            console.log('error on load ', error);
+            console.log('error on load floodway', error);
             return;
         }
         if (!this.map.hasImage('fema-floodway')) {
@@ -278,7 +278,7 @@ export class MapService {
     });
     this.map.loadImage('custom-sprite/Frame13a.png', (error: any, image: any) => {
         if (error) {
-            console.log('error on load ', error);
+            console.log('error on load Frame13a', error);
             return;
         }
         if (!this.map.hasImage('Frame13a')) {
@@ -287,7 +287,7 @@ export class MapService {
     });
     this.map.loadImage('custom-sprite/Frame17m2t.png', (error: any, image: any) => {
         if (error) {
-            console.log('error on load ', error);
+            console.log('error on load Frame17m2t', error);
             return;
         }
         if (!this.map.hasImage('Frame17m2t')) {
@@ -296,7 +296,7 @@ export class MapService {
     });
     this.map.loadImage('custom-sprite/Frame21C.png', (error: any, image: any) => {
         if (error) {
-            console.log('error on load ', error);
+            console.log('error on load Frame21C', error);
             return;
         }
         if (!this.map.hasImage('Frame21C')) {
@@ -305,7 +305,7 @@ export class MapService {
     });
     this.map.loadImage('custom-sprite/pjm2.png', (error: any, image: any) => {
         if (error) {
-            console.log('error on load ', error);
+            console.log('error on load pjm2', error);
         }
         if (!this.map.hasImage('pjm2')) {
             this.map.addImage('pjm2', image);
@@ -313,7 +313,7 @@ export class MapService {
     });
     this.map.loadImage('custom-sprite/Urbanclimbtosafetysign_origclean-50.png', (error: any, image: any) => {
         if (error) {
-            console.log('error on load ', error);
+            console.log('error on load Urbanclimbtosafetysign_origclean-50.png', error);
             return;
         }
         if (!this.map.hasImage('Urbanclimbtosafetysign_origclean')) {

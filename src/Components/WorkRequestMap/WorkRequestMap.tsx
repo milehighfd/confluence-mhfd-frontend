@@ -1126,7 +1126,7 @@ const WorkRequestMap = (type: any) => {
   useEffect(()=>{
     let buttonElement = document.getElementById('popup');
       if (buttonElement != null) {
-        if(counterPopup.componentes) {
+        if(typeof(counterPopup.componentes) !== 'undefined') {
           buttonElement.innerHTML = counterPopup.componentes+'';
         } else {
           buttonElement.innerHTML = counterPopup+'';

@@ -506,7 +506,6 @@ export const getAllComponentsByProblemId = (problemId: any) => {
     });
   }
 }
-
 export const getStreamsByProjectId = (projectId: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_STREAMS_BY_PROJECT(projectId), datasets.getToken()).then( listStreams => {

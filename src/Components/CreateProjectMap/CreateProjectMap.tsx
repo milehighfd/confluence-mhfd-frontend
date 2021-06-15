@@ -80,7 +80,7 @@ const CreateProjectMap = (type: any) => {
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
-    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom } = useProjectDispatch();
+    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom, getAllComponentsByProblemId } = useProjectDispatch();
   const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream,highlightedStreams } = useProjectState();
   const {groupOrganization} = useProfileState();
   const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
@@ -107,7 +107,7 @@ const CreateProjectMap = (type: any) => {
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   const empty: any[] = [];
   const [allLayers, setAllLayers] = useState(empty);
-  const [counterPopup, setCounterPopup] = useState( 0 );  
+  const [counterPopup, setCounterPopup] = useState({ componentes: 0 }); 
   const [componentsHover, setComponentsHover] = useState([]);
   const [data, setData] = useState({
     problemid: '',
@@ -1570,16 +1570,16 @@ const CreateProjectMap = (type: any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
   
-  // useEffect(()=>{
-  //   let buttonElement = document.getElementById('popup');
-  //     if (buttonElement != null) {
-  //       if(counterPopup) {
-  //         buttonElement.innerHTML = counterPopup+'';
-  //       } else {
-  //         buttonElement.innerHTML = counterPopup+'';
-  //       }
-  //     }
-  // },[counterPopup]);
+  useEffect(()=>{
+    let buttonElement = document.getElementById('popup');
+      if (buttonElement != null) {
+        if(typeof(counterPopup.componentes) !== 'undefined') {
+          buttonElement.innerHTML = counterPopup.componentes+'';
+        } else {
+          buttonElement.innerHTML = counterPopup+'';
+        }
+      }
+  },[counterPopup]);
   const eventClick = (e: any) => {
     popup.remove();
     if(!isPopup){
@@ -2154,77 +2154,87 @@ const CreateProjectMap = (type: any) => {
     },300);
    
   }
-  useEffect(() => {
-      if (map.map.getLayer('mapboxArcs')) {
-          map.map.removeLayer('mapboxArcs')
-      }
-      if (map.map.getLayer('arcs')) {
-          map.map.removeLayer('arcs')
-      }
-      if (bboxComponents.centroids && bboxComponents.centroids.length <= 1) {
-          setTimeout(() => {
-              map.map.setPitch(0)
-          }, 3000)
-      } else {
-          const SOURCE_COLOR = [189, 56, 68];
-          const TARGET_COLOR = [13, 87, 73];
-          const YELLOW_SOLID = [118, 239, 213];
-          let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
-              return {
-                  position: c.centroid,
-                  name: c.component,
-                  total: 1,
-                  color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR
-              }
-          });
-          let arcs: any[] = [];
+  // useEffect(() => {
+  //     if (map.map.getLayer('mapboxArcs')) {
+  //         map.map.removeLayer('mapboxArcs')
+  //     }
+  //     if (map.map.getLayer('arcs')) {
+  //         map.map.removeLayer('arcs')
+  //     }
+  //     if (bboxComponents.centroids && bboxComponents.centroids.length <= 1) {
+  //         setTimeout(() => {
+  //             map.map.setPitch(0)
+  //         }, 3000)
+  //     } else {
+  //         const SOURCE_COLOR = [189, 56, 68];
+  //         const TARGET_COLOR = [13, 87, 73];
+  //         const YELLOW_SOLID = [118, 239, 213];
+  //         let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
+  //             return {
+  //                 position: c.centroid,
+  //                 name: c.component,
+  //                 total: 1,
+  //                 color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR
+  //             }
+  //         });
+  //         let arcs: any[] = [];
 
-          for (let i = 1;  i < bboxComponents.centroids.length ; i++) {
-              arcs.push({
-                  source: bboxComponents.centroids[0].centroid,
-                  target: bboxComponents.centroids[i].centroid,
-                  value: bboxComponents.centroids[i].arcWidth
-              });
-          }
-          let mapboxArcsLayer = new MapboxLayer({
-              type: ScatterplotLayer,
-              id: 'mapboxArcs',
-              data: scatterData,
-              opacity: 1,
-              pickable: true,
-              getRadius: (d: any) => {
-                  if (d.name === 'self') {
-                      return 2;
-                  } else {
-                      return 1;
-                  }
-              },
-              getColor: (d: any) => d.color
-          });
+  //         for (let i = 1;  i < bboxComponents.centroids.length ; i++) {
+  //             arcs.push({
+  //                 source: bboxComponents.centroids[0].centroid,
+  //                 target: bboxComponents.centroids[i].centroid,
+  //                 value: bboxComponents.centroids[i].arcWidth
+  //             });
+  //         }
+  //         let mapboxArcsLayer = new MapboxLayer({
+  //             type: ScatterplotLayer,
+  //             id: 'mapboxArcs',
+  //             data: scatterData,
+  //             opacity: 1,
+  //             pickable: true,
+  //             getRadius: (d: any) => {
+  //                 if (d.name === 'self') {
+  //                     return 2;
+  //                 } else {
+  //                     return 1;
+  //                 }
+  //             },
+  //             getColor: (d: any) => d.color
+  //         });
 
-          let arcsLayer = new MapboxLayer({
-              type: ArcLayer,
-              id: 'arcs',
-              data: arcs,
-              brushRadius: 100000,
-              getStrokeWidth: (d: any) => 4,
-              opacity: 1,
-              getSourcePosition: (d: any) => d.source,
-              getTargetPosition: (d: any) => d.target,
-              getWidth: (d: any) => d.value * 2,
-              getHeight: 0.7,
-              getSourceColor: YELLOW_SOLID,
-              getTargetColor: YELLOW_SOLID
-          });
-          map.map.setPitch(80)
-          map.map.addLayer(mapboxArcsLayer);
-          map.map.addLayer(arcsLayer);
-      }
-  }, [bboxComponents])
+  //         let arcsLayer = new MapboxLayer({
+  //             type: ArcLayer,
+  //             id: 'arcs',
+  //             data: arcs,
+  //             brushRadius: 100000,
+  //             getStrokeWidth: (d: any) => 4,
+  //             opacity: 1,
+  //             getSourcePosition: (d: any) => d.source,
+  //             getTargetPosition: (d: any) => d.target,
+  //             getWidth: (d: any) => d.value * 2,
+  //             getHeight: 0.7,
+  //             getSourceColor: YELLOW_SOLID,
+  //             getTargetColor: YELLOW_SOLID
+  //         });
+  //         map.map.setPitch(80)
+  //         map.map.addLayer(mapboxArcsLayer);
+  //         map.map.addLayer(arcsLayer);
+  //     }
+  // }, [bboxComponents])
 
   const getComponentsFromProjProb = (item: any, event: any) => {
     let id = item.type == 'project'? item.id: item.problemid;
-    getBBOXComponents(item.type, id);
+    // getBBOXComponents(item.type, id);
+    getAllComponentsByProblemId(id);
+    getData(SERVER.GET_COMPONENTS_BY_PROBLEMID+'?problemid='+id, getToken()).then(componentsFromMap => {
+      if(componentsFromMap.result.length > 0  && componentsList.length > 0){
+        getListComponentsByComponentsAndPolygon([...componentsList, ...componentsFromMap.result], null);
+      } else if(componentsList.length == 0 && componentsFromMap.result.length > 0) {
+        getListComponentsByComponentsAndPolygon([ ...componentsFromMap.result], null);
+      } else if(componentsList.length > 0 && componentsFromMap.result.length == 0) {
+        getListComponentsByComponentsAndPolygon([ ...componentsList], null);
+      }
+    });
     removePopup();
   }
   const addRemoveComponent = (item: any, event: any)=> {
