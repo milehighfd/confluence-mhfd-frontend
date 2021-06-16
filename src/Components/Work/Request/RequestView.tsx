@@ -311,7 +311,7 @@ const RequestView = ({ type, isFirstRendering }: {
             setBoardComment(board.comment);
             setNamespaceId(board._id)
             setReqManager([
-              board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
+              board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
             ])
             let justProjects = projects.map((proj:any)=> {
               return proj.projectData?.cartodb_id;
@@ -409,13 +409,13 @@ const RequestView = ({ type, isFirstRendering }: {
                 }
                 let reqManagerEq = true;
                 for (var i = 1 ; i <= 5; i++) {
-                  if (board[`reqmanager${i}`] != reqManager[i-1]) {
+                  if (board[`targetcost${i}`] != reqManager[i-1]) {
                     reqManagerEq = false;
                   }
                 }
                 if (!reqManagerEq) {
                   setReqManager([
-                    board.reqmanager1, board.reqmanager2, board.reqmanager3, board.reqmanager4, board.reqmanager5
+                    board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
                   ])
                 }
               }
