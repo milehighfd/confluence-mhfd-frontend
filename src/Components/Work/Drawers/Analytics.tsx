@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Drawer, Select, Popover } from 'antd';
 import HorizontalBarChart from "../../FiltersProject/NewProblemsFilter/HorizontalBarChart";
 import { formatter, MaintenanceTypes } from "../Request/RequestViewUtil";
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
 
 const { Option } = Select;
-const contentCounty = (<div className="popver-info">This graphic indicates the number of requests within each Jurisdiction broken out by County.</div>);
-const contentDollars = (<div className="popver-info"> This graphic indicates the dollar amount of requests within each Jurisdiction broken out by County.</div>);
+
 const Analytics = ({
   visible, setVisible, data, tabKey, initialYear
 }: {
@@ -16,6 +15,28 @@ const Analytics = ({
   tabKey: string,
   initialYear: number
 }) => {
+  const getLabel = ()=>{
+    if(tabKey == 'Capital' || tabKey == 'Maintenance') {
+      return "County"
+    } else {
+      return "Service Area"
+    }
+  }
+  const contentCounty = (<div className="popver-info">This graphic indicates the number of requests within each Jurisdiction broken out by {getLabel()}.</div>);
+  const contentDollars = (<div className="popver-info"> This graphic indicates the dollar amount of requests within each Jurisdiction broken out by {getLabel()}.</div>);
+  const [width, setWidth]   = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
+  const updateDimensions = () => {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+  }
+  useEffect(() => {
+      window.addEventListener("resize", updateDimensions);
+      return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+  useEffect(()=>{
+    console.log("W", width);
+  },[width]);
   const [year, setYear] = useState(+initialYear);
   const years = [];
   for (var i = 0 ; i < 5 ; i++) {
@@ -68,8 +89,8 @@ const Analytics = ({
       className="work-utilities"
       mask={false}
     >
-      <h6>Requests by {groupingType} <Popover content={contentCounty}> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
-      <div className="graph" style={{height: maxiQ > 0? counterCounties*50 + 'px' :  2*50 + 'px'}}>
+      <h6>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+      <div className="graph" style={{height: maxiQ > 0? counterCounties*(width >=2560 ? 100 : (width >= 1980 ? 72 : 50)) + 'px' :  2*50 + 'px'}}>
         {maxiQ > 0 &&
         <HorizontalBarChart
           data={quantityData}
@@ -90,11 +111,12 @@ const Analytics = ({
           minBarSize={0}
           counterCounties={counterCounties}
           lastChart={false}
+          heightW={height}
         />
         }
       </div>
 
-      <h6>Dollars Requested by {groupingType} <Popover content={contentDollars}> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+      <h6>Dollars Requested by {groupingType} <Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       <div className="graph" style={{height: maxiA > 0 ?counterCounties*50 + 'px': 2*50 + 'px'}}>
       {maxiA > 0 &&
       <HorizontalBarChart
@@ -119,6 +141,7 @@ const Analytics = ({
           minBarSize={0}
           counterCounties={counterCounties}
           lastChart={true}
+          heightW={height}
         />
       }
       </div>

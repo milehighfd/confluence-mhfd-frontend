@@ -863,7 +863,7 @@ const RequestView = ({ type, isFirstRendering }: {
                                   {
                                     sumByCounty.map((countySum) => (
                                       <Timeline.Item color="purple" key={Math.random()}>
-                                        <CostTableBody countySum={countySum} isFiltered={!notIsFiltered}/>
+                                        <CostTableBody countySum={countySum} isFiltered={!notIsFiltered} tabKey={tabKey}/>
                                       </Timeline.Item>
                                     ))
                                   }

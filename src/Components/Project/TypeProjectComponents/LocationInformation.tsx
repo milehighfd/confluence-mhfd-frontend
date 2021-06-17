@@ -54,8 +54,7 @@ const content0002 = (<div className="popver-info"></div>);
 const content0003 = (<div className="popver-info"></div>);
 const content0004 = (<div className="popver-info"></div>);
 const content0005 = (<div className="popver-info"></div>);
-const content03 = (<div className="popver-info">This is the primary local government sponsor that is requesting the { getLabel() }.
-</div>);
+const content03 = (<div className="popver-info">This is the primary local government sponsor that is requesting the project. By default, this attribute matches that of the Work Request. If changed, this project will be sent to the corresponding Work Request.</div>);
 const content04 = (<div className="popver-info">This is a list of all potential local government co-sponsors which might contribute funding or otherwise participate in the { getLabel() }.</div>);
 
   const {currentServiceAreaCounty, jurisdiction} = useProjectState();

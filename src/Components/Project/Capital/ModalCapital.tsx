@@ -753,14 +753,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 </Panel>
               }
             </Collapse>
-            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover>
+            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom:'2px'}}/></Popover>
             <h5>3. PROJECT GEOMETRY <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
 
             <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p >Click on the icon above and draw a polygon to define the project feature</p>
             </div>
-            <h5>4. FINANCIAL INFORMATION <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
+            <h5>4. FINANCIAL INFORMATION </h5>
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>
@@ -768,7 +768,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <hr/>
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
-                <p>Overhead Cost <Popover content={contentOverheadCost}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
+                <p>Overhead Cost <Popover content={contentOverheadCost}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom: '2px'}} /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
                 {/* <Select placeholder="75%" dropdownClassName="menu-medium" >
@@ -1064,7 +1064,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>
-                <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></p>
+                <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom:'2px'}}/></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
                 <Input style={{paddingLeft:'0px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost)}/>
