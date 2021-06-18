@@ -9,6 +9,8 @@ import { boardType } from "../Request/RequestTypes";
 const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
 const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
 const content02 = (<div className="popver-info">This is a place to add notes on a Local Government work request. Notes will be visible to any user from the same Local Government as well as MHFD staff.</div>);
+const content00WP = (<div className="popver-info">This field indicates the status of the Work Plan shown. Changing the status to Approved will finalize the Work Plan for approval by the MHFD Board.</div>);
+const content01WP = (<div className="popver-info">This section indicates all of the applicable jurisdictions within this Work Plan, and whether they have submitted their finalized Work Requests (green dot) or not (yellow dot). All jurisdictions must be green before the Work Plan can be approved.</div>);
 export default ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert }: {
   locality: string,
   boardId: any,
@@ -164,7 +166,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       mask={false}
     >
       <h6>Status Management</h6>
-      <p>{type === 'WORK_REQUEST'? 'Work Request Status': 'Work Plan Status'} <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" />  </Popover></p>
+      <p>{type === 'WORK_REQUEST'? 'Work Request Status': 'Work Plan Status'} <Popover content={type === 'WORK_PLAN' ? content00WP :content00}><img src="/Icons/icon-19.svg" alt="" height="10px" />  </Popover></p>
 
       <Dropdown overlay={
         <Menu className="menu-utilities">
@@ -193,7 +195,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
             <Col lg={{ span: 12 }}>
               <p>{type === 'WORK_REQUEST' ? 'Project Type' : 'Work Plan'}
                 &nbsp;&nbsp;
-                <Popover content={type === 'WORK_REQUEST' ? content01 : ''}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover>
+                <Popover content={type === 'WORK_REQUEST' ? content01 : content01WP}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover>
               </p>
             </Col>
             {
