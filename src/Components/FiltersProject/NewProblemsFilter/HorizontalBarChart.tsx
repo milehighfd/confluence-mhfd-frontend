@@ -179,7 +179,7 @@ const HorizontalBarChart = ({
       .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
       .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
       .attr("y1", 0)
-      .attr("y2", 5000)
+      .attr("y2", height)
       .attr('stroke-width', '0.1%')
       .style("stroke-dasharray","2,2")
       .style("stroke", 'black')
@@ -192,7 +192,7 @@ const HorizontalBarChart = ({
       .attr("x1", (d: any) => (d / (partitionData.length-1)) * width)
       .attr("x2", (d: any) => (d / (partitionData.length-1)) * width)
       .attr("y1", 0)
-      .attr("y2", 5000)
+      .attr("y2", height)
       .attr('stroke-width', '0.1%')
       .style("stroke-dasharray","2,2")
       .style("stroke", 'black')
@@ -242,8 +242,10 @@ const HorizontalBarChart = ({
       .style("opacity", (d: any) => {
         let index = getIndex(d);
         if (index !== -1) {
+          console.log("OPACITY FULL", CHART_CONSTANTS.opacityFull);
           return CHART_CONSTANTS.opacityFull;
         } else {
+          console.log("OPACITY OPAQUE", CHART_CONSTANTS.opacityOpaque)
           return CHART_CONSTANTS.opacityOpaque;
         }
       })

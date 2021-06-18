@@ -168,6 +168,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setJurisdictionSponsor(undefined);
     setDescription('');
     if(componentsFromMap.length > 0 ) {
+      console.log("HEY", componentsFromMap);
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
     } else {
       setComponentIntersected([]);
@@ -233,7 +234,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[independentComponents]);
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
-      getListComponentsByComponentsAndPolygon(componentsFromMap, null);
+      if(componentsFromMap.length > 0  && listComponents.length > 0){
+        console.log("HEY HEY JOIN COMPONENTS LIST AND NEW COMPO", listComponents, componentsFromMap);
+        getListComponentsByComponentsAndPolygon([...listComponents, ...componentsFromMap], null);
+      } else if(listComponents.length == 0 && componentsFromMap.length > 0) {
+        console.log(" HEY HEY  NEW COMPO", listComponents, componentsFromMap);
+        getListComponentsByComponentsAndPolygon([ ...componentsFromMap], null);
+      } else if(listComponents.length > 0 && componentsFromMap.length == 0) {
+        console.log(" HEY HEY  PREVIOUS ", listComponents, componentsFromMap);
+        getListComponentsByComponentsAndPolygon([ ...listComponents], null);
+      }
     }
   },[componentsFromMap]);
 
@@ -479,6 +489,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     let newComponents: any = [];
     let currentComponents = listComponents.result;
     newComponents = currentComponents.filter( (comp: any) => ( ! (comp.cartodb_id == component.cartodb_id && comp.table == component.table)));
+    console.log("HEY REMOVE", newComponents);
     getListComponentsByComponentsAndPolygon(newComponents, null);
   }
   const updateOverheadCosts = () => {

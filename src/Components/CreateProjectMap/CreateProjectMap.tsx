@@ -2223,13 +2223,17 @@ const CreateProjectMap = (type: any) => {
   const getComponentsFromProjProb = (item: any, event: any) => {
     let id = item.type == 'project'? item.id: item.problemid;
     // getBBOXComponents(item.type, id);
-    getAllComponentsByProblemId(id);
+    // getAllComponentsByProblemId(id);
+    console.log("GETTING COMP FROM PROJ PROB", item);
     getData(SERVER.GET_COMPONENTS_BY_PROBLEMID+'?problemid='+id, getToken()).then(componentsFromMap => {
       if(componentsFromMap.result.length > 0  && componentsList.length > 0){
+        console.log("JOIN COMPONENTS LIST AND NEW COMPO", componentsList, componentsFromMap.result);
         getListComponentsByComponentsAndPolygon([...componentsList, ...componentsFromMap.result], null);
       } else if(componentsList.length == 0 && componentsFromMap.result.length > 0) {
+        console.log("NEW COMPO", componentsList, componentsFromMap.result);
         getListComponentsByComponentsAndPolygon([ ...componentsFromMap.result], null);
       } else if(componentsList.length > 0 && componentsFromMap.result.length == 0) {
+        console.log("PREVIOUS ", componentsList, componentsFromMap.result);
         getListComponentsByComponentsAndPolygon([ ...componentsList], null);
       }
     });
