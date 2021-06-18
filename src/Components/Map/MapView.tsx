@@ -116,7 +116,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   const user = store.getState().profile.userInformation;
 
   useEffect(() => {
-    console.log("ZOOM AREA", nameZoomArea, user);
     setvalueA(nameZoomArea);
   }, [nameZoomArea]);
   /* const logued = localStorage.getItem('mfx-token')
@@ -130,7 +129,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           if (res?.token) {
             localStorage.setItem('mfx-token', res.token);
             await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
-              console.log('resultadox', result)
+              
               replaceAppUser(result);
               saveUserInformation(result)
             });

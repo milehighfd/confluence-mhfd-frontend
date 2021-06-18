@@ -835,7 +835,6 @@ const CreateProjectMap = (type: any) => {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
       type.setGeom(userPolygon.geometry);
-      console.log("TIMEs ARE SEND", Date.now());
       getStreamsIntersectedPolygon(userPolygon.geometry); // just set the ids 
       getStreamsList(userPolygon.geometry); // get the list with data 
       getServiceAreaStreams(userPolygon.geometry); 
@@ -1391,7 +1390,6 @@ const CreateProjectMap = (type: any) => {
       if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
         // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
         let filter = ['in',['get','unique_mhfd_code'],['literal',[mhfd_code]]];
-        console.log("FILTEr", filter);
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
       }
@@ -1403,7 +1401,6 @@ const CreateProjectMap = (type: any) => {
       if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
         // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
         let filter = ['in',['get','unique_mhfd_code'],['literal',[...mhfd_codes]]];
-        console.log("SETTING FILTER", filter);
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
       }

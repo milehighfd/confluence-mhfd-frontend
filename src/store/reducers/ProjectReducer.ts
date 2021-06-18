@@ -24,11 +24,9 @@ function ObjInsideArray(object1: any, array:any) {
   }
   for(let j = 0 ; j < array.length ; ++j) {
     if(shallowEqual(object1, array[j])) {
-      console.log("IS INSIDE", object1, array);
       return true;
     }
   }
-  console.log("NOT INSIDE", object1, array);
   return false;
 }
 const initState = {

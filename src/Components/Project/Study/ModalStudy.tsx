@@ -111,7 +111,6 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       Object.keys(listStreams).map((key: any, id: any) => {
         idKey.push(`${id}${key}`);
       })
-      console.log("LIT STREAM", listStreams);
       setKeys((keys: any) => [...idKey]);
       setThisStreamsList(listStreams);
     }

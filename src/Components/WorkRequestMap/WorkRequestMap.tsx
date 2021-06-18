@@ -60,7 +60,7 @@ const WorkRequestMap = (type: any) => {
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
   const {clear} = useAttachmentDispatch();
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables, getComponentsByProjid } = useMapDispatch();
-  const { changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects } = useProjectDispatch();
+  const { changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects, getZoomGeomProblem, getZoomGeomComp } = useProjectDispatch();
   const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
   const {getGroupOrganization} = useProfileDispatch();
@@ -397,6 +397,7 @@ const WorkRequestMap = (type: any) => {
 
   const createProject = (details: any, event: any) => {
     clear();
+    popup.remove();
     if (details.problemid) {
         setDataProblem({
             id: '',
@@ -406,6 +407,10 @@ const WorkRequestMap = (type: any) => {
             value: '',
             problemid: details.problemid
         });
+        setTimeout(()=>{
+          getZoomGeomProblem(details.problemid);
+        },4500);
+        
     }
     if(details.layer === 'Components') {
       let newComponents = [{
@@ -421,6 +426,9 @@ const WorkRequestMap = (type: any) => {
       setComponentsFromMap(newComponents);
       getComponentGeom(details.table, details.objectid);
       type.setProblemId('-1');
+      setTimeout(()=>{
+        getZoomGeomComp(details.table, details.objectid);
+      },4500 );
     } else if (details.type === 'problems') {
       getAllComponentsByProblemId(details.problemid);
       type.setProblemId(details.problemid);

@@ -38,7 +38,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
   //   map.create('map2');
   // }
   useEffect(()=>{
-    console.log("DATA SSSSSS", data);
   },[data]);
   const getCanvasBase64 = () => {
     return new Promise((resolve, reject) => {

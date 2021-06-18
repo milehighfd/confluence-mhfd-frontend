@@ -58,7 +58,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     message.success('Copied to Clipboard!');
   }
   const detailedPage = detailed as any;
-  console.log("DETAILED PAGEEEE", detailed);
 
   const downloadPdf = async () => {
     if (loading) {

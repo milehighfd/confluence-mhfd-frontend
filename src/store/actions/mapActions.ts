@@ -543,7 +543,6 @@ export const getDetailedPageProblem = (id: string) => {
     return (dispatch: Function) => {
         dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})
         datasets.getData(SERVER.PROBLEM_BY_ID + '/' + id, datasets.getToken()).then(detailed => {
-          console.log("DETAILS OF PROBL", detailed);
             dispatch({type: detailedTypes.REPLACE_DETAILED_PAGE, detailed});
         });
     }

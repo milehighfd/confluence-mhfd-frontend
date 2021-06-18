@@ -169,13 +169,11 @@ const Raster = (type: any) => {
         coordinates: element.coordinates
       }
     });
-    console.log("VALULE", value, zoomareaSelected);
     if(zoomareaSelected[0]){
       let poly = turf.polygon(zoomareaSelected[0].coordinates[0], {name: 'zoomarea'});
       let coord = turf.centroid(poly);
       if(coord.geometry && coord.geometry.coordinates) {
         let value = coord.geometry.coordinates;
-        console.log("FLU TO ", value);
           map.isStyleLoaded(()=> map.map.flyTo({ center: value, zoom: 10 }));
       }
     }

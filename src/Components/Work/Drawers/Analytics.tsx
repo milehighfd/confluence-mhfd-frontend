@@ -34,9 +34,6 @@ const Analytics = ({
       window.addEventListener("resize", updateDimensions);
       return () => window.removeEventListener("resize", updateDimensions);
   }, []);
-  useEffect(()=>{
-    console.log("W", width);
-  },[width]);
   const [year, setYear] = useState(+initialYear);
   const years = [];
   for (var i = 0 ; i < 5 ; i++) {

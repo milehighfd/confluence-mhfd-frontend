@@ -31,7 +31,6 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
   const card = (data: any, index: number) => (
     <div onClick={() => {
       if (data.type && data.type === 'problems' || data.type === 'project') {
-        console.log('entro entro');
         seeDetails(data);
       }
     }} key={'mobile-popup-' + index}>

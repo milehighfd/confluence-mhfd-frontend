@@ -150,7 +150,7 @@ const Map = ({ leftWidth,
     setSelectedPopup} = useMapDispatch();
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
-    const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom} = useProjectDispatch();
+    const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -529,7 +529,6 @@ const Map = ({ leftWidth,
             const orange = document.getElementById('orange');
             if (orange != null) {
                 orange.addEventListener('click', () => {
-                  console.log("CLCKs",colors.ORANGE);
                   ul.style.display = 'block'; 
                     setNoteColor(colors.ORANGE);
                     if (colorable != null) {
@@ -547,7 +546,6 @@ const Map = ({ leftWidth,
             const grey = document.getElementById('grey');
             if (grey != null) {
                 grey.addEventListener('click', () => {
-                  console.log("CLCKs",colors.GREY);
                   ul.style.display = 'block'; 
                     setNoteColor(colors.GREY);
                     if (colorable != null) {
@@ -565,7 +563,6 @@ const Map = ({ leftWidth,
             const green = document.getElementById('green');
             if (green != null) {
                 green.addEventListener('click', () => {
-                  console.log("CLCKs",colors.GREEN);
                   ul.style.display = 'block'; 
                     setNoteColor(colors.GREEN);
                     if (colorable != null) {
@@ -2173,7 +2170,6 @@ const Map = ({ leftWidth,
 
                 for (const component of COMPONENT_LAYERS.tiles) {
                     if (feature.source === component) {
-                      console.log("FEAT", feature.properties);
                         const item = {
                           layer: MENU_OPTIONS.COMPONENTS,
                           type: feature.properties.type ? feature.properties.type : '-',
@@ -2247,6 +2243,7 @@ const Map = ({ leftWidth,
 
     }
     const createProject = (details: any, event: any) => {
+      popup.remove();
         if (details.problemid) {
             setDataProblem({
                 id: '',
@@ -2256,6 +2253,9 @@ const Map = ({ leftWidth,
                 value: '',
                 problemid: details.problemid
             });
+            setTimeout(()=>{
+              getZoomGeomProblem(details.problemid);
+            },45000);
         }
         if(details.layer === 'Components') {
           let newComponents = [{
@@ -2271,6 +2271,9 @@ const Map = ({ leftWidth,
           setComponentsFromMap(newComponents);
           getComponentGeom(details.table, details.objectid);
           setProblemId('-1');
+          setTimeout(()=>{
+            getZoomGeomComp(details.table, details.objectid);
+          },4500 );
           setShowDefault(true);
         } else if (details.type === 'problems') {
           getAllComponentsByProblemId(details.problemid);
