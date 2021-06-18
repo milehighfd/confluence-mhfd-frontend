@@ -19,6 +19,7 @@ import { editSpecial } from "../../../store/actions/ProjectActions";
 import { useProfileState } from "../../../hook/profileHook";
 import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
 import { JURISDICTION } from "../../../constants/constants";
+import { useHistory } from "react-router-dom";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -66,6 +67,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
+  const history = useHistory();
   var date = new Date();
   var year = date.getFullYear();
   const dispatch = useDispatch();
@@ -110,7 +112,10 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   useEffect(()=>{
     if(save === true){
       console.log("FILES", files);
-     var special = new Project();
+      let params = new URLSearchParams(history.location.search)
+      let _year = params.get('year');
+      var special = new Project();
+      special.year = _year ? _year : special.year;
      /* let cservice = "";
       if(serviceArea){
         serviceArea.map((element:any) => {

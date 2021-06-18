@@ -7,6 +7,7 @@ export class Geom {
     }
 }
 export class Project {
+    year: string | null;
     projectname: string;
     description: string;
 	  servicearea: string;
@@ -36,6 +37,7 @@ export class Project {
     cover: any;
     estimatedcost?: any;
     constructor() {
+        this.year = '2022';
         this.projectname = "special";
         this.description = "";
         this.servicearea = "";

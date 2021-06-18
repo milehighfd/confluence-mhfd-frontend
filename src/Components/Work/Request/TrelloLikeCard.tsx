@@ -19,7 +19,8 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ type, namespaceId, setLoading, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor }: {
+const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor }: {
+  year: number,
   type: boardType,
   namespaceId: string,
   setLoading: Function,
@@ -140,7 +141,7 @@ const TrelloLikeCard = ({ type, namespaceId, setLoading, delProject, project, co
       projectId={projectid}
       visible={showAmountModal}
       setVisible={setShowAmountModal}
-      startYear={2021}
+      startYear={year}
       saveData={saveData}
       tabKey={tabKey}
       projectsubtype={projectsubtype}

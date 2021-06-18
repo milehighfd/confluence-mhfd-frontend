@@ -14,6 +14,7 @@ import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
 import { Project, Geom } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION } from "../../../constants/constants";
+import { useHistory } from "react-router-dom";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -72,12 +73,16 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [cover, setCover] = useState('');
   var date = new Date();
+  const history = useHistory();
 
   var year = date.getFullYear();
 
   useEffect(()=>{
     if(save === true){
+      let params = new URLSearchParams(history.location.search)
+      let _year = params.get('year');
       var acquisition = new Project();
+      acquisition.year = _year ? _year : acquisition.year;
       let cservice = "";
       serviceArea.map((element:any) => {
         cservice= cservice + element + ",";

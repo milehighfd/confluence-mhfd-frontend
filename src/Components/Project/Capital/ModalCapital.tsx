@@ -11,6 +11,7 @@ import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Geom, Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION } from "../../../constants/constants";
+import { useHistory } from "react-router-dom";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -152,6 +153,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [cover, setCover] = useState('');
+  const history = useHistory();
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
     if(juris) {
@@ -274,7 +276,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
 
     if(save === true){
+      let params = new URLSearchParams(history.location.search)
+      let _year = params.get('year');
       var capital = new Project();
+      capital.year = _year ? _year : capital.year;
       let cservice = "";
       serviceArea.map((element:any) => {
         cservice= cservice + element + ",";

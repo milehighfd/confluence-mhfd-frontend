@@ -17,6 +17,7 @@ import {
 } from "../../../constants/constants";
 import { forceLink } from "d3";
 import { useProfileState } from "../../../hook/profileHook";
+import { useHistory } from "react-router-dom";
 const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -87,6 +88,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
+  const history = useHistory();
   useEffect(()=>{
     setServiceAreaCounty({});
     setStreamsList([]);
@@ -141,7 +143,10 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   useEffect(()=>{
     if(save === true){
       let mhfd_codes = streamsIntersectedIds.map((str:any) => str.mhfd_code);
+      let params = new URLSearchParams(history.location.search)
+      let _year = params.get('year');
       var study = new Project();
+      study.year = _year ? _year : study.year;
       study.projectname = nameProject;
       study.description = description;
       let cservice = "";

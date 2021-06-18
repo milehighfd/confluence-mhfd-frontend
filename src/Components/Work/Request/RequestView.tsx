@@ -53,7 +53,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
-  const years = [2021, 2020, 2019, 2018];
+  const years = [2022, 2021, 2020, 2019, 2018];
   const [locality, setLocality] = useState('');
   const [localityType, setLocalityType] = useState('');
   const [year, setYear] = useState<any>(years[0]);
@@ -186,7 +186,6 @@ const RequestView = ({ type, isFirstRendering }: {
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setLocality(value);
-    setYear(2021);
     setLocalityFilter(value);
     let l = localities.find((p: any) => {
       return p.name === value;
@@ -826,6 +825,7 @@ const RequestView = ({ type, isFirstRendering }: {
                                     .filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, p))
                                     .map((p: any, i: number, arr: any[]) => (
                                       <TrelloLikeCard key={i}
+                                        year={year}
                                         type={type}
                                         setLoading={setLoading}
                                         delProject={deleteProject}

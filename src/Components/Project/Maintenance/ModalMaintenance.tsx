@@ -12,6 +12,7 @@ import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Geom, Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION } from "../../../constants/constants";
+import { useHistory } from "react-router-dom";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -65,6 +66,7 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
+  const history = useHistory();
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -122,7 +124,10 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   },[data]);
   useEffect(()=>{
     if(save === true){  
+      let params = new URLSearchParams(history.location.search)
+      let _year = params.get('year');
       var maintenance = new Project();
+      maintenance.year = _year ? _year : maintenance.year;
       let cservice = "";
       serviceArea.map((element:any) => {
         cservice= cservice + element + ",";
