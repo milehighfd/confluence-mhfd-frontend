@@ -44,8 +44,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     projectsubtype
   } = project.projectData;
   const [goingToBeDeleted, setGoingToBeDeleted] = useState(false);
-
-  const amount = project[`req${columnIdx}`];
+  const [amount, setAmount] = useState(project[`req${columnIdx}`]);
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -102,6 +101,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   if (projectname.length > 35) {
     displayName = projectname.substr(0,35) + '...';
   }
+
+  useEffect(() => {
+    setAmount(project[`req${columnIdx}`])
+  }, [project, columnIdx])
 
   useEffect(()=>{
     if(showModalProject) {

@@ -242,7 +242,7 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
     let newObj = {
       ...project,
       [`position${columnIdx}`]: newCardPos === -1 ? columns[columnIdx].projects.length : newCardPos,
-      [`req${columnIdx}`]: project[`req${fromColumnIdx}`],
+      [`req${columnIdx}`]: columnIdx === 0 ? null : project[`req${fromColumnIdx}`],
       [`req${fromColumnIdx}`]: null,
       [`position${fromColumnIdx}`]: null,
     }
