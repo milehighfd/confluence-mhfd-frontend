@@ -168,7 +168,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setJurisdictionSponsor(undefined);
     setDescription('');
     if(componentsFromMap.length > 0 ) {
-      console.log("HEY", componentsFromMap);
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
     } else {
       setComponentIntersected([]);
@@ -235,13 +234,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
       if(componentsFromMap.length > 0  && listComponents.length > 0){
-        console.log("HEY HEY JOIN COMPONENTS LIST AND NEW COMPO", listComponents, componentsFromMap);
         getListComponentsByComponentsAndPolygon([...listComponents, ...componentsFromMap], null);
       } else if(listComponents.length == 0 && componentsFromMap.length > 0) {
-        console.log(" HEY HEY  NEW COMPO", listComponents, componentsFromMap);
         getListComponentsByComponentsAndPolygon([ ...componentsFromMap], null);
       } else if(listComponents.length > 0 && componentsFromMap.length == 0) {
-        console.log(" HEY HEY  PREVIOUS ", listComponents, componentsFromMap);
         getListComponentsByComponentsAndPolygon([ ...listComponents], null);
       }
     }
@@ -750,7 +746,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                 <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input className='ant-input-color' placeholder="Proposed"  defaultValue="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status} disabled={true} /></Col>
                                 <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} >
                                   <Tooltip placement="topLeft" title="Only numeric values are accepted.">
-                                    <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'cost',indComp)} value={formatter.format(indComp.cost)}/>
+                                    <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'cost',indComp)} value={formatter.format(indComp.cost)} maxLength={11}/>
                                   </Tooltip>
                                 </Col>
                                 <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }} ><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" onClick={() => removeIndComponent(indComp)} /></Button></Col>
