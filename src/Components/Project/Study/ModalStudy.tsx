@@ -84,7 +84,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [name, setName ] = useState(false);
   const [disableName, setDisableName ] = useState(true);
   const [geom, setGeom] = useState<any>('');
-  const [keys, setKeys] = useState<any>([]);
+  const [keys, setKeys] = useState<any>(['-false']);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
@@ -110,10 +110,17 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   useEffect(()=>{
     if(listStreams) {
       const idKey: any = [];
+      const myset = new Set(keys);
       Object.keys(listStreams).map((key: any, id: any) => {
+        if(!streamsList[key]){
+          myset.add(`${id}${key}`);
+        } else if( streamsList[key].length != listStreams[key].length ) {
+          myset.add(`${id}${key}`);
+        }
         idKey.push(`${id}${key}`);
       })
-      setKeys((keys: any) => [...idKey]);
+      // setKeys((keys: any) => [...idKey]);
+      setKeys(Array.from(myset));
       setThisStreamsList(listStreams);
     }
   },[listStreams]);
@@ -419,7 +426,10 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
               <Collapse
               key={'' + new Date()}
               defaultActiveKey={keys}
+              activeKey={keys}
+              destroyInactivePanel={false}
               expandIconPosition="right"
+              onChange={(event: any)=> {setKeys(event)}}
             >
               {
                 streamsList && Object.keys(streamsList).map((key: any, id: any) => {
