@@ -37,7 +37,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
   let currentApproved = currentStatus === 'Approved';
   let approved = boardStatus === 'Approved';
   let hasChecksAlertText = `${type === 'WORK_REQUEST' ? 'Work Request': 'District Work Plan'} submission is unavailable until all ${type === 'WORK_REQUEST' ? 'project types' : 'Work Plans'} are selected for approval.`;
-  let notChecksAlertText = `Can not submit while still have pending work request`;
+  let notChecksAlertText = `Work Plan submission is unavailable until all underlying Work Requests are submitted.`;
 
   return (
     <div>

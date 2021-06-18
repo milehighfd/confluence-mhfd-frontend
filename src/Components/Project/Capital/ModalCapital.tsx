@@ -54,14 +54,14 @@ const genExtra05 = (totalIndependentComp: any) => (
     <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 4 }} >{formatter.format(totalIndependentComp)}</Col>
   </Row>
 );
-const genTitleNoAvailable = (groups:any) => {
+const genTitleNoAvailable = (groups:any, setKeyOpenClose: Function) => {
   let totalSumCost = 0;
   for( let component of groups.components){
     totalSumCost += component.original_cost;
   }
 
   return (
-  <Row className="tab-head-project">
+  <Row className="tab-head-project" onClick={()=>{setKeyOpenClose(-1)}}>
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>No Problem Group Available</Col>
     <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}></Col>
     <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
@@ -69,13 +69,13 @@ const genTitleNoAvailable = (groups:any) => {
   </Row>
   )
   }
-const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setValueZoomProb: Function) => {
+const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setValueZoomProb: Function, setKeyOpenClose: Function) => {
   let totalSumCost = 0;
   for( let component of problem.components){
     totalSumCost += component.original_cost;
   }
   return (
-    <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)} onClick={()=>setValueZoomProb(key)}>
+    <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)} onClick={()=>{setValueZoomProb(key); setKeyOpenClose(key)}} >
       <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>{problem.jurisdiction}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
@@ -144,7 +144,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [ thisIndependentComponents, setIndependentComponents] = useState<any[]>([]);
   const [overheadValues, setOverheadValues] = useState<any>([0,5,0,0,5,15,5,10,25]);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
-  const [keys, setKeys] = useState<any>([]);
+  const [keys, setKeys] = useState<any>(['-false']);
   const [additionalCost, setAdditionalCost] = useState<number>(0);
   const [additionalDescription, setAdditionalDescription] = useState("");
   const [totalCost, setTotalCost] = useState(0);
@@ -154,6 +154,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [cover, setCover] = useState('');
   const history = useHistory();
+  const [prevList, setPrevList] = useState<any>([]);
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
     if(juris) {
@@ -250,13 +251,27 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[userPolygon]);
   useEffect(()=>{
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
-      const idKey = [...keys];
-      Object.keys(listComponents.groups).map((key: any,id:any) => {
-        if (listComponents.groups[key].components.length) {
-          idKey.push(id + '-collapse1');
+      const myset = new Set(keys);
+      // Object.keys(listComponents.groups).map((key: any,id:any) => {
+      //   if (listComponents.groups[key].components.length) {
+      //     idKey.push(id + '-collapse1');
+      //   }
+      // });
+      // console.log("ID KEYS", idKey);
+      // setKeys(idKey);
+      Object.keys(listComponents.groups).map((key:any, id:any) => {
+        if(!groups[key]){
+          myset.add(key+'-collapse1');
+        } else if( listComponents.groups[key].components.length != groups[key].components.length){
+          myset.add(key+'-collapse1');
         }
+        
+        // si es undefined se pone al idkey, sino 
+        // if (listComponents.groups[key].components.length) { 
+        //   idKey.push(key+'-collapse1')
+        // }
       });
-      setKeys(idKey);
+      setKeys(Array.from(myset));
       setGroups(listComponents.groups);
       let newC = listComponents.result.map((c:any) => {
         return { table: c.table, objectid: c.objectid}
@@ -595,7 +610,20 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const setValueZoomProb = (problemid: any) => {
     getZoomGeomProblem(problemid);
   }
-
+  const setKeyOpenClose = (groupid: any) => {
+    // if( keys.find((key:any) => (groupid+'-collapse1') == key) ) {
+    //   console.log("IS HERE", keys, groupid);
+    //   let k = keys.filter((key:any) => ((groupid+'-collapse1') != key && '-1200-collapse1' != key ));
+    //   if(k.length > 0) {
+    //     setKeys(k);
+    //   } else {
+    //     setKeys(['-1200-collapse1'])
+    //   }
+      
+    // } else {
+    //   setKeys([...keys, groupid+'-collapse1']);
+    // }
+  }
   return (
     <>
     {visibleAlert && <AlertView
@@ -667,15 +695,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             {keys!=0 && keys.length &&
             <Collapse
             defaultActiveKey={keys}
+            activeKey={keys}
+            destroyInactivePanel={false}
             expandIconPosition="right"
-            onChange={(event: any)=> {console.log(event, keys )}}
+            onChange={(event: any)=> {setKeys(event)}}
           >
               {groups && Object.keys(groups).map((key: any,id:any) => {
-
                 if(key.toString() == '-1') {
                   if(groups[key].components.length > 0){
                     return (
-                      <Panel header="" key={id + '-collapse1'} extra={genTitleNoAvailable(groups[key])}>
+                      <Panel header="" key={key + '-collapse1'} extra={genTitleNoAvailable(groups[key], setKeyOpenClose)}>
                         <div className="tab-body-project">
                           <Timeline>
                             {
@@ -705,7 +734,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   }
                 } else {
                   return (
-                    <Panel header="" key={id + '-collapse1'} extra={genTitleProblem(groups[key], key, setValuesProblem, setValueZoomProb)}>
+                    <Panel header="" key={key + '-collapse1'} extra={genTitleProblem(groups[key], key, setValuesProblem, setValueZoomProb, setKeyOpenClose)}>
                       <div className="tab-body-project">
                         <Timeline>
                           {
