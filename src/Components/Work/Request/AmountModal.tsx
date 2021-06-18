@@ -65,7 +65,7 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
 
   let labels = []
   if (tabKey === 'Maintenance') {
-    labels = [2021, 2021, 2021, 2021, 2021];
+    labels = [startYear, startYear, startYear, startYear, startYear];
   } else {
     labels = [startYear, startYear + 1, startYear + 2, startYear + 3, startYear + 4]
   }
