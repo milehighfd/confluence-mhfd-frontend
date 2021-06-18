@@ -115,6 +115,25 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     </div>
   }
 
+  let statusLabel = null;
+  if (columnIdx === 0) {
+    statusLabel = 'Draft';
+  } else {
+    if (type ==='WORK_REQUEST') {
+      if (editable) {
+        statusLabel = 'Draft';
+      } else {
+        statusLabel = 'Requested';
+      }
+    } else {
+      if (editable) {
+        statusLabel = 'Requested';
+      } else {
+        statusLabel = 'Proposed';
+      }
+    }
+  }
+
   return (
     <>
     {
@@ -162,7 +181,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
       <label className="purple">{project.from}</label>
-      <label className="yellow">{editable ? 'Draft' : (type === 'WORK_REQUEST' ? 'Requested' : 'Approved')}</label>
+      <label className="yellow">{statusLabel}</label>
       {
         !(showAmountModal || showModalProject || showDeleteAlert) &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click">
