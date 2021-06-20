@@ -27,7 +27,7 @@ const HorizontalBarChart = ({
   showControls=true,
   withClickEvent=true,
   withAnimation=true,
-  spaceBetween=45,
+  spaceBetween=10,
   barLabelFormatter=(d: any) => {
     return d.counter;
   },
@@ -36,7 +36,7 @@ const HorizontalBarChart = ({
   opacityOpaque=CHART_CONSTANTS.opacityOpaque,
   labelOverflowRight=false,
   minBarSize=17,
-  minHeight=140
+  minHeight=100
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
@@ -80,7 +80,7 @@ const HorizontalBarChart = ({
     }
 
     let height = Math.max(data.length * spaceBetween, minHeight);
-
+    console.log("HEGITH ", height, data.length, spaceBetween, data.length* spaceBetween, minHeight);
     let maxi: any = d3.max(data, (d: any) => d.counter);
 
     var x = d3.scaleLinear()
