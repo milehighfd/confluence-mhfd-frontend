@@ -106,7 +106,7 @@
   }
   .ant-select-2{
     color: $opacity;
-    width: 140px !important;
+    min-width: 110px !important;
   }
   .ant-select-selection__placeholder, .ant-select-search__field__placeholder{
     color: $opacity;
