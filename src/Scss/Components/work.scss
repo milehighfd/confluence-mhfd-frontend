@@ -659,10 +659,17 @@
     height: 250px;
     margin-bottom: 15px;
   }
+  .graph-title {
+    margin-top: 30px;
+  }
   .svg-scroll-analytics {
     height: 250px;
     overflow-y: auto;
     margin-right: 20px;
+    padding-top: 6px;
+    padding-left: 6px;
+    background-color: #F5F7FF;
+    border-radius: 4px;
   }
   .ant-list-split .ant-list-item {
     border-bottom: 1px solid $opacity01;
