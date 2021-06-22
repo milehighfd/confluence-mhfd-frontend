@@ -22,7 +22,7 @@ var transformSelectedData = (sData: any) => {
 }
 
 const HorizontalBarChart = ({
-  data, type, selected, onSelect, defaultValue, color, axisLabel, counterCounties, lastChart, heightW,
+  data, type, selected, onSelect, defaultValue, color, axisLabel,
   scrollClass='svg-scroll',
   showControls=true,
   withClickEvent=true,
@@ -80,7 +80,6 @@ const HorizontalBarChart = ({
     }
 
     let height = Math.max(data.length * spaceBetween, minHeight);
-    console.log("HEGITH ", height, data.length, spaceBetween, data.length* spaceBetween, minHeight);
     let maxi: any = d3.max(data, (d: any) => d.counter);
 
     var x = d3.scaleLinear()
@@ -162,10 +161,7 @@ const HorizontalBarChart = ({
         setSelectedData([...selectedData, getValueToPush(d)])
       }
     }
-    // let fHeight = heightW*0.5;
-    // if( lastChart ) {
-    //   height =  (fHeight - (height)) > 0 && (fHeight - (height)) > height ? (fHeight - (height)) : height ;
-    // }
+
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
       // .attr("width", width)
@@ -366,7 +362,7 @@ const HorizontalBarChart = ({
           <div style={{marginBottom: 10}}></div>
         )
       }
-      <div className={(scrollClass ? scrollClass : '') + ' svg-top-pad'} style={{height: counterCounties*60 + 'px'}}>
+      <div className={(scrollClass ? scrollClass : '') + ' svg-top-pad'}>
         <svg ref={svgRef} className="horizontal-text" />
       </div>
       <div className="horizontal-axis-label">

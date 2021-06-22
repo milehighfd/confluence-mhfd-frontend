@@ -656,8 +656,13 @@
     }
   }
   .graph{
-    height: 150px;
+    height: 250px;
     margin-bottom: 15px;
+  }
+  .svg-scroll-analytics {
+    height: 250px;
+    overflow-y: auto;
+    margin-right: 20px;
   }
   .ant-list-split .ant-list-item {
     border-bottom: 1px solid $opacity01;
@@ -1076,6 +1081,12 @@
       font-size: 16px;
       padding: 20px;
     }
+    .graph{
+      height: 350px;
+    }
+    .svg-scroll-analytics {
+      height: 350px;
+    }
     .footer-drawer{
       button{
         height: 58px;
@@ -1457,6 +1468,12 @@
     .note{
       font-size: 21px !important;
       padding: 25px !important;
+    }
+    .graph{
+      height: 450px;
+    }
+    .svg-scroll-analytics {
+      height: 450px;
     }
     .footer-drawer{
       button{

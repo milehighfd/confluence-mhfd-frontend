@@ -62,7 +62,7 @@ const Analytics = ({
   let countiesNames = data.map((d: any) => d.locality).join(',');
   let barsColor = '#261964';
   let groupingType = ['Capital', 'Maintenance'].includes(tabKey) ? 'County': 'Service Area';
-  let counterCounties = data.length;
+
   return (
     <Drawer
       title={
@@ -87,7 +87,7 @@ const Analytics = ({
       mask={false}
     >
       <h6>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
-      <div className="graph" style={{height: maxiQ > 0? counterCounties*(width >=2560 ? 100 : (width >= 1980 ? 72 : 50)) + 'px' :  2*50 + 'px'}}>
+      <div className="graph" >
         {maxiQ > 0 &&
         <HorizontalBarChart
           data={quantityData}
@@ -106,15 +106,12 @@ const Analytics = ({
           opacityOpaque={CHART_CONSTANTS.opacityFull}
           labelOverflowRight={true}
           minBarSize={0}
-          counterCounties={counterCounties}
-          lastChart={false}
-          heightW={height}
         />
         }
       </div>
 
       <h6>Dollars Requested by {groupingType} <Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
-      <div className="graph" style={{height: maxiA > 0 ?counterCounties*50 + 'px': 2*50 + 'px'}}>
+      <div className="graph" >
       {maxiA > 0 &&
       <HorizontalBarChart
           data={amountData}
@@ -136,9 +133,6 @@ const Analytics = ({
           opacityOpaque={CHART_CONSTANTS.opacityFull}
           labelOverflowRight={true}
           minBarSize={0}
-          counterCounties={counterCounties}
-          lastChart={true}
-          heightW={height}
         />
       }
       </div>
