@@ -21,7 +21,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     <><div onClick={() => {setFilter('red'); console.log('red');}}><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red {filter === 'red' ? <CheckOutlined /> : <></>}</div></> ,
     <><div onClick={() => setFilter('orange')}><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange {filter === 'orange' ? <CheckOutlined /> : <></>}</div></> ,
     <><div onClick={() => setFilter('grey')}><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey {filter === 'grey' ? <CheckOutlined /> : <></>}</div></> ,
-    <><div onClick={() => setFilter('green')}><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green {filter === 'green' ? <CheckOutlined /> : <></>}</div></> ,
+    <><div onClick={() => setFilter('yellow')}><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow {filter === 'yellow' ? <CheckOutlined /> : <></>}</div></> ,
   ];
 
   const content = (
@@ -32,7 +32,26 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       renderItem={item => <List.Item>{item}</List.Item>}
     />
   );
-
+  const colors = {
+    RED: '#FF0000',
+    ORANGE: '#FA6400',
+    GREY: 'rgb(142, 132, 132)',
+    YELLOW: '#ffbf00'
+  };  
+  const getColor = (color: any) => {
+    switch(color) {
+      case 'yellow':
+        return colors.YELLOW;
+      case 'grey':
+        return colors.GREY;
+      case 'orange':
+        return colors.ORANGE;
+      case 'red':
+        return colors.RED;
+      default:
+        return colors.YELLOW;
+    }
+  };
   const contentmenu = (note: any) =>  {
     return (
     <Menu className="js-mm-00">
@@ -121,7 +140,9 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         }
         content={note &&
           <>
+          
           <p>
+          <i className="mdi mdi-circle-medium" style={{color:getColor(note.color)}}></i>  
             {note.content}
           </p>
           <h6>{timeAgo(note.createdAt)}</h6>
