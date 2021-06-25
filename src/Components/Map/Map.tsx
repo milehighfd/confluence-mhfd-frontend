@@ -170,15 +170,15 @@ const Map = ({ leftWidth,
         RED: '#FF0000',
         ORANGE: '#FA6400',
         GREY: 'rgb(142, 132, 132)',
-        GREEN: '#29C499'
+        YELLOW: '#ffbf00'
     };
     const colorsCodes = {
       RED: 'rgb(255, 0, 0)',
       ORANGE:  'rgb(250, 100, 0)',
       GREY: 'rgb(142, 132, 132)',
-      GREEN: '#29C499'
+      YELLOW: '#ffbf00'
     }
-    const [noteColor, setNoteColor] = useState(colors.GREEN);
+    const [noteColor, setNoteColor] = useState(colors.YELLOW);
     const [noteGeoJSON, setNoteGeoJSON] = useState({
         "type": "FeatureCollection",
         "features": []
@@ -427,8 +427,8 @@ const Map = ({ leftWidth,
             if(!(notesFilter != 'all' && notesFilter != note.color)) {
               let colorOfMarker = '';
               switch(note.color) {
-                case 'green':
-                  colorOfMarker = colors.GREEN;
+                case 'yellow':
+                  colorOfMarker = colors.YELLOW;
                   break;
                 case 'grey':
                   colorOfMarker = colors.GREY;
@@ -479,7 +479,7 @@ const Map = ({ leftWidth,
             <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
             <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
             <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
-            <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
+            <li id="yellow"><i class="mdi mdi-circle-medium" style="color:#ffbf00;"></i> Yellow</li>`
             ul.innerHTML = inner;
             
             let c= div.childNodes;
@@ -493,7 +493,7 @@ const Map = ({ leftWidth,
               textColor.textContent = capitalize(noteClicked.color);
             }
             if(colorable != null) {
-              let notecolor = colors.GREEN;
+              let notecolor = colors.YELLOW;
               switch(noteClicked.color){
                 case 'red':
                   notecolor = colors.RED;
@@ -504,8 +504,8 @@ const Map = ({ leftWidth,
                 case 'grey':
                   notecolor = colors.GREY;
                   break;
-                case 'green':
-                  notecolor = colors.GREEN;
+                case 'yellow':
+                  notecolor = colors.YELLOW;
               }
               colorable.style.color = notecolor;
             }
@@ -560,19 +560,19 @@ const Map = ({ leftWidth,
                     momentaryMarker.addTo(map);
                 });
             }
-            const green = document.getElementById('green');
-            if (green != null) {
-                green.addEventListener('click', () => {
+            const yellow = document.getElementById('yellow');
+            if (yellow != null) {
+                yellow.addEventListener('click', () => {
                   ul.style.display = 'block'; 
-                    setNoteColor(colors.GREEN);
+                    setNoteColor(colors.YELLOW);
                     if (colorable != null) {
-                        colorable.style.color = colors.GREEN;
+                        colorable.style.color = colors.YELLOW;
                     }
                     if(textColor != null){
-                      textColor.textContent = "Green";
+                      textColor.textContent = "Yellow";
                     }
                     momentaryMarker.remove();
-                    momentaryMarker = new mapboxgl.Marker({color:colors.GREEN, scale: 0.7});
+                    momentaryMarker = new mapboxgl.Marker({color:colors.YELLOW, scale: 0.7});
                     momentaryMarker.setLngLat([noteClicked.longitude, noteClicked.latitude]);
                     momentaryMarker.addTo(map);
                 });
@@ -591,7 +591,7 @@ const Map = ({ leftWidth,
                             } else if (colorable.style.color === colorsCodes.GREY) {
                                 color = 'grey';
                             } else {
-                                color = 'green';
+                                color = 'yellow';
                             }
                         }
                         const note = {
@@ -620,7 +620,7 @@ const Map = ({ leftWidth,
                         } else if (colorable.style.color === colorsCodes.GREY) {
                             color = 'grey';
                         } else {
-                            color = 'green';
+                            color = 'yellow';
                         }
                     }
                     const note = {
@@ -1595,7 +1595,7 @@ const Map = ({ leftWidth,
                     <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
                     <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
                     <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
-                    <li id="green"><i class="mdi mdi-circle-medium" style="color:#29C499;"></i> Green</li>`
+                    <li id="yellow"><i class="mdi mdi-circle-medium" style="color:#ffbf00;"></i> Yellow</li>`
                     ul.innerHTML = inner;
 
                     let c= div.childNodes;
@@ -1632,12 +1632,12 @@ const Map = ({ leftWidth,
                             }
                         });
                     }
-                    const green = document.getElementById('green');
-                    if (green != null) {
-                        green.addEventListener('click', () => {
-                            setNoteColor(colors.GREEN);
+                    const yellow = document.getElementById('yellow');
+                    if (yellow != null) {
+                        yellow.addEventListener('click', () => {
+                            setNoteColor(colors.YELLOW);
                             if (colorable != null) {
-                                colorable.style.color = colors.GREEN;
+                                colorable.style.color = colors.YELLOW;
                             }
                         });
                     }
@@ -1657,7 +1657,7 @@ const Map = ({ leftWidth,
                                     } else if (colorable.style.color === colorsCodes.GREY) {
                                         color = 'grey';
                                     } else {
-                                        color = 'green';
+                                        color = 'yellow';
                                     }
                                 }
                                 const note = {
@@ -2352,8 +2352,8 @@ const Map = ({ leftWidth,
 
     const getColor = (color: any) => {
       switch(color) {
-        case 'green':
-          return colors.GREEN;
+        case 'yellow':
+          return colors.YELLOW;
         case 'grey':
           return colors.GREY;
         case 'orange':
@@ -2361,7 +2361,7 @@ const Map = ({ leftWidth,
         case 'red':
           return colors.RED;
         default:
-          return colors.GREEN;
+          return colors.YELLOW;
       }
     };
     const capitalize = (s : string) => {
@@ -2376,7 +2376,7 @@ const Map = ({ leftWidth,
         <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
-        <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
+        <li><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow</li>
     </ul>} overlayClassName="popover-comment">
             <Button id={"color-list"+note?('-'+note._id):''} className="type-popover">
               <i id={"colorable"+note?('-'+note._id):''} className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
@@ -2403,7 +2403,7 @@ const Map = ({ leftWidth,
         <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
         <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
-        <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
+        <li><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow</li>
     </ul>} overlayClassName="popover-comment">
             <Button id="color-list" className="type-popover">
               <i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
