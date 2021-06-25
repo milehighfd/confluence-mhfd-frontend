@@ -411,7 +411,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
             <br/>
 
             {/*Second Section*/}
-            <h5>2. SELECT STREAMS <Button className="btn-transparent"><img src="/Icons/icon-08.svg" alt="" height="15px" /></Button></h5>
+            <h5>2. SELECT STREAMS </h5>
             <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
                 <p>Click on the icon and draw a polygon to select stream segments</p>
