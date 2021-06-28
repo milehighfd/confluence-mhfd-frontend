@@ -302,6 +302,7 @@ const RequestView = ({ type, isFirstRendering }: {
     // postData(`${'http://localhost:3003'}/board/`, data)
       .then(
         (r: any) => {
+          if (!r) return;
           let { board, projects } = r;
           ProjectEditService.setProjects(projects);
           if (board) {
@@ -390,6 +391,7 @@ const RequestView = ({ type, isFirstRendering }: {
       // postData(`${'http://localhost:3003'}/board/`, data)
         .then(
           (r: any) => {
+            if (!r) return;
             if(r){
               let { board, projects } = r;
               ProjectEditService.setProjects(projects);
