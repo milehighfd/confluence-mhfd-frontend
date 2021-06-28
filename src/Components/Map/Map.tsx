@@ -2314,30 +2314,32 @@ const Map = ({ leftWidth,
                     }
                 });
                 */
-                map.on('mousemove', key + '_' + index, (e: any) => {
-                    if (commentAvailable) {
-                        return;
-                    }
-                    if (hovereableLayers.includes(key)) {
-                        showHighlighted(key, e.features[0].properties.cartodb_id);
-                    }
-                    if (key.includes('projects') || key === 'problems') {
-                        map.getCanvas().style.cursor = 'pointer';
-                        setSelectedOnMap(e.features[0].properties.cartodb_id, key);
-                    } else {
-                        setSelectedOnMap(-1, '');
-                    }
-                });
-                map.on('mouseleave', key + '_' + index, (e: any) => {
-                    if (commentAvailable) {
-                        return;
-                    }
-                    if (hovereableLayers.includes(key)) {
-                        hideOneHighlighted(key);
-                    }
-                    map.getCanvas().style.cursor = '';
-                    setSelectedOnMap(-1, '');
-                });
+                if(style.type != 'symbol') {
+                  map.on('mousemove', key + '_' + index, (e: any) => {
+                      if (commentAvailable) {
+                          return;
+                      }
+                      if (hovereableLayers.includes(key)) {
+                          showHighlighted(key, e.features[0].properties.cartodb_id);
+                      }
+                      if (key.includes('projects') || key === 'problems') {
+                          map.getCanvas().style.cursor = 'pointer';
+                          setSelectedOnMap(e.features[0].properties.cartodb_id, key);
+                      } else {
+                          setSelectedOnMap(-1, '');
+                      }
+                  });
+                  map.on('mouseleave', key + '_' + index, (e: any) => {
+                      if (commentAvailable) {
+                          return;
+                      }
+                      if (hovereableLayers.includes(key)) {
+                          hideOneHighlighted(key);
+                      }
+                      map.getCanvas().style.cursor = '';
+                      setSelectedOnMap(-1, '');
+                  });
+                }
             });
             setAllLayers(allLayers => [...allLayers, ...availableLayers]);
 
