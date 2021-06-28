@@ -183,7 +183,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       }}>
       <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
-      <label className="purple">{project.from}</label>
+      <label className="purple">{project.origin}</label>
       <label className="yellow">{statusLabel}</label>
       {
         !(showAmountModal || showModalProject || showDeleteAlert) &&

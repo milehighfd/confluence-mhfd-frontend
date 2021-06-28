@@ -9,7 +9,7 @@ class ColorService {
         if (type === 'WORK_REQUEST') {
             return color;
         }
-        let a = arr.filter(p => p.from === project.from);
+        let a = arr.filter(p => p.origin === project.origin);
         let index = -1;
         a.forEach((p: any, i: number) => {
             if (p.project_id === project.project_id) {
