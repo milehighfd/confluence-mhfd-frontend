@@ -27,7 +27,7 @@ const HorizontalBarChart = ({
   showControls=true,
   withClickEvent=true,
   withAnimation=true,
-  spaceBetween=10,
+  spaceBetween=45,
   barLabelFormatter=(d: any) => {
     return d.counter;
   },
@@ -36,7 +36,7 @@ const HorizontalBarChart = ({
   opacityOpaque=CHART_CONSTANTS.opacityOpaque,
   labelOverflowRight=false,
   minBarSize=17,
-  minHeight=100
+  minHeight=140
 }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedData, setSelectedData] = useState<string[]>([]);
