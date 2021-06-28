@@ -27,7 +27,7 @@ const contentOverheadCost = (<div className="popver-info"> Overhead Cost include
 const contentAdditionalCost = (<div className="popver-info"> Enter any additional costs here that were not captured previously as Components, Independent Components, or Overhead Costs. Additional Costs (unlike Independent Components) will NOT have Overhead Costs applied to them. </div>);
 const content08 = (<div className="popver-info"></div>);
 const content09 = (<div className="popver-info"></div>);
-const content10 = (<div className="popver-info"></div>);
+const content10 = (<div className="popver-info">The Component Status indicates whether or not the Component has already been built (Complete) or still needs to be built (Proposed).</div>);
 let flagInit = false;
 const stateValue = {
   visibleCapital: false
