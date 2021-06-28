@@ -37,6 +37,8 @@ export default () => {
   const appUser = store.getState().appUser;
   const indexOf = "" + ROUTERS_SIDEBAR.indexOf(location.pathname);
 
+  const showWorkRequestPlan = (appUser.designation !== 'guest' && appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff')
+  const userApproved = appUser.status === 'approved';
 
   return <Sider collapsedWidth="58" collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} style={{'zIndex': 1000}}>
     <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline" >
@@ -57,20 +59,21 @@ export default () => {
           <span>Map View</span>
         </Link>
       </Menu.Item>
-      {(appUser.designation !== 'guest' && appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff') ?
-      <Menu.Item key="4" className="menu-mobile">
-        <Link to={'/work-request'}>
-          <img className="img-h anticon mobile-display" src="/Icons/menu-white-14.svg" alt="" width="18px" />
-          <img className="img-a anticon mobile-display" src="/Icons/menu-green-14.svg" alt="" width="18px" />
-          <i className="anticon mdi mdi-map-legend menu-desktop"/>
-          <span>Work Request</span>
-        </Link>
-      </Menu.Item> : ''}
-      {(appUser.designation !== 'guest' &&  appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff') ?
+      {showWorkRequestPlan &&
+        <Menu.Item key="4" className="menu-mobile">
+          <Link to={userApproved ? '/work-request': '#'}>
+            <img className="img-h anticon mobile-display" src="/Icons/menu-white-14.svg" alt="" width="18px" style={{opacity: userApproved ? '1': '0.2'}} />
+            <img className="img-a anticon mobile-display" src="/Icons/menu-green-14.svg" alt="" width="18px" style={{opacity: userApproved ? '1': '0.2'}} />
+            <i className="anticon mdi mdi-map-legend menu-desktop"/>
+            <span>Work Request</span>
+          </Link>
+        </Menu.Item>
+      }
+      {showWorkRequestPlan ?
       <Menu.Item key="3" className="menu-mobile">
-        <Link to={'/work-plan'}>
-          <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="18px"/>
-          <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="18px"/>
+        <Link to={userApproved ? '/work-plan': '#'}>
+          <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="18px" style={{opacity: userApproved ? '1': '0.2'}}/>
+          <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="18px" style={{opacity: userApproved ? '1': '0.2'}}/>
           <span>Work Plan</span>
         </Link>
       </Menu.Item> : ''}
@@ -90,35 +93,6 @@ export default () => {
           <span>Watershed Story - Coming Soon</span>
         </Link>
       </Menu.Item> : ''}
-      {/* {(appUser.designation === 'admin' ||
-        appUser.designation === 'staff'||
-        appUser.designation === 'government_admin' ||
-        appUser.designation === 'government_staff') && appUser.activated ?
-      <Menu.Item key="2">
-        <Link to={'/new-project-types'}>
-          <img className="img-h anticon" src="/Icons/menu-white-03.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-03.svg" alt="" width="18px" />
-          <span>Create a Project</span>
-        </Link>
-      </Menu.Item>: ''} */}
-      {/* {(appUser.designation === 'government_admin' ||
-        appUser.designation === 'government_staff') && appUser.activated ?
-      <Menu.Item key="3">
-        <Link to={'/work-request'}>
-          <img className="img-h anticon" src="/Icons/menu-white-04.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-04.svg" alt="" width="18px" />
-          <span>Work Request</span>
-        </Link>
-      </Menu.Item>: ''} */}
-      {/* {(appUser.designation === 'admin' ||
-        appUser.designation === 'staff') && appUser.activated ?
-      <Menu.Item key="4">
-        <Link to={'/work-plan'}>
-          <img className="img-h anticon" src="/Icons/menu-white-05.svg" alt="" width="18px" />
-          <img className="img-a anticon" src="/Icons/menu-green-05.svg" alt="" width="18px" />
-          <span>Work Plan</span>
-        </Link>
-      </Menu.Item>: ''} */}
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') ?
         <Menu.Item key="6" className="menu-mobile">
