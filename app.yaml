@@ -1,15 +1,18 @@
 runtime: python27
-service: backend
+service: default
 api_version: 1
 threadsafe: true
 handlers:
 - url: /(.*\.(html|css|js|png|jpg|woff|json|svg))
+  expiration: '300s'
   static_files: build/\1
   upload: build/(.*\.(html|css|js|png|jpg|woff|json|svg))
 - url: /.*
+  expiration: '300s'
   static_files: build/index.html
   upload: build/index.html
 - url: /
+  expiration: '300s'
   static_dir: build
 skip_files:
 - src/
