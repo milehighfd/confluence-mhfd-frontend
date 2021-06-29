@@ -197,7 +197,7 @@ const WorkRequestMap = (type: any) => {
         
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
-        filterProjectsDraft.status = 'Draft';
+        filterProjectsDraft.status = '';
           wait(()=>{
             setTimeout(()=>{
               map.isStyleLoaded(()=>{
@@ -543,13 +543,10 @@ const WorkRequestMap = (type: any) => {
     });
   };
   const removeLayers = (key: string) => {
-
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-
       if (map.map.getLayer(key + '_' + index)) {
         map.map.removeLayer(key + '_' + index);
-        
       }
     });
   }
@@ -803,7 +800,7 @@ const WorkRequestMap = (type: any) => {
         allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
       } 
       if (map.getLayer(key + '_' + index)) {
-        
+        console.log("THIS FILTER ius the prob", allFilters);
         map.setFilter(key + '_' + index, allFilters);
       }
     });
