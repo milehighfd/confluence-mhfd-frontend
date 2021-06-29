@@ -244,7 +244,9 @@
     .ant-btn .anticon{
       font-size: 12px;
     }
-    .btn-opacity {
+    .btn-opacity, .btn-opacity:hover,
+    .btn-opacity:focus, .btn-opacity.active,
+    .btn-opacity:active {
       width: 30px;
       height: 30px;
       font-size: 21px;
@@ -371,7 +373,9 @@
     .ant-btn .anticon{
       font-size: 16px;
     }
-    .btn-opacity {
+    .btn-opacity, .btn-opacity:hover,
+    .btn-opacity:focus, .btn-opacity.active,
+    .btn-opacity:active {
       width: 40px;
       height: 40px;
       font-size: 28px;
