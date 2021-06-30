@@ -41,7 +41,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     projectid,
     projectname,
     jurisdiction,
-    projectsubtype
+    projectsubtype,
+    status
   } = project.projectData;
   const [goingToBeDeleted, setGoingToBeDeleted] = useState(false);
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
@@ -119,6 +120,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   }
 
   let statusLabel = null;
+  if (year <= 2021) {
+    statusLabel = status;
+  } else {
   if (columnIdx === 0) {
     statusLabel = 'Draft';
   } else {
@@ -136,7 +140,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       }
     }
   }
-
+  }
   return (
     <>
     {
