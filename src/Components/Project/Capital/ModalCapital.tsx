@@ -198,7 +198,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
       setAdditionalCost(parseInt(data.additionalcost));
-      let newOV = data.overheadcost.split(',').map((x:any)=>{
+      let newOV = (data.overheadcost || '').split(',').map((x:any)=>{
         return parseInt(x);
       })
       setTimeout(()=>{

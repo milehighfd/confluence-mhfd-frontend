@@ -49,16 +49,20 @@ export const filterByJurisdictionAndCsaSelected = (jurisdictionSelected: string[
     return false;
   } else {
     let found = false;
-    p.projectData.county.split(',').forEach((county: string) => {
-      if (csaSelected.includes(county)) {
-        found = true;
-      }
-    })
-    p.projectData.servicearea.split(',').forEach((servicearea: string) => {
-      if (csaSelected.includes(servicearea)) {
-        found = true;
-      }
-    })
+    if (p.projectData.county) {
+      p.projectData.county.split(',').forEach((county: string) => {
+        if (csaSelected.includes(county)) {
+          found = true;
+        }
+      })
+    }
+    if (p.projectData.servicearea) {
+      p.projectData.servicearea.split(',').forEach((servicearea: string) => {
+        if (csaSelected.includes(servicearea)) {
+          found = true;
+        }
+      })
+    }
     return found;
   }
 }
@@ -411,7 +415,7 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
 
   let localityMap: any = {}
   allProjects.forEach((p: any) => {
-    let arr = p.projectData[property].split(',');
+    let arr = (p.projectData[property] || '').split(',');
     for (let j = 0 ; j < arr.length ; j++) {
       let locality = arr[j];
 
