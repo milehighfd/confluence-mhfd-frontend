@@ -136,7 +136,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         if (editable) {
           statusLabel = 'Requested';
         } else {
-          statusLabel = 'Proposed';
+          statusLabel = 'Approved';
         }
       }
     }
