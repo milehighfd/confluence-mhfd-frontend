@@ -123,24 +123,51 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   if (year <= 2021) {
     statusLabel = status;
   } else {
-  if (columnIdx === 0) {
-    statusLabel = 'Draft';
-  } else {
-    if (type ==='WORK_REQUEST') {
-      if (editable) {
-        statusLabel = 'Draft';
-      } else {
-        statusLabel = 'Requested';
-      }
+    if (columnIdx === 0) {
+      statusLabel = 'Draft';
     } else {
-      if (editable) {
-        statusLabel = 'Requested';
+      if (type ==='WORK_REQUEST') {
+        if (editable) {
+          statusLabel = 'Draft';
+        } else {
+          statusLabel = 'Requested';
+        }
       } else {
-        statusLabel = 'Proposed';
+        if (editable) {
+          statusLabel = 'Requested';
+        } else {
+          statusLabel = 'Proposed';
+        }
       }
     }
   }
+  let color = null, backgroundColor = null;
+  switch(statusLabel) {
+    case 'Requested':
+      backgroundColor = 'rgba(94, 61, 255, 0.15)';
+      color = '#9309EA';
+      break;
+    case 'Approved':
+      backgroundColor = 'rgba(97, 158, 234, 0.15)';
+      color = '#497BF3';
+      break;
+    case 'Initiated':
+      backgroundColor = 'rgba(41, 196, 153, 0.08)';
+      color = '#139660';
+      break;
+    case 'Cancelled':
+      backgroundColor = 'rgba(255, 0, 0, 0.08)';
+      color = '#FF0000';
+      break;
+    case 'Complete':
+      backgroundColor = 'rgba(41, 196, 153, 0.08)';
+      color = '#06242D';
+      break;
+    default:
+      color= '#FF8938';
+      backgroundColor = 'rgba(255, 221, 0, 0.3)';
   }
+
   return (
     <>
     {
@@ -188,7 +215,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
       <label className="purple">{project.origin}</label>
-      <label className="yellow">{statusLabel}</label>
+      <label className="yellow" style={{color, backgroundColor}}>{statusLabel}</label>
       {
         !(showAmountModal || showModalProject || showDeleteAlert) &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click">
