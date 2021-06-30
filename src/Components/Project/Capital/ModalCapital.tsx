@@ -1108,7 +1108,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <p>Additional Cost <Popover content={contentAdditionalCost}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom:'2px'}}/></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>
-                <Input style={{paddingLeft:'0px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost)}/>
+                <Input style={{paddingLeft:'0px'}} placeholder="$0" onChange={(description) => onChangeAdditionalCost(description)} value={formatter.format(additionalCost ? additionalCost : 0)}/>
               </Col>
             </Row>
             <Row className="sub-project">
@@ -1119,7 +1119,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <hr/>
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>TOTAL COST</Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost())}</b></Col>
+              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost() ? getTotalCost() : 0)}</b></Col>
             </Row>
 
             {/*Section*/}
