@@ -45,8 +45,8 @@ export default () => {
       {(appUser.designation !== 'guest') ?
       <Menu.Item key="0">
         <Link to={'/profile-view'}>
-          <img className="img-h anticon mobile-display" src="/Icons/menu-white-01.svg" alt="" width="22px" />
-          <img className="img-a anticon mobile-display" src="/Icons/menu-green-01.svg" alt="" width="22px" />
+          <img className="img-h anticon mobile-display" src="/Icons/menu-white-01.svg" alt="" width="23px" />
+          <img className="img-a anticon mobile-display" src="/Icons/menu-green-01.svg" alt="" width="23px" />
           <i className="anticon mdi mdi-home-outline menu-desktop"/>
           <span>My Confluence</span>
         </Link>
@@ -72,8 +72,8 @@ export default () => {
       {showWorkRequestPlan ?
       <Menu.Item key="3" className="menu-mobile">
         <Link to={userApproved ? '/work-plan': '#'}>
-          <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="22px" style={{opacity: userApproved ? '1': '0.2'}}/>
-          <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="22px" style={{opacity: userApproved ? '1': '0.2'}}/>
+          <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="20px" style={{opacity: userApproved ? '1': '0.2'}}/>
+          <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="20px" style={{opacity: userApproved ? '1': '0.2'}}/>
           <span>Work Plan</span>
         </Link>
       </Menu.Item> : ''}
@@ -97,15 +97,15 @@ export default () => {
         appUser.designation === 'staff') && (appUser.status === 'approved') ?
         <Menu.Item key="6" className="menu-mobile">
           <Link to={'/upload-attachment'}>
-            <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="22px" />
-            <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="22px" />
+            <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="19px" />
+            <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="19px" />
             <span>Uploader</span>
           </Link>
         </Menu.Item> : ''}
         <Menu.Item key="7" className="menu-mobile">
           <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
-            <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="22px" />
-            <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="22px" />
+            <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="21px" />
+            <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="21px" />
             <span>Feedback</span>
           </a>
         </Menu.Item>

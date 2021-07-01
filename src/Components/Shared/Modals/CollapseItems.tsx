@@ -399,7 +399,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
     </div>
   };
 
-  console.log('data', data);
   return <div className="tabs-detailed">
     <Collapse defaultActiveKey={active} onChange={(e: any) => {
       setActive(e);

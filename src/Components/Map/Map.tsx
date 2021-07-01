@@ -1712,10 +1712,10 @@ const Map = ({ leftWidth,
             setSelectedPopup(-1);
             let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
             if (features.length === 0) {
-                return;
+                // return;
               }
             if ((e.point.x === coordX || e.point.y === coordY)) {
-                return;
+                // return;
             }
             coordX = e.point.x;
             coordY = e.point.y;
@@ -1728,6 +1728,12 @@ const Map = ({ leftWidth,
                     index++;
                 }
                 return -1;
+            }
+            const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
+            if ( popupsClassess.length ) {
+                for(let i = 0 ; i < popupsClassess.length ; ++i) {
+                  popupsClassess[i].remove();
+                }
             }
             features = features.filter((element: any, index: number) => {
                 return search(element.properties.cartodb_id, element.source) === index;
@@ -2283,7 +2289,6 @@ const Map = ({ leftWidth,
           setShowDefault(false);
           setComponentsFromMap([]);
         }
-        console.log('cosito ', details);
         setVisibleCreateProject(true);
     }
     const addMapListeners = async (key: string) => {
