@@ -1,10 +1,12 @@
 import { Popover } from 'antd';
 import React from 'react';
+import { boardType } from './RequestTypes';
 import { formatter } from './RequestViewUtil';
 
 
 
-const CostTableBody = ({ countySum, isFiltered, tabKey }: {
+const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
+  type: boardType,
   countySum: any,
   isFiltered: boolean,
   tabKey: any
@@ -16,7 +18,11 @@ const CostTableBody = ({ countySum, isFiltered, tabKey }: {
       return "Service Area"
     }
   }
-  const content00 = (<div className="popver-info">Breakdown of project budget requests by {getLabel()} within each Jurisdiction, where applicable.</div>);
+  const content00 = (
+    <div className="popver-info">
+      Breakdown of project budget requests by {type === 'WORK_REQUEST' ? `${getLabel()} within each` : ''} Jurisdiction, where applicable.
+    </div>
+  );
   return (
     <div className="tab-body-line">
       <div>

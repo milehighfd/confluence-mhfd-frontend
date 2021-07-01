@@ -3,12 +3,14 @@ import { Drawer, Select, Popover } from 'antd';
 import HorizontalBarChart from "../../FiltersProject/NewProblemsFilter/HorizontalBarChart";
 import { formatter, MaintenanceTypes } from "../Request/RequestViewUtil";
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
+import { boardType } from "../Request/RequestTypes";
 
 const { Option } = Select;
 
 const Analytics = ({
-  visible, setVisible, data, tabKey, initialYear
+  type, visible, setVisible, data, tabKey, initialYear
 }: {
+  type: boardType,
   visible: boolean,
   setVisible: Function,
   data: any,
@@ -22,8 +24,16 @@ const Analytics = ({
       return "Service Area"
     }
   }
-  const contentCounty = (<div className="popver-info">This graphic indicates the number of requests within each Jurisdiction broken out by {getLabel()}.</div>);
-  const contentDollars = (<div className="popver-info"> This graphic indicates the dollar amount of requests within each Jurisdiction broken out by {getLabel()}.</div>);
+  const contentCounty = (
+    <div className="popver-info">
+      This graphic indicates the number of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
+    </div>
+  );
+  const contentDollars = (
+    <div className="popver-info">
+      This graphic indicates the dollar amount of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
+    </div>
+  );
   const [width, setWidth]   = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
   const updateDimensions = () => {
@@ -61,7 +71,12 @@ const Analytics = ({
   })
   let countiesNames = data.map((d: any) => d.locality).join(',');
   let barsColor = '#261964';
-  let groupingType = ['Capital', 'Maintenance'].includes(tabKey) ? 'County': 'Service Area';
+  let groupingType = null;  
+  if (type === 'WORK_REQUEST') {
+    groupingType = 'Jurisdiction';
+  } else {
+    groupingType = ['Capital', 'Maintenance'].includes(tabKey) ? 'County': 'Service Area';
+  }
 
   return (
     <Drawer

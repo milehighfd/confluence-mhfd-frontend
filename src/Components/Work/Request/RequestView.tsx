@@ -458,7 +458,7 @@ const RequestView = ({ type, isFirstRendering }: {
   useEffect(() => {
     let [rows, totals] = getTotalsByProperty(columns, 'county');
     let [a] = getTotalsByProperty(columns, 'servicearea');
-    let [c] = getTotalsByProperty(columns, 'sponsor');
+    let [c] = getTotalsByProperty(columns, 'jurisdiction');
     let uniqueServiceArea = a.map((p: any) => p.locality);
     let uniqueJurisdictions = c.map((p: any) => p.locality);
     let uniqueCounties = rows.map((p: any) => p.locality);
@@ -477,10 +477,14 @@ const RequestView = ({ type, isFirstRendering }: {
       }
     }
     setSumTotal(totals);
-    if (['Capital', 'Maintenance'].includes(tabKey)) {
-      setSumByCounty(rows);
+    if (type === 'WORK_REQUEST') {
+      if (['Capital', 'Maintenance'].includes(tabKey)) {
+        setSumByCounty(rows);
+      } else {
+        setSumByCounty(a);
+      }
     } else {
-      setSumByCounty(a);
+      setSumByCounty(c);
     }
   }, [columns, tabKey]);
 
@@ -650,6 +654,7 @@ const RequestView = ({ type, isFirstRendering }: {
     }
     {
       <Analytics
+        type={type}
         visible={showAnalytics}
         setVisible={setShowAnalytics}
         tabKey={tabKey}
@@ -865,7 +870,7 @@ const RequestView = ({ type, isFirstRendering }: {
                                   {
                                     sumByCounty.map((countySum) => (
                                       <Timeline.Item color="purple" key={Math.random()}>
-                                        <CostTableBody countySum={countySum} isFiltered={!notIsFiltered} tabKey={tabKey}/>
+                                        <CostTableBody type={type} countySum={countySum} isFiltered={!notIsFiltered} tabKey={tabKey}/>
                                       </Timeline.Item>
                                     ))
                                   }
