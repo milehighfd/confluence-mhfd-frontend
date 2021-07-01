@@ -73,9 +73,9 @@ const Analytics = ({
   let barsColor = '#261964';
   let groupingType = null;  
   if (type === 'WORK_REQUEST') {
-    groupingType = 'Jurisdiction';
-  } else {
     groupingType = ['Capital', 'Maintenance'].includes(tabKey) ? 'County': 'Service Area';
+  } else {
+    groupingType = 'Jurisdiction';
   }
 
   return (
