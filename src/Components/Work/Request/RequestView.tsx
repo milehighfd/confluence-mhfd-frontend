@@ -902,7 +902,7 @@ const RequestView = ({ type, isFirstRendering }: {
                             <div><h5>Differential</h5></div>
                             {
                               diff.map((d: any, i) => (
-                                <div key={i} style={{opacity: !notIsFiltered ? 0.5 : 1 }} >{d ? formatter.format(d) : ''}</div>
+                                <div key={i} style={{opacity: !notIsFiltered ? 0.5 : 1 }} >{d ? formatter.format(Math.floor(d)) : ''}</div>
                               ))
                             }
                           </div>

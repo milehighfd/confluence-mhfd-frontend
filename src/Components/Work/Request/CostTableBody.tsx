@@ -27,11 +27,11 @@ const CostTableBody = ({ countySum, isFiltered, tabKey }: {
           </Popover>
         </label>
       </div>
-      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req1 ? formatter.format(countySum.req1) : `$0`}</div>
-      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req2 ? formatter.format(countySum.req2) : `$0`}</div>
-      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req3 ? formatter.format(countySum.req3) : `$0`}</div>
-      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req4 ? formatter.format(countySum.req4) : `$0`}</div>
-      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req5 ? formatter.format(countySum.req5) : `$0`}</div>
+      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req1 ? formatter.format(Math.floor(countySum.req1)) : `$0`}</div>
+      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req2 ? formatter.format(Math.floor(countySum.req2)) : `$0`}</div>
+      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req3 ? formatter.format(Math.floor(countySum.req3)) : `$0`}</div>
+      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req4 ? formatter.format(Math.floor(countySum.req4)) : `$0`}</div>
+      <div style={{opacity: isFiltered ? 0.5 : 1 }}>{countySum.req5 ? formatter.format(Math.floor(countySum.req5)) : `$0`}</div>
     </div>
   )
 }

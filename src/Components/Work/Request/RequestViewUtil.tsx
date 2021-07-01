@@ -166,7 +166,7 @@ export const generateColumns = (boardProjects: boardProject[], year: number, tab
 }
 
 export const priceFormatter = (value: any) => {
-  return `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return `$${Math.floor(value)}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
 export const priceParser = (value: any) => {

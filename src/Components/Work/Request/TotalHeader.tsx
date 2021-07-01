@@ -19,7 +19,7 @@ const TotalHeader = ({ columns, jurisdictionSelected, csaSelected }: {
         <div><label>Total Cost</label></div>
         {
           totals.map((t, i) => (
-            <div key={i}>{t ? formatter.format(t) : '$0'}</div>
+            <div key={i}>{t ? formatter.format(Math.floor(t)) : '$0'}</div>
           ))
         }
       </div>
