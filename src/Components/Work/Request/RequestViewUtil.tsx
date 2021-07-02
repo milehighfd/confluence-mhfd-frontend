@@ -44,7 +44,11 @@ export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
   return areEqual;
 }
 
-export const filterByJurisdictionAndCsaSelected = (jurisdictionSelected: string[], csaSelected: string[], p: any) => {
+export const filterByJurisdictionAndCsaSelected = (jurisdictionSelected: string[], csaSelected: string[], jurisdictionFilterList: string[], csaFilterList: string[], p: any) => {
+  if (jurisdictionSelected.length === jurisdictionFilterList.length && 
+    csaSelected.length === csaFilterList.length) {
+    return true;
+  }
   if (!jurisdictionSelected.includes(p.projectData.sponsor)) {
     return false;
   } else {

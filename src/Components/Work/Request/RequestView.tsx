@@ -829,7 +829,7 @@ const RequestView = ({ type, isFirstRendering }: {
                                   }
                                   {
                                     column.projects
-                                    .filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, p))
+                                    .filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, jurisdictionFilterList, csaFilterList, p))
                                     .map((p: any, i: number, arr: any[]) => (
                                       <TrelloLikeCard key={i}
                                         year={year}
@@ -863,7 +863,10 @@ const RequestView = ({ type, isFirstRendering }: {
                                 <TotalHeader
                                   columns={columns}
                                   jurisdictionSelected={jurisdictionSelected}
-                                  csaSelected={csaSelected} />
+                                  csaSelected={csaSelected}
+                                  jurisdictionFilterList={jurisdictionFilterList}
+                                  csaFilterList={csaFilterList}
+                                   />
                               }>
                               <div className="tab-body-project streams">
                                 <Timeline>

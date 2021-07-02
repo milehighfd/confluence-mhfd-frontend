@@ -1,15 +1,17 @@
 import React from 'react';
 import { filterByJurisdictionAndCsaSelected, formatter } from './RequestViewUtil';
 
-const TotalHeader = ({ columns, jurisdictionSelected, csaSelected }: {
+const TotalHeader = ({ columns, jurisdictionSelected, csaSelected, jurisdictionFilterList, csaFilterList }: {
     columns: any[],
     jurisdictionSelected: any[],
-    csaSelected: any[]
-}) => {
+    csaSelected: any[],
+    jurisdictionFilterList: any[],
+    csaFilterList: any[]
+  }) => {
     let totals = [0, 0, 0, 0, 0];
     columns.forEach((col: any, colIdx: number) => {
       if (colIdx === 0) return;
-      col.projects.filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, p))
+      col.projects.filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, jurisdictionFilterList, csaFilterList, p))
       .forEach((p: any) => {
         totals[colIdx - 1] += p[`req${colIdx}`];
       })
