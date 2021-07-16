@@ -990,7 +990,7 @@ const Raster = (type: any) => {
                     feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
                       feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
                         feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                          '/projectImages/debris_management.png') : '/Icons/eje.png')
+                          '/projectImages/debris_management.jpg') : '/Icons/eje.png')
         };
         mobile.push({
           type: 'project',

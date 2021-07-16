@@ -1786,7 +1786,7 @@ const Map = ({ leftWidth,
                                     feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
                                     feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
                                         feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                                        '/projectImages/debris_management.png') : '/Icons/eje.png')
+                                        '/projectImages/debris_management.jpg') : '/Icons/eje.png')
                     };
                     mobile.push({
                         type: 'project',
@@ -2930,7 +2930,7 @@ const Map = ({ leftWidth,
                                         project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
                                         project.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
                                             project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                                            '/projectImages/debris_management.png') : '/Icons/eje.png'
+                                            '/projectImages/debris_management.jpg') : '/Icons/eje.png'
                             ),
                             requestName: project.projectname ? project.projectname : project.requestedname,
                             sponsor: project.sponsor,
