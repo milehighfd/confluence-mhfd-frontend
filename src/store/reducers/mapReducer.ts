@@ -830,10 +830,9 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.DELETE_FAVORITE: {
-            console.log(action.favorite);
             const copy: any = [];
             for (const element of state.favorites) {
-                if (element['table'] === action.favorite.table && +element['cartodb_id'] === +action.favorite.cartodb_id) {
+                if (element['table'] === action.favorite.table && +element['id'] === +action.favorite.id) {
                     continue;
                 }
                 copy.push(element);

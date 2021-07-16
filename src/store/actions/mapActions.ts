@@ -847,9 +847,7 @@ export const addFavorite = (email: string, id: number, table: string) => {
         datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
             favorite.id = +favorite.id;
             dispatch({type: types.ADD_FAVORITE, favorite});
-            //dispatch(favoriteList(email));
         });
-        //datasets.getData()
     }
 }
 
@@ -857,9 +855,7 @@ export const deleteFavorite = (email: string, id: number, table: string) => {
     return (dispatch: Function) => {
         datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, {email: email, id: id, table: table}, datasets.getToken()).then(favorite => {
             dispatch({type: types.DELETE_FAVORITE, favorite: {id: id, table: table}});
-           // dispatch(favoriteList(email));
         });
-        //datasets.getData()
     }
 }
 
