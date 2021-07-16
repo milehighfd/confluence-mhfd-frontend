@@ -167,6 +167,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       color= '#FF8938';
       backgroundColor = 'rgba(255, 221, 0, 0.3)';
   }
+  let labelOrigin = project.origin;
+  if (labelOrigin.length > 14) {
+    labelOrigin = labelOrigin.substr(0, 14) + '...';
+  }
 
   return (
     <>
@@ -214,7 +218,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       }}>
       <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
-      <label className="purple">{project.origin}</label>
+      <label className="purple">{labelOrigin}</label>
       <label className="yellow" style={{color, backgroundColor}}>{statusLabel}</label>
       {
         !(showAmountModal || showModalProject || showDeleteAlert) &&
