@@ -35,7 +35,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   const colors = {
     RED: '#FF0000',
     ORANGE: '#FA6400',
-    GREY: 'rgb(142, 132, 132)',
+    GREY: 'rgb(00, 00, 00, 0.2)',
     YELLOW: '#ffbf00'
   };  
   const getColor = (color: any) => {
@@ -136,7 +136,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       {filter === 'all' ? notes.map((note: any) => {
         return (
         <Comment avatar={
-          <Avatar style={{ color: '#11093C', backgroundColor: 'rgba(00,00,00,0.2)' }}>{userInformation ? (userInformation.firstName[0] + userInformation.lastName[0]).toUpperCase(): ''}</Avatar>
+          <Avatar style={{ color: '#11093C', backgroundColor: getColor(note.color) }}>{userInformation ? (userInformation.firstName[0] + userInformation.lastName[0]).toUpperCase(): ''}</Avatar>
         }
         content={note &&
           <>
@@ -156,7 +156,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         if (note.color === filter) {
           return [(
           <Comment avatar={
-            <Avatar style={{ color: '#11093C', backgroundColor: 'rgba(00,00,00,0.2)' }}>{userInformation ? (userInformation.firstName[0] + userInformation.lastName[0]).toUpperCase(): ''}</Avatar>
+            <Avatar style={{ color: '#11093C', backgroundColor: getColor(note.color) }}>{userInformation ? (userInformation.firstName[0] + userInformation.lastName[0]).toUpperCase(): ''}</Avatar>
           }
           content={note &&
             <>
