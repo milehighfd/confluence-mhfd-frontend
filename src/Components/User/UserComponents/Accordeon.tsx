@@ -11,8 +11,10 @@ import MenuAreaView from './MenuAreaView';
 import { User } from '../../../Classes/TypeList';
 import Alert from '../../Shared/Alert';
 import moment from 'moment';
+import { useProfileState } from '../../../hook/profileHook';
 
 export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: { user: User, pos: number, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
+  const { groupOrganization } = useProfileState();
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
 
@@ -52,8 +54,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
           setTitle(auxTitle);
         }}>
         <Menu.ItemGroup key="g1">
-          <label className="label-sg">{'Regional Agency'}</label>
-          {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          {groupOrganization.map((item: any, index: number) => (<Menu.Item key={index + "g1"}><span>{item.aoi}</span></Menu.Item>))}
         </Menu.ItemGroup>
       </Menu>
   };

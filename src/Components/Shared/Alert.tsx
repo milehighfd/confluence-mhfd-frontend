@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal} from 'antd';
+import { Button, Modal} from 'antd';
 
 export default ({ save, visible, setVisible, message }: { save: Function, visible: { visible: boolean }, setVisible: Function, message: string }) => {
   const handleCancel = () => {
@@ -15,11 +15,11 @@ export default ({ save, visible, setVisible, message }: { save: Function, visibl
     width="400px"
   >
     <h2>{message}</h2>
-    <button className="btn-cancel" onClick={() => {
+    <Button className="btn-cancel" onClick={() => {
       handleCancel();
-    }}>Cancel</button>
-    <button className="btn-submit" onClick={() => {
+    }}>Cancel</Button>
+    <Button className="btn-submit" onClick={() => {
       save();
-    }}>Submit</button>
+    }}>Update</Button>
   </Modal>
 };

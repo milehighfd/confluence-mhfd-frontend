@@ -40,10 +40,7 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   const { favoriteCards } = useMapDispatch();
   const { favoriteProblemCards, favoriteProjectCards, favoritesLoader} = useMapState();
   useEffect(() => {
-    console.log('my user ', user);
-    favoriteCards(user.email, true, { keyword: "", column: 'problemname', order: "asc"});
     favoriteCards(user.email, false, { keyword: "", column: 'projectname', order: "asc"});
-
   }, [user]);
   useEffect(() => {
     getUserProjects({});
@@ -55,12 +52,6 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
   useEffect(() => {
     getUserInformation();
   }, [getUserInformation]);
-  useEffect(() => {
-    if(user._id) {
-      getUserProblem({ keyword: '', column: 'problemname', order: 'asc' });
-      getUserProject({ keyword: '', column: 'projectname', order: 'asc' });
-    }
-  }, [user]);
 
   return <>
     <Layout>
@@ -77,7 +68,13 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
           <Row >
             <Col className="profile-tabs" xs={{ span: 24 }} lg={{ span: 17 }}>
               <Spin className="loading-01" spinning={favoritesLoader > 0}>
-              <Tabs defaultActiveKey="2" className="tabs-map">
+              <Tabs defaultActiveKey="2" className="tabs-map" onTabClick={(e: string) => {
+                if (e == '1') {
+                  favoriteCards(user.email, true, { keyword: "", column: 'problemname', order: "asc"});
+                } else {
+                  favoriteCards(user.email, false, { keyword: "", column: 'projectname', order: "asc"});
+                }
+              }}>
 
                 <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
                   <TabPaneView type={"Problems"} data={favoriteProblemCards} search={favoriteCards}
