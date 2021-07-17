@@ -335,7 +335,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
         title: '% of Total Cost',
         dataIndex: 'percen',
         sorter: true,
-        render: (percen: any) => `${percen}`
+        render: (percen: any) => `${percen}%`
         /* new Intl.NumberFormat("en-EN").format(original_cost) + '%' */
       }
     ];
@@ -361,7 +361,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       },
       {
         title: '% of Total Cost',
-        dataIndex: 'original_cost',
+        dataIndex: 'percen',
         sorter: true,
         render: (percen: any) => `${percen}%`
         /* new Intl.NumberFormat("en-EN").format(original_cost) */

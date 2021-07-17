@@ -672,9 +672,9 @@ export const getComponentsByProblemId = (data: any) => {
             let params = data.map((value:any) => {
               return {
                 ...value, 
-                estimated_cost: Math.round(value.estimated_cost),
-                percen: Math.round(parseFloat(value.percen)) + '%',
-                original_cost: Math.round(value.original_cost)
+                estimated_cost: value.estimated_cost,
+                percen: value.percen,
+                original_cost: value.original_cost
               }
             });
             console.log("PARAMS", params);
