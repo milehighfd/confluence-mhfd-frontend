@@ -26,7 +26,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
       <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
           // values, setTitle
-          values.organization = event.item.props.children.props.children;
+          values.zoomarea = event.item.props.children.props.children;
           const auxTitle = event.item.props.children.props.children;
           setTitle(auxTitle);
         }}>
@@ -49,7 +49,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
       </Menu> :
       <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
-          values.organization = event.item.props.children.props.children;
+          values.zoomarea = event.item.props.children.props.children;
           const auxTitle = event.item.props.children.props.children;
           setTitle(auxTitle);
         }}>
@@ -74,7 +74,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
     values.firstName = user.firstName;
     values.lastName = user.lastName;
     values.activated = user.activated;
-    values.organization = user.organization;
+    values.zoomarea = user.zoomarea;
     values.name = user.name;
     values.designation = user.designation;
     values.email = user.email;
@@ -268,12 +268,11 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
             <div className="gutter-example">
               <h3>DEFAULT MAP ZOOM AREA</h3>
               <Row gutter={16}>
-                <Col className="gutter-row" span={12} id={("organization" + values._id)}>
-                  <p>ORGANIZATION</p>
+                <Col className="gutter-row" span={12} id={("zoomarea" + values._id)}>
                   <Dropdown trigger={['click']} overlay={menu}
-                    getPopupContainer={() => document.getElementById(("organization" + values._id)) as HTMLElement}>
+                    getPopupContainer={() => document.getElementById(("zoomarea" + values._id)) as HTMLElement}>
                     <Button className="btn-borde">
-                      {values.organization ? values.organization : 'Organization'}  <img src="/Icons/icon-12.svg" alt="" />
+                      {values.zoomarea ? values.zoomarea : 'Zoom Area'}  <img src="/Icons/icon-12.svg" alt="" />
                     </Button>
                   </Dropdown>
                 </Col>
