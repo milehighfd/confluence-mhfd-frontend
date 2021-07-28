@@ -543,6 +543,7 @@ const RequestView = ({ type, isFirstRendering }: {
     let hasData = data.amounts.some(r => !!r);
     if (hasData) {
       let newObj: any = {
+        origin: projectData.origin,
         project_id: data.projectId,
         position0: null,
         position1: null, position2: null, position3: null, position4: null, position5: null,
@@ -598,6 +599,7 @@ const RequestView = ({ type, isFirstRendering }: {
         }
       })
       let newProjectData = {
+        origin: projectData.origin,
         project_id: data.projectId,
         position0: 0,
         position1: null, position2: null, position3: null, position4: null, position5: null,
