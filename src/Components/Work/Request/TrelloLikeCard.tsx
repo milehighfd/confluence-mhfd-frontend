@@ -98,9 +98,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     e.dataTransfer.setData('text', JSON.stringify({id, fromColumnIdx: columnIdx}));
   }
 
-  let displayName = projectname;
-  if (projectname.length > 35) {
-    displayName = projectname.substr(0,35) + '...';
+  let displayName = projectname || '';
+  if (displayName.length > 35) {
+    displayName = displayName.substr(0,35) + '...';
   }
 
   useEffect(() => {
