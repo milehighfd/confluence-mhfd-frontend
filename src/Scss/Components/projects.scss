@@ -18,6 +18,12 @@
       color: $purple00;
       opacity: 1;
     }
+    .threedots {
+      position: absolute;
+      top: 0;
+      right: -15px;
+      transition: right 0.2s;
+    }
     .input-sizer {
       display: inline-grid;
       vertical-align: top;

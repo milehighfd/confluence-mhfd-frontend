@@ -72,6 +72,14 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [cover, setCover] = useState('');
+  const [showThreeDots, setShowThreeDots] = useState(false);
+  useEffect(() => {
+    if (nameProject && nameProject.length > 58) {
+      setShowThreeDots(true);
+    } else if (nameProject && nameProject.length < 58 && showThreeDots) {
+      setShowThreeDots(false);
+    }
+  }, [nameProject])
   var date = new Date();
   const history = useHistory();
 
@@ -288,7 +296,15 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 17 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={45 } placeholder={nameProject} /*disabled={disableName}*//>
+                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={45 } placeholder={nameProject} 
+                  onFocus={() => setShowThreeDots(false)}
+                  onBlur={() => {
+                    if (nameProject && nameProject.length > 58) {
+                      setShowThreeDots(true)
+                    }
+                  }}
+                  />
+                  { showThreeDots && <span className={'threedots'}>...</span>}
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject}  />*/}
                 {/*<Button className="btn-transparent">

@@ -77,6 +77,14 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       return list.split(',');
     }
  }
+ const [showThreeDots, setShowThreeDots] = useState(false);
+  useEffect(() => {
+    if (nameProject && nameProject.length > 58) {
+      setShowThreeDots(true);
+    } else if (nameProject && nameProject.length < 58 && showThreeDots) {
+      setShowThreeDots(false);
+    }
+  }, [nameProject])
  useEffect(()=>{
   let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
   if(juris) {
@@ -312,7 +320,15 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 14 }}>
                 <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(nameProject) => onChange(nameProject)} size={45} placeholder={nameProject} /*disabled={disableName}*//>
+                  <input type="text" value={nameProject} onChange={(nameProject) => onChange(nameProject)} size={45} placeholder={nameProject}
+                  onFocus={() => setShowThreeDots(false)}
+                  onBlur={() => {
+                    if (nameProject && nameProject.length > 58) {
+                      setShowThreeDots(true)
+                    }
+                  }}
+                  />
+                  { showThreeDots && <span className={'threedots'}>...</span>}
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 {/*<Button className="btn-transparent">

@@ -731,7 +731,9 @@ const RequestView = ({ type, isFirstRendering }: {
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                     <div className="auto-complete-map">
-                      <AutoComplete
+                      {
+                        user.designation !== GOVERNMENT_STAFF ?
+                        <AutoComplete
                         onDropdownVisibleChange={setDropdownIsOpen}
                         className={'ant-select-1'}
                         dataSource={dataAutocomplete}
@@ -756,12 +758,14 @@ const RequestView = ({ type, isFirstRendering }: {
                             }
                           }
                         }}
-                        disabled={user.designation == GOVERNMENT_STAFF}
                       >
                         <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
                           prefix={<i className="mdi mdi-circle"></i>}
                           suffix={<Icon type="down" className={'certain-category-icon ' + (dropdownIsOpen ? 'rotate-icon': '')} />} />
-                      </AutoComplete>
+                      </AutoComplete> : <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'} value={localityFilter}
+                          readOnly={true} prefix={<i className="mdi mdi-circle"></i>} />
+                      }
+                      
                     </div>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
