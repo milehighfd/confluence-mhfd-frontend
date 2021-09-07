@@ -7,7 +7,7 @@ import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes } from "../../Classes/MapTypes";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import store from "../../store";
 import DetailedModal from "../Shared/Modals/DetailedModal";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
@@ -19,33 +19,6 @@ const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
-
-let contentsFilter: any = [];
-
-const content00 = (<div className="popoveer-00"><b>Solution Cost:</b> is the total estimated cost to solve a problem</div>);
-const content01 = (<div className="popoveer-00"><b>Priority:</b> is the severity of a problem relative to other problems of the same type.</div>);
-const content02 = (<div className="popoveer-00"><b>Element Type:</b> describes the type of improvements needed to solve a Problem.</div>);
-const content03 = (<div className="popoveer-00"><b>Status:</b> is the percentage (by cost) of elements required to solve a problem that have been completed.</div>);
-const content04 = (<div className="popoveer-00"><b>Source</b> is the document or process through which a Problem was identified.</div>);
-const content05 = (<div className="popoveer-00"><b>Total Cost:</b> is the Estimated Cost (for Projects in progress) or Final Cost (for completed Projects).</div>);
-const content06 = (<div className="popoveer-00"><b>Project Status:</b> is the current status of the Project. Some statuses are only applicable to certain project types.</div>);
-const content07 = (<div className="popoveer-00"><b>Start Year:</b> is the year a Project was initiated. For Projects that have not been initiated, use the "Work Plan Year" filter.</div>);
-// const content08 = (<div className="popoveer-00"><b>Completed Year:</b> represents the year a Project was finished (monitoring may still be occurring).</div>);
-const content09 = (<div className="popoveer-00"><b>MHFD Dollars Allocated:</b> is the amount of funding that MHFD has budgeted or encumbered for a particular Project. For Capital projects and Master Plans, this is the number that must at least be matched by a local government.</div>);
-const content10 = (<div className="popoveer-00"><b>Work Plan Year:</b> is the year that a proposed Project is on the approved MHFD Work Plan.</div>);
-const content11 = (<div className="popoveer-00"><b>Problem Type:</b> is the type of Problem that a Project is intended to help solve.</div>);
-const content12 = (<div className="popoveer-00"><b>Local Government Manager:</b> is the staff person at a local government responsible for planning or implementation of a Project.</div>);
-const content13 = (<div className="popoveer-00"><b>Creator:</b> is the Confluence user who first created a Project in the Confluence database.</div>);
-const content14 = (<div className="popoveer-00"><b>Component Type:</b> is a description of the type of Improvement or Data Point that has been identified at a particular location. (The term "Component" refers to a "Component of the Solution to a Problem," in the context of Capital Projects, or to a "Component of a Problem," in the context of Maintenance Projects.)</div>);
-const content15 = (<div className="popoveer-00"><b>Component Status:</b> is the status of implementing an improvement. (The term "Component" refers to a "Component of the Solution to a Problem," in the context of Capital Projects, or to a "Component of a Problem," in the context of Maintenance Projects.)</div>);
-const content16 = (<div className="popoveer-00"><b>Year of Study:</b> refers to the year of the Study in which the Component was first identified or proposed.</div>);
-const content17 = (<div className="popoveer-00"><b>Estimated Cost:</b> is the Estimated Cost of implementing or addressing a Component as part of a Capital or Maintenance project.</div>);
-// const content18 = (<div className="popoveer-00"><b>Stream Name:</b> is the name of the Major Drainageway or Watershed where the Component is located.</div>);
-
-/* line to remove useEffect dependencies warning */
-/* eslint-disable react-hooks/exhaustive-deps */
-
-const mhfdCoords = '-105.23496707999973,39.5294420336657,-104.47458099999955,39.99857524427594'
 
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
@@ -89,21 +62,21 @@ const accordionRow: Array<any> = [
   }
 ];
 
-const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDropdownFilters,
-  dropdowns, userFiltered, getUserFilters, sortProjects, getGalleryProblems,
+const MapView = ({ filters, removeFilter, getDropdownFilters,
+  dropdowns, userFiltered, getUserFilters, getGalleryProblems,
   getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation,
   getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
-  filterProjectOptions, filterCoordinates, setFilterProblemOptions,
+  filterProjectOptions, setFilterProblemOptions,
   setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
   setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
-  groupOrganization, applyFilter, getParamsFilter, spinFilter,
+  groupOrganization, applyFilter, spinFilter,
   setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem, selectedLayers, updateSelectedLayers }: MapViewTypes) => {
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProblems, getParamFilterProjects, getParamFilterComponents,
-    setTabCards, setOpacityLayer, //setLabelFilterProjects, //setLabelFilterProblems
+    setTabCards, setOpacityLayer,
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete, setBBOXComponents } = useMapDispatch();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus } = useMapState();
 
@@ -113,39 +86,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
   const [valueA, setvalueA] = useState('');
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  const user = store.getState().profile.userInformation;
 
   useEffect(() => {
     setvalueA(nameZoomArea);
   }, [nameZoomArea]);
-  /* const logued = localStorage.getItem('mfx-token')
-    const logued2 = store.getState().profile.userInformation.designation
-    console.log('logued', logued, logued2)
-    var sw = 0
-    if(!logued && sw == 0){
-      const redirectGuest = () => {
-        console.log('redirect app');
-        datasets.getData(SERVER.GUEST).then(async res => {
-          if (res?.token) {
-            localStorage.setItem('mfx-token', res.token);
-            await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
-              
-              replaceAppUser(result);
-              saveUserInformation(result)
-            });
-            //setRedirect(true);
-          } else {
-            //const auxMessage = {...message};
-            //auxMessage.message = 'Could not connect, check your email and password';
-            // auxMessage.color = 'red';
-            //setMessage(auxMessage);
-          }
-        })
-      }
-      sw = 1
-      redirectGuest();
-    } */
-
   useEffect(() => {
     setSpinMapLoaded(true);
   }, []);
@@ -338,7 +282,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     } else {
       return (
         <>
-          {/* {element.popover ? <div className="head">{element.display} <Popover content={content + element.popover}><img src="/Icons/icon-19.svg" width="13px" alt="" /></Popover></div> : */}
           <div className="head">{element.display} &nbsp;<img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
           {element.detail.map((filter: any) => {
             return <p>{filter.display} <Button className="btn-transparent"
@@ -371,10 +314,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     getParamFilterComponents(boundsMap, auxFilterComponents)
   }
   const generateLabelsFilterProblems = () => {
-    //console.log('', paramProblems);
     const filterProblems = { ...filterProblemOptions } as any;
-    //console.log('FILTER PROBLEMS', labelsFiltersProblems);
-    //let countTagProblems = 0;
     const labelsProblems = [...labelsFiltersProblems];
     for (const key in filterProblemOptions) {
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
@@ -384,7 +324,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         for (let index = 0; index < tag.length; index++) {
           const element = tag[index];
           if (element) {
-            //countTagProblems += 1;
             if (key === 'cost') {
               const cost = element.split(',')
               elements.push({
@@ -413,7 +352,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         labelsProblems[position]['detail'] = elements as any;
       }
     }
-    //setLabelFilterProblems(labelsProblems)
     return (
       <div className='tag-filters'>
         <div className='tag-body'>
@@ -434,7 +372,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     const filterProjects = { ...filterProjectOptions } as any;
     let labelsProjects = [] as any;
     labelsProjects = [...labelsFiltersProjects];
-    //console.log('LABEL',labelsProjects);
     for (const key in filterProjectOptions) {
       let c = 0;
       const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
@@ -495,7 +432,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     } else {
       return (
         <>
-          {/* {element.popover ? <div className="head">{element.display} <Popover content={content + element.popover}><img src="/Icons/icon-19.svg" width="13px" alt="" /></Popover></div> : */}
           <div className="head">{element.display} &nbsp;<img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
           {element.detail.map((filter: any) => {
             return <p>{filter.display} <Button className="btn-transparent"
@@ -528,7 +464,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         const elements = [];
-        //const position = labelsProblems.findIndex((x: any) => x.name === key);
         for (let index = 0; index < tag.length; index++) {
           const element = tag[index];
           if (element) {
@@ -577,12 +512,9 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setCountFilterProjects(countTagProjets);
 
   }, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
-  // const [listDescription, setListDescription] = useState(false);
   const listDescription = false;
   const [designation, SetDesignation] = useState(store.getState().profile.userInformation.designation);
-  // const [area, setArea] = useState(store.getState().profile.userInformation.zoomarea)
   const [tabActive, setTabActive] = useState('1');
-  const { projectId } = useParams();
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword ? filterProblemOptions.keyword : '');
   const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword ? filterProjectOptions.keyword : '');
   const [visible, setVisible] = useState(useLocation().search ? true : false);
@@ -654,17 +586,7 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setCounterComponents(counter);
   })
 
- /* const handleOnSubmit = (filtersData: FilterTypes) => {
-    getProjectWithFilters(filtersData);
-  }
-
-  const handleReset = () => {
-    getProjectWithFilters([]);
-  } */
-
   const handleToggle = () => {
-    // Force coded cause' components tab doesn't exists on MapView
-
     if (tabPosition === '2') {
       setTabPosition('0');
       setTabActive('0');
@@ -697,19 +619,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     } else {
       setBackgroundStyle(gray);
       setTextStyle(purple);
-    }
-  }
-  const enterToggle = () => {
-    setBackgroundStyle(green);
-    setTextStyle(green);
-  }
-  const exitToggle = () => {
-    if (!toggleFilters) {
-      setBackgroundStyle(gray);
-      setTextStyle(purple);
-    } else {
-      setBackgroundStyle(green);
-      setTextStyle(green);
     }
   }
   const setCurrentFilters = (filtersData: FilterTypes) => {
@@ -747,12 +656,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       getGalleryProjects();
     }
   }
-  //TODO remove unused code once filters are defined
   const changeCenter = (name: string, coordinates: any, shouldLoadFilters = true) => {
     const user = store.getState().profile.userInformation;
     user.polygon = coordinates;
     saveUserInformation(user);
-    //setArea(name);
     setNameZoomArea(name);
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === name).map((element: any) => {
       return {
@@ -761,85 +668,24 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
         coordinates: element.coordinates
       }
     });
-    // let boundsToMap = boundsMap;
     if (zoomareaSelected.length > 0) {
-    //   let cords = zoomareaSelected[0].coordinates[0][0];
-    //   let minLng = cords[0][0], minLat = cords[0][1];
-    //   let maxLng = cords[0][0], maxLat = cords[0][1];
-    //   cords.forEach((c: any) => {
-    //     let [lng, lat] = c;
-    //     minLng = Math.min(minLng, lng); minLat = Math.min(minLat, lat);
-    //     maxLng = Math.max(maxLng, lng); maxLat = Math.max(maxLat, lat);
-    //   })
-    //   boundsToMap = [minLng, minLat, maxLng, maxLat].join(',');
-      const optionsProblem = { ...filterProblemOptions };
-      const optionsProject = { ...filterProjectOptions };
-      const optionsComponent = { ...filterComponentOptions };
-      //console.log('coordinates', zoomareaSelected[0].coordinates);
       switch (zoomareaSelected[0].filter) {
         case 'County':
-          // optionsProblem['county'] = name;
-          // optionsProject['county'] = name;
-          // optionsComponent['county'] = name;
-          // optionsProblem['jurisdiction'] = '';
-          // optionsProject['jurisdiction'] = '';
-          // optionsComponent['jurisdiction'] = '';
-          // optionsProblem['servicearea'] = '';
-          // optionsProject['servicearea'] = '';
-          // optionsComponent['servicearea'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         case 'Jurisdiction':
-          // optionsProblem['jurisdiction'] = name;
-          // optionsProject['jurisdiction'] = name;
-          // optionsComponent['jurisdiction'] = name;
-          // optionsProblem['county'] = '';
-          // optionsProject['county'] = '';
-          // optionsComponent['county'] = '';
-          // optionsProblem['servicearea'] = '';
-          // optionsProject['servicearea'] = '';
-          // optionsComponent['servicearea'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         case 'Service Area':
-          // optionsProblem['servicearea'] = name;
-          // optionsProject['servicearea'] = name;
-          // optionsComponent['servicearea'] = name;
-          // optionsProblem['county'] = '';
-          // optionsProject['county'] = '';
-          // optionsComponent['county'] = '';
-          // optionsProblem['jurisdiction'] = '';
-          // optionsProject['jurisdiction'] = '';
-          // optionsComponent['jurisdiction'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         default:
-          // optionsProblem['servicearea'] = '';
-          // optionsProject['servicearea'] = '';
-          // optionsComponent['servicearea'] = '';
-          // optionsProblem['county'] = '';
-          // optionsProject['county'] = '';
-          // optionsComponent['county'] = '';
-          // optionsProblem['jurisdiction'] = '';
-          // optionsProject['jurisdiction'] = '';
-          // optionsComponent['jurisdiction'] = '';
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       }
-     // setFilterProblemOptions(optionsProblem);
-     // setFilterProjectOptions(optionsProject);
-     // setFilterComponentOptions(optionsComponent);
-      // if (name === 'Mile High Flood District') {
-      //   boundsToMap = mhfdCoords;
-      // }
-      // if (shouldLoadFilters) {
-      //   getParamFilterProblems(boundsToMap, optionsProblem);
-      //   getParamFilterProjects(boundsToMap, optionsProject);
-      //   getParamFilterComponents(boundsToMap, optionsComponent);
-      // }
     }
   }
 
@@ -867,34 +713,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
     setBBOXComponents({ bbox: [], centroids: [] })
   };
 
-  const menu = () => {
-    return <Menu className="js-mm-00 sign-menu-organization2x">
-      {groupOrganization.map((item: { aoi: string, coordinates: Array<Array<Array<number>>> }) => (
-        <Menu.Item onClick={() => changeCenter(item.aoi, item.coordinates[0])} key={item.aoi + "g1"}><span>{item.aoi}</span></Menu.Item>
-      ))}
-
-      {/* <Menu.ItemGroup key="g1">
-        <label className="label-sg">{'Regional Agency'}</label>
-        {ORGANIZATION_COORDINATES.REGIONAL_AGENCY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
-          <Menu.Item onClick={()=>changeCenter(item.name, item.coordinates)} key={index + "g1"}><span>{item.name}</span></Menu.Item>))}
-      </Menu.ItemGroup>
-      <Menu.ItemGroup key="g2">
-        <label className="label-sg">{'City'}</label>
-        {ORGANIZATION_COORDINATES.CITY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
-          <Menu.Item onClick={()=>changeCenter(item.name + ', CO', item.coordinates)} key={index + "g2"}><span>{item.name}</span></Menu.Item>))}
-      </Menu.ItemGroup>
-      <Menu.ItemGroup key="g3">
-        <label className="label-sg">{'City and County'}</label>
-        {ORGANIZATION_COORDINATES.CITY_AND_COUNTY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
-          <Menu.Item onClick={()=>changeCenter(item.name + ', CO', item.coordinates)} key={index + "g3"}><span>{item.name}</span></Menu.Item>))}
-      </Menu.ItemGroup>
-      <Menu.ItemGroup key="g4">
-        <label className="label-sg">{'Unincorporated County'}</label>
-        {ORGANIZATION_COORDINATES.UNINCORPORATED_COUNTY.map((item: {name: string, coordinates: Array<Array<number>>}, index: number) => (
-          <Menu.Item onClick={()=>changeCenter(item.name + ', CO', item.coordinates)} key={index + "g4"}><span>{item.name}</span></Menu.Item>))}
-      </Menu.ItemGroup> */}
-    </Menu>
-  };
   const { autcomplete, spinMapLoaded } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete
@@ -955,37 +773,34 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
   }
   const onResetClick = () => {
     RheoStatService.reset();
-    // let value = 'Mile High Flood District';
-    // setvalueA(value);
-    // setAutocomplete(value);
-    // const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
-    //   return {
-    //     aoi: element.aoi,
-    //     filter: element.filter,
-    //     coordinates: element.coordinates
-    //   }
-    // });
-    // changeCenter(value, zoomareaSelected[0].coordinates, false)
-    // let boundsToMap = mhfdCoords;
+    if (tabActive === '0') {
+      setKeywordProblem('');
+      setProblemKeyword('');
+      getGalleryProblems();
+    } else {
+      setKeywordProject('');
+      setProjectKeyword('');
+      getGalleryProjects();
+    }
     if (toggleModalFilter) {
       switch(filterTabNumber) {
         case PROBLEMS_TRIGGER:
-            resetFilterProblems();//boundsToMap
+            resetFilterProblems();
             break;
         case PROJECTS_TRIGGER:
-            resetFilterProjects(true);//boundsToMap
+            resetFilterProjects(true);
             break;
         case COMPONENTS_TRIGGER:
-            resetFilterComponents();//boundsToMap
+            resetFilterComponents();
             break;
       }
     } else {
       switch(tabCards) {
         case PROBLEMS_TRIGGER:
-            resetFilterProblems();//boundsToMap
+            resetFilterProblems();
             break;
         case PROJECTS_TRIGGER:
-            resetFilterProjects(true);//boundsToMap
+            resetFilterProjects(true);
             break;
       }
     }
@@ -1036,14 +851,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
       />}
       <Row className="head-m mobile-display">
         <Col span={20} id="westminter">
-          { /*<Dropdown trigger={['click']} overlay={menu} getPopupContainer={() => document.getElementById("westminter") as HTMLElement}>
-            <span className="ant-dropdown-link span-header">
-              {nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
-              <Popover content={content}>
-                <img src="/Icons/icon-12.svg" alt="" style={{ marginLeft: '8px' }} />
-              </Popover>
-            </span>
-      </Dropdown> */}
           <div className="auto-complete-map">
             <AutoComplete
               style={{ width: '200' }}
@@ -1065,31 +872,10 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
 
               <Input id={'miclase'} suffix={<Icon type="down" className={'certain-category-icon ' + (dropdownIsOpen ? 'rotate-icon': '')} />} />
             </AutoComplete>
-            {/* </Popover> */}
           </div>
-          {/*<div className="auto-complete-map">
-            <AutoComplete
-             placeholder="Boulder"
-           />
-           <Popover content={content}>
-             <img src="/Icons/icon-12.svg" alt="" style={{ marginLeft: '5px' }} />
-           </Popover>
-          </div>*/}
         </Col>
         <Col style={{ textAlign: 'right' }} span={4}>
           <ButtonGroup>
-            {/* <Button className="btn-mm" onClick={() Arvada=> {
-              setListDescription(true);
-            }}>
-              <img className="img-h" src="/Icons/icon-30.svg" alt="" />
-              <img className="img-a" src="/Icons/icon-32.svg" alt="" />
-            </Button> */}
-            {/* <Button onClick={() => {
-              setListDescription(false);
-            }}>
-              <img className="img-h" src="/Icons/icon-31.svg" alt="" />
-              <img className="img-a" src="/Icons/icon-33.svg" alt="" />
-            </Button> */}
           </ButtonGroup>
         </Col>
       </Row>
@@ -1119,9 +905,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
               }}
               style={{ width: 200 }}
             />
-            {/*<Button onClick={e => {
-              clearSearch();
-            }} style={{ width: '80px' }} className="btn-borde">Clear</Button>*/}
           </Col>
           <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
             <Button className="btn-red" onClick={onResetClick}><u>Reset</u></Button>
@@ -1142,7 +925,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
                   menuSort(SORTED_PROJECTS)}
                 getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
                 <span className="ant-dropdown-link" style={{ cursor: 'pointer' }} onClick={sortClick}>
-                  {/*<img className="img-filter00" alt="" /> Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :*/}
                   Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
                     SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
                 </span>
@@ -1261,8 +1043,6 @@ const MapView = ({ filters, projects, getProjectWithFilters, removeFilter, getDr
           componentsTotal={counterComponents}
           filterNames={filterNames}
           setToggleFilters={setToggleFilters}
-          /* handleOnSubmit={handleOnSubmit}
-          handleReset={handleReset} */
           setFilterNames={setFilterNames}
           projectsLength={galleryProjects.length}
           problemsLength={galleryProblems.length}
