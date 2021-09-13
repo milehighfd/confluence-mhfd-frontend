@@ -155,14 +155,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [cover, setCover] = useState('');
   const history = useHistory();
   const [prevList, setPrevList] = useState<any>([]);
-  const [showThreeDots, setShowThreeDots] = useState(false);
-  useEffect(() => {
-    if (nameProject && nameProject.length > 58) {
-      setShowThreeDots(true);
-    } else if (nameProject && nameProject.length < 58 && showThreeDots) {
-      setShowThreeDots(false);
-    }
-  }, [nameProject])
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
     if(juris) {
@@ -658,16 +650,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 17 }}>
-                <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={45} placeholder={nameProject}
-                  onFocus={() => setShowThreeDots(false)}
-                  onBlur={() => {
-                    if (nameProject && nameProject.length > 58) {
-                      setShowThreeDots(true)
-                    }
-                  }}
-                  />
-                  { showThreeDots && <span className={'threedots'}>...</span>}
+                <label data-value={nameProject} style={{width: '100%'}}>
+                  <textarea value={nameProject} onChange={(e) => onChange(e)} style={{
+                    border: 'none',
+                    width: '100%',
+                    fontSize: '24px',
+                    color: '#11093c',
+                    wordWrap: 'break-word',
+                    resize: 'none',
+                  }} />
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />*/}
                 {/*<Button className="btn-transparent">

@@ -76,14 +76,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       return list.split(',');
     }
  }
- const [showThreeDots, setShowThreeDots] = useState(false);
-  useEffect(() => {
-    if (nameProject && nameProject.length > 58) {
-      setShowThreeDots(true);
-    } else if (nameProject && nameProject.length < 58 && showThreeDots) {
-      setShowThreeDots(false);
-    }
-  }, [nameProject])
 
   useEffect(()=>{
     if(data!== 'no data' ) {
@@ -276,16 +268,15 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
           <div className="head-project">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 17 }}>
-                <label data-value={nameProject} className="input-sizer">
-                  <input type="text" value={nameProject} onChange={(e) => onChange(e)} size={45} placeholder={nameProject} 
-                  onFocus={() => setShowThreeDots(false)}
-                  onBlur={() => {
-                    if (nameProject && nameProject.length > 58) {
-                      setShowThreeDots(true)
-                    }
-                  }}
-                  />
-                  { showThreeDots && <span className={'threedots'}>...</span>}
+                <label data-value={nameProject} style={{width: '100%'}}>
+                  <textarea value={nameProject} onChange={(e) => onChange(e)} style={{
+                    border: 'none',
+                    width: '100%',
+                    fontSize: '24px',
+                    color: '#11093c',
+                    wordWrap: 'break-word',
+                    resize: 'none',
+                  }} />
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
                 {/*<Button className="btn-transparent">
