@@ -26,13 +26,11 @@ export const initGA = () => {
 };
 
 ReactDOM.render(
-  <HttpsRedirect>
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <App />
       </ConnectedRouter>
-    </Provider>
-    </HttpsRedirect>, document.getElementById('root'));
+    </Provider>, document.getElementById('root'));
 
 
 
