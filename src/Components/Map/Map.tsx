@@ -2187,6 +2187,7 @@ const Map = ({ leftWidth,
                           status: feature.properties.status ? feature.properties.status : '-',
                           estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
                           studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+                          studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
                           jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
                           original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
                           table: feature.source ? feature.source : '-',
@@ -2202,6 +2203,7 @@ const Map = ({ leftWidth,
                             type: item.type,
                             subtype: item.subtype,
                             streamname: item.streamname,
+                            studyyear: item.studyyear
                         })
                         mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                         popups.push(item);

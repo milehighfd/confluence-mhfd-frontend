@@ -151,6 +151,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.feature ? <h4>{item.feature}</h4> : ''}
             {item.subtype ? <p>Subtype:  {item.subtype}</p> : ''}
             {item.estimatedcost ? <p>Estimated Cost:  ${numberWithCommas(item.estimatedcost)}</p> : ''}
+            {item.studyyear ? <p>Study Year:  {item.studyyear}</p> : ''}
             {item.status ? <p>Status:  {item.status}</p> : ''}
             {item.streamname ? <p>Stream Name:  {item.streamname}</p> : ''}
             {item.studyname ? <p>Study Name:  {item.studyname}</p> : ''}

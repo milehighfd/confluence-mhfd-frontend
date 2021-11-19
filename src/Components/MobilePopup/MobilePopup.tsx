@@ -49,6 +49,7 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
           {data.project_subtype && <h6><a className="sub-title">Type: </a>{data.project_subtype}</h6>}
           {data.frequency && <h6><a className="sub-title">Frequency: </a>{data.frequency}</h6>}
           {data.subtype && <h6><a className="sub-title">Subtype: </a>{data.subtype}</h6>}
+          {data.studyyear && <h6><a className="sub-title">Study Year: </a>{data.studyyear}</h6>}
           {data.status && <h6><a className="sub-title">Status: </a>{data.status}</h6>}
           {data.hydgrpdcd && <h6><a className="sub-title">Hydrologic Group: </a>{data.hydgrpdcd}</h6>}
           {data.muname && <h6><a className="sub-title">Mapunit Name: </a>{data.muname}</h6>}
