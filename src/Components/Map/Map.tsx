@@ -1039,7 +1039,7 @@ const Map = ({ leftWidth,
         map.on('style.load', () => {
             const waiting = () => {
                 if (!map.isStyleLoaded()) {
-                    setTimeout(waiting, 50);
+                    setTimeout(waiting, 250);
                 } else {
                     applyMapLayers();
                     setSpinValue(false);
@@ -1055,7 +1055,7 @@ const Map = ({ leftWidth,
         } else {
             const waiting = () => {
                 if (!map.isStyleLoaded()) {
-                    setTimeout(waiting, 50);
+                    setTimeout(waiting, 250);
                 } else {
                     applyMapLayers();
                     setSpinValue(false);

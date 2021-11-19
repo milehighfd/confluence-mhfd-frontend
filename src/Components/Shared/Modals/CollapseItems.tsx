@@ -70,7 +70,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
     const waiting = () => {
       html = document.getElementById('map2');
       if (!html) {
-        setTimeout(waiting, 50);
+        setTimeout(waiting, 150);
       } else {
         if(!map) {
           map = new MapService('map2');
@@ -79,6 +79,10 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       }
     };
     waiting();
+    return () => {
+      map = undefined;
+    }
+    
   }, []);
   const [counterPopup, setCounterPopup] = useState({componentes: 0});
 
@@ -322,7 +326,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       {
         title: 'Cost',
         dataIndex: 'estimated_cost',
-        render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
+        render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(Math.round(estimated_cost)),
         sorter: true
       },
       {
@@ -467,7 +471,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
           </Row>
           {data.length > 0 && <div className="solution-b" style={{display:'flex'}}>
             <div style={{width:'284px'}}><b>Total Estimated Cost</b></div>
-            <div style={{padding: '0px 12.5px'}}><b>${new Intl.NumberFormat("en-EN").format(total)}</b></div>
+            <div style={{padding: '0px 12.5px'}}><b>${new Intl.NumberFormat("en-EN").format(Math.round(total))}</b></div>
           </div>}
         </div>
       </Panel>
