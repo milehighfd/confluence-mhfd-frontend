@@ -121,7 +121,11 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
         </div>
         <div className="bodymap">
           <h4>{item.name}</h4>
-          <h6>{item.organization}</h6>
+          {
+              (item.organization.length + item.streamname.length > 39) ? 
+              (<><h6>{item.organization} </h6><h6>{item.streamname}</h6></>) :
+              (<h6>{item.organization} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
+          }
           <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b id={item.popupId}>0</b> Components</span></h5>
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
@@ -212,55 +216,58 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
           {item.layer}
       </div>
       <div className="bodymap">
-          {item.type ? <h4><i>{item.type}</i> </h4> : ''}
+          {item.type ? <h4>{item.type} </h4> : ''}
           {item.feature ? <h4>{item.feature}</h4> : ''}
-          {item.subtype ? <p><i>Subtype: </i> {item.subtype}</p> : ''}
-          {item.estimatedcost ? <p><i>Estimated Cost: </i> ${numberWithCommas(item.estimatedcost)}</p> : ''}
-          {item.status ? <p><i>Status: </i> {item.status}</p> : ''}
-          {item.studyname ? <p><i>Study Name: </i> {item.studyname}</p> : ''}
-          {item.jurisdiction ? <p><i>Jurisdiction: </i> {item.jurisdiction}</p> : ''}
-          {item.problem ? <p><i>Problem: </i> {item.problem}</p> : ''}
-          {item.description ? <p><i>Description: </i> {item.description}</p> : ''}
+          {item.subtype ? <p>Subtype:  {item.subtype}</p> : ''}
+          {item.estimatedcost ? <p>Estimated Cost:  ${numberWithCommas(item.estimatedcost)}</p> : ''}
+          {item.studyyear ? <p>Study Year:  {item.studyyear}</p> : ''}
+          {item.status ? <p>Status:  {item.status}</p> : ''}
+          {item.streamname ? <p>Stream Name:  {item.streamname}</p> : ''}
+          {item.studyname ? <p>Study Name:  {item.studyname}</p> : ''}
+          
+          {item.jurisdiction ? <p>Jurisdiction:  {item.jurisdiction}</p> : ''}
+          {item.problem ? <p>Problem:  {item.problem}</p> : ''}
+          {item.description ? <p>Description:  {item.description}</p> : ''}
 
-          {item.contract ? <p><i>Contract: </i> {item.contract}</p> : ''}
-          {item.contractor ? <p><i>Contractor: </i> {item.contractor}</p> : ''}
-          {item.local_gov ? <p><i>Local Government: </i> {item.local_gov}</p> : ''}
-          {item.mow_frequency ? <p><i>Frequency: </i> {item.mow_frequency}</p> : ''}
-          {item.debris_frequency ? <p><i>Frequency: </i> {item.debris_frequency}</p> : ''}
-          {item.acreage ? <p><i>Acreage: </i> {item.acreage}</p> : ''}
-          {item.length ? <p><i>Length: </i> {item.length}</p> : ''}
+          {item.contract ? <p>Contract:  {item.contract}</p> : ''}
+          {item.contractor ? <p>Contractor:  {item.contractor}</p> : ''}
+          {item.local_gov ? <p>Local Government:  {item.local_gov}</p> : ''}
+          {item.mow_frequency ? <p>Frequency:  {item.mow_frequency}</p> : ''}
+          {item.debris_frequency ? <p>Frequency:  {item.debris_frequency}</p> : ''}
+          {item.acreage ? <p>Acreage:  {item.acreage}</p> : ''}
+          {item.length ? <p>Length:  {item.length}</p> : ''}
 
-          {item.hydgrpdcd ? <p><i>Hydrologic Group: </i>{item.hydgrpdcd}</p> : ''}
-          {item.muname ? <p><i>Mapunit Name: </i>{item.muname}</p> : ''}
-          {item.aws0150wta ? <p><i>Available Water Storage 0-150 cm: </i>{item.aws0150wta}</p> : ''}
-          {item.drclassdcd ? <p><i>Drainage Class: </i>{item.drclassdcd}</p> : ''}
-          {item.nrcsweb ? <p><i>Web Soil Survey: </i>NA</p> : ''}
+          {item.hydgrpdcd ? <p>Hydrologic Group: {item.hydgrpdcd}</p> : ''}
+          {item.muname ? <p>Mapunit Name: {item.muname}</p> : ''}
+          {item.aws0150wta ? <p>Available Water Storage 0-150 cm: {item.aws0150wta}</p> : ''}
+          {item.drclassdcd ? <p>Drainage Class: {item.drclassdcd}</p> : ''}
+          {item.nrcsweb ? <p>Web Soil Survey: NA</p> : ''}
 
-          {item.dam_name ? <p><i>Dam Name: </i>{item.dam_name}</p> : ''}
-          {item.hazard_class ? <p><i>Hazard Class: </i>{item.hazard_class}</p> : ''}
-          {item.year_completed ? <p><i>Year Completed: </i>{item.year_completed}</p> : ''}
-          {item.dam_height ? <p><i>Dam Height (ft): </i>{item.dam_height}</p> : ''}
-          {item.more_information ? <p><i>DWR Website: </i><a href={item.more_information} target="_blank">{item.more_information}</a></p> : ''}
-          {item.scale ? <p><i>Scale: </i>{item.scale}</p> : ''}
-          {item.date_created ? <p><i>Date created: </i>{item.date_created}</p> : ''}
-          {item.expirationdate ? <p><i>Expiration Date: </i>{item.expirationdate}</p>: ''}
-          {item.website ? <p className="text-popup"><i>Website: </i> <a href={item.website} target="_blank">See website here</a></p> : ''}
-          {item.letter ? <p className="text-popup"><i>Letter: </i> <a href={item.letter} target="_blank">See letter here</a></p> : ''}
-          {item.map ? <p className="text-popup"><i>Map: </i> <a href={item.map} target="_blank">See map here</a></p> : ''}
+          {item.dam_name ? <p>Dam Name: {item.dam_name}</p> : ''}
+          {item.hazard_class ? <p>Hazard Class: {item.hazard_class}</p> : ''}
+          {item.year_completed ? <p>Year Completed: {item.year_completed}</p> : ''}
+          {item.dam_height ? <p>Dam Height (ft): {item.dam_height}</p> : ''}
+          {item.more_information ? <p>DWR Website: <a href={item.more_information} target="_blank">{item.more_information}</a></p> : ''}
+          {item.scale ? <p>Scale: {item.scale}</p> : ''}
+          {item.date_created ? <p>Date created: {item.date_created}</p> : ''}
+          {item.expirationdate ? <p>Expiration Date: {item.expirationdate}</p>: ''}
+          {item.website ? <p className="text-popup">Website:  <a href={item.website} target="_blank">See website here</a></p> : ''}
+          {item.letter ? <p className="text-popup">Letter:  <a href={item.letter} target="_blank">See letter here</a></p> : ''}
+          {item.map ? <p className="text-popup">Map:  <a href={item.map} target="_blank">See map here</a></p> : ''}
 
-          {item.sitename ? <p> <i>Site Name: </i>{item.sitename}</p> : ''}
-          {item.sitetype ? <p> <i>Site Type: </i>{item.sitetype}</p> : ''}
-          {item.bmptype ? <p> <i>BMP Type: </i>{item.bmptype}</p> : ''}
+          {item.sitename ? <p> Site Name: {item.sitename}</p> : ''}
+          {item.sitetype ? <p> Site Type: {item.sitetype}</p> : ''}
+          {item.bmptype ? <p> BMP Type: {item.bmptype}</p> : ''}
 
-          {item.str_name ? <p><i>Stream Name: </i>{item.str_name}</p> : ''}
+          {item.str_name ? <p>Stream Name: {item.str_name}</p> : ''}
 
-          {item.projectno ? <p><i>Project Number: </i> {item.projectno}</p> : ''}
-          {item.mepstatus ? <p><i>MEP Status: </i> {item.mepstatus}</p> : ''}
-          {item.mepstatusdate ? <p><i>MEP Status Date: </i> {item.mepstatusdate}</p> : ''}
-          {item.notes ? <p><i>Notes/Comments: </i> {item.notes}</p> : ''}
-          {item.servicearea ? <p><i>Service Area: </i> {item.servicearea}</p> : ''}
-          {item.watershedmanager ? <p><i>Watershed Manager: </i> {item.watershedmanager}</p> : ''}
-          {item.constructionmanagers ? <p><i>Construction Managers: </i> {item.constructionmanagers}</p> : ''}
+          {item.projectno ? <p>Project Number:  {item.projectno}</p> : ''}
+          {item.mepstatus ? <p>MEP Status:  {item.mepstatus}</p> : ''}
+          {item.mepstatusdate ? <p>MEP Status Date:  {item.mepstatusdate}</p> : ''}
+          {item.notes ? <p>Notes/Comments:  {item.notes}</p> : ''}
+          {item.servicearea ? <p>Service Area:  {item.servicearea}</p> : ''}
+          {item.watershedmanager ? <p>Watershed Manager:  {item.watershedmanager}</p> : ''}
+          {item.constructionmanagers ? <p>Construction Managers:  {item.constructionmanagers}</p> : ''}
           {isComponent && !isWR && item.projectid === undefined && <Button id={'component-'+id}  style={{ width: '100%', marginTop: '10px'}} className="btn-purple" >{item.added}</Button>}
       </div>
       </Card>

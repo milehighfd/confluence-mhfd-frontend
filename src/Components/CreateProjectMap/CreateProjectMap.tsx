@@ -1675,6 +1675,7 @@ const CreateProjectMap = (type: any) => {
             objectid: feature.properties.objectid,
             valueid: feature.properties.cartodb_id,
             id: feature.properties.projectid,
+            streamname: feature.properties.streamname,
             popupId: 'popup',
             image: filtered.length && filtered[0].attachments ? filtered[0].attachments : (
               feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
@@ -1695,7 +1696,8 @@ const CreateProjectMap = (type: any) => {
             //for detail popup
             id: item.id,
             objectid: item.objectid,
-            valueid: item.valueid
+            valueid: item.valueid,
+            streamname: item.streamname
           });
           itemValue = { ...item };
           // itemValue.value = item.valueid;
@@ -1708,6 +1710,7 @@ const CreateProjectMap = (type: any) => {
           getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
           const item = {
             type: MENU_OPTIONS.PROBLEMS,
+            streamname: feature.properties.streamname,
             title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
             name: feature.properties.problemname ? feature.properties.problemname : '-',
             organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
@@ -1726,7 +1729,8 @@ const CreateProjectMap = (type: any) => {
             name: item.name,
             image: item.image,
             //for detail popup
-            problemid: item.problemid
+            problemid: item.problemid,
+            streamname: item.streamname
           });
           menuOptions.push('Problem');
           popups.push(itemValue);
@@ -2093,6 +2097,7 @@ const CreateProjectMap = (type: any) => {
               status: feature.properties.status ? feature.properties.status : '-',
               estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
               studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+              studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
               jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
               original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
               table: feature.source ? feature.source : '-',
@@ -2107,7 +2112,8 @@ const CreateProjectMap = (type: any) => {
             mobile.push({
               layer: item.layer,
               type: item.type,
-              subtype: item.subtype
+              subtype: item.subtype,
+              studyyear: item.studyyear
             })
             mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
             popups.push(item);
