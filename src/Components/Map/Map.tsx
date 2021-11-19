@@ -1777,6 +1777,7 @@ const Map = ({ leftWidth,
                         objectid: feature.properties.objectid,
                         valueid: feature.properties.cartodb_id,
                         id: feature.properties.projectid,
+                        streamname: feature.properties.streamname,
                         popupId: 'popup',
                         image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
                             feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
@@ -1797,7 +1798,8 @@ const Map = ({ leftWidth,
                         //for detail popup
                         id: item.id,
                         objectid: item.objectid,
-                        valueid: item.valueid
+                        valueid: item.valueid,
+                        streamname: item.streamname
                     });
                     itemValue = { ...item };
                    // itemValue.value = item.valueid;
@@ -1810,6 +1812,7 @@ const Map = ({ leftWidth,
                     getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
                     const item = {
                         type: MENU_OPTIONS.PROBLEMS,
+                        streamname: feature.properties.streamname,
                         title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
                         name: feature.properties.problemname ? feature.properties.problemname : '-',
                         organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
@@ -1828,7 +1831,8 @@ const Map = ({ leftWidth,
                         name: item.name,
                         image: item.image,
                         //for detail popup
-                        problemid: item.problemid
+                        problemid: item.problemid,
+                        streamname: item.streamname
                     });
                     menuOptions.push('Problem');
                     popups.push(itemValue);
@@ -2188,14 +2192,16 @@ const Map = ({ leftWidth,
                           table: feature.source ? feature.source : '-',
                           cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
                           problem: 'Dataset in development',
-                          objectid: feature.properties.objectid?feature.properties.objectid:'-'
+                          objectid: feature.properties.objectid?feature.properties.objectid:'-',
+                          streamname: feature.properties.streamname,
                         };
                         const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
                         menuOptions.push(name);
                         mobile.push({
                             layer: item.layer,
                             type: item.type,
-                            subtype: item.subtype
+                            subtype: item.subtype,
+                            streamname: item.streamname,
                         })
                         mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                         popups.push(item);

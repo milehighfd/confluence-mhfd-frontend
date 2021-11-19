@@ -266,21 +266,26 @@
     width: calc(100% - 60px);
     position: absolute;
     z-index: 1;
-    bottom: 94px;
+    bottom: 110px;
     height: 110px;
     left: 60px;
 
     .popup-mobile{
       display: flex;
-      height: 110px;
+      height: 124px;
       width: 88%;
       background: $white;
       border-radius: 10px;
       box-shadow: $shadow;
       transition: top .2s ease-in-out!important;
-
+      .stream{
+        text-overflow: ellipsis;
+          width: 160px;
+          white-space: nowrap;
+          overflow: hidden;
+      }
       img{
-        height: 110px;
+        height: 124px;
         width: 110px;
         z-index: 2;
         border-radius: 10px 0px 0px 10px;
