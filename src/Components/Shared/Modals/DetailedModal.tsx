@@ -20,6 +20,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   const cipjRef = useRef(null);
   const [typeDetail, setTypeDetail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [totalComponentsCost, setTotalCC] = useState(0);
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
@@ -98,6 +99,11 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       setLoading(false);
     })
   }
+  
+  useEffect(()=>{
+    const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
+    setTotalCC(total);
+  },[componentsOfProblems]);
 
   return (
     <>
@@ -138,11 +144,11 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               {
                 detailedPage.problemtype ? (
                   <div className="detailed-mm">
-                    <b>${new Intl.NumberFormat("en-EN").format(detailedPage.solutioncost ? detailedPage.solutioncost : detailedPage.estimatedcost)}</b>
+                    <b>${new Intl.NumberFormat("en-EN").format( totalComponentsCost? totalComponentsCost:(detailedPage.solutioncost ? detailedPage.solutioncost : detailedPage.estimatedcost))}</b>
                   </div>
                 ) : (
                   <div className="detailed-mm">
-                    <b>${new Intl.NumberFormat("en-EN").format(detailedPage.finalcost ? detailedPage.finalcost : detailedPage.estimatedcost)}</b>
+                    <b>${new Intl.NumberFormat("en-EN").format( totalComponentsCost? totalComponentsCost:(detailedPage.finalcost ? detailedPage.finalcost : detailedPage.estimatedcost))}</b>
                   </div>
                 )
               }
