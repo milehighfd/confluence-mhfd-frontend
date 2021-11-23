@@ -696,6 +696,31 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     return true;
   }).map((item: { aoi: string }) => { return <Option className="list-line" key={item.aoi}>{item.aoi}</Option> });
 
+  const setValueInFiltersProject = (value: any, type: any ) => {
+    const options = { ...filterProjectOptions };
+    options.jurisdiction = '';
+    options.county = '';
+    options.servicearea = '';
+    if(type == "Service Area") {
+      options.servicearea = value;
+    } else if(type) {
+      // COUNTY AND SERVICE AREA HAS field = county  field = servicearea  field = jurisdiction 
+      options[type.toLowerCase()] = value;
+    }
+    return options;
+  }
+  const setValueInFiltersProblem = (value: any, type: any ) => {
+    const options = { ...filterProblemOptions };
+    options.jurisdiction = '';
+    options.county = '';
+    options.servicearea = '';
+    if(type == "Service Area") {
+      options.servicearea = value;
+    } else if(type) {
+        options[type.toLowerCase()] = value;
+    }
+    return options;
+  }
   const onSelect = (value: any) => {
     console.log('Selected:', value);
     setAutocomplete(value);
@@ -708,6 +733,27 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       }
     });
     if(zoomareaSelected[0]){
+      let type = zoomareaSelected[0].filter; 
+      let zone = zoomareaSelected[0].aoi;
+      if(zone == 'Broomfield') {
+        zone = 'Broomfield County';
+      }
+      // / tabactive 0 problems 1 projects 
+      if(tabActive === '0') {
+        let options = setValueInFiltersProblem(zone,type);
+        setTimeout(()=>{
+          setFilterProblemOptions(options);
+          getGalleryProblems();
+          getParamFilterProblems(boundsMap, options);
+        },1300);
+      } else { 
+        let options = setValueInFiltersProject(zone,type);
+        setTimeout(()=>{
+          setFilterProjectOptions(options);
+          getGalleryProjects();
+          getParamFilterProjects(boundsMap, options)
+        },1300);
+      }
       changeCenter(value, zoomareaSelected[0].coordinates)
     }
     setBBOXComponents({ bbox: [], centroids: [] })
