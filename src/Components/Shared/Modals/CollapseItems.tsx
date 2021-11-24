@@ -37,8 +37,9 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
   //   map = new MapService('map2');
   //   map.create('map2');
   // }
-  useEffect(()=>{
-  },[data]);
+  // useEffect(()=>{
+  //   console.log("THIS IS THE DATA TAHAT REACHES HERE", data);
+  // },[data]);
   const getCanvasBase64 = () => {
     return new Promise((resolve, reject) => {
       const w8 = () => {
@@ -331,8 +332,9 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       },
       {
         title: '% Complete',
-        dataIndex: 'original_cost',
-        render: (original_cost: number) => `${original_cost ? (Math.round(original_cost * 10) /10) : 0}%`,
+        dataIndex: 'complete_cost',
+        render: (complete_cost: number) => `${complete_cost ? Math.round((complete_cost/total)*100) : 0}%`,
+        // render: (original_cost: number) => `${original_cost ? (Math.round(original_cost * 10) /10) : 0}%`,
         sorter: true
       },
       {
