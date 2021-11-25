@@ -9,7 +9,7 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
-import { MainPopup, ComponentPopup } from './MapPopups';
+import { MainPopup, ComponentPopup, StreamPopupFull } from './MapPopups';
 import { Dropdown,  Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { CloseOutlined, DownOutlined } from '@ant-design/icons';
@@ -1389,6 +1389,7 @@ const Map = ({ leftWidth,
 
     const addTilesLayers = (key: string) => {
         const styles = { ...tileStyles as any };
+        
         styles[key].forEach((style: LayerStylesType, index: number) => {
             map.addLayer({
                 id: key + '_' + index,
@@ -1396,7 +1397,10 @@ const Map = ({ leftWidth,
                 ...style
             });
 
-            map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+            if(key != 'streams'){
+                map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+            }
+            
             if (!hovereableLayers.includes(key)) {
                 return;
             }
@@ -1711,8 +1715,8 @@ const Map = ({ leftWidth,
             setActiveMobilePopups([]);
             setSelectedPopup(-1);
             let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
-            if (features.length === 0) {
-                // return;
+            if (features.length === 0) {            
+                // return;            
               }
             if ((e.point.x === coordX || e.point.y === coordY)) {
                 // return;
@@ -2177,7 +2181,21 @@ const Map = ({ leftWidth,
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
-
+                if(feature.source === 'streams') {
+                    const item = {
+                        streamname: feature.properties.str_name,
+                        mhfd_code: feature.properties.mhfd_code,
+                        catch_sum: feature.properties.catch_sum,
+                        str_ft: feature.properties.str_ft,
+                        slope: feature.properties.slope 
+                    };
+                    menuOptions.push('Stream');
+                    mobile.push({...item});
+                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                    
+                }
                 for (const component of COMPONENT_LAYERS.tiles) {
                     if (feature.source === component) {
                         const item = {
@@ -2440,7 +2458,7 @@ const Map = ({ leftWidth,
     const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
 
         <>
-            {menuOptions.length === 1 ? <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
+            {menuOptions.length === 1 ? <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? ( menuOptions[0] == 'Stream'? loadStreamPopup(0, popups[0]) :loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
                                 menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
                                 </> :
             <div className="map-pop-02">
@@ -2451,7 +2469,7 @@ const Map = ({ leftWidth,
                         return (
                             <div>
                                 <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-                                { (menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) :
+                                { (menu !== 'Project' && menu !== 'Problem') ?( menu =='Stream'? loadStreamPopup(index, popups[index]) : loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) ):
                                 menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
                             </div>
                         )
@@ -2558,6 +2576,11 @@ const Map = ({ leftWidth,
         </>
     );
 
+    const loadStreamPopup = (index: number, item: any) => (
+        <>
+            <StreamPopupFull id={index} item={item} ></StreamPopupFull>
+        </>
+    );
     const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
         <>
             <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF || user.designation === GOVERNMENT_ADMIN || user.designation === GOVERNMENT_STAFF)}></ComponentPopup>

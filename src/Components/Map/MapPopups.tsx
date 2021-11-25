@@ -84,25 +84,25 @@ export const MainPopup = ({id, item, test, sw, ep } : any) => {
       </Card>
     </div>
 };
-export const StreamPopup = ({id, item} : any) => {
+// export const StreamPopup = ({id, item} : any) => {
   
-  for (const key in item) {
-      if (!item[key]) {
-          item[key] = '-';
-      }
-  }
+//   for (const key in item) {
+//       if (!item[key]) {
+//           item[key] = '-';
+//       }
+//   }
   
-  return <div id={"popup-" + id} className="map-pop-00">
-    <Card hoverable>
-      <div className="headmap">
-          STREAM
-      </div>
-      <div className="bodymap">
-        <h4>{capitalize(item.title)}</h4>
-      </div>
-    </Card>
-  </div>
-};
+//   return <div id={"popup-" + id} className="map-pop-00">
+//     <Card hoverable>
+//       <div className="headmap">
+//           STREAM
+//       </div>
+//       <div className="bodymap">
+//         <h4>{capitalize(item.title)}</h4>
+//       </div>
+//     </Card>
+//   </div>
+// };
 export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
   
   for (const key in item) {
@@ -141,6 +141,23 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
             <Button id={"buttonEdit-" + id} style={{ width: item.type == 'project'? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">Edit Project</Button>
         </div>}
       </Card>
+    </div>
+};
+export const StreamPopupFull = ({ id, item } : any) => {
+    return <div id={'popup-' + id} className="map-pop-01">
+        <Card hoverable>
+        <div className="headmap">
+            Stream
+        </div>
+        <div className="bodymap">
+            
+            {item.streamname ? <p>Name: {item.streamname}</p> : ''}
+            {item.mhfd_code ? <p>MHFD Code:  {item.mhfd_code}</p> : ''}
+            {item.catch_sum ? <p>Tributary:  {Math.round(item.catch_sum) + " acres"}</p> : ''}
+            {item.str_ft ? <p>Reach Length:  {Math.round(item.str_ft) + " ft"}</p> : ''}
+            {item.slope ? <p>Slope:  {(item.slope * 100).toFixed(2) + "%"}</p> : ''}
+        </div>
+        </Card>
     </div>
 };
 

@@ -2922,18 +2922,19 @@ export const tileStyles = {
           22,
           "hsl(210, 69%, 77%)"
       ],
+      "line-opacity": 0,
       "line-width": [
           "interpolate",
           ["linear"],
           ["get", "catch_sum"],
           130.080010015,
-          0.5,
+          2,
           640,
-          1,
-          6400,
           4,
+          6400,
+          8,
           1131411.35931,
-          12
+          16
       ]
     }
   }, {
@@ -2958,18 +2959,19 @@ export const tileStyles = {
           22,
           "hsl(210, 69%, 77%)"
       ],
+      "line-opacity": 0,
       "line-width": [
           "interpolate",
           ["linear"],
           ["get", "catch_sum"],
           130.080010015,
-          0.5,
+          3,
           640,
-          1,
-          6400,
           4,
+          6400,
+          8,
           1131411.35931,
-          12
+          16
       ]
     }
   }, {
