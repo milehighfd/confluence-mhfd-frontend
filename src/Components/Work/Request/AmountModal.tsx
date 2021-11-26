@@ -67,7 +67,7 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
   if (tabKey === 'Maintenance') {
     labels = [startYear, startYear, startYear, startYear, startYear];
   } else {
-    labels = [startYear, startYear + 1, startYear + 2, startYear + 3, startYear + 4]
+    labels = [Number(startYear), Number(startYear) + 1, Number(startYear) + 2, Number(startYear) + 3, Number(startYear) + 4]
   }
 
   return (

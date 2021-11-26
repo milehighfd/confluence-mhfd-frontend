@@ -170,7 +170,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
             <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }}>
               <Carousel autoplay>
                 {/* <div> */}
-                {console.log(detailedPage)}
                   {detailedPage.problemid ? (
                     <div className="detailed-c"> <img width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
                   ) : (
