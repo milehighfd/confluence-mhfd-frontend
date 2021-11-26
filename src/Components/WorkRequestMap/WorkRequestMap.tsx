@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
-import { MainPopup, ComponentPopup } from './../Map/MapPopups';
+import { MainPopup, ComponentPopup, StreamPopupFull } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
@@ -824,7 +824,7 @@ const WorkRequestMap = (type: any) => {
       const styles = { ...tileStyles as any };
       if(styles[key]) {
         styles[key].forEach((style: LayerStylesType, index: number) => {
-          if (map.map.getLayer(key + '_' + index)) {
+          if (map.map.getLayer(key + '_' + index) && !key.includes('streams')) {
             map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
           }
         });
@@ -874,7 +874,9 @@ const WorkRequestMap = (type: any) => {
           ...style
         });
       }
+      if (!key.includes('streams')) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+      }
       if (!hovereableLayers.includes(key)) {
         return;
       }
@@ -1628,7 +1630,23 @@ const WorkRequestMap = (type: any) => {
         popups.push(item);
         ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       }
-
+      if (feature.source === 'streams' ) {
+        
+        const item = {
+          type: 'streams-reaches',
+          title: feature.properties.str_name ? feature.properties.str_name : 'Unnamed Stream',
+          streamname: feature.properties.str_name,
+          mhfd_code: feature.properties.mhfd_code,
+          catch_sum: feature.properties.catch_sum,
+          str_ft: feature.properties.str_ft,
+          slope: feature.properties.slope 
+        };
+        menuOptions.push('Stream');
+        mobile.push({...item});
+        mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        popups.push(item);
+        ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+      }
       for (const component of COMPONENT_LAYERS.tiles) {
         if (feature.source === component) {
           let isAdded = componentsList.find( (i:any) => i.cartodb_id === feature.properties.cartodb_id); 
@@ -1738,7 +1756,7 @@ const WorkRequestMap = (type: any) => {
     <>
       {menuOptions.length === 1 ? <> {
       (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? 
-      loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
+      (( menuOptions[0] =='Stream'? loadStreamPopup(0,popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) ) :
       menuOptions[0] === 'Project' ? 
       loadMainPopup(0, popups[0], test, true, ep) : 
       loadMainPopup(0, popups[0], test)
@@ -1752,7 +1770,7 @@ const WorkRequestMap = (type: any) => {
                 return (
                   <div>
                     <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-                    {(menu !== 'Project' && menu !== 'Problem') ? loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) :
+                    {(menu !== 'Project' && menu !== 'Problem') ? ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) :
                       menu.includes('Project') ? loadMainPopup(index, popups[index], test, true, ep) : loadMainPopup(index, popups[index], test)}
                   </div>
                 )
@@ -1784,6 +1802,12 @@ const WorkRequestMap = (type: any) => {
   const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean, ep?:boolean) => (
     <>
       <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={ep?ep:false}></MainPopup>
+    </>
+  );
+
+  const loadStreamPopup = (index: number, item: any) => (
+    <>
+        <StreamPopupFull id={index} item={item} ></StreamPopupFull>
     </>
   );
 

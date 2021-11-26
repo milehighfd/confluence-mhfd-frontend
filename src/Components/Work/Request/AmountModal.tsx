@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, InputNumber } from 'antd';
 import { MaintenanceTypes } from "./RequestViewUtil";
+import { useProjectState } from '../../../hook/projectHook';
 
 const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveData, tabKey, projectsubtype }: {
   project: any,
@@ -17,7 +18,7 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
   const [year2, setYear2] = useState(project.req3);
   const [year3, setYear3] = useState(project.req4);
   const [year4, setYear4] = useState(project.req5);
-
+  console.log("prOJECT", project);
   const handleOk = (e: any) => {
     saveData({
       projectId,
@@ -88,6 +89,10 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
           </Button>,
       ]}
     >
+      {
+        (project.projectData.projecttype == 'Capital') && 
+        <div style={{ marginBottom: '15px',marginTop: '-15px', fontWeight: 'bold'}}>Estimated Project Cost: {project.projectData.estimatedcost}</div>
+      }
       {
         showFirst &&
         <>
