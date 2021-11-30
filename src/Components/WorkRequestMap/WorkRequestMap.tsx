@@ -498,6 +498,9 @@ const WorkRequestMap = (type: any) => {
     if (type.type === "CAPITAL") {
       applyComponentFilter();
     }
+    setTimeout(()=>{
+      map.map.moveLayer('munis-centroids-shea-plusother');
+    },500);
 
   }
   const applyMhfdFilter = () => {
@@ -800,7 +803,6 @@ const WorkRequestMap = (type: any) => {
         allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
       } 
       if (map.getLayer(key + '_' + index)) {
-        console.log("THIS FILTER ius the prob", allFilters);
         map.setFilter(key + '_' + index, allFilters);
       }
     });

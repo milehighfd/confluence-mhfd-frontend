@@ -1187,6 +1187,9 @@ const Map = ({ leftWidth,
         });
         applyFilters('problems', filterProblems);
         applyFilters('mhfd_projects', filterProjects);
+        setTimeout(()=>{
+            map.moveLayer('munis-centroids-shea-plusother');
+        },500);
     }
 
     const addLayersSource = (key: string, tiles: Array<string>) => {

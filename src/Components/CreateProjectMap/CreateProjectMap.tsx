@@ -901,6 +901,9 @@ const CreateProjectMap = (type: any) => {
     if (type.type === "CAPITAL") {
       // applyComponentFilter();
     }
+    setTimeout(()=>{
+      map.map.moveLayer('munis-centroids-shea-plusother');
+    },500);
     
   }
   const applyMhfdFilter = () => {
