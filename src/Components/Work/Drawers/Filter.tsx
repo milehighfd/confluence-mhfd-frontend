@@ -43,7 +43,10 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, se
     })
     setCS(cs)
   }
-
+  const reset = () => {
+    setJurisdictionSelected(jurisdictionSelected.map( elem => false));
+    setCsaSelected(csaSelected.map(elem => false));
+  }
   let label;
   if (l === 'COUNTY') {
     label = 'COUNTY';
@@ -111,10 +114,13 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, se
           }
         </div>
       </div>
-      <div className="footer-drawer">
+      <div className="footer-drawer" style={{position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px'}}>
+        <div> 
+          <h4 style={{ float: 'left', marginTop: '0.8rem'}} onClick={reset}>Reset</h4>
         <Button className="btn-purple" onClick={applyFilters}>
           Apply
         </Button>
+        </div>
       </div>
     </Drawer>
   )
