@@ -8,7 +8,7 @@ import {
   getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
   setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
-  getParamFilterProjectsAsync, getParamFilterProblemsAsync, getParamFilterComponentsAsync,
+  getParamFilterProblemsAsync, getParamFilterComponentsAsync,
   setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents,
   addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, 
   setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, 
@@ -161,6 +161,7 @@ export const useMapDispatch = () => {
       dispatch(setToggleModalFilter(toggle));
     },
     getParamFilterProjects: (bounds: string, data?: any) => {
+      if (!bounds) return;
       dispatch(getParamFilterProjects(bounds, data));
       dispatch(getProjectCounter(bounds, data));
     },
@@ -221,9 +222,6 @@ export const useMapDispatch = () => {
     },
     getParamFilterComponentsAsync: (bounds: string) => {
       dispatch(getParamFilterComponentsAsync(bounds));
-    },
-    getParamFilterProjectsAsync: (bounds: string) => {
-      dispatch(getParamFilterProjectsAsync(bounds));
     },
     getParamFilterProblemsAsync: (bounds: string) => {
       dispatch(getParamFilterProblemsAsync(bounds));
