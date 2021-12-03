@@ -59,7 +59,8 @@ interface selectMapState {
   loaderDetailedPage: any,
   componentsByProblemId: any,
   loaderTableCompoents: any,
-  componentCounter: any
+  componentCounter: any,
+  spinMapLoaded: any
 }
 
 /* Commented because typescript doesn't support that many arguments
@@ -135,18 +136,22 @@ const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> 
       (state: any) => state.map.componentsByProblemId,
       (state: any) => state.map.loaderTableCompoents,
       (state: any) => state.map.componentCounter,
+      (state: any) => state.map.spinMapLoaded,
       //state => state.map.paramFilters,
       (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
         nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
         spinFilters: any, spinCardProblems: any, spinCardProjects: any,//, paramFilters
         favoriteProblemCards: any,favoriteProjectCards: any, favorites: any, bboxComponents: any, tutorialStatus: boolean,
         galleryProblems: any, galleryProjects: any, selectedOnMap: any, autocomplete: any, currentPopup: number, totals: any, favoritesLoader: number, 
-        layers: any, selectedLayers: any, mapSearch: any, componentDetailIds: any, filterProblems: any, filterProjects: any, filterComponents: any, detailed: any,loaderDetailedPage: any, componentsByProblemId:any, loaderTableCompoents: any, componentCounter:any
+        layers: any, selectedLayers: any, mapSearch: any, componentDetailIds: any, filterProblems: any, filterProjects: any, filterComponents: any,
+        detailed: any,loaderDetailedPage: any, componentsByProblemId:any, loaderTableCompoents: any, componentCounter:any, spinMapLoaded: any
         ) => ({
           toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
           nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
           spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites, bboxComponents, tutorialStatus,
-          galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup, totals, favoritesLoader, layers, selectedLayers, mapSearch, componentDetailIds, filterProblems, filterProjects, filterComponents, detailed, loaderDetailedPage, componentsByProblemId, loaderTableCompoents, componentCounter
+          galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup, totals, favoritesLoader, layers, selectedLayers, mapSearch,
+          componentDetailIds, filterProblems, filterProjects, filterComponents, detailed, loaderDetailedPage, componentsByProblemId,
+          loaderTableCompoents, componentCounter, spinMapLoaded
         })
     );
 
