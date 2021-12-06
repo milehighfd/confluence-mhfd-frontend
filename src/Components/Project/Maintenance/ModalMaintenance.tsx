@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline, Switch } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
@@ -66,7 +66,10 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
+  const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
+  const textRef = useRef<any>(null);
+  const [textAreaWidth, setTextAreaWidth] = useState(261);
   const showModal = () => {
     const auxState = {...state};
     auxState.visibleMaintenance = true;
@@ -77,6 +80,45 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
       return list.split(',');
     }
  }
+ useEffect(() => {
+  getTextWidth(nameProject);
+},[nameProject]);
+useEffect(()=>{
+  const waiting = () => {
+    
+    if (!textRef) {
+      setTimeout(waiting, 50);
+    } else {
+      if(textRef.current) {
+        const newWidth = textRef.current.clientWidth;
+        console.log("newWidth", newWidth);
+        setTextAreaWidth(newWidth);
+      }
+      // setTextAreaWidth(textRef.current?textRef.current.clientWidth:261);
+    }
+  };
+  
+},[]);
+const getTextWidth = (text: any) => {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  let fontType = "16px sans-serif";
+  try {
+    if(context) {
+      context.font = fontType;
+      let length = context.measureText(text).width;
+      if(!isNaN(length)) {
+        setlengthName(length);
+      } else {
+        setlengthName(0);
+      }
+    }
+  } catch (e) {
+    console.log("Error in getting width", context);
+    return 0;
+  }
+}
+
  useEffect(()=>{
   let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
   if(juris) {
@@ -312,13 +354,15 @@ export const ModalMaintenance = ({visibleMaintenance, setVisibleMaintenance, nam
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 14 }}>
                 <label data-value={nameProject} style={{width: '100%'}}>
-                  <textarea value={nameProject} onChange={(e) => onChange(e)} style={{
+                  <textarea ref={textRef}   className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{
                     border: 'none',
                     width: '100%',
                     fontSize: '24px',
                     color: '#11093c',
                     wordWrap: 'break-word',
                     resize: 'none',
+                    lineHeight: '27px',
+                    height: lengthName > 217 ? 'unset' :'34px'
                   }} />
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}

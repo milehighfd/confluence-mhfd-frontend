@@ -67,6 +67,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
+  const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
   var date = new Date();
   var year = date.getFullYear();
@@ -76,6 +77,29 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       return list.split(',');
     }
  }
+
+ useEffect(() => {
+  getTextWidth(nameProject);
+},[nameProject]);
+ const getTextWidth = (text: any) => {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  let fontType = "16px sans-serif";
+  try {
+    if(context) {
+      context.font = fontType;
+      let length = context.measureText(text).width;
+      if(!isNaN(length)) {
+        setlengthName(length);
+      } else {
+        setlengthName(0);
+      }
+    }
+  } catch (e) {
+    console.log("Error in getting width", context);
+    return 0;
+  }
+}
 
   useEffect(()=>{
     if(data!== 'no data' ) {
@@ -269,13 +293,15 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 17 }}>
                 <label data-value={nameProject} style={{width: '100%'}}>
-                  <textarea value={nameProject} onChange={(e) => onChange(e)} style={{
+                  <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{
                     border: 'none',
                     width: '100%',
                     fontSize: '24px',
                     color: '#11093c',
                     wordWrap: 'break-word',
                     resize: 'none',
+                    lineHeight: '27px',
+                    height: lengthName > 268 ? 'unset' :'34px'
                   }} />
                 </label>
                 {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}

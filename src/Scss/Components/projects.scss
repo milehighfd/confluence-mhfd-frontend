@@ -1063,3 +1063,9 @@
     }
   }
 }
+
+
+.project-name:focus{
+  border-bottom: 1.6px solid $green !important;
+  border-radius: 0px;
+}
