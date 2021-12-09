@@ -70,7 +70,12 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
   } else {
     labels = [Number(startYear), Number(startYear) + 1, Number(startYear) + 2, Number(startYear) + 3, Number(startYear) + 4]
   }
-
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  })
   return (
     <Modal
       title="Apply total requested financing amount for any applicable year:"
@@ -91,7 +96,7 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
     >
       {
         (project.projectData.projecttype == 'Capital') && 
-        <div style={{ marginBottom: '15px',marginTop: '-15px', fontWeight: 'bold'}}>Estimated Project Cost: {project.projectData.estimatedcost}</div>
+        <div style={{ marginBottom: '15px',marginTop: '-15px', fontWeight: 'bold'}}>Estimated Project Cost: {formatter.format(project.projectData.estimatedcost)}</div>
       }
       {
         showFirst &&

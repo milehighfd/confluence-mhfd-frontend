@@ -1663,6 +1663,7 @@ const WorkRequestMap = (type: any) => {
             status: feature.properties.status ? feature.properties.status : '-',
             estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
             studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+            studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
             jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
             original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
             table: feature.source ? feature.source : '-',
@@ -1677,7 +1678,8 @@ const WorkRequestMap = (type: any) => {
           mobile.push({
             layer: item.layer,
             type: item.type,
-            subtype: item.subtype
+            subtype: item.subtype,
+            studyyear: item.studyyear
           })
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           popups.push(item);
