@@ -2215,7 +2215,7 @@ const Map = ({ leftWidth,
                           cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
                           problem: 'Dataset in development',
                           objectid: feature.properties.objectid?feature.properties.objectid:'-',
-                          streamname: feature.properties.streamname,
+                          streamname: feature.properties.drainageway,
                         };
                         const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
                         menuOptions.push(name);

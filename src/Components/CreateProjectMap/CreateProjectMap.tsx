@@ -2116,7 +2116,8 @@ const CreateProjectMap = (type: any) => {
               problem: 'Dataset in development',
               added: status,
               objectid: feature.properties.objectid? feature.properties.objectid: '',
-              projectid : feature.properties.projectid? feature.properties.projectid: undefined 
+              projectid : feature.properties.projectid? feature.properties.projectid: undefined ,
+              streamname: feature.properties.drainageway,
             };
             const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
             menuOptions.push(name);
@@ -2124,7 +2125,8 @@ const CreateProjectMap = (type: any) => {
               layer: item.layer,
               type: item.type,
               subtype: item.subtype,
-              studyyear: item.studyyear
+              studyyear: item.studyyear,
+              streamname: item.streamname
             })
             mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
             popups.push(item);
