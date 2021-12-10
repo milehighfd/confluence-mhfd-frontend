@@ -24,9 +24,9 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   let color: string;
 
   if (type === 'servicearea') {
-    color = '#80a7f7';
+    color = '#917CD9';
   } else {
-    color = '#66d4ff';
+    color = '#32A4FB';
   }
 
   let sum = 0;
@@ -70,8 +70,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   const height = 220;
   const rounded = 4;
   const percentage = 0.10;
-  const fontSizeText = '12px';
-  const fontSizePercentage = '10px';
+  const fontSizeText = '9px';
+  const fontSizePercentage = '9px';
 
   let clickFn = (d: any) => {
     let index = selectedData.indexOf(d.data.name);
@@ -196,7 +196,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         }
       })
       .attr("font-size", fontSizeText)
-      .attr("fill", "black")
+      .attr("fill", "white")
       .attr('font-weight', 'bold')
       .style("text-anchor", "middle")
     
@@ -219,7 +219,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         }
       })
       .attr("font-size", fontSizeText)
-      .attr("fill", "black")
+      .attr("fill", "white")
       .attr('font-weight', 'bold')
       .style("text-anchor", "middle")
 
@@ -250,7 +250,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         }
       })
       .attr("font-size", fontSizePercentage)
-      .attr("fill", "black")
+      .attr("fill", "white")
       .style("text-anchor", "middle")
       .style('opacity', 0.7)
     
@@ -272,7 +272,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         }
       })
       .attr("font-size", fontSizePercentage)
-      .attr("fill", "black")
+      .attr("fill", "white")
       .style("text-anchor", "middle")
       .style('opacity', 0.7)
 

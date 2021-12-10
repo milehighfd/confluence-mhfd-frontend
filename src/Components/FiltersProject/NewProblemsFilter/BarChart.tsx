@@ -141,12 +141,12 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       svg
         .append('g')
         .attr('class', 'hleftlabel')
-        .attr('transform', `translate(${15}, ${height / 2}) rotate(270) skewX(-20)`)
+        .attr('transform', `translate(${57}, ${height / 2}) rotate(270) skewX(-20)`)
         .append('text')
         .text(axisLabel)
         .style("text-anchor", "middle")
-        .style("font-size", 12)
-        .style('opacity', 0.40);
+        .style("font-size", 9)
+        .style('opacity', 0.60);
 
   }, [data, selectedData])
 

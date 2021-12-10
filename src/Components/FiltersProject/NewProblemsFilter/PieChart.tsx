@@ -18,7 +18,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   useEffect(() => {
     let total: any;
     let pieChartData: any;
-
     total = data.reduce((a: number, x: any) => a + x.counter, 0);
     pieChartData = data.map((d: any) => {
       return {
@@ -33,11 +32,11 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     const radius = 85;
 
     var arc = d3.arc()
-      .innerRadius(radius * 0.5)
+      .innerRadius(radius * 0.57)
       .outerRadius(radius);
 
     var arc2 = d3.arc()
-      .innerRadius(radius * 0.5)
+      .innerRadius(radius * 0.57)
       .outerRadius(radius + 5);
 
     var color = d3.scaleOrdinal()
@@ -55,9 +54,8 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr("viewBox", `0 0 ${width + 100} ${height + 75}`)
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
+    
     var data_ready: any = pie(pieChartData)
-
     var slices = svg
       .selectAll('slices')
       .data(data_ready)
@@ -173,8 +171,8 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr("y", (d: any, i) => {
         return radius + 30 + Math.floor(i / 2) * 20
       })
-      .attr('width', 20)
-      .attr('height', 6)
+      .attr('width', 15)
+      .attr('height', 4)
 
     legendsBar.enter()
       .append('rect')
@@ -187,8 +185,8 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr("y", (d: any, i) => {
         return radius + 30 + Math.floor(i / 2) * 20
       })
-      .attr('width', 20)
-      .attr('height', 6)
+      .attr('width', 15)
+      .attr('height', 4)
 
   }, [data, selectedData]);
 

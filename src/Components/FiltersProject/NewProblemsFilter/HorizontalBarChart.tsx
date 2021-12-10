@@ -27,7 +27,7 @@ const HorizontalBarChart = ({
   showControls=true,
   withClickEvent=true,
   withAnimation=true,
-  spaceBetween=45,
+  spaceBetween=33,
   barLabelFormatter=(d: any) => {
     return d.counter;
   },
@@ -101,7 +101,7 @@ const HorizontalBarChart = ({
     var yFn: any = (d: any) => y(d.value);
 
     var heightFn: any = () => {
-      return 14;
+      return 13;
     }
 
     var fontSizeFn: any = () => {
@@ -263,9 +263,9 @@ const HorizontalBarChart = ({
       .text(labelTextFn)
       .attr("x", 0)
       .attr("y", (d: any) => {
-        return yFn(d) - 6;
+        return yFn(d) - 4;
       })
-      .style("font-size", fontSizeFn)
+      .style("font-size", "8px")
       .style('opacity', 0.7);
     
     labels
@@ -273,9 +273,9 @@ const HorizontalBarChart = ({
       .text(labelTextFn)
       .attr("x", 0)
       .attr("y", (d: any) => {
-        return yFn(d) - 6;
+        return yFn(d) - 4;
       })
-      .style("font-size", fontSizeFn)
+      .style("font-size", "8px" )
       .style('opacity', 0.7);
 
     var countXFn = (d: any) => {
@@ -302,7 +302,7 @@ const HorizontalBarChart = ({
 
     var countYFn = (d: any) => {
       // return yFn(d) + ((heightFn() + fontSizeFn()) / 2);
-      return yFn(d) + fontSizeFn() - 1;
+      return yFn(d) + 9 ;
     }
 
     let counts = svg
@@ -321,7 +321,7 @@ const HorizontalBarChart = ({
       .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
-      .style("font-size", fontSizeFn)
+      .style("font-size", "7px")
       .style('fill', fontFill)
 
     counts
@@ -329,7 +329,7 @@ const HorizontalBarChart = ({
       .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
-      .style("font-size", fontSizeFn)
+      .style("font-size", "7px")
       .style('fill', fontFill)
 
     counts.on('click', onClickFn)

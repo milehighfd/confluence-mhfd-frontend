@@ -209,11 +209,12 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
     svg
       .append('g')
       .attr('class', 'hleftlabel')
-      .attr('transform', `translate(${marginLeft / 2}, ${height / 2}) rotate(270) skewX(-20)`)
+      .attr('transform', `translate(${(marginLeft)}, ${height / 2}) rotate(270) skewX(-20)`)
       .append('text')
       .text(axisLabel)
       .style("text-anchor", "middle")
-      .style('opacity', 0.40);
+      .style('opacity', 0.40)
+      .style('font-size',10);
 
     var gRange = d3
       .select(gRef.current)
