@@ -116,7 +116,7 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, se
       </div>
       <div className="footer-drawer" style={{position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px'}}>
         <div> 
-          <h4 style={{ float: 'left', marginTop: '0.8rem'}} onClick={reset}>Reset</h4>
+          <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem'}} onClick={reset}>Reset</h4>
         <Button className="btn-purple" onClick={applyFilters}>
           Apply
         </Button>

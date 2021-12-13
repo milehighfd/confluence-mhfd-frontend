@@ -35,13 +35,13 @@ export default () => {
       </div>
     </div>
     <div className="logo-partner">
-      <div>
-        <p>Designed by</p>
-        <a href="https://vizonomy.com/main" target="_blank"><img className="vizonomy" src="/Icons/logo_vizonomy.png" alt="" /></a>
+      {/* <div>
+         <p>Designed by</p>
+        <a href="https://vizonomy.com/main" target="_blank"><img className="vizonomy" src="/Icons/logo_vizonomy.png" alt="" /></a> 
       </div>
       <div>
         <a href="https://www.respec.com" target="_blank"><img className="respec" src="/Icons/logo-respec.png" alt="" /></a>
-      </div>
+      </div> */}
     </div>
     <Carousel autoplay autoplaySpeed={6000}>
       {images.map((image: string, index: number) => {
