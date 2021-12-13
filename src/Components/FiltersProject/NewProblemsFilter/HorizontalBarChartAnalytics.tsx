@@ -27,7 +27,7 @@ const HorizontalBarChart = ({
   showControls=true,
   withClickEvent=true,
   withAnimation=true,
-  spaceBetween=33,
+  spaceBetween=45,
   barLabelFormatter=(d: any) => {
     return d.counter;
   },
@@ -101,7 +101,7 @@ const HorizontalBarChart = ({
     var yFn: any = (d: any) => y(d.value);
 
     var heightFn: any = () => {
-      return 13;
+      return 14;
     }
 
     var fontSizeFn: any = () => {
@@ -263,9 +263,9 @@ const HorizontalBarChart = ({
       .text(labelTextFn)
       .attr("x", 0)
       .attr("y", (d: any) => {
-        return yFn(d) - 4;
+        return yFn(d) - 6;
       })
-      .style("font-size", "8px")
+      .style("font-size", fontSizeFn)
       .style('opacity', 0.7);
     
     labels
@@ -273,19 +273,19 @@ const HorizontalBarChart = ({
       .text(labelTextFn)
       .attr("x", 0)
       .attr("y", (d: any) => {
-        return yFn(d) - 4;
+        return yFn(d) - 6;
       })
-      .style("font-size", "8px" )
+      .style("font-size", fontSizeFn)
       .style('opacity', 0.7);
 
     var countXFn = (d: any) => {
       let string = `${barLabelFormatter(d)}`;
       let size = string.length;
-      let textLength = size * 4;
+      let textLength = size * 6;
       if ((textLength + 10) > xCountFn(d) && labelOverflowRight) {
         return xCountFn(d) + 2;
       } else {
-        return xCountFn(d) - textLength;
+        return xCountFn(d) - textLength - 4;
       }
     }
 
@@ -302,7 +302,7 @@ const HorizontalBarChart = ({
 
     var countYFn = (d: any) => {
       // return yFn(d) + ((heightFn() + fontSizeFn()) / 2);
-      return yFn(d) + 9 ;
+      return yFn(d) + fontSizeFn() - 1;
     }
 
     let counts = svg
@@ -321,7 +321,7 @@ const HorizontalBarChart = ({
       .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
-      .style("font-size", "7px")
+      .style("font-size", fontSizeFn)
       .style('fill', fontFill)
 
     counts
@@ -329,7 +329,7 @@ const HorizontalBarChart = ({
       .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
-      .style("font-size", "7px")
+      .style("font-size", fontSizeFn)
       .style('fill', fontFill)
 
     counts.on('click', onClickFn)

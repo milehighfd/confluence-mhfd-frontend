@@ -43,6 +43,7 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
           {data.projecttype && <h6>{data.projecttype} Project</h6>}
           {data.layer && data.layer != "Components" && <h4>{data.layer}</h4>}
           {data.layer && data.layer == "Components" && <h6>{data.layer}</h6>}
+          {data.streamname && <h6><a className="sub-title">Stream: </a>{data.streamname}</h6>}
           {data.proj_name && <h6><a className="sub-title">Project Name: </a>{data.proj_name}</h6>}
           {data.mep_status && <h6><a className="sub-title">MEP Status: </a> {data.mep_status}</h6>}
           {data.name && <h4>{data.name}</h4>}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Drawer, Select, Popover } from 'antd';
-import HorizontalBarChart from "../../FiltersProject/NewProblemsFilter/HorizontalBarChart";
+import HorizontalBarChartAnalytics from "../../FiltersProject/NewProblemsFilter/HorizontalBarChartAnalytics";
 import { formatter, MaintenanceTypes } from "../Request/RequestViewUtil";
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
 import { boardType } from "../Request/RequestTypes";
@@ -104,7 +104,7 @@ const Analytics = ({
       <h6>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       <div className="graph" >
         {maxiQ > 0 &&
-        <HorizontalBarChart
+        <HorizontalBarChartAnalytics
           data={quantityData}
           selected={countiesNames}
           onSelect={() => {}}
@@ -128,7 +128,7 @@ const Analytics = ({
       <h6 className="graph-title">Dollars Requested by {groupingType} <Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       <div className="graph" >
       {maxiA > 0 &&
-      <HorizontalBarChart
+      <HorizontalBarChartAnalytics
           data={amountData}
           selected={countiesNames}
           onSelect={() => {}}

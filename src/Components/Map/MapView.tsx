@@ -137,6 +137,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     options.consultant = '';
     options.contractor = '';
     options.servicearea = '';
+    console.log("OPTIONS IN FILTER", options);
     setFilterProjectOptions(options);
     getGalleryProjects();
     if (toggleModalFilter) {
