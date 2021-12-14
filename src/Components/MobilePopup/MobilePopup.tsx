@@ -55,7 +55,7 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
           {data.muname && <h6><a className="sub-title">Mapunit Name: </a>{data.muname}</h6>}
           {data.dam_name && <h6><a className="sub-title">Dam Name: </a>{data.dam_name}</h6>}
           {data.hazard_class && <h6><a className="sub-title">Hazard Class: </a>{data.hazard_class}</h6>}
-          {data.streamname && <h6><a className="sub-title">Stream: </a>{data.streamname}</h6>}
+          {<h6><a className="sub-title">Stream: </a>{ data.streamname ? data.streamname: "Unnamed Stream"}</h6>}
           
           {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}
           {/* {data.streamname && <p className="stream">{data.streamname}</p>} */}

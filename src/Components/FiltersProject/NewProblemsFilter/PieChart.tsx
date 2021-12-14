@@ -142,7 +142,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         let yo = ((radius + Math.floor(i / 2) * 20) + 35);
         return `translate(${xo},${yo})`;
       })
-      .style("font-size", 12)
+      .style("font-size", 14)
       // .style('opacity', 0.8)
 
     legendsText
@@ -152,7 +152,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         let yo = ((radius + Math.floor(i / 2) * 20) + 35);
         return `translate(${xo},${yo})`;
       })
-      .style("font-size", 12)
+      .style("font-size", 14)
       // .style('opacity', 0.8)
 
     var legendsBar = svg

@@ -214,7 +214,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
       .text(axisLabel)
       .style("text-anchor", "middle")
       .style('opacity', 0.40)
-      .style('font-size',10);
+      .style('font-size',12);
 
     var gRange = d3
       .select(gRef.current)

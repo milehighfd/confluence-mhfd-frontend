@@ -26,8 +26,8 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
   const height = 140;
   const marginLeft = 30;
   const rounded = 2;
-  const fillColor = '#ffdc00';
-  const opaquedColor = '#fff2a8';
+  const fillColor = '#FAC774';
+  const opaquedColor = '#fce9a6';
 
   // TODO: change data on component endpoint
   data = data.map((d: any) => {
@@ -229,11 +229,12 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
     svg
       .append('g')
       .attr('class', 'hleftlabel')
-      .attr('transform', `translate(${marginLeft/2}, ${height / 2}) rotate(270) skewX(-20)`)
+      .attr('transform', `translate(${marginLeft}, ${height / 2}) rotate(270) skewX(-20)`)
       .append('text')
       .text(axisLabel)
       .style("text-anchor", "middle")
-      .style('opacity', 0.40);
+      .style('opacity', 0.40)
+      .style('font-size',12);
 
     var gRange = d3
       .select(gRef.current)

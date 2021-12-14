@@ -101,7 +101,7 @@ const HorizontalBarChart = ({
     var yFn: any = (d: any) => y(d.value);
 
     var heightFn: any = () => {
-      return 13;
+      return 14;
     }
 
     var fontSizeFn: any = () => {
@@ -265,7 +265,7 @@ const HorizontalBarChart = ({
       .attr("y", (d: any) => {
         return yFn(d) - 4;
       })
-      .style("font-size", "8px")
+      .style("font-size", "9px")
       .style('opacity', 0.7);
     
     labels
@@ -275,7 +275,7 @@ const HorizontalBarChart = ({
       .attr("y", (d: any) => {
         return yFn(d) - 4;
       })
-      .style("font-size", "8px" )
+      .style("font-size", "9px" )
       .style('opacity', 0.7);
 
     var countXFn = (d: any) => {
@@ -321,7 +321,7 @@ const HorizontalBarChart = ({
       .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
-      .style("font-size", "8px")
+      .style("font-size", "9px")
       .style('fill', fontFill)
 
     counts
@@ -329,7 +329,7 @@ const HorizontalBarChart = ({
       .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
-      .style("font-size", "8px")
+      .style("font-size", "9px")
       .style('fill', fontFill)
 
     counts.on('click', onClickFn)

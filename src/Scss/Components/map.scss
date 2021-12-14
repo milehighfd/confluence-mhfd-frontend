@@ -1437,7 +1437,7 @@
   border-style: solid;
 }
 .horizontal-axis-label {
-  font-size: 8px;
+  font-size: 12px;
   text-align: center;
 }
 @media only screen and (min-width: 1600px){
@@ -1445,7 +1445,7 @@
     height: 220px !important;
   }
   .horizontal-axis-label {
-    font-size: 12px !important;
+    font-size: 16px !important;
   }
   .popup-chart {
     font-size: 30px !important;
@@ -1462,7 +1462,7 @@
     height: 260px !important;
   }
   .horizontal-axis-label {
-    font-size: 17px !important;
+    font-size: 19px !important;
   }
 }
 @media only screen and (min-width: 3000px){
@@ -1470,7 +1470,7 @@
     height: 450px !important;
   }
   .horizontal-axis-label {
-    font-size: 27px !important;
+    font-size: 29px !important;
   }
   .popup-chart {
     font-size: 30px !important;
