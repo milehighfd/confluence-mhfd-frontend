@@ -57,7 +57,7 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
           {data.dam_name && <h6><a className="sub-title">Dam Name: </a>{data.dam_name}</h6>}
           {data.hazard_class && <h6><a className="sub-title">Hazard Class: </a>{data.hazard_class}</h6>}
           {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}
-          {data.streamname && <p className="stream">{data.streamname}</p>}
+          {/* {data.streamname && <p className="stream">{data.streamname}</p>} */}
           {data.scale && <h6><a className="sub-title"></a>Scale: {data.scale}</h6>}
           {data.date_created && <h6><a className="sub-title">Date created: </a>{data.date_created}</h6>}
           {data.bcz_specname && <h6><a className="sub-title">Species Name: </a>{data.bcz_specname}</h6>}
