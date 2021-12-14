@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { Button } from 'antd';
-import { CHART_CONSTANTS } from './Charts.constants';
+import { CHART_CONSTANTS, CHART_CONSTANTS_INV } from './Charts.constants';
 
 const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -120,9 +120,9 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
-          return CHART_CONSTANTS.opacityFull;
+          return type == 'servicearea'?CHART_CONSTANTS_INV.opacityFull:CHART_CONSTANTS.opacityFull;
         } else {
-          return CHART_CONSTANTS.opacityOpaque;
+          return type == 'servicearea'?CHART_CONSTANTS_INV.opacityOpaque: CHART_CONSTANTS_INV.opacityOpaque;
         }
       })
 

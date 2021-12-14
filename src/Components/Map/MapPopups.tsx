@@ -36,6 +36,9 @@ const projectStyle = {
 }
 
 const numberWithCommas = (x : number) => {
+    if(x == -1) {
+        return 'No Cost data';
+    }
     x = Math.round(x);
     if (!x) x = 0;
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -67,7 +70,7 @@ export const MainPopup = ({id, item, test, sw, ep } : any) => {
               (<><h6>{item.organization} </h6><h6>{item.streamname}</h6></>) :
               (<h6>{item.organization} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
           }
-          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b id={item.popupId}>0</b> Components</span></h5>
+          <h5>{item.value != -1 ? '$':''}{numberWithCommas(item.value)} <span style={{float: 'right'}}><b id={item.popupId}>0</b> Components</span></h5>
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={item.type === 'problems' ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>

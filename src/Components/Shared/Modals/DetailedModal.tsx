@@ -60,6 +60,9 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   }
   const detailedPage = detailed as any;
 
+  useEffect(()=>{
+console.log("DETAILES", detailedPage);
+  },[detailedPage]);
   const downloadPdf = async () => {
     if (loading) {
       return;
@@ -144,11 +147,11 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               {
                 detailedPage.problemtype ? (
                   <div className="detailed-mm">
-                    <b>${new Intl.NumberFormat("en-EN").format( totalComponentsCost? totalComponentsCost:(detailedPage.solutioncost ? detailedPage.solutioncost : detailedPage.estimatedcost))}</b>
+                    <b>{ totalComponentsCost? ('$' + new Intl.NumberFormat("en-EN").format(totalComponentsCost)):(detailedPage.solutioncost ? ('$' + new Intl.NumberFormat("en-EN").format((detailedPage.solutioncost))): (detailedPage.estimatedcost?( '$'+ new Intl.NumberFormat("en-EN").format(detailedPage.estimatedcost)): 'No Cost Data'))}</b>
                   </div>
                 ) : (
                   <div className="detailed-mm">
-                    <b>${new Intl.NumberFormat("en-EN").format( totalComponentsCost? totalComponentsCost:(detailedPage.finalcost ? detailedPage.finalcost : detailedPage.estimatedcost))}</b>
+                    <b>{ totalComponentsCost? ('$' + new Intl.NumberFormat("en-EN").format(totalComponentsCost)):(detailedPage.finalcost ? ('$' + new Intl.NumberFormat("en-EN").format((detailedPage.finalcost))) : (detailedPage.estimatedcost?('$' + new Intl.NumberFormat("en-EN").format(detailedPage.estimatedcost)): 'No Cost Data'))}</b>
                   </div>
                 )
               }

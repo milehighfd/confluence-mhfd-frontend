@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { Button } from 'antd';
 
-import { CHART_CONSTANTS } from './Charts.constants';
+import { CHART_CONSTANTS, CHART_CONSTANTS_INV } from './Charts.constants';
 
 const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -73,7 +73,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr('fill', (d: any): any => { return (color(d.data.key)) })
       .style("opacity", (d: any) => {
         let index = selectedData.indexOf(d.data.key);
-        return index === -1 ? CHART_CONSTANTS.opacityOpaque : CHART_CONSTANTS.opacityFull;
+        return index === -1 ? ( type == 'projecttype'? CHART_CONSTANTS.opacityOpaque: CHART_CONSTANTS_INV.opacityOpaque) : ( type == 'projecttype'? CHART_CONSTANTS.opacityFull: CHART_CONSTANTS_INV.opacityFull);
       })
       .on('click', clickFn)
       .transition().duration(2000)
@@ -89,7 +89,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr('fill', (d: any): any => { return (color(d.data.key)) })
       .style("opacity", (d: any) => {
         let index = selectedData.indexOf(d.data.key);
-        return index === -1 ? CHART_CONSTANTS.opacityOpaque : CHART_CONSTANTS.opacityFull;
+        return index === -1 ? ( type == 'projecttype'? CHART_CONSTANTS.opacityOpaque: CHART_CONSTANTS_INV.opacityOpaque) : ( type == 'projecttype'? CHART_CONSTANTS.opacityFull: CHART_CONSTANTS_INV.opacityFull);
       })
       .on('click', clickFn)
       .transition().duration(2000)

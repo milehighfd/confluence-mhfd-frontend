@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { Button } from 'antd';
-import { CHART_CONSTANTS } from './Charts.constants';
+import { CHART_CONSTANTS,CHART_CONSTANTS_INV } from './Charts.constants';
 
 const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -78,9 +78,9 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .style("opacity", function(d:any) {
         let index = selectedData.indexOf(d.value);
         if (index !== -1) {
-          return CHART_CONSTANTS.opacityFull;
+          return CHART_CONSTANTS_INV.opacityFull;
         } else {
-          return CHART_CONSTANTS.opacityOpaque;
+          return CHART_CONSTANTS_INV.opacityOpaque;
         }
       })
       .on('click', (d: any) => {
@@ -107,9 +107,9 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       .style("opacity", function(d:any) {
         let index = selectedData.indexOf(d.value);
         if (index !== -1) {
-          return CHART_CONSTANTS.opacityFull;
+          return CHART_CONSTANTS_INV.opacityFull;
         } else {
-          return CHART_CONSTANTS.opacityOpaque;
+          return CHART_CONSTANTS_INV.opacityOpaque;
         }
       })
       .on('click', (d: any) => {
@@ -145,7 +145,7 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
         .append('text')
         .text(axisLabel)
         .style("text-anchor", "middle")
-        .style("font-size", 9)
+        .style("font-size", 10)
         .style('opacity', 0.60);
 
   }, [data, selectedData])

@@ -112,7 +112,7 @@ export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilt
                         <HorizontalBarChart type={'solutionstatus'} defaultValue={''} axisLabel={axisLabel}
                             data={paramProblems.solutionstatus} color={'#917CD9'}
                             selected={filterProblemOptions.solutionstatus} 
-                            onSelect={(items: any) => apply(items, 'solutionstatus')} />
+                            onSelect={(items: any) => apply(items, 'solutionstatus')}  opacityFull={0.6} opacityOpaque={1}/>
                     }
                 </Col>
                 <Col span={12}>
