@@ -23,7 +23,7 @@ const content01 = (<div className="popver-info"></div>);
 const content02 = (<div className="popver-info"></div>);
 const content03 = (<div className="popver-info">Frequency indicates the number of times per-year that a maintenance activity is requested for routine activities. For example, select 2 for twice-per-year, or select 12 for monthly.</div>);
 const content04 = (<div className="popver-info">Flip this switch to indicate that the project is located on a property to which the Local Government has legal right-of-access. This is a requirement for all Maintenance Projects.</div>);
-const content05 = (<div className="popver-info"> Indicate why this project is eligible for MHFD maintenance. <br/><b>Capital Project</b> – The project was completed as part of a MHFD Capital Improvement Plan
+const content05 = (<div className="popver-info" style={{width:'261px'}}> Indicate why this project is eligible for MHFD maintenance. <br/><br/><b>Capital Project</b> – The project was completed as part of a MHFD Capital Improvement Plan
 <br/> <b>MEP</b> – The project has been accepted through development review as part of MHFD's Maintenance Eligibility Program (MEP)
 <br/><b>Grandfathered</b> – Development occurred before MHFD’s Maintenance Eligibility Program started in 1980
 <br/><b>Not Eligible</b> – The project does not meet any of the above criteria

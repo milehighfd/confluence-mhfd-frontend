@@ -41,9 +41,8 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
         <div style={data.image? {width: '60%', padding: '10px'} : {width: '100%', padding: '10px'}}>
           {data.title && data.type === 'problems' && <h6>{data.title}</h6>}
           {data.projecttype && <h6>{data.projecttype} Project</h6>}
-          {data.layer && data.layer != "Components" && <h4>{data.layer}</h4>}
+          {data.layer && data.layer != "Components" && data.layer != 'Streams' && <h4>{data.layer}</h4>}
           {data.layer && data.layer == "Components" && <h6>{data.layer}</h6>}
-          {data.streamname && <h6><a className="sub-title">Stream: </a>{data.streamname}</h6>}
           {data.proj_name && <h6><a className="sub-title">Project Name: </a>{data.proj_name}</h6>}
           {data.mep_status && <h6><a className="sub-title">MEP Status: </a> {data.mep_status}</h6>}
           {data.name && <h4>{data.name}</h4>}
@@ -56,6 +55,8 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
           {data.muname && <h6><a className="sub-title">Mapunit Name: </a>{data.muname}</h6>}
           {data.dam_name && <h6><a className="sub-title">Dam Name: </a>{data.dam_name}</h6>}
           {data.hazard_class && <h6><a className="sub-title">Hazard Class: </a>{data.hazard_class}</h6>}
+          {data.streamname && <h6><a className="sub-title">Stream: </a>{data.streamname}</h6>}
+          
           {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}
           {/* {data.streamname && <p className="stream">{data.streamname}</p>} */}
           {data.scale && <h6><a className="sub-title"></a>Scale: {data.scale}</h6>}
@@ -66,6 +67,11 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
           {data.sitetype && <h6><a className="sub-title">Site Type: </a>{data.sitetype}</h6>}
           {data.watershedmanager && <h6><a className="sub-title">Watershed Manager: </a>{data.watershedmanager}</h6>}
           {data.constructionmanagers && <h6><animate className="sub-title">Construction Managers: </animate>{data.constructionmanagers}</h6>}
+          
+          {data.mhfd_code ? <h6><a className="sub-title">MHFD Code:</a>  {data.mhfd_code}</h6> : ''}
+          {data.catch_sum ? <h6><a className="sub-title">Tributary:</a>  {Math.round(data.catch_sum) + " acres"}</h6> : ''}
+          {data.str_ft ?<h6> <a className="sub-title">Reach Length:</a>  {Math.round(data.str_ft) + " ft"}</h6> : ''}
+          {data.slope ?<h6> <a className="sub-title">Slope:</a>  {(data.slope * 100).toFixed(2) + "%"}</h6> : ''}
         </div>
       </div>
     </div>
