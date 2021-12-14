@@ -104,6 +104,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       </>
   );
   const updateZoom = () => {
+    if (!map) return;
     const zoom = map.getZoom().toFixed(2);
     setZoomValue(zoom);
 }
