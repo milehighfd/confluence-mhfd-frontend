@@ -2186,6 +2186,7 @@ const Map = ({ leftWidth,
                 }
                 if(feature.source === 'streams') {
                     const item = {
+                        layer: 'Streams',
                         streamname: feature.properties.str_name,
                         mhfd_code: feature.properties.mhfd_code,
                         catch_sum: feature.properties.catch_sum,

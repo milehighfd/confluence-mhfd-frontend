@@ -281,11 +281,11 @@ const HorizontalBarChart = ({
     var countXFn = (d: any) => {
       let string = `${barLabelFormatter(d)}`;
       let size = string.length;
-      let textLength = size * 4;
+      let textLength = size * 4.5;
       if ((textLength + 10) > xCountFn(d) && labelOverflowRight) {
         return xCountFn(d) + 2;
       } else {
-        return xCountFn(d) - textLength;
+        return xCountFn(d) - textLength - 4;
       }
     }
 
@@ -302,7 +302,7 @@ const HorizontalBarChart = ({
 
     var countYFn = (d: any) => {
       // return yFn(d) + ((heightFn() + fontSizeFn()) / 2);
-      return yFn(d) + 9 ;
+      return yFn(d) + 8.8 ;
     }
 
     let counts = svg
@@ -321,7 +321,7 @@ const HorizontalBarChart = ({
       .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
-      .style("font-size", "7px")
+      .style("font-size", "8px")
       .style('fill', fontFill)
 
     counts
@@ -329,7 +329,7 @@ const HorizontalBarChart = ({
       .text(barLabelFormatter)
       .attr('x', countXFn)
       .attr('y', countYFn)
-      .style("font-size", "7px")
+      .style("font-size", "8px")
       .style('fill', fontFill)
 
     counts.on('click', onClickFn)

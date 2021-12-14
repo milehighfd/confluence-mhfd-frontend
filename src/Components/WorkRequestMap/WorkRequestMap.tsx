@@ -1636,6 +1636,7 @@ const WorkRequestMap = (type: any) => {
         
         const item = {
           type: 'streams-reaches',
+          layer: "Streams",
           title: feature.properties.str_name ? feature.properties.str_name : 'Unnamed Stream',
           streamname: feature.properties.str_name,
           mhfd_code: feature.properties.mhfd_code,
