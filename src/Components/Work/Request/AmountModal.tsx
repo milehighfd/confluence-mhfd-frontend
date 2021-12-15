@@ -18,7 +18,6 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
   const [year2, setYear2] = useState(project.req3);
   const [year3, setYear3] = useState(project.req4);
   const [year4, setYear4] = useState(project.req5);
-  console.log("prOJECT", project);
   const handleOk = (e: any) => {
     saveData({
       projectId,
