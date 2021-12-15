@@ -45,30 +45,27 @@ export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
 }
 
 export const filterByJurisdictionAndCsaSelected = (jurisdictionSelected: string[], csaSelected: string[], jurisdictionFilterList: string[], csaFilterList: string[], p: any) => {
-  if (jurisdictionSelected.length === jurisdictionFilterList.length && 
-    csaSelected.length === csaFilterList.length) {
+  if (jurisdictionSelected.length === jurisdictionFilterList.length && csaSelected.length === csaFilterList.length) { // if all filters are the same show every project
     return true;
   }
-  if (!jurisdictionSelected.includes(p.projectData.sponsor)) {
-    return false;
-  } else {
-    let found = false;
-    if (p.projectData.county) {
-      p.projectData.county.split(',').forEach((county: string) => {
-        if (csaSelected.includes(county)) {
-          found = true;
-        }
-      })
-    }
-    if (p.projectData.servicearea) {
-      p.projectData.servicearea.split(',').forEach((servicearea: string) => {
-        if (csaSelected.includes(servicearea)) {
-          found = true;
-        }
-      })
-    }
-    return found;
+  
+  let found = false;
+  if (p.projectData.county) {
+    p.projectData.county.split(',').forEach((county: string) => {
+      if (csaSelected.includes(county)) {
+        found = true;
+      }
+    })
   }
+  if (p.projectData.jurisdiction) {
+    p.projectData.jurisdiction.split(',').forEach((jurisdiction: string) => {
+      if (jurisdictionSelected.includes(jurisdiction)) {
+        found = true;
+      }
+    })
+  }
+  return found ;
+  
 }
 
 export const defaultColumns: any[] = [
