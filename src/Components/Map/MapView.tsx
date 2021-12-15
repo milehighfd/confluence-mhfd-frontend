@@ -697,28 +697,30 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     return true;
   }).map((item: { aoi: string }) => { return <Option className="list-line" key={item.aoi}>{item.aoi}</Option> });
 
-  const setValueInFiltersProject = (value: any, type: any ) => {
-    const options = { ...filterProjectOptions };
+  const setValueInFilters = (value: any, type: any, filterOptions: any, withSuffix: boolean = false) => {
+    const options = { ...filterOptions };
     options.jurisdiction = '';
     options.county = '';
     options.servicearea = '';
+    if (!withSuffix) {
+      if (value.includes('County')) {
+        let index = value.indexOf('County');
+        if (index !== -1) {
+          value = value.substr(0, index - 1);
+        }
+      }
+      if (value.includes('Service Area')) {
+        let index = value.indexOf('Service Area');
+        if (index !== -1) {
+          value = value.substr(0, index - 1);
+        }
+      }
+    }
     if(type == "Service Area") {
       options.servicearea = value;
     } else if(type) {
       // COUNTY AND SERVICE AREA HAS field = county  field = servicearea  field = jurisdiction 
       options[type.toLowerCase()] = value;
-    }
-    return options;
-  }
-  const setValueInFiltersProblem = (value: any, type: any ) => {
-    const options = { ...filterProblemOptions };
-    options.jurisdiction = '';
-    options.county = '';
-    options.servicearea = '';
-    if(type == "Service Area") {
-      options.servicearea = value;
-    } else if(type) {
-        options[type.toLowerCase()] = value;
     }
     return options;
   }
@@ -741,18 +743,24 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       }
       // / tabactive 0 problems 1 projects 
       if(tabActive === '0') {
-        let options = setValueInFiltersProblem(zone,type);
+        let options = setValueInFilters(zone, type, filterProblemOptions);
         setTimeout(()=>{
           setFilterProblemOptions(options);
           getGalleryProblems();
           getParamFilterProblems(boundsMap, options);
         },1300);
-      } else { 
-        let options = setValueInFiltersProject(zone,type);
+      } else if (tabActive === '1') { 
+        let options = setValueInFilters(zone, type, filterProjectOptions, true);
         setTimeout(()=>{
           setFilterProjectOptions(options);
           getGalleryProjects();
           getParamFilterProjects(boundsMap, options)
+        },1300);
+      } else {
+        let options = setValueInFilters(zone, type, filterComponentOptions);
+        setTimeout(()=>{
+          setFilterComponentOptions(options);
+          getParamFilterComponents(boundsMap, options)
         },1300);
       }
       changeCenter(value, zoomareaSelected[0].coordinates)
