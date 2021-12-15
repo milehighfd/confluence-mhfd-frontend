@@ -742,27 +742,27 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
         zone = 'Broomfield County';
       }
       // / tabactive 0 problems 1 projects 
-      if(tabActive === '0') {
-        let options = setValueInFilters(zone, type, filterProblemOptions);
+      // if(tabActive === '0') {
+        let optionsprob = setValueInFilters(zone, type, filterProblemOptions);
         setTimeout(()=>{
-          setFilterProblemOptions(options);
+          setFilterProblemOptions(optionsprob);
           getGalleryProblems();
-          getParamFilterProblems(boundsMap, options);
+          getParamFilterProblems(boundsMap, optionsprob);
         },1300);
-      } else if (tabActive === '1') { 
-        let options = setValueInFilters(zone, type, filterProjectOptions, true);
+      // } else if (tabActive === '1') { 
+        let optionsproj = setValueInFilters(zone, type, filterProjectOptions, true);
         setTimeout(()=>{
-          setFilterProjectOptions(options);
+          setFilterProjectOptions(optionsproj);
           getGalleryProjects();
-          getParamFilterProjects(boundsMap, options)
+          getParamFilterProjects(boundsMap, optionsproj);
         },1300);
-      } else {
-        let options = setValueInFilters(zone, type, filterComponentOptions);
+      // } else {
+        let optionscomp = setValueInFilters(zone, type, filterComponentOptions);
         setTimeout(()=>{
-          setFilterComponentOptions(options);
-          getParamFilterComponents(boundsMap, options)
+          setFilterComponentOptions(optionscomp);
+          getParamFilterComponents(boundsMap, optionscomp);
         },1300);
-      }
+      // }
       changeCenter(value, zoomareaSelected[0].coordinates)
     }
     setBBOXComponents({ bbox: [], centroids: [] })

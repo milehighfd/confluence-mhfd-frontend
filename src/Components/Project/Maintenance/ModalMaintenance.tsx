@@ -395,11 +395,12 @@ const getTextWidth = (text: any) => {
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder={frequency!=''? frequency   +"": "Select a Frequency"} style={{width:'100%'}} onChange={(frequency)=> apllyFrequency(frequency)}>
+                <div id="freqid"><Select placeholder={frequency!=''? frequency   +"": "Select a Frequency"} style={{width:'100%'}} onChange={(frequency)=> apllyFrequency(frequency)}  getPopupContainer={ () => (document.getElementById("freqid") as HTMLElement)}>
                   {selec.map((element) =>{
                     return <Option key={element} value={element}>{element}</Option>
                   })}
                 </Select>
+                </div>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Access Control <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
@@ -412,11 +413,13 @@ const getTextWidth = (text: any) => {
               <Row gutter={[16, 16]}>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                  <Select placeholder={eligibility!=''? eligibility   +"": "Select a Eligibility"} style={{width:'100%'}} onChange={(eligibilit)=> apllyEligibility(eligibilit)}>
+                  <div id="elegid">
+                  <Select placeholder={eligibility!=''? eligibility   +"": "Select a Eligibility"} style={{width:'100%'}} onChange={(eligibilit)=> apllyEligibility(eligibilit)} getPopupContainer={ () => (document.getElementById("elegid") as HTMLElement)}>
                     {PROJECT_INFORMATION.MAINTENANCE_ELIGIBILITY.map((element) =>{
                       return <Option key={element} value={element}>{element}</Option>
                     })}
                   </Select>
+                  </div>
                 </Col>
               </Row>
             }

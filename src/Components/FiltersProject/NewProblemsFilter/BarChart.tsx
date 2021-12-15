@@ -66,9 +66,11 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
     singleBars
       .attr("x", barXOffset)
       .attr("y", yAccFn)
+      .attr("rx", 4)
+      // .attr("ry", rounded)
       .attr('width', barWidth)
       .attr('height', function (d:any, ) {
-        return height - yCountFn(d);
+        return height - yCountFn(d) - 2;
       })
       .attr('fill', (d:any, i) => {
         if (i === 0) return '#29c499';
@@ -94,15 +96,16 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     newBars
       .attr("x", barXOffset)
+      .attr("rx",4)
       .attr("y", yAccFn)
       .attr('width', barWidth)
       .attr('height', function (d:any, ) {
-        return height - yCountFn(d);
+        return height - yCountFn(d) - 2;
       })
       .attr('fill', (d:any, i) => {
-        if (i === 0) return '#29c499';
-        else if (i === 1) return '#ffdd00';
-        return '#fe687e';
+        if (i === 0) return '#29C499';
+        else if (i === 1) return '#FAC774';
+        return '#FE687E';
       })
       .style("opacity", function(d:any) {
         let index = selectedData.indexOf(d.value);

@@ -349,20 +349,22 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
             <Row gutter={[16, 16]}>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder={progress!=''? progress+"": "Select a Status" }  style={{width:'100%'}} onChange={(progress)=> apllyProgress(progress)}>
+                <div id="progreid"><Select placeholder={progress!=''? progress+"": "Select a Status" }  style={{width:'100%'}} onChange={(progress)=> apllyProgress(progress)} getPopupContainer={ () => (document.getElementById("progreid") as HTMLElement)}>
                  {PROJECT_INFORMATION.PROGRESS.map((element) =>{
                     return <Option key={element} value={element}>{element}</Option>
                   })}
-                </Select>
+                </Select></div>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                 <label className="sub-title">Anticipated Purchase Date <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <Select placeholder={purchaseDate!=''? purchaseDate   +"": "Select a Purchase Date"} style={{width:'100%'}} onChange={(purchaseDate)=> apllyPurchaseDate(purchaseDate)} >
+                <div id="antid">
+                <Select placeholder={purchaseDate!=''? purchaseDate   +"": "Select a Purchase Date"} style={{width:'100%'}} onChange={(purchaseDate)=> apllyPurchaseDate(purchaseDate)} getPopupContainer={ () => (document.getElementById("antid") as HTMLElement)}>
                   {selec.map((element) =>{
                     var newYear = year+element;
                     return <Option key={newYear} value={newYear}>{newYear}</Option>
                   })}
                 </Select>
+                </div>
               </Col>
             </Row>
             <br/>

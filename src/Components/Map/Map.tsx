@@ -1405,7 +1405,6 @@ const Map = ({ leftWidth,
             }
             
             if (!hovereableLayers.includes(key)) {
-                console.log("NOT HOVEREABLE", key);
                 return;
             }
             if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {

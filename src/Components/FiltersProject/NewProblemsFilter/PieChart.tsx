@@ -95,7 +95,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .transition().duration(2000)
       .attr('d', (d: any) => {
         let index = selectedData.indexOf(d.data.key);
-        return index !== -1 ? arc2(d) : arc(d)
+        return index !== -1 ? (type == 'projecttype'?arc2(d):arc(d)) : (type == 'projecttype'?arc(d):arc2(d))
       })
       // .attr('d', (d: any) => arc(d))
 
@@ -166,10 +166,10 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         return color(d.data.key)
       })
       .attr("x", (d: any, i) => {
-        return (i % 2 === 0 ? -radius : 30)
+        return (i % 2 === 0 ? -radius : 33)
       })
       .attr("y", (d: any, i) => {
-        return radius + 30 + Math.floor(i / 2) * 20
+        return radius + 29.5 + Math.floor(i / 2) * 20
       })
       .attr('width', 15)
       .attr('height', 4)
@@ -180,10 +180,10 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         return color(d.data.key)
       })
       .attr("x", (d: any, i) => {
-        return (i % 2 === 0 ? -radius : 30)
+        return (i % 2 === 0 ? -radius : 33)
       })
       .attr("y", (d: any, i) => {
-        return radius + 30 + Math.floor(i / 2) * 20
+        return radius + 29.5 + Math.floor(i / 2) * 20
       })
       .attr('width', 15)
       .attr('height', 4)

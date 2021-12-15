@@ -86,9 +86,9 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 {
                     paramComponents.component_type &&
                     <HorizontalBarChart type={'component_type'} defaultValue={''} axisLabel={axisLabel}
-                        data={paramComponents.component_type} color={'#66d4ff'}
+                        data={paramComponents.component_type} color={'#35BCFF'}
                         selected={filterComponentOptions.component_type}
-                        onSelect={(items: any) => apply(items, 'component_type')} />
+                        onSelect={(items: any) => apply(items, 'component_type')} opacityFull={0.6} opacityOpaque={1}/>
                 }
             </Col>
             <Col span={12}>
@@ -109,9 +109,9 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 {
                     paramComponents.status &&
                     <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
-                        data={paramComponents.status} color={'#261964'}
+                        data={paramComponents.status} color={'#917CD9'}
                         selected={filterComponentOptions.status}
-                        onSelect={(items: any) => apply(items, 'status')} />
+                        onSelect={(items: any) => apply(items, 'status')} opacityFull={0.6} opacityOpaque={1}/>
                 }
             </Col>
             <Col span={12}>
