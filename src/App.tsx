@@ -103,20 +103,15 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       })
   },[history]);
 
+  useEffect(() => {
+    if (!isLatestVersion) {
+      if (confirm("There is a new version available, update?") == true) {
+        emptyCacheStorage();
+      }
+    }
+  }, [isLatestVersion])
+
   return <>{
-    !isLatestVersion ? (
-      <p>
-        <a
-          href="#"
-          onClick={e => {
-            e.preventDefault();
-            emptyCacheStorage();
-          }}
-        >
-          Update version
-        </a>
-      </p>
-    ) :
     <Switch>
     <Suspense fallback={<div>...</div>}>
       <Route path={`/login`} component={LoginContainer} />
