@@ -3014,47 +3014,46 @@ export const tileStyles = {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
-      "text-size": 12,
-      "text-variable-anchor": ["center"],
-      "text-max-angle": 0,
-      "symbol-spacing": 550,
+      "text-size": 13,
+      // "text-variable-anchor": ["center"],
+      // "text-max-angle": 0,
+      // "symbol-spacing": 550,
       "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
       "symbol-placement": "line-center",
       "text-justify": "auto",
       "text-padding": 1,
       "text-rotation-alignment": "map",
-      "text-field": [
-          "coalesce",
-          ["get", "name_en"],
-          ["get", "name"],
-          ["get", "str_name"]
-      ],
-      "text-max-width": 111
+      "text-field": ["case", ["!=", ["to-string", ["get", "str_name"]], ''] , ["to-string", ["get", "str_name"]], "Unnamed Stream" ],
+      "text-max-width": 111,
+      'text-allow-overlap': true,
+      'icon-allow-overlap': true
     },
     "paint": {
-        "text-color": "hsl(0, 0%, 100%)",
-        "text-translate": [10, 0],
+        "text-color": "#dddddd",
+        "text-translate": [16, 0],
         "text-translate-anchor": "viewport"
     }
   }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
-      "text-size": 12,
-      "text-variable-anchor": ["center"],
-      "text-max-angle": 0,
-      "symbol-spacing": 550,
+      "text-size": 13,
+      // "text-variable-anchor": ["center"],
+      // "text-max-angle": 0,
+      // "symbol-spacing": 550,
       "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
       "symbol-placement": "line-center",
       "text-justify": "auto",
       "text-padding": 1,
       "text-rotation-alignment": "map",
-      "text-field": ["to-string", ["get", "str_name"]],
-      "text-max-width": 111
+      "text-field": ["case", ["!=", ["to-string", ["get", "str_name"]], ''] , ["to-string", ["get", "str_name"]], "Unnamed Stream" ],
+      "text-max-width": 111,
+      'text-allow-overlap': true,
+      'icon-allow-overlap': true
     },
     "paint": {
-        "text-color": "hsl(0, 0%, 100%)",
-        "text-translate": [10, 0],
+        "text-color": "#dddddd",
+        "text-translate": [16, 0],
         "text-translate-anchor": "viewport"
     }
   }], 

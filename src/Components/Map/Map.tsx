@@ -1362,7 +1362,10 @@ const Map = ({ leftWidth,
         const styles = { ...tileStyles as any }
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
-                map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+                if(map.getLayer(key + '_highlight_' + index)) { 
+                    map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+                }
+                
             }
         });
     };
@@ -1370,7 +1373,9 @@ const Map = ({ leftWidth,
         const styles = { ...tileStyles as any }
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
-                map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+                if(map.getLayer(key + '_highlight_' + index)) {
+                    map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+                }
             }
         });
     };
@@ -1402,6 +1407,8 @@ const Map = ({ leftWidth,
 
             if(key != 'streams'){
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+            } else { 
+                console.log("STYLE LAYER", key,  style);
             }
             
             if (!hovereableLayers.includes(key)) {
@@ -1423,7 +1430,7 @@ const Map = ({ leftWidth,
                     filter: ['in', 'cartodb_id']
                 });
             }
-            if (style.type === 'circle' || style.type === 'symbol') {
+            if( (style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
                 map.addLayer({
                     id: key + '_highlight_' + index,
                     type: 'circle',
