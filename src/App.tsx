@@ -3,6 +3,7 @@ import './App.scss';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import { useHistory } from 'react-router-dom'
+import { useClearCache } from 'react-clear-cache';
 
 import {initGA} from './index';
 
@@ -34,6 +35,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
              getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
              filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function, getGroupOrganization: Function }) {
+  const { isLatestVersion, emptyCacheStorage } = useClearCache();
   const [ loading, setLoading ] = useState(true);
   useEffect(() => {
     resetAppUser();
@@ -101,7 +103,21 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       })
   },[history]);
 
-  return <Switch>
+  return <>{
+    !isLatestVersion ? (
+      <p>
+        <a
+          href="#"
+          onClick={e => {
+            e.preventDefault();
+            emptyCacheStorage();
+          }}
+        >
+          Update version
+        </a>
+      </p>
+    ) :
+    <Switch>
     <Suspense fallback={<div>...</div>}>
       <Route path={`/login`} component={LoginContainer} />
       <Route path={`/sign-up`} component={SignUpContainer} />
@@ -126,8 +142,8 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       {(loading && <Route path={`/`} component={LoadingView} />)}
       {/* <Route path={`/`} component={Unauthorized} /> */}
     </Suspense>
-  </Switch>
-
+  </Switch>}
+  </>
 }
 
 export default App;
