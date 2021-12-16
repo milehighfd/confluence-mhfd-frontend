@@ -105,7 +105,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
 
   useEffect(() => {
     if (!isLatestVersion) {
-      if (confirm("There is a new version available, update?") == true) {
+      if (window.confirm("There is a new version available, update?") == true) {
         emptyCacheStorage();
       }
     }
