@@ -184,7 +184,7 @@ const Map = ({ leftWidth,
         "features": []
     });
     const [markersNotes, setMarkerNotes] = useState([]) ;
-
+    const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
     const { TabPane } = Tabs;
     const listDescription = false;
     const accordionRow: Array<any> = [
@@ -957,7 +957,7 @@ const Map = ({ leftWidth,
 
         });
         const updateZoom = () => {
-            //console.log('update zoom')
+            
             const zoom = map.getZoom().toFixed(2);
             setZoomValue(zoom);
         }
@@ -986,6 +986,21 @@ const Map = ({ leftWidth,
     useEffect(() => {
         //console.log('my apply filter ', applyFilter, zoomEndCounter);
         const bounds = map.getBounds();
+        if(markerGeocoder) {
+            let lnglat = markerGeocoder.getLngLat();
+            let swInside = true;
+            let neInside = true;
+            if( (lnglat.lat < bounds._sw.lat || lnglat.lng < bounds._sw.lng)){
+                swInside = false;
+            } 
+            if( (lnglat.lat > bounds._ne.lat || lnglat.lng > bounds._ne.lng) ){
+                neInside = false;
+            }
+            if (!(swInside && neInside)) {
+                markerGeocoder.remove();
+                setMarkerGeocoder(undefined);
+            }
+        }
         const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
         setBoundMap(boundingBox);
         let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
@@ -2682,7 +2697,6 @@ const Map = ({ leftWidth,
     };
 
     const onSelect = (value: any) => {
-      console.log("VALUE ON SELECT", value);
         console.log('onSelect:::', value);
         const keyword = value.split('?');
         const coord = keyword[0].split(',');
@@ -2690,6 +2704,12 @@ const Map = ({ leftWidth,
         map.flyTo({ center: coord, zoom: 14.5 });
         const placeName = keyword[1];
         setKeyword(placeName);
+        const newmarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
+        newmarker.setLngLat(coord);
+        newmarker.addTo(map);
+        setMarkerGeocoder(newmarker);
+
+
     };
     //end geocoder
     const flyTo = (longitude: number, latitude: number) => {

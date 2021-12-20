@@ -8,7 +8,9 @@ export const addMapGeocoder = (map : any, geocoderRef : RefObject<HTMLDivElement
     accessToken: mapboxgl.accessToken,
     placeholder: 'Search...',
     bbox: [-109.4424900706, 36.6070426751, -101.6263840793, 41.2535776532],
-    marker: false
+    marker: {
+      color: 'orange'
+      }
   });
 
   if (geocoderRef.current) {

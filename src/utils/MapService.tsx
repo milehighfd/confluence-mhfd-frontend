@@ -109,6 +109,9 @@ export class MapService {
       accessToken: this.token,
       // limit results to Australia
       country: 'us',
+      marker: {
+        color: 'orange'
+        },
       // further limit results to the geographic bounds representing the region of
       // New South Wales
       bbox: [minX, minY, maxX, maxY],
