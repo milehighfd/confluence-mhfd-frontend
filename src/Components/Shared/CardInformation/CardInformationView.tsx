@@ -191,7 +191,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
               }
             </Popover>
             <Popover content={status}>
-              <span style={{ textAlign: 'right', width: '42%', fontSize: '13px' }}>Solved {data.percentage}%</span>
+              <span style={{ textAlign: 'right', width: '42%', fontSize: '13px' }}> {data.percentage}% Solved</span>
             </Popover>
             </div>
           ) : (

@@ -1691,7 +1691,7 @@ const WorkRequestMap = (type: any) => {
         }
       }
     }
-    if (popups.length) {
+    if (popups && popups.length) {
       const html = loadMenuPopupWithData(menuOptions, popups, isEditPopup);
       setMobilePopups(mobile);
       setActiveMobilePopups(mobileIds);
