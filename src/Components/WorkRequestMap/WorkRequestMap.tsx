@@ -86,9 +86,12 @@ const WorkRequestMap = (type: any) => {
   ];
   const [mobilePopups, setMobilePopups] = useState<any>([]);
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
+  const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
   const empty: any[] = [];
   const [allLayers, setAllLayers] = useState(empty);
   const [counterPopup, setCounterPopup] = useState({ componentes: 0 });  
+  const [zoomEndCounter, setZoomEndCounter] = useState(0);
+  const [dragEndCounter, setDragEndCounter] = useState(0);
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -154,6 +157,28 @@ const WorkRequestMap = (type: any) => {
     }
   },[zoomProject]);
   useEffect(() => {
+    if(map && map.map){
+      const bounds = map.getBoundingBox();
+      if(markerGeocoder) {
+          let lnglat = markerGeocoder.getLngLat();
+          let swInside = true;
+          let neInside = true;
+          if( (lnglat.lat < bounds._sw.lat || lnglat.lng < bounds._sw.lng)){
+              swInside = false;
+          } 
+          if( (lnglat.lat > bounds._ne.lat || lnglat.lng > bounds._ne.lng) ){
+              neInside = false;
+          }
+          if (!(swInside && neInside)) {
+              markerGeocoder.remove();
+              setMarkerGeocoder(undefined);
+          }
+      }
+    }
+    
+
+}, [zoomEndCounter, dragEndCounter]);
+  useEffect(() => {
     const waiting = () => {
       html = document.getElementById('map4');
       if (!html) {
@@ -163,6 +188,14 @@ const WorkRequestMap = (type: any) => {
           map = new MapService('map4');
           setLayersSelectedOnInit();
           map.loadImages();
+          let _ = 0;
+          map.zoomEnd(() => {
+            setZoomEndCounter(_++);
+          });
+          let __ = 1;
+          map.dragEnd(()=>{
+            setDragEndCounter(__++);
+          })
         }
       }
     };
@@ -1864,6 +1897,10 @@ const WorkRequestMap = (type: any) => {
     map.map.flyTo({ center: coord, zoom: 14.5 });
     const placeName = keyword[1];
     setKeyword(placeName);
+    const newmarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
+        newmarker.setLngLat(coord);
+        newmarker.addTo(map.map);
+        setMarkerGeocoder(newmarker);
   };
   //end geocoder
   const removePopup = () => {

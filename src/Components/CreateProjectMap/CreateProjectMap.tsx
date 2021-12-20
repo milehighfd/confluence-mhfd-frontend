@@ -110,6 +110,9 @@ const CreateProjectMap = (type: any) => {
   const [allLayers, setAllLayers] = useState(empty);
   const [counterPopup, setCounterPopup] = useState({ componentes: 0 }); 
   const [componentsHover, setComponentsHover] = useState([]);
+  const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
+  const [zoomEndCounter, setZoomEndCounter] = useState(0);
+  const [dragEndCounter, setDragEndCounter] = useState(0);
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -128,6 +131,14 @@ const CreateProjectMap = (type: any) => {
           map = new MapService('map3');
           setLayersSelectedOnInit();
           map.loadImages();
+          let _ = 0;
+          map.zoomEnd(() => {
+            setZoomEndCounter(_++);
+          });
+          let __ = 1;
+          map.dragEnd(()=>{
+            setDragEndCounter(__++);
+          })
         }
       }
     };
@@ -161,6 +172,28 @@ const CreateProjectMap = (type: any) => {
       marker.remove();
     }
   }, []);
+  useEffect(() => {
+    if(map && map.map){
+      const bounds = map.getBoundingBox();
+      if(markerGeocoder) {
+          let lnglat = markerGeocoder.getLngLat();
+          let swInside = true;
+          let neInside = true;
+          if( (lnglat.lat < bounds._sw.lat || lnglat.lng < bounds._sw.lng)){
+              swInside = false;
+          } 
+          if( (lnglat.lat > bounds._ne.lat || lnglat.lng > bounds._ne.lng) ){
+              neInside = false;
+          }
+          if (!(swInside && neInside)) {
+              markerGeocoder.remove();
+              setMarkerGeocoder(undefined);
+          }
+      }
+    }
+    
+
+}, [zoomEndCounter, dragEndCounter]);
   useEffect(()=>{
     if(editLocation && editLocation[0]){
       setTimeout(()=>{
@@ -2396,6 +2429,10 @@ const CreateProjectMap = (type: any) => {
     map.map.flyTo({ center: coord, zoom: 14.5 });
     const placeName = keyword[1];
     setKeyword(placeName);
+    const newmarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
+        newmarker.setLngLat(coord);
+        newmarker.addTo(map.map);
+        setMarkerGeocoder(newmarker);
   };
   //end geocoder
   const removePopup = () => {
