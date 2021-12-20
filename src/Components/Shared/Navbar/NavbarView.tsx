@@ -34,9 +34,9 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     getTimesLogin();
   }, []);
   useEffect(() => {
-    console.log('logged ', timesLogged, user);
+    let currentRef = window.location.href?window.location.href:"none";
     if (timesLogged !== -1 && user.email) {
-      if (timesLogged <= 1 && user.email !== 'guest@mhfd.com') {
+      if (timesLogged <= 1 && user.email !== 'guest@mhfd.com' && currentRef.includes('/map')) {
         setState({...state, visible1: true});
       }
     }
