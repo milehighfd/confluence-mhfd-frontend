@@ -801,6 +801,7 @@
     transition: all 0.4s;
   }
 }
+
 .head-filter{
   background: #f5f7ff;
   height: 50px;
@@ -809,10 +810,10 @@
   margin-right: -20px;
 
   .ant-input-affix-wrapper {
-    width: 200px !important;
+    width: 307px !important;
     color: $purple;
-    height: 38px;
-    border-radius: 4px;
+    height: 35px;
+    border-radius: 2px;
     background-color: $white;
     box-shadow: none;
   }
@@ -820,8 +821,9 @@
     color: $purple;
   }
   .ant-input-affix-wrapper .ant-input {
-    width: 200px;
+    width: 307px;
   }
+  
   .ant-dropdown-link{
     color: $purple00;
     text-align: left;
@@ -832,13 +834,31 @@
   //   color: $green;
   // }
   button{
-    border: none;
-    background-color: transparent;
-    color: $purple00;
+    // border: none;
+    background-color: white;
+    // color: $purple00;
     font-size: 12px;
     box-shadow: none;
     transition: all 0s cubic-bezier(0.645, 0.045, 0.355, 1);
+    color: #251863;
+    height: 35px;
+    border-radius: 2px;
+    background-color: #ffffff;
   }
+  .circle { 
+    background-color: #e0dfe7;
+    height: 18px; width: 18px; 
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-right: -3px;
+  }
+    
+    .innercircle {
+        position: relative;
+        text-align: center;
+        line-height: 0px;
+     
+    }
   button img{
     margin-right: 5px;
     // opacity: 0.5;
@@ -901,6 +921,15 @@
       transform: rotate(180deg);
       transition: width 2s;
       padding: 9px;
+    }
+
+    .rotate-icon{
+      transform: rotate(180deg) translate(0px, 2px) !important;
+      transition: all 0.4s;
+    }
+    .normal-icon{
+      transform: rotate(0deg) !important;
+      transition: all 0.4s;
     }
   }
   .btn-borde{
