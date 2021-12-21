@@ -958,7 +958,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
                   getGalleryProjects();
                 }
               }}
-              style={{ width: 200 }}
+              // style={{ width: 200 }}
             />
           </Col>
           <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
