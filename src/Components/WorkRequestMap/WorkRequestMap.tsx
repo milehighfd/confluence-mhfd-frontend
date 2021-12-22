@@ -20,7 +20,8 @@ import {
   MENU_OPTIONS,
   ROUTINE_MAINTENANCE,
   STREAMS_FILTERS,
-  ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF
+  ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
+  NEARMAP_TOKEN
 } from "../../constants/constants";
 import { MapHOCProps, ProjectTypes, MapLayersType, MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -421,11 +422,15 @@ const WorkRequestMap = (type: any) => {
         //       map.map.removeSource('mask');
         //   }
         // })
+        setTimeout(()=>{
+          applyNearMapLayer();
+        },2000);
+        
       })
       // map.map.on('style.load', () => {
         
       // });
-      
+     
     }
   }, [map])
 
@@ -477,7 +482,47 @@ const WorkRequestMap = (type: any) => {
   const setLayersSelectedOnInit = () => {
     updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS]);
   }
-
+  const applyNearMapLayer = () => {
+    console.log("MAP",map.map.getStyle());
+    if (!map.getSource('raster-tiles')) {
+        map.map.addSource('raster-tiles', {
+            'type': 'raster',
+            'tiles': [
+                `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`
+                    // 'https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=MLY|4142433049200173|72206abe5035850d6743b23a49c41333'
+                ]
+        });
+        map.map.addLayer(
+            {
+                'id': 'simple-tiles',
+                'type': 'raster',
+                'source': 'raster-tiles',
+                'minzoom': 12,
+                'maxzoom': 22,
+                'paint': {
+                    'raster-fade-duration': 300,
+                    'raster-opacity':[
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        0,
+                        0,
+                        13,
+                        0,
+                        14,
+                        0.66,
+                        15,
+                        0.77,
+                        22,
+                        1
+                      ]
+                }
+            },
+            'aerialway' // Arrange our new layer beneath this layer,
+            
+        );
+    }
+}
   const applyMapLayers = async () => {
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
