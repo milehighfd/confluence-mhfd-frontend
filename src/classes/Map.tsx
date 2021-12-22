@@ -31,7 +31,7 @@ export class MapService {
   public user = 'vizonomy';
   public style = 'cjge6kg6s000i2sox4zl3i1ur';
   public styleSatellite = 'cjge6lf7w000v2spxkflkhlau';
-  public styleUrl = 'mapbox://styles/milehighfd/ckd9o19kq0e9x1ipdm8zdq98m';
+  public styleUrl = 'mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw';
   public styleUrlSatelite = 'mapbox://styles/milehighfd/ck4jfj4yy5abd1cqw90v1dlft';
   controller: boolean = false;
   constructor() {

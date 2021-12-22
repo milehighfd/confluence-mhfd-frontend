@@ -81,6 +81,7 @@ const { Panel } = Collapse;
 const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
 let contents: any = [];
+const apiNearMap = 'NzA3ZjlkODYtMTNiMC00Y2E3LWE1MzAtYzU3NWUzMmJjMGUw';
 let canAdd = false;
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
@@ -957,7 +958,7 @@ const Map = ({ leftWidth,
 
         });
         const updateZoom = () => {
-            
+            // console.log(map.getStyle());
             const zoom = map.getZoom().toFixed(2);
             setZoomValue(zoom);
         }
@@ -1060,6 +1061,7 @@ const Map = ({ leftWidth,
                     applyMapLayers();
                     setSpinValue(false);
                     setSpinMapLoaded(false);
+                    applyNearMapLayer();
                 }
             };
             waiting();
@@ -1176,7 +1178,46 @@ const Map = ({ leftWidth,
         }
     }
 
-
+    const applyNearMapLayer = () => {
+        if (!map.getSource('raster-tiles')) {
+            map.addSource('raster-tiles', {
+                'type': 'raster',
+                'tiles': [
+                    `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${apiNearMap}`
+                        // 'https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=MLY|4142433049200173|72206abe5035850d6743b23a49c41333'
+                    ]
+            });
+            map.addLayer(
+                {
+                    'id': 'simple-tiles',
+                    'type': 'raster',
+                    'source': 'raster-tiles',
+                    'minzoom': 12,
+                    'maxzoom': 22,
+                    'paint': {
+                        'raster-fade-duration': 300,
+                        'raster-opacity':[
+                            "interpolate",
+                            ["linear"],
+                            ["zoom"],
+                            0,
+                            0,
+                            13,
+                            0,
+                            14,
+                            0.66,
+                            15,
+                            0.77,
+                            22,
+                            1
+                          ]
+                    }
+                },
+                'aerialway' // Arrange our new layer beneath this layer,
+                
+            );
+        }
+    }
     const applyMapLayers = async () => {
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
