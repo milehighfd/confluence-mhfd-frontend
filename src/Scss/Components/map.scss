@@ -805,25 +805,28 @@
 // 1440x900
 
 @media (min-width: 1200px) and (max-width: 1442px){ 
-  .ant-input-affix-wrapper .ant-input{
+  .ant-input-search .ant-input{
     width: 200px !important;
   }
-  .head-filter .ant-input-affix-wrapper {
+  .head-filter .ant-input-search {
     width: 200px !important;
   }
 }
 // 1080x900
 @media (min-width: 1000px) and (max-width: 1085px){ 
-  .ant-input-affix-wrapper .ant-input{
-    width: 200px !important;
+  .ant-input-search .ant-input{
+    width: 190px !important;
   }
-  .head-filter .ant-input-affix-wrapper {
-    width: 200px !important;
+  .head-filter .ant-input-search {
+    width: 190px !important;
   }
 }
 // 2560x1440
 @media (min-width: 2500px) and (max-width: 2799px){ 
-  .ant-input-affix-wrapper .ant-input{
+  .ant-input-search .ant-input{
+    width: 307px !important;
+  }
+  .head-filter .ant-input-search {
     width: 307px !important;
   }
 }
