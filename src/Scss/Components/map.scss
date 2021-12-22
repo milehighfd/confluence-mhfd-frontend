@@ -805,7 +805,7 @@
 // 1440x900
 
 @media (min-width: 1200px) and (max-width: 1442px){ 
-  .ant-input-search .ant-input{
+  .head-filter .ant-input-search .ant-input{
     width: 200px !important;
   }
   .head-filter .ant-input-search {
@@ -814,7 +814,7 @@
 }
 // 1080x900
 @media (min-width: 1000px) and (max-width: 1085px){ 
-  .ant-input-search .ant-input{
+  .head-filter .ant-input-search .ant-input{
     width: 190px !important;
   }
   .head-filter .ant-input-search {
@@ -823,7 +823,7 @@
 }
 // 2560x1440
 @media (min-width: 2500px) and (max-width: 2799px){ 
-  .ant-input-search .ant-input{
+  .head-filter .ant-input-search .ant-input{
     width: 307px !important;
   }
   .head-filter .ant-input-search {
@@ -876,7 +876,7 @@
     background-color: #ffffff;
   }
   .circle { 
-    background-color: #e0dfe7;
+    background-color: #e0dfe7 !important;
     height: 18px; width: 18px; 
     border-radius: 50%;
     margin-left: 5px;
@@ -1200,7 +1200,7 @@
   }
   .ant-popover-inner-content{
     padding: 0px;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
   }
   .head{
     background: $opacity00;

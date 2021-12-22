@@ -680,7 +680,9 @@ export const getComponentsByProblemId = (data: any) => {
 export const getProblemCounter = (bounds: string, options: any) => {
     return (dispatch: Function) => {
         datasets.postData(SERVER.COUNTER_PROBLEMS + '?bounds=' + bounds, options).then(params => {
-            dispatch({type: types.SET_COUNTER_TAB, key: 'problems', total: params.total})
+            if(params) {
+                dispatch({type: types.SET_COUNTER_TAB, key: 'problems', total: params.total})
+            }
         })
     }
 }
@@ -696,7 +698,9 @@ export const getProjectCounter = (bounds: string, options: any) => {
 export const getComponentsCounter = (bounds: string, options: any) => {
     return (dispatch: Function) => {
         datasets.postData(SERVER.COUNTER_COMPONENTS + '?bounds=' + bounds, options).then(params => {
-            dispatch({type: types.SET_COUNTER_TAB, key: 'components', total: params.total})
+            if(params) {
+                dispatch({type: types.SET_COUNTER_TAB, key: 'components', total: params.total})
+            }
         })
     }
 }

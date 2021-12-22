@@ -58,6 +58,9 @@
   width: auto !important;
   padding-right: 6px !important;
 }
+.btn-filter:hover {
+  border-color: $green !important;
+}
 // RED BUTTON
 .btn-red, .btn-red:hover {
   border: none !important;

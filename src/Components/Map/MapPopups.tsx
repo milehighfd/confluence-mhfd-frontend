@@ -75,7 +75,7 @@ export const MainPopup = ({id, item, test, sw, ep } : any) => {
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={item.type === 'problems' ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>
-            <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? (item.status + " Solved" ) : capitalize(item.status)}</span>
+            <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ? (item.status == '-'?'0%':item.status + " Solved" ) : capitalize(item.status)}</span>
           </div>
         </div>
         { !ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
@@ -134,7 +134,7 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={item.type === 'problems' ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>
-            <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ?  (item.status + " Solved" ) : capitalize(item.status)}</span>
+            <span style={{color: item.type !=='problems' ? '#11093c' : '', opacity: item.type  !== 'problems' ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === 'problems' ?  (item.status == '-'?'0%':item.status + " Solved" ) : capitalize(item.status)}</span>
           </div>
         </div>
         { !ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
