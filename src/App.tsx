@@ -60,7 +60,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
     })
   }, []);
 useEffect(()=>{
-  if(groupOrganization.length) {
+  if(groupOrganization.length>1) {
     setLoading(false);
   }
 },[groupOrganization]); 
@@ -97,9 +97,9 @@ useEffect(()=>{
             replaceAppUser(res);
             getUserInformation();
           }
-          // setTimeout(()=>{
-          //   setLoading(false);
-          // },2000);
+          setTimeout(()=>{
+            if(groupOrganization.length){setLoading(false);}
+          },5000);
           
       });
     }
