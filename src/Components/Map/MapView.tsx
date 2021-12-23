@@ -689,7 +689,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       }
     }
   }
-
   const dataAutocomplete = groupOrganization.filter(function (item: any) {
     if (item.aoi === undefined) {
       return false;

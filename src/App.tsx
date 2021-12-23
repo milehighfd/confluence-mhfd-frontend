@@ -30,11 +30,11 @@ const UserContainer = lazy(()=> import('./Components/User/UserContainer'));
 const UploadAttachmentContainer = lazy(()=> import('./Components/UploadAttachment/UploadAttachmentContainer'));
 const DetailedContainer = lazy(()=> import('./Components/DetailedProblem/DetailedContainer'));
 
-
-function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, replaceFilterCoordinates, getGroupOrganization }
+let counter = 0 ;
+function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, replaceFilterCoordinates, getGroupOrganization, groupOrganization }
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
              getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
-             filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function, getGroupOrganization: Function }) {
+             filterProblemOptions: any, filterProjectOptions: any, filterComponentOptions: any, replaceFilterCoordinates: Function, getGroupOrganization: Function, groupOrganization: any }) {
   const { isLatestVersion, emptyCacheStorage } = useClearCache();
   const [ loading, setLoading ] = useState(true);
   useEffect(() => {
@@ -46,6 +46,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
     getCarouselImages();
   }, [getCarouselImages]);
   useEffect(() => { initGA(); }, []);
+  
   useEffect(() => {
     getGroupOrganization();
     SELECT_ALL_FILTERS.forEach((layer) => {
@@ -58,6 +59,12 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
       }
     })
   }, []);
+useEffect(()=>{
+  if(groupOrganization.length) {
+    setLoading(false);
+  }
+},[groupOrganization]); 
+
   useEffect(() => {
     if(datasets.getToken() && appUser.email === '') {
       datasets.getData(SERVER.ME, datasets.getToken()).then( async res => {
@@ -90,7 +97,10 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
             replaceAppUser(res);
             getUserInformation();
           }
-          setLoading(false);
+          // setTimeout(()=>{
+          //   setLoading(false);
+          // },2000);
+          
       });
     }
   }, []);

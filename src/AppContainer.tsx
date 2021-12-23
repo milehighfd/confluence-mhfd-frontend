@@ -12,7 +12,8 @@ const mapStateToProps = (state: any) => {
     appUser: state.appUser,
     filterProblemOptions: state.map.filterProblemOptions,
     filterProjectOptions: state.map.filterProjectOptions,
-    filterComponentOptions: state.map.filterComponentOptions
+    filterComponentOptions: state.map.filterComponentOptions,
+    groupOrganization: state.profile.groupOrganization
   };
 };
 
