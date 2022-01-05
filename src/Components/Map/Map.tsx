@@ -1184,7 +1184,7 @@ const Map = ({ leftWidth,
             map.addSource('raster-tiles', {
                 'type': 'raster',
                 'tiles': [
-                    `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${apiNearMap}since=2020-01-01`
+                    `https://api.nearmap.com/tiles/v3/Vert/{z${+6}}/{x}/{y}.png?apikey=${apiNearMap}since=2020-06-01`
                         // 'https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=MLY|4142433049200173|72206abe5035850d6743b23a49c41333'
                     ]
             });
