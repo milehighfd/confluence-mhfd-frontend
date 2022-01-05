@@ -93,7 +93,7 @@ const initState = {
     layers: {} as any,
     longitude: 0,
     latitude: 0,
-    selectedLayers: [PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS],
+    selectedLayers: [STREAMS_FILTERS, PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS],
     galleryProblems: [],
     galleryProjects: [],
     filterProblemOptions: {

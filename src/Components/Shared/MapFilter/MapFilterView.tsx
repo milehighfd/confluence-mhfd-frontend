@@ -58,6 +58,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
   // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
   const [switches, setSwitches] = useState({
     [PROBLEMS_TRIGGER]: true,
+    [STREAMS_FILTERS]: true,
     [PROJECTS_MAP_STYLES.name]: true,
     [COMPONENT_LAYERS.name]: false,
     [MEP_PROJECTS.name]: false,
@@ -77,6 +78,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     [CLIMB_TO_SAFETY]: false,
     [SEMSWA_SERVICE_AREA]: false
   });
+
   // if(isWR) {
   //   setSwitches({...switches,...{[BORDER]:false, [AREA_BASED_MASK]:false}})
   // }
@@ -124,7 +126,7 @@ export const SEMSWA_SERVICE_AREA =
       } else {
         newGroups['MHFDData'] = false;
       }
-    if ( switches[WATERSHED_FILTERS] && switches[NRCS_SOILS]) {
+    if ( switches[WATERSHED_FILTERS] && switches[NRCS_SOILS] && switches[STREAMS_FILTERS]) {
       newGroups['hydrologic'] = true;
     } else {
       newGroups['hydrologic'] = false;
@@ -236,7 +238,7 @@ export const SEMSWA_SERVICE_AREA =
          <div key={Math.random()} style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS]) ? weightStyle : emptyStyle }>{/*<img key={Math.random()} src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
         <Switch key={Math.random()} checked={groups['hydrologic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
-         changeGroup(value, [WATERSHED_FILTERS, NRCS_SOILS
+         changeGroup(value, [STREAMS_FILTERS, WATERSHED_FILTERS, NRCS_SOILS
          ], 'hydrologic')}
        }/>
       </div>
@@ -428,6 +430,14 @@ export const SEMSWA_SERVICE_AREA =
             </p> {/* <Checkbox value={ROUTINE_MAINTENANCE}></Checkbox>*/}
           </Panel>
           <Panel header="" key="2" extra={genExtra01()}>
+            <p>
+              <img key={Math.random()} src="/Icons/Filters/ic_streams.png" width="18px" alt="" />
+                  Streams
+                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.watershed)}>
+                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch key={Math.random()} checked={switches[STREAMS_FILTERS]} size="small" onClick={(value) => onChange(value, STREAMS_FILTERS)} />
+            </p>
             <p>
               <img key={Math.random()} src="/Icons/Filters/ic_watersheds.png" width="18px" alt="" />
                   Watersheds
