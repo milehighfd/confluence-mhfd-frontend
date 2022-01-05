@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, Icon, InputNumber, notification } from 'antd';
+import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, Icon, InputNumber, notification, Popover } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
@@ -43,7 +43,14 @@ const openNotification = () => {
   });
 };
 const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-
+// important note tabkeys order must be fits with popovers messages, take care about the order!
+const popovers: any = [
+  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
+  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
+  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
+  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
+  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+]
 const RequestView = ({ type, isFirstRendering }: {
   type: boardType,
   isFirstRendering: boolean
@@ -819,7 +826,7 @@ const RequestView = ({ type, isFirstRendering }: {
                  onChange={(key) => setTabKey(key)} className="tabs-map">
                   {
                     displayedTabKey.map((tk: string) => (
-                      <TabPane tab={tk} key={tk}>
+                      <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
                         <div className="work-table" ref={wrtRef}>
                           {
                             columns.map((column, columnIdx) => (
