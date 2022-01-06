@@ -3013,48 +3013,47 @@ export const tileStyles = {
   }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
+    "source": "composite",
+    "minzoom": 11,
     "layout": {
-      "text-size": 13,
-      // "text-variable-anchor": ["center"],
-      // "text-max-angle": 0,
-      // "symbol-spacing": 550,
-      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
-      "symbol-placement": "line-center",
-      "text-justify": "auto",
-      "text-padding": 1,
-      "text-rotation-alignment": "map",
-      "text-field": ["case", ["!=", ["to-string", ["get", "str_name"]], ''] , ["to-string", ["get", "str_name"]], "Unnamed Stream" ],
-      "text-max-width": 111,
-      'text-allow-overlap': true,
-      'icon-allow-overlap': true
+        "text-field": [
+            "case",
+            [">", ["get", "catch_sum"], 100000],
+            ["to-string", ["get", "str_name"]],
+            ["to-string", ""]
+        ],
+        "symbol-placement": "line",
+        "text-letter-spacing": 0.02,
+        "text-allow-overlap": true,
+        "text-ignore-placement": true
     },
     "paint": {
-        "text-color": "#dddddd",
-        "text-translate": [16, 0],
-        "text-translate-anchor": "viewport"
+        "text-color": "hsl(0, 3%, 100%)",
+        "text-halo-color": "#474a71",
+        "text-halo-width": 1.5,
+        "text-opacity": ["step", ["zoom"], 0, 10, 1]
     }
   }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
+    "source": "composite",
+    "minzoom": 11,
     "layout": {
-      "text-size": 13,
-      // "text-variable-anchor": ["center"],
-      // "text-max-angle": 0,
-      // "symbol-spacing": 550,
-      "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
-      "symbol-placement": "line-center",
-      "text-justify": "auto",
-      "text-padding": 1,
-      "text-rotation-alignment": "map",
-      "text-field": ["case", ["!=", ["to-string", ["get", "str_name"]], ''] , ["to-string", ["get", "str_name"]], "Unnamed Stream" ],
-      "text-max-width": 111,
-      'text-allow-overlap': true,
-      'icon-allow-overlap': true
+        "text-size": 12,
+        "text-field": [
+            "case",
+            ["<=", ["get", "catch_sum"], 100000],
+            ["to-string", ["get", "str_name"]],
+            ""
+        ],
+        "symbol-avoid-edges": true,
+        "symbol-placement": "line"
     },
     "paint": {
-        "text-color": "#dddddd",
-        "text-translate": [16, 0],
-        "text-translate-anchor": "viewport"
+        "text-color": "hsl(0, 3%, 100%)",
+        "text-halo-color": "#474a71",
+        "text-halo-width": 1,
+        "text-opacity": ["step", ["zoom"], 0, 13, 1]
     }
   }], 
   [MHFD_STREAMS_FILTERS]: [{
