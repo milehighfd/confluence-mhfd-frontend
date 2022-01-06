@@ -36,6 +36,9 @@ export class Project {
     jurisdiction: any;
     cover: any;
     estimatedcost?: any;
+    reason: string;
+    subreason: string;
+    otherreason: string; 
     constructor() {
         this.year = '2022';
         this.projectname = "special";
@@ -63,5 +66,8 @@ export class Project {
         this.ids = [];
         this.streams = [];
         this.estimatedcost = 0;
+        this.reason = "";
+        this.subreason = "";
+        this.otherreason = ""; 
     }
 }

@@ -9,7 +9,7 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { Project } from "../../../Classes/Project";
-import { JURISDICTION } from "../../../constants/constants";
+import { JURISDICTION, NEW_PROJECT_TYPES } from "../../../constants/constants";
 import {
   PROBLEMS_TRIGGER,
   XSTREAMS,
@@ -89,6 +89,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
+  const [reason, setReason] = useState();
+  const [subReason, setSubReason] = useState();
+  const [otherReason, setOtherReason] = useState();
   const history = useHistory();
   useEffect(()=>{
     setServiceAreaCounty({});
@@ -168,6 +171,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
       setSponsor(data.sponsor);
+      setSponsor(data.reason);
+      setSponsor(data.subreason);
+      setSponsor(data.otherreason);
     }
   },[data]);
   useEffect(()=>{
@@ -221,6 +227,9 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.locality = locality? locality:'';
       study.editProject = editprojectid;
       study.cover = cover;
+      study.reason = reason? reason :'';
+      study.subreason = subReason || '';
+      study.otherreason = otherReason || '';
       let newStreamsArray: any = [];
       for(let str in listStreams) {
         newStreamsArray = [...newStreamsArray, ...listStreams[str]];
@@ -437,8 +446,15 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
 
             {/*First Section*/}
             <ProjectInformation
+              type = {NEW_PROJECT_TYPES.Study}
               description = {description}
               setDescription = {setDescription}
+              reason = {reason}
+              setReason = {setReason}
+              subReason = {subReason}
+              setSubReason = {setSubReason}
+              otherReason = {otherReason}
+              setOtherReason = {setOtherReason}
             />
             <br/>
 
