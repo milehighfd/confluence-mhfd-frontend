@@ -126,6 +126,9 @@
     .ant-input{
       border: solid 1px $opacity04;
     }
+    .ant-select-selection-selected-value {
+      max-width: 97%;
+    }
     .ant-select-selection{
       text-align: left;
       width: 100%;
