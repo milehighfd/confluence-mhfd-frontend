@@ -1837,6 +1837,18 @@ export const PROJECT_INFORMATION ={
   ]
 }
 
+export const STUDY_REASON = [
+  'Not previously studied',
+  'Flood hazard mapping is outdated',
+  'Master plan recommendations are outdated',
+  'Other'
+]
+export const STUDY_SUB_REASON = [
+  'Changed watershed conditions (land-use, topo, regional detention, etc.)',
+  'Not aligned with current stream management practices',
+  'New opportunity available'
+]
+
 
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11
