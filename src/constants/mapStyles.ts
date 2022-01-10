@@ -3013,7 +3013,6 @@ export const tileStyles = {
   }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
-    "source": "composite",
     "minzoom": 11,
     "layout": {
         "text-field": [
@@ -3036,7 +3035,6 @@ export const tileStyles = {
   }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
-    "source": "composite",
     "minzoom": 11,
     "layout": {
         "text-size": 12,
