@@ -201,10 +201,18 @@ const RequestView = ({ type, isFirstRendering }: {
       setLocalityType(l.type);
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
-        if (l.type === 'COUNTY') {
-          displayedTabKey = ['Capital', 'Maintenance']
-        } else if (l.type === 'SERVICE_AREA') {
-          displayedTabKey = ['Study', 'Acquisition', 'Special'];
+        if (year < 2022) {
+          if (l.type === 'COUNTY') {
+            displayedTabKey = ['Capital', 'Maintenance']
+          } else if (l.type === 'SERVICE_AREA') {
+            displayedTabKey = ['Study', 'Acquisition', 'Special'];
+          }
+        } else {
+          if (l.type === 'COUNTY') {
+            displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'Special']
+          } else if (l.type === 'SERVICE_AREA') {
+            displayedTabKey = ['Study'];
+          }
         }
         if (l.name === 'MHFD District Work Plan') {
           displayedTabKey = tabKeys;
