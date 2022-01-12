@@ -27,27 +27,27 @@
     font-weight: bold;
   }
   .btn-opacity{
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     padding: 0px;
-    font-size: 16px;
+    font-size: 19px;
     position: relative;
-    top: -2px;
+    top: -3px;
     right: -30px;
-    margin-bottom: -3px;
+    margin-bottom: -7px;
   }
-  .button-active, .btn-opacity:active, .btn-opacity.active, .btn-opacity:hover, .btn-opacity:focus,  {
+  .button-active, .btn-opacity:active, .btn-opacity.active, .btn-opacity:hover, .btn-opacity:focus {
     color: $white !important;
     background-color: $purple !important;
     border-color: $purple !important;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     padding: 0px;
-    font-size: 16px;
+    font-size: 19px;
     position: relative;
-    top: -2px;
+    top: -3px;
     right: -30px;
-    margin-bottom: -3px;
+    margin-bottom: -7px;
   }
 }
 .popover-note{
@@ -249,9 +249,9 @@
     .btn-opacity:active {
       width: 30px;
       height: 30px;
-      font-size: 21px;
+      font-size: 19px;
       top: -3px;
-      right: -40px;
+      right: -30px;
       margin-bottom: -7px;
       line-height: 30px;
     }
@@ -376,13 +376,13 @@
     .btn-opacity, .btn-opacity:hover,
     .btn-opacity:focus, .btn-opacity.active,
     .btn-opacity:active {
-      width: 40px;
-      height: 40px;
-      font-size: 28px;
+      width: 30px;
+      height: 30px;
+      font-size: 19px;
       top: -3px;
-      right: -70px;
+      right: -30px;
       margin-bottom: -7px;
-      line-height: 40px;
+      line-height: 30px;
     }
   }
   .popover-note{
