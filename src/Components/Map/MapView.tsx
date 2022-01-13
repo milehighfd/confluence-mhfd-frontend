@@ -689,7 +689,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       }
     }
   }
-
   const dataAutocomplete = groupOrganization.filter(function (item: any) {
     if (item.aoi === undefined) {
       return false;
@@ -743,24 +742,24 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       }
       // / tabactive 0 problems 1 projects 
       if(tabActive === '0') {
-        let options = setValueInFilters(zone, type, filterProblemOptions);
+        let optionsprob = setValueInFilters(zone, type, filterProblemOptions);
         setTimeout(()=>{
-          setFilterProblemOptions(options);
+          setFilterProblemOptions(optionsprob);
           getGalleryProblems();
-          getParamFilterProblems(boundsMap, options);
+          getParamFilterProblems(boundsMap, optionsprob);
         },1300);
       } else if (tabActive === '1') { 
-        let options = setValueInFilters(zone, type, filterProjectOptions, true);
+        let optionsproj = setValueInFilters(zone, type, filterProjectOptions, true);
         setTimeout(()=>{
-          setFilterProjectOptions(options);
+          setFilterProjectOptions(optionsproj);
           getGalleryProjects();
-          getParamFilterProjects(boundsMap, options)
+          getParamFilterProjects(boundsMap, optionsproj);
         },1300);
       } else {
-        let options = setValueInFilters(zone, type, filterComponentOptions);
+        let optionscomp = setValueInFilters(zone, type, filterComponentOptions);
         setTimeout(()=>{
-          setFilterComponentOptions(options);
-          getParamFilterComponents(boundsMap, options)
+          setFilterComponentOptions(optionscomp);
+          getParamFilterComponents(boundsMap, optionscomp);
         },1300);
       }
       changeCenter(value, zoomareaSelected[0].coordinates)
@@ -878,8 +877,8 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       filterCounter = countFilterComponents;
       break;
   }
-  let filterLabel = `Filters (${filterCounter})`;
-
+  // let filterLabel = `Filters (${filterCounter})`;
+  let filterLabel = `Filters `;
   return <>
   <div className="fr-area">Explore Confluence</div>
     <div className="mhfd-mobile">
@@ -939,7 +938,8 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
         <Row type="flex" justify="space-around" align="middle">
           <Col span={11}>
             <Search
-              placeholder="Search..."
+              className="searchfilter"
+              placeholder="Search"
               value={tabActive === '0' ? keywordProblem : keywordProject}
               onChange={(e) => {
                 if (tabActive === '0') {
@@ -958,31 +958,43 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
                   getGalleryProjects();
                 }
               }}
-              style={{ width: 200 }}
+              // style={{ width: 200 }}
             />
           </Col>
           <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
             <Button className="btn-red" onClick={onResetClick}><u>Reset</u></Button>
             <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()}>
-              <Button onClick={handleToggle} >
-                <img style={{ background: backgroundStyle }} className="img-filter" alt="" />
-                <span style={{ color: textStyle }}> {filterLabel} </span>
+              <Button onClick={handleToggle} style={{ marginLeft:'22px', marginRight:'9px'}} className="btn-filter">
+                {/* <img style={{ background: backgroundStyle }} className="img-filter" alt="" /> */}
+                <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> {filterLabel} </span>
+                <span className="circle">
+                  <span className="innercircle">
+                    {filterCounter}
+                  </span>
+                </span>
               </Button>
             </Popover>
             <div className="sort-content">
-              <span className="sort-buttons" style={{ transitionTimingFunction: 'ease-in' }} onClick={sortClick}>
+              <span className="button" style={{ transitionTimingFunction: 'ease-in' }} onClick={sortClick}>
                 {filterProjectOptions.order === 'asc' ? <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-83.svg') no-repeat center" }} /> : <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-86.svg') no-repeat center" }} />}
 
               </span>
+              {/* <Button onClick={sortClick} style={{ marginLeft:'15px', marginRight:'15px'}}>
+                <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> Sort By</span>
+              </Button> */}
               <Dropdown trigger={['hover']}
                 overlay={tabActive === '0' ?
                   menuSort(SORTED_PROBLEMS) :
                   menuSort(SORTED_PROJECTS)}
                 getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
-                <span className="ant-dropdown-link" style={{ cursor: 'pointer' }} onClick={sortClick}>
+                {/* <span className="ant-dropdown-link" style={{ cursor: 'pointer' }} onClick={sortClick}>
                   Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
                     SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
-                </span>
+                </span> */}
+                <Button onClick={sortClick} style={{ marginLeft:'15px', marginRight:'15px'}} className="btn-filter">
+                  <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> Sort By</span>
+                  <Icon type="down" className={'certain-category-icon ' + (filterProjectOptions.order !== 'asc' ? 'rotate-icon': 'normal-icon')} />
+                </Button>
               </Dropdown>
             </div>
           </Col>
