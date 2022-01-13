@@ -214,12 +214,18 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.bmptype ? <p><i> BMP Type:</i> {item.bmptype}</p> : ''}
 
             {item.str_name ? <p><i>Stream Name:</i> {item.str_name}</p> : ''}
-
+            
+            {item.pondname? <p><i>Pond Name:</i>  {item.pondname}</p> : ''}
             {item.projectno ? <p><i>Project Number:</i>  {item.projectno}</p> : ''}
-            {item.mepstatus ? <p><i>MEP Status:</i>  {item.mepstatus}</p> : ''}
+            {/* {item.projno ? <p><i>Project Number:</i>  {item.projno}</p> : ''} */}
+            {item.mep_eligibilitystatus ? <p><i>MEP Status:</i>  {item.mep_eligibilitystatus}</p> : ''}
+            
+            
             {item.mepstatusdate ? <p><i>MEP Status Date:</i>  {item.mepstatusdate}</p> : ''}
             {item.notes ? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
+            {item.mep_summarynotes ? <p><i>Notes/Comments:</i>  {item.mep_summarynotes}</p> : ''}
             {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
+            {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
             {item.watershedmanager ? <p><i>Watershed Manager:</i>  {item.watershedmanager}</p> : ''}
             {item.constructionmanagers ? <p><i>Construction Managers:</i>  {item.constructionmanagers}</p> : ''}
             {isComponent && item.projectid === undefined && <Button id={"buttonCreate-" + id} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
@@ -280,12 +286,16 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
           {item.bmptype ? <p><i> BMP Type:</i> {item.bmptype}</p> : ''}
 
           {item.str_name ? <p><i>Stream Name:</i> {item.str_name}</p> : ''}
-
+          {item.pondname? <p><i>Pond Name:</i>  {item.pondname}</p> : ''}
           {item.projectno ? <p><i>Project Number:</i>  {item.projectno}</p> : ''}
+          {item.mep_eligibilitystatus ? <p><i>MEP Status:</i>  {item.mep_eligibilitystatus}</p> : ''}
           {item.mepstatus ? <p><i>MEP Status:</i>  {item.mepstatus}</p> : ''}
           {item.mepstatusdate ? <p><i>MEP Status Date:</i>  {item.mepstatusdate}</p> : ''}
+          
           {item.notes ? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
+          {item.mep_summarynotes ? <p><i>Notes/Comments:</i>  {item.mep_summarynotes}</p> : ''}
           {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
+          {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
           {item.watershedmanager ? <p><i>Watershed Manager:</i>  {item.watershedmanager}</p> : ''}
           {item.constructionmanagers ? <p><i>Construction Managers:</i>  {item.constructionmanagers}</p> : ''}
           {isComponent && !isWR && item.projectid === undefined && <Button id={'component-'+id}  style={{ width: '100%', marginTop: '10px'}} className="btn-purple" >{item.added}</Button>}

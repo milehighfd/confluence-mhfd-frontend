@@ -130,9 +130,9 @@ export const SERVICE_AREA_LAYERS = {
 };
 /* Mep Projects */
 export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
-export const MEP_PROJECTS_DETENTION_BASINS = 'mep_projects_detention_basins';
-export const MEP_PROJECTS_CHANNELS = 'mep_projects_channels';
-export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_projects_storm_outfalls';
+export const MEP_PROJECTS_DETENTION_BASINS =  'mep_detentionbasins';//'mep_projects_detention_basins';
+export const MEP_PROJECTS_CHANNELS = 'mep_channels'; //'mep_projects_channels';
+export const MEP_PROJECTS_STORM_OUTFALLS =  'mep_outfalls'; // 'mep_projects_storm_outfalls';
 
 export const MEP_PROJECTS = {
   name: 'mep_projects',

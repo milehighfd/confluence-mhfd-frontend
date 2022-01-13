@@ -1648,7 +1648,25 @@ const CreateProjectMap = (type: any) => {
   const eventMove = (e:any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
-  
+  const getDateMep = (mep_eligibilitystatus: any, props: any) => {
+    if(!mep_eligibilitystatus) return undefined;
+    let finalDate = new Date(0);
+    if( mep_eligibilitystatus == 'Design Approval') {
+        finalDate.setUTCMilliseconds(props.mep_date_designapproval);
+    } else if( mep_eligibilitystatus == 'Construction Approval') {
+        finalDate.setUTCMilliseconds(props.mep_date_constructionapproval);
+    } else if( mep_eligibilitystatus == 'Final Acceptance') {
+        finalDate.setUTCMilliseconds(props.mep_date_finalacceptance);
+    } else if( mep_eligibilitystatus == 'Ineligible') {
+        finalDate.setUTCMilliseconds(props.mep_date_ineligible);
+    }
+    let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() : ('0' + finalDate.getDate())) + '/' + finalDate.getFullYear();
+    if(stringDate.includes('NaN')) {
+      return '-'
+    } else {
+      return stringDate;
+    }
+  }
   useEffect(()=>{
     let buttonElement = document.getElementById('popup');
       if (buttonElement != null) {
@@ -1859,62 +1877,71 @@ const CreateProjectMap = (type: any) => {
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
-        if (feature.source === 'mep_projects_detention_basins') {
+        if (feature.source === 'mep_detentionbasins') {
           const item = {
             layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
-            feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-            projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-            mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-            mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-            notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-            servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+            feature: feature.properties.projectname ? feature.properties.projectname : '-',
+            projectno: feature.properties.projectno ? feature.properties.projectno : '-',
+            // projno: feature.properties.projno? feature.properties.projno: '-',
+            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
+            mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
+            pondname: feature.properties.pondname? feature.properties.pondname: '-',
+            mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
+            // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+            mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
           }
           menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
           popups.push(item);
           mobile.push({
             layer: item.layer,
             proj_name: item.feature,
-            mep_status: item.mepstatus
+            mep_status: item.mep_eligibilitystatus
           });
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
-        if (feature.source === 'mep_projects_channels') {
+        if (feature.source === 'mep_channels') {
           const item = {
             layer: MENU_OPTIONS.MEP_CHANNEL,
-            feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-            projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-            mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-            mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-            notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-            servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+            feature: feature.properties.projectname ? feature.properties.projectname : '-',
+            projectno: feature.properties.projectno ? feature.properties.projectno : '-',
+            // projno: feature.properties.projno? feature.properties.projno: '-',
+            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
+            mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
+            pondname: feature.properties.pondname? feature.properties.pondname: '-',
+            mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
+            // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+            mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) 
           }
           menuOptions.push(MENU_OPTIONS.MEP_CHANNEL);
           popups.push(item);
           mobile.push({
             layer: item.layer,
             proj_name: item.feature,
-            mep_status: item.mepstatus
+            mep_status: item.mep_eligibilitystatus
           });
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
-        if (feature.source === 'mep_projects_storm_outfalls') {
+        if (feature.source === 'mep_outfalls') {
           const item = {
             layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
-            feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-            projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-            mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-            mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-            notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-            servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+            feature: feature.properties.projectname ? feature.properties.projectname : '-',
+            projectno: feature.properties.projectno ? feature.properties.projectno : '-',
+            // projno: feature.properties.projno? feature.properties.projno: '-',
+            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
+            mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
+            pondname: feature.properties.pondname? feature.properties.pondname: '-',
+            mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
+            // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+            mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
           }
           menuOptions.push(MENU_OPTIONS.MEP_STORM_OUTFALL);
           popups.push(item);
           mobile.push({
             layer: item.layer,
             proj_name: item.feature,
-            mep_status: item.mepstatus
+            mep_status: item.mep_eligibilitystatus
           });
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
