@@ -1648,7 +1648,12 @@ const Map = ({ leftWidth,
         } else if( mep_eligibilitystatus == 'Ineligible') {
             finalDate.setUTCMilliseconds(props.mep_date_ineligible);
         }
-        return ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() : ('0' + finalDate.getDate())) + '/' + finalDate.getFullYear();
+        let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() : ('0' + finalDate.getDate())) + '/' + finalDate.getFullYear();
+        if(stringDate.includes('NaN')) {
+        return '-'
+        } else {
+        return stringDate;
+        }
     }
     useEffect(() => {
 
