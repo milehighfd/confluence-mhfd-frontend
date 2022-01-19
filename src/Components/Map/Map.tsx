@@ -1640,15 +1640,16 @@ const Map = ({ leftWidth,
         if(!mep_eligibilitystatus) return undefined;
         let finalDate = new Date(0);
         if( mep_eligibilitystatus == 'Design Approval') {
-            finalDate.setUTCMilliseconds(props.mep_date_designapproval);
+            finalDate = new Date(props.mep_date_designapproval);
         } else if( mep_eligibilitystatus == 'Construction Approval') {
-            finalDate.setUTCMilliseconds(props.mep_date_constructionapproval);
+            finalDate = new Date(props.mep_date_constructionapproval);
         } else if( mep_eligibilitystatus == 'Final Acceptance') {
-            finalDate.setUTCMilliseconds(props.mep_date_finalacceptance);
+            finalDate = new Date(props.mep_date_finalacceptance);
         } else if( mep_eligibilitystatus == 'Ineligible') {
-            finalDate.setUTCMilliseconds(props.mep_date_ineligible);
+            console.log(props.mep_date_ineligible);
+            finalDate = new Date(props.mep_date_ineligible);
         }
-        let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() : ('0' + finalDate.getDate())) + '/' + finalDate.getFullYear();
+        let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
         if(stringDate.includes('NaN')) {
         return '-'
         } else {
@@ -1970,6 +1971,7 @@ const Map = ({ leftWidth,
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_detentionbasins') {
+                    console.log("MEP", feature);
                     const item = {
                         layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
                         feature: feature.properties.projectname ? feature.properties.projectname : '-',
@@ -1995,6 +1997,7 @@ const Map = ({ leftWidth,
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_channels') {
+                    console.log("MEP chan", feature);
                     const item = {
                         layer: MENU_OPTIONS.MEP_CHANNEL,
                         // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
@@ -2025,6 +2028,7 @@ const Map = ({ leftWidth,
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_outfalls') {
+                    console.log("MEP out", feature);
                     const item = {
                         layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
                         // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
@@ -2238,6 +2242,7 @@ const Map = ({ leftWidth,
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
+                    console.log("BZX", feature);
                     const item = {
                         layer: MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,
                         bcz_specname: feature.properties.species_name,
