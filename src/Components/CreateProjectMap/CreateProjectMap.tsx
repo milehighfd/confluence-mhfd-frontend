@@ -899,6 +899,7 @@ const CreateProjectMap = (type: any) => {
     if (!map.getSource('raster-tiles')) {
         map.map.addSource('raster-tiles', {
             'type': 'raster',
+            'tileSize': 128,
             'tiles': [
                 `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`
                     // 'https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=MLY|4142433049200173|72206abe5035850d6743b23a49c41333'
@@ -909,8 +910,8 @@ const CreateProjectMap = (type: any) => {
                 'id': 'simple-tiles',
                 'type': 'raster',
                 'source': 'raster-tiles',
-                'minzoom': 12,
-                'maxzoom': 22,
+                'minzoom': 2,
+                'maxzoom': 24,
                 'paint': {
                     'raster-fade-duration': 300,
                     'raster-opacity':[
