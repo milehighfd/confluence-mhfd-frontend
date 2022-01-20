@@ -1657,6 +1657,25 @@ const Map = ({ leftWidth,
         return stringDate;
         }
     }
+    const parseDateZ = (dateParser: any) => {
+        let finalDate = new Date(dateParser);
+        let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
+        if(stringDate.includes('NaN')) {
+        return '-'
+        } else {
+        return stringDate;
+        }
+    } 
+    const epochTransform = (dateParser: any) => {
+        let finalDate = new Date(0);
+        finalDate.setUTCMilliseconds(dateParser);
+        let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
+        if(stringDate.includes('NaN')) {
+        return '-'
+        } else {
+        return stringDate;
+        }
+    }
     useEffect(() => {
 
         if (allLayers.length < 100) {
@@ -2223,9 +2242,10 @@ const Map = ({ leftWidth,
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === BCZ_PREBLE_MEADOW_JUMPING) {
+                    // console.log("FEature props", feature.properties);
                     const item = {
                         layer: MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
-                        expirationdate: feature.properties.expirationdate,
+                        expirationdate: epochTransform(feature.properties.expiration_date),
                         bcz_specname: feature.properties.species_name,
                         bcz_expdate: feature.properties.bcz_expdate,
                         website: 'https://www.fws.gov/mountain-prairie/es/preblesMeadowJumpingMouse.php',
@@ -2243,12 +2263,12 @@ const Map = ({ leftWidth,
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
-                    console.log("BZX", feature);
+                    // console.log("BZX", feature);
                     const item = {
                         layer: MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,
                         bcz_specname: feature.properties.species_name,
                         bcz_expdate: feature.properties.bcz_expdate,
-                        expirationdate: feature.properties.expirationdate,
+                        expirationdate: parseDateZ(feature.properties.expiration_date),
                         website: 'https://www.fws.gov/mountain-prairie/es/uteLadiestress.php',
                         letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0031_ULTO_Denver_Block_Clearance_extension_accessible_signed.pdf',
                         map: 'https://www.fws.gov/mountain-prairie/es/species/plants/uteladiestress/BlockClearanceMap2008.pdf'
