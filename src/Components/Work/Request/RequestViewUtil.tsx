@@ -162,7 +162,6 @@ export const generateColumns = (boardProjects: boardProject[], year: number, tab
       projects: temporalColumns[i]
     };
   })
-
   return columns;
 }
 
@@ -413,8 +412,7 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
     }
     return false;
   })
-
-  let localityMap: any = {}
+  let localityMap: any = Object.create({});
   allProjects.forEach((p: any) => {
     let arr = (p.projectData[property] || '').split(',');
     for (let j = 0 ; j < arr.length ; j++) {
@@ -425,17 +423,17 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
           req1: 0, req2: 0, req3: 0, req4: 0, req5: 0,
           cnt1: 0, cnt2: 0, cnt3: 0, cnt4: 0, cnt5: 0,
           projects: [],
-        }
+        };
       }
       localityMap[locality].projects.push(p);
       for(var i = 1; i <= 5 ; i++) {
-        localityMap[locality][`req${i}`] += (p[`req${i}`] / arr.length);
         if (p[`position${i}`] != null) {
+          localityMap[locality][`req${i}`] += (p[`req${i}`] / arr.length);
           localityMap[locality][`cnt${i}`]++;
         }
       }
     }
-  })
+  });
   let rows: any = [];
   let totals: any = { req1: 0, req2: 0, req3: 0, req4: 0, req5: 0 };
   Object.keys(localityMap).forEach((locality: string) => {
