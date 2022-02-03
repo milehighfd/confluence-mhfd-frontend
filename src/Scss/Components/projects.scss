@@ -392,6 +392,7 @@
     .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header{
       height: 40px;
       padding: 12px 20px;
+      overflow: hidden;
       background: $light-purple;
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
