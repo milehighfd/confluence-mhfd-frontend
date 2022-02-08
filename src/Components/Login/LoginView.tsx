@@ -137,6 +137,7 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
           </div>
           </Form>
           </div>
+            <span style={{ position: 'absolute', bottom: '5px', marginLeft: '10px' }}>1.4.12</span>
           </Col>
         </Row>
       </Layout>
