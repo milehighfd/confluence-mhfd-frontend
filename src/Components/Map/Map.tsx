@@ -168,6 +168,7 @@ const Map = ({ leftWidth,
 
     }, [mobilePopups]);
     const [zoomValue, setZoomValue] = useState(0);
+    
     const colors = {
         RED: '#FF0000',
         ORANGE: '#FA6400',
@@ -672,6 +673,7 @@ const Map = ({ leftWidth,
     },[markersNotes, commentVisible]);
     useEffect(() => {
         let mask
+        console.log("Coordinates jurisdictions before adding mask", coordinatesJurisdiction);
         if (coordinatesJurisdiction.length > 0) {
             mask = turf.multiPolygon(coordinatesJurisdiction);
             let miboundsmap = map.getBounds();
@@ -682,6 +684,7 @@ const Map = ({ leftWidth,
             var arrayBounds = misbounds.split(',');
             setOpacityLayer(true);
             if (!map.getLayer('mask')) {
+              console.log("Adding mask mew");
                 map.addSource('mask', {
                     "type": "geojson",
                     "data": polyMask(mask, arrayBounds)
@@ -697,6 +700,7 @@ const Map = ({ leftWidth,
                     }
                 });
             } else {
+              console.log("Adding mas geojson");
                 map.setLayoutProperty('mask', 'visibility', 'visible');
                 map.removeLayer('mask');
                 map.removeSource('mask');
@@ -1467,7 +1471,7 @@ const Map = ({ leftWidth,
             if(key != 'streams'){
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
             } else { 
-                console.log("STYLE LAYER", key,  style);
+                // console.log("STYLE LAYER", key,  style);
             }
             
             if (!hovereableLayers.includes(key)) {
@@ -1791,7 +1795,7 @@ const Map = ({ leftWidth,
                             setSwSave(false);
                               const textarea = (document.getElementById('textarea') as HTMLInputElement);
                               if (textarea != null) {
-                                  console.log("VAL", textarea.value);
+                                  // console.log("VAL", textarea.value);
 
                               }
                           });
@@ -2895,6 +2899,7 @@ const Map = ({ leftWidth,
         </div>
 
         <div className="map">
+            <span className="zoomvaluemap"> {zoomValue} </span>
             {visible && <DetailedModal
                 detailed={detailed}
                 getDetailedPageProblem={getDetailedPageProblem}

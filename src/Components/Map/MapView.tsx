@@ -14,6 +14,7 @@ import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { capitalLetter, elementCost, getStatus } from '../../utils/utils';
 import { useSelector } from "react-redux";
 import RheoStatService from '../FiltersProject/NewProblemsFilter/RheoStatService';
+import { useProfileDispatch } from "../../hook/profileHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -78,6 +79,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   const { setToggleModalFilter, getParamFilterProblems, getParamFilterProjects, getParamFilterComponents,
     setTabCards, setOpacityLayer,
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete, setBBOXComponents } = useMapDispatch();
+  const {getGroupOrganization} = useProfileDispatch();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
@@ -92,6 +94,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   }, [nameZoomArea]);
   useEffect(() => {
     setSpinMapLoaded(true);
+    getGroupOrganization();
   }, []);
   const resetFilterProblems = (withCoords?: any) => {
     const options = { ...filterProblemOptions };
@@ -137,7 +140,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     options.consultant = '';
     options.contractor = '';
     options.servicearea = '';
-    console.log("OPTIONS IN FILTER", options);
     setFilterProjectOptions(options);
     getGalleryProjects();
     if (toggleModalFilter) {
@@ -689,13 +691,21 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       }
     }
   }
-  const dataAutocomplete = groupOrganization.filter(function (item: any) {
+  const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.filter(function (item: any) {
     if (item.aoi === undefined) {
       return false;
     }
     return true;
-  }).map((item: { aoi: string }) => { return <Option className="list-line" key={item.aoi}>{item.aoi}</Option> });
+  }).map((item: { aoi: string }) => { return <Option className="list-line" key={item.aoi}>{item.aoi}</Option> }));
 
+  useEffect(()=>{
+    setDataAutocomplete(groupOrganization.filter(function (item: any) {
+      if (item.aoi === undefined) {
+        return false;
+      }
+      return true;
+    }).map((item: { aoi: string }) => { return <Option className="list-line" key={item.aoi}>{item.aoi}</Option> }));
+  },[groupOrganization]);
   const setValueInFilters = (value: any, type: any, filterOptions: any, withSuffix: boolean = false) => {
     const options = { ...filterOptions };
     options.jurisdiction = '';
