@@ -672,8 +672,8 @@ const Map = ({ leftWidth,
       }
     },[markersNotes, commentVisible]);
     useEffect(() => {
-        let mask
-        console.log("Coordinates jurisdictions before adding mask", coordinatesJurisdiction);
+        let mask;
+        // console.log("Coordinates jurisdictions before adding mask", coordinatesJurisdiction);
         if (coordinatesJurisdiction.length > 0) {
             mask = turf.multiPolygon(coordinatesJurisdiction);
             let miboundsmap = map.getBounds();
@@ -684,7 +684,7 @@ const Map = ({ leftWidth,
             var arrayBounds = misbounds.split(',');
             setOpacityLayer(true);
             if (!map.getLayer('mask')) {
-              console.log("Adding mask mew");
+              // console.log("Adding mask mew");
                 map.addSource('mask', {
                     "type": "geojson",
                     "data": polyMask(mask, arrayBounds)
@@ -700,7 +700,7 @@ const Map = ({ leftWidth,
                     }
                 });
             } else {
-              console.log("Adding mas geojson");
+              // console.log("Adding mas geojson");
                 map.setLayoutProperty('mask', 'visibility', 'visible');
                 map.removeLayer('mask');
                 map.removeSource('mask');

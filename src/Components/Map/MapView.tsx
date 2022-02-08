@@ -548,7 +548,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     setTimeout(()=>{
       onSelect(store.getState().profile.userInformation.zoomarea);
     },5000);
-  }, [store.getState().profile.userInformation.zoomarea])
+  }, [store.getState().profile.userInformation.zoomarea, groupOrganization])
 
   useEffect(() => {
     if (location.includes('problemid=')) {
@@ -750,6 +750,8 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       if(zone == 'Broomfield') {
         zone = 'Broomfield County';
       }
+      // console.log("ZOM AREA SELECTED", zoomareaSelected[0]);
+      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       // / tabactive 0 problems 1 projects 
       if(tabActive === '0') {
         let optionsprob = setValueInFilters(zone, type, filterProblemOptions);
