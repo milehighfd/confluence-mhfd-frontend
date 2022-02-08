@@ -2899,7 +2899,7 @@ const Map = ({ leftWidth,
         </div>
 
         <div className="map">
-            <span className="zoomvaluemap"> {zoomValue} </span>
+            <span className="zoomvaluemap"> <b>Zoom Level: {zoomValue}</b> </span>
             {visible && <DetailedModal
                 detailed={detailed}
                 getDetailedPageProblem={getDetailedPageProblem}
