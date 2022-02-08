@@ -964,7 +964,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
           <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
             <Button className="btn-red" onClick={onResetClick}><u>Reset</u></Button>
             <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()}>
-              <Button onClick={handleToggle} style={{ marginLeft:'22px', marginRight:'9px'}} className="btn-filter">
+              <Button onClick={handleToggle} style={{ marginLeft:'22px', marginRight:'9px', borderRadius: '4px'}} className="btn-filter">
                 {/* <img style={{ background: backgroundStyle }} className="img-filter" alt="" /> */}
                 <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> {filterLabel} </span>
                 <span className="circle">
@@ -991,7 +991,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
                   Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
                     SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
                 </span> */}
-                <Button onClick={sortClick} style={{ marginLeft:'15px', marginRight:'15px'}} className="btn-filter">
+                <Button onClick={sortClick} style={{ marginLeft:'15px', marginRight:'15px', borderRadius: '4px'}} className="btn-filter">
                   <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> Sort By</span>
                   <Icon type="down" className={'certain-category-icon ' + (filterProjectOptions.order !== 'asc' ? 'rotate-icon': 'normal-icon')} />
                 </Button>
