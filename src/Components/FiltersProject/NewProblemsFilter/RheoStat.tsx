@@ -26,7 +26,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
   const marginLeft = 30;
   const rounded = 2;
   const fillColor = '#2dc49a';
-  const opaquedColor = '#b7eadc';
+  const opaquedColor = '#2ac49a';
 
   useEffect(() => {
     if (data.length > 0) {

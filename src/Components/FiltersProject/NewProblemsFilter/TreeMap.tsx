@@ -24,9 +24,9 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   let color: string;
 
   if (type === 'servicearea') {
-    color = '#917CD9';
+    color = '#251963';
   } else {
-    color = '#32A4FB';
+    color = '#66d5ff';
   }
 
   let sum = 0;

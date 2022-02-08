@@ -126,7 +126,7 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 {
                     paramProjects.status &&
                     <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
-                        data={paramProjects.status} color={'#917CD9'}
+                        data={paramProjects.status} color={'#251963'}
                         selected={filterProjectOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} />
                 }

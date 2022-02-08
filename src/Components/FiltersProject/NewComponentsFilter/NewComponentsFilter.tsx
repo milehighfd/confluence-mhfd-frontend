@@ -109,7 +109,7 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
                 {
                     paramComponents.status &&
                     <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
-                        data={paramComponents.status} color={'#917CD9'}
+                        data={paramComponents.status} color={'#251963'}
                         selected={filterComponentOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} opacityFull={0.6} opacityOpaque={1}/>
                 }

@@ -26,7 +26,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
   const height = 140;
   const marginLeft = 30;
   const rounded = 2;
-  const fillColor = '#FAC774';
+  const fillColor = '#ffdd04';
   const opaquedColor = '#fce9a6';
 
   // TODO: change data on component endpoint

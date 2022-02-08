@@ -104,7 +104,7 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
       })
       .attr('fill', (d:any, i) => {
         if (i === 0) return '#29C499';
-        else if (i === 1) return '#FAC774';
+        else if (i === 1) return '#ffdd04';
         return '#FE687E';
       })
       .style("opacity", function(d:any) {

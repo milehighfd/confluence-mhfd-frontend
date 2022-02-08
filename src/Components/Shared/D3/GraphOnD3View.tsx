@@ -54,7 +54,7 @@ export default ({ data, option }: { data: Array<{ name: string, value: number}>,
           <svg key="bars" height={data.length * 60} width={"320"}>
             <g>
               {data.map((item: { value: number, name: string }, index: number) => {
-                return bars(item, (index * 60), "#fac774", "#29c499", "20")
+                return bars(item, (index * 60), "#ffdd04", "#29c499", "20")
               })}
             </g>
             <g>
