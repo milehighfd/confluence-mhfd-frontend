@@ -375,7 +375,58 @@ const Map = ({ leftWidth,
         coor.push([bottomLongitude, bottomLatitude]);
         coor.push([topLongitude, topLatitude]);
     }
-
+    const addSourceOpacity = (data :any) => {
+    
+      if(!map.getSource('mask')) {
+        map.addSource('mask', {
+          "type": "geojson",
+          "data": data
+        });
+      } else {
+        
+        if(map.getLayer('area_based_maskMASK')) {
+          map.removeLayer('area_based_maskMASK');
+        }
+        if(map.getLayer('borderMASK')) {
+          map.removeLayer('borderMASK');
+        }
+        map.removeSource('mask');
+        setTimeout(()=>{
+          if (!map.getSource('mask')) {
+            map.addSource('mask', {
+              "type": "geojson",
+              "data": data
+            });
+          }
+        },300);
+      }
+    }
+    const addLayerMask = (id: any) => {
+      if(id == 'area_based_mask' && !map.getLayer(id+"MASK")) {
+        map.addLayer({
+          "id": id+'MASK',
+          "source": "mask",
+          "type": "fill",
+          "paint": {
+              "fill-color": "black",
+              'fill-opacity': 0.8
+          }
+        });
+      } else if (id == 'border' &&  !map.getLayer(id+"MASK")) {
+        map.addLayer({
+          "id": id+'MASK',
+          "source": "mask",
+          "type": "line",
+          "paint": {
+            'line-color': '#28c499',
+            'line-width': 1,
+          }
+        });
+      }
+    }
+    const removeLayerMask= (id: any)  => {
+      map.removeLayer(id+'MASK');
+    }
     useEffect(() => {
         mapService.autocomplete = autocomplete;
     }, [autocomplete]);
@@ -679,17 +730,14 @@ const Map = ({ leftWidth,
             let miboundsmap = map.getBounds();
             // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
             let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-
-            
             var arrayBounds = misbounds.split(',');
+            let poly = polyMask(mask, arrayBounds);
             setOpacityLayer(true);
             if (!map.getLayer('mask')) {
-              // console.log("Adding mask mew");
                 map.addSource('mask', {
                     "type": "geojson",
-                    "data": polyMask(mask, arrayBounds)
+                    "data": poly
                 });
-
                 map.addLayer({
                     "id": "mask",
                     "source": "mask",
@@ -700,13 +748,12 @@ const Map = ({ leftWidth,
                     }
                 });
             } else {
-              // console.log("Adding mas geojson");
                 map.setLayoutProperty('mask', 'visibility', 'visible');
                 map.removeLayer('mask');
                 map.removeSource('mask');
                 map.addSource('mask', {
                     "type": "geojson",
-                    "data": polyMask(mask, arrayBounds)
+                    "data": poly
                 });
 
                 map.addLayer({
@@ -720,6 +767,9 @@ const Map = ({ leftWidth,
                 });
 
             }
+            map.isStyleLoaded(()=>{
+              addSourceOpacity(poly);
+            })
         } else {
             if (opacityLayer) {
                 if  (map.loaded()) {
@@ -1240,6 +1290,10 @@ const Map = ({ leftWidth,
             }
         });
         await selectedLayers.forEach((layer: LayersType) => {
+          if(layer === 'area_based_mask' || layer === 'border') {
+            addLayerMask(layer);
+            return;
+          }
             if (typeof layer === 'object') {
                 layer.tiles.forEach((subKey: string) => {
                     showLayers(subKey);
@@ -2758,7 +2812,12 @@ const Map = ({ leftWidth,
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter(layer => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
+          if(layer === 'border' || layer === 'area_based_mask') {
+            removeLayerMask(layer);
+          } else {
             removeTilesHandler(layer);
+          }
+            
         });
         updateSelectedLayers(selectedItems);
     }
