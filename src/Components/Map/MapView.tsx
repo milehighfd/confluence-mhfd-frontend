@@ -874,7 +874,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
 
   const getCounter = (index: any, currentTab: any, total: number) => {
     if (+currentTab === +index) {
-      return `(${total})`;
+      return ` (${total})`;
     }
     return '';
   }
