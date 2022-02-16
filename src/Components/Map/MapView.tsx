@@ -871,6 +871,13 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       }
     }
   }
+
+  const getCounter = (index: any, currentTab: any, total: number) => {
+    if (+currentTab === +index) {
+      return `(${total})`;
+    }
+    return '';
+  }
   useEffect(() => {
     if (tutorialStatus && toggleFilters) {
       handleToggle();
@@ -1079,7 +1086,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
             }
 
             return (
-              <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value} </Popover> </span>} key={'' + index}>
+              <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value + getCounter(index, tabActive, totalElements)} </Popover> </span>} key={'' + index}>
                 <GenericTabView key={value + index}
                   detailed={detailed}
                   loaderDetailedPage={loaderDetailedPage}
