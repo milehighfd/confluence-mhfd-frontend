@@ -866,7 +866,7 @@ const RequestView = ({ type, isFirstRendering }: {
                                         editable={boardStatus !== 'Approved'}
                                         filtered={!notIsFiltered}
                                         locality={locality}
-                                        borderColor={ColorService.getColor(type, p, arr)} />
+                                        borderColor={ColorService.getColor(type, p, arr, year, columnIdx, boardStatus !== 'Approved')} />
                                     ))
                                   }
                                 </div>
