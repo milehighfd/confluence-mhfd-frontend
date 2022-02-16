@@ -469,7 +469,7 @@ export const SEMSWA_SERVICE_AREA =
           <Panel header="" key="3" extra={genExtra02()}>
             <p>
               <img key={Math.random()} src="/Icons/Filters/ic_flood.png" width="18px" alt="" />
-                  Floodplains
+                  Floodplains (Non-FEMA)
                   <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.floodplains)}>
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover> <Switch key={Math.random()} checked={switches[FLOODPLAINS.name]}  size="small" onClick={(value) => onChange(value, FLOODPLAINS)} />
