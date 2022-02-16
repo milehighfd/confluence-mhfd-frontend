@@ -85,6 +85,7 @@ const WorkRequestMap = (type: any) => {
   MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
   MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS
   ];
+  const [zoomValue, setZoomValue] = useState(0);
   const [mobilePopups, setMobilePopups] = useState<any>([]);
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
@@ -407,6 +408,11 @@ const WorkRequestMap = (type: any) => {
       setVisible(true);
     }
   }, [data]);
+  const updateZoom = () => {
+    // console.log(map.getStyle());
+    const zoom = map.map.getZoom().toFixed(2);
+    setZoomValue(zoom);
+  }
   useEffect(() => {
     if (map) {
       map.create();
@@ -415,6 +421,8 @@ const WorkRequestMap = (type: any) => {
         // applyMapLayers();
         let eventToClick = eventService.getRef('click');
         map.map.on('click',eventToClick);
+        map.map.on('load', updateZoom);
+        map.map.on('move', updateZoom);
         // map.map.on('movestart', () => {
         //   if (map.map.getLayer('mask')) {
         //       map.map.setLayoutProperty('mask', 'visibility', 'visible');
@@ -2003,6 +2011,7 @@ const epochTransform = (dateParser: any) => {
   }
   return <>
     <div className="map">
+    <span className="zoomvaluemap"> <b>Zoom Level: {zoomValue}</b> </span>
     {/* <Spin className="loading-01" spinning={1 > 0}></Spin> */}
       <div id="map4" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
