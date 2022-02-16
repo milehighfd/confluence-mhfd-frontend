@@ -83,7 +83,7 @@ export const LANDSCAPING_AREA = 'landscaping_area';
 export const FLOODPLAINS = {
   name: 'floodplains',
   tiles: [
-    FLOODPLAINS_FEMA_FILTERS,
+    // FLOODPLAINS_FEMA_FILTERS,
     FLOODPLAINS_NON_FEMA_FILTERS
   ]
 }

@@ -126,8 +126,8 @@ console.log("DETAILES", detailedPage);
               <h1> {detailedPage?.problemname ? detailedPage?.problemname : detailedPage?.projectname} </h1>
               <p><span>{detailedPage?.problemtype ? (detailedPage.problemtype + ' Problem') : (detailedPage.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span>{detailedPage?.problemtype ? ( detailedPage.jurisdiction + ', CO' ) : (detailedPage.sponsor)}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage.county} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage.servicearea} </span></p>
+              <span> {detailedPage.county + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span> {detailedPage.servicearea + ' Service Area'} </span></p>
               <Button className="btn-transparent btn-close-mobile" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
             </Col>
             <Col xs={{ span: 10 }} lg={{ span: 5 }}>
