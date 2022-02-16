@@ -364,7 +364,7 @@ export const SEMSWA_SERVICE_AREA =
         removePopup();
       }}>
         <Collapse defaultActiveKey={['1', '2', '3', '4', '5', '6', '7', '8']} key={Math.random()}>
-          { isWR && 
+          { 
           <Panel header="" key="6" extra={genExtra07(locationType)}>
             <p>
               <img key={Math.random()} src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
