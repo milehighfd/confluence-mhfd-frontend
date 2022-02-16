@@ -136,7 +136,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsText
       .enter()
       .append('text')
-      .text(function (d: any) { return d.data.key })
+      .text(function (d: any) {  return d.data.key == 'Human Connection'? 'Community Values':d.data.key })
       .attr("transform", (d: any, i) => {
         let xo = (i % 2 === 0 ? -radius : 30) + 27;
         let yo = ((radius + Math.floor(i / 2) * 20) + 35);

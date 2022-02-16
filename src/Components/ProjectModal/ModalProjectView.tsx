@@ -267,7 +267,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
      >
      {/*Name*/}
       <h4>Name</h4>
-      <Input placeholder="Name your project" onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} onPressEnter = {handleOk}  />
+      <Input placeholder="Name your project in the format: STREAM NAME @ LOCATION 202X" onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} onPressEnter = {handleOk}  />
       <br/><br/>
       {/*Buttons*/}
       <h4>Choose a Project Type</h4>
