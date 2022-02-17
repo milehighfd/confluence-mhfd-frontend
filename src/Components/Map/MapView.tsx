@@ -747,9 +747,10 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     if(zoomareaSelected[0]){
       let type = zoomareaSelected[0].filter; 
       let zone = zoomareaSelected[0].aoi;
-      if(zone == 'Broomfield') {
-        zone = 'Broomfield County';
-      }
+      zone = zone.replace('County ', '').replace('Service Area', '');
+      // if(zone == 'Broomfield') {
+      //   zone = 'Broomfield County';
+      // }
       // console.log("ZOM AREA SELECTED", zoomareaSelected[0]);
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       // / tabactive 0 problems 1 projects 
