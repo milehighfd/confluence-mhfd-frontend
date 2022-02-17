@@ -274,11 +274,9 @@ const Map = ({ leftWidth,
 
     const applyOpacity = async () => {
         let mask;
-        console.log('apply opacity', coordinatesJurisdiction);
         if (coordinatesJurisdiction.length > 0) {
             mask = turf.multiPolygon(coordinatesJurisdiction);
             const arrayBounds = boundsMap.split(',');
-            console.log('BOUNDS', boundsMap);
             if (!map.getLayer('mask')) {
                 map.addSource('mask', {
                     "type": "geojson",
@@ -723,7 +721,6 @@ const Map = ({ leftWidth,
     },[markersNotes, commentVisible]);
     useEffect(() => {
         let mask;
-        console.log("Coordinates jurisdictions before adding mask", coordinatesJurisdiction);
         if (coordinatesJurisdiction.length > 0) {
             mask = turf.multiPolygon(coordinatesJurisdiction);
             let miboundsmap = map.getBounds();
@@ -1441,7 +1438,20 @@ const Map = ({ leftWidth,
                         continue;
                     }
                     if (filterField === 'servicearea') {
-                        allFilters.push(['==', ['get', filterField], filters]);
+                      
+                      let filterValue = filters;
+                        if(filterValue[filters.length - 1] == ' ') {
+                          filterValue = filters.substring(0,filters.length - 1);
+                        }
+                        allFilters.push(['==', ['get', filterField], filterValue]);
+                        continue;
+                    }
+                    if(filterField === 'county' ){
+                      let filterValue = filters.replace('County','');
+                        if(filterValue[filterValue.length - 1] == ' ') {
+                          filterValue = filterValue.substring(0,filterValue.length - 1);
+                        }
+                        allFilters.push(['==', ['get', filterField], filterValue]);
                         continue;
                     }
                     if (filterField === 'completedyear') {
@@ -2077,7 +2087,6 @@ const Map = ({ leftWidth,
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_detentionbasins') {
-                    console.log("MEP", feature);
                     const item = {
                         layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
                         feature: feature.properties.projectname ? feature.properties.projectname : '-',
@@ -2316,7 +2325,6 @@ const Map = ({ leftWidth,
                         scale: 'District',//feature.properties.scale,
                         date_created: '01/07/2019' //feature.properties.date_created,
                     }
-                    console.log(item, feature.properties);
                     menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
                     popups.push(item);
                     mobile.push({
