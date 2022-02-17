@@ -189,6 +189,7 @@ export const BCZ_UTE_LADIES_TRESSES_ORCHID =
 export const RESEARCH_MONITORING = 
 'stormwater_research_sites';
 export const CLIMB_TO_SAFETY = 'climb_to_safety_signs';
+export const GUIDELINES = 'guidelines';
 export const SEMSWA_SERVICE_AREA = 
 'semswa_service_area';
 export const BORDER = 'border';

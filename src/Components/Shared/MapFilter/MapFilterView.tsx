@@ -7,6 +7,7 @@ import {
   FLOODPLAINS_NON_FEMA_FILTERS,
   WATERSHED_FILTERS,
   STREAMS_FILTERS,
+  GUIDELINES,
   SERVICE_AREA_FILTERS,
   MUNICIPALITIES_FILTERS,
   COUNTIES_FILTERS,
@@ -57,6 +58,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
   { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean, isWR?: boolean}) => {
   // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
   const [switches, setSwitches] = useState({
+    [GUIDELINES]: true,
     [PROBLEMS_TRIGGER]: true,
     [STREAMS_FILTERS]: true,
     [PROJECTS_MAP_STYLES.name]: true,
@@ -156,13 +158,13 @@ export const SEMSWA_SERVICE_AREA =
     } else {
       newGroups['humanConnection'] = false;
     }
-    if(isWR) {
+    // if(isWR) {
       if(switches[BORDER] && switches[AREA_BASED_MASK]) {
         newGroups['workrequest'] = true;
       } else {
         newGroups['workrequest'] = false;
       }
-    }
+    // }
     setGroups({...groups, ...newGroups});
   }, [switches]);
   useEffect(() => {
@@ -311,7 +313,7 @@ export const SEMSWA_SERVICE_AREA =
   )};
   const genExtra07 = (title: any) => (
     <div className="filter-coll-header" key={Math.random()}>
-      <div  key={Math.random()} style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>{/* <img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} {title} </div>
+      <div  key={Math.random()} style={switches[GUIDELINES] ? weightStyle : emptyStyle}>{/* <img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} {title} </div>
       <Switch key={Math.random()} checked={groups['workrequest']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [BORDER,AREA_BASED_MASK], 'workrequest')

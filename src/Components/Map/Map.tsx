@@ -11,7 +11,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { MainPopup, ComponentPopup, StreamPopupFull } from './MapPopups';
 import { Dropdown,  Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
+import { ManOutlined, RightOutlined } from '@ant-design/icons';
 import { CloseOutlined, DownOutlined } from '@ant-design/icons';
 
 //import { opacityLayer } from '../../constants/mapStyles';
@@ -266,8 +266,6 @@ const Map = ({ leftWidth,
     });
     const [ showDefault, setShowDefault ] = useState(false);
     const polyMask = (mask: any, bounds: any) => {
-        console.log('mask', mask);
-        console.log('bounds', bounds);
         if (mask !== undefined && bounds.length > 0) {
             var bboxPoly = turf.bboxPolygon(bounds);
             return turf.difference(bboxPoly, mask);
@@ -402,17 +400,7 @@ const Map = ({ leftWidth,
       }
     }
     const addLayerMask = (id: any) => {
-      if(id == 'area_based_mask' && !map.getLayer(id+"MASK")) {
-        map.addLayer({
-          "id": id+'MASK',
-          "source": "mask",
-          "type": "fill",
-          "paint": {
-              "fill-color": "black",
-              'fill-opacity': 0.8
-          }
-        });
-      } else if (id == 'border' &&  !map.getLayer(id+"MASK")) {
+      if (id == 'border' &&  !map.getLayer(id+"MASK")) {
         map.addLayer({
           "id": id+'MASK',
           "source": "mask",
@@ -422,7 +410,18 @@ const Map = ({ leftWidth,
             'line-width': 1,
           }
         });
+      } else if(id == 'area_based_mask' && !map.getLayer(id+"MASK")) {
+        map.addLayer({
+          "id": id+'MASK',
+          "source": "mask",
+          "type": "fill",
+          "paint": {
+              "fill-color": "black",
+              'fill-opacity': 0.8
+          }
+        });
       }
+      
     }
     const removeLayerMask= (id: any)  => {
       map.removeLayer(id+'MASK');
@@ -724,7 +723,7 @@ const Map = ({ leftWidth,
     },[markersNotes, commentVisible]);
     useEffect(() => {
         let mask;
-        // console.log("Coordinates jurisdictions before adding mask", coordinatesJurisdiction);
+        console.log("Coordinates jurisdictions before adding mask", coordinatesJurisdiction);
         if (coordinatesJurisdiction.length > 0) {
             mask = turf.multiPolygon(coordinatesJurisdiction);
             let miboundsmap = map.getBounds();
@@ -733,29 +732,35 @@ const Map = ({ leftWidth,
             var arrayBounds = misbounds.split(',');
             let poly = polyMask(mask, arrayBounds);
             setOpacityLayer(true);
-            if (!map.getLayer('mask')) {
+            if (!map.getSource('mask')) {
                 map.addSource('mask', {
                     "type": "geojson",
                     "data": poly
                 });
-                map.addLayer({
-                    "id": "mask",
-                    "source": "mask",
-                    "type": "fill",
-                    "paint": {
-                        "fill-color": "black",
-                        'fill-opacity': 0.8
-                    }
-                });
+                // this mask is the one added at beginning 
+                // map.addLayer({
+                //     "id": "mask",
+                //     "source": "mask",
+                //     "type": "fill",
+                //     "paint": {
+                //         "fill-color": "black",
+                //         'fill-opacity': 0.8
+                //     }
+                // });
             } else {
                 map.setLayoutProperty('mask', 'visibility', 'visible');
                 map.removeLayer('mask');
                 map.removeSource('mask');
-                map.addSource('mask', {
-                    "type": "geojson",
-                    "data": poly
-                });
-
+                if(map.getSource('mask')) {
+                  map.getSource('mask').setData(poly);
+                } else {
+                  map.addSource('mask', {
+                      "type": "geojson",
+                      "data": poly
+                  });
+                }
+                
+                //this layer is the one on init
                 map.addLayer({
                     "id": "mask",
                     "source": "mask",
@@ -765,11 +770,24 @@ const Map = ({ leftWidth,
                         'fill-opacity': 0.8
                     }
                 });
+                map.addLayer({
+                  "id": 'border',
+                  "source": "mask",
+                  "type": "line",
+                  "paint": {
+                    'line-color': '#28c499',
+                    'line-width': 1,
+                  }
+                });
+                setTimeout(()=>{
+                  map.removeLayer('mask');
+                  map.removeLayer('border');
+                },4000);
 
             }
-            map.isStyleLoaded(()=>{
-              addSourceOpacity(poly);
-            })
+            // map.isStyleLoaded(()=>{
+            //   addSourceOpacity(poly);
+            // })
         } else {
             if (opacityLayer) {
                 if  (map.loaded()) {
@@ -783,6 +801,12 @@ const Map = ({ leftWidth,
             }
 
         }
+        // setTimeout(()=>{
+        //   map.on('load', () => {
+        //     console.log(map.getStyle().getLayers);
+        //     map.moveLayer('borderMASK');
+        //   });
+        // },1000);
     }, [coordinatesJurisdiction]);
 
     useEffect(() => {
@@ -1308,6 +1332,7 @@ const Map = ({ leftWidth,
             map.moveLayer('munis-centroids-shea-plusother');
             map.moveLayer('streams_3');
             map.moveLayer('streams_4');
+            map.moveLayer('borderMASK');
         },800);
     }
 
