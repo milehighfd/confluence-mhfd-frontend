@@ -1793,7 +1793,9 @@ export const MENU_OPTIONS =
     PROJECT:'Project',
     PROJECTS: 'projects',
     PROBLEMS: 'problems',
-    MHFD_STREAMS_REACHES: MHFD_STREAMS_FILTERS
+    MHFD_STREAMS_REACHES: MHFD_STREAMS_FILTERS,
+    COUNTIES: 'County',
+    MUNICIPALITIES: 'Municipality'
   }
 ;
 

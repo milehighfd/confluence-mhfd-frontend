@@ -2172,7 +2172,7 @@ const Map = ({ leftWidth,
                     mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
-                if (feature.source === 'watershed_service_areas') {
+                if (feature.source === 'watershed_service_areas') {  /// this is for service area 
                     const item = {
                         layer: MENU_OPTIONS.SERVICE_AREA,
                         feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
@@ -2188,6 +2188,41 @@ const Map = ({ leftWidth,
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
+                if (feature.source === 'counties') { 
+                  const item = {
+                      layer: MENU_OPTIONS.COUNTIES,
+                      feature: feature.properties.county ? feature.properties.county : '-',
+                      // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                      // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+                  }
+                  mobile.push({
+                      layer: item.layer,
+                      feature: item.feature
+                      // watershedmanager: item.watershedmanager,
+                      // constructionmanagers: item.constructionmanagers
+                  })
+                  menuOptions.push(MENU_OPTIONS.COUNTIES);
+                  popups.push(item);
+                  ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+              }
+              if (feature.source === MUNICIPALITIES_FILTERS) {  
+                const item = {
+                    layer: MENU_OPTIONS.MUNICIPALITIES,
+                    feature: feature.properties.city ? feature.properties.city : '-',
+                    // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                    // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+                }
+                mobile.push({
+                    layer: item.layer,
+                    feature: item.feature
+                    // watershedmanager: item.watershedmanager,
+                    // constructionmanagers: item.constructionmanagers
+                })
+                menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
+                popups.push(item);
+                ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+              }
+              
                 if (feature.source === 'catchments' || feature.source === 'basin') {
                     const item = {
                         layer: MENU_OPTIONS.WATERSHED,

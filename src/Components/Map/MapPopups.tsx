@@ -49,7 +49,6 @@ const capitalize = (s : string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 export const MainPopup = ({id, item, test, sw, ep } : any) => {
-    
     for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
@@ -165,6 +164,15 @@ export const StreamPopupFull = ({ id, item } : any) => {
 };
 
 export const ComponentPopup = ({ id, item, isComponent } : any) => {
+  if(item.layer == 'County') {
+    item.feature = item.feature +" County";
+    isComponent = false;
+  } else if (item.layer == 'Service Area') {
+    item.feature = item.feature + " Service Area";
+    isComponent = false;
+  } else if ( item.layer == 'Municipality') {
+    isComponent = false;
+  }
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable>
         <div className="headmap">

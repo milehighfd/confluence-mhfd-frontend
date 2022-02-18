@@ -3363,6 +3363,15 @@ export const tileStyles = {
             1
         ]
     }
+  },
+  {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color":'#ffffff',
+      "fill-opacity":0.01
+    }
   }],
   [SERVICE_AREA_POINTS]: [],
   [MUNICIPALITIES_FILTERS]: [{
@@ -3703,6 +3712,14 @@ export const tileStyles = {
           5
       ],
       "line-dasharray": [5, 2, 3, 2, 5]
+    }
+  },{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color":'#ffffff',
+      "fill-opacity":0.01
     }
   }],
   [COUNTIES_POINTS]: [{
