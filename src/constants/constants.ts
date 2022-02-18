@@ -163,7 +163,7 @@ export const ROUTINE_MAINTENANCE = {
 // Project Styles Filters
 export const  PROJECTS_POLYGONS = 'projects_polygon_';
 export const PROJECTS_LINE = 'mhfd_projects';
-export const PROJECTS_DRAFT = 'mhfd_projects_copy';
+export const PROJECTS_DRAFT = 'mhfd_projects_created';
 export const STUDIES = 'studies';
 
 export const PROJECTS_MAP_STYLES = {

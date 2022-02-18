@@ -269,16 +269,16 @@ const CreateProjectMap = (type: any) => {
           wait(()=>{
             setTimeout(()=>{
               map.isStyleLoaded(()=>{
-                removeLayers('mhfd_projects_copy');
-                removeLayersSource('mhfd_projects_copy');
+                removeLayers('mhfd_projects_created');
+                removeLayersSource('mhfd_projects_created');
                 // const tiles = layerFilters['projects_draft'] as any;
                 let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
                 postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-                  addLayersSource('mhfd_projects_copy', tiles);
-                  showLayers('mhfd_projects_copy');
+                  addLayersSource('mhfd_projects_created', tiles);
+                  showLayers('mhfd_projects_created');
                   map.isStyleLoaded(()=>{
                     setTimeout(()=>{
-                      applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+                      applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
                     },700);
                   });
                   firstTime = false;
@@ -290,8 +290,8 @@ const CreateProjectMap = (type: any) => {
           });
       } else {
         if(map.map){
-          removeLayers('mhfd_projects_copy');
-          removeLayersSource('mhfd_projects_copy');
+          removeLayers('mhfd_projects_created');
+          removeLayersSource('mhfd_projects_created');
         }
         
       } 
@@ -1006,7 +1006,7 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
-        if(key === 'mhfd_projects_copy') {
+        if(key === 'mhfd_projects_created') {
           let allFilters:any = ['in', ['get', 'projectid'], ['literal', []]];
           if(idsBoardProjects && idsBoardProjects.length > 0 ){
             let boardids = idsBoardProjects;
@@ -1147,7 +1147,7 @@ const CreateProjectMap = (type: any) => {
           allFilters.push(options);
         }
       }
-      if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_copy' && idsBoardProjects[0]!='-8888'){
+      if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_created' && idsBoardProjects[0]!='-8888'){
         let boardids = [...idsBoardProjects];
         boardids = boardids.filter((x:any) => x != type.projectid);
         allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
@@ -1332,7 +1332,7 @@ const CreateProjectMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (key.includes('mhfd_projects_copy')) {
+      if (key.includes('mhfd_projects_created')) {
         map.map.addLayer({
           id: key + '_' + index,
           source: key,
@@ -1780,7 +1780,7 @@ const CreateProjectMap = (type: any) => {
         }
         let html: any = null;
         let itemValue;
-        if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_copy') {
+        if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_created') {
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
           const filtered = galleryProjects.filter((item: any) =>
             item.cartodb_id === feature.properties.cartodb_id

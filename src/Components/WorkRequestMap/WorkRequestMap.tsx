@@ -237,16 +237,16 @@ const WorkRequestMap = (type: any) => {
           wait(()=>{
             setTimeout(()=>{
               map.isStyleLoaded(()=>{
-                removeLayers('mhfd_projects_copy');
-                removeLayersSource('mhfd_projects_copy');
+                removeLayers('mhfd_projects_created');
+                removeLayersSource('mhfd_projects_created');
                 // const tiles = layerFilters['projects_draft'] as any;
                 let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
                 postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-                  addLayersSource('mhfd_projects_copy', tiles);
-                  showLayers('mhfd_projects_copy');
+                  addLayersSource('mhfd_projects_created', tiles);
+                  showLayers('mhfd_projects_created');
                   map.isStyleLoaded(()=>{
                     setTimeout(()=>{
-                      applyFiltersIDs('mhfd_projects_copy', filterProjectsDraft);
+                      applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
                     },700);
                   });
                   firstTime = false;
@@ -258,8 +258,8 @@ const WorkRequestMap = (type: any) => {
           });
       } else {
         if(map.map){
-          removeLayers('mhfd_projects_copy');
-          removeLayersSource('mhfd_projects_copy');
+          removeLayers('mhfd_projects_created');
+          removeLayersSource('mhfd_projects_created');
         }
         
       } 
@@ -540,7 +540,7 @@ const WorkRequestMap = (type: any) => {
             const tiles = layerFilters[layer.name] as any;
             if (tiles) {
               // layer.name = projects_draft 
-              // subKey = mhfd_projects_copy
+              // subKey = mhfd_projects_created
               addLayersSource(subKey, tiles[subKey]);
             }
           });
@@ -613,7 +613,7 @@ const WorkRequestMap = (type: any) => {
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
         
-        if(key === 'mhfd_projects_copy') {
+        if(key === 'mhfd_projects_created') {
           
           let allFilters:any = ['in', ['get', 'projectid'], ['literal', []]];
           if(idsBoardProjects && idsBoardProjects.length > 0 ){
@@ -768,7 +768,7 @@ const WorkRequestMap = (type: any) => {
       if (componentDetailIds && componentDetailIds[key]) {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
-      // if(key ==='mhfd_projects_copy'){
+      // if(key ==='mhfd_projects_created'){
       //   allFilters.push(['in', ['get', 'cartodb_id'], ['literal', ['-1']]]);
       // }
       if (map.getLayer(key + '_' + index)) {
@@ -886,7 +886,7 @@ const WorkRequestMap = (type: any) => {
           allFilters.push(options);
         }
       }
-      if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_copy' && idsBoardProjects[0]!='-8888'){
+      if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_created' && idsBoardProjects[0]!='-8888'){
         let boardids = idsBoardProjects;
         allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
       } 
@@ -950,7 +950,7 @@ const WorkRequestMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (key.includes('mhfd_projects_copy')) {
+      if (key.includes('mhfd_projects_created')) {
         map.map.addLayer({
           id: key + '_' + index,
           source: key,
@@ -1337,26 +1337,26 @@ const epochTransform = (dateParser: any) => {
       }
       let html: any = null;
       let itemValue: any = {};
-      if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_copy') {
+      if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_created') {
         // getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
         getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         const filtered = galleryProjects.filter((item: any) =>
           item.cartodb_id === feature.properties.cartodb_id
         );
-        if(feature.source === 'mhfd_projects_copy') {
+        if(feature.source === 'mhfd_projects_created') {
           isEditPopup =true;
         }
         const item = {
           type: 'project',
-          title: feature.source === 'mhfd_projects_copy'? (feature.properties.projecttype+" "+MENU_OPTIONS.PROJECT):MENU_OPTIONS.PROJECT,
+          title: feature.source === 'mhfd_projects_created'? (feature.properties.projecttype+" "+MENU_OPTIONS.PROJECT):MENU_OPTIONS.PROJECT,
           name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
-          organization: feature.source === 'mhfd_projects_copy'? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replaceAll(',',', ')): type.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
-          value: feature.source === 'mhfd_projects_copy' ? (
+          organization: feature.source === 'mhfd_projects_created'? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replaceAll(',',', ')): type.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
+          value: feature.source === 'mhfd_projects_created' ? (
             feature.properties.projecttype.toLowerCase() === 'capital' ? feature.properties.estimatedcost : getTotalAmount(feature.properties.cartodb_id)
           ) : (
             feature.properties.estimatedcost ? feature.properties.estimated : feature.properties.finalcost ? feature.properties.finalcost : '0'
           ),
-          projecctype: feature.source === 'mhfd_projects_copy'?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
+          projecctype: feature.source === 'mhfd_projects_created'?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
           status: feature.properties.status ? feature.properties.status : '-',
           objectid: feature.properties.objectid,
           valueid: feature.properties.cartodb_id,
