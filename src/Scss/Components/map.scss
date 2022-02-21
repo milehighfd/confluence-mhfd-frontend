@@ -339,6 +339,20 @@
    -webkit-mask-size: 20px 20px;
  }
 }
+.map .measure-button{
+  position: absolute;
+  width: 25px;
+  right: 20px;
+  top: 18px;
+  z-index: 10;
+  button .img-icon-02{
+    -webkit-mask: url('/Icons/ic_measure.svg') no-repeat center;
+    height: 100%;
+    width: 100%;
+    background: $purple00;
+   -webkit-mask-size: 20px 20px;
+  }
+}
 
 .filter-map{
   max-height: calc(100vh - 170px);
