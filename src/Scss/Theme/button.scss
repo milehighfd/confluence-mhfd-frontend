@@ -2,10 +2,17 @@
 @use 'styles';
 
 // BUTTON PURPLE
-.btn-purple, .btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active{
+.btn-purple {
   background-color: $purple !important;
   color: $white !important;
-  border-radius: 4px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active{
+  background-color: #29C499 !important;
+  color: $white !important;
+  border-radius: 8px !important;
   border: none !important;
   box-shadow: none !important;
 }
@@ -19,15 +26,16 @@
 }
 // BUTTON BORDE
 .btn-borde{
-  border-radius: 4px !important;
+  border-radius: 8px !important;
   border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
-  background-color: #ffffff !important;
-  color: $opacity !important;
+  color: $purple00 !important;
+  background-color: $white !important;
+  border-color: $purple00 !important;
   box-shadow: none !important;
 }
 .btn-borde:hover, .btn-borde:focus, .btn-borde:active, .btn-borde.active{
-  color: $purple00 !important;
-  background-color: $white !important;
+  color: $white !important;
+  background-color: $purple00 !important;
   border-color: $purple00 !important;
 }
 

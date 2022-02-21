@@ -497,7 +497,7 @@
   }
   .headmap{
    min-height: 40px;
-   border-radius: 1.3px 1.3px 0px 0px;
+   border-radius: 8px;
    background: $opacity01;
    font-size: 14px;
    color: $opacity;
@@ -541,7 +541,7 @@
   .headmap{
    height: 40px;
    min-height: 40px;
-   border-radius: 1.3px 1.3px 0px 0px;
+   border-radius: 8px;
    background: $opacity01;
    font-size: 14px;
    color: $opacity;
@@ -578,7 +578,7 @@
 
   .headmap{
     min-height: 40px;
-    border-radius: 1.3px 1.3px 0px 0px;
+    border-radius: 8px;
     background: $opacity01;
     font-size: 14px;
     color: $opacity;
@@ -1574,6 +1574,7 @@
 }
 .map-pop-00, .map-pop-01, .map-pop-02{
   display: inline-block;
+  border-radius: 8px;
 }
 .list-popup-comment{
   position: absolute;
