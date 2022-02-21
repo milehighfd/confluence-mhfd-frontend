@@ -235,6 +235,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
             {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
             {item.watershedmanager ? <p><i>Watershed Manager:</i>  {item.watershedmanager}</p> : ''}
+            {item.email? <p><i>Contact Us: </i><a href={"mailto:"+item.mail}> {item.email}</a></p>:''}
             {item.constructionmanagers ? <p><i>Construction Managers:</i>  {item.constructionmanagers}</p> : ''}
             {isComponent && item.projectid === undefined && <Button id={"buttonCreate-" + id} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
         </div>

@@ -2178,11 +2178,13 @@ const Map = ({ leftWidth,
                         feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
                         watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
                         constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+                        email: feature.properties.email?feature.properties.email:'-'
                     }
                     mobile.push({
                         layer: item.layer,
                         watershedmanager: item.watershedmanager,
-                        constructionmanagers: item.constructionmanagers
+                        constructionmanagers: item.constructionmanagers,
+                        email: item.email
                     })
                     menuOptions.push(MENU_OPTIONS.SERVICE_AREA);
                     popups.push(item);
