@@ -100,9 +100,12 @@ const content04 = (<div className="popver-info">This is a list of all potential 
         let SA = serviceArea;
         currentServiceAreaCounty['Service Area'].map((element:any) => {
           let service = true;
+          if(element.includes('Service Area')) {
+            element = element.replace(' Service Area','');
+          }
           if(SA) {
             SA.map((data:any) => {
-              if(data === element){service = false;}
+              if(element.includes(data)){service = false;}
             });
           }
           if(service){SA = [...SA, element];}
@@ -113,13 +116,14 @@ const content04 = (<div className="popver-info">This is a list of all potential 
         setSCounty(currentServiceAreaCounty['County']);
         let C = county;
         currentServiceAreaCounty['County'].map((element:any) => {
-          if(element == 'Broomfield' || element == 'Denver') {
-            element += ' County'
+          if(element.includes('County')) {
+            element = element.replace(' County','');
           }
           let service = true;
           if(C) {
             C.map((data:any) => {
-              if(data === element){service = false;}
+              // console.log("CHECK IF EXISTS CCC", data, element);
+              if(element.includes(data)){service = false;}
             });
           }
           if(service){C = [...C, element];}
