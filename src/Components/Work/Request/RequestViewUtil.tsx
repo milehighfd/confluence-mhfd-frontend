@@ -413,6 +413,10 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
     return false;
   })
   let localityMap: any = Object.create({});
+  console.log('DEBUG ', allProjects);
+  allProjects = allProjects.filter(projects => {
+    return (projects.position1 !== null || projects.position2 !== null || projects.position3 !== null || projects.position4 !== null || projects.position5 !== null);
+  });
   allProjects.forEach((p: any) => {
     let arr = (p.projectData[property] || '').split(',');
     for (let j = 0 ; j < arr.length ; j++) {
