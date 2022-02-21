@@ -753,27 +753,27 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       // }
       // console.log("ZOM AREA SELECTED", zoomareaSelected[0]);
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      // / tabactive 0 problems 1 projects 
-      if(tabActive === '0') {
-        let optionsprob = setValueInFilters(zone, type, filterProblemOptions);
-        setTimeout(()=>{
-          setFilterProblemOptions(optionsprob);
-          getGalleryProblems();
-          getParamFilterProblems(boundsMap, optionsprob);
-        },1300);
-      } else if (tabActive === '1') { 
-        let optionsproj = setValueInFilters(zone, type, filterProjectOptions, true);
+      const loadFiltered = (zone: any , type: any, projectOptions: any, problemOptions: any, componentOptions: any) => {
+        let optionsproj = setValueInFilters(zone, type, projectOptions, true);
+        let optionsprob = setValueInFilters(zone, type, problemOptions);
+        let optionscomp = setValueInFilters(zone, type, componentOptions);
         setTimeout(()=>{
           setFilterProjectOptions(optionsproj);
           getGalleryProjects();
           getParamFilterProjects(boundsMap, optionsproj);
+          setFilterProblemOptions(optionsprob);
+          getGalleryProblems();
+          getParamFilterProblems(boundsMap, optionsprob);
         },1300);
+      }
+      // / tabactive 0 problems 1 projects 
+      if(tabActive === '0') {
+        loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions);
+      } else if (tabActive === '1') { 
+        loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions);
       } else {
-        let optionscomp = setValueInFilters(zone, type, filterComponentOptions);
-        setTimeout(()=>{
-          setFilterComponentOptions(optionscomp);
-          getParamFilterComponents(boundsMap, optionscomp);
-        },1300);
+        setFilterComponentOptions(filterComponentOptions);
+        getParamFilterComponents(boundsMap, filterComponentOptions);
       }
       changeCenter(value, zoomareaSelected[0].coordinates)
     }
