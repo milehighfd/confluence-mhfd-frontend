@@ -27,7 +27,7 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
     <div className="tab-body-line">
       <div>
         <label>
-          {countySum.locality}
+          {countySum.locality + ' County'}
           <Popover content={content00}>
             <img src="/Icons/icon-19.svg" alt="" height="10px" style={{ marginLeft: '4px' }} />
           </Popover>
