@@ -454,7 +454,7 @@
   padding: 0px;
   min-height: 100px;
    // font-weight: bold;
-  border-radius: 1.3px;
+  border-radius: 10px;
   box-shadow: $shadow;
   background-color: #fafbfb;
 
@@ -512,6 +512,7 @@
 
 .map .mapboxgl-popup .mapboxgl-popup-content{
   width: auto !important;
+  border-radius: 10px ;
 }
 .mapboxgl-popup{
   max-width: none !important;
@@ -521,7 +522,7 @@
   width: 280px;
   max-width: 330px;
   height: auto;
-  border-radius: 1.3px;
+  border-radius: 10px;
   box-shadow: $shadow;
   background-color: #fafbfb;
 
