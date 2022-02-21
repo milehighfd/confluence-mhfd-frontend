@@ -48,7 +48,7 @@ export default () => {
           <img className="img-h anticon mobile-display" src="/Icons/menu-white-01.svg" alt="" width="23px" />
           <img className="img-a anticon mobile-display" src="/Icons/menu-green-01.svg" alt="" width="23px" />
           <i className="anticon mdi mdi-home-outline menu-desktop"/>
-          <span>My Confluence</span>
+          <span>my confluence</span>
         </Link>
       </Menu.Item> : ''}
       <Menu.Item key="1">
@@ -56,7 +56,7 @@ export default () => {
           <img className="img-h anticon mobile-display" src="/Icons/menu-white-02.svg" alt="" width="22px" />
           <img className="img-a anticon mobile-display" src="/Icons/menu-green-02.svg" alt="" width="22px" />
           <i className="anticon mdi mdi-map-legend menu-desktop"/>
-          <span>Map View</span>
+          <span>map view</span>
         </Link>
       </Menu.Item>
       {showWorkRequestPlan &&
@@ -65,7 +65,7 @@ export default () => {
             <img className="img-h anticon mobile-display" src="/Icons/menu-white-14.svg" alt="" width="22px" style={{opacity: userApproved ? '1': '0.2'}} />
             <img className="img-a anticon mobile-display" src="/Icons/menu-green-14.svg" alt="" width="22px" style={{opacity: userApproved ? '1': '0.2'}} />
             <i className="anticon mdi mdi-map-legend menu-desktop"/>
-            <span>Work Request</span>
+            <span>work request</span>
           </Link>
         </Menu.Item>
       }
@@ -74,7 +74,7 @@ export default () => {
         <Link to={userApproved ? '/work-plan': '#'}>
           <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="20px" style={{opacity: userApproved ? '1': '0.2'}}/>
           <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="20px" style={{opacity: userApproved ? '1': '0.2'}}/>
-          <span>Work Plan</span>
+          <span>work plan</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
@@ -82,7 +82,7 @@ export default () => {
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" style={{opacity: '0.2'}}  />
-          <span>Project Management - Coming Soon</span>
+          <span>project management - coming soon</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
@@ -90,7 +90,7 @@ export default () => {
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="22px" style={{opacity: '0.2'}} />
           <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="22px" style={{opacity: '0.2'}}  />
-          <span>Watershed Story - Coming Soon</span>
+          <span>watershed story - coming soon</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation === 'admin' ||
@@ -99,14 +99,14 @@ export default () => {
           <Link to={'/upload-attachment'}>
             <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="19px" />
             <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="19px" />
-            <span>Uploader</span>
+            <span>uploader</span>
           </Link>
         </Menu.Item> : ''}
         <Menu.Item key="7" className="menu-mobile">
           <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
             <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="21px" />
             <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="21px" />
-            <span>Feedback</span>
+            <span>feedback</span>
           </a>
         </Menu.Item>
       {(appUser.designation === 'admin') && (appUser.status === 'approved') ?
@@ -114,7 +114,7 @@ export default () => {
           <Link to={'/user'}>
             <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="22px" />
             <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="22px" />
-            <span>Settings</span>
+            <span>settings</span>
           </Link>
         </Menu.Item> : ''}
         <Menu.Item key="9" className="menu-desktop">

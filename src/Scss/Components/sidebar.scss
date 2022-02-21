@@ -63,6 +63,17 @@
 .menu-desktop{
   display: none;
 }
+.ant-menu-inline-collapsed-tooltip a {
+  color: black;
+}
+.ant-tooltip-inner {
+  background-color: white;
+  border-radius: 7px;
+}
+.ant-tooltip-arrow::before {
+  background-color: white;
+  border-radius: 7px;
+}
 // RESPONSIVE MOBILE
 @media (max-width: 575.98px) {
   .ant-layout-sider{
