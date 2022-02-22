@@ -3105,33 +3105,53 @@ const Map = ({ leftWidth,
         newmarker.setLngLat(coord);
         newmarker.addTo(map);
         setMarkerGeocoder(newmarker);
-        const point = map.project(coord);
-        const features = map.queryRenderedFeatures(point, { layers: ['counties-background', 'municipalities-background', 'watershed_service_areas-background'] });
-        console.log('features' , features);
-        const mobile = [], menuOptions = [], popups = [], ids = [];
-        for (const feature of features) {
-            if (feature.source === 'watershed_service_areas') {  /// this is for service area 
+        map.on('moveend', (e:any) => { 
+          const point = map.project(coord);
+          console.log("Coord", coord, "point", point);
+          const features = map.queryRenderedFeatures(point, { layers: ['counties-background', 'municipalities-background', 'watershed_service_areas-background'] });
+          console.log('AXCfeatures backgrounds' , features);
+          console.log("AXCLAYERS", map.getStyle().layers);
+          const mobile = [], menuOptions = [], popups = [], ids = [];
+          for (const feature of features) {
+              if (feature.source === 'watershed_service_areas') {  /// this is for service area 
+                  const item = {
+                      layer: MENU_OPTIONS.SERVICE_AREA,
+                      feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
+                      watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                      constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+                      email: feature.properties.email?feature.properties.email:'-'
+                  }
+                  mobile.push({
+                      layer: item.layer,
+                      watershedmanager: item.watershedmanager,
+                      constructionmanagers: item.constructionmanagers,
+                      email: item.email
+                  })
+                  menuOptions.push(MENU_OPTIONS.SERVICE_AREA);
+                  popups.push(item);
+                  ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+              }
+              if (feature.source === 'counties') { 
                 const item = {
-                    layer: MENU_OPTIONS.SERVICE_AREA,
-                    feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
-                    watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-                    constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
-                    email: feature.properties.email?feature.properties.email:'-'
+                    layer: MENU_OPTIONS.COUNTIES,
+                    feature: feature.properties.county ? feature.properties.county : '-',
+                    // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                    // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
                 }
                 mobile.push({
                     layer: item.layer,
-                    watershedmanager: item.watershedmanager,
-                    constructionmanagers: item.constructionmanagers,
-                    email: item.email
+                    feature: item.feature
+                    // watershedmanager: item.watershedmanager,
+                    // constructionmanagers: item.constructionmanagers
                 })
-                menuOptions.push(MENU_OPTIONS.SERVICE_AREA);
+                menuOptions.push(MENU_OPTIONS.COUNTIES);
                 popups.push(item);
                 ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
             }
-            if (feature.source === 'counties') { 
+            if (feature.source === 'municipalities') {  
               const item = {
-                  layer: MENU_OPTIONS.COUNTIES,
-                  feature: feature.properties.county ? feature.properties.county : '-',
+                  layer: MENU_OPTIONS.MUNICIPALITIES,
+                  feature: feature.properties.city ? feature.properties.city : '-',
                   // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
                   // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
               }
@@ -3141,55 +3161,40 @@ const Map = ({ leftWidth,
                   // watershedmanager: item.watershedmanager,
                   // constructionmanagers: item.constructionmanagers
               })
-              menuOptions.push(MENU_OPTIONS.COUNTIES);
+              menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
               popups.push(item);
               ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-          }
-          if (feature.source === 'municipalities') {  
-            const item = {
-                layer: MENU_OPTIONS.MUNICIPALITIES,
-                feature: feature.properties.city ? feature.properties.city : '-',
-                // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-                // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
             }
-            mobile.push({
-                layer: item.layer,
-                feature: item.feature
-                // watershedmanager: item.watershedmanager,
-                // constructionmanagers: item.constructionmanagers
-            })
-            menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
-            popups.push(item);
-            ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
           }
-        }
-        if (popups.length) {
-            /**
-             
-            [Address]
-        [City], CO [Zipcode]
-             */
-            const html = loadMenuPopupWithData(menuOptions, popups, titleObject);
-            setMobilePopups(mobile);
-            setSelectedPopup(0);
-            if (html) {
-                popup.remove();
-                popup = new mapboxgl.Popup();
-                popup.setLngLat(coord)
-                    .setHTML(html)
-                    .addTo(map);
-                // newmarker.setLngLat(coord);
-                // newmarker.setPopup(popup);
-                // newmarker.addTo(map);
-                    
-                for (const index in popups) {
-                    document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
-                    document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-                    console.log('adding a click for button create ');
-                    document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
-                }
-            }
-        }
+          if (popups.length) {
+              /**
+               
+              [Address]
+          [City], CO [Zipcode]
+               */
+              const html = loadMenuPopupWithData(menuOptions, popups, titleObject);
+              setMobilePopups(mobile);
+              setSelectedPopup(0);
+              if (html) {
+                  popup.remove();
+                  popup = new mapboxgl.Popup();
+                  popup.setLngLat(coord)
+                      .setHTML(html)
+                      .addTo(map);
+                  // newmarker.setLngLat(coord);
+                  // newmarker.setPopup(popup);
+                  // newmarker.addTo(map);
+                      
+                  for (const index in popups) {
+                      document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
+                      document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
+                      console.log('adding a click for button create ');
+                      document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
+                  }
+              }
+          }
+        } )
+       
     };
     //end geocoder
     const flyTo = (longitude: number, latitude: number) => {
