@@ -339,20 +339,6 @@
    -webkit-mask-size: 20px 20px;
  }
 }
-.map .measure-button{
-  position: absolute;
-  width: 25px;
-  right: 20px;
-  top: 18px;
-  z-index: 10;
-  button .img-icon-02{
-    -webkit-mask: url('/Icons/ic_measure.svg') no-repeat center;
-    height: 100%;
-    width: 100%;
-    background: $purple00;
-   -webkit-mask-size: 20px 20px;
-  }
-}
 
 .filter-map{
   max-height: calc(100vh - 170px);
@@ -511,7 +497,7 @@
   }
   .headmap{
    min-height: 40px;
-   border-radius: 8px;
+   border-radius: 7px;
    background: $opacity01;
    font-size: 14px;
    color: $opacity;
@@ -555,7 +541,7 @@
   .headmap{
    height: 40px;
    min-height: 40px;
-   border-radius: 8px;
+   border-radius: 7px;
    background: $opacity01;
    font-size: 14px;
    color: $opacity;
@@ -585,14 +571,14 @@
 // NEW POPUP
 .map-pop-02{
   width: 258px;
-  border-radius: 1.3px;
+  border-radius: 7px;
   box-shadow: $shadow;
   background-color: #fafbfb;
   padding: 0px 0px 4px 0px;
 
   .headmap{
     min-height: 40px;
-    border-radius: 8px;
+    border-radius: 7px;
     background: $opacity01;
     font-size: 14px;
     color: $opacity;
@@ -704,7 +690,7 @@
     border-right: 0px solid #e8e8e8;
     border-radius: 4px;
   }
-  .ant-menu-item, .ant-menu-submenu-title, .ant-menu-item-disabled{
+  .ant-menu-item, .ant-menu-submenu-title, .ant-menu-item-disabled {
     border-top: 1px solid $opacity01 !important;
   }
   .ant-menu-vertical .ant-menu-item, .ant-menu-vertical-left .ant-menu-item,
@@ -1588,7 +1574,6 @@
 }
 .map-pop-00, .map-pop-01, .map-pop-02{
   display: inline-block;
-  border-radius: 8px;
 }
 .list-popup-comment{
   position: absolute;

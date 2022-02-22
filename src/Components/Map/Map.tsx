@@ -3116,10 +3116,15 @@ const Map = ({ leftWidth,
 
             </div>*/}
             <div className="measure-button">
-            <Button className='btn-none' style={{ borderRadius: '4px' }}>
-              <img className="img-icon-02" />
-            </Button>
+            {/* <Button className='btn-none' style={{ borderRadius: '4px' }}>
+              <div className="img-icon-02" />
+            </Button> */}
+            <img className="img-icon-02" width="25px"/>
+            {/* <Button type="primary" size="large" >
+                I <img className="img-icon-02" />
+            </Button> */}
             </div>
+            
             <div className="m-zoom">
                 <Button className="btn-green"><img src="/Icons/icon-87.svg" width="15px"
                 onClick={() => {

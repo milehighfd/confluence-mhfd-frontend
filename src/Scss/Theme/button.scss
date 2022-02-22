@@ -2,43 +2,33 @@
 @use 'styles';
 
 // BUTTON PURPLE
-.btn-purple {
+.btn-purple, .btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active{
   background-color: $purple !important;
   color: $white !important;
-  border-radius: 8px !important;
+  border-radius: 7px !important;
   border: none !important;
-  box-shadow: none !important;
-}
-.btn-purple:hover{
-  // background-color: #29C499 !important;
-  // color: $white !important;
-  border-radius: 8px !important;
-  // border: none !important;
-  border-bottom: 4px solid $green !important;
   box-shadow: none !important;
 }
 // BUTTON GREEN
 .btn-green, .btn-green:hover, .btn-green:focus, .btn-green:active, .btn-green.active{
   background-color: $green !important;
   color: $white !important;
-  border-radius: 4px !important;
+  border-radius: 7px !important;
   border: none !important;
   box-shadow: none !important;
 }
 // BUTTON BORDE
 .btn-borde{
-  border-radius: 8px !important;
+  border-radius: 7px !important;
   border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
+  background-color: #ffffff !important;
+  color: $opacity !important;
+  box-shadow: none !important;
+}
+.btn-borde:hover, .btn-borde:focus, .btn-borde:active, .btn-borde.active{
   color: $purple00 !important;
   background-color: $white !important;
   border-color: $purple00 !important;
-  box-shadow: none !important;
-}
-.btn-borde:hover {
-  color: $white !important;
-  background-color: $purple00 !important;
-  border-color: $purple00 !important;
-  // border-bottom: 4px solid $green !important;
 }
 
 // BUTTON OPACITY
