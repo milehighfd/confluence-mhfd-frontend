@@ -261,7 +261,7 @@ const CreateProjectMap = (type: any) => {
   }
 
   useEffect(()=>{
-    let time = firstTime?6600:4300;
+    let time = firstTime?2600:1300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -289,10 +289,10 @@ const CreateProjectMap = (type: any) => {
             
           });
       } else {
-        if(map.map){
-          removeLayers('mhfd_projects_created');
-          removeLayersSource('mhfd_projects_created');
-        }
+        // if(map.map){
+          // removeLayers('mhfd_projects_created');
+          // removeLayersSource('mhfd_projects_created');
+        // }
         
       } 
   },[idsBoardProjects]);
@@ -799,7 +799,7 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     if (map ) {
       // deleteUpdateLayers(selectedLayers);
-      let time = firstTimeApplyMapLayers?4000:200;
+      let time = firstTimeApplyMapLayers?400:200;
       setTimeout(()=>{
         if(JSON.stringify(selectedLayers) != compareSL) { 
           if(map){
