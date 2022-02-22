@@ -137,6 +137,21 @@ const Map = ({ leftWidth,
 }: MapProps) => {
     
     let geocoderRef = useRef<HTMLDivElement>(null);
+    const [isMeasuring, setIsMeasuring] = useState(false); 
+    // GeoJSON object to hold our measurement features
+    const geojsonMeasures = {
+      'type': 'FeatureCollection',
+      'features': new Array()
+      };
+      
+    // Used to draw a line between points
+    const linestringMeasure = {
+      'type': 'Feature',
+      'geometry': {
+      'type': 'LineString',
+      'coordinates': new Array()
+      }
+    };
     const hovereableLayers = [ PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
         MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
          ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
@@ -1255,6 +1270,38 @@ const Map = ({ leftWidth,
         }
     }
 
+    const applyMeasuresLayer = () => {
+      if(!map.getSource('geojsonMeasure')) {
+        map.addSource('geojsonMeasure', {
+          'type': 'geojson',
+          'data': geojsonMeasures
+        })
+        map.addLayer({
+          id: 'measure-points',
+          type: 'circle',
+          source: 'geojson',
+          paint: {
+          'circle-radius': 5,
+          'circle-color': '#BBB'
+          },
+          filter: ['in', '$type', 'Point']
+          });
+        map.addLayer({
+          id: 'measure-lines',
+          type: 'line',
+          source: 'geojson',
+          layout: {
+          'line-cap': 'round',
+          'line-join': 'round'
+          },
+          paint: {
+          'line-color': '#BCD',
+          'line-width': 2.5
+          },
+          filter: ['in', '$type', 'LineString']
+          });
+      }
+    }
     const applyNearMapLayer = () => {
         if (!map.getSource('raster-tiles')) {
             map.addSource('raster-tiles', {
@@ -1803,7 +1850,56 @@ const Map = ({ leftWidth,
             return;
         }
         map.on('click', (e: any) => {
-            if (commentAvailable && canAdd) {
+            if(isMeasuring) {
+                const features = map.queryRenderedFeatures(e.point, {
+                  layers: ['measure-points']
+                  });
+                   
+                  // // Remove the linestring from the group
+                  // // so we can redraw it based on the points collection.
+                  // if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
+                   
+                  // // Clear the distance container to populate it with a new value.
+                  // // distanceContainer.innerHTML = '';
+                   
+                  // // If a feature was clicked, remove it from the map.
+                  // if (features.length) {
+                  //   const id = features[0].properties.id;
+                  //   geojsonMeasures.features = geojsonMeasures.features.filter(
+                  //   (point :any) => point.properties.id !== id
+                  //   );
+                  // } else {
+                  //   const point:any = {
+                  //     'type': 'Feature',
+                  //     'geometry': {
+                  //     'type': 'Point',
+                  //     'coordinates': [e.lngLat.lng, e.lngLat.lat]
+                  //     },
+                  //     'properties': {
+                  //     'id': String(new Date().getTime())
+                  //     }
+                  //   };
+                    
+                  //   geojsonMeasures.features.push(point);
+                  // }
+                   
+                  // if (geojsonMeasures.features.length > 1) {
+                  //   linestringMeasure.geometry.coordinates = geojsonMeasures.features.map(
+                  //     (point) => point.geometry.coordinates
+                  //   );
+                    
+                  //   geojsonMeasures.features.push(linestringMeasure);
+                    
+                  //   // Populate the distanceContainer with total distance
+                  //   const value = document.createElement('pre');
+                  //   const distance = turf.length(JSON.parselinestringMeasure);
+                  //   value.textContent = `Total distance: ${distance.toLocaleString()}km`;
+                  //   // distanceContainer.appendChild(value);
+                  // }
+                   
+                  // map.getSource('geojson').setData(geojson);
+            } else {
+              if (commentAvailable && canAdd) {
                 const html = commentPopup();
                 popup.remove();
                 popup = new mapboxgl.Popup();
@@ -2541,6 +2637,8 @@ const Map = ({ leftWidth,
                     }
                 }
             }
+            }
+           
         });
     }, [allLayers]);
     const seeDetails = (details: any, event: any) => {
@@ -3251,13 +3349,7 @@ const Map = ({ leftWidth,
 
             </div>*/}
             <div className="measure-button">
-            {/* <Button className='btn-none' style={{ borderRadius: '4px' }}>
-              <div className="img-icon-02" />
-            </Button> */}
-            <img className="img-icon-02" width="25px"/>
-            {/* <Button type="primary" size="large" >
-                I <img className="img-icon-02" />
-            </Button> */}
+              <Button style={{ borderRadius: '4px' }} onClick={()=>setIsMeasuring(!isMeasuring)} ><img className="img-icon" /></Button>
             </div>
             
             <div className="m-zoom">
