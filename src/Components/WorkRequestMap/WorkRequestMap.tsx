@@ -228,7 +228,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    let time = firstTime?500:300;
+    let time = firstTime?2000:1300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         
         let filterProjectsDraft = {...filterProjects}; 
@@ -256,7 +256,7 @@ const WorkRequestMap = (type: any) => {
             },time);
             
           });
-      } else {
+      } else if(idsBoardProjects[0] == '-8888'){
         if(map.map){
           removeLayers('mhfd_projects_created');
           removeLayersSource('mhfd_projects_created');

@@ -371,7 +371,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setLoadingT(true);
     setTimeout(()=>{
       setLoadingT(false);
-    },4700);
+    },5000);
   },[tabKey]);
   useEffect(() => {
     if (!namespaceId) {

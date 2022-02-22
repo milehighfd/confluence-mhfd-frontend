@@ -413,7 +413,6 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
     return false;
   })
   let localityMap: any = Object.create({});
-  console.log('DEBUG ', allProjects);
   allProjects = allProjects.filter(projects => {
     return (projects.position1 !== null || projects.position2 !== null || projects.position3 !== null || projects.position4 !== null || projects.position5 !== null);
   });

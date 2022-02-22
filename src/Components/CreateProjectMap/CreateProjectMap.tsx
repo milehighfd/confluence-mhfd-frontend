@@ -289,10 +289,10 @@ const CreateProjectMap = (type: any) => {
             
           });
       } else {
-        // if(map.map){
-          // removeLayers('mhfd_projects_created');
-          // removeLayersSource('mhfd_projects_created');
-        // }
+        if(map.map){
+          removeLayers('mhfd_projects_created');
+          removeLayersSource('mhfd_projects_created');
+        }
         
       } 
   },[idsBoardProjects]);
