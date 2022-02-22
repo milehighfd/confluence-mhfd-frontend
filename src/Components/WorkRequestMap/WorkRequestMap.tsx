@@ -234,6 +234,7 @@ const WorkRequestMap = (type: any) => {
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
         filterProjectsDraft.status = '';
+        setTimeout(()=>{
           wait(()=>{
             setTimeout(()=>{
               map.isStyleLoaded(()=>{
@@ -256,6 +257,8 @@ const WorkRequestMap = (type: any) => {
             },time);
             
           });
+        },2000)
+          
       } else if(idsBoardProjects[0] == '-8888'){
         if(map.map){
           removeLayers('mhfd_projects_created');
