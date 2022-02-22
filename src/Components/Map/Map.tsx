@@ -36,7 +36,8 @@ import {
     SELECT_ALL_FILTERS,
     MENU_OPTIONS,
     MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF,
-    NEARMAP_TOKEN
+    NEARMAP_TOKEN,
+    COUNTIES_LAYERS
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles } from '../../constants/mapStyles';
@@ -1514,14 +1515,16 @@ const Map = ({ leftWidth,
 
     const showHighlighted = (key: string, cartodb_id: string) => {
         const styles = { ...tileStyles as any }
-        styles[key].forEach((style: LayerStylesType, index: number) => {
-            if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
-                if(map.getLayer(key + '_highlight_' + index)) { 
-                    map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+        if (styles[key]) {
+            styles[key].forEach((style: LayerStylesType, index: number) => {
+                if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+                    if(map.getLayer(key + '_highlight_' + index)) { 
+                        map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+                    }
+                    
                 }
-                
-            }
-        });
+            });
+        }
     };
     const hideOneHighlighted = (key: string) => {
         const styles = { ...tileStyles as any }
@@ -1558,7 +1561,29 @@ const Map = ({ leftWidth,
                 source: key,
                 ...style
             });
-
+            if (key === 'counties' || key === 'municipalities' || key === 'watershed_service_areas') {
+                console.log('my style ', style);
+                if (!map.getLayer(key + '-background')) {
+                    map.addLayer({
+                        id: key + '-background',
+                        type: 'fill',
+                        source: key,
+                        'source-layer': 'pluto15v1',
+                        layout: {
+                            visibility: 'visible'
+                        },
+                        paint: {
+                            'fill-color': '#ffffff',
+                            'fill-opacity': 0
+                        }
+                    });
+                   /* setTimeout(() => {
+                        map.getStyle().layers.forEach((layer: any) => {
+                            console.log(layer);
+                        });
+                    }, 5000);*/
+                }
+            }
             if(key != 'streams'){
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
             } else { 
@@ -2497,7 +2522,6 @@ const Map = ({ leftWidth,
                     }
                 }
             }
-
             if (popups.length) {
                 const html = loadMenuPopupWithData(menuOptions, popups);
                 setMobilePopups(mobile);
@@ -2723,14 +2747,17 @@ const Map = ({ leftWidth,
         </div>
         </div>
     </>);
-    const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
+    const loadMenuPopupWithData = (menuOptions: any[], popups: any[], title?: any) => ReactDOMServer.renderToStaticMarkup(
 
         <>
             {menuOptions.length === 1 ? <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? ( menuOptions[0] == 'Stream'? loadStreamPopup(0, popups[0]) :loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
                                 menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
                                 </> :
             <div className="map-pop-02">
-              <div className="headmap">LAYERS</div>
+              <div className="headmap">{title ? title.title : 'LAYERS'}</div>
+              {title? <div>
+                  {title.subtitle}
+              </div> : <></>}
               <div className="layer-popup">
                 {
                     menuOptions.map((menu: any, index: number) => {
@@ -2939,14 +2966,39 @@ const Map = ({ leftWidth,
     const [options, setOptions] = useState<Array<any>>([]);
 
     const handleSearch = (value: string) => {
+        console.log('searched ', value);
         setKeyword(value)
         mapSearchQuery(value);
     };
 
+    const getTitle = (title: string) => {
+        const parsed = title.split(',');
+        if (parsed.length === 1) {
+            return { title: parsed[0], subtitle: '' };
+        }
+        parsed.pop();
+        let zip = parsed.pop() || 'Colorado XXX';
+        zip = zip.trim();
+        zip = zip.split(' ')[1];
+        const city = parsed.pop()?.trim() || 'City';
+        return {
+            title: parsed.pop()?.trim() || 'Place',
+            subtitle: city + ' , CO ' + zip
+        }
+        /**
+         *  [Address]
+        [City], CO [Zipcode]
+        La Abeja La Abeja, 508 E Colfax Ave, Denver, Colorado 80203, United States
+        Palace Arms at Brown Palace Palace Arms at Brown Palace, 321 17th St, Denver, Colorado 80202, United States
+        The Palate Food + Wine The Palate Food + Wine, 5375 Landmark Pl Ste F-105, Greenwood Village, Colorado 80111, United States
+        */
+    }
     const onSelect = (value: any) => {
         console.log('onSelect:::', value);
         const keyword = value.split('?');
         const coord = keyword[0].split(',');
+        const titleObject = getTitle(keyword[1]);
+        console.log(titleObject);
         console.log('my coord is ', coord);
         map.flyTo({ center: coord, zoom: 14.5 });
         const placeName = keyword[1];
@@ -2955,8 +3007,91 @@ const Map = ({ leftWidth,
         newmarker.setLngLat(coord);
         newmarker.addTo(map);
         setMarkerGeocoder(newmarker);
-
-
+        const point = map.project(coord);
+        const features = map.queryRenderedFeatures(point, { layers: ['counties-background', 'municipalities-background', 'watershed_service_areas-background'] });
+        console.log('features' , features);
+        const mobile = [], menuOptions = [], popups = [], ids = [];
+        for (const feature of features) {
+            if (feature.source === 'watershed_service_areas') {  /// this is for service area 
+                const item = {
+                    layer: MENU_OPTIONS.SERVICE_AREA,
+                    feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
+                    watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                    constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+                    email: feature.properties.email?feature.properties.email:'-'
+                }
+                mobile.push({
+                    layer: item.layer,
+                    watershedmanager: item.watershedmanager,
+                    constructionmanagers: item.constructionmanagers,
+                    email: item.email
+                })
+                menuOptions.push(MENU_OPTIONS.SERVICE_AREA);
+                popups.push(item);
+                ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+            }
+            if (feature.source === 'counties') { 
+              const item = {
+                  layer: MENU_OPTIONS.COUNTIES,
+                  feature: feature.properties.county ? feature.properties.county : '-',
+                  // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                  // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+              }
+              mobile.push({
+                  layer: item.layer,
+                  feature: item.feature
+                  // watershedmanager: item.watershedmanager,
+                  // constructionmanagers: item.constructionmanagers
+              })
+              menuOptions.push(MENU_OPTIONS.COUNTIES);
+              popups.push(item);
+              ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+          }
+          if (feature.source === 'municipalities') {  
+            const item = {
+                layer: MENU_OPTIONS.MUNICIPALITIES,
+                feature: feature.properties.city ? feature.properties.city : '-',
+                // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+            }
+            mobile.push({
+                layer: item.layer,
+                feature: item.feature
+                // watershedmanager: item.watershedmanager,
+                // constructionmanagers: item.constructionmanagers
+            })
+            menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
+            popups.push(item);
+            ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+          }
+        }
+        if (popups.length) {
+            /**
+             
+            [Address]
+        [City], CO [Zipcode]
+             */
+            const html = loadMenuPopupWithData(menuOptions, popups, titleObject);
+            setMobilePopups(mobile);
+            setSelectedPopup(0);
+            if (html) {
+                popup.remove();
+                popup = new mapboxgl.Popup();
+                popup.setLngLat(coord)
+                    .setHTML(html)
+                    .addTo(map);
+                // newmarker.setLngLat(coord);
+                // newmarker.setPopup(popup);
+                // newmarker.addTo(map);
+                    
+                for (const index in popups) {
+                    document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
+                    document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
+                    console.log('adding a click for button create ');
+                    document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
+                }
+            }
+        }
     };
     //end geocoder
     const flyTo = (longitude: number, latitude: number) => {
