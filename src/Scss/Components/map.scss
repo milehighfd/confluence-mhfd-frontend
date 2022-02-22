@@ -518,7 +518,7 @@
   }
   .headmap{
    min-height: 40px;
-   border-radius: 7px;
+   border-radius: 7px 7px 0px 0px;
    background: $opacity01;
    font-size: 14px;
    color: $opacity;
@@ -562,7 +562,7 @@
   .headmap{
    height: 40px;
    min-height: 40px;
-   border-radius: 7px;
+   border-radius: 7px 7px 0px 0px;
    background: $opacity01;
    font-size: 14px;
    color: $opacity;
@@ -599,7 +599,7 @@
 
   .headmap{
     min-height: 40px;
-    border-radius: 7px;
+    border-radius: 7px 7px 0px 0px;
     background: $opacity01;
     font-size: 14px;
     color: $opacity;

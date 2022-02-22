@@ -83,6 +83,21 @@ const { Panel } = Collapse;
 const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
 let contents: any = [];
+let isMeasuring = false;
+    // GeoJSON object to hold our measurement features
+    const geojsonMeasures = {
+      'type': 'FeatureCollection',
+      'features': new Array()
+      };
+      
+    // Used to draw a line between points
+    const linestringMeasure = {
+      'type': 'Feature',
+      'geometry': {
+      'type': 'LineString',
+      'coordinates': new Array()
+      }
+    };
 const apiNearMap = NEARMAP_TOKEN;
 let canAdd = false;
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
@@ -137,21 +152,7 @@ const Map = ({ leftWidth,
 }: MapProps) => {
     
     let geocoderRef = useRef<HTMLDivElement>(null);
-    const [isMeasuring, setIsMeasuring] = useState(false); 
-    // GeoJSON object to hold our measurement features
-    const geojsonMeasures = {
-      'type': 'FeatureCollection',
-      'features': new Array()
-      };
-      
-    // Used to draw a line between points
-    const linestringMeasure = {
-      'type': 'Feature',
-      'geometry': {
-      'type': 'LineString',
-      'coordinates': new Array()
-      }
-    };
+
     const hovereableLayers = [ PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
         MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
          ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
@@ -1154,6 +1155,7 @@ const Map = ({ leftWidth,
                     setSpinValue(false);
                     setSpinMapLoaded(false);
                     applyNearMapLayer();
+                    applyMeasuresLayer();
                 }
             };
             waiting();
@@ -1279,23 +1281,23 @@ const Map = ({ leftWidth,
         map.addLayer({
           id: 'measure-points',
           type: 'circle',
-          source: 'geojson',
+          source: 'geojsonMeasure',
           paint: {
           'circle-radius': 5,
-          'circle-color': '#BBB'
+          'circle-color': '#F04'
           },
           filter: ['in', '$type', 'Point']
           });
         map.addLayer({
           id: 'measure-lines',
           type: 'line',
-          source: 'geojson',
+          source: 'geojsonMeasure',
           layout: {
           'line-cap': 'round',
           'line-join': 'round'
           },
           paint: {
-          'line-color': '#BCD',
+          'line-color': '#53F',
           'line-width': 2.5
           },
           filter: ['in', '$type', 'LineString']
@@ -1851,53 +1853,61 @@ const Map = ({ leftWidth,
         }
         map.on('click', (e: any) => {
             if(isMeasuring) {
+              
                 const features = map.queryRenderedFeatures(e.point, {
                   layers: ['measure-points']
                   });
                    
-                  // // Remove the linestring from the group
-                  // // so we can redraw it based on the points collection.
-                  // if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
+                  // Remove the linestring from the group
+                  // so we can redraw it based on the points collection.
+                  if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
                    
-                  // // Clear the distance container to populate it with a new value.
-                  // // distanceContainer.innerHTML = '';
+                  // Clear the distance container to populate it with a new value.
+                  // distanceContainer.innerHTML = '';
                    
-                  // // If a feature was clicked, remove it from the map.
-                  // if (features.length) {
-                  //   const id = features[0].properties.id;
-                  //   geojsonMeasures.features = geojsonMeasures.features.filter(
-                  //   (point :any) => point.properties.id !== id
-                  //   );
-                  // } else {
-                  //   const point:any = {
-                  //     'type': 'Feature',
-                  //     'geometry': {
-                  //     'type': 'Point',
-                  //     'coordinates': [e.lngLat.lng, e.lngLat.lat]
-                  //     },
-                  //     'properties': {
-                  //     'id': String(new Date().getTime())
-                  //     }
-                  //   };
+                  // If a feature was clicked, remove it from the map.
+                  if (features.length) {
+                    const id = features[0].properties.id;
+                    geojsonMeasures.features = geojsonMeasures.features.filter(
+                    (point :any) => point.properties.id !== id
+                    );
+                  } else {
                     
-                  //   geojsonMeasures.features.push(point);
-                  // }
+                    const point:any = {
+                      'type': 'Feature',
+                      'geometry': {
+                      'type': 'Point',
+                      'coordinates': [e.lngLat.lng, e.lngLat.lat]
+                      },
+                      'properties': {
+                      'id': String(new Date().getTime())
+                      }
+                    };
+                    console.log("About to add point", point );
+                    geojsonMeasures.features.push(point);
+                  }
                    
-                  // if (geojsonMeasures.features.length > 1) {
-                  //   linestringMeasure.geometry.coordinates = geojsonMeasures.features.map(
-                  //     (point) => point.geometry.coordinates
-                  //   );
+                  if (geojsonMeasures.features.length > 1) {
+                    linestringMeasure.geometry.coordinates = geojsonMeasures.features.map(
+                      (point) => point.geometry.coordinates
+                    );
                     
-                  //   geojsonMeasures.features.push(linestringMeasure);
+                    geojsonMeasures.features.push(linestringMeasure);
                     
-                  //   // Populate the distanceContainer with total distance
-                  //   const value = document.createElement('pre');
-                  //   const distance = turf.length(JSON.parselinestringMeasure);
-                  //   value.textContent = `Total distance: ${distance.toLocaleString()}km`;
-                  //   // distanceContainer.appendChild(value);
-                  // }
+                    const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
+                    console.log("NEW LS", newLS, "LINE STRINg", linestringMeasure);
+                    const distance = turf.length(newLS);
+                    console.log(`Total distance: ${distance.toLocaleString()}km`);
+                    // distanceContainer.appendChild(value);
+                  }
                    
-                  // map.getSource('geojson').setData(geojson);
+                  console.log("IS SOURCE ALREADY??", JSON.stringify(geojsonMeasures));
+                  if ((e.point.x === coordX || e.point.y === coordY)) {
+                    return;
+                  }
+                  coordX = e.point.x;
+                  coordY = e.point.y;
+                  map.getSource('geojsonMeasure').setData(geojsonMeasures);
             } else {
               if (commentAvailable && canAdd) {
                 const html = commentPopup();
@@ -3261,7 +3271,12 @@ const Map = ({ leftWidth,
     const layerObjects: any = selectedLayers.filter(element => typeof element === 'object');
     const layerStrings = selectedLayers.filter(element => typeof element !== 'object');
     const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
-
+    const setIsMeasuring = (value: boolean) => {
+      isMeasuring = value;
+      geojsonMeasures.features = new Array();
+      linestringMeasure.geometry.coordinates =  new Array();
+      map.getSource('geojsonMeasure').setData(geojsonMeasures);
+    }
     return (
         <>
         <SideBarComment visible={commentVisible} setVisible={setSideBarStatus}
