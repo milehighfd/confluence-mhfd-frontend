@@ -9,11 +9,12 @@
   border: none !important;
   box-shadow: none !important;
 }
-.btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active{
-  background-color: #29C499 !important;
-  color: $white !important;
+.btn-purple:hover{
+  // background-color: #29C499 !important;
+  // color: $white !important;
   border-radius: 8px !important;
-  border: none !important;
+  // border: none !important;
+  border-bottom: 4px solid $green !important;
   box-shadow: none !important;
 }
 // BUTTON GREEN
@@ -33,10 +34,11 @@
   border-color: $purple00 !important;
   box-shadow: none !important;
 }
-.btn-borde:hover, .btn-borde:focus, .btn-borde:active, .btn-borde.active{
+.btn-borde:hover {
   color: $white !important;
   background-color: $purple00 !important;
   border-color: $purple00 !important;
+  // border-bottom: 4px solid $green !important;
 }
 
 // BUTTON OPACITY
