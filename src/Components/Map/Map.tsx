@@ -2845,6 +2845,16 @@ const Map = ({ leftWidth,
         </div>
         </div>
     </>);
+    
+    const getBeautifulTitle = (title: any) => {
+        return (
+            <div>
+                <span><b>{title.title}</b></span>
+                <br></br>
+                <span>{title.subtitle}</span>
+            </div>
+        )
+    }
     const loadMenuPopupWithData = (menuOptions: any[], popups: any[], title?: any) => ReactDOMServer.renderToStaticMarkup(
 
         <>
@@ -2852,10 +2862,7 @@ const Map = ({ leftWidth,
                                 menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
                                 </> :
             <div className="map-pop-02">
-              <div className="headmap">{title ? title.title : 'LAYERS'}</div>
-              {title? <div>
-                  {title.subtitle}
-              </div> : <></>}
+              <div className="headmap">{title ? (title.subtitle? getBeautifulTitle(title) : title.title)  : 'LAYERS'}</div>
               <div className="layer-popup">
                 {
                     menuOptions.map((menu: any, index: number) => {
@@ -3112,8 +3119,10 @@ const Map = ({ leftWidth,
           console.log('AXCfeatures backgrounds' , features);
           console.log("AXCLAYERS", map.getStyle().layers);
           const mobile = [], menuOptions = [], popups = [], ids = [];
+          let counties = 1, municipalities = 1, watershed_service_areas = 1;
           for (const feature of features) {
-              if (feature.source === 'watershed_service_areas') {  /// this is for service area 
+              if (feature.source === 'watershed_service_areas' && watershed_service_areas) {  /// this is for service area 
+                  watershed_service_areas--;
                   const item = {
                       layer: MENU_OPTIONS.SERVICE_AREA,
                       feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
@@ -3131,7 +3140,8 @@ const Map = ({ leftWidth,
                   popups.push(item);
                   ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
               }
-              if (feature.source === 'counties') { 
+              if (feature.source === 'counties' && counties) {
+                counties--; 
                 const item = {
                     layer: MENU_OPTIONS.COUNTIES,
                     feature: feature.properties.county ? feature.properties.county : '-',
@@ -3148,8 +3158,9 @@ const Map = ({ leftWidth,
                 popups.push(item);
                 ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
             }
-            if (feature.source === 'municipalities') {  
-              const item = {
+            if (feature.source === 'municipalities' && municipalities) {  
+                municipalities--;
+                const item = {
                   layer: MENU_OPTIONS.MUNICIPALITIES,
                   feature: feature.properties.city ? feature.properties.city : '-',
                   // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
