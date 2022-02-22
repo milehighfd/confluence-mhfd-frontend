@@ -89,6 +89,10 @@ let isMeasuring = false;
       'type': 'FeatureCollection',
       'features': new Array()
       };
+    const geojsonMeasuresSaved = {
+      'type': 'FeatureCollection',
+      'features': new Array()
+    };
       
     // Used to draw a line between points
     const linestringMeasure = {
@@ -1284,7 +1288,7 @@ const Map = ({ leftWidth,
           source: 'geojsonMeasure',
           paint: {
           'circle-radius': 5,
-          'circle-color': '#F04'
+          'circle-color': '#FDB32B'
           },
           filter: ['in', '$type', 'Point']
           });
@@ -1297,11 +1301,27 @@ const Map = ({ leftWidth,
           'line-join': 'round'
           },
           paint: {
-          'line-color': '#53F',
+          'line-color': '#DBA32A',
           'line-width': 2.5
           },
           filter: ['in', '$type', 'LineString']
-          });
+        });
+      }
+      if(!map.getSource('geojsonMeasuresSaved')){
+        map.addSource('geojsonMeasuresSaved', {
+          'type': 'geojson',
+          'data': geojsonMeasuresSaved
+        });
+        map.addLayer({
+          id:'measuresSaved',
+          type:'fill',
+          source: 'geojsonMeasuresSaved',
+          paint: {
+            'fill-color': '#A98208',
+            'fill-outline-color': '#DBA32A',
+            'fill-opacity': 0.3
+          }
+        })
       }
     }
     const applyNearMapLayer = () => {
@@ -1611,7 +1631,6 @@ const Map = ({ leftWidth,
                 ...style
             });
             if (key === 'counties' || key === 'municipalities' || key === 'watershed_service_areas') {
-                console.log('my style ', style);
                 if (!map.getLayer(key + '-background')) {
                     map.addLayer({
                         id: key + '-background',
@@ -1846,6 +1865,7 @@ const Map = ({ leftWidth,
         return stringDate;
         }
     }
+    const [distanceValue, setDistanceValue] = useState('0');
     useEffect(() => {
 
         if (allLayers.length < 100) {
@@ -1857,22 +1877,26 @@ const Map = ({ leftWidth,
                 const features = map.queryRenderedFeatures(e.point, {
                   layers: ['measure-points']
                   });
-                   
-                  // Remove the linestring from the group
-                  // so we can redraw it based on the points collection.
+                  if ((e.point.x === coordX || e.point.y === coordY)) {
+                    return;
+                  }
+                  coordX = e.point.x;
+                  coordY = e.point.y;
                   if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
-                   
-                  // Clear the distance container to populate it with a new value.
-                  // distanceContainer.innerHTML = '';
-                   
-                  // If a feature was clicked, remove it from the map.
-                  if (features.length) {
+
+                  if (features.length > 0 && linestringMeasure.geometry.coordinates.length > 2) {
                     const id = features[0].properties.id;
                     geojsonMeasures.features = geojsonMeasures.features.filter(
-                    (point :any) => point.properties.id !== id
+                      (point :any) => point.properties.id !== id
                     );
+                    var line = turf.lineString(linestringMeasure.geometry.coordinates);
+                    var polygon = turf.lineToPolygon(line);
+                    geojsonMeasuresSaved.features.push(polygon)
+                    map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+                    geojsonMeasures.features = new Array();
+                    linestringMeasure.geometry.coordinates =  new Array();
+                    map.getSource('geojsonMeasure').setData(geojsonMeasures);
                   } else {
-                    
                     const point:any = {
                       'type': 'Feature',
                       'geometry': {
@@ -1883,7 +1907,6 @@ const Map = ({ leftWidth,
                       'id': String(new Date().getTime())
                       }
                     };
-                    console.log("About to add point", point );
                     geojsonMeasures.features.push(point);
                   }
                    
@@ -1891,22 +1914,14 @@ const Map = ({ leftWidth,
                     linestringMeasure.geometry.coordinates = geojsonMeasures.features.map(
                       (point) => point.geometry.coordinates
                     );
-                    
                     geojsonMeasures.features.push(linestringMeasure);
-                    
                     const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
-                    console.log("NEW LS", newLS, "LINE STRINg", linestringMeasure);
                     const distance = turf.length(newLS);
-                    console.log(`Total distance: ${distance.toLocaleString()}km`);
+                    setDistanceValue(distance.toLocaleString());
                     // distanceContainer.appendChild(value);
                   }
                    
-                  console.log("IS SOURCE ALREADY??", JSON.stringify(geojsonMeasures));
-                  if ((e.point.x === coordX || e.point.y === coordY)) {
-                    return;
-                  }
-                  coordX = e.point.x;
-                  coordY = e.point.y;
+                  
                   map.getSource('geojsonMeasure').setData(geojsonMeasures);
             } else {
               if (commentAvailable && canAdd) {
@@ -2243,7 +2258,6 @@ const Map = ({ leftWidth,
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_channels') {
-                    console.log("MEP chan", feature);
                     const item = {
                         layer: MENU_OPTIONS.MEP_CHANNEL,
                         // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
@@ -2274,7 +2288,6 @@ const Map = ({ leftWidth,
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 if (feature.source === 'mep_outfalls') {
-                    console.log("MEP out", feature);
                     const item = {
                         layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
                         // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
@@ -2326,13 +2339,13 @@ const Map = ({ leftWidth,
                       layer: MENU_OPTIONS.COUNTIES,
                       feature: feature.properties.county ? feature.properties.county : '-',
                       // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-                      // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+                      constructionmanagers: feature.properties.construction_manager ? feature.properties.construction_manager : '-',
                   }
                   mobile.push({
                       layer: item.layer,
-                      feature: item.feature
+                      feature: item.feature,
                       // watershedmanager: item.watershedmanager,
-                      // constructionmanagers: item.constructionmanagers
+                      constructionmanagers: item.constructionmanagers
                   })
                   menuOptions.push(MENU_OPTIONS.COUNTIES);
                   popups.push(item);
@@ -3113,21 +3126,15 @@ const Map = ({ leftWidth,
         const keyword = value.split('?');
         const coord = keyword[0].split(',');
         const titleObject = getTitle(keyword[1]);
-        console.log(titleObject);
-        console.log('my coord is ', coord);
         map.flyTo({ center: coord, zoom: 14.5 });
         const placeName = keyword[1];
         setKeyword(placeName);
         const newmarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
         newmarker.setLngLat(coord);
-        newmarker.addTo(map);
-        setMarkerGeocoder(newmarker);
+        
         map.on('moveend', (e:any) => { 
           const point = map.project(coord);
-          console.log("Coord", coord, "point", point);
           const features = map.queryRenderedFeatures(point, { layers: ['counties-background', 'municipalities-background', 'watershed_service_areas-background'] });
-          console.log('AXCfeatures backgrounds' , features);
-          console.log("AXCLAYERS", map.getStyle().layers);
           const mobile = [], menuOptions = [], popups = [], ids = [];
           let counties = 1, municipalities = 1, watershed_service_areas = 1;
           for (const feature of features) {
@@ -3156,13 +3163,13 @@ const Map = ({ leftWidth,
                     layer: MENU_OPTIONS.COUNTIES,
                     feature: feature.properties.county ? feature.properties.county : '-',
                     // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-                    // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+                    constructionmanagers: feature.properties.construction_manager ? feature.properties.construction_manager : '-',
                 }
                 mobile.push({
                     layer: item.layer,
-                    feature: item.feature
+                    feature: item.feature,
                     // watershedmanager: item.watershedmanager,
-                    // constructionmanagers: item.constructionmanagers
+                    constructionmanagers: item.constructionmanagers
                 })
                 menuOptions.push(MENU_OPTIONS.COUNTIES);
                 popups.push(item);
@@ -3209,9 +3216,12 @@ const Map = ({ leftWidth,
                   for (const index in popups) {
                       document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
                       document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-                      console.log('adding a click for button create ');
                       document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
                   }
+                  newmarker.setPopup(popup);
+                  newmarker.addTo(map);
+                  newmarker.togglePopup();
+                  setMarkerGeocoder(newmarker);
               }
           }
         } )
@@ -3380,7 +3390,11 @@ const Map = ({ leftWidth,
 
             </div>*/}
             <div className="measure-button">
-              <Button style={{ borderRadius: '4px' }} onClick={()=>setIsMeasuring(!isMeasuring)} ><img className="img-icon" /></Button>
+              {!isMeasuring && <Button style={{ borderRadius: '4px' }} onClick={()=>setIsMeasuring(true)} ><img className="img-icon" /></Button>}
+              {isMeasuring && <div className='measurecontainer'  > 
+                Total distance is {distanceValue} km
+                <Button onClick={()=>setIsMeasuring(false)} > Finish</Button>
+              </div>}
             </div>
             
             <div className="m-zoom">
