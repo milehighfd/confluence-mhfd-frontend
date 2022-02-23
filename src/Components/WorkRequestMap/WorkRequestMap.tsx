@@ -228,7 +228,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    let time = firstTime?2000:1300;
+    let time = firstTime?2200:1300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         
         let filterProjectsDraft = {...filterProjects}; 
@@ -257,7 +257,7 @@ const WorkRequestMap = (type: any) => {
             },time);
             
           });
-        },2000)
+        },2200)
           
       } else if(idsBoardProjects[0] == '-8888'){
         if(map.map){
