@@ -68,6 +68,8 @@ const { TextArea } = Input;
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 
 let map: any = null;
+let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
+let searchPopup = new mapboxgl.Popup();
 let popup = new mapboxgl.Popup();
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const highlightedLayers = ['problems', 'mhfd_projects'];
@@ -3099,8 +3101,8 @@ const Map = ({ leftWidth,
         mapSearchQuery(value);
     };
 
-    const getTitle = (title: string) => {
-        const parsed = title.split(',');
+    const getTitle = (text: string) => {
+        const parsed = text.split(',');
         if (parsed.length === 1) {
             return { title: parsed[0], subtitle: '' };
         }
@@ -3109,8 +3111,13 @@ const Map = ({ leftWidth,
         zip = zip.trim();
         zip = zip.split(' ')[1];
         const city = parsed.pop()?.trim() || 'City';
+        let titleArray = parsed.pop()?.split(',') || ['Place'];
+        let title = titleArray[0];
+        if (titleArray.length === 2) {
+            title = titleArray[1];
+        }
         return {
-            title: parsed.pop()?.trim() || 'Place',
+            title: title,
             subtitle: city + ' , CO ' + zip
         }
         /**
@@ -3129,9 +3136,9 @@ const Map = ({ leftWidth,
         map.flyTo({ center: coord, zoom: 14.5 });
         const placeName = keyword[1];
         setKeyword(placeName);
-        const newmarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
-        newmarker.setLngLat(coord);
-        
+        searchMarker.remove();        
+        searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
+        searchMarker.setLngLat(coord);
         map.on('moveend', (e:any) => { 
           const point = map.project(coord);
           const features = map.queryRenderedFeatures(point, { layers: ['counties-background', 'municipalities-background', 'watershed_service_areas-background'] });
@@ -3204,24 +3211,24 @@ const Map = ({ leftWidth,
               setMobilePopups(mobile);
               setSelectedPopup(0);
               if (html) {
-                  popup.remove();
-                  popup = new mapboxgl.Popup();
-                  popup.setLngLat(coord)
-                      .setHTML(html)
-                      .addTo(map);
-                  // newmarker.setLngLat(coord);
-                  // newmarker.setPopup(popup);
-                  // newmarker.addTo(map);
+                searchPopup.remove();
+                searchPopup = new mapboxgl.Popup();
+                searchPopup.setLngLat(coord)
+                    .setHTML(html)
+                    .addTo(map);
+                  // searchMarker.setLngLat(coord);
+                  // searchMarker.setPopup(popup);
+                  // searchMarker.addTo(map);
                       
-                  for (const index in popups) {
-                      document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
-                      document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-                      document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
-                  }
-                  newmarker.setPopup(popup);
-                  newmarker.addTo(map);
-                  newmarker.togglePopup();
-                  setMarkerGeocoder(newmarker);
+                for (const index in popups) {
+                    document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
+                    document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
+                    document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
+                }
+                searchMarker.setPopup(searchPopup);
+                searchMarker.addTo(map);
+                searchMarker.togglePopup();
+                setMarkerGeocoder(searchMarker);
               }
           }
         } )
