@@ -76,6 +76,10 @@ const highlightedLayers = ['problems', 'mhfd_projects'];
 type LayersType = string | ObjectLayerType;
 let coordX = -1;
 let coordY = -1;
+const factorKMToMiles = 0.621371;
+const factorKMtoFeet =  3280.8;
+const factorm2toacre = 0.00024710538146717;
+
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
 const { Panel } = Collapse;
@@ -92,6 +96,10 @@ let isMeasuring = false;
       'features': new Array()
       };
     const geojsonMeasuresSaved = {
+      'type': 'FeatureCollection',
+      'features': new Array()
+    };
+    const geojsonMeasuresMomentary = {
       'type': 'FeatureCollection',
       'features': new Array()
     };
@@ -226,7 +234,7 @@ const Map = ({ leftWidth,
         MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,  MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
         MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
         MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
-        MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS
+        MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS, MENU_OPTIONS.MEASURES
         ];
     // const [ spinValue, setSpinValue] = useState(true);
     const user = store.getState().profile.userInformation;
@@ -1319,8 +1327,23 @@ const Map = ({ leftWidth,
           type:'fill',
           source: 'geojsonMeasuresSaved',
           paint: {
-            'fill-color': '#A98208',
-            'fill-outline-color': '#DBA32A',
+            'fill-color': '#F3522B',
+            'fill-outline-color': '#F3522B',
+            'fill-opacity': 0.4
+          }
+        })
+      }
+      if(!map.getSource('geojsonMeasuresMomentary')){
+        map.addSource('geojsonMeasuresMomentary', {
+          'type': 'geojson',
+          'data': geojsonMeasuresMomentary
+        });
+        map.addLayer({
+          id:'measuresMomentary',
+          type:'fill',
+          source: 'geojsonMeasuresMomentary',
+          paint: {
+            'fill-color': '#865005',
             'fill-opacity': 0.3
           }
         })
@@ -1868,6 +1891,94 @@ const Map = ({ leftWidth,
         }
     }
     const [distanceValue, setDistanceValue] = useState('0');
+    const [distanceValueMi, setDistanceValueMi] = useState('0');
+    const [areaValue, setAreaValue] = useState('0');
+    const finishMeasure = () => {
+      if(linestringMeasure.geometry.coordinates.length > 2 && isMeasuring){
+        var line = turf.lineString(linestringMeasure.geometry.coordinates);
+        var polygon = turf.lineToPolygon(JSON.parse(JSON.stringify(line)));
+        const area = turf.area(polygon);
+        setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
+        const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
+        const perimeter = turf.length(JSON.parse(JSON.stringify(newLS)));
+
+        polygon.properties = { 
+          id: geojsonMeasuresSaved.features.length, 
+          coordinates: polygon.geometry?.coordinates,
+          area: (area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          perimeterFeet: (perimeter * factorKMtoFeet).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          perimeterMi: (perimeter * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2})
+        }
+        geojsonMeasuresSaved.features.push(polygon)
+        map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+        geojsonMeasures.features = new Array();
+        linestringMeasure.geometry.coordinates =  new Array();
+        geojsonMeasuresMomentary.features = new Array();
+        map.getSource('geojsonMeasuresMomentary').setData(geojsonMeasuresMomentary);
+        map.getSource('geojsonMeasure').setData(geojsonMeasures);
+      }
+    }
+    const measureFunction = (e: any) => {
+      const features = map.queryRenderedFeatures(e.point, {
+        layers: ['measure-points']
+        });
+        if ((e.point.x === coordX || e.point.y === coordY)) {
+          return;
+        }
+        coordX = e.point.x;
+        coordY = e.point.y;
+        if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
+
+        if (features.length > 0 && linestringMeasure.geometry.coordinates.length > 2) {
+          const id = features[0].properties.id;
+          geojsonMeasures.features = geojsonMeasures.features.filter(
+            (point :any) => point.properties.id !== id
+          );
+          finishMeasure();
+        } else {
+          const point:any = {
+            'type': 'Feature',
+            'geometry': {
+            'type': 'Point',
+            'coordinates': [e.lngLat.lng, e.lngLat.lat]
+            },
+            'properties': {
+            'id': String(new Date().getTime())
+            }
+          };
+          geojsonMeasures.features.push(point);
+        }
+         
+        if (geojsonMeasures.features.length > 1) {
+          linestringMeasure.geometry.coordinates = geojsonMeasures.features.map(
+            (point) => point.geometry.coordinates
+          );
+          geojsonMeasures.features.push(linestringMeasure);
+          const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
+          const distance = turf.length(newLS);
+          setDistanceValue((distance * factorKMtoFeet).toLocaleString(undefined, {maximumFractionDigits: 2}));
+          setDistanceValueMi((distance * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2}));
+          if(linestringMeasure.geometry.coordinates.length > 2) {
+            var polygon = turf.lineToPolygon(JSON.parse(JSON.stringify(newLS)));
+            geojsonMeasuresMomentary.features = [polygon];
+            map.getSource('geojsonMeasuresMomentary').setData(geojsonMeasuresMomentary);
+            const area = turf.area(polygon);
+            setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
+          } 
+          // distanceContainer.appendChild(value);
+        } else if(geojsonMeasures.features.length == 1){
+          setAreaValue('0');
+          setDistanceValue('0');
+          setDistanceValueMi('0');
+        }
+         
+        if(map.getSource('geojsonMeasure')) {
+          map.getSource('geojsonMeasure').setData(geojsonMeasures);
+        }
+    }
+    const measureCenterAndDelete = (item: any, type: any, event: any) => {
+      console.log("ABOUT TO", item, type);
+    }
     useEffect(() => {
 
         if (allLayers.length < 100) {
@@ -1875,56 +1986,7 @@ const Map = ({ leftWidth,
         }
         map.on('click', (e: any) => {
             if(isMeasuring) {
-              
-                const features = map.queryRenderedFeatures(e.point, {
-                  layers: ['measure-points']
-                  });
-                  if ((e.point.x === coordX || e.point.y === coordY)) {
-                    return;
-                  }
-                  coordX = e.point.x;
-                  coordY = e.point.y;
-                  if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
-
-                  if (features.length > 0 && linestringMeasure.geometry.coordinates.length > 2) {
-                    const id = features[0].properties.id;
-                    geojsonMeasures.features = geojsonMeasures.features.filter(
-                      (point :any) => point.properties.id !== id
-                    );
-                    var line = turf.lineString(linestringMeasure.geometry.coordinates);
-                    var polygon = turf.lineToPolygon(line);
-                    geojsonMeasuresSaved.features.push(polygon)
-                    map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
-                    geojsonMeasures.features = new Array();
-                    linestringMeasure.geometry.coordinates =  new Array();
-                    map.getSource('geojsonMeasure').setData(geojsonMeasures);
-                  } else {
-                    const point:any = {
-                      'type': 'Feature',
-                      'geometry': {
-                      'type': 'Point',
-                      'coordinates': [e.lngLat.lng, e.lngLat.lat]
-                      },
-                      'properties': {
-                      'id': String(new Date().getTime())
-                      }
-                    };
-                    geojsonMeasures.features.push(point);
-                  }
-                   
-                  if (geojsonMeasures.features.length > 1) {
-                    linestringMeasure.geometry.coordinates = geojsonMeasures.features.map(
-                      (point) => point.geometry.coordinates
-                    );
-                    geojsonMeasures.features.push(linestringMeasure);
-                    const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
-                    const distance = turf.length(newLS);
-                    setDistanceValue(distance.toLocaleString());
-                    // distanceContainer.appendChild(value);
-                  }
-                   
-                  
-                  map.getSource('geojsonMeasure').setData(geojsonMeasures);
+              measureFunction(e);
             } else {
               if (commentAvailable && canAdd) {
                 const html = commentPopup();
@@ -2065,584 +2127,607 @@ const Map = ({ leftWidth,
             setMobilePopups([]);
             setActiveMobilePopups([]);
             setSelectedPopup(-1);
-            let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
-            if (features.length === 0) {            
-                // return;            
-              }
-            if ((e.point.x === coordX || e.point.y === coordY)) {
-                // return;
-            }
-            coordX = e.point.x;
-            coordY = e.point.y;
-            const search = (id: number, source: string) => {
-                let index = 0;
-                for (const feature of features) {
-                    if (feature.properties.cartodb_id === id && source === feature.source) {
-                        return index;
-                    }
-                    index++;
-                }
-                return -1;
-            }
-            const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
-            if ( popupsClassess.length ) {
-                for(let i = 0 ; i < popupsClassess.length ; ++i) {
-                  popupsClassess[i].remove();
-                }
-            }
-            features = features.filter((element: any, index: number) => {
-                return search(element.properties.cartodb_id, element.source) === index;
-            });
-            features.sort((a: any, b: any) => {
-                //first sort the projects then problems, then alphabetical
-                if (a.source.includes('project')) {
-                    return -1;
-                }
-                if (b.source.includes('project')) {
-                    return 1;
-                }
-                if (a.source.includes('problem')) {
-                    return -1;
-                }
-                if (b.source.includes('problem')) {
-                    return 1;
-                }
-                return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
-            });
-            for (const feature of features) {
-                //an special and tricky case
-                if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
-                    continue;
-                }
-                let html: any = null;
-                let itemValue;
-                if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects') {
-                    getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
-                    const filtered = galleryProjects.filter((item: any) =>
-                        item.cartodb_id === feature.properties.cartodb_id
-                    );
-                    const item = {
-                        type: 'project',
-                        title: MENU_OPTIONS.PROJECT,
-                        name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
-                        organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
-                        value: feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '-1',
-                        projecctype: feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-',
-                        status: feature.properties.status ? feature.properties.status : '-',
-                        objectid: feature.properties.objectid,
-                        valueid: feature.properties.cartodb_id,
-                        id: feature.properties.projectid,
-                        streamname: feature.properties.streamname,
-                        popupId: 'popup',
-                        image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-                            feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
-                            feature.properties.projecttype === 'Study' ? '/projectImages/study.jpg' :
-                                feature.properties.projecttype === 'Maintenance' ?
-                                (feature.properties.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
-                                    feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
-                                    feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
-                                        feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                                        '/projectImages/debris_management.jpg') : '/Icons/eje.png')
-                    };
-                    mobile.push({
-                        type: 'project',
-                        name: item.name,
-                        value: item.value,
-                        projecttype: item.projecctype,
-                        image: item.image,
-                        //for detail popup
-                        id: item.id,
-                        objectid: item.objectid,
-                        valueid: item.valueid,
-                        streamname: item.streamname
-                    });
-                    itemValue = { ...item };
-                   // itemValue.value = item.valueid;
-                    menuOptions.push(MENU_OPTIONS.PROJECT);
-                    popups.push(itemValue);
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === MENU_OPTIONS.PROBLEMS) {
-                    getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
-                    const item = {
-                        type: MENU_OPTIONS.PROBLEMS,
-                        streamname: feature.properties.streamname,
-                        title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
-                        name: feature.properties.problemname ? feature.properties.problemname : '-',
-                        organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                        value: feature.properties.solutioncost ? feature.properties.solutioncost : '0',
-                        status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
-                        priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
-                        problemid: feature.properties.problemid,
-                        popupId: 'popup',
-                        image: `gallery/${feature.properties.problemtype}.jpg`,
-                    };
-                    itemValue = { ...item };
-                    mobile.push({
-                        type: MENU_OPTIONS.PROBLEMS,
-                        title: item.title,
-                        value: item.value,
-                        name: item.name,
-                        image: item.image,
-                        //for detail popup
-                        problemid: item.problemid,
-                        streamname: item.streamname
-                    });
-                    menuOptions.push('Problem');
-                    popups.push(itemValue);
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === 'mep_projects_temp_locations') {
-                    const item = {
-                        layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
-                        feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-                        projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-                        mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                        mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-                        notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-                        servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
-                    }
-                    menuOptions.push(MENU_OPTIONS.MEP_TEMPORARY_LOCATION);
-                    popups.push(item);
-                    mobile.push({
-                        layer: item.layer,
-                        proj_name: item.feature,
-                        mep_status: item.mepstatus
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === 'mep_projects_temp_locations') {
-                    const item = {
-                        layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
-                        feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-                        projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-                        mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                        mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-                        notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-                        servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
-                    }
-                    menuOptions.push(MENU_OPTIONS.MEP_TEMPORARY_LOCATION);
-                    popups.push(item);
-                    mobile.push({
-                        layer: item.layer,
-                        proj_name: item.feature,
-                        mep_status: item.mepstatus
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === 'mep_detentionbasins') {
-                    const item = {
-                        layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
-                        feature: feature.properties.projectname ? feature.properties.projectname : '-',
-                        projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-                        // projno: feature.properties.projno? feature.properties.projno: '-',
-                        mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
-                        mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
-                        pondname: feature.properties.pondname? feature.properties.pondname: '-',
-                        mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-                        // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                        mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) //feature.properties.status_date ? feature.properties.status_date : '-', // [ending]
-                        // notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-                        // servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
-                    }
-                    menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
-                    popups.push(item);
-                    mobile.push({
-                        layer: item.layer,
-                        proj_name: item.feature,
-                        mep_status: item.mep_eligibilitystatus
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === 'mep_channels') {
-                    const item = {
-                        layer: MENU_OPTIONS.MEP_CHANNEL,
-                        // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-                        // projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-                        // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                        // mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-                        // notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-                        // servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
-                        feature: feature.properties.projectname ? feature.properties.projectname : '-',
-                        projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-                        // projno: feature.properties.projno? feature.properties.projno: '-',
-                        mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
-                        mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
-                        pondname: feature.properties.pondname? feature.properties.pondname: '-',
-                        mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-                        // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                        mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) //feature.properties.status_date ? feature.properties.status_date : '-', // [ending]
 
-                    }
-                    menuOptions.push(MENU_OPTIONS.MEP_CHANNEL);
-                    popups.push(item);
-                    mobile.push({
-                        layer: item.layer,
-                        proj_name: item.feature,
-                        mep_status: item.mep_eligibilitystatus
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+            const measureFeature = map.queryRenderedFeatures(bbox, { layers: ['measuresSaved'] });
+            if(measureFeature.length){
+              let measure = measureFeature[0];
+              
+              const item = {
+                layer: MENU_OPTIONS.MEASURES,
+                coordinates: measure.properties.coordinates,
+                area: measure.properties.area, 
+                perimeterFeet: measure.properties.perimeterFeet,
+                perimeterMi: measure.properties.perimeterMi,
+                id: measure.properties.id
+              }
+              menuOptions.push(MENU_OPTIONS.MEASURES);
+              popups.push(item);
+              mobile.push({
+                  layer: item.layer
+              });
+              mobileIds.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
+              ids.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
+            } else {
+
+              let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
+              if (features.length === 0) {            
+                  // return;            
                 }
-                if (feature.source === 'mep_outfalls') {
+              if ((e.point.x === coordX || e.point.y === coordY)) {
+                  // return;
+              }
+              coordX = e.point.x;
+              coordY = e.point.y;
+              const search = (id: number, source: string) => {
+                  let index = 0;
+                  for (const feature of features) {
+                      if (feature.properties.cartodb_id === id && source === feature.source) {
+                          return index;
+                      }
+                      index++;
+                  }
+                  return -1;
+              }
+              const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
+              if ( popupsClassess.length ) {
+                  for(let i = 0 ; i < popupsClassess.length ; ++i) {
+                    popupsClassess[i].remove();
+                  }
+              }
+              features = features.filter((element: any, index: number) => {
+                  return search(element.properties.cartodb_id, element.source) === index;
+              });
+              features.sort((a: any, b: any) => {
+                  //first sort the projects then problems, then alphabetical
+                  if (a.source.includes('project')) {
+                      return -1;
+                  }
+                  if (b.source.includes('project')) {
+                      return 1;
+                  }
+                  if (a.source.includes('problem')) {
+                      return -1;
+                  }
+                  if (b.source.includes('problem')) {
+                      return 1;
+                  }
+                  return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
+              });
+              for (const feature of features) {
+                  //an special and tricky case
+                  if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
+                      continue;
+                  }
+                  let html: any = null;
+                  let itemValue;
+                  if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects') {
+                      getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
+                      const filtered = galleryProjects.filter((item: any) =>
+                          item.cartodb_id === feature.properties.cartodb_id
+                      );
+                      const item = {
+                          type: 'project',
+                          title: MENU_OPTIONS.PROJECT,
+                          name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
+                          organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
+                          value: feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '-1',
+                          projecctype: feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-',
+                          status: feature.properties.status ? feature.properties.status : '-',
+                          objectid: feature.properties.objectid,
+                          valueid: feature.properties.cartodb_id,
+                          id: feature.properties.projectid,
+                          streamname: feature.properties.streamname,
+                          popupId: 'popup',
+                          image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
+                              feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
+                              feature.properties.projecttype === 'Study' ? '/projectImages/study.jpg' :
+                                  feature.properties.projecttype === 'Maintenance' ?
+                                  (feature.properties.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
+                                      feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
+                                      feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
+                                          feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
+                                          '/projectImages/debris_management.jpg') : '/Icons/eje.png')
+                      };
+                      mobile.push({
+                          type: 'project',
+                          name: item.name,
+                          value: item.value,
+                          projecttype: item.projecctype,
+                          image: item.image,
+                          //for detail popup
+                          id: item.id,
+                          objectid: item.objectid,
+                          valueid: item.valueid,
+                          streamname: item.streamname
+                      });
+                      itemValue = { ...item };
+                    // itemValue.value = item.valueid;
+                      menuOptions.push(MENU_OPTIONS.PROJECT);
+                      popups.push(itemValue);
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === MENU_OPTIONS.PROBLEMS) {
+                      getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
+                      const item = {
+                          type: MENU_OPTIONS.PROBLEMS,
+                          streamname: feature.properties.streamname,
+                          title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
+                          name: feature.properties.problemname ? feature.properties.problemname : '-',
+                          organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+                          value: feature.properties.solutioncost ? feature.properties.solutioncost : '0',
+                          status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
+                          priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
+                          problemid: feature.properties.problemid,
+                          popupId: 'popup',
+                          image: `gallery/${feature.properties.problemtype}.jpg`,
+                      };
+                      itemValue = { ...item };
+                      mobile.push({
+                          type: MENU_OPTIONS.PROBLEMS,
+                          title: item.title,
+                          value: item.value,
+                          name: item.name,
+                          image: item.image,
+                          //for detail popup
+                          problemid: item.problemid,
+                          streamname: item.streamname
+                      });
+                      menuOptions.push('Problem');
+                      popups.push(itemValue);
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === 'mep_projects_temp_locations') {
+                      const item = {
+                          layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
+                          feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                          projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
+                          mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                          mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
+                          notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                          servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                      }
+                      menuOptions.push(MENU_OPTIONS.MEP_TEMPORARY_LOCATION);
+                      popups.push(item);
+                      mobile.push({
+                          layer: item.layer,
+                          proj_name: item.feature,
+                          mep_status: item.mepstatus
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === 'mep_projects_temp_locations') {
+                      const item = {
+                          layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
+                          feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                          projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
+                          mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                          mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
+                          notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                          servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                      }
+                      menuOptions.push(MENU_OPTIONS.MEP_TEMPORARY_LOCATION);
+                      popups.push(item);
+                      mobile.push({
+                          layer: item.layer,
+                          proj_name: item.feature,
+                          mep_status: item.mepstatus
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === 'mep_detentionbasins') {
+                      const item = {
+                          layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
+                          feature: feature.properties.projectname ? feature.properties.projectname : '-',
+                          projectno: feature.properties.projectno ? feature.properties.projectno : '-',
+                          // projno: feature.properties.projno? feature.properties.projno: '-',
+                          mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
+                          mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
+                          pondname: feature.properties.pondname? feature.properties.pondname: '-',
+                          mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
+                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                          mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) //feature.properties.status_date ? feature.properties.status_date : '-', // [ending]
+                          // notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                          // servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                      }
+                      menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
+                      popups.push(item);
+                      mobile.push({
+                          layer: item.layer,
+                          proj_name: item.feature,
+                          mep_status: item.mep_eligibilitystatus
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === 'mep_channels') {
+                      const item = {
+                          layer: MENU_OPTIONS.MEP_CHANNEL,
+                          // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                          // projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
+                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                          // mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
+                          // notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                          // servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                          feature: feature.properties.projectname ? feature.properties.projectname : '-',
+                          projectno: feature.properties.projectno ? feature.properties.projectno : '-',
+                          // projno: feature.properties.projno? feature.properties.projno: '-',
+                          mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
+                          mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
+                          pondname: feature.properties.pondname? feature.properties.pondname: '-',
+                          mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
+                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                          mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) //feature.properties.status_date ? feature.properties.status_date : '-', // [ending]
+
+                      }
+                      menuOptions.push(MENU_OPTIONS.MEP_CHANNEL);
+                      popups.push(item);
+                      mobile.push({
+                          layer: item.layer,
+                          proj_name: item.feature,
+                          mep_status: item.mep_eligibilitystatus
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === 'mep_outfalls') {
+                      const item = {
+                          layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
+                          // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                          // projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
+                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                          // mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
+                          // notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
+                          // servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                          feature: feature.properties.projectname ? feature.properties.projectname : '-',
+                          projectno: feature.properties.projectno ? feature.properties.projectno : '-',
+                          // projno: feature.properties.projno? feature.properties.projno: '-',
+                          mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
+                          mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
+                          pondname: feature.properties.pondname? feature.properties.pondname: '-',
+                          mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
+                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
+                          mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) //feature.properties.status_date ? feature.properties.status_date : '-', // [ending]
+                      }
+                      menuOptions.push(MENU_OPTIONS.MEP_STORM_OUTFALL);
+                      popups.push(item);
+                      mobile.push({
+                          layer: item.layer,
+                          proj_name: item.feature,
+                          mep_status: item.mep_eligibilitystatus
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === 'watershed_service_areas') {  /// this is for service area 
+                      const item = {
+                          layer: MENU_OPTIONS.SERVICE_AREA,
+                          feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
+                          watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                          constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+                          email: feature.properties.email?feature.properties.email:'-'
+                      }
+                      mobile.push({
+                          layer: item.layer,
+                          watershedmanager: item.watershedmanager,
+                          constructionmanagers: item.constructionmanagers,
+                          email: item.email
+                      })
+                      menuOptions.push(MENU_OPTIONS.SERVICE_AREA);
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === 'counties') { 
                     const item = {
-                        layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
-                        // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-                        // projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-                        // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                        // mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-                        // notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-                        // servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
-                        feature: feature.properties.projectname ? feature.properties.projectname : '-',
-                        projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-                        // projno: feature.properties.projno? feature.properties.projno: '-',
-                        mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
-                        mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
-                        pondname: feature.properties.pondname? feature.properties.pondname: '-',
-                        mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-                        // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                        mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) //feature.properties.status_date ? feature.properties.status_date : '-', // [ending]
+                        layer: MENU_OPTIONS.COUNTIES,
+                        feature: feature.properties.county ? feature.properties.county : '-',
+                        // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+                        constructionmanagers: feature.properties.construction_manager ? feature.properties.construction_manager : '-',
                     }
-                    menuOptions.push(MENU_OPTIONS.MEP_STORM_OUTFALL);
-                    popups.push(item);
                     mobile.push({
                         layer: item.layer,
-                        proj_name: item.feature,
-                        mep_status: item.mep_eligibilitystatus
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === 'watershed_service_areas') {  /// this is for service area 
-                    const item = {
-                        layer: MENU_OPTIONS.SERVICE_AREA,
-                        feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
-                        watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-                        constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
-                        email: feature.properties.email?feature.properties.email:'-'
-                    }
-                    mobile.push({
-                        layer: item.layer,
-                        watershedmanager: item.watershedmanager,
-                        constructionmanagers: item.constructionmanagers,
-                        email: item.email
+                        feature: item.feature,
+                        // watershedmanager: item.watershedmanager,
+                        constructionmanagers: item.constructionmanagers
                     })
-                    menuOptions.push(MENU_OPTIONS.SERVICE_AREA);
+                    menuOptions.push(MENU_OPTIONS.COUNTIES);
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
-                if (feature.source === 'counties') { 
+                if (feature.source === MUNICIPALITIES_FILTERS) {  
                   const item = {
-                      layer: MENU_OPTIONS.COUNTIES,
-                      feature: feature.properties.county ? feature.properties.county : '-',
+                      layer: MENU_OPTIONS.MUNICIPALITIES,
+                      feature: feature.properties.city ? feature.properties.city : '-',
                       // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-                      constructionmanagers: feature.properties.construction_manager ? feature.properties.construction_manager : '-',
+                      // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
                   }
                   mobile.push({
                       layer: item.layer,
-                      feature: item.feature,
+                      feature: item.feature
                       // watershedmanager: item.watershedmanager,
-                      constructionmanagers: item.constructionmanagers
+                      // constructionmanagers: item.constructionmanagers
                   })
-                  menuOptions.push(MENU_OPTIONS.COUNTIES);
+                  menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
                   popups.push(item);
                   ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                }
+                
+                  if (feature.source === 'catchments' || feature.source === 'basin') {
+                      const item = {
+                          layer: MENU_OPTIONS.WATERSHED,
+                          feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
+                      }
+                      menuOptions.push(MENU_OPTIONS.WATERSHED);
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === ROUTINE_NATURAL_AREAS) {
+                      const item = {
+                          layer: MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA,
+                          feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
+                          contract: feature.properties.contract ? feature.properties.contract : '-',
+                          contractor: feature.properties.contractor ? feature.properties.contractor : '-',
+                          local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
+                          acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
+                          project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
+                          frequency: 'NA'
+                      }
+                      menuOptions.push(MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA);
+                      popups.push(item);
+                      mobile.push({
+                          layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
+                          project_subtype: item.project_subtype,
+                          frequency: item.frequency
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === ROUTINE_WEED_CONTROL) {
+                      const item = {
+                          layer: MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
+                          feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
+                          contract: feature.properties.contract ? feature.properties.contract : '-',
+                          contractor: feature.properties.contractor ? feature.properties.contractor : '-',
+                          local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
+                          mow_frequency: feature.properties.mow_frequency ? feature.properties.mow_frequency : '-',
+                          acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
+                          project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
+                      }
+                      menuOptions.push(MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL);
+                      popups.push(item);
+                      mobile.push({
+                          layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
+                          project_subtype: item.project_subtype,
+                          frequency: item.mow_frequency
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === ROUTINE_DEBRIS_AREA) {
+                      const item = {
+                          layer: MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA,
+                          feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
+                          contract: feature.properties.contract ? feature.properties.contract : '-',
+                          contractor: feature.properties.contractor ? feature.properties.contractor : '-',
+                          local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
+                          debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
+                          acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
+                          project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
+                      }
+                      menuOptions.push(MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA);
+                      popups.push(item);
+                      mobile.push({
+                          layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
+                          project_subtype: item.project_subtype,
+                          frequency: item.debris_frequency
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === ROUTINE_DEBRIS_LINEAR) {
+                      const item = {
+                          layer: MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR,
+                          feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
+                          contract: feature.properties.contract ? feature.properties.contract : '-',
+                          contractor: feature.properties.contractor ? feature.properties.contractor : '-',
+                          local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
+                          debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
+                          length: feature.properties.length ? Math.round(feature.properties.length) : '-',
+                          project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
+                      }
+                      menuOptions.push(MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR);
+                      popups.push(item);
+                      mobile.push({
+                          layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
+                          project_subtype: item.project_subtype,
+                          frequency: item.debris_frequency
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  // new layers
+                  if (feature.source === NRCS_SOILS) {
+                      const item = {
+                          layer: MENU_OPTIONS.NCRS_SOILS,
+                          hydgrpdcd: feature.properties.hydgrpdcd,
+                          muname: feature.properties.muname,
+                          aws0150wta: feature.properties.aws0150wta,
+                          drclassdcd: feature.properties.drclassdcd,
+                          nrcsweb: 'NA'
+                      }
+                      menuOptions.push(MENU_OPTIONS.NCRS_SOILS);
+                      popups.push(item);
+                      mobile.push({
+                          layer: item.layer,
+                          hydgrpdcd: item.hydgrpdcd,
+                          muname: item.muname
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === DWR_DAM_SAFETY) {
+                      const item = {
+                          layer: MENU_OPTIONS.DWR_DAM_SAFETY,
+                          dam_name: feature.properties.dam_name,
+                          hazard_class: feature.properties.hazard_class,
+                          year_completed: feature.properties.year_completed,
+                          dam_height: feature.properties.dam_height,
+                          more_information: feature.properties.more_information
+                      }
+                      mobile.push({
+                          layer: item.layer,
+                          dam_name: item.dam_name,
+                          hazard_class: item.hazard_class
+                      })
+                      menuOptions.push(MENU_OPTIONS.DWR_DAM_SAFETY);
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
+                      const item = {
+                          layer: MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
+                          scale: 'District',//feature.properties.scale,
+                          date_created: '01/07/2019' //feature.properties.date_created,
+                      }
+                      menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
+                      popups.push(item);
+                      mobile.push({
+                          layer: item.layer,
+                          scale: item.scale,
+                          date_created: item.date_created
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === BCZ_PREBLE_MEADOW_JUMPING) {
+                      // console.log("FEature props", feature.properties);
+                      const item = {
+                          layer: MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
+                          expirationdate: epochTransform(feature.properties.expiration_date),
+                          bcz_specname: feature.properties.species_name,
+                          bcz_expdate: feature.properties.bcz_expdate,
+                          website: 'https://www.fws.gov/mountain-prairie/es/preblesMeadowJumpingMouse.php',
+                          letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0030_PMJM_Denver_Block_Clearance_extension_accessible_signed.pdf',
+                          map: `https://www.fws.gov/mountain-prairie/es/species/mammals/preble/9-2016_USFWS_Preble's_map_Denver_Metro_Area.pdf`
+                      }
+                      menuOptions.push(MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE);
+                      popups.push(item);
+                      mobile.push({
+                          layer: MENU_OPTIONS.BLOCK_CLEARANCE_ZONE,
+                          bcz_specname: item.bcz_specname,
+                          bcz_expdate: item.bcz_expdate
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
+                      // console.log("BZX", feature);
+                      const item = {
+                          layer: MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,
+                          bcz_specname: feature.properties.species_name,
+                          bcz_expdate: feature.properties.bcz_expdate,
+                          expirationdate: parseDateZ(feature.properties.expiration_date),
+                          website: 'https://www.fws.gov/mountain-prairie/es/uteLadiestress.php',
+                          letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0031_ULTO_Denver_Block_Clearance_extension_accessible_signed.pdf',
+                          map: 'https://www.fws.gov/mountain-prairie/es/species/plants/uteladiestress/BlockClearanceMap2008.pdf'
+                      }
+                      mobile.push({
+                          layer: MENU_OPTIONS.BLOCK_CLEARANCE_ZONE,
+                          bcz_specname: item.bcz_specname,
+                          bcz_expdate: item.bcz_expdate
+                      });
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      menuOptions.push(MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID);
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === RESEARCH_MONITORING) {
+                      const item = {
+                          layer: MENU_OPTIONS.RESEARCH_MONITORING,
+                          sitename: feature.properties.sitename,
+                          sitetype: feature.properties.sitetype,
+                          bmptype: feature.properties.bmptype,
+                      }
+                      mobile.push({
+                          layer: item.layer,
+                          sitename: item.sitename,
+                          sitetype: item.sitetype
+                      })
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      menuOptions.push(MENU_OPTIONS.RESEARCH_MONITORING);
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === CLIMB_TO_SAFETY) {
+                      const item = {
+                          layer: MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS,
+                      }
+                      mobile.push(item);
+                      menuOptions.push(MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS);
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === SEMSWA_SERVICE_AREA) {
+                      const item = {
+                          layer: MENU_OPTIONS.SEMSWA_SERVICE_AREA,
+                      }
+                      menuOptions.push(MENU_OPTIONS.SEMSWA_SERVICE_AREA);
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if(feature.source === 'streams') {
+                      const item = {
+                          layer: 'Streams',
+                          streamname: feature.properties.str_name,
+                          mhfd_code: feature.properties.mhfd_code,
+                          catch_sum: feature.properties.catch_sum,
+                          str_ft: feature.properties.str_ft,
+                          slope: feature.properties.slope 
+                      };
+                      menuOptions.push('Stream');
+                      mobile.push({...item});
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      
+                  }
+                  for (const component of COMPONENT_LAYERS.tiles) {
+                      if (feature.source === component) {
+                          const item = {
+                            layer: MENU_OPTIONS.COMPONENTS,
+                            type: feature.properties.type ? feature.properties.type : '-',
+                            subtype: feature.properties.subtype ? feature.properties.subtype : '-',
+                            status: feature.properties.status ? feature.properties.status : '-',
+                            estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                            studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+                            studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
+                            jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+                            original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                            table: feature.source ? feature.source : '-',
+                            cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
+                            problem: 'Dataset in development',
+                            objectid: feature.properties.objectid?feature.properties.objectid:'-',
+                            streamname: feature.properties.drainageway,
+                          };
+                          const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
+                          menuOptions.push(name);
+                          mobile.push({
+                              layer: item.layer,
+                              type: item.type,
+                              subtype: item.subtype,
+                              streamname: item.streamname,
+                              studyyear: item.studyyear
+                          })
+                          mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                          popups.push(item);
+                          ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      }
+                  }
               }
-              if (feature.source === MUNICIPALITIES_FILTERS) {  
-                const item = {
-                    layer: MENU_OPTIONS.MUNICIPALITIES,
-                    feature: feature.properties.city ? feature.properties.city : '-',
-                    // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-                    // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
-                }
-                mobile.push({
-                    layer: item.layer,
-                    feature: item.feature
-                    // watershedmanager: item.watershedmanager,
-                    // constructionmanagers: item.constructionmanagers
-                })
-                menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
-                popups.push(item);
-                ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-              }
-              
-                if (feature.source === 'catchments' || feature.source === 'basin') {
-                    const item = {
-                        layer: MENU_OPTIONS.WATERSHED,
-                        feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
-                    }
-                    menuOptions.push(MENU_OPTIONS.WATERSHED);
-                    popups.push(item);
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === ROUTINE_NATURAL_AREAS) {
-                    const item = {
-                        layer: MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA,
-                        feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
-                        contract: feature.properties.contract ? feature.properties.contract : '-',
-                        contractor: feature.properties.contractor ? feature.properties.contractor : '-',
-                        local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
-                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
-                        project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
-                        frequency: 'NA'
-                    }
-                    menuOptions.push(MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA);
-                    popups.push(item);
-                    mobile.push({
-                        layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
-                        project_subtype: item.project_subtype,
-                        frequency: item.frequency
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === ROUTINE_WEED_CONTROL) {
-                    const item = {
-                        layer: MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
-                        feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
-                        contract: feature.properties.contract ? feature.properties.contract : '-',
-                        contractor: feature.properties.contractor ? feature.properties.contractor : '-',
-                        local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
-                        mow_frequency: feature.properties.mow_frequency ? feature.properties.mow_frequency : '-',
-                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
-                        project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
-                    }
-                    menuOptions.push(MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL);
-                    popups.push(item);
-                    mobile.push({
-                        layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
-                        project_subtype: item.project_subtype,
-                        frequency: item.mow_frequency
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === ROUTINE_DEBRIS_AREA) {
-                    const item = {
-                        layer: MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA,
-                        feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
-                        contract: feature.properties.contract ? feature.properties.contract : '-',
-                        contractor: feature.properties.contractor ? feature.properties.contractor : '-',
-                        local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
-                        debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
-                        acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
-                        project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
-                    }
-                    menuOptions.push(MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA);
-                    popups.push(item);
-                    mobile.push({
-                        layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
-                        project_subtype: item.project_subtype,
-                        frequency: item.debris_frequency
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === ROUTINE_DEBRIS_LINEAR) {
-                    const item = {
-                        layer: MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR,
-                        feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
-                        contract: feature.properties.contract ? feature.properties.contract : '-',
-                        contractor: feature.properties.contractor ? feature.properties.contractor : '-',
-                        local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
-                        debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
-                        length: feature.properties.length ? Math.round(feature.properties.length) : '-',
-                        project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
-                    }
-                    menuOptions.push(MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR);
-                    popups.push(item);
-                    mobile.push({
-                        layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
-                        project_subtype: item.project_subtype,
-                        frequency: item.debris_frequency
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                // new layers
-                if (feature.source === NRCS_SOILS) {
-                    const item = {
-                        layer: MENU_OPTIONS.NCRS_SOILS,
-                        hydgrpdcd: feature.properties.hydgrpdcd,
-                        muname: feature.properties.muname,
-                        aws0150wta: feature.properties.aws0150wta,
-                        drclassdcd: feature.properties.drclassdcd,
-                        nrcsweb: 'NA'
-                    }
-                    menuOptions.push(MENU_OPTIONS.NCRS_SOILS);
-                    popups.push(item);
-                    mobile.push({
-                        layer: item.layer,
-                        hydgrpdcd: item.hydgrpdcd,
-                        muname: item.muname
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === DWR_DAM_SAFETY) {
-                    const item = {
-                        layer: MENU_OPTIONS.DWR_DAM_SAFETY,
-                        dam_name: feature.properties.dam_name,
-                        hazard_class: feature.properties.hazard_class,
-                        year_completed: feature.properties.year_completed,
-                        dam_height: feature.properties.dam_height,
-                        more_information: feature.properties.more_information
-                    }
-                    mobile.push({
-                        layer: item.layer,
-                        dam_name: item.dam_name,
-                        hazard_class: item.hazard_class
-                    })
-                    menuOptions.push(MENU_OPTIONS.DWR_DAM_SAFETY);
-                    popups.push(item);
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
-                    const item = {
-                        layer: MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
-                        scale: 'District',//feature.properties.scale,
-                        date_created: '01/07/2019' //feature.properties.date_created,
-                    }
-                    menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
-                    popups.push(item);
-                    mobile.push({
-                        layer: item.layer,
-                        scale: item.scale,
-                        date_created: item.date_created
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === BCZ_PREBLE_MEADOW_JUMPING) {
-                    // console.log("FEature props", feature.properties);
-                    const item = {
-                        layer: MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
-                        expirationdate: epochTransform(feature.properties.expiration_date),
-                        bcz_specname: feature.properties.species_name,
-                        bcz_expdate: feature.properties.bcz_expdate,
-                        website: 'https://www.fws.gov/mountain-prairie/es/preblesMeadowJumpingMouse.php',
-                        letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0030_PMJM_Denver_Block_Clearance_extension_accessible_signed.pdf',
-                        map: `https://www.fws.gov/mountain-prairie/es/species/mammals/preble/9-2016_USFWS_Preble's_map_Denver_Metro_Area.pdf`
-                    }
-                    menuOptions.push(MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE);
-                    popups.push(item);
-                    mobile.push({
-                        layer: MENU_OPTIONS.BLOCK_CLEARANCE_ZONE,
-                        bcz_specname: item.bcz_specname,
-                        bcz_expdate: item.bcz_expdate
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
-                    // console.log("BZX", feature);
-                    const item = {
-                        layer: MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,
-                        bcz_specname: feature.properties.species_name,
-                        bcz_expdate: feature.properties.bcz_expdate,
-                        expirationdate: parseDateZ(feature.properties.expiration_date),
-                        website: 'https://www.fws.gov/mountain-prairie/es/uteLadiestress.php',
-                        letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0031_ULTO_Denver_Block_Clearance_extension_accessible_signed.pdf',
-                        map: 'https://www.fws.gov/mountain-prairie/es/species/plants/uteladiestress/BlockClearanceMap2008.pdf'
-                    }
-                    mobile.push({
-                        layer: MENU_OPTIONS.BLOCK_CLEARANCE_ZONE,
-                        bcz_specname: item.bcz_specname,
-                        bcz_expdate: item.bcz_expdate
-                    });
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    menuOptions.push(MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID);
-                    popups.push(item);
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === RESEARCH_MONITORING) {
-                    const item = {
-                        layer: MENU_OPTIONS.RESEARCH_MONITORING,
-                        sitename: feature.properties.sitename,
-                        sitetype: feature.properties.sitetype,
-                        bmptype: feature.properties.bmptype,
-                    }
-                    mobile.push({
-                        layer: item.layer,
-                        sitename: item.sitename,
-                        sitetype: item.sitetype
-                    })
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    menuOptions.push(MENU_OPTIONS.RESEARCH_MONITORING);
-                    popups.push(item);
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === CLIMB_TO_SAFETY) {
-                    const item = {
-                        layer: MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS,
-                    }
-                    mobile.push(item);
-                    menuOptions.push(MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS);
-                    popups.push(item);
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if (feature.source === SEMSWA_SERVICE_AREA) {
-                    const item = {
-                        layer: MENU_OPTIONS.SEMSWA_SERVICE_AREA,
-                    }
-                    menuOptions.push(MENU_OPTIONS.SEMSWA_SERVICE_AREA);
-                    popups.push(item);
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                }
-                if(feature.source === 'streams') {
-                    const item = {
-                        layer: 'Streams',
-                        streamname: feature.properties.str_name,
-                        mhfd_code: feature.properties.mhfd_code,
-                        catch_sum: feature.properties.catch_sum,
-                        str_ft: feature.properties.str_ft,
-                        slope: feature.properties.slope 
-                    };
-                    menuOptions.push('Stream');
-                    mobile.push({...item});
-                    mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    popups.push(item);
-                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    
-                }
-                for (const component of COMPONENT_LAYERS.tiles) {
-                    if (feature.source === component) {
-                        const item = {
-                          layer: MENU_OPTIONS.COMPONENTS,
-                          type: feature.properties.type ? feature.properties.type : '-',
-                          subtype: feature.properties.subtype ? feature.properties.subtype : '-',
-                          status: feature.properties.status ? feature.properties.status : '-',
-                          estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                          studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
-                          studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
-                          jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                          original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                          table: feature.source ? feature.source : '-',
-                          cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
-                          problem: 'Dataset in development',
-                          objectid: feature.properties.objectid?feature.properties.objectid:'-',
-                          streamname: feature.properties.drainageway,
-                        };
-                        const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
-                        menuOptions.push(name);
-                        mobile.push({
-                            layer: item.layer,
-                            type: item.type,
-                            subtype: item.subtype,
-                            streamname: item.streamname,
-                            studyyear: item.studyyear
-                        })
-                        mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                        popups.push(item);
-                        ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                    }
-                }
-            }
+           }
             if (popups.length) {
                 const html = loadMenuPopupWithData(menuOptions, popups);
                 setMobilePopups(mobile);
@@ -2657,8 +2742,10 @@ const Map = ({ leftWidth,
                     for (const index in popups) {
                         document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
                         document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-                        console.log('adding a click for button create ');
+                        console.log('adding a click for button create ', popups);
                         document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
+                        document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
+                        document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
                     }
                 }
             }
@@ -2741,25 +2828,6 @@ const Map = ({ leftWidth,
                     return;
                 }
                 availableLayers.push(key + '_' + index);
-               /* map.on('click', key + '_' + index, (e: any) => {
-                    let html: any = null;
-                    if (map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
-                        return;
-                    }
-                    let itemValue;
-
-
-                    const description = e.features[0].properties.description ? e.features[0].properties.description : '-';
-                    if (html) {
-                        popup.remove();
-                        popup = new mapboxgl.Popup();
-                        popup.setLngLat(e.lngLat)
-                            .setHTML(html)
-                            .addTo(map);
-                        document.getElementById('pop-up')?.addEventListener('click', test.bind(itemValue, itemValue));
-                    }
-                });
-                */
                 if(style.type != 'symbol') {
                   map.on('mousemove', key + '_' + index, (e: any) => {
                       if (commentAvailable) {
@@ -2787,6 +2855,9 @@ const Map = ({ leftWidth,
                   });
                 }
             });
+            // if(map.getLayer('measuresSaved')){
+              // availableLayers.push('measuresSaved');
+            // }
             setAllLayers(allLayers => [...allLayers, ...availableLayers]);
 
             map.on('mouseenter', key, () => {
@@ -2794,6 +2865,11 @@ const Map = ({ leftWidth,
             });
             map.on('mouseleave', key, () => {
                 map.getCanvas().style.cursor = '';
+            });
+            map.on('mousemove', () => {
+              map.getCanvas().style.cursor = !isMeasuring
+                  ? 'default'
+                  : 'crosshair';
             });
         }
     }
@@ -3008,7 +3084,7 @@ const Map = ({ leftWidth,
     );
     const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
         <>
-            <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF || user.designation === GOVERNMENT_ADMIN || user.designation === GOVERNMENT_STAFF)}></ComponentPopup>
+            <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF || user.designation === GOVERNMENT_ADMIN || user.designation === GOVERNMENT_STAFF)} ></ComponentPopup>
         </>
     );
 
@@ -3288,11 +3364,20 @@ const Map = ({ leftWidth,
     const layerObjects: any = selectedLayers.filter(element => typeof element === 'object');
     const layerStrings = selectedLayers.filter(element => typeof element !== 'object');
     const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
+    const [measuringState, setMeasuringState] = useState(isMeasuring);
+    const [measuringState2, setMeasuringState2] = useState(isMeasuring);
     const setIsMeasuring = (value: boolean) => {
       isMeasuring = value;
+      setMeasuringState2(value);
+      setMeasuringState(false);
       geojsonMeasures.features = new Array();
       linestringMeasure.geometry.coordinates =  new Array();
-      map.getSource('geojsonMeasure').setData(geojsonMeasures);
+      setDistanceValue('0');
+      setDistanceValueMi('0');
+      setAreaValue('0');
+      if(map.getSource('geojsonMeasure')){
+        map.getSource('geojsonMeasure').setData(geojsonMeasures);
+      }
     }
     return (
         <>
@@ -3397,11 +3482,36 @@ const Map = ({ leftWidth,
 
             </div>*/}
             <div className="measure-button">
-              {!isMeasuring && <Button style={{ borderRadius: '4px' }} onClick={()=>setIsMeasuring(true)} ><img className="img-icon" /></Button>}
-              {isMeasuring && <div className='measurecontainer'  > 
-                Total distance is {distanceValue} km
-                <Button onClick={()=>setIsMeasuring(false)} > Finish</Button>
+              {!measuringState && <Button style={{ borderRadius: '4px' }} onMouseEnter={()=>setMeasuringState(true)} ><img className="img-icon" /></Button>}
+              {measuringState && 
+              <div className='measurecontainer'> 
+                <div id={'measure-block'} className="measure-block" onMouseLeave={()=> setMeasuringState(false)}>
+                    <div className="headmap">
+                        <h4>Measure distances and areas</h4>
+                    </div>
+                    <div className="bodymap" onClick={() => setIsMeasuring(true)}>
+                        Create a new measurement
+                    </div>
+                </div>
               </div>}
+              {
+                measuringState2 && 
+                <div className='measurecontainer'  > 
+                  <div id={'measure-block'} className="measure-block">
+                    <div className="headmap">
+                      <h4>Measure distances and areas</h4>
+                    </div>
+                    <div className="bodymapvalues" >
+                       <span >Path distance: <b>{distanceValue} Feet ({distanceValueMi} Miles)</b> </span>
+                       <span >Area: <b>{areaValue}</b> Acres </span>
+                        <p className='paragraph'> 
+                          <span style={{paddingRight:'5px'}} onClick={()=>setIsMeasuring(false)}><a>Cancel</a></span >
+                          <span style={{paddingLeft:'5px'}} onClick={()=>finishMeasure()}><a>Finish measurement</a></span >
+                        </p>
+                    </div>
+                  </div>
+                </div>
+              }
             </div>
             
             <div className="m-zoom">

@@ -1795,7 +1795,8 @@ export const MENU_OPTIONS =
     PROBLEMS: 'problems',
     MHFD_STREAMS_REACHES: MHFD_STREAMS_FILTERS,
     COUNTIES: 'County',
-    MUNICIPALITIES: 'Municipality'
+    MUNICIPALITIES: 'Municipality',
+    MEASURES: 'MEASURE'
   }
 ;
 

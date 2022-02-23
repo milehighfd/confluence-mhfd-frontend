@@ -318,8 +318,55 @@
   .measurecontainer {
     width: 300px;
     height: 100px;
-    background: white;
-  }
+    z-index: 2000;
+    position: absolute;
+  // MEASURE 
+  .measure-block{
+    border-radius: 7px;
+    box-shadow: $shadow;
+    background-color: #fafbfb;
+    padding: 0px 0px 4px 0px;
+
+    .headmap{
+      text-align: center;
+      min-height: 40px;
+      border-radius: 7px 7px 0px 0px;
+      background: #fafbfb;
+      font-size: 14px;
+      padding: 16px 10px;
+      line-height: 16px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden
+    }
+    .bodymap{
+      text-align: center;
+      padding: 10px 10px;
+      .label {
+        color:$opacity;
+      }
+    }
+    .bodymapvalues{
+        text-align: center;
+        padding: 5px 25px;
+        display: grid;
+        align-content: center;
+        justify-content: start;
+        align-items: baseline;
+        justify-items: start;
+        font-size: 12px;
+        .button-cancel {
+          position: inherit;
+        }
+        .button-finish {
+          position: inherit;
+        }
+        .paragraph{
+          padding-top: 15px;
+        }
+    }
+}
+  }//container
 }
 .map .m-zoom{
   position: absolute;
@@ -1635,3 +1682,4 @@
   color: white;
   opacity: 0.7;
 }
+

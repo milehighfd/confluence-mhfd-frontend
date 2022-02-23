@@ -4,6 +4,7 @@ import { getData, getToken, postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import { getComponentCounter } from '../../store/actions/mapActions';
 import { ConsoleSqlOutlined } from '@ant-design/icons';
+import { MENU_OPTIONS } from '../../constants/constants';
 const problemStyle: any = {
     status: {
         'Low': {
@@ -228,6 +229,9 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {/* {item.projno ? <p><i>Project Number:</i>  {item.projno}</p> : ''} */}
             {item.mep_eligibilitystatus ? <p><i>MEP Status:</i>  {item.mep_eligibilitystatus}</p> : ''}
             
+            {item.area?<p><i>Area:</i> {item.area} Acre</p>:''}
+            {(item.perimeterFeet && item.perimeterMi) ?<p><i>Path distance:</i> {item.perimeterFeet} Feet ( {item.perimeterMi} Miles)</p>:''}
+            
             
             {item.mepstatusdate ? <p><i>MEP Status Date:</i>  {item.mepstatusdate}</p> : ''}
             {item.notes ? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
@@ -238,6 +242,12 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.email? <p><i>Contact Us: </i><a href={"mailto:"+item.mail}> {item.email}</a></p>:''}
             {item.constructionmanagers ? <p><i>Construction Managers:</i>  {item.constructionmanagers}</p> : ''}
             {isComponent && item.projectid === undefined && <Button id={"buttonCreate-" + id} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
+            {item.layer == MENU_OPTIONS.MEASURES && 
+              <div style={{ padding: '10px', marginTop: '15px', color: '#28C499', display:'flex'}}>
+                <Button id={"buttonzoom-" + id} style={{ width: '50%', height: '43px', whiteSpace: 'normal', wordWrap: 'break-word', marginRight: '10px'}} className="btn-purple" >Center to this area</Button>
+                <Button id={"buttondelete-" + id} style={{ width: '50%',height: '43px', whiteSpace: 'normal', wordWrap: 'break-word', color: '#28C499' }} className="btn-borde">Delete</Button>
+              </div>
+            }
         </div>
         </Card>
     </div>
