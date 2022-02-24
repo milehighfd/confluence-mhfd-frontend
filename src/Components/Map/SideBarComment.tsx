@@ -217,7 +217,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
          + <DownOutlined />
       </a>
       </Dropdown>
-        <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button></h3>
+        {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button></h3> */}
+      </h3>
       <Tree data={tree}/>            
       {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
       <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">
