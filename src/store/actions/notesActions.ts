@@ -1,6 +1,7 @@
 import * as types from '../types/notesTypes';
 import * as datasets from '../../Config/datasets';
 import { SERVER } from '../../Config/Server.config';
+import { dispatch } from 'd3';
 
 export const getNotes = () => {
   return (dispatch: Function) => {
@@ -38,4 +39,36 @@ export const setOpen = (open: boolean) => {
   return (dispatch: Function) => {
     dispatch({type: types.SIDEBAR_STATUS, open});
   };
+}
+
+export const createGroup = (name: string) => {
+  return (dispatch: Function) => {
+    datasets.postData(SERVER.CREATE_GROUP, name, datasets.getToken()).then(group => {
+      dispatch({type: types.CREATE_GROUP, group});
+    });
+  };
+}
+
+export const editGroup = (toEditGroup: any) => {
+  return (dispatch: Function) => {
+    datasets.putData(SERVER.EDIT_GROUP(toEditGroup['_id']), toEditGroup, datasets.getToken()).then(group => {
+      dispatch({type: types.EDIT_GROUP, group});
+    });
+  };
+}
+
+export const getGroups = () => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_GROUPS, datasets.getToken()).then(groups => {
+      dispatch({type: types.GET_GROUPS, groups});
+    });
+  };
+}
+
+export const deleteGroup = (id: any) => {
+  return (dispatch: Function) => {
+    datasets.deleteData(SERVER.DELETE_GROUP(id), datasets.getToken()).then(group => {
+      dispatch({type: types.DELETE_GROUP, id});
+    });
+  }  
 }

@@ -107,6 +107,9 @@ export const SERVER = (function () {
     const GET_PROBLEM_GEOM = 'problem-geom';
     const GET_COMPONENTS_BY_PROBLEMID = 'components-by-problemid';
     const GET_STREAMS_BY_COMPONENTS = 'get-stream-by-components-and-geom';
+    const NEW_NOTES = 'newnotes';
+    const GROUP_TYPE = 'group';
+    const NOTE_TYPE = 'note';
     const NOTES = 'notes';
     const PROJECTS_BBOX = 'projects-bbox';
     const BY_PROJECT = 'by-project';
@@ -205,13 +208,21 @@ export const SERVER = (function () {
         GET_COMPONENTS_WITH_GEOM: `${URL_BASE.BASE}/create/${GET_COMPONENTS_WITH_GEOM}`,
         GET_COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/create/${GET_COMPONENTS_BY_PROBLEMID}`,
         GET_STREAMS_BY_COMPONENTS: `${URL_BASE.BASE}/create/${GET_STREAMS_BY_COMPONENTS}`,
-        CREATE_NOTE: `${URL_BASE.BASE}/${NOTES}`,
-        LIST_NOTES: `${URL_BASE.BASE}/${NOTES}`,
+        CREATE_NOTE: `${URL_BASE.BASE}/${NEW_NOTES}/${NOTE_TYPE}`,
+        CREATE_GROUP: `${URL_BASE.BASE}/${NEW_NOTES}/${GROUP_TYPE}`,
+        LIST_NOTES: `${URL_BASE.BASE}/${NEW_NOTES}/${NOTE_TYPE}`,
+        GET_GROUPS: `${URL_BASE.BASE}/${NEW_NOTES}/${GROUP_TYPE}`,
         DELETE_NOTE: (id: any) => {
-            return  `${URL_BASE.BASE}/${NOTES}/${id}`
+            return  `${URL_BASE.BASE}/${NEW_NOTES}/${NOTE_TYPE}/${id}`
+        },
+        DELETE_GROUP: (id: any) => {
+            return `${URL_BASE.BASE}/${NEW_NOTES}/${GROUP_TYPE}/${id}`
         },
         EDIT_NOTE: (id: any) => {
-            return  `${URL_BASE.BASE}/${NOTES}/${id}`
+            return  `${URL_BASE.BASE}/${NEW_NOTES}/${NOTE_TYPE}/${id}`
+        },
+        EDIT_GROUP: (id: any) => {
+            return `${URL_BASE.BASE}/${NEW_NOTES}/${GROUP_TYPE}/${id}`
         },
         EDIT_ACQUISITION: (projectId: any)=>{
             return  `${URL_BASE.BASE}/${CREATE}/${ACQUISITION}/${projectId}`

@@ -2,6 +2,7 @@ import * as types from '../types/notesTypes';
 
 const initState = {
   notes: [],
+  groups: [],
   open: false
 };
 
@@ -11,6 +12,33 @@ const notesReducer = (state = initState, action : any) => {
       return {
         ...state,
         notes: [...state.notes, action.note]
+      }
+    case types.CREATE_GROUP:
+      return {
+        ...state,
+        groups: [...state.groups, action.group]
+      }
+    case types.DELETE_NOTE:
+      return {
+        ...state,
+        groups: state.groups.filter(group => {
+          return group['_id'] !== action.id;
+        })
+      }
+    case types.GET_GROUPS:
+      return {
+        ...state,
+        groups: action.groups
+      }
+    case types.EDIT_GROUP:
+      return {
+        ...state,
+        groups: state.groups.map(group => {
+          if (group['_id'] === action.group['_id']) {
+            return action.group;
+          }
+          return group;
+        })
       }
     case types.DELETE_NOTE: 
       return {

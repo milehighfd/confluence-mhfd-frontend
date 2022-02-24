@@ -3,3 +3,7 @@ export const DELETE_NOTE = 'DELETE_NOTE';
 export const LIST_NOTES = 'LIST_NOTES';
 export const EDIT_NOTES = 'EDIT_NOTES';
 export const SIDEBAR_STATUS = 'SIDEBAR_STATUS';
+export const CREATE_GROUP = 'CREATE_GROUP';
+export const EDIT_GROUP = 'EDIT_GROUP';
+export const DELETE_GROUP = 'DELETE_GROUP';
+export const GET_GROUPS = 'GET_GROUPS';
