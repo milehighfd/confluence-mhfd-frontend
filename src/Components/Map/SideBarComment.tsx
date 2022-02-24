@@ -1,21 +1,98 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Row, Col, Input, Button, Menu, Select, Popover, Comment, Avatar, List } from 'antd';
+import { Drawer, Row, Col, Input, Button, Menu, Select, Popover, Comment, Avatar, List, Dropdown } from 'antd';
 import { DownOutlined, CheckOutlined } from '@ant-design/icons';
 import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
 import { useProfileState } from "../../hook/profileHook";
+import { Tree } from '../Tree/Tree';
 const { Option } = Select;
 const { TextArea } = Input;
 
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, swSave, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
 
-  const { notes } = useNotesState();
-  const {  deleteNote } = useNoteDispatch();
+  const { notes, groups } = useNotesState();
+  const {  deleteNote, getGroups, getNotes } = useNoteDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
+  const [tree, setTree] = useState([] as any);
+  useEffect(() => {
+    getGroups();
+    getNotes();
+  }, []);
+
+  useEffect(() => {
+    const newTree = groups.map((group: any) => {
+      return {
+        id: group._id,
+        data: group,
+        label: group.name,
+        children: []
+      } as any;
+    });
+    notes.forEach((note: any) => {
+      const index = newTree.findIndex((item: any) => item.id === note.group_id);
+      if (index !== -1) {
+        newTree[index].children.push({
+          id: note._id,
+          label: note.content,
+          data: note
+        })
+      } else {
+        newTree.push({
+          id: note._id,
+          label: note.content,
+          data: note
+        });
+      }
+    });
+    const data = [{
+      id: 11,
+      label: 'Folder 1',
+      children: [{
+        id: 12,
+        label: 'note 2',
+      }, {
+        id: 13,
+        label: 'note 3',
+      }],
+    }, 
+    {
+      id: 21,
+      label: 'Folder 2',
+      children: []
+    },
+    {
+      id: 31,
+      label: 'Note 4'
+    }
+    ];
+    data.forEach((d: any) => {
+      newTree.push(d);
+    });
+    console.log(newTree);
+    setTree(newTree);
+  }, [notes, groups]);
+
   useEffect(()=>{
     changeFilter(filter);
   },[filter]);
+  
+
+  const onSelectCreateOption = (key: any) => {
+    if (key === 'create-folder') {
+
+    } else {
+      addToMap();
+      setSwSave(true);
+    }
+  }
+  const createOptions = (
+    <Menu onClick={onSelectCreateOption}>
+      <Menu.Item key="create-folder">New Folder</Menu.Item>
+      <Menu.Item key="create-note">New Map Note</Menu.Item>
+    </Menu>
+  );
+
   const data = [
     <><div onClick={() => {setFilter('all')}}> <i className="mdi mdi-circle-medium" style={{color:'rgba(37, 24, 99, 0.5)'}}></i> All Types {filter === 'all' ? <CheckOutlined /> : <></>}</div></> ,
     <><div onClick={() => {setFilter('red'); console.log('red');}}><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red {filter === 'red' ? <CheckOutlined /> : <></>}</div></> ,
@@ -119,11 +196,11 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     <>
     <Drawer
       title={<div className="comment-title">
-              <h5>My Map Notes</h5>
-              <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
-              <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">
-                <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> {filter === 'all' ? 'All Types' : filter[0].toUpperCase() + filter.slice(1)} <DownOutlined /></Button>
-              </Popover>
+              <h5>WORKSPACE</h5>
+              <Button onClick={onClose}>
+                <img src="/Icons/left-arrow.svg" alt="" width="18px" />
+              </Button>
+              
             </div>}
       placement="left"
       maskClosable={false}
@@ -134,54 +211,19 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       className="comment-drawer"
       style={{'paddingLeft':'58px'}}
     >
-      {filter === 'all' ? notes.map((note: any) => {
-        return (
-        <Comment avatar={
-          <Avatar style={{ color: '#11093C', backgroundColor }}>{userInformation ? (userInformation.firstName[0] + userInformation.lastName[0]).toUpperCase(): ''}</Avatar>
-        }
-        content={note &&
-          <>
-          
-          <p>
-          <i className="mdi mdi-circle-medium" style={{color:getColor(note.color)}}></i>  
-            {note.content}
-          </p>
-          <h6>{timeAgo(note.createdAt)}</h6>
-          <Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(note)} trigger="click">
-            <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
-          </Popover>
-          </>
-        }
-        />)
-      }) : notes.flatMap((note: any) => {
-        if (note.color === filter) {
-          return [(
-          <Comment avatar={
-            <Avatar style={{ color: '#11093C', backgroundColor }}>{userInformation ? (userInformation.firstName[0] + userInformation.lastName[0]).toUpperCase(): ''}</Avatar>
-          }
-          content={note &&
-            <>
-            <p>
-              {note.content}
-            </p>
-            <h6>{timeAgo(note.createdAt)}</h6>
-            <Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(note)} trigger="click">
-              <img src="/Icons/icon-60.svg" alt="" className="menu-wr" />
-            </Popover>
-            </>
-          }
-          />)];
-        } else {
-          return [];
-        }
-      })
-      }
-
-
-      <Button className="btn-coll" onClick={onClose}>
-        <img src="/Icons/icon-34.svg" alt="" width="18px" style={{ transform: 'rotate(180deg)' }} />
-      </Button>
-    </Drawer>
+      <h3>Feature Layers 
+      <Dropdown overlay={createOptions} trigger={['click']}>
+        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+         + <DownOutlined />
+      </a>
+      </Dropdown>
+        <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button></h3>
+      <Tree data={tree}/>            
+      {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
+      <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">
+        <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> {filter === 'all' ? 'All Types' : filter[0].toUpperCase() + filter.slice(1)} <DownOutlined /></Button>
+      </Popover>  */}
+      </Drawer>
   </>
   )
 }
