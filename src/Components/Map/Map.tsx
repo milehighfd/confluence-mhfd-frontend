@@ -1976,8 +1976,18 @@ const Map = ({ leftWidth,
           map.getSource('geojsonMeasure').setData(geojsonMeasures);
         }
     }
-    const measureCenterAndDelete = (item: any, type: any, event: any) => {
-      console.log("ABOUT TO", item, type);
+    const measureCenterAndDelete = (type: any, item: any, event: any) => {
+      if(type == 'center'){
+        const coords = JSON.parse(item.coordinates);
+        const polygon = turf.polygon(coords);
+        const bbox = turf.bbox(polygon);
+        map.fitBounds(bbox, {padding:80});
+      } else if(type == 'delete') {
+         geojsonMeasuresSaved.features = geojsonMeasuresSaved.features.filter(elem => elem.properties.id != item.id);
+         popup.remove();
+         map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+      }
+
     }
     useEffect(() => {
 
