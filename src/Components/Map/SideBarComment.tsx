@@ -46,23 +46,23 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
     });
     const data = [{
-      id: 11,
+      id: '11',
       label: 'Folder 1',
       children: [{
-        id: 12,
+        id: '12',
         label: 'note 2',
       }, {
-        id: 13,
+        id: '13',
         label: 'note 3',
       }],
     }, 
     {
-      id: 21,
+      id: '21',
       label: 'Folder 2',
       children: []
     },
     {
-      id: 31,
+      id: '31',
       label: 'Note 4'
     }
     ];
@@ -183,6 +183,41 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     const originalTime = new Date(Date.UTC(+parsedTime[0], +parsedTime[1] - 1, +parsedTime[2], +parsedTime[3], +parsedTime[4], +parsedTime[5], +parsedTime[6]));
     return calculateTimeAgo(originalTime);
   }
+  const onDragAndDrop = (element: any, destination: any) => {
+    console.log('my tree is ', tree, element, destination);
+    let selectedNote = tree.find((note: any) => note.id === element);
+    if (!selectedNote) {
+      tree.forEach((note: any) => {
+        if (note.children) {
+          const selectedChild = note.children.find((child: any) => child.id === element);
+          if (selectedChild) {
+            selectedNote = selectedChild;
+          }
+        }
+      });
+    }
+    console.log(selectedNote);
+    const newTree = tree.filter((item: any) => {
+      if (item.children) {
+        item.children = item.children.filter((child: any) => {
+          return child.id !== element;
+        });
+      }
+      return item.id !== element;
+    });
+    const newDestination = tree.find((note: any) => note.id === destination);
+    const index = newTree.indexOf(newDestination);
+    console.log('my index is ', index);
+    console.log(newTree);
+    if (index !== -1) {
+      newTree[index].children.push(selectedNote);
+    } else {
+      newTree.push(selectedNote);
+    }
+    console.log('finally ', newTree);
+    setTree(newTree);
+  }
+
   useEffect(() => {
     console.log(notes);
   }, []);
@@ -212,12 +247,12 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       style={{'paddingLeft':'58px'}}
     >
       <h3>
-      Feature Layers
+      {/* Feature Layers
       <Dropdown overlay={createOptions} trigger={['click']}>
         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
          + <DownOutlined />
       </a>
-      </Dropdown>
+      </Dropdown> */}
         {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button></h3> */}
       </h3>
       <div className="a-layers">
@@ -226,7 +261,10 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}><span className="op-plus">+</span></a>
         </Dropdown>
       </div>
-      <Tree data={tree}/>            
+      <Tree
+        data={tree}
+        onDragAndDrop={onDragAndDrop}  
+      />            
       {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
       <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">
         <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> {filter === 'all' ? 'All Types' : filter[0].toUpperCase() + filter.slice(1)} <DownOutlined /></Button>

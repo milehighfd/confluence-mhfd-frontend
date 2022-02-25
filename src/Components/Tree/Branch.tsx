@@ -2,17 +2,17 @@ import React, {useState, useEffect} from 'react';
 
 import { Node } from './Node';
 
-const NewBranches = ({children, level} : any) => {
-  console.log(' enter to the component ', children, level);
+const NewBranches = ({children, level, onDragAndDrop} : any) => {
   return (
     <>
     {children ?
-      children.map((item: any) => <Branch key={item.id} item={item} level={level} /> ): null
+      children.map((item: any) => <Branch key={item.id} item={item} level={level} onDragAndDrop={onDragAndDrop}/> ): 
+      null
     }
     </>
   );
 }
-export const Branch = ({ item, level }: any) => {
+export const Branch = ({ item, level, onDragAndDrop }: any) => {
   const hasChildren = item.children?.length;
   const [open, setOpen] = useState(true);
   
@@ -33,8 +33,11 @@ export const Branch = ({ item, level }: any) => {
         level={level}
         onClick={onClick}
         isFolder={item.children}
-      />
-      {(open && hasChildren) ? <NewBranches children={item.children} level={level + 1} /> : null}
+        onDragAndDrop={onDragAndDrop}
+      >
+      {(open && hasChildren) ? <NewBranches children={item.children} level={level + 1} onDragAndDrop={onDragAndDrop} /> 
+      : null}
+      </Node>
     </>
   );
 }
