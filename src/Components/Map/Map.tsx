@@ -1327,9 +1327,18 @@ const Map = ({ leftWidth,
           type:'fill',
           source: 'geojsonMeasuresSaved',
           paint: {
-            'fill-color': '#F3522B',
-            'fill-outline-color': '#F3522B',
-            'fill-opacity': 0.4
+            'fill-color': '#E7832A',
+            'fill-outline-color': '#E7832A',
+            'fill-opacity': 0.3
+          }
+        });
+        map.addLayer({
+          id:'measuresSaved-border',
+          type:'line',
+          source: 'geojsonMeasuresSaved',
+          paint: {
+            'line-color': '#E7832A',
+            'line-width': 4 
           }
         })
       }
@@ -1916,6 +1925,7 @@ const Map = ({ leftWidth,
         geojsonMeasuresMomentary.features = new Array();
         map.getSource('geojsonMeasuresMomentary').setData(geojsonMeasuresMomentary);
         map.getSource('geojsonMeasure').setData(geojsonMeasures);
+        setIsDrawingMeasure(false);
       }
     }
     const measureFunction = (e: any) => {
@@ -1928,7 +1938,7 @@ const Map = ({ leftWidth,
         coordX = e.point.x;
         coordY = e.point.y;
         if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
-
+        setIsDrawingMeasure(true);
         if (features.length > 0 && linestringMeasure.geometry.coordinates.length > 2) {
           const id = features[0].properties.id;
           geojsonMeasures.features = geojsonMeasures.features.filter(
@@ -1976,8 +1986,18 @@ const Map = ({ leftWidth,
           map.getSource('geojsonMeasure').setData(geojsonMeasures);
         }
     }
-    const measureCenterAndDelete = (item: any, type: any, event: any) => {
-      console.log("ABOUT TO", item, type);
+    const measureCenterAndDelete = (type: any, item: any, event: any) => {
+      if(type == 'center'){
+        const coords = JSON.parse(item.coordinates);
+        const polygon = turf.polygon(coords);
+        const bbox = turf.bbox(polygon);
+        map.fitBounds(bbox, {padding:80});
+      } else if(type == 'delete') {
+         geojsonMeasuresSaved.features = geojsonMeasuresSaved.features.filter(elem => elem.properties.id != item.id);
+         popup.remove();
+         map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+      }
+
     }
     useEffect(() => {
 
@@ -3366,6 +3386,7 @@ const Map = ({ leftWidth,
     const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
     const [measuringState, setMeasuringState] = useState(isMeasuring);
     const [measuringState2, setMeasuringState2] = useState(isMeasuring);
+    const [isdrawingmeasure, setIsDrawingMeasure] = useState(false);
     const setIsMeasuring = (value: boolean) => {
       isMeasuring = value;
       setMeasuringState2(value);
@@ -3506,7 +3527,7 @@ const Map = ({ leftWidth,
                        <span >Area: <b>{areaValue}</b> Acres </span>
                         <p className='paragraph'> 
                           <span style={{paddingRight:'5px'}} onClick={()=>setIsMeasuring(false)}><a>Cancel</a></span >
-                          <span style={{paddingLeft:'5px'}} onClick={()=>finishMeasure()}><a>Finish measurement</a></span >
+                          { isdrawingmeasure && <span style={{paddingLeft:'5px'}} onClick={()=>finishMeasure()}><a>Finish measurement</a></span >}
                         </p>
                     </div>
                   </div>
