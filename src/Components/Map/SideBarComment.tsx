@@ -198,9 +198,9 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       title={<div className="comment-title">
               <h5>WORKSPACE</h5>
               <Button onClick={onClose}>
-                <img src="/Icons/left-arrow.svg" alt="" width="18px" />
+                {/* <img src="/Icons/left-arrow.svg" alt="" width="18px" /> */}
+                <span className="arrow-left"></span>
               </Button>
-              
             </div>}
       placement="left"
       maskClosable={false}
@@ -211,7 +211,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       className="comment-drawer"
       style={{'paddingLeft':'58px'}}
     >
-      <h3>Feature Layers 
+      <h3>
+      Feature Layers
       <Dropdown overlay={createOptions} trigger={['click']}>
         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
          + <DownOutlined />
@@ -219,6 +220,12 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       </Dropdown>
         {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button></h3> */}
       </h3>
+      <div className="a-layers">
+        <span className="title">Feature Layers</span>  
+        <Dropdown overlay={createOptions} trigger={['click']}>
+          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}><span className="op-plus">+</span></a>
+        </Dropdown>
+      </div>
       <Tree data={tree}/>            
       {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
       <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">

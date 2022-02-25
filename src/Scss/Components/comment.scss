@@ -538,3 +538,144 @@
     padding-left: 572px !important;
   }
 }
+
+.ant-drawer-content-wrapper {
+  .ant-drawer-content {
+    .ant-drawer-wrapper-body {
+      .ant-drawer-header {
+        .ant-drawer-title {
+          .comment-title {
+            justify-content: space-between;
+            align-items: center;
+            h5 {
+              font-size: 1em;
+              line-height: 18px;
+              font-family: "Ubuntu", sans-serif;
+              font-weight: 700;
+            }
+            button.ant-btn {
+              margin: 0;
+              padding: 0;
+              border-color: #fff;
+              border-radius: 0;
+              box-shadow: none;
+              .arrow-left {
+                display: block;
+                width: 24px;
+                height: 24px;
+                content: url("/Icons/work/ic_arrow_left.svg") !important;
+              }
+            }
+            button.ant-btn:hover {
+              .arrow-left {
+                display: block;
+                width: 24px;
+                height: 24px;
+                content: url("/Icons/work/ic_arrow_left_hover.svg") !important;
+              }
+            }
+          }
+        }
+      }
+      .ant-drawer-body {
+        /* background-color: yellow; */
+        .a-layers {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          padding: 12px 16px;
+          .title {
+            display: block;
+            margin: 0;
+            padding: 0;
+            font-family: "Ubuntu",sans-serif;
+            font-size: 14px;
+            line-height: 1em;
+            font-weight: 500;
+            color: #11093C;
+          }
+          a.ant-dropdown-link.ant-dropdown-trigger {
+            display: block;
+            margin: 0;
+            padding: 0;
+            span {
+              display: block;
+              margin: 0;
+              padding: 0;
+              width: 16px;
+              height: 16px;
+              content: url("/Icons/work/ic_plus_default.svg");
+            }
+          }
+          a.ant-dropdown-link.ant-dropdown-trigger:hover {
+            span {
+              display: block;
+              margin: 0;
+              padding: 0;
+              width: 16px;
+              height: 16px;
+              content: url("/Icons/work/ic_plus_hover.svg");
+            }
+          }
+          a.ant-dropdown-link.ant-dropdown-trigger.ant-dropdown-open {
+            display: block;
+            margin: 0;
+            padding: 0;
+            span {
+              display: block;
+              margin: 0;
+              padding: 0;
+              width: 16px;
+              height: 16px;
+              content: url("/Icons/work/ic_plus_hover.svg");
+            }
+          }
+          a.ant-dropdown-link.ant-dropdown-trigger.inactive {
+            display: block;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            span {
+              display: block;
+              margin: 0;
+              padding: 0;
+              width: 16px;
+              height: 16px;
+              content: url("/Icons/work/ic_plus_inactive.svg");
+            }
+          }
+        }
+        .main-node {
+          .s-item {
+            /* padding: 12px 0; */
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          }
+          .s-item:hover {
+            background-color: #CFEBFE;
+          }
+          .s-item.folder {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            .ic-folder {
+              content: url("/Icons/work/ic_folder.svg");
+              display: block;
+              width: 16px;
+              height: 16px;
+            }
+            .f-title {
+              font-size: 14px;
+              line-height: 16px;
+              font-family: "Ubuntu", sans-serif;
+              font-weight: 400;
+              padding-left: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
