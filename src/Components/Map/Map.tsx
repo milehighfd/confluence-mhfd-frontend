@@ -2017,9 +2017,10 @@ const Map = ({ leftWidth,
                 marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
                 const div = document.getElementById('color-list');
                 if (div != null) {
-                    const ul = document.createElement('ul');
+                    const ul = document.createElement('div');
                     ul.style.display = 'none';
                     ul.classList.add("list-popup-comment");
+                    ul.classList.add("legend");
                     ul.setAttribute('id','id-list-popup');
                     div.addEventListener('click', () => {
                         if (ul.style.display === 'none') {
@@ -2028,11 +2029,18 @@ const Map = ({ leftWidth,
                             ul.style.display = 'none';
                         }
                     });
+                    // const inner = `
+                    // <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
+                    // <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
+                    // <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
+                    // <li id="yellow"><i class="mdi mdi-circle-medium" style="color:#ffbf00;"></i> Yellow</li>`
                     const inner = `
-                    <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
-                    <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
-                    <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
-                    <li id="yellow"><i class="mdi mdi-circle-medium" style="color:#ffbf00;"></i> Yellow</li>`
+                      <button id="yellow" class="light"><span class="dot c-yellow"></span></button>
+                      <button id="red" class="light"><span class="dot c-red"></span></button>
+                      <button id="black" class="light"><span class="dot c-black selected"></span></button>
+                      <button id="green" class="light"><span class="dot c-green"></span></button>
+                      <button id="blue" class="light"><span class="dot c-blue"></span></button>
+                    `;
                     ul.innerHTML = inner;
 
                     let c= div.childNodes;
@@ -2916,18 +2924,20 @@ const Map = ({ leftWidth,
     <>
         <div className="popup-comment">
         <div className="headmap">
-        <Popover trigger="click" placement="bottomRight" content={<ul>
-        <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
-        <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
-        <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
-        <li><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow</li>
-    </ul>} overlayClassName="popover-comment">
-            <Button id={"color-list"+note?('-'+note._id):''} className="type-popover">
-              <i id={"colorable"+note?('-'+note._id):''} className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
-              <span id={"color-text"+note?('-'+note._id):''}>{ note?capitalize(note.color):'Leave a Comment' }</span>
-              <DownOutlined />
-            </Button>
-        </Popover>
+          <Popover trigger="click" placement="bottomRight" content={
+            <ul>
+              <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
+              <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
+              <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
+              <li><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow</li>
+            </ul>
+          } overlayClassName="popover-comment">
+              <Button id={"color-list"+note?('-'+note._id):''} className="type-popover">
+                <span id={"color-text"+note?('-'+note._id):''}>{ note?capitalize(note.color):'Leave a Comment' }</span>
+                <i id={"colorable"+note?('-'+note._id):''} className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
+                <DownOutlined />
+              </Button>
+          </Popover>
         </div>
         <div className="bodymap">
             <TextArea id={"textarea"+note?('-'+note._id):''} rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
@@ -2943,24 +2953,32 @@ const Map = ({ leftWidth,
     <>
         <div className="popup-comment">
         <div className="headmap">
-        <Popover trigger="click" placement="bottomRight" content={<ul>
-        <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
-        <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
-        <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
-        <li><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow</li>
-    </ul>} overlayClassName="popover-comment">
-            <Button id="color-list" className="type-popover">
-              <i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
+        <Popover trigger="click" placement="bottomRight" content={
+          <ul>
+            <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Rexd</li>
+            <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Oraxnge</li>
+            <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
+            <li><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow</li>
+          </ul>
+        } overlayClassName="popover-comment">
+            <Button id="color-list" className="testheader">
               <span id="color-text">{ note?capitalize(note.color):'Leave a Comment' }</span>
-              <DownOutlined />
+              <div className='dr'>
+                <div className="legend-selected">
+                  <i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
+                </div>
+                <div className="light">
+                  <DownOutlined />
+                </div>
+              </div>
             </Button>
         </Popover>
         </div>
         <div className="bodymap">
             <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
-            <div style={{display:'flex'}}>
-                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''}>Delete</Button>
-                { note? (<Button id="edit-comment">Save</Button>): (<Button id="save-comment">Save</Button>) }
+            <div style={{display:'flex'}} className="footer">
+                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''} className="light b-red">Delete</Button>
+                { note? (<Button id="edit-comment" className='light b-green'>Save</Button>): (<Button id="save-comment" className='light b-green'>Save</Button>) }
             </div>
 
         </div>
@@ -3510,8 +3528,9 @@ const Map = ({ leftWidth,
                     <div className="headmap">
                         <h4>Measure distances and areas</h4>
                     </div>
+                    <hr style={{opacity: 0.4, width: '96%'}}></hr>
                     <div className="bodymap" onClick={() => setIsMeasuring(true)}>
-                        Create a new measurement
+                        <b><img className='img-measure-00'></img>Create a new measurement</b>
                     </div>
                 </div>
               </div>}
@@ -3522,14 +3541,23 @@ const Map = ({ leftWidth,
                     <div className="headmap">
                       <h4>Measure distances and areas</h4>
                     </div>
+                    <hr style={{opacity: 0.4, width: '96%'}}></hr>
                     <div className="bodymapvalues" >
-                       <span >Path distance: <b>{distanceValue} Feet ({distanceValueMi} Miles)</b> </span>
-                       <span >Area: <b>{areaValue}</b> Acres </span>
-                        <p className='paragraph'> 
-                          <span style={{paddingRight:'5px'}} onClick={()=>setIsMeasuring(false)}><a>Cancel</a></span >
-                          { isdrawingmeasure && <span style={{paddingLeft:'5px'}} onClick={()=>finishMeasure()}><a>Finish measurement</a></span >}
-                        </p>
+                      {
+                        distanceValue == '0' && areaValue =='0' ? 
+                        <span>Start creating a measurement by adding points to the map</span>
+                        :<><span >Path distance: <b>{distanceValue} Feet ({distanceValueMi} Miles)</b> </span>
+                        <span >Area: <b>{areaValue} Acres</b> </span></>
+                      }
+                       
                     </div>
+                    <hr style={{opacity: 0.4, width: '96%'}}></hr>
+                    <p className='paragraph'> 
+                      <span style={{paddingRight:'5px'}} onClick={()=>setIsMeasuring(false)}><a style={{color:'#11093C'}}><img className='img-measure-01'></img> <b>Cancel</b></a></span >
+                      {  
+                        isdrawingmeasure && 
+                        <span style={{paddingLeft:'22px'}} onClick={()=>finishMeasure()}><a style={{color:'#11093C'}}><img className='img-measure-02'></img> <b>Finish measurement</b></a></span >}
+                    </p>
                   </div>
                 </div>
               }

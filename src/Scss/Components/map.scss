@@ -297,7 +297,7 @@
   position: absolute;
   width: 300px;
   right: 20px;
-  top: 25px;
+  top: 20px;
   z-index: 10;  
 
   button{
@@ -310,7 +310,7 @@
     position: absolute;
   }
    button .img-icon{
-    -webkit-mask: url('/Icons/ic_amount.svg') no-repeat center;
+    -webkit-mask: url('/Icons/u_ruler-combined.svg') no-repeat center;
     height: 40px;
     width: 40px;
     background: $purple00;
@@ -334,6 +334,7 @@
       background: #fafbfb;
       font-size: 14px;
       padding: 16px 10px;
+      padding-bottom: 5px;
       line-height: 16px;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -342,12 +343,16 @@
     .bodymap{
       text-align: center;
       padding: 10px 10px;
+      color:#11093C;
       .label {
         color:$opacity;
       }
+      &:hover {
+        opacity: 0.5;
+      }
     }
     .bodymapvalues{
-        text-align: center;
+        text-align: left;
         padding: 5px 25px;
         display: grid;
         align-content: center;
@@ -364,6 +369,14 @@
         .paragraph{
           padding-top: 15px;
         }
+    }
+    .paragraph {
+      text-align: left;
+      padding: 5px 25px;
+      align-content: center;
+      justify-content: start;
+      align-items: baseline;
+      justify-items: start;
     }
 }
   }//container
@@ -1650,27 +1663,7 @@
 .map-pop-00, .map-pop-01, .map-pop-02{
   display: inline-block;
 }
-.list-popup-comment{
-  position: absolute;
-  background: white;
-  z-index: 200;
-  padding: 0px 10px;
-  width: 130px;
-  box-shadow: 0 3px 6px rgba(00,00,00,0.2);
-  border-radius: 4px;
-  text-align: left;
 
-  li{
-    display: block;
-    padding: 8px 0px;
-    border-bottom: 1px solid $light-purple;
-  }
-  i{
-    font-size: 16px;
-    top: 2px;
-    position: relative;
-  }
-}
 // FILTERS MAP
 
 
@@ -1683,3 +1676,25 @@
   opacity: 0.7;
 }
 
+
+.img-measure-00{
+  -webkit-mask: url('/Icons/fi_play-circle.svg') no-repeat center;
+  height: 18px;
+  width: 18px;
+  background: black;
+  margin-bottom: 2px;
+}
+.img-measure-01{
+  -webkit-mask: url('/Icons/fi_x-circle.svg') no-repeat center;
+  height: 18px;
+  width: 18px;
+  background: black;
+  margin-bottom: 2px;
+}
+.img-measure-02{
+  -webkit-mask: url('/Icons/u_check-circle.svg') no-repeat center;
+  height: 18px;
+  width: 18px;
+  background: black;
+  margin-bottom: 2px;
+}

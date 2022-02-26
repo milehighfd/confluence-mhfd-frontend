@@ -20,6 +20,11 @@
     border: none;
     box-shadow: none;
     height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em;
   }
   .ant-btn .anticon{
     color: $purple00;
@@ -151,17 +156,114 @@
   }
 }
 // POPUP MAP
+
+.list-popup-comment{
+  position: absolute;
+  background: white;
+  z-index: 200;
+  // padding: 0px 10px;
+  // // width: 130px;
+  // box-shadow: 0 3px 6px rgba(00,00,00,0.2);
+  border-radius: 4px;
+  // text-align: left;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: center;
+  li{
+    display: block;
+    padding: 8px 0px;
+    border-bottom: 1px solid $light-purple;
+  }
+  i{
+    font-size: 16px;
+    top: 2px;
+    position: relative;
+  }
+  .dot {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #fff;;
+  }
+  .dot.selected {
+      content: url("/Icons/ic-ok.svg");
+  }
+  .c-yellow {
+      background-color: #FFDD00;
+  }
+  .c-red {
+      background-color: #FF5A5F;
+  }
+  .c-black {
+      background-color: #251863;
+  }
+  .c-green {
+      background-color: #29C499;
+  }
+  .c-blue {
+      background-color: #66D4FF;
+  }
+  button.light {
+    /* padding:0.6em 2em; */
+    border-radius: none;
+    color: coral;
+    font-family: "Inter-SemiBold", sans-serif;
+    font-size: 7px;
+    line-height: 14px;
+    border: 0;
+    cursor: pointer;
+    margin: 1em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: 0;
+    object-fit: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    &:hover {
+        color: green;
+    }
+  }
+}
+.legend {
+  position: absolute;
+  // right: 16px;
+  top: 40px;
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 12px 24px;
+  background-color: #fff;
+  // max-width: 175px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  button.light {
+      margin: 0;
+      padding: 0;
+      margin-right: 6px;
+      margin-left: 6px;
+      background-color: #fff;
+      font-size: 7px;
+  }
+}
+.legend.close {
+  display: none;
+}
 .popup-comment{
   width: 280px;
   padding: 0px;
   min-height: 210px;
-  border-radius: 2px;
-  box-shadow: $shadow;
   background-color: $white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   .headmap{
    min-height: 34px;
-   border-radius: 1.3px 1.3px 0px 0px;
+   border-radius: 8px 8px 0px 0px;
    background: $light-purple;
    font-size: 14px;
    color: $opacity;
@@ -169,7 +271,36 @@
    text-transform: uppercase;
    line-height: 16px;
 
-     button, button:hover, button:focus{
+    .testheader {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 96%;
+      font-size: 15px;
+      // padding: 0 1em;
+      .dr {
+        display: flex;
+        flex-direction: row;
+        justify-content:flex-end;
+        .legend-selected {
+            display: inline-block;
+            padding-right: 8px;
+            vertical-align: middle;
+            button.light {
+                margin: 0;
+                padding: 0;
+            }
+        }
+        .light{
+          margin: 0;
+          padding: 0;
+          background-color: #F8F8FA;
+          vertical-align: middle;
+        }
+      }
+    }
+     button {
        padding: 0px;
        font-size: 12px;
        color: $purple00;
@@ -191,7 +322,7 @@
   .bodymap{
     padding: 10px;
     background: $white;
-
+    border-radius: 8px;
     .ant-input{
       border: 1px solid $opacity01;
       color: $purple;
@@ -206,6 +337,28 @@
     }
     button:hover, button:focus{
       background-color: #F2F2F2 !important;
+    }
+    .footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1em;
+      button.light {
+          border: 1px solid rgba(37, 24, 99, 0.1);
+          border-radius: 8px;
+          padding: 9px 32px;
+          margin: 0;
+          font-size: 14px;
+          line-height: 14px;
+      }
+      button.light.b-red {
+          background-color: #fff;
+          color: #FF5A5F;
+      }
+      button.light.b-green {
+          background-color: #fff;
+          color: #29C499;
+      }
     }
   }
 }
@@ -229,6 +382,7 @@
 .padding-comment{
   padding-left: 322px !important;
 }
+
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
   // GENERAL
