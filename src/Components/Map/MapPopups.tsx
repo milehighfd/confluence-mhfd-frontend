@@ -164,6 +164,28 @@ export const StreamPopupFull = ({ id, item } : any) => {
     </div>
 };
 
+export const MeasurePopup = ({ id, item, isComponent } : any) => { 
+
+  return <div className='measurecontainer'  > 
+      <div id={'measure-block'} className="measure-block">
+        <div className="headmap">
+          <h4>Area Measurement</h4>
+        </div>
+        <hr style={{opacity: 0.4, width: '96%'}}></hr>
+        <div className="bodymapvalues" >
+          <><span >Path distance: <b>{item.perimeterFeet?item.perimeterFeet:0} Feet ({item.perimeterMi?item.perimeterMi:0} Miles)</b> </span>
+            <span >Area: <b>{item.area?item.area:0} Acres</b> </span></>
+        </div>
+        <hr style={{opacity: 0.4, width: '96%'}}></hr>
+        <p className='paragraph'> 
+          <span id={"buttonzoom-" + id} style={{paddingRight:'5px'}} ><a style={{color:'#11093C'}}><img className='img-measure-03'></img> <b>Center on this area</b></a></span >
+          <span id={"buttondelete-" + id} style={{paddingLeft:'22px'}} ><a style={{color:'#11093C'}}><img className='img-measure-04'></img> <b>Delete</b></a></span >
+        </p>
+        {/* <Button id={"buttonzoom-" + id} style={{ width: '50%', height: '43px', whiteSpace: 'normal', wordWrap: 'break-word', marginRight: '10px'}} className="btn-purple" >Center to this area</Button>
+      <Button id={"buttondelete-" + id} style={{ width: '50%',height: '43px', whiteSpace: 'normal', wordWrap: 'break-word', color: '#28C499' }} className="btn-borde">Delete</Button> */}
+      </div>
+    </div>
+}
 export const ComponentPopup = ({ id, item, isComponent } : any) => {
   if(item.layer == 'County') {
     item.feature = item.feature +" County";
