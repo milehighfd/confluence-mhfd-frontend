@@ -546,33 +546,34 @@ const RequestView = ({ type, isFirstRendering }: {
       },200);
     }
   }
-  const saveData = (data: { projectId: any, amounts: any[] }) => {
+  const saveData = ({ projectId, amounts, years }:{ projectId: any, amounts: any[], years: any[] }) => {
     let projectData: any;
     columns.forEach(c => {
       c.projects.forEach((p: any) => {
-        if (p.project_id == data.projectId) {
+        if (p.project_id == projectId) {
           projectData = p;
         }
       })
     })
-    let hasData = data.amounts.some(r => !!r);
+    let hasData = amounts.some(r => !!r) || years.some(r => !!r);
     if (hasData) {
       let newObj: any = {
         origin: projectData.origin,
-        project_id: data.projectId,
+        project_id: projectId,
         position0: null,
         position1: null, position2: null, position3: null, position4: null, position5: null,
-        req1: data.amounts[0], req2: data.amounts[1], req3: data.amounts[2], req4: data.amounts[3], req5: data.amounts[4],
+        req1: amounts[0], req2: amounts[1], req3: amounts[2], req4: amounts[3], req5: amounts[4],
+        year1: years[0], year2: years[1],
         projectData: projectData.projectData
       }
       let temporalColumns = columns.map(r => r);
-      let positions = data.amounts.map((req: number, index: number) => {
+      let positions = amounts.map((req: number, index: number) => {
         let column = temporalColumns[index + 1];
         let projects = column.projects;
         let pos = null;
         if (req) {
           projects.forEach((p: any, projectIndex: number) => {
-            if (p.project_id == data.projectId) {
+            if (p.project_id == projectId) {
               pos = projectIndex;
             }
           })
@@ -591,7 +592,7 @@ const RequestView = ({ type, isFirstRendering }: {
         return {
           ...tc,
           projects: tc.projects.filter((p: any) => {
-            return p.project_id != data.projectId;
+            return p.project_id != projectId;
           })
         }
       })
@@ -609,13 +610,13 @@ const RequestView = ({ type, isFirstRendering }: {
         return {
           ...col,
           projects: col.projects.filter((p: any) => {
-            return p.project_id != data.projectId
+            return p.project_id != projectId
           })
         }
       })
       let newProjectData = {
         origin: projectData.origin,
-        project_id: data.projectId,
+        project_id: projectId,
         position0: 0,
         position1: null, position2: null, position3: null, position4: null, position5: null,
         req1: null, req2: null, req3: null, req4: null, req5: null,
