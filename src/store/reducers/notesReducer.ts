@@ -18,7 +18,7 @@ const notesReducer = (state = initState, action : any) => {
         ...state,
         groups: [...state.groups, action.group]
       }
-    case types.DELETE_NOTE:
+    case types.DELETE_GROUP:
       return {
         ...state,
         groups: state.groups.filter(group => {
