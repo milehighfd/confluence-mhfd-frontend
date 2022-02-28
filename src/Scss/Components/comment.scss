@@ -1,9 +1,25 @@
 @import "../Theme/styles.scss";
 // GENERAL
+.ant-menu-item-selected {
+  background-color: transparent !important;
+}
+
+.ll-00{
+  color: $white;
+  // background: $green;
+  border-radius: 50%;
+  padding: 5px 5.23px;
+  margin-right: 5px;
+}
+.ll-0{
+  background: $white;
+  padding: 8px 0.5px;
+  opacity: 0.5;
+  margin-right: 18px;
+}
 .comment-title{
   display: flex;
   position: relative;
-
   h5{
     font-size: 16px;
     color: $purple00;

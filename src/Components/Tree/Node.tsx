@@ -1,13 +1,16 @@
 import React from 'react';
 import { useNoteDispatch } from '../../hook/notesHook';
 import { Popover, Menu } from 'antd';
+import { useProfileState } from '../../hook/profileHook';
 
 const Nbsp = () => '\u00A0';
 
-const contentmenu = (note: any, mapFunctions: any) =>  {
+const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGroup: any) =>  {
   return (
   <Menu className="js-mm-00">
+   { !isFolder ?
     <Menu.Item onClick={(e: any) => {
+      console.log('my event ',e );
       //e.stopPropagation();
       console.log(note);
       mapFunctions.openEditNote({
@@ -20,7 +23,8 @@ const contentmenu = (note: any, mapFunctions: any) =>  {
       // openEditNote(note);
     }}>
       <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Edit Comment</span>
-    </Menu.Item>
+    </Menu.Item> : null}
+    {!isFolder ? 
     <Menu.Item onClick={(e: any) => {
       //e.stopPropagation();
       console.log(note.data.longitude, note.data.latitude);
@@ -28,7 +32,8 @@ const contentmenu = (note: any, mapFunctions: any) =>  {
       // flyTo(note.longitude, note.latitude);
     }}>
       <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Zoom to</span>
-    </Menu.Item>
+    </Menu.Item> : null }
+    {!isFolder ? 
     <Menu.Item onClick={(e: any) => {
       //e.stopPropagation();
       mapFunctions.deleteNote(note.id);
@@ -37,7 +42,19 @@ const contentmenu = (note: any, mapFunctions: any) =>  {
       // deleteNote(note._id);
     }}>
       <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop:'-3px'}}/> Delete</span>
-    </Menu.Item>
+    </Menu.Item> : null}
+    {isFolder ? 
+      <Menu.Item onClick={(e: any) => {
+        //e.stopPropagation();
+        // mapFunctions.deleteNote(note.id);
+        //it's destroying the app , but the endpoint works well :) <3
+        console.log(note.id);
+        deleteGroup(note.id);
+        // deleteNote(note._id);
+      }}>
+        <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop:'-3px'}}/> Delete</span>
+      </Menu.Item> : null
+    }
   </Menu>
 )
 };
@@ -55,6 +72,9 @@ export const Node = ({
   mapFunctions,
 }: any) => {
   // console.log(' rendering ', item);
+  const { deleteGroup } = useNoteDispatch();
+  const { userInformation } = useProfileState();
+  const initialName = userInformation.firstName.charAt(0) + userInformation.lastName.charAt(0);
   const { editGroup } = useNoteDispatch();
   const checkEnter = (e: any) => {
     if (e.key === 'Enter') {
@@ -89,12 +109,19 @@ export const Node = ({
         style={{ paddingLeft: `${(level + 1) * 16}px`}}
         onClick={onClick}>
         {/* {isFolder ? <img src="/Icons/left-arrow.svg" alt="" width="10px" style={ { marginRight: '8px'}}/>  : null} */}
-        {isFolder ?<span className="ic-folder"></span>:null}
+        {isFolder ?<span className="ic-folder"></span>:  <label className="ll-00"
+          style={{ background: item.data.color ? item.data.color : 'red' +  ' !important'}}
+        >
+                {initialName}
+              </label>}
         {!editMode ? <span className="f-title">{item.label}
-        {!isFolder?  <Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(item, mapFunctions)} trigger="click">
-              <img src="/Icons/icon-60.svg" alt=""  className='menu-wr'/>
-            </Popover>: null}</span> : 
-          <input type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} />
+        {<Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(item, mapFunctions, isFolder, deleteGroup)} trigger="click">
+            
+              <img src="/Icons/icon-60.svg" alt=""  className='menu-wr'
+              onClick={(e: any) => {e.stopPropagation();}}
+            />
+            </Popover>}</span> : 
+          <input type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} style={{border: '2px solid transparent', marginLeft: '5px'}} />
         }
       </div>
       <div>
