@@ -2,19 +2,25 @@ import React, {useState, useEffect} from 'react';
 
 import { Node } from './Node';
 
-const NewBranches = ({children, level, onDragAndDrop, setTree} : any) => {
+const NewBranches = ({children, level, onDragAndDrop, setTree, mapFunctions} : any) => {
   return (
     <>
     {children ?
-      children.map((item: any) => <Branch key={item.id} item={item} level={level} onDragAndDrop={onDragAndDrop} 
-        setTree={setTree}/>)
+      children.map((item: any) => <Branch
+        key={item.id}
+        item={item}
+        level={level}
+        onDragAndDrop={onDragAndDrop} 
+        setTree={setTree}
+        mapFunctions={mapFunctions}
+        />)
       : 
       null
     }
     </>
   );
 }
-export const Branch = ({ item, level, onDragAndDrop, setTree }: any) => {
+export const Branch = ({ item, level, onDragAndDrop, setTree, mapFunctions }: any) => {
   const hasChildren = item.children?.length;
   const [open, setOpen] = useState(true);
   const [editMode, setEditMode] = useState(false);
@@ -50,8 +56,14 @@ export const Branch = ({ item, level, onDragAndDrop, setTree }: any) => {
         editMode={editMode}
         onEdit={onEdit}
         setEditMode={setEditMode}
+        mapFunctions={mapFunctions}
       >
-      {(open && hasChildren) ? <NewBranches children={item.children} level={level + 1} onDragAndDrop={onDragAndDrop} /> 
+      {(open && hasChildren) ? <NewBranches
+        children={item.children}
+        level={level + 1}
+        onDragAndDrop={onDragAndDrop} 
+        mapFunctions={mapFunctions}
+      /> 
       : null}
       </Node>
     </>

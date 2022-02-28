@@ -3383,7 +3383,9 @@ const Map = ({ leftWidth,
             });
     }
     const openEditNote = (note: any) => {
+      console.log('open note');
       flyTo(note.longitude, note.latitude);
+      eventsOnClickNotes(note);
       popup.remove();
       markersNotes.forEach((marker:any) => {
         let popupC = marker.marker.getPopup();

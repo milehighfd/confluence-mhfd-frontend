@@ -133,6 +133,11 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         return colors.YELLOW;
     }
   };
+  const mapFunctions = {
+    openEditNote: openEditNote,
+    flyTo: flyTo,
+    deleteNote: deleteNote,
+  };
   const contentmenu = (note: any) =>  {
     return (
     <Menu className="js-mm-00">
@@ -268,6 +273,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         data={tree}
         onDragAndDrop={onDragAndDrop}  
         setTree={setTree}
+        mapFunctions={mapFunctions}
       />            
       {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
       <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">

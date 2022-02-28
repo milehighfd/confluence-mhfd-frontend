@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Branch} from './Branch';
 
-export const Tree = ({ data, onDragAndDrop, setTree } : any) => {
+export const Tree = ({ data, onDragAndDrop, setTree, mapFunctions } : any) => {
   return <div
     className='main-node'
     onDrop={(e: any) => {
@@ -11,6 +11,13 @@ export const Tree = ({ data, onDragAndDrop, setTree } : any) => {
       onDragAndDrop(id, null);
     }}
     >
-    {data.map((item: any) => <Branch key={item.id} item={item} level={0}  onDragAndDrop={onDragAndDrop} setTree={setTree}/>)}
+    {data.map((item: any) => <Branch
+      key={item.id}
+      item={item}
+      level={0}
+      onDragAndDrop={onDragAndDrop}
+      setTree={setTree}
+      mapFunctions={mapFunctions}  
+    />)}
   </div>
 };
