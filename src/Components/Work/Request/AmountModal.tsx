@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Modal, Button, InputNumber } from 'antd';
 import { MaintenanceTypes } from "./RequestViewUtil";
-import { useProjectState } from '../../../hook/projectHook';
 
 const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveData, tabKey, projectsubtype }: {
   project: any,
@@ -18,10 +17,13 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
   const [year2, setYear2] = useState(project.req3);
   const [year3, setYear3] = useState(project.req4);
   const [year4, setYear4] = useState(project.req5);
+  const [nextYear1, setNextYear1] = useState(project.year1);
+  const [nextYear2, setNextYear2] = useState(project.year2);
   const handleOk = (e: any) => {
     saveData({
       projectId,
-      amounts: [year0, year1, year2, year3, year4]
+      amounts: [year0, year1, year2, year3, year4],
+      years: [nextYear1, nextYear2],
     })
     setVisible(false);
   };
@@ -75,6 +77,11 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
     minimumFractionDigits: 0,
     maximumFractionDigits: 2
   })
+
+  const [showTwoNextYears, nextYear1Label, nextYear2Label] = useMemo(() => {
+    return [tabKey === 'Maintenance' && Number(startYear) >= 2022, Number(startYear) + 1, Number(startYear) + 2];
+  }, [tabKey]);
+
   return (
     <Modal
       title="Apply total requested financing amount for any applicable year:"
@@ -165,6 +172,28 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       <Button className="button-close" onClick={() => setYear4(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
+        </>
+      }
+      {
+        showTwoNextYears && <>
+          <p>{nextYear1Label}</p>
+          <InputNumber min={0}
+            formatter={priceFormatter}
+            parser={priceParser}
+            value={nextYear1} onChange={setNextYear1}
+          />
+          <Button className="button-close" onClick={() => setNextYear1(null)}>
+            <img src="/Icons/icon-23.svg" />
+          </Button>
+          <p>{nextYear2Label}</p>
+          <InputNumber min={0}
+            formatter={priceFormatter}
+            parser={priceParser}
+            value={nextYear2} onChange={setNextYear2}
+          />
+          <Button className="button-close" onClick={() => setNextYear2(null)}>
+            <img src="/Icons/icon-23.svg" />
+          </Button>
         </>
       }
     </Modal>
