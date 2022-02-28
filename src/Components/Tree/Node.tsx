@@ -1,8 +1,17 @@
 import React from 'react';
+import { useNoteDispatch } from '../../hook/notesHook';
 
 const Nbsp = () => '\u00A0';
-export const Node = ({ children, item, level, onClick, isFolder, onDragAndDrop }: any) => {
+export const Node = ({ children, item, level, onClick, isFolder, onDragAndDrop, editMode, onEdit, setEditMode }: any) => {
   // console.log(' rendering ', item);
+  const { editGroup } = useNoteDispatch();
+  const checkEnter = (e: any) => {
+    if (e.key === 'Enter') {
+      setEditMode(false);
+      console.log(item);
+      editGroup({_id: item.id, name: item.label, user_id: item.user_id});
+    }
+  }
   return (
     <div
       onDragOver={(e: any) => {
@@ -30,7 +39,9 @@ export const Node = ({ children, item, level, onClick, isFolder, onDragAndDrop }
         onClick={onClick}>
         {/* {isFolder ? <img src="/Icons/left-arrow.svg" alt="" width="10px" style={ { marginRight: '8px'}}/>  : null} */}
         {isFolder ?<span className="ic-folder"></span>:null}
-        <span className="f-title">{item.label}</span>
+        {!editMode ? <span className="f-title">{item.label}</span> : 
+          <input type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} />
+        }
       </div>
       <div>
         {children}

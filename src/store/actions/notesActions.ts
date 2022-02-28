@@ -43,7 +43,7 @@ export const setOpen = (open: boolean) => {
 
 export const createGroup = (name: string) => {
   return (dispatch: Function) => {
-    datasets.postData(SERVER.CREATE_GROUP, name, datasets.getToken()).then(group => {
+    datasets.postData(SERVER.CREATE_GROUP, {name: name}, datasets.getToken()).then(group => {
       dispatch({type: types.CREATE_GROUP, group});
     });
   };

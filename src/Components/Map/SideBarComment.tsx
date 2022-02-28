@@ -11,7 +11,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
 
   const { notes, groups } = useNotesState();
-  const {  deleteNote, getGroups, getNotes } = useNoteDispatch();
+  const {  deleteNote, getGroups, getNotes, createGroup } = useNoteDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
   const [tree, setTree] = useState([] as any);
@@ -79,8 +79,11 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   
 
   const onSelectCreateOption = (key: any) => {
-    if (key === 'create-folder') {
-
+    console.log(key);
+    if (key.key === 'create-folder') {
+      console.log('enter here');
+      createGroup('Untitled Folder');
+      getGroups();
     } else {
       addToMap();
       setSwSave(true);
@@ -264,6 +267,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       <Tree
         data={tree}
         onDragAndDrop={onDragAndDrop}  
+        setTree={setTree}
       />            
       {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
       <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">
