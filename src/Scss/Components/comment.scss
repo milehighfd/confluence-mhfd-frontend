@@ -270,7 +270,7 @@
    padding: 12px 15px;
    text-transform: uppercase;
    line-height: 16px;
-
+    font-family: unset;
     .testheader {
       display: flex;
       flex-direction: row;
@@ -308,14 +308,15 @@
        box-shadow: none;
        height: 20px;
        background: none;
-       margin-bottom: 13px;
+      //  margin-bottom: 13px;
      }
      i{
        // color: $purple00;
-       font-size: 22px;
+       font-size: 53px;
        font-weight: bold;
-       position: relative;
-       top: 4px;
+       position: absolute;
+       top: -30px;
+       right: 6px;
       //  line-height: 5px;
      }
   }

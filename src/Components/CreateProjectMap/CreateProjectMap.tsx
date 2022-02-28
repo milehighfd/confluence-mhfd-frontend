@@ -263,31 +263,33 @@ const CreateProjectMap = (type: any) => {
   useEffect(()=>{
     let time = firstTime?2600:1300;
       if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
-        let filterProjectsDraft = {...filterProjects}; 
-        filterProjectsDraft.projecttype = '';
-        filterProjectsDraft.status = 'Draft';
-          wait(()=>{
-            setTimeout(()=>{
-              map.isStyleLoaded(()=>{
-                removeLayers('mhfd_projects_created');
-                removeLayersSource('mhfd_projects_created');
-                // const tiles = layerFilters['projects_draft'] as any;
-                let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
-                postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-                  addLayersSource('mhfd_projects_created', tiles);
-                  showLayers('mhfd_projects_created');
-                  map.isStyleLoaded(()=>{
-                    setTimeout(()=>{
-                      applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
-                    },700);
+        setTimeout(()=>{
+          let filterProjectsDraft = {...filterProjects}; 
+          filterProjectsDraft.projecttype = '';
+          filterProjectsDraft.status = 'Draft';
+            wait(()=>{
+              setTimeout(()=>{
+                map.isStyleLoaded(()=>{
+                  removeLayers('mhfd_projects_created');
+                  removeLayersSource('mhfd_projects_created');
+                  // const tiles = layerFilters['projects_draft'] as any;
+                  let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
+                  postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
+                    addLayersSource('mhfd_projects_created', tiles);
+                    showLayers('mhfd_projects_created');
+                    map.isStyleLoaded(()=>{
+                      setTimeout(()=>{
+                        applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
+                      },700);
+                    });
+                    firstTime = false;
                   });
-                  firstTime = false;
+                  
                 });
-                
-              });
-            },time);
-            
-          });
+              },time);
+              
+            });
+        },1200);
       } else {
         if(map.map){
           removeLayers('mhfd_projects_created');

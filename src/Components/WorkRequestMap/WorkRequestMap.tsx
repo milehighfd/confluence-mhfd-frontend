@@ -261,8 +261,8 @@ const WorkRequestMap = (type: any) => {
           
       } else if(idsBoardProjects[0] == '-8888'){
         if(map.map){
-          removeLayers('mhfd_projects_created');
-          removeLayersSource('mhfd_projects_created');
+          // removeLayers('mhfd_projects_created');
+          // removeLayersSource('mhfd_projects_created');
         }
         
       } 
