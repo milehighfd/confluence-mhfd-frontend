@@ -50,6 +50,7 @@ export const useNoteDispatch = () => {
         dispatch(deleteNote(id));
       },
       editNote: (note: any) => {
+        console.log(note);
         dispatch(editNote(note));
       },
       getGroups: () => {

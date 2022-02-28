@@ -11,7 +11,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
 
   const { notes, groups } = useNotesState();
-  const {  deleteNote, getGroups, getNotes, createGroup } = useNoteDispatch();
+  const {  deleteNote, getGroups, getNotes, createGroup, editNote } = useNoteDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
   const [tree, setTree] = useState([] as any);
@@ -45,6 +45,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         });
       }
     });
+    /*
     const data = [{
       id: '11',
       label: 'Folder 1',
@@ -68,7 +69,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     ];
     data.forEach((d: any) => {
       newTree.push(d);
-    });
+    });*/
     console.log(newTree);
     setTree(newTree);
   }, [notes, groups]);
@@ -222,6 +223,10 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     } else {
       newTree.push(selectedNote);
     }
+    editNote({
+      ...selectedNote.data,
+      group_id: destination,
+    });
     console.log('finally ', newTree);
     setTree(newTree);
   }
