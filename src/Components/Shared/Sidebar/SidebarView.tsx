@@ -82,7 +82,7 @@ export default () => {
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" style={{opacity: '0.2'}}  />
           <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" style={{opacity: '0.2'}}  />
-          <span>project management - coming soon</span>
+          <span>project management</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
@@ -90,7 +90,7 @@ export default () => {
         <Link to={'/map'}>
           <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="22px" style={{opacity: '0.2'}} />
           <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="22px" style={{opacity: '0.2'}}  />
-          <span>watershed story - coming soon</span>
+          <span>watershed story</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation === 'admin' ||
