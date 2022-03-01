@@ -83,6 +83,16 @@ export const Node = ({
       editGroup({_id: item.id, name: item.label, user_id: item.user_id});
     }
   }
+  
+  const showCutText = (text: string) => {
+    const TEXT_LENGTH = 30;
+    if (text.length > TEXT_LENGTH) {
+      return text.substring(0, TEXT_LENGTH) + '...';
+    }
+    return text;
+
+  }
+
   return (
     <div
       onDragOver={(e: any) => {
@@ -114,7 +124,7 @@ export const Node = ({
         >
                 {initialName}
               </label>}
-        {!editMode ? <span className="f-title">{item.label}
+        {!editMode ? <span className="f-title">{showCutText(item.label)}
         {<Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(item, mapFunctions, isFolder, deleteGroup)} trigger="click">
             
               <img src="/Icons/icon-60.svg" alt=""  className='menu-wr'
