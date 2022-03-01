@@ -186,6 +186,7 @@ export const BCZ_PREBLE_MEADOW_JUMPING =
 'bcz_prebles_meadow_jumping_mouse';
 export const BCZ_UTE_LADIES_TRESSES_ORCHID =
 'bcz_ute_ladies_tresses_orchid';
+export const BLOCK_CLEARANCE_ZONES_LAYERS = 'block_clearance_zones';
 export const RESEARCH_MONITORING = 
 'stormwater_research_sites';
 export const CLIMB_TO_SAFETY = 'climb_to_safety_signs';
@@ -218,6 +219,7 @@ export const SELECT_ALL_FILTERS = [
   PROJECTS_MAP_STYLES,
   COMPONENT_LAYERS,
   PROBLEMS_TRIGGER,
+  BLOCK_CLEARANCE_ZONES_LAYERS
 ];
 
 /* End of Map Constants */
@@ -1757,6 +1759,7 @@ export const popUps = {
   nrcs_soils: 'This layer displays the USDA Natural Resources Conservation Service (NRCS) Soil Survey within MHFD. Map units delineate the extent of different soils. Data for each map unit contains descriptions of the soil’s components, productivity, unique properties, and suitability interpretations.',
   bcz_prebels_meadow: 'Block Clearance Zone -  Preble’s Meadow Jumping Mouse. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. ',
   bcz_ute_ladies: 'Block Clearance Zone - Ute Ladies Tresses Orchid. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. ',
+  block_clearence_zones: 'Block Clearance Zone – Preble’s Meadow Jumping Mouse and Ute Ladies Tresses Orchid. Block Clearance Zone - Preble’s Meadow Jumping Mouse. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. Block Clearance Zone - Ute Ladies Tresses Orchid. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated.',
   semswa_service_area: 'Southeast Metro Stormwater Authority Boundary. SEMSWA covers the entire City of Centennial, the developed areas of unincorporated Arapahoe County, and a small portion of Douglas County. Their boundary is an outgrowth of the partnership (IGA) between the City of Centennial, Arapahoe County, the Arapahoe County Water and Wastewater Authority, East Cherry Creek Valley Water and Sanitation District, and the Inverness Water and Sanitation District.',
   borders: 'A thin border surrounding the selected work request or work plan area.',
   area_based_mask:'An opacity mask surrounding the selected work request or work plan area.'

@@ -48,7 +48,8 @@ import {
   RESEARCH_MONITORING,
   CLIMB_TO_SAFETY,
   SEMSWA_SERVICE_AREA,
-  MHFD_STREAMS_FILTERS
+  MHFD_STREAMS_FILTERS,
+  BLOCK_CLEARANCE_ZONES_LAYERS
 } from "./constants";
 
 export const localComponents = {
@@ -4088,9 +4089,108 @@ export const tileStyles = {
       "fill-outline-color": "hsla(51, 78%, 47%, 0.5)"
     }
   }
-  ], 
+  ],
+  [BLOCK_CLEARANCE_ZONES_LAYERS]: [
+    {
+      type: 'fill',
+      filter: ['==', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsla(25, 61%, 38%, 0.32)",
+        "fill-pattern": ["step", ["zoom"], "pjm2", 22, "pjm2"],
+        "fill-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.2,
+            22,
+            0.25
+        ],
+        "fill-antialias": false,
+        "fill-outline-color": "#000000"
+      }
+    }, {
+      type: 'fill',
+      filter: ['==', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsla(25, 61%, 38%, 0.32)",
+        "fill-outline-color": "hsl(189, 90%, 55%)"
+      }
+    },
+    {
+      type: 'line',
+      filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "line-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8,
+            "hsl(289, 55%, 10%)",
+            8.67,
+            "hsl(289, 52%, 20%)",
+            9,
+            "hsl(289, 60%, 15%)",
+            9.67,
+            "hsl(289, 52%, 20%)",
+            22,
+            "hsl(289, 52%, 20%)"
+        ],
+        "line-gap-width": 12,
+        "line-blur": 22,
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            11,
+            22,
+            22
+        ]
+      }
+    }, {
+      type: 'fill',
+      filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsl(180, 75%, 86%)",
+        "fill-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8.5,
+            1,
+            14,
+            0.51
+        ]
+      }
+    }, {
+      type: 'fill',
+      filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsl(292, 72%, 88%)",
+        "fill-pattern": [
+            "step",
+            ["zoom"],
+            "viewpoint-11",
+            22,
+            "viewpoint-15"
+        ]
+    }
+    }
+  ],
   [BCZ_PREBLE_MEADOW_JUMPING]: [{
     type: 'fill',
+    filter: ['==', 'species_name', 'Prebles meadow jumping mouse'],
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
@@ -4110,6 +4210,7 @@ export const tileStyles = {
     }
   }, {
     type: 'fill',
+    filter: ['==', 'species_name', 'Prebles meadow jumping mouse'],
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
@@ -4119,6 +4220,7 @@ export const tileStyles = {
   }],
   [BCZ_UTE_LADIES_TRESSES_ORCHID]: [{
     type: 'line',
+    filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
@@ -4151,6 +4253,7 @@ export const tileStyles = {
     }
   }, {
     type: 'fill',
+    filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
@@ -4167,6 +4270,7 @@ export const tileStyles = {
     }
   }, {
     type: 'fill',
+    filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {

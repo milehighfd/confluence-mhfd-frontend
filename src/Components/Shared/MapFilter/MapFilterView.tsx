@@ -35,6 +35,7 @@ import {
   CLIMB_TO_SAFETY,
   SEMSWA_SERVICE_AREA,
   BORDER,
+  BLOCK_CLEARANCE_ZONES_LAYERS,
   AREA_BASED_MASK
 } from '../../../constants/constants';
 
@@ -74,6 +75,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     [NRCS_SOILS]: false,
     [DWR_DAM_SAFETY]: false,
     [STREAM_MANAGEMENT_CORRIDORS]: false,
+    [BLOCK_CLEARANCE_ZONES_LAYERS]: false,
     [BCZ_PREBLE_MEADOW_JUMPING]: false,
     [BCZ_UTE_LADIES_TRESSES_ORCHID]: false,
     [RESEARCH_MONITORING]: false,
@@ -148,7 +150,7 @@ export const SEMSWA_SERVICE_AREA =
     } else {
       newGroups['geomorphology'] = false;
     }
-    if(switches[BCZ_PREBLE_MEADOW_JUMPING] && switches[BCZ_UTE_LADIES_TRESSES_ORCHID] && switches[RESEARCH_MONITORING]){
+    if(switches[BLOCK_CLEARANCE_ZONES_LAYERS] && switches[RESEARCH_MONITORING]){
       newGroups['environmental'] = true;
     } else {
       newGroups['environmental'] = false;
@@ -279,7 +281,7 @@ export const SEMSWA_SERVICE_AREA =
         switches[RESEARCH_MONITORING]) ? weightStyle : emptyStyle}>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
       <Switch key={Math.random()} checked={groups['environmental']} size="small" onClick={(value, event) => {
           event.stopPropagation();
-          changeGroup(value, [BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING], 'environmental')
+          changeGroup(value, [BLOCK_CLEARANCE_ZONES_LAYERS, RESEARCH_MONITORING], 'environmental')
         }}/>
     </div>
     )
@@ -510,6 +512,14 @@ export const SEMSWA_SERVICE_AREA =
           <Panel header="" key="5" extra={genExtra04()}>
             <p>
               <img key={Math.random()} src="/Icons/Filters/ic_mouse.png" width="18px" alt="" />
+                  Block Clearance Zone
+                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.block_clearence_zones)}>
+                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch key={Math.random()} size="small" checked={switches[BLOCK_CLEARANCE_ZONES_LAYERS]} onClick={(value) => onChange(value, BLOCK_CLEARANCE_ZONES_LAYERS)} />
+            </p>
+            {/* <p>
+              <img key={Math.random()} src="/Icons/Filters/ic_mouse.png" width="18px" alt="" />
                   BCZ - Preble’s Meadow
                   <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_prebels_meadow)}>
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
@@ -524,7 +534,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key={Math.random()} size="small" checked={switches[BCZ_UTE_LADIES_TRESSES_ORCHID]} onClick={(value) => onChange(value, BCZ_UTE_LADIES_TRESSES_ORCHID)}/>
-            </p>
+            </p> */}
 
             <p>
               <img key={Math.random()} src="/Icons/Filters/ic_research.png" width="18px" alt=""  />
