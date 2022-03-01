@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNoteDispatch } from '../../hook/notesHook';
 import { Popover, Menu } from 'antd';
 import { useProfileState } from '../../hook/profileHook';
@@ -93,16 +93,21 @@ export const Node = ({
 
   }
 
+  const [showBorder, setShowBorder] = useState(false);
+
   return (
     <div
       onDragOver={(e: any) => {
+        setShowBorder(true);
         e.preventDefault();
       }}
+      onDragLeave={(e: any) => {
+        setShowBorder(false);
+      }}
       onDrop={(e: any) => {
+        setShowBorder(false);
         if (isFolder) {
           const id = e.dataTransfer.getData('id');
-          console.log('my id is ', id);
-          console.log('dropping ', item);
           onDragAndDrop(id, item.id);
           e.stopPropagation();
         }
@@ -114,9 +119,10 @@ export const Node = ({
         onDragStart={(e: any) => {
           e.dataTransfer.setData('id', item.id);
           console.log('drag start', item);
+          setShowBorder(false);
         }}
         className={isFolder ? "s-item folder":"s-item" }
-        style={{ paddingLeft: `${(level + 1) * 16}px`}}
+        style={{ paddingLeft: `${(level + 1) * 16}px`, borderBottom: showBorder ? '2px solid #11093C ' : 'none'}}
         onClick={onClick}>
         {/* {isFolder ? <img src="/Icons/left-arrow.svg" alt="" width="10px" style={ { marginRight: '8px'}}/>  : null} */}
         {isFolder ?<span className="ic-folder"></span>:  <label className="ll-00"
