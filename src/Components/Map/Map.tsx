@@ -2449,7 +2449,7 @@ const Map = ({ leftWidth,
                       popups.push(item);
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
-                  if (feature.source === 'counties') { 
+                  if (feature.source === 'counties') { //DOTTY--COUNTIES
                     const item = {
                         layer: MENU_OPTIONS.COUNTIES,
                         feature: feature.properties.county ? feature.properties.county : '-',
@@ -2469,13 +2469,15 @@ const Map = ({ leftWidth,
                 if (feature.source === MUNICIPALITIES_FILTERS) {  
                   const item = {
                       layer: MENU_OPTIONS.MUNICIPALITIES,
-                      feature: feature.properties.city ? feature.properties.city : '-',
+                      //feature: feature.properties.city ? feature.properties.city : '-',
+                      city: feature.properties.city ? feature.properties.city : '-',
                       // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
                       // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
                   }
                   mobile.push({
                       layer: item.layer,
-                      feature: item.feature
+                      //feature: item.feature,
+                      city: item.city,
                       // watershedmanager: item.watershedmanager,
                       // constructionmanagers: item.constructionmanagers
                   })
@@ -2484,12 +2486,43 @@ const Map = ({ leftWidth,
                   ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                 }
                 
-                  if (feature.source === 'catchments' || feature.source === 'basin') {
+                  if (feature.source.includes('catchments') || feature.source.includes('basin')) {
                       const item = {
                           layer: MENU_OPTIONS.WATERSHED,
-                          feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
-                      }
+                          //feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
+                          str_name: feature.properties.str_name ? feature.properties.str_name : 'No name',
+                          mhfd_code: feature.properties.mhfd_code ? feature.properties.mhfd_code : '-',
+                          catch_acre: feature.properties.catch_acre ? feature.properties.catch_acre : '-',
+                        }
                       menuOptions.push(MENU_OPTIONS.WATERSHED);
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === 'fema_flood_hazard_zones') {
+                    const item = {
+                        layer: MENU_OPTIONS.FEMA_FLOOD_HAZARD,
+                        //feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                        dfirm_id: feature.properties.dfirm_id ? feature.properties.dfirm_id : '-',
+                        fld_zone: feature.properties.fld_zone ? feature.properties.fld_zone : '-',
+                        zone_subty: feature.properties.zone_subty ? feature.properties.zone_subty : '-',
+                        sfha_tf: feature.properties.sfha_tf ? feature.properties.sfha_tf : '-',
+                      }
+                      menuOptions.push(MENU_OPTIONS.FEMA_FLOOD_HAZARD);
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source === 'floodplains_non_fema') {
+                    const item = {
+                        layer: MENU_OPTIONS.FLOODPLAINS_NON_FEMA,
+                        //feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+                        study_name: feature.properties.study_name ? feature.properties.study_name : '-',
+                        floodplain_source: feature.properties.floodplain_source ? feature.properties.floodplain_source : '-',
+                        floodplain_type: feature.properties.floodplain_type ? feature.properties.floodplain_type : '-',
+                        county: feature.properties.county ? feature.properties.county : '-',
+                        service_area: feature.properties.service_area ? feature.properties.service_area : '-',
+                        notes_floodplains: feature.properties.notes ? feature.properties.notes : '-',
+                      }
+                      menuOptions.push(MENU_OPTIONS.FLOODPLAINS_NON_FEMA);
                       popups.push(item);
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }

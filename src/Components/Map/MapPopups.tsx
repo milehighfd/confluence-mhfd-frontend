@@ -195,6 +195,10 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
     isComponent = false;
   } else if ( item.layer == 'Municipality') {
     isComponent = false;
+  } else if ( item.layer == 'FEMA Flood Hazard') {
+    isComponent = false;
+  } else if ( item.layer == 'Floodplains (Non-FEMA)') {
+    isComponent = false;
   }
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable>
@@ -262,7 +266,20 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
             {item.watershedmanager ? <p><i>Watershed Manager:</i>  {item.watershedmanager}</p> : ''}
             {item.email? <p><i>Contact Us: </i><a href={"mailto:"+item.mail}> {item.email}</a></p>:''}
-            {item.constructionmanagers ? <p><i>Construction Managers:</i>  {item.constructionmanagers}</p> : ''}
+            {item.constructionmanagers ? <p><i>Construction Manager:</i>  {item.constructionmanagers}</p> : ''}
+            {item.city ? <p><i>City:</i>  {item.city}</p> : ''}
+            {item.mhfd_code ? <p><i>MHFD Code:</i>  {item.mhfd_code}</p> : ''}
+            {item.catch_acre ? <p><i>Acreage:</i>  {item.catch_acre}</p> : ''}
+            {item.dfirm_id ? <p><i>DFIRM ID:</i>  {item.dfirm_id}</p> : ''}
+            {item.fld_zone ? <p><i>Flood Zone:</i>  {item.fld_zone}</p> : ''}
+            {item.zone_subty ? <p><i>Flood Zone Subtype:</i>  {item.zone_subty}</p> : ''}
+            {item.sfha_tf ? <p><i>Special Flood Hazard Zone:</i>  {item.sfha_tf}</p> : ''}
+            {item.study_name ? <p><i>Study Name:</i>  {item.study_name}</p> : ''}
+            {item.floodplain_source ? <p><i>Source:</i>  {item.floodplain_source}</p> : ''}
+            {item.floodplain_type ? <p><i>Flood Zone Subtype:</i>  {item.floodplain_type}</p> : ''}
+            {item.county ? <p><i>County:</i>  {item.county}</p> : ''}
+            {item.service_area ? <p><i>Service Area:</i>  {item.service_area}</p> : ''}
+            {item.notes_floodplains ? <p><i>Notes:</i>  {item.notes_floodplains}</p> : ''}
             {isComponent && item.projectid === undefined && <Button id={"buttonCreate-" + id} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
             {item.layer == MENU_OPTIONS.MEASURES && 
               <div style={{ padding: '10px', marginTop: '15px', color: '#28C499', display:'flex'}}>
@@ -338,7 +355,20 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
           {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
           {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
           {item.watershedmanager ? <p><i>Watershed Manager:</i>  {item.watershedmanager}</p> : ''}
-          {item.constructionmanagers ? <p><i>Construction Managers:</i>  {item.constructionmanagers}</p> : ''}
+          {item.constructionmanagers ? <p><i>Construction Manager:</i>  {item.constructionmanagers}</p> : ''}
+          {item.city ? <p><i>City:</i>  {item.city}</p> : ''}
+          {item.mhfd_code ? <p><i>MHFD Code:</i>  {item.mhfd_code}</p> : ''}
+          {item.catch_acre ? <p><i>Acreage:</i>  {item.catch_acre}</p> : ''}
+          {item.dfirm_id ? <p><i>DFIRM ID:</i>  {item.dfirm_id}</p> : ''}
+          {item.fld_zone ? <p><i>Flood Zone:</i>  {item.fld_zone}</p> : ''}
+          {item.zone_subty ? <p><i>Flood Zone Subtype:</i>  {item.zone_subty}</p> : ''}
+          {item.sfha_tf ? <p><i>Special Flood Hazard Zone:</i>  {item.sfha_tf}</p> : ''}
+          {item.study_name ? <p><i>Study Name:</i>  {item.study_name}</p> : ''}
+          {item.floodplain_source ? <p><i>Source:</i>  {item.floodplain_source}</p> : ''}
+          {item.floodplain_type ? <p><i>Flood Zone Subtype:</i>  {item.floodplain_type}</p> : ''}
+          {item.county ? <p><i>County:</i>  {item.county}</p> : ''}
+          {item.service_area ? <p><i>Service Area:</i>  {item.service_area}</p> : ''}
+          {item.notes_floodplains ? <p><i>Notes:</i>  {item.notes_floodplains}</p> : ''}
           {isComponent && !isWR && item.projectid === undefined && <Button id={'component-'+id}  style={{ width: '100%', marginTop: '10px'}} className="btn-purple" >{item.added}</Button>}
       </div>
       </Card>

@@ -1799,7 +1799,9 @@ export const MENU_OPTIONS =
     MHFD_STREAMS_REACHES: MHFD_STREAMS_FILTERS,
     COUNTIES: 'County',
     MUNICIPALITIES: 'Municipality',
-    MEASURES: 'MEASURE'
+    MEASURES: 'MEASURE',
+    FEMA_FLOOD_HAZARD:'FEMA Flood Hazard',
+    FLOODPLAINS_NON_FEMA:'Floodplains (Non-FEMA)'
   }
 ;
 
