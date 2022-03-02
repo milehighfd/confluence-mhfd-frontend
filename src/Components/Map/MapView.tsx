@@ -803,7 +803,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col>
         <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'}>
-          Apply map view to filters
+          Apply map view to filter
           <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
             setApplyFilter(!applyFilter)
             getGalleryProblems();

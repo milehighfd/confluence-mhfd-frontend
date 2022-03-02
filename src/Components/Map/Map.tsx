@@ -970,6 +970,9 @@ const Map = ({ leftWidth,
             map.on('draw.update', () => replaceOldPolygon(draw));
             polygonRef.current.appendChild(draw.onAdd(map));
         }
+        map.on('idle', () => {
+          console.log('A render event occurred.', map.getBounds());
+        });
 
         /* Special and Acquisition Projects */
         if (layers && layers.marker) {
@@ -3468,6 +3471,7 @@ const Map = ({ leftWidth,
     const [measuringState, setMeasuringState] = useState(isMeasuring);
     const [measuringState2, setMeasuringState2] = useState(isMeasuring);
     const [isdrawingmeasure, setIsDrawingMeasure] = useState(false);
+    const [displayPrevNext, setDisplayPrevNext] = useState(false);
     const setIsMeasuring = (value: boolean) => {
       isMeasuring = value;
       setMeasuringState2(value);
@@ -3680,7 +3684,21 @@ const Map = ({ leftWidth,
                     }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
                 
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
-                <Button className='btn-history'><img className='img-icon-04'></img></Button>
+                <Button className='btn-history' onMouseEnter={() => setDisplayPrevNext(true)} onMouseLeave={() => setDisplayPrevNext(false)}><img className='img-icon-04'></img></Button>
+                {displayPrevNext && <div className='mapstatebuttons' onMouseEnter={ () => setDisplayPrevNext(true)} onMouseLeave={() => setDisplayPrevNext(false)} >
+                    <div >
+                      PREV
+                      <div className="progress">
+                        <div className="progress-value"></div>
+                      </div>
+                    </div>
+                    <div >
+                      NEXT
+                      <div className="progress">
+                        <div className="progress-value"></div>
+                      </div>
+                    </div>
+                  </div>}
                 {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
             </div>
 
