@@ -301,18 +301,18 @@
   z-index: 10;  
 
   button{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     padding: 0px;
     right: 0;
     border: none;
-    margin-top: 8px;
+    // margin-top: -1px;
     position: absolute;
   }
    button .img-icon{
     -webkit-mask: url('/Icons/u_ruler-combined.svg') no-repeat center;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     background: $purple00;
   }
   .measurecontainer {
@@ -377,6 +377,11 @@
       justify-content: start;
       align-items: baseline;
       justify-items: start;
+      .button-c {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
     }
 }
   }//container
@@ -1811,6 +1816,11 @@
     justify-content: start;
     align-items: baseline;
     justify-items: start;
+    .button-c {
+      &:hover {
+        opacity: 0.5;
+      }
+    }
   }
 }
 }//container

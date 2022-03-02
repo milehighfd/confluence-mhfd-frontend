@@ -1930,6 +1930,7 @@ const Map = ({ leftWidth,
         map.getSource('geojsonMeasuresMomentary').setData(geojsonMeasuresMomentary);
         map.getSource('geojsonMeasure').setData(geojsonMeasures);
         setIsDrawingMeasure(false);
+        setIsMeasuring(false);
       }
     }
     const measureFunction = (e: any) => {
@@ -3620,10 +3621,10 @@ const Map = ({ leftWidth,
                     </div>
                     <hr style={{opacity: 0.4, width: '96%'}}></hr>
                     <p className='paragraph'> 
-                      <span style={{paddingRight:'5px'}} onClick={()=>setIsMeasuring(false)}><a style={{color:'#11093C'}}><img className='img-measure-01'></img> <b>Cancel</b></a></span >
+                      <span  className="button-c" style={{paddingRight:'5px'}} onClick={()=>setIsMeasuring(false)}><a style={{color:'#11093C'}}><img className='img-measure-01'></img> <b>Cancel</b></a></span >
                       {  
                         isdrawingmeasure && 
-                        <span style={{paddingLeft:'22px'}} onClick={()=>finishMeasure()}><a style={{color:'#11093C'}}><img className='img-measure-02'></img> <b>Finish measurement</b></a></span >}
+                        <span  className="button-c" style={{paddingLeft:'22px'}} onClick={()=>finishMeasure()}><a style={{color:'#11093C'}}><img className='img-measure-02'></img> <b>Finish measurement</b></a></span >}
                     </p>
                   </div>
                 </div>
