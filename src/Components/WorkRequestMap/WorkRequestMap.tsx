@@ -2062,7 +2062,7 @@ const epochTransform = (dateParser: any) => {
         </AutoComplete>
       </div>
       <div className="m-zoom">
-          <Button style={{ borderRadius: '4px' }} onClick={() => centerToLocalityy()} ><img className="img-icon" /></Button>
+          <Button style={{ borderRadius: '4px' }} onClick={() => centerToLocalityy()} ><img className="img-icon-05" /></Button>
           <Button className='btn-history'><img className='img-icon-04'></img></Button>
       </div>
     </div>
