@@ -156,7 +156,7 @@ const RequestView = ({ type, isFirstRendering }: {
     if(array.length>0){
       setBoardProjects({cartoids:justProjects, ids: idsProjects});
     } else {
-      setBoardProjects(['-8888']);
+      setBoardProjects(['-8886']);
     }
     setColumns(newcols);
   }
@@ -343,7 +343,7 @@ const RequestView = ({ type, isFirstRendering }: {
             if(projects.length>0){
               setBoardProjects({cartoids:justProjects, ids: idsProjects});
             } else {
-              setBoardProjects(['-8888']);
+              setBoardProjects(['-8885']);
             }
 
             let cols = generateColumns(projects, year, tabKey);
@@ -455,7 +455,7 @@ const RequestView = ({ type, isFirstRendering }: {
                   if(projects.length>0){
                     setBoardProjects({cartoids:justProjects, ids: idsProjects});
                   } else {
-                    setBoardProjects(['-8888']);
+                    setBoardProjects(['-8887']);
                   }
                 }
               }

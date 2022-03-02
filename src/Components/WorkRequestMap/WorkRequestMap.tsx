@@ -259,10 +259,11 @@ const WorkRequestMap = (type: any) => {
           });
         },2200)
           
-      } else if(idsBoardProjects[0] == '-8888'){
+      } else {
+        console.log("DS", idsBoardProjects);
         if(map.map){
-          // removeLayers('mhfd_projects_created');
-          // removeLayersSource('mhfd_projects_created');
+          removeLayers('mhfd_projects_created');
+          removeLayersSource('mhfd_projects_created');
         }
         
       } 
