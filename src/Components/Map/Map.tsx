@@ -3685,8 +3685,8 @@ const Map = ({ leftWidth,
                     }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
                 
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
-                <Button className='btn-history' onMouseEnter={() => setDisplayPrevNext(true)} onMouseLeave={() => setDisplayPrevNext(false)}><img className='img-icon-04'></img></Button>
-                {displayPrevNext && <div className='mapstatebuttons' onMouseEnter={ () => setDisplayPrevNext(true)} onMouseLeave={() => setDisplayPrevNext(false)} >
+                <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04'></img></Button>
+                {displayPrevNext && <div className='mapstatebuttons'  >
                     <div >
                       PREV
                       <div className="progress">

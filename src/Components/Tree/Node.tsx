@@ -126,7 +126,8 @@ export const Node = ({
         onClick={onClick}>
         {/* {isFolder ? <img src="/Icons/left-arrow.svg" alt="" width="10px" style={ { marginRight: '8px'}}/>  : null} */}
         {isFolder ?<span className="ic-folder"></span>:  <label className="ll-00"
-          style={{padding: '4px 6px', background: item.data.color ? item.data.color : 'red' +  ' !important'}}
+          // style={{padding: '4px 6px', background: item.data.color ? item.data.color : 'red' +  ' !important'}}
+          style={{padding: '4px 6px', background:  '#F6BE0F' }}
         >
                 {initialName}
               </label>}
