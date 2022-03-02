@@ -378,7 +378,7 @@ const WorkRequestMap = (type: any) => {
         cb();
     }
   };
-  useEffect(()=>{
+  const groupOrganizationZoom = () => {
     if(groupOrganization.length == 0) {
       getGroupOrganization();
     }
@@ -387,11 +387,13 @@ const WorkRequestMap = (type: any) => {
       if(type.locality) {
         value = type.locality;
       }
-        
       if(groupOrganization.length > 0) {
         wait(()=>setBounds(value));
       }
     },500);
+  }
+  useEffect(()=>{
+    groupOrganizationZoom();
   },[groupOrganization, type.locality]);
   // useEffect(()=>{
   //   if(listComponents && listComponents.result && listComponents.result.length > 0) {
@@ -495,7 +497,6 @@ const WorkRequestMap = (type: any) => {
     updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS]);
   }
   const applyNearMapLayer = () => {
-    console.log("MAP",map.map.getStyle());
     if (!map.getSource('raster-tiles')) {
         map.map.addSource('raster-tiles', {
             'type': 'raster',
@@ -2013,6 +2014,10 @@ const epochTransform = (dateParser: any) => {
   const removePopup = () => {
     popup.remove();
   }
+  const centerToLocalityy = () => {
+    console.log("TRING TO ZOOM");
+    groupOrganizationZoom();
+  }
   return <>
     <div className="map">
     <span className="zoomvaluemap"> <b>Zoom Level: {zoomValue}</b> </span>
@@ -2055,6 +2060,10 @@ const epochTransform = (dateParser: any) => {
         >
           <Input.Search size="large" placeholder="Stream or Location" />
         </AutoComplete>
+      </div>
+      <div className="m-zoom">
+          <Button style={{ borderRadius: '4px' }} onClick={() => centerToLocalityy()} ><img className="img-icon" /></Button>
+          <Button className='btn-history'><img className='img-icon-04'></img></Button>
       </div>
     </div>
   </>

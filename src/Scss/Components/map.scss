@@ -426,6 +426,21 @@
    background: $green !important;
    -webkit-mask-size: 20px 20px;
  }
+ button .img-icon-04{
+  -webkit-mask: url('/Icons/ic-history.svg') no-repeat center;
+  height: 100%;
+  width: 100%;
+  background: $purple00;
+ -webkit-mask-size: 20px 20px;
+}
+.ant-btn:hover > .img-icon-04 {
+  opacity: 1;
+  -webkit-mask: url('/Icons/ic-history.svg') no-repeat center;
+  height: 100%;
+  width:100%;
+  background: $green !important;
+  -webkit-mask-size: 20px 20px;
+}
 }
 
 .filter-map{

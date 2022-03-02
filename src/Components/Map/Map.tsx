@@ -3678,7 +3678,9 @@ const Map = ({ leftWidth,
                 <Button className="btn-none" onClick={() => {
                     setCommentVisible(commentVisible => !commentVisible);
                     }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
+                
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
+                <Button className='btn-history'><img className='img-icon-04'></img></Button>
                 {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
             </div>
 
