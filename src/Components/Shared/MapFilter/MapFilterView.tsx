@@ -511,7 +511,7 @@ export const SEMSWA_SERVICE_AREA =
 
           <Panel header="" key="5" extra={genExtra04()}>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_mouse.png" width="18px" alt="" />
+              <img key={Math.random()} src="/Icons/icon_bcz.png" width="18px" alt="" />
                   Block Clearance Zone
                   <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.block_clearence_zones)}>
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
