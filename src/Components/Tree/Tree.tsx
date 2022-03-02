@@ -4,7 +4,6 @@ import {Branch} from './Branch';
 
 export const Tree = ({ data, onDragAndDrop, setTree, mapFunctions } : any) => {
   return <div
-      style={{ height: '100%' }}
       onDragOver={(e: any) => {
         e.preventDefault();
       }}
