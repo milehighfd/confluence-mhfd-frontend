@@ -63,13 +63,14 @@ import MobilePopup from '../MobilePopup/MobilePopup';
 import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
-import { addHistoric } from '../../utils/globalMap';
+import { addHistoric, getNext, getPrevious } from '../../utils/globalMap';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 
 let map: any = null;
+let fromHistory = false;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
 let searchPopup = new mapboxgl.Popup();
 let popup = new mapboxgl.Popup();
@@ -972,11 +973,14 @@ const Map = ({ leftWidth,
             polygonRef.current.appendChild(draw.onAdd(map));
         }
         map.on('idle', () => {
-          const center = [map.getCenter().lng, map.getCenter().lat];
-          console.log(map.getBounds());
-          const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
-            map.getBounds()._ne.lng, map.getBounds()._ne.lat];
-          addHistoric({center, bbox});
+            if (!fromHistory) {
+                const center = [map.getCenter().lng, map.getCenter().lat];
+                console.log(map.getBounds());
+                const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
+                  map.getBounds()._ne.lng, map.getBounds()._ne.lat];
+                addHistoric({center, bbox});
+            }
+            fromHistory = false;
         });
 
         /* Special and Acquisition Projects */
@@ -3728,13 +3732,25 @@ const Map = ({ leftWidth,
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
                 <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04'></img></Button>
                 {displayPrevNext && <div className='mapstatebuttons'  >
-                    <div >
+                    <div onClick={() => {
+                        const prev = getPrevious();
+                        console.log('click prev ', prev);
+                        fromHistory = true;
+                        map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
+                    }}>
                       PREV
                       <div className="progress">
                         <div className="progress-value"></div>
                       </div>
                     </div>
-                    <div >
+                    <div 
+                        onClick={() => {
+                            const nxt = getNext();
+                            console.log('click next, ', nxt);
+                            fromHistory = true;
+                            map.fitBounds([[nxt.bbox[0],nxt.bbox[1]],[nxt.bbox[2],nxt.bbox[3]]]);
+                        }}
+                    >
                       NEXT
                       <div className="progress">
                         <div className="progress-value"></div>

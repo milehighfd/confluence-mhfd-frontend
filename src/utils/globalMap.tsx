@@ -50,27 +50,31 @@ let currentPosition = -1;
 
 export const addHistoric = (location: any) => {
   console.log(location);
-  const findLocation = lastMaps.find((l: any) => l.center[0] === location.center[0] && l.center[1] === location.center[1]);
-  console.log('findLocation', findLocation);
-  if (!findLocation) {
-    lastMaps.push(location);
-  } else {
-    const locationPosition = lastMaps.indexOf(findLocation);
-    while (locationPosition != lastMaps.length - 1) {
-      if (locationPosition + 1 < lastMaps.length) {
-        const aux = lastMaps[locationPosition];
-        lastMaps[locationPosition] = lastMaps[locationPosition + 1];
-        lastMaps[locationPosition + 1] = aux;
+  const currentId = cc;
+  lastId = cc++;
+  setTimeout(() => {
+    const findLocation = lastMaps.find((l: any) => l.center[0] === location.center[0] && l.center[1] === location.center[1]);
+    console.log('findLocation', findLocation);
+    if (!findLocation) {
+      lastMaps.push(location);
+    } else {
+      const locationPosition = lastMaps.indexOf(findLocation);
+      while (locationPosition != lastMaps.length - 1) {
+        if (locationPosition + 1 < lastMaps.length) {
+          const aux = lastMaps[locationPosition];
+          lastMaps[locationPosition] = lastMaps[locationPosition + 1];
+          lastMaps[locationPosition + 1] = aux;
+        }
       }
     }
-  }
-  if (lastMaps.length > 5) {
-    lastMaps.shift();
-  }
-  if (currentPosition === lastMaps.length - 2) {
-    currentPosition++;
-  }
-  console.log(currentPosition, lastMaps);
+    if (lastMaps.length > 5) {
+      lastMaps.shift();
+    }
+    if (currentPosition === lastMaps.length - 2) {
+      currentPosition++;
+    }
+    console.log(currentPosition, lastMaps);
+  }, 2500);
 }
 
 export const getHistoric = () => {
