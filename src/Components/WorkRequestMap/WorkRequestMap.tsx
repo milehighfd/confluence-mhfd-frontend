@@ -36,7 +36,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { group } from "d3-array";
 import { useAttachmentDispatch } from "../../hook/attachmentHook";
-
+import {getCurrent} from './../../utils/globalMap';
 let firstTime = true;
 let map: any;
 let coordX = -1;
@@ -209,6 +209,7 @@ const WorkRequestMap = (type: any) => {
     changeAddLocationState(false);
     // setComponentIntersected([]);
     componentsList = [];
+    console.log("GET CURRENt", getCurrent());
     return () => {
       setBoardProjects(['-8888'])
     }
@@ -260,7 +261,6 @@ const WorkRequestMap = (type: any) => {
         },2200)
           
       } else {
-        console.log("DS", idsBoardProjects);
         if(map.map){
           removeLayers('mhfd_projects_created');
           removeLayersSource('mhfd_projects_created');
@@ -316,23 +316,23 @@ const WorkRequestMap = (type: any) => {
     if(boardProjects && boardProjects.ids && boardProjects.ids[0] != '-8888') {
       // if(!equals(boardProjects.ids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjects.ids);
-        postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
-          (r: any) => { 
-            if(r.bbox){
-              let BBoxPolygon = JSON.parse(r.bbox);
-              let bboxBounds = turf.bbox(BBoxPolygon);
+        // postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
+        //   (r: any) => { 
+        //     if(r.bbox){
+        //       let BBoxPolygon = JSON.parse(r.bbox);
+        //       let bboxBounds = turf.bbox(BBoxPolygon);
               
-              if(map.map){
-                setTimeout(()=>{
-                  map.map.fitBounds(bboxBounds,{ padding:60, maxZoom:17.5});
-                },1200);
-              }
-            }
-          },
-          (e:any) => {
-            console.log('Error getting bbox projectid', e);
-          }
-        )
+        //       if(map.map){
+        //         setTimeout(()=>{
+        //           map.map.fitBounds(bboxBounds,{ padding:60, maxZoom:17.5});
+        //         },1200);
+        //       }
+        //     }
+        //   },
+        //   (e:any) => {
+        //     console.log('Error getting bbox projectid', e);
+        //   }
+        // )
 
       // }
     } 
@@ -393,7 +393,13 @@ const WorkRequestMap = (type: any) => {
     },500);
   }
   useEffect(()=>{
-    groupOrganizationZoom();
+    let historicBounds = getCurrent();
+    console.log("IS THERE HISTORIC BOUNDS?", historicBounds);
+    if(historicBounds && historicBounds.bbox) {
+      map.map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
+    } else {
+      groupOrganizationZoom();
+    }
   },[groupOrganization, type.locality]);
   // useEffect(()=>{
   //   if(listComponents && listComponents.result && listComponents.result.length > 0) {
@@ -2015,7 +2021,6 @@ const epochTransform = (dateParser: any) => {
     popup.remove();
   }
   const centerToLocalityy = () => {
-    console.log("TRING TO ZOOM");
     groupOrganizationZoom();
   }
   return <>

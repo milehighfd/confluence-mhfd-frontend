@@ -244,7 +244,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     <>
     <Drawer
       title={<div className="comment-title">
-              <h5>WORKSPACE</h5>
+              <h5>MAP NOTES</h5>
               <Button onClick={onClose}>
                 {/* <img src="/Icons/left-arrow.svg" alt="" width="18px" /> */}
                 <span className="arrow-left"></span>
