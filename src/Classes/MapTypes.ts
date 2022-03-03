@@ -326,7 +326,8 @@ export type LayerStylesType = {
     'source-layer'?: string,
     paint: {
         [key : string]: string | number
-    }
+    },
+    filter: []
 }
 
 export type TotalType = {

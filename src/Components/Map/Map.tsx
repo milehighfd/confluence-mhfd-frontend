@@ -1576,7 +1576,12 @@ const Map = ({ leftWidth,
                     } else {
                         for (const filter of filters.split(',')) {
                             if (isNaN(+filter)) {
-                                options.push(['==', ['get', filterField], filter]);
+                                if(key == PROJECTS_LINE && style.filter && filter == 'Study') {
+                                  console.log("STYLE FILTER,", style.filter, filters);
+                                  options.push(style.filter)
+                                } 
+                                  options.push(['==', ['get', filterField], filter]);
+                                
                             } else {
                                 const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
                                 options.push(equalFilter);
@@ -1591,7 +1596,7 @@ const Map = ({ leftWidth,
             }
 
             if (map.getLayer(key + '_' + index)) {
-                //console.log(key + '_' + index, allFilters);
+                console.log(key + '_' + index, allFilters);
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
@@ -2183,6 +2188,7 @@ const Map = ({ leftWidth,
             } else {
 
               let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
+              console.log("feature", features);
               if (features.length === 0) {            
                   // return;            
                 }
