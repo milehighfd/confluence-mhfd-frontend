@@ -63,6 +63,7 @@ import MobilePopup from '../MobilePopup/MobilePopup';
 import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
+import { addHistoric } from '../../utils/globalMap';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
 
@@ -971,7 +972,11 @@ const Map = ({ leftWidth,
             polygonRef.current.appendChild(draw.onAdd(map));
         }
         map.on('idle', () => {
-          
+          const center = [map.getCenter().lng, map.getCenter().lat];
+          console.log(map.getBounds());
+          const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
+            map.getBounds()._ne.lng, map.getBounds()._ne.lat];
+          addHistoric({center, bbox});
         });
 
         /* Special and Acquisition Projects */
