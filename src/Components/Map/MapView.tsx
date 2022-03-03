@@ -603,6 +603,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
           getParamFilterProblems(boundsMap, filterProblemOptions)
           break;
         case '1':
+          console.log("FILTER POJEC", filterProjectOptions);
           getParamFilterProjects(boundsMap, filterProjectOptions)
           break;
         case '2':

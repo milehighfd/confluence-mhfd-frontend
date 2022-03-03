@@ -374,11 +374,11 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         // problemtype: filters.problemtype as any, // not exist in tables
         mhfdmanager: filters.mhfdmanager,
         jurisdiction: filters.jurisdiction,
-        county: filters.county,
+        county: filters.county.replace("County","").trim(),
         problemtypeProjects: [] as any,
         consultant: filters.consultant,
         contractor: filters.contractor,
-        servicearea: filters.servicearea,
+        servicearea: filters.servicearea.trim(),
         keyword
     }
     return (dispatch: Function) => {
@@ -599,6 +599,10 @@ export const getParamsFilter = (bounds: string) => {
     }
 }
 export const getParamFilterProjects = (bounds: string, data?: any) => {
+    if(data) {
+      data.county = data.county.replace("County","").trim();  
+      data.servicearea = data.servicearea.replace("Service Area","").trim();  
+    }
     return (dispatch: Function) => {
         // dispatch(setSpinFilter(true));
         datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then(params => {
@@ -610,6 +614,10 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
     }
 }
 export const getParamFilterProblems = (bounds: string, data?: any) => {
+    if(data) {
+      data.county = data.county.replace("County","").trim();  
+      data.servicearea = data.servicearea.replace("Service Area","").trim();  
+    }
     return (dispatch: Function) => {
         // dispatch(setSpinFilter(true));
         datasets.postData(SERVER.PARAM_FILTER_PROBLEMS + '?bounds=' + bounds, data || {}).then(params => {

@@ -49,8 +49,11 @@ export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilt
                 options[field] = values;
             }
         }
+        
         setFilterProjectOptions(options);
         getGalleryProjects();
+        options.servicearea = options.servicearea.trim();
+        options.county = options.county.replace("County","").trim();
         getParamFilterProjects(boundsMap, options)
     }
     const reset = () => {
