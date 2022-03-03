@@ -971,7 +971,7 @@ const Map = ({ leftWidth,
             polygonRef.current.appendChild(draw.onAdd(map));
         }
         map.on('idle', () => {
-          console.log('A render event occurred.', map.getBounds());
+          
         });
 
         /* Special and Acquisition Projects */
@@ -1473,6 +1473,12 @@ const Map = ({ leftWidth,
                 return;
             }
             const allFilters: any[] = ['all'];
+            // init all added filters to be true
+
+            //iterate the filters that reach here
+            
+            // always will have fields
+            // on reset the only field is status
             for (const filterField in toFilter) {
                 const filters = toFilter[filterField];
                 if (filterField === 'component_type') {
@@ -1483,6 +1489,7 @@ const Map = ({ leftWidth,
                         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
                     }
                 }
+                // if field has length larger, even if is string
                 if (filters && filters.length) {
                     const options: any[] = ['any'];
                     if (filterField === 'keyword') {
@@ -1574,13 +1581,31 @@ const Map = ({ leftWidth,
                             options.push(allFilter);
                         }
                     } else {
+                        // here splits the string in array 
+                        
+                        
                         for (const filter of filters.split(',')) {
+                          // to check if is string of is number
                             if (isNaN(+filter)) {
-                                if(key == PROJECTS_LINE && style.filter && filter == 'Study') {
-                                  console.log("STYLE FILTER,", style.filter, filters);
-                                  options.push(style.filter)
-                                } 
+                                // if is string it will add to options ( [any, ...])
+                                //    0: "any" // for reset button only adds this to any 
+                                // 1: (3) ['==', Array(2), 'Initiated']
+                                // 2: (3) ['==', Array(2), 'Preliminary Design']
+                                // 3: (3) ['==', Array(2), 'Construction']
+                                // 4: (3) ['==', Array(2), 'Final Design']
+                                // 5: (3) ['==', Array(2), 'Hydrology']
+                                // 6: (3) ['==', Array(2), 'Floodplain']
+                                // 7: (3) ['==', Array(2), 'Alternatives']
+                                // 8: (3) ['==', Array(2), 'Conceptual']
+                                if(filterField == 'projecttype') {
+                                  if(JSON.stringify(style.filter).includes(filter)) {
+                                    options.push(['==', ['get', filterField], filter]);
+                                  }
+                                } else {
                                   options.push(['==', ['get', filterField], filter]);
+                                }
+                                
+                                  
                                 
                             } else {
                                 const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
@@ -1588,15 +1613,20 @@ const Map = ({ leftWidth,
                             }
                         }
                     }
+                    
                     allFilters.push(options);
-                }
+                } 
             }
+            if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
+              allFilters.push(style.filter);
+            }
+            
             if (componentDetailIds && componentDetailIds[key]) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
 
             if (map.getLayer(key + '_' + index)) {
-                console.log(key + '_' + index, allFilters);
+                // console.log("Complete filter for", key + '_' + index, allFilters);
                 map.setFilter(key + '_' + index, allFilters);
             }
         });

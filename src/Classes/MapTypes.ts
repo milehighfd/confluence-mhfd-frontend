@@ -327,7 +327,7 @@ export type LayerStylesType = {
     paint: {
         [key : string]: string | number
     },
-    filter: []
+    filter: any
 }
 
 export type TotalType = {

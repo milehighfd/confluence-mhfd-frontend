@@ -1970,7 +1970,7 @@ export const PROJECTS_STYLES = {
     {
       type: 'symbol',
       'source-layer': 'pluto15v1',
-      "filter": ["in", "projecttype", ["literal", ["Capital, Maintenance"]]],
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
       "layout": {
         "text-field": [
             "match",
@@ -1999,7 +1999,7 @@ export const PROJECTS_STYLES = {
     }, {
       type: 'symbol',
       'source-layer': 'pluto15v1',
-      "filter": ["in", "projecttype", ["literal", ["Capital, Maintenance"]]],
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
       "layout": {
         "text-field": [
             "match",
@@ -2029,7 +2029,7 @@ export const PROJECTS_STYLES = {
      {
       type: 'line',
       'source-layer': 'pluto15v1',
-      "filter": ["in", "projecttype", ["literal", ["Capital, Maintenance"]]],
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
       "layout": {
         "line-miter-limit": [
             "interpolate",
@@ -2081,7 +2081,7 @@ export const PROJECTS_STYLES = {
       "type": "line",
       "source-layer": "pluto15v1",
       "layout": {"line-cap": "round", "line-join": "round"},
-      "filter": ["in", "projecttype", ["literal", ["Capital, Maintenance"]]],
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
       "paint": {
           "line-color": "hsl(60, 100%, 50%)",
           "line-width": 10,
@@ -2102,7 +2102,7 @@ export const PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       "layout": {"line-join": "round"},
-      "filter": ["in", "projecttype", ["literal", ["Capital, Maintenance"]]],
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
       "paint": {
           "line-color": "hsl(65, 100%, 50%)",
           "line-blur": 1,
@@ -2127,7 +2127,7 @@ export const PROJECTS_STYLES = {
     }, {
       type: 'line',
       'source-layer': 'pluto15v1',
-      "filter": ["in", "projecttype", ["literal", ["Capital, Maintenance"]]],
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
       "paint": {
         "line-color": "hsl(69, 100%, 50%)",
         "line-blur": 1,
@@ -2153,7 +2153,7 @@ export const PROJECTS_STYLES = {
     {
       type: 'symbol',
       'source-layer': 'pluto15v1',
-      "filter": ["in", "projecttype", ["literal", ["Capital, Maintenance"]]],
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"],['!=',['get','projectsubtype','FHAD']],['!=',['get','projectsubtype'],'Master Plan']],
       "layout": {
         "text-field": ["to-string", ["get", "projectname"]],
         "text-justify": "auto",
@@ -2192,7 +2192,7 @@ export const PROJECTS_STYLES = {
       }
     }, {
       'source-layer': 'pluto15v1',
-      "filter": ['all', ["==", "projecttype", "Study"], ["==", "projectsubtype", "FHAD"]],
+      "filter": ["all",["==", ["get","projecttype"], "Study"],["==", ["get","projectsubtype"], "Master Plan"]],
       "type": "line",
       "layout": {"line-join": "round"},
       "paint": {
@@ -2226,7 +2226,7 @@ export const PROJECTS_STYLES = {
     }, 
     {
       'source-layer': 'pluto15v1',
-      "filter": ['all', ["==", "projecttype", "Study"], ["==", "projectsubtype", "FHAD"]],
+      "filter": ["all",["==", ["get","projecttype"], "Study"],["==", ["get","projectsubtype"], "FHAD"]],
       "type": "line",
       "layout": {"line-join": "round"},
       "paint": {
