@@ -394,7 +394,6 @@ const WorkRequestMap = (type: any) => {
   }
   useEffect(()=>{
     let historicBounds = getCurrent();
-    console.log("IS THERE HISTORIC BOUNDS?", historicBounds);
     if(historicBounds && historicBounds.bbox) {
       map.map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
     } else {

@@ -177,22 +177,59 @@
   background: white;
   z-index: 200;
   // padding: 0px 10px;
-  // // width: 130px;
+  width: 215px;
   // box-shadow: 0 3px 6px rgba(00,00,00,0.2);
   border-radius: 4px;
   // text-align: left;
   // display: flex;
   // flex-direction: row;
   // justify-content: center;
+  text-align: left;
+  margin: 0px auto 0px auto;
+
+  .menu-wr { 
+    float: right;
+    margin-top: 5px;
+  }
+  .inputlabel {
+    border: none;
+    background: transparent;
+    width: 80%;
+  }
   li{
     display: block;
-    padding: 8px 0px;
-    border-bottom: 1px solid $light-purple;
+    padding: 13px 12px;
+    border-radius: 9px;
+    &:hover {
+      background-color: #CFEBFE;
+    }
   }
+  
   i{
     font-size: 16px;
     top: 2px;
-    position: relative;
+    position: relative !important;
+    font-size: 53px;
+    font-weight: bold;
+    top: 0 !important;
+
+  }
+  .img-circle {
+    opacity: 1;
+    -webkit-mask: url('/Icons/circlecomment.svg') no-repeat center;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    margin-right: 7px;
+    margin-bottom: 3px;
+
+  }
+  .addlabelbutton {
+    border: 1px solid rgba(37, 24, 99, 0.9) !important;
+    border-radius: 13px;
+    height: 36px !important;
+    width: 100%;
+    font-size: 14px !important;
   }
   .dot {
     display: block;
@@ -244,14 +281,12 @@
 }
 .legend {
   position: absolute;
-  // right: 16px;
-  top: 40px;
-  height: 44px;
+  left:216px;
+  top: 33px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  border-radius: 4px;
-  padding: 12px 24px;
+  border-radius: 9px;
   background-color: #fff;
   // max-width: 175px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

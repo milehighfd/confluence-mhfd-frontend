@@ -1082,25 +1082,11 @@ const Map = ({ leftWidth,
             const zoom = map.getZoom().toFixed(2);
             setZoomValue(zoom);
         }
-        // let _ = 0;
-        // map.on('zoomend', () => {
-        //     //console.log('zoomendOn', opacityLayer)
-        //     if (!opacityLayer) {
-        //         hideOpacity();
-        //     }
-        //     setZoomEndCounter(_++);
-        //     console.log(zoomEndCounter);
-        //     setOpacityLayer(false)
-        // });
-        // let __ = 1;// #good practices
-        // map.on('dragend', () => {
-        //     console.log('move end')
-        //     setDragEndCounter(__++);
-        //     // hideLayerOpacity();
-        //     setOpacityLayer(false)
-        // });
         map.on('load', updateZoom);
         map.on('move', updateZoom);
+        //DELETE THIS 
+        addToMap();
+        setSwSave(true);
     }, []);
 
 
@@ -2078,18 +2064,48 @@ const Map = ({ leftWidth,
                             ul.style.display = 'none';
                         }
                     });
-                    // const inner = `
-                    // <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
-                    // <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
-                    // <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
-                    // <li id="yellow"><i class="mdi mdi-circle-medium" style="color:#ffbf00;"></i> Yellow</li>`
-                    const inner = `
-                      <button id="yellow" class="light"><span class="dot c-yellow"></span></button>
-                      <button id="red" class="light"><span class="dot c-red"></span></button>
-                      <button id="black" class="light"><span class="dot c-black selected"></span></button>
-                      <button id="green" class="light"><span class="dot c-green"></span></button>
-                      <button id="blue" class="light"><span class="dot c-blue"></span></button>
-                    `;
+                    const listOfElements = [{
+                      color: '#340000',
+                      label: `Jon's issue`
+                    },{
+                      color: "#fa6400",
+                      label:  "New projects"
+                    },{
+                      color: "#00f5f0",
+                      label: "Previous Works"
+                    },{
+                      color: "#00ff02",
+                      label:  "Color"
+                    }];
+                    let inner = `
+                      <li id="color1">
+                        <img class="img-circle" style="background:${listOfElements[0].color}"/> 
+                        <input id="input1" class="inputlabel" value="${listOfElements[0].label}" readonly>  </input>
+                        <img src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
+                      </li>
+                      <li id="color2">
+                        <img class="img-circle" style="background:${listOfElements[1].color}"/> 
+                          <input id="input1" class="inputlabel" value="${listOfElements[1].label}" readonly>
+                        <img src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
+                      </li>
+                      <li id="color3">
+                        <img class="img-circle" style="background:${listOfElements[2].color}"/> 
+                          <input id="input1" class="inputlabel" value="${listOfElements[2].label}" readonly>
+                        <img src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
+                      </li>
+                      <li id="color4">
+                        <img class="img-circle" style="background:${listOfElements[3].color}"/> 
+                          <input id="input1" class="inputlabel" value="${listOfElements[3].label}" readonly>
+                        <img src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
+                      </li>`;
+                    
+                    let addLabelButton = `
+                      <li id="addLabelButton" >
+                        <button type="button" class="addlabelbutton" >Add Label</button>
+                      </li>`;
+
+                    inner = inner + addLabelButton;
+
                     ul.innerHTML = inner;
 
                     let c= div.childNodes;
@@ -3003,59 +3019,21 @@ const Map = ({ leftWidth,
       if (typeof s !== 'string') return '';
       return s.charAt(0).toUpperCase() + s.slice(1);
   }
-  const commentPopupCopy = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
+  const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
     <>
         <div className="popup-comment">
         <div className="headmap">
-          <Popover trigger="click" placement="bottomRight" content={
-            <ul>
-              <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red</li>
-              <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange</li>
-              <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
-              <li><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow</li>
-            </ul>
-          } overlayClassName="popover-comment">
-              <Button id={"color-list"+note?('-'+note._id):''} className="type-popover">
-                <span id={"color-text"+note?('-'+note._id):''}>{ note?capitalize(note.color):'Leave a Comment' }</span>
-                <i id={"colorable"+note?('-'+note._id):''} className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
-                <DownOutlined />
-              </Button>
-          </Popover>
-        </div>
-        <div className="bodymap">
-            <TextArea id={"textarea"+note?('-'+note._id):''} rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
-            <div style={{display:'flex'}}>
-                <Button id={"delete-comment"+note?('-'+note._id):''} style={{color:'red', marginRight:'5px'}} value={note?note._id:''}>Delete</Button>
-                { note? (<Button id={"edit-comment"+note?('-'+note._id):''}>Save</Button>): (<Button id={"save-comment"+note?('-'+note._id):''}>Save</Button>) }
-            </div>
-
-        </div>
-        </div>
-    </>);
-    const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
-    <>
-        <div className="popup-comment">
-        <div className="headmap">
-        <Popover trigger="click" placement="bottomRight" content={
-          <ul>
-            <li><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Rexd</li>
-            <li><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Oraxnge</li>
-            <li><i className="mdi mdi-circle-medium" style={{color:'rgb(142, 132, 132)'}}></i> Grey</li>
-            <li><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow</li>
-          </ul>
-        } overlayClassName="popover-comment">
-            <Button id="color-list" className="testheader">
-              <span id="color-text">{ note?capitalize(note.color):'Leave a Comment' }</span>
-              <div className='dr'>
-                <div className="legend-selected">
-                  <i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
-                </div>
-                <div className="light">
-                  <DownOutlined />
-                </div>
+          <Button id="color-list" className="testheader">
+            <span id="color-text">{ note?capitalize(note.color):'Leave a Comment' }</span>
+            <div className='dr'>
+              <div className="legend-selected">
+                <i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
               </div>
-            </Button>
-        </Popover>
+              <div className="light">
+                <DownOutlined />
+              </div>
+            </div>
+          </Button>
         </div>
         <div className="bodymap">
             <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
