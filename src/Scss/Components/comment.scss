@@ -186,19 +186,69 @@
   // justify-content: center;
   text-align: left;
   margin: 0px auto 0px auto;
-
+  .listofelements {
+    overflow-y: auto;
+    max-height: 155px;
+  }
+  .divoptions{
+    position: absolute;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    z-index: 222;
+    right: 1px;
+    li{
+      border-radius: 8px;
+      padding: 5px 10px;
+      &:hover{ 
+        background-color: #CFEBFE;
+      }
+    }
+  }
+  .divcolors{
+    position: absolute;
+    // top: 40px;
+    // height: 44px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 12px 10px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    z-index: 222;
+    li{
+      display: flex;
+      padding: 0px;
+      &:hover{ 
+        background-color: transparent;
+      }
+    }
+    .img-circle {
+      opacity: 1;
+      -webkit-mask: url('/Icons/circlecomment.svg') no-repeat center;
+      height: 20px;
+      width: 20px;
+      border-radius: 20px;
+      margin-right: 4px;
+      margin-left: 4px;
+      margin-bottom: 3px;
+    }
+  }
   .menu-wr { 
     float: right;
-    margin-top: 5px;
+    padding: 5px 10px 5px 10px;
+    
   }
   .inputlabel {
     border: none;
     background: transparent;
-    width: 80%;
+    width: 70%;
   }
   li{
     display: block;
-    padding: 13px 12px;
+    // padding: 13px 12px;
+    padding: 13px 0px 13px 12px; 
     border-radius: 9px;
     &:hover {
       background-color: #CFEBFE;
@@ -222,7 +272,6 @@
     border-radius: 20px;
     margin-right: 7px;
     margin-bottom: 3px;
-
   }
   .addlabelbutton {
     border: 1px solid rgba(37, 24, 99, 0.9) !important;

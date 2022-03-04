@@ -64,6 +64,8 @@ import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
 import { addHistoric, getNext, getPrevious } from '../../utils/globalMap';
+
+import {clickingCircleColor, clickingOptions} from './commetsFunctions';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
 
@@ -1084,9 +1086,6 @@ const Map = ({ leftWidth,
         }
         map.on('load', updateZoom);
         map.on('move', updateZoom);
-        //DELETE THIS 
-        addToMap();
-        setSwSave(true);
     }, []);
 
 
@@ -2065,42 +2064,33 @@ const Map = ({ leftWidth,
                         }
                     });
                     const listOfElements = [{
-                      color: '#340000',
+                      color: '#FFE120',
                       label: `Jon's issue`
                     },{
-                      color: "#fa6400",
+                      color: "#66D4FF",
                       label:  "New projects"
                     },{
-                      color: "#00f5f0",
+                      color: "#6FC699",
                       label: "Previous Works"
                     },{
-                      color: "#00ff02",
+                      color: "#E45360",
                       label:  "Color"
                     }];
                     let inner = `
-                      <li id="color1">
-                        <img class="img-circle" style="background:${listOfElements[0].color}"/> 
-                        <input id="input1" class="inputlabel" value="${listOfElements[0].label}" readonly>  </input>
-                        <img src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
-                      </li>
-                      <li id="color2">
-                        <img class="img-circle" style="background:${listOfElements[1].color}"/> 
-                          <input id="input1" class="inputlabel" value="${listOfElements[1].label}" readonly>
-                        <img src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
-                      </li>
-                      <li id="color3">
-                        <img class="img-circle" style="background:${listOfElements[2].color}"/> 
-                          <input id="input1" class="inputlabel" value="${listOfElements[2].label}" readonly>
-                        <img src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
-                      </li>
-                      <li id="color4">
-                        <img class="img-circle" style="background:${listOfElements[3].color}"/> 
-                          <input id="input1" class="inputlabel" value="${listOfElements[3].label}" readonly>
-                        <img src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
-                      </li>`;
+                    <div class="listofelements">
+                      `;
+                    listOfElements.forEach((el:any , index: any) => {
+                      inner += `
+                      <li id="color${index}">
+                        <img id="circle${index}" class="img-circle" style="background:${el.color}"/> 
+                          <input id="input1" class="inputlabel" value="${el.label}" readonly>
+                        <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
+                      </li>`
+                    });
                     
+                    inner += '</div>'
                     let addLabelButton = `
-                      <li id="addLabelButton" >
+                      <li id="addLabelButton" style="padding-right:12px">
                         <button type="button" class="addlabelbutton" >Add Label</button>
                       </li>`;
 
@@ -2113,7 +2103,11 @@ const Map = ({ leftWidth,
                     if(!c[3]){
                       div.appendChild(ul);
                     }            
-                    div.appendChild(ul);
+
+                    clickingCircleColor(listOfElements);
+                    clickingOptions(listOfElements);
+
+                    // div.appendChild(ul);
                     const colorable = document.getElementById('colorable');
                     const red = document.getElementById('red');
                     if (red != null) {
