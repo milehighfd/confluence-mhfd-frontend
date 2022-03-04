@@ -48,12 +48,19 @@ export const getMoreMaps = (map: any) => {
 const lastMaps = [] as any;
 let currentPosition = -1;
 
+const generateId = () => {
+  return Math.random().toString(36).substring(2, 9);
+}
+
 export const addHistoric = (location: any) => {
+  if (!location.id) {
+    location.id = generateId();
+  }
   console.log(location);
   const currentId = cc;
   lastId = cc++;
   setTimeout(() => {
-    const findLocation = lastMaps.find((l: any) => l.center[0] === location.center[0] && l.center[1] === location.center[1]);
+    const findLocation = lastMaps.find((l: any) => l.id === location.id);
     console.log('findLocation', findLocation);
     if (!findLocation) {
       lastMaps.push(location);
@@ -70,9 +77,7 @@ export const addHistoric = (location: any) => {
     if (lastMaps.length > 5) {
       lastMaps.shift();
     }
-    if (currentPosition === lastMaps.length - 2) {
-      currentPosition++;
-    }
+    currentPosition = lastMaps.length - 1;
     console.log(currentPosition, lastMaps);
   }, 2500);
 }

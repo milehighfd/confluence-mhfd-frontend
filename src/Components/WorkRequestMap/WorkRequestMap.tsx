@@ -36,7 +36,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { group } from "d3-array";
 import { useAttachmentDispatch } from "../../hook/attachmentHook";
-import {getCurrent} from './../../utils/globalMap';
+import {addHistoric, getCurrent, getNext, getPrevious, hasNext, hasPrevious} from './../../utils/globalMap';
 let firstTime = true;
 let map: any;
 let coordX = -1;
@@ -47,6 +47,8 @@ let previousClick = false;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let popup = new mapboxgl.Popup();
+let globalMapId: any = null;
+let mapMoved = false;
 let amounts: any = [];
 // const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
@@ -94,6 +96,7 @@ const WorkRequestMap = (type: any) => {
   const [counterPopup, setCounterPopup] = useState({ componentes: 0 });  
   const [zoomEndCounter, setZoomEndCounter] = useState(0);
   const [dragEndCounter, setDragEndCounter] = useState(0);
+  const [displayPrevNext, setDisplayPrevNext] = useState(false);
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -395,6 +398,7 @@ const WorkRequestMap = (type: any) => {
   useEffect(()=>{
     let historicBounds = getCurrent();
     if(historicBounds && historicBounds.bbox) {
+      globalMapId = historicBounds.id;
       map.map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
     } else {
       groupOrganizationZoom();
@@ -434,6 +438,21 @@ const WorkRequestMap = (type: any) => {
         map.map.on('click',eventToClick);
         map.map.on('load', updateZoom);
         map.map.on('move', updateZoom);
+        map.map.on('moveend', () => {
+          mapMoved = true;
+          console.log(`i'm moving`);
+        });
+        map.map.on('idle', () => {
+          if (!globalMapId && mapMoved) {
+            const center = [map.getCenter().lng, map.getCenter().lat];
+            console.log(map.getBounds());
+            const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
+            map.getBounds()._ne.lng, map.getBounds()._ne.lat];
+            addHistoric({ center, bbox });
+          }
+          globalMapId = null;
+          mapMoved = false;
+        });
         // map.map.on('movestart', () => {
         //   if (map.map.getLayer('mask')) {
         //       map.map.setLayoutProperty('mask', 'visibility', 'visible');
@@ -2067,7 +2086,41 @@ const epochTransform = (dateParser: any) => {
       </div>
       <div className="m-zoom">
           <Button style={{ borderRadius: '4px' }} onClick={() => centerToLocalityy()} ><img className="img-icon-05" /></Button>
-          <Button className='btn-history'><img className='img-icon-04'></img></Button>
+          <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04'></img></Button>
+                {displayPrevNext && <div className='mapstatebuttons'  >
+                    <div 
+                        style={ !hasPrevious() ? {backgroundColor: '#f1f1f1' } : {}}
+                        onClick={() => {
+                            console.log('previous ', hasPrevious());
+                            if (hasPrevious()) {
+                                const prev = getPrevious();
+                                globalMapId = prev.id;
+                                console.log('click prev ', prev);
+                                map.map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
+                            }
+                    }}>
+                      PREV
+                      <div className="progress">
+                        <div className="progress-value"></div>
+                      </div>
+                    </div>
+                    <div 
+                        style={ !hasNext() ? {backgroundColor: '#f1f1f1' } : {}}
+                        onClick={() => {
+                            if (hasNext()) {
+                                const nxt = getNext();
+                                globalMapId = nxt.id;
+                                console.log('click next, ', nxt);
+                                map.map.fitBounds([[nxt.bbox[0],nxt.bbox[1]],[nxt.bbox[2],nxt.bbox[3]]]);
+                            }
+                        }}
+                    >
+                      NEXT
+                      <div className="progress">
+                        <div className="progress-value"></div>
+                      </div>
+                    </div>
+                  </div>}
       </div>
     </div>
   </>
