@@ -63,9 +63,9 @@ import MobilePopup from '../MobilePopup/MobilePopup';
 import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
-import { addHistoric, getNext, getPrevious } from '../../utils/globalMap';
 
 import {clickingCircleColor, clickingOptions} from './commetsFunctions';
+import { addHistoric, getNext, getPrevious, hasNext, hasPrevious } from '../../utils/globalMap';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
 
@@ -84,6 +84,9 @@ let coordY = -1;
 const factorKMToMiles = 0.621371;
 const factorKMtoFeet =  3280.8;
 const factorm2toacre = 0.00024710538146717;
+/// variables for history
+let itMoved = false;
+let globalMapId: string | null = null;
 
 /* line to remove useEffect dependencies warning */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -975,14 +978,15 @@ const Map = ({ leftWidth,
             polygonRef.current.appendChild(draw.onAdd(map));
         }
         map.on('idle', () => {
-            if (!fromHistory) {
+            if (!globalMapId && itMoved) {
                 const center = [map.getCenter().lng, map.getCenter().lat];
                 console.log(map.getBounds());
                 const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
                   map.getBounds()._ne.lng, map.getBounds()._ne.lat];
                 addHistoric({center, bbox});
             }
-            fromHistory = false;
+            globalMapId = null;
+            itMoved = false;
         });
 
         /* Special and Acquisition Projects */
@@ -1086,6 +1090,10 @@ const Map = ({ leftWidth,
         }
         map.on('load', updateZoom);
         map.on('move', updateZoom);
+        map.on('moveend', () => {
+            console.log('end moving ');
+            itMoved = true;
+        });
     }, []);
 
 
@@ -3704,11 +3712,17 @@ const Map = ({ leftWidth,
                 <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
                 <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04'></img></Button>
                 {displayPrevNext && <div className='mapstatebuttons'  >
-                    <div onClick={() => {
-                        const prev = getPrevious();
-                        console.log('click prev ', prev);
-                        fromHistory = true;
-                        map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
+                    <div 
+                        style={ !hasPrevious() ? {backgroundColor: '#f1f1f1' } : {}}
+                        onClick={() => {
+                            console.log('previous ', hasPrevious());
+                            if (hasPrevious()) {
+                                const prev = getPrevious();
+                                globalMapId = prev.id;
+                                console.log('click prev ', prev);
+                                fromHistory = true;
+                                map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
+                            }
                     }}>
                       PREV
                       <div className="progress">
@@ -3716,11 +3730,15 @@ const Map = ({ leftWidth,
                       </div>
                     </div>
                     <div 
+                        style={ !hasNext() ? {backgroundColor: '#f1f1f1' } : {}}
                         onClick={() => {
-                            const nxt = getNext();
-                            console.log('click next, ', nxt);
-                            fromHistory = true;
-                            map.fitBounds([[nxt.bbox[0],nxt.bbox[1]],[nxt.bbox[2],nxt.bbox[3]]]);
+                            if (hasNext()) {
+                                const nxt = getNext();
+                                globalMapId = nxt.id;
+                                console.log('click next, ', nxt);
+                                fromHistory = true;
+                                map.fitBounds([[nxt.bbox[0],nxt.bbox[1]],[nxt.bbox[2],nxt.bbox[3]]]);
+                            }
                         }}
                     >
                       NEXT
