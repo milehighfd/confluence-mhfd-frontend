@@ -2088,7 +2088,7 @@ const epochTransform = (dateParser: any) => {
           <Button style={{ borderRadius: '4px' }} onClick={() => centerToLocalityy()} ><img className="img-icon-05" /></Button>
           <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04'></img></Button>
                 {displayPrevNext && <div className='mapstatebuttons'  >
-                    <div 
+                    <div className="mapstateprevnext"
                         style={ !hasPrevious() ? {backgroundColor: '#f1f1f1' } : {}}
                         onClick={() => {
                             console.log('previous ', hasPrevious());
@@ -2104,7 +2104,7 @@ const epochTransform = (dateParser: any) => {
                         <div className="progress-value"></div>
                       </div>
                     </div>
-                    <div 
+                    <div className="mapstateprevnext"
                         style={ !hasNext() ? {backgroundColor: '#f1f1f1' } : {}}
                         onClick={() => {
                             if (hasNext()) {
