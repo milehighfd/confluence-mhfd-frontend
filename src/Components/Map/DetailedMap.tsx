@@ -16,7 +16,7 @@ import { ComponentPopup } from './MapPopups';
 import { addMapLayers } from '../../utils/mapUtils';
 
 let map : any = null;
-let popup = new mapboxgl.Popup();
+let popup = new mapboxgl.Popup({closeButton: true,});
 type PolygonCoords = Array<Array<number>>;
 
 /* line to remove useEffect dependencies warning */
@@ -112,7 +112,7 @@ export default ({ coordinates, components } : { coordinates : PolygonCoords, com
     map.on('click', trigger, (e: any) => {
       const description = e.features[0].properties.description;
       popup.remove();
-      popup = new mapboxgl.Popup();
+      popup = new mapboxgl.Popup({closeButton: true,});
       popup.setLngLat(e.lngLat)
         .setHTML(description)
         .addTo(map);

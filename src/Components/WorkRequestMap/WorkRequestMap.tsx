@@ -46,7 +46,7 @@ let isPopup = true;
 let previousClick = false;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
-let popup = new mapboxgl.Popup();
+let popup = new mapboxgl.Popup({closeButton: true,});
 let globalMapId: any = null;
 let mapMoved = false;
 let amounts: any = [];
@@ -1864,7 +1864,7 @@ const epochTransform = (dateParser: any) => {
       if (html) {
 
         popup.remove();
-        popup = new mapboxgl.Popup();
+        popup = new mapboxgl.Popup({closeButton: true,});
         popup.setLngLat(e.lngLat)
           .setHTML(html)
           .addTo(map.map);

@@ -74,8 +74,8 @@ const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 let map: any = null;
 let fromHistory = false;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
-let searchPopup = new mapboxgl.Popup();
-let popup = new mapboxgl.Popup();
+let searchPopup = new mapboxgl.Popup({closeButton: true,});
+let popup = new mapboxgl.Popup({closeButton: true,});
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const highlightedLayers = ['problems', 'mhfd_projects'];
 type LayersType = string | ObjectLayerType;
@@ -2055,7 +2055,7 @@ const Map = ({ leftWidth,
               if (commentAvailable && canAdd) {
                 const html = commentPopup();
                 popup.remove();
-                popup = new mapboxgl.Popup();
+                popup = new mapboxgl.Popup({closeButton: true,});
                 marker.setPopup(popup);
                 popup.setHTML(html);
                 marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
@@ -2866,7 +2866,7 @@ const Map = ({ leftWidth,
                 setSelectedPopup(0);
                 if (html) {
                     popup.remove();
-                    popup = new mapboxgl.Popup();
+                    popup = new mapboxgl.Popup({closeButton: true,});
                     popup.setLngLat(e.lngLat)
                         .setHTML(html)
                         .addTo(map);
@@ -3418,7 +3418,7 @@ const Map = ({ leftWidth,
               setSelectedPopup(0);
               if (html) {
                 searchPopup.remove();
-                searchPopup = new mapboxgl.Popup();
+                searchPopup = new mapboxgl.Popup({closeButton: true,});
                 searchPopup.setLngLat(coord)
                     .setHTML(html)
                     .addTo(map);

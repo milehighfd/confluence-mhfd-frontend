@@ -30,12 +30,12 @@ export class MapService {
       minZoom: 2.4
     });
     this.popup = new mapboxgl.Popup({
-      closeButton: false,
+      closeButton: true,
       closeOnClick: false
      });
      this.popupOffset = new mapboxgl.Popup({
        offset: [0,-10],
-       closeButton: false,
+       closeButton: true,
        closeOnClick: false
      })
      const width = window.innerWidth;

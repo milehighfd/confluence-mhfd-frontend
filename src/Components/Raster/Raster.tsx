@@ -61,7 +61,7 @@ const { Option } = AutoComplete;
 const Raster = (type: any) => {
   let html = document.getElementById('map3');
   let draw: any;
-  let popup = new mapboxgl.Popup();
+  let popup = new mapboxgl.Popup({closeButton: true,});
   
   const [isExtendedView, setCompleteView] = useState(false);
   let controller = false;
@@ -1449,7 +1449,7 @@ const Raster = (type: any) => {
       if (html) {
 
         popup.remove();
-        popup = new mapboxgl.Popup();
+        popup = new mapboxgl.Popup({closeButton: true,});
         popup.setLngLat(e.lngLat)
           .setHTML(html)
           .addTo(map.map);
