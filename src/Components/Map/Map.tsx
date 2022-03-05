@@ -534,7 +534,9 @@ const Map = ({ leftWidth,
               }
               const newmarker = new mapboxgl.Marker({ color: colorOfMarker, scale: 0.7 });
               const html = commentPopup(note);
-                  let newpopup = new mapboxgl.Popup();
+                  let newpopup = new mapboxgl.Popup({
+                    closeButton: true,
+                  });
                   newpopup.on('close', (e: any)=> {
                     momentaryMarker.remove();
                   });

@@ -443,7 +443,7 @@ const WorkRequestMap = (type: any) => {
           console.log(`i'm moving`);
         });
         map.map.on('idle', () => {
-          if (!globalMapId && mapMoved) {
+          if (map && map.getCenter && !globalMapId && mapMoved) {
             const center = [map.getCenter().lng, map.getCenter().lat];
             console.log(map.getBounds());
             const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
