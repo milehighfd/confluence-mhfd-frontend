@@ -4105,24 +4105,120 @@ export const tileStyles = {
       ]
     }
   }], 
-  [STREAM_MANAGEMENT_CORRIDORS]: [{
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "line-width": 10,
-      "line-blur": 5,
-      "line-color": "hsl(123, 28%, 19%)"
+  [STREAM_MANAGEMENT_CORRIDORS]: [
+    {
+      "type": "fill",
+      "source-layer": "pluto15v1",
+      "paint": {
+          "fill-color": "hsla(0, 0%, 0%, 0)",
+          "fill-outline-color": [
+              "match",
+              ["get", "smc_type"],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsl(27, 97%, 56%)",
+                  ["Stream Corridor"],
+                  "hsl(301, 60%, 56%)",
+                  "#000000"
+              ],
+              "#000000"
+          ]
+      }
+    }, , {
+      "type": "fill",
+      "source-layer": 'pluto15v1',
+      "paint": {
+          "fill-color": [
+              "match",
+              ["get", "smc_type"],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsl(77, 88%, 64%)",
+                  ["Stream Corridor"],
+                  "hsl(288, 80%, 59%)",
+                  "#000000"
+              ],
+              "hsla(0, 0%, 0%, 0)"
+          ],
+          "fill-opacity": 0.21
+      }
+    }, {
+      "type": "fill",
+      "source-layer": "pluto15v1",
+      "paint": {
+          "fill-color": [
+              "match",
+              ["get", "smc_type"],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsl(77, 88%, 64%)",
+                  ["Stream Corridor"],
+                  "hsl(288, 80%, 59%)",
+                  "#000000"
+              ],
+              "hsla(0, 0%, 0%, 0)"
+          ],
+          "fill-pattern": [
+              "match",
+              ["get", "smc_type"],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "pattern (2)",
+                  ["Stream Corridor"],
+                  "pattern (5)",
+                  "pedestrian-polygon"
+              ],
+              "pedestrian-polygon"
+          ]
+      }
+    }, {
+      "type": "fill",
+      'source-layer': 'pluto15v1',
+      "paint": {
+          "fill-color": [
+              "match",
+              ["get", "smc_type"],
+              ["Stream Management Corridor"],
+              "hsl(46, 100%, 61%)",
+              ["Avulsion Hazard Zone"],
+              "hsla(303, 80%, 82%, 0)",
+              ["Active Stream Corridor"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsl(46, 88%, 67%)",
+                  ["Stream Corridor"],
+                  "#7a43db",
+                  "#000000"
+              ],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsla(77, 88%, 64%, 0)",
+                  ["Stream Corridor"],
+                  "hsla(288, 80%, 59%, 0)",
+                  "hsla(0, 0%, 0%, 0)"
+              ],
+              "#000000"
+          ],
+          "fill-opacity": 0.8
+      }
     }
-  }, {
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "fill-color": "hsla(95, 67%, 21%, 0.5)",
-      "fill-outline-color": "hsla(51, 78%, 47%, 0.5)"
-    }
-  }
   ],
   [BLOCK_CLEARANCE_ZONES_LAYERS]: [
     {
