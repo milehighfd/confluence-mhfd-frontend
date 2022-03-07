@@ -48,7 +48,7 @@ let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let popup = new mapboxgl.Popup({closeButton: true,});
 let globalMapId: any = null;
-let mapMoved = false;
+let mapMoved = true;
 let amounts: any = [];
 // const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
@@ -443,11 +443,11 @@ const WorkRequestMap = (type: any) => {
           console.log(`i'm moving`);
         });
         map.map.on('idle', () => {
-          if (map && map.getCenter && !globalMapId && mapMoved) {
-            const center = [map.getCenter().lng, map.getCenter().lat];
-            console.log(map.getBounds());
-            const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
-            map.getBounds()._ne.lng, map.getBounds()._ne.lat];
+          if (map && map.map && !globalMapId && mapMoved) {
+            const center = [map.map.getCenter().lng, map.map.getCenter().lat];
+            console.log(map.map.getBounds());
+            const bbox = [map.map.getBounds()._sw.lng, map.map.getBounds()._sw.lat, 
+            map.map.getBounds()._ne.lng, map.map.getBounds()._ne.lat];
             addHistoric({ center, bbox });
           }
           globalMapId = null;
