@@ -201,13 +201,16 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
     isComponent = false;
   } else if (item.layer.includes('LOMC')) {
     isComponent = false;
+  } else if (item.layer.includes('Effective')) {
+    isComponent = false;
   }
     return <div id={'popup-' + id} className="map-pop-01">
-        <Card hoverable>
+        <Card hoverable
+        >
         <div className="headmap">
             {item.layer}
         </div>
-        <div className="bodymap">
+        <div className={!item.layer.includes('Effective') ? "bodymap" : 'bodymap listofelements'}>
             {item.type ? <h4>{item.type} </h4> : ''}
             {item.feature ? <h4>{item.feature}</h4> : ''}
             {item.subtype ? <p><i>Subtype:</i>  {item.subtype}</p> : ''}
@@ -268,9 +271,25 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.effective_date ? <p><i>Effective Date:</i>  {item.effective_date}</p> : ''}
             {item.notes && item.layer.includes('LOMC') ? <p><i>Notes:</i>  {item.lomc_case}</p> : ''}
             
+            {item.uniqueid ? <p><i>Unique ID:</i>  {item.uniqueid}</p> : ''}
+            {item.streamname_mhfd ? <p><i>Stream Name (MHFD):</i>  {item.streamname_mhfd}</p> : ''}
+            {item.streamname_fema ? <p><i>Stream Name (FEMA):</i>  {item.streamname_fema}</p> : ''}
+            {item.studyname && item.studydate? <p><i>Study Name and Date:</i>  {`${item.studyname} and ${item.studydate}`}</p> : ''}
+            {item.modellocation_mip ? <p><i>Model Location (MIP):</i>  {item.modellocation_mip}</p> : ''}
+            {item.modellocation_local ? <p><i>Model Location (MHFD):</i>  {item.modellocation_local}</p> : ''}
+            {item.notes ? <p><i>Notes:</i>  {item.notes}</p> : ''}
+            {item.hydra_modeltype ? <p><i>Model Type (Hydra ):</i>  {item.hydra_modeltype}</p> : ''}
+            {item.hydra_modeldate ? <p><i>Model Date (Hydra):</i>  {item.hydra_modeldate}</p> : ''}
+            {item.hydra_modelname ? <p><i>Model Name (Hydra):</i>  {item.hydra_modelname}</p> : ''}
+            {item.hydro_modeltype ? <p><i>Model Type (Hydro):</i>  {item.hydro_modeltype}</p> : ''}
+            {item.hydro_modeldate ? <p><i>Model Date (Hydro):</i>  {item.hydro_modeldate}</p> : ''}
+            {item.hydro_modelname ? <p><i>Model Name (Hydro):</i>  {item.hydro_modelname}</p> : ''}
+            {item.original_source_data ? <p><i>Original Source Data:</i>  {item.original_source_data}</p> : ''}
+            {item.legacycode ? <p><i>Legacy Code:</i>  {item.legacycode}</p> : ''}
+            
 
             {item.mepstatusdate ? <p><i>MEP Status Date:</i>  {item.mepstatusdate}</p> : ''}
-            {item.notes && !item.layer.includes('LOMC') ? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
+            {item.notes && !item.layer.includes('LOMC') && !item.layer.includes('Effective')? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
             {item.mep_summarynotes ? <p><i>Notes/Comments:</i>  {item.mep_summarynotes}</p> : ''}
             {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
             {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
@@ -360,7 +379,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
           {item.mepstatus ? <p><i>MEP Status:</i>  {item.mepstatus}</p> : ''}
           {item.mepstatusdate ? <p><i>MEP Status Date:</i>  {item.mepstatusdate}</p> : ''}
           
-          {item.notes ? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
+          {item.notes  ? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
           {item.mep_summarynotes ? <p><i>Notes/Comments:</i>  {item.mep_summarynotes}</p> : ''}
           {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
           {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}

@@ -39,7 +39,8 @@ import {
     NEARMAP_TOKEN,
     COUNTIES_LAYERS,
     BLOCK_CLEARANCE_ZONES_LAYERS,
-    ACTIVE_LOMS
+    ACTIVE_LOMS,
+    EFFECTIVE_REACHES
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles } from '../../constants/mapStyles';
@@ -2875,7 +2876,6 @@ const Map = ({ leftWidth,
                       
                   }
                   if (feature.source === ACTIVE_LOMS) {
-                      console.log(feature);
                       const item = {
                           layer: 'Active LOMCs',
                           lomc_case: feature.properties.lom_case || '-',
@@ -2892,6 +2892,32 @@ const Map = ({ leftWidth,
                       popups.push(item);
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       
+                  }
+                  if (feature.source === EFFECTIVE_REACHES) {
+                    const item = {
+                        layer: 'Effective Reaches',
+                        uniqueid: feature.properties.uniqueid || '-',
+                        streamname_mhfd: feature.properties.streamname_mhfd || '-',
+                        streamname_fema: feature.properties.streamname_fema || '-',
+                        studyname: feature.properties.studyname || '-',
+                        studydate: feature.properties.studydate || '-',
+                        modellocation_mip: feature.properties.modellocation_mip || '-',
+                        modellocation_local: feature.properties.modellocation_local || '-',
+                        notes: feature.properties.notes || '-',
+                        hydra_modeltype: feature.properties.hydra_modeltype || '-',
+                        hydra_modeldate: feature.properties.hydra_modeldate || '-',
+                        hydra_modelname: feature.properties.hydra_modelname || '-',
+                        hydro_modeltype: feature.properties.hydro_modeltype || '-',
+                        hydro_modeldate: feature.properties.hydro_modeldate || '-',
+                        hydro_modelname: feature.properties.hydro_modelname || '-',
+                        original_source_data: feature.properties.original_source_data || '-',
+                        legacycode: feature.properties.legacycode || '-',
+                    };
+                    menuOptions.push('Effective Reaches');
+                      mobile.push({...item});
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   for (const component of COMPONENT_LAYERS.tiles) {
                       if (feature.source === component) {
