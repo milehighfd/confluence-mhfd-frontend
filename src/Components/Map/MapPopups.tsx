@@ -218,7 +218,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.studyyear ? <p><i>Study Year:</i>  {item.studyyear}</p> : ''}
             {item.status && !item.layer.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
             {item.streamname ? <p><i>Stream:</i>  {item.streamname}</p> : ''}
-            {item.studyname ? <p><i>Study Name:</i>  {item.studyname}</p> : ''}
+            {item.studyname && !item.layer.includes('LOMC') && !item.layer.includes('Effective') ? <p><i>Study Name:</i>  {item.studyname}</p> : ''}
             {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
             {item.problem ? <p><i>Problem:</i>  {item.problem}</p> : ''}
             {item.description ? <p><i>Description:</i>  {item.description}</p> : ''}
