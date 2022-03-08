@@ -487,6 +487,7 @@
       background-color: #fff;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       border-radius: 4px;
       .title {
         font-size: 14px;
@@ -495,38 +496,38 @@
       .progress {
         display: block;
 				width: 100%;
-				height: 4px;
+				height: 2px;
         background-color: #fff;
         &.left {
-          border-bottom-left-radius: 4px;
+          border-bottom-left-radius: 2px;
           .progress-value {
             float: right;
             &.light {
               background-color: #28c499;
               display: block;
-					    height: 4px;
-					    border-top-left-radius: 2px;
-					    border-bottom-left-radius: 2px;
+					    height: 2px;
+					    border-top-left-radius: 0;
+					    border-bottom-left-radius: 0;
               &.completed {
                 border-top-left-radius: 0;
-                border-bottom-left-radius: 4px;
+                border-bottom-left-radius: 2px;
               }
             }
           }
         }
         &.right {
-          border-bottom-right-radius: 4px;
+          border-bottom-right-radius: 2px;
           .progress-value {
             float: left;
             &.light {
               background-color: #28c499;
               display: block;
-					    height: 4px;
-					    border-top-right-radius: 2px;
-					    border-bottom-right-radius: 2px;
+					    height: 2px;
+					    border-top-right-radius: 0;
+					    border-bottom-right-radius: 0;
               &.completed {
                 border-top-right-radius: 0;
-                border-bottom-right-radius: 4px;
+                border-bottom-right-radius: 2px;
               }
             }
           }
