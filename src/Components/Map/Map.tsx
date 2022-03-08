@@ -3726,9 +3726,9 @@ const Map = ({ leftWidth,
                                 map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
                             }
                     }}>
-                      PREV
-                      <div className="progress">
-                        <div className="progress-value"></div>
+                      <div className="title">Prev</div>
+                      <div className="progress left">
+                        <div className="progress-value light" style={{width:'20%'}} ></div>
                       </div>
                     </div>
                     <div className="mapstateprevnext"
@@ -3743,9 +3743,9 @@ const Map = ({ leftWidth,
                             }
                         }}
                     >
-                      NEXT
-                      <div className="progress">
-                        <div className="progress-value"></div>
+                      <div className="title">Next</div>
+                      <div className="progress right">
+                        <div className="progress-value light" style={{width:'20%'}} ></div>
                       </div>
                     </div>
                   </div>}

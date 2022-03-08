@@ -464,12 +464,14 @@
     background: $green !important;
     -webkit-mask-size: 20px 20px;
   }
-  .mapstatebuttons { 
+  .mapstatebuttons {
     position: absolute;
-    width: 100px;
+    /* width: 100px; */
+    width: 128px;
     left: 31px;
-    height: 22px;
-    bottom: 4px;
+    /* height: 22px; */
+    height: 25px;
+    bottom: 0;
     background-color: white;
     z-index: 10;
     display: -webkit-inline-box;
@@ -477,15 +479,68 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    padding: 0px 3px;
+    .mapstateprevnext:first-child {
+      border-right: 1px solid rgba(37, 24, 99,0.1);
+    }
+    .mapstateprevnext {
+      width: 50%;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      border-radius: 4px;
+      .title {
+        font-size: 14px;
+        text-align: center;
+      }
+      .progress {
+        display: block;
+				width: 100%;
+				height: 4px;
+        background-color: #fff;
+        &.left {
+          border-bottom-left-radius: 4px;
+          .progress-value {
+            float: right;
+            &.light {
+              background-color: #28c499;
+              display: block;
+					    height: 4px;
+					    border-top-left-radius: 2px;
+					    border-bottom-left-radius: 2px;
+              &.completed {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 4px;
+              }
+            }
+          }
+        }
+        &.right {
+          border-bottom-right-radius: 4px;
+          .progress-value {
+            float: left;
+            &.light {
+              background-color: #28c499;
+              display: block;
+					    height: 4px;
+					    border-top-right-radius: 2px;
+					    border-bottom-right-radius: 2px;
+              &.completed {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 4px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
-  .mapstateprevnext {
+/*   .mapstateprevnext {
     flex-grow: 1;
     padding: 0;
   }
   .mapstateprevnext:hover {
     border-bottom: 3px solid rgb(40, 196, 153);
-  }
+  } */
 }
 
 .filter-map{
