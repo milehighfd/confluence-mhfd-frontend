@@ -2876,15 +2876,19 @@ const Map = ({ leftWidth,
                       
                   }
                   if (feature.source === ACTIVE_LOMS) {
+                      let extraProperties = {};
+                      if (user.designation === ADMIN || user.designation === STAFF ) {
+                        extraProperties = { notes: feature.properties.notes || '-'}
+                      }
                       const item = {
-                          layer: 'Active LOMCs',
-                          lomc_case: feature.properties.lom_case || '-',
-                          lomc_type: feature.properties.lomc_type || '-',
-                          lomc_identifier: feature.properties.lomc_identifier || '-',
-                          status_date: feature.properties.status_date || '-',
-                          status: feature.properties.status || '-',
-                          effective_date: feature.properties.effective_date || '-',
-                          notes: feature.properties.notes || '-',
+                        layer: 'Active LOMCs',
+                        lomc_case: feature.properties.lom_case || '-',
+                        lomc_type: feature.properties.lomc_type || '-',
+                        lomc_identifier: feature.properties.lomc_identifier || '-',
+                        status_date: feature.properties.status_date || '-',
+                        status: feature.properties.status || '-',
+                        effective_date: feature.properties.effective_date || '-',
+                        ...extraProperties
                       }
                       menuOptions.push('Active LOMCs');
                       mobile.push({...item});
@@ -2894,6 +2898,22 @@ const Map = ({ leftWidth,
                       
                   }
                   if (feature.source === EFFECTIVE_REACHES) {
+                    let extraProperties = {};
+                    if (user.designation === ADMIN || user.designation === STAFF ) {
+                        extraProperties = {
+                            modellocation_mip: feature.properties.modellocation_mip || '-',
+                            modellocation_local: feature.properties.modellocation_local || '-',
+                            notes: feature.properties.notes || '-',
+                            hydra_modeltype: feature.properties.hydra_modeltype || '-',
+                            hydra_modeldate: feature.properties.hydra_modeldate || '-',
+                            hydra_modelname: feature.properties.hydra_modelname || '-',
+                            hydro_modeltype: feature.properties.hydro_modeltype || '-',
+                            hydro_modeldate: feature.properties.hydro_modeldate || '-',
+                            hydro_modelname: feature.properties.hydro_modelname || '-',
+                            original_source_data: feature.properties.original_source_data || '-',
+                            legacycode: feature.properties.legacycode || '-',
+                        };
+                    }
                     const item = {
                         layer: 'Effective Reaches',
                         uniqueid: feature.properties.uniqueid || '-',
@@ -2901,17 +2921,7 @@ const Map = ({ leftWidth,
                         streamname_fema: feature.properties.streamname_fema || '-',
                         studyname: feature.properties.studyname || '-',
                         studydate: feature.properties.studydate || '-',
-                        modellocation_mip: feature.properties.modellocation_mip || '-',
-                        modellocation_local: feature.properties.modellocation_local || '-',
-                        notes: feature.properties.notes || '-',
-                        hydra_modeltype: feature.properties.hydra_modeltype || '-',
-                        hydra_modeldate: feature.properties.hydra_modeldate || '-',
-                        hydra_modelname: feature.properties.hydra_modelname || '-',
-                        hydro_modeltype: feature.properties.hydro_modeltype || '-',
-                        hydro_modeldate: feature.properties.hydro_modeldate || '-',
-                        hydro_modelname: feature.properties.hydro_modelname || '-',
-                        original_source_data: feature.properties.original_source_data || '-',
-                        legacycode: feature.properties.legacycode || '-',
+                        ...extraProperties
                     };
                     menuOptions.push('Effective Reaches');
                       mobile.push({...item});
