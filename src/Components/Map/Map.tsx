@@ -2131,7 +2131,6 @@ const Map = ({ leftWidth,
           note.color_id = comment_id;
         }
       }
-      console.log("PLASE??", note, contentTitle);
       createNote(note);
     }
     const addListonPopupNotes = (e: any) => {
@@ -2253,7 +2252,7 @@ const Map = ({ leftWidth,
               if (commentAvailable && canAdd) {
                 const html = commentPopup();
                 popup.remove();
-                popup = new mapboxgl.Popup({closeButton: true,});
+                popup = new mapboxgl.Popup({closeButton: false});
                 marker.setPopup(popup);
                 popup.setHTML(html);
                 marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
