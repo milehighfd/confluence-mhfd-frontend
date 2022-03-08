@@ -16,7 +16,7 @@ export const getColorsList = () => {
 
 export const createColorList = () => {
         const colorsList: any = {
-          label: 'Map Note' + Date.now(), 
+          label: 'Map Note', 
           color: "#F6BE0F",
           opacity: 1
         };

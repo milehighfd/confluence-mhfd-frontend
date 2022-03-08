@@ -388,6 +388,12 @@
       width: 96%;
       font-size: 15px;
       // padding: 0 1em;
+      #color-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 78%;
+      }
       .dr {
         display: flex;
         flex-direction: row;

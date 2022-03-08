@@ -66,7 +66,7 @@ import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
 
-import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput} from './commetsFunctions';
+import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement} from './commetsFunctions';
 import { addHistoric, getNext, getPrevious, hasNext, hasPrevious } from '../../utils/globalMap';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
@@ -78,6 +78,12 @@ let fromHistory = false;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
 let searchPopup = new mapboxgl.Popup({closeButton: true,});
 let popup = new mapboxgl.Popup({closeButton: true,});
+let currentElement: any = {
+  label: 'Map Note', 
+  color: "#F6BE0F",
+  opacity: 1, 
+  color_id: undefined
+}
 const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
 const highlightedLayers = ['problems', 'mhfd_projects'];
 type LayersType = string | ObjectLayerType;
@@ -2079,38 +2085,53 @@ const Map = ({ leftWidth,
     
     const addListToPopupNotes = (ul: any, div: any) => {
       // ul -> id-list-popup | div -> color-list
-      let inner = `
-      <div class="listofelements" id="currentItemsinList">
-        `;
-      listOfElements.forEach((el:any , index: any) => {
-        inner += `
-        <li id="color${index}">
-          <img id="circle${index}" class="img-circle" style="background:${el.color}"/> 
-            <input id="input${index}" class="inputlabel" value="${el.label}" readonly>
-          <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
-        </li>`
-      });
-      
-      inner += '</div>'
-      let addLabelButton = `
-        <li id="addLabelButton" style="padding-right:12px">
-          <button id="addLabelButton-btn"  type="button" class="addlabelbutton" >Add Label</button>
-        </li>`;
+      if(listOfElements.length ) {
+        let inner = `
+        <div class="listofelements" id="currentItemsinList">
+          `;
+        listOfElements.forEach((el:any , index: any) => {
+          inner += ` 
+          <li id="color${index}" value=${JSON.stringify(el._id)}>
+            <img id="circle${index}" class="img-circle" style="background:${el.color}"/> 
+              <input id="input${index}" class="inputlabel" value="${el.label}" readonly>
+            <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
+          </li>`
+        });
+        
+        inner += '</div>'
+        let addLabelButton = `
+          <li id="addLabelButton" style="padding-right:12px">
+            <button id="addLabelButton-btn"  type="button" class="addlabelbutton" >Add Label</button>
+          </li>`;
+  
+        inner = inner + addLabelButton;
+  
+        ul.innerHTML = inner;
+  
+        let c= div.childNodes;
+        // to not add ul multiple times and just the first one 
+        if(!c[3]){
+          div.appendChild(ul);
+        }            
+  
+        clickingCircleColor(listOfElements, updateColorList);
+        clickingOptions(listOfElements, deleteColorList);
+        clickingAddLabelButton(createColorList);
+        clickingUnFocusInput(listOfElements, updateColorList);
+        clickingColorElement(listOfElements, currentElement);
+      }
+    }
+    const createNoteWithElem = (note: any) => {
 
-      inner = inner + addLabelButton;
-
-      ul.innerHTML = inner;
-
-      let c= div.childNodes;
-      // to not add ul multiple times and just the first one 
-      if(!c[3]){
-        div.appendChild(ul);
-      }            
-
-      clickingCircleColor(listOfElements, updateColorList);
-      clickingOptions(listOfElements, deleteColorList);
-      clickingAddLabelButton(createColorList);
-      clickingUnFocusInput(listOfElements, updateColorList);
+      const contentTitle:any = document.getElementById('color-text');
+      if(contentTitle != null) {
+        const comment_id = contentTitle.getAttribute('current_id');
+        if(comment_id) {
+          note.color_id = comment_id;
+        }
+      }
+      console.log("PLASE??", note, contentTitle);
+      createNote(note);
     }
     const addListonPopupNotes = (e: any) => {
       const div = document.getElementById('color-list');
@@ -2185,14 +2206,13 @@ const Map = ({ leftWidth,
                                       color = 'yellow';
                                   }
                               }
-                              const note = {
+                              let note: any = {
                                   color: color,
                                   content: textarea.value,
                                   latitude: e.lngLat.lat,
                                   longitude: e.lngLat.lng
                               };
-                              console.log(note);
-                              createNote(note);
+                              createNoteWithElem(note);
                               popup.remove();
                               canAdd = false;
                               marker.remove();

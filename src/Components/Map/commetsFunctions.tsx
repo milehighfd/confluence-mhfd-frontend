@@ -1,4 +1,21 @@
-
+export const clickingColorElement = (listOfElements: any, currentElement: any) => {
+  listOfElements.forEach((_el:any, _index: any) => { 
+    const colorElem = document.getElementById(`color${_index}`);
+    if(colorElem != null) {
+      colorElem.addEventListener('click', (e:any) => {
+        const colorable = document.getElementById('colorable');
+        if(colorable != null) {
+          colorable.style.color = _el.color
+        }
+        const contentTitle:any = document.getElementById('color-text');
+        if(contentTitle != null) {
+          contentTitle.textContent = _el.label;
+          contentTitle.setAttribute('current_id', _el._id);
+        }
+      });
+    }
+  });
+}
 export const clickingCircleColor = (listOfElements:any, updateColorList: Function) => {
   listOfElements.forEach((_el:any, index: any) => {
     const circlex = document.getElementById(`circle${index}`);
