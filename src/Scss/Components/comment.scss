@@ -191,7 +191,8 @@
     max-height: 155px;
   }
   .divoptions{
-    position: absolute;
+    position: relative;
+    float:right;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -250,6 +251,7 @@
   }
   li{
     display: block;
+    position: relative;
     // padding: 13px 12px;
     padding: 13px 0px 13px 12px; 
     border-radius: 9px;

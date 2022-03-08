@@ -2105,7 +2105,7 @@ const Map = ({ leftWidth,
         div.appendChild(ul);
       }            
 
-      clickingCircleColor(listOfElements);
+      clickingCircleColor(listOfElements, updateColorList);
       clickingOptions(listOfElements, deleteColorList);
       clickingAddLabelButton(createColorList);
       clickingUnFocusInput(listOfElements, updateColorList);

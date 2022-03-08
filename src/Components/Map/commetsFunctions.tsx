@@ -1,5 +1,6 @@
-export const clickingCircleColor = (listOfElements:any) => {
-  listOfElements.forEach((el:any, index: any) => {
+
+export const clickingCircleColor = (listOfElements:any, updateColorList: Function) => {
+  listOfElements.forEach((_el:any, index: any) => {
     const circlex = document.getElementById(`circle${index}`);
     const divcolorsx = document.createElement('div');
           divcolorsx.style.display = 'none';
@@ -29,9 +30,9 @@ export const clickingCircleColor = (listOfElements:any) => {
       },
     ];
     let innerColors = ``;
-    listCircles.forEach((el:any, index:any) => {
+    listCircles.forEach((el:any, _index:any) => {
       innerColors += `
-      <li id="selectablecolor${el.label}">
+      <li id="selectablecolor${el.label}${index}" value="${el.color}">
         <img id="circle${el.label}" class="img-circle" style="background:${el.color}" />
       </li>`
     });
@@ -50,10 +51,23 @@ export const clickingCircleColor = (listOfElements:any) => {
         } else {
           divcolorsx.style.display = 'none';
         }
+        
       }); 
       let listx = document.getElementById(`color${index}`);
       if(listx != null) {
         listx.appendChild(divcolorsx);
+        listCircles.forEach((el:any) => {
+          const colorsx:any = document.getElementById(`selectablecolor${el.label}${index}`);
+          if(colorsx != null) {
+            colorsx.addEventListener('click', (e:any) => {
+              e.stopPropagation();
+              const colorValue = colorsx.getAttribute('value');
+              if(colorValue){
+                updateColorList({..._el, color: colorValue});
+              }
+            })
+          }
+        });
       }
       // console.log("Circlex", listx);
       // console.log("DIVCcC", divcolorsx);
@@ -65,14 +79,19 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
   listOfElements.forEach((el:any, index:any) => {
     const inputX:any = document.getElementById(`input${index}`);
     if(inputX != null) {
-      inputX.addEventListener('focusout', (e:any) => {
+      inputX.addEventListener('blur', (e:any) => {
         const newValue = inputX.value;
         updateColorList({...el, label: newValue});
       });
       inputX.addEventListener('click', (e:any) => {
-        console.log("INPUTX", inputX.readOnly);
         if(!inputX.readOnly) {
           e.stopPropagation();
+        }
+      });
+      inputX.addEventListener('keyup',(e:any)=>{
+        if(!inputX.readOnly && e.keyCode == 32) {
+          e.stopPropagation();
+          e.preventDefault();
         }
       })
     }
@@ -115,7 +134,6 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function) 
           optx.appendChild(divoptionsx);
           const editButton = document.getElementById(`editopt${index}`);
           const deleteButton = document.getElementById(`deleteopt${index}`);
-          console.log("EDIT BUTTON", editButton, "EDLEETE BUTTON", deleteButton);
           if(editButton != null){
             editButton.addEventListener('click', (e:any) => {
               e.stopPropagation();
