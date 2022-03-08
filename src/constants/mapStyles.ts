@@ -3402,47 +3402,6 @@ export const tileStyles = {
         0
       ]
     }
-  }, {
-    type: 'symbol',
-    'source-layer': 'pluto15v1',
-    "layout": {
-      "text-field": [
-          "concat",
-          ["to-string", ["get", "servicearea"]],
-          " ",
-          "Service Area"
-      ],
-      "text-font":[
-        "Open Sans Regular",
-        "Arial Unicode MS Regular"
-      ],
-      "text-size":16,
-      "text-line-height":1.2,
-      "text-justify":"center",
-      "text-offset":[0, 4],
-      "symbol-placement":"line",
-      "symbol-spacing":80,
-      "text-max-angle":10,
-      "symbol-avoid-edges":true,
-      "text-padding":20,
-      "text-allow-overlap":false
-    },
-    "paint": {
-      "text-color": "hsl(138, 3%, 98%)",
-      "text-opacity":[
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        0,
-        0,
-        13.99,
-        0,
-        14,
-        1,
-        22,
-        1
-      ]
-    }
   }, 
   {
     type: 'symbol',
@@ -3455,37 +3414,86 @@ export const tileStyles = {
           "Service Area"
       ],
       "text-font":[
+        "Open Sans Regular",, "Arial Unicode MS Regular"
+      ],
+      "text-offset":[0, 1.5],
+      "text-size":13,
+      "text-letter-spacing":0.35,
+      "text-line-height": 1.4,
+      "text-justify": "right",
+      "symbol-placement":"line",
+      "symbol-spacing":250,
+      "text-max-angle":15,
+      "symbol-avoid-edges":true,
+      "text-rotation-alignment":"map",
+      "text-padding":40,
+      "text-allow-overlap":false
+    },
+    "paint": {
+      "text-color":"#fcfcfc", //fix this,
+      "text-opacity":[
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        13.49,
+        0,
+        13.5,
+        1,
+        22,
+        1
+      ],
+      "text-halo-color":"hsla(250, 61%, 24%, 0.35)",
+      "text-halo-width":20,
+      "text-halo-blur":20
+    }
+  }, 
+  {
+    // editing this
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "servicearea"]],
+          " ",
+          "Service Area"
+      ],
+      "text-font":[
         "Open Sans Regular",
         "Arial Unicode MS Regular"
       ],
-      "text-size":16,
+      "text-size":14,
       "text-line-height":1.2,
       "text-justify":"center",
-      "text-anchor":"center",
-      "text-translate":[128, 0],
-      "text-translate-anchor":"map",
+      // "text-anchor":"center",
+      "text-offset":[0,2],
+      // "text-translate":[0, 0],
       "symbol-placement":"line",
-      "symbol-spacing":80,
-      "text-max-angle":10,
-      "symbol-avoid-edges":true,
-      "text-rotation-alignment":"map",
-      "text-padding":20,
+      "symbol-spacing":250,
+      "text-max-angle":45,
+      // "symbol-avoid-edges":true,
+      "text-padding":30,
+      "text-letter-spacing":0.4
+      
       
     },
     "paint": {
-        "text-color": "hsl(138, 3%, 98%)",
+        "text-halo-color":"hsla(250, 61%, 24%, 0.35)",
+        "text-halo-width":20,
+        "text-halo-blur":20,
+        "text-color": "#fcfcfc",
         "text-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
+          12.5,
           0,
-          0,
-          13.99,
-          0,
-          14,
+          12.51,
           1,
-          22,
-          1
+          13.9,
+          1,
+          13.91,
+          0
         ]
     }
   },

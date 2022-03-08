@@ -1760,7 +1760,8 @@ const Map = ({ leftWidth,
                     }, 5000);*/
                 }
             }
-            if(key != 'streams'){
+            // delete this 
+            if(key != 'streams' && key != SERVICE_AREA_FILTERS) {
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
             } else { 
                 // console.log("STYLE LAYER", key,  style);
