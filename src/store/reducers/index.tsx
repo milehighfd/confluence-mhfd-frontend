@@ -13,6 +13,7 @@ import carouselImages from './carouselImagesReducer';
 import uploadAttachment from './uploadAttachmentReducer';
 import detailedReducer from './detailedReducer'; 
 import notesReducer from './notesReducer';
+import colorListReducer from './colorListReducer';
 
 const appReducer = (history: any) => combineReducers({
   router: connectRouter(history),
@@ -27,7 +28,8 @@ const appReducer = (history: any) => combineReducers({
   uploadAttachment,
   project,
   notes: notesReducer,
-  detailed: detailedReducer
+  detailed: detailedReducer,
+  colorList: colorListReducer
 });
 
 export type RootState = ReturnType<typeof appReducer>;

@@ -48,6 +48,7 @@ import { Input, AutoComplete } from 'antd';
 import { SelectProps } from 'antd/es/select';
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
+import { useColorListDispatch, useColorListState } from '../../hook/colorListHook';
 import { useProjectDispatch } from '../../hook/projectHook';
 import { style } from 'd3';
 import { setOpacityLayer } from '../../store/actions/mapActions';
@@ -64,7 +65,7 @@ import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
 
-import {clickingCircleColor, clickingOptions} from './commetsFunctions';
+import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput} from './commetsFunctions';
 import { addHistoric, getNext, getPrevious, hasNext, hasPrevious } from '../../utils/globalMap';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
@@ -126,6 +127,20 @@ contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent 
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 
 let commentAvailable = false;
+let listOfElements = [{
+  color: '#FFE120',
+  label: `Jon's issue`
+},{
+  color: "#66D4FF",
+  label:  "New projects"
+},{
+  color: "#6FC699",
+  label: "Previous Works"
+},{
+  color: "#E45360",
+  label:  "Color"
+}];
+
 const Map = ({ leftWidth,
     layers,
     components,
@@ -202,10 +217,8 @@ const Map = ({ leftWidth,
     const [problemid, setProblemId ] = useState<any>(undefined);
 
     const [notesFilter, setNotesFilter] = useState('all');
-    useEffect(()=> {
-        
-
-    }, [mobilePopups]);
+    const { colorsList } = useColorListState();
+    const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
     const [zoomValue, setZoomValue] = useState(0);
     
     const colors = {
@@ -1080,10 +1093,6 @@ const Map = ({ leftWidth,
                 }
                 // hideLayerOpacity();
             }
-
-
-
-
         });
         const updateZoom = () => {
             // console.log(map.getStyle());
@@ -1096,9 +1105,31 @@ const Map = ({ leftWidth,
             console.log('end moving ');
             itMoved = true;
         });
+        getColorsList();
+        // createColorList({
+        //   label: 'booker B', 
+        //   color: "#00f507",
+        //   opacity: 1
+        // });
     }, []);
-
-
+    const removeAllChildNodes = (parent:any) => {
+      while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+      }
+    }
+    const updateColorsList = () => {
+      let ul = document.getElementById('id-list-popup');
+      let div = document.getElementById('color-list');
+      if(ul != null && div != null){ 
+        removeAllChildNodes(ul);
+        addListToPopupNotes(ul, div);
+      }
+    }
+    useEffect(() => {
+      listOfElements = colorsList;
+      console.log("Colors List", colorsList);
+      updateColorsList();
+    },[colorsList]);
     useEffect(() => {
         //console.log('my apply filter ', applyFilter, zoomEndCounter);
         const bounds = map.getBounds();
@@ -2043,23 +2074,44 @@ const Map = ({ leftWidth,
       }
 
     }
-    useEffect(() => {
+    
+    const addListToPopupNotes = (ul: any, div: any) => {
+      // ul -> id-list-popup | div -> color-list
+      let inner = `
+      <div class="listofelements" id="currentItemsinList">
+        `;
+      listOfElements.forEach((el:any , index: any) => {
+        inner += `
+        <li id="color${index}">
+          <img id="circle${index}" class="img-circle" style="background:${el.color}"/> 
+            <input id="input${index}" class="inputlabel" value="${el.label}" readonly>
+          <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
+        </li>`
+      });
+      
+      inner += '</div>'
+      let addLabelButton = `
+        <li id="addLabelButton" style="padding-right:12px">
+          <button id="addLabelButton-btn"  type="button" class="addlabelbutton" >Add Label</button>
+        </li>`;
 
-        if (allLayers.length < 100) {
-            return;
-        }
-        map.on('click', (e: any) => {
-            if(isMeasuring) {
-              measureFunction(e);
-            } else {
-              if (commentAvailable && canAdd) {
-                const html = commentPopup();
-                popup.remove();
-                popup = new mapboxgl.Popup({closeButton: true,});
-                marker.setPopup(popup);
-                popup.setHTML(html);
-                marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
-                const div = document.getElementById('color-list');
+      inner = inner + addLabelButton;
+
+      ul.innerHTML = inner;
+
+      let c= div.childNodes;
+      // to not add ul multiple times and just the first one 
+      if(!c[3]){
+        div.appendChild(ul);
+      }            
+
+      clickingCircleColor(listOfElements);
+      clickingOptions(listOfElements, deleteColorList);
+      clickingAddLabelButton(createColorList);
+      clickingUnFocusInput(listOfElements, updateColorList);
+    }
+    const addListonPopupNotes = (e: any) => {
+      const div = document.getElementById('color-list');
                 if (div != null) {
                     const ul = document.createElement('div');
                     ul.style.display = 'none';
@@ -2073,119 +2125,76 @@ const Map = ({ leftWidth,
                             ul.style.display = 'none';
                         }
                     });
-                    const listOfElements = [{
-                      color: '#FFE120',
-                      label: `Jon's issue`
-                    },{
-                      color: "#66D4FF",
-                      label:  "New projects"
-                    },{
-                      color: "#6FC699",
-                      label: "Previous Works"
-                    },{
-                      color: "#E45360",
-                      label:  "Color"
-                    }];
-                    let inner = `
-                    <div class="listofelements">
-                      `;
-                    listOfElements.forEach((el:any , index: any) => {
-                      inner += `
-                      <li id="color${index}">
-                        <img id="circle${index}" class="img-circle" style="background:${el.color}"/> 
-                          <input id="input1" class="inputlabel" value="${el.label}" readonly>
-                        <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
-                      </li>`
-                    });
-                    
-                    inner += '</div>'
-                    let addLabelButton = `
-                      <li id="addLabelButton" style="padding-right:12px">
-                        <button type="button" class="addlabelbutton" >Add Label</button>
-                      </li>`;
-
-                    inner = inner + addLabelButton;
-
-                    ul.innerHTML = inner;
-
-                    let c= div.childNodes;
-                    // to not add ul multiple times and just the first one 
-                    if(!c[3]){
-                      div.appendChild(ul);
-                    }            
-
-                    clickingCircleColor(listOfElements);
-                    clickingOptions(listOfElements);
-
+                    addListToPopupNotes(ul, div)
                     // div.appendChild(ul);
                     const colorable = document.getElementById('colorable');
                     const red = document.getElementById('red');
-                    if (red != null) {
-                        red.addEventListener('click', () => {
-                            setNoteColor(colors.RED);
-                            if (colorable != null) {
-                                colorable.style.color = colors.RED;
-                            }
-                        });
-                    }
-                    const orange = document.getElementById('orange');
-                    if (orange != null) {
-                        orange.addEventListener('click', () => {
-                            setNoteColor(colors.ORANGE);
-                            if (colorable != null) {
-                                colorable.style.color = colors.ORANGE;
-                            }
-                        });
-                    }
-                    const grey = document.getElementById('grey');
-                    if (grey != null) {
-                        grey.addEventListener('click', () => {
-                            setNoteColor(colors.GREY);
-                            if (colorable != null) {
-                                colorable.style.color = colors.GREY;
-                            }
-                        });
-                    }
-                    const yellow = document.getElementById('yellow');
-                    if (yellow != null) {
-                        yellow.addEventListener('click', () => {
-                            setNoteColor(colors.YELLOW);
-                            if (colorable != null) {
-                                colorable.style.color = colors.YELLOW;
-                            }
-                        });
-                    }
-                    const save = document.getElementById('save-comment');
-                    if (save != null) {
-                        save.addEventListener('click', () => {
-                            setSwSave(false);
-                            const textarea = (document.getElementById('textarea') as HTMLInputElement);
-                            if (textarea != null) {
-                                console.log(textarea.value);
-                                let color = '';
-                                if (colorable != null) {
-                                    if (colorable.style.color === colorsCodes.RED) {
-                                        color = 'red';
-                                    } else if (colorable.style.color === colorsCodes.ORANGE) {
-                                        color = 'orange';
-                                    } else if (colorable.style.color === colorsCodes.GREY) {
-                                        color = 'grey';
-                                    } else {
-                                        color = 'yellow';
-                                    }
-                                }
-                                const note = {
-                                    color: color,
-                                    content: textarea.value,
-                                    latitude: e.lngLat.lat,
-                                    longitude: e.lngLat.lng
-                                };
-                                console.log(note);
-                                createNote(note);
-                                popup.remove();
-                                canAdd = false;
-                                marker.remove();
-                            }
+                  if (red != null) {
+                      red.addEventListener('click', () => {
+                          setNoteColor(colors.RED);
+                          if (colorable != null) {
+                              colorable.style.color = colors.RED;
+                          }
+                      });
+                  }
+                  const orange = document.getElementById('orange');
+                  if (orange != null) {
+                      orange.addEventListener('click', () => {
+                          setNoteColor(colors.ORANGE);
+                          if (colorable != null) {
+                              colorable.style.color = colors.ORANGE;
+                          }
+                      });
+                  }
+                  const grey = document.getElementById('grey');
+                  if (grey != null) {
+                      grey.addEventListener('click', () => {
+                          setNoteColor(colors.GREY);
+                          if (colorable != null) {
+                              colorable.style.color = colors.GREY;
+                          }
+                      });
+                  }
+                  const yellow = document.getElementById('yellow');
+                  if (yellow != null) {
+                      yellow.addEventListener('click', () => {
+                          setNoteColor(colors.YELLOW);
+                          if (colorable != null) {
+                              colorable.style.color = colors.YELLOW;
+                          }
+                      });
+                  }
+                  const save = document.getElementById('save-comment');
+                  if (save != null) {
+                      save.addEventListener('click', () => {
+                        setSwSave(false);
+                          const textarea = (document.getElementById('textarea') as HTMLInputElement);
+                          if (textarea != null) {
+                              console.log(textarea.value);
+                              let color = '';
+                              if (colorable != null) {
+                                  if (colorable.style.color === colorsCodes.RED) {
+                                      color = 'red';
+                                  } else if (colorable.style.color === colorsCodes.ORANGE) {
+                                      color = 'orange';
+                                  } else if (colorable.style.color === colorsCodes.GREY) {
+                                      color = 'grey';
+                                  } else {
+                                      color = 'yellow';
+                                  }
+                              }
+                              const note = {
+                                  color: color,
+                                  content: textarea.value,
+                                  latitude: e.lngLat.lat,
+                                  longitude: e.lngLat.lng
+                              };
+                              console.log(note);
+                              createNote(note);
+                              popup.remove();
+                              canAdd = false;
+                              marker.remove();
+                          }
                         });
                     }
                     const edit = document.getElementById('edit-comment');
@@ -2208,6 +2217,24 @@ const Map = ({ leftWidth,
                       });
                     }
                 }
+    }
+    useEffect(() => {
+
+        if (allLayers.length < 100) {
+            return;
+        }
+        map.on('click', (e: any) => {
+            if(isMeasuring) {
+              measureFunction(e);
+            } else {
+              if (commentAvailable && canAdd) {
+                const html = commentPopup();
+                popup.remove();
+                popup = new mapboxgl.Popup({closeButton: true,});
+                marker.setPopup(popup);
+                popup.setHTML(html);
+                marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
+                addListonPopupNotes(e);
                 return;
             }
             if (commentAvailable) {

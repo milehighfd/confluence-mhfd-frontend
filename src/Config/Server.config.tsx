@@ -108,7 +108,11 @@ export const SERVER = (function () {
     const GET_COMPONENTS_BY_PROBLEMID = 'components-by-problemid';
     const GET_STREAMS_BY_COMPONENTS = 'get-stream-by-components-and-geom';
     const NEW_NOTES = 'newnotes';
+    const NOTE_LIST = 'notelist';
     const GROUP_TYPE = 'group';
+    const COLOR = 'color';
+    const DELETE_NOTE_LIST = 'delete-note-list';
+    const UPDATE_COLOR_LIST = 'update-note-list';
     const NOTE_TYPE = 'note';
     const NOTES = 'notes';
     const PROJECTS_BBOX = 'projects-bbox';
@@ -210,8 +214,17 @@ export const SERVER = (function () {
         GET_STREAMS_BY_COMPONENTS: `${URL_BASE.BASE}/create/${GET_STREAMS_BY_COMPONENTS}`,
         CREATE_NOTE: `${URL_BASE.BASE}/${NEW_NOTES}/${NOTE_TYPE}`,
         CREATE_GROUP: `${URL_BASE.BASE}/${NEW_NOTES}/${GROUP_TYPE}`,
+        GET_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/color-list`,
+        CREATE_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}`,
+        DELETE_NOTE_LIST: (id: any) => {
+          return `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}/${id}`;
+        },
+        EDIT_NOTE_LIST: (id: any) => {
+          return `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}/${id}`;
+        },
         LIST_NOTES: `${URL_BASE.BASE}/${NEW_NOTES}/${NOTE_TYPE}`,
         GET_GROUPS: `${URL_BASE.BASE}/${NEW_NOTES}/${GROUP_TYPE}`,
+        
         DELETE_NOTE: (id: any) => {
             return  `${URL_BASE.BASE}/${NEW_NOTES}/${NOTE_TYPE}/${id}`
         },
