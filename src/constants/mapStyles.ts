@@ -3316,87 +3316,145 @@ export const tileStyles = {
       "line-color": "hsl(0, 3%, 97%)",
       "line-dasharray": [2, 2]
     }
-  },{ 
-    "type": "symbol",
+  },
+  {
+    type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
-        "text-line-height": 1.3,
-        "text-size": 14,
-        "text-font": ["Tahoma Regular", "Arial Unicode MS Regular"],
-        "symbol-placement": "line",
-        "text-padding": 30,
-        "text-offset": [0, 2],
-        "text-rotation-alignment": "map",
-        "text-pitch-alignment": "viewport",
-        "text-field": [
-            "concat",
-            ["to-string", ["get", "servicearea"]],
-            " ",
-            "Service Area"
-        ],
-        "text-letter-spacing": 0.4,
-        "text-max-width": 36
+      "text-field": [
+        "concat",
+        ["to-string", ["get", "servicearea"]],
+        " ",
+        "Service Area"
+      ],
+      "text-font":[
+        "Open Sans Regular",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":16,
+      "text-line-height":1.2,
+      "text-justify":"auto",
+      "symbol-placement":"point",
+      "text-padding":[
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        1,
+        10,
+        75,
+        11,
+        155,
+        12,
+        255,
+        22,
+        155
+      ],
+      "text-allow-overlap":false,
+      "symbol-avoid-edges":false,
+      "text-rotation-alignment":"auto"
     },
     "paint": {
-        "text-color": "#fcfcfc",
-        "text-halo-color": "hsla(250, 61%, 24%, 0.35)",
-        "text-halo-blur": 20,
-        "text-opacity": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            12.5,
-            0,
-            12.51,
-            1,
-            13.9,
-            1,
-            13.91,
-            0
-        ],
-        "text-halo-width": 20,
-        "text-translate": [0, 0]
+      "text-color":"hsl(0, 3%, 86%)",
+      "text-opacity":[
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        1,
+        13.99,
+        1,
+        14,
+        0,
+        22,
+        0
+      ]
     }
   }, {
-    "type": "symbol",
+    type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
-        "text-line-height": 1.4,
-        "text-size": 13,
-        "symbol-avoid-edges": true,
-        "text-max-angle": 15,
-        "text-font": ["Tahoma Regular", "Arial Unicode MS Regular"],
-        "symbol-placement": "line",
-        "text-justify": "right",
-        "text-padding": 40,
-        "text-offset": [0, 1.5],
-        "text-rotation-alignment": "map",
-        "text-pitch-alignment": "viewport",
-        "text-field": [
-            "concat",
-            ["to-string", ["get", "servicearea"]],
-            " ",
-            "Service Area"
-        ],
-        "text-letter-spacing": 0.35,
-        "text-max-width": 36
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "servicearea"]],
+          " ",
+          "Service Area"
+      ],
+      "text-font":[
+        "Open Sans Regular",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":16,
+      "text-line-height":1.2,
+      "text-justify":"center",
+      "text-offset":[0, 4],
+      "symbol-placement":"line",
+      "symbol-spacing":80,
+      "text-max-angle":10,
+      "symbol-avoid-edges":true,
+      "text-padding":20,
+      "text-allow-overlap":false
     },
     "paint": {
-        "text-color": "#fcfcfc",
-        "text-halo-color": "hsla(250, 61%, 24%, 0.35)",
-        "text-halo-blur": 20,
+      "text-color": "hsl(138, 3%, 98%)",
+      "text-opacity":[
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0,
+        13.99,
+        0,
+        14,
+        1,
+        22,
+        1
+      ]
+    }
+  }, 
+  {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "servicearea"]],
+          " ",
+          "Service Area"
+      ],
+      "text-font":[
+        "Open Sans Regular",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":16,
+      "text-line-height":1.2,
+      "text-justify":"center",
+      "text-anchor":"center",
+      "text-translate":[128, 0],
+      "text-translate-anchor":"map",
+      "symbol-placement":"line",
+      "symbol-spacing":80,
+      "text-max-angle":10,
+      "symbol-avoid-edges":true,
+      "text-rotation-alignment":"map",
+      "text-padding":20,
+      
+    },
+    "paint": {
+        "text-color": "hsl(138, 3%, 98%)",
         "text-opacity": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            13.49,
-            0,
-            13.5,
-            1,
-            22,
-            1
-        ],
-        "text-halo-width": 20
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.99,
+          0,
+          14,
+          1,
+          22,
+          1
+        ]
     }
   },
   {
@@ -3407,7 +3465,8 @@ export const tileStyles = {
       "fill-color":'#ffffff',
       "fill-opacity":0.01
     }
-  }],
+  }
+],
   [SERVICE_AREA_POINTS]: [],
   [MUNICIPALITIES_FILTERS]: [{
     type: 'fill',

@@ -181,7 +181,7 @@ export const PROJECTS_DRAFT_MAP_STYLES = {
 /*new styles*/
 export const NRCS_SOILS = 'usda_nrcs_soils';
 export const DWR_DAM_SAFETY = 'dwr_dam_safety';
-export const STREAM_MANAGEMENT_CORRIDORS = 'stream_management_corridors';
+export const STREAM_MANAGEMENT_CORRIDORS = 'mhfd_smcs';
 export const BCZ_PREBLE_MEADOW_JUMPING = 
 'bcz_prebles_meadow_jumping_mouse';
 export const BCZ_UTE_LADIES_TRESSES_ORCHID =
