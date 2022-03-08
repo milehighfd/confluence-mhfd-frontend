@@ -37,7 +37,8 @@ import {
   BORDER,
   BLOCK_CLEARANCE_ZONES_LAYERS,
   AREA_BASED_MASK,
-  ACTIVE_LOMS
+  ACTIVE_LOMS,
+  EFFECTIVE_REACHES
 } from '../../../constants/constants';
 
 
@@ -70,6 +71,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     [WATERSHED_FILTERS]: false,
     [FLOODPLAINS.name]: false,
     [FEMA_FLOOD_HAZARD]: false,
+    [EFFECTIVE_REACHES]: false,
     [ACTIVE_LOMS]: false,
     [SERVICE_AREA_LAYERS.name]: false,
     [COUNTIES_LAYERS.name]: false,
@@ -137,7 +139,8 @@ export const SEMSWA_SERVICE_AREA =
     } else {
       newGroups['hydrologic'] = false;
     }
-    if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD] && switches[DWR_DAM_SAFETY] && switches[ACTIVE_LOMS]) {
+    if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD] && switches[DWR_DAM_SAFETY]
+      && switches[EFFECTIVE_REACHES] && switches[ACTIVE_LOMS]) {
       newGroups['hydraulic'] = true;
     } else {
       newGroups['hydraulic'] = false;
@@ -252,7 +255,8 @@ export const SEMSWA_SERVICE_AREA =
   const genExtra02 = () => {
     return (
     <div className="filter-coll-header" key={Math.random()}>
-       <div key={Math.random()} style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] || switches[DWR_DAM_SAFETY] || switches[ACTIVE_LOMS]) ? weightStyle : emptyStyle}>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
+       <div key={Math.random()} style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] || switches[DWR_DAM_SAFETY] 
+        || switches[ACTIVE_LOMS] || switches[EFFECTIVE_REACHES]) ? weightStyle : emptyStyle}>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
       <Switch key={Math.random()} checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
@@ -489,6 +493,16 @@ export const SEMSWA_SERVICE_AREA =
               </Popover>
               <Switch key={Math.random()} checked={switches[FEMA_FLOOD_HAZARD]} size="small" onClick={(value) => onChange(value, FEMA_FLOOD_HAZARD)} />
             </p>  {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
+
+            
+            <p>
+              <img key={Math.random()} src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
+                  Effective Reaches
+                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.effective_reaches)}>
+                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch key={Math.random()} checked={switches[EFFECTIVE_REACHES]} size="small" onClick={(value) => onChange(value, EFFECTIVE_REACHES)} />
+            </p> 
 
             <p>
               <img key={Math.random()} src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />

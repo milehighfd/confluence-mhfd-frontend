@@ -50,7 +50,8 @@ import {
   SEMSWA_SERVICE_AREA,
   MHFD_STREAMS_FILTERS,
   BLOCK_CLEARANCE_ZONES_LAYERS,
-  ACTIVE_LOMS
+  ACTIVE_LOMS,
+  EFFECTIVE_REACHES
 } from "./constants";
 
 export const localComponents = {
@@ -2508,6 +2509,21 @@ export const tileStyles = {
     layout: {},
     paint: {
       'line-color': '#1E2F97',
+    }
+  }],
+  [EFFECTIVE_REACHES]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'fill-color': '#EA899A'
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-color': '#FF0080',
     }
   }],
   [FEMA_FLOOD_HAZARD]: [ {

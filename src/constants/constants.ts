@@ -50,6 +50,7 @@ export const COMPONENTS_TRIGGER = 'components';
 export const FLOODPLAINS_FEMA_FILTERS = 'floodplains_fema_sfha';
 export const FLOODPLAINS_NON_FEMA_FILTERS = 'floodplains_non_fema';
 export const ACTIVE_LOMS = 'active_lomcs';
+export const EFFECTIVE_REACHES = 'effective_reaches';
 export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
 export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1'; //'basins';
 export const STREAMS_FILTERS = 'streams';
@@ -208,6 +209,7 @@ export const SELECT_ALL_FILTERS = [
   MUNICIPALITIES,
   FEMA_FLOOD_HAZARD,
   ACTIVE_LOMS,
+  EFFECTIVE_REACHES,
   FLOODPLAINS,
   STREAM_MANAGEMENT_CORRIDORS,
   BCZ_UTE_LADIES_TRESSES_ORCHID,
@@ -1765,7 +1767,8 @@ export const popUps = {
   semswa_service_area: 'Southeast Metro Stormwater Authority Boundary. SEMSWA covers the entire City of Centennial, the developed areas of unincorporated Arapahoe County, and a small portion of Douglas County. Their boundary is an outgrowth of the partnership (IGA) between the City of Centennial, Arapahoe County, the Arapahoe County Water and Wastewater Authority, East Cherry Creek Valley Water and Sanitation District, and the Inverness Water and Sanitation District.',
   borders: 'A thin border surrounding the selected work request or work plan area.',
   area_based_mask:'An opacity mask surrounding the selected work request or work plan area.',
-  active_lomcs: 'A Letter of Map Change (LOMC) is issued when FEMA is requested to revise its effective flood map to reflect changed flooding conditions. reflects an official change to an effective Flood Insurance Rate Map (FIRM).'
+  active_lomcs: 'A Letter of Map Change (LOMC) is issued when FEMA is requested to revise its effective flood map to reflect changed flooding conditions. reflects an official change to an effective Flood Insurance Rate Map (FIRM).',
+  effective_reaches: 'The Effective Model Reaches catalogue and track the hydraulic model information used to create the effective Flood Insurance Rate Maps (FIRMs) available from the Federal Emergency Management Agency (FEMA).'
 }
 
 /* Menu Opctions */
