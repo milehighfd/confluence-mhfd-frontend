@@ -36,7 +36,8 @@ import {
   SEMSWA_SERVICE_AREA,
   BORDER,
   BLOCK_CLEARANCE_ZONES_LAYERS,
-  AREA_BASED_MASK
+  AREA_BASED_MASK,
+  ACTIVE_LOMS
 } from '../../../constants/constants';
 
 
@@ -69,6 +70,7 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     [WATERSHED_FILTERS]: false,
     [FLOODPLAINS.name]: false,
     [FEMA_FLOOD_HAZARD]: false,
+    [ACTIVE_LOMS]: false,
     [SERVICE_AREA_LAYERS.name]: false,
     [COUNTIES_LAYERS.name]: false,
     [MUNICIPALITIES.name]: false,
@@ -135,7 +137,7 @@ export const SEMSWA_SERVICE_AREA =
     } else {
       newGroups['hydrologic'] = false;
     }
-    if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD] && switches[DWR_DAM_SAFETY]) {
+    if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD] && switches[DWR_DAM_SAFETY] && switches[ACTIVE_LOMS]) {
       newGroups['hydraulic'] = true;
     } else {
       newGroups['hydraulic'] = false;
@@ -250,11 +252,11 @@ export const SEMSWA_SERVICE_AREA =
   const genExtra02 = () => {
     return (
     <div className="filter-coll-header" key={Math.random()}>
-       <div key={Math.random()} style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] || switches[DWR_DAM_SAFETY]) ? weightStyle : emptyStyle}>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
+       <div key={Math.random()} style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] || switches[DWR_DAM_SAFETY] || switches[ACTIVE_LOMS]) ? weightStyle : emptyStyle}>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
       <Switch key={Math.random()} checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
-          FEMA_FLOOD_HAZARD, DWR_DAM_SAFETY
+          FEMA_FLOOD_HAZARD, DWR_DAM_SAFETY, ACTIVE_LOMS
          ], 'hydraulic')}
        }/>
     </div>
@@ -488,6 +490,15 @@ export const SEMSWA_SERVICE_AREA =
               <Switch key={Math.random()} checked={switches[FEMA_FLOOD_HAZARD]} size="small" onClick={(value) => onChange(value, FEMA_FLOOD_HAZARD)} />
             </p>  {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
 
+            <p>
+              <img key={Math.random()} src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
+                  Active LOMCs
+                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.active_lomcs)}>
+                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch key={Math.random()} checked={switches[ACTIVE_LOMS]} size="small" onClick={(value) => onChange(value, ACTIVE_LOMS)} />
+            </p>  {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
+            
             <p>
               <img key={Math.random()} src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
                   DWR Dam Safety

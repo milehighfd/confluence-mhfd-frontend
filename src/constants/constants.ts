@@ -49,6 +49,7 @@ export const COMPONENTS_TRIGGER = 'components';
 // Map Layer Filters
 export const FLOODPLAINS_FEMA_FILTERS = 'floodplains_fema_sfha';
 export const FLOODPLAINS_NON_FEMA_FILTERS = 'floodplains_non_fema';
+export const ACTIVE_LOMS = 'active_lomcs';
 export const FEMA_FLOOD_HAZARD = 'fema_flood_hazard_zones';
 export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1'; //'basins';
 export const STREAMS_FILTERS = 'streams';
@@ -206,6 +207,7 @@ export const SELECT_ALL_FILTERS = [
   COUNTIES_LAYERS,
   MUNICIPALITIES,
   FEMA_FLOOD_HAZARD,
+  ACTIVE_LOMS,
   FLOODPLAINS,
   STREAM_MANAGEMENT_CORRIDORS,
   BCZ_UTE_LADIES_TRESSES_ORCHID,
@@ -1762,7 +1764,8 @@ export const popUps = {
   block_clearence_zones: 'Block Clearance Zone – Preble’s Meadow Jumping Mouse and Ute Ladies Tresses Orchid. Block Clearance Zone - Preble’s Meadow Jumping Mouse. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. Block Clearance Zone - Ute Ladies Tresses Orchid. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated.',
   semswa_service_area: 'Southeast Metro Stormwater Authority Boundary. SEMSWA covers the entire City of Centennial, the developed areas of unincorporated Arapahoe County, and a small portion of Douglas County. Their boundary is an outgrowth of the partnership (IGA) between the City of Centennial, Arapahoe County, the Arapahoe County Water and Wastewater Authority, East Cherry Creek Valley Water and Sanitation District, and the Inverness Water and Sanitation District.',
   borders: 'A thin border surrounding the selected work request or work plan area.',
-  area_based_mask:'An opacity mask surrounding the selected work request or work plan area.'
+  area_based_mask:'An opacity mask surrounding the selected work request or work plan area.',
+  active_lomcs: 'A Letter of Map Change (LOMC) is issued when FEMA is requested to revise its effective flood map to reflect changed flooding conditions. reflects an official change to an effective Flood Insurance Rate Map (FIRM).'
 }
 
 /* Menu Opctions */

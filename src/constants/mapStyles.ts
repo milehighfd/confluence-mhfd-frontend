@@ -49,7 +49,8 @@ import {
   CLIMB_TO_SAFETY,
   SEMSWA_SERVICE_AREA,
   MHFD_STREAMS_FILTERS,
-  BLOCK_CLEARANCE_ZONES_LAYERS
+  BLOCK_CLEARANCE_ZONES_LAYERS,
+  ACTIVE_LOMS
 } from "./constants";
 
 export const localComponents = {
@@ -2492,6 +2493,21 @@ export const tileStyles = {
     layout: {},
     'paint': {
       'fill-opacity': 0.8
+    }
+  }],
+  [ACTIVE_LOMS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'fill-color': '#1AA7EC'
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-color': '#1E2F97',
     }
   }],
   [FEMA_FLOOD_HAZARD]: [ {
