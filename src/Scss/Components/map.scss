@@ -9,7 +9,9 @@
   height: calc(100vh - 69px);
   margin: 5px;
   position: relative;
-
+  .mapboxgl-ctrl-group {
+    width: 32px !important;
+  }
   .mapboxgl-popup{
     z-index: 20;
 
@@ -99,7 +101,7 @@
   .mapboxgl-ctrl-group{
     left: 20px;
     position: absolute;
-    width: 25px;
+    width: 32px;
     bottom: 30px;
   }
   .mapboxgl-ctrl-scale{
@@ -391,17 +393,17 @@
 }
 .map .m-zoom{
   position: absolute;
-  width: 25px;
+  width: 32px;
   left: 20px;
-  bottom: 125px;
+  bottom: 152px;
   z-index: 10;
 
   button{
-    width: 25px;
-    height: 25px;
+    width: 32px;
+    height: 32px;
     padding: 0px;
     border: none;
-    margin-top: 8px;
+    margin-top: 16px;
   }
    button .img-icon{
     -webkit-mask: url('/Icons/ic_boundary.svg') no-repeat center;
@@ -468,9 +470,9 @@
     position: absolute;
     /* width: 100px; */
     width: 128px;
-    left: 31px;
+    left: 44px;
     /* height: 22px; */
-    height: 25px;
+    height: 32px;
     bottom: 0;
     background-color: white;
     z-index: 10;
@@ -490,14 +492,17 @@
       justify-content: space-between;
       border-radius: 4px;
       .title {
+        display: block;
         font-size: 14px;
         text-align: center;
+        line-height: 14px;
+        padding-top: 8px;
+        padding-bottom: 8px;
       }
       .progress {
         display: block;
 				width: 100%;
 				height: 2px;
-        background-color: #fff;
         &.left {
           border-bottom-left-radius: 2px;
           .progress-value {
@@ -849,8 +854,8 @@
   }
 }
 .mapboxgl-ctrl-group button{
-  width: 25px !important;
-  height: 25px !important;
+  width: 32px !important;
+  height: 32px !important;
 }
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
   background-image: url('/Icons/icon-35.svg') !important;
