@@ -244,6 +244,9 @@
     border: none;
     background: transparent;
     width: 70%;
+    &:focus {
+      background:#CFEBFE;
+    }
   }
   li{
     display: block;
@@ -279,6 +282,11 @@
     height: 36px !important;
     width: 100%;
     font-size: 14px !important;
+    background-color: white;
+    &:hover { 
+      background-color: #dfecfd;
+      cursor: pointer;
+    }
   }
   .dot {
     display: block;
