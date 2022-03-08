@@ -2512,13 +2512,6 @@ export const tileStyles = {
     }
   }],
   [EFFECTIVE_REACHES]: [{
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-      'fill-color': '#EA899A'
-    }
-  }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
