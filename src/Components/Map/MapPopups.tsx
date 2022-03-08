@@ -210,7 +210,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
         <div className="headmap">
             {item.layer}
         </div>
-        <div className={!item.layer.includes('Effective') ? "bodymap" : 'bodymap listofelements'}>
+        <div className={!(item.layer.includes('Effective') || item.layer.includes('LOMC')) ? "bodymap" : 'bodymap listofelements'}>
             {item.type ? <h4>{item.type} </h4> : ''}
             {item.feature ? <h4>{item.feature}</h4> : ''}
             {item.subtype ? <p><i>Subtype:</i>  {item.subtype}</p> : ''}
