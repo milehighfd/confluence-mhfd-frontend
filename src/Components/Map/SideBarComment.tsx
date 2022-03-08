@@ -270,6 +270,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       </h3>
       <div className="a-layers">
         <span className="title">Feature Layers</span>  
+        <a className="img-filter"></a>
         <Dropdown overlay={createOptions} trigger={['click']}>
           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}><span className="op-plus">+</span></a>
         </Dropdown>

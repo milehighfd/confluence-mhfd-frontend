@@ -866,6 +866,22 @@
             font-weight: 500;
             color: #11093C;
           }
+          .img-filter {
+            opacity: 1;
+            -webkit-mask: url('/Icons/ic_filter.svg') no-repeat center;
+            height: 14px;
+            width: 20px;
+            border-radius: 20px;
+            margin-right: 4px;
+            margin-left: 4px;
+            margin-bottom: 3px;
+            background-color: #11093C;
+            position: absolute;
+            right: 35px;
+            &:hover { 
+              // -webkit-mask: url('/Icons/ic_filter_hover.svg') no-repeat center;
+            }
+          }
           a.ant-dropdown-link.ant-dropdown-trigger {
             display: block;
             margin: 0;
