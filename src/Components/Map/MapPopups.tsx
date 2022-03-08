@@ -199,6 +199,8 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
     isComponent = false;
   } else if ( item.layer == 'Floodplains (Non-FEMA)') {
     isComponent = false;
+  } else if (item.layer.includes('LOMC')) {
+    isComponent = false;
   }
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable>
@@ -211,7 +213,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.subtype ? <p><i>Subtype:</i>  {item.subtype}</p> : ''}
             {item.estimatedcost ? <p><i>Estimated Cost:</i>  ${numberWithCommas(item.estimatedcost)}</p> : ''}
             {item.studyyear ? <p><i>Study Year:</i>  {item.studyyear}</p> : ''}
-            {item.status ? <p><i>Status:</i>  {item.status}</p> : ''}
+            {item.status && !item.layer.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
             {item.streamname ? <p><i>Stream:</i>  {item.streamname}</p> : ''}
             {item.studyname ? <p><i>Study Name:</i>  {item.studyname}</p> : ''}
             {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
@@ -258,9 +260,17 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.area?<p><i>Area:</i> {item.area} Acre</p>:''}
             {(item.perimeterFeet && item.perimeterMi) ?<p><i>Path distance:</i> {item.perimeterFeet} Feet ( {item.perimeterMi} Miles)</p>:''}
             
+            {item.lomc_case ? <p><i>LOMC Case:</i>  {item.lomc_case}</p> : ''}
+            {item.lomc_type ? <p><i>LOMC Type:</i>  {item.lomc_type}</p> : ''}
+            {item.lomc_identifier ? <p><i>LOMC Identifier:</i>  {item.lomc_identifier}</p> : ''}
+            {item.status_date ? <p><i>Status Date:</i>  {item.status_date}</p> : ''}
+            {item.status && item.layer.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
+            {item.effective_date ? <p><i>Effective Date:</i>  {item.effective_date}</p> : ''}
+            {item.notes && item.layer.includes('LOMC') ? <p><i>Notes:</i>  {item.lomc_case}</p> : ''}
             
+
             {item.mepstatusdate ? <p><i>MEP Status Date:</i>  {item.mepstatusdate}</p> : ''}
-            {item.notes ? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
+            {item.notes && !item.layer.includes('LOMC') ? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
             {item.mep_summarynotes ? <p><i>Notes/Comments:</i>  {item.mep_summarynotes}</p> : ''}
             {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
             {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}

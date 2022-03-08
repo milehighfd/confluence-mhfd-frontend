@@ -38,7 +38,8 @@ import {
     MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF,
     NEARMAP_TOKEN,
     COUNTIES_LAYERS,
-    BLOCK_CLEARANCE_ZONES_LAYERS
+    BLOCK_CLEARANCE_ZONES_LAYERS,
+    ACTIVE_LOMS
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles } from '../../constants/mapStyles';
@@ -2847,6 +2848,25 @@ const Map = ({ leftWidth,
                           slope: feature.properties.slope 
                       };
                       menuOptions.push('Stream');
+                      mobile.push({...item});
+                      mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      popups.push(item);
+                      ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                      
+                  }
+                  if (feature.source === ACTIVE_LOMS) {
+                      console.log(feature);
+                      const item = {
+                          layer: 'Active LOMCs',
+                          lomc_case: feature.properties.lom_case || '-',
+                          lomc_type: feature.properties.lomc_type || '-',
+                          lomc_identifier: feature.properties.lomc_identifier || '-',
+                          status_date: feature.properties.status_date || '-',
+                          status: feature.properties.status || '-',
+                          effective_date: feature.properties.effective_date || '-',
+                          notes: feature.properties.notes || '-',
+                      }
+                      menuOptions.push('Active LOMCs');
                       mobile.push({...item});
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       popups.push(item);
