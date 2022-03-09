@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNoteDispatch } from '../../hook/notesHook';
 import { Popover, Menu } from 'antd';
 import { useProfileState } from '../../hook/profileHook';
@@ -92,7 +92,9 @@ export const Node = ({
     return text;
 
   }
-
+  useEffect(()=>{
+    console.log("This item??", item);
+  },[item]);
   const [showBorder, setShowBorder] = useState(false);
   return (
     <div

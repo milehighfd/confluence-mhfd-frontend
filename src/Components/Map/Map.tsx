@@ -537,27 +537,11 @@ const Map = ({ leftWidth,
           });
           notes.forEach( (note: any) => {
             if(!(notesFilter != 'all' && notesFilter != note.color)) {
-              let colorOfMarker = '';
-              switch(note.color) {
-                case 'yellow':
-                  colorOfMarker = colors.YELLOW;
-                  break;
-                case 'grey':
-                  colorOfMarker = colors.GREY;
-                  break;
-                case 'orange':
-                  colorOfMarker = colors.ORANGE;
-                  break;
-                case 'red':
-                  colorOfMarker = colors.RED;
-                  break;
-                default:
-                  colorOfMarker = colors.GREY;
-              }
+              let colorOfMarker = note?.color?.color?note?.color?.color:'#F6BE0F';
               const newmarker = new mapboxgl.Marker({ color: colorOfMarker, scale: 0.7 });
               const html = commentPopup(note);
                   let newpopup = new mapboxgl.Popup({
-                    closeButton: true,
+                    closeButton: false,
                   });
                   newpopup.on('close', (e: any)=> {
                     momentaryMarker.remove();
@@ -581,6 +565,7 @@ const Map = ({ leftWidth,
             const ul = document.createElement('ul');
             ul.style.display = 'none';
             ul.classList.add("list-popup-comment");
+            ul.classList.add('legend');
             ul.setAttribute('id','id-list-popup');
             div.addEventListener('click', () => {
                 if (ul.style.display === 'none') {
@@ -589,108 +574,12 @@ const Map = ({ leftWidth,
                     ul.style.display = 'none';
                 }
             });
-            const inner = `
-            <li id="red"><i class="mdi mdi-circle-medium" style="color:#FF0000;"></i> Red</li>
-            <li id="orange"><i class="mdi mdi-circle-medium" style="color:#FA6400;"></i> Orange</li>
-            <li id="grey"><i class="mdi mdi-circle-medium" style="color:rgb(142, 132, 132);"></i> Grey</li>
-            <li id="yellow"><i class="mdi mdi-circle-medium" style="color:#ffbf00;"></i> Yellow</li>`
-            ul.innerHTML = inner;
             
-            let c= div.childNodes;
-            // to not add ul multiple times and just the first one 
-            if(!c[3]){
-              div.appendChild(ul);
-            }            
+            addListToPopupNotes(ul,div);
+
             const colorable = document.getElementById('colorable');
-            const textColor = document.getElementById('color-text');
-            if(textColor!=null) {
-              textColor.textContent = capitalize(noteClicked.color);
-            }
-            if(colorable != null) {
-              let notecolor = colors.YELLOW;
-              switch(noteClicked.color){
-                case 'red':
-                  notecolor = colors.RED;
-                  break;
-                case 'oragen':
-                  notecolor = colors.ORANGE;
-                  break;
-                case 'grey':
-                  notecolor = colors.GREY;
-                  break;
-                case 'yellow':
-                  notecolor = colors.YELLOW;
-              }
-              colorable.style.color = notecolor;
-            }
-            const red = document.getElementById('red');
-            if (red != null) {
-                red.addEventListener('click', () => {
-                  ul.style.display = 'block'; 
-                  setNoteColor(colors.RED);
-                    if (colorable != null) {
-                        colorable.style.color = colors.RED;
-                    }
-                    if(textColor != null){
-                      textColor.textContent = "Red";
-                    }
-                    momentaryMarker.remove();
-                    momentaryMarker = new mapboxgl.Marker({color:colors.RED, scale: 0.7});
-                    momentaryMarker.setLngLat([noteClicked.longitude, noteClicked.latitude]);
-                    momentaryMarker.addTo(map);
-                });
-            }
-            const orange = document.getElementById('orange');
-            if (orange != null) {
-                orange.addEventListener('click', () => {
-                  ul.style.display = 'block'; 
-                    setNoteColor(colors.ORANGE);
-                    if (colorable != null) {
-                        colorable.style.color = colors.ORANGE;
-                    }
-                    if(textColor != null){
-                      textColor.textContent = "Orange";
-                    }
-                    momentaryMarker.remove();
-                    momentaryMarker = new mapboxgl.Marker({color:colors.ORANGE, scale: 0.7});
-                    momentaryMarker.setLngLat([noteClicked.longitude, noteClicked.latitude]);
-                    momentaryMarker.addTo(map);
-                });
-            }
-            const grey = document.getElementById('grey');
-            if (grey != null) {
-                grey.addEventListener('click', () => {
-                  ul.style.display = 'block'; 
-                    setNoteColor(colors.GREY);
-                    if (colorable != null) {
-                        colorable.style.color = colors.GREY;
-                    }
-                    if(textColor != null){
-                      textColor.textContent = "Grey";
-                    }
-                    momentaryMarker.remove();
-                    momentaryMarker = new mapboxgl.Marker({color:colors.GREY, scale: 0.7});
-                    momentaryMarker.setLngLat([noteClicked.longitude, noteClicked.latitude]);
-                    momentaryMarker.addTo(map);
-                });
-            }
-            const yellow = document.getElementById('yellow');
-            if (yellow != null) {
-                yellow.addEventListener('click', () => {
-                  ul.style.display = 'block'; 
-                    setNoteColor(colors.YELLOW);
-                    if (colorable != null) {
-                        colorable.style.color = colors.YELLOW;
-                    }
-                    if(textColor != null){
-                      textColor.textContent = "Yellow";
-                    }
-                    momentaryMarker.remove();
-                    momentaryMarker = new mapboxgl.Marker({color:colors.YELLOW, scale: 0.7});
-                    momentaryMarker.setLngLat([noteClicked.longitude, noteClicked.latitude]);
-                    momentaryMarker.addTo(map);
-                });
-            }
+           
+            
             const save = document.getElementById('save-comment');
             if (save != null) {
                 save.addEventListener('click', () => {
@@ -714,7 +603,8 @@ const Map = ({ leftWidth,
                             latitude: noteClicked.latitude,
                             longitude: noteClicked.longitude
                         };
-                        createNote(note);
+                        console.log("It is clicked", note);
+                        createNoteWithElem(note);
                         popup.remove();
                         // marker.remove(map);
                     }
@@ -744,7 +634,8 @@ const Map = ({ leftWidth,
                         latitude: noteClicked.latitude,
                         longitude: noteClicked.longitude
                     };
-                    editNote(note);
+                    
+                    editNoteWithElem(note);
 
                   }
               });
@@ -2133,7 +2024,19 @@ const Map = ({ leftWidth,
           note.color_id = comment_id;
         }
       }
+      console.log("This is the note to save", note);
       createNote(note);
+    }
+    const editNoteWithElem = (note: any) => {
+
+      const contentTitle:any = document.getElementById('color-text');
+      if(contentTitle != null) {
+        const comment_id = contentTitle.getAttribute('current_id');
+        if(comment_id) {
+          note.color_id = comment_id;
+        }
+      }
+      editNote(note);
     }
     const addListonPopupNotes = (e: any) => {
       const div = document.getElementById('color-list');
@@ -3133,10 +3036,10 @@ const Map = ({ leftWidth,
         <div className="popup-comment">
         <div className="headmap">
           <Button id="color-list" className="testheader">
-            <span id="color-text">{ note?capitalize(note.color):'Leave a Comment' }</span>
+            <span id="color-text">{ note?.color ? (note.color.label):'Leave a Comment' }</span>
             <div className='dr'>
               <div className="legend-selected">
-                <i id="colorable" className="mdi mdi-circle-medium" style={{color: getColor(note?note.color:'')}}></i> 
+                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:''}}></i> 
               </div>
               <div className="light">
                 <DownOutlined />
@@ -3553,7 +3456,7 @@ const Map = ({ leftWidth,
             });
     }
     const openEditNote = (note: any) => {
-      console.log('open note');
+      console.log('open note', note);
       flyTo(note.longitude, note.latitude);
       eventsOnClickNotes(note);
       popup.remove();
@@ -3561,7 +3464,8 @@ const Map = ({ leftWidth,
         let popupC = marker.marker.getPopup();
         popupC.remove();
       });
-      let filterMarker: any = markersNotes.filter((marker:any) => marker.note._id == note._id  );
+      let filterMarker: any = markersNotes.filter((marker:any) => marker.note._id == note.id  );
+      console.log("Filter Marker", filterMarker, markersNotes);
       if(filterMarker.length > 0) {
         filterMarker[0].marker.togglePopup();
         setTimeout(()=>{

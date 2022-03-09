@@ -42,9 +42,9 @@ export const Branch = ({ item, level, onDragAndDrop, setTree, mapFunctions }: an
       return newTree;
     });
   }
-  useEffect(() => {
-    console.log(open, item);
-  }, [open]);
+  // useEffect(() => {
+  //   console.log(open, item);
+  // }, [open]);
   return (
     <>
       <Node

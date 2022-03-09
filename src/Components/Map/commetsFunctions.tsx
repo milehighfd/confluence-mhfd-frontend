@@ -1,7 +1,11 @@
 import React from 'react';
 export const clickingColorElement = (listOfElements: any, currentElement: any) => {
   listOfElements.forEach((_el:any, _index: any) => { 
-    const colorElem = document.getElementById(`color${_index}`);
+    changeContentTitleClick(_el,_index);
+  });
+}
+export const changeContentTitleClick = (_el: any, _index: any) => {
+  const colorElem = document.getElementById(`color${_index}`);
     if(colorElem != null) {
       colorElem.addEventListener('click', (e:any) => {
         const colorable = document.getElementById('colorable');
@@ -15,7 +19,18 @@ export const clickingColorElement = (listOfElements: any, currentElement: any) =
         }
       });
     }
-  });
+}
+export const changeContentTitle = (_el:any, _index:any) => {
+  const colorElem = document.getElementById(`color${_index}`);
+  const colorable = document.getElementById('colorable');
+  if(colorable != null) {
+    colorable.style.color = _el.color
+  }
+  const contentTitle:any = document.getElementById('color-text');
+  if(contentTitle != null) {
+    contentTitle.textContent = _el.label;
+    contentTitle.setAttribute('current_id', _el._id);
+  }
 }
 export const clickingCircleColor = (listOfElements:any, updateColorList: Function) => {
   listOfElements.forEach((_el:any, index: any) => {
@@ -48,10 +63,11 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
       },
     ];
     let innerColors = ``;
+    
     listCircles.forEach((el:any, _index:any) => {
       innerColors += `
       <li id="selectablecolor${el.label}${index}" value="${el.color}">
-        <img id="circle${el.label}" class="img-circle" style="background:${el.color}" />
+        <img id="circle${el.label}" class="img-circle ${el.color == _el.color ? 'selected':''}" style="background:${el.color}" />
       </li>`
     });
     divcolorsx.innerHTML = innerColors;
@@ -82,7 +98,18 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
               const colorValue = colorsx.getAttribute('value');
               if(colorValue){
                 updateColorList({..._el, color: colorValue});
+                changeContentTitle({..._el, color: colorValue}, index);
               }
+              listCircles.forEach((crcl:any) => {
+                const imgColor:any = document.getElementById(`circle${crcl.label}`);
+                if(imgColor != null) {
+                  imgColor.classList.remove('selected');
+                }
+              });
+              const imgColor:any = document.getElementById(`circle${el.label}`);
+                if(imgColor != null) {
+                  imgColor.classList.add('selected');
+                }
             })
           }
         });
@@ -100,6 +127,7 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
       inputX.addEventListener('blur', (e:any) => {
         const newValue = inputX.value;
         updateColorList({...el, label: newValue});
+        changeContentTitle({...el, label: newValue},index);
       });
       inputX.addEventListener('click', (e:any) => {
         if(!inputX.readOnly) {

@@ -230,7 +230,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         }
       });
     }
-    console.log(selectedNote);
+    console.log("XDQ selected note", selectedNote);
     const newTree = tree.filter((item: any) => {
       if (item.children) {
         item.children = item.children.filter((child: any) => {
@@ -252,6 +252,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       ...selectedNote.data,
       group_id: destination,
     });
+    console.log("Finnaly edit note", {...selectedNote.data,
+      group_id: destination});
     console.log('finally ', newTree);
     setTree(newTree);
   }

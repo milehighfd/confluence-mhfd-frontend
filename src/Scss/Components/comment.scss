@@ -177,6 +177,7 @@
   background: white;
   z-index: 200;
   // padding: 0px 10px;
+  padding-left: 0px !important;
   width: 215px;
   // box-shadow: 0 3px 6px rgba(00,00,00,0.2);
   border-radius: 4px;
@@ -234,6 +235,10 @@
       margin-right: 4px;
       margin-left: 4px;
       margin-bottom: 3px;
+      &:hover {
+        height: 17px;
+        width: 17px;
+      }
     }
   }
   .menu-wr { 
@@ -960,6 +965,7 @@
               height: 16px;
             }
             .f-title {
+              position: relative;
               font-size: 14px;
               line-height: 16px;
               font-family: "Ubuntu", sans-serif;
