@@ -15,6 +15,7 @@ export const createNote = (note: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.CREATE_NOTE, note, datasets.getToken()).then(note => {
       dispatch({type: types.CREATE_NOTE, note});
+      dispatch(getNotes());
     });
   };
 };
@@ -31,6 +32,7 @@ export const editNote = (note: any) => {
   return (dispatch: Function) => {
     datasets.putData(SERVER.EDIT_NOTE(note['_id']), note, datasets.getToken()).then(note => {
       dispatch({type: types.EDIT_NOTES, note});
+      dispatch(getNotes());
     });
   };
 }
