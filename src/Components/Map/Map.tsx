@@ -203,7 +203,7 @@ const Map = ({ leftWidth,
          ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
         LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
         CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
-         PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAMS_FILTERS];
+         PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAMS_FILTERS, EFFECTIVE_REACHES, ACTIVE_LOMS];
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
         filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup } = useMapState();
