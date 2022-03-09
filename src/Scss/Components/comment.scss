@@ -385,7 +385,7 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      width: 96%;
+      width: 103%;
       font-size: 15px;
       // padding: 0 1em;
       #color-text {
@@ -934,6 +934,7 @@
           }
         }
         .main-node {
+          margin-bottom: 19px;
           .s-item {
             /* padding: 12px 0; */
             height: 40px;

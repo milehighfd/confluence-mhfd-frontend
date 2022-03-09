@@ -110,6 +110,10 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
           e.stopPropagation();
           e.preventDefault();
         }
+        if(!inputX.readOnly && e.keyCode == 13) {
+          inputX.readOnly = true;
+          inputX.blur();
+        }
       })
     }
   })
