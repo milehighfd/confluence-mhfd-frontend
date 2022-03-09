@@ -245,9 +245,12 @@
     border: none;
     background: transparent;
     width: 70%;
+    cursor: pointer;
     &:focus {
       background:#CFEBFE;
+      cursor: text;
     }
+    
   }
   li{
     display: block;
@@ -852,6 +855,7 @@
       .ant-drawer-body {
         /* background-color: yellow; */
         .a-layers {
+          position: relative;
           display: flex;
           flex-direction: row;
           justify-content: space-between;

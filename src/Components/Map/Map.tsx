@@ -67,7 +67,7 @@ import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
 
-import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement} from './commetsFunctions';
+import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, divListOfelements} from './commetsFunctions';
 import { addHistoric, getNext, getPrevious, hasNext, hasPrevious } from '../../utils/globalMap';
 const { Option } = AutoComplete;
 const { TextArea } = Input;

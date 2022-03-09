@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Drawer, Row, Col, Input, Button, Menu, Select, Popover, Comment, Avatar, List, Dropdown } from 'antd';
 import { DownOutlined, CheckOutlined } from '@ant-design/icons';
 import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
+import { useColorListState } from "../../hook/colorListHook";
 import { useProfileState } from "../../hook/profileHook";
 import { Tree } from '../Tree/Tree';
+import {divListOfelements} from './../Map/commetsFunctions';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -11,15 +13,24 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
 
   const { notes, groups } = useNotesState();
+  const { colorsList } = useColorListState();
   const {  deleteNote, getGroups, getNotes, createGroup, editNote } = useNoteDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
   const [tree, setTree] = useState([] as any);
+  const [currentSelected, setCurrentSelected] = useState([] as any);
   useEffect(() => {
     getGroups();
     getNotes();
   }, []);
-
+  useEffect(()=>{
+    setCurrentSelected(colorsList.map((el:any) => {
+      return {
+        ...el,
+        selected:false 
+      }
+    }));
+  },[colorsList]);
   useEffect(() => {
     const newTree = groups.map((group: any) => {
       return {
@@ -70,7 +81,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     data.forEach((d: any) => {
       newTree.push(d);
     });*/
-    console.log(newTree);
     setTree(newTree);
   }, [notes, groups]);
 
@@ -78,7 +88,22 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     changeFilter(filter);
   },[filter]);
   
-
+  const changeValueOfElement = (_id:any) => {
+    const newValues = currentSelected.map((elem:any) => {
+      if(elem._id == _id) {
+        elem.selected = !elem.selected;
+      }
+      return elem;
+    });
+    let idstoParse:any = [];
+    newValues.forEach((el:any) => {
+      if(el.selected) {
+        idstoParse.push(el._id);
+      }
+    });
+    setCurrentSelected(newValues);
+    getNotes(idstoParse.toString());
+  }
   const onSelectCreateOption = (key: any) => {
     console.log(key);
     if (key.key === 'create-folder') {
@@ -270,7 +295,10 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       </h3>
       <div className="a-layers">
         <span className="title">Feature Layers</span>  
-        <a className="img-filter"></a>
+        <Dropdown overlay={divListOfelements(currentSelected, changeValueOfElement)} trigger={['click']}>
+          <a className="img-filter" onClick={e => e.preventDefault()}></a>
+        </Dropdown>
+        
         <Dropdown overlay={createOptions} trigger={['click']}>
           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}><span className="op-plus">+</span></a>
         </Dropdown>

@@ -1,3 +1,4 @@
+import React from 'react';
 export const clickingColorElement = (listOfElements: any, currentElement: any) => {
   listOfElements.forEach((_el:any, _index: any) => { 
     const colorElem = document.getElementById(`color${_index}`);
@@ -192,4 +193,18 @@ export const clickingAddLabelButton = (createColorList: Function) => {
       createColorList();
     })
   }
+}
+
+export const divListOfelements = (listOfElements: any, changeValueOfElement: any) => {
+  return  <div className='list-popup-comment'>
+    <div className="listofelements" id="currentItemsinList">
+            {listOfElements.map((el:any, index:any)=> 
+              el && 
+              <li id={index+"List"} onClick={()=>changeValueOfElement(el._id)}>
+                <img id={index+"circles"} className={"img-circle " + (el?.selected ? 'selected':'')} style={{background:el.color}}/> 
+                <input id="input${index}" className="inputlabel" value={el.label} readOnly={true} />
+              </li>
+            ) } 
+    </div>
+  </div>;
 }

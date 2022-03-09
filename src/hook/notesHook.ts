@@ -40,8 +40,8 @@ export const useNoteDispatch = () => {
       removeFilter: (filter: FilterNamesTypes) => {
          dispatch(removeFilter(filter));
       },
-      getNotes: () => {
-        dispatch(getNotes());
+      getNotes: (color_id?:any) => {
+        dispatch(getNotes(color_id));
       },
       createNote: (note: any) => {
         dispatch(createNote(note));

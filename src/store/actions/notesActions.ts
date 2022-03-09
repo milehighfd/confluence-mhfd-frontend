@@ -3,9 +3,9 @@ import * as datasets from '../../Config/datasets';
 import { SERVER } from '../../Config/Server.config';
 import { dispatch } from 'd3';
 
-export const getNotes = () => {
+export const getNotes = (color_id?:any) => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.LIST_NOTES, datasets.getToken()).then(notes => {
+    datasets.getData(SERVER.LIST_NOTES+(color_id?`?color_id=${color_id}`:''), datasets.getToken()).then(notes => {
       dispatch({type: types.LIST_NOTES, notes});
     });
   };
