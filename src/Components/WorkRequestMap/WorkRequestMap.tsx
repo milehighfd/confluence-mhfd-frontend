@@ -36,7 +36,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { group } from "d3-array";
 import { useAttachmentDispatch } from "../../hook/attachmentHook";
-import {addHistoric, getCurrent, getNext, getPrevious, hasNext, hasPrevious} from './../../utils/globalMap';
+import { GlobalMapHook } from '../../utils/globalMapHook';
 let firstTime = true;
 let map: any;
 let coordX = -1;
@@ -140,6 +140,9 @@ const WorkRequestMap = (type: any) => {
     }
   }, [selectedLayersWR]);
   
+  const {getNext, getCurrent, getPrevious, getPercentage, addHistoric, hasNext, hasPrevious} = GlobalMapHook();
+
+
   useEffect(()=>{
     if(zoomProject && zoomProject.projectid) {
       getData(`${SERVER.URL_BASE}/board/bbox/${zoomProject.projectid}`)
@@ -2096,12 +2099,12 @@ const epochTransform = (dateParser: any) => {
                                 const prev = getPrevious();
                                 globalMapId = prev.id;
                                 console.log('click prev ', prev);
-                                map.map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
+                                map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
                             }
                     }}>
-                      PREV
-                      <div className="progress">
-                        <div className="progress-value"></div>
+                      <div className="title">Prev</div>
+                      <div className="progress left">
+                        <div className="progress-value light" style={{width: `${100.0 - getPercentage()}%`}} ></div>
                       </div>
                     </div>
                     <div className="mapstateprevnext"
@@ -2111,13 +2114,13 @@ const epochTransform = (dateParser: any) => {
                                 const nxt = getNext();
                                 globalMapId = nxt.id;
                                 console.log('click next, ', nxt);
-                                map.map.fitBounds([[nxt.bbox[0],nxt.bbox[1]],[nxt.bbox[2],nxt.bbox[3]]]);
+                                map.fitBounds([[nxt.bbox[0],nxt.bbox[1]],[nxt.bbox[2],nxt.bbox[3]]]);
                             }
                         }}
                     >
-                      NEXT
-                      <div className="progress">
-                        <div className="progress-value"></div>
+                      <div className="title">Next</div>
+                      <div className="progress right">
+                        <div className="progress-value light" style={{width: `${getPercentage()}%`}} ></div>
                       </div>
                     </div>
                   </div>}

@@ -90,6 +90,7 @@ export const getPrevious = () => {
   if (currentPosition > 0) {
     currentPosition--;
   }
+  console.log(currentPosition, getPercentage());
   return lastMaps[currentPosition]; 
 }
 
@@ -97,6 +98,7 @@ export const getNext = () => {
   if (currentPosition < lastMaps.length - 1) {
     currentPosition++;
   }
+  console.log(currentPosition, getPercentage());
   return lastMaps[currentPosition];
 }
 
@@ -113,4 +115,14 @@ export const hasPrevious = () => {
 
 export const hasNext = () => {
   return currentPosition < lastMaps.length - 1;
+}
+
+// 0 1   2  3   4   5
+// 0 20  40 60  80  100
+export const getPercentage = () => {
+  if (lastMaps.length === 0) {
+    return 0;
+  }
+  const percentage = (currentPosition / (lastMaps.length - 1)) * 100;
+  return percentage;
 }

@@ -68,7 +68,7 @@ import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
 
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, divListOfelements} from './commetsFunctions';
-import { addHistoric, getNext, getPrevious, hasNext, hasPrevious } from '../../utils/globalMap';
+import { GlobalMapHook } from '../../utils/globalMapHook';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
 
@@ -228,7 +228,8 @@ const Map = ({ leftWidth,
     const { colorsList } = useColorListState();
     const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
     const [zoomValue, setZoomValue] = useState(0);
-    
+    const { addHistoric, getCurrent, getHistoric, getNext, getPercentage, getPrevious, hasNext, hasPrevious } = GlobalMapHook();
+
     const colors = {
         RED: '#FF0000',
         ORANGE: '#FA6400',
@@ -1007,6 +1008,7 @@ const Map = ({ leftWidth,
                 const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
                   map.getBounds()._ne.lng, map.getBounds()._ne.lat];
                 addHistoric({center, bbox});
+                console.log(getCurrent() + ' ' + hasNext());
             }
             globalMapId = null;
             itMoved = false;
@@ -3831,7 +3833,7 @@ const Map = ({ leftWidth,
                     }}>
                       <div className="title">Prev</div>
                       <div className="progress left">
-                        <div className="progress-value light" style={{width:'20%'}} ></div>
+                        <div className="progress-value light" style={{width: `${100.0 - getPercentage()}%`}} ></div>
                       </div>
                     </div>
                     <div className="mapstateprevnext"
@@ -3848,7 +3850,7 @@ const Map = ({ leftWidth,
                     >
                       <div className="title">Next</div>
                       <div className="progress right">
-                        <div className="progress-value light" style={{width:'20%'}} ></div>
+                        <div className="progress-value light" style={{width: `${getPercentage()}%`}} ></div>
                       </div>
                     </div>
                   </div>}
