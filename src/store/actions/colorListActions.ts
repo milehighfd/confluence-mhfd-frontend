@@ -1,6 +1,7 @@
 import * as types from '../types/colorListTypes';
 import { SERVER } from "../../Config/Server.config";
 import { getData, postData, deleteData, getToken, putData } from "../../Config/datasets";
+import { dispatch } from 'd3';
 
 
 export const getColorsList = () => {
@@ -53,5 +54,10 @@ export const deleteColorList = (id: any) => {
     ).catch((e:any) => {
       console.log("Error in delete", e);
     })
+  }
+}
+export const setIdsFilter = (idsToFilter: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_IDS_FILTER, idsToFilter});
   }
 }

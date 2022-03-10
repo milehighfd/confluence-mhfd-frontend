@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Drawer, Row, Col, Input, Button, Menu, Select, Popover, Comment, Avatar, List, Dropdown } from 'antd';
 import { DownOutlined, CheckOutlined } from '@ant-design/icons';
 import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
-import { useColorListState } from "../../hook/colorListHook";
+import { useColorListDispatch, useColorListState } from "../../hook/colorListHook";
 import { useProfileState } from "../../hook/profileHook";
 import { Tree } from '../Tree/Tree';
 import {divListOfelements} from './../Map/commetsFunctions';
@@ -15,15 +15,27 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   const { notes, groups } = useNotesState();
   const { colorsList } = useColorListState();
   const {  deleteNote, getGroups, getNotes, createGroup, editNote } = useNoteDispatch();
+  const { setIdsFilter } = useColorListDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
   const [tree, setTree] = useState([] as any);
   const [currentSelected, setCurrentSelected] = useState([] as any);
+  // useEffect(()=>{
+    
+  //   let idstoParse:any = [];
+  //   currentSelected.forEach((el:any) => {
+  //     if(el.selected) {
+  //       idstoParse.push(el._id);
+  //     }
+  //   });
+  //   setIdsFilter(idstoParse.toString());
+  // },[currentSelected]);
   useEffect(() => {
     getGroups();
     getNotes();
   }, []);
   useEffect(()=>{
+    setIdsFilter('');
     setCurrentSelected(colorsList.map((el:any) => {
       return {
         ...el,
@@ -102,7 +114,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
     });
     setCurrentSelected(newValues);
-    getNotes(idstoParse.toString());
+    setIdsFilter(idstoParse.toString());
+    getNotes();
   }
   const onSelectCreateOption = (key: any) => {
     console.log(key);

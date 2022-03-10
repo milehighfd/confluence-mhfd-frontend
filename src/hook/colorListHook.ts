@@ -1,7 +1,7 @@
 import { ParametricSelector, createSelector } from 'reselect';
 import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
-import { getColorsList, updateColorList,deleteColorList, createColorList } from '../store/actions/colorListActions';
+import { getColorsList, updateColorList,deleteColorList, createColorList, setIdsFilter } from '../store/actions/colorListActions';
 
 interface colorListState {
   colorsList: any
@@ -12,8 +12,9 @@ let createSelectorHack: any = createSelector;
 const selectcolorList: ParametricSelector<RootState, undefined, colorListState> =
   createSelectorHack(
       (state: any) => state.colorList.colorsList,
-      (colorsList: any) => ({
-        colorsList
+      (state: any) => state.colorList.idsToFilter,
+      (colorsList: any, idsToFilter: any) => ({
+        colorsList, idsToFilter
     })
   );
  
@@ -36,6 +37,9 @@ export const useColorListDispatch = () => {
       },
       deleteColorList: (id: any) => {
         dispatch(deleteColorList(id));
+      },
+      setIdsFilter: (idsToFilter: any) => {
+        dispatch(setIdsFilter(idsToFilter));
       }
    }
 };

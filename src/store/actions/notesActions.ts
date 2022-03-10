@@ -4,8 +4,14 @@ import { SERVER } from '../../Config/Server.config';
 import { dispatch } from 'd3';
 
 export const getNotes = (color_id?:any) => {
-  return (dispatch: Function) => {
-    datasets.getData(SERVER.LIST_NOTES+(color_id?`?color_id=${color_id}`:''), datasets.getToken()).then(notes => {
+  return (dispatch: Function, getState: Function) => {
+    let idsToParse = color_id;
+    const idsToFilter = getState().colorList.idsToFilter;
+    if(idsToFilter != '') {
+      idsToParse = idsToFilter;
+    }
+    console.log("COLOR_ ID", color_id, "I parse", idsToParse, idsToFilter);
+    datasets.getData(SERVER.LIST_NOTES+(idsToParse?`?color_id=${idsToParse}`:''), datasets.getToken()).then(notes => {
       dispatch({type: types.LIST_NOTES, notes});
     });
   };

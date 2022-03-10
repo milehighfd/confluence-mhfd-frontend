@@ -1,1 +1,2 @@
 export const UPDATE_COLOR_LIST = 'UPDATE_COLOR_LIST';
+export const SET_IDS_FILTER = 'SET_IDS_FILTER';

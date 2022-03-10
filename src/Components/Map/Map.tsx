@@ -666,8 +666,8 @@ const Map = ({ leftWidth,
       },1000);
     }
     useEffect(()=>{
+      markerNotes_global = markersNotes;
       if(commentVisible && markersNotes.length > 0) {
-        markerNotes_global = markersNotes;
         markersNotes.forEach((marker:any) => {
           marker.marker.addTo(map)
         });
@@ -3479,14 +3479,15 @@ const Map = ({ leftWidth,
     const openMarkerOfNote = (note:any, draftText: any) => {
       console.log("Does this gets open???");
       markerNotes_global.forEach((marker:any) => {
-        marker.marker.addTo(map)
-      });
-      markerNotes_global.forEach((marker:any) => {
         let popupC = marker.marker.getPopup();
         popupC.remove();
       });
+      markerNotes_global.forEach((marker:any) => {
+        marker.marker.addTo(map)
+      });
       const noteid = note.id?note.id:note._id; 
       const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note._id == noteid  );
+      console.log("does ", filterMarker);
       if(filterMarker.length > 0) {
         filterMarker[0].marker.togglePopup();
         setTimeout(()=>{
