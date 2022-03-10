@@ -1032,7 +1032,6 @@ const Map = ({ leftWidth,
     }
     useEffect(() => {
       listOfElements = colorsList;
-      console.log("Colors List", colorsList);
       updateColorsList();
       getNotes();
     },[colorsList]);
@@ -3477,34 +3476,35 @@ const Map = ({ leftWidth,
             });
     }
     const openMarkerOfNote = (note:any, draftText: any) => {
-      console.log("Does this gets open???");
+      markerNotes_global.forEach((marker:any) => {
+        marker.marker.addTo(map)
+      });
       markerNotes_global.forEach((marker:any) => {
         let popupC = marker.marker.getPopup();
         popupC.remove();
       });
-      markerNotes_global.forEach((marker:any) => {
-        marker.marker.addTo(map)
-      });
-      const noteid = note.id?note.id:note._id; 
-      const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note._id == noteid  );
-      console.log("does ", filterMarker);
-      if(filterMarker.length > 0) {
-        filterMarker[0].marker.togglePopup();
-        setTimeout(()=>{
-          const textarea = (document.getElementById('textarea') as HTMLInputElement);
-            if (textarea != null) {
-             textarea.value = draftText; 
-            }
-          eventsOnClickNotes(filterMarker[0].note);
+      setTimeout(()=>{
+        const noteid = note.id?note.id:note._id; 
+        const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note._id == noteid  );
+        if(filterMarker.length > 0) {
+          filterMarker[0].marker.addTo(map).togglePopup();
           setTimeout(()=>{
-            const isList = document.getElementById('id-list-popup');
-            if(isList != null) {
-              isList.style.display = 'block';
-              clickoutsideList();
-            }
-          },40);
-        },150);
-      }
+            const textarea = (document.getElementById('textarea') as HTMLInputElement);
+              if (textarea != null) {
+               textarea.value = draftText; 
+              }
+            eventsOnClickNotes(filterMarker[0].note);
+            setTimeout(()=>{
+              const isList = document.getElementById('id-list-popup');
+              if(isList != null) {
+                isList.style.display = 'block';
+                clickoutsideList();
+              }
+            },40);
+          },150);
+        }
+      },500);
+      
     }
     const openMarkerOfNoteWithoutAdd = (note:any) => {
       

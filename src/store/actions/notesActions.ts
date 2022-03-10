@@ -10,7 +10,6 @@ export const getNotes = (color_id?:any) => {
     if(idsToFilter != '') {
       idsToParse = idsToFilter;
     }
-    console.log("COLOR_ ID", color_id, "I parse", idsToParse, idsToFilter);
     datasets.getData(SERVER.LIST_NOTES+(idsToParse?`?color_id=${idsToParse}`:''), datasets.getToken()).then(notes => {
       dispatch({type: types.LIST_NOTES, notes});
     });
