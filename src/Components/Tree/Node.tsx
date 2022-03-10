@@ -128,9 +128,10 @@ export const Node = ({
         {/* {isFolder ? <img src="/Icons/left-arrow.svg" alt="" width="10px" style={ { marginRight: '8px'}}/>  : null} */}
         {isFolder ?<span className="ic-folder"></span>:  <label className="ll-00"
           // style={{padding: '4px 6px', background: item.data.color ? item.data.color : 'red' +  ' !important'}}
-          style={{padding: '3px 3px', background:  ( item?.data?.color ? item?.data?.color.color :'#F6BE0F') }}
+          style={{padding: '4px 5px', background:  ( item?.data?.color ? item?.data?.color.color :'#F6BE0F') }}
         >
                 {initialName}
+                {/* <img id={"circles-folders"} className={"img-circle "} style={{background: ( item?.data?.color ? item?.data?.color.color :'#F6BE0F')}}/>  */}
               </label>}
         {!editMode ? <span className="f-title">{showCutText(item.label)}
         {<Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(item, mapFunctions, isFolder, deleteGroup)} trigger="click">
