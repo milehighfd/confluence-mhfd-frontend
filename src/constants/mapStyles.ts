@@ -2518,6 +2518,16 @@ export const tileStyles = {
     paint: {
       'line-color': '#FF0080',
     }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-color': '#00F580',
+      "line-opacity": 0,
+      "line-width": 12
+    }
   }],
   [FEMA_FLOOD_HAZARD]: [ {
     type: 'fill',

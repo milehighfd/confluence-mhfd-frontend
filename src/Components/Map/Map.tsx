@@ -570,6 +570,7 @@ const Map = ({ leftWidth,
             div.addEventListener('click', () => {
                 if (ul.style.display === 'none') {
                     ul.style.display = 'block';
+                    clickoutsideList();
                 } else {
                     ul.style.display = 'none';
                 }
