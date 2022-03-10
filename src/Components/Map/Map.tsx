@@ -783,7 +783,7 @@ const Map = ({ leftWidth,
     }, [filterComponents, componentDetailIds]);
 
     useEffect(() => {
-        getNotes();
+      getNotes();
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
@@ -1030,6 +1030,7 @@ const Map = ({ leftWidth,
       listOfElements = colorsList;
       console.log("Colors List", colorsList);
       updateColorsList();
+      getNotes();
     },[colorsList]);
     useEffect(() => {
         //console.log('my apply filter ', applyFilter, zoomEndCounter);
@@ -2007,7 +2008,6 @@ const Map = ({ leftWidth,
         if(!c[3]){
           div.appendChild(ul);
         }            
-  
         clickingCircleColor(listOfElements, updateColorList);
         clickingOptions(listOfElements, deleteColorList);
         clickingAddLabelButton(createColorList);
@@ -2038,6 +2038,22 @@ const Map = ({ leftWidth,
       }
       editNote(note);
     }
+    const clickoutsideList = () => {
+      const ignoreElementClick = document.getElementById('id-list-popup');
+      const div = document.getElementById('color-list');
+      if(ignoreElementClick != null && div != null){ 
+        document.addEventListener('click', (event: any) => {
+          const isClickInsideElement = ignoreElementClick.contains(event.target);
+          const isClickingInsideParentElem = div.contains(event.target);  
+          if (!isClickInsideElement) {
+              if (!isClickingInsideParentElem && ignoreElementClick.style.display != 'none') {
+                ignoreElementClick.style.display = 'none';
+              }
+              
+          }
+        });
+      }
+    }
     const addListonPopupNotes = (e: any) => {
       const div = document.getElementById('color-list');
                 if (div != null) {
@@ -2049,6 +2065,7 @@ const Map = ({ leftWidth,
                     div.addEventListener('click', () => {
                         if (ul.style.display === 'none') {
                             ul.style.display = 'block';
+                            clickoutsideList();
                         } else {
                             ul.style.display = 'none';
                         }

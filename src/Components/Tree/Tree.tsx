@@ -3,7 +3,6 @@ import React from 'react';
 import {Branch} from './Branch';
 
 export const Tree = ({ data, onDragAndDrop, setTree, mapFunctions } : any) => {
-  console.log("DATA INSIDE TREE", data);
   return <div
       onDragOver={(e: any) => {
         e.preventDefault();

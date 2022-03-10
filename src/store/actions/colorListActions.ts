@@ -7,7 +7,6 @@ export const getColorsList = () => {
   return (dispatch: Function) => {
     getData(SERVER.GET_NOTES_LIST, getToken()).then(
       (d: any) => {
-        console.log("NOTES", d);
         dispatch({type: types.UPDATE_COLOR_LIST, colorsList: d});
       }
     )     

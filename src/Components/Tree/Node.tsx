@@ -92,9 +92,9 @@ export const Node = ({
     return text;
 
   }
-  useEffect(()=>{
-    console.log("This item??", item);
-  },[item]);
+  // useEffect(()=>{
+  //   console.log("This item??", item);
+  // },[item]);
   const [showBorder, setShowBorder] = useState(false);
   return (
     <div
