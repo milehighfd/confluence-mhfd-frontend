@@ -166,8 +166,10 @@
     width: 40px;
   }
   .menu-wr{
-    position: absolute;
-    right: 25px;
+    position: relative;
+    right: 12px;
+    display: flex;
+    float: right;
   }
 }
 // POPUP MAP
@@ -268,8 +270,8 @@
     border-radius: 9px;
     &:hover > .inputlabel{
       text-decoration: underline;
-      text-decoration-color: rgb(250, 114, 64);
-      -moz-text-decoration-color: rgb(250, 114, 64);
+      text-decoration-color: #483563;
+      -moz-text-decoration-color: #483563;
       text-decoration-thickness: 5px;
     }
   }
@@ -980,6 +982,15 @@
               font-weight: 400;
               padding-left: 6px;
             }
+          }
+          .f-title {
+            position: relative;
+            font-size: 14px;
+            line-height: 16px;
+            font-family: "Ubuntu", sans-serif;
+            font-weight: 400;
+            padding-left: 6px;
+            width: 100%;
           }
         }
       }

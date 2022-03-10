@@ -1,3 +1,4 @@
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 import React from 'react';
 export const clickingColorElement = (listOfElements: any, currentElement: any) => {
   listOfElements.forEach((_el:any, _index: any) => { 
@@ -32,7 +33,7 @@ export const changeContentTitle = (_el:any, _index:any) => {
     contentTitle.setAttribute('current_id', _el._id);
   }
 }
-export const clickingCircleColor = (listOfElements:any, updateColorList: Function) => {
+export const clickingCircleColor = (listOfElements:any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any) => {
   listOfElements.forEach((_el:any, index: any) => {
     const circlex = document.getElementById(`circle${index}`);
     const divcolorsx = document.createElement('div');
@@ -98,7 +99,21 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
               const colorValue = colorsx.getAttribute('value');
               if(colorValue){
                 updateColorList({..._el, color: colorValue});
-                changeContentTitle({..._el, color: colorValue}, index);
+                let timeCheck = noteClicked? 1200:0;
+                let draftText = '';
+                const textarea = (document.getElementById('textarea') as HTMLInputElement);
+                  if (textarea != null) {
+                      draftText = textarea.value;
+                  }
+                setTimeout(()=>{
+                  if(noteClicked) {
+                    
+                    openMarkerOfNote(noteClicked, draftText);
+                    
+                  }
+                  changeContentTitle({..._el, color: colorValue}, index);
+                },timeCheck);
+                
               }
               listCircles.forEach((crcl:any) => {
                 const imgColor:any = document.getElementById(`circle${crcl.label}`);
@@ -120,13 +135,15 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
   })
 }
 
-export const clickingUnFocusInput = (listOfElements: any, updateColorList: Function) => {
+export const clickingUnFocusInput = (listOfElements: any, updateColorList: Function, noteClicked?: any) => {
   listOfElements.forEach((el:any, index:any) => {
     const inputX:any = document.getElementById(`input${index}`);
     if(inputX != null) {
       inputX.addEventListener('blur', (e:any) => {
         const newValue = inputX.value;
-        updateColorList({...el, label: newValue});
+        if(!inputX.readOnly) { 
+          updateColorList({...el, label: newValue});
+        }
         changeContentTitle({...el, label: newValue},index);
       });
       inputX.addEventListener('click', (e:any) => {

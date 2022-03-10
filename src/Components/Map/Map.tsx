@@ -106,6 +106,7 @@ const { Panel } = Collapse;
 const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
 let contents: any = [];
+let markerNotes_global: any = [];
 let isMeasuring = false;
     // GeoJSON object to hold our measurement features
     const geojsonMeasures = {
@@ -567,6 +568,7 @@ const Map = ({ leftWidth,
             ul.classList.add("list-popup-comment");
             ul.classList.add('legend');
             ul.setAttribute('id','id-list-popup');
+            
             div.addEventListener('click', () => {
                 if (ul.style.display === 'none') {
                     ul.style.display = 'block';
@@ -576,7 +578,7 @@ const Map = ({ leftWidth,
                 }
             });
             
-            addListToPopupNotes(ul,div);
+            addListToPopupNotes(ul,div,noteClicked);
 
             const colorable = document.getElementById('colorable');
            
@@ -665,6 +667,7 @@ const Map = ({ leftWidth,
     }
     useEffect(()=>{
       if(commentVisible && markersNotes.length > 0) {
+        markerNotes_global = markersNotes;
         markersNotes.forEach((marker:any) => {
           marker.marker.addTo(map)
         });
@@ -1979,7 +1982,7 @@ const Map = ({ leftWidth,
 
     }
     
-    const addListToPopupNotes = (ul: any, div: any) => {
+    const addListToPopupNotes = (ul: any, div: any, noteClicked?:any) => {
       // ul -> id-list-popup | div -> color-list
       if(listOfElements.length ) {
         let inner = `
@@ -2009,10 +2012,10 @@ const Map = ({ leftWidth,
         if(!c[3]){
           div.appendChild(ul);
         }            
-        clickingCircleColor(listOfElements, updateColorList);
+        clickingCircleColor(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
         clickingOptions(listOfElements, deleteColorList);
         clickingAddLabelButton(createColorList);
-        clickingUnFocusInput(listOfElements, updateColorList);
+        clickingUnFocusInput(listOfElements, updateColorList, noteClicked);
         clickingColorElement(listOfElements, currentElement);
       }
     }
@@ -3473,23 +3476,56 @@ const Map = ({ leftWidth,
             zoom: 12
             });
     }
-    const openEditNote = (note: any) => {
-      console.log('open note', note);
-      flyTo(note.longitude, note.latitude);
-      eventsOnClickNotes(note);
-      popup.remove();
+    const openMarkerOfNote = (note:any, draftText: any) => {
+      console.log("Does this gets open???");
+      markerNotes_global.forEach((marker:any) => {
+        marker.marker.addTo(map)
+      });
+      markerNotes_global.forEach((marker:any) => {
+        let popupC = marker.marker.getPopup();
+        popupC.remove();
+      });
+      const noteid = note.id?note.id:note._id; 
+      const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note._id == noteid  );
+      if(filterMarker.length > 0) {
+        filterMarker[0].marker.togglePopup();
+        setTimeout(()=>{
+          const textarea = (document.getElementById('textarea') as HTMLInputElement);
+            if (textarea != null) {
+             textarea.value = draftText; 
+            }
+          eventsOnClickNotes(filterMarker[0].note);
+          setTimeout(()=>{
+            const isList = document.getElementById('id-list-popup');
+            if(isList != null) {
+              isList.style.display = 'block';
+              clickoutsideList();
+            }
+          },40);
+        },150);
+      }
+    }
+    const openMarkerOfNoteWithoutAdd = (note:any) => {
+      
       markersNotes.forEach((marker:any) => {
         let popupC = marker.marker.getPopup();
         popupC.remove();
       });
-      let filterMarker: any = markersNotes.filter((marker:any) => marker.note._id == note.id  );
-      console.log("Filter Marker", filterMarker, markersNotes);
+      const noteid = note.id?note.id:note._id; 
+      const filterMarker: any = markersNotes.filter((marker:any) => marker.note._id == noteid  );
       if(filterMarker.length > 0) {
         filterMarker[0].marker.togglePopup();
         setTimeout(()=>{
           eventsOnClickNotes(filterMarker[0].note);
         },300);
       }
+    }
+    const openEditNote = (note: any) => {
+      flyTo(note.longitude, note.latitude);
+      eventsOnClickNotes(note);
+      popup.remove();
+      openMarkerOfNoteWithoutAdd(note);
+      
     }
     const showMHFD = () => {
         setAutocomplete('')
