@@ -104,6 +104,9 @@ const { Panel } = Collapse;
   <CloseOutlined />
 );*/}
 const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+const docNote = document.createElement('div');
+      docNote.className = 'marker-note';
+const markerNote = new mapboxgl.Marker(docNote);
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
 let contents: any = [];
 let markerNotes_global: any = [];
@@ -499,7 +502,7 @@ const Map = ({ leftWidth,
             }, 2000);
         }
         if (!commentVisible){
-          marker.remove();
+          markerNote.remove();
           popup.remove();
         }
     }, [commentVisible]);
@@ -2162,7 +2165,7 @@ const Map = ({ leftWidth,
                     if (del != null) {
                       del.addEventListener('click', () => {
                         setSwSave(false);
-                        marker.remove();
+                        markerNote.remove();
                         canAdd = false;
                       });
                     }
@@ -2181,9 +2184,10 @@ const Map = ({ leftWidth,
                 const html = commentPopup();
                 popup.remove();
                 popup = new mapboxgl.Popup({closeButton: false});
-                marker.setPopup(popup);
+                
+                markerNote.setPopup(popup);
                 popup.setHTML(html);
-                marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
+                markerNote.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
                 addListonPopupNotes(e);
                 return;
             }
