@@ -141,6 +141,7 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
     if(inputX != null) {
       inputX.addEventListener('blur', (e:any) => {
         const newValue = inputX.value;
+        console.log("Unfocus at inputX", inputX.readOnly);
         if(!inputX.readOnly) { 
           updateColorList({...el, label: newValue});
         }
@@ -157,8 +158,10 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
           e.preventDefault();
         }
         if(!inputX.readOnly && e.keyCode == 13) {
-          inputX.readOnly = true;
           inputX.blur();
+          setTimeout(()=>{
+            inputX.readOnly = true;
+          },200);
         }
       })
     }
