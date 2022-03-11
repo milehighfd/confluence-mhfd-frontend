@@ -141,7 +141,6 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
     if(inputX != null) {
       inputX.addEventListener('blur', (e:any) => {
         const newValue = inputX.value;
-        console.log("Unfocus at inputX", inputX.readOnly);
         if(!inputX.readOnly) { 
           updateColorList({...el, label: newValue});
           let timeCheck = noteClicked? 1200:0;
@@ -247,13 +246,25 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function) 
 
 }
 
-export const clickingAddLabelButton = (createColorList: Function) => {
+export const clickingAddLabelButton = (createColorList: Function, noteClicked?: any, openMarkerOfNote?: any) => {
   const idButton = "addLabelButton-btn";
   const buttonAdd = document.getElementById(idButton);
   if(buttonAdd != null) {
     buttonAdd.addEventListener('click', (e:any) => {
       e.stopPropagation();
       createColorList();
+      let timeCheck = noteClicked? 1200:0;
+      let draftText = '';
+      const textarea = (document.getElementById('textarea') as HTMLInputElement);
+        if (textarea != null) {
+            draftText = textarea.value;
+        }
+      setTimeout(()=>{
+        if(noteClicked) {
+          openMarkerOfNote(noteClicked, draftText);
+        }
+        // changeContentTitle({..._el, color: colorValue}, index);
+      },timeCheck);
     })
   }
 }

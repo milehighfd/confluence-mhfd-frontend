@@ -2019,7 +2019,7 @@ const Map = ({ leftWidth,
         }            
         clickingCircleColor(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
         clickingOptions(listOfElements, deleteColorList);
-        clickingAddLabelButton(createColorList);
+        clickingAddLabelButton(createColorList, noteClicked, openMarkerOfNote);
         clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
         clickingColorElement(listOfElements, currentElement);
       }
@@ -3075,7 +3075,7 @@ const Map = ({ leftWidth,
           </Button>
         </div>
         <div className="bodymap">
-            <TextArea id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
+            <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}} className="footer">
                 <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''} className="light b-red">Delete</Button>
                 { note? (<Button id="edit-comment" className='light b-green'>Save</Button>): (<Button id="save-comment" className='light b-green'>Save</Button>) }
