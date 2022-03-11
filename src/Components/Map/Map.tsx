@@ -539,7 +539,10 @@ const Map = ({ leftWidth,
           notes.forEach( (note: any) => {
             if(!(notesFilter != 'all' && notesFilter != note.color)) {
               let colorOfMarker = note?.color?.color?note?.color?.color:'#F6BE0F';
-              const newmarker = new mapboxgl.Marker({ color: colorOfMarker, scale: 0.7 });
+              const doc = document.createElement('div');
+              doc.className = 'marker-note';
+              doc.style.backgroundColor = colorOfMarker;
+              const newmarker = new mapboxgl.Marker(doc);
               const html = commentPopup(note);
                   let newpopup = new mapboxgl.Popup({
                     closeButton: false,
@@ -2014,7 +2017,7 @@ const Map = ({ leftWidth,
         clickingCircleColor(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
         clickingOptions(listOfElements, deleteColorList);
         clickingAddLabelButton(createColorList);
-        clickingUnFocusInput(listOfElements, updateColorList, noteClicked);
+        clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
         clickingColorElement(listOfElements, currentElement);
       }
     }
@@ -3059,7 +3062,7 @@ const Map = ({ leftWidth,
             <span id="color-text">{ note?.color ? (note.color.label):'Leave a Comment' }</span>
             <div className='dr'>
               <div className="legend-selected">
-                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:''}}></i> 
+                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#F6BE0F'}}></i> 
               </div>
               <div className="light">
                 <DownOutlined />

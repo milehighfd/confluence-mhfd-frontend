@@ -998,3 +998,43 @@
     }
   }
 }
+
+// marker style 
+
+.marker-note {
+  // background-image: url('/Icons/circlecomment.svg');
+  -webkit-mask-image: url('/Icons/circlecomment.svg');
+  mask-image: url('/Icons/circlecomment.svg');
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color:#F6BE0F;
+  border: 2px solid rgba(255,255,255,1);
+  &:hover { 
+    border: 2px solid #6FC699;
+  }
+}
+// const listCircles = [
+//       {
+//         label: 'A',
+//         color: "#FFE120"
+//       },
+//       {
+//         label: 'B',
+//         color: "#E45360"
+//       },
+//       {
+//         label: 'C',
+//         color: "#282363"
+//       },
+//       {
+//         label: 'D',
+//         color: "#6FC699"
+//       },
+//       {
+//         label: 'E',
+//         color: "#66D4FF"
+//       },
+//     ];

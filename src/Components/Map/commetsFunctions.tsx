@@ -135,7 +135,7 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
   })
 }
 
-export const clickingUnFocusInput = (listOfElements: any, updateColorList: Function, noteClicked?: any) => {
+export const clickingUnFocusInput = (listOfElements: any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any) => {
   listOfElements.forEach((el:any, index:any) => {
     const inputX:any = document.getElementById(`input${index}`);
     if(inputX != null) {
@@ -144,8 +144,22 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
         console.log("Unfocus at inputX", inputX.readOnly);
         if(!inputX.readOnly) { 
           updateColorList({...el, label: newValue});
+          let timeCheck = noteClicked? 1200:0;
+          let draftText = '';
+          const textarea = (document.getElementById('textarea') as HTMLInputElement);
+            if (textarea != null) {
+                draftText = textarea.value;
+            }
+          setTimeout(()=>{
+            if(noteClicked) {
+              
+              openMarkerOfNote(noteClicked, draftText);
+              
+            }
+            changeContentTitle({...el, label: newValue},index);
+          },timeCheck);
         }
-        changeContentTitle({...el, label: newValue},index);
+        
       });
       inputX.addEventListener('click', (e:any) => {
         if(!inputX.readOnly) {
@@ -158,6 +172,7 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
           e.preventDefault();
         }
         if(!inputX.readOnly && e.keyCode == 13) {
+          e.stopPropagation();
           inputX.blur();
           setTimeout(()=>{
             inputX.readOnly = true;
