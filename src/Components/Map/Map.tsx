@@ -2018,7 +2018,7 @@ const Map = ({ leftWidth,
           div.appendChild(ul);
         }            
         clickingCircleColor(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
-        clickingOptions(listOfElements, deleteColorList);
+        clickingOptions(listOfElements, deleteColorList, noteClicked, openMarkerOfNote);
         clickingAddLabelButton(createColorList, noteClicked, openMarkerOfNote);
         clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
         clickingColorElement(listOfElements, currentElement);

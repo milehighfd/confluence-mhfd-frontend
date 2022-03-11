@@ -8,9 +8,11 @@
   color: $white;
   // background: $green;
   border-radius: 50%;
-  padding: 5px 5.23px;
-  margin-right: 5px;
-  font-size: 11px;
+  // padding: 5px 5.23px;
+  padding: 4px 4px 2px 4px;
+  margin-right: 5px;  
+  font-size: 9px;
+
 }
 .ll-0{
   background: $white;
@@ -207,10 +209,15 @@
     z-index: 222;
     right: 1px;
     li{
-      border-radius: 8px;
       padding: 5px 10px;
       &:hover{ 
         background-color: #CFEBFE;
+      }
+      &:first-child{
+        border-radius: 8px 8px 0px 0px;
+      }
+      &:last-child{
+        border-radius: 0px 0px 8px 8px;
       }
     }
   }

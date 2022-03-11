@@ -182,7 +182,7 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
   })
 }
 
-export const clickingOptions = (listOfElements: any, deleteColorList: Function) => {
+export const clickingOptions = (listOfElements: any, deleteColorList: Function, noteClicked?: any, openMarkerOfNote?: any) => {
 
   listOfElements.forEach((el:any, index:any) => {
     const optionsx = document.getElementById(`options${index}`);
@@ -233,6 +233,17 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function) 
             deleteButton.addEventListener('click', (e:any) => {
               e.stopPropagation();
               deleteColorList(el._id);
+              let timeCheck = noteClicked? 1200:0;
+              let draftText = '';
+              const textarea = (document.getElementById('textarea') as HTMLInputElement);
+                if (textarea != null) {
+                    draftText = textarea.value;
+                }
+              setTimeout(()=>{
+                if(noteClicked) {
+                  openMarkerOfNote(noteClicked, draftText); 
+                }
+              },timeCheck);
             })
           }
       
