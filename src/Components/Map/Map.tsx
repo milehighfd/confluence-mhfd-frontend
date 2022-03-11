@@ -792,6 +792,15 @@ const Map = ({ leftWidth,
         }
     }, [filterComponents, componentDetailIds]);
 
+    const flytoBoundsCoor = () => {
+      let historicBounds = getCurrent();
+      if(historicBounds && historicBounds.bbox) {
+        globalMapId = historicBounds.id;
+        map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
+      } else if (coor[0] && coor[1]) {
+        map.fitBounds(coor);
+      }
+    }
     useEffect(() => {
       getNotes();
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
@@ -879,9 +888,9 @@ const Map = ({ leftWidth,
 
 
         mapService.map = map;
-        if (coor[0] && coor[1]) {
-            map.fitBounds(coor);
-        }
+        
+            flytoBoundsCoor();
+        
 
         map.addControl(new mapboxgl.ScaleControl({
             unit: 'imperial'
@@ -1083,7 +1092,7 @@ const Map = ({ leftWidth,
     }, [zoom]);
 
     useEffect(() => {
-        map.fitBounds(coor);
+      flytoBoundsCoor()
     }, [polygon])
 
     useEffect(() => {
