@@ -900,9 +900,18 @@
             background-color: #11093C;
             position: absolute;
             right: 35px;
+            bottom: 10px;
             &:hover { 
               // -webkit-mask: url('/Icons/ic_filter_hover.svg') no-repeat center;
             }
+          }
+          .filterCounter { 
+            margin-right: 4px;
+            margin-left: 4px;
+            position: absolute;
+            right: 30px;
+            bottom: 9px;
+            font-weight: bolder;
           }
           a.ant-dropdown-link.ant-dropdown-trigger {
             display: block;

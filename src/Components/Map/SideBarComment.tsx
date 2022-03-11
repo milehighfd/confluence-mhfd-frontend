@@ -20,16 +20,16 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   const { userInformation } = useProfileState();
   const [tree, setTree] = useState([] as any);
   const [currentSelected, setCurrentSelected] = useState([] as any);
-  // useEffect(()=>{
-    
-  //   let idstoParse:any = [];
-  //   currentSelected.forEach((el:any) => {
-  //     if(el.selected) {
-  //       idstoParse.push(el._id);
-  //     }
-  //   });
-  //   setIdsFilter(idstoParse.toString());
-  // },[currentSelected]);
+  useEffect(()=>{
+    countFilterColors();
+  },[currentSelected]);
+  const [counterFilters, setCounterFilters ]= useState(0);
+  const countFilterColors = () => {
+    const counterArray = currentSelected.filter((item:any)=>{
+      return item.selected;
+    }).length;
+    setCounterFilters(counterArray);
+  }
   useEffect(() => {
     getGroups();
     getNotes();
@@ -311,9 +311,9 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       <div className="a-layers">
         <span className="title">Feature Layers</span>  
         <Dropdown overlay={divListOfelements(currentSelected, changeValueOfElement)} trigger={['click']}>
-          <a className="img-filter" onClick={e => e.preventDefault()}></a>
+          <a className="img-filter" onClick={e => e.preventDefault()} style={{right: counterFilters > 0?'45px':'35px'}}></a>
         </Dropdown>
-        
+        <span className="filterCounter">{counterFilters > 0 ? "("+counterFilters+")": ''}</span>
         <Dropdown overlay={createOptions} trigger={['click']}>
           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}><span className="op-plus">+</span></a>
         </Dropdown>
