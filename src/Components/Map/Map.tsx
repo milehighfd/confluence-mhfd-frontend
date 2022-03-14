@@ -2010,11 +2010,20 @@ const Map = ({ leftWidth,
             <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
           </li>`
         });
-        
+        console.log(listOfElements);
+        const hasDefault = listOfElements.filter((el:any) => el.label === 'Map Note').length >= 1;
+        console.log('default ', hasDefault);
         inner += '</div>'
-        let addLabelButton = `
+        const addLabelButton = `
           <li id="addLabelButton" style="padding-right:12px">
-            <button id="addLabelButton-btn"  type="button" class="addlabelbutton" >Add Label</button>
+            <button 
+                id="addLabelButton-btn"
+                type="button"
+                class="addlabelbutton"
+                ${hasDefault ? 'disabled' : ''}
+            >
+                Add Label
+            </button>
           </li>`;
   
         inner = inner + addLabelButton;
