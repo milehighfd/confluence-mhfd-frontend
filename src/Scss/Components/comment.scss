@@ -321,6 +321,11 @@
       color: white;
       text-decoration: unset;
     }
+    &:disabled {
+      background-color: white;
+      border: 1px solid rgba(37, 24, 99, 0.4);
+      color: rgba(37, 24, 99, 0.4);
+    }
   }
   .dot {
     display: block;
