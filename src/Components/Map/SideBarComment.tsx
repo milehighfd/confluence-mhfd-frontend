@@ -36,13 +36,13 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   }, []);
   useEffect(()=>{
     setIdsFilter('');
-    setCurrentSelected(colorsList.map((el:any) => {
+    setCurrentSelected(colorsList.filter((color: any) => notes.find(note => note['color_id'] === color._id)).map((el:any) => {
       return {
         ...el,
         selected:false 
       }
     }));
-  },[colorsList]);
+  },[colorsList, notes]);
   useEffect(() => {
     const newTree = groups.map((group: any) => {
       return {
