@@ -166,7 +166,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             if (!copySelectedLayers.includes(PROJECTS_MAP_STYLES)) {
               copySelectedLayers.push(PROJECTS_MAP_STYLES);
             }
-            console.log('copyng layers ', copySelectedLayers, selectedLayers);
             updateSelectedLayers(copySelectedLayers);
           }
           console.log(selectedLayers);

@@ -51,7 +51,7 @@ import { SelectProps } from 'antd/es/select';
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useColorListDispatch, useColorListState } from '../../hook/colorListHook';
-import { useProjectDispatch } from '../../hook/projectHook';
+import { useProjectDispatch, useProjectState } from '../../hook/projectHook';
 import { style } from 'd3';
 import { setOpacityLayer } from '../../store/actions/mapActions';
 import { useProfileDispatch } from '../../hook/profileHook';
@@ -66,6 +66,7 @@ import MobilePopup from '../MobilePopup/MobilePopup';
 import { ModalProjectView } from '../ProjectModal/ModalProjectView';
 import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
+import { useProfileState } from '../../hook/profileHook';
 
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, divListOfelements} from './commetsFunctions';
 import { GlobalMapHook } from '../../utils/globalMapHook';
@@ -210,12 +211,12 @@ const Map = ({ leftWidth,
          PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAMS_FILTERS, EFFECTIVE_REACHES, ACTIVE_LOMS];
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
-        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup } = useMapState();
+        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup, places } = useMapState();
     const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
         getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
-    setSelectedPopup} = useMapDispatch();
+    setSelectedPopup, getPlaceOnCenter} = useMapDispatch();
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
@@ -271,7 +272,8 @@ const Map = ({ leftWidth,
         MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS, MENU_OPTIONS.MEASURES
         ];
     // const [ spinValue, setSpinValue] = useState(true);
-    const user = store.getState().profile.userInformation;
+    // const user = store.getState().profile.userInformation;
+    const {userInformation} = useProfileState();
     const [visible, setVisible] = useState(false);
     const [zoomEndCounter, setZoomEndCounter] = useState(0);
     const [dragEndCounter, setDragEndCounter] = useState(0);
@@ -304,7 +306,7 @@ const Map = ({ leftWidth,
         </Row>
       );
     //const [layerOpacity, setLayerOpacity] = useState(false);
-    const coor: any[][] = [];
+    const coorBounds: any[][] = [];
     const coordinatesMHFD = [
         [-105.3236581, 39.4057815],
         [-105.3236581, 40.1315705],
@@ -391,10 +393,13 @@ const Map = ({ leftWidth,
         }
     } */
 
-    if (user?.polygon[0]) {
+    useEffect(()=>{
+      const user = userInformation;
+      console.log(" coordbounds DOES THIS REACHES?");
+      if (user?.polygon[0]) {
         let myPolygon: any = [];
-        for (let index = 0; index < user.polygon.length; index++) {
-            const geo = user.polygon[index];
+        for (let index = 0; index < userInformation.polygon.length; index++) {
+            const geo = userInformation.polygon[index];
             if (geo[0].hasOwnProperty('length')) {
                 for (let index2 = 0; index2 < geo.length; index2++) {
                     const geo2 = geo[index2];
@@ -432,10 +437,13 @@ const Map = ({ leftWidth,
         }
         bottomLongitude -= 0.125;
         topLongitude += 0.125;
- //.       console.log('coords ' , bottomLongitude, bottomLatitude, topLongitude, topLatitude);
-        coor.push([bottomLongitude, bottomLatitude]);
-        coor.push([topLongitude, topLatitude]);
+
+        // console.log('coords ' , bottomLongitude, bottomLatitude, topLongitude, topLatitude);
+        coorBounds.push([bottomLongitude, bottomLatitude]);
+        coorBounds.push([topLongitude, topLatitude]);
     }
+    },[userInformation.polygon]);
+ 
     const addSourceOpacity = (data :any) => {
     
       if(!map.getSource('mask')) {
@@ -793,12 +801,14 @@ const Map = ({ leftWidth,
     }, [filterComponents, componentDetailIds]);
 
     const flytoBoundsCoor = () => {
+      // console.log("polygon", polygon, "coordbounds", coorBounds, userInformation);
       let historicBounds = getCurrent();
-      if(historicBounds && historicBounds.bbox) {
+      if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
         globalMapId = historicBounds.id;
         map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
-      } else if (coor[0] && coor[1]) {
-        map.fitBounds(coor);
+        getPlaceOnCenter(historicBounds.center);
+      } else if (coorBounds[0] && coorBounds[1]) {
+        map.fitBounds(coorBounds);
       }
     }
     useEffect(() => {
@@ -809,7 +819,7 @@ const Map = ({ leftWidth,
             dragRotate: true,
             touchZoomRotate: true,
             style: dropdownItems.items[dropdownItems.default].style, //hosted style id
-            center: [user.coordinates.longitude, user.coordinates.latitude],
+            center: [userInformation.coordinates.longitude, userInformation.coordinates.latitude],
             zoom: 8,
             attributionControl: false
         });
@@ -2826,7 +2836,7 @@ const Map = ({ leftWidth,
                   }
                   if (feature.source === ACTIVE_LOMS) {
                       let extraProperties = {};
-                      if (user.designation === ADMIN || user.designation === STAFF ) {
+                      if (userInformation.designation === ADMIN || userInformation.designation === STAFF ) {
                         extraProperties = { notes: feature.properties.notes || '-'}
                       }
                       const item = {
@@ -2848,7 +2858,7 @@ const Map = ({ leftWidth,
                   }
                   if (feature.source === EFFECTIVE_REACHES) {
                     let extraProperties = {};
-                    if (user.designation === ADMIN || user.designation === STAFF ) {
+                    if (userInformation.designation === ADMIN || userInformation.designation === STAFF ) {
                         extraProperties = {
                             modellocation_mip: feature.properties.modellocation_mip || '-',
                             modellocation_local: feature.properties.modellocation_local || '-',
@@ -3251,7 +3261,7 @@ const Map = ({ leftWidth,
     );
     const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) =>(
         <>
-            <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF || user.designation === GOVERNMENT_ADMIN || user.designation === GOVERNMENT_STAFF)}></MainPopup>
+            <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)}></MainPopup>
         </>
     );
 
@@ -3262,12 +3272,12 @@ const Map = ({ leftWidth,
     );
     const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
         <>
-            <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF || user.designation === GOVERNMENT_ADMIN || user.designation === GOVERNMENT_STAFF)} ></ComponentPopup>
+            <ComponentPopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></ComponentPopup>
         </>
     );
     const loadMeasurePopup = (index: number, item: any, isComponent: boolean) => (
       <>
-          <MeasurePopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF || user.designation === GOVERNMENT_ADMIN || user.designation === GOVERNMENT_STAFF)} ></MeasurePopup>
+          <MeasurePopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></MeasurePopup>
       </>
     );
 
@@ -3525,10 +3535,10 @@ const Map = ({ leftWidth,
                 isList.style.display = 'block';
                 clickoutsideList();
               }
-            },40);
-          },150);
+            },140);
+          },250);
         }
-      },500);
+      },400);
       
     }
     const openMarkerOfNoteWithoutAdd = (note:any) => {
@@ -3555,9 +3565,9 @@ const Map = ({ leftWidth,
     }
     const showMHFD = () => {
         setAutocomplete('')
-        const user = store.getState().profile.userInformation;
-        user.polygon = coordinatesMHFD;
-        saveUserInformation(user);
+        // const user = store.getState().profile.userInformation;
+        // userInformation.polygon = coordinatesMHFD;
+        saveUserInformation({...userInformation, polygon: coordinatesMHFD});
         if (!opacityLayer) {
             mapService.hideOpacity();
         }

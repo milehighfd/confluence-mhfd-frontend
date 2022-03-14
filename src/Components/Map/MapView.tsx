@@ -80,7 +80,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     setTabCards, setOpacityLayer,
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete, setBBOXComponents } = useMapDispatch();
   const {getGroupOrganization} = useProfileDispatch();
-  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus } = useMapState();
+  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus, places } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
@@ -91,11 +91,23 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
 
   useEffect(() => {
     setvalueA(nameZoomArea);
+    console.log("name zoom area", nameZoomArea);
   }, [nameZoomArea]);
   useEffect(() => {
     setSpinMapLoaded(true);
     getGroupOrganization();
+    
+    return () => {
+      const user = store.getState().profile.userInformation;
+      user.isSelect = false;
+      saveUserInformation(user);
+    }
   }, []);
+  useEffect(()=>{
+    if(places[0] && places[0].aoi) {
+      onSelect(places[0].aoi, 'noselect');
+    }
+  },[places]);
   const resetFilterProblems = (withCoords?: any) => {
     const options = { ...filterProblemOptions };
     options.components = '';
@@ -537,17 +549,14 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
 
-  if (nameZoomArea.length === 0) {
-    setNameZoomArea(store.getState().profile.userInformation.zoomarea);
-  }
+  // if (nameZoomArea.length === 0) {
+  //   setNameZoomArea(store.getState().profile.userInformation.zoomarea);
+  // }
 
   const deleteTagProblem = (tag: string, value: string) => { }
 
   useEffect(() => {
     setNameZoomArea(store.getState().profile.userInformation.zoomarea);
-    setTimeout(()=>{
-      onSelect(store.getState().profile.userInformation.zoomarea);
-    },5000);
   }, [store.getState().profile.userInformation.zoomarea, groupOrganization])
 
   useEffect(() => {
@@ -603,7 +612,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
           getParamFilterProblems(boundsMap, filterProblemOptions)
           break;
         case '1':
-          console.log("FILTER POJEC", filterProjectOptions);
           getParamFilterProjects(boundsMap, filterProjectOptions)
           break;
         case '2':
@@ -660,9 +668,10 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       getGalleryProjects();
     }
   }
-  const changeCenter = (name: string, coordinates: any, shouldLoadFilters = true) => {
+  const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
     const user = store.getState().profile.userInformation;
     user.polygon = coordinates;
+    user.isSelect = isSelect;
     saveUserInformation(user);
     setNameZoomArea(name);
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === name).map((element: any) => {
@@ -734,8 +743,8 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     }
     return options;
   }
-  const onSelect = (value: any) => {
-    console.log('Selected:', value);
+  const onSelect = (value: any, isSelect?:any) => {
+    console.log('Selected:', value, isSelect);
     setAutocomplete(value);
     setvalueA(value);
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
@@ -776,7 +785,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
         setFilterComponentOptions(filterComponentOptions);
         getParamFilterComponents(boundsMap, filterComponentOptions);
       }
-      changeCenter(value, zoomareaSelected[0].coordinates)
+      changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect'? undefined:"isSelect");
     }
     setBBOXComponents({ bbox: [], centroids: [] })
   };

@@ -899,3 +899,15 @@ export const changeTutorialStatus = (tutorialStatus: boolean) => {
     }
 }
 
+export const getPlaceOnCenter = (center: any) => {
+  const sortArray = ['Jurisdiction','Service Area','County',null];
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.MAP_CENTER_SEARCH+`?coord=${center[0]+","+center[1]}`, datasets.getToken()).then((places:any) => {
+      if(places.data){ 
+        places = places.data.sort((a:any, b:any) => sortArray.indexOf(a.filter) - sortArray.indexOf(b.filter));
+        dispatch({type: types.SET_PLACES_ON_CENTER, places})
+      }
+      
+    });
+  }
+}

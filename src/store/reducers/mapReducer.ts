@@ -443,7 +443,8 @@ const initState = {
     deleteFavorite: 'x',
     currentPopup: -1,
     favoritesLoader: 0,
-    showComponents: []
+    showComponents: [],
+    places: []
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -869,6 +870,12 @@ const mapReducer = (state = initState, action: any) => {
           return {
             ...state, 
             showComponents: action.showComponents 
+          }
+        }
+        case types.SET_PLACES_ON_CENTER:{
+          return {
+            ...state,
+            places: action.places
           }
         }
         default:

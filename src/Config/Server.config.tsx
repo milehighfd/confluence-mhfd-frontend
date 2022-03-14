@@ -65,6 +65,7 @@ export const SERVER = (function () {
     const PARAM_FILTERS = 'params-filters';
     const COMPONENTS_BY_ENTITYID = 'components-by-entityid';
     const SEARCH = 'search';
+    const GET_AOI_CENTER = 'get-aoi-from-center';
     const V2 = 'v2';
     const BY_COMPONENTS = 'by-components';
     const DETAILED_PAGE = 'detailed-page';
@@ -175,6 +176,7 @@ export const SERVER = (function () {
         SEARCH_KEYWORD_PROBLEMS: `${URL_BASE.BASE}/${FILTERS}/${SEARCH}/${PROBLEMS}`,
         FILTER_BY_COMPONENTS: `${URL_BASE.BASE}/${FILTERS}/${V2}/${BY_COMPONENTS}`,
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
+        MAP_CENTER_SEARCH: `${URL_BASE.BASE}/${MAP}/${GET_AOI_CENTER}`,
         // GROUP_ORGANIZATION: `${URL_BASE.BASE}/${GALLERY}/${GROUP_ORGANIZATION}`,
         GROUP_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/complete`,
         BBOX_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/`,

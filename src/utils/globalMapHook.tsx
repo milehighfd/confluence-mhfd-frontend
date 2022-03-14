@@ -5,8 +5,8 @@ let cc = 0;
 
 export const GlobalMapHook = () => {
   
-  const [lastMaps, setLastMaps] = useState(JSON.parse(localStorage.getItem('globalMap') || '[]') as any);
-  let [currentPosition, setCurrentPosition] = useState(JSON.parse(localStorage.getItem('globalMap') || '[]').length -1);
+  const [lastMaps, setLastMaps] = useState(JSON.parse(sessionStorage.getItem('globalMap') || '[]') as any);
+  let [currentPosition, setCurrentPosition] = useState(JSON.parse(sessionStorage.getItem('globalMap') || '[]').length -1);
 
   const generateId = () => {
     return Math.random().toString(36).substring(2, 9);
@@ -42,7 +42,7 @@ export const GlobalMapHook = () => {
         }
         setCurrentPosition(copy.length - 1);
         setLastMaps(copy);
-        localStorage.setItem('globalMap', JSON.stringify(copy));
+        sessionStorage.setItem('globalMap', JSON.stringify(copy));
       }
     }, 2500);
   }

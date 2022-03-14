@@ -6,11 +6,11 @@ export let globalMap = {
 } as any;
 
 export const saveMap = () => {
-  localStorage.setItem('globalMap', JSON.stringify(globalMap));
+  sessionStorage.setItem('globalMap', JSON.stringify(globalMap));
 }
 
 export const getMap = () => {
-  globalMap = JSON.parse(localStorage.getItem('globalMap') || `{'center': -1, 'bbox': [-1, -1, -1, -1]}`);
+  globalMap = JSON.parse(sessionStorage.getItem('globalMap') || `{'center': -1, 'bbox': [-1, -1, -1, -1]}`);
   return globalMap;
 };
 
