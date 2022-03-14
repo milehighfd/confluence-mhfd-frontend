@@ -109,7 +109,11 @@ export const Node = ({
         setShowBorder(false);
         if (isFolder) {
           const id = e.dataTransfer.getData('id');
-          onDragAndDrop(id, item.id);
+          onDragAndDrop(id, item.id, null);
+          e.stopPropagation();
+        } else {
+          const id = e.dataTransfer.getData('id');
+          onDragAndDrop(id, item.data.group_id, item.id);
           e.stopPropagation();
         }
         // e.stopPropagation();

@@ -68,6 +68,18 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         });
       }
     });
+    newTree.sort((a: any, b: any) => {
+      return a.data.position - b.data.position;
+    });
+    newTree.forEach(element => {
+      if (element.children) {
+        element.children.sort((a: any, b: any) => {
+          console.log('sorting ', a.label, b.label);
+          console.log('sorting ', a.data.position, b.data.position, a.data.position - b.data.position);
+          return a.data.position - b.data.position;
+        });
+      }
+    });
     /*
     const data = [{
       id: '11',
@@ -230,15 +242,15 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     const originalTime = new Date(Date.UTC(+parsedTime[0], +parsedTime[1] - 1, +parsedTime[2], +parsedTime[3], +parsedTime[4], +parsedTime[5], +parsedTime[6]));
     return calculateTimeAgo(originalTime);
   }
-  const onDragAndDrop = (element: any, destination: any) => {
-    console.log('my tree is ', tree, element, destination);
+  const onDragAndDrop = (element: any, destination: any, below: any) => {
+    console.log('my tree is ', tree, 'element', element, 'destination', destination, 'below', below);
     let selectedNote = tree.find((note: any) => note.id === element);
     if (!selectedNote) {
       tree.forEach((note: any) => {
         if (note.children) {
           const selectedChild = note.children.find((child: any) => child.id === element);
           if (selectedChild) {
-            selectedNote = selectedChild;
+            selectedNote = selectedChild; 
           }
         }
       });
@@ -252,14 +264,53 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
       return item.id !== element;
     });
+    console.log('after that ', selectedNote);
     const newDestination = tree.find((note: any) => note.id === destination);
     const index = newTree.indexOf(newDestination);
     console.log('my index is ', index);
     console.log(newTree);
     if (index !== -1) {
-      newTree[index].children.push(selectedNote);
+      const indexOfBelow = newTree[index].children.findIndex((note: any) => note.id === below);
+      if (indexOfBelow !== -1) {
+        console.log(indexOfBelow, newTree[index].children.length);
+        // selectedNote[position] = newTree[indexOfBelow][position];
+        if (indexOfBelow + 1 < newTree[index].children.length) {
+          console.log('enter to this if');
+          selectedNote.data['position'] = ~~((newTree[index].children[indexOfBelow].data['position'] 
+          + newTree[index].children[indexOfBelow + 1].data['position']) / 2);
+        } else {
+          console.log('for some reason here ' , indexOfBelow, newTree[index].children.length);
+          selectedNote.data['position'] = newTree[index].children[indexOfBelow].data['position'] + 15000;
+        }
+        newTree[index].children.splice(indexOfBelow + 1, 0, selectedNote);
+      } else {
+        let position = 0;
+        for (const note of newTree[index].children) {
+          position = Math.max(position, note.data['position']);
+        }
+        selectedNote.data['position'] = position + 15000;
+        newTree[index].children.push(selectedNote);
+      }
+      console.log('calculated ', selectedNote.data);
     } else {
-      newTree.push(selectedNote);
+      const indexOfBelow = newTree.findIndex((note: any) => note.id === below);
+      console.log('my indexOf Below ', indexOfBelow, newTree.length);
+      if (indexOfBelow !== -1) {
+        // selectedNote[position] = newTree[indexOfBelow][position];
+        if (indexOfBelow + 1 < newTree.length) {
+          selectedNote.data['position'] = ~~((newTree[indexOfBelow].data['position'] + newTree[indexOfBelow + 1].data['position']) / 2);
+        } else {
+          selectedNote.data['position'] = newTree[indexOfBelow].data['position'] + 15000;
+        }
+        newTree.splice(indexOfBelow + 1, 0, selectedNote);
+      } else {
+        let position = 0;
+        for (const note of newTree) {
+          position = Math.max(position, note.data['position']);
+        }
+        selectedNote.data['position'] = position + 15000;
+        newTree.push(selectedNote);
+      }
     }
     editNote({
       ...selectedNote.data,
