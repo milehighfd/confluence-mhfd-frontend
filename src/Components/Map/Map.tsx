@@ -694,7 +694,6 @@ const Map = ({ leftWidth,
     useEffect(() => {
         let mask;
         if(map){
-          map.isStyleLoaded(()=>{
             if (coordinatesJurisdiction.length > 0) {
               mask = turf.multiPolygon(coordinatesJurisdiction);
               let miboundsmap = map.getBounds();
@@ -772,7 +771,6 @@ const Map = ({ leftWidth,
               }
     
           }
-           })
         }
      
         // setTimeout(()=>{

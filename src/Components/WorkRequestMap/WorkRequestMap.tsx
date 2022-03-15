@@ -156,7 +156,7 @@ const WorkRequestMap = (type: any) => {
               let bboxBounds = turf.bbox(BBoxPolygon);
               
               if(map.map){
-                
+                console.log("IS THIS ZOOM??");
                 map.map.fitBounds(bboxBounds,{ padding:140});
               }
             }
@@ -305,15 +305,15 @@ const WorkRequestMap = (type: any) => {
       a.every((v:any, i:any) => v === b[i]);
       
     if(boardProjects && boardProjects[0] == '-8888'){
-      setTimeout(()=>{
-        let value = store.getState().profile.userInformation.zoomarea;
-        if(type.locality) {
-          value = type.locality;
-        }
-        if(groupOrganization.length > 0) {
-          wait(()=>setBounds(value));
-        }
-      },500);
+      // setTimeout(()=>{
+      //   let value = store.getState().profile.userInformation.zoomarea;
+      //   if(type.locality) {
+      //     value = type.locality;
+      //   }
+      //   if(groupOrganization.length > 0) {
+      //     wait(()=>setBounds(value));
+      //   }
+      // },500);
     }
     if (firstRendering) {
       setFirstRendering(false)
@@ -407,6 +407,7 @@ const WorkRequestMap = (type: any) => {
       globalMapId = historicBounds.id;
       map.map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
     } else {
+      console.log(" XXX Center to orgaznization cooozm");
       groupOrganizationZoom();
     }
   },[groupOrganization, type.locality]);
@@ -2169,6 +2170,7 @@ const epochTransform = (dateParser: any) => {
     popup.remove();
   }
   const centerToLocalityy = () => {
+    console.log("xxx Center to locality ???");
     groupOrganizationZoom();
   }
   return <>
