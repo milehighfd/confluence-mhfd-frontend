@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Branch} from './Branch';
 
-export const Tree = ({ data, onDragAndDrop, setTree, mapFunctions } : any) => {
+export const Tree = ({ data, onDragAndDrop, setTree, mapFunctions, swapPositions } : any) => {
   return <div
       onDragOver={(e: any) => {
         e.preventDefault();
@@ -22,6 +22,7 @@ export const Tree = ({ data, onDragAndDrop, setTree, mapFunctions } : any) => {
         onDragAndDrop={onDragAndDrop}
         setTree={setTree}
         mapFunctions={mapFunctions}  
+        swapPositions={swapPositions}
       />)}
     </div>
   </div>

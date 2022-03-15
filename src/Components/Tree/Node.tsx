@@ -67,6 +67,7 @@ export const Node = ({
   onClick,
   isFolder,
   onDragAndDrop,
+  swapPositions,
   editMode,
   onEdit,
   setEditMode,
@@ -113,7 +114,15 @@ export const Node = ({
       }}
       onDrop={(e: any) => {
         setShowBorder(false);
-        if (isFolder) {
+        const completeId = e.dataTransfer.getData('id');
+        if (completeId.includes('|folder')) {
+          const idFolder = completeId.split('|folder')[0];
+          swapPositions(idFolder, item.id);
+          e.stopPropagation();
+          return;
+        }
+        if (isFolder) 
+        {
           const id = e.dataTransfer.getData('id');
           onDragAndDrop(id, item.id, null);
           e.stopPropagation();
@@ -126,10 +135,13 @@ export const Node = ({
       }}
     >
       <div 
-        draggable={!isFolder}
+        draggable={true}
         onDragStart={(e: any) => {
-          e.dataTransfer.setData('id', item.id);
-          console.log('drag start', item);
+          if (isFolder) {
+            e.dataTransfer.setData('id', item.id + '|folder');
+          } else {
+            e.dataTransfer.setData('id', item.id);
+          }
           setShowBorder(false);
         }}
         className={isFolder ? "s-item folder":"s-item" }

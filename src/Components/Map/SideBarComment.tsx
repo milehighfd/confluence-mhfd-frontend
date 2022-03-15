@@ -14,7 +14,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
 
   const { notes, groups, availableColors } = useNotesState();
   const { colorsList } = useColorListState();
-  const {  deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors } = useNoteDispatch();
+  const {  deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors, editGroup } = useNoteDispatch();
   const { setIdsFilter } = useColorListDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
@@ -130,6 +130,25 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     setIdsFilter(idstoParse.toString());
     getNotes();
   }
+
+  const swapPositions = (id:any, id2:any) => {
+    console.log('ids ', id, id2);
+    const index = tree.findIndex((item:any) => item.id === id);
+    const index2 = tree.findIndex((item:any) => item.id === id2);
+    console.log('indexes ', index, index2);
+    if (index === -1 || index2 === -1) {
+      return;
+    }
+    const newTree = [...tree];
+    if (index2 + 1 < newTree.length) {
+      newTree[index].data.position = ~~((newTree[index2 + 1].data.position + newTree[index2].data.position) / 2);
+    } else {
+      newTree[index].data.position = newTree[index2].data.position + 15000;
+    }
+    editGroup({...newTree[index].data});
+    setTree([...newTree]);
+  }
+
   const onSelectCreateOption = (key: any) => {
     console.log(key);
     if (key.key === 'create-folder') {
@@ -312,6 +331,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         newTree.push(selectedNote);
       }
     }
+    console.log('edited ', selectedNote.data);
     editNote({
       ...selectedNote.data,
       group_id: destination,
@@ -319,7 +339,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     console.log("Finnaly edit note", {...selectedNote.data,
       group_id: destination});
     console.log('finally ', newTree);
-    setTree(newTree);
   }
 
   useEffect(() => {
@@ -374,6 +393,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         onDragAndDrop={onDragAndDrop}  
         setTree={setTree}
         mapFunctions={mapFunctions}
+        swapPositions={swapPositions}
       />            
       {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
       <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">

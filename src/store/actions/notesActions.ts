@@ -43,8 +43,9 @@ export const deleteNote = (id: any) => {
 
 export const editNote = (note: any) => {
   return (dispatch: Function) => {
-    datasets.putData(SERVER.EDIT_NOTE(note['_id']), note, datasets.getToken()).then(note => {
-      dispatch({type: types.EDIT_NOTES, note});
+    datasets.putData(SERVER.EDIT_NOTE(note['_id']), note, datasets.getToken()).then(newNote => {
+      newNote.color = note.color
+      dispatch({type: types.EDIT_NOTES, note: newNote});
       dispatch(getNotes());
     });
   };
@@ -69,6 +70,7 @@ export const editGroup = (toEditGroup: any) => {
   return (dispatch: Function) => {
     datasets.putData(SERVER.EDIT_GROUP(toEditGroup['_id']), toEditGroup, datasets.getToken()).then(group => {
       dispatch({type: types.EDIT_GROUP, group});
+      dispatch(getGroups());
     });
   };
 }
