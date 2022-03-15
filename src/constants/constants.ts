@@ -1864,6 +1864,24 @@ export const STUDY_SUB_REASON = [
   'New opportunity available'
 ]
 
+export const ICON_POPUPS = [
+  ['Problem', "/Icons/ic_problems.png"],
+  ["Storm Drain", "/Icons/ic_Component_StormDrain.png"],
+  ["Special Item Point", "/Icons/ic_Component_SpecialItemPoint.png"],
+  ["Special Item Linear", "/Icons/ic_Component_SpecialItemLinear.png"],
+  ["Special Item Area", "/Icons/ic_Component_SpecialItemArea.png"],
+  ["Removal Line", "/Icons/ic_Component_RemovalLine.png"],
+  ["Removal Area", "/Icons/ic_Component_RemovalArea.png"],
+  ["Pipe Appurtenances", "/Icons/ic_Component_PipeAppurtenances.png"],
+  ["Channel Improvements Linear", "/Icons/ic_Component_ChanneImprovementLinear.png"],
+  ["Channel Improvements Area", "/Icons/ic_Component_ChanneImprovementArea.png"],
+  ["Maintenance Trails", "/Icons/ic_Component_MaintenanceTrail.png"],
+  ["Landscaping Area", "/Icons/ic_Component_LandscapingArea.png"],
+  ["Land Acquisition", "/Icons/ic_Component_LandAcquisition.png"],
+  ["Grade Control Structure", "/Icons/ic_Component_GradeControlStructure.png"],
+  ["Detention Facilities", "/Icons/ic_Component_DetentionFacility.png"],
+  ["Watershed", "/Icons/ic_watersheds.png"],
+]
 
 /*  // Mapbox Custom Styles
     mapbox://styles/mapbox/streets-v11

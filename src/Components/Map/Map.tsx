@@ -40,7 +40,10 @@ import {
     COUNTIES_LAYERS,
     BLOCK_CLEARANCE_ZONES_LAYERS,
     ACTIVE_LOMS,
-    EFFECTIVE_REACHES
+    EFFECTIVE_REACHES,
+    PROBLEM_TYPE,
+    NEW_PROJECT_TYPES,
+    ICON_POPUPS
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles } from '../../constants/mapStyles';
@@ -2924,7 +2927,7 @@ const Map = ({ leftWidth,
                   }
               }
            }
-            if (popups.length) {
+            if (popups.length) { 
                 const html = loadMenuPopupWithData(menuOptions, popups);
                 setMobilePopups(mobile);
                 setActiveMobilePopups(mobileIds);
@@ -3149,7 +3152,7 @@ const Map = ({ leftWidth,
                     menuOptions.map((menu: any, index: number) => {
                         return (
                             <div>
-                                <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+                                {loadIconsPopup(menu, popups[index], index)}
                                 { (menu !== 'Project' && menu !== 'Problem') ?
                                     ( 
                                       menu =='Stream'  ? 
@@ -3293,8 +3296,27 @@ const Map = ({ leftWidth,
                     item={item} />}
         </>
     );
-
-
+    const loadIconsPopup = (menu: any, popups:any, index:any) =>{
+        const icon = ICON_POPUPS.map((element) => {
+            if(element[0] === menu){
+                return (
+                    <Button id={'menu-' + index} className="btn-transparent"><img src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+                )
+            }
+        })
+        if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration || popups.projecctype === "Capital")){
+            return (
+                <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/ic_projects.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+            )
+        }
+        if(icon){
+            return icon 
+        }
+        
+        return (
+            <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+            )
+    }
 
     const refreshSourceLayers = (id: string) => {
         const mapSource = map.getSource(id);
@@ -3304,8 +3326,6 @@ const Map = ({ leftWidth,
             map.removeSource(id);
         }
     }
-
-
 
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter(layer => !selectedItems.includes(layer as string));
