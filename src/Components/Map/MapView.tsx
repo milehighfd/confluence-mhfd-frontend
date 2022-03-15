@@ -14,7 +14,7 @@ import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { capitalLetter, elementCost, getStatus } from '../../utils/utils';
 import { useSelector } from "react-redux";
 import RheoStatService from '../FiltersProject/NewProblemsFilter/RheoStatService';
-import { useProfileDispatch } from "../../hook/profileHook";
+import { useProfileDispatch, useProfileState } from "../../hook/profileHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -80,6 +80,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     setTabCards, setOpacityLayer,
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete, setBBOXComponents } = useMapDispatch();
   const {getGroupOrganization} = useProfileDispatch();
+  const {userInformation} = useProfileState();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus, places } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
@@ -556,8 +557,8 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   const deleteTagProblem = (tag: string, value: string) => { }
 
   useEffect(() => {
-    setNameZoomArea(store.getState().profile.userInformation.zoomarea);
-  }, [store.getState().profile.userInformation.zoomarea, groupOrganization])
+    setNameZoomArea(userInformation.zoomarea);
+  }, [userInformation.zoomarea, groupOrganization])
 
   useEffect(() => {
     if (location.includes('problemid=')) {

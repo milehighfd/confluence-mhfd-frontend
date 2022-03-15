@@ -801,7 +801,6 @@ const Map = ({ leftWidth,
     }, [filterComponents, componentDetailIds]);
 
     const flytoBoundsCoor = () => {
-      // console.log("polygon", polygon, "coordbounds", coorBounds, userInformation);
       let historicBounds = getCurrent();
       if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
         globalMapId = historicBounds.id;
