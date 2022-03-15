@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNoteDispatch } from '../../hook/notesHook';
 import { Popover, Menu } from 'antd';
 import { useProfileState } from '../../hook/profileHook';
@@ -6,6 +6,7 @@ import { useProfileState } from '../../hook/profileHook';
 const Nbsp = () => '\u00A0';
 
 const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGroup: any) =>  {
+  
   return (
   <Menu className="js-mm-00">
    { !isFolder ?
@@ -83,7 +84,11 @@ export const Node = ({
       editGroup({_id: item.id, name: item.label, user_id: item.user_id});
     }
   }
-  
+  const unfocus = () => {
+    setEditMode(false);
+    console.log(item);
+    editGroup({_id: item.id, name: item.label, user_id: item.user_id});
+  }
   const showCutText = (text: string) => {
     const TEXT_LENGTH = 30;
     if (text.length > TEXT_LENGTH) {
@@ -96,6 +101,7 @@ export const Node = ({
   //   console.log("This item??", item);
   // },[item]);
   const [showBorder, setShowBorder] = useState(false);
+  const componentRef: any = useRef();
   return (
     <div
       onDragOver={(e: any) => {
@@ -144,7 +150,7 @@ export const Node = ({
               onClick={(e: any) => {e.stopPropagation();}}
             />
             </Popover>}</span> : 
-          <input type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} style={{border: '2px solid transparent', marginLeft: '5px'}} />
+          <input ref={componentRef} onBlur={unfocus} type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} style={{border: '2px solid transparent', marginLeft: '5px'}} />
         }
       </div>
       <div>
