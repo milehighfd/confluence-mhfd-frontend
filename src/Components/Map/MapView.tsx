@@ -26,7 +26,7 @@ const { TabPane } = Tabs;
 const { Search } = Input;
 const { Option } = AutoComplete;
 const content = (<div className="popoveer-00">Filter by Area</div>);
-
+let counterZoomArea = 0 ;
 const contentTag = (
   <div className="tag-filters">
     <div className="tag-body">
@@ -102,6 +102,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       const user = store.getState().profile.userInformation;
       user.isSelect = false;
       saveUserInformation(user);
+      counterZoomArea = 0;
     }
   }, []);
   useEffect(()=>{
@@ -555,9 +556,12 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   // }
 
   const deleteTagProblem = (tag: string, value: string) => { }
-
+ 
   useEffect(() => {
-    setNameZoomArea(userInformation.zoomarea);
+    if(counterZoomArea >= 2) {
+      setNameZoomArea(userInformation.zoomarea);
+    }
+    counterZoomArea++;
   }, [userInformation.zoomarea, groupOrganization])
 
   useEffect(() => {
