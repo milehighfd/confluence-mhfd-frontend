@@ -149,4 +149,5 @@ export const MultiPart = () => {
 export const logout = () => {
     localStorage.removeItem('mfx-token');
     sessionStorage.removeItem('mfx-token');
+    sessionStorage.removeItem('globalMap');
 }

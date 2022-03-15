@@ -134,7 +134,7 @@
   }
   .ant-drawer-body{
     padding: 0px;
-    height: calc(100vh - 123px);
+    height: calc(100vh - 141px);
     overflow-y: auto;
   }
   .ant-comment {
@@ -590,7 +590,7 @@
       padding: 20px 25px;
     }
     .ant-drawer-body{
-      height: calc(100vh - 123px);
+      height: calc(100vh - 141px);
     }
     .ant-comment {
       padding: 0px 20px;
@@ -768,7 +768,7 @@
       padding: 20px 32px;
     }
     .ant-drawer-body{
-      height: calc(100vh - 132px);
+      height: calc(100vh - 151px);
     }
     .ant-comment {
       padding: 0px 20px;
@@ -993,7 +993,7 @@
           height: 93%;
         }
         .main-node {
-          margin-bottom: 19px;
+          padding-bottom: 60px;
           .s-item {
             /* padding: 12px 0; */
             height: 40px;

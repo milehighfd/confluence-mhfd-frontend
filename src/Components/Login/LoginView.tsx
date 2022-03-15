@@ -65,6 +65,7 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
           auxMessage.message = 'Successful Connection';
           setMessage(auxMessage);
           localStorage.setItem('mfx-token', res.token);
+          sessionStorage.removeItem('globalMap');
           await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
             replaceAppUser(result);
             saveUserInformation(result)
