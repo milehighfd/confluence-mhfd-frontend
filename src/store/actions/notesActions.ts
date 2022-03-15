@@ -19,6 +19,7 @@ export const getNotes = (color_id?:any) => {
     }
     datasets.getData(SERVER.LIST_NOTES+(idsToParse?`?color_id=${idsToParse}`:''), datasets.getToken()).then(notes => {
       dispatch({type: types.LIST_NOTES, notes});
+      dispatch(getAvailableColors());
     });
   };
 };
@@ -59,6 +60,7 @@ export const createGroup = (name: string) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.CREATE_GROUP, {name: name}, datasets.getToken()).then(group => {
       dispatch({type: types.CREATE_GROUP, group});
+      dispatch(getGroups());
     });
   };
 }

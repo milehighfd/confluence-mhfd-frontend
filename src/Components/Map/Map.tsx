@@ -2010,7 +2010,7 @@ const Map = ({ leftWidth,
     
     const addListToPopupNotes = (ul: any, div: any, noteClicked?:any) => {
       // ul -> id-list-popup | div -> color-list
-      if(listOfElements.length ) {
+      // if(listOfElements.length ) {
         let inner = `
         <div class="listofelements" id="currentItemsinList">
           `;
@@ -2052,7 +2052,7 @@ const Map = ({ leftWidth,
         clickingAddLabelButton(createColorList, noteClicked, openMarkerOfNote);
         clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
         clickingColorElement(listOfElements, currentElement);
-      }
+      // }
     }
     const createNoteWithElem = (note: any) => {
 

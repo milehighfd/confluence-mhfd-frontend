@@ -12,6 +12,7 @@ export const Tree = ({ data, onDragAndDrop, setTree, mapFunctions } : any) => {
         const id = e.dataTransfer.getData('id');
         onDragAndDrop(id, null);
       }}
+      className="insideMainNode"
     >
     <div className="main-node">
       {data.map((item: any) => <Branch

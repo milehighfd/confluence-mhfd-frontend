@@ -135,7 +135,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     if (key.key === 'create-folder') {
       console.log('enter here');
       createGroup('Untitled Folder');
-      getGroups();
     } else {
       addToMap();
       setSwSave(true);
