@@ -3,6 +3,13 @@ import * as datasets from '../../Config/datasets';
 import { SERVER } from '../../Config/Server.config';
 import { dispatch } from 'd3';
 
+export const getAvailableColors = () => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GET_AVAILABLE_COLORS, datasets.getToken()).then(availableColors => {
+      dispatch({type: types.GET_AVAILABLE_COLORS, availableColors});
+    });
+  }
+}
 export const getNotes = (color_id?:any) => {
   return (dispatch: Function, getState: Function) => {
     let idsToParse = color_id;

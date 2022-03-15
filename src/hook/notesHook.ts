@@ -3,12 +3,13 @@ import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { FilterNamesTypes } from '../Classes/MapTypes';
 import { removeFilter } from '../store/actions/filterActions';
-import { createGroup, createNote, deleteGroup, deleteNote, editGroup, editNote, getGroups, getNotes, setOpen } from '../store/actions/notesActions';
+import { createGroup, createNote, deleteGroup, deleteNote, editGroup, editNote, getAvailableColors, getGroups, getNotes, setOpen } from '../store/actions/notesActions';
 
 interface notesState {
   notes: [],
   groups: [],
-  open: boolean
+  open: boolean,
+  availableColors: []
 }
 
  
@@ -20,11 +21,13 @@ interface notesState {
        (state: any) => state.notes.notes,
        (state: any) => state.notes.groups,
        (state: any) => state.notes.open,
+       (state: any) => state.notes.availableColors,
        //state => state.map.paramFilters,
-       (notes: [], groups: [], open: boolean) => ({
+       (notes: [], groups: [], open: boolean, availableColors: []) => ({
          notes,
          groups,
-         open
+         open,
+         availableColors
       })
      );
  
@@ -67,6 +70,9 @@ export const useNoteDispatch = () => {
       },
       setOpen: (open: boolean) => {
         dispatch(setOpen(open));
+      },
+      getAvailableColors: () => {
+        dispatch(getAvailableColors())
       }
    }
 };

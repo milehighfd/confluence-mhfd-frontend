@@ -3,7 +3,8 @@ import * as types from '../types/notesTypes';
 const initState = {
   notes: [],
   groups: [],
-  open: false
+  open: false,
+  availableColors: []
 };
 
 const notesReducer = (state = initState, action : any) => {
@@ -62,6 +63,11 @@ const notesReducer = (state = initState, action : any) => {
           }
           return note;
         })
+      }
+    case types.GET_AVAILABLE_COLORS:
+      return {
+        ...state,
+        availableColors: action.availableColors
       }
     case types.SIDEBAR_STATUS: 
       return {

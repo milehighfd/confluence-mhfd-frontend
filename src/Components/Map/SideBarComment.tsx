@@ -12,9 +12,9 @@ const { TextArea } = Input;
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, swSave, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
 
-  const { notes, groups } = useNotesState();
+  const { notes, groups, availableColors } = useNotesState();
   const { colorsList } = useColorListState();
-  const {  deleteNote, getGroups, getNotes, createGroup, editNote } = useNoteDispatch();
+  const {  deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors } = useNoteDispatch();
   const { setIdsFilter } = useColorListDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
@@ -33,16 +33,17 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   useEffect(() => {
     getGroups();
     getNotes();
+    getAvailableColors();
   }, []);
   useEffect(()=>{
     setIdsFilter('');
-    setCurrentSelected(colorsList.filter((color: any) => notes.find(note => note['color_id'] === color._id)).map((el:any) => {
+    setCurrentSelected(colorsList.filter((color: any) => availableColors.find(aColor => aColor['color_id'] === color._id)).map((el:any) => {
       return {
         ...el,
         selected:false 
       }
     }));
-  },[colorsList, notes]);
+  },[colorsList, availableColors]);
   useEffect(() => {
     const newTree = groups.map((group: any) => {
       return {

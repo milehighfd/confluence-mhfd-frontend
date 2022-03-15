@@ -118,6 +118,7 @@ export const SERVER = (function () {
     const NOTES = 'notes';
     const PROJECTS_BBOX = 'projects-bbox';
     const BY_PROJECT = 'by-project';
+    const GET_AVAILABLE_COLORS = 'get-available-colors';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -217,6 +218,7 @@ export const SERVER = (function () {
         CREATE_NOTE: `${URL_BASE.BASE}/${NEW_NOTES}/${NOTE_TYPE}`,
         CREATE_GROUP: `${URL_BASE.BASE}/${NEW_NOTES}/${GROUP_TYPE}`,
         GET_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/color-list`,
+        GET_AVAILABLE_COLORS: `${URL_BASE.BASE}/${NEW_NOTES}/${GET_AVAILABLE_COLORS}`,
         CREATE_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}`,
         DELETE_NOTE_LIST: (id: any) => {
           return `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}/${id}`;

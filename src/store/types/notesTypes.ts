@@ -6,4 +6,5 @@ export const SIDEBAR_STATUS = 'SIDEBAR_STATUS';
 export const CREATE_GROUP = 'CREATE_GROUP';
 export const EDIT_GROUP = 'EDIT_GROUP';
 export const DELETE_GROUP = 'DELETE_GROUP';
+export const GET_AVAILABLE_COLORS = 'GET_AVAILABLE_COLORS';
 export const GET_GROUPS = 'GET_GROUPS';
