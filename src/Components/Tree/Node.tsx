@@ -87,7 +87,7 @@ export const Node = ({
   }
   const unfocus = () => {
     setEditMode(false);
-    console.log(item);
+    console.log("unfocus", item);
     editGroup({_id: item.id, name: item.label, user_id: item.user_id});
   }
   const showCutText = (text: string) => {
@@ -98,11 +98,26 @@ export const Node = ({
     return text;
 
   }
+  useEffect(()=>{
+    if(editMode){
+      if (componentRef.current && componentRef.current.contains) {
+        componentRef.current.focus();
+      }
+    }
+  },[editMode]);
   // useEffect(()=>{
   //   console.log("This item??", item);
   // },[item]);
-  const [showBorder, setShowBorder] = useState(false);
   const componentRef: any = useRef();
+  useEffect(()=>{
+      if (componentRef.current && componentRef.current.contains) {
+        componentRef.current.addEventListener('blur', (e:any) => {
+          unfocus();
+        });
+      }
+  },[componentRef.current]);
+  const [showBorder, setShowBorder] = useState(false);
+  
   return (
     <div
       onDragOver={(e: any) => {
