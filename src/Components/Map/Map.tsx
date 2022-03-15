@@ -693,83 +693,88 @@ const Map = ({ leftWidth,
     },[markersNotes, commentVisible]);
     useEffect(() => {
         let mask;
-        if (coordinatesJurisdiction.length > 0) {
-            mask = turf.multiPolygon(coordinatesJurisdiction);
-            let miboundsmap = map.getBounds();
-            // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
-            let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-            var arrayBounds = misbounds.split(',');
-            let poly = polyMask(mask, arrayBounds);
-            setOpacityLayer(true);
-            if (!map.getSource('mask')) {
-                map.addSource('mask', {
-                    "type": "geojson",
-                    "data": poly
-                });
-                // this mask is the one added at beginning 
-                // map.addLayer({
-                //     "id": "mask",
-                //     "source": "mask",
-                //     "type": "fill",
-                //     "paint": {
-                //         "fill-color": "black",
-                //         'fill-opacity': 0.8
-                //     }
-                // });
-            } else {
-                map.setLayoutProperty('mask', 'visibility', 'visible');
-                map.removeLayer('mask');
-                map.removeSource('mask');
-                if(map.getSource('mask')) {
-                  map.getSource('mask').setData(poly);
-                } else {
+        if(map){
+          map.isStyleLoaded(()=>{
+            if (coordinatesJurisdiction.length > 0) {
+              mask = turf.multiPolygon(coordinatesJurisdiction);
+              let miboundsmap = map.getBounds();
+              // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
+              let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+              var arrayBounds = misbounds.split(',');
+              let poly = polyMask(mask, arrayBounds);
+              setOpacityLayer(true);
+              if (!map.getSource('mask')) {
                   map.addSource('mask', {
                       "type": "geojson",
                       "data": poly
                   });
-                }
-                
-                //this layer is the one on init
-                map.addLayer({
-                    "id": "mask",
-                    "source": "mask",
-                    "type": "fill",
-                    "paint": {
-                        "fill-color": "black",
-                        'fill-opacity': 0.8
-                    }
-                });
-                map.addLayer({
-                  "id": 'border',
-                  "source": "mask",
-                  "type": "line",
-                  "paint": {
-                    'line-color': '#28c499',
-                    'line-width': 1,
-                  }
-                });
-                setTimeout(()=>{
+                  // this mask is the one added at beginning 
+                  // map.addLayer({
+                  //     "id": "mask",
+                  //     "source": "mask",
+                  //     "type": "fill",
+                  //     "paint": {
+                  //         "fill-color": "black",
+                  //         'fill-opacity': 0.8
+                  //     }
+                  // });
+              } else {
+                  map.setLayoutProperty('mask', 'visibility', 'visible');
                   map.removeLayer('mask');
-                  map.removeLayer('border');
-                },4000);
-
-            }
-            // map.isStyleLoaded(()=>{
-            //   addSourceOpacity(poly);
-            // })
-        } else {
-            if (opacityLayer) {
-                if  (map.loaded()) {
-                    console.log('hide opacity');
-                    if (map.getLayer('mask')) {
-                        map.setLayoutProperty('mask', 'visibility', 'visible');
-                        map.removeLayer('mask');
-                        map.removeSource('mask');
+                  map.removeSource('mask');
+                  if(map.getSource('mask')) {
+                    map.getSource('mask').setData(poly);
+                  } else {
+                    map.addSource('mask', {
+                        "type": "geojson",
+                        "data": poly
+                    });
+                  }
+                  
+                  //this layer is the one on init
+                  map.addLayer({
+                      "id": "mask",
+                      "source": "mask",
+                      "type": "fill",
+                      "paint": {
+                          "fill-color": "black",
+                          'fill-opacity': 0.8
+                      }
+                  });
+                  map.addLayer({
+                    "id": 'border',
+                    "source": "mask",
+                    "type": "line",
+                    "paint": {
+                      'line-color': '#28c499',
+                      'line-width': 1,
                     }
-                }
-            }
-
+                  });
+                  setTimeout(()=>{
+                    map.removeLayer('mask');
+                    map.removeLayer('border');
+                  },4000);
+    
+              }
+              // map.isStyleLoaded(()=>{
+              //   addSourceOpacity(poly);
+              // })
+          } else {
+              if (opacityLayer) {
+                  if  (map.loaded()) {
+                      console.log('hide opacity');
+                      if (map.getLayer('mask')) {
+                          map.setLayoutProperty('mask', 'visibility', 'visible');
+                          map.removeLayer('mask');
+                          map.removeSource('mask');
+                      }
+                  }
+              }
+    
+          }
+           })
         }
+     
         // setTimeout(()=>{
         //   map.on('load', () => {
         //     console.log(map.getStyle().getLayers);
@@ -920,7 +925,7 @@ const Map = ({ leftWidth,
             map.on('draw.update', () => replaceOldPolygon(draw));
             polygonRef.current.appendChild(draw.onAdd(map));
         }
-        map.on('idle', () => {
+        map.on('render', () => {
             if (!globalMapId && itMoved) {
                 const center = [map.getCenter().lng, map.getCenter().lat];
                 console.log(map.getBounds());

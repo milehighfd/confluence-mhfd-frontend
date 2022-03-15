@@ -21,7 +21,10 @@ import {
   ROUTINE_MAINTENANCE,
   STREAMS_FILTERS,
   ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
-  NEARMAP_TOKEN
+  NEARMAP_TOKEN,
+  MUNICIPALITIES_FILTERS,
+  ACTIVE_LOMS,
+  EFFECTIVE_REACHES
 } from "../../constants/constants";
 import { MapHOCProps, ProjectTypes, MapLayersType, MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -445,7 +448,7 @@ const WorkRequestMap = (type: any) => {
           mapMoved = true;
           console.log(`i'm moving`);
         });
-        map.map.on('idle', () => {
+        map.map.on('render', () => {
           if (map && map.map && !globalMapId && mapMoved) {
             const center = [map.map.getCenter().lng, map.map.getCenter().lat];
             console.log(map.map.getBounds());
@@ -619,7 +622,9 @@ const WorkRequestMap = (type: any) => {
       applyComponentFilter();
     }
     setTimeout(()=>{
-      map.map.moveLayer('munis-centroids-shea-plusother');
+      map.isStyleLoaded(()=>{
+        map.map.moveLayer('munis-centroids-shea-plusother');
+      });
     },500);
 
   }
@@ -1579,15 +1584,83 @@ const epochTransform = (dateParser: any) => {
         popups.push(item);
         ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       }
-      if (feature.source === 'catchments' || feature.source === 'basin') {
+      if (feature.source === 'counties') { //DOTTY--COUNTIES
         const item = {
-          layer: MENU_OPTIONS.WATERSHED,
-          feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
+            layer: MENU_OPTIONS.COUNTIES,
+            feature: feature.properties.county ? feature.properties.county : '-',
+            // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+            constructionmanagers: feature.properties.construction_manager ? feature.properties.construction_manager : '-',
         }
-        menuOptions.push(MENU_OPTIONS.WATERSHED);
+        mobile.push({
+            layer: item.layer,
+            feature: item.feature,
+            // watershedmanager: item.watershedmanager,
+            constructionmanagers: item.constructionmanagers
+        })
+        menuOptions.push(MENU_OPTIONS.COUNTIES);
         popups.push(item);
-        ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+        ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+    }
+      if (feature.source === MUNICIPALITIES_FILTERS) {  
+        const item = {
+            layer: MENU_OPTIONS.MUNICIPALITIES,
+            //feature: feature.properties.city ? feature.properties.city : '-',
+            city: feature.properties.city ? feature.properties.city : '-',
+            // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
+            // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
+        }
+        mobile.push({
+            layer: item.layer,
+            //feature: item.feature,
+            city: item.city,
+            // watershedmanager: item.watershedmanager,
+            // constructionmanagers: item.constructionmanagers
+        })
+        menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
+        popups.push(item);
+        ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
       }
+      
+        if (feature.source.includes('catchments') || feature.source.includes('basin')) {
+            const item = {
+                layer: MENU_OPTIONS.WATERSHED,
+                //feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
+                str_name: feature.properties.str_name ? feature.properties.str_name : 'No name',
+                mhfd_code: feature.properties.mhfd_code ? feature.properties.mhfd_code : '-',
+                catch_acre: feature.properties.catch_acre ? feature.properties.catch_acre : '-',
+              }
+            menuOptions.push(MENU_OPTIONS.WATERSHED);
+            popups.push(item);
+            ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        }
+        if (feature.source === 'fema_flood_hazard_zones') {
+          const item = {
+              layer: MENU_OPTIONS.FEMA_FLOOD_HAZARD,
+              //feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+              dfirm_id: feature.properties.dfirm_id ? feature.properties.dfirm_id : '-',
+              fld_zone: feature.properties.fld_zone ? feature.properties.fld_zone : '-',
+              zone_subty: feature.properties.zone_subty ? feature.properties.zone_subty : '-',
+              sfha_tf: feature.properties.sfha_tf ? feature.properties.sfha_tf : '-',
+            }
+            menuOptions.push(MENU_OPTIONS.FEMA_FLOOD_HAZARD);
+            popups.push(item);
+            ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        }
+        if (feature.source === 'floodplains_non_fema') {
+          const item = {
+              layer: MENU_OPTIONS.FLOODPLAINS_NON_FEMA,
+              //feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
+              study_name: feature.properties.study_name ? feature.properties.study_name : '-',
+              floodplain_source: feature.properties.floodplain_source ? feature.properties.floodplain_source : '-',
+              floodplain_type: feature.properties.floodplain_type ? feature.properties.floodplain_type : '-',
+              county: feature.properties.county ? feature.properties.county : '-',
+              service_area: feature.properties.service_area ? feature.properties.service_area : '-',
+              notes_floodplains: feature.properties.notes ? feature.properties.notes : '-',
+            }
+            menuOptions.push(MENU_OPTIONS.FLOODPLAINS_NON_FEMA);
+            popups.push(item);
+            ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        }
       if (feature.source === ROUTINE_NATURAL_AREAS) {
         const item = {
           layer: MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA,
@@ -1819,6 +1892,60 @@ const epochTransform = (dateParser: any) => {
         popups.push(item);
         ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
       }
+      if (feature.source === ACTIVE_LOMS) {
+        let extraProperties = {};
+        if (user.designation === ADMIN || user.designation === STAFF ) {
+          extraProperties = { notes: feature.properties.notes || '-'}
+        }
+        const item = {
+          layer: 'Active LOMCs',
+          lomc_case: feature.properties.lom_case || '-',
+          lomc_type: feature.properties.lomc_type || '-',
+          lomc_identifier: feature.properties.lomc_identifier || '-',
+          status_date: feature.properties.status_date || '-',
+          status: feature.properties.status || '-',
+          effective_date: feature.properties.effective_date || '-',
+          ...extraProperties
+        }
+        menuOptions.push('Active LOMCs');
+        mobile.push({...item});
+        mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        popups.push(item);
+        ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        
+    }
+    if (feature.source === EFFECTIVE_REACHES) {
+      let extraProperties = {};
+      if (user.designation === ADMIN || user.designation === STAFF ) {
+          extraProperties = {
+              modellocation_mip: feature.properties.modellocation_mip || '-',
+              modellocation_local: feature.properties.modellocation_local || '-',
+              notes: feature.properties.notes || '-',
+              hydra_modeltype: feature.properties.hydra_modeltype || '-',
+              hydra_modeldate: feature.properties.hydra_modeldate || '-',
+              hydra_modelname: feature.properties.hydra_modelname || '-',
+              hydro_modeltype: feature.properties.hydro_modeltype || '-',
+              hydro_modeldate: feature.properties.hydro_modeldate || '-',
+              hydro_modelname: feature.properties.hydro_modelname || '-',
+              original_source_data: feature.properties.original_source_data || '-',
+              legacycode: feature.properties.legacycode || '-',
+          };
+      }
+      const item = {
+          layer: 'Effective Reaches',
+          uniqueid: feature.properties.uniqueid || '-',
+          streamname_mhfd: feature.properties.streamname_mhfd || '-',
+          streamname_fema: feature.properties.streamname_fema || '-',
+          studyname: feature.properties.studyname || '-',
+          studydate: feature.properties.studydate || '-',
+          ...extraProperties
+      };
+      menuOptions.push('Effective Reaches');
+        mobile.push({...item});
+        mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        popups.push(item);
+        ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+    }
       for (const component of COMPONENT_LAYERS.tiles) {
         if (feature.source === component) {
           let isAdded = componentsList.find( (i:any) => i.cartodb_id === feature.properties.cartodb_id); 
