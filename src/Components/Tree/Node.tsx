@@ -87,7 +87,7 @@ export const Node = ({
   }
   const unfocus = () => {
     setEditMode(false);
-    console.log("unfocus", item);
+    // console.log("unfocus", item);
     editGroup({_id: item.id, name: item.label, user_id: item.user_id});
   }
   const showCutText = (text: string) => {

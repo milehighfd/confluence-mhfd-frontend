@@ -135,7 +135,7 @@
   .ant-drawer-body{
     padding: 0px;
     height: calc(100vh - 141px);
-    overflow-y: auto;
+    // overflow-y: auto;
   }
   .ant-comment {
     padding: 0px 15px;
@@ -990,7 +990,8 @@
           }
         }
         .insideMainNode{
-          height: 93%;
+          height: 96%;
+          overflow-y: auto;
         }
         .main-node {
           padding-bottom: 60px;

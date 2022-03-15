@@ -75,8 +75,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     newTree.forEach(element => {
       if (element.children) {
         element.children.sort((a: any, b: any) => {
-          console.log('sorting ', a.label, b.label);
-          console.log('sorting ', a.data.position, b.data.position, a.data.position - b.data.position);
+          // console.log('sorting ', a.label, b.label);
+          // console.log('sorting ', a.data.position, b.data.position, a.data.position - b.data.position);
           return a.data.position - b.data.position;
         });
       }
