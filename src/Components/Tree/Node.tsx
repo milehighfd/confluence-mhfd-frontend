@@ -46,10 +46,7 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
     </Menu.Item> : null}
     {isFolder ? 
       <Menu.Item onClick={(e: any) => {
-        //e.stopPropagation();
-        // mapFunctions.deleteNote(note.id);
-        //it's destroying the app , but the endpoint works well :) <3
-        console.log(note.id);
+        e.domEvent.stopPropagation();
         deleteGroup(note.id);
         // deleteNote(note._id);
       }}>
@@ -99,8 +96,10 @@ export const Node = ({
 
   }
   useEffect(()=>{
+    console.log("WAT THE FUCK", editMode);
     if(editMode){
       if (componentRef.current && componentRef.current.contains) {
+        console.log("WAT THE FUCK 222");
         componentRef.current.focus();
       }
     }
