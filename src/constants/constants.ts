@@ -1865,22 +1865,22 @@ export const STUDY_SUB_REASON = [
 ]
 
 export const ICON_POPUPS = [
-  ['Problem', "/Icons/ic_problems.png"],
-  ["Storm Drain", "/Icons/ic_Component_StormDrain.png"],
-  ["Special Item Point", "/Icons/ic_Component_SpecialItemPoint.png"],
-  ["Special Item Linear", "/Icons/ic_Component_SpecialItemLinear.png"],
-  ["Special Item Area", "/Icons/ic_Component_SpecialItemArea.png"],
-  ["Removal Line", "/Icons/ic_Component_RemovalLine.png"],
-  ["Removal Area", "/Icons/ic_Component_RemovalArea.png"],
-  ["Pipe Appurtenances", "/Icons/ic_Component_PipeAppurtenances.png"],
-  ["Channel Improvements Linear", "/Icons/ic_Component_ChanneImprovementLinear.png"],
-  ["Channel Improvements Area", "/Icons/ic_Component_ChanneImprovementArea.png"],
-  ["Maintenance Trails", "/Icons/ic_Component_MaintenanceTrail.png"],
-  ["Landscaping Area", "/Icons/ic_Component_LandscapingArea.png"],
-  ["Land Acquisition", "/Icons/ic_Component_LandAcquisition.png"],
-  ["Grade Control Structure", "/Icons/ic_Component_GradeControlStructure.png"],
-  ["Detention Facilities", "/Icons/ic_Component_DetentionFacility.png"],
-  ["Watershed", "/Icons/ic_watersheds.png"],
+  ['Problem', "/Icons/ic_problems@2x.png"],
+  ["Storm Drain", "/Icons/ic_Component_StormDrain@2x.png"],
+  ["Special Item Point", "/Icons/ic_Component_SpecialItemPoint@2x.png"],
+  ["Special Item Linear", "/Icons/ic_Component_SpecialItemLinear@2x.png"],
+  ["Special Item Area", "/Icons/ic_Component_SpecialItemArea@2x.png"],
+  ["Removal Line", "/Icons/ic_Component_RemovalLine@2x.png"],
+  ["Removal Area", "/Icons/ic_Component_RemovalArea@2x.png"],
+  ["Pipe Appurtenances", "/Icons/ic_Component_PipeAppurtenances@2x.png"],
+  ["Channel Improvements Linear", "/Icons/ic_Component_ChanneImprovementLinear@2x.png"],
+  ["Channel Improvements Area", "/Icons/ic_Component_ChanneImprovementArea@2x.png"],
+  ["Maintenance Trails", "/Icons/ic_Component_MaintenanceTrail@2x.png"],
+  ["Landscaping Area", "/Icons/ic_Component_LandscapingArea@2x.png"],
+  ["Land Acquisition", "/Icons/ic_Component_LandAcquisition@2x.png"],
+  ["Grade Control Structure", "/Icons/ic_Component_GradeControlStructure@2x.png"],
+  ["Detention Facilities", "/Icons/ic_Component_DetentionFacility@2x.png"],
+  ["Watershed", "/Icons/ic_watersheds@2x.png"],
 ]
 
 /*  // Mapbox Custom Styles
