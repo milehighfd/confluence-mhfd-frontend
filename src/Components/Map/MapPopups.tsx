@@ -204,6 +204,21 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
   } else if (item.layer.includes('Effective')) {
     isComponent = false;
   }
+  else if (item.layer.includes('Stream Management Corridor')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Active Stream Corridor')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Fluvial Hazard Buffe')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Active Stream Corridor')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Fluvial Hazard Buffer')) {
+    isComponent = false;
+  }
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable
         >

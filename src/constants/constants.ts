@@ -1898,7 +1898,7 @@ export const ICON_POPUPS = [
   ['Municipality', "/Icons/ic_municipalities@2x.png"],
   ['SEMSWA Service Area', "/Icons/ic_SEMSWA@2x.png"],
   ['Stream', "/Icons/Filters/ic_streams.png"],
-  ['Stream Management Corridors', "/Icons/ic_SMC_Watershed@2x.png"],
+  ['Stream Management Corridor', "/Icons/ic_SMC_Watershed@2x.png"],
 ]
 
 /*  // Mapbox Custom Styles

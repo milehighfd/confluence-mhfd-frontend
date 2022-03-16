@@ -2732,11 +2732,11 @@ const Map = ({ leftWidth,
                   }
                   if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
                       const item = {
-                          layer: MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
-                          scale: 'District',//feature.properties.scale,
+                          layer: feature.properties.smc_type,
+                          scale: feature.properties.scale,
                           date_created: '01/07/2019' //feature.properties.date_created,
                       }
-                      menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
+                      menuOptions.push(feature.properties.smc_type);
                       popups.push(item);
                       mobile.push({
                           layer: item.layer,
