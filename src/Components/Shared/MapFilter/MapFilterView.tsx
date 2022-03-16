@@ -525,7 +525,7 @@ export const SEMSWA_SERVICE_AREA =
           <Panel header="" key="4" extra={genExtra03()}>
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_stream.png" width="18px" alt="" />
+              <img key={Math.random()} src="/Icons/ic_SMC@2x.png" width="18px" alt="" style={{borderRadius:'2px'}}  />
                   Stream Management Corridors
                   <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
