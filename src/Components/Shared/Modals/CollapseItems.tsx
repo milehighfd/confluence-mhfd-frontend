@@ -4,7 +4,7 @@ import { Collapse, Table, Row, Col, Menu } from 'antd';
 
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, SELECT_ALL_FILTERS, MEP_PROJECTS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, SELECT_ALL_FILTERS, MEP_PROJECTS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN } from '../../../constants/constants';
 import { tileStyles } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
@@ -108,6 +108,47 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
     const zoom = map.getZoom().toFixed(2);
     setZoomValue(zoom);
 }
+  const applyNearMapLayer = () => {
+    if (!map.getSource('raster-tiles')) {
+        map.map.addSource('raster-tiles', {
+            'type': 'raster',
+            'tileSize': 128,
+            'tiles': [
+                `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`
+                    // 'https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=MLY|4142433049200173|72206abe5035850d6743b23a49c41333'
+                ]
+        });
+        map.map.addLayer(
+            {
+                'id': 'simple-tiles',
+                'type': 'raster',
+                'source': 'raster-tiles',
+                'minzoom': 2,
+                'maxzoom': 24,
+                'paint': {
+                    'raster-fade-duration': 300,
+                    'raster-opacity':[
+                        "interpolate",
+                        ["linear"],
+                        ["zoom"],
+                        0,
+                        0,
+                        13,
+                        0.55,
+                        14,
+                        0.7,
+                        15,
+                        0.9,
+                        22,
+                        1
+                      ]
+                }
+            },
+            'aerialway' // Arrange our new layer beneath this layer,
+            
+        );
+    }
+  }
   const addLayer = () => {
     if(map) {
       let i = 0;
@@ -177,6 +218,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
       map.fitBounds([detailedPage.coordinates[0][0], detailedPage.coordinates[0][2]]);
       map.getLoadZoom(updateZoom);
       map.getMoveZoom(updateZoom);
+      applyNearMapLayer();
     }
   }
   const addMapListeners = (key: string, value: string) => {
