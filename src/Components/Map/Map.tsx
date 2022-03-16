@@ -560,6 +560,12 @@ const Map = ({ leftWidth,
               const html = commentPopup(note);
                   let newpopup = new mapboxgl.Popup({
                     closeButton: false,
+                    offset: { 
+                      'top': [0, 10],
+                      'bottom': [0, -10],
+                      'left': [10,0],
+                      'right': [-10,0]
+                    }
                   });
                   newpopup.on('close', (e: any)=> {
                     momentaryMarker.remove();
@@ -2216,7 +2222,15 @@ const Map = ({ leftWidth,
               if (commentAvailable && canAdd) {
                 const html = commentPopup();
                 popup.remove();
-                popup = new mapboxgl.Popup({closeButton: false});
+                popup = new mapboxgl.Popup({
+                  closeButton: false, 
+                  offset: { 
+                    'top': [0, 10],
+                    'bottom': [0, -10],
+                    'left': [10,0],
+                    'right': [-10,0]
+                  }
+                });
                 
                 markerNote.setPopup(popup);
                 popup.setHTML(html);
