@@ -2501,14 +2501,52 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-      'fill-color': '#1AA7EC'
+      'fill-color': [
+        "match",
+        ["get", "status"],
+        ["Completed"],
+        "hsla(317, 60%, 77%, 0.4)",
+        ["Suspended"],
+        "hsla(321, 62%, 46%, 0.5)",
+        ["Violation"],
+        "hsla(0, 70%, 38%, 0.4)",
+        ["Active"],
+        "hsla(92, 80%, 40%, 0.2)",
+        "hsla(0, 0%, 0%, 0)"
+      ]
     }
   }, {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
     paint: {
-      'line-color': '#1E2F97',
+      'line-color': [
+        "match",
+        ["get", "status"],
+        ["Completed"],
+        "hsl(325, 73%, 84%)",
+        ["Suspended"],
+        "hsl(297, 69%, 44%)",
+        ["Violation"],
+        "hsl(338, 85%, 40%)",
+        "hsla(325, 87%, 68%, 0)"
+      ],
+      'line-width': 2.25
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-color': [
+        "match",
+        ["get", "status"],
+        ["Active"],
+        "hsl(95, 85%, 38%)",
+        "hsla(325, 87%, 68%, 0)"
+      ],
+      'line-width': 3,
+      'line-dasharray':[2.5, 2.5]
     }
   }],
   [EFFECTIVE_REACHES]: [{
