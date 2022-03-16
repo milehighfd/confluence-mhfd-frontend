@@ -398,7 +398,6 @@ const Map = ({ leftWidth,
 
     useEffect(()=>{
       const user = userInformation;
-      console.log(" coordbounds DOES THIS REACHES?");
       if (user?.polygon[0]) {
         let myPolygon: any = [];
         for (let index = 0; index < userInformation.polygon.length; index++) {
@@ -935,11 +934,11 @@ const Map = ({ leftWidth,
         map.on('render', () => {
             if (!globalMapId && itMoved) {
                 const center = [map.getCenter().lng, map.getCenter().lat];
-                console.log(map.getBounds());
+                // console.log(map.getBounds());
                 const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
                   map.getBounds()._ne.lng, map.getBounds()._ne.lat];
                 addHistoric({center, bbox});
-                console.log(getCurrent() + ' ' + hasNext());
+                // console.log(getCurrent() + ' ' + hasNext());
             }
             globalMapId = null;
             itMoved = false;
@@ -1043,7 +1042,7 @@ const Map = ({ leftWidth,
         map.on('load', updateZoom);
         map.on('move', updateZoom);
         map.on('moveend', () => {
-            console.log('end moving ');
+            // console.log('end moving ');
             itMoved = true;
         });
         getColorsList();
@@ -2989,6 +2988,7 @@ const Map = ({ leftWidth,
     }
     const createProject = (details: any, event: any) => {
       popup.remove();
+      console.log('crete projec', details);
         if (details.problemid) {
             setDataProblem({
                 id: '',
@@ -2998,9 +2998,6 @@ const Map = ({ leftWidth,
                 value: '',
                 problemid: details.problemid
             });
-            setTimeout(()=>{
-              getZoomGeomProblem(details.problemid);
-            },45000);
         }
         if(details.layer === 'Components') {
           let newComponents = [{
@@ -3030,6 +3027,11 @@ const Map = ({ leftWidth,
         }
         setVisibleCreateProject(true);
     }
+    useEffect(()=>{
+      if(visibleCreateProject && dataProblem.problemid){
+        getZoomGeomProblem(dataProblem.problemid);
+      }
+    },[visibleCreateProject]);
     const addMapListeners = async (key: string) => {
         const styles = { ...tileStyles as any };
         const availableLayers: any[] = [];

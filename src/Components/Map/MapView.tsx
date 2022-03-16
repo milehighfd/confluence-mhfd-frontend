@@ -92,7 +92,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
 
   useEffect(() => {
     setvalueA(nameZoomArea);
-    console.log("name zoom area", nameZoomArea);
   }, [nameZoomArea]);
   useEffect(() => {
     setSpinMapLoaded(true);

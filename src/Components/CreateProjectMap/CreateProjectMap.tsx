@@ -207,30 +207,34 @@ const CreateProjectMap = (type: any) => {
     setLoading(false);
   },[listStreams]);
   useEffect(()=>{
+    console.log("zoom geom", zoomGeom);
     if(zoomGeom && zoomGeom.geom) {
       let cg = zoomGeom.geom?JSON.parse(zoomGeom.geom):undefined;
-      if(cg.type === 'MultiLineString') {
-        let poly = turf.multiLineString(cg.coordinates);
-        let bboxBounds = turf.bbox(poly);
-        if(map.map){
-          map.map.fitBounds(bboxBounds,{ padding:80, maxZoom: 16});
+      map.map.once('render', ()=> {
+        console.log("zoom ACCESZ", zoomGeom);
+        if(cg.type === 'MultiLineString') {
+          let poly = turf.multiLineString(cg.coordinates);
+          let bboxBounds = turf.bbox(poly);
+          if(map.map){
+            map.map.fitBounds(bboxBounds,{ padding:80, maxZoom: 16});
+          }
+        } else if(cg.type === 'Point') {
+          let poly = turf.point(cg.coordinates);
+          let bboxBounds = turf.bbox(poly);
+          if(map.map){
+            map.map.fitBounds(bboxBounds,{ padding:80,  maxZoom: 16});
+          }
+        } else if ( cg.type === 'MultiPolygon'){
+          let poly = turf.multiPolygon(cg.coordinates);
+          let bboxBounds = turf.bbox(poly);
+          if(map.map){
+            map.map.fitBounds(bboxBounds,{ padding:80 , maxZoom: 16});
+          }
+        } else {
+          console.log("DIFF", cg);
         }
-      } else if(cg.type === 'Point') {
-        let poly = turf.point(cg.coordinates);
-        let bboxBounds = turf.bbox(poly);
-        if(map.map){
-          map.map.fitBounds(bboxBounds,{ padding:80,  maxZoom: 16});
-        }
-      } else if ( cg.type === 'MultiPolygon'){
-        let poly = turf.multiPolygon(cg.coordinates);
-        let bboxBounds = turf.bbox(poly);
-        if(map.map){
-          map.map.fitBounds(bboxBounds,{ padding:80 , maxZoom: 16});
-        }
-      } else {
-        console.log("DIFF", cg);
-      }
-        
+      });
+      
     }
   },[zoomGeom])
   useEffect(()=>{

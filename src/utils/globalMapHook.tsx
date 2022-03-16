@@ -16,15 +16,15 @@ export const GlobalMapHook = () => {
     if (!location.id) {
       location.id = generateId();
     }
-    console.log(location);
-    console.log('my array is ', lastMaps);
+    // console.log(location);
+    // console.log('my array is ', lastMaps);
     const currentId = cc;
     lastId = cc++;
     const copy = lastMaps;
     setTimeout(() => {
       if (currentId === lastId) {
         const findLocation = copy.find((l: any) => l.id === location.id);
-        console.log('findLocation', findLocation);
+        // console.log('findLocation', findLocation);
         if (!findLocation) {
           copy.push(location);
         } else {
@@ -57,7 +57,7 @@ export const GlobalMapHook = () => {
       position--;
     }
     setCurrentPosition(position);
-    console.log(position, getPercentage());
+    // console.log(position, getPercentage());
     return lastMaps[position]; 
   }
 
@@ -67,7 +67,7 @@ export const GlobalMapHook = () => {
       position++;
     }
     setCurrentPosition(position);
-    console.log(position, getPercentage());
+    // console.log(position, getPercentage());
     return lastMaps[position];
   }
 
