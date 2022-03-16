@@ -69,7 +69,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
             if(projects.length>0){
               setBoardProjectsCreate({cartoids:justProjects, ids: idsProjects});
             } else {
-              setBoardProjectsCreate(['-8888']);
+              setBoardProjectsCreate(['-7777']);
             }
 
           }

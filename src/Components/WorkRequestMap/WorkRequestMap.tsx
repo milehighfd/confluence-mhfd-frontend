@@ -238,8 +238,9 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    let time = firstTime?2200:1300;
-      if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
+    let time = firstTime?2000:1000;
+    
+      // if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         
         let filterProjectsDraft = {...filterProjects}; 
         filterProjectsDraft.projecttype = '';
@@ -267,15 +268,16 @@ const WorkRequestMap = (type: any) => {
             },time);
             
           });
-        },2200)
+        },1200)
           
-      } else {
-        if(map.map){
-          removeLayers('mhfd_projects_created');
-          removeLayersSource('mhfd_projects_created');
-        }
+      // } else {
+      //   if(map.map){
+      //     console.log("ABOUT TO REMOVE FUCKER", idsBoardProjects)
+      //     removeLayers('mhfd_projects_created');
+      //     removeLayersSource('mhfd_projects_created');
+      //   }
         
-      } 
+      // } 
   },[idsBoardProjects]);
   
   useEffect(() => {
@@ -311,7 +313,7 @@ const WorkRequestMap = (type: any) => {
       //     value = type.locality;
       //   }
       //   if(groupOrganization.length > 0) {
-      //     wait(()=>setBounds(value));
+    //     wait(()=>setBounds(value));
       //   }
       // },500);
     }
@@ -924,10 +926,15 @@ const WorkRequestMap = (type: any) => {
           allFilters.push(options);
         }
       }
-      if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_created' && idsBoardProjects[0]!='-8888'){
-        let boardids = idsBoardProjects;
-        allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
-      } 
+      if(key ==='mhfd_projects_created') { 
+        if(idsBoardProjects && idsBoardProjects.length > 0 && idsBoardProjects[0]!='-8888'){
+          let boardids = idsBoardProjects;
+          allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
+        } else {
+          allFilters.push(['in', ['get', 'projectid'], ['litera', ['-1111'] ] ]);
+        }
+      }
+      
       if (map.getLayer(key + '_' + index)) {
         map.setFilter(key + '_' + index, allFilters);
       }
