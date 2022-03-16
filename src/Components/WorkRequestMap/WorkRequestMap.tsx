@@ -627,6 +627,11 @@ const WorkRequestMap = (type: any) => {
     setTimeout(()=>{
       map.isStyleLoaded(()=>{
         map.map.moveLayer('munis-centroids-shea-plusother');
+          map.map.moveLayer('streams_1');
+          map.map.moveLayer('streams_2');
+          map.map.moveLayer('streams_3');
+          map.map.moveLayer('streams_4');
+          map.map.moveLayer('borderMASK');
       });
     },500);
 
