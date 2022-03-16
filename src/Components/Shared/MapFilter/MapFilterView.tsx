@@ -441,7 +441,7 @@ export const SEMSWA_SERVICE_AREA =
           </Panel>
           <Panel header="" key="2" extra={genExtra01()}>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_streams.png" width="18px" alt="" />
+              <img key={Math.random()} src="/Icons/Filters/ic_streams.png" width="18px" alt="" style={{borderRadius:'2px'}}/>
                   Streams
                   <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.watershed)}>
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
@@ -467,7 +467,7 @@ export const SEMSWA_SERVICE_AREA =
             </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
 
             <p style={{ display: 'none' }}>
-              <img key={Math.random()} src="/Icons/Filters/ic_stream.png" width="18px" alt="" />
+              <img key={Math.random()} src="/Icons/Filters/ic_stream.png" width="18px" alt="" style={{borderRadius:'2px'}} />
                   Streams
                   <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
@@ -478,7 +478,7 @@ export const SEMSWA_SERVICE_AREA =
 
           <Panel header="" key="3" extra={genExtra02()}>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_flood.png" width="18px" alt="" />
+              <img key={Math.random()} src="/Icons/ic_floodplains@2x.png" width="18px" alt="" style={{borderRadius:'2px'}} />
                   Floodplains (Non-FEMA)
                   <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.floodplains)}>
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
@@ -536,7 +536,7 @@ export const SEMSWA_SERVICE_AREA =
 
           <Panel header="" key="5" extra={genExtra04()}>
             <p>
-              <img key={Math.random()} src="/Icons/icon_bcz.png" width="18px" alt="" />
+              <img key={Math.random()} src="/Icons/ic_BlockClearanceZone@2x.png" width="18px" alt="" style={{borderRadius:'2px'}} />
                   Block Clearance Zone
                   <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.block_clearence_zones)}>
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />

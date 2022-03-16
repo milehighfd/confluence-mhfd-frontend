@@ -1880,7 +1880,23 @@ export const ICON_POPUPS = [
   ["Land Acquisition", "/Icons/ic_Component_LandAcquisition@2x.png"],
   ["Grade Control Structure", "/Icons/ic_Component_GradeControlStructure@2x.png"],
   ["Detention Facilities", "/Icons/ic_Component_DetentionFacility@2x.png"],
+  ["MEP Project", "/Icons/ic_MEP@2x.png"],
   ["Watershed", "/Icons/ic_watersheds@2x.png"],
+  ['Vegetation Management - Natural Area', "/Icons/ic_routine@2x.png"],
+  ['Vegetation Management - Weed Control', "/Icons/ic_routine@2x.png"],
+  ['Debris Management Area', "/Icons/ic_routine@2x.png"],
+  ['ROUTINE MAINTENANCE', "/Icons/ic_routine@2x.png"],
+  ['Debris Management Linear', "/Icons/ic_routine@2x.png"],
+  ['Floodplains (Non-FEMA)', "/Icons/ic_floodplains@2x.png"],
+  ['DWR Dam Safety', "/Icons/ic_DWR@2x.png"],
+  ['BCZ - Preble’s Meadow Jumping Mouse', "/Icons/ic_mouse@2x.png"],
+  ['BCZ - Ute Ladies Tresses Orchid', "/Icons/ic_BCZ-ute@2x.png"],
+  ['Research/Monitoring', "/Icons/ic_research@2x.png"],
+  ['Climb to Safety Signs', "/Icons/ic_climb@2x.png"],
+  ['Service Area', "/Icons/ic_service@2x.png"],
+  ['County', "/Icons/ic_counties@2x.png"],
+  ['Municipality', "/Icons/ic_municipalities@2x.png"],
+  ['SEMSWA Service Area', "/Icons/ic_SEMSWA@2x.png"]
 ]
 
 /*  // Mapbox Custom Styles
