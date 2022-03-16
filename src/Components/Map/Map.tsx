@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
+import * as datasets from "../../Config/datasets";
+import { SERVER } from "../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import ReactDOMServer from 'react-dom/server';
@@ -2214,7 +2216,7 @@ const Map = ({ leftWidth,
         if (allLayers.length < 100) {
             return;
         }
-        map.on('click', (e: any) => {
+        map.on('click', async (e: any) => {
             if(isMeasuring) {
               measureFunction(e);
             } else {
@@ -2907,6 +2909,12 @@ const Map = ({ leftWidth,
                   }
                   for (const component of COMPONENT_LAYERS.tiles) {
                       if (feature.source === component) {
+                          const problemid = feature.properties.problemid ?feature.properties.problemid:'';
+                          let problemname = '';
+                          if(problemid) {
+                            let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
+                            problemname = aw[0]?.problemname;
+                          }
                           const item = {
                             layer: MENU_OPTIONS.COMPONENTS,
                             type: feature.properties.type ? feature.properties.type : '-',
@@ -2919,7 +2927,8 @@ const Map = ({ leftWidth,
                             original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
                             table: feature.source ? feature.source : '-',
                             cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
-                            problem: 'Dataset in development',
+                            problem: problemname,
+                            problemid: problemid,
                             objectid: feature.properties.objectid?feature.properties.objectid:'-',
                             streamname: feature.properties.drainageway,
                           };
@@ -2956,6 +2965,7 @@ const Map = ({ leftWidth,
                         document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
                         document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
                         document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
+                        document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
                     }
                 }
             }
@@ -3597,6 +3607,7 @@ const Map = ({ leftWidth,
                     document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
                     document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
                     document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
+                    document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
                 }
                 searchMarker.setPopup(searchPopup);
                 searchMarker.addTo(map);
