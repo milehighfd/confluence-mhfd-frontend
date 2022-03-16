@@ -2095,6 +2095,26 @@ const epochTransform = (dateParser: any) => {
             <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
         )
     }
+    if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
+      return (
+          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      )
+    }
+    if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
+        return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor_Fluvial@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+        )
+    }
+    if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Watershed')){
+        return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+        )
+    }
+    if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Watershed')){
+        return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed_Fluvial@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+        )
+    }
     if(icon !== undefined){
         return icon
     }

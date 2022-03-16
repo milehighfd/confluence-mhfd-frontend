@@ -3298,7 +3298,6 @@ const Map = ({ leftWidth,
     );
     const loadIconsPopup = (menu: any, popups:any, index:any) =>{
         let icon
-        // console.log( menu, popups, index)
         ICON_POPUPS.forEach((element) => {
             if(element[0] === menu){
                 icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
@@ -3357,6 +3356,26 @@ const Map = ({ leftWidth,
         if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AO')){
             return (
                 <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+            )
+        }
+        if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
+            return (
+                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+            )
+        }
+        if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
+            return (
+                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor_Fluvial@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+            )
+        }
+        if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Watershed')){
+            return (
+                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+            )
+        }
+        if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Watershed')){
+            return (
+                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed_Fluvial@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
             )
         }
         if(icon !== undefined){
