@@ -2036,9 +2036,9 @@ const epochTransform = (dateParser: any) => {
   const loadIconsPopup = (menu: any, popups:any, index:any) =>{
     let icon
     ICON_POPUPS.forEach((element) => {
-        if(element[0] === menu){
-            icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        }
+      if(element[0] === menu){
+          icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      }
     })
     if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration ||popups.projecctype === NEW_PROJECT_TYPES.Maintenance || popups.projecctype === "Capital")){
         return (
@@ -2046,14 +2046,14 @@ const epochTransform = (dateParser: any) => {
         )
     }
     if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'Master Plan')){
-      return (
-          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_MasterPlan@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-      )
+    return (
+        <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_MasterPlan@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+    )
     }
     if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'FHAD')){
-      return (
-          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_FHAD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-      )
+    return (
+        <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_FHAD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+    )
     }
     if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'A')){
         return (
@@ -2075,13 +2075,33 @@ const epochTransform = (dateParser: any) => {
             <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
         )
     }
+    if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === '-')){
+        return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAE@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+        )
+    }
+    if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === 'FLOODWAY')){
+        return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_Floodway@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+        )
+    }
+    if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'X')){
+        return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneX@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+        )
+    }
+    if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AO')){
+        return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+        )
+    }
     if(icon !== undefined){
         return icon
     }
     return (
         <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
-}
+  }
   const addRemoveComponent = (item: any, event: any)=> {
     let newComponents:any = [];
     if(item.added === 'Add') {

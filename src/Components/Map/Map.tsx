@@ -3298,6 +3298,7 @@ const Map = ({ leftWidth,
     );
     const loadIconsPopup = (menu: any, popups:any, index:any) =>{
         let icon
+        // console.log( menu, popups, index)
         ICON_POPUPS.forEach((element) => {
             if(element[0] === menu){
                 icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
@@ -3361,7 +3362,6 @@ const Map = ({ leftWidth,
         if(icon !== undefined){
             return icon
         }
-        
         return (
             <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
         )
