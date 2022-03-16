@@ -113,6 +113,11 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         const { open } = useNotesState();
         const {setSave} = useProjectDispatch();
         useEffect(()=>{
+          if(open) {
+            closeWidth();
+          }
+        },[open]);
+        useEffect(()=>{
           console.log(status,"status++++")
           if(status === 1 || status ===0){
             setStatusSave(status);
@@ -150,6 +155,11 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             setRotationStyle(emptyStyle);
           }
         }, [tutorialStatus])
+        const closeWidth = () => {
+          setLeftWidth(COMPLETE_SCREEN);
+            setRightWitdh(EMPTY_SCREEN);
+            setRotationStyle({transform: 'rotate(180deg)', marginRight:'-4px', right:'4px', position:'relative'});
+        }
         const updateWidth = () => {
           if (leftWidth === MEDIUM_SCREEN_LEFT) {
             setLeftWidth(COMPLETE_SCREEN);
@@ -168,7 +178,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
             }
             updateSelectedLayers(copySelectedLayers);
           }
-          console.log(selectedLayers);
           setCompleteView(!isExtendedView);
         }
         if(redirect) {
