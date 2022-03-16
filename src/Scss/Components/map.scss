@@ -19,7 +19,7 @@
       padding: 0px 0px;
       border-radius: 5px;
       box-shadow: 0 3px 11px 0 var(--marine-blue-15);
-      background-color: #fafbfb;
+      background-color: #ffffff;
       font-size: 14px;
       font-family: 'Ubuntu';
       width: 200px;
@@ -733,8 +733,8 @@
   min-width: 125px;
   width: 280px;
   max-width: 330px;
-  height: 203px;
-
+  min-height: 190px;
+  // height: 225px;
   border-radius: 10px;
   box-shadow: $shadow;
   background-color: #fafbfb;
