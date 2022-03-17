@@ -627,6 +627,7 @@ const WorkRequestMap = (type: any) => {
     setTimeout(()=>{
       map.isStyleLoaded(()=>{
         map.map.moveLayer('munis-centroids-shea-plusother');
+        map.map.moveLayer('streams_0');
           map.map.moveLayer('streams_1');
           map.map.moveLayer('streams_2');
           map.map.moveLayer('streams_3');
@@ -2106,7 +2107,7 @@ const epochTransform = (dateParser: any) => {
     }
     if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
         return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor_Fluvial@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern2.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
         )
     }
     if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Watershed')){
@@ -2116,7 +2117,7 @@ const epochTransform = (dateParser: any) => {
     }
     if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Watershed')){
         return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed_Fluvial@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern3.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
         )
     }
     if(icon !== undefined){
