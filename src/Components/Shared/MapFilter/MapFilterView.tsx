@@ -505,7 +505,7 @@ export const SEMSWA_SERVICE_AREA =
             </p> 
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
+              <img key={Math.random()} src="/Icons/lomcs_main.png" width="18px" alt="" style={{borderRadius:'2px'}} />
                   Active LOMCs
                   <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.active_lomcs)}>
                 <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
