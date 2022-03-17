@@ -323,6 +323,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.county ? <p><i>County:</i>  {item.county}</p> : ''}
             {item.service_area ? <p><i>Service Area:</i>  {item.service_area}</p> : ''}
             {item.notes_floodplains ? <p><i>Notes:</i>  {item.notes_floodplains}</p> : ''}
+            {item.volume ? <p><i>Volume:</i>  {item.volume} acre-ft</p> : ''}
             {isComponent && item.projectid === undefined && <Button id={"buttonCreate-" + id} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
             {item.layer == MENU_OPTIONS.MEASURES && 
               <div style={{ padding: '10px', marginTop: '15px', color: '#28C499', display:'flex'}}>

@@ -2910,13 +2910,18 @@ const Map = ({ leftWidth,
                   }
                   for (const component of COMPONENT_LAYERS.tiles) {
                       if (feature.source === component) {
+                          console.log("DOTTY..1", feature);
                           const problemid = feature.properties.problemid ?feature.properties.problemid:'';
                           let problemname = '';
                           if(problemid) {
                             let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
                             problemname = aw[0]?.problemname;
                           }
-                          const item = {
+                          let volume 
+                          if(feature.source === 'detention_facilities'){
+                              volume = {volume:feature.properties.detention_volume? feature.properties.detention_volume : '-'}
+                          }
+                          let item = {
                             layer: MENU_OPTIONS.COMPONENTS,
                             type: feature.properties.type ? feature.properties.type : '-',
                             subtype: feature.properties.subtype ? feature.properties.subtype : '-',
@@ -2932,6 +2937,7 @@ const Map = ({ leftWidth,
                             problemid: problemid,
                             objectid: feature.properties.objectid?feature.properties.objectid:'-',
                             streamname: feature.properties.drainageway,
+                            ...volume,
                           };
                           const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
                           menuOptions.push(name);
