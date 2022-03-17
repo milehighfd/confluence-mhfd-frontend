@@ -14,7 +14,7 @@ const data = [
 const content = (
   <List
     size="small"
-    footer={<Button>Leave a Comment</Button>}
+    footer={<Button>Map Note</Button>}
     bordered
     dataSource={data}
     renderItem={item => <List.Item>{item}</List.Item>}
@@ -162,7 +162,7 @@ export default () => {
     <li><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey</li>
     <li><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Green</li>
   </ul>} overlayClassName="popover-comment">
-        <Button className="type-popover"><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Leave a Comment <DownOutlined /></Button>
+        <Button className="type-popover"><i className="mdi mdi-circle-medium" style={{color:'#29C499'}}></i> Map Note <DownOutlined /></Button>
       </Popover>
       </div>
       <div className="bodymap">

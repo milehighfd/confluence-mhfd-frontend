@@ -63,7 +63,6 @@ import { useProfileDispatch } from '../../hook/profileHook';
 import { AlertView } from '../Alerts/AlertView';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
-// import {PathStyleExtension} from '@deck.gl/extensions';
 import * as d3 from 'd3';
 import GenericTabView from '../Shared/GenericTab/GenericTabView';
 import { useFilterDispatch, useFilterState } from '../../hook/filtersHook';
@@ -240,7 +239,7 @@ const Map = ({ leftWidth,
     const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
     const [zoomValue, setZoomValue] = useState(0);
     const { addHistoric, getCurrent, getHistoric, getNext, getPercentage, getPrevious, hasNext, hasPrevious } = GlobalMapHook();
-
+    const [cursor, setCursor] = useState('crosshair');
     const colors = {
         RED: '#FF0000',
         ORANGE: '#FA6400',
@@ -262,6 +261,7 @@ const Map = ({ leftWidth,
     const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
     const { TabPane } = Tabs;
     const listDescription = false;
+    
     const accordionRow: Array<any> = [
         {
           color: "green", image: "/Icons/icon-19.svg", field1: "Component 1", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
@@ -898,6 +898,24 @@ const Map = ({ leftWidth,
                 map.addImage('pjm2', image);
             }
         });
+        map.loadImage('custom-sprite/ic-stripered.png', (error: any, image: any) => {
+          if (error) {
+              console.log('error on load ', error);
+              return;
+          }
+          if (!map.hasImage('ic-stripered')) {
+              map.addImage('ic-stripered', image);
+          }
+        });
+        map.loadImage('custom-sprite/ic-stripeviolet.png', (error: any, image: any) => {
+            if (error) {
+                console.log('error on load ', error);
+            }
+            if (!map.hasImage('ic-stripeviolet')) {
+                map.addImage('ic-stripeviolet', image);
+            }
+        });
+        
         map.loadImage('custom-sprite/Urbanclimbtosafetysign_origclean-50.png', (error: any, image: any) => {
             if (error) {
                 console.log('error on load ', error);
@@ -1181,6 +1199,7 @@ const Map = ({ leftWidth,
     }, [recentSelection]);
 
     useEffect(() => {
+      console.log("Bbox components", bboxComponents);
         if (map.getLayer('mapboxArcs')) {
             map.removeLayer('mapboxArcs')
         }
@@ -1194,7 +1213,8 @@ const Map = ({ leftWidth,
         } else {
             const SOURCE_COLOR = [189, 56, 68];
             const TARGET_COLOR = [13, 87, 73];
-            const GREEN_SOLID = [177, 146, 108];
+            const YELLOW_SOLID = [118, 239, 213];
+            const ORANGE_SOLID = [255, 165, 65];
             let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
                 return {
                     position: c.centroid,
@@ -1209,7 +1229,8 @@ const Map = ({ leftWidth,
                 arcs.push({
                     source: bboxComponents.centroids[0].centroid,
                     target: bboxComponents.centroids[i].centroid,
-                    value: bboxComponents.centroids[i].arcWidth
+                    value: bboxComponents.centroids[i].arcWidth,
+                    colorArc: bboxComponents.centroids[i].component == "detention_facilities"? ORANGE_SOLID: YELLOW_SOLID
                 });
             }
             let mapboxArcsLayer = new MapboxLayer({
@@ -1237,11 +1258,10 @@ const Map = ({ leftWidth,
                 opacity: 1,
                 getSourcePosition: (d: any) => d.source,
                 getTargetPosition: (d: any) => d.target,
-                getWidth: (d: any) => d.value * 3.5,
+                getWidth: (d: any) => d.value * 2,
                 getHeight: 0.7,
-                getSourceColor: GREEN_SOLID,
-                getTargetColor: GREEN_SOLID,
-                getDashArray: [5, 7]
+                getSourceColor: (d:any)=> d.colorArc,
+                getTargetColor: (d:any)=> d.colorArc
             });
             map.setPitch(80)
             map.addLayer(mapboxArcsLayer);
@@ -1672,7 +1692,6 @@ const Map = ({ leftWidth,
         console.log('adding');
         canAdd = true;
     }
-
     const addTilesLayers = (key: string) => {
         const styles = { ...tileStyles as any };
         
@@ -2034,9 +2053,8 @@ const Map = ({ leftWidth,
             <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
           </li>`
         });
-        console.log(listOfElements);
-        //const hasDefault = listOfElements.filter((el:any) => el.label === 'Map Note').length >= 1;
-        //console.log('default ', hasDefault);
+        const hasDefault = listOfElements.filter((el:any) => el.label === 'Map Note').length >= 1;
+        // console.log('default ', hasDefault);
         inner += '</div>'
         const addLabelButton = `
           <li id="addLabelButton" style="padding-right:12px">
@@ -2044,6 +2062,7 @@ const Map = ({ leftWidth,
                 id="addLabelButton-btn"
                 type="button"
                 class="addlabelbutton"
+                ${hasDefault ? 'disabled' : ''}
             >
                 Add Label
             </button>
@@ -3096,7 +3115,8 @@ const Map = ({ leftWidth,
                 map.getCanvas().style.cursor = '';
             });
             map.on('mousemove', () => {
-              map.getCanvas().style.cursor = !isMeasuring
+              map.getCanvas().style.cursor = 
+                  (!canAdd && !isMeasuring)
                   ? 'default'
                   : 'crosshair';
             });
@@ -3126,7 +3146,7 @@ const Map = ({ leftWidth,
         <div className="popup-comment">
         <div className="headmap">
           <Button id="color-list" className="testheader">
-            <span id="color-text">{ note?.color ? (note.color.label):'Leave a Comment' }</span>
+            <span id="color-text">{ note?.color ? (note.color.label):'Map Note' }</span>
             <div className='dr'>
               <div className="legend-selected">
                 <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#F6BE0F'}}></i> 

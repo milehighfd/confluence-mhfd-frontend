@@ -4315,9 +4315,9 @@ export const tileStyles = {
                   "match",
                   ["get", "scale"],
                   ["Watershed"],
-                  "pattern (2)",
+                  "ic-stripered",
                   ["Stream Corridor"],
-                  "pattern (5)",
+                  "ic-stripeviolet",
                   "pedestrian-polygon"
               ],
               "pedestrian-polygon"
