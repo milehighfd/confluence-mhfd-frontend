@@ -2045,6 +2045,7 @@ const Map = ({ leftWidth,
     const addListToPopupNotes = (ul: any, div: any, noteClicked?:any) => {
       // ul -> id-list-popup | div -> color-list
       // if(listOfElements.length ) {
+        console.log("NOTE CLICKED", noteClicked, listOfElements);
         let inner = `
         <div class="listofelements" id="currentItemsinList">
           `;
@@ -2052,7 +2053,7 @@ const Map = ({ leftWidth,
           inner += ` 
           <li id="color${index}" value=${JSON.stringify(el._id)}>
             <img id="circle${index}" class="img-circle" style="background:${el.color}"/> 
-              <input id="input${index}" class="inputlabel" value="${el.label}" readonly>
+              <input id="input${index}" class="inputlabel${noteClicked?.color_id == el._id?' underlined':''}" value="${el.label}" readonly>
             <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
           </li>`
         });
@@ -2123,6 +2124,16 @@ const Map = ({ leftWidth,
           }
         });
       }
+      listOfElements.forEach((el:any, index_:any) => { 
+        let divoptionstohide = document.getElementById(`divoptions${index_}`);
+        if(divoptionstohide != null){
+          divoptionstohide.style.display = 'none';
+        }
+        let divcolorstohide = document.getElementById(`divcolor${index_}`);
+        if(divcolorstohide != null){
+          divcolorstohide.style.display = 'none';
+        }
+      });
     }
     const addListonPopupNotes = (e: any) => {
       const div = document.getElementById('color-list');

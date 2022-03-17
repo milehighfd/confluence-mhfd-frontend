@@ -840,7 +840,7 @@ const RequestView = ({ type, isFirstRendering }: {
                           {
                             columns.map((column, columnIdx) => (
                               <div className="container-drag" key={columnIdx+Math.random()}>
-                                <h3>{column.title}</h3>
+                                <h3>{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
                                 <div className="col-wr droppable" onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx)}>
                                   {
                                     column.hasCreateOption &&

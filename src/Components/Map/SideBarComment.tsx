@@ -53,7 +53,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         children: []
       } as any;
     });
-    notes.forEach((note: any) => {
+    notes?.forEach((note: any) => {
       const index = newTree.findIndex((item: any) => item.id === note.group_id);
       if (index !== -1) {
         newTree[index].children.push({

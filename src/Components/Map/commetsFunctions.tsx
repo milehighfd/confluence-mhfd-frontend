@@ -2,10 +2,10 @@ import { ConsoleSqlOutlined } from '@ant-design/icons';
 import React from 'react';
 export const clickingColorElement = (listOfElements: any, currentElement: any) => {
   listOfElements.forEach((_el:any, _index: any) => { 
-    changeContentTitleClick(_el,_index);
+    changeContentTitleClick(_el,_index, listOfElements);
   });
 }
-export const changeContentTitleClick = (_el: any, _index: any) => {
+export const changeContentTitleClick = (_el: any, _index: any, listOfElements: any) => {
   const colorElem = document.getElementById(`color${_index}`);
     if(colorElem != null) {
       colorElem.addEventListener('click', (e:any) => {
@@ -18,8 +18,22 @@ export const changeContentTitleClick = (_el: any, _index: any) => {
           contentTitle.textContent = _el.label;
           contentTitle.setAttribute('current_id', _el._id);
         }
+        listOfElements.forEach((elem:any, index_:any) => {
+        const inputCheck = document.getElementById(`input${index_}`);
+          if(inputCheck != null) {
+            inputCheck.classList.remove('underlined');
+          }   
+        });
+        const inputCheck = document.getElementById(`input${_index}`);
+        if(inputCheck != null) {
+          inputCheck.classList.add('underlined');
+        }      
       });
     }
+  // const inputCheck = document.getElementById(`input${_index}`);
+  // if(inputCheck != null) {
+  //   inputCheck.classList.remove('underlined') 
+  // }
 }
 export const changeContentTitle = (_el:any, _index:any) => {
   const colorElem = document.getElementById(`color${_index}`);

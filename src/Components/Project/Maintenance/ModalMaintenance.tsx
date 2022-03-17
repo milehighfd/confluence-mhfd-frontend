@@ -377,7 +377,7 @@ const getTextWidth = (text: any) => {
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{textAlign:'right'}}>
                 <label className="tag-name">Maintenance</label>
-                <label className="tag-name">{subType}</label>
+                <label className="tag-name">{(subType == 'Debris Management')?'Trash & Debris Management':subType}</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
                 </Popover>
