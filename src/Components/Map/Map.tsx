@@ -63,6 +63,7 @@ import { useProfileDispatch } from '../../hook/profileHook';
 import { AlertView } from '../Alerts/AlertView';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
+// import {PathStyleExtension} from '@deck.gl/extensions';
 import * as d3 from 'd3';
 import GenericTabView from '../Shared/GenericTab/GenericTabView';
 import { useFilterDispatch, useFilterState } from '../../hook/filtersHook';
@@ -1193,7 +1194,7 @@ const Map = ({ leftWidth,
         } else {
             const SOURCE_COLOR = [189, 56, 68];
             const TARGET_COLOR = [13, 87, 73];
-            const YELLOW_SOLID = [118, 239, 213];
+            const GREEN_SOLID = [177, 146, 108];
             let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
                 return {
                     position: c.centroid,
@@ -1236,10 +1237,11 @@ const Map = ({ leftWidth,
                 opacity: 1,
                 getSourcePosition: (d: any) => d.source,
                 getTargetPosition: (d: any) => d.target,
-                getWidth: (d: any) => d.value * 2,
+                getWidth: (d: any) => d.value * 3.5,
                 getHeight: 0.7,
-                getSourceColor: YELLOW_SOLID,
-                getTargetColor: YELLOW_SOLID
+                getSourceColor: GREEN_SOLID,
+                getTargetColor: GREEN_SOLID,
+                getDashArray: [5, 7]
             });
             map.setPitch(80)
             map.addLayer(mapboxArcsLayer);
@@ -2033,8 +2035,8 @@ const Map = ({ leftWidth,
           </li>`
         });
         console.log(listOfElements);
-        const hasDefault = listOfElements.filter((el:any) => el.label === 'Map Note').length >= 1;
-        console.log('default ', hasDefault);
+        //const hasDefault = listOfElements.filter((el:any) => el.label === 'Map Note').length >= 1;
+        //console.log('default ', hasDefault);
         inner += '</div>'
         const addLabelButton = `
           <li id="addLabelButton" style="padding-right:12px">
@@ -2042,7 +2044,6 @@ const Map = ({ leftWidth,
                 id="addLabelButton-btn"
                 type="button"
                 class="addlabelbutton"
-                ${hasDefault ? 'disabled' : ''}
             >
                 Add Label
             </button>
