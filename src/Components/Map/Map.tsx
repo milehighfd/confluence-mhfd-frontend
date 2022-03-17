@@ -2547,7 +2547,7 @@ const Map = ({ leftWidth,
                       popups.push(item);
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
-                  if (feature.source === 'counties') { //DOTTY--COUNTIES
+                  if (feature.source === 'counties') { 
                     const item = {
                         layer: MENU_OPTIONS.COUNTIES,
                         feature: feature.properties.county ? feature.properties.county : '-',
@@ -2910,7 +2910,6 @@ const Map = ({ leftWidth,
                   }
                   for (const component of COMPONENT_LAYERS.tiles) {
                       if (feature.source === component) {
-                          console.log("DOTTY..1", feature);
                           const problemid = feature.properties.problemid ?feature.properties.problemid:'';
                           let problemname = '';
                           if(problemid) {
