@@ -166,7 +166,7 @@ export default () => {
       </Popover>
       </div>
       <div className="bodymap">
-        <TextArea rows={5} placeholder="Add Comments…" />
+        <TextArea rows={5} placeholder="These are my notets…" />
         <Button>Save</Button>
       </div>
     </div>

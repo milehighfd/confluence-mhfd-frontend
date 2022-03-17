@@ -2053,8 +2053,8 @@ const Map = ({ leftWidth,
             <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
           </li>`
         });
-        const hasDefault = listOfElements.filter((el:any) => el.label === 'Map Note').length >= 1;
-        // console.log('default ', hasDefault);
+       //const hasDefault = listOfElements.filter((el:any) => el.label === 'Map Note').length >= 1;
+        //console.log('default ', hasDefault);
         inner += '</div>'
         const addLabelButton = `
           <li id="addLabelButton" style="padding-right:12px">
@@ -2062,12 +2062,10 @@ const Map = ({ leftWidth,
                 id="addLabelButton-btn"
                 type="button"
                 class="addlabelbutton"
-                ${hasDefault ? 'disabled' : ''}
             >
                 Add Label
             </button>
           </li>`;
-  
         inner = inner + addLabelButton;
   
         ul.innerHTML = inner;
@@ -3116,7 +3114,7 @@ const Map = ({ leftWidth,
             });
             map.on('mousemove', () => {
               map.getCanvas().style.cursor = 
-                  (!canAdd && !isMeasuring)
+                  (!(canAdd && commentAvailable) && !isMeasuring)
                   ? 'default'
                   : 'crosshair';
             });
@@ -3158,7 +3156,7 @@ const Map = ({ leftWidth,
           </Button>
         </div>
         <div className="bodymap">
-            <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"Add Comments…"} defaultValue={note? note.content:''} />
+            <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"These are my notes…"} defaultValue={note? note.content:''} />
             <div style={{display:'flex'}} className="footer">
                 <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''} className="light b-red">Delete</Button>
                 { note? (<Button id="edit-comment" className='light b-green'>Save</Button>): (<Button id="save-comment" className='light b-green'>Save</Button>) }
