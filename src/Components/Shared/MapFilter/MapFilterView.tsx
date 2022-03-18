@@ -45,9 +45,9 @@ import {
 const { Panel } = Collapse;
 
 export const genExtra07 = () => (
-  <div className="filter-coll-header" key={Math.random()}>
-     <div>{/*<img key={Math.random()} src="/Icons/icon-80.svg" alt="" />*/} OTHER LAYERS</div>
-    <Switch key={Math.random()} size="small"/>
+  <div className="filter-coll-header" key="fa37JncCHryD">
+     <div>{/*<img key="sbzayy4cBWDx" src="/Icons/icon-80.svg" alt="" />*/} OTHER LAYERS</div>
+    <Switch key="S22JjzhMaiRr" size="small"/>
   </div>
 
 );
@@ -226,11 +226,11 @@ export const SEMSWA_SERVICE_AREA =
   const emptyStyle: React.CSSProperties = {};
   const weightStyle: React.CSSProperties = {'fontWeight': 500};
   const genExtra = () => {
-    return (<div className="filter-coll-header" key={Math.random()}>
-      <div key={Math.random()} style={(switches[PROBLEMS_TRIGGER] || switches[PROJECTS_MAP_STYLES.name] ||
+    return (<div className="filter-coll-header" key="V41mtzxlYvKW">
+      <div key="rO72tK0LK0e1" style={(switches[PROBLEMS_TRIGGER] || switches[PROJECTS_MAP_STYLES.name] ||
         switches[MEP_PROJECTS.name] || switches[ROUTINE_MAINTENANCE.name] || switches[COMPONENT_LAYERS.name])
-        ? emptyStyle : emptyStyle }>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} MHFD DATA </div>
-       <Switch key={Math.random()} checked={groups['MHFDData']} size="small" onClick={(value, event) => {
+        ? emptyStyle : emptyStyle }>{/*<img key="zLOZ2nOXpPIh" src="/Icons/icon-79.svg" alt="" />*/} MHFD DATA </div>
+       <Switch key="MFSv8kP07U20" checked={groups['MHFDData']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [PROBLEMS_TRIGGER,
         PROJECTS_MAP_STYLES,
@@ -242,10 +242,10 @@ export const SEMSWA_SERVICE_AREA =
   };
   const genExtra01 = () => {
     return (
-      <div className="filter-coll-header" key={Math.random()}>
+      <div className="filter-coll-header" key="o0J90xA0GWXI">
 
-         <div key={Math.random()} style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS]) ? weightStyle : emptyStyle }>{/*<img key={Math.random()} src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
-        <Switch key={Math.random()} checked={groups['hydrologic']} size="small" onClick={(value, event) => {
+         <div key="Iwo7J4ogHFZQ" style={(switches[WATERSHED_FILTERS] || switches[NRCS_SOILS]) ? weightStyle : emptyStyle }>{/*<img key="xwQ2RQ0DRJKR" src="/Icons/icon-77.svg" alt="" />*/} HYDROLOGIC </div>
+        <Switch key="ETPVzxlFrXL8" checked={groups['hydrologic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [STREAMS_FILTERS, WATERSHED_FILTERS, NRCS_SOILS
          ], 'hydrologic')}
@@ -254,10 +254,10 @@ export const SEMSWA_SERVICE_AREA =
   )};
   const genExtra02 = () => {
     return (
-    <div className="filter-coll-header" key={Math.random()}>
-       <div key={Math.random()} style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] || switches[DWR_DAM_SAFETY] 
-        || switches[ACTIVE_LOMS] || switches[EFFECTIVE_REACHES]) ? weightStyle : emptyStyle}>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
-      <Switch key={Math.random()} checked={groups['hydraulic']} size="small" onClick={(value, event) => {
+    <div className="filter-coll-header" key="b7mtKLHIGhIh">
+       <div key="5JuWcFwrgJKd" style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] || switches[DWR_DAM_SAFETY] 
+        || switches[ACTIVE_LOMS] || switches[EFFECTIVE_REACHES]) ? weightStyle : emptyStyle}>{/*<img key="E3t5bECALy3e" src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
+      <Switch key="KIwYxEF3V7Z8" checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
           FEMA_FLOOD_HAZARD, DWR_DAM_SAFETY, ACTIVE_LOMS
@@ -269,9 +269,9 @@ export const SEMSWA_SERVICE_AREA =
 
   const genExtra03 = () => {
     return(
-      <div className="filter-coll-header" key={Math.random()}>
-        <div  key={Math.random()} style={(switches[STREAM_MANAGEMENT_CORRIDORS]) ? weightStyle : emptyStyle}>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} GEOMORPHOLOGY</div>
-        <Switch key={Math.random()} checked={groups['geomorphology']} size="small" onClick={(value, event) => {
+      <div className="filter-coll-header" key="KTx0nFe1IX5t">
+        <div  key="jH22F5gXOa5L" style={(switches[STREAM_MANAGEMENT_CORRIDORS]) ? weightStyle : emptyStyle}>{/*<img key="nIMIQuOiNJj8" src="/Icons/icon-79.svg" alt="" />*/} GEOMORPHOLOGY</div>
+        <Switch key="YL8rqDiZSkZf" checked={groups['geomorphology']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [STREAM_MANAGEMENT_CORRIDORS], 'geomorphology')
         }}/>
@@ -282,10 +282,10 @@ export const SEMSWA_SERVICE_AREA =
 
  const genExtra04 = () => {
    return (
-    <div className="filter-coll-header" key={Math.random()}>
-       <div  key={Math.random()} style={(switches[BCZ_PREBLE_MEADOW_JUMPING] || switches[BCZ_UTE_LADIES_TRESSES_ORCHID] ||
-        switches[RESEARCH_MONITORING]) ? weightStyle : emptyStyle}>{/*<img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
-      <Switch key={Math.random()} checked={groups['environmental']} size="small" onClick={(value, event) => {
+    <div className="filter-coll-header" key="oEDAmGTXXqqv">
+       <div  key="kCd5WKE2fMtV" style={(switches[BCZ_PREBLE_MEADOW_JUMPING] || switches[BCZ_UTE_LADIES_TRESSES_ORCHID] ||
+        switches[RESEARCH_MONITORING]) ? weightStyle : emptyStyle}>{/*<img key="Xa2zKae6opGY" src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
+      <Switch key="4i6bYuUG67La" checked={groups['environmental']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [BLOCK_CLEARANCE_ZONES_LAYERS, RESEARCH_MONITORING], 'environmental')
         }}/>
@@ -293,9 +293,9 @@ export const SEMSWA_SERVICE_AREA =
     )
   };
   const genExtra05 = () => (
-    <div className="filter-coll-header" key={Math.random()}>
-      <div key={Math.random()} style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>{/* <img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} HUMAN CONNECTION</div>
-      <Switch key={Math.random()} checked={groups['humanConnection']} size="small" onClick={(value, event) => {
+    <div className="filter-coll-header" key="SXd5tUbO4bNP">
+      <div key="B0TxnkWrSaQy" style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>{/* <img key="UuEa0X9Q5mVw" src="/Icons/icon-79.svg" alt="" />*/} HUMAN CONNECTION</div>
+      <Switch key="G4JLgeipeBlQ" checked={groups['humanConnection']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [CLIMB_TO_SAFETY], 'humanConnection')
         }}/>
@@ -305,11 +305,11 @@ export const SEMSWA_SERVICE_AREA =
 
 
  const genExtra06 = () => {
-    return (<div className="filter-coll-header" key={Math.random()}>
-      <div key={Math.random()} style={(switches[SERVICE_AREA_LAYERS.name] || switches[COUNTIES_LAYERS.name] ||
+    return (<div className="filter-coll-header" key="tFFJpgHJYTrW">
+      <div key="z0w2kQw1UFK8" style={(switches[SERVICE_AREA_LAYERS.name] || switches[COUNTIES_LAYERS.name] ||
         switches[MUNICIPALITIES.name] || switches[SEMSWA_SERVICE_AREA]) ? weightStyle : emptyStyle}>
-          {/*<img key={Math.random()} src="/Icons/icon-78.svg" alt="" />*/} BOUNDARIES</div>
-      <Switch key={Math.random()} checked={groups['boundaries']} size="small" onClick={(value, event) => {
+          {/*<img key="u2yWBjw3yCMl" src="/Icons/icon-78.svg" alt="" />*/} BOUNDARIES</div>
+      <Switch key="qc4M3tt2un4c" checked={groups['boundaries']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [SERVICE_AREA_LAYERS,
           COUNTIES_LAYERS,
@@ -320,9 +320,9 @@ export const SEMSWA_SERVICE_AREA =
     </div>
   )};
   const genExtra07 = (title: any) => (
-    <div className="filter-coll-header" key={Math.random()}>
-      <div  key={Math.random()} style={switches[GUIDELINES] ? weightStyle : emptyStyle}>{/* <img key={Math.random()} src="/Icons/icon-79.svg" alt="" />*/} {title} </div>
-      <Switch key={Math.random()} checked={groups['workrequest']} size="small" onClick={(value, event) => {
+    <div className="filter-coll-header" key="DzdiEvq8vmf7">
+      <div  key="TZAPjUAZ6Cu8" style={switches[GUIDELINES] ? weightStyle : emptyStyle}>{/* <img key="6nAyYDamCCSQ" src="/Icons/icon-79.svg" alt="" />*/} {title} </div>
+      <Switch key="7GX33A8WhGwR" checked={groups['workrequest']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [BORDER,AREA_BASED_MASK], 'workrequest')
         }}/>
@@ -349,9 +349,9 @@ export const SEMSWA_SERVICE_AREA =
     removePopup();
   }
 
-  return <div className="ant-dropdown-menu map-filter-s" key={Math.random()}>
-    <div className="filter-map" key={Math.random()}>
-      <div className="title-filter-map" key={Math.random()}>
+  return <div className="ant-dropdown-menu map-filter-s" key="k40pHuxNf5JE">
+    <div className="filter-map" key="ItyS3QrBgOCh">
+      <div className="title-filter-map" key="WKCDa6eIAd7R">
         <h6>Layers</h6>
         <Button className="btn-transparent" onClick={() => {
           {/*if (isExtendedView) {
@@ -373,264 +373,264 @@ export const SEMSWA_SERVICE_AREA =
         selectCheckboxes(items);
         removePopup();
       }}>
-        <Collapse defaultActiveKey={['1', '2', '3', '4', '5', '6', '7', '8']} key={Math.random()}>
+        <Collapse defaultActiveKey={['1', '2', '3', '4', '5', '6', '7', '8']} key="V4mBA5NQxJt0">
           { 
           <Panel header="" key="6" extra={genExtra07(locationType)}>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
+              <img key="jk9N6L5cdFnD" src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
                   Borders
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="LSWV3bvYghho" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.borders)}>
+                <img key="l4EgN5e4poSt" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[BORDER]} onClick={(value) => onChange(value, BORDER)} />
+              <Switch key="7VVlkJw5jSYm" size="small" checked={switches[BORDER]} onClick={(value) => onChange(value, BORDER)} />
             </p>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_mask.png" width="18px" alt=""  />
+              <img key="4TKi92Ws4iYQ" src="/Icons/Filters/ic_mask.png" width="18px" alt=""  />
                   Area-Based Mask
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="oCSbysV6Nyp5" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.area_based_mask)}>
+                <img key="Fl8wCfiE81uF" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[AREA_BASED_MASK]} onClick={(value) => onChange(value, AREA_BASED_MASK)} />
+              <Switch key="1O736dRsouSm" size="small" checked={switches[AREA_BASED_MASK]} onClick={(value) => onChange(value, AREA_BASED_MASK)} />
             </p>
           </Panel>}
           <Panel header="" key="1" extra={genExtra()}>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_problems.png" width="18px" alt="" />
+              <img key="mxq8tfB7PK3Z" src="/Icons/Filters/ic_problems.png" width="18px" alt="" />
                   Problems
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="zmn5lhLm5Qn9" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem)}>
+                <img key="2F2q9UatPR1G" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[PROBLEMS_TRIGGER]} size="small" onClick={(value) => onChange(value, PROBLEMS_TRIGGER)} />
+              <Switch key="4DNRVR0SBlXw" checked={switches[PROBLEMS_TRIGGER]} size="small" onClick={(value) => onChange(value, PROBLEMS_TRIGGER)} />
             </p>{/*<Checkbox defaultChecked={true} value={PROBLEMS_TRIGGER}></Checkbox> */}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_components.png" width="18px" alt="" />
+              <img key="QqgTFRdHgd5n" src="/Icons/Filters/ic_components.png" width="18px" alt="" />
                   Components
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.component)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="5ffS4gi9r6YK" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.component)}>
+                <img key="VZmgIIaj8ECL" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[COMPONENT_LAYERS.name]} size="small" onClick={(value) => onChange(value, COMPONENT_LAYERS)} />
+              <Switch key="fncKQh5TLkvP" checked={switches[COMPONENT_LAYERS.name]} size="small" onClick={(value) => onChange(value, COMPONENT_LAYERS)} />
             </p> {/*<Checkbox value={COMPONENT_LAYERS}></Checkbox>*/}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_projects.png" width="18px" alt="" />
+              <img key="PcYEg5ZBeJpu" src="/Icons/Filters/ic_projects.png" width="18px" alt="" />
                   Projects
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.project)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="bNdiZq3CbeW2" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.project)}>
+                <img key="JcTeKP4j1ayf" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} className="projectsswitch" checked={switches[PROJECTS_MAP_STYLES.name]} size="small"  onClick={(value) => onChange(value, PROJECTS_MAP_STYLES)} />
+              <Switch key="fXqHqdCQ0n8X" className="projectsswitch" checked={switches[PROJECTS_MAP_STYLES.name]} size="small"  onClick={(value) => onChange(value, PROJECTS_MAP_STYLES)} />
             </p>{/*<Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROJECTS_MAP_STYLES}></Checkbox> */}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_MEP.png" width="18px" alt="" />
+              <img key="b9jDnEF7oij8" src="/Icons/Filters/ic_MEP.png" width="18px" alt="" />
                   MEP Projects
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.mep_projects)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="5ls4MqjzLXF9" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.mep_projects)}>
+                <img key="APZ8CffopP1a" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[MEP_PROJECTS.name]} size="small" onClick={(value) => onChange(value, MEP_PROJECTS)} />
+              <Switch key="dEfRuPX0AP2U" checked={switches[MEP_PROJECTS.name]} size="small" onClick={(value) => onChange(value, MEP_PROJECTS)} />
             </p> {/* <Checkbox value={MEP_PROJECTS}></Checkbox>*/}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_routine.png" width="18px" alt="" />
+              <img key="DmSWHhgS6DaI" src="/Icons/Filters/ic_routine.png" width="18px" alt="" />
                   Routine Maintenance
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.routine_maintenance)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="rE4eb5EEJudC" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.routine_maintenance)}>
+                <img key="HACPYCulwMIE" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[ROUTINE_MAINTENANCE.name]} size="small" onClick={(value) => onChange(value, ROUTINE_MAINTENANCE)} />
+              <Switch key="1wg57ENyQSc1" checked={switches[ROUTINE_MAINTENANCE.name]} size="small" onClick={(value) => onChange(value, ROUTINE_MAINTENANCE)} />
             </p> {/* <Checkbox value={ROUTINE_MAINTENANCE}></Checkbox>*/}
           </Panel>
           <Panel header="" key="2" extra={genExtra01()}>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_streams.png" width="18px" alt="" style={{borderRadius:'2px'}}/>
+              <img key="VpFnjqz019PZ" src="/Icons/Filters/ic_streams.png" width="18px" alt="" style={{borderRadius:'2px'}}/>
                   Streams
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.watershed)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="LHIIbYWaSAfa" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.watershed)}>
+                <img key="M3WnT7oyw2jd" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[STREAMS_FILTERS]} size="small" onClick={(value) => onChange(value, STREAMS_FILTERS)} />
+              <Switch key="sibrryODEhTp" checked={switches[STREAMS_FILTERS]} size="small" onClick={(value) => onChange(value, STREAMS_FILTERS)} />
             </p>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_watersheds.png" width="18px" alt="" />
+              <img key="FzQi73GT6kGX" src="/Icons/Filters/ic_watersheds.png" width="18px" alt="" />
                   Watersheds
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.watershed)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="r5Ul7DOxwxpl" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.watershed)}>
+                <img key="wDyAuRx8OLoV" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[WATERSHED_FILTERS]} size="small" onClick={(value) => onChange(value, WATERSHED_FILTERS)} />
+              <Switch key="P2zTmDzeITNN" checked={switches[WATERSHED_FILTERS]} size="small" onClick={(value) => onChange(value, WATERSHED_FILTERS)} />
             </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_NRCS.png" width="18px" alt="" />
+              <img key="ekLYh8KbLIjE" src="/Icons/Filters/ic_NRCS.png" width="18px" alt="" />
                   NRCS Soils
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.nrcs_soils)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="ihK408aNAXrw" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.nrcs_soils)}>
+                <img key="koY1HwMtgfSL" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[NRCS_SOILS]} onClick={(value) => onChange(value, NRCS_SOILS)} />
+              <Switch key="nmx72gLiLfnK" size="small" checked={switches[NRCS_SOILS]} onClick={(value) => onChange(value, NRCS_SOILS)} />
             </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
 
             <p style={{ display: 'none' }}>
-              <img key={Math.random()} src="/Icons/Filters/ic_stream.png" width="18px" alt="" style={{borderRadius:'2px'}} />
+              <img key="lLhtsWpaKMZZ" src="/Icons/Filters/ic_stream.png" width="18px" alt="" style={{borderRadius:'2px'}} />
                   Streams
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="GwTubvFNhAUh" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
+                <img key="ppQASDSBYA4O" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" onClick={(value) => onChange(value, STREAMS_FILTERS)} />
+              <Switch key="etwzDWYTQzNz" size="small" onClick={(value) => onChange(value, STREAMS_FILTERS)} />
             </p> {/*<Checkbox value={STREAMS_FILTERS}></Checkbox>*/}
           </Panel>
 
           <Panel header="" key="3" extra={genExtra02()}>
             <p>
-              <img key={Math.random()} src="/Icons/ic_floodplains@2x.png" width="18px" alt="" style={{borderRadius:'2px'}} />
+              <img key="ubMZlqHadfj3" src="/Icons/ic_floodplains@2x.png" width="18px" alt="" style={{borderRadius:'2px'}} />
                   Floodplains (Non-FEMA)
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.floodplains)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
-              </Popover> <Switch key={Math.random()} checked={switches[FLOODPLAINS.name]}  size="small" onClick={(value) => onChange(value, FLOODPLAINS)} />
+                  <Popover key="sBEOJIkyAevN" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.floodplains)}>
+                <img key="ATpYRAYLlutV" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover> <Switch key="j85MnoOfyc1H" checked={switches[FLOODPLAINS.name]}  size="small" onClick={(value) => onChange(value, FLOODPLAINS)} />
             </p> {/* <Checkbox value={FLOODPLAINS}></Checkbox>} */}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_FEMA.png" width="18px" alt="" />
+              <img key="vlF3N8QYaD41" src="/Icons/Filters/ic_FEMA.png" width="18px" alt="" />
                   FEMA Flood Hazard Zones
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.fema_flood_hazard_zones)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="OcK7VDcELgY8" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.fema_flood_hazard_zones)}>
+                <img key="SwlQXmiQVvTt" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[FEMA_FLOOD_HAZARD]} size="small" onClick={(value) => onChange(value, FEMA_FLOOD_HAZARD)} />
+              <Switch key="4rPe5RdR4xYX" checked={switches[FEMA_FLOOD_HAZARD]} size="small" onClick={(value) => onChange(value, FEMA_FLOOD_HAZARD)} />
             </p>  {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
 
             
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
+              <img key="B9lUpHdHCMgj" src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
                   Effective Reaches
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.effective_reaches)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="7O7aHaRJRovW" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.effective_reaches)}>
+                <img key="GYvKUUrfba7Q" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[EFFECTIVE_REACHES]} size="small" onClick={(value) => onChange(value, EFFECTIVE_REACHES)} />
+              <Switch key="pif15LiChpkx" checked={switches[EFFECTIVE_REACHES]} size="small" onClick={(value) => onChange(value, EFFECTIVE_REACHES)} />
             </p> 
 
             <p>
-              <img key={Math.random()} src="/Icons/lomcs_main.png" width="18px" alt="" style={{borderRadius:'2px'}} />
+              <img key="NCGp0AJGgFYA" src="/Icons/lomcs_main.png" width="18px" alt="" style={{borderRadius:'2px'}} />
                   Active LOMCs
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.active_lomcs)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="hPnIxvgndJmg" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.active_lomcs)}>
+                <img key="fTqKGbHenWRl" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[ACTIVE_LOMS]} size="small" onClick={(value) => onChange(value, ACTIVE_LOMS)} />
+              <Switch key="gk2KxaVeyGuv" checked={switches[ACTIVE_LOMS]} size="small" onClick={(value) => onChange(value, ACTIVE_LOMS)} />
             </p>  {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
             
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
+              <img key="9YinsTRVwIpC" src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
                   DWR Dam Safety
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
+                <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[DWR_DAM_SAFETY]} onClick={(value) => onChange(value, DWR_DAM_SAFETY)} />
+              <Switch key="1fMvx97oGwQr" size="small" checked={switches[DWR_DAM_SAFETY]} onClick={(value) => onChange(value, DWR_DAM_SAFETY)} />
             </p>
           </Panel>
           <Panel header="" key="4" extra={genExtra03()}>
 
             <p>
-              <img key={Math.random()} src="/Icons/ic_SMC@2x.png" width="18px" alt="" style={{borderRadius:'2px'}}  />
+              <img key="Bp89Di5Bmf75" src="/Icons/ic_SMC@2x.png" width="18px" alt="" style={{borderRadius:'2px'}}  />
                   Stream Management Corridors
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="7yY6UlvTQHOL" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.stream_mang_corridors)}>
+                <img key="RU9fQZXZNdhY" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[STREAM_MANAGEMENT_CORRIDORS]} onClick={(value) => onChange(value, STREAM_MANAGEMENT_CORRIDORS)} />
+              <Switch key="Lmj6RqBWmhbH" size="small" checked={switches[STREAM_MANAGEMENT_CORRIDORS]} onClick={(value) => onChange(value, STREAM_MANAGEMENT_CORRIDORS)} />
             </p>
           </Panel>
 
           <Panel header="" key="5" extra={genExtra04()}>
             <p>
-              <img key={Math.random()} src="/Icons/ic_BlockClearanceZone@2x.png" width="18px" alt="" style={{borderRadius:'2px'}} />
+              <img key="RWkrm9BBbIqz" src="/Icons/ic_BlockClearanceZone@2x.png" width="18px" alt="" style={{borderRadius:'2px'}} />
                   Block Clearance Zone
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.block_clearence_zones)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="qLYDzFjK1SQQ" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.block_clearence_zones)}>
+                <img key="Iav2HWJi22Ym" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[BLOCK_CLEARANCE_ZONES_LAYERS]} onClick={(value) => onChange(value, BLOCK_CLEARANCE_ZONES_LAYERS)} />
+              <Switch key="9jxkzojp7F06" size="small" checked={switches[BLOCK_CLEARANCE_ZONES_LAYERS]} onClick={(value) => onChange(value, BLOCK_CLEARANCE_ZONES_LAYERS)} />
             </p>
             {/* <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_mouse.png" width="18px" alt="" />
+              <img key="TjRUBptRPoUf" src="/Icons/Filters/ic_mouse.png" width="18px" alt="" />
                   BCZ - Preble’s Meadow
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_prebels_meadow)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="KlLKnr7uY2eY" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_prebels_meadow)}>
+                <img key="qLNwbO247RWH" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[BCZ_PREBLE_MEADOW_JUMPING]} onClick={(value) => onChange(value, BCZ_PREBLE_MEADOW_JUMPING)} />
+              <Switch key="HNieBAHTwdoh" size="small" checked={switches[BCZ_PREBLE_MEADOW_JUMPING]} onClick={(value) => onChange(value, BCZ_PREBLE_MEADOW_JUMPING)} />
             </p>
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_BCZ-ute.png" width="18px" alt="" />
+              <img key="Utc3vEbkYyg9" src="/Icons/Filters/ic_BCZ-ute.png" width="18px" alt="" />
                   BCZ - Ute Ladies Tresses Orchid
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_ute_ladies)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="KiBS8fjP3P1E" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_ute_ladies)}>
+                <img key="YJiUwU9ONjRG" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[BCZ_UTE_LADIES_TRESSES_ORCHID]} onClick={(value) => onChange(value, BCZ_UTE_LADIES_TRESSES_ORCHID)}/>
+              <Switch key="w00UxgbHNmjV" size="small" checked={switches[BCZ_UTE_LADIES_TRESSES_ORCHID]} onClick={(value) => onChange(value, BCZ_UTE_LADIES_TRESSES_ORCHID)}/>
             </p> */}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_research.png" width="18px" alt=""  />
+              <img key="RQsUotjMAPo4" src="/Icons/Filters/ic_research.png" width="18px" alt=""  />
                   Research/Monitoring
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.research_monitoring)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="txTEfsUbrT3o" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.research_monitoring)}>
+                <img key="9e5UQnxpBnIz" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[RESEARCH_MONITORING]} onClick={(value) => onChange(value, RESEARCH_MONITORING)} />
+              <Switch key="fzLpO9uF5LTi" size="small" checked={switches[RESEARCH_MONITORING]} onClick={(value) => onChange(value, RESEARCH_MONITORING)} />
             </p>
           </Panel>
 
           <Panel header="" key="6" extra={genExtra05()}>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_climb.png" width="18px" alt="" />
+              <img key="DvH4OKqWywyM" src="/Icons/Filters/ic_climb.png" width="18px" alt="" />
                   Climb to Safety Signs
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.climb_to_safety)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="hw9sjRsOQBCm" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.climb_to_safety)}>
+                <img key="L61ORS6cONfm" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[CLIMB_TO_SAFETY]} onClick={(value) => onChange(value, CLIMB_TO_SAFETY)} />
+              <Switch key="hVGdPFx6B4xs" size="small" checked={switches[CLIMB_TO_SAFETY]} onClick={(value) => onChange(value, CLIMB_TO_SAFETY)} />
             </p>
           </Panel>
           <Panel header="" key="7" extra={genExtra06()}>
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_service.png" width="18px" alt="" />
+              <img key="WpFu0RhJVihu" src="/Icons/Filters/ic_service.png" width="18px" alt="" />
                   Service Areas
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.service_area)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="9nWX89HndWQ2" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.service_area)}>
+                <img key="lL7uQ4mutzmr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[SERVICE_AREA_LAYERS.name]} size="small" onClick={(value) => onChange(value, SERVICE_AREA_LAYERS)} />
+              <Switch key="QT9tAqnJcIoi" checked={switches[SERVICE_AREA_LAYERS.name]} size="small" onClick={(value) => onChange(value, SERVICE_AREA_LAYERS)} />
             </p> {/*<Checkbox value={SERVICE_AREA_LAYERS}></Checkbox>*/}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_counties.png" width="18px" alt="" />
+              <img key="R3W4Zw5KGCCe" src="/Icons/Filters/ic_counties.png" width="18px" alt="" />
                   Counties
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.counties)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="ExW5wIwLm5Eu" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.counties)}>
+                <img key="u2BUKzCj0ioa" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[COUNTIES_LAYERS.name]} size="small" onClick={(value) => onChange(value, COUNTIES_LAYERS)} />
+              <Switch key="drsr15VF21Kw" checked={switches[COUNTIES_LAYERS.name]} size="small" onClick={(value) => onChange(value, COUNTIES_LAYERS)} />
             </p> {/*<Checkbox value={COUNTIES_LAYERS}></Checkbox>*/}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_municipalities.png" width="18px" alt="" />
+              <img key="HEH1KWvCY6es" src="/Icons/Filters/ic_municipalities.png" width="18px" alt="" />
                   Municipalities
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.municipalities)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="3qb2XNa8CSzD" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.municipalities)}>
+                <img key="VUSVTmSi1jkJ" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} checked={switches[MUNICIPALITIES.name]} size="small" onClick={(value) => onChange(value, MUNICIPALITIES)} />
+              <Switch key="FfTlk7blvBlS" checked={switches[MUNICIPALITIES.name]} size="small" onClick={(value) => onChange(value, MUNICIPALITIES)} />
             </p> {/*<Checkbox value={MUNICIPALITIES}></Checkbox>*/}
 
             <p>
-              <img key={Math.random()} src="/Icons/Filters/ic_SEMSWA.png" width="18px" alt="" />
+              <img key="YLajmXwHzNlS" src="/Icons/Filters/ic_SEMSWA.png" width="18px" alt="" />
                   SEMSWA Service Area
-                  <Popover key={Math.random()} arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.semswa_service_area)}>
-                <img key={Math.random()} className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+                  <Popover key="7DB6utP8WqtG" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.semswa_service_area)}>
+                <img key="vV0rglHC5qtr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" checked={switches[SEMSWA_SERVICE_AREA]} onClick={(value) => onChange(value, SEMSWA_SERVICE_AREA)} />
+              <Switch key="Nq6NBrnI2wPx" size="small" checked={switches[SEMSWA_SERVICE_AREA]} onClick={(value) => onChange(value, SEMSWA_SERVICE_AREA)} />
             </p> {/*<Checkbox value={COUNTIES_LAYERS}></Checkbox>*/}
 
             <p style={{ display: 'none' }}>
-              MHFD Boundary <Switch key={Math.random()} size="small" defaultChecked />
+              MHFD Boundary <Switch key="pm3MbuaWPYN3" size="small" defaultChecked />
             </p>{/*<Checkbox value={MHFD_BOUNDARY_FILTERS}></Checkbox>*/}
           </Panel>
 
           {/* <Panel header="" key="8" extra={genExtra07()}>
             <p>
-              <img key={Math.random()} src="/Icons/icon-76.svg" alt="" />
+              <img key="KfEPT5EqtKB4" src="/Icons/icon-76.svg" alt="" />
                   Species
-                  <Popover key={Math.random()} placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.species)}>
-                <img key={Math.random()} src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
+                  <Popover key="CzNEtk9jWC37" placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.species)}>
+                <img key="7dcUCzWUcir5" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
               </Popover>
-              <Switch key={Math.random()} size="small" />
+              <Switch key="n5uhP5jZ26mw" size="small" />
             </p>
 
     </Panel> */}
