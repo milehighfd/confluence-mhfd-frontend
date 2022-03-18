@@ -204,11 +204,18 @@
   .divoptions{
     position: relative;
     float:right;
+    right: 9px;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     z-index: 222;
-    right: 1px;
+    font-variant: tabular-nums;
+    font-weight: normal;
+    white-space: normal;
+    font-feature-settings: 'tnum', "tnum";
+    font-size: 12px;
+    color: #11093c;
+    font-family: "Ubuntu", sans-serif !important;
     li{
       padding: 5px 10px;
       &:hover{ 
@@ -224,7 +231,7 @@
   }
   .divoptions-last{
     position: absolute;
-    top: -55px;
+    top: -43px;
   }
   .divcolors{
     position: absolute;
@@ -238,15 +245,13 @@
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     z-index: 222;
+    max-width: 150px;
     li{
       display: flex;
       padding: 0px;
       &:hover{ 
         background-color: transparent;
       }
-    }
-    .divcolors-last{
-      top: -35px;
     }
     .img-circle {
       opacity: 1;
@@ -259,15 +264,19 @@
       margin-bottom: 3px;
       &:hover {
         height: 17px;
-        width: 17px;
+        // width: 17px;
+        // padding-bottom: 10px;
       }
     }
+  }
+  .divcolors-last{
+    top: -35px;
   }
   .menu-wr { 
     float: right;
     padding: 5px 10px 5px 10px;
     position: absolute;
-    
+    right: 0px;
   }
   .inputlabel {
     border: none;

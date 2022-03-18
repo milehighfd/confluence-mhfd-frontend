@@ -65,7 +65,7 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
           divcolorsx.style.display = 'none';
           divcolorsx.classList.add('divcolors');
           if(index == listOfElements.length - 1) {
-            divcolorsx.classList.add('divoptions-last');
+            divcolorsx.classList.add('divcolors-last');
           }
           divcolorsx.setAttribute('id',`divcolor${index}`);
 
@@ -234,10 +234,10 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
     divoptionsx.setAttribute('id',`divoptions${index}`);
     let innerOptions = `
       <li id="editopt${index}" value="${el._id}">
-        Edit
+        <span><img src="/Icons/icon-04.svg" alt="" width="10px" style="margin-top: -3px; margin-right: 5px;" /> Edit</span>
       </li>
       <li id="deleteopt${index}" value="${el._id}">
-        Delete
+        <span style="color:#FF0000"><img src="/Icons/icon-16.svg" alt="" width="10px" style="margin-top: -3px; margin-right: 5px;" /> Delete</span>
       </li>
     `;
     divoptionsx.innerHTML = innerOptions;
