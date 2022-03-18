@@ -631,10 +631,10 @@ const Map = ({ leftWidth,
                             latitude: noteClicked.latitude,
                             longitude: noteClicked.longitude
                         };
-                        console.log("It is clicked", note);
                         createNoteWithElem(note);
                         popup.remove();
-                        // marker.remove(map);
+                        marker.remove();
+                        markerNote.remove();
                     }
                 });
             }
@@ -2219,6 +2219,7 @@ const Map = ({ leftWidth,
                               popup.remove();
                               canAdd = false;
                               marker.remove();
+                              markerNote.remove();
                           }
                         });
                     }
