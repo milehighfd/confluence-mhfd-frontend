@@ -239,7 +239,6 @@ const WorkRequestMap = (type: any) => {
   
   useEffect(()=>{
     let time = firstTime?2000:1000;
-    
       // if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         
         let filterProjectsDraft = {...filterProjects}; 
@@ -965,7 +964,7 @@ const WorkRequestMap = (type: any) => {
       const styles = { ...tileStyles as any };
       if(styles[key]) {
         styles[key].forEach((style: LayerStylesType, index: number) => {
-          if (map.map.getLayer(key + '_' + index) && !key.includes('streams')) {
+          if (map.map.getLayer(key + '_' + index)) {
             map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
           }
         });
@@ -2148,6 +2147,7 @@ const epochTransform = (dateParser: any) => {
     )
   }
   const addRemoveComponent = (item: any, event: any)=> {
+    console.log("DOTTY..2",item )
     let newComponents:any = [];
     if(item.added === 'Add') {
       newComponents = [...componentsList, {
