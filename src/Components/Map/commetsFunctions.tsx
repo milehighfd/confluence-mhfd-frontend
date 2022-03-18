@@ -137,7 +137,10 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
                     openMarkerOfNote(noteClicked, draftText, cctData);
                     
                   } else {
-                    changeContentTitle({..._el, color: colorValue}, index, listOfElements);
+                    setTimeout(()=>{
+                      changeContentTitle({..._el, color: colorValue}, index, listOfElements);
+                    },1500);
+                    
                   }
                 
                 },timeCheck);
@@ -183,7 +186,10 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
               openMarkerOfNote(noteClicked, draftText, cctData);
               
             } else {
-              changeContentTitle({...el, label: newValue},index, listOfElements);
+              setTimeout(()=>{
+                changeContentTitle({...el, label: newValue},index, listOfElements);
+              },1500);
+              
             }
           },timeCheck);
         }

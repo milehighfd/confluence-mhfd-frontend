@@ -35,7 +35,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   const user = store.getState().profile.userInformation;
   const [totalComponentsCost, setTotalCC] = useState(0);
   useEffect(()=>{
-    console.log("Components of problems ", componentsOfProblems);
     const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
     setTotalCC(total);
   },[componentsOfProblems]);
