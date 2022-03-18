@@ -221,7 +221,7 @@ const Map = ({ leftWidth,
         getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
         setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
     getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
-    setSelectedPopup, getPlaceOnCenter} = useMapDispatch();
+    setSelectedPopup} = useMapDispatch();
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
@@ -819,7 +819,7 @@ const Map = ({ leftWidth,
       if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
         globalMapId = historicBounds.id;
         map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
-        getPlaceOnCenter(historicBounds.center);
+        // getPlaceOnCenter(historicBounds.center);
       } else if (coorBounds[0] && coorBounds[1]) {
         map.fitBounds(coorBounds);
       }

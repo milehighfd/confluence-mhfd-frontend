@@ -64,7 +64,7 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
     const divcolorsx = document.createElement('div');
           divcolorsx.style.display = 'none';
           divcolorsx.classList.add('divcolors');
-          if(index == listOfElements.length - 1) {
+          if(index == listOfElements.length - 1 && index >= 1) {
             divcolorsx.classList.add('divcolors-last');
           }
           divcolorsx.setAttribute('id',`divcolor${index}`);
@@ -228,7 +228,7 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
     const divoptionsx = document.createElement('div');
     divoptionsx.style.display = 'none';
     divoptionsx.classList.add('divoptions');
-    if(index == listOfElements.length - 1) {
+    if(index == listOfElements.length - 1 && index >= 1) {
       divoptionsx.classList.add('divoptions-last');
     }
     divoptionsx.setAttribute('id',`divoptions${index}`);
