@@ -52,7 +52,8 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
       inputCheck.classList.remove('underlined');
     }   
   });
-  const inputCheck = document.getElementById(`input${_index}`);
+  const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el._id );
+  const inputCheck = document.getElementById(`input${indexElem}`);
   if(inputCheck != null) {
     inputCheck.classList.add('underlined');
   }      
@@ -132,7 +133,7 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
                 setTimeout(()=>{
                   if(noteClicked) {
                     let cctData = [
-                      {..._el, color: colorValue},index, listOfElements, changeContentTitle
+                      {..._el, color: colorValue},index, changeContentTitle
                     ]
                     openMarkerOfNote(noteClicked, draftText, cctData);
                     
@@ -181,7 +182,7 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
           setTimeout(()=>{
             if(noteClicked) {
               let cctData = [
-                {...el, label: newValue},index, listOfElements, changeContentTitle
+                {...el, label: newValue},index, changeContentTitle
               ]
               openMarkerOfNote(noteClicked, draftText, cctData);
               

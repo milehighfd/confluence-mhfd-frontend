@@ -3709,7 +3709,7 @@ const Map = ({ leftWidth,
                 clickoutsideList();
                 if(changeContentTitleData) {
                   setTimeout(()=>{
-                    changeContentTitleData[3](changeContentTitleData[0],changeContentTitleData[1],changeContentTitleData[2]);
+                    changeContentTitleData[2](changeContentTitleData[0],changeContentTitleData[1],listOfElements);
                   },600);
                 }
               }
