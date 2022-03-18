@@ -778,6 +778,8 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
           setFilterProblemOptions(optionsprob);
           getGalleryProblems();
           getParamFilterProblems(boundsMap, optionsprob);
+          setFilterComponentOptions(optionscomp);
+          getParamFilterComponents(boundsMap, optionscomp);
         },1300);
       }
       // / tabactive 0 problems 1 projects 
