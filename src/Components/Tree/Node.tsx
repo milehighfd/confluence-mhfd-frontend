@@ -97,10 +97,8 @@ export const Node = ({
 
   }
   useEffect(()=>{
-    console.log("WAT THE FUCK", editMode);
     if(editMode){
       if (componentRef.current && componentRef.current.contains) {
-        console.log("WAT THE FUCK 222");
         componentRef.current.focus();
       }
     }

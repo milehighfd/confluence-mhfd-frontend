@@ -60,7 +60,7 @@ function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, g
     })
   }, []);
 useEffect(()=>{
-  if(groupOrganization.length>1) {
+  if(groupOrganization?.length>1) {
     setLoading(false);
   }
 },[groupOrganization]); 

@@ -64,6 +64,9 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
     const divcolorsx = document.createElement('div');
           divcolorsx.style.display = 'none';
           divcolorsx.classList.add('divcolors');
+          if(index == listOfElements.length - 1) {
+            divcolorsx.classList.add('divoptions-last');
+          }
           divcolorsx.setAttribute('id',`divcolor${index}`);
 
     const listCircles = [
@@ -225,6 +228,9 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
     const divoptionsx = document.createElement('div');
     divoptionsx.style.display = 'none';
     divoptionsx.classList.add('divoptions');
+    if(index == listOfElements.length - 1) {
+      divoptionsx.classList.add('divoptions-last');
+    }
     divoptionsx.setAttribute('id',`divoptions${index}`);
     let innerOptions = `
       <li id="editopt${index}" value="${el._id}">

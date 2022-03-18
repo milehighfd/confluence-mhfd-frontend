@@ -199,6 +199,7 @@
   .listofelements {
     overflow-y: auto;
     max-height: 155px;
+    padding-bottom: 4px;
   }
   .divoptions{
     position: relative;
@@ -221,6 +222,10 @@
       }
     }
   }
+  .divoptions-last{
+    position: absolute;
+    top: -55px;
+  }
   .divcolors{
     position: absolute;
     // top: 40px;
@@ -240,6 +245,9 @@
         background-color: transparent;
       }
     }
+    .divcolors-last{
+      top: -35px;
+    }
     .img-circle {
       opacity: 1;
       -webkit-mask: url('/Icons/circlecomment.svg') no-repeat center;
@@ -258,6 +266,7 @@
   .menu-wr { 
     float: right;
     padding: 5px 10px 5px 10px;
+    position: absolute;
     
   }
   .inputlabel {

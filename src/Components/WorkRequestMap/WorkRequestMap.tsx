@@ -271,7 +271,6 @@ const WorkRequestMap = (type: any) => {
           
       // } else {
       //   if(map.map){
-      //     console.log("ABOUT TO REMOVE FUCKER", idsBoardProjects)
       //     removeLayers('mhfd_projects_created');
       //     removeLayersSource('mhfd_projects_created');
       //   }
