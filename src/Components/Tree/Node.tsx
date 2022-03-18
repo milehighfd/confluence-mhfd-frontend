@@ -5,8 +5,8 @@ import { useProfileState } from '../../hook/profileHook';
 
 const Nbsp = () => '\u00A0';
 
-const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGroup: any) =>  {
-  
+const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGroup: any, setVisibleMenu: Function) =>  {
+
   return (
   <Menu className="js-mm-00">
    { !isFolder ?
@@ -23,7 +23,7 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
       });
       // openEditNote(note);
     }}>
-      <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Edit Comment</span>
+      <span onClick={()=>{setVisibleMenu(false)}}><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Edit Comment</span>
     </Menu.Item> : null}
     {!isFolder ? 
     <Menu.Item onClick={(e: any) => {
@@ -75,6 +75,7 @@ export const Node = ({
   const { userInformation } = useProfileState();
   const initialName = userInformation.firstName.charAt(0) + userInformation.lastName.charAt(0);
   const { editGroup } = useNoteDispatch();
+  const [visibleMenu, setVisibleMenu] = useState(false);
   const checkEnter = (e: any) => {
     if (e.key === 'Enter') {
       setEditMode(false);
@@ -169,13 +170,17 @@ export const Node = ({
                 {initialName}
                 {/* <img id={"circles-folders"} className={"img-circle "} style={{background: ( item?.data?.color ? item?.data?.color.color :'#F6BE0F')}}/>  */}
               </label>}
-        {!editMode ? <span className="f-title">{showCutText(item.label)}
-        {<Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(item, mapFunctions, isFolder, deleteGroup)} trigger="click">
-            
-              <img src="/Icons/icon-60.svg" alt=""  className='menu-wr'
-              onClick={(e: any) => {e.stopPropagation();}}
+        {!editMode ?
+        <span className="f-title">{showCutText(item.label)}
+          {
+            <img src="/Icons/icon-60.svg" alt=""  className='menu-wr'onClick={(e: any) => {e.stopPropagation(); setVisibleMenu(true)}}/>
+          }
+          <Popover placement="rightTop" overlayClassName="work-popover" visible={visibleMenu} content={contentmenu(item, mapFunctions, isFolder, deleteGroup, setVisibleMenu)} trigger="click" style={{background: 'red'}}>
+            <img src="/Icons/icon-60.svg" alt=""  className='menu-wr' style={{visibility: 'hidden'}}
+            onClick={(e: any) => {e.stopPropagation();}}
             />
-            </Popover>}</span> : 
+          </Popover>
+        </span> :
           <input ref={componentRef} onBlur={unfocus} type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} style={{border: '2px solid transparent', marginLeft: '5px'}} />
         }
       </div>
