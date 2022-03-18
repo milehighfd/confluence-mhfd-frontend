@@ -479,7 +479,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
                   return (
                     
                     <Panel header="" key={`${id}${key}`} extra={ key == 'Unnamed Streams'? genTitleUnnamed(key,streamsList[key], setHighlightedStreams) :genTitle(key, streamsList[key], setHighlightedStream)}>
-                      <div key={Math.random() + ''} className="tab-body-project">
+                      <div key={`${key}~${id}`} className="tab-body-project">
                         <Timeline>
                           {
                             streamsList[key] && streamsList[key].map((stream:any) => {
