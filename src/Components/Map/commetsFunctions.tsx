@@ -35,7 +35,7 @@ export const changeContentTitleClick = (_el: any, _index: any, listOfElements: a
   //   inputCheck.classList.remove('underlined') 
   // }
 }
-export const changeContentTitle = (_el:any, _index:any) => {
+export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => {
   const colorElem = document.getElementById(`color${_index}`);
   const colorable = document.getElementById('colorable');
   if(colorable != null) {
@@ -46,6 +46,16 @@ export const changeContentTitle = (_el:any, _index:any) => {
     contentTitle.textContent = _el.label;
     contentTitle.setAttribute('current_id', _el._id);
   }
+  listOfElements.forEach((elem:any, index_:any) => {
+  const inputCheck = document.getElementById(`input${index_}`);
+    if(inputCheck != null) {
+      inputCheck.classList.remove('underlined');
+    }   
+  });
+  const inputCheck = document.getElementById(`input${_index}`);
+  if(inputCheck != null) {
+    inputCheck.classList.add('underlined');
+  }      
 }
 export const clickingCircleColor = (listOfElements:any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any) => {
   listOfElements.forEach((_el:any, index: any) => {
@@ -57,7 +67,7 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
 
     const listCircles = [
       {
-        label: 'A',
+      label: 'A',
         color: "#FFE120"
       },
       {
@@ -121,11 +131,15 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
                   }
                 setTimeout(()=>{
                   if(noteClicked) {
+                    let cctData = [
+                      {..._el, color: colorValue},index, listOfElements, changeContentTitle
+                    ]
+                    openMarkerOfNote(noteClicked, draftText, cctData);
                     
-                    openMarkerOfNote(noteClicked, draftText);
-                    
+                  } else {
+                    changeContentTitle({..._el, color: colorValue}, index, listOfElements);
                   }
-                  changeContentTitle({..._el, color: colorValue}, index);
+                
                 },timeCheck);
                 
               }
@@ -143,8 +157,6 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
           }
         });
       }
-      // console.log("Circlex", listx);
-      // console.log("DIVCcC", divcolorsx);
     }  
   })
 }
@@ -165,11 +177,14 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
             }
           setTimeout(()=>{
             if(noteClicked) {
+              let cctData = [
+                {...el, label: newValue},index, listOfElements, changeContentTitle
+              ]
+              openMarkerOfNote(noteClicked, draftText, cctData);
               
-              openMarkerOfNote(noteClicked, draftText);
-              
+            } else {
+              changeContentTitle({...el, label: newValue},index, listOfElements);
             }
-            changeContentTitle({...el, label: newValue},index);
           },timeCheck);
         }
         
@@ -262,8 +277,6 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
           }
       
         }
-        // console.log("LISISIS", optx);
-        // console.log("DICCC", divoptionsx);
       })
     }
    

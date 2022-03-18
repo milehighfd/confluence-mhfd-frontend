@@ -3683,7 +3683,7 @@ const Map = ({ leftWidth,
             zoom: 12
             });
     }
-    const openMarkerOfNote = (note:any, draftText: any) => {
+    const openMarkerOfNote = (note:any, draftText: any, changeContentTitleData?: any) => {
       markerNotes_global.forEach((marker:any) => {
         marker.marker.addTo(map)
       });
@@ -3707,6 +3707,11 @@ const Map = ({ leftWidth,
               if(isList != null) {
                 isList.style.display = 'block';
                 clickoutsideList();
+                if(changeContentTitleData) {
+                  setTimeout(()=>{
+                    changeContentTitleData[3](changeContentTitleData[0],changeContentTitleData[1],changeContentTitleData[2]);
+                  },600);
+                }
               }
             },140);
           },250);
