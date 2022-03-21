@@ -327,7 +327,7 @@ export const divListOfelements = (listOfElements: any, changeValueOfElement: any
               el && 
               <li id={index+"List"} onClick={()=>changeValueOfElement(el._id)}>
                 <img id={index+"circles"} className={"img-circle " + (el?.selected ? 'selected':'')} style={{background:el.color}}/> 
-                <input id="input${index}" className="inputlabel" value={el.label} readOnly={true} />
+                <input id="input${index}" className="inputlabel" value={el.label} readOnly={true}  />
               </li>
             ) } 
     </div>

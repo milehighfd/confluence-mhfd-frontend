@@ -288,6 +288,9 @@
       background:#CFEBFE;
       cursor: text;
     }
+    &:read-only {
+      background:white;
+    }
     // &:hover {
       
     // }
@@ -307,6 +310,13 @@
       text-decoration-color: #483563;
       -moz-text-decoration-color: #483563;
       text-decoration-thickness: 5px;
+      text-decoration-skip-ink: none;
+    }
+    .inputlabel:focus {
+      text-decoration: none;
+      text-decoration-color: #483563;
+      -moz-text-decoration-color: #483563;
+      text-decoration-thickness: 0px;
       text-decoration-skip-ink: none;
     }
   }
