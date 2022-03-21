@@ -43,7 +43,17 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         selected:false 
       }
     }));
-  },[colorsList, availableColors]);
+  },[colorsList]);
+  useEffect(()=>{
+    let availableC = colorsList.filter((color: any) => availableColors.find(aColor => aColor['color_id'] === color._id)).map((el:any) => {
+      return {
+        ...el,
+        selected:currentSelected.find( (acs:any) => acs['_id'] === el._id)?currentSelected.find( (acs:any) => acs['_id'] === el._id).selected:false
+      }
+    });
+    setCurrentSelected(availableC);
+
+  },[availableColors]);
   useEffect(() => {
     const newTree = groups.map((group: any) => {
       return {
