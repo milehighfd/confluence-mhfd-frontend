@@ -279,7 +279,7 @@ const Map = ({ leftWidth,
         ];
     // const [ spinValue, setSpinValue] = useState(true);
     // const user = store.getState().profile.userInformation;
-    const {userInformation} = useProfileState();
+    const {userInformation, groupOrganization} = useProfileState();
     const [visible, setVisible] = useState(false);
     const [zoomEndCounter, setZoomEndCounter] = useState(0);
     const [dragEndCounter, setDragEndCounter] = useState(0);
@@ -704,7 +704,7 @@ const Map = ({ leftWidth,
     },[markersNotes, commentVisible]);
     useEffect(() => {
       let mask;
-      if (coordinatesJurisdiction.length > 0) {
+      if (coordinatesJurisdiction.length > 0 && map) {
         
           mask = turf.multiPolygon(coordinatesJurisdiction);
           let miboundsmap = map.getBounds();
@@ -814,12 +814,32 @@ const Map = ({ leftWidth,
 
     const flytoBoundsCoor = () => {
       let historicBounds = getCurrent();
+      console.log("DO WE ", coordinatesJurisdiction);
       if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
         globalMapId = historicBounds.id;
         map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
         // getPlaceOnCenter(historicBounds.center);
       } else if (coorBounds[0] && coorBounds[1]) {
         map.fitBounds(coorBounds);
+        if(userInformation.isSelect != 'isSelect') {
+          setTimeout(()=>{
+           const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === userInformation.zoomarea).map((element: any) => {
+             return {
+               aoi: element.aoi,
+               filter: element.filter,
+               coordinates: element.coordinates
+             }
+           });
+           if(zoomareaSelected[0]){
+             let type = zoomareaSelected[0].filter; 
+             let zone = zoomareaSelected[0].aoi;
+             zone = zone.replace('County ', '').replace('Service Area', '');
+             setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+           }
+   
+          },5000);
+
+        }
       }
     }
     useEffect(() => {
