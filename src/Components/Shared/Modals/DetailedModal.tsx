@@ -147,11 +147,11 @@ console.log("DETAILES", detailedPage);
               {
                 detailedPage.problemtype ? (
                   <div className="detailed-mm">
-                    <b>{ totalComponentsCost? ('$' + new Intl.NumberFormat("en-EN").format(totalComponentsCost)):(detailedPage.solutioncost ? ('$' + new Intl.NumberFormat("en-EN").format((detailedPage.solutioncost))): (detailedPage.estimatedcost?( '$'+ new Intl.NumberFormat("en-EN").format(detailedPage.estimatedcost)): 'No Cost Data'))}</b>
+                    <b>{ totalComponentsCost? ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(totalComponentsCost)):(detailedPage.solutioncost ? ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage.solutioncost))): (detailedPage.estimatedcost?( '$'+ new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage.estimatedcost)): 'No Cost Data'))}</b>
                   </div>
                 ) : (
                   <div className="detailed-mm">
-                    <b>{ totalComponentsCost? ('$' + new Intl.NumberFormat("en-EN").format(totalComponentsCost)):(detailedPage.finalcost ? ('$' + new Intl.NumberFormat("en-EN").format((detailedPage.finalcost))) : (detailedPage.estimatedcost?('$' + new Intl.NumberFormat("en-EN").format(detailedPage.estimatedcost)): 'No Cost Data'))}</b>
+                    <b>{ totalComponentsCost? ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(totalComponentsCost)):(detailedPage.finalcost ? ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage.finalcost))) : (detailedPage.estimatedcost?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage.estimatedcost)): 'No Cost Data'))}</b>
                   </div>
                 )
               }
