@@ -1145,6 +1145,18 @@
     background: $green !important;
     padding: 7px;
   }
+  button .img-sortBy{
+    background: url('/Icons/ic_sort_by_active.svg') no-repeat center;
+    height: 16px;
+    width: 18px;
+    padding: 7px;
+  }
+  .ant-btn:hover > .img-sortBy{
+    background: url('/Icons/ic_sort_by_hover.svg') no-repeat center;
+    height: 16px;
+    width: 18px;
+    padding: 7px;
+  }
   .sort-content {
     display: inline-block;
     // margin-right: 14px;

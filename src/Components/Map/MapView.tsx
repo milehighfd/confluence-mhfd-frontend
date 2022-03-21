@@ -1026,7 +1026,8 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
                     SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
                 </span> */}
                 <Button onClick={sortClick} style={{ marginLeft:'15px', /*, marginRight:'15px,'*/ borderRadius: '4px',  backgroundColor:'transparent', borderColor:'transparent'}} className="btn-filter">
-                  <img style={{  width:'20px' }} src={"Icons/ic_sort_by_active.svg"} />
+                  <img  className="img-sortBy" alt="" />
+                  {/* <img style={{  width:'20px' }} src={"Icons/ic_sort_by_active.svg"} /> */}
                   <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> Sort By</span>
                   {/* <Icon type="down" className={'certain-category-icon ' + (filterProjectOptions.order !== 'asc' ? 'rotate-icon': 'normal-icon')} /> */}
                 </Button>
