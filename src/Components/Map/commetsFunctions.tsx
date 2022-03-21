@@ -24,16 +24,14 @@ export const changeContentTitleClick = (_el: any, _index: any, listOfElements: a
             inputCheck.classList.remove('underlined');
           }   
         });
-        const inputCheck = document.getElementById(`input${_index}`);
+        const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el._id );
+        console.log("AAAAY YA PUES", indexElem, listOfElements, _el);
+        const inputCheck = document.getElementById(`input${indexElem}`);
         if(inputCheck != null) {
           inputCheck.classList.add('underlined');
         }      
       });
     }
-  // const inputCheck = document.getElementById(`input${_index}`);
-  // if(inputCheck != null) {
-  //   inputCheck.classList.remove('underlined') 
-  // }
 }
 export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => {
   const colorElem = document.getElementById(`color${_index}`);
@@ -54,11 +52,12 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
   });
   const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el._id );
   const inputCheck = document.getElementById(`input${indexElem}`);
+  console.log("AAAAY YA PUE 222S", indexElem, listOfElements, _el);
   if(inputCheck != null) {
     inputCheck.classList.add('underlined');
   }      
 }
-export const clickingCircleColor = (listOfElements:any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any) => {
+export const clickingCircleColor = (listOfElements:any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any, changeContentWithListUpdates?: any) => {
   listOfElements.forEach((_el:any, index: any) => {
     const circlex = document.getElementById(`circle${index}`);
     const divcolorsx = document.createElement('div');
@@ -142,7 +141,10 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
                     
                   } else {
                     setTimeout(()=>{
-                      changeContentTitle({..._el, color: colorValue}, index, listOfElements);
+                      let cctData = [
+                        {..._el, color: colorValue},index, changeContentTitle
+                      ]
+                      changeContentWithListUpdates(cctData);
                     },1500);
                     
                   }
@@ -168,7 +170,7 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
   })
 }
 
-export const clickingUnFocusInput = (listOfElements: any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any) => {
+export const clickingUnFocusInput = (listOfElements: any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any, changeContentWithListUpdates?:any) => {
   listOfElements.forEach((el:any, index:any) => {
     const inputX:any = document.getElementById(`input${index}`);
     if(inputX != null) {
@@ -229,7 +231,10 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
                 
               } else {
                 setTimeout(()=>{
-                  changeContentTitle({...el, label: newValue},index, listOfElements);
+                  let cctData = [
+                    {...el, label: newValue},index, changeContentTitle
+                  ]
+                  changeContentWithListUpdates(cctData);
                 },1500);
                 
               }
@@ -245,7 +250,7 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
   })
 }
 
-export const clickingOptions = (listOfElements: any, deleteColorList: Function, noteClicked?: any, openMarkerOfNote?: any) => {
+export const clickingOptions = (listOfElements: any, deleteColorList: Function, noteClicked?: any, openMarkerOfNote?: any, changeContentWithListUpdates?:any) => {
 
   listOfElements.forEach((el:any, index:any) => {
     const optionsx = document.getElementById(`options${index}`);
@@ -321,7 +326,7 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
 
 }
 
-export const clickingAddLabelButton = (createColorList: Function, noteClicked?: any, openMarkerOfNote?: any) => {
+export const clickingAddLabelButton = (createColorList: Function, noteClicked?: any, openMarkerOfNote?: any, changeContentWithListUpdates?:any) => {
   const idButton = "addLabelButton-btn";
   const buttonAdd = document.getElementById(idButton);
   if(buttonAdd != null) {

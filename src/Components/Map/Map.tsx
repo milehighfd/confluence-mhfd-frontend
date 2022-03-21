@@ -2093,10 +2093,10 @@ const Map = ({ leftWidth,
         if(!c[3]){
           div.appendChild(ul);
         }            
-        clickingCircleColor(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
-        clickingOptions(listOfElements, deleteColorList, noteClicked, openMarkerOfNote);
-        clickingAddLabelButton(createColorList, noteClicked, openMarkerOfNote);
-        clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote);
+        clickingCircleColor(listOfElements, updateColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
+        clickingOptions(listOfElements, deleteColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
+        clickingAddLabelButton(createColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
+        clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
         clickingColorElement(listOfElements, currentElement);
       // }
     }
@@ -3729,6 +3729,13 @@ const Map = ({ leftWidth,
         }
       },400);
       
+    }
+    const changeContentWithListUpdates = (changeContentTitleData: any) => {
+      if(changeContentTitleData) {
+        setTimeout(()=>{
+          changeContentTitleData[2](changeContentTitleData[0],changeContentTitleData[1],listOfElements);
+        },600);
+      }
     }
     const openMarkerOfNoteWithoutAdd = (note:any) => {
       

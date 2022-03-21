@@ -17,7 +17,7 @@ export const getColorsList = () => {
 export const createColorList = () => {
         const colorsList: any = {
           label: 'Map Note', 
-          color: "#F6BE0F",
+          color: "#FFE121",
           opacity: 1
         };
   return (dispatch: Function) => { 
