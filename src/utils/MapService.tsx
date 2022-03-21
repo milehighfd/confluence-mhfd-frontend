@@ -390,13 +390,15 @@ export class MapService {
         "data": data
       });
     } else {
-      
-      if(this.map.getLayer('area_based_maskMASK')) {
+      const isThereLayer = this.map.getLayer('area_based_maskMASK');
+      const isThereLayerBorder = this.map.getLayer('borderMASK');
+      if(isThereLayer) {
         this.map.removeLayer('area_based_maskMASK');
       }
-      if(this.map.getLayer('borderMASK')) {
+      if(isThereLayerBorder) {
         this.map.removeLayer('borderMASK');
       }
+      
       this.map.removeSource('mask');
       setTimeout(()=>{
         if (!this.map.getSource('mask')) {
@@ -404,6 +406,10 @@ export class MapService {
             "type": "geojson",
             "data": data
           });
+          if(isThereLayer) {
+            this.addLayerMask('area_based_mask');
+            this.addLayerMask('border');
+          }
         }
       },300);
     }

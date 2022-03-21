@@ -189,10 +189,12 @@ const RequestView = ({ type, isFirstRendering }: {
     return getCsv(columns, locality, year, tabKey, sumTotal, sumByCounty, reqManager, diff, localityLabel);
   }
 
+  const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setLocality(value);
+    setIsOnSelected(true);
     setLocalityFilter(value);
     let l = localities.find((p: any) => {
       return p.name === value;
@@ -257,10 +259,12 @@ const RequestView = ({ type, isFirstRendering }: {
               }
               if (_locality) {
                 setLocality(_locality)
+                setIsOnSelected(false);
                 setLocalityFilter(_locality)
               } else {
                 if (r.localities.length > 0) {
-                  setLocality(r.localities[0].name)
+                  setLocality(r.localities[0].name);
+                  setIsOnSelected(false);
                   setLocalityFilter(r.localities[0].name)
                   _locality = r.localities[0].name;
                 }
@@ -736,7 +740,7 @@ const RequestView = ({ type, isFirstRendering }: {
           {
             <Row>
             <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap isFirstRendering={isFirstRendering} locality={locality} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} />
+                <WorkRequestMap isFirstRendering={isFirstRendering} locality={{locality: locality, isOnSelected: isOnSelected}} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} />
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                 </Button>
@@ -766,6 +770,7 @@ const RequestView = ({ type, isFirstRendering }: {
                           setLocalityFilter(input2);
                           if (localities.map(r => r.name).indexOf(input2) !== -1) {
                             setLocality(input2)
+                            setIsOnSelected(false);
                             let l = localities.find((p: any) => {
                               return p.name === locality;
                             })

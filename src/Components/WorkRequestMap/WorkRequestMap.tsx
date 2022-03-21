@@ -156,7 +156,6 @@ const WorkRequestMap = (type: any) => {
               let bboxBounds = turf.bbox(BBoxPolygon);
               
               if(map.map){
-                console.log("IS THIS ZOOM??");
                 map.map.fitBounds(bboxBounds,{ padding:140});
               }
             }
@@ -218,7 +217,6 @@ const WorkRequestMap = (type: any) => {
     changeAddLocationState(false);
     // setComponentIntersected([]);
     componentsList = [];
-    console.log("GET CURRENt", getCurrent());
     return () => {
       setBoardProjects(['-8888'])
     }
@@ -307,8 +305,8 @@ const WorkRequestMap = (type: any) => {
     if(boardProjects && boardProjects[0] == '-8888'){
       // setTimeout(()=>{
       //   let value = store.getState().profile.userInformation.zoomarea;
-      //   if(type.locality) {
-      //     value = type.locality;
+      //   if(type.locality.locality) {
+      //     value = type.locality.locality;
       //   }
       //   if(groupOrganization.length > 0) {
     //     wait(()=>setBounds(value));
@@ -393,24 +391,43 @@ const WorkRequestMap = (type: any) => {
     }
     setTimeout(()=>{
       let value = store.getState().profile.userInformation.zoomarea;
-      if(type.locality) {
-        value = type.locality;
+      if(type.locality.locality) {
+        value = type.locality.locality;
       }
       if(groupOrganization.length > 0) {
         wait(()=>setBounds(value));
       }
     },500);
   }
+  const getGroupOrganizationZoomWithouBounds = () => {
+    if(groupOrganization.length == 0) {
+      getGroupOrganization();
+    }
+    
+    const zoomareaSelected = groupOrganization.filter((x: any) => type.locality.locality.includes(x.aoi)).map((element: any) => {
+      return {
+        aoi: element.aoi,
+        filter: element.filter,
+        coordinates: element.coordinates
+      }
+    });
+    if(zoomareaSelected[0]){
+      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+    }
+  }
   useEffect(()=>{
     let historicBounds = getCurrent();
-    if(historicBounds && historicBounds.bbox) {
+    // console.log("Type locality", type.locality);
+    if(type.locality.isOnSelected) {
+      getGroupOrganizationZoomWithouBounds();
+    } else if(historicBounds && historicBounds.bbox) {
       globalMapId = historicBounds.id;
       map.map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
+      getGroupOrganizationZoomWithouBounds();
     } else {
-      console.log(" XXX Center to orgaznization cooozm");
       groupOrganizationZoom();
     }
-  },[groupOrganization, type.locality]);
+  },[groupOrganization, type.locality.locality]);
   // useEffect(()=>{
   //   if(listComponents && listComponents.result && listComponents.result.length > 0) {
       
@@ -447,12 +464,11 @@ const WorkRequestMap = (type: any) => {
         map.map.on('move', updateZoom);
         map.map.on('moveend', () => {
           mapMoved = true;
-          console.log(`i'm moving`);
         });
         map.map.on('render', () => {
           if (map && map.map && !globalMapId && mapMoved) {
             const center = [map.map.getCenter().lng, map.map.getCenter().lat];
-            console.log(map.map.getBounds());
+            // console.log(map.map.getBounds());
             const bbox = [map.map.getBounds()._sw.lng, map.map.getBounds()._sw.lat, 
             map.map.getBounds()._ne.lng, map.map.getBounds()._ne.lat];
             addHistoric({ center, bbox });
@@ -1399,7 +1415,7 @@ const epochTransform = (dateParser: any) => {
           type: 'project',
           title: feature.source === 'mhfd_projects_created'? (feature.properties.projecttype+" "+MENU_OPTIONS.PROJECT):MENU_OPTIONS.PROJECT,
           name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
-          organization: feature.source === 'mhfd_projects_created'? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replaceAll(',',', ')): type.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
+          organization: feature.source === 'mhfd_projects_created'? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replaceAll(',',', ')): type.locality.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
           value: feature.source === 'mhfd_projects_created' ? (
             feature.properties.projecttype.toLowerCase() === 'capital' ? feature.properties.estimatedcost : getTotalAmount(feature.properties.cartodb_id)
           ) : (
@@ -2146,7 +2162,6 @@ const epochTransform = (dateParser: any) => {
     )
   }
   const addRemoveComponent = (item: any, event: any)=> {
-    console.log("DOTTY..2",item )
     let newComponents:any = [];
     if(item.added === 'Add') {
       newComponents = [...componentsList, {
@@ -2290,7 +2305,6 @@ const epochTransform = (dateParser: any) => {
     popup.remove();
   }
   const centerToLocalityy = () => {
-    console.log("xxx Center to locality ???");
     groupOrganizationZoom();
   }
   return <>

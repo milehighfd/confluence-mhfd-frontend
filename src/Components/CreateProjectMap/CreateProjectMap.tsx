@@ -301,7 +301,8 @@ const CreateProjectMap = (type: any) => {
       } 
   },[idsBoardProjects]);
   useEffect(() => {
-    let mask
+    let mask;
+    console.log("Coordinates jurisdiction", coordinatesJurisdiction);
     setTimeout(() => {
       map.isStyleLoaded(()=>{ 
         if (coordinatesJurisdiction.length > 0) {
