@@ -104,11 +104,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       counterZoomArea = 0;
     }
   }, []);
-  useEffect(()=>{
-    if(places[0] && places[0].aoi) {
-      onSelect(places[0].aoi, 'noselect');
-    }
-  },[places]);
   const resetFilterProblems = (withCoords?: any) => {
     const options = { ...filterProblemOptions };
     options.components = '';
@@ -556,11 +551,15 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
 
   const deleteTagProblem = (tag: string, value: string) => { }
  
+
   useEffect(() => {
     if(counterZoomArea >= 2) {
       setNameZoomArea(userInformation.zoomarea);
     }
     counterZoomArea++;
+    setTimeout(()=>{
+      onSelect(userInformation.zoomarea);
+    },5000);
   }, [userInformation.zoomarea, groupOrganization])
 
   useEffect(() => {
@@ -765,7 +764,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       // if(zone == 'Broomfield') {
       //   zone = 'Broomfield County';
       // }
-      // console.log("ZOM AREA SELECTED", zoomareaSelected[0]);
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       const loadFiltered = (zone: any , type: any, projectOptions: any, problemOptions: any, componentOptions: any) => {
         let optionsproj = setValueInFilters(zone, type, projectOptions, true);

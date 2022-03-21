@@ -703,94 +703,92 @@ const Map = ({ leftWidth,
       }
     },[markersNotes, commentVisible]);
     useEffect(() => {
-        let mask;
-        if(map){
-            if (coordinatesJurisdiction.length > 0) {
-              mask = turf.multiPolygon(coordinatesJurisdiction);
-              let miboundsmap = map.getBounds();
-              // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
-              let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-              var arrayBounds = misbounds.split(',');
-              let poly = polyMask(mask, arrayBounds);
-              setOpacityLayer(true);
-              if (!map.getSource('mask')) {
-                  map.addSource('mask', {
-                      "type": "geojson",
-                      "data": poly
-                  });
-                  // this mask is the one added at beginning 
-                  // map.addLayer({
-                  //     "id": "mask",
-                  //     "source": "mask",
-                  //     "type": "fill",
-                  //     "paint": {
-                  //         "fill-color": "black",
-                  //         'fill-opacity': 0.8
-                  //     }
-                  // });
+      let mask;
+      if (coordinatesJurisdiction.length > 0) {
+        
+          mask = turf.multiPolygon(coordinatesJurisdiction);
+          let miboundsmap = map.getBounds();
+          // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
+          let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+          var arrayBounds = misbounds.split(',');
+          let poly = polyMask(mask, arrayBounds);
+          setOpacityLayer(true);
+          // if (!map.getSource('mask')) {
+          //   console.log("zxc mask");
+          //     map.addSource('mask', {
+          //         "type": "geojson",
+          //         "data": poly
+          //     });
+          //     // this mask is the one added at beginning 
+          //     // map.addLayer({
+          //     //     "id": "mask",
+          //     //     "source": "mask",
+          //     //     "type": "fill",
+          //     //     "paint": {
+          //     //         "fill-color": "black",
+          //     //         'fill-opacity': 0.8
+          //     //     }
+          //     // });
+          // } else {
+              map.removeLayer('mask');
+              // map.removeSource('mask');
+              if(map.getSource('mask')) {
+                map.getSource('mask').setData(poly);
               } else {
-                  map.setLayoutProperty('mask', 'visibility', 'visible');
-                  map.removeLayer('mask');
-                  map.removeSource('mask');
-                  if(map.getSource('mask')) {
-                    map.getSource('mask').setData(poly);
-                  } else {
-                    map.addSource('mask', {
-                        "type": "geojson",
-                        "data": poly
-                    });
-                  }
-                  
-                  //this layer is the one on init
-                  map.addLayer({
-                      "id": "mask",
-                      "source": "mask",
-                      "type": "fill",
-                      "paint": {
-                          "fill-color": "black",
-                          'fill-opacity': 0.8
-                      }
-                  });
-                  map.addLayer({
-                    "id": 'border',
-                    "source": "mask",
-                    "type": "line",
-                    "paint": {
-                      'line-color': '#28c499',
-                      'line-width': 1,
-                    }
-                  });
-                  setTimeout(()=>{
-                    map.removeLayer('mask');
-                    map.removeLayer('border');
-                  },4000);
-    
+                map.addSource('mask', {
+                    "type": "geojson",
+                    "data": poly
+                });
               }
-              // map.isStyleLoaded(()=>{
-              //   addSourceOpacity(poly);
-              // })
-          } else {
-              if (opacityLayer) {
-                  if  (map.loaded()) {
-                      console.log('hide opacity');
-                      if (map.getLayer('mask')) {
-                          map.setLayoutProperty('mask', 'visibility', 'visible');
-                          map.removeLayer('mask');
-                          map.removeSource('mask');
-                      }
+              
+              //this layer is the one on init
+              map.addLayer({
+                  "id": "mask",
+                  "source": "mask",
+                  "type": "fill",
+                  "paint": {
+                      "fill-color": "black",
+                      'fill-opacity': 0.8
+                  }
+              });
+              map.addLayer({
+                "id": 'border',
+                "source": "mask",
+                "type": "line",
+                "paint": {
+                  'line-color': '#28c499',
+                  'line-width': 1,
+                }
+              });
+              map.moveLayer('border')
+              setTimeout(()=>{
+                map.removeLayer('mask');
+                map.removeLayer('border');
+              },4000);
+
+          // }
+          // map.isStyleLoaded(()=>{
+          //   addSourceOpacity(poly);
+          // })
+      } else {
+          if (opacityLayer) {
+              if  (map.loaded()) {
+                  if (map.getLayer('mask')) {
+                      map.setLayoutProperty('mask', 'visibility', 'visible');
+                      map.removeLayer('mask');
+                      map.removeSource('mask');
                   }
               }
-    
           }
-        }
-     
-        // setTimeout(()=>{
-        //   map.on('load', () => {
-        //     console.log(map.getStyle().getLayers);
-        //     map.moveLayer('borderMASK');
-        //   });
-        // },1000);
-    }, [coordinatesJurisdiction]);
+
+      }
+      // setTimeout(()=>{
+      //   map.on('load', () => {
+      //     console.log(map.getStyle().getLayers);
+      //     map.moveLayer('borderMASK');
+      //   });
+      // },1000);
+  }, [coordinatesJurisdiction]);
 
     useEffect(() => {
         if (map) {
@@ -1199,7 +1197,6 @@ const Map = ({ leftWidth,
     }, [recentSelection]);
 
     useEffect(() => {
-      console.log("Bbox components", bboxComponents);
         if (map.getLayer('mapboxArcs')) {
             map.removeLayer('mapboxArcs')
         }
@@ -1274,7 +1271,6 @@ const Map = ({ leftWidth,
     }
 
     const hideLayerOpacity = async () => {
-        console.log('before hide', opacityLayer);
         if (opacityLayer) {
             const waiting = () => {
                 if (!map.isStyleLoaded()) {
@@ -1692,7 +1688,6 @@ const Map = ({ leftWidth,
     };
 
     const addToMap = () => {
-        console.log('adding');
         canAdd = true;
     }
     const addTilesLayers = (key: string) => {
@@ -2045,7 +2040,6 @@ const Map = ({ leftWidth,
     const addListToPopupNotes = (ul: any, div: any, noteClicked?:any) => {
       // ul -> id-list-popup | div -> color-list
       // if(listOfElements.length ) {
-        console.log("NOTE CLICKED", noteClicked, listOfElements);
         let inner = `
         <div class="listofelements" id="currentItemsinList">
           `;
@@ -2095,7 +2089,6 @@ const Map = ({ leftWidth,
           note.color_id = comment_id;
         }
       }
-      console.log("This is the note to save", note);
       createNote(note);
     }
     const editNoteWithElem = (note: any) => {
@@ -2196,7 +2189,6 @@ const Map = ({ leftWidth,
                         setSwSave(false);
                           const textarea = (document.getElementById('textarea') as HTMLInputElement);
                           if (textarea != null) {
-                              console.log(textarea.value);
                               let color = '';
                               if (colorable != null) {
                                   if (colorable.style.color === colorsCodes.RED) {
@@ -3036,7 +3028,6 @@ const Map = ({ leftWidth,
     }
     const createProject = (details: any, event: any) => {
       popup.remove();
-      console.log('crete projec', details);
         if (details.problemid) {
             setDataProblem({
                 id: '',
@@ -3538,7 +3529,6 @@ const Map = ({ leftWidth,
     const [options, setOptions] = useState<Array<any>>([]);
 
     const handleSearch = (value: string) => {
-        console.log('searched ', value);
         setKeyword(value)
         mapSearchQuery(value);
     };

@@ -40,7 +40,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   },[componentsOfProblems]);
 
   useEffect(() => {
-    console.log(user.designation);
+    // console.log(user.designation);
     favoriteList(user.email);
   },
   []);
