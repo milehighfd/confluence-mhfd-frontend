@@ -20,9 +20,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   const { userInformation } = useProfileState();
   const [tree, setTree] = useState([] as any);
   const [currentSelected, setCurrentSelected] = useState([] as any);
-  useEffect(()=>{
-    countFilterColors();
-  },[currentSelected]);
+
   const [counterFilters, setCounterFilters ]= useState(0);
   const countFilterColors = () => {
     const counterArray = currentSelected.filter((item:any)=>{
@@ -35,6 +33,9 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     getNotes();
     getAvailableColors();
   }, []);
+  useEffect(()=>{
+    countFilterColors();
+  },[currentSelected]);
   useEffect(()=>{
     setIdsFilter('');
     setCurrentSelected(colorsList.filter((color: any) => availableColors.find(aColor => aColor['color_id'] === color._id)).map((el:any) => {

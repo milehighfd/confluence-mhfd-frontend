@@ -25,7 +25,6 @@ export const changeContentTitleClick = (_el: any, _index: any, listOfElements: a
           }   
         });
         const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el._id );
-        console.log("AAAAY YA PUES", indexElem, listOfElements, _el);
         const inputCheck = document.getElementById(`input${indexElem}`);
         if(inputCheck != null) {
           inputCheck.classList.add('underlined');
@@ -52,7 +51,6 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
   });
   const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el._id );
   const inputCheck = document.getElementById(`input${indexElem}`);
-  console.log("AAAAY YA PUE 222S", indexElem, listOfElements, _el);
   if(inputCheck != null) {
     inputCheck.classList.add('underlined');
   }      
@@ -325,7 +323,21 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
   });
 
 }
-
+let counterWaiter = 0;
+const wait = (idDoc:any, cb: any) => {  
+  const doc = document.getElementById(idDoc)
+  counterWaiter++;
+  if(counterWaiter > 200) {
+    return;
+  }
+  if (doc != null) {
+    cb(doc);
+  } else {
+    setTimeout(()=>{
+      wait(idDoc, cb);
+    },200)
+  }
+};
 export const clickingAddLabelButton = (createColorList: Function, noteClicked?: any, openMarkerOfNote?: any, changeContentWithListUpdates?:any) => {
   const idButton = "addLabelButton-btn";
   const buttonAdd = document.getElementById(idButton);
@@ -333,7 +345,7 @@ export const clickingAddLabelButton = (createColorList: Function, noteClicked?: 
     buttonAdd.addEventListener('click', (e:any) => {
       e.stopPropagation();
       createColorList();
-      let timeCheck = noteClicked? 1200:0;
+      let timeCheck = 1200;//noteClicked? 1200:0;
       let draftText = '';
       const textarea = (document.getElementById('textarea') as HTMLInputElement);
         if (textarea != null) {
@@ -344,6 +356,18 @@ export const clickingAddLabelButton = (createColorList: Function, noteClicked?: 
           openMarkerOfNote(noteClicked, draftText);
         }
         // changeContentTitle({..._el, color: colorValue}, index);
+        counterWaiter = 0;
+        wait('input0', (doc: any) => {
+          if(doc != null){
+            doc.readOnly = false;
+            doc.focus();
+            doc.select();
+            // let text = doc.val().length;
+            setTimeout(()=>{
+              doc.setSelectionRange(15,15);
+            },10);
+          }
+        })
       },timeCheck);
     })
   }
