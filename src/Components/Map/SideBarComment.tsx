@@ -11,7 +11,7 @@ const { TextArea } = Input;
 
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, swSave, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
-
+  const DEFAULT_COLOR = '#FFE121';
   const { notes, groups, availableColors } = useNotesState();
   const { colorsList } = useColorListState();
   const {  deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors, editGroup } = useNoteDispatch();
@@ -36,23 +36,58 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   useEffect(()=>{
     countFilterColors();
   },[currentSelected]);
+  // TODO: Jorge please considerer we don't need two useEffect, try to use only one useEffect for the two variables and think in the logic
+  // I keep the code because I don't sure why you do that, and don't want to ruin some functionality of the code, as you can see 
+  // I copy and paste the same code to show u is the same logic and code, with only one exception ( setIdsFilter(''))
+
   useEffect(()=>{
     setIdsFilter('');
-    setCurrentSelected(colorsList.filter((color: any) => availableColors.find(aColor => aColor['color_id'] === color._id)).map((el:any) => {
-      return {
-        ...el,
-        selected:false 
-      }
-    }));
-  },[colorsList]);
-  useEffect(()=>{
-    let availableC = colorsList.filter((color: any) => availableColors.find(aColor => aColor['color_id'] === color._id)).map((el:any) => {
-      return {
-        ...el,
-        selected:currentSelected.find( (acs:any) => acs['_id'] === el._id)?currentSelected.find( (acs:any) => acs['_id'] === el._id).selected:false
+    let auxColorList = [...colorsList];
+    auxColorList.push({
+      _id: null,
+      label: 'Default Color',
+      color: DEFAULT_COLOR,
+      opacity: 1,
+    });
+    // filter by available colors 
+    auxColorList.filter((color: any)=> {
+      const findColor = availableColors.find((availableColor: any) => availableColor.color_id === color._id);
+      return findColor;
+    })
+    // add selected field
+    auxColorList.forEach((color: any) => {
+      const findColor = currentSelected.find((selected: any) => selected._id === color._id);
+      if (findColor) {
+        color.selected = findColor.selected;
+      } else {
+        color.selected = false;
       }
     });
-    setCurrentSelected(availableC);
+    setCurrentSelected(auxColorList);
+  },[colorsList]);
+  useEffect(()=>{
+    let auxColorList = [...colorsList];
+    auxColorList.push({
+      _id: null,
+      label: 'Default Color',
+      color: DEFAULT_COLOR,
+      opacity: 1,
+    });
+    // filter by available colors 
+    auxColorList.filter((color: any)=> {
+      const findColor = availableColors.find((availableColor: any) => availableColor.color_id === color._id);
+      return findColor;
+    })
+    // add selected field
+    auxColorList.forEach((color: any) => {
+      const findColor = currentSelected.find((selected: any) => selected._id === color._id);
+      if (findColor) {
+        color.selected = findColor.selected;
+      } else {
+        color.selected = false;
+      }
+    });
+    setCurrentSelected(auxColorList);
 
   },[availableColors]);
   useEffect(() => {
@@ -138,6 +173,11 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
     });
     setCurrentSelected(newValues);
+    console.log('parsing ids ', idstoParse);
+    if (idstoParse.includes(null)) {
+      idstoParse = idstoParse.filter((id:any) => id !== null);
+      idstoParse.push('&hasNull=true');
+    }
     setIdsFilter(idstoParse.toString());
     getNotes();
   }
