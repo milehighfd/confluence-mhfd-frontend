@@ -348,6 +348,16 @@ export const clickingAddLabelButton = (createColorList: Function, noteClicked?: 
     })
   }
 }
+export const rotateIcon = (direction: string) => {
+  const iconDown = document.getElementById('icon-downlined');
+  if(iconDown != null) { 
+    if(direction == 'up') {
+      iconDown.style.transform = 'rotate(180deg) translate(0px,2px)';
+    } else { 
+        iconDown.style.transform = 'rotate(0deg) translate(0px,0px)';
+    }
+  }
+} 
 
 export const divListOfelements = (listOfElements: any, changeValueOfElement: any) => {
   return  <div className='list-popup-comment'>

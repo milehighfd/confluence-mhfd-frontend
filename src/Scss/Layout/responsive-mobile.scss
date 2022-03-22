@@ -49,7 +49,7 @@
     width: 30px !important;
     height: 30px !important;
   }
-  a.mapboxgl-ctrl-logo, {
+  a.mapboxgl-ctrl-logo {
     display: none !important;
   }
   .m-zoom{
@@ -58,12 +58,21 @@
 
     .btn-green{
       background: $green !important;
-      margin-bottom: 5px;
+      margin-bottom: 8px !important;
+      margin-top: 2px !important;
       display: block !important;
 
       img{
         margin-top: -2px;
       }
+    }
+    .btn-history {
+      margin-bottom: 6px !important;
+      margin-top: 2px !important;
+    }
+    .btn-showmhfd {
+      margin-bottom: 8px !important;
+      margin-top: 2px !important;
     }
     button {
       width: 30px !important;

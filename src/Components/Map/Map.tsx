@@ -14,7 +14,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './MapPopups';
 import { Dropdown,  Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
 import { ManOutlined, RightOutlined } from '@ant-design/icons';
-import { CloseOutlined, DownOutlined } from '@ant-design/icons';
+import { CloseOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 
 //import { opacityLayer } from '../../constants/mapStyles';
 import { MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
@@ -73,7 +73,7 @@ import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
 import { useProfileState } from '../../hook/profileHook';
 
-import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, divListOfelements} from './commetsFunctions';
+import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, divListOfelements, rotateIcon} from './commetsFunctions';
 import { GlobalMapHook } from '../../utils/globalMapHook';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
@@ -597,9 +597,11 @@ const Map = ({ leftWidth,
             div.addEventListener('click', () => {
                 if (ul.style.display === 'none') {
                     ul.style.display = 'block';
+                    rotateIcon('up');
                     clickoutsideList();
                 } else {
                     ul.style.display = 'none';
+                    rotateIcon('down');
                 }
             });
             
@@ -2132,6 +2134,7 @@ const Map = ({ leftWidth,
           if (!isClickInsideElement) {
               if (!isClickingInsideParentElem && ignoreElementClick.style.display != 'none') {
                 ignoreElementClick.style.display = 'none';
+                rotateIcon('down');
               }
               
           }
@@ -2149,6 +2152,7 @@ const Map = ({ leftWidth,
       });
     }
     const addListonPopupNotes = (e: any) => {
+      console.log("whattt", e);
       const div = document.getElementById('color-list');
                 if (div != null) {
                     const ul = document.createElement('div');
@@ -2159,9 +2163,11 @@ const Map = ({ leftWidth,
                     div.addEventListener('click', () => {
                         if (ul.style.display === 'none') {
                             ul.style.display = 'block';
+                            rotateIcon('up');
                             clickoutsideList();
                         } else {
                             ul.style.display = 'none';
+                            rotateIcon('down');
                         }
                     });
                     addListToPopupNotes(ul, div)
@@ -3165,6 +3171,7 @@ const Map = ({ leftWidth,
       if (typeof s !== 'string') return '';
       return s.charAt(0).toUpperCase() + s.slice(1);
   }
+  
   const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
     <>
         <div className="popup-comment">
@@ -3175,7 +3182,7 @@ const Map = ({ leftWidth,
               <div className="legend-selected">
                 <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#F6BE0F'}}></i> 
               </div>
-              <div className="light">
+              <div id="icon-downlined" className="light">
                 <DownOutlined />
               </div>
             </div>
@@ -4006,7 +4013,7 @@ const Map = ({ leftWidth,
                     setCommentVisible(commentVisible => !commentVisible);
                     }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
                 
-                <Button style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
+                <Button className='btn-showmhfd' style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
                 <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04'></img></Button>
                 {displayPrevNext && <div className='mapstatebuttons'  >
                     <div className="mapstateprevnext"
