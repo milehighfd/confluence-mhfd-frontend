@@ -3485,12 +3485,16 @@ export const tileStyles = {
     }
   },
   {
+    //zoom-mid
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
       "text-field": [
         "concat",
-        ["to-string", ["get", "servicearea"]],
+        [
+          "to-string",
+          ["get", "servicearea"]
+        ],
         " ",
         "Service Area"
       ],
@@ -3498,58 +3502,56 @@ export const tileStyles = {
         "Open Sans Regular",
         "Arial Unicode MS Regular"
       ],
-      "text-size":16,
+      "text-size":14,
       "text-line-height":1.2,
+      "text-letter-spacing":0.4,
       "text-justify":"auto",
-      "symbol-placement":"point",
-      "text-padding":[
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        0,
-        1,
-        10,
-        75,
-        11,
-        155,
-        12,
-        255,
-        22,
-        155
-      ],
-      "text-allow-overlap":false,
+      "text-offset":[0, 2],
+      "text-allow-overlap":true,
       "symbol-avoid-edges":false,
-      "text-rotation-alignment":"auto"
+      "text-rotation-alignment":"map",
+      "symbol-placement":"line",
+      "symbol-spacing":200,
+      "text-max-angle":20,
+      "text-padding":30
     },
     "paint": {
-      "text-color":"hsl(0, 3%, 86%)",
+      "text-color":"#fcfcfc",
       "text-opacity":[
         "interpolate",
         ["linear"],
         ["zoom"],
-        0,
+        12.5,
+        0.8,
+        12.51,
         1,
-        13.99,
+        13.9,
         1,
-        14,
-        0,
-        22,
-        0
-      ]
+        13.91,
+        0.8
+      ],
+      "text-halo-color":"hsla(250, 61%, 24%, 0.35)",
+      "text-halo-width":20,
+      "text-halo-blur":20
     }
   }, 
   {
+    // zoom-near
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
       "text-field": [
-          "concat",
-          ["to-string", ["get", "servicearea"]],
-          " ",
-          "Service Area"
+        "concat",
+        [
+          "to-string",
+          ["get", "servicearea"]
+        ],
+        " ",
+        "Service Area"
       ],
       "text-font":[
-        "Open Sans Regular",, "Arial Unicode MS Regular"
+        "Open Sans Regular",
+        "Arial Unicode MS Regular"
       ],
       "text-offset":[0, 1.5],
       "text-size":13,
@@ -3558,76 +3560,140 @@ export const tileStyles = {
       "text-justify": "right",
       "symbol-placement":"line",
       "symbol-spacing":250,
-      "text-max-angle":15,
-      "symbol-avoid-edges":true,
-      "text-rotation-alignment":"map",
-      "text-padding":40,
-      "text-allow-overlap":false
+      // "text-max-angle":15,
+      // "symbol-avoid-edges":true,
+      // "text-rotation-alignment":"map",
+      "text-padding":40
     },
     "paint": {
       "text-color":"#fcfcfc", //fix this,
-      "text-opacity":[
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        13.49,
-        0,
-        13.5,
-        1,
-        22,
-        1
-      ],
+      "text-opacity":1,
       "text-halo-color":"hsla(250, 61%, 24%, 0.35)",
       "text-halo-width":20,
       "text-halo-blur":20
     }
   }, 
   {
-    // editing this
+    // copy4
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
       "text-field": [
-          "concat",
-          ["to-string", ["get", "servicearea"]],
-          " ",
-          "Service Area"
+        "concat",
+        [
+          "to-string",
+          ["get", "servicearea"]
+        ],
+        " ",
+        "Service Area"
       ],
       "text-font":[
         "Open Sans Regular",
         "Arial Unicode MS Regular"
       ],
-      "text-size":14,
+      "text-size":22,
       "text-line-height":1.2,
       "text-justify":"center",
       // "text-anchor":"center",
       "text-offset":[0,2],
       // "text-translate":[0, 0],
-      "symbol-placement":"line",
+      "symbol-placement":"point",
       "symbol-spacing":250,
       "text-max-angle":45,
       // "symbol-avoid-edges":true,
-      "text-padding":30,
-      "text-letter-spacing":0.4
-      
-      
+      "text-padding":[
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        10,
+        60,
+        11,
+        120,
+        12,
+        180,
+        22,
+        180
+      ],
+      "text-letter-spacing":0.4,
+      "text-max-width":10
     },
     "paint": {
-        "text-halo-color":"hsla(250, 61%, 24%, 0.35)",
-        "text-halo-width":20,
-        "text-halo-blur":20,
+        "text-halo-color":"hsla(250, 61%, 24%, 0.52)",
+        "text-halo-width":24,
+        "text-halo-blur":24,
         "text-color": "#fcfcfc",
         "text-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          12.5,
           0,
-          12.51,
           1,
-          13.9,
+          12,
           1,
-          13.91,
+          13.5,
+          0,
+          22,
+          0
+        ]
+    }
+  },
+  {
+    // copy4
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+        "concat",
+        [
+          "to-string",
+          ["get", "servicearea"]
+        ],
+        " ",
+        "Service Area"
+      ],
+      "text-font":[
+        "Open Sans Regular",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":20,
+      "text-line-height":1.2,
+      "text-justify":"center",
+      // "text-anchor":"center",
+      // "text-translate":[0, 0],
+      "symbol-placement":"point",
+      // "symbol-avoid-edges":true,
+      "text-padding":[
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        10,
+        60,
+        11,
+        120,
+        12,
+        180,
+        22,
+        180
+      ],
+      "text-letter-spacing":0.4,
+      "text-max-width":10
+    },
+    "paint": {
+        "text-halo-color":"hsla(250, 61%, 24%, 0.52)",
+        "text-halo-width":120,
+        "text-halo-blur":12,
+        "text-color": "hsl(163, 2%, 96%)",
+        "text-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          12,
+          1,
+          13,
+          0,
+          22,
           0
         ]
     }
