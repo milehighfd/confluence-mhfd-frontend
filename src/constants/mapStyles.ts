@@ -2549,24 +2549,118 @@ export const tileStyles = {
       'line-dasharray':[2.5, 2.5]
     }
   }],
-  [EFFECTIVE_REACHES]: [{
+  [EFFECTIVE_REACHES]: [
+  // {
+  //   //ef-endpoint-blut
+  //   type: 'circle',
+  //   'source-layer': 'pluto15v1',
+  //   layout: {},
+  //   "paint": {
+  //     "circle-color": [
+  //       "match",
+  //       ["get", "studyname"],
+  //       ["unknown"],
+  //       "hsl(277, 66%, 62%)",
+  //       "hsl(159, 71%, 39%)"
+  //     ],
+  //     "circle-stroke-color": "#000000",
+  //     "circle-stroke-width": 0,
+  //     "circle-radius": [
+  //       "interpolate",
+  //       ["linear"],
+  //       ["zoom"],
+  //       11.9,
+  //       0,
+  //       12,
+  //       3,
+  //       16,
+  //       3,
+  //       18,
+  //       8
+  //     ],
+  //     "circle-stroke-opacity": 1,
+  //     "circle-opacity":0.4,
+  //     "circle-blur":0
+  //   }
+  // },
+  // {
+  //   //ef-endpoint
+  //   type: 'circle',
+  //   'source-layer': 'pluto15v1',
+  //   layout: {},
+  //   "paint": {
+  //     "circle-color": [
+  //       "match",
+  //       ["get", "studyname"],
+  //       ["unknown"],
+  //       "hsl(138, 49%, 40%)",
+  //       "hsl(304, 47%, 62%)"
+  //     ],
+  //     "circle-stroke-color": "#000000",
+  //     "circle-stroke-width": 0,
+  //     "circle-radius": [
+  //       "interpolate",
+  //       ["linear"],
+  //       ["zoom"],
+  //       9,
+  //       0,
+  //       12,
+  //       1.5,
+  //       14,
+  //       2,
+  //       15,
+  //       4
+  //     ],
+  //     "circle-stroke-opacity": 1,
+  //     "circle-blur":0,
+  //     "circle-opacity":1,
+      
+  //     // "circle-pitche-scale":"map"
+  //   }
+  // },
+    {
+      // light 
     type: 'line',
     'source-layer': 'pluto15v1',
-    layout: {},
+    layout: {
+      'line-cap': 'butt',
+      'line-join':"miter",
+      'line-miter-limit':2
+    },
     paint: {
-      'line-color': '#FF0080',
+      'line-color': [
+        "match",
+        ["get", "studyname"],
+        ["unknown"],
+        "hsl(138, 38%, 70%)",
+        "hsl(316, 50%, 51%)"
+      ],
+      'line-width':2
     }
   },
   {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    paint: {
-      'line-color': '#00F580',
-      "line-opacity": 0,
-      "line-width": 12
-    }
-  }],
+    // dark 
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {
+    'line-cap': 'butt',
+    'line-join':"miter",
+    'line-miter-limit':2
+  },
+  paint: {
+    'line-color': [
+      "match",
+      ["get", "studyname"],
+      ["unknown"],
+      "hsl(138, 75%, 41%)",
+      "hsl(329, 83%, 32%)"
+    ],
+    'line-width':2,
+    'line-opacity':0.5,
+    'line-offset':-2
+  }
+},
+],
   [FEMA_FLOOD_HAZARD]: [ {
     type: 'fill',
     'source-layer': 'pluto15v1',
