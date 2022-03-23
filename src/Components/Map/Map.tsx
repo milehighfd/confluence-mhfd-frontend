@@ -1455,13 +1455,13 @@ const Map = ({ leftWidth,
             map.moveLayer('streams_0');
             map.moveLayer('streams_1');
             map.moveLayer('streams_2');
-            map.moveLayer('streams_3');
-            map.moveLayer('streams_4');
             map.moveLayer('borderMASK');
             map.moveLayer('effective_reaches_0');
             map.moveLayer('effective_reaches_1');
             map.moveLayer('effective_reaches_2');
             map.moveLayer('effective_reaches_3');
+            map.moveLayer('streams_3');
+            map.moveLayer('streams_4');
             
         },800);
     }
@@ -3185,7 +3185,7 @@ const Map = ({ leftWidth,
             <span id="color-text">{ note?.color ? (note.color.label):'Map Note' }</span>
             <div className='dr'>
               <div className="legend-selected">
-                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#F6BE0F'}}></i> 
+                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121'}}></i> 
               </div>
               <div id="icon-downlined" className="light">
                 <DownOutlined />
