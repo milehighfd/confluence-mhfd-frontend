@@ -2073,7 +2073,7 @@ const Map = ({ leftWidth,
         listOfElements.forEach((el:any , index: any) => {
           inner += ` 
           <li id="color${index}" value=${JSON.stringify(el._id)}>
-            <img id="circle${index}" class="img-circle" style="background:${el.color}"/> 
+            <img id="circle${index}" class="img-circle${noteClicked?.color_id == el._id?' selected':''}" style="background:${el.color}"/> 
               <input id="input${index}" class="inputlabel${noteClicked?.color_id == el._id?' underlined':''}" value="${el.label}" readonly>
             <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
           </li>`

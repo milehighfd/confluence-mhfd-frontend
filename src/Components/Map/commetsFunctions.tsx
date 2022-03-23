@@ -19,16 +19,24 @@ export const changeContentTitleClick = (_el: any, _index: any, listOfElements: a
           contentTitle.setAttribute('current_id', _el._id);
         }
         listOfElements.forEach((elem:any, index_:any) => {
-        const inputCheck = document.getElementById(`input${index_}`);
+          const inputCheck = document.getElementById(`input${index_}`);
           if(inputCheck != null) {
             inputCheck.classList.remove('underlined');
           }   
+          const circleCheck = document.getElementById(`circle${index_}`);
+          if(circleCheck != null) {
+            circleCheck.classList.remove('selected');
+          }
         });
         const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el._id );
         const inputCheck = document.getElementById(`input${indexElem}`);
         if(inputCheck != null) {
           inputCheck.classList.add('underlined');
-        }      
+        }  
+        const circleCheck = document.getElementById(`circle${indexElem}`);
+          if(circleCheck != null) {
+            circleCheck.classList.add('selected');
+          }    
       });
     }
 }
@@ -44,9 +52,13 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
     contentTitle.setAttribute('current_id', _el._id);
   }
   listOfElements.forEach((elem:any, index_:any) => {
-  const inputCheck = document.getElementById(`input${index_}`);
+    const inputCheck = document.getElementById(`input${index_}`);
     if(inputCheck != null) {
       inputCheck.classList.remove('underlined');
+    }
+    const circleCheck = document.getElementById(`circle${index_}`);
+    if(circleCheck != null) {
+      circleCheck.classList.remove('selected');
     }   
   });
   const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el._id );
@@ -54,6 +66,10 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
   if(inputCheck != null) {
     inputCheck.classList.add('underlined');
   }      
+  const circleCheck = document.getElementById(`circle${indexElem}`);
+  if(circleCheck != null) {
+    circleCheck.classList.add('selected');
+  } 
 }
 export const clickingCircleColor = (listOfElements:any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any, changeContentWithListUpdates?: any) => {
   listOfElements.forEach((_el:any, index: any) => {
