@@ -62,7 +62,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   },[colorsList, availableColors]);
 
   useEffect(() => {
-    const newTree = groups.map((group: any) => {
+    let newTree = groups.map((group: any) => {
       return {
         id: group._id,
         data: group,
@@ -96,13 +96,25 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         });
       }
     });
+    if(counterFilters > 0) {
+      newTree = newTree.filter((element => element.children? element.children.length != 0 :true))
+    }
+    
     setTree(newTree);
   }, [notes, groups]);
 
   useEffect(()=>{
     changeFilter(filter);
   },[filter]);
-  
+  const resetFilters = () => {
+    const newValues = currentSelected.map((elem:any) => {
+      elem.selected = false;
+      return elem;
+    });
+    setCurrentSelected(newValues);
+    setIdsFilter('');
+    getNotes();
+  }
   const changeValueOfElement = (_id:any) => {
     const newValues = currentSelected.map((elem:any) => {
       if(elem._id == _id) {
@@ -149,6 +161,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     if (key.key === 'create-folder') {
       console.log('enter here');
       createGroup('Untitled Folder');
+      resetFilters();
     } else {
       addToMap();
       setSwSave(true);
