@@ -2126,7 +2126,7 @@ export const PROJECTS_STYLES = {
           ],
           "line-width": 0.5
       }
-    }, {
+  }, {
       type: 'line',
       'source-layer': 'pluto15v1',
       "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
@@ -2155,7 +2155,7 @@ export const PROJECTS_STYLES = {
     {
       type: 'symbol',
       'source-layer': 'pluto15v1',
-      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"],['!=',['get','projectsubtype','FHAD']],['!=',['get','projectsubtype'],'Master Plan']],
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"],["==",['get','projecttype'], "Study"]],
       "layout": {
         "text-field": ["to-string", ["get", "projectname"]],
         "text-justify": "auto",
@@ -2259,7 +2259,48 @@ export const PROJECTS_STYLES = {
               88
           ]
       }
-    } 
+    },
+    // {
+    //   type: 'symbol',
+    //   'source-layer': 'pluto15v1',
+    //   "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
+    //   "layout": {
+    //     "text-field": ["to-string", ["get", "projectname"]],
+    //     "text-justify": "auto",
+    //     "text-anchor": "top-left",
+    //     "text-radial-offset": 1,
+    //     "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
+    //   },
+    //   "paint": {
+    //     "text-color": [
+    //       "interpolate",
+    //       ["exponential", 1],
+    //       ["zoom"],
+    //       0,
+    //       "hsla(0, 0%, 100%, 0)",
+    //       12.66,
+    //       "hsla(0, 0%, 100%, 0)",
+    //       13,
+    //       "hsla(0, 0%, 100%, 0.74)",
+    //       22,
+    //       "hsl(0, 0%, 100%)"
+    //     ],
+    //       "text-halo-color": [
+    //           "step",
+    //           ["zoom"],
+    //           "hsla(0, 0%, 0%, 0)",
+    //           13,
+    //           "hsla(0, 0%, 0%, 0.25)",
+    //           15,
+    //           "hsl(0, 0%, 0%)",
+    //           22,
+    //           "hsla(0, 0%, 0%, 0.61)"
+    //       ],
+    //       "text-halo-width": 0.25,
+    //       "text-halo-blur": 35,
+    //       "text-opacity": ["step", ["zoom"], 0, 12, 1, 22, 1]
+    //   }
+    // } 
   ],
   [PROJECTS_DRAFT]: [
     {

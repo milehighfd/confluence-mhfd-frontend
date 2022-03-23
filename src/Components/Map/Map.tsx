@@ -2157,7 +2157,6 @@ const Map = ({ leftWidth,
       });
     }
     const addListonPopupNotes = (e: any) => {
-      console.log("whattt", e);
       const div = document.getElementById('color-list');
                 if (div != null) {
                     const ul = document.createElement('div');
