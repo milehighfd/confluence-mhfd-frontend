@@ -984,10 +984,7 @@ const Map = ({ leftWidth,
             globalMapId = null;
             itMoved = false;
         });
-
-        setTimeout(()=>{
-            console.log("Map STl", map.getStyle().layers);
-        },8000);
+\
         /* Special and Acquisition Projects */
         if (layers && layers.marker) {
             const mapMarker = document.createElement('div');
