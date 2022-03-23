@@ -985,6 +985,9 @@ const Map = ({ leftWidth,
             itMoved = false;
         });
 
+        setTimeout(()=>{
+            console.log("Map STl", map.getStyle().layers);
+        },8000);
         /* Special and Acquisition Projects */
         if (layers && layers.marker) {
             const mapMarker = document.createElement('div');
@@ -1076,7 +1079,7 @@ const Map = ({ leftWidth,
             }
         });
         const updateZoom = () => {
-            // console.log(map.getStyle());
+            // console.log("LYS MAP", map.getStyle().layers);
             const zoom = map.getZoom().toFixed(2);
             setZoomValue(zoom);
         }
@@ -1457,7 +1460,12 @@ const Map = ({ leftWidth,
             map.moveLayer('streams_2');
             map.moveLayer('streams_3');
             map.moveLayer('streams_4');
+            map.moveLayer('effective_reaches_0');
+            map.moveLayer('effective_reaches_1');
+            map.moveLayer('effective_reaches_2');
+            map.moveLayer('effective_reaches_3');
             map.moveLayer('borderMASK');
+            
         },800);
     }
 
