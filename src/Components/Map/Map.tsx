@@ -1092,6 +1092,11 @@ const Map = ({ leftWidth,
         //   color: "#00f507",
         //   opacity: 1
         // });
+      //   setTimeout(() => {
+      //     map.getStyle().layers.forEach((layer: any) => {
+      //         console.log(layer);
+      //     });
+      // }, 8000);
     }, []);
     const removeAllChildNodes = (parent:any) => {
       while (parent.firstChild) {
@@ -1452,20 +1457,37 @@ const Map = ({ leftWidth,
         applyFilters('mhfd_projects', filterProjects);
         setTimeout(()=>{
             map.moveLayer('munis-centroids-shea-plusother');
-            map.moveLayer('streams_0');
-            map.moveLayer('streams_1');
-            map.moveLayer('streams_2');
+            topStreams()
+            topEffectiveReaches();
+            topProjects();
             map.moveLayer('borderMASK');
-            map.moveLayer('effective_reaches_0');
-            map.moveLayer('effective_reaches_1');
-            map.moveLayer('effective_reaches_2');
-            map.moveLayer('effective_reaches_3');
-            map.moveLayer('streams_3');
-            map.moveLayer('streams_4');
-            
+            topStreamLabels();
         },800);
     }
-
+    const topProjects = () => {
+      // map.moveLayer('effective_reaches_0');
+      const styles = { ...tileStyles as any };
+        
+        styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${PROJECTS_LINE}_${index}`);
+          console.log(`${PROJECTS_LINE}_${index}`);
+        })
+    }
+    const topEffectiveReaches = () => {
+      map.moveLayer('effective_reaches_0');
+      map.moveLayer('effective_reaches_1');
+      map.moveLayer('effective_reaches_2');
+      map.moveLayer('effective_reaches_3');
+    }
+    const topStreams = () => {
+      map.moveLayer('streams_0');
+      map.moveLayer('streams_1');
+      map.moveLayer('streams_2');
+    }
+    const topStreamLabels = () => {
+      map.moveLayer('streams_3');
+      map.moveLayer('streams_4');
+    }
     const addLayersSource = (key: string, tiles: Array<string>) => {
         if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
             map.addSource(key, {
