@@ -12,7 +12,8 @@ const initProfile = {
       latitude: 0,
       longitude: 0
     },
-    polygon: []
+    polygon: [],
+    isSelect: 'beggining'
   },
   userProjects: [],
   userProblems: [],

@@ -1465,19 +1465,17 @@ const Map = ({ leftWidth,
         },800);
     }
     const topProjects = () => {
-      // map.moveLayer('effective_reaches_0');
-      const styles = { ...tileStyles as any };
-        
+      const styles = { ...tileStyles as any };   
         styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
           map.moveLayer(`${PROJECTS_LINE}_${index}`);
-          console.log(`${PROJECTS_LINE}_${index}`);
         })
     }
     const topEffectiveReaches = () => {
-      map.moveLayer('effective_reaches_0');
-      map.moveLayer('effective_reaches_1');
-      map.moveLayer('effective_reaches_2');
-      map.moveLayer('effective_reaches_3');
+      const styles = { ...tileStyles as any };   
+      styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
+        map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+        console.log(`${EFFECTIVE_REACHES}_${index}`);
+      })
     }
     const topStreams = () => {
       map.moveLayer('streams_0');

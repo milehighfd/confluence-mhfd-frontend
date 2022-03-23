@@ -640,20 +640,37 @@ const WorkRequestMap = (type: any) => {
     }
     setTimeout(()=>{
       map.isStyleLoaded(()=>{
-        map.map.moveLayer('munis-centroids-shea-plusother');
-        map.map.moveLayer('streams_0');
-          map.map.moveLayer('streams_1');
-          map.map.moveLayer('streams_2');
-          map.map.moveLayer('streams_3');
-          map.map.moveLayer('streams_4');
-          map.map.moveLayer('borderMASK');
-          map.map.moveLayer('effective_reaches_0');
-          map.map.moveLayer('effective_reaches_1');
-          map.map.moveLayer('effective_reaches_2');
-          map.map.moveLayer('effective_reaches_3');
+        map.moveLayer('munis-centroids-shea-plusother');
+        topStreams()
+        topEffectiveReaches();
+        topProjects();
+        map.moveLayer('borderMASK');
+        topStreamLabels();
       });
     },500);
 
+  }
+  const topProjects = () => {
+    const styles = { ...tileStyles as any };   
+      styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
+        map.moveLayer(`${PROJECTS_LINE}_${index}`);
+      })
+  }
+  const topEffectiveReaches = () => {
+    const styles = { ...tileStyles as any };   
+    styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
+      map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+      console.log(`${EFFECTIVE_REACHES}_${index}`);
+    })
+  }
+  const topStreams = () => {
+    map.moveLayer('streams_0');
+    map.moveLayer('streams_1');
+    map.moveLayer('streams_2');
+  }
+  const topStreamLabels = () => {
+    map.moveLayer('streams_3');
+    map.moveLayer('streams_4');
   }
   const applyMhfdFilter = () => {
     const styles = { ...tileStyles as any };
