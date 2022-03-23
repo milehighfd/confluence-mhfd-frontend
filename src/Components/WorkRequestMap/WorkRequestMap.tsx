@@ -647,6 +647,10 @@ const WorkRequestMap = (type: any) => {
           map.map.moveLayer('streams_3');
           map.map.moveLayer('streams_4');
           map.map.moveLayer('borderMASK');
+          map.map.moveLayer('effective_reaches_0');
+          map.map.moveLayer('effective_reaches_1');
+          map.map.moveLayer('effective_reaches_2');
+          map.map.moveLayer('effective_reaches_3');
       });
     },500);
 

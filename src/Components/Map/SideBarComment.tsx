@@ -36,21 +36,16 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   useEffect(()=>{
     countFilterColors();
   },[currentSelected]);
-  // TODO: Jorge please considerer we don't need two useEffect, try to use only one useEffect for the two variables and think in the logic
-  // I keep the code because I don't sure why you do that, and don't want to ruin some functionality of the code, as you can see 
-  // I copy and paste the same code to show u is the same logic and code, with only one exception ( setIdsFilter(''))
-
   useEffect(()=>{
     setIdsFilter('');
-    let auxColorList = [...colorsList];
-    auxColorList.push({
+    let auxColorList = [{
       _id: null,
-      label: 'Default Color',
+      label: 'Map Note',
       color: DEFAULT_COLOR,
       opacity: 1,
-    });
+    },...colorsList];
     // filter by available colors 
-    auxColorList.filter((color: any)=> {
+    auxColorList = auxColorList.filter((color: any)=> {
       const findColor = availableColors.find((availableColor: any) => availableColor.color_id === color._id);
       return findColor;
     })
@@ -64,32 +59,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
     });
     setCurrentSelected(auxColorList);
-  },[colorsList]);
-  useEffect(()=>{
-    let auxColorList = [...colorsList];
-    auxColorList.push({
-      _id: null,
-      label: 'Default Color',
-      color: DEFAULT_COLOR,
-      opacity: 1,
-    });
-    // filter by available colors 
-    auxColorList.filter((color: any)=> {
-      const findColor = availableColors.find((availableColor: any) => availableColor.color_id === color._id);
-      return findColor;
-    })
-    // add selected field
-    auxColorList.forEach((color: any) => {
-      const findColor = currentSelected.find((selected: any) => selected._id === color._id);
-      if (findColor) {
-        color.selected = findColor.selected;
-      } else {
-        color.selected = false;
-      }
-    });
-    setCurrentSelected(auxColorList);
+  },[colorsList, availableColors]);
 
-  },[availableColors]);
   useEffect(() => {
     const newTree = groups.map((group: any) => {
       return {
@@ -121,37 +92,10 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     newTree.forEach(element => {
       if (element.children) {
         element.children.sort((a: any, b: any) => {
-          // console.log('sorting ', a.label, b.label);
-          // console.log('sorting ', a.data.position, b.data.position, a.data.position - b.data.position);
           return a.data.position - b.data.position;
         });
       }
     });
-    /*
-    const data = [{
-      id: '11',
-      label: 'Folder 1',
-      children: [{
-        id: '12',
-        label: 'note 2',
-      }, {
-        id: '13',
-        label: 'note 3',
-      }],
-    }, 
-    {
-      id: '21',
-      label: 'Folder 2',
-      children: []
-    },
-    {
-      id: '31',
-      label: 'Note 4'
-    }
-    ];
-    data.forEach((d: any) => {
-      newTree.push(d);
-    });*/
     setTree(newTree);
   }, [notes, groups]);
 
