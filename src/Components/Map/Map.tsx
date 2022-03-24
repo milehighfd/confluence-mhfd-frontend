@@ -814,9 +814,36 @@ const Map = ({ leftWidth,
         }
     }, [filterComponents, componentDetailIds]);
 
+    const setValueInFilters = (value: any, type: any, filterOptions: any, withSuffix: boolean = false) => {
+      const options = { ...filterOptions };
+      options.jurisdiction = '';
+      options.county = '';
+      options.servicearea = '';
+      if (!withSuffix) {
+        if (value.includes('County')) {
+          let index = value.indexOf('County');
+          if (index !== -1) {
+            value = value.substr(0, index - 1);
+          }
+        }
+        if (value.includes('Service Area')) {
+          let index = value.indexOf('Service Area');
+          if (index !== -1) {
+            value = value.substr(0, index - 1);
+          }
+        }
+      }
+      if(type == "Service Area") {
+        options.servicearea = value;
+      } else if(type) {
+        // COUNTY AND SERVICE AREA HAS field = county  field = servicearea  field = jurisdiction 
+        options[type.toLowerCase()] = value;
+      }
+      return options;
+    }
     const flytoBoundsCoor = () => {
       let historicBounds = getCurrent();
-      console.log("DO WE ", coordinatesJurisdiction);
+      console.log("DO WE ", coordinatesJurisdiction, userInformation.isSelect);
       if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
         globalMapId = historicBounds.id;
         map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
@@ -837,6 +864,24 @@ const Map = ({ leftWidth,
              let zone = zoomareaSelected[0].aoi;
              zone = zone.replace('County ', '').replace('Service Area', '');
              setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+             const loadFiltered = (zone: any , type: any, projectOptions: any, problemOptions: any, componentOptions: any) => {
+                let optionsproj = setValueInFilters(zone, type, projectOptions, true);
+                let optionsprob = setValueInFilters(zone, type, problemOptions);
+                let optionscomp = setValueInFilters(zone, type, componentOptions);
+                setTimeout(()=>{
+                  setFilterProjectOptions(optionsproj);
+                  getGalleryProjects();
+                  getParamFilterProjects(boundsMap, optionsproj);
+                  setFilterProblemOptions(optionsprob);
+                  getGalleryProblems();
+                  getParamFilterProblems(boundsMap, optionsprob);
+                  setFilterComponentOptions(optionscomp);
+                  getParamFilterComponents(boundsMap, optionscomp);
+                },1300);
+              }
+              map.once('idle',() => {
+                loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
+              });
            }
    
           },5000);
@@ -1474,7 +1519,6 @@ const Map = ({ leftWidth,
       const styles = { ...tileStyles as any };   
       styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
         map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
-        console.log(`${EFFECTIVE_REACHES}_${index}`);
       })
     }
     const topStreams = () => {
