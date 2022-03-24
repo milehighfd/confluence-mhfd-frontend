@@ -79,7 +79,7 @@ const { Option } = AutoComplete;
 const { TextArea } = Input;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
-
+let moveCounter = 0;
 let map: any = null;
 let fromHistory = false;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
@@ -843,7 +843,6 @@ const Map = ({ leftWidth,
     }
     const flytoBoundsCoor = () => {
       let historicBounds = getCurrent();
-      console.log("DO WE ", coordinatesJurisdiction, userInformation.isSelect);
       if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
         globalMapId = historicBounds.id;
         map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
@@ -879,8 +878,10 @@ const Map = ({ leftWidth,
                   getParamFilterComponents(boundsMap, optionscomp);
                 },1300);
               }
-              map.once('render',() => {
-                loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
+              map.once('idle',() => {
+                setTimeout(()=>{
+                  loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
+                },1000);
               });
            }
    
@@ -1127,8 +1128,7 @@ const Map = ({ leftWidth,
         }
         map.on('load', updateZoom);
         map.on('move', updateZoom);
-        map.on('moveend', () => {
-            // console.log('end moving ');
+        map.on('dragend', () => {
             itMoved = true;
         });
         getColorsList();
