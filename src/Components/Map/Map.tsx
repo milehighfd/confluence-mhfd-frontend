@@ -879,7 +879,7 @@ const Map = ({ leftWidth,
                   getParamFilterComponents(boundsMap, optionscomp);
                 },1300);
               }
-              map.once('idle',() => {
+              map.once('render',() => {
                 loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
               });
            }
