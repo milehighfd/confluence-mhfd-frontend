@@ -496,7 +496,7 @@ export const SEMSWA_SERVICE_AREA =
 
             
             <p>
-              <img key="B9lUpHdHCMgj" src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
+              <img key="B9lUpHdHCMgj" src="/Icons/icon-effective-reaches.png" width="18px" alt="" style={{borderRadius:'2px'}} />
                   Effective Reaches
                   <Popover key="7O7aHaRJRovW" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.effective_reaches)}>
                 <img key="GYvKUUrfba7Q" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
