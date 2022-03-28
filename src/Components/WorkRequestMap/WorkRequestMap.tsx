@@ -2175,6 +2175,16 @@ const epochTransform = (dateParser: any) => {
             <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_completed.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
         )
     }
+    if(menu === "Effective Reaches" && popups.studyname !== 'unknown'){
+      return (
+          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-studyunkown.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      )
+  }
+  if(menu === "Effective Reaches" && popups.studyname === 'unknown'){
+      return (
+          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-study.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      )
+  }
     if(icon !== undefined){
         return icon
     }
