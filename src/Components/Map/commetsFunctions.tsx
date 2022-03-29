@@ -264,7 +264,29 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
   })
 }
 
-export const clickingOptions = (listOfElements: any, deleteColorList: Function, noteClicked?: any, openMarkerOfNote?: any, changeContentWithListUpdates?:any) => {
+const removeEditOptAll = (listofelements: any) => {
+  listofelements.forEach((element: any, index: any) => {
+    const inputElem: any = document.getElementById(`input${index}`);
+    if(inputElem != null){
+      inputElem.readOnly = true;
+    }  
+    
+    const saveOpt: any = document.getElementById(`saveopt${index}`);
+    if(saveOpt != null){
+      saveOpt.style.display = 'none';
+    }
+    const editButton = document.getElementById(`editopt${index}`);
+    if(editButton != null){
+      console.log("edit button stye", editButton.style.display);
+      editButton.style.removeProperty('display');
+    }
+    const liElem: any = document.getElementById(`color${index}`);
+    if(liElem != null) {
+      liElem.classList.remove('editinglist');
+    }
+  });
+}
+export const clickingOptions = (listOfElements: any, deleteColorList: Function, noteClicked?: any, updateColorList?: Function, openMarkerOfNote?: any, changeContentWithListUpdates?:any) => {
 
   listOfElements.forEach((el:any, index:any) => {
     const optionsx = document.getElementById(`options${index}`);
@@ -276,9 +298,6 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
     }
     divoptionsx.setAttribute('id',`divoptions${index}`);
     let innerOptions = `
-      <li id="editopt${index}" value="${el._id}">
-        <span><img src="/Icons/icon-04.svg" alt="" width="10px" style="margin-top: -3px; margin-right: 5px;" /> Edit</span>
-      </li>
       <li id="deleteopt${index}" value="${el._id}">
         <span style="color:#FF0000"><img src="/Icons/icon-16.svg" alt="" width="10px" style="margin-top: -3px; margin-right: 5px;" /> Delete</span>
       </li>
@@ -301,19 +320,7 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
         let optx = document.getElementById(`color${index}`);
         if(optx != null) {
           optx.appendChild(divoptionsx);
-          const editButton = document.getElementById(`editopt${index}`);
           const deleteButton = document.getElementById(`deleteopt${index}`);
-          if(editButton != null){
-            editButton.addEventListener('click', (e:any) => {
-              e.stopPropagation();
-              const inputElem: any = document.getElementById(`input${index}`);
-              if(inputElem != null){
-                inputElem.readOnly = false;
-                inputElem.focus();
-                divoptionsx.style.display = 'none';
-              }
-            });
-          } 
           if(deleteButton != null){
             deleteButton.addEventListener('click', (e:any) => {
               e.stopPropagation();
@@ -336,6 +343,64 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
       })
     }
    
+    const editButton = document.getElementById(`editopt${index}`);
+    if(editButton != null){
+      editButton.addEventListener('click', (e:any) => {
+        e.stopPropagation();
+        removeEditOptAll(listOfElements);
+        const inputElem: any = document.getElementById(`input${index}`);
+        if(inputElem != null){
+          inputElem.readOnly = false;
+          inputElem.focus();
+          divoptionsx.style.display = 'none';
+        }
+        const liElem: any = document.getElementById(`color${index}`);
+        if(liElem != null) {
+          liElem.classList.add('editinglist');
+        }
+        editButton.style.display = 'none';
+        const saveOpt: any = document.getElementById(`saveopt${index}`);
+        if(saveOpt != null){
+          saveOpt.style.display = 'unset';
+          saveOpt.addEventListener('click', (e:any) => {
+            e.stopPropagation();
+            const inputX:any = document.getElementById(`input${index}`);
+            const newValue = inputX.value;
+            if(updateColorList){
+              updateColorList({...el, label: newValue});
+            }
+            let timeCheck = noteClicked? 1200:0;
+            let draftText = '';
+            const textarea = (document.getElementById('textarea') as HTMLInputElement);
+              if (textarea != null) {
+                  draftText = textarea.value;
+              }
+            setTimeout(()=>{
+              if(noteClicked) {
+                let cctData = [
+                  {...el, label: newValue},index, changeContentTitle
+                ]
+                openMarkerOfNote(noteClicked, draftText, cctData);
+                
+              } else {
+                setTimeout(()=>{
+                  let cctData = [
+                    {...el, label: newValue},index, changeContentTitle
+                  ]
+                  changeContentWithListUpdates(cctData);
+                },1500);
+                
+              }
+              setTimeout(()=>{
+                inputX.readOnly = true;
+                // inputX.blur();
+              },200);
+            },timeCheck);
+
+          })
+        }
+      });
+    } 
   });
 
 }

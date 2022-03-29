@@ -589,12 +589,13 @@ const Map = ({ leftWidth,
         if (div != null) {
             momentaryMarker.remove(); 
             const ul = document.createElement('ul');
-            ul.style.display = 'none';
-            ul.classList.add("list-popup-comment");
-            ul.classList.add('legend');
-            ul.setAttribute('id','id-list-popup');
-            
+                  ul.style.display = 'none';
+                  ul.classList.add("list-popup-comment");
+                  ul.classList.add('legend');
+                  ul.setAttribute('id','id-list-popup');
+                  
             div.addEventListener('click', () => {
+              
                 if (ul.style.display === 'none') {
                     ul.style.display = 'block';
                     rotateIcon('up');
@@ -604,8 +605,8 @@ const Map = ({ leftWidth,
                     rotateIcon('down');
                 }
             });
-            
             addListToPopupNotes(ul,div,noteClicked);
+            
 
             const colorable = document.getElementById('colorable');
            
@@ -2139,6 +2140,8 @@ const Map = ({ leftWidth,
           <li id="color${index}" value=${JSON.stringify(el._id)}>
             <img id="circle${index}" class="img-circle${noteClicked?.color_id == el._id?' selected':''}" style="background:${el.color}"/> 
               <input id="input${index}" class="inputlabel${noteClicked?.color_id == el._id?' underlined':''}" value="${el.label}" readonly>
+            <img id="editopt${index}" class="img-edit" />
+            <img id="saveopt${index}" class="img-check" />
             <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
           </li>`
         });
@@ -2165,7 +2168,7 @@ const Map = ({ leftWidth,
           div.appendChild(ul);
         }            
         clickingCircleColor(listOfElements, updateColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
-        clickingOptions(listOfElements, deleteColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
+        clickingOptions(listOfElements, deleteColorList, noteClicked, updateColorList, openMarkerOfNote, changeContentWithListUpdates);
         clickingAddLabelButton(createColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
         clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
         clickingColorElement(listOfElements, currentElement);
@@ -2218,11 +2221,34 @@ const Map = ({ leftWidth,
         if(divcolorstohide != null){
           divcolorstohide.style.display = 'none';
         }
+        
+        const inputElem: any = document.getElementById(`input${index_}`);
+        if(inputElem != null){
+          inputElem.readOnly = true;
+        }  
+        
+        const saveOpt: any = document.getElementById(`saveopt${index_}`);
+        if(saveOpt != null){
+          saveOpt.style.display = 'none';
+        }
+        // const editButton = document.getElementById(`editopt${index_}`);
+        // if(editButton != null){
+        //   console.log("editButton.style.display",editButton.style.display);
+        //   editButton.style.display = 'none';
+        // }
+        const liElem: any = document.getElementById(`color${index_}`);
+        if(liElem != null) {
+          liElem.classList.remove('editinglist');
+        }
       });
     }
     const addListonPopupNotes = (e: any) => {
       const div = document.getElementById('color-list');
                 if (div != null) {
+                  const checker = Array.from(document.getElementsByClassName('list-popup-comment'));
+                  checker.forEach((check:any) => {
+                    check.remove();
+                  });
                     const ul = document.createElement('div');
                     ul.style.display = 'none';
                     ul.classList.add("list-popup-comment");
