@@ -187,7 +187,7 @@
   left: 61px;
   top: 20px;
   padding-left: 0px !important;
-  width: 215px;
+  width: 237px;
   // box-shadow: 0 3px 6px rgba(00,00,00,0.2);
   border-radius: 4px;
   // text-align: left;
@@ -280,6 +280,7 @@
     cursor: pointer;
     padding-left: 7px;
     background: #CFEBFE;
+    border-radius: 0.2em 0.2em 0.2em 0.2em;
     &:focus {
       background:#CFEBFE;
       cursor: text;
@@ -315,6 +316,10 @@
       border-top-left-radius: 9px;
       border-top-right-radius: 0px;
     }
+    &:last-child {
+      border-bottom-right-radius: 9px;
+      border-bottom-left-radius: 9px;
+    }
     .img-edit {
       opacity: 1;
       -webkit-mask: url('/Icons/u_edit.svg') no-repeat center;
@@ -323,12 +328,16 @@
       background-color: #393939;
       position: absolute;
       display: none;
+      right: 18px;
     }
     .img-check {
       opacity: 1;
       -webkit-mask: url('/Icons/fi_check.svg') no-repeat center;
       height: 20px;
       width: 20px;
+      padding-top: 22px;
+      right: 18px;
+      top: 14px;      
       background-color: #393939;
       position: absolute;
       display: none;
@@ -343,7 +352,8 @@
       // text-decoration-skip-ink: none;
     }
     .inputlabel:focus {
-      // background-color: white;
+      // background-color: red;
+      
       border: 1px solid rgba(37, 24, 99, 0.9) !important;
     }
   }

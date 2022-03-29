@@ -584,18 +584,20 @@ const Map = ({ leftWidth,
           setMarkerNotes(totalmarkers);
         }
     }, [notes, notesFilter]);
+    let counter = 0 ;
     const eventsOnClickNotes = (noteClicked:any) => {
       const div = document.getElementById('color-list');
         if (div != null) {
             momentaryMarker.remove(); 
+            document.getElementById('id-list-popup')?.remove();
             const ul = document.createElement('ul');
                   ul.style.display = 'none';
                   ul.classList.add("list-popup-comment");
                   ul.classList.add('legend');
                   ul.setAttribute('id','id-list-popup');
-                  
+                  console.log("counter ", counter++);
             div.addEventListener('click', () => {
-              
+              console.log("IULi", ul, div);
                 if (ul.style.display === 'none') {
                     ul.style.display = 'block';
                     rotateIcon('up');
@@ -1780,7 +1782,12 @@ const Map = ({ leftWidth,
     };
 
     const addToMap = () => {
-        canAdd = true;
+      if(markersNotes.length > 0 ){
+        markersNotes.forEach((marker:any) => {
+          marker.marker._popup.remove();
+        });
+      }
+      canAdd = true;
     }
     const addTilesLayers = (key: string) => {
         const styles = { ...tileStyles as any };
@@ -2233,7 +2240,6 @@ const Map = ({ leftWidth,
         }
         const editButton = document.getElementById(`editopt${index_}`);
         if(editButton != null){
-          console.log("editButton.style.display",editButton.style.display);
           editButton.style.removeProperty('display');
         }
         const liElem: any = document.getElementById(`color${index_}`);
@@ -2255,6 +2261,7 @@ const Map = ({ leftWidth,
                     ul.classList.add("legend");
                     ul.setAttribute('id','id-list-popup');
                     div.addEventListener('click', () => {
+                      console.log("IUL", ul, div);
                         if (ul.style.display === 'none') {
                             ul.style.display = 'block';
                             rotateIcon('up');
@@ -2356,6 +2363,7 @@ const Map = ({ leftWidth,
                     }
                 }
     }
+    
     useEffect(() => {
 
         if (allLayers.length < 100) {
@@ -2365,6 +2373,11 @@ const Map = ({ leftWidth,
             if(isMeasuring) {
               measureFunction(e);
             } else {
+              if(markersNotes.length > 0 ){
+                markersNotes.forEach((marker:any) => {
+                  marker.marker._popup.remove();
+                });
+              }
               if (commentAvailable && canAdd) {
                 const html = commentPopup();
                 popup.remove();
@@ -2377,13 +2390,15 @@ const Map = ({ leftWidth,
                     'right': [-10,0]
                   }
                 });
+                setTimeout(()=>{
+                  markerNote.setPopup(popup);
+                  popup.setHTML(html);
+                  markerNote.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
+                  addListonPopupNotes(e);
+                }, 200);
                 
-                markerNote.setPopup(popup);
-                popup.setHTML(html);
-                markerNote.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
-                addListonPopupNotes(e);
                 return;
-            }
+              }
             if (commentAvailable) {
                 return;
             }

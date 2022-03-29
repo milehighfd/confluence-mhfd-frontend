@@ -369,7 +369,7 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
             if(updateColorList){
               updateColorList({...el, label: newValue});
             }
-            let timeCheck = noteClicked? 1200:0;
+            let timeCheck = noteClicked? 1400:400;
             let draftText = '';
             const textarea = (document.getElementById('textarea') as HTMLInputElement);
               if (textarea != null) {
