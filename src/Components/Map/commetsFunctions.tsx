@@ -393,6 +393,7 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
               }
               setTimeout(()=>{
                 inputX.readOnly = true;
+                editButton.style.removeProperty('display');
                 // inputX.blur();
               },200);
             },timeCheck);

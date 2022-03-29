@@ -2231,11 +2231,11 @@ const Map = ({ leftWidth,
         if(saveOpt != null){
           saveOpt.style.display = 'none';
         }
-        // const editButton = document.getElementById(`editopt${index_}`);
-        // if(editButton != null){
-        //   console.log("editButton.style.display",editButton.style.display);
-        //   editButton.style.display = 'none';
-        // }
+        const editButton = document.getElementById(`editopt${index_}`);
+        if(editButton != null){
+          console.log("editButton.style.display",editButton.style.display);
+          editButton.style.removeProperty('display');
+        }
         const liElem: any = document.getElementById(`color${index_}`);
         if(liElem != null) {
           liElem.classList.remove('editinglist');
