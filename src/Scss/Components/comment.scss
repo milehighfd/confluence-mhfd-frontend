@@ -263,7 +263,11 @@
       }
     }
   }
-
+  #addLabelButton:hover {
+    background-color: white !important;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+  }
   .divcolors-last{
     top: -35px;
   }
@@ -309,17 +313,17 @@
       background-color: #CFEBFE;
     }
     &:hover {
-      background-color: #CFEBFE;
-      
+      background-color: #CFEBFE; 
     }
+    
     &:first-child {
       border-top-left-radius: 9px;
       border-top-right-radius: 0px;
     }
-    &:last-child {
-      border-bottom-right-radius: 9px;
-      border-bottom-left-radius: 9px;
-    }
+    // &:last-child {
+    //   border-bottom-right-radius: 9px;
+    //   border-bottom-left-radius: 9px;
+    // }
     .img-edit {
       opacity: 1;
       -webkit-mask: url('/Icons/u_edit.svg') no-repeat center;

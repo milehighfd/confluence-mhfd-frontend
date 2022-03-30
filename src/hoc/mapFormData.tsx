@@ -115,6 +115,8 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
         useEffect(()=>{
           if(open) {
             closeWidth();
+          } else {
+            openWidth();
           }
         },[open]);
         useEffect(()=>{
@@ -159,6 +161,11 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
           setLeftWidth(COMPLETE_SCREEN);
             setRightWitdh(EMPTY_SCREEN);
             setRotationStyle({transform: 'rotate(180deg)', marginRight:'-4px', right:'4px', position:'relative'});
+        }
+        const openWidth = () => {
+          setLeftWidth(MEDIUM_SCREEN_LEFT);
+            setRightWitdh(MEDIUM_SCREEN_RIGHT);
+            setRotationStyle(emptyStyle);
         }
         const updateWidth = () => {
           if (leftWidth === MEDIUM_SCREEN_LEFT) {
