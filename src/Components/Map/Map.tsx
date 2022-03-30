@@ -2370,6 +2370,13 @@ const Map = ({ leftWidth,
             return;
         }
         map.on('click', async (e: any) => {
+            if(markerGeocoder){
+              markerGeocoder.remove();
+              setMarkerGeocoder(undefined);
+            }
+            if(searchMarker){
+              searchMarker.remove();
+            }
             if(isMeasuring) {
               measureFunction(e);
             } else {
@@ -3797,13 +3804,21 @@ const Map = ({ leftWidth,
                   // searchMarker.setLngLat(coord);
                   // searchMarker.setPopup(popup);
                   // searchMarker.addTo(map);
-                      
+                 
                 for (const index in popups) {
                     document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
                     document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
                     document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
                     document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
                 }
+                let closebuttons = Array.from(document.getElementsByClassName('mapboxgl-popup-close-button'));
+                closebuttons.forEach((element:any) => {
+                    element.addEventListener('click', () => {
+                      searchMarker.remove();
+                      setMarkerGeocoder(undefined);
+                    })
+                });
+
                 searchMarker.setPopup(searchPopup);
                 searchMarker.addTo(map);
                 searchMarker.togglePopup();
