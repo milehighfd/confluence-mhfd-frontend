@@ -595,9 +595,7 @@ const Map = ({ leftWidth,
                   ul.classList.add("list-popup-comment");
                   ul.classList.add('legend');
                   ul.setAttribute('id','id-list-popup');
-                  console.log("counter ", counter++);
             div.addEventListener('click', () => {
-              console.log("IULi", ul, div);
                 if (ul.style.display === 'none') {
                     ul.style.display = 'block';
                     rotateIcon('up');
@@ -2261,7 +2259,6 @@ const Map = ({ leftWidth,
                     ul.classList.add("legend");
                     ul.setAttribute('id','id-list-popup');
                     div.addEventListener('click', () => {
-                      console.log("IUL", ul, div);
                         if (ul.style.display === 'none') {
                             ul.style.display = 'block';
                             rotateIcon('up');
@@ -3670,7 +3667,7 @@ const Map = ({ leftWidth,
     //geocoder
     const renderOption = (item: any) => {
         return (
-            <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + ' ' + item.place_name}>
+            <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + '|' + item.place_name}>
                 <div className="global-search-item">
                     <h6>{item.text}</h6>
                     <p>{item.place_name}</p>
@@ -3687,7 +3684,8 @@ const Map = ({ leftWidth,
     };
 
     const getTitle = (text: string) => {
-        const parsed = text.split(',');
+        const textTitle = text.split('|');
+        const parsed = textTitle[1]?.split(',');
         if (parsed.length === 1) {
             return { title: parsed[0], subtitle: '' };
         }
