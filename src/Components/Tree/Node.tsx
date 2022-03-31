@@ -156,7 +156,7 @@ export const Node = ({
           }
           setShowBorder(false);
         }}
-        className={isFolder ? "s-item folder":"s-item" }
+        className={(isFolder ? "s-item folder":"s-item" ) + (editMode? " editing":"")}
         style={{ paddingLeft: `${(level + 1) * 16}px`, borderBottom: showBorder ? '2px solid #11093C ' : 'none'}}
         onClick={onClick}>
         {/* {isFolder ? <img src="/Icons/left-arrow.svg" alt="" width="10px" style={ { marginRight: '8px'}}/>  : null} */}
@@ -167,13 +167,15 @@ export const Node = ({
                 {initialName}
                 {/* <img id={"circles-folders"} className={"img-circle "} style={{background: ( item?.data?.color ? item?.data?.color.color :'#F6BE0F')}}/>  */}
               </label>}
-        {!editMode ? <span className="f-title">{showCutText(item.label)}
+        {!editMode ? 
+          <span className="f-title">{showCutText(item.label)}
           {<Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(item, mapFunctions, isFolder, deleteGroup)} trigger="focus">
             <button className="menu-wr" style={{background: 'transparent', border: 'transparent'}} onClick={(e: any) => {e.stopPropagation(); }}> <img src="/Icons/icon-60.svg" alt=""  className='menu-wr' 
             onClick={(e: any) => {e.stopPropagation();}}/></button>
           </Popover>}
-          </span> :
-          <input ref={componentRef} onBlur={unfocus} type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} style={{border: '2px solid transparent', marginLeft: '5px'}} />
+          </span> 
+          :
+          <input className="inputfolders" ref={componentRef} onBlur={unfocus} type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} />
         }
       </div>
       <div>
