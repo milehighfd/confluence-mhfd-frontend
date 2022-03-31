@@ -45,10 +45,11 @@ import {
     EFFECTIVE_REACHES,
     PROBLEM_TYPE,
     NEW_PROJECT_TYPES,
-    ICON_POPUPS
+    ICON_POPUPS,
+    MHFD_STREAMS_FILTERS
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
-import { tileStyles } from '../../constants/mapStyles';
+import { tileStyles, widthLayersStream } from '../../constants/mapStyles';
 import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
 import { numberWithCommas } from '../../utils/utils';
 import { Input, AutoComplete } from 'antd';
@@ -213,7 +214,7 @@ const Map = ({ leftWidth,
          ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
         LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
         CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
-         PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAMS_FILTERS, EFFECTIVE_REACHES, ACTIVE_LOMS];
+         PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAMS_FILTERS, EFFECTIVE_REACHES, ACTIVE_LOMS, MHFD_STREAMS_FILTERS];
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
     const { toggleModalFilter, boundsMap, tabCards,
         filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup, places } = useMapState();
@@ -1138,11 +1139,11 @@ const Map = ({ leftWidth,
         //   color: "#00f507",
         //   opacity: 1
         // });
-      //   setTimeout(() => {
-      //     map.getStyle().layers.forEach((layer: any) => {
-      //         console.log(layer);
-      //     });
-      // }, 8000);
+        setTimeout(() => {
+          map.getStyle().layers.forEach((layer: any) => {
+              console.log("layer",layer);
+          });
+      }, 8000);
     }, []);
     const removeAllChildNodes = (parent:any) => {
       while (parent.firstChild) {
@@ -1502,13 +1503,25 @@ const Map = ({ leftWidth,
         applyFilters('problems', filterProblems);
         applyFilters('mhfd_projects', filterProjects);
         setTimeout(()=>{
-            map.moveLayer('munis-centroids-shea-plusother');
             topStreams()
             topEffectiveReaches();
             topProjects();
             map.moveLayer('borderMASK');
+            topHovereableLayers();
             topStreamLabels();
+            topLabels()
         },800);
+    }
+    const topHovereableLayers = () => {
+      const styles = { ...tileStyles as any };
+      hovereableLayers.forEach((key:any) => {
+        styles[key].forEach((style: LayerStylesType, index: number) => {
+          if (!hovereableLayers.includes(key)) {
+            return;
+          }
+          map.moveLayer( key + '_highlight_' + index, )  
+        })
+      })
     }
     const topProjects = () => {
       const styles = { ...tileStyles as any };   
@@ -1521,6 +1534,13 @@ const Map = ({ leftWidth,
       styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
         map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
       })
+    }
+    const topLabels= () => {
+      map.moveLayer('poi-label');
+      map.moveLayer('state-label');
+      map.moveLayer('country-label');
+      map.moveLayer('munis-centroids-shea-plusother');
+      map.moveLayer('munis-centroids-district-view-dkc40e');
     }
     const topStreams = () => {
       map.moveLayer('streams_0');
@@ -1838,7 +1858,23 @@ const Map = ({ leftWidth,
             if (!hovereableLayers.includes(key)) {
                 return;
             }
-            if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
+            if(style.type === 'line' && key == STREAMS_FILTERS) {
+              map.addLayer({
+                id: key + '_highlight_' + index,
+                source: key,
+                type: 'line',
+                'source-layer': 'pluto15v1',
+                layout: {
+                    visibility: 'visible'
+                },
+                paint: {
+                    'line-color': '#fff',
+                    'line-width': style.source_name ? widthLayersStream[0]:widthLayersStream[1],
+                    // 'line-opacity': style.paint['line-opacity'],
+                },
+                filter: ['in', 'cartodb_id']
+              });
+            } else if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
                 map.addLayer({
                     id: key + '_highlight_' + index,
                     source: key,
@@ -1853,8 +1889,7 @@ const Map = ({ leftWidth,
                     },
                     filter: ['in', 'cartodb_id']
                 });
-            }
-            if( (style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
+            } else if( (style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
                 map.addLayer({
                     id: key + '_highlight_' + index,
                     type: 'circle',

@@ -3207,16 +3207,15 @@ export const tileStyles = {
         "line-width": [
           "interpolate",
           ["linear"],
-          ["get", "max_catch_"],
+          ["get", "max_catch_sum"],
           130.08,
           1,
           1000,
           1.5,
-          25000,
-          4,
-          50000,
+          400000,
           10
-        ]
+        ],
+        
       }
     },
     {
@@ -3328,6 +3327,7 @@ export const tileStyles = {
           1131411.35931,
           12
       ],
+    
       "line-opacity": [
         "interpolate",
         ["linear"],
@@ -4998,3 +4998,30 @@ export const USER_POLYGON_LINE_STYLES = {
       'line-width': 3
   }
 }
+
+export const widthLayersStream = [
+  [
+    "interpolate",
+    ["linear"],
+    ["get", "max_catch_sum"],
+    130.08,
+    1,
+    1000,
+    1.5,
+    400000,
+    10
+  ],
+  [
+    "interpolate",
+    ["linear"],
+    ["get", "catch_sum"],
+    130.080010015,
+    0.5,
+    640,
+    2,
+    6400,
+    4,
+    1131411.35931,
+    12
+  ],
+]
