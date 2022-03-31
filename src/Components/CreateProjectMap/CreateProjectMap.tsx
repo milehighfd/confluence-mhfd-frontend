@@ -1345,11 +1345,19 @@ const CreateProjectMap = (type: any) => {
           ...style
         });
        } else {
-        map.map.addLayer({
-          id: key + '_' + index,
-          source: key,
-          ...style
-        });
+        if(style.source_name){
+          map.map.addLayer({
+            id: key + '_' + index,
+            source: style.source_name,
+            ...style
+          });
+        } else {
+          map.map.addLayer({
+            id: key + '_' + index,
+            source: key,
+            ...style
+          });
+        }
       }
       if (!key.includes('streams')) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');

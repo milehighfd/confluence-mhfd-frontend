@@ -1526,10 +1526,11 @@ const Map = ({ leftWidth,
       map.moveLayer('streams_0');
       map.moveLayer('streams_1');
       map.moveLayer('streams_2');
+      map.moveLayer('streams_3');
     }
     const topStreamLabels = () => {
-      map.moveLayer('streams_3');
       map.moveLayer('streams_4');
+      map.moveLayer('streams_5');
     }
     const addLayersSource = (key: string, tiles: Array<string>) => {
         if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
@@ -1791,11 +1792,20 @@ const Map = ({ leftWidth,
         const styles = { ...tileStyles as any };
         
         styles[key].forEach((style: LayerStylesType, index: number) => {
+          if(style.source_name){
             map.addLayer({
-                id: key + '_' + index,
-                source: key,
-                ...style
-            });
+              id: key + '_' + index,
+              source: style.source_name,
+              ...style
+          });
+          } else {
+            map.addLayer({
+              id: key + '_' + index,
+              source: key,
+              ...style
+          });
+          }
+            
             if (key === 'counties' || key === 'municipalities' || key === 'watershed_service_areas') {
                 if (!map.getLayer(key + '-background')) {
                     map.addLayer({

@@ -3182,7 +3182,44 @@ export const tileStyles = {
       ]
     }
   }], 
-  [STREAMS_FILTERS]: [{
+  [STREAMS_FILTERS]: [
+    //special with diff source 
+    {
+      "source_name":MHFD_STREAMS_FILTERS,
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        "line-miter-limit":2
+      },
+      "paint": {
+        "line-color": "#154784",
+        "line-opacity": [
+          "step",
+          ["zoom"],
+          0.9,
+          11.49,
+          0.8,
+          11.59,
+          0.3,
+          12,
+          0
+        ],
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "max_catch_"],
+          130.08,
+          1,
+          1000,
+          1.5,
+          25000,
+          4,
+          50000,
+          10
+        ]
+      }
+    },
+    {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -3290,6 +3327,17 @@ export const tileStyles = {
           4,
           1131411.35931,
           12
+      ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        11,
+        0,
+        11.7,
+        1,
+        22,
+        1
       ]
     }
   }, {
@@ -3341,23 +3389,24 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      "line-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          "hsla(0, 0%, 0%, 0.12)",
-          10.5,
-          "hsla(210, 69%, 51%, 0.34)",
-          11,
-          "hsla(210, 71%, 35%, 0.67)",
-          12,
-          "hsl(210, 71%, 37%)",
-          12.58,
-          "hsl(210, 69%, 62%)",
-          22,
-          "hsl(210, 69%, 77%)"
-      ],
+      // "line-color": [
+      //     "interpolate",
+      //     ["linear"],
+      //     ["zoom"],
+      //     0,
+      //     "hsla(0, 0%, 0%, 0.12)",
+      //     10.5,
+      //     "hsla(210, 69%, 51%, 0.34)",
+      //     11,
+      //     "hsla(210, 71%, 35%, 0.67)",
+      //     12,
+      //     "hsl(210, 71%, 37%)",
+      //     12.58,
+      //     "hsl(210, 69%, 62%)",
+      //     22,
+      //     "hsl(210, 69%, 77%)"
+      // ],
+      "line-color": "#0ff500",
       "line-width": [
           "interpolate",
           ["linear"],

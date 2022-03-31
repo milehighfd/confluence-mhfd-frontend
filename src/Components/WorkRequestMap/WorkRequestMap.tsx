@@ -640,11 +640,11 @@ const WorkRequestMap = (type: any) => {
     }
     setTimeout(()=>{
       map.isStyleLoaded(()=>{
-        map.moveLayer('munis-centroids-shea-plusother');
+        map.map.moveLayer('munis-centroids-shea-plusother');
         topStreams()
         topEffectiveReaches();
         topProjects();
-        map.moveLayer('borderMASK');
+        map.map.moveLayer('borderMASK');
         topStreamLabels();
       });
     },500);
@@ -653,30 +653,25 @@ const WorkRequestMap = (type: any) => {
   const topProjects = () => {
     const styles = { ...tileStyles as any };   
       styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
-        map.moveLayer(`${PROJECTS_LINE}_${index}`);
+        map.map.moveLayer(`${PROJECTS_LINE}_${index}`);
       })
   }
   const topEffectiveReaches = () => {
     const styles = { ...tileStyles as any };   
     styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
-      map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
-      console.log(`${EFFECTIVE_REACHES}_${index}`);
+      map.map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+      // console.log(`${EFFECTIVE_REACHES}_${index}`);
     })
   }
   const topStreams = () => {
-    map.moveLayer('streams_0');
-    map.moveLayer('streams_1');
-    map.moveLayer('streams_2');
+    map.map.moveLayer('streams_0');
+    map.map.moveLayer('streams_1');
+    map.map.moveLayer('streams_2');
+    map.map.moveLayer('streams_3');
   }
   const topStreamLabels = () => {
-    map.moveLayer('streams_3');
-    map.moveLayer('streams_4');
-  }
-  const applyMhfdFilter = () => {
-    const styles = { ...tileStyles as any };
-    styles['mhfd_projects'].forEach((style: LayerStylesType, index: number) => {
-      
-    });
+    map.map.moveLayer('streams_4');
+    map.map.moveLayer('streams_5');
   }
   const applyComponentFilter = () => {
     const styles = { ...COMPONENT_LAYERS_STYLE as any };
@@ -1044,12 +1039,20 @@ const WorkRequestMap = (type: any) => {
           ...style
         });
        } else {
-        map.map.addLayer({
-          id: key + '_' + index,
-          source: key,
-          ...style
-        });
-      }
+          if(style.source_name){
+            map.map.addLayer({
+              id: key + '_' + index,
+              source: style.source_name,
+              ...style
+            });
+          } else {
+            map.map.addLayer({
+              id: key + '_' + index,
+              source: key,
+              ...style
+            });
+          }
+        }
       if (!key.includes('streams')) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }
