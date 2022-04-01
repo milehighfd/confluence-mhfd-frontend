@@ -1732,10 +1732,10 @@ const Map = ({ leftWidth,
               allFilters.push(style.filter);
             }
             // NEED TO BE CHECKED what is componentDetailIds to confirm everything is fine
-            // if (componentDetailIds && componentDetailIds[key]) {
-            //   console.log("opt components ", JSON.stringify(componentDetailIds));
-            //     allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
-            // }
+            if (componentDetailIds && componentDetailIds[key] && key != 'mhfd_projects' && key != 'problems') {
+              // console.log("opt components ", JSON.stringify(componentDetailIds));
+                allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
+            }
 
             if (map.getLayer(key + '_' + index)) {
                 map.setFilter(key + '_' + index, allFilters);
