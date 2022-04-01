@@ -550,10 +550,10 @@ const Map = ({ leftWidth,
     useEffect(() => {
         let totalmarkers:any = [];
         if (map) {
-          markersNotes.forEach((marker:any) => {
+          markersNotes?.forEach((marker:any) => {
             marker.marker.remove()
           });
-          notes.forEach( (note: any) => {
+          notes?.forEach( (note: any) => {
             if(!(notesFilter != 'all' && notesFilter != note.color)) {
               let colorOfMarker = note?.color?.color?note?.color?.color:'#F6BE0F';
               const doc = document.createElement('div');
@@ -1139,11 +1139,11 @@ const Map = ({ leftWidth,
         //   color: "#00f507",
         //   opacity: 1
         // });
-        setTimeout(() => {
-          map.getStyle().layers.forEach((layer: any) => {
-              console.log("layer",layer);
-          });
-      }, 8000);
+      //   setTimeout(() => {
+      //     map.getStyle().layers.forEach((layer: any) => {
+      //         console.log("layer",layer);
+      //     });
+      // }, 8000);
     }, []);
     const removeAllChildNodes = (parent:any) => {
       while (parent.firstChild) {
@@ -1731,13 +1731,13 @@ const Map = ({ leftWidth,
             if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
               allFilters.push(style.filter);
             }
-            
-            if (componentDetailIds && componentDetailIds[key]) {
-                allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
-            }
+            // NEED TO BE CHECKED what is componentDetailIds to confirm everything is fine
+            // if (componentDetailIds && componentDetailIds[key]) {
+            //   console.log("opt components ", JSON.stringify(componentDetailIds));
+            //     allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
+            // }
 
             if (map.getLayer(key + '_' + index)) {
-                // console.log("Complete filter for", key + '_' + index, allFilters);
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
