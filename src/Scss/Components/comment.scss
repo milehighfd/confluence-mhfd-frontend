@@ -496,6 +496,7 @@
       align-items: center;
       width: 103%;
       font-size: 15px;
+      padding-left: 8px;
       // padding: 0 1em;
       #color-text {
         white-space: nowrap;
@@ -655,9 +656,9 @@
     }
   }
   .comment-drawer{
-    .ant-drawer-content-wrapper{
-      width: 425px !important;
-    }
+    // .ant-drawer-content-wrapper{
+    //   width: 425px !important;
+    // }
     .ant-drawer-header{
       padding: 20px 25px;
     }
@@ -701,12 +702,15 @@
      padding: 12px 15px;
      line-height: 16px;
 
+      .testheader { 
+        padding-left: 13px;
+      }
        button, button:hover, button:focus{
          font-size: 16px;
          height: 22px;
        }
        i{
-         font-size: 21px;
+         font-size: 52px;
        }
     }
     .bodymap{
@@ -731,9 +735,9 @@
       font-size: 14px;
     }
   }
-  .padding-comment{
-    padding-left: 427px !important;
-  }
+  // .padding-comment{
+  //   padding-left: 427px !important;
+  // }
 }
 
 // 2560x1440 DISPLAY
@@ -833,9 +837,9 @@
     }
   }
   .comment-drawer{
-    .ant-drawer-content-wrapper{
-      width: 570px !important;
-    }
+    // .ant-drawer-content-wrapper{
+    //   width: 570px !important;
+    // }
     .ant-drawer-header{
       padding: 20px 32px;
     }
@@ -883,12 +887,15 @@
      padding: 12px 15px;
      line-height: 16px;
 
+     .testheader { 
+        padding-left: 17px;
+      }
        button, button:hover, button:focus{
          font-size: 21px;
          height: 32px;
        }
        i{
-         font-size: 24px;
+         font-size: 58px;
        }
     }
     .bodymap{
@@ -913,9 +920,9 @@
       font-size: 19px;
     }
   }
-  .padding-comment{
-    padding-left: 572px !important;
-  }
+  // .padding-comment{
+  //   padding-left: 572px !important;
+  // }
 }
 
 .ant-drawer-content-wrapper {
