@@ -970,6 +970,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
         <Row type="flex" justify="space-around" align="middle">
           <Col span={11}>
             <Search
+              allowClear
               className="searchfilter"
               placeholder="Search"
               value={tabActive === '0' ? keywordProblem : keywordProject}

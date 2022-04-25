@@ -2381,7 +2381,7 @@ const epochTransform = (dateParser: any) => {
           onSearch={handleSearch}
           value={keyword}
         >
-          <Input.Search size="large" placeholder="Stream or Location" />
+          <Input.Search allowClear size="large" placeholder="Stream or Locationss" />
         </AutoComplete>
       </div>
       <div className="m-zoom">
