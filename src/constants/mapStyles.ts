@@ -2375,7 +2375,21 @@ export const PROJECTS_STYLES = {
         ]
       },
       "paint": {
-          "line-color": "hsl(40, 100%, 50%)",
+          "line-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "#139660",
+            ["Requested"],
+            "#9309EA",
+            ["Approved"],
+            "#497BF3",
+            ["Cancelled"],
+            "#FF0000",
+            ["Complete"],
+            "#06242D",
+            "hsl(40, 100%, 50%)"
+          ],
           "line-width": [
               "interpolate",
               ["linear"],
@@ -2415,7 +2429,21 @@ export const PROJECTS_STYLES = {
       "source-layer": "pluto15v1",
       "layout": {"line-cap": "round", "line-join": "round"},
       "paint": {
-          "line-color": "hsl(40, 100%, 50%)",
+        "line-color": [
+          "match",
+          ["get", "status"],
+          ["Initiated"],
+          "#139660",
+          ["Requested"],
+          "#9309EA",
+          ["Approved"],
+          "#497BF3",
+          ["Cancelled"],
+          "#FF0000",
+          ["Complete"],
+          "#06242D",
+          "hsl(40, 100%, 50%)"
+        ],
           "line-width": 10,
           "line-blur": ["interpolate", ["linear"], ["zoom"], 0, 4, 22, 4],
           "line-opacity": [
@@ -2435,7 +2463,21 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "layout": {"line-join": "round"},
       "paint": {
-          "line-color": "hsl(40, 100%, 50%)",
+        "line-color": [
+          "match",
+          ["get", "status"],
+          ["Initiated"],
+          "#139660",
+          ["Requested"],
+          "#9309EA",
+          ["Approved"],
+          "#497BF3",
+          ["Cancelled"],
+          "#FF0000",
+          ["Complete"],
+          "#06242D",
+          "hsl(40, 100%, 50%)"
+        ],
           "line-blur": 1,
           "line-gap-width": 6,
           "line-opacity": [
@@ -2459,7 +2501,21 @@ export const PROJECTS_STYLES = {
       type: 'line',
       'source-layer': 'pluto15v1',
       "paint": {
-        "line-color": "hsl(40, 100%, 50%)",
+        "line-color": [
+          "match",
+          ["get", "status"],
+          ["Initiated"],
+          "#139660",
+          ["Requested"],
+          "#9309EA",
+          ["Approved"],
+          "#497BF3",
+          ["Cancelled"],
+          "#FF0000",
+          ["Complete"],
+          "#06242D",
+          "hsl(40, 100%, 50%)"
+        ],
         "line-blur": 1,
         "line-gap-width": 6,
         "line-opacity": [
