@@ -1092,7 +1092,7 @@ const MEP_PROJECTS_STYLES = {
     type: 'circle',
     'source-layer': 'pluto15v1',
     "paint": {
-      "circle-color": "#f19b32",
+      "circle-color": "#f19b32",  ///naranja
       "circle-stroke-width": [
           "interpolate",
           ["linear"],
@@ -1143,9 +1143,9 @@ const MEP_PROJECTS_STYLES = {
     type: 'circle',
     'source-layer': 'pluto15v1',
     "paint": {
-      "circle-color": "hsl(33, 87%, 57%)",
+      "circle-color": "hsl(33, 87%, 57%)", //naranja
       "circle-stroke-width": 2,
-      "circle-stroke-color": "hsla(0, 6%, 56%, 0.41)",
+      "circle-stroke-color": "#968888",
       "circle-opacity": [
           "interpolate",
           ["linear"],
@@ -1180,26 +1180,27 @@ const MEP_PROJECTS_STYLES = {
           1,
           22,
           5
-      ]
+      ],
     }
   }, {
     type: 'circle',
     'source-layer': 'pluto15v1',
     "paint": {
-      "circle-color": "hsl(33, 83%, 22%)",
+      "circle-color": "hsl(33, 83%, 22%)", //cafe
       "circle-translate": [1, 1],
+      "circle-radius": 5,
       "circle-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          14.25,
-          1,
-          22,
-          1
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0,
+        9,
+        0,
+        14.25,
+        1,
+        22,
+        1
       ],
       "circle-stroke-opacity": [
           "interpolate",
@@ -1219,41 +1220,41 @@ const MEP_PROJECTS_STYLES = {
     type: 'circle',
     'source-layer': 'pluto15v1',
     "paint": {
-      "circle-color": "hsl(33, 97%, 91%)",
+      "circle-color": "hsl(33, 97%, 91%)", //marron claro
       "circle-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          14.25,
-          1,
-          22,
-          1
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0,
+        9,
+        0,
+        14.25,
+        1,
+        22,
+        1
       ],
       "circle-stroke-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          13.5,
-          0,
-          13.75,
-          1,
-          22,
-          1
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0,
+        13.5,
+        0,
+        13.75,
+        1,
+        22,
+        1
       ],
       "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          22,
-          5
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        1,
+        22,
+        5
       ]
     }
   }],
