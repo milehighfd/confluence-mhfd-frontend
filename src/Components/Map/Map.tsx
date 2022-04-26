@@ -24,29 +24,19 @@ import {
     PROBLEMS_TRIGGER,
     PROJECTS_TRIGGER,
     COMPONENTS_TRIGGER,
-    PROJECTS_MAP_STYLES,
     COMPONENT_LAYERS,
-    MEP_PROJECTS,
-    ROUTINE_MAINTENANCE,
-    FLOODPLAINS_FEMA_FILTERS,
     STREAMS_FILTERS,
-    WATERSHED_FILTERS,
-    SERVICE_AREA_FILTERS,
     MUNICIPALITIES_FILTERS,
-    COUNTIES_FILTERS,
-    MHFD_BOUNDARY_FILTERS,
     SELECT_ALL_FILTERS,
-    MENU_OPTIONS,
     MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF,
     NEARMAP_TOKEN,
-    COUNTIES_LAYERS,
     BLOCK_CLEARANCE_ZONES_LAYERS,
     ACTIVE_LOMS,
     EFFECTIVE_REACHES,
-    PROBLEM_TYPE,
     NEW_PROJECT_TYPES,
     ICON_POPUPS,
-    MHFD_STREAMS_FILTERS
+    MHFD_STREAMS_FILTERS,
+    MENU_OPTIONS
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { tileStyles, widthLayersStream } from '../../constants/mapStyles';
@@ -1525,7 +1515,9 @@ const Map = ({ leftWidth,
           if (!hovereableLayers.includes(key)) {
             return;
           }
-          map.moveLayer( key + '_highlight_' + index, )  
+          if(map.getLayer(key + '_highlight_' + index)) {
+            map.moveLayer( key + '_highlight_' + index, )  
+          }
         })
       })
     }
@@ -1864,6 +1856,7 @@ const Map = ({ leftWidth,
             if (!hovereableLayers.includes(key)) {
                 return;
             }
+            
             if(style.type === 'line' && key == STREAMS_FILTERS) {
               map.addLayer({
                 id: key + '_highlight_' + index,
@@ -1881,6 +1874,7 @@ const Map = ({ leftWidth,
                 filter: ['in', 'cartodb_id']
               });
             } else if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
+              console.log('hoverrrr lone', key);
                 map.addLayer({
                     id: key + '_highlight_' + index,
                     source: key,
@@ -1896,6 +1890,7 @@ const Map = ({ leftWidth,
                     filter: ['in', 'cartodb_id']
                 });
             } else if( (style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
+              console.log('hoverrr cirlcer', key);
                 map.addLayer({
                     id: key + '_highlight_' + index,
                     type: 'circle',
@@ -3272,6 +3267,7 @@ const Map = ({ leftWidth,
                 availableLayers.push(key + '_' + index);
                 if(style.type != 'symbol') {
                   map.on('mousemove', key + '_' + index, (e: any) => {
+                    console.log('mousemove', key + '_' + index, e.features);
                       if (commentAvailable) {
                           return;
                       }
@@ -3652,6 +3648,21 @@ const Map = ({ leftWidth,
             return (
                 <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-study.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
             )
+        }
+        if(menu === MENU_OPTIONS.MEP_DETENTION_BASIN) {
+          return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-mep-detention-basin.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+          );
+        }
+        if(menu === MENU_OPTIONS.MEP_STORM_OUTFALL) {
+          return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-mep-storm-outfall.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+          );
+        }
+        if(menu === MENU_OPTIONS.MEP_CHANNEL) {
+          return (
+            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-mep-channel.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+          );
         }
         if(icon !== undefined){
             return icon
