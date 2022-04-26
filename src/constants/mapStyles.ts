@@ -2328,9 +2328,24 @@ export const PROJECTS_STYLES = {
         "symbol-placement": "line"
       },
       "paint": {
-          "text-color": "hsl(40, 100%, 50%)",
-          "text-halo-color": "hsl(52, 100%, 31%)",
-          "text-halo-width": 5
+          "text-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "#139660",
+            ["Requested"],
+            "#9309EA",
+            ["Approved"],
+            "#497BF3",
+            ["Cancelled"],
+            "#FF0000",
+            ["Complete"],
+            "#06242D",
+            "hsl(40, 100%, 50%)"
+          ],
+          "text-halo-color": "#fff",
+          "text-halo-width": 5,
+          "text-halo-blur": 5
       }
     }, {
       type: 'symbol',
@@ -2356,9 +2371,24 @@ export const PROJECTS_STYLES = {
         "symbol-placement": "line"
       },
       "paint": {
-          "text-color": "hsl(40, 100%, 50%)",
-          "text-halo-color": "hsl(52, 100%, 31%)",
-          "text-halo-width": 5
+          "text-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "#139660",
+            ["Requested"],
+            "#9309EA",
+            ["Approved"],
+            "#497BF3",
+            ["Cancelled"],
+            "#FF0000",
+            ["Complete"],
+            "#06242D",
+            "hsl(40, 100%, 50%)"
+          ],
+          "text-halo-color": "#fff",
+          "text-halo-width": 5,
+          "text-halo-blur": 5
       }
     }, {
       type: 'line',
@@ -2535,7 +2565,8 @@ export const PROJECTS_STYLES = {
         ],
         "line-width": 0.5
       }
-    }, {
+    }, 
+    {
       type: 'symbol',
       'source-layer': 'pluto15v1',
       "layout": {
@@ -2546,10 +2577,24 @@ export const PROJECTS_STYLES = {
         "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
       },
       "paint": {
-          "text-color": "hsl(40, 78%, 50%)",
-          "text-halo-color": "hsla(0, 0%, 0%, 0.5)",
-          "text-halo-width": 0.25,
-          "text-halo-blur": 35,
+          "text-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "#139660",
+            ["Requested"],
+            "#9309EA",
+            ["Approved"],
+            "#497BF3",
+            ["Cancelled"],
+            "#FF0000",
+            ["Complete"],
+            "#06242D",
+            "hsl(40, 100%, 50%)"
+          ],
+          "text-halo-color": "hsl(0, 0%, 45%)",
+          "text-halo-width": 0.5,
+          "text-halo-blur": 5,
           "text-opacity": ["step", ["zoom"], 0.7, 14, 1, 22, 1]
       }
     }
