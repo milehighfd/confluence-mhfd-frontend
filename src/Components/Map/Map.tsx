@@ -3061,21 +3061,24 @@ const Map = ({ leftWidth,
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       popups.push(item);
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-                      
                   }
                   if (feature.source === ACTIVE_LOMS) {
                       let extraProperties = {};
                       if (userInformation.designation === ADMIN || userInformation.designation === STAFF ) {
                         extraProperties = { notes: feature.properties.notes || '-'}
                       }
+                      let dateType = new Date(feature.properties.status_date);
+                      dateType.setDate(dateType.getDate() + 1);
+                      let effectiveDateType = new Date(feature.properties.effective_date);
+                      effectiveDateType.setDate(effectiveDateType.getDate() + 1);
                       const item = {
                         layer: 'Active LOMCs',
-                        lomc_case: feature.properties.lom_case || '-',
+                        lomc_case: feature.properties.lomc_case || '-',
                         lomc_type: feature.properties.lomc_type || '-',
                         lomc_identifier: feature.properties.lomc_identifier || '-',
-                        status_date: feature.properties.status_date || '-',
+                        status_date: feature.properties.status_date ? `${dateType.getMonth() + 1}/${dateType.getDate()}/${dateType.getFullYear()}` : '-',
                         status: feature.properties.status || '-',
-                        effective_date: feature.properties.effective_date || '-',
+                        effective_date: feature.properties.effective_date ? `${effectiveDateType.getMonth() + 1}/${effectiveDateType.getDate()}/${effectiveDateType.getFullYear()}` : '-',
                         ...extraProperties
                       }
                       menuOptions.push('Active LOMCs');

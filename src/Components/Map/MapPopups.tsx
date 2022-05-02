@@ -283,7 +283,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.status_date ? <p><i>Status Date:</i>  {item.status_date}</p> : ''}
             {item.status && item.layer.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
             {item.effective_date ? <p><i>Effective Date:</i>  {item.effective_date}</p> : ''}
-            {item.notes && item.layer.includes('LOMC') ? <p><i>Notes:</i>  {item.lomc_case}</p> : ''}
+            {/* {item.notes && item.layer.includes('LOMC') ? <p><i>Notes:</i>  {item.lomc_case}</p> : ''} */}
             
             {item.uniqueid ? <p><i>Unique ID:</i>  {item.uniqueid}</p> : ''}
             {item.streamname_mhfd ? <p><i>Stream Name (MHFD):</i>  {item.streamname_mhfd}</p> : ''}
