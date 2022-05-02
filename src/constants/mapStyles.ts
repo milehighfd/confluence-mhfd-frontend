@@ -5003,38 +5003,40 @@ export const tileStyles = {
             1
         ]
     }
-  }, {
-    type: 'circle',
-    'source-layer': 'pluto15v1',
-    layout: {},
-    "paint": {
-      "circle-color": "hsl(60, 100%, 68%)",
-      "circle-stroke-color": "hsla(116, 60%, 42%, 0.66)",
-      "circle-stroke-width": 3,
-      "circle-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          8.9,
-          0.5,
-          9,
-          0.54,
-          22,
-          1
-      ],
-      "circle-stroke-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          9.9,
-          0,
-          10,
-          0.54,
-          22,
-          1
-      ]
-    }
-  }],
+  }
+  // , {
+  //   type: 'circle',
+  //   'source-layer': 'pluto15v1',
+  //   layout: {},
+  //   "paint": {
+  //     "circle-color": "hsl(60, 100%, 68%)",
+  //     "circle-stroke-color": "hsla(116, 60%, 42%, 0.66)",
+  //     "circle-stroke-width": 3,
+  //     "circle-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         8.9,
+  //         0.5,
+  //         9,
+  //         0.54,
+  //         22,
+  //         1
+  //     ],
+  //     "circle-stroke-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         9.9,
+  //         0,
+  //         10,
+  //         0.54,
+  //         22,
+  //         1
+  //     ]
+  //   }
+  // }
+],
   [SEMSWA_SERVICE_AREA]: [{
     type: 'fill',
     'source-layer': 'pluto15v1',
