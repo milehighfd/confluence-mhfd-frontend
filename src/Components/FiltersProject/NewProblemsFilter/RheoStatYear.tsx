@@ -276,10 +276,32 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
   }
 
   const onChangeLeft = (e: any) => {
+    let index = 0;
+    data.forEach((d: any) => {
+      if (e > d.value) {
+        index++;
+      }
+    })
+    let [lf, rg] = RheoStatService.getRef(type).value();
+    if (index > rg) {
+      index = rg;
+    }
+    RheoStatService.getRef(type).value([index, rg]);
     setLeft(e);
   }
 
   const onChangeRight = (e: any) => {
+    let index = 0;
+    data.forEach((d: any) => {
+      if (e > d.value) {
+        index++;
+      }
+    })
+    let [lf, rg] = RheoStatService.getRef(type).value();
+    if (index < lf) {
+      index = lf;
+    }
+    RheoStatService.getRef(type).value([lf, index]);
     setRight(e);
   }
 
