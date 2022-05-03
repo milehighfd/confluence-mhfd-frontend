@@ -143,7 +143,11 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     <Menu className="menu-login-dropdown ">
       {user.designation !== 'guest' ? <Menu.Item className="login-dropdown" onClick={showProfile}>My Profile</Menu.Item> : '' }
       <Menu.Item className="login-dropdown" onClick={showModal}>Tutorial</Menu.Item>
-      <Menu.Item className="login-dropdown" onClick={logout}>Logout</Menu.Item>
+      <Menu.Item className="login-dropdown" onClick={logout}>
+        {
+          localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout'
+        }
+      </Menu.Item>
     </Menu>
   );
 
