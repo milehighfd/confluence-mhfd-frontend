@@ -73,6 +73,7 @@ export const Node = ({
   // console.log(' rendering ', item);
   const { deleteGroup } = useNoteDispatch();
   const { userInformation } = useProfileState();
+  const [ isDraggable, setIsDraggable ] = useState(true);
   const initialName = userInformation.firstName.charAt(0) + userInformation.lastName.charAt(0);
   const { editGroup } = useNoteDispatch();
   const checkEnter = (e: any) => {
@@ -147,7 +148,7 @@ export const Node = ({
       }}
     >
       <div 
-        draggable={true}
+        draggable={isDraggable}
         onDragStart={(e: any) => {
           if (isFolder) {
             e.dataTransfer.setData('id', item.id + '|folder');
@@ -175,7 +176,7 @@ export const Node = ({
           </Popover>}
           </span> 
           :
-          <input className="inputfolders" ref={componentRef} onBlur={unfocus} type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} onSelect={(e) => e.stopPropagation()} onMouseOver={(e) => e.stopPropagation()}/>
+          <input className="inputfolders" ref={componentRef} onBlur={unfocus} type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} onSelect={(e) => e.stopPropagation()} onMouseDown={(e) => {e.stopPropagation(); setIsDraggable(false)}} onMouseUp={() => setIsDraggable(true)}/>
         }
       </div>
       <div>
