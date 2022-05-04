@@ -128,7 +128,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     const options = { ...filterProjectOptions };
     if (withDefaults) {
       options.projecttype = 'Maintenance,Capital';
-      options.status = 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual';
+      options.status = 'Approved,Idle,Complete,Requested,Construction,Final Design,Active,Ongoing';
     } else {
       options.projecttype = '';
       options.status = '';
@@ -446,7 +446,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
         <>
           <div className="head">{element.display} &nbsp;<img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
           {element.detail.map((filter: any) => {
-            return <p>{filter.display} <Button className="btn-transparent"
+            return <p key={filter.value}>{filter.display} <Button className="btn-transparent"
               onClick={() => deleteTagProjects(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
           })}
         </>
@@ -1100,7 +1100,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
               });
               totalElements = cardInformation.length;
             }
-
+            console.log('value + index', value + index)
             return (
               <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value + getCounter(index, tabActive, totalElements)} </Popover> </span>} key={'' + index}>
                 <GenericTabView key={value + index}

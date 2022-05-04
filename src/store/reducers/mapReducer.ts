@@ -116,7 +116,7 @@ const initState = {
         column: 'projectname',
         order: 'asc',
         projecttype: 'Maintenance,Capital',
-        status: 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual',
+        status: 'Approved,Idle,Complete,Requested,Construction,Final Design,Active,Ongoing',
         startyear: '',
         completedyear: '',
         mhfddollarsallocated: [],
@@ -165,7 +165,7 @@ const initState = {
     filterProjects: {
         projectname: '',
         projecttype: 'Maintenance,Capital',
-        status: 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual',
+        status: 'Approved,Idle,Complete,Requested,Construction,Final Design,Active,Ongoing',
         startyear: '0',
         completedyear: '9999',
         mhfddollarsallocated: [],
