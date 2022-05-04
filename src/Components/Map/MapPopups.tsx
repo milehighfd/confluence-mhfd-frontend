@@ -308,7 +308,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
             {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
             {item.watershedmanager ? <p><i>Watershed Manager:</i>  {item.watershedmanager}</p> : ''}
-            {item.email? <p><i>Contact Us: </i><a href={"mailto:"+item.mail}> {item.email}</a></p>:''}
+            {item.email? <p><i>Contact Us: </i><a href={`mailto:${item.email}`}> {item.email}</a></p>:''}
             {item.constructionmanagers ? <p><i>Construction Manager:</i>  {item.constructionmanagers}</p> : ''}
             {item.city ? <p><i>City:</i>  {item.city}</p> : ''}
             {item.mhfd_code ? <p><i>MHFD Code:</i>  {item.mhfd_code}</p> : ''}
