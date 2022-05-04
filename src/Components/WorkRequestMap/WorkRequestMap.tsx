@@ -236,7 +236,7 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    let time = firstTime?2000:1400;
+    let time = firstTime?2500:0;
       // if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
         
         let filterProjectsDraft = {...filterProjects}; 
@@ -244,8 +244,8 @@ const WorkRequestMap = (type: any) => {
         filterProjectsDraft.status = '';
         setTimeout(()=>{
           wait(()=>{
-            setTimeout(()=>{
-              map.isStyleLoaded(()=>{
+              map.isRendered(()=>{
+                console.log('aqui1');
                 removeLayers('mhfd_projects_created');
                 removeLayersSource('mhfd_projects_created');
                 // const tiles = layerFilters['projects_draft'] as any;
@@ -253,8 +253,9 @@ const WorkRequestMap = (type: any) => {
                 postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
                   addLayersSource('mhfd_projects_created', tiles);
                   showLayers('mhfd_projects_created');
-                  map.isStyleLoaded(()=>{
+                  map.isRendered(()=>{
                     setTimeout(()=>{
+                      console.log('aqui2');
                       applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
                     },700);
                   });
@@ -262,10 +263,9 @@ const WorkRequestMap = (type: any) => {
                 });
                 
               });
-            },time);
             
           });
-        },1200)
+        }, time);
           
       // } else {
       //   if(map.map){
@@ -301,18 +301,7 @@ const WorkRequestMap = (type: any) => {
     const equals = (a:any, b:any) =>
       a.length === b.length &&
       a.every((v:any, i:any) => v === b[i]);
-      
-    if(boardProjects && boardProjects[0] == '-8888'){
-      // setTimeout(()=>{
-      //   let value = store.getState().profile.userInformation.zoomarea;
-      //   if(type.locality.locality) {
-      //     value = type.locality.locality;
-      //   }
-      //   if(groupOrganization.length > 0) {
-    //     wait(()=>setBounds(value));
-      //   }
-      // },500);
-    }
+
     if (firstRendering) {
       setFirstRendering(false)
       return;
@@ -320,8 +309,8 @@ const WorkRequestMap = (type: any) => {
     if(boardProjects && !boardProjects.ids) {  
       setIdsBoardProjects(boardProjects);
     }
-    if(boardProjects && boardProjects.ids && boardProjects.ids[0] != '-8888') {
-      // if(!equals(boardProjects.ids, idsBoardProjects)) {
+    if(boardProjects && boardProjects.ids) {
+      if(!equals(boardProjects.ids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjects.ids);
         // postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
         //   (r: any) => { 
@@ -341,7 +330,7 @@ const WorkRequestMap = (type: any) => {
         //   }
         // )
 
-      // }
+      }
     } 
   },[boardProjects]);
   const [opacityLayer, setOpacityLayer] = useState(false);
@@ -380,7 +369,7 @@ const WorkRequestMap = (type: any) => {
   const wait = (cb:any) => {
     
     if (!map.map) {
-      setTimeout(wait, 50);
+      setTimeout(wait, 150);
     } else {
         cb();
     }
@@ -644,7 +633,9 @@ const WorkRequestMap = (type: any) => {
         topStreams()
         topEffectiveReaches();
         topProjects();
-        map.map.moveLayer('borderMASK');
+        if (map.getLayer('borderMASK')) {
+          map.map.moveLayer('borderMASK');
+        }
         topStreamLabels();
       });
     },500);

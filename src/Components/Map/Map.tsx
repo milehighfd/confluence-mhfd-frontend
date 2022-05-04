@@ -1874,7 +1874,6 @@ const Map = ({ leftWidth,
                 filter: ['in', 'cartodb_id']
               });
             } else if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
-              console.log('hoverrrr lone', key);
                 map.addLayer({
                     id: key + '_highlight_' + index,
                     source: key,
@@ -1890,7 +1889,6 @@ const Map = ({ leftWidth,
                     filter: ['in', 'cartodb_id']
                 });
             } else if( (style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
-              console.log('hoverrr cirlcer', key);
                 map.addLayer({
                     id: key + '_highlight_' + index,
                     type: 'circle',

@@ -146,6 +146,16 @@ export class MapService {
       this.map.setFilter(layer, filter);
     }
   }
+  isRendered(cb:any) {
+    if (this.map && this.map.loaded()) {
+      cb();
+      this.map.once('render', cb);
+    } else {
+      setTimeout(() => {
+        this.isRendered(cb);
+      }, 1000);
+    }
+  }
   isStyleLoaded(cb: any) {
     // console.log('1', this.map.isStyleLoaded());
     
