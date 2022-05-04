@@ -830,116 +830,118 @@ const WorkRequestMap = (type: any) => {
         return;
       }
       const allFilters: any[] = ['all'];
-      for (const filterField in toFilter) {
-        const filters = toFilter[filterField];
-        if (filterField === 'component_type') {
-          showSelectedComponents(filters.split(','));
-        }
-        if (filterField === 'keyword') {
-          if (filters[key]) {
-            allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
-          }
-        }
-        if (filters && filters.length) {
-          const options: any[] = ['any'];
-          if (filterField === 'keyword') {
-            continue;
-          }
-          if (filterField === 'component_type') {
-            continue;
-          }
-          if (filterField === 'year_of_study') {
-            for (const years of filters.split(',')) {
-              const lowerArray: any[] = ['>=', ['get', filterField], +years];
-              const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
-              options.push(['all', lowerArray, upperArray]);
+      // for (const filterField in toFilter) {
+      //   const filters = toFilter[filterField];
+      //   if (filterField === 'component_type') {
+      //     showSelectedComponents(filters.split(','));
+      //   }
+      //   if (filterField === 'keyword') {
+      //     if (filters[key]) {
+      //       allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
+      //     }
+      //   }
+      //   if (filters && filters.length) {
+      //     const options: any[] = ['any'];
+      //     if (filterField === 'keyword') {
+      //       continue;
+      //     }
+      //     if (filterField === 'component_type') {
+      //       continue;
+      //     }
+      //     if (filterField === 'year_of_study') {
+      //       for (const years of filters.split(',')) {
+      //         const lowerArray: any[] = ['>=', ['get', filterField], +years];
+      //         const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
+      //         options.push(['all', lowerArray, upperArray]);
 
-            }
-            allFilters.push(options);
-            continue;
-          }
-          if (filterField === 'components') {
-            allFilters.push(['in', ['get', 'problemid'], ['literal', [...filters]]]);
-            continue;
-          }
-          if (filterField === 'problemtypeProjects') {
-            allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
-            continue;
-          }
-          if (filterField === 'problemname' || filterField === 'projectname') {
-            continue;
-          }
-          if (filterField === 'estimatedcost') {
-            for (const range of filters) {
-              const [lower, upper] = range.split(',');
-              const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
-              const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
-              const allFilter = ['all', lowerArray, upperArray];
-              options.push(allFilter);
-            }
-            for (const range of toFilter['finalcost']) {
-              const [lower, upper] = range.split(',');
-              const lowerArray: any[] = ['>=', ['to-number', ['get', 'finalcost']], +lower];
-              const upperArray: any[] = ['<=', ['to-number', ['get', 'finalcost']], +upper];
-              const allFilter = ['all', lowerArray, upperArray];
-              options.push(allFilter);
-            }
-            allFilters.push(options);
-            continue;
-          }
-          if (filterField === 'finalcost') {
-            continue;
-          }
-          if (filterField === 'startyear') {
-            const lowerArray: any[] = ['>=', ['get', filterField], +filters];
-            const upperArray: any[] = ['<=', ['get', 'completedyear'], +toFilter['completedyear']];
-            if (+toFilter['completedyear'] !== 9999) {
-              allFilters.push(['all', lowerArray, upperArray]);
-            } else {
-              if (+filters) {
-                allFilters.push(lowerArray);
-              }
-            }
-            continue;
-          }
-          if (filterField === 'servicearea') {
-            allFilters.push(['==', ['get', filterField], filters]);
-            continue;
-          }
-          if (filterField === 'completedyear') {
-            continue;
-          }
-          if (typeof filters === 'object') {
-            for (const range of filters) {
-              const [lower, upper] = range.split(',');
-              const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
-              const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
-              const allFilter = ['all', lowerArray, upperArray];
-              options.push(allFilter);
-            }
-          } else {
-            for (const filter of filters.split(',')) {
-              if (isNaN(+filter)) {
-                options.push(['==', ['get', filterField], filter]);
-              } else {
-                const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
-                options.push(equalFilter);
-              }
-            }
-          }
-          allFilters.push(options);
-        }
-      }
+      //       }
+      //       allFilters.push(options);
+      //       continue;
+      //     }
+      //     if (filterField === 'components') {
+      //       allFilters.push(['in', ['get', 'problemid'], ['literal', [...filters]]]);
+      //       continue;
+      //     }
+      //     if (filterField === 'problemtypeProjects') {
+      //       allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
+      //       continue;
+      //     }
+      //     if (filterField === 'problemname' || filterField === 'projectname') {
+      //       continue;
+      //     }
+      //     if (filterField === 'estimatedcost') {
+      //       for (const range of filters) {
+      //         const [lower, upper] = range.split(',');
+      //         const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
+      //         const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+      //         const allFilter = ['all', lowerArray, upperArray];
+      //         options.push(allFilter);
+      //       }
+      //       for (const range of toFilter['finalcost']) {
+      //         const [lower, upper] = range.split(',');
+      //         const lowerArray: any[] = ['>=', ['to-number', ['get', 'finalcost']], +lower];
+      //         const upperArray: any[] = ['<=', ['to-number', ['get', 'finalcost']], +upper];
+      //         const allFilter = ['all', lowerArray, upperArray];
+      //         options.push(allFilter);
+      //       }
+      //       allFilters.push(options);
+      //       continue;
+      //     }
+      //     // if (filterField === 'finalcost') {
+      //     //   continue;
+      //     // }
+      //     if (filterField === 'startyear') {
+      //       const lowerArray: any[] = ['>=', ['get', filterField], +filters];
+      //       const upperArray: any[] = ['<=', ['get', 'completedyear'], +toFilter['completedyear']];
+      //       if (+toFilter['completedyear'] !== 9999) {
+      //         allFilters.push(['all', lowerArray, upperArray]);
+      //       } else {
+      //         if (+filters) {
+      //           allFilters.push(lowerArray);
+      //         }
+      //       }
+      //       continue;
+      //     }
+      //     // if (filterField === 'servicearea') {
+      //     //   allFilters.push(['==', ['get', filterField], filters]);
+      //     //   continue;
+      //     // }
+      //     // if (filterField === 'completedyear') {
+      //     //   continue;
+      //     // }
+      //     if (typeof filters === 'object') {
+      //       for (const range of filters) {
+      //         const [lower, upper] = range.split(',');
+      //         const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
+      //         const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+      //         const allFilter = ['all', lowerArray, upperArray];
+      //         options.push(allFilter);
+      //       }
+      //     } else {
+      //       for (const filter of filters.split(',')) {
+      //         if (isNaN(+filter)) {
+      //           options.push(['==', ['get', filterField], filter]);
+      //         } else {
+      //           const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
+      //           options.push(equalFilter);
+      //         }
+      //       }
+      //     }
+      //     allFilters.push(options);
+      //   }
+      // }
       if(key ==='mhfd_projects_created') { 
         if(idsBoardProjects && idsBoardProjects.length > 0 && idsBoardProjects[0]!='-8888'){
           let boardids = idsBoardProjects;
           allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
         } else {
+          console.log('carajo que ', new Date);
           allFilters.push(['in', ['get', 'projectid'], ['literal', ['-1111'] ] ]);
         }
       }
       
       if (map.getLayer(key + '_' + index)) {
+        // console.log('key ', key, index, allFilters);
         map.setFilter(key + '_' + index, allFilters);
       }
     });

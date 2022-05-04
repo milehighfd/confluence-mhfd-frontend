@@ -3892,10 +3892,10 @@ const Map = ({ leftWidth,
        
     };
     //end geocoder
-    const flyTo = (longitude: number, latitude: number) => {
+    const flyTo = (longitude: number, latitude: number, zoom?: number) => {
         map.flyTo({
             center: [longitude, latitude],
-            zoom: 12
+            zoom: zoom ?? 12 
             });
     }
     const openMarkerOfNote = (note:any, draftText: any, changeContentTitleData?: any) => {
@@ -3957,7 +3957,7 @@ const Map = ({ leftWidth,
       }
     }
     const openEditNote = (note: any) => {
-      flyTo(note.longitude, note.latitude);
+      flyTo(note.longitude, note.latitude, 16.5);
       eventsOnClickNotes(note);
       popup.remove();
       openMarkerOfNoteWithoutAdd(note);
