@@ -246,12 +246,12 @@ const WorkRequestMap = (type: any) => {
       wait(()=>{
         map.isRendered(()=>{
           // console.log('aqui1', idsBoardProjects);
-          removeLayers('mhfd_projects_created');
-          removeLayersSource('mhfd_projects_created');
+          // removeLayers('mhfd_projects_created');
+          // removeLayersSource('mhfd_projects_created');
           // const tiles = layerFilters['projects_draft'] as any;
           let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
           postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-            addLayersSource('mhfd_projects_created', tiles);
+            updateLayerSource('mhfd_projects_created', tiles);
             showLayers('mhfd_projects_created');
             map.isRendered(()=>{
               setTimeout(()=>{
@@ -979,6 +979,15 @@ const WorkRequestMap = (type: any) => {
       hideLayers(selectedLayer);
     }
   }
+  const updateLayerSource = (key: string, tiles: Array<string>) => {
+    if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
+      map.addVectorSource(key,tiles);
+      addTilesLayers(key);
+    } else {
+      map.getSource(key).setTiles(tiles);
+      addTilesLayers(key); 
+    }
+  }
   const addLayersSource = (key: string, tiles: Array<string>) => {
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
       map.addVectorSource(key,tiles);
@@ -1000,6 +1009,9 @@ const WorkRequestMap = (type: any) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (key.includes('mhfd_projects_created')) {
+        if (map.map.getLayer(key + '_' + index)) {
+          return;
+        }
         map.map.addLayer({
           id: key + '_' + index,
           source: key,
