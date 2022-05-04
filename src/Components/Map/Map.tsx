@@ -3269,7 +3269,6 @@ const Map = ({ leftWidth,
                 availableLayers.push(key + '_' + index);
                 if(style.type != 'symbol') {
                   map.on('mousemove', key + '_' + index, (e: any) => {
-                    console.log('mousemove', key + '_' + index, e.features);
                       if (commentAvailable) {
                           return;
                       }
@@ -3786,7 +3785,7 @@ const Map = ({ leftWidth,
         searchMarker.remove();        
         searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
         searchMarker.setLngLat(coord);
-        map.on('moveend', (e:any) => { 
+        map.once('moveend', (e:any) => { 
           const point = map.project(coord);
           const features = map.queryRenderedFeatures(point, { layers: ['counties-background', 'municipalities-background', 'watershed_service_areas-background'] });
           const mobile = [], menuOptions = [], popups = [], ids = [];
@@ -3861,6 +3860,7 @@ const Map = ({ leftWidth,
               if (html) {
                 searchPopup.remove();
                 searchPopup = new mapboxgl.Popup({closeButton: true,});
+                console.log('search popup');
                 searchPopup.setLngLat(coord)
                     .setHTML(html)
                     .addTo(map);

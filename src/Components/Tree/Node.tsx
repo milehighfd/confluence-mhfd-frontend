@@ -175,7 +175,7 @@ export const Node = ({
           </Popover>}
           </span> 
           :
-          <input className="inputfolders" ref={componentRef} onBlur={unfocus} type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} />
+          <input className="inputfolders" ref={componentRef} onBlur={unfocus} type="text" onChange={onEdit} value={item.label} onKeyUp={checkEnter} onSelect={(e) => e.stopPropagation()} onMouseOver={(e) => e.stopPropagation()}/>
         }
       </div>
       <div>
