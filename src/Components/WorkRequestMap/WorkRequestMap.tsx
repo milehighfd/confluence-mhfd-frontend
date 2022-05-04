@@ -236,44 +236,36 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    let time = firstTime?2500:0;
-      // if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
-        
-        let filterProjectsDraft = {...filterProjects}; 
-        filterProjectsDraft.projecttype = '';
-        filterProjectsDraft.status = '';
-        setTimeout(()=>{
-          wait(()=>{
-              map.isRendered(()=>{
-                console.log('aqui1');
-                removeLayers('mhfd_projects_created');
-                removeLayersSource('mhfd_projects_created');
-                // const tiles = layerFilters['projects_draft'] as any;
-                let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
-                postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-                  addLayersSource('mhfd_projects_created', tiles);
-                  showLayers('mhfd_projects_created');
-                  map.isRendered(()=>{
-                    setTimeout(()=>{
-                      console.log('aqui2');
-                      applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
-                    },700);
-                  });
-                  firstTime = false;
-                });
-                
-              });
-            
+    // if(firstTime) {
+    //   return ;
+    // }   
+    let filterProjectsDraft = {...filterProjects}; 
+    filterProjectsDraft.projecttype = '';
+    filterProjectsDraft.status = '';
+    if(idsBoardProjects.length) {
+      wait(()=>{
+        map.isRendered(()=>{
+          // console.log('aqui1', idsBoardProjects);
+          removeLayers('mhfd_projects_created');
+          removeLayersSource('mhfd_projects_created');
+          // const tiles = layerFilters['projects_draft'] as any;
+          let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
+          postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
+            addLayersSource('mhfd_projects_created', tiles);
+            showLayers('mhfd_projects_created');
+            map.isRendered(()=>{
+              setTimeout(()=>{
+                // console.log('aqui2');
+                applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
+              },700);
+            });
+            firstTime = false;
           });
-        }, time);
           
-      // } else {
-      //   if(map.map){
-      //     removeLayers('mhfd_projects_created');
-      //     removeLayersSource('mhfd_projects_created');
-      //   }
-        
-      // } 
+        });
+      
+      });
+    }
   },[idsBoardProjects]);
   
   useEffect(() => {
@@ -307,32 +299,17 @@ const WorkRequestMap = (type: any) => {
       return;
     }
     if(boardProjects && !boardProjects.ids) {  
+      // console.log('1111', boardProjects);
       setIdsBoardProjects(boardProjects);
     }
     if(boardProjects && boardProjects.ids) {
       if(!equals(boardProjects.ids, idsBoardProjects)) {
+        // console.log('2222', boardProjects.ids);
         setIdsBoardProjects(boardProjects.ids);
-        // postData(SERVER.GET_BBOX_PROJECTS, {projects : boardProjects.ids}, getToken()).then(
-        //   (r: any) => { 
-        //     if(r.bbox){
-        //       let BBoxPolygon = JSON.parse(r.bbox);
-        //       let bboxBounds = turf.bbox(BBoxPolygon);
-              
-        //       if(map.map){
-        //         setTimeout(()=>{
-        //           map.map.fitBounds(bboxBounds,{ padding:60, maxZoom:17.5});
-        //         },1200);
-        //       }
-        //     }
-        //   },
-        //   (e:any) => {
-        //     console.log('Error getting bbox projectid', e);
-        //   }
-        // )
-
       }
     } 
   },[boardProjects]);
+
   const [opacityLayer, setOpacityLayer] = useState(false);
   const polyMask = (mask: any, bounds: any) => {
     if (mask !== undefined && bounds.length > 0) {
