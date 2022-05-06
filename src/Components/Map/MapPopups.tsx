@@ -169,12 +169,14 @@ export const MeasurePopup = ({ id, item, isComponent } : any) => {
   return <div className='measurecontainer'  > 
       <div id={'measure-block'} className="measure-block">
         <div className="headmap">
-          <h4>Area Measurement</h4>
+          <h4>{item.type === 'line'? 'Line' : 'Area'} Measurement</h4>
         </div>
         <hr style={{opacity: 0.4, width: '96%'}}></hr>
         <div className="bodymapvalues" >
-          <><span >Distance: <b>{item.perimeterFeet?item.perimeterFeet:0} Feet ({item.perimeterMi?item.perimeterMi:0} Miles)</b> </span>
-            <span >Area: <b>{item.area?item.area:0} Acres</b> </span></>
+          <>
+            {item.type === 'line' && <span >Distance: <b>{item.perimeterFeet?item.perimeterFeet:0} Feet ({item.perimeterMi?item.perimeterMi:0} Miles)</b> </span>}
+            {item.type !== 'line' && <span >Area: <b>{item.area?item.area:0} Acres</b> </span>}
+          </>
         </div>
         <hr style={{opacity: 0.4, width: '96%'}}></hr>
         <p className='paragraph'> 

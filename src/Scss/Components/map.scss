@@ -1858,14 +1858,25 @@
   background: black;
   margin-bottom: 2px;
 }
+.img-measure-png-01 {
+  src: url('/Icons/icon-line.png') no-repeat center;
+  height: 18px;
+  width: 18px;
+  margin-bottom: 2px;
+}
 .img-measure-02{
-  -webkit-mask: url('/Icons/noun-polygon.svg') no-repeat center;
+  background: url('/Icons/noun-polygon.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
   margin-bottom: 2px;
 }
-
+.img-measure-png-02{
+  src: url('/Icons/icon-polygon.png') no-repeat center;
+  height: 18px;
+  width: 18px;
+  margin-bottom: 2px;
+}
 .img-measure-03{
   -webkit-mask: url('/Icons/u_qrcode-scan.svg') no-repeat center;
   height: 18px;
@@ -1875,6 +1886,13 @@
 }
 .img-measure-04{
   -webkit-mask: url('/Icons/fi_trash-2.svg') no-repeat center;
+  height: 18px;
+  width: 18px;
+  background: black;
+  margin-bottom: 2px;
+}
+.img-measure-05{
+  -webkit-mask: url('/Icons/fi_x-circle.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
@@ -1954,6 +1972,9 @@
     align-items: baseline;
     justify-items: start;
     margin-bottom: 5px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
 
     .button-c {
       &:hover {
@@ -1983,11 +2004,14 @@
 }
 
 .close-measure-button {
+  background: url('/Icons/ic_close-white.svg') no-repeat center;
+  height: 10px !important;
+  width: 10px !important;
   font-size: large;
   font-family: monospace;
   position: absolute;
-  right: 3px !important;
-  top: 5px !important;
+  right: 18px !important;
+  top: 19px !important;
   background-color: transparent;
   &:hover {
     cursor: pointer;
