@@ -173,7 +173,7 @@ export const MeasurePopup = ({ id, item, isComponent } : any) => {
         </div>
         <hr style={{opacity: 0.4, width: '96%'}}></hr>
         <div className="bodymapvalues" >
-          <><span >Path distance: <b>{item.perimeterFeet?item.perimeterFeet:0} Feet ({item.perimeterMi?item.perimeterMi:0} Miles)</b> </span>
+          <><span >Distance: <b>{item.perimeterFeet?item.perimeterFeet:0} Feet ({item.perimeterMi?item.perimeterMi:0} Miles)</b> </span>
             <span >Area: <b>{item.area?item.area:0} Acres</b> </span></>
         </div>
         <hr style={{opacity: 0.4, width: '96%'}}></hr>
@@ -275,7 +275,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.mep_eligibilitystatus ? <p><i>MEP Status:</i>  {item.mep_eligibilitystatus}</p> : ''}
             
             {item.area?<p><i>Area:</i> {item.area} Acre</p>:''}
-            {(item.perimeterFeet && item.perimeterMi) ?<p><i>Path distance:</i> {item.perimeterFeet} Feet ( {item.perimeterMi} Miles)</p>:''}
+            {(item.perimeterFeet && item.perimeterMi) ?<p><i>Distance:</i> {item.perimeterFeet} Feet ( {item.perimeterMi} Miles)</p>:''}
             
             {item.lomc_case ? <p><i>LOMC Case:</i>  {item.lomc_case}</p> : ''}
             {item.lomc_type ? <p><i>LOMC Type:</i>  {item.lomc_type}</p> : ''}

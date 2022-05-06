@@ -1100,7 +1100,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
               });
               totalElements = cardInformation.length;
             }
-            console.log('value + index', value + index)
             return (
               <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value + getCounter(index, tabActive, totalElements)} </Popover> </span>} key={'' + index}>
                 <GenericTabView key={value + index}

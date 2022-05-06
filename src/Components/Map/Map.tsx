@@ -117,10 +117,6 @@ let isMeasuring = false;
       'type': 'FeatureCollection',
       'features': new Array()
     };
-    const geojsonMeasuresMomentary = {
-      'type': 'FeatureCollection',
-      'features': new Array()
-    };
       
     // Used to draw a line between points
     const linestringMeasure = {
@@ -1393,7 +1389,8 @@ const Map = ({ leftWidth,
             'fill-color': '#E7832A',
             'fill-outline-color': '#E7832A',
             'fill-opacity': 0.3
-          }
+          },
+          filter: ['in', 'type', 'polygon']
         });
         map.addLayer({
           id:'measuresSaved-border',
@@ -1402,21 +1399,6 @@ const Map = ({ leftWidth,
           paint: {
             'line-color': '#E7832A',
             'line-width': 4 
-          }
-        })
-      }
-      if(!map.getSource('geojsonMeasuresMomentary')){
-        map.addSource('geojsonMeasuresMomentary', {
-          'type': 'geojson',
-          'data': geojsonMeasuresMomentary
-        });
-        map.addLayer({
-          id:'measuresMomentary',
-          type:'fill',
-          source: 'geojsonMeasuresMomentary',
-          paint: {
-            'fill-color': '#865005',
-            'fill-opacity': 0.3
           }
         })
       }
@@ -2079,7 +2061,7 @@ const Map = ({ leftWidth,
     const [distanceValue, setDistanceValue] = useState('0');
     const [distanceValueMi, setDistanceValueMi] = useState('0');
     const [areaValue, setAreaValue] = useState('0');
-    const finishMeasure = () => {
+    const finishMeasure = (type?: string) => {
       if(linestringMeasure.geometry.coordinates.length > 2 && isMeasuring){
         var line = turf.lineString(linestringMeasure.geometry.coordinates);
         var polygon = turf.lineToPolygon(JSON.parse(JSON.stringify(line)));
@@ -2087,20 +2069,31 @@ const Map = ({ leftWidth,
         setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
         const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
         const perimeter = turf.length(JSON.parse(JSON.stringify(newLS)));
-
+        line.properties = {
+          id: geojsonMeasuresSaved.features.length, 
+          coordinates: line.geometry?.coordinates,
+          area: (area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          perimeterFeet: (perimeter * factorKMtoFeet).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          perimeterMi: (perimeter * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          type: 'line'
+        }
         polygon.properties = { 
           id: geojsonMeasuresSaved.features.length, 
           coordinates: polygon.geometry?.coordinates,
           area: (area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}),
           perimeterFeet: (perimeter * factorKMtoFeet).toLocaleString(undefined, {maximumFractionDigits: 2}),
-          perimeterMi: (perimeter * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2})
+          perimeterMi: (perimeter * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          type: 'polygon'
         }
-        geojsonMeasuresSaved.features.push(polygon)
-        map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+        if ( type && type == 'line') {
+          geojsonMeasuresSaved.features.push(line)
+          map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+        } else {
+          geojsonMeasuresSaved.features.push(polygon)
+          map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+        }
         geojsonMeasures.features = new Array();
         linestringMeasure.geometry.coordinates =  new Array();
-        geojsonMeasuresMomentary.features = new Array();
-        map.getSource('geojsonMeasuresMomentary').setData(geojsonMeasuresMomentary);
         map.getSource('geojsonMeasure').setData(geojsonMeasures);
         setIsDrawingMeasure(false);
         setIsMeasuring(false);
@@ -2148,8 +2141,6 @@ const Map = ({ leftWidth,
           setDistanceValueMi((distance * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2}));
           if(linestringMeasure.geometry.coordinates.length > 2) {
             var polygon = turf.lineToPolygon(JSON.parse(JSON.stringify(newLS)));
-            geojsonMeasuresMomentary.features = [polygon];
-            map.getSource('geojsonMeasuresMomentary').setData(geojsonMeasuresMomentary);
             const area = turf.area(polygon);
             setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
           } 
@@ -2167,9 +2158,19 @@ const Map = ({ leftWidth,
     const measureCenterAndDelete = (type: any, item: any, event: any) => {
       if(type == 'center'){
         const coords = JSON.parse(item.coordinates);
-        const polygon = turf.polygon(coords);
-        const bbox = turf.bbox(polygon);
-        map.fitBounds(bbox, {padding:80});
+        console.log('item', item);
+        if (item.type == 'line') {
+          const line = turf.lineString(coords);
+          const polygon = turf.lineStringToPolygon(line);
+          const bbox = turf.bbox(polygon);
+          map.fitBounds(bbox, {padding:80});
+        } else {
+          const polygon = turf.polygon(coords);
+          const bbox = turf.bbox(polygon);
+          map.fitBounds(bbox, {padding:80});
+        }
+        
+        
       } else if(type == 'delete') {
          geojsonMeasuresSaved.features = geojsonMeasuresSaved.features.filter(elem => elem.properties.id != item.id);
          popup.remove();
@@ -2461,18 +2462,18 @@ const Map = ({ leftWidth,
             setMobilePopups([]);
             setActiveMobilePopups([]);
             setSelectedPopup(-1);
-
-            const measureFeature = map.queryRenderedFeatures(bbox, { layers: ['measuresSaved'] });
+              
+            const measureFeature = map.queryRenderedFeatures(bbox, { layers: ['measuresSaved', 'measuresSaved-border'] });
             if(measureFeature.length){
               let measure = measureFeature[0];
-              
               const item = {
                 layer: MENU_OPTIONS.MEASURES,
                 coordinates: measure.properties.coordinates,
                 area: measure.properties.area, 
                 perimeterFeet: measure.properties.perimeterFeet,
                 perimeterMi: measure.properties.perimeterMi,
-                id: measure.properties.id
+                id: measure.properties.id,
+                type: measure.properties.type
               }
               menuOptions.push(MENU_OPTIONS.MEASURES);
               popups.push(item);
@@ -3269,7 +3270,7 @@ const Map = ({ leftWidth,
                 availableLayers.push(key + '_' + index);
                 if(style.type != 'symbol') {
                   map.on('mousemove', key + '_' + index, (e: any) => {
-                      if (commentAvailable) {
+                      if (commentAvailable || isMeasuring) {
                           return;
                       }
                       if (hovereableLayers.includes(key)) {
@@ -4121,6 +4122,7 @@ const Map = ({ leftWidth,
                 <div id={'measure-block'} className="measure-block" onMouseLeave={()=> setMeasuringState(false)}>
                     <div className="headmap">
                         <h4>Measure distances and areas</h4>
+                        <button className='close-measure-button' onClick={()=>setIsMeasuring(false)} >x</button>
                     </div>
                     <hr style={{opacity: 0.4, width: '96%'}}></hr>
                     <div className="bodymap" onClick={() => setIsMeasuring(true)}>
@@ -4134,23 +4136,28 @@ const Map = ({ leftWidth,
                   <div id={'measure-block'} className="measure-block">
                     <div className="headmap">
                       <h4>Measure distances and areas</h4>
+                      <button className='close-measure-button' onClick={()=>setIsMeasuring(false)} >x</button>
                     </div>
                     <hr style={{opacity: 0.4, width: '96%'}}></hr>
                     <div className="bodymapvalues" >
                       {
                         distanceValue == '0' && areaValue =='0' ? 
                         <span>Start creating a measurement by adding points to the map</span>
-                        :<><span >Path distance: <b>{distanceValue} Feet ({distanceValueMi} Miles)</b> </span>
+                        :<><span >Distance: <b>{distanceValue} Feet ({distanceValueMi} Miles)</b> </span>
                         <span >Area: <b>{areaValue} Acres</b> </span></>
                       }
                        
                     </div>
                     <hr style={{opacity: 0.4, width: '96%'}}></hr>
                     <p className='paragraph'> 
-                      <span  className="button-c" style={{paddingRight:'5px'}} onClick={()=>setIsMeasuring(false)}><a style={{color:'#11093C'}}><img className='img-measure-01'></img> <b>Cancel</b></a></span >
                       {  
                         isdrawingmeasure && 
-                        <span  className="button-c" style={{paddingLeft:'22px'}} onClick={()=>finishMeasure()}><a style={{color:'#11093C'}}><img className='img-measure-02'></img> <b>Finish measurement</b></a></span >}
+                        <span  className="button-c" style={{paddingLeft:'22px'}} onClick={()=>finishMeasure('line')}><a style={{color:'#11093C'}}><img className='img-measure-01'></img> <b>Finish Line</b></a></span >
+                      }
+                      {  
+                        isdrawingmeasure && 
+                        <span  className="button-c" style={{paddingLeft:'22px'}} onClick={()=>finishMeasure('polygon')}><a style={{color:'#11093C'}}><img className='img-measure-02'></img> <b>Finish Polygon</b></a></span >
+                      }
                     </p>
                   </div>
                 </div>

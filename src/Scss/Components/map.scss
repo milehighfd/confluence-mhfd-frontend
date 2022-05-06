@@ -385,6 +385,7 @@
       justify-content: start;
       align-items: baseline;
       justify-items: start;
+      margin-bottom: 5px;
       .button-c {
         &:hover {
           opacity: 0.5;
@@ -1851,14 +1852,14 @@
   margin-bottom: 2px;
 }
 .img-measure-01{
-  -webkit-mask: url('/Icons/fi_x-circle.svg') no-repeat center;
+  -webkit-mask: url('/Icons/noun-line.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
   margin-bottom: 2px;
 }
 .img-measure-02{
-  -webkit-mask: url('/Icons/u_check-circle.svg') no-repeat center;
+  -webkit-mask: url('/Icons/noun-polygon.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
@@ -1952,6 +1953,8 @@
     justify-content: start;
     align-items: baseline;
     justify-items: start;
+    margin-bottom: 5px;
+
     .button-c {
       &:hover {
         opacity: 0.5;
@@ -1977,4 +1980,16 @@
 }
 .img-circle.selected { 
     content: url("/Icons/ic-ok.svg");
+}
+
+.close-measure-button {
+  font-size: large;
+  font-family: monospace;
+  position: absolute;
+  right: 3px !important;
+  top: 5px !important;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
 }
