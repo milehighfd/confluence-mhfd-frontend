@@ -4165,11 +4165,11 @@ const Map = ({ leftWidth,
                     <p className='paragraph'> 
                       {
                        !isdrawingmeasure && 
-                       <span  className="button-c" style={{paddingLeft:'22px'}} onClick={()=>setIsMeasuring(false)}><a style={{color:'#11093C'}}><img className='img-measure-05'></img> <b>Cancel</b></a></span >
+                       <span  className="button-c" style={{marginLeft:'-1px'}} onClick={()=>setIsMeasuring(false)}><a style={{color:'#11093C'}}><img className='img-measure-05'></img> <b>Cancel</b></a></span >
                       }
                       {  
                         isdrawingmeasure && 
-                        <span  className="button-c" style={{paddingLeft:'22px'}} onClick={()=>finishMeasure('line')}><a style={{color:'#11093C'}}><img className='img-measure-png-01' src='/Icons/icon-line.png'></img> <b>Finish Line</b></a></span >
+                        <span  className="button-c" style={{paddingLeft:'20px'}} onClick={()=>finishMeasure('line')}><a style={{color:'#11093C'}}><img className='img-measure-png-01' src='/Icons/icon-line.png'></img> <b>Finish Line</b></a></span >
                       }
                       {  
                         isdrawingmeasure && 
