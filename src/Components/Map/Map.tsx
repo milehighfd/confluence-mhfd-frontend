@@ -36,10 +36,12 @@ import {
     NEW_PROJECT_TYPES,
     ICON_POPUPS,
     MHFD_STREAMS_FILTERS,
-    MENU_OPTIONS
+    MENU_OPTIONS,
+    SERVICE_AREA,
+    SERVICE_AREA_FILTERS
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
-import { tileStyles, widthLayersStream } from '../../constants/mapStyles';
+import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../constants/mapStyles';
 import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
 import { numberWithCommas } from '../../utils/utils';
 import { Input, AutoComplete } from 'antd';
@@ -1498,7 +1500,10 @@ const Map = ({ leftWidth,
             map.moveLayer('borderMASK');
             topHovereableLayers();
             topStreamLabels();
-            topLabels()
+            topLabels();
+            topServiceArea();
+            topComponents();
+            map.moveLayer('servicearea');
         },800);
     }
     const topHovereableLayers = () => {
@@ -1518,6 +1523,20 @@ const Map = ({ leftWidth,
       const styles = { ...tileStyles as any };   
         styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
           map.moveLayer(`${PROJECTS_LINE}_${index}`);
+        })
+    }
+    const topComponents = () => {
+      const styles = { ...COMPONENT_LAYERS_STYLE as any };
+      for (const component of COMPONENT_LAYERS.tiles) {
+        styles[component].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${component}_${index}`);
+        })
+      }
+    }
+    const topServiceArea = () => {
+      const styles = { ...tileStyles as any };
+        styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
         })
     }
     const topEffectiveReaches = () => {
