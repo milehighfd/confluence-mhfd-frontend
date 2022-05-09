@@ -116,7 +116,7 @@ const initState = {
         column: 'projectname',
         order: 'asc',
         projecttype: 'Maintenance,Capital',
-        status: 'Approved,Idle,Complete,Requested,Construction,Final Design,Active,Ongoing',
+        status: 'Active',
         startyear: '',
         completedyear: '',
         mhfddollarsallocated: [],

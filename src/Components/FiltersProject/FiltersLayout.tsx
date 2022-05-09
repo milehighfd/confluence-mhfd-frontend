@@ -262,7 +262,7 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
     const reset = () => {
         const options = {...filterProjectOptions};
         options.projecttype = 'Maintenance,Capital';
-        options.status = 'Approved,Idle,Complete,Requested,Construction,Final Design,Active,Ongoing';
+        options.status = 'Active';
         options.mhfddollarsallocated = [];
         options.workplanyear = '';
         options.startyear = '';
