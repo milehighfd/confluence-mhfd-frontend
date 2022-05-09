@@ -11,14 +11,8 @@ import { SERVER } from "../../Config/Server.config";
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import eventService from './eventService';
-import {MapboxLayer} from '@deck.gl/mapbox';
-import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import {
-  MAP_DROPDOWN_ITEMS,
-  MAPBOX_TOKEN, HERE_TOKEN,
   PROBLEMS_TRIGGER,
-  PROJECTS_TRIGGER,
-  COMPONENTS_TRIGGER,
   PROJECTS_MAP_STYLES,
   COMPONENT_LAYERS,
   ROUTINE_MAINTENANCE,
@@ -27,7 +21,6 @@ import {
   MENU_OPTIONS,
   PROJECTS_DRAFT_MAP_STYLES,
   ROUTINE_NATURAL_AREAS, 
-  PROJECTS_DRAFT,
   STREAMS_FILTERS,
   ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, 
   ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, 
@@ -38,46 +31,36 @@ import {
   PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
   NEARMAP_TOKEN
 } from "../../constants/constants";
-import { MapHOCProps, ProjectTypes, MapLayersType, MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
+import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
-import { Dropdown, Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
+import { Dropdown, Button } from 'antd';
 import { tileStyles, COMPONENT_LAYERS_STYLE } from '../../constants/mapStyles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
-import { useProfileState, useProfileDispatch } from '../../hook/profileHook';
+import { useProfileState } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
-import { getFeaturesIntersected, getHull } from './utilsService';
-import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { AnyCnameRecord, AnyAaaaRecord } from "dns";
 import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
-import { valueFromAST } from "graphql";
+
 let map: any;
 
 let coordX = -1;
 let coordY = -1;
 let featureCount = -1;
 let isPopup = true;
-let clicknumber = 0;
 let firstTime = true;
 let firstTimeApplyMapLayers = true;
-let previousClick = false;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let currentDraw = 'polygon';
 let firstCallDraw = false;
-// const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
 const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
-  let draw: any;
   let popup = new mapboxgl.Popup({closeButton: true,});
   
-  const [isExtendedView, setCompleteView] = useState(false);
-  let controller = false;
+  const [isExtendedView] = useState(false);
   const user = store.getState().profile.userInformation;
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents, bboxComponents } = useMapState();
 
@@ -307,8 +290,6 @@ const CreateProjectMap = (type: any) => {
       map.isStyleLoaded(()=>{ 
         if (coordinatesJurisdiction.length > 0) {
           mask = turf.multiPolygon(coordinatesJurisdiction);
-          let miboundsmap = map.map.getBounds();
-          // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
           var arrayBounds = misbounds.split(',');
           let poly = polyMask(mask, arrayBounds);
@@ -366,99 +347,12 @@ const CreateProjectMap = (type: any) => {
     }
     
   },[highlightedStreams]);
-  const [opacityLayer, setOpacityLayer] = useState(false);
   const polyMask = (mask: any, bounds: any) => {
     if (mask !== undefined && bounds.length > 0) {
         var bboxPoly = turf.bboxPolygon(bounds);
         return turf.difference(bboxPoly, mask);
     }
   }
-//   useEffect(() => {
-//     let mask
-//     setTimeout(() => {
-//       map.isStyleLoaded(()=>{
-//         if (coordinatesJurisdiction.length > 0) {
-//           mask = turf.multiPolygon(coordinatesJurisdiction);
-//           let miboundsmap = map.map.getBounds();
-//           // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
-//           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-  
-//           var arrayBounds = misbounds.split(',');
-//           setOpacityLayer(true);
-//           if (!map.map.getLayer('mask')) {
-//               map.map.addSource('mask', {
-//                   "type": "geojson",
-//                   "data": polyMask(mask, arrayBounds)
-//               });
-  
-//               map.map.addLayer({
-//                   "id": "mask",
-//                   "source": "mask",
-//                   "type": "fill",
-//                   "paint": {
-//                       "fill-color": "black",
-//                       'fill-opacity': 0.8
-//                   }
-//               });
-//               map.map.addLayer({
-//                 "id": "mask-border",
-//                 "source": "mask",
-//                 "type": "line",
-//                 "paint": {
-//                   'line-color': '#28c499',
-//                   'line-width': 1,
-//                 }
-//               });
-//           } else {
-//               map.map.setLayoutProperty('mask', 'visibility', 'visible');
-//               map.map.removeLayer('mask');
-//               map.map.removeSource('mask');
-//               map.map.addSource('mask', {
-//                   "type": "geojson",
-//                   "data": polyMask(mask, arrayBounds)
-//               });
-
-//               map.map.addLayer({
-//                   "id": "mask",
-//                   "source": "mask",
-//                   "type": "fill",
-//                   "paint": {
-//                       "fill-color": "black",
-//                       'fill-opacity': 0.8
-//                   }
-//               });
-//               map.map.addLayer({
-//                 "id": "mask-border",
-//                 "source": "mask",
-//                 "type": "line",
-//                 "paint": {
-//                   'line-color': '#28c499',
-//                   'line-width': 1,
-//                 }
-//               });
-//           }
-//           } else {
-//               if (opacityLayer) {
-//                   if  (map.map.loaded()) {
-//                       if (map.map.getLayer('mask')) {
-//                           map.map.setLayoutProperty('mask', 'visibility', 'visible');
-//                           map.map.removeLayer('mask');
-//                           map.map.removeSource('mask');
-//                       }
-//                       if (map.map.getLayer('mask-border')) {
-//                         map.map.setLayoutProperty('mask-border', 'visibility', 'visible');
-//                         map.map.removeLayer('mask-border');
-//                         map.map.removeSource('mask-border');
-//                     }
-//                   }
-//               }
-  
-//           }
-//       });  
-//     }, 1500);
-    
-    
-// }, [coordinatesJurisdiction]);
   const setBounds = (value:any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => value.includes(x.aoi)).map((element: any) => {
       return {
@@ -469,14 +363,8 @@ const CreateProjectMap = (type: any) => {
     });
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      // mask = turf.multiPolygon(coordinatesJurisdiction);
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
-      // let coord = turf.centroid(poly);
-      // if(coord.geometry && coord.geometry.coordinates) {
-      //   let value = coord.geometry.coordinates;
-      //     map.map.flyTo({ center: value, zoom: 10 });
-      // }
       let bboxBounds = turf.bbox(poly);
       if(map.map){
         map.map.fitBounds(bboxBounds,{ padding:10, maxZoom: 13});
@@ -533,9 +421,6 @@ const CreateProjectMap = (type: any) => {
       setTimeout(()=>{
         setLoading(false);
       },1500);
-      if(type.type === 'CAPITAL') {
-        // getStreamsByComponentsList(listComponents.result);
-      }
       
       componentsList = listComponents.result;
     } else {
@@ -552,7 +437,6 @@ const CreateProjectMap = (type: any) => {
   useEffect(()=>{
     if(isAddLocation){
       let eventToClick = eventService.getRef('click');
-      // map.map.off('click', eventToClick);
       isPopup = false;
       let eventToMove = eventService.getRef('move');
       map.map.on('mousemove',eventToMove);
@@ -1755,9 +1639,6 @@ const CreateProjectMap = (type: any) => {
     coordY = e.point.y;
     featureCount = features.length;
 
-    if (features.length != 0) {
-      previousClick = true;
-    }
     popup.remove();
     setTimeout(()=>{
       const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
@@ -2314,78 +2195,9 @@ const CreateProjectMap = (type: any) => {
     },300);
    
   }
-  // useEffect(() => {
-  //     if (map.map.getLayer('mapboxArcs')) {
-  //         map.map.removeLayer('mapboxArcs')
-  //     }
-  //     if (map.map.getLayer('arcs')) {
-  //         map.map.removeLayer('arcs')
-  //     }
-  //     if (bboxComponents.centroids && bboxComponents.centroids.length <= 1) {
-  //         setTimeout(() => {
-  //             map.map.setPitch(0)
-  //         }, 3000)
-  //     } else {
-  //         const SOURCE_COLOR = [189, 56, 68];
-  //         const TARGET_COLOR = [13, 87, 73];
-  //         const YELLOW_SOLID = [118, 239, 213];
-  //         let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
-  //             return {
-  //                 position: c.centroid,
-  //                 name: c.component,
-  //                 total: 1,
-  //                 color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR
-  //             }
-  //         });
-  //         let arcs: any[] = [];
-
-  //         for (let i = 1;  i < bboxComponents.centroids.length ; i++) {
-  //             arcs.push({
-  //                 source: bboxComponents.centroids[0].centroid,
-  //                 target: bboxComponents.centroids[i].centroid,
-  //                 value: bboxComponents.centroids[i].arcWidth
-  //             });
-  //         }
-  //         let mapboxArcsLayer = new MapboxLayer({
-  //             type: ScatterplotLayer,
-  //             id: 'mapboxArcs',
-  //             data: scatterData,
-  //             opacity: 1,
-  //             pickable: true,
-  //             getRadius: (d: any) => {
-  //                 if (d.name === 'self') {
-  //                     return 2;
-  //                 } else {
-  //                     return 1;
-  //                 }
-  //             },
-  //             getColor: (d: any) => d.color
-  //         });
-
-  //         let arcsLayer = new MapboxLayer({
-  //             type: ArcLayer,
-  //             id: 'arcs',
-  //             data: arcs,
-  //             brushRadius: 100000,
-  //             getStrokeWidth: (d: any) => 4,
-  //             opacity: 1,
-  //             getSourcePosition: (d: any) => d.source,
-  //             getTargetPosition: (d: any) => d.target,
-  //             getWidth: (d: any) => d.value * 2,
-  //             getHeight: 0.7,
-  //             getSourceColor: YELLOW_SOLID,
-  //             getTargetColor: YELLOW_SOLID
-  //         });
-  //         map.map.setPitch(80)
-  //         map.map.addLayer(mapboxArcsLayer);
-  //         map.map.addLayer(arcsLayer);
-  //     }
-  // }, [bboxComponents])
 
   const getComponentsFromProjProb = (item: any, event: any) => {
     let id = item.type == 'project'? item.id: item.problemid;
-    // getBBOXComponents(item.type, id);
-    // getAllComponentsByProblemId(id);
     getData(SERVER.GET_COMPONENTS_BY_PROBLEMID+'?problemid='+id, getToken()).then(componentsFromMap => {
       if(componentsFromMap.result.length > 0  && componentsList.length > 0){
         getListComponentsByComponentsAndPolygon([...componentsList, ...componentsFromMap.result], null);
