@@ -24,7 +24,7 @@ import {
   NEARMAP_TOKEN,
   MUNICIPALITIES_FILTERS,
   ACTIVE_LOMS,
-  EFFECTIVE_REACHES,ICON_POPUPS, NEW_PROJECT_TYPES
+  EFFECTIVE_REACHES,ICON_POPUPS, NEW_PROJECT_TYPES, SERVICE_AREA_FILTERS
 } from "../../constants/constants";
 import { MapHOCProps, ProjectTypes, MapLayersType, MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -610,6 +610,8 @@ const WorkRequestMap = (type: any) => {
         topStreams()
         topEffectiveReaches();
         topProjects();
+        topServiceArea();
+        topComponents();
         if (map.getLayer('borderMASK')) {
           map.map.moveLayer('borderMASK');
         }
@@ -622,6 +624,20 @@ const WorkRequestMap = (type: any) => {
     const styles = { ...tileStyles as any };   
       styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
         map.map.moveLayer(`${PROJECTS_LINE}_${index}`);
+      })
+  }
+  const topComponents = () => {
+    const styles = { ...COMPONENT_LAYERS_STYLE as any };
+    for (const component of COMPONENT_LAYERS.tiles) {
+      styles[component].forEach((style: LayerStylesType, index: number) => {
+        map.map.moveLayer(`${component}_${index}`);
+      })
+    }
+  }
+  const topServiceArea = () => {
+    const styles = { ...tileStyles as any };
+      styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
+        map.map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
       })
   }
   const topEffectiveReaches = () => {

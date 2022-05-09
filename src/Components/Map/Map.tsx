@@ -36,7 +36,9 @@ import {
     NEW_PROJECT_TYPES,
     ICON_POPUPS,
     MHFD_STREAMS_FILTERS,
-    MENU_OPTIONS
+    MENU_OPTIONS,
+    SERVICE_AREA,
+    SERVICE_AREA_FILTERS
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../constants/mapStyles';
@@ -1498,8 +1500,10 @@ const Map = ({ leftWidth,
             map.moveLayer('borderMASK');
             topHovereableLayers();
             topStreamLabels();
-            topLabels()
+            topLabels();
+            topServiceArea();
             topComponents();
+            map.moveLayer('servicearea');
         },800);
     }
     const topHovereableLayers = () => {
@@ -1528,6 +1532,12 @@ const Map = ({ leftWidth,
           map.moveLayer(`${component}_${index}`);
         })
       }
+    }
+    const topServiceArea = () => {
+      const styles = { ...tileStyles as any };
+        styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
+        })
     }
     const topEffectiveReaches = () => {
       const styles = { ...tileStyles as any };   
