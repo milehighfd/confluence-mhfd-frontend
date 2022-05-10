@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import { useLocation } from 'react-router-dom';
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from '../../constants/constants';
-import { isNull } from "util";
 
 export default ({displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents ,getDetailedPageProblem,
     getDetailedPageProject, getComponentsByProblemId, existDetailedPageProject, existDetailedPageProblem, componentCounter, getComponentCounter} : any) => {

@@ -1,8 +1,6 @@
 import React, {useState} from "react";
-import { Alert,  Modal, Button, Card, Carousel } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
+import { Carousel } from 'antd';
 import { numberWithCommas } from '../../utils/utils';
-import { date } from "yup";
 import { useMapDispatch } from "../../hook/mapHook";
 const stateValue = {
   visible: false

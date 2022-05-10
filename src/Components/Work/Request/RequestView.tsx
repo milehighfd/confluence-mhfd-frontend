@@ -26,7 +26,6 @@ import TotalHeader from "./TotalHeader";
 import CostTableBody from "./CostTableBody";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { AlertStatus } from "./AlertStatus";
-import LoadingView from "../../Loading/LoadingView";
 import LoadingViewOverall from '../../Loading-overall/LoadingViewOverall';
 
 const { Option } = Select;
@@ -733,9 +732,6 @@ const RequestView = ({ type, isFirstRendering }: {
           <AlertStatus type={alertStatus.type} message={alertStatus.message} />
         }
         <Layout className="work">
-          {
-            // loading && <LoadingView />
-          }
           { (loadingTransp || loading ) &&<LoadingViewOverall></LoadingViewOverall>}
           {
             <Row>

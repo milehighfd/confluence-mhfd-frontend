@@ -1,4 +1,3 @@
-import { ConsoleSqlOutlined } from '@ant-design/icons';
 import React from 'react';
 export const clickingColorElement = (listOfElements: any, currentElement: any) => {
   listOfElements.forEach((_el:any, _index: any) => { 
@@ -188,33 +187,6 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
   listOfElements.forEach((el:any, index:any) => {
     const inputX:any = document.getElementById(`input${index}`);
     if(inputX != null) {
-      // inputX.addEventListener('blur', (e:any) => {
-      //   const newValue = inputX.value;
-      //   if(!inputX.readOnly) { 
-      //     updateColorList({...el, label: newValue});
-      //     let timeCheck = noteClicked? 1200:0;
-      //     let draftText = '';
-      //     const textarea = (document.getElementById('textarea') as HTMLInputElement);
-      //       if (textarea != null) {
-      //           draftText = textarea.value;
-      //       }
-      //     setTimeout(()=>{
-      //       if(noteClicked) {
-      //         let cctData = [
-      //           {...el, label: newValue},index, changeContentTitle
-      //         ]
-      //         openMarkerOfNote(noteClicked, draftText, cctData);
-              
-      //       } else {
-      //         setTimeout(()=>{
-      //           changeContentTitle({...el, label: newValue},index, listOfElements);
-      //         },1500);
-              
-      //       }
-      //     },timeCheck);
-      //   }
-        
-      // });
       inputX.addEventListener('click', (e:any) => {
         if(!inputX.readOnly) {
           e.stopPropagation();
