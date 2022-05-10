@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import { Alert,  Modal, Button, Card, Carousel } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
 
 const stateValue = {
   visible: false
@@ -8,11 +7,6 @@ const stateValue = {
 export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor}:
   {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string} ) => {
   const [state, setState] = useState(stateValue);
-  const showModal = () => {
-    const auxState = {...state};
-    auxState.visible = true;
-    setState(auxState);
-  };
 
   const handleOk = (e: any) => {
     console.log(e);

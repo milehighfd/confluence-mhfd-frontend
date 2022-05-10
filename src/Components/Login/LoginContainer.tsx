@@ -7,12 +7,7 @@ import { replaceAppUser, resetAppUser } from '../../store/actions/appUser';
 import { saveUserInformation, resetProfile } from '../../store/actions/ProfileActions';
 import { resetMap } from '../../store/actions/mapActions';
 
-const mapStateToProps = (state: any): any => {
-  return {
-    sample: state.sample,
-    images: state.carouselImages.images
-  };
-};
+const mapStateToProps = (): any => ({});
 
 const mapDispatchToProps = (dispatch: Function): any => {
   return {

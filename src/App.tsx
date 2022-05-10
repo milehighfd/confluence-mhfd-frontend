@@ -5,8 +5,6 @@ import ReactGA from 'react-ga';
 import { useHistory } from 'react-router-dom'
 import { useClearCache } from 'react-clear-cache';
 
-import {initGA} from './index';
-
 import * as datasets from "./Config/datasets"
 import { SERVER } from "./Config/Server.config";
 
@@ -20,17 +18,19 @@ import MapView from './Components/Map/MapView';
 const LoginContainer = lazy(()=> import('./Components/Login/LoginContainer'));
 const SignUpContainer = lazy(()=> import('./Components/SignUp/SignUpContainer'));
 const Unauthorized = lazy(()=> import('./Components/Unauthorized/Unauthorized'));
-const ResetPasswordContainer = lazy(()=> import('./Components/ResetPassword/ResetPasswordContainer'));
-const ConfirmPasswordContainer = lazy(()=> import('./Components/ConfirmPassword/ConfirmPasswordContainer'));
+const ResetPasswordContainer = lazy(()=> import('./Components/ResetPassword/ResetPasswordView'));
+const ConfirmPasswordContainer = lazy(()=> import('./Components/ConfirmPassword/ConfirmPasswordView'));
 const DetailedPageContainer = lazy(()=> import('./Components/DetailedPage/DetailedPageContainer'));
 const ProfileContainer = lazy(()=> import('./Components/Profile/ProfileContainer'));
 const WorkPlan = lazy(()=> import('./Components/Work/Plan/WorkPlan'));
 const WorkRequest = lazy(()=> import('./Components/Work/Request/WorkRequest'));
 const UserContainer = lazy(()=> import('./Components/User/UserContainer'));
 const UploadAttachmentContainer = lazy(()=> import('./Components/UploadAttachment/UploadAttachmentContainer'));
-const DetailedContainer = lazy(()=> import('./Components/DetailedProblem/DetailedContainer'));
 
-let counter = 0 ;
+const initGA = () => {
+  ReactGA.initialize('UA-176723071-1');
+};
+
 function App({ replaceAppUser, getUserInformation, getCarouselImages, appUser, getMapTables, replaceFilterCoordinates, getGroupOrganization, groupOrganization }
           : { replaceAppUser : Function, getUserInformation: Function, getCarouselImages: Function, appUser: any,
              getMapTables: Function, getParamsFilter: Function, setFilterProblemOptions: Function, setFilterProjectOptions: Function, setFilterComponentOptions: Function,
@@ -143,9 +143,7 @@ useEffect(()=>{
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserContainer} />}
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />}
-      {(appUser.designation === 'admin') && (appUser.status === 'approved') && <Route path={`/detailed-view`} component={DetailedContainer} />}
       {(loading && <Route path={`/`} component={LoadingView} />)}
-      {/* <Route path={`/`} component={Unauthorized} /> */}
     </Suspense>
   </Switch>}
   </>

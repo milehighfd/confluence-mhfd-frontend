@@ -5,8 +5,6 @@ import { getAllAttachment, uploadFile, removeAttachment, setLoading } from '../.
 
 const mapStateToProps = (state: any): any => {
   return {
-    sample: state.sample,
-    user: state.profile.userInformation,
     attachments: state.uploadAttachment.attachments,
     loading: state.uploadAttachment.loading
   };

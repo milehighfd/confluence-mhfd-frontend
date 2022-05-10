@@ -1,35 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-
-import ReactGA  from 'react-ga';
-
-import {ConnectedRouter} from 'connected-react-router';
+import { ConnectedRouter } from 'connected-react-router';
 
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
-import {history} from "./store/configureStore";
+import { history } from "./store/configureStore";
 import store from './store';
 import 'antd/dist/antd.css';
 import '@mdi/font/scss/materialdesignicons.scss';
 
-
 import App from './AppContainer';
 
-if (!localStorage.getItem('mfx-token')) {
-  localStorage.setItem('mfx-token', 'GUEST');
-}
-
-export const initGA = () => {
-  ReactGA.initialize('UA-176723071-1');
-};
-
 ReactDOM.render(
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
-    </Provider>, document.getElementById('root'));
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById('root')
+);
 
 
 

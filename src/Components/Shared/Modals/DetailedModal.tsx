@@ -117,9 +117,6 @@ console.log("DETAILES", detailedPage);
         onCancel={() => setVisible(false)}
         forceRender={false}
         destroyOnClose>
-        {/* <DetailedView
-          data={data}
-          setVisible={setVisible} /> */}
         {loaderDetailedPage && <div className="detailed">
           <Row className="detailed-h" gutter={[16, 8]}>
             <Col xs={{ span: 24 }} lg={{ span: 13 }}>

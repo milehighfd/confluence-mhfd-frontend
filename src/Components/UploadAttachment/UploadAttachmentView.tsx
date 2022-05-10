@@ -98,8 +98,6 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, s
             </Row>
             <Row className="table-up">
               <Col span={24}>
-                {/* <Table columns={columns} rowKey={record => record._id} dataSource={userActivity.data}
-                  pagination={pagination}/> */}
                 <Table loading={loading} columns={columns} rowKey={(record: any) => record._id} dataSource={attachments.data} pagination={pagination}
                   onChange={(pagination, filters, sort) => handleTableChange(pagination, filters, sort)} />
               </Col>

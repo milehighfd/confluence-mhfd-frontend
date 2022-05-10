@@ -5,14 +5,13 @@ import Navbar from "../Components/Shared/Navbar/NavbarContainer";
 import SidebarView from "../Components/Shared/Sidebar/SidebarView";
 import LoadingView from '../Components/Loading/LoadingView';
 
-import { MEDIUM_SCREEN, COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MEDIUM_SCREEN_RIGHT, MEDIUM_SCREEN_LEFT } from "../constants/constants";
+import { COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MEDIUM_SCREEN_RIGHT, MEDIUM_SCREEN_LEFT } from "../constants/constants";
 import { Redirect } from "react-router-dom";
 
-import { Layout, Row, Col, Button, message, Spin } from 'antd';
+import { Layout, Row, Col, Button, message } from 'antd';
 import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
 import { useMapState } from '../hook/mapHook';
 import { useProjectDispatch, useProjectState} from '../hook/projectHook';
-import { AlertViewSave } from '../Components/Alerts/AlertViewSave';
 import { useNotesState } from '../hook/notesHook';
 
 export default function (WrappedComponent : any, layers : MapLayersType) {
@@ -198,14 +197,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
 
             <Layout>
               <SidebarView></SidebarView>
-              {/*
-            visibleSave &&
-              <AlertViewSave
-                statusSave= {statusSave}
-                setStatusSave= {setStatusSave}
-                setVisibleSave= {setVisibleSave}
-              />
-            */}
               <Layout className="map-00">
                 {!longitude && !latitude && <LoadingView />}
                 { longitude && latitude &&  <Row>

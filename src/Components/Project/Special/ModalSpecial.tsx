@@ -1,38 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
-import { PlusCircleFilled } from '@ant-design/icons';
+import { Modal, Button, Row, Col, Popover } from 'antd';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { SERVER } from "../../../Config/Server.config";
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { DropPin } from "../TypeProjectComponents/DropPin";
-import { getData, getToken, postData } from "../../../Config/datasets";
-import { PROJECT_INFORMATION } from "../../../constants/constants";
+import { getData, getToken } from "../../../Config/datasets";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
-import { Geom, Project} from "../../../Classes/Project";
-import { setRouteRedirect } from "../../../store/actions/mapActions";
-import { AlertViewSave } from "../../Alerts/AlertViewSave";
-import { editSpecial } from "../../../store/actions/ProjectActions";
+import { useProjectDispatch } from "../../../hook/projectHook";
+import { Project} from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
-import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
+import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { JURISDICTION } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
 
-const { TextArea } = Input;
-const { Option } = Select;
-const { Panel } = Collapse;
 const content = (<div className="popver-info"> Any effort for which MHFD funds or staff participation is requested that doesn’t fit into one of the other Project categories.</div>);
-const content00 = (<div className="popver-info"></div>);
-const content01 = (<div className="popver-info"></div>);
-const content02 = (<div className="popver-info"></div>);
-const content03 = (<div className="popver-info"></div>);
-const content04 = (<div className="popver-info"></div>);
-
-const content06 = (<div className="popver-info"></div>);
-const content08 = (<div className="popver-info"></div>);
 const selec = [1];
 for(var i = 2 ; i < 21 ; i++){
   selec.push(i);
@@ -45,11 +28,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any, editable:boolean}) => {
 
   const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor} = useProjectDispatch();
-  const {getAttachmentProjectId, getAttachmentByProject} = useAttachmentDispatch();
-  const {attachments, uploadAttachment} = useAttachmentState();
-  const { currentServiceAreaCounty} = useProjectState();
-  const {organization, groupOrganization} = useProfileState();
-  const {userInformation} = useProfileState();
+  const {getAttachmentByProject} = useAttachmentDispatch();
+  const {organization} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -69,9 +49,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
-  var date = new Date();
-  var year = date.getFullYear();
-  const dispatch = useDispatch();
   const parseStringToArray = (list:string) => {
     if( list ){
       return list.split(',');
@@ -103,7 +80,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
   useEffect(()=>{
     if(data!== 'no data' ) {
-      //getAttachmentProjectId(data.projectid);
       getAttachmentByProject(data.projectid);
       setSwSave(true);
       setDescription(data.description);
@@ -113,7 +89,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setjurisdiction(parseStringToArray(data.jurisdiction));
       setCosponsor(parseStringToArray(data.cosponsor));
       setSponsor(data.sponsor);
-      // setGeom(data.coordinates);
       setTimeout(()=>{
         getData(SERVER.GET_GEOM_BY_PROJECTID(data.projectid), getToken())
         .then(
@@ -140,37 +115,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       let _year = params.get('year');
       var special = new Project();
       special.year = _year ? _year : special.year;
-     /* let cservice = "";
-      if(serviceArea){
-        serviceArea.map((element:any) => {
-          cservice= cservice + element + ",";
-        })
-      }
-      if(cservice.length != 0 ){
-        cservice = cservice.substring(0, cservice.length-1)
-      }
-      let ccounty = "";
-      county.map((element:any) => {
-        ccounty= ccounty + element + ",";
-      })
-      if(ccounty.length != 0 ){
-        ccounty = ccounty.substring(0, ccounty.length-1)
-      }
-      let cjurisdiction = "";
-      jurisdiction.map((element:any) => {
-        cjurisdiction= cjurisdiction + element + ",";
-      })
-      if(cjurisdiction.length != 0 ){
-        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
-      }
-      
-      let csponsor = "";
-      cosponsor.map((element:any) => {
-        csponsor= csponsor + element + ",";
-      })
-      if(cosponsor.length != 0 ){
-        csponsor = csponsor.substring(0, csponsor.length-1)
-      }*/
       special.servicearea = serviceArea+ "";
       special.county = county+"";
       special.jurisdiction= jurisdiction+"";
@@ -192,10 +136,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setVisible(false);
     };
   },[save]);
-
-  const projectReturn = useSelector((state:any)=>({
-    state
-  }));
 
   useEffect(()=>{
     if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0  && sponsor !== '' && jurisdiction.length !== 0 ){
@@ -220,9 +160,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
-    /*if(name===true){
-      setNameProject(e.target.value);
-    }*/
   };
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
@@ -245,21 +182,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const handleOk = (e: any) => {
      setVisibleAlert( true);
   };
-
-  // useEffect(()=>{
-  //   if(swSave === true){
-  //     if(locality !== currentServiceAreaCounty.jurisdiction){
-  //       alert("It is not within your jurisdiction.");
-  //     }
-  //   }else{
-  //     if(currentServiceAreaCounty.jurisdiction ){
-  //       if(locality !== currentServiceAreaCounty.jurisdiction){
-  //         alert("It is not within your jurisdiction.");
-  //       }
-  //     }
-  //   }
-  // },[currentServiceAreaCounty.jurisdiction]);
-
   const handleCancel = (e: any) => {
     const auxState = {...state};
     setVisibleSpecial (false);
@@ -304,10 +226,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
                     height: lengthName > 268 ? 'unset' :'34px'
                   }} />
                 </label>
-                {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} />*/}
-                {/*<Button className="btn-transparent">
-                  <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()}/>
-                </Button>*/}
                 <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea.length > 0 && county.length > 0)?'·':''} {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
@@ -337,8 +255,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             />
 
             {/*Section*/}
-            {/* <h5>3. GENERATE PROJECT <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Button className="btn-green">Show Project</Button> */}
             <br/>
 
             {/*Section*/}

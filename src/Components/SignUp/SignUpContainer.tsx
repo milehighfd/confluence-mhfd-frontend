@@ -6,12 +6,7 @@ import { User } from '../../Classes/TypeList';
 import { getCarouselImages } from '../../store/actions/carouselImagesActions';
 import { getUserInformation } from '../../store/actions/ProfileActions';
 
-const mapStateToProps = (state: any): any => {
-  return {
-    sample: state.sample,
-    images: state.carouselImages.images
-  };
-};
+const mapStateToProps = (state: any): any => ({});
 
 const mapDispatchToProps = (dispatch: Function): any => {
   return {
