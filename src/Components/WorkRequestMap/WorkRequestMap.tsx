@@ -1246,7 +1246,7 @@ const epochTransform = (dateParser: any) => {
           title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
           name: feature.properties.problemname ? feature.properties.problemname : '-',
           organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-          value: feature.properties.solutioncost ? feature.properties.solutioncost : '0',
+          value: feature.properties.solutioncost ? feature.properties.solutioncost : (feature.properties.component_cost ? feature.properties.component_cost : '0'),
           status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
           priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
           problemid: feature.properties.problemid,

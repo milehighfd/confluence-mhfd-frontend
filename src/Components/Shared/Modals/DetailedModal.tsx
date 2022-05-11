@@ -140,7 +140,13 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
               {
                 detailedPage.problemtype ? (
                   <div className="detailed-mm">
-                    <b>{ totalComponentsCost? ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(totalComponentsCost)):(detailedPage.solutioncost ? ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage.solutioncost))): (detailedPage.estimatedcost?( '$'+ new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage.estimatedcost)): 'No Cost Data'))}</b>
+                    <b>{ 
+                      (detailedPage.solutioncost
+                      ? 
+                        ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage.solutioncost)))
+                        : 
+                        (detailedPage.component_cost?( '$'+ new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage.component_cost)): 'No Cost Data'))}
+                    </b>
                   </div>
                 ) : (
                   <div className="detailed-mm">
