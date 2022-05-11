@@ -4341,6 +4341,7 @@ const Map = ({ leftWidth,
                     {tabs.map((value: string, index: number) => {
                         let totalElements = 0;
                         let cardInformation: Array<Object> = [];
+                        console.log('galleryProblems', galleryProblems, 'galleryProjects', galleryProjects);
                         if (value === FILTER_PROBLEMS_TRIGGER) {
                         cardInformation = galleryProblems.map((problem: any) => {
                             return {

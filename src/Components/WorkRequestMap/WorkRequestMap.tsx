@@ -333,6 +333,11 @@ const WorkRequestMap = (type: any) => {
       }
     },500);
   }
+  useEffect(() => {
+    if(type.locality.isOnSelected) {
+      centerToLocalityy();
+    }
+  }, [type.locality]);
   const getGroupOrganizationZoomWithouBounds = () => {
     if(groupOrganization.length == 0) {
       getGroupOrganization();
