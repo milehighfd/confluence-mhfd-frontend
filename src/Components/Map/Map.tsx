@@ -38,7 +38,8 @@ import {
     MHFD_STREAMS_FILTERS,
     MENU_OPTIONS,
     SERVICE_AREA,
-    SERVICE_AREA_FILTERS
+    SERVICE_AREA_FILTERS,
+    STREAMS_POINT
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../constants/mapStyles';
@@ -1820,7 +1821,6 @@ const Map = ({ leftWidth,
     }
     const addTilesLayers = (key: string) => {
         const styles = { ...tileStyles as any };
-        
         styles[key].forEach((style: LayerStylesType, index: number) => {
           if(style.source_name){
             map.addLayer({
@@ -1858,6 +1858,10 @@ const Map = ({ leftWidth,
                     }, 5000);*/
                 }
             }
+            if(key != 'mhfd_flow_points') {
+              map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+          } else { 
+          }
             // delete this 
             if(key != 'streams') {
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');

@@ -56,7 +56,7 @@ export const WATERSHED_FILTERS = 'mhfd_catchments_simple_v1'; //'basins';
 export const STREAMS_FILTERS = 'streams';
 export const MHFD_STREAMS_FILTERS = 'mhfd_stream_reaches';
 export const XSTREAMS = 'xstreams';
-
+export const STREAMS_POINT = 'mhfd_flow_points';
 export const SERVICE_AREA_FILTERS = 'watershed_service_areas';
 export const SERVICE_AREA_POINTS = 'labels_service_area';
 export const MUNICIPALITIES_FILTERS = 'municipalities';
@@ -174,6 +174,12 @@ export const PROJECTS_MAP_STYLES = {
     PROJECTS_LINE
   ]
 }
+export const STREAMS_POINT_FILTER = {
+  name: 'streams',
+  tiles: [
+    STREAMS_POINT
+  ]
+}
 export const PROJECTS_DRAFT_MAP_STYLES = {
   name: 'projects_draft',
   tiles: [
@@ -224,7 +230,8 @@ export const SELECT_ALL_FILTERS = [
   COMPONENT_LAYERS,
   PROBLEMS_TRIGGER,
   BLOCK_CLEARANCE_ZONES_LAYERS,
-  MHFD_STREAMS_FILTERS
+  MHFD_STREAMS_FILTERS,
+  STREAMS_POINT
 ];
 
 /* End of Map Constants */

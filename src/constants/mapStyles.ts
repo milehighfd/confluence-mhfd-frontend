@@ -51,7 +51,8 @@ import {
   MHFD_STREAMS_FILTERS,
   BLOCK_CLEARANCE_ZONES_LAYERS,
   ACTIVE_LOMS,
-  EFFECTIVE_REACHES
+  EFFECTIVE_REACHES,
+  STREAMS_POINT
 } from "./constants";
 
 export const localComponents = {
@@ -2691,6 +2692,25 @@ export const tileStyles = {
       'line-width': 3,
       'line-dasharray':[2.5, 2.5]
     }
+  }],
+  [STREAMS_POINT]: [
+    {
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "circle-color": "hsl(295, 90%, 51%)",
+        "circle-stroke-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            5,
+            10,
+            10
+        ],
+        "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
+      }
   }],
   [EFFECTIVE_REACHES]: [
   {
