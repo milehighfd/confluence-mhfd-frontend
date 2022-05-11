@@ -1202,7 +1202,7 @@ const epochTransform = (dateParser: any) => {
           value: feature.source === 'mhfd_projects_created' ? (
             feature.properties.projecttype.toLowerCase() === 'capital' ? feature.properties.estimatedcost : getTotalAmount(feature.properties.cartodb_id)
           ) : (
-            feature.properties.estimatedcost ? feature.properties.estimated : feature.properties.finalcost ? feature.properties.finalcost : '0'
+            feature.properties.estimatedcost ? feature.properties.estimatedcost : feature.properties.component_cost ? feature.properties.component_cost : '-1'
           ),
           projecctype: feature.source === 'mhfd_projects_created'?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
           status: feature.properties.status ? feature.properties.status : '-',
