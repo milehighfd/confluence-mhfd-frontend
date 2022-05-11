@@ -2699,19 +2699,71 @@ export const tileStyles = {
       'source-layer': 'pluto15v1',
       layout: {},
       "paint": {
-        "circle-color": "hsl(295, 90%, 51%)",
-        "circle-stroke-width": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            5,
-            10,
-            10
+        "circle-color": "hsl(181, 14%, 95%)",
+        "circle-stroke-color": "#000000",
+        "circle-stroke-width": 0,
+        "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          11,
+          0,
+          12,
+          1
         ],
-        "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
+        "circle-radius": 1
       }
-  }],
+    },
+    {
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "circle-color": "#9cebed",
+        "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          11,
+          0,
+          12,
+          0.9
+        ],
+        "circle-stroke-color": "#000000",
+        "circle-radius": 3,
+        "circle-stroke-width": 0
+      }
+    },
+    {
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "circle-color": "hsla(181, 69%, 77%, 0)",
+        "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          11,
+          0,
+          12,
+          0.9
+        ],
+        "circle-stroke-color": "#9cebed",
+        "circle-radius": 2,
+        "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          11,
+          0,
+          12,
+          3
+        ],
+        "circle-stroke-opacity": 0.4
+      }
+    }
+  ],
   [EFFECTIVE_REACHES]: [
   {
       // light 

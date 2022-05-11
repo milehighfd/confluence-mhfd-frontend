@@ -1851,22 +1851,10 @@ const Map = ({ leftWidth,
                             'fill-opacity': 0
                         }
                     });
-                   /* setTimeout(() => {
-                        map.getStyle().layers.forEach((layer: any) => {
-                            console.log(layer);
-                        });
-                    }, 5000);*/
                 }
             }
-            if(key != 'mhfd_flow_points') {
-              map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-          } else { 
-          }
-            // delete this 
-            if(key != 'streams') {
+            if(key != STREAMS_FILTERS && key != STREAMS_POINT) {
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-            } else { 
-                // console.log("STYLE LAYER", key,  style);
             }
             
             if (!hovereableLayers.includes(key)) {
@@ -1938,6 +1926,13 @@ const Map = ({ leftWidth,
                 }
             }
         });
+        if (key === STREAMS_FILTERS) {
+          styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+            if (map && map.getLayer(STREAMS_POINT + '_' + index)) {
+              map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'visible');
+            }
+          });
+        }
     };
 
     const hideLayers = (key: string) => {
@@ -1947,6 +1942,13 @@ const Map = ({ leftWidth,
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
             }
         });
+        if(key === STREAMS_FILTERS) {
+          styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+            if (map.getLayer(STREAMS_POINT + '_' + index)) {
+              map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
+            }
+          })
+        }
     };
 
     const paintSelectedComponents = (items: Array<ComponentType>) => {

@@ -29,7 +29,8 @@ import {
   LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, 
   CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, MHFD_STREAMS_FILTERS,
   PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
-  NEARMAP_TOKEN
+  NEARMAP_TOKEN,
+  STREAMS_POINT
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -855,6 +856,13 @@ const CreateProjectMap = (type: any) => {
         }
       }
     });
+    if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
+      styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+        if (map && map.map.getLayer(STREAMS_POINT + '_' + index)) {
+          map.map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'visible');
+        }
+      });
+    }
   };
   const applyFiltersIDs = (key: string, toFilter: any) => {
     const styles = { ...tileStyles as any };
@@ -1101,10 +1109,17 @@ const CreateProjectMap = (type: any) => {
     if (map) {
       const styles = { ...tileStyles as any };
       styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (map.map.getLayer(key + '_' + index) && !key.includes('streams')) {
+        if (map.map.getLayer(key + '_' + index)) {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         }
       });
+      if(key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
+        styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+          if (map.map.getLayer(STREAMS_POINT + '_' + index)) {
+            map.map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
+          }
+        })
+      }
     }
   };
   const removeTilesHandler = (selectedLayer: LayersType) => {
@@ -1151,7 +1166,7 @@ const CreateProjectMap = (type: any) => {
           });
         }
       }
-      if (!key.includes('streams')) {
+      if (!key.includes('streams') && !key.includes(STREAMS_POINT)) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }
 

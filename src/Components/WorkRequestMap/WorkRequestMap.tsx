@@ -24,7 +24,7 @@ import {
   NEARMAP_TOKEN,
   MUNICIPALITIES_FILTERS,
   ACTIVE_LOMS,
-  EFFECTIVE_REACHES,ICON_POPUPS, NEW_PROJECT_TYPES, SERVICE_AREA_FILTERS
+  EFFECTIVE_REACHES,ICON_POPUPS, NEW_PROJECT_TYPES, SERVICE_AREA_FILTERS, STREAMS_POINT
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -626,6 +626,13 @@ const WorkRequestMap = (type: any) => {
         }
       }
     });
+    if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
+      styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+        if (map && map.map.getLayer(STREAMS_POINT + '_' + index)) {
+          map.map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'visible');
+        }
+      });
+    }
   };
   const removeLayers = (key: string) => {
     const styles = { ...tileStyles as any };
@@ -806,7 +813,6 @@ const WorkRequestMap = (type: any) => {
     updateSelectedLayersWR(selectedItems);
   }
   const hideLayers = (key: string) => {
-
     if (map) {
       const styles = { ...tileStyles as any };
       if(styles[key]) {
@@ -815,6 +821,13 @@ const WorkRequestMap = (type: any) => {
             map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
           }
         });
+      }
+      if(key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
+        styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+          if (map.map.getLayer(STREAMS_POINT + '_' + index)) {
+            map.map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
+          }
+        })
       }
     }
   };
@@ -881,7 +894,7 @@ const WorkRequestMap = (type: any) => {
             });
           }
         }
-      if (!key.includes('streams')) {
+      if (!key.includes('streams') && !key.includes(STREAMS_POINT)) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }
       if (!hovereableLayers.includes(key)) {
