@@ -27,7 +27,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     } else {
-      console.log(data);
       getDetailedPageProject(data.id || data.projectid, data.type);
       getComponentsByProblemId({id: data.id || data.projectid, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
@@ -60,9 +59,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
   }
   const detailedPage = detailed as any;
 
-  useEffect(()=>{
-console.log("DETAILES", detailedPage);
-  },[detailedPage]);
   const downloadPdf = async () => {
     if (loading) {
       return;
@@ -148,7 +144,13 @@ console.log("DETAILES", detailedPage);
                   </div>
                 ) : (
                   <div className="detailed-mm">
-                    <b>{ totalComponentsCost? ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(totalComponentsCost)):(detailedPage.finalcost ? ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage.finalcost))) : (detailedPage.estimatedcost?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage.estimatedcost)): 'No Cost Data'))}</b>
+                    <b>{ 
+                      detailedPage.estimatedcost 
+                      ? 
+                      ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage.estimatedcost))) 
+                      : 
+                      (detailedPage.componentcost?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage.componentcost)): 'No Cost Data')}
+                    </b>
                   </div>
                 )
               }

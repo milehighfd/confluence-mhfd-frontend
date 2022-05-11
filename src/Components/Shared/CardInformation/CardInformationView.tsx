@@ -63,8 +63,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     selectedLayers: state.map.selectedLayers
   }));
   const changeCenter = () => {
-    console.log(data.coordinates);
-    console.log(data.coordinates);
     setZoomProjectOrProblem(data.coordinates);
 
   }
@@ -177,9 +175,21 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           <div className="card-title-s">
             <h4>{data.requestName}</h4>
           </div>
-          {type === 'Problems' ? <Popover placement="topLeft" content={content}><h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6></Popover> : <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>}
+          {
+            type === 'Problems' 
+            ? 
+            <Popover placement="topLeft" content={content}><h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6></Popover> 
+            : 
+            <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>
+          }
           <Popover placement="topLeft" content={cost}>
-          <h5>{data.finalCost ? ('$'+numberWithCommas(data.finalCost)) : (data.estimatedCost?('$'+numberWithCommas(data.estimatedCost)):'No Cost Data')  } <Popover content={total}><span style={{ float: 'right' }}><b>{data.totalComponents} Components</b></span></Popover> </h5>
+            <h5>{
+              data.estimatedCost ? ('$'+numberWithCommas(data.estimatedCost)) : (data.componentCost?('$'+numberWithCommas(data.componentCost)):'No Cost Data')  
+              } 
+              <Popover content={total}>
+                <span style={{ float: 'right' }}><b>{data.totalComponents} Components</b></span>
+              </Popover> 
+            </h5>
           </Popover>
           <hr />
           {type === 'Problems' ? (
