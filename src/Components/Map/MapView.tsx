@@ -778,15 +778,15 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
           getParamFilterComponents(boundsMap, optionscomp);
         },1300);
       }
-      // / tabactive 0 problems 1 projects 
-      if(tabActive === '0') {
-        loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions);
-      } else if (tabActive === '1') { 
-        loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions);
-      } else {
-        setFilterComponentOptions(filterComponentOptions);
-        getParamFilterComponents(boundsMap, filterComponentOptions);
-      }
+      // // / tabactive 0 problems 1 projects 
+      // if(tabActive === '0') {
+      //   loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions);
+      // } else if (tabActive === '1') { 
+      //   loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions);
+      // } else {
+      //   setFilterComponentOptions(filterComponentOptions);
+      //   getParamFilterComponents(boundsMap, filterComponentOptions);
+      // }
       changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect'? undefined:"isSelect");
     }
     setBBOXComponents({ bbox: [], centroids: [] })
