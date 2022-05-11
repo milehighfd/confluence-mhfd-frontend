@@ -8,7 +8,7 @@ import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import eventService from './eventService';
+import EventService from '../../services/EventService';
 import { getData, getToken, postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import {
@@ -26,49 +26,41 @@ import {
   ACTIVE_LOMS,
   EFFECTIVE_REACHES,ICON_POPUPS, NEW_PROJECT_TYPES, SERVICE_AREA_FILTERS
 } from "../../constants/constants";
-import { MapHOCProps, ProjectTypes, MapLayersType, MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
+import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
-import { Dropdown, Button, Spin } from 'antd';
+import { Dropdown, Button } from 'antd';
 import { tileStyles, COMPONENT_LAYERS_STYLE } from '../../constants/mapStyles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
 import { useProfileState, useProfileDispatch } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
-import { group } from "d3-array";
 import { useAttachmentDispatch } from "../../hook/attachmentHook";
 import { GlobalMapHook } from '../../utils/globalMapHook';
-let firstTime = true;
 let map: any;
 let coordX = -1;
 let coordY = -1;
 let featuresCount = 0;
 let isPopup = true;
-let previousClick = false;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let popup = new mapboxgl.Popup({closeButton: true,});
 let globalMapId: any = null;
 let mapMoved = true;
 let amounts: any = [];
-// const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
 const WorkRequestMap = (type: any) => {
   let html = document.getElementById('map4');
-  let draw: any;
   
   
-  const [isExtendedView, setCompleteView] = useState(false);
-  let controller = false;
+  const [isExtendedView] = useState(false);
   const user = store.getState().profile.userInformation;
-  const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
+  const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
   const {clear} = useAttachmentDispatch();
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables, getComponentsByProjid } = useMapDispatch();
   const { changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects, getZoomGeomProblem, getZoomGeomComp } = useProjectDispatch();
-  const { listComponents, selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
+  const { selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
   const {getGroupOrganization} = useProfileDispatch();
   const [idsBoardProjects, setIdsBoardProjects]= useState<any>([]);
@@ -116,7 +108,6 @@ const WorkRequestMap = (type: any) => {
     type: '',
     cartoid: ''
 });
-  const [boardProjectFilter, setBPF] = useState<any>([]);
   useEffect(()=>{
     if(layers) {
       setLayerFilters(layers);
@@ -211,11 +202,8 @@ const WorkRequestMap = (type: any) => {
     };
     map = undefined;
     waiting();
-    eventService.setRef('click',eventClick);
-    // eventService.setRef('move', eventMove);
-    // eventService.setRef('addmarker', addMarker);
+    EventService.setRef('click',eventClick);
     changeAddLocationState(false);
-    // setComponentIntersected([]);
     componentsList = [];
     return () => {
       setBoardProjects(['-8888'])
@@ -236,30 +224,21 @@ const WorkRequestMap = (type: any) => {
   },[highlightedComponent]);
   
   useEffect(()=>{
-    // if(firstTime) {
-    //   return ;
-    // }   
     let filterProjectsDraft = {...filterProjects}; 
     filterProjectsDraft.projecttype = '';
     filterProjectsDraft.status = '';
     if(idsBoardProjects.length) {
       wait(()=>{
         map.isRendered(()=>{
-          // console.log('aqui1', idsBoardProjects);
-          // removeLayers('mhfd_projects_created');
-          // removeLayersSource('mhfd_projects_created');
-          // const tiles = layerFilters['projects_draft'] as any;
           let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
           postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
             updateLayerSource('mhfd_projects_created', tiles);
             showLayers('mhfd_projects_created');
             map.isRendered(()=>{
               setTimeout(()=>{
-                // console.log('aqui2');
                 applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
               },700);
             });
-            firstTime = false;
           });
           
         });
@@ -274,8 +253,6 @@ const WorkRequestMap = (type: any) => {
       map.isStyleLoaded(()=>{ 
         if (coordinatesJurisdiction.length > 0) {
           mask = turf.multiPolygon(coordinatesJurisdiction);
-          let miboundsmap = map.map.getBounds();
-          // let boundingBox1 = miboundsmap.map._sw.lng + ',' + miboundsmap.map._sw.lat + ',' + miboundsmap.map._ne.lng + ',' + miboundsmap.map._ne.lat;
           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
           var arrayBounds = misbounds.split(',');
           let poly = polyMask(mask, arrayBounds);
@@ -299,12 +276,10 @@ const WorkRequestMap = (type: any) => {
       return;
     }
     if(boardProjects && !boardProjects.ids) {  
-      // console.log('1111', boardProjects);
       setIdsBoardProjects(boardProjects);
     }
     if(boardProjects && boardProjects.ids) {
       if(!equals(boardProjects.ids, idsBoardProjects)) {
-        // console.log('2222', boardProjects.ids);
         setIdsBoardProjects(boardProjects.ids);
       }
     } 
@@ -330,13 +305,6 @@ const WorkRequestMap = (type: any) => {
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
-      // let coord = turf.centroid(poly);
-      
-      // if(coord.geometry && coord.geometry.coordinates) {
-      //   let value = coord.geometry.coordinates;
-      
-      //     map.map.flyTo({ center: value, zoom: 10 });
-      // }
       let bboxBounds = turf.bbox(poly);
       if(map.map){
         map.map.fitBounds(bboxBounds,{ padding:20, maxZoom: 14});
@@ -383,7 +351,6 @@ const WorkRequestMap = (type: any) => {
   }
   useEffect(()=>{
     let historicBounds = getCurrent();
-    // console.log("Type locality", type.locality);
     if(type.locality.isOnSelected) {
       getGroupOrganizationZoomWithouBounds();
     } else if(historicBounds && historicBounds.bbox) {
@@ -394,27 +361,12 @@ const WorkRequestMap = (type: any) => {
       groupOrganizationZoom();
     }
   },[groupOrganization, type.locality.locality]);
-  // useEffect(()=>{
-  //   if(listComponents && listComponents.result && listComponents.result.length > 0) {
-      
-  //     if(type.type === 'CAPITAL') {
-
-  //       getStreamsByComponentsList(listComponents.result);
-  //     }
-      
-  //     componentsList = listComponents.result;
-  //   } else {
-  //     setStreamIntersected({geom:null});
-  //   }
-  // },[listComponents]);
-  
   useEffect(() => {
     if (data.problemid || data.cartoid) {
       setVisible(true);
     }
   }, [data]);
   const updateZoom = () => {
-    // console.log(map.getStyle());
     const zoom = map.map.getZoom().toFixed(2);
     setZoomValue(zoom);
   }
@@ -423,8 +375,7 @@ const WorkRequestMap = (type: any) => {
       map.create();
       setLayerFilters(layers);
       map.isStyleLoaded(()=>{
-        // applyMapLayers();
-        let eventToClick = eventService.getRef('click');
+        let eventToClick = EventService.getRef('click');
         map.map.on('click',eventToClick);
         map.map.on('load', updateZoom);
         map.map.on('move', updateZoom);
@@ -434,7 +385,6 @@ const WorkRequestMap = (type: any) => {
         map.map.on('render', () => {
           if (map && map.map && !globalMapId && mapMoved) {
             const center = [map.map.getCenter().lng, map.map.getCenter().lat];
-            // console.log(map.map.getBounds());
             const bbox = [map.map.getBounds()._sw.lng, map.map.getBounds()._sw.lat, 
             map.map.getBounds()._ne.lng, map.map.getBounds()._ne.lat];
             addHistoric({ center, bbox });
@@ -442,22 +392,11 @@ const WorkRequestMap = (type: any) => {
           globalMapId = null;
           mapMoved = false;
         });
-        // map.map.on('movestart', () => {
-        //   if (map.map.getLayer('mask')) {
-        //       map.map.setLayoutProperty('mask', 'visibility', 'visible');
-        //       map.map.removeLayer('mask');
-        //       map.map.removeSource('mask');
-        //   }
-        // })
         setTimeout(()=>{
           applyNearMapLayer();
         },2000);
         
       })
-      // map.map.on('style.load', () => {
-        
-      // });
-     
     }
   }, [map])
 
@@ -501,7 +440,6 @@ const WorkRequestMap = (type: any) => {
     }else {
       setComponentsFromMap([]);
     }
-    // setVisibleCreateProject(true);
     setTimeout(()=>{
       type.openModal(true);
     },35);
@@ -516,7 +454,6 @@ const WorkRequestMap = (type: any) => {
             'tileSize': 128,
             'tiles': [
                 `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`
-                    // 'https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=MLY|4142433049200173|72206abe5035850d6743b23a49c41333'
                 ]
         });
         map.map.addLayer(
@@ -545,7 +482,7 @@ const WorkRequestMap = (type: any) => {
                       ]
                 }
             },
-            'aerialway' // Arrange our new layer beneath this layer,
+            'aerialway'
             
         );
     }
@@ -557,8 +494,6 @@ const WorkRequestMap = (type: any) => {
           layer.tiles.forEach((subKey: string) => {
             const tiles = layerFilters[layer.name] as any;
             if (tiles) {
-              // layer.name = projects_draft 
-              // subKey = mhfd_projects_created
               addLayersSource(subKey, tiles[subKey]);
             }
           });
@@ -644,7 +579,6 @@ const WorkRequestMap = (type: any) => {
     const styles = { ...tileStyles as any };   
     styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
       map.map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
-      // console.log(`${EFFECTIVE_REACHES}_${index}`);
     })
   }
   const topStreams = () => {
@@ -828,9 +762,6 @@ const WorkRequestMap = (type: any) => {
       if (componentDetailIds && componentDetailIds[key]) {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
-      // if(key ==='mhfd_projects_created'){
-      //   allFilters.push(['in', ['get', 'cartodb_id'], ['literal', ['-1']]]);
-      // }
       if (map.getLayer(key + '_' + index)) {
         
         
@@ -846,106 +777,6 @@ const WorkRequestMap = (type: any) => {
         return;
       }
       const allFilters: any[] = ['all'];
-      // for (const filterField in toFilter) {
-      //   const filters = toFilter[filterField];
-      //   if (filterField === 'component_type') {
-      //     showSelectedComponents(filters.split(','));
-      //   }
-      //   if (filterField === 'keyword') {
-      //     if (filters[key]) {
-      //       allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
-      //     }
-      //   }
-      //   if (filters && filters.length) {
-      //     const options: any[] = ['any'];
-      //     if (filterField === 'keyword') {
-      //       continue;
-      //     }
-      //     if (filterField === 'component_type') {
-      //       continue;
-      //     }
-      //     if (filterField === 'year_of_study') {
-      //       for (const years of filters.split(',')) {
-      //         const lowerArray: any[] = ['>=', ['get', filterField], +years];
-      //         const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
-      //         options.push(['all', lowerArray, upperArray]);
-
-      //       }
-      //       allFilters.push(options);
-      //       continue;
-      //     }
-      //     if (filterField === 'components') {
-      //       allFilters.push(['in', ['get', 'problemid'], ['literal', [...filters]]]);
-      //       continue;
-      //     }
-      //     if (filterField === 'problemtypeProjects') {
-      //       allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
-      //       continue;
-      //     }
-      //     if (filterField === 'problemname' || filterField === 'projectname') {
-      //       continue;
-      //     }
-      //     if (filterField === 'estimatedcost') {
-      //       for (const range of filters) {
-      //         const [lower, upper] = range.split(',');
-      //         const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
-      //         const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
-      //         const allFilter = ['all', lowerArray, upperArray];
-      //         options.push(allFilter);
-      //       }
-      //       for (const range of toFilter['finalcost']) {
-      //         const [lower, upper] = range.split(',');
-      //         const lowerArray: any[] = ['>=', ['to-number', ['get', 'finalcost']], +lower];
-      //         const upperArray: any[] = ['<=', ['to-number', ['get', 'finalcost']], +upper];
-      //         const allFilter = ['all', lowerArray, upperArray];
-      //         options.push(allFilter);
-      //       }
-      //       allFilters.push(options);
-      //       continue;
-      //     }
-      //     // if (filterField === 'finalcost') {
-      //     //   continue;
-      //     // }
-      //     if (filterField === 'startyear') {
-      //       const lowerArray: any[] = ['>=', ['get', filterField], +filters];
-      //       const upperArray: any[] = ['<=', ['get', 'completedyear'], +toFilter['completedyear']];
-      //       if (+toFilter['completedyear'] !== 9999) {
-      //         allFilters.push(['all', lowerArray, upperArray]);
-      //       } else {
-      //         if (+filters) {
-      //           allFilters.push(lowerArray);
-      //         }
-      //       }
-      //       continue;
-      //     }
-      //     // if (filterField === 'servicearea') {
-      //     //   allFilters.push(['==', ['get', filterField], filters]);
-      //     //   continue;
-      //     // }
-      //     // if (filterField === 'completedyear') {
-      //     //   continue;
-      //     // }
-      //     if (typeof filters === 'object') {
-      //       for (const range of filters) {
-      //         const [lower, upper] = range.split(',');
-      //         const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
-      //         const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
-      //         const allFilter = ['all', lowerArray, upperArray];
-      //         options.push(allFilter);
-      //       }
-      //     } else {
-      //       for (const filter of filters.split(',')) {
-      //         if (isNaN(+filter)) {
-      //           options.push(['==', ['get', filterField], filter]);
-      //         } else {
-      //           const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
-      //           options.push(equalFilter);
-      //         }
-      //       }
-      //     }
-      //     allFilters.push(options);
-      //   }
-      // }
       if(key ==='mhfd_projects_created') { 
         if(idsBoardProjects && idsBoardProjects.length > 0 && idsBoardProjects[0]!='-8888'){
           let boardids = idsBoardProjects;
@@ -957,7 +788,6 @@ const WorkRequestMap = (type: any) => {
       }
       
       if (map.getLayer(key + '_' + index)) {
-        // console.log('key ', key, index, allFilters);
         map.setFilter(key + '_' + index, allFilters);
       }
     });
@@ -1103,25 +933,6 @@ const WorkRequestMap = (type: any) => {
           return;
         }
         availableLayers.push(key + '_' + index);
-        /* map.on('click', key + '_' + index, (e: any) => {
-              let html: any = null;
-              if (map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
-                  return;
-              }
-              let itemValue;
-
-
-              const description = e.features[0].properties.description ? e.features[0].properties.description : '-';
-              if (html) {
-                  popup.remove();
-                  popup = new mapboxgl.Popup();
-                  popup.setLngLat(e.lngLat)
-                      .setHTML(html)
-                      .addTo(map);
-                  document.getElementById('pop-up')?.addEventListener('click', test.bind(itemValue, itemValue));
-              }
-          });
-          */
           if(style.type != 'symbol') { 
             map.map.on('mousemove', key + '_' + index, (e: any) => {
               if (hovereableLayers.includes(key)) {
@@ -1196,12 +1007,10 @@ const WorkRequestMap = (type: any) => {
       const div = document.getElementById('popup-' + i);
       if (div != null) {
         div.classList.remove('map-pop-03');
-        // div.classList.add('map-pop-00');
       }
     }
     const div = document.getElementById('popup-' + index);
     if (div != null) {
-      // div.classList.remove('map-pop-00');
       div.classList.add('map-pop-03');
 
     }
@@ -1228,60 +1037,6 @@ const WorkRequestMap = (type: any) => {
       });
     }
 
-  }
-  const addPopupMarker = (point: any, html: any) => {
-    popup.remove();
-    map.addPopUpOffset(point, html);
-
-      let menuElement = document.getElementById('menu-marker');
-      if (menuElement != null) {
-        menuElement.addEventListener('click',() => { 
-          map.removePopUpOffset();
-          marker.remove();
-          marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
-          changeAddLocationState(false);
-        } );
-      }
-      let closeElement = document.getElementById('closepopupmarker');
-      if (closeElement != null) {
-        closeElement.addEventListener('click',() => { 
-          map.removePopUpOffset();
-        } );
-      }
-      
-
-      // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
-
-  }
-  // const addMarker = (e: any) => {
-  //   const html = loadPopupMarker();
-  //   e.originalEvent.stopPropagation();
-  //   if (html) {
-  //     popup.remove();
-  //     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
-  //     let point = e.lngLat;
-  //     marker.getElement().addEventListener('click', () => {
-  //       addPopupMarker(point,html);
-  //     });
-  //     let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng, e.lngLat.lat], [e.lngLat.lng, e.lngLat.lat]] ]} };
-  //     if (type.type === 'SPECIAL') {
-  //       saveSpecialLocation(sendLine);
-  //     } else if (type.type === 'ACQUISITION') {
-  //       saveAcquisitionLocation(sendLine);
-  //     }
-  //     getServiceAreaPoint(sendLine);
-  //     let eventToMove = eventService.getRef('move');
-  //     map.map.off('mousemove', eventToMove);
-  //     let eventToAddMarker = eventService.getRef('addmarker');
-  //     map.map.off('click',eventToAddMarker);
-  //     // marker.setPopup(html);
-  //     // let eventToClick = eventService.getRef('click');
-  //     // map.map.on('click', eventToClick);
-  //     isPopup = true;
-  //   }
-  // }
-  const eventMove = (e:any) => {
-    marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
   useEffect(()=>{
     if(type.currentTab == 'Maintenance' || type.currentTab == 'MAINTENANCE') {
@@ -1395,14 +1150,10 @@ const epochTransform = (dateParser: any) => {
     coordX = e.point.x;
     coordY = e.point.y;
     featuresCount = features.length;
-    if (features.length != 0) {
-      previousClick = true;
-    }
     features = features.filter((element: any, index: number) => {
       return search(element.properties.cartodb_id, element.source) === index;
     });
     features.sort((a: any, b: any) => {
-      //first sort the projects then problems, then alphabetical
       if (a.source.includes('project')) {
         return -1;
       }
@@ -1418,14 +1169,11 @@ const epochTransform = (dateParser: any) => {
       return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
     });
     for (const feature of features) {
-      //an special and tricky case
       if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
         continue;
       }
-      let html: any = null;
       let itemValue: any = {};
       if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_created') {
-        // getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
         getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         const filtered = galleryProjects.filter((item: any) =>
           item.cartodb_id === feature.properties.cartodb_id
@@ -1468,12 +1216,10 @@ const epochTransform = (dateParser: any) => {
           value: item.value,
           projecttype: item.projecctype,
           image: item.image,
-          //for detail popup
           id: item.id,
           objectid: item.objectid,
           valueid: item.valueid
         });
-        // itemValue.value = item.valueid;
         menuOptions.push(MENU_OPTIONS.PROJECT);
         popups.push(itemValue);
         mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
@@ -1501,7 +1247,6 @@ const epochTransform = (dateParser: any) => {
           value: item.value,
           name: item.name,
           image: item.image,
-          //for detail popup
           problemid: item.problemid
         });
         menuOptions.push('Problem');
@@ -1554,12 +1299,10 @@ const epochTransform = (dateParser: any) => {
           layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
           feature: feature.properties.projectname ? feature.properties.projectname : '-',
           projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-          // projno: feature.properties.projno? feature.properties.projno: '-',
           mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
           mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
           pondname: feature.properties.pondname? feature.properties.pondname: '-',
           mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
           mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
         }
         menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
@@ -1577,12 +1320,10 @@ const epochTransform = (dateParser: any) => {
           layer: MENU_OPTIONS.MEP_CHANNEL,
           feature: feature.properties.projectname ? feature.properties.projectname : '-',
           projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-          // projno: feature.properties.projno? feature.properties.projno: '-',
           mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
           mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
           pondname: feature.properties.pondname? feature.properties.pondname: '-',
           mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
           mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
         }
         menuOptions.push(MENU_OPTIONS.MEP_CHANNEL);
@@ -1600,12 +1341,10 @@ const epochTransform = (dateParser: any) => {
           layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
           feature: feature.properties.projectname ? feature.properties.projectname : '-',
           projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-          // projno: feature.properties.projno? feature.properties.projno: '-',
           mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
           mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
           pondname: feature.properties.pondname? feature.properties.pondname: '-',
           mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
           mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
         }
         menuOptions.push(MENU_OPTIONS.MEP_STORM_OUTFALL);
@@ -1634,17 +1373,15 @@ const epochTransform = (dateParser: any) => {
         popups.push(item);
         ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       }
-      if (feature.source === 'counties') { //DOTTY--COUNTIES
+      if (feature.source === 'counties') {
         const item = {
             layer: MENU_OPTIONS.COUNTIES,
             feature: feature.properties.county ? feature.properties.county : '-',
-            // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
             constructionmanagers: feature.properties.construction_manager ? feature.properties.construction_manager : '-',
         }
         mobile.push({
             layer: item.layer,
             feature: item.feature,
-            // watershedmanager: item.watershedmanager,
             constructionmanagers: item.constructionmanagers
         })
         menuOptions.push(MENU_OPTIONS.COUNTIES);
@@ -1654,17 +1391,11 @@ const epochTransform = (dateParser: any) => {
       if (feature.source === MUNICIPALITIES_FILTERS) {  
         const item = {
             layer: MENU_OPTIONS.MUNICIPALITIES,
-            //feature: feature.properties.city ? feature.properties.city : '-',
             city: feature.properties.city ? feature.properties.city : '-',
-            // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-            // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
         }
         mobile.push({
             layer: item.layer,
-            //feature: item.feature,
             city: item.city,
-            // watershedmanager: item.watershedmanager,
-            // constructionmanagers: item.constructionmanagers
         })
         menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
         popups.push(item);
@@ -1674,7 +1405,6 @@ const epochTransform = (dateParser: any) => {
         if (feature.source.includes('catchments') || feature.source.includes('basin')) {
             const item = {
                 layer: MENU_OPTIONS.WATERSHED,
-                //feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
                 str_name: feature.properties.str_name ? feature.properties.str_name : 'No name',
                 mhfd_code: feature.properties.mhfd_code ? feature.properties.mhfd_code : '-',
                 catch_acre: feature.properties.catch_acre ? feature.properties.catch_acre : '-',
@@ -1686,7 +1416,6 @@ const epochTransform = (dateParser: any) => {
         if (feature.source === 'fema_flood_hazard_zones') {
           const item = {
               layer: MENU_OPTIONS.FEMA_FLOOD_HAZARD,
-              //feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
               dfirm_id: feature.properties.dfirm_id ? feature.properties.dfirm_id : '-',
               fld_zone: feature.properties.fld_zone ? feature.properties.fld_zone : '-',
               zone_subty: feature.properties.zone_subty ? feature.properties.zone_subty : '-',
@@ -1699,7 +1428,6 @@ const epochTransform = (dateParser: any) => {
         if (feature.source === 'floodplains_non_fema') {
           const item = {
               layer: MENU_OPTIONS.FLOODPLAINS_NON_FEMA,
-              //feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
               study_name: feature.properties.study_name ? feature.properties.study_name : '-',
               floodplain_source: feature.properties.floodplain_source ? feature.properties.floodplain_source : '-',
               floodplain_type: feature.properties.floodplain_type ? feature.properties.floodplain_type : '-',
@@ -1837,7 +1565,7 @@ const epochTransform = (dateParser: any) => {
         const item = {
           layer: feature.properties.smc_type,
           scale: feature.properties.scale,
-          date_created: '01/07/2019' //feature.properties.date_created,
+          date_created: '01/07/2019'
       }
       menuOptions.push(feature.properties.smc_type);
         popups.push(item);
@@ -2049,8 +1777,6 @@ const epochTransform = (dateParser: any) => {
           .addTo(map.map);
         
         for (const index in popups) {
-
-          let arrayElements = document.getElementsByClassName('menu-' + index);
           let menuElement = document.getElementById('menu-' + index);
           if (menuElement != null) {
             menuElement.addEventListener('click', (showPopup.bind(index, index, popups.length, ids[index])));
@@ -2068,7 +1794,6 @@ const epochTransform = (dateParser: any) => {
             editElement.addEventListener('click', type.openEdit.bind(popups[index], popups[index]));
           }
           document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
-          // document.getElementById('eventListener')?.addEventListener('click', () => {console.log("CEHCKING EVENT LISTE");})
 
         }
       }
@@ -2215,8 +1940,8 @@ const epochTransform = (dateParser: any) => {
     if (allLayers.length < 100) {
       return;
     }
-    eventService.setRef('click',eventClick);
-    let eventToClick = eventService.getRef('click');
+    EventService.setRef('click',eventClick);
+    let eventToClick = EventService.getRef('click');
     map.map.on('click',eventToClick);
     return ()=> {
       map.map.off(eventToClick);
@@ -2259,7 +1984,6 @@ const epochTransform = (dateParser: any) => {
           <div className="layer-popup" style={{padding: '21px 13px 0px 10px'}}>
             
             <div>
-              {/* <Button id='menu-marker' key='menu-0' className={"btn-transparent " + "menu-0"}><span className="text-popup-00"> Remove Marker</span> </Button> */}
               <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
                 <Button style={{ color: '#28C499', width: '100%' }} id='menu-marker' className="btn-borde">Remove Marker</Button>
               </div>
@@ -2267,7 +1991,6 @@ const epochTransform = (dateParser: any) => {
           </div>
         </div>
     </>
-    // <div id="popup-0" class="map-pop-01"><div class="ant-card ant-card-bordered ant-card-hoverable"><div class="ant-card-body"><div class="headmap">Components</div><div class="bodymap"><h4><i>Land Acquisition</i> </h4><p><i>Subtype: </i> Easement/ROW Acquisition</p><p><i>Estimated Cost: </i> $540,282</p><p><i>Status: </i> Proposed</p><p><i>Study Name: </i> Second Creek DIA DFA 0053 OSP Ph B</p><p><i>Jurisdiction: </i> Adams County</p><p><i>Problem: </i> Dataset in development</p></div></div></div></div>
   );
  
   const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean, ep?:boolean) => (
@@ -2284,23 +2007,10 @@ const epochTransform = (dateParser: any) => {
 
   const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
     <>
-      {/* <ComponentPopup id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)} isWR={true}></ComponentPopup> */}
       <ComponentPopup id={index} item={item} isComponent={isComponent} isWR={true}></ComponentPopup>
     </>
   );
 
-  // const popUpContent = (trigger: string, item: any) => ReactDOMServer.renderToStaticMarkup(
-  //   <>
-  //     {trigger !== COMPONENTS_TRIGGER ?
-  //       <MainPopup
-  //         trigger={trigger}
-  //         item={item} /> :
-  //       <ComponentPopup
-  //         item={item} />}
-  //   </>
-  // );
-
-  //geocoder 
   const renderOption = (item: any) => {
     return (
       <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + ' ' + item.place_name}>
@@ -2312,7 +2022,6 @@ const epochTransform = (dateParser: any) => {
     );
   }
   const [keyword, setKeyword] = useState('');
-  const [options, setOptions] = useState<Array<any>>([]);
 
   const handleSearch = (value: string) => {
     setKeyword(value)
@@ -2332,7 +2041,6 @@ const epochTransform = (dateParser: any) => {
         newmarker.addTo(map.map);
         setMarkerGeocoder(newmarker);
   };
-  //end geocoder
   const removePopup = () => {
     popup.remove();
   }
@@ -2342,7 +2050,6 @@ const epochTransform = (dateParser: any) => {
   return <>
     <div className="map">
     <span className="zoomvaluemap"> <b>Zoom Level: {zoomValue}</b> </span>
-    {/* <Spin className="loading-01" spinning={1 > 0}></Spin> */}
       <div id="map4" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}

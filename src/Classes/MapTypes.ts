@@ -452,14 +452,3 @@ export type PanelTriggerTypes = {
     newPanelProjects: PanelTypes,
     panelTrigger: string
 }
-
-export type DraftPanelTypes = { 
-    headers : any, 
-    panelState : any, 
-    setPanelState : Function, 
-    handleSaveDraftCard : Function, 
-    workPlanGraphs?: React.ReactNode,
-    workPlanWrapper?: boolean
-}
-
-/* End of Panel Types */

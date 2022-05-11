@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Button, Upload, Spin, message, Popover } from 'antd';
+import { Col, Button, Upload, message, Popover } from 'antd';
 import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 import ModalEditUserView from './ModalEditUserView';
@@ -12,7 +12,6 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
   const phone = (<div style={{fontSize: '12px'}}>{user.phone ? user.phone: '-'}</div>);
   const mail = (<div style={{fontSize: '12px'}}>{user.email ? user.email: '-'}</div>);
   const county = (<div style={{fontSize: '12px'}}>{user.city ? user.city: '-'}, {user.county ? user.county: '-'}</div>);
-  // const tag = (<div className="popoveer-00">Tags help to identify your area of interest. Add or remove tags to help focus your default content.</div>);
   const content = (<div className="popoveer-00">Number of Projects among your Favorites of each Project Type.</div>);
   const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
     setTimeout(() => onSuccess("ok"), 0);
@@ -36,12 +35,8 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
   const typeProjects = PROJECT_TYPES_AND_NAME;
   return <> <Col xs={{ span: 24 }} lg={{ span: 12 }} className="profile-info">
     <div style={{ position: 'relative', minWidth: '135px', width: '135px', height: '120px' }}>
-     {// <Spin spinning={spinImage} delay={500}>
-     }
         {user.photo ? <img className="profile-img" src={user.photo} alt="" /> :
         <img className="profile-img" src="/Icons/icon-28.svg" alt="" />}
-     {// </Spin>
-     }
       <div className="profile-change">
         <Upload showUploadList={false} beforeUpload={beforeUpload} customRequest={dummyRequest} onChange={({ file }: any) => {
           if (fileImage.uid !== file.uid) {
@@ -75,20 +70,8 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
             </a>
           </Button>
         </Popover>
-        {/* <Popover content={county}>
-          <Button type="default" shape="circle">
-            <img src="/Icons/icon-67.svg" alt="" height="15px" />
-          </Button>
-        </Popover> */}
       </div>
     </div>
-    {/*<div className="profile-prot">
-      <Button>Aurora</Button>
-      <Button>Westminster</Button>
-      <Popover content={tag} placement="bottom">
-        <Button className="add-tag"><img src="/Icons/icon-18.svg" alt="" height="18px" /> Add Tags</Button>
-      </Popover>
-    </div>*/}
   </Col>
     <Col xs={{ span: 24 }} lg={{ span: 12 }} className="profile-project">
       <div className="profile-table" style={{ paddingLeft: "0px", paddingRight: "0px" }}>

@@ -3,8 +3,6 @@ import { Col, Card, Button } from 'antd';
 
 import { ComponentType } from '../../../Classes/MapTypes';
 import DetailedModal from '../../Shared/Modals/DetailedModal';
-import { AnyAaaaRecord } from 'dns';
-import ReactDOMServer from 'react-dom/server';
 
 export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
         displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, componentCounter,
@@ -32,22 +30,6 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
         value: data.cartodb_id,
         type: data.type
       };
-
-    const returnHTML = () => ReactDOMServer.renderToStaticMarkup(
-        data.problemtype ? <img alt="example" height="100%" src={`gallery/${data.problemtype}.jpg`} /> :
-
-                        data.attachments ? <img alt="example" src={data.attachments} /> : (
-                            data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.jpg" /> :
-                                data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.jpg" /> :
-                                    data.projecttype === 'Maintenance' ?
-                                        (data.projectsubtype === 'Vegetation Mangement' ? <img alt="example" src="projectImages/vegetation_management.jpg" /> :
-                                            data.projectsubtype === 'Sediment Removal' ? <img alt="example" src="projectImages/sediment_removal.jpg" /> :
-                                                data.projectsubtype === 'Restoration' ? <img alt="example" src="projectImages/restoration.jpg" /> :
-                                                    data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/minor_repairs.jpg" /> :
-                                                        <img alt="example" src="projectImages/debris_management.jpg" />) : <img alt="example" src="Icons/eje.png" />
-                        )
-    )
-        
 
     return <>
         {visible && <DetailedModal
@@ -91,8 +73,6 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
                             event.stopPropagation();
                             deleted(data.problemid || data.projectid, data.type);
                             setClicked(false);
-                           // deleteFavorite(user.email, data.cartodb_id, data.type);
-                            //favoriteList(user.email);
                             }
                         }
                             >

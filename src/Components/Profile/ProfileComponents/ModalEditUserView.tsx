@@ -66,25 +66,8 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
             setTitle(auxTitle);
           }}>
             <Menu.ItemGroup key="g1">
-              {/* <label className="label-sg">{'Regional Agency'}</label> */}
               {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
             </Menu.ItemGroup>
-          {/* <Menu.ItemGroup key="g1">
-            <label className="label-sg">{'Regional Agency'}</label>
-            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g2">
-            <label className="label-sg">{'City'}</label>
-            {DROPDOWN_ORGANIZATION.CITY.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g3">
-            <label className="label-sg">{'City and County'}</label>
-            {DROPDOWN_ORGANIZATION.CITY_AND_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-          <Menu.ItemGroup key="g4">
-            <label className="label-sg">{'Unincorporated County'}</label>
-            {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup> */}
         </Menu> :
         (values.designation === CONSULTANT) ?
         <Menu className="js-mm-00 sign-menu-organization"
@@ -94,7 +77,6 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
             setTitle(auxTitle);
           }}>
           <Menu.ItemGroup key="g1">
-            {/* <label className="label-sg">{'Regional Agency'}</label> */}
             {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
           </Menu.ItemGroup>
         </Menu> :
@@ -105,7 +87,6 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
             setTitle(auxTitle);
           }}>
           <Menu.ItemGroup key="g1">
-            {/* <label className="label-sg">{'Regional Agency'}</label> */}
             {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
           </Menu.ItemGroup>
         </Menu>
@@ -262,7 +243,6 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
           <h6>DEFAULT MAP ZOOM AREA <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h6>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
-              {/* <p>ORGANIZATION</p> */}
               <div id="sign-up-organization">
                 <Dropdown placement="topCenter" overlay={menuZoom} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button className="btn-borde" style={{ paddingLeft: '10px' }} >

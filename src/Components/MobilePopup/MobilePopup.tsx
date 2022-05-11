@@ -1,31 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import { Carousel } from 'antd';
 import { numberWithCommas } from '../../utils/utils';
 import { useMapDispatch } from "../../hook/mapHook";
-const stateValue = {
-  visible: false
-}
-export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
-  const [state, setState] = useState(stateValue);
-  const showModal = () => {
-    const auxState = {...state};
-    auxState.visible = true;
-    setState(auxState);
-  };
-  const {setSelectedPopup} = useMapDispatch();
-  const handleOk = (e: any) => {
-    console.log(e);
-    const auxState = {...state};
-    auxState.visible = false;
-    setState(auxState);
-  };
 
-  const handleCancel = (e: any) => {
-    console.log(e);
-    const auxState = {...state};
-    auxState.visible = false;
-    setState(auxState);
-  };
+export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
+  const {setSelectedPopup} = useMapDispatch();
   const card = (data: any, index: number) => (
     <div onClick={() => {
       if (data.type && data.type === 'problems' || data.type === 'project') {
@@ -56,7 +35,6 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
           {<h6 style={{width: '150px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}><a className="sub-title">Stream: </a>{ data.streamname ? data.streamname: "Unnamed Stream"}</h6>}
           
           {data.value && <p><b>Cost:</b> ${numberWithCommas(data.value)} </p>}
-          {/* {data.streamname && <p className="stream">{data.streamname}</p>} */}
           {data.scale && <h6><a className="sub-title"></a>Scale: {data.scale}</h6>}
           {data.date_created && <h6><a className="sub-title">Date created: </a>{data.date_created}</h6>}
           {data.bcz_specname && <h6><a className="sub-title">Species Name: </a>{data.bcz_specname}</h6>}

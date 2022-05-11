@@ -10,7 +10,7 @@ import { getData, getToken, postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import eventService from './eventService';
+import EventService from '../../services/EventService';
 import {
   PROBLEMS_TRIGGER,
   PROJECTS_MAP_STYLES,
@@ -34,7 +34,7 @@ import {
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
 import { Dropdown, Button } from 'antd';
-import { tileStyles, COMPONENT_LAYERS_STYLE } from '../../constants/mapStyles';
+import { tileStyles } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
 import { useProfileState } from '../../hook/profileHook';
@@ -44,9 +44,6 @@ import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
 
 let map: any;
 
-let coordX = -1;
-let coordY = -1;
-let featureCount = -1;
 let isPopup = true;
 let firstTime = true;
 let firstTimeApplyMapLayers = true;
@@ -65,7 +62,7 @@ const CreateProjectMap = (type: any) => {
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents, bboxComponents } = useMapState();
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionSave, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom, getAllComponentsByProblemId } = useProjectDispatch();
   const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream,highlightedStreams } = useProjectState();
   const {groupOrganization} = useProfileState();
@@ -130,12 +127,11 @@ const CreateProjectMap = (type: any) => {
     map = undefined;
     setZoomGeom(undefined);
     waiting();
-    eventService.setRef('click',eventClick);
-    eventService.setRef('move', eventMove);
-    eventService.setRef('addmarker', addMarker);
-    eventService.setRef('oncreatedraw', onCreateDraw);
+    EventService.setRef('click',eventClick);
+    EventService.setRef('move', eventMove);
+    EventService.setRef('addmarker', addMarker);
+    EventService.setRef('oncreatedraw', onCreateDraw);
     changeAddLocationState(false);
-    // setComponentIntersected([]);
     componentsList = [];
       getData(`${SERVER.URL_BASE}/locality/`, getToken())
         .then(
@@ -257,7 +253,6 @@ const CreateProjectMap = (type: any) => {
                 map.isStyleLoaded(()=>{
                   removeLayers('mhfd_projects_created');
                   removeLayersSource('mhfd_projects_created');
-                  // const tiles = layerFilters['projects_draft'] as any;
                   let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
                   postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
                     addLayersSource('mhfd_projects_created', tiles);
@@ -285,7 +280,6 @@ const CreateProjectMap = (type: any) => {
   },[idsBoardProjects]);
   useEffect(() => {
     let mask;
-    console.log("Coordinates jurisdiction", coordinatesJurisdiction);
     setTimeout(() => {
       map.isStyleLoaded(()=>{ 
         if (coordinatesJurisdiction.length > 0) {
@@ -436,21 +430,19 @@ const CreateProjectMap = (type: any) => {
   }, [data]);
   useEffect(()=>{
     if(isAddLocation){
-      let eventToClick = eventService.getRef('click');
       isPopup = false;
-      let eventToMove = eventService.getRef('move');
+      let eventToMove = EventService.getRef('move');
       map.map.on('mousemove',eventToMove);
       
-      let eventToAddMarker = eventService.getRef('addmarker');
+      let eventToAddMarker = EventService.getRef('addmarker');
       map.map.on('click',eventToAddMarker);
     } else {
       
-      let eventToMove = eventService.getRef('move');
+      let eventToMove = EventService.getRef('move');
       map.map.off('mousemove', eventToMove);
-      let eventToAddMarker = eventService.getRef('addmarker');
+      let eventToAddMarker = EventService.getRef('addmarker');
       map.map.off('click',eventToAddMarker);
       isPopup = true;
-      // map.map.on('click', eventToClick);
       map.removePopUpOffset();
       marker.remove();
       marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
@@ -478,11 +470,9 @@ const CreateProjectMap = (type: any) => {
       }
       setIsAlreadyDraw(true);
       if (type.type != 'ACQUISITION' && type.type != 'SPECIAL') {
-        // let eventToClick = eventService.getRef('click');
-        // map.map.off('click', eventToClick);
         isPopup = false;
         map.addDrawControllerTopLeft();
-        let drawEvent = eventService.getRef('oncreatedraw');
+        let drawEvent = EventService.getRef('oncreatedraw');
         map.deleteDraw(drawEvent);
         setTimeout(()=>{
           map.createDraw(drawEvent);
@@ -500,8 +490,6 @@ const CreateProjectMap = (type: any) => {
       map.removeDrawController();
       setIsAlreadyDraw(false);
       currentDraw = 'none';
-      // let eventToClick = eventService.getRef('click');
-      // map.map.on('click', eventToClick);
     }
   }, [isDraw, isDrawCapital]);
 
@@ -527,26 +515,19 @@ const CreateProjectMap = (type: any) => {
     let thisStreamIntersected = streamIntersected;
     let drawStream = true;
     if (thisStreamIntersected && thisStreamIntersected.geom) {
-      //parsed geom
       geom = JSON.parse(thisStreamIntersected.geom);
-      // parsed component geom
       let cg = componentGeom?JSON.parse(componentGeom.geom):undefined;
       if(geom.coordinates.length == 0 && cg) {
-        // update parsed and not parsed geom when no coord
         geom = cg;
         thisStreamIntersected.geom = componentGeom.geom;
         drawStream = false;
       } else if(geom.coordinates.length == 0){
-        // break everything if nothing to be shown
         return;
       }
       if(type.type == 'CAPITAL' || type.type == 'MAINTENANCE') {
         getServiceAreaPolygonofStreams(thisStreamIntersected.geom);
         setLoading(false);
       }
-      // if(type.type === 'MAINTENANCE') {
-      //   setLoading(false);
-      // }
       
       if(type.problemId && geom.coordinates.length > 0) {
         let poly = getTurfGeom(geom);
@@ -630,7 +611,6 @@ const CreateProjectMap = (type: any) => {
       let streamsCodes:any = streamsIntersectedIds.map((str:any) => str.mhfd_code);
       map.isStyleLoaded( () => {
         let filter = ['in',['get','unique_mhfd_code'],['literal',[...streamsCodes]]];
-        // ['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]
         
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
@@ -668,17 +648,8 @@ const CreateProjectMap = (type: any) => {
       map.create();
       setLayerFilters(layers);
       map.map.on('style.load', () => {
-          // console.log("FIRST APPLY MAP", new Date());
-          // applyMapLayers();
-        let eventToClick = eventService.getRef('click');
+        let eventToClick = EventService.getRef('click');
         map.map.on('click',eventToClick);
-        // map.map.on('movestart', () => {
-        //   if (map.map.getLayer('mask')) {
-        //       map.map.setLayoutProperty('mask', 'visibility', 'visible');
-        //       map.map.removeLayer('mask');
-        //       map.map.removeSource('mask');
-        //   }
-        // })
         applyNearMapLayer();
       });
       
@@ -687,13 +658,11 @@ const CreateProjectMap = (type: any) => {
   const [compareSL, setCompareSL] = useState('');
   useEffect(() => {
     if (map ) {
-      // deleteUpdateLayers(selectedLayers);
       let time = firstTimeApplyMapLayers?400:200;
       setTimeout(()=>{
         if(JSON.stringify(selectedLayers) != compareSL) { 
           if(map){
             if(selectedLayers.length == 0) {
-              // deleteUpdateLayers(selectedLayers);
             } else {
               map.isStyleLoaded(applyMapLayers);
               firstTimeApplyMapLayers=false;
@@ -703,8 +672,8 @@ const CreateProjectMap = (type: any) => {
         }
       },time);
     }
-    eventService.setRef('oncreatedraw', onCreateDraw);
-    eventService.setRef('addmarker', addMarker);
+    EventService.setRef('oncreatedraw', onCreateDraw);
+    EventService.setRef('addmarker', addMarker);
   }, [selectedLayers]);
 
   const setLayersSelectedOnInit = () => {
@@ -749,8 +718,6 @@ const CreateProjectMap = (type: any) => {
     setLoading(true);
     const userPolygon = event.features[0];
     if (type.type === 'CAPITAL') {
-      // getStreamIntersectionSave(userPolygon.geometry);
-      // getListComponentsIntersected(userPolygon.geometry);
       if(currentDraw == 'polygon') {
         getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
       } else {
@@ -762,8 +729,8 @@ const CreateProjectMap = (type: any) => {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
       type.setGeom(userPolygon.geometry);
-      getStreamsIntersectedPolygon(userPolygon.geometry); // just set the ids 
-      getStreamsList(userPolygon.geometry); // get the list with data 
+      getStreamsIntersectedPolygon(userPolygon.geometry);
+      getStreamsList(userPolygon.geometry);
       getServiceAreaStreams(userPolygon.geometry); 
     }
     
@@ -784,14 +751,12 @@ const CreateProjectMap = (type: any) => {
 
   }
   const applyNearMapLayer = () => {
-    console.log("MAP",map.map.getStyle());
     if (!map.getSource('raster-tiles')) {
         map.map.addSource('raster-tiles', {
             'type': 'raster',
             'tileSize': 128,
             'tiles': [
                 `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`
-                    // 'https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=MLY|4142433049200173|72206abe5035850d6743b23a49c41333'
                 ]
         });
         map.map.addLayer(
@@ -820,8 +785,7 @@ const CreateProjectMap = (type: any) => {
                       ]
                 }
             },
-            'aerialway' // Arrange our new layer beneath this layer,
-            
+            'aerialway'
         );
     }
 }
@@ -867,29 +831,10 @@ const CreateProjectMap = (type: any) => {
       filterProjectsNew.projecttype = "Maintenance,Capital";
     }
     applyFilters('mhfd_projects', filterProjectsNew);
-    if (type.type === "CAPITAL") {
-      // applyComponentFilter();
-    }
     setTimeout(()=>{
       map.map.moveLayer('munis-centroids-shea-plusother');
     },500);
     
-  }
-  const applyMhfdFilter = () => {
-    const styles = { ...tileStyles as any };
-    styles['mhfd_projects'].forEach((style: LayerStylesType, index: number) => {
-      // console.log("HEY", map.map.getFilter('mhfd_projects_' + index));
-    });
-  }
-  const applyComponentFilter = () => {
-    const styles = { ...COMPONENT_LAYERS_STYLE as any };
-    Object.keys(styles).forEach(element => {
-      for (let i = 0; i < styles[element].length; ++i) {
-        if (map.map.getLayer(element + "_" + i)) {
-          map.map.setFilter(element + '_' + i, ['!has', 'projectid']);
-        }
-      }
-    });
   }
   const showLayers = (key: string) => {
     const styles = { ...tileStyles as any };
@@ -908,26 +853,9 @@ const CreateProjectMap = (type: any) => {
         } else {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         }
-        if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
-          showSelectedComponents(filterComponents.component_type.split(','));
-        }
       }
     });
   };
-
-  const showSelectedComponents = (components: string[]): void => {
-    if (!components.length || components[0] === '') {
-      return;
-    }
-    const styles = { ...tileStyles as any };
-    for (const key of COMPONENT_LAYERS.tiles) {
-      styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (!components.includes(key)) {
-          // map.setFilter(key + '_' + index, ['in', 'cartodb_id', -1]);
-        }
-      });
-    }
-  }
   const applyFiltersIDs = (key: string, toFilter: any) => {
     const styles = { ...tileStyles as any };
     
@@ -938,9 +866,6 @@ const CreateProjectMap = (type: any) => {
       const allFilters: any[] = ['all'];
       for (const filterField in toFilter) {
         const filters = toFilter[filterField];
-        if (filterField === 'component_type') {
-          showSelectedComponents(filters.split(','));
-        }
         if (filterField === 'keyword') {
           if (filters[key]) {
             allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
@@ -1056,9 +981,6 @@ const CreateProjectMap = (type: any) => {
       const allFilters: any[] = ['all'];
       for (const filterField in toFilter) {
         const filters = toFilter[filterField];
-        if (filterField === 'component_type') {
-          showSelectedComponents(filters.split(','));
-        }
         if (filterField === 'keyword') {
           if (filters[key]) {
             allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
@@ -1159,27 +1081,13 @@ const CreateProjectMap = (type: any) => {
       }
 
       if (map.getLayer(key + '_' + index)) {
-        //console.log(key + '_' + index, allFilters);
         map.setFilter(key + '_' + index, allFilters);
       }
     });
   };
-  const deleteUpdateLayers = (selectedItems: Array<LayersType>) => {
-    const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedItems.includes(layer as string));
-    setTimeout(()=>{
-      map.isStyleLoaded(() => {
-        deleteLayers.forEach((layer: LayersType) => {
-          // console.log("SENDING FROM delete", layer);
-          removeTilesHandler(layer);
-        });
-      })
-    },300);
-    
-  }
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
-      // console.log("SENDING FROM selectechceckc", layer);
       if(layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
       } else {
@@ -1303,25 +1211,6 @@ const CreateProjectMap = (type: any) => {
           return;
         }
         availableLayers.push(key + '_' + index);
-        /* map.on('click', key + '_' + index, (e: any) => {
-              let html: any = null;
-              if (map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
-                  return;
-              }
-              let itemValue;
-
-
-              const description = e.features[0].properties.description ? e.features[0].properties.description : '-';
-              if (html) {
-                  popup.remove();
-                  popup = new mapboxgl.Popup();
-                  popup.setLngLat(e.lngLat)
-                      .setHTML(html)
-                      .addTo(map);
-                  document.getElementById('pop-up')?.addEventListener('click', test.bind(itemValue, itemValue));
-              }
-          });
-          */
          if(style.type != 'symbol') {
           map.map.on('mousemove', key + '_' + index, (e: any) => {
             if (hovereableLayers.includes(key) && currentDraw!='capitalpolygon') {
@@ -1368,7 +1257,6 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any }
     styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
-        // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
         let filter = ['in',['get','unique_mhfd_code'],['literal',[mhfd_code]]];
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
@@ -1379,7 +1267,6 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any }
     styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
-        // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
         let filter = ['in',['get','unique_mhfd_code'],['literal',[...mhfd_codes]]];
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
@@ -1391,7 +1278,6 @@ const CreateProjectMap = (type: any) => {
     styles['problems'].forEach((style: LayerStylesType, index: number) => {
       
       if (map.getLayer('problems' + '_' + index)) {
-        // ['get','unique_mhfd_code'],['literal',[...streamsCodes]]]
         map.setFilter('problems' + '_highlight_' + index, ['in','problemid', parseInt(problemid)])
         
       }
@@ -1439,12 +1325,10 @@ const CreateProjectMap = (type: any) => {
       const div = document.getElementById('popup-' + i);
       if (div != null) {
         div.classList.remove('map-pop-03');
-        // div.classList.add('map-pop-00');
       }
     }
     const div = document.getElementById('popup-' + index);
     if (div != null) {
-      // div.classList.remove('map-pop-00');
       div.classList.add('map-pop-03');
 
     }
@@ -1533,13 +1417,10 @@ const CreateProjectMap = (type: any) => {
         saveAcquisitionLocation(sendLine);
       }
       getServiceAreaPoint(sendLine);
-      let eventToMove = eventService.getRef('move');
+      let eventToMove = EventService.getRef('move');
       map.map.off('mousemove', eventToMove);
-      let eventToAddMarker = eventService.getRef('addmarker');
+      let eventToAddMarker = EventService.getRef('addmarker');
       map.map.off('click',eventToAddMarker);
-      // marker.setPopup(html);
-      // let eventToClick = eventService.getRef('click');
-      // map.map.on('click', eventToClick);
       isPopup = true;
     }
   }
@@ -1617,10 +1498,6 @@ const CreateProjectMap = (type: any) => {
       layersToClick = [...layersToClick, 'streams-intersects'];
     }   
     let features = map.map.queryRenderedFeatures(bbox, { layers: layersToClick });
-    if (features.length === 0 || features.length == featureCount) {
-     
-      // return;
-    }
     const search = (id: number, source: string) => {
       let index = 0;
       for (const feature of features) {
@@ -1631,13 +1508,6 @@ const CreateProjectMap = (type: any) => {
       }
       return -1;
     }
-    if ((e.point.x === coordX || e.point.y === coordY) ) {
-     
-      // return;
-    }
-    coordX = e.point.x;
-    coordY = e.point.y;
-    featureCount = features.length;
 
     popup.remove();
     setTimeout(()=>{
@@ -1652,7 +1522,6 @@ const CreateProjectMap = (type: any) => {
         return search(element.properties.cartodb_id, element.source) === index;
       });
       features.sort((a: any, b: any) => {
-        //first sort the projects then problems, then alphabetical
         if (a.source.includes('project')) {
           return -1;
         }
@@ -1668,11 +1537,9 @@ const CreateProjectMap = (type: any) => {
         return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
       });
       for (const feature of features) {
-        //an special and tricky case
         if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
           continue;
         }
-        let html: any = null;
         let itemValue;
         if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_created') {
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
@@ -1708,14 +1575,12 @@ const CreateProjectMap = (type: any) => {
             value: item.value,
             projecttype: item.projecctype,
             image: item.image,
-            //for detail popup
             id: item.id,
             objectid: item.objectid,
             valueid: item.valueid,
             streamname: item.streamname
           });
           itemValue = { ...item };
-          // itemValue.value = item.valueid;
           menuOptions.push(MENU_OPTIONS.PROJECT);
           popups.push(itemValue);
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
@@ -1743,7 +1608,6 @@ const CreateProjectMap = (type: any) => {
             value: item.value,
             name: item.name,
             image: item.image,
-            //for detail popup
             problemid: item.problemid,
             streamname: item.streamname
           });
@@ -1797,12 +1661,10 @@ const CreateProjectMap = (type: any) => {
             layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
             feature: feature.properties.projectname ? feature.properties.projectname : '-',
             projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-            // projno: feature.properties.projno? feature.properties.projno: '-',
             mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
             mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
             pondname: feature.properties.pondname? feature.properties.pondname: '-',
             mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-            // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
             mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
           }
           menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
@@ -1820,12 +1682,10 @@ const CreateProjectMap = (type: any) => {
             layer: MENU_OPTIONS.MEP_CHANNEL,
             feature: feature.properties.projectname ? feature.properties.projectname : '-',
             projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-            // projno: feature.properties.projno? feature.properties.projno: '-',
             mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
             mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
             pondname: feature.properties.pondname? feature.properties.pondname: '-',
             mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-            // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
             mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) 
           }
           menuOptions.push(MENU_OPTIONS.MEP_CHANNEL);
@@ -1843,12 +1703,10 @@ const CreateProjectMap = (type: any) => {
             layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
             feature: feature.properties.projectname ? feature.properties.projectname : '-',
             projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-            // projno: feature.properties.projno? feature.properties.projno: '-',
             mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
             mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
             pondname: feature.properties.pondname? feature.properties.pondname: '-',
             mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-            // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
             mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
           }
           menuOptions.push(MENU_OPTIONS.MEP_STORM_OUTFALL);
@@ -1972,7 +1830,6 @@ const CreateProjectMap = (type: any) => {
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
-        // new layers
         if (feature.source === NRCS_SOILS) {
           const item = {
             layer: MENU_OPTIONS.NCRS_SOILS,
@@ -2013,8 +1870,8 @@ const CreateProjectMap = (type: any) => {
         if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
           const item = {
             layer: MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
-            scale: 'District',//feature.properties.scale,
-            date_created: '01/07/2019' //feature.properties.date_created,
+            scale: 'District',
+            date_created: '01/07/2019'
           }
           menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
           popups.push(item);
@@ -2232,8 +2089,8 @@ const CreateProjectMap = (type: any) => {
     if (allLayers.length < 100) {
       return;
     }
-    eventService.setRef('click',eventClick);
-    let eventToClick = eventService.getRef('click');
+    EventService.setRef('click',eventClick);
+    let eventToClick = EventService.getRef('click');
     map.map.on('click',eventToClick);
     return ()=> {
       map.map.off(eventToClick);
@@ -2280,7 +2137,6 @@ const CreateProjectMap = (type: any) => {
           <div className="layer-popup" style={{padding: '21px 13px 0px 10px'}}>
             
             <div>
-              {/* <Button id='menu-marker' key='menu-0' className={"btn-transparent " + "menu-0"}><span className="text-popup-00"> Remove Marker</span> </Button> */}
               <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
                 <Button style={{ color: '#28C499', width: '100%' }} id='menu-marker' className="btn-borde">Remove Marker</Button>
               </div>
@@ -2288,7 +2144,6 @@ const CreateProjectMap = (type: any) => {
           </div>
         </div>
     </>
-    // <div id="popup-0" class="map-pop-01"><div class="ant-card ant-card-bordered ant-card-hoverable"><div class="ant-card-body"><div class="headmap">Components</div><div class="bodymap"><h4><i>Land Acquisition</i> </h4><p><i>Subtype: </i> Easement/ROW Acquisition</p><p><i>Estimated Cost: </i> $540,282</p><p><i>Status: </i> Proposed</p><p><i>Study Name: </i> Second Creek DIA DFA 0053 OSP Ph B</p><p><i>Jurisdiction: </i> Adams County</p><p><i>Problem: </i> Dataset in development</p></div></div></div></div>
   );
  
   const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) => (
@@ -2300,7 +2155,6 @@ const CreateProjectMap = (type: any) => {
   
   const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
     <>
-      {/* <ComponentPopupCreate id={index} item={item} isComponent={isComponent && (user.designation === ADMIN || user.designation === STAFF)} isWR={false}></ComponentPopupCreate> */}
       <ComponentPopupCreate id={index} item={item} isComponent={isComponent} isWR={false}></ComponentPopupCreate>
     </>
   );
@@ -2309,19 +2163,6 @@ const CreateProjectMap = (type: any) => {
         <StreamPopupFull id={index} item={item} ></StreamPopupFull>
     </>
   );
-
-  // const popUpContent = (trigger: string, item: any) => ReactDOMServer.renderToStaticMarkup(
-  //   <>
-  //     {trigger !== COMPONENTS_TRIGGER ?
-  //       <MainPopup
-  //         trigger={trigger}
-  //         item={item} /> :
-  //       <ComponentPopup
-  //         item={item} />}
-  //   </>
-  // );
-
-  //geocoder 
   const renderOption = (item: any) => {
     return (
       <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + ' ' + item.place_name}>
@@ -2333,7 +2174,6 @@ const CreateProjectMap = (type: any) => {
     );
   }
   const [keyword, setKeyword] = useState('');
-  const [options, setOptions] = useState<Array<any>>([]);
 
   const handleSearch = (value: string) => {
     setKeyword(value)
@@ -2353,7 +2193,6 @@ const CreateProjectMap = (type: any) => {
         newmarker.addTo(map.map);
         setMarkerGeocoder(newmarker);
   };
-  //end geocoder
   const removePopup = () => {
     popup.remove();
   }
@@ -2380,7 +2219,6 @@ const CreateProjectMap = (type: any) => {
         <Dropdown overlayClassName="dropdown-map-layers"
           visible={visibleDropdown}
           onVisibleChange={(flag: boolean) => {
-            // selectCheckboxes(selectedCheckBox);
             setVisibleDropdown(flag);
 
           }}

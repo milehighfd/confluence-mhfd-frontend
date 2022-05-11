@@ -1,4 +1,4 @@
-class eventService {
+class EventService {
 
   private myRef: any;
 
@@ -23,4 +23,4 @@ class eventService {
 
 }
 
-export default new eventService();
+export default new EventService();
