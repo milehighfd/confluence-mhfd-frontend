@@ -71,7 +71,7 @@ export const MainPopup = ({id, item, test, sw, ep } : any) => {
               (<><h6>{item.organization} </h6><h6>{item.streamname}</h6></>) :
               (<h6>{item.organization} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
           }
-          <h5>{item.value != -1 ? '$':''}{numberWithCommas(item.value)} <span style={{float: 'right'}}><b id={item.popupId}>0</b> Components</span></h5>
+          <h5>{item.value != -1 ? '$':''}{item.value ? numberWithCommas(item.value) : '0'} <span style={{float: 'right'}}><b>{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Components</span></h5>
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={item.type === 'problems' ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>
@@ -130,7 +130,7 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
               (<><h6>{item.organization} </h6><h6>{item.streamname}</h6></>) :
               (<h6>{item.organization} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
           }
-          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b id={item.popupId}>0</b> Components</span></h5>
+          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b >{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Components</span></h5>
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={item.type === 'problems' ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === 'problems' ? item.priority : capitalize(item.projecctype)}</p>

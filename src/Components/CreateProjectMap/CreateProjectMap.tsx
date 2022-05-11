@@ -1571,6 +1571,7 @@ const CreateProjectMap = (type: any) => {
             status: feature.properties.status ? feature.properties.status : '-',
             objectid: feature.properties.objectid,
             valueid: feature.properties.cartodb_id,
+            component_count: feature.properties.component_count ?? 0,
             id: feature.properties.projectid,
             streamname: feature.properties.streamname,
             popupId: 'popup',
@@ -1602,14 +1603,14 @@ const CreateProjectMap = (type: any) => {
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
         if (feature.source === MENU_OPTIONS.PROBLEMS) {
-          getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
           const item = {
             type: MENU_OPTIONS.PROBLEMS,
             streamname: feature.properties.streamname,
             title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
             name: feature.properties.problemname ? feature.properties.problemname : '-',
             organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-            value: feature.properties.solutioncost ? feature.properties.solutioncost : '0',
+            value: feature.properties.estimatedcost ? feature.properties.estimatedcost : (feature.properties.componentcost ?? '0'),
+            component_count: feature.properties.component_count ?? 0,
             status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
             priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
             problemid: feature.properties.problemid,

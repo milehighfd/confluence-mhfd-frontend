@@ -2579,7 +2579,7 @@ const Map = ({ leftWidth,
                   let html: any = null;
                   let itemValue;
                   if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects') {
-                      getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
+                      // getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
                       const filtered = galleryProjects.filter((item: any) =>
                           item.cartodb_id === feature.properties.cartodb_id
                       );
@@ -2592,6 +2592,7 @@ const Map = ({ leftWidth,
                           projecctype: feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-',
                           status: feature.properties.status ? feature.properties.status : '-',
                           objectid: feature.properties.objectid,
+                          component_count: feature.properties.component_count,
                           valueid: feature.properties.cartodb_id,
                           id: feature.properties.projectid,
                           streamname: feature.properties.streamname,
@@ -2626,17 +2627,18 @@ const Map = ({ leftWidth,
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   if (feature.source === MENU_OPTIONS.PROBLEMS) {
-                      getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
+                      // getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
                       const item = {
                           type: MENU_OPTIONS.PROBLEMS,
                           streamname: feature.properties.streamname,
                           title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
                           name: feature.properties.problemname ? feature.properties.problemname : '-',
                           organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                          value: feature.properties.estimatedcost ? feature.properties.estimatedcost : feature.properties.component_cost ? feature.properties.component_cost : '0',
+                          value: feature.properties.estimatedcost ? feature.properties.estimatedcost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
                           status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
                           priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
                           problemid: feature.properties.problemid,
+                          component_count: feature.properties.component_count ?? 0,
                           popupId: 'popup',
                           image: `gallery/${feature.properties.problemtype}.jpg`,
                       };
@@ -4348,7 +4350,7 @@ const Map = ({ leftWidth,
                             image: `gallery/${problem.problemtype}.jpg`,
                             requestName: problem.problemname,
                             jurisdiction: problem.jurisdiction,
-                            estimatedCost: problem.solutioncost,
+                            estimatedCost: problem.estimatedcost,
                             field4: 'X',
                             field5: 'Components',
                             priority: problem.problempriority,

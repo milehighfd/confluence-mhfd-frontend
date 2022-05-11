@@ -184,10 +184,10 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
           }
           <Popover placement="topLeft" content={cost}>
             <h5>{
-              data.estimatedCost ? ('$'+numberWithCommas(data.estimatedCost)) : (data.componentCost?('$'+numberWithCommas(data.componentCost)):'No Cost Data')  
+              data.estimatedCost ? ('$'+numberWithCommas(Math.round(data.estimatedCost))) : (data.componentCost?('$'+numberWithCommas(Math.round(data.componentCost))):'No Cost Data')  
               } 
               <Popover content={total}>
-                <span style={{ float: 'right' }}><b>{data.totalComponents} Components</b></span>
+                <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Components</b></span>
               </Popover> 
             </h5>
           </Popover>

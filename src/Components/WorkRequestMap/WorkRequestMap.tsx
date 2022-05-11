@@ -1210,6 +1210,7 @@ const epochTransform = (dateParser: any) => {
             feature.properties.estimatedcost ? feature.properties.estimatedcost : feature.properties.component_cost ? feature.properties.component_cost : '-1'
           ),
           projecctype: feature.source === 'mhfd_projects_created'?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
+          component_count: feature.properties.component_count,
           status: feature.properties.status ? feature.properties.status : '-',
           objectid: feature.properties.objectid,
           valueid: feature.properties.cartodb_id,
@@ -1245,7 +1246,6 @@ const epochTransform = (dateParser: any) => {
         
       }
       if (feature.source === MENU_OPTIONS.PROBLEMS) {
-        getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
         const item = {
           type: MENU_OPTIONS.PROBLEMS,
           title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
@@ -1255,6 +1255,7 @@ const epochTransform = (dateParser: any) => {
           status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
           priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
           problemid: feature.properties.problemid,
+          component_count: feature.properties.component_count ?? 0,
           popupId: 'popup',
           image: `gallery/${feature.properties.problemtype}.jpg`,
         };
