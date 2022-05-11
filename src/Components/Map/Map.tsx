@@ -1558,6 +1558,9 @@ const Map = ({ leftWidth,
       map.moveLayer('streams_1');
       map.moveLayer('streams_2');
       map.moveLayer('streams_3');
+      map.moveLayer('mhfd_flow_points_0');
+      map.moveLayer('mhfd_flow_points_1');
+      map.moveLayer('mhfd_flow_points_2');
     }
     const topStreamLabels = () => {
       map.moveLayer('streams_4');
@@ -1833,9 +1836,11 @@ const Map = ({ leftWidth,
               id: key + '_' + index,
               source: key,
               ...style
-          });
+            });
           }
-            
+            if(key === STREAMS_POINT) {
+              console.log(key + '_' + index);
+            }
             if (key === 'counties' || key === 'municipalities' || key === 'watershed_service_areas') {
                 if (!map.getLayer(key + '-background')) {
                     map.addLayer({
@@ -2628,7 +2633,7 @@ const Map = ({ leftWidth,
                           title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
                           name: feature.properties.problemname ? feature.properties.problemname : '-',
                           organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                          value: feature.properties.solutioncost ? feature.properties.solutioncost : '0',
+                          value: feature.properties.estimatedcost ? feature.properties.estimatedcost : feature.properties.component_cost ? feature.properties.component_cost : '0',
                           status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
                           priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
                           problemid: feature.properties.problemid,
