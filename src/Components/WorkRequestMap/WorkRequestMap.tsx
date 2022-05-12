@@ -2059,6 +2059,7 @@ const epochTransform = (dateParser: any) => {
         newmarker.setLngLat(coord);
         newmarker.addTo(map.map);
         setMarkerGeocoder(newmarker);
+        setKeyword('');
   };
   const removePopup = () => {
     popup.remove();
