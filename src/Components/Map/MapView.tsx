@@ -128,7 +128,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     const options = { ...filterProjectOptions };
     if (withDefaults) {
       options.projecttype = 'Maintenance,Capital';
-      options.status = 'Approved,Idle,Complete,Requested,Construction,Final Design,Active,Ongoing';
+      options.status = 'Active';
     } else {
       options.projecttype = '';
       options.status = '';

@@ -1591,7 +1591,6 @@ const Map = ({ leftWidth,
     }
 
     const applyFilters = (key: string, toFilter: any) => {
-        
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (!map.getLayer(key + '_' + index)) {
@@ -1605,7 +1604,10 @@ const Map = ({ leftWidth,
             // always will have fields
             // on reset the only field is status
             for (const filterField in toFilter) {
-                const filters = toFilter[filterField];
+                let filters = toFilter[filterField];
+                if (key === 'mhfd_projects' && filterField === 'status' && !filters) {
+                  filters = 'Active,Closeout,Closed';
+                }
                 if (filterField === 'component_type') {
                     showSelectedComponents(filters.split(','));
                 }

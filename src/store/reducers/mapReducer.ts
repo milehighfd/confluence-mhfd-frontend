@@ -165,7 +165,7 @@ const initState = {
     filterProjects: {
         projectname: '',
         projecttype: 'Maintenance,Capital',
-        status: 'Approved,Idle,Complete,Requested,Construction,Final Design,Active,Ongoing',
+        status: 'Active',
         startyear: '0',
         completedyear: '9999',
         mhfddollarsallocated: [],
