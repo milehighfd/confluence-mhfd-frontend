@@ -646,6 +646,7 @@
     border-radius: 4px;
     border: 1px solid $opacity01;
     padding: 15px;
+    height: 110px;
   }
   .footer-drawer{
     text-align: right;
@@ -1623,4 +1624,12 @@
 
 .resetFilter:hover { 
   color: #6FC699;
+}
+@media (min-width: 0px) and (max-width: 600px){
+  .work-utilities{
+    .ant-drawer-body {
+      overflow-y: scroll;
+      height: 88%;
+    }
+  }
 }
