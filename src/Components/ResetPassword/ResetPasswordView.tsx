@@ -60,7 +60,7 @@ export default () => {
                   </Col>
                 </Row>
                 </div>
-                <Form style={{ width: '420px' }}  className="login-form" onSubmit={handleSubmit}>
+                <Form style={{ width: '420px' }}  className="login-form" onFinish={handleSubmit}>
                   <h1>
                       Reset your password
                   </h1>

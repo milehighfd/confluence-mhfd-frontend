@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu, Dropdown, Icon, Popover, Modal, Button, Tabs, Carousel } from 'antd';
+import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, Carousel } from 'antd';
+import { CaretDownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import * as datasets from "../../../Config/datasets";
 import { Redirect, useLocation } from "react-router-dom";
-import store from "../../../store";
 import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
 import { User } from "../../../Classes/TypeList";
 import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
 import '../../../Scss/Components/navbar.scss';
 import {DoubleRightOutlined} from '@ant-design/icons';
-import { useMapDispatch, useMapState } from "../../../hook/mapHook";
+import { useMapDispatch } from "../../../hook/mapHook";
 import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
 
 const { TabPane } = Tabs;
@@ -183,12 +183,13 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
                 {initialName}
               </label>
             }
-            {name} <Icon type="caret-down" />
+            {name} <CaretDownOutlined />
         </a>
       </Dropdown>
       {location[1] === ROUTERS.MAP && location.length === 2 && <Menu.Item>
        <div className="tutorial">
         <Button className="btn-question" onClick={showModal1}>
+          <QuestionCircleOutlined />
         </Button>
        </div>
       </Menu.Item>}

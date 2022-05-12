@@ -26,8 +26,9 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
       <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
           // values, setTitle
-          values.zoomarea = event.item.props.children.props.children;
-          const auxTitle = event.item.props.children.props.children;
+          const item: any = event.item;
+          values.zoomarea = item.props.children.props.children;
+          const auxTitle = item.props.children.props.children;
           setTitle(auxTitle);
         }}>
         <Menu.ItemGroup key="g1">
@@ -49,8 +50,9 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
       </Menu> :
       <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
-          values.zoomarea = event.item.props.children.props.children;
-          const auxTitle = event.item.props.children.props.children;
+          const item: any = event.item;
+          values.zoomarea = item.props.children.props.children;
+          const auxTitle = item.props.children.props.children;
           setTitle(auxTitle);
         }}>
         <Menu.ItemGroup key="g1">
@@ -152,7 +154,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
   }
 
   const genExtra = () => (
-    <Row className="user-head" type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+    <Row className="user-head" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col span={19} onClick={() => {
         console.log('click click');
         setActivated(!activated);
@@ -177,7 +179,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
       <Collapse accordion={false} activeKey={activated ? 1 : 0} className="user-tab">
 
         <Panel disabled={true} header="" key="1" extra={genExtra()}>
-          <Form onSubmit={handleSubmit}>
+          <Form onFinish={handleSubmit}>
             <div className="gutter-example">
               <h3>PROFILE</h3>
               <Row gutter={16}>

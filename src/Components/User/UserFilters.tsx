@@ -16,8 +16,9 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
   const menu = (list: Array<string>, title: string, defaultValue: string) => (
     <Menu className="js-mm-00 sign-menu"
       onClick={(event) => {
+        const item: any = event.item;
         const auxOption = { ...option };
-        const val = event.key !== 'all' ? event.item.props.children.props.children : ''
+        const val = event.key !== 'all' ? item.props.children.props.children : ''
         if (title === 'organization') {
           auxOption.organization = val;
         } else if (title === 'serviceArea') {
@@ -46,8 +47,9 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
   );
   const MenuOrganization = () => (<Menu className="js-mm-00 sign-menu-organization"
     onClick={(event) => {
+      const item: any = event.item;
       const auxOption = { ...option };
-      const val = event.key !== 'all' ? event.item.props.children.props.children : ''
+      const val = event.key !== 'all' ? item.props.children.props.children : ''
       auxOption.organization = val;
       setOption(auxOption);
       search(auxOption);

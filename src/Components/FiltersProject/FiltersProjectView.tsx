@@ -24,7 +24,7 @@ export default ({ tabActive, tabPosition, setTabPosition, setToggleFilters,
 
     const { boundsMap, spinCardProblems, spinCardProjects, totals, spinMapLoaded } = useMapState();
     const genExtra = () => (
-        <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+        <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col>
             <div className={(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect' }>
                 Apply map view to filters

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, Icon, InputNumber, notification, Popover } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
+import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, notification, Popover } from 'antd';
+import { DownOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
@@ -778,7 +778,7 @@ const RequestView = ({ type, isFirstRendering }: {
                       >
                         <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
                           prefix={<i className="mdi mdi-circle"></i>}
-                          suffix={<Icon type="down" className={'certain-category-icon ' + (dropdownIsOpen ? 'rotate-icon': '')} />} />
+                          suffix={dropdownIsOpen ? <UpOutlined /> : <DownOutlined />} />
                       </AutoComplete> : <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'} value={localityFilter}
                           readOnly={true} prefix={<i className="mdi mdi-circle"></i>} />
                       }

@@ -61,8 +61,9 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
     return (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
         <Menu className="js-mm-00 sign-menu-organization"
           onClick={(event) => {
-            values.organization = event.item.props.children.props.children;
-            const auxTitle = event.item.props.children.props.children;
+            const item: any = event.item;
+            values.organization = item.props.children.props.children;
+            const auxTitle = item.props.children.props.children;
             setTitle(auxTitle);
           }}>
             <Menu.ItemGroup key="g1">
@@ -72,8 +73,9 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
         (values.designation === CONSULTANT) ?
         <Menu className="js-mm-00 sign-menu-organization"
           onClick={(event) => {
-            values.organization = event.item.props.children.props.children;
-            const auxTitle = event.item.props.children.props.children;
+            const item: any = event.item;
+            values.organization = item.props.children.props.children;
+            const auxTitle = item.props.children.props.children;
             setTitle(auxTitle);
           }}>
           <Menu.ItemGroup key="g1">
@@ -82,8 +84,9 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
         </Menu> :
         <Menu className="js-mm-00 sign-menu-organization"
           onClick={(event) => {
-            values.organization = event.item.props.children.props.children;
-            const auxTitle = event.item.props.children.props.children;
+            const item: any = event.item;
+            values.organization = item.props.children.props.children;
+            const auxTitle = item.props.children.props.children;
             setTitle(auxTitle);
           }}>
           <Menu.ItemGroup key="g1">
@@ -94,8 +97,9 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
   const menuZoom = () => {
     return <Menu className="js-mm-00 sign-menu-organization"
           onClick={(event) => {
-            values.zoomarea = event.item.props.children.props.children;
-            const auxTitle = event.item.props.children.props.children;
+            const item: any = event.item;
+            values.zoomarea = item.props.children.props.children;
+            const auxTitle = item.props.children.props.children;
             setTitle(auxTitle);
           }}>
             <Menu.ItemGroup>
@@ -142,7 +146,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
       className="modal-edit"
       width="700px"
     >
-      <Form onSubmit={handleSubmit}>
+      <Form onFinish={handleSubmit}>
         <h4>Edit Profile</h4>
         <div className="gutter-example">
           <h6>PERSONAL INFO</h6>

@@ -225,7 +225,7 @@ export const ModalStudy= ({visibleStudy, setVisibleStudy, nameProject, setNamePr
       study.locality = locality? locality:'';
       study.editProject = editprojectid;
       study.cover = cover;
-      study.studyreason = studyreason? studyreason :'';
+      study.studyreason = studyreason ?? '';
       study.studysubreason = studysubReason || '';
       let newStreamsArray: any = [];
       for(let str in listStreams) {

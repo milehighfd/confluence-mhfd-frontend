@@ -5,8 +5,9 @@ import { ORGANIZATION, CONSULTANT_CONTRACTOR } from "../../../constants/constant
 export default (values: User, setTitle: Function) => {
     return <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
-            values.organization = event.item.props.children.props.children;
-            setTitle(event.item.props.children.props.children);
+            const item: any = event.item;
+            values.organization = item.props.children.props.children;
+            setTitle(item.props.children.props.children);
         }}>
         <Menu.ItemGroup key="g3">
             <label className="label-sg">{'Local Government'}</label>

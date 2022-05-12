@@ -40,7 +40,7 @@
   }
   a{
     color: $white;
-    padding: 18px 0px;
+    // padding: 18px 0px;
   }
   a:hover{
     color: $white;
@@ -78,14 +78,14 @@
 
 .tutorial{
   .btn-question{
-    -webkit-mask: url('/Icons/icon-27.svg') no-repeat center;
+    -webkit-mask: url('../../../public/Icons/icon-27.svg') no-repeat center;
     height: 22px;
     background: $white;
     padding: 28px 11px;
   }
   .btn-question:hover{
     opacity: 1;
-    -webkit-mask: url('/Icons/icon-27.svg') no-repeat center;
+    -webkit-mask: url('../../../public/Icons/icon-27.svg') no-repeat center;
     height: 22px;
     background: $green !important;
   }
@@ -163,14 +163,14 @@
   }
 }
 .notification-icon{
-  -webkit-mask: url('/Icons/icon-26.svg') no-repeat center;
+  -webkit-mask: url('../../../public/Icons/icon-26.svg') no-repeat center;
   height: 22px;
   background: $white;
   padding: 5px 7px;
 }
 .notification-icon:hover{
   opacity: 1;
-  -webkit-mask: url('/Icons/icon-26.svg') no-repeat center;
+  -webkit-mask: url('../../../public/Icons/icon-26.svg') no-repeat center;
   height: 22px;
   background: $green !important;
 }

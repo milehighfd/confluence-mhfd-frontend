@@ -97,8 +97,6 @@ const factorm2toacre = 0.00024710538146717;
 let itMoved = false;
 let globalMapId: string | null = null;
 
-/* line to remove useEffect dependencies warning */
-/* eslint-disable react-hooks/exhaustive-deps */
 const { Panel } = Collapse;
 {/*const genExtra = () => (
   <CloseOutlined />
@@ -285,7 +283,7 @@ const Map = ({ leftWidth,
     const [commentVisible, setCommentVisible] = useState(false);
     const [swSave, setSwSave] = useState(false);
     const genExtra = () => (
-    <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
           <Col>
             <div className={'apply-filter-no-effect'}>
               Apply map view to filters

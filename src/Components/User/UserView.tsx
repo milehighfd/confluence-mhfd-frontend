@@ -9,9 +9,6 @@ import * as datasets from "../../Config/datasets";
 import { OptionsFiltersUser, User, UserActivities } from "../../Classes/TypeList";
 import { PAGE_USER, COLUMNS_USER_ACTIVITY } from "../../constants/constants";
 
-/* line to remove useEffect dependencies warning */
-/* eslint-disable react-hooks/exhaustive-deps */
-
 const { Content } = Layout;
 const { TabPane } = Tabs;
 const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {

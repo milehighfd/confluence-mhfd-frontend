@@ -24,8 +24,9 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
     return (values.designation === GOVERNMENT_STAFF) ?
       <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
-          values.organization = event.item.props.children.props.children;
-          const auxTitle = event.item.props.children.props.children;
+          const item: any = event.item;
+          values.organization = item.props.children.props.children;
+          const auxTitle = item.props.children.props.children;
           setTitle(auxTitle);
         }}>
           <Menu.ItemGroup key="g1">
@@ -35,8 +36,9 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
       (values.designation === CONSULTANT) ?
       <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
-          values.organization = event.item.props.children.props.children;
-          const auxTitle = event.item.props.children.props.children;
+          const item: any = event.item;
+          values.organization = item.props.children.props.children;
+          const auxTitle = item.props.children.props.children;
           setTitle(auxTitle);
         }}>
         <Menu.ItemGroup key="g1">
@@ -55,8 +57,9 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
       </Menu> :
       <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
-          values.organization = event.item.props.children.props.children;
-          const auxTitle = event.item.props.children.props.children;
+          const item: any = event.item;
+          values.organization = item.props.children.props.children;
+          const auxTitle = item.props.children.props.children;
           setTitle(auxTitle);
         }}>
         <Menu.ItemGroup key="g1">
@@ -115,7 +118,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
       <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
         <div className="login-step01" id="login-form">
           <div>
-            <Form className="login-form" onSubmit={handleSubmit} autoComplete="off">
+            <Form className="login-form" onFinish={handleSubmit} autoComplete="off">
               <h1>
                 Sign Up!
               </h1>

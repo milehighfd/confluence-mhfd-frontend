@@ -38,7 +38,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
         {user.photo ? <img className="profile-img" src={user.photo} alt="" /> :
         <img className="profile-img" src="/Icons/icon-28.svg" alt="" />}
       <div className="profile-change">
-        <Upload showUploadList={false} beforeUpload={beforeUpload} customRequest={dummyRequest} onChange={({ file }: any) => {
+        <Upload showUploadList={false} beforeUpload={beforeUpload} onChange={({ file }: any) => {
           if (fileImage.uid !== file.uid) {
             setFileImage({...file});
             spinValue(true);

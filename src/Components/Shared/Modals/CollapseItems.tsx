@@ -509,7 +509,9 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
             <Col xs={{ span: 24 }} lg={{ span: 24 }}>
               <Table loading={loaderTableCompoents} columns={columns} rowKey={(record: any) => record.type} dataSource={data} pagination={false}
                 onChange={(pagination, filters, sort) => {
-                  getComponentsByProblemId({id, typeid, sortby: sort.columnKey, sorttype: (sort.order === 'descend' ? 'desc': 'asc')});
+                  const _sort: any = sort;
+                  console.log('_sort', _sort);
+                  getComponentsByProblemId({id, typeid, sortby: _sort.columnKey, sorttype: (_sort.order === 'descend' ? 'desc': 'asc')});
                   // handleTableChange(pagination, filters, sort)
                 }} />
             </Col>

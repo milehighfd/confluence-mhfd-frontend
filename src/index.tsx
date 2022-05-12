@@ -7,7 +7,7 @@ import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import { history } from "./store/configureStore";
 import store from './store';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import '@mdi/font/scss/materialdesignicons.scss';
 
 import App from './AppContainer';

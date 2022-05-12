@@ -48,7 +48,7 @@ export default () => {
       <Col span={11} className="login-hh">
         <div className="login-step01">
 
-          <Form style={{ width: '420px' }} className="login-form" onSubmit={handleSubmit} >
+          <Form style={{ width: '420px' }} className="login-form" onFinish={handleSubmit} >
             <h1>
               Reset your password
         </h1>

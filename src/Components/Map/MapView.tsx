@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Icon, Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoComplete } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoComplete } from 'antd';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
@@ -812,7 +813,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   }
 
   const genExtra = () => (
-    <Row type="flex" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col>
         <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'} style={{ borderColor:'transparent' }}>
           Apply map view to filters
@@ -956,7 +957,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
               }}
               >
 
-              <Input id={'miclase'} suffix={<Icon type="down" className={'certain-category-icon ' + (dropdownIsOpen ? 'rotate-icon': '')} />} />
+              <Input id={'miclase'} suffix={dropdownIsOpen ? <UpOutlined /> : <DownOutlined />} />
             </AutoComplete>
           </div>
         </Col>
@@ -967,7 +968,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       </Row>
 
       <div className="head-filter mobile-display">
-        <Row type="flex" justify="space-around" align="middle">
+        <Row justify="space-around" align="middle">
           <Col span={11}>
             <Search
               allowClear

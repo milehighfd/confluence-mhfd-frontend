@@ -103,7 +103,7 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
               </Col>
             </Row>
             </div>
-            <Form className="login-form" onSubmit={handleSubmit}>
+            <Form className="login-form" onFinish={handleSubmit}>
           <img src="/Icons/Confluence-Color-Tagline.svg" alt="" width="248px" />
           <div style={{ marginTop: '20px' }}>
           <div className="group">

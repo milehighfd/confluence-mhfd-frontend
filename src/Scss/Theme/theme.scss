@@ -288,7 +288,7 @@ body{
   	display: none;
   }
   input[type=search] {
-  	background: $white url('/Icons/icon-13.svg');
+  	background: $white url('../../../public/Icons/icon-13.svg');
     background-repeat: no-repeat;
   	border: solid 1px $white;
     width: 25px;
@@ -633,7 +633,7 @@ body{
 
     .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon, .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon:hover,
     .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon:focus, .mapbox-gl-draw_ctrl-draw-btn.mapbox-gl-draw_polygon.active {
-      background-image: url("/Icons/icon-08.svg") !important;
+      background-image: url("../../../public/Icons/icon-08.svg") !important;
       background-repeat: no-repeat !important;
       background-position: center !important;
       width: 20px;
@@ -1016,7 +1016,7 @@ body{
 }
 .detailed-c{
   height: 450px;
-  // background-image: url('/Icons/bg-00.png');
+  // background-image: url('../../../public/Icons/bg-00.png');
   background-size: cover;
    img{
     position: relative !important;
@@ -1066,7 +1066,7 @@ body{
   height: 650px;
   border-radius: 4px;
   box-shadow: $shadow;
-  // background-image: url('/Icons/mapitash.png');
+  // background-image: url('../../../public/Icons/mapitash.png');
   position: relative;
 
   .btn-03, .btn-03:hover, .btn-03:focus, .btn-03:active, .btn-03.active {

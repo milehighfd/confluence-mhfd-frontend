@@ -19,9 +19,6 @@ let map : any = null;
 let popup = new mapboxgl.Popup({closeButton: true,});
 type PolygonCoords = Array<Array<number>>;
 
-/* line to remove useEffect dependencies warning */
-/* eslint-disable react-hooks/exhaustive-deps */
-
 const getCenterCoordinates = (coordinates : PolygonCoords) => {
   const polygon = turf.polygon([coordinates]);
   const { geometry } = turf.centroid(polygon);
