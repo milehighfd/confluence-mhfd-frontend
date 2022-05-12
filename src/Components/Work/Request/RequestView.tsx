@@ -602,7 +602,7 @@ const RequestView = ({ type, isFirstRendering }: {
       positions.forEach((pos: any, posIdx: number) => {
         if (pos != null) {
           let ref: any = temporalColumns[posIdx+1].projects;
-          ref.push(newObj)
+          ref.splice(pos, 0, newObj);
         }
       })
       WsService.sendUpdate(temporalColumns)
