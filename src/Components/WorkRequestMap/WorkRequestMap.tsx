@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
-import { MainPopup, ComponentPopup, StreamPopupFull } from './../Map/MapPopups';
+import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
@@ -50,10 +50,34 @@ let mapMoved = true;
 let amounts: any = [];
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
+let isMeasuring = false;
+const geojsonMeasures = {
+  'type': 'FeatureCollection',
+  'features': new Array()
+  };
+const geojsonMeasuresSaved = {
+  'type': 'FeatureCollection',
+  'features': new Array()
+};
+const linestringMeasure = {
+  'type': 'Feature',
+  'geometry': {
+  'type': 'LineString',
+  'coordinates': new Array()
+  }
+};
+const factorKMToMiles = 0.621371;
+const factorKMtoFeet =  3280.8;
+const factorm2toacre = 0.00024710538146717;
 const WorkRequestMap = (type: any) => {
   let html = document.getElementById('map4');
   
-  
+  const [measuringState, setMeasuringState] = useState(isMeasuring);
+  const [measuringState2, setMeasuringState2] = useState(isMeasuring);
+  const [isdrawingmeasure, setIsDrawingMeasure] = useState(false);
+  const [distanceValue, setDistanceValue] = useState('0');
+  const [distanceValueMi, setDistanceValueMi] = useState('0');
+  const [areaValue, setAreaValue] = useState('0');
   const [isExtendedView] = useState(false);
   const user = store.getState().profile.userInformation;
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
@@ -80,7 +104,7 @@ const WorkRequestMap = (type: any) => {
   MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
   MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
   MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
-  MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS
+  MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS, MENU_OPTIONS.MEASURES
   ];
   const [zoomValue, setZoomValue] = useState(0);
   const [mobilePopups, setMobilePopups] = useState<any>([]);
@@ -108,6 +132,139 @@ const WorkRequestMap = (type: any) => {
     type: '',
     cartoid: ''
 });
+
+  const setIsMeasuring = (value: boolean) => {
+    isMeasuring = value;
+    setMeasuringState2(value);
+    setMeasuringState(false);
+    geojsonMeasures.features = new Array();
+    linestringMeasure.geometry.coordinates =  new Array();
+    setDistanceValue('0');
+    setDistanceValueMi('0');
+    setAreaValue('0');
+    if(map.map.getSource('geojsonMeasure')){
+      map.map.getSource('geojsonMeasure').setData(geojsonMeasures);
+    }
+  }
+  const finishMeasure = (type?: string) => {
+    const size = type === 'line' ? 1 : 2;
+    if(linestringMeasure.geometry.coordinates.length > size && isMeasuring){
+      var line = turf.lineString(linestringMeasure.geometry.coordinates);
+      var polygon = type === 'line' ? undefined : turf.lineToPolygon(JSON.parse(JSON.stringify(line)));
+      const area = type === 'line' ? undefined : ( polygon ? turf.area(polygon) : undefined) ;
+      if ( type !== 'line' && area) {
+        setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
+      }
+      const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
+      const perimeter = turf.length(JSON.parse(JSON.stringify(newLS)));
+      if (type === 'line') {
+        line.properties = {
+          id: geojsonMeasuresSaved.features.length, 
+          coordinates: line.geometry?.coordinates,
+          area: 0,
+          perimeterFeet: (perimeter * factorKMtoFeet).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          perimeterMi: (perimeter * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          type: 'line'
+        };
+        geojsonMeasuresSaved.features.push(line)
+        map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+      } else if (polygon && area) {
+        polygon.properties = { 
+          id: geojsonMeasuresSaved.features.length, 
+          coordinates: polygon.geometry?.coordinates,
+          area: (area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          perimeterFeet: (perimeter * factorKMtoFeet).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          perimeterMi: (perimeter * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2}),
+          type: 'polygon'
+        }
+        geojsonMeasuresSaved.features.push(polygon)
+        map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+      }
+      
+      geojsonMeasures.features = new Array();
+      linestringMeasure.geometry.coordinates =  new Array();
+      map.map.getSource('geojsonMeasure').setData(geojsonMeasures);
+      setIsDrawingMeasure(false);
+      setIsMeasuring(false);
+    }
+  }
+  const measureFunction = (e: any) => {
+    const features = map.map.queryRenderedFeatures(e.point, {
+      layers: ['measure-points']
+      });
+      if ((e.point.x === coordX || e.point.y === coordY)) {
+        return;
+      }
+      coordX = e.point.x;
+      coordY = e.point.y;
+      if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
+      setIsDrawingMeasure(true);
+      if (features.length > 0 && linestringMeasure.geometry.coordinates.length > 2) {
+        const id = features[0].properties.id;
+        geojsonMeasures.features = geojsonMeasures.features.filter(
+          (point :any) => point.properties.id !== id
+        );
+        finishMeasure();
+      } else {
+        const point:any = {
+          'type': 'Feature',
+          'geometry': {
+          'type': 'Point',
+          'coordinates': [e.lngLat.lng, e.lngLat.lat]
+          },
+          'properties': {
+          'id': String(new Date().getTime())
+          }
+        };
+        geojsonMeasures.features.push(point);
+      }
+       
+      if (geojsonMeasures.features.length > 1) {
+        linestringMeasure.geometry.coordinates = geojsonMeasures.features.map(
+          (point) => point.geometry.coordinates
+        );
+        geojsonMeasures.features.push(linestringMeasure);
+        const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
+        const distance = turf.length(newLS);
+        setDistanceValue((distance * factorKMtoFeet).toLocaleString(undefined, {maximumFractionDigits: 2}));
+        setDistanceValueMi((distance * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2}));
+        if(linestringMeasure.geometry.coordinates.length > 2) {
+          var polygon = turf.lineToPolygon(JSON.parse(JSON.stringify(newLS)));
+          const area = turf.area(polygon);
+          setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
+        } 
+        // distanceContainer.appendChild(value);
+      } else if(geojsonMeasures.features.length == 1){
+        setAreaValue('0');
+        setDistanceValue('0');
+        setDistanceValueMi('0');
+      }
+       
+      if(map.map.getSource('geojsonMeasure')) {
+        map.map.getSource('geojsonMeasure').setData(geojsonMeasures);
+      }
+  }
+  const measureCenterAndDelete = (type: any, item: any, event: any) => {
+    if(type == 'center'){
+      const coords = JSON.parse(item.coordinates);
+      if (item.type == 'line') {
+        const line = turf.lineString(coords);
+        const bbox = turf.bbox(line);
+        map.map.fitBounds(bbox, {padding:80});
+      } else {
+        const polygon = turf.polygon(coords);
+        const bbox = turf.bbox(polygon);
+        map.map.fitBounds(bbox, {padding:80});
+      }
+      
+      
+    } else if(type == 'delete') {
+       geojsonMeasuresSaved.features = geojsonMeasuresSaved.features.filter(elem => elem.properties.id != item.id);
+       popup.remove();
+       map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
+    }
+
+  }
   useEffect(()=>{
     if(layers) {
       setLayerFilters(layers);
@@ -558,7 +715,76 @@ const WorkRequestMap = (type: any) => {
         topStreamLabels();
       });
     },500);
-
+    applyMeasuresLayer();
+  }
+  const applyMeasuresLayer = () => {
+    if(!map.map.getSource('geojsonMeasure')) {
+      map.map.addSource('geojsonMeasure', {
+        'type': 'geojson',
+        'data': geojsonMeasures
+      })
+      map.map.addLayer({
+        id: 'measure-points',
+        type: 'circle',
+        source: 'geojsonMeasure',
+        paint: {
+        'circle-radius': 5,
+        'circle-color': '#FDB32B'
+        },
+        filter: ['in', '$type', 'Point']
+        });
+      map.map.addLayer({
+        id: 'measure-lines',
+        type: 'line',
+        source: 'geojsonMeasure',
+        layout: {
+        'line-cap': 'round',
+        'line-join': 'round'
+        },
+        paint: {
+        'line-color': '#DBA32A',
+        'line-width': 2.5
+        },
+        filter: ['in', '$type', 'LineString']
+      });
+    }
+    if(!map.map.getSource('geojsonMeasuresSaved')){
+      map.map.addSource('geojsonMeasuresSaved', {
+        'type': 'geojson',
+        'data': geojsonMeasuresSaved
+      });
+      map.map.addLayer({
+        id:'measuresSaved',
+        type:'fill',
+        source: 'geojsonMeasuresSaved',
+        paint: {
+          'fill-color': '#E7832A',
+          'fill-outline-color': '#E7832A',
+          'fill-opacity': 0.3
+        },
+        filter: ['in', 'type', 'polygon']
+      });
+      map.map.addLayer({
+        id:'measuresSaved-border',
+        type:'line',
+        source: 'geojsonMeasuresSaved',
+        paint: {
+          'line-color': '#E7832A',
+          'line-width': 4 
+        }
+      });
+      map.map.addLayer({
+        id:'measuresSaved-border-invisible',
+        type:'line',
+        source: 'geojsonMeasuresSaved',
+        paint: {
+          'line-color': '#E70000',
+          'line-width': 17,
+          'line-opacity': 0
+        },
+        filter: ['in', 'type', 'line']
+      })
+    }
   }
   const topProjects = () => {
     const styles = { ...tileStyles as any };   
@@ -980,6 +1206,12 @@ const WorkRequestMap = (type: any) => {
       map.map.on('mouseleave', key, () => {
         map.map.getCanvas().style.cursor = '';
       })
+      map.map.on('mousemove', () => {
+        map.map.getCanvas().style.cursor = 
+            (!isMeasuring)
+            ? 'default'
+            : 'crosshair';
+      });
     }
   }
   const test = (item: any) => {
@@ -1131,7 +1363,9 @@ const epochTransform = (dateParser: any) => {
   }
 }
   const eventClick = (e: any) => {
-    
+    if(isMeasuring) {
+      measureFunction(e);
+    } else {
     if(!isPopup){
       return;
     }
@@ -1147,7 +1381,27 @@ const epochTransform = (dateParser: any) => {
     setMobilePopups([]);
     setActiveMobilePopups([]);
     setSelectedPopup(-1);
+    const measureFeature = map.map.queryRenderedFeatures(bbox, { layers: ['measuresSaved', 'measuresSaved-border', 'measuresSaved-border-invisible'] });
     let isEditPopup = false;
+    if(measureFeature.length){
+      let measure = measureFeature[0];
+      const item = {
+        layer: MENU_OPTIONS.MEASURES,
+        coordinates: measure.properties.coordinates,
+        area: measure.properties.area, 
+        perimeterFeet: measure.properties.perimeterFeet,
+        perimeterMi: measure.properties.perimeterMi,
+        id: measure.properties.id,
+        type: measure.properties.type
+      }
+      menuOptions.push(MENU_OPTIONS.MEASURES);
+      popups.push(item);
+      mobile.push({
+          layer: item.layer
+      });
+      mobileIds.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
+      ids.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
+    } else {
     let features = map.map.queryRenderedFeatures(bbox, { layers: allLayers });
     if (features.length === 0) {
       return;
@@ -1782,6 +2036,7 @@ const epochTransform = (dateParser: any) => {
         }
       }
     }
+  }
     if (popups && popups.length) {
       const html = loadMenuPopupWithData(menuOptions, popups, isEditPopup);
       setMobilePopups(mobile);
@@ -1813,9 +2068,12 @@ const epochTransform = (dateParser: any) => {
             editElement.addEventListener('click', type.openEdit.bind(popups[index], popups[index]));
           }
           document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
-
+          document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
+          document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
+          document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
         }
       }
+    }
     }
   }
   const loadIconsPopup = (menu: any, popups:any, index:any) =>{
@@ -1959,6 +2217,7 @@ const epochTransform = (dateParser: any) => {
     if (allLayers.length < 100) {
       return;
     }
+    
     EventService.setRef('click',eventClick);
     let eventToClick = EventService.getRef('click');
     map.map.on('click',eventToClick);
@@ -1971,7 +2230,12 @@ const epochTransform = (dateParser: any) => {
     <>
       {menuOptions.length === 1 ? <> {
       (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? 
-      (( menuOptions[0] =='Stream'? loadStreamPopup(0,popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) ) :
+      (( menuOptions[0] =='Stream'? loadStreamPopup(0,popups[0]) : 
+        (
+          menuOptions[0] == MENU_OPTIONS.MEASURES ? loadMeasurePopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
+          loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))
+        )
+      ) ) :
       menuOptions[0] === 'Project' ? 
       loadMainPopup(0, popups[0], test, true, ep) : 
       loadMainPopup(0, popups[0], test)
@@ -2023,7 +2287,11 @@ const epochTransform = (dateParser: any) => {
         <StreamPopupFull id={index} item={item} ></StreamPopupFull>
     </>
   );
-
+  const loadMeasurePopup = (index: number, item: any, isComponent: boolean) => (
+    <>
+        <MeasurePopup id={index} item={item} isComponent={true} ></MeasurePopup>
+    </>
+  );
   const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
     <>
       <ComponentPopup id={index} item={item} isComponent={isComponent} isWR={true}></ComponentPopup>
@@ -2108,6 +2376,58 @@ const epochTransform = (dateParser: any) => {
         >
           <Input.Search allowClear size="large" placeholder="Stream or Locationss" />
         </AutoComplete>
+      </div>
+      <div className="measure-button">
+        {!measuringState && <Button style={{ borderRadius: '4px' }} onMouseEnter={()=>setMeasuringState(true)} ><img className="img-icon" /></Button>}
+        {measuringState && 
+        <div className='measurecontainer'> 
+          <div id={'measure-block'} className="measure-block" onMouseLeave={()=> setMeasuringState(false)}>
+              <div className="headmap">
+                  <h4>Measure distances and areas</h4>
+                  <button className='close-measure-button' onClick={()=>setIsMeasuring(false)} ></button>
+              </div>
+              <hr style={{opacity: 0.4, width: '96%'}}></hr>
+              <div className="bodymap" onClick={() => setIsMeasuring(true)}>
+                  <b><img className='img-measure-00'></img>Create a new measurement</b>
+              </div>
+          </div>
+        </div>}
+        {
+          measuringState2 && 
+          <div className='measurecontainer'  > 
+            <div id={'measure-block'} className="measure-block">
+              <div className="headmap">
+                <h4>Measure distances and areas</h4>
+                <button className='close-measure-button' onClick={()=>setIsMeasuring(false)} ></button>
+              </div>
+              <hr style={{opacity: 0.4, width: '96%'}}></hr>
+              <div className="bodymapvalues" >
+                {
+                  distanceValue == '0' && areaValue =='0' ? 
+                  <span>Start creating a measurement by adding points to the map</span>
+                  :<><span >Distance: <b>{distanceValue} Feet ({distanceValueMi} Miles)</b> </span>
+                  <span >Area: <b>{areaValue} Acres</b> </span></>
+                }
+                  
+              </div>
+              <hr style={{opacity: 0.4, width: '96%'}}></hr>
+              <p className='paragraph'> 
+                {
+                  !isdrawingmeasure && 
+                  <span  className="button-c" style={{marginLeft:'-1px'}} onClick={()=>setIsMeasuring(false)}><a style={{color:'#11093C'}}><img className='img-measure-05'></img> <b>Cancel</b></a></span >
+                }
+                {  
+                  isdrawingmeasure && 
+                  <span  className="button-c" style={{paddingLeft:'20px'}} onClick={()=>finishMeasure('line')}><a style={{color:'#11093C'}}><img className='img-measure-png-01' src='/Icons/icon-line.png'></img> <b>Finish Line</b></a></span >
+                }
+                {  
+                  isdrawingmeasure && 
+                  <span  className="button-c" style={{paddingLeft:'22px'}} onClick={()=>finishMeasure('polygon')}><a style={{color:'#11093C'}}><img className='img-measure-png-02' src='/Icons/icon-polygon.png'></img> <b>Finish Polygon</b></a></span >
+                }
+              </p>
+            </div>
+          </div>
+        }
       </div>
       <div className="m-zoom">
           <Button style={{ borderRadius: '4px' }} onClick={() => centerToLocalityy()} ><img className="img-icon-05" /></Button>
