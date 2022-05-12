@@ -686,13 +686,13 @@ const CreateProjectMap = (type: any) => {
         ppArray = [PROBLEMS_TRIGGER];
       }
     }
-    let thisSL = [ ...ppArray, MHFD_BOUNDARY_FILTERS];
+    let thisSL = [ ...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
     if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
-      thisSL = [ ...ppArray, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS];
+      thisSL = [ ...ppArray, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS, STREAMS_FILTERS];
     } else if( type.type == 'STUDY') {
-      thisSL = [ MHFD_BOUNDARY_FILTERS  ];
+      thisSL = [ MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS ];
     } else if (type.type == 'MAINTENANCE') {
-      thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, ROUTINE_MAINTENANCE]
+      thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, ROUTINE_MAINTENANCE, STREAMS_FILTERS]
     } 
     updateSelectedLayers(thisSL);
   }
@@ -2208,6 +2208,7 @@ const CreateProjectMap = (type: any) => {
         newmarker.setLngLat(coord);
         newmarker.addTo(map.map);
         setMarkerGeocoder(newmarker);
+        setKeyword('');
   };
   const removePopup = () => {
     popup.remove();
