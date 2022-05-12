@@ -2461,6 +2461,7 @@ const Map = ({ leftWidth,
             }
             if(searchMarker){
               searchMarker.remove();
+              setKeyword('');
             }
             if(isMeasuring) {
               measureFunction(e);
@@ -3924,6 +3925,7 @@ const Map = ({ leftWidth,
                 closebuttons.forEach((element:any) => {
                     element.addEventListener('click', () => {
                       searchMarker.remove();
+                      setKeyword('');
                       setMarkerGeocoder(undefined);
                     })
                 });
