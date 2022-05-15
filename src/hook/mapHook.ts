@@ -16,7 +16,7 @@ import {
   getComponentsCounter, getProjectCounter, getProblemCounter, mapSearchQuery, setSelectedOnMap, 
   existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,
   getComponentsByProblemId,getMapTables,
-  getComponentsByProjid, getPlaceOnCenter
+  getComponentsByProjid, getPlaceOnCenter, replaceFilterCoordinates
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
@@ -314,6 +314,9 @@ export const useMapDispatch = () => {
     },
     getComponentsByProjid: (projectid: any, setCounter: Function) => {
       dispatch(getComponentsByProjid(projectid, setCounter));
+    },
+    replaceFilterCoordinates: (coordinates: string) => {
+      dispatch(replaceFilterCoordinates(coordinates));
     }
   }
 }

@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Row, Col, Button, Collapse, Popover, Switch } from 'antd';
+import { Checkbox, Button, Collapse, Popover, Switch } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-import { useLocation } from "react-router-dom";
 import {
-  FLOODPLAINS_FEMA_FILTERS,
-  FLOODPLAINS_NON_FEMA_FILTERS,
   WATERSHED_FILTERS,
   STREAMS_FILTERS,
   GUIDELINES,
-  SERVICE_AREA_FILTERS,
-  MUNICIPALITIES_FILTERS,
-  COUNTIES_FILTERS,
-  MHFD_BOUNDARY_FILTERS,
   PROBLEMS_TRIGGER,
-  PROJECTS_TRIGGER,
   COMPONENT_LAYERS,
   MEP_PROJECTS,
   ROUTINE_MAINTENANCE,
@@ -21,10 +13,8 @@ import {
   SERVICE_AREA_LAYERS,
   MUNICIPALITIES,
   COUNTIES_LAYERS,
-  STUDIES,
   FLOODPLAINS,
   FEMA_FLOOD_HAZARD,
-  XSTREAMS,
   popUps,
   NRCS_SOILS,
   DWR_DAM_SAFETY,
@@ -46,12 +36,11 @@ const { Panel } = Collapse;
 
 export const genExtra07 = () => (
   <div className="filter-coll-header" key="fa37JncCHryD">
-     <div>{/*<img key="sbzayy4cBWDx" src="/Icons/icon-80.svg" alt="" />*/} OTHER LAYERS</div>
+     <div>OTHER LAYERS</div>
     <Switch key="S22JjzhMaiRr" size="small"/>
   </div>
 
 );
-const content = (<div className="popoveer-00"><i>Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</i></div>);
 
 const contentPopOver = (text: string) => {
   return <div className="popoveer-00"><i>{text}</i></div>
@@ -59,7 +48,6 @@ const contentPopOver = (text: string) => {
 
 export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView,  isWR }:
   { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean, isWR?: boolean}) => {
-  // const [checkBoxes, setCheckboxes] = useState(selectedLayers);
   const [switches, setSwitches] = useState({
     [GUIDELINES]: true,
     [PROBLEMS_TRIGGER]: true,
@@ -87,23 +75,6 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
     [SEMSWA_SERVICE_AREA]: false
   });
 
-  // if(isWR) {
-  //   setSwitches({...switches,...{[BORDER]:false, [AREA_BASED_MASK]:false}})
-  // }
-  /**
- export const NRCS_SOILS = 'usda_nrcs_soils';
-export const DWR_DAM_SAFETY = 'dwr_dam_safety';
-export const STREAM_MANAGEMENT_CORRIDORS = 'stream_management_corridors';
-export const BCZ_PREBLE_MEADOW_JUMPING =
-'bcz_prebles_meadow_jumping_mouse';
-export const BCZ_UTE_LADIES_TRESSES_ORCHID =
-'bcz_ute_ladies_tresses_orchid';
-export const RESEARCH_MONITORING =
-'stormwater_research_sites';
-export const CLIMB_TO_SAFETY = 'climb_to_safety_signs';
-export const SEMSWA_SERVICE_AREA =
-'semswa_service_area';
- */
   const [groups, setGroups] = useState( isWR? {
     MHFDData: false,
     hydrologic: false,
@@ -122,10 +93,7 @@ export const SEMSWA_SERVICE_AREA =
     humanConnection: false,
     boundaries: false
   });
-  // if(isWR){
-  //   setGroups({...groups, ...{workrequest:false}});
-  // }
-  let locationType =  'GUIDELINES' // useLocation().pathname.includes('work-request')?'WORK REQUEST':'WORK PLAN';
+  let locationType =  'GUIDELINES';
   useEffect(() => {
     const newGroups: any = {};
     if (switches[PROBLEMS_TRIGGER] && switches[PROJECTS_MAP_STYLES.name] && switches[COMPONENT_LAYERS.name]
@@ -165,13 +133,11 @@ export const SEMSWA_SERVICE_AREA =
     } else {
       newGroups['humanConnection'] = false;
     }
-    // if(isWR) {
       if(switches[BORDER] && switches[AREA_BASED_MASK]) {
         newGroups['workrequest'] = true;
       } else {
         newGroups['workrequest'] = false;
       }
-    // }
     setGroups({...groups, ...newGroups});
   }, [switches]);
   useEffect(() => {
@@ -187,10 +153,6 @@ export const SEMSWA_SERVICE_AREA =
         newSwitches[layer] = true;
       }
     }
-
-    // setSwitches((switches: any) => {
-    //   return {...switches, ...newSwitches};
-    // });
       setSwitches(newSwitches);
     
   }, [selectedLayers]);
@@ -229,7 +191,7 @@ export const SEMSWA_SERVICE_AREA =
     return (<div className="filter-coll-header" key="V41mtzxlYvKW">
       <div key="rO72tK0LK0e1" style={(switches[PROBLEMS_TRIGGER] || switches[PROJECTS_MAP_STYLES.name] ||
         switches[MEP_PROJECTS.name] || switches[ROUTINE_MAINTENANCE.name] || switches[COMPONENT_LAYERS.name])
-        ? emptyStyle : emptyStyle }>{/*<img key="zLOZ2nOXpPIh" src="/Icons/icon-79.svg" alt="" />*/} MHFD DATA </div>
+        ? emptyStyle : emptyStyle }>MHFD DATA </div>
        <Switch key="MFSv8kP07U20" checked={groups['MHFDData']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [PROBLEMS_TRIGGER,
@@ -256,7 +218,7 @@ export const SEMSWA_SERVICE_AREA =
     return (
     <div className="filter-coll-header" key="b7mtKLHIGhIh">
        <div key="5JuWcFwrgJKd" style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] || switches[DWR_DAM_SAFETY] 
-        || switches[ACTIVE_LOMS] || switches[EFFECTIVE_REACHES]) ? weightStyle : emptyStyle}>{/*<img key="E3t5bECALy3e" src="/Icons/icon-79.svg" alt="" />*/} HYDRAULIC</div>
+        || switches[ACTIVE_LOMS] || switches[EFFECTIVE_REACHES]) ? weightStyle : emptyStyle}>HYDRAULIC</div>
       <Switch key="KIwYxEF3V7Z8" checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
@@ -270,7 +232,7 @@ export const SEMSWA_SERVICE_AREA =
   const genExtra03 = () => {
     return(
       <div className="filter-coll-header" key="KTx0nFe1IX5t">
-        <div  key="jH22F5gXOa5L" style={(switches[STREAM_MANAGEMENT_CORRIDORS]) ? weightStyle : emptyStyle}>{/*<img key="nIMIQuOiNJj8" src="/Icons/icon-79.svg" alt="" />*/} GEOMORPHOLOGY</div>
+        <div  key="jH22F5gXOa5L" style={(switches[STREAM_MANAGEMENT_CORRIDORS]) ? weightStyle : emptyStyle}>GEOMORPHOLOGY</div>
         <Switch key="YL8rqDiZSkZf" checked={groups['geomorphology']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [STREAM_MANAGEMENT_CORRIDORS], 'geomorphology')
@@ -284,7 +246,7 @@ export const SEMSWA_SERVICE_AREA =
    return (
     <div className="filter-coll-header" key="oEDAmGTXXqqv">
        <div  key="kCd5WKE2fMtV" style={(switches[BCZ_PREBLE_MEADOW_JUMPING] || switches[BCZ_UTE_LADIES_TRESSES_ORCHID] ||
-        switches[RESEARCH_MONITORING]) ? weightStyle : emptyStyle}>{/*<img key="Xa2zKae6opGY" src="/Icons/icon-79.svg" alt="" />*/} ENVIRONMENTAL</div>
+        switches[RESEARCH_MONITORING]) ? weightStyle : emptyStyle}>ENVIRONMENTAL</div>
       <Switch key="4i6bYuUG67La" checked={groups['environmental']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [BLOCK_CLEARANCE_ZONES_LAYERS, RESEARCH_MONITORING], 'environmental')
@@ -294,7 +256,7 @@ export const SEMSWA_SERVICE_AREA =
   };
   const genExtra05 = () => (
     <div className="filter-coll-header" key="SXd5tUbO4bNP">
-      <div key="B0TxnkWrSaQy" style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>{/* <img key="UuEa0X9Q5mVw" src="/Icons/icon-79.svg" alt="" />*/} HUMAN CONNECTION</div>
+      <div key="B0TxnkWrSaQy" style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>HUMAN CONNECTION</div>
       <Switch key="G4JLgeipeBlQ" checked={groups['humanConnection']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [CLIMB_TO_SAFETY], 'humanConnection')
@@ -308,7 +270,8 @@ export const SEMSWA_SERVICE_AREA =
     return (<div className="filter-coll-header" key="tFFJpgHJYTrW">
       <div key="z0w2kQw1UFK8" style={(switches[SERVICE_AREA_LAYERS.name] || switches[COUNTIES_LAYERS.name] ||
         switches[MUNICIPALITIES.name] || switches[SEMSWA_SERVICE_AREA]) ? weightStyle : emptyStyle}>
-          {/*<img key="u2yWBjw3yCMl" src="/Icons/icon-78.svg" alt="" />*/} BOUNDARIES</div>
+        BOUNDARIES
+      </div>
       <Switch key="qc4M3tt2un4c" checked={groups['boundaries']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [SERVICE_AREA_LAYERS,
@@ -321,7 +284,7 @@ export const SEMSWA_SERVICE_AREA =
   )};
   const genExtra07 = (title: any) => (
     <div className="filter-coll-header" key="DzdiEvq8vmf7">
-      <div  key="TZAPjUAZ6Cu8" style={switches[GUIDELINES] ? weightStyle : emptyStyle}>{/* <img key="6nAyYDamCCSQ" src="/Icons/icon-79.svg" alt="" />*/} {title} </div>
+      <div  key="TZAPjUAZ6Cu8" style={switches[GUIDELINES] ? weightStyle : emptyStyle}>{title} </div>
       <Switch key="7GX33A8WhGwR" checked={groups['workrequest']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [BORDER,AREA_BASED_MASK], 'workrequest')
@@ -343,7 +306,6 @@ export const SEMSWA_SERVICE_AREA =
       });
     }
     setSelectedCheckBox(switchSelected);
-    // setCheckboxes(switchSelected);
     selectCheckboxes(switchSelected);
 
     removePopup();
@@ -354,22 +316,12 @@ export const SEMSWA_SERVICE_AREA =
       <div className="title-filter-map" key="WKCDa6eIAd7R">
         <h6>Layers</h6>
         <Button className="btn-transparent" onClick={() => {
-          {/*if (isExtendedView) {
-            setSelectedCheckBox([MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-            // setCheckboxes([]);
-            selectCheckboxes([MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-          } else {
-            setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-            // setCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
-            selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-          }*/}
           removePopup();
           setVisibleDropdown(false);
         }}><CloseOutlined /></Button>
       </div>
       <Checkbox.Group value={selectedLayers} onChange={(items) => {
         setSelectedCheckBox(items);
-        // setCheckboxes(items);
         selectCheckboxes(items);
         removePopup();
       }}>
@@ -401,7 +353,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="2F2q9UatPR1G" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="4DNRVR0SBlXw" checked={switches[PROBLEMS_TRIGGER]} size="small" onClick={(value) => onChange(value, PROBLEMS_TRIGGER)} />
-            </p>{/*<Checkbox defaultChecked={true} value={PROBLEMS_TRIGGER}></Checkbox> */}
+            </p>
 
             <p>
               <img key="QqgTFRdHgd5n" src="/Icons/Filters/ic_components.png" width="18px" alt="" />
@@ -410,7 +362,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="VZmgIIaj8ECL" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="fncKQh5TLkvP" checked={switches[COMPONENT_LAYERS.name]} size="small" onClick={(value) => onChange(value, COMPONENT_LAYERS)} />
-            </p> {/*<Checkbox value={COMPONENT_LAYERS}></Checkbox>*/}
+            </p> 
 
             <p>
               <img key="PcYEg5ZBeJpu" src="/Icons/Filters/ic_projects.png" width="18px" alt="" />
@@ -419,7 +371,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="JcTeKP4j1ayf" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="fXqHqdCQ0n8X" className="projectsswitch" checked={switches[PROJECTS_MAP_STYLES.name]} size="small"  onClick={(value) => onChange(value, PROJECTS_MAP_STYLES)} />
-            </p>{/*<Checkbox disabled={!isExtendedView} defaultChecked={true} value={PROJECTS_MAP_STYLES}></Checkbox> */}
+            </p>
 
             <p>
               <img key="b9jDnEF7oij8" src="/Icons/Filters/ic_MEP.png" width="18px" alt="" />
@@ -428,7 +380,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="APZ8CffopP1a" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="dEfRuPX0AP2U" checked={switches[MEP_PROJECTS.name]} size="small" onClick={(value) => onChange(value, MEP_PROJECTS)} />
-            </p> {/* <Checkbox value={MEP_PROJECTS}></Checkbox>*/}
+            </p>
 
             <p>
               <img key="DmSWHhgS6DaI" src="/Icons/Filters/ic_routine.png" width="18px" alt="" />
@@ -437,7 +389,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="HACPYCulwMIE" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="1wg57ENyQSc1" checked={switches[ROUTINE_MAINTENANCE.name]} size="small" onClick={(value) => onChange(value, ROUTINE_MAINTENANCE)} />
-            </p> {/* <Checkbox value={ROUTINE_MAINTENANCE}></Checkbox>*/}
+            </p>
           </Panel>
           <Panel header="" key="2" extra={genExtra01()}>
             <p>
@@ -455,7 +407,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="wDyAuRx8OLoV" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="P2zTmDzeITNN" checked={switches[WATERSHED_FILTERS]} size="small" onClick={(value) => onChange(value, WATERSHED_FILTERS)} />
-            </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
+            </p> 
 
             <p>
               <img key="ekLYh8KbLIjE" src="/Icons/Filters/ic_NRCS.png" width="18px" alt="" />
@@ -464,7 +416,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="koY1HwMtgfSL" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="nmx72gLiLfnK" size="small" checked={switches[NRCS_SOILS]} onClick={(value) => onChange(value, NRCS_SOILS)} />
-            </p> {/*<Checkbox value={WATERSHED_FILTERS}></Checkbox>*/}
+            </p> 
 
             <p style={{ display: 'none' }}>
               <img key="lLhtsWpaKMZZ" src="/Icons/Filters/ic_stream.png" width="18px" alt="" style={{borderRadius:'2px'}} />
@@ -473,7 +425,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="ppQASDSBYA4O" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="etwzDWYTQzNz" size="small" onClick={(value) => onChange(value, STREAMS_FILTERS)} />
-            </p> {/*<Checkbox value={STREAMS_FILTERS}></Checkbox>*/}
+            </p> 
           </Panel>
 
           <Panel header="" key="3" extra={genExtra02()}>
@@ -492,7 +444,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="SwlQXmiQVvTt" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="4rPe5RdR4xYX" checked={switches[FEMA_FLOOD_HAZARD]} size="small" onClick={(value) => onChange(value, FEMA_FLOOD_HAZARD)} />
-            </p>  {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
+            </p>  
 
             
             <p>
@@ -511,7 +463,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="fTqKGbHenWRl" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="gk2KxaVeyGuv" checked={switches[ACTIVE_LOMS]} size="small" onClick={(value) => onChange(value, ACTIVE_LOMS)} />
-            </p>  {/*<Checkbox value={FEMA_FLOOD_HAZARD}></Checkbox>*/}
+            </p>
             
             <p>
               <img key="9YinsTRVwIpC" src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
@@ -543,24 +495,6 @@ export const SEMSWA_SERVICE_AREA =
               </Popover>
               <Switch key="9jxkzojp7F06" size="small" checked={switches[BLOCK_CLEARANCE_ZONES_LAYERS]} onClick={(value) => onChange(value, BLOCK_CLEARANCE_ZONES_LAYERS)} />
             </p>
-            {/* <p>
-              <img key="TjRUBptRPoUf" src="/Icons/Filters/ic_mouse.png" width="18px" alt="" />
-                  BCZ - Preble’s Meadow
-                  <Popover key="KlLKnr7uY2eY" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_prebels_meadow)}>
-                <img key="qLNwbO247RWH" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
-              </Popover>
-              <Switch key="HNieBAHTwdoh" size="small" checked={switches[BCZ_PREBLE_MEADOW_JUMPING]} onClick={(value) => onChange(value, BCZ_PREBLE_MEADOW_JUMPING)} />
-            </p>
-
-            <p>
-              <img key="Utc3vEbkYyg9" src="/Icons/Filters/ic_BCZ-ute.png" width="18px" alt="" />
-                  BCZ - Ute Ladies Tresses Orchid
-                  <Popover key="KiBS8fjP3P1E" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.bcz_ute_ladies)}>
-                <img key="YJiUwU9ONjRG" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
-              </Popover>
-              <Switch key="w00UxgbHNmjV" size="small" checked={switches[BCZ_UTE_LADIES_TRESSES_ORCHID]} onClick={(value) => onChange(value, BCZ_UTE_LADIES_TRESSES_ORCHID)}/>
-            </p> */}
-
             <p>
               <img key="RQsUotjMAPo4" src="/Icons/Filters/ic_research.png" width="18px" alt=""  />
                   Research/Monitoring
@@ -589,7 +523,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="lL7uQ4mutzmr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="QT9tAqnJcIoi" checked={switches[SERVICE_AREA_LAYERS.name]} size="small" onClick={(value) => onChange(value, SERVICE_AREA_LAYERS)} />
-            </p> {/*<Checkbox value={SERVICE_AREA_LAYERS}></Checkbox>*/}
+            </p>
 
             <p>
               <img key="R3W4Zw5KGCCe" src="/Icons/Filters/ic_counties.png" width="18px" alt="" />
@@ -598,7 +532,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="u2BUKzCj0ioa" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="drsr15VF21Kw" checked={switches[COUNTIES_LAYERS.name]} size="small" onClick={(value) => onChange(value, COUNTIES_LAYERS)} />
-            </p> {/*<Checkbox value={COUNTIES_LAYERS}></Checkbox>*/}
+            </p>
 
             <p>
               <img key="HEH1KWvCY6es" src="/Icons/Filters/ic_municipalities.png" width="18px" alt="" />
@@ -607,7 +541,7 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="VUSVTmSi1jkJ" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="FfTlk7blvBlS" checked={switches[MUNICIPALITIES.name]} size="small" onClick={(value) => onChange(value, MUNICIPALITIES)} />
-            </p> {/*<Checkbox value={MUNICIPALITIES}></Checkbox>*/}
+            </p>
 
             <p>
               <img key="YLajmXwHzNlS" src="/Icons/Filters/ic_SEMSWA.png" width="18px" alt="" />
@@ -616,40 +550,18 @@ export const SEMSWA_SERVICE_AREA =
                 <img key="vV0rglHC5qtr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="Nq6NBrnI2wPx" size="small" checked={switches[SEMSWA_SERVICE_AREA]} onClick={(value) => onChange(value, SEMSWA_SERVICE_AREA)} />
-            </p> {/*<Checkbox value={COUNTIES_LAYERS}></Checkbox>*/}
+            </p>
 
             <p style={{ display: 'none' }}>
               MHFD Boundary <Switch key="pm3MbuaWPYN3" size="small" defaultChecked />
-            </p>{/*<Checkbox value={MHFD_BOUNDARY_FILTERS}></Checkbox>*/}
-          </Panel>
-
-          {/* <Panel header="" key="8" extra={genExtra07()}>
-            <p>
-              <img key="KfEPT5EqtKB4" src="/Icons/icon-76.svg" alt="" />
-                  Species
-                  <Popover key="CzNEtk9jWC37" placement="right" overlayClassName="popover-filter-map" content={contentPopOver(popUps.species)}>
-                <img key="7dcUCzWUcir5" src="/Icons/icon-19.svg" alt="" style={{ marginLeft: '5px' }} />
-              </Popover>
-              <Switch key="n5uhP5jZ26mw" size="small" />
             </p>
-
-    </Panel> */}
-        
+          </Panel>
         </Collapse>
       </Checkbox.Group>
     </div>
 
     <div className="btn-footer-02">
       <Button className="btn-borde" onClick={() => {
-        {/*if (isExtendedView) {
-          setSelectedCheckBox([MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-          // setCheckboxes([]);
-          selectCheckboxes([MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-        } else {
-          setSelectedCheckBox([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-          // setCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES]);
-          selectCheckboxes([PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
-        }*/}
         removePopup();
         setVisibleDropdown(false);
       }}>Close</Button>
