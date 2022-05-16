@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../Classes/TypeList';
 import { replaceAppUser, resetAppUser } from '../store/actions/appUser';
-import { resetProfile, saveUserInformation } from '../store/actions/ProfileActions';
+import { getUserInformation, resetProfile, saveUserInformation } from '../store/actions/ProfileActions';
 
 export const useAppUserState = () => useSelector(
   (rootState: { appUser: any }) => rootState.appUser
@@ -21,6 +21,9 @@ export const useAppUserDispatch = () => {
     },
     resetProfile: () => {
       dispatch(resetProfile());
+    },
+    getUserInformation: () => {
+      dispatch(getUserInformation());
     }
   }
 };

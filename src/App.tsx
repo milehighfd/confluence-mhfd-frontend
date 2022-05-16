@@ -10,10 +10,10 @@ import useLogin from './hook/custom/useLogin';
 import { useAppUserState } from './hook/useAppUser';
 import useInitializeApp from './hook/custom/useInitializeApp';
 const LoginView = lazy(() => import('./Components/Login/LoginView'));
-const SignUpContainer = lazy(() => import('./Components/SignUp/SignUpContainer'));
+const SignUpView = lazy(() => import('./Components/SignUp/SignUpView'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
-const ResetPasswordContainer = lazy(() => import('./Components/ResetPassword/ResetPasswordView'));
-const ConfirmPasswordContainer = lazy(() => import('./Components/ConfirmPassword/ConfirmPasswordView'));
+const ResetPasswordView = lazy(() => import('./Components/ResetPassword/ResetPasswordView'));
+const ConfirmPasswordView = lazy(() => import('./Components/ConfirmPassword/ConfirmPasswordView'));
 const DetailedPageContainer = lazy(() => import('./Components/DetailedPage/DetailedPageContainer'));
 const ProfileContainer = lazy(() => import('./Components/Profile/ProfileContainer'));
 const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
@@ -31,10 +31,10 @@ const App = () => {
     <Switch>
       <Suspense fallback={<div>...</div>}>
         <Route path={`/login`} component={LoginView} />
-        <Route path={`/sign-up`} component={SignUpContainer} />
+        <Route path={`/sign-up`} component={SignUpView} />
         <Route path={'/404'} component={Unauthorized} />
-        <Route path={`/reset-password`} component={ResetPasswordContainer} />
-        <Route path={`/confirm-password`} component={ConfirmPasswordContainer} />
+        <Route path={`/reset-password`} component={ResetPasswordView} />
+        <Route path={`/confirm-password`} component={ConfirmPasswordView} />
         <Route path={`/detailed-page`} component={DetailedPageContainer} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />

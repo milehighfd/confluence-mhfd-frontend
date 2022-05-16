@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Layout, Row, Col, Form, Button, Menu, Dropdown } from 'antd';
-import { ROLES, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, CONSULTANT_CONTRACTOR, JURISDICTION , OTHER, STAFF } from "../../constants/constants";
+import { ROLES, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, CONSULTANT_CONTRACTOR, JURISDICTION, OTHER, STAFF } from "../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
@@ -8,9 +8,13 @@ import { useFormik } from "formik";
 import { VALIDATION_SIGN_UP } from "../../constants/validation";
 import CarouselAutoPlayView from "../Shared/CarouselAutoPlay/CarouselAutoPlayView";
 import { GoogleReCaptcha, GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import { useAppUserDispatch } from "../../hook/useAppUser";
 
-
-export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Function, getUserInformation: Function }) => {
+const SignUpView = () => {
+  const {
+    replaceAppUser,
+    getUserInformation
+  } = useAppUserDispatch();
   const roles = ROLES;
   const validationSchema = VALIDATION_SIGN_UP;
   const keyCaptcha = SERVER.CAPTCHA;
@@ -19,7 +23,7 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
   const [redirect, setRedirect] = useState(false);
   const [targetButton, setTargetButton] = useState('staff');
   const [organization, setOrganization] = useState(ROLES[0].options);
-  const [other, setOther] = useState({value: '', visible: false});
+  const [other, setOther] = useState({ value: '', visible: false });
   const menu = () => {
     return (values.designation === GOVERNMENT_STAFF) ?
       <Menu className="js-mm-00 sign-menu-organization"
@@ -29,43 +33,43 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
           const auxTitle = item.props.children.props.children;
           setTitle(auxTitle);
         }}>
-          <Menu.ItemGroup key="g1">
-            {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
+        <Menu.ItemGroup key="g1">
+          {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+        </Menu.ItemGroup>
       </Menu> :
       (values.designation === CONSULTANT) ?
-      <Menu className="js-mm-00 sign-menu-organization"
-        onClick={(event) => {
-          const item: any = event.item;
-          values.organization = item.props.children.props.children;
-          const auxTitle = item.props.children.props.children;
-          setTitle(auxTitle);
-        }}>
-        <Menu.ItemGroup key="g1">
-          {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item onClick={() => {
-            const auxOther = {...other};
-            auxOther.value = '';
-            auxOther.visible = false;
-            setOther(auxOther);
-          }} key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          <Menu.Item onClick={() => {
-            const auxOther = {...other};
-            auxOther.visible = true;
-            setOther(auxOther);
-          }} key={"other"}><span>Other</span></Menu.Item>
-        </Menu.ItemGroup>
-      </Menu> :
-      <Menu className="js-mm-00 sign-menu-organization"
-        onClick={(event) => {
-          const item: any = event.item;
-          values.organization = item.props.children.props.children;
-          const auxTitle = item.props.children.props.children;
-          setTitle(auxTitle);
-        }}>
-        <Menu.ItemGroup key="g1">
-          {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-      </Menu>
+        <Menu className="js-mm-00 sign-menu-organization"
+          onClick={(event) => {
+            const item: any = event.item;
+            values.organization = item.props.children.props.children;
+            const auxTitle = item.props.children.props.children;
+            setTitle(auxTitle);
+          }}>
+          <Menu.ItemGroup key="g1">
+            {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item onClick={() => {
+              const auxOther = { ...other };
+              auxOther.value = '';
+              auxOther.visible = false;
+              setOther(auxOther);
+            }} key={index + "g1"}><span>{item}</span></Menu.Item>))}
+            <Menu.Item onClick={() => {
+              const auxOther = { ...other };
+              auxOther.visible = true;
+              setOther(auxOther);
+            }} key={"other"}><span>Other</span></Menu.Item>
+          </Menu.ItemGroup>
+        </Menu> :
+        <Menu className="js-mm-00 sign-menu-organization"
+          onClick={(event) => {
+            const item: any = event.item;
+            values.organization = item.props.children.props.children;
+            const auxTitle = item.props.children.props.children;
+            setTitle(auxTitle);
+          }}>
+          <Menu.ItemGroup key="g1">
+            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
+          </Menu.ItemGroup>
+        </Menu>
   };
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
@@ -80,14 +84,14 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
     },
     validationSchema,
     onSubmit(values: { firstName: string, lastName: string, email: string, password: string, designation: string, organization: string, recaptcha: string, zoomarea: string }) {
-      if(values.designation === CONSULTANT && values.organization === 'Other'){
-        if(!other.value) {
+      if (values.designation === CONSULTANT && values.organization === 'Other') {
+        if (!other.value) {
           return;
         }
         values.organization = other.value;
       }
       setTitle(title);
-      values.zoomarea = values.designation === GOVERNMENT_STAFF? values.organization: 'Mile High Flood District';
+      values.zoomarea = values.designation === GOVERNMENT_STAFF ? values.organization : 'Mile High Flood District';
       datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if (res?.token) {
           const auxMessage = { ...message };
@@ -112,102 +116,104 @@ export default ({ replaceAppUser, getUserInformation }: { replaceAppUser: Functi
 
   return (
     <GoogleReCaptchaProvider reCaptchaKey={keyCaptcha}>
-    <Layout style={{ background: '#fff' }}>
-    <Row>
-      <CarouselAutoPlayView />
-      <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
-        <div className="login-step01" id="login-form">
-          <div>
-            <Form className="login-form" onFinish={handleSubmit} autoComplete="off">
-              <h1>
-                Sign Up!
-              </h1>
-              <Row style={{ marginTop: '15px' }}>
-                <span className="loginLabels">Define your user role:</span>
-                <Col className="signup">
-                  {roles.map((role: { value: string, style: string, title: string, options: Array<string> }, index: number) => {
-                    return <Button key={index} style={{ width: role.style }} className={targetButton === role.value ? 'button-dropdown' : 'btn-responsive'} onClick={() => {
-                      values.designation = role.value;
-                      values.organization = role.value === STAFF ? 'Mile High Flood District':'';
-                      const auxTitle = role.value;
-                      setTargetButton(role.value);
-                      setOrganization(role.options);
-                      setTitle(auxTitle);
-                      const auxOther = {...other};
-                      auxOther.value = '';
-                      auxOther.visible = false;
-                      setOther(auxOther);
-                    }}>{role.title}</Button>
-                  })}
-                </Col>
-              </Row>
-              <div className="group">
-                <input placeholder="First Name" type="text" name="firstName" onChange={handleChange}
-                  style={(errors.firstName && touched.firstName) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
-                <span className="highlight"></span>
-                <span className="bar"></span>
-              </div>
-              <div className="group">
-                <input placeholder="Last Name" type="text" name="lastName" onChange={handleChange}
-                  style={(errors.lastName && touched.lastName) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
-                <span className="highlight"></span>
-                <span className="bar"></span>
-              </div>
-              <div className="group">
-                <input placeholder="Email" type="email" name="email" onChange={handleChange}
-                  style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
-                <span className="highlight"></span>
-                <span className="bar"></span>
-              </div>
-              {(values.designation !== OTHER && values.designation !== STAFF) ? <div className="group btn-up">
-                <div id="sign-up-organization">
-                  <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
-                    <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} >
-                      {values.organization ? values.organization : 'Organization'}
-                      <img src="/Icons/icon-12.svg" alt="" />
-                    </Button>
-                  </Dropdown>
-                </div>
-                {other.visible && <input placeholder="Organization" type="text" onChange={(e) => {
-                  const auxOther = {...other};
-                  auxOther.value = e.target.value;
-                  setOther(auxOther);
-                }}
-                  style={(!other.value) ? { borderBottom: 'solid red 1px', paddingLeft: '10px'} : { paddingLeft: '10px' }} />}
-              </div>: values.designation !== STAFF ? <div className="group">
-                <input placeholder="Organization" type="text" name="organization" onChange={handleChange}
-                  style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
-                <span className="highlight"></span>
-                <span className="bar"></span>
-              </div>: ''}
-              <div className="group">
-                <input type="password" placeholder="Password" name="password" onChange={handleChange}
-                  style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
-                <span className="highlight"></span>
-                <span className="bar"></span>
-              </div>
-              <GoogleReCaptcha onVerify={(token: string) => {
-                values.recaptcha = '' + (token !== 'null' ? token : '');
-              }} />
+      <Layout style={{ background: '#fff' }}>
+        <Row>
+          <CarouselAutoPlayView />
+          <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
+            <div className="login-step01" id="login-form">
               <div>
-                <span style={{ color: message.color }}>&nbsp;&nbsp; {message.message}</span>
+                <Form className="login-form" onFinish={handleSubmit} autoComplete="off">
+                  <h1>
+                    Sign Up!
+                  </h1>
+                  <Row style={{ marginTop: '15px' }}>
+                    <span className="loginLabels">Define your user role:</span>
+                    <Col className="signup">
+                      {roles.map((role: { value: string, style: string, title: string, options: Array<string> }, index: number) => {
+                        return <Button key={index} style={{ width: role.style }} className={targetButton === role.value ? 'button-dropdown' : 'btn-responsive'} onClick={() => {
+                          values.designation = role.value;
+                          values.organization = role.value === STAFF ? 'Mile High Flood District' : '';
+                          const auxTitle = role.value;
+                          setTargetButton(role.value);
+                          setOrganization(role.options);
+                          setTitle(auxTitle);
+                          const auxOther = { ...other };
+                          auxOther.value = '';
+                          auxOther.visible = false;
+                          setOther(auxOther);
+                        }}>{role.title}</Button>
+                      })}
+                    </Col>
+                  </Row>
+                  <div className="group">
+                    <input placeholder="First Name" type="text" name="firstName" onChange={handleChange}
+                      style={(errors.firstName && touched.firstName) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                  </div>
+                  <div className="group">
+                    <input placeholder="Last Name" type="text" name="lastName" onChange={handleChange}
+                      style={(errors.lastName && touched.lastName) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                  </div>
+                  <div className="group">
+                    <input placeholder="Email" type="email" name="email" onChange={handleChange}
+                      style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                  </div>
+                  {(values.designation !== OTHER && values.designation !== STAFF) ? <div className="group btn-up">
+                    <div id="sign-up-organization">
+                      <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                        <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} >
+                          {values.organization ? values.organization : 'Organization'}
+                          <img src="/Icons/icon-12.svg" alt="" />
+                        </Button>
+                      </Dropdown>
+                    </div>
+                    {other.visible && <input placeholder="Organization" type="text" onChange={(e) => {
+                      const auxOther = { ...other };
+                      auxOther.value = e.target.value;
+                      setOther(auxOther);
+                    }}
+                      style={(!other.value) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />}
+                  </div> : values.designation !== STAFF ? <div className="group">
+                    <input placeholder="Organization" type="text" name="organization" onChange={handleChange}
+                      style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                  </div> : ''}
+                  <div className="group">
+                    <input type="password" placeholder="Password" name="password" onChange={handleChange}
+                      style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                  </div>
+                  <GoogleReCaptcha onVerify={(token: string) => {
+                    values.recaptcha = '' + (token !== 'null' ? token : '');
+                  }} />
+                  <div>
+                    <span style={{ color: message.color }}>&nbsp;&nbsp; {message.message}</span>
+                  </div>
+                  <Form.Item style={{ marginBottom: '15px' }}>
+                    <Button className="btn-purple" block htmlType="submit" >
+                      Sign Up
+                    </Button>
+                  </Form.Item>
+                  <div style={{ textAlign: "center" }}>
+                    <span className="respo-tt"> I have an account</span>
+                    <Link to={'/login'} className="login-form-forgot">
+                      Login
+                    </Link>
+                  </div>
+                </Form>
               </div>
-              <Form.Item style={{ marginBottom: '15px' }}>
-                <Button className="btn-purple" block htmlType="submit" >
-                  Sign Up
-                </Button>
-              </Form.Item>
-              <div style={{ textAlign: "center" }}>
-                <span className="respo-tt"> I have an account</span>
-                <Link to={'/login'} className="login-form-forgot">
-                  Login
-                </Link>
-              </div>
-            </Form>
-          </div>
-        </div>
-      </Col>
-    </Row>
-  </Layout>
-  </GoogleReCaptchaProvider>)
-}
+            </div>
+          </Col>
+        </Row>
+      </Layout>
+    </GoogleReCaptchaProvider>);
+};
+
+export default SignUpView;
