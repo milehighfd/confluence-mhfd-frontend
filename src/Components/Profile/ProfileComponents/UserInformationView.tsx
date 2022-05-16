@@ -1,24 +1,37 @@
 import React, { useState } from 'react';
 import { Col, Button, Upload, message, Popover } from 'antd';
-import { User, ProjectName } from '../../../Classes/TypeList';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
 import ModalEditUserView from './ModalEditUserView';
+import { useProfileDispatch, useProfileState } from '../../../hook/profileHook';
+import { useMapState } from '../../../hook/mapHook';
 
-export default ({ user, countProjects, uploadImage, spinImage, spinValue, updateUserInformation, projects, groupOrganizacion, getGroupOrganization, setFilter }:
-      { user: User, countProjects: ProjectName[], uploadImage: Function,  spinImage: boolean, spinValue: Function,
-        updateUserInformation : Function, projects: Array<any>, groupOrganizacion: [], getGroupOrganization: Function,
-        setFilter: Function }) => {
+const UserInformationView = ({
+  setFilter
+}: {
+  setFilter: Function
+}) => {
+  const {
+    updateUserInformation,
+    getGroupOrganization,
+    uploadImage,
+    spinValue
+  } = useProfileDispatch();
+  const {
+    userInformation: user,
+    countProjects,
+    groupOrganization
+  } = useProfileState();
+  const {
+    favoriteProjectCards: projects
+  } = useMapState();
 
   const phone = (<div style={{fontSize: '12px'}}>{user.phone ? user.phone: '-'}</div>);
   const mail = (<div style={{fontSize: '12px'}}>{user.email ? user.email: '-'}</div>);
-  const county = (<div style={{fontSize: '12px'}}>{user.city ? user.city: '-'}, {user.county ? user.county: '-'}</div>);
   const content = (<div className="popoveer-00">Number of Projects among your Favorites of each Project Type.</div>);
-  const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
-    setTimeout(() => onSuccess("ok"), 0);
-  }
+
   const [ fileImage, setFileImage ] = useState({ uid: ''});
   let total = 0;
-  (countProjects || []).forEach(element => {
+  (countProjects || []).forEach((element: any) => {
     total += element.count
   });
   const beforeUpload = (file: any) => {
@@ -88,7 +101,7 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
             setFilter(element.id);
           }}>
             <span className="text-profile-projects" >
-              {projects.filter((project) => project.projecttype === element.id).length}
+              {projects.filter((project: any) => project.projecttype === element.id).length}
             </span>
             <span className="span-text" style={{ paddingRight: "8px" }}>
               {element.name}
@@ -99,7 +112,9 @@ export default ({ user, countProjects, uploadImage, spinImage, spinValue, update
         <Popover content={content} placement="left"><div className="mobile-display" style={{height:'20px'}}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></div></Popover>
       </div>
       <ModalEditUserView updateUserInformation={updateUserInformation} user={user} isVisible={false}
-        hideProfile={hideProfile} groupOrganization={groupOrganizacion} getGroupOrganization={getGroupOrganization} />
+        hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />
     </Col>
   </>
 }
+
+export default UserInformationView;

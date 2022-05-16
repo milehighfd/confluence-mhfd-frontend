@@ -9,7 +9,8 @@ import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView
 import '../../../Scss/Components/navbar.scss';
 import {DoubleRightOutlined} from '@ant-design/icons';
 import { useMapDispatch } from "../../../hook/mapHook";
-import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
+import { useProfileDispatch } from "../../../hook/profileHook";
+import { useUsersState } from "../../../hook/usersHook";
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -29,7 +30,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   const [state, setState] = useState(stateValue);
   const { changeTutorialStatus } = useMapDispatch();
   const { getTimesLogin } = useProfileDispatch();
-  const { timesLogged } = useProfileState();
+  const { timesLogged } = useUsersState();
   useEffect(() => {
     getTimesLogin();
   }, []);

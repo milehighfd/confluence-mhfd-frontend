@@ -1,37 +1,11 @@
-import { ParametricSelector, createSelector } from 'reselect';
-import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveUserInformation, updateUserInformation, getGroupOrganization } from '../store/actions/ProfileActions';
+import { saveUserInformation, updateUserInformation, getGroupOrganization, uploadImage, spinValue } from '../store/actions/ProfileActions';
 import { User } from '../Classes/TypeList';
 import { getTimesLogin } from '../store/actions/usersActions';
 
-interface selectProfileState {
-   timesLogged: number,
-   groupOrganization: any,
-   organization: any,
-   userInformation: any
- }
- 
- 
- let createSelectorHack: any = createSelector;
- 
- const selectProfileStates: ParametricSelector<RootState, undefined, selectProfileState> =
-   createSelectorHack(
-       (state: any) => state.users.timesLogged,
-       (state: any) => state.profile.groupOrganization,
-       (state: any) => state.profile.userInformation.organization,
-       (state: any) => state.profile.userInformation,
-       //state => state.map.paramFilters,
-       (timesLogged: number, groupOrganization: any, organization: any, userInformation: any) => ({
-         timesLogged, groupOrganization, organization, userInformation
-      })
-     );
- 
- export const useProfileState = () => {
-   return useSelector((state: RootState) => selectProfileStates(state, undefined));
- }
- 
-
+export const useProfileState = () => useSelector(
+   (state: { profile: any }) => state.profile
+);
 
 export const useProfileDispatch = () => {
    const dispatch = useDispatch();
@@ -47,6 +21,12 @@ export const useProfileDispatch = () => {
       },
       getGroupOrganization: () => {
          dispatch(getGroupOrganization());
+      },
+      uploadImage: (files: Array<any>) => {
+         dispatch(uploadImage(files));
+      },
+      spinValue: (spin: boolean) => {
+         dispatch(spinValue(spin));
       }
-   }
-}
+   };
+};

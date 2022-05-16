@@ -53,10 +53,9 @@ export default ({ user, projects, problems, countProjects, getUserProjects, getC
         <SidebarView></SidebarView>
         <Layout className="map-00 profile-00">
           <Row className="profile-header">
-            <UserInformationView projects={favoriteProjectCards} updateUserInformation={updateUserInformation}
-              key="userProfile" user={user} countProjects={countProjects} uploadImage={uploadImage}
-              spinImage={spinImage} spinValue={spinValue} groupOrganizacion={groupOrganization}
-              getGroupOrganization={getGroupOrganization} setFilter={setFilter} />
+            <UserInformationView
+              key="userProfile"
+              setFilter={setFilter} />
           </Row>
           <Row >
             <Col className="profile-tabs" xs={{ span: 24 }} lg={{ span: 17 }}>
