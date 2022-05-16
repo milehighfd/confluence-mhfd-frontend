@@ -6,7 +6,7 @@ import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from '../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../constants/constants';
 import { FilterTypes, FilterNamesTypes, MapViewTypes } from "../../Classes/MapTypes";
 import { useLocation } from "react-router-dom";
 import store from "../../store";
@@ -75,12 +75,13 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
   groupOrganization, applyFilter, spinFilter,
   setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem, selectedLayers, updateSelectedLayers }: MapViewTypes) => {
+    
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
   const { setToggleModalFilter, getParamFilterProblems, getParamFilterProjects, getParamFilterComponents,
     setTabCards, setOpacityLayer,
-    setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete, setBBOXComponents } = useMapDispatch();
+    setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete, setBBOXComponents, getMapTables } = useMapDispatch();
   const {getGroupOrganization} = useProfileDispatch();
   const {userInformation} = useProfileState();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus, places } = useMapState();
@@ -98,7 +99,15 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   useEffect(() => {
     setSpinMapLoaded(true);
     getGroupOrganization();
-    
+    SELECT_ALL_FILTERS.forEach((layer) => {
+      if (typeof layer === 'object') {
+        layer.tiles.forEach((subKey: string) => {
+          getMapTables(subKey, layer.name);
+        });
+      } else {
+          getMapTables(layer);
+      }
+    });
     return () => {
       const user = store.getState().profile.userInformation;
       user.isSelect = false;

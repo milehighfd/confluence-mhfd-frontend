@@ -12,6 +12,9 @@ import {
 
 import * as Yup from "yup";
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { useProfileDispatch } from "../../hook/profileHook";
+import { useAppUserDispatch } from "../../hook/useAppUser";
+import { useMapDispatch } from "../../hook/mapHook";
 
 const keyCaptcha = SERVER.CAPTCHA;
 const validationSchema = Yup.object().shape({
@@ -25,13 +28,22 @@ const validationSchema = Yup.object().shape({
     .min(5)
     .required()
 });
-export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser, resetMap }: {replaceAppUser: Function, saveUserInformation: Function, resetProfile: Function, resetAppUser: Function, resetMap: Function }) => {
+const LoginView = () => {
+  const {
+    replaceAppUser,
+    saveUserInformation,
+    resetAppUser,
+    resetProfile
+  } = useAppUserDispatch();
+  const { resetMap } = useMapDispatch();
   const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState({message: '', color: '#28C499'});
+  const { getGroupOrganization } = useProfileDispatch();
   useEffect(() => {
     resetAppUser();
     resetProfile();
     resetMap();
+    getGroupOrganization();
   }, []);
   const redirectGuest = () => {
     console.log('redirect');
@@ -143,5 +155,7 @@ export default ({replaceAppUser, saveUserInformation, resetProfile, resetAppUser
         </Row>
       </Layout>
     </GoogleReCaptchaProvider>
-  )
-}
+  );
+};
+
+export default LoginView;

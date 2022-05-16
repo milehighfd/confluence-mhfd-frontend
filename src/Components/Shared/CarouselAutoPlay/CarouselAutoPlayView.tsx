@@ -1,11 +1,15 @@
-import React from "react";
-import { Col, Carousel, Button, Anchor } from "antd";
-import store from "../../../store";
+import React, { useEffect } from "react";
+import { Col, Carousel, Anchor } from "antd";
 import { SERVER } from "../../../Config/Server.config";
+import { useCarouselImagesDispatch, useCarouselImagesState } from "../../../hook/carouselHook";
 
 export default () => {
-  const images = store.getState().carouselImages.images;
+  const { getCarouselImages } = useCarouselImagesDispatch();
+  const { images } = useCarouselImagesState();
   const { Link } = Anchor;
+  useEffect(() => {
+    getCarouselImages();
+  }, []);
   return <Col xs={{ span: 24 }} lg={{ span: 13 }}>
     <a href="https://mhfd.org/" target="_blank">
       <div className="logo-white"

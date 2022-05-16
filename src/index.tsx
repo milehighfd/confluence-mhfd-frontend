@@ -10,7 +10,7 @@ import store from './store';
 import 'antd/dist/antd.min.css';
 import '@mdi/font/scss/materialdesignicons.scss';
 
-import App from './AppContainer';
+import App from './App';
 
 ReactDOM.render(
   <Provider store={store}>
