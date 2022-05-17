@@ -15,7 +15,7 @@ const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized')
 const ResetPasswordView = lazy(() => import('./Components/ResetPassword/ResetPasswordView'));
 const ConfirmPasswordView = lazy(() => import('./Components/ConfirmPassword/ConfirmPasswordView'));
 const DetailedPageContainer = lazy(() => import('./Components/DetailedPage/DetailedPageContainer'));
-const ProfileContainer = lazy(() => import('./Components/Profile/ProfileContainer'));
+const ProfileView = lazy(() => import('./Components/Profile/ProfileView'));
 const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
 const WorkRequest = lazy(() => import('./Components/Work/Request/WorkRequest'));
 const UserContainer = lazy(() => import('./Components/User/UserContainer'));
@@ -39,7 +39,7 @@ const App = () => {
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
-        {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileContainer} />}
+        {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileView} />}
         {datasets.getToken() && appUser.email && <Route path={`/map/:projectId?`} component={MapView} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
           appUser.designation === 'staff') && <Route path={'/work-plan'} component={WorkPlan} />}

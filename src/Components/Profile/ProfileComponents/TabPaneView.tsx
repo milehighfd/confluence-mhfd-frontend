@@ -7,15 +7,20 @@ import CardsView from "./CardsView";
 import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
 import store from '../../../store';
 import { useMapDispatch } from '../../../hook/mapHook';
+import { useDetailedState } from '../../../hook/detailedHook';
 
 const { Search } = Input;
 
-export default ({ type, data, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
-        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, spinValue, filter, componentCounter }:
-        { type: string, data: Array<any>,
-          getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any,
-          detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, spinValue: boolean, filter: string,
-          componentCounter: number }) => {
+const TabPaneView = ({
+  type,
+  data,
+  filter,
+}: {
+  type: string,
+  data: Array<any>,
+  filter: string,
+}) => {
+  const { detailed } = useDetailedState();
   const {
     favoriteCards: search,
   } = useMapDispatch();
@@ -138,4 +143,7 @@ export default ({ type, data, getDetailedPageProblem, getDetailedPageProject, ge
       }) : ''}
     </InfiniteScroll>
   </Row>
-}
+};
+
+export default TabPaneView;
+

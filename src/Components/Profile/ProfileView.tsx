@@ -16,31 +16,7 @@ const content00 = (<div className="popoveer-00">View Projects within the Area of
 
 const { TabPane } = Tabs;
 
-const ProfileView = ({
-  getDetailedPageProblem,
-  getDetailedPageProject,
-  getComponentsByProblemId,
-  displayModal,
-  detailed,
-  loaderDetailedPage,
-  componentsOfProblems,
-  loaderTableCompoents,
-  loaderCardProblems,
-  loaderCardProjects,
-  componentCounter
-}: {
-  getDetailedPageProblem: Function,
-  getDetailedPageProject: Function,
-  getComponentsByProblemId: Function,
-  displayModal: any,
-  detailed: any,
-  loaderDetailedPage: any,
-  componentsOfProblems: any,
-  loaderTableCompoents: any,
-  loaderCardProblems: boolean,
-  loaderCardProjects: boolean,
-  componentCounter: number
-}) => {
+const ProfileView = () => {
   const { userInformation: user } = useProfileState();
   const {
     getCountProjects
@@ -84,25 +60,17 @@ const ProfileView = ({
                 }
               }}>
                 <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
-                  <TabPaneView type={"Problems"} data={favoriteProblemCards} spinValue={loaderCardProblems} 
-                    getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
-                    getComponentsByProblemId={getComponentsByProblemId}
-                    displayModal={displayModal} detailed={detailed}
-                    loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
-                    loaderTableCompoents={loaderTableCompoents}
+                  <TabPaneView
+                    type={"Problems"}
+                    data={favoriteProblemCards}
                     filter={filter}
-                    componentCounter={componentCounter}
                   />
                 </TabPane>
                 <TabPane key="2" tab={<span><Popover content={content00} placement="rightBottom">Projects</Popover> </span>}>
-                  <TabPaneView type={"Projects"} data={favoriteProjectCards} spinValue={loaderCardProjects}
-                    getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
-                    getComponentsByProblemId={getComponentsByProblemId}
-                    displayModal={displayModal} detailed={detailed}
-                    loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
-                    loaderTableCompoents={loaderTableCompoents}
+                  <TabPaneView
+                    type={"Projects"}
+                    data={favoriteProjectCards}
                     filter={filter}
-                    componentCounter={componentCounter}
                   />
                 </TabPane>
               </Tabs>
