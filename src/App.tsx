@@ -14,7 +14,7 @@ const SignUpView = lazy(() => import('./Components/SignUp/SignUpView'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
 const ResetPasswordView = lazy(() => import('./Components/ResetPassword/ResetPasswordView'));
 const ConfirmPasswordView = lazy(() => import('./Components/ConfirmPassword/ConfirmPasswordView'));
-const DetailedPageContainer = lazy(() => import('./Components/DetailedPage/DetailedPageContainer'));
+const DetailedPageView = lazy(() => import('./Components/DetailedPage/DetailedPageView'));
 const ProfileView = lazy(() => import('./Components/Profile/ProfileView'));
 const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
 const WorkRequest = lazy(() => import('./Components/Work/Request/WorkRequest'));
@@ -35,7 +35,7 @@ const App = () => {
         <Route path={'/404'} component={Unauthorized} />
         <Route path={`/reset-password`} component={ResetPasswordView} />
         <Route path={`/confirm-password`} component={ConfirmPasswordView} />
-        <Route path={`/detailed-page`} component={DetailedPageContainer} />
+        <Route path={`/detailed-page`} component={DetailedPageView} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />

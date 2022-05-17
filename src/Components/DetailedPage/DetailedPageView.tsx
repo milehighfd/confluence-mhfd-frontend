@@ -3,9 +3,12 @@ import React, { useState, useEffect } from "react";
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import { useLocation } from 'react-router-dom';
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from '../../constants/constants';
+import { useDetailedState } from "../../hook/detailedHook";
+import { useMapDispatch } from "../../hook/mapHook";
 
-export default ({displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents ,getDetailedPageProblem,
-    getDetailedPageProject, getComponentsByProblemId, existDetailedPageProject, existDetailedPageProblem, componentCounter, getComponentCounter} : any) => {
+const DetailedPageView = () => {
+  const { existDetailedPageProject, existDetailedPageProblem } = useMapDispatch();
+  const { displayModal, detailed } = useDetailedState();
     const [visible, setVisibleModal] = useState(useLocation().search ? true: false);
     const location = useLocation().search;
     const setVisible = () => {
@@ -51,3 +54,5 @@ export default ({displayModal, detailed, loaderDetailedPage, componentsOfProblem
       />}
     </>
 }
+
+export default DetailedPageView;
