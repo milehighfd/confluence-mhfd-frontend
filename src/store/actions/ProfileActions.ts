@@ -23,17 +23,6 @@ export const saveUserInformation = (user: User) => {
   }
 }
 
-export const getUserProjects = (options: { requestName?: string, status?: string }) => {
-  return (dispatch: Function) => {
-    // let body = {
-    //   ...options
-    // }
-    // datasets.postData(SERVER.USER_PROJECT, body, datasets.getToken()).then(projects => {
-    //   dispatch({ type: types.GET_USER_PROJECTS, projects });
-    // });
-  }
-}
-
 export const getCountProjects = () => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.COUNT_PROJECTS_BY_CREATOR, datasets.getToken()).then(countProjects => {

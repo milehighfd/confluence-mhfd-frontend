@@ -3,13 +3,19 @@ import { Col, Card, Button } from 'antd';
 
 import { ComponentType } from '../../../Classes/MapTypes';
 import DetailedModal from '../../Shared/Modals/DetailedModal';
+import { numberWithCommas } from '../../../utils/utils';
 
-export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
-        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, componentCounter,
-        getComponentCounter, deleted }: { data: any, type: string, numberWithCommas: Function,
-        getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any,
-        detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, componentCounter: number,
-        getComponentCounter: Function, deleted: Function }) => {
+const CardsView = ({
+    data,
+    type,
+    detailed,
+    deleted
+}: {
+    data: any,
+    type: string,
+    detailed: any,
+    deleted: Function
+}) => {
     const [visible, setVisible] = useState(false);
     const [clicked, setClicked] = useState(true);
     const getComponentSizes = (components: Array<ComponentType>) => {
@@ -34,19 +40,10 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
     return <>
         {visible && <DetailedModal
             detailed={detailed}
-            getDetailedPageProblem={getDetailedPageProblem}
-            getDetailedPageProject={getDetailedPageProject}
-            loaderDetailedPage={loaderDetailedPage}
-            getComponentsByProblemId={getComponentsByProblemId}
             type={type}
             data={dataInformation}
             visible={visible}
             setVisible={setVisible}
-            componentsOfProblems={componentsOfProblems}
-            loaderTableCompoents={loaderTableCompoents}
-            componentCounter={componentCounter}
-            getComponentCounter={getComponentCounter}
-
         />}
         <Col xs={{ span: 24 }} lg={{ span: 6 }}>
             <Card
@@ -112,3 +109,5 @@ export default ({ data, type, numberWithCommas, getDetailedPageProblem, getDetai
         </Col>
     </>
 }
+
+export default CardsView;

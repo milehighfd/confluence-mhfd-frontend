@@ -122,18 +122,10 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     <>
       {visible && <DetailedModal
         detailed={detailed}
-        getDetailedPageProblem={getDetailedPageProblem}
-        getDetailedPageProject={getDetailedPageProject}
-        loaderDetailedPage={loaderDetailedPage}
-        getComponentsByProblemId={getComponentsByProblemId}
         type={type}
         data={data}
         visible={visible}
         setVisible={setVisible}
-        componentsOfProblems={componentsOfProblems}
-        loaderTableCompoents={loaderTableCompoents}
-        componentCounter={componentCounter}
-        getComponentCounter={getComponentCounter}
       />}
 
       <Col xs={24} lg={12}>

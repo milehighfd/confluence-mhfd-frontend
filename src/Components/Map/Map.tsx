@@ -4081,18 +4081,10 @@ const Map = ({ leftWidth,
             <span className="zoomvaluemap"> <b>Zoom Level: {zoomValue}</b> </span>
             {visible && <DetailedModal
                 detailed={detailed}
-                getDetailedPageProblem={getDetailedPageProblem}
-                getDetailedPageProject={getDetailedPageProject}
-                loaderDetailedPage={loaderDetailedPage}
-                getComponentsByProblemId={getComponentsByProblemId}
                 type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
                 data={data}
                 visible={visible}
                 setVisible={setVisible}
-                componentsOfProblems={componentsOfProblems}
-                loaderTableCompoents={loaderTableCompoents}
-                componentCounter={componentCounter}
-                getComponentCounter={getComponentCounter}
             />}
               {mobilePopups.length ? <MobilePopup seeDetails={seeDetails} items={mobilePopups}></MobilePopup> : <></>}
             <div id="map">

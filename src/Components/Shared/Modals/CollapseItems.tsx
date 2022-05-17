@@ -1,24 +1,40 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { Collapse, Table, Row, Col, Menu } from 'antd';
+import { Collapse, Table, Row, Col } from 'antd';
 
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, SELECT_ALL_FILTERS, MEP_PROJECTS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN } from '../../../constants/constants';
 import { tileStyles } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
-import { CloseOutlined } from '@ant-design/icons';
-// import DetailedModal from '../Modals/DetailedModal';
-
+import { getComponentCounter } from '../../../dataFetching/map';
+import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 
 const { Panel } = Collapse;
 var map: any;
 
-export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId, id, typeid, loaderTableCompoents, updateModal, componentCounter, getComponentCounter }:
-       { type: string, data: any, detailedPage: any, getComponentsByProblemId: Function, id: string, typeid: string,
-        loaderTableCompoents: boolean, updateModal: Function, componentCounter: number, getComponentCounter: Function }, ref) => {
-  const [image, setImage] = useState<string>('');
+export default forwardRef(({
+  type,
+  data,
+  detailedPage,
+  id,
+  typeid,
+  updateModal
+}: {
+  type: string,
+  data: any,
+  detailedPage: any,
+  id: string,
+  typeid: string,
+  updateModal: Function
+}, ref) => {
+  const {
+    loaderTableCompoents
+  } = useMapState();
+  const {
+    getComponentsByProblemId
+  } = useMapDispatch();
   let sections = ['4'];
   if (detailedPage.problems && detailedPage.problems.length > 0) {
     sections.push('1');
@@ -33,13 +49,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
   const [ zoomValue, setZoomValue] = useState(0);
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
-  // if (html) {
-  //   map = new MapService('map2');
-  //   map.create('map2');
-  // }
-  // useEffect(()=>{
-  //   console.log("THIS IS THE DATA TAHAT REACHES HERE", data);
-  // },[data]);
   const getCanvasBase64 = () => {
     return new Promise((resolve, reject) => {
       const w8 = () => {
@@ -115,7 +124,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
             'tileSize': 128,
             'tiles': [
                 `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`
-                    // 'https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=MLY|4142433049200173|72206abe5035850d6743b23a49c41333'
                 ]
         });
         map.map.addLayer(
@@ -144,8 +152,7 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                       ]
                 }
             },
-            'aerialway' // Arrange our new layer beneath this layer,
-            
+            'aerialway'
         );
     }
   }
@@ -214,7 +221,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
         addMapListeners('mhfd_projects', 'projects-line_');
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
-      // const coor = detailedPage.coordinates[0].reduce(reducer, [0,0]);
       map.fitBounds([detailedPage.coordinates[0][0], detailedPage.coordinates[0][2]]);
       map.getLoadZoom(updateZoom);
       map.getMoveZoom(updateZoom);
@@ -377,7 +383,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
         title: '% Complete',
         dataIndex: 'complete_cost',
         render: (complete_cost: number) => `${complete_cost ? Math.round((complete_cost/total)*100) : 0}%`,
-        // render: (original_cost: number) => `${original_cost ? (Math.round(original_cost * 10) /10) : 0}%`,
         sorter: true
       },
       {
@@ -385,7 +390,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
         dataIndex: 'percen',
         sorter: true,
         render: (percen: any) => `${Math.round(percen)}%`
-        /* new Intl.NumberFormat("en-EN").format(original_cost) + '%' */
       }
     ];
   } else {
@@ -413,15 +417,12 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
         dataIndex: 'percen',
         sorter: true,
         render: (percen: any) => `${percen}%`
-        /* new Intl.NumberFormat("en-EN").format(original_cost) */
       }
     ];
   }
 
   const openProblem = (problemname: string) => {
     const problem = detailedPage.problems.filter((prob: any) => prob.problemname === problemname);
-    //problemid = problem[0].problemid;
-    //setProblemId(problemid);
     updateModal(problem[0].problemid);
   }
 
@@ -481,28 +482,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
           </Row>
         </div>
       </Panel>}
-      {/*
-
-      <Panel header="VENDORS" key="2" extra={genExtra()}>
-        <div className="detailed-info">
-          <Row>
-            <Col span={4}>
-              <label><i>Contractor</i></label>
-            </Col>
-            <Col span={8}>
-              <p>Atkins</p>
-            </Col>
-            <Col span={4}>
-              <label><i>Consultant</i></label>
-            </Col>
-            <Col span={8}>
-              <p>Applegate Group</p>
-            </Col>
-          </Row>
-        </div>
-      </Panel> */}
-
-
       <Panel header={type === PROBLEMS_MODAL ? 'Solution Components' : 'Solution Components'} key="3" extra={genExtra('3')}>
         <div className="scroll-mobile">
           <Row className="table-up-modal">
@@ -512,7 +491,6 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
                   const _sort: any = sort;
                   console.log('_sort', _sort);
                   getComponentsByProblemId({id, typeid, sortby: _sort.columnKey, sorttype: (_sort.order === 'descend' ? 'desc': 'asc')});
-                  // handleTableChange(pagination, filters, sort)
                 }} />
             </Col>
           </Row>
@@ -525,29 +503,11 @@ export default forwardRef(({ type, data, detailedPage, getComponentsByProblemId,
 
       <Panel header="Map" key="4" extra={genExtra('4')}>
         <div className="map map-modal">
-          {/*{image && <img src={image}></img>//pachon un comment to test*/} 
           <div id="map2" style={{ height: '100%', width: '100%' }} >
             <div></div>
           </div>
-          {/* <div className="test-style"> Zoom: {zoomValue}</div> */}
-           {/*   also uncomment :
-            <button onClick={()=> {
-                  console.log('my map ', map);
-                  if (map) {
-                    console.log(map.getCanvas().toDataURL())
-                    setImage(map.getCanvas().toDataURL());
-                  }
-                }}>get canvas</button>*/}
         </div>
       </Panel>
-
-      {/* <Panel header="Attachments" key="5" extra={genExtra()}>
-        <div className="data-00">
-          <div><img src="/Icons/icon-63.svg" alt="" /> Little Dry Creek_image-1.jpg</div>
-          <div><img src="/Icons/icon-63.svg" alt="" /> Little Dry Creek_image-2.jpg</div>
-        </div>
-      </Panel> */}
-
     </Collapse>
   </div>
 })

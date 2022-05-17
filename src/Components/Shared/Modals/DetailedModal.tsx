@@ -9,18 +9,38 @@ import { Detailed } from '../../../store/types/detailedTypes';
 import DetailedInfo from './DetailedInfo';
 import CollapseItems from './CollapseItems';
 import TeamCollaborator from './TeamCollaborator';
+import { useMapDispatch, useMapState } from '../../../hook/mapHook';
+import { useDetailedState } from '../../../hook/detailedHook';
 
-export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, getComponentsByProblemId,
-    componentsOfProblems, loaderTableCompoents, componentCounter,
-    getComponentCounter }:
-  { type: string, visible: boolean, setVisible: Function, data: any, getDetailedPageProblem: Function, getDetailedPageProject: Function,
-    detailed: Detailed, loaderDetailedPage: boolean, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, componentCounter: number,
-    getComponentCounter: Function }) => {
+const DetailedModal = ({
+  type,
+  visible,
+  setVisible,
+  data,
+  detailed
+}: {
+  type: string,
+  visible: boolean,
+  setVisible: Function,
+  data: any,
+  detailed: Detailed
+}) => {
+  const {
+    spin: loaderDetailedPage
+  } = useDetailedState();
+  const {
+    componentsByProblemId: componentsOfProblems
+  } = useMapState();
+  const {
+    getDetailedPageProblem,
+    getDetailedPageProject,
+    getComponentsByProblemId
+  } = useMapDispatch();
+
   const ciprRef = useRef(null);
   const cipjRef = useRef(null);
   const [typeDetail, setTypeDetail] = useState('');
   const [loading, setLoading] = useState(false);
-  const [totalComponentsCost, setTotalCC] = useState(0);
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
@@ -33,8 +53,7 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     }
   }, []);
 
-  const updateModal = (problemId: number) => {
-    //console.log('PROBLEM ID ', problemId);
+  const updateModal = (problemId: any) => {
     setTypeDetail(FILTER_PROBLEMS_TRIGGER);
     getDetailedPageProblem(problemId);
     getComponentsByProblemId({id: problemId, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
@@ -98,11 +117,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
       setLoading(false);
     })
   }
-  
-  useEffect(()=>{
-    const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
-    setTotalCC(total);
-  },[componentsOfProblems]);
 
   return (
     <>
@@ -177,7 +191,6 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
           <Row className="detailed-b">
             <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }}>
               <Carousel autoplay>
-                {/* <div> */}
                   {detailedPage.problemid ? (
                     <div className="detailed-c"> <img width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
                   ) : (
@@ -200,21 +213,18 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
                       )
 
                     )}
-                {/* </div> */}
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
               {detailedPage.problemid ? (
                   <CollapseItems ref={ciprRef} type={typeDetail} data={componentsOfProblems}
-                  getComponentsByProblemId={getComponentsByProblemId} id={data.problemid} typeid={'problemid'} loaderTableCompoents={loaderTableCompoents}
-                   detailedPage={detailedPage} updateModal={updateModal}
-                   componentCounter={componentCounter}
-                   getComponentCounter={getComponentCounter} />
+                    id={data.problemid} typeid={'problemid'}
+                    detailedPage={detailedPage} updateModal={updateModal}
+                  />
                 ) : (
                   <CollapseItems ref={cipjRef} type={typeDetail} data={componentsOfProblems}
-                  getComponentsByProblemId={getComponentsByProblemId} id={data.id} typeid={'projectid'} loaderTableCompoents={loaderTableCompoents}
-                  detailedPage={detailedPage} updateModal={updateModal}
-                  componentCounter={componentCounter}
-                  getComponentCounter={getComponentCounter} />
+                    id={data.id} typeid={'projectid'}
+                    detailedPage={detailedPage} updateModal={updateModal}
+                  />
               )}
             </Col>
             <Col span={7} className="mobile-display">
@@ -226,3 +236,5 @@ export default ({ type, visible, setVisible, data, getDetailedPageProblem, getDe
     </>
   )
 }
+
+export default DetailedModal;

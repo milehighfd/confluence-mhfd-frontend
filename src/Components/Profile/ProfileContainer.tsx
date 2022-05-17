@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import ProfileView from './ProfileView';
-import { getUserProjects, getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation,
+import { getCountProjects, uploadImage, getUserInformation, spinValue, updateUserInformation,
    getUserProblem, getUserProject, getGroupOrganization, getAllUserProjects } from '../../store/actions/ProfileActions';
 import { User } from '../../Classes/TypeList';
 import { getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getComponentCounter } from '../../store/actions/mapActions';
@@ -27,9 +27,6 @@ const mapStateToProps = (state: any): any => {
 
 const mapDispatchToProps = (dispatch: Function): any => {
   return {
-    getUserProjects(options: { requestName?: string, status?: string }) {
-      dispatch(getUserProjects(options))
-    },
     getCountProjects() {
       dispatch(getCountProjects())
     },

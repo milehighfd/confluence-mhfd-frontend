@@ -10,14 +10,15 @@ import { useMapDispatch } from '../../../hook/mapHook';
 
 const { Search } = Input;
 
-export default ({ type, data, search, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
-        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, spinValue, filter, componentCounter,
-        getComponentCounter }:
-        { type: string, data: Array<any>, search: Function,
+export default ({ type, data, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId,
+        displayModal, detailed, loaderDetailedPage, componentsOfProblems, loaderTableCompoents, spinValue, filter, componentCounter }:
+        { type: string, data: Array<any>,
           getDetailedPageProblem: Function, getDetailedPageProject: Function, getComponentsByProblemId: Function, displayModal: any,
           detailed: any, loaderDetailedPage: any, componentsOfProblems: any, loaderTableCompoents: any, spinValue: boolean, filter: string,
-          componentCounter: number,
-          getComponentCounter: Function }) => {
+          componentCounter: number }) => {
+  const {
+    favoriteCards: search,
+  } = useMapDispatch();
   let totalElement = data.length;
   const datas = (type === 'Problems' || (type === 'Projects' && !filter)) ? data:  data.filter(element => element.projecttype === filter);
   const size = 8;
@@ -33,9 +34,7 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
     items: Array.from({ length: size }),
     hasMore: true
   });
-  const numberWithCommas = (x: number) => {
-    return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
-  }
+
   const { deleteFavorite } = useMapDispatch();
   useEffect(() => {
     const auxState = { ...state };
@@ -128,16 +127,14 @@ export default ({ type, data, search, getDetailedPageProblem, getDetailedPagePro
       height={window.innerHeight - 400}
       endMessage={''}>
       {sw ? datas.map((data, index: number) => {
-        return data && <CardsView key={'profile-card-' + data.cartodb_id} data={data} type={type} numberWithCommas={numberWithCommas}
-            getDetailedPageProblem={getDetailedPageProblem} getDetailedPageProject={getDetailedPageProject}
-            getComponentsByProblemId={getComponentsByProblemId}
-            displayModal={displayModal} detailed={detailed}
-            loaderDetailedPage={loaderDetailedPage} componentsOfProblems={componentsOfProblems}
-            loaderTableCompoents={loaderTableCompoents}
-            componentCounter={componentCounter}
-            getComponentCounter={getComponentCounter}
+        return data &&
+          <CardsView
+            key={'profile-card-' + data.cartodb_id}
+            data={data}
+            type={type}
+            detailed={detailed}
             deleted={deleted}
-        />
+          />
       }) : ''}
     </InfiniteScroll>
   </Row>
