@@ -46,20 +46,14 @@ const MapView = ({}: MapViewTypes) => {
     getGalleryProblems, 
     getGalleryProjects,
     updateSelectedLayers,
-    getDetailedPageProblem,
-    getDetailedPageProject,
     setFilterProblemOptions,
     setFilterProjectOptions, 
-    setHighlighted,
     setFilterComponentOptions,
-    getComponentsByProblemId,
     setProblemKeyword,
     setProjectKeyword,
     existDetailedPageProject,
     existDetailedPageProblem,
-    setApplyFilter,
-    getComponentCounter,
-    setZoomProjectOrProblem
+    setApplyFilter
   } = useMapDispatch();
   const {
     getDropdownFilters,
@@ -552,7 +546,6 @@ const MapView = ({}: MapViewTypes) => {
     setCountFilterProjects(countTagProjets);
 
   }, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
-  const listDescription = false;
   const [designation, SetDesignation] = useState(store.getState().profile.userInformation.designation);
   const [tabActive, setTabActive] = useState('1');
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword ? filterProblemOptions.keyword : '');
@@ -1087,34 +1080,11 @@ const MapView = ({}: MapViewTypes) => {
             }
             return (
               <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value + getCounter(index, tabActive, totalElements)} </Popover> </span>} key={'' + index}>
-                <GenericTabView key={value + index}
-                  detailed={detailed}
-                  loaderDetailedPage={loaderDetailedPage}
-                  getDetailedPageProblem={getDetailedPageProblem}
-                  getDetailedPageProject={getDetailedPageProject}
-                  filterNames={filterNames}
-                  listDescription={listDescription}
+                <GenericTabView
+                  key={value + index}
                   type={value}
                   totalElements={totalElements}
                   cardInformation={cardInformation}
-                  accordionRow={accordionRow}
-                  listFilters={filters}
-                  setHighlighted={setHighlighted}
-                  getComponentsByProblemId={getComponentsByProblemId}
-                  filterComponentOptions={filterComponentOptions}
-                  setFilterComponentOptions={setFilterComponentOptions}
-                  getGalleryProjects={getGalleryProjects}
-                  getGalleryProblems={getGalleryProblems}
-                  filterProblemOptions={filterProblemOptions}
-                  filterProjectOptions={filterProjectOptions}
-                  setFilterProblemOptions={setFilterProblemOptions}
-                  setFilterProjectOptions={setFilterProjectOptions}
-                  componentsOfProblems={componentsOfProblems}
-                  loaderTableCompoents={loaderTableCompoents}
-                  selectedOnMap={selectedOnMap}
-                  componentCounter={componentCounter}
-                  getComponentCounter={getComponentCounter}
-                  setZoomProjectOrProblem={setZoomProjectOrProblem}
                 />
               </TabPane>
             );

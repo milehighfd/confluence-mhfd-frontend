@@ -143,22 +143,16 @@ const Map = ({
     getGalleryProblems, 
     getGalleryProjects,
     updateSelectedLayers,
-    getDetailedPageProblem,
-    getDetailedPageProject,
     setFilterCoordinates,
     setFilterProblemOptions,
-    setFilterProjectOptions, 
-    setHighlighted,
+    setFilterProjectOptions,
     setFilterComponentOptions,
-    getComponentsByProblemId,
     existDetailedPageProject,
     existDetailedPageProblem,
     setSelectedOnMap,
     getParamsFilter,
     mapSearchQuery,
     setApplyFilter,
-    getComponentCounter,
-    setZoomProjectOrProblem,
     setBoundMap,
     getParamFilterComponents,
     getParamFilterProblems,
@@ -194,12 +188,8 @@ const Map = ({
     filterProjects,
     filterComponents,
     componentDetailIds,
-    selectedOnMap,
     mapSearch,
     applyFilter,
-    componentCounter,
-    componentsByProblemId: componentsOfProblems,
-    loaderTableCompoent: loaderTableCompoents,
     zoomProblemOrProject: zoom
   } = useMapState();
   const {
@@ -252,7 +242,6 @@ const Map = ({
     const [markersNotes, setMarkerNotes] = useState([]) ;
     const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
     const { TabPane } = Tabs;
-    const listDescription = false;
     
     const accordionRow: Array<any> = [
         {
@@ -279,7 +268,6 @@ const Map = ({
     const [tabActive, setTabActive] = useState('1');
     const [tabPosition, setTabPosition] = useState('1');
     const {filters} = useFilterState();
-    const [filterNames, setFilterNames] = useState<Array<any>>([]);
     const [mapService] = useState<MapService>(new MapService());
     const [commentVisible, setCommentVisible] = useState(false);
     const [swSave, setSwSave] = useState(false);
@@ -4219,7 +4207,6 @@ const Map = ({
                       </div>
                     </div>
                   </div>}
-                {/*<Button style={{borderRadius:'0px 0px 4px 4px', borderTop: '1px solid rgba(37, 24, 99, 0.2)'}}><img src="/Icons/icon-36.svg" alt="" width="12px"/></Button>*/}
             </div>
 
             <div className="menu-desktop collapse-tabs">
@@ -4310,34 +4297,11 @@ const Map = ({
 
                         return (
                         <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value} </Popover> </span>} key={'' + index}>
-                            <GenericTabView key={value + index}
-                            detailed={detailed}
-                            loaderDetailedPage={loaderDetailedPage}
-                            getDetailedPageProblem={getDetailedPageProblem}
-                            getDetailedPageProject={getDetailedPageProject}
-                            filterNames={filterNames}
-                            listDescription={listDescription}
-                            type={value}
-                            totalElements={totalElements}
-                            cardInformation={cardInformation}
-                            accordionRow={accordionRow}
-                            listFilters={filters}
-                            setHighlighted={setHighlighted}
-                            getComponentsByProblemId={getComponentsByProblemId}
-                            filterComponentOptions={filterComponentOptions}
-                            setFilterComponentOptions={setFilterComponentOptions}
-                            getGalleryProjects={getGalleryProjects}
-                            getGalleryProblems={getGalleryProblems}
-                            filterProblemOptions={filterProblemOptions}
-                            filterProjectOptions={filterProjectOptions}
-                            setFilterProblemOptions={setFilterProblemOptions}
-                            setFilterProjectOptions={setFilterProjectOptions}
-                            componentsOfProblems={componentsOfProblems}
-                            loaderTableCompoents={loaderTableCompoents}
-                            selectedOnMap={selectedOnMap}
-                            componentCounter={componentCounter}
-                            getComponentCounter={getComponentCounter}
-                            setZoomProjectOrProblem={setZoomProjectOrProblem}
+                            <GenericTabView
+                              key={value + index}
+                              type={value}
+                              totalElements={totalElements}
+                              cardInformation={cardInformation}
                             />
                         </TabPane>
                         );

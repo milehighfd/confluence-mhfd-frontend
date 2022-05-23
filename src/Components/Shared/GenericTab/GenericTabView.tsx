@@ -1,21 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Collapse, Tag } from "antd";
+import { Row, Tag } from "antd";
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import CardInformationView from "../CardInformation/CardInformationView";
-import AccordionRowView from "./AccordionRow/AccordionRowView";
-import AccordionDisplayView from "./AccordionDisplay/AccordionDisplayView";
-import { numberWithCommas, elementCost } from '../../../utils/utils';
+import { elementCost } from '../../../utils/utils';
 import { FILTER_PROBLEMS_TRIGGER } from "../../../constants/constants";
 import store from "../../../store";
+import { useMapDispatch, useMapState } from "../../../hook/mapHook";
+import { useDetailedState } from "../../../hook/detailedHook";
 
-const { Panel } = Collapse;
-
-export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, totalElements, type, setType, listDescription,
-    cardInformation, accordionRow, removeFilter, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId,
-    filterComponentOptions, setFilterComponentOptions, getGalleryProjects, getGalleryProblems, filterProblemOptions,
-    filterProjectOptions, setFilterProblemOptions, setFilterProjectOptions, componentsOfProblems, loaderTableCompoents, selectedOnMap, componentCounter,
-    getComponentCounter, setZoomProjectOrProblem }: any) => {
+export default ({
+    totalElements,
+    type,
+    cardInformation,
+}: any) => {
+    const {
+      getGalleryProblems, 
+      getGalleryProjects,
+      getDetailedPageProblem,
+      getDetailedPageProject,
+      setFilterProblemOptions,
+      setFilterProjectOptions, 
+      setHighlighted,
+      setFilterComponentOptions,
+      getComponentsByProblemId,
+      getComponentCounter,
+      setZoomProjectOrProblem
+    } = useMapDispatch();
+    const {
+      detailed,
+      spin: loaderDetailedPage,
+    } = useDetailedState();
+    const {
+        filterProblemOptions,
+        filterProjectOptions,
+        filterComponentOptions,
+        selectedOnMap,
+        componentCounter,
+        componentsByProblemId: componentsOfProblems,
+        loaderTableCompoent: loaderTableCompoents,
+      } = useMapState();
     let totalElement = cardInformation.length;
     const size = 6;
     let sw = false;
@@ -144,13 +168,10 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
             setState(auxState);
         }, 500);
     };
-    /* console.log('TAG PROBLEMS', tagProblems);
-    console.log('TAG PROJECTS', tagProjects); */
 
     return <>
         <div className="scroll-cards" style={{ height: 'auto', overflowY: 'hidden' }}>
             <div className="hastag" style={{ minHeight: 34 }}>
-                {/* <h6> Showing {totalElements} {type}:</h6> */}
                 <div style={{ marginBottom: totalElements ? 0 : 5 }}>
                 {type === FILTER_PROBLEMS_TRIGGER ? tagProblems.map((tag: { key: string, values: Array<string> }, index: number) => {
                     return <>
@@ -215,57 +236,33 @@ export default ({ getDetailedPageProblem, getDetailedPageProject, filterNames, t
                 })}
             </div>
         </div>
-        {listDescription ?
-            <>
-                <Row className="list-h">
-                    <Col span={9}>Problem & Component Name</Col>
-                    <Col span={5}>Jurisdiction</Col>
-                    <Col span={4}>Solution Cost</Col>
-                    <Col span={6}> Solution Status</Col>
-                </Row>
-                <Collapse accordion>
-                    {cardInformation.map((information: any, index: number) => {
-                        const components = information.components ? (information.components.length ? information.components : []) : [];
-                        return (
-                            <Panel header="" key={index} extra={AccordionDisplayView({ information, numberWithCommas })}>
-                                {components.map((data: any) => {
-                                    return <AccordionRowView key={data.componentName} data={data} numberWithCommas={numberWithCommas} />
-                                })}
-                            </Panel>
-                        );
-                    })}
-
-                </Collapse>
-            </>
-            :
-            <Row className="card-map" gutter={[16, 16]}>
-                <InfiniteScroll
-                    dataLength={state.items.length}
-                    next={fetchMoreData}
-                    hasMore={state.hasMore}
-                    loader={cardInformation.length ? <h4>Loading...</h4> : ''}
-                    height={window.innerHeight - 245}
-                    className="scroll-infinite-mobile"
-                    endMessage={''}>
-                    {sw ? state.items.map((i, index: number) => {
-                        return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}
-                            getDetailedPageProblem={getDetailedPageProblem}
-                            getDetailedPageProject={getDetailedPageProject}
-                            detailed={detailed} type={type}
-                            loaderDetailedPage={loaderDetailedPage}
-                            setHighlighted={setHighlighted}
-                            getComponentsByProblemId={getComponentsByProblemId}
-                            componentsOfProblems={componentsOfProblems}
-                            loaderTableCompoents={loaderTableCompoents}
-                            selectedOnMap={selectedOnMap}
-                            componentCounter={componentCounter}
-                            getComponentCounter={getComponentCounter}
-                            setZoomProjectOrProblem={setZoomProjectOrProblem}
-                        />
-                    }) : ''}
-                </InfiniteScroll>
-            </Row>
-        }
+        <Row className="card-map" gutter={[16, 16]}>
+            <InfiniteScroll
+                dataLength={state.items.length}
+                next={fetchMoreData}
+                hasMore={state.hasMore}
+                loader={cardInformation.length ? <h4>Loading...</h4> : ''}
+                height={window.innerHeight - 245}
+                className="scroll-infinite-mobile"
+                endMessage={''}>
+                {sw ? state.items.map((i, index: number) => {
+                    return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}
+                        getDetailedPageProblem={getDetailedPageProblem}
+                        getDetailedPageProject={getDetailedPageProject}
+                        detailed={detailed} type={type}
+                        loaderDetailedPage={loaderDetailedPage}
+                        setHighlighted={setHighlighted}
+                        getComponentsByProblemId={getComponentsByProblemId}
+                        componentsOfProblems={componentsOfProblems}
+                        loaderTableCompoents={loaderTableCompoents}
+                        selectedOnMap={selectedOnMap}
+                        componentCounter={componentCounter}
+                        getComponentCounter={getComponentCounter}
+                        setZoomProjectOrProblem={setZoomProjectOrProblem}
+                    />
+                }) : ''}
+            </InfiniteScroll>
+        </Row>
     </div>
 
     </>
