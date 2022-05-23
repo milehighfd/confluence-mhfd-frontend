@@ -4,7 +4,6 @@ import { SERVER } from "../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import ReactDOMServer from 'react-dom/server';
-import store from '../../store';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -13,10 +12,9 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './MapPopups';
 import { Dropdown,  Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
-import { ManOutlined, RightOutlined } from '@ant-design/icons';
-import { CloseOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 
-//import { opacityLayer } from '../../constants/mapStyles';
 import { MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import {
     MAP_DROPDOWN_ITEMS,
@@ -28,7 +26,7 @@ import {
     STREAMS_FILTERS,
     MUNICIPALITIES_FILTERS,
     SELECT_ALL_FILTERS,
-    MAP_RESIZABLE_TRANSITION, FLOODPLAINS_NON_FEMA_FILTERS, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF,
+    MAP_RESIZABLE_TRANSITION, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF,
     NEARMAP_TOKEN,
     BLOCK_CLEARANCE_ZONES_LAYERS,
     ACTIVE_LOMS,
@@ -37,29 +35,24 @@ import {
     ICON_POPUPS,
     MHFD_STREAMS_FILTERS,
     MENU_OPTIONS,
-    SERVICE_AREA,
     SERVICE_AREA_FILTERS,
     STREAMS_POINT
 } from "../../constants/constants";
 import { Feature, Properties, Point } from '@turf/turf';
 import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../constants/mapStyles';
-import { addMapGeocoder, addMapLayers } from '../../utils/mapUtils';
+import { addMapGeocoder } from '../../utils/mapUtils';
 import { numberWithCommas } from '../../utils/utils';
 import { Input, AutoComplete } from 'antd';
-import { SelectProps } from 'antd/es/select';
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useColorListDispatch, useColorListState } from '../../hook/colorListHook';
-import { useProjectDispatch, useProjectState } from '../../hook/projectHook';
-import { style } from 'd3';
+import { useProjectDispatch } from '../../hook/projectHook';
 import { setOpacityLayer } from '../../store/actions/mapActions';
 import { useProfileDispatch } from '../../hook/profileHook';
-import { AlertView } from '../Alerts/AlertView';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
-import * as d3 from 'd3';
 import GenericTabView from '../Shared/GenericTab/GenericTabView';
-import { useFilterDispatch, useFilterState } from '../../hook/filtersHook';
+import { useFilterState } from '../../hook/filtersHook';
 import MapService from './MapService';
 import MobilePopup from '../MobilePopup/MobilePopup';
 import { ModalProjectView } from '../ProjectModal/ModalProjectView';
@@ -69,13 +62,12 @@ import { useProfileState } from '../../hook/profileHook';
 
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, divListOfelements, rotateIcon} from './commetsFunctions';
 import { GlobalMapHook } from '../../utils/globalMapHook';
+import { useDetailedState } from '../../hook/detailedHook';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
 
 const MapboxDraw = require('@mapbox/mapbox-gl-draw');
-let moveCounter = 0;
 let map: any = null;
-let fromHistory = false;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
 let searchPopup = new mapboxgl.Popup({closeButton: true,});
 let popup = new mapboxgl.Popup({closeButton: true,});
@@ -85,8 +77,6 @@ let currentElement: any = {
   opacity: 1, 
   color_id: undefined
 }
-const drawConstants = [PROJECTS_TRIGGER, COMPONENTS_TRIGGER];
-const highlightedLayers = ['problems', 'mhfd_projects'];
 type LayersType = string | ObjectLayerType;
 let coordX = -1;
 let coordY = -1;
@@ -98,9 +88,6 @@ let itMoved = false;
 let globalMapId: string | null = null;
 
 const { Panel } = Collapse;
-{/*const genExtra = () => (
-  <CloseOutlined />
-);*/}
 const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 const docNote = document.createElement('div');
       docNote.className = 'marker-note';
@@ -127,7 +114,6 @@ let isMeasuring = false;
       'coordinates': new Array()
       }
     };
-const apiNearMap = NEARMAP_TOKEN;
 let canAdd = false;
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
@@ -147,52 +133,79 @@ let listOfElements = [{
   label:  "Color"
 }];
 
-const Map = ({ leftWidth,
-    layers,
-    components,
-    layerFilters,
-    setSelectedItems,
-    selectedItems,
-    setIsPolygon,
-    getReverseGeocode,
-    savePolygonCoordinates,
-    saveMarkerCoordinates,
-    markerRef,
-    polygonRef,
-    selectedLayers,
-    polygon,
+const Map = ({
+    leftWidth,
+    isExtendedView
+}: MapProps) => {
+  const {
+    getReverseGeocode, 
+    saveMarkerCoordinates, 
+    getGalleryProblems, 
+    getGalleryProjects,
     updateSelectedLayers,
+    getDetailedPageProblem,
+    getDetailedPageProject,
     setFilterCoordinates,
-    highlighted,
-    filterProblems,
-    filterProjects,
-    filterComponents,
-    setSpinValue,
-    componentDetailIds,
-    isExtendedView,
+    setFilterProblemOptions,
+    setFilterProjectOptions, 
+    setHighlighted,
+    setFilterComponentOptions,
+    getComponentsByProblemId,
+    existDetailedPageProject,
+    existDetailedPageProblem,
     setSelectedOnMap,
     getParamsFilter,
     mapSearchQuery,
-    mapSearch,
-    componentCounter,
+    setApplyFilter,
     getComponentCounter,
-    getDetailedPageProblem,
-    getDetailedPageProject,
-    getComponentsByProblemId,
-    loaderDetailedPage,
-    componentsOfProblems,
-    loaderTableCompoents,
-    displayModal,
-    detailed,
-    existDetailedPageProblem,
-    existDetailedPageProject,
-    zoom,
-    applyFilter,
+    setZoomProjectOrProblem,
+    setBoundMap,
+    getParamFilterComponents,
+    getParamFilterProblems,
+    getParamFilterProjects,
+    setCoordinatesJurisdiction,
+    setNameZoomArea,
+    setSpinMapLoaded,
+    setAutocomplete,
+    setBBOXComponents,
+    setTabCards,
+    setSelectedPopup
+  } = useMapDispatch();
+  const {
+    toggleModalFilter,
+    boundsMap,
+    tabCards,
+    filterTabNumber,
+    coordinatesJurisdiction,
+    opacityLayer,
+    bboxComponents,
+    autocomplete,
+    currentPopup,
+    components,
+    layers: layerFilters,
+    galleryProblems,
+    galleryProjects,
+    selectedLayers,
     filterProblemOptions,
     filterProjectOptions,
-    filterComponentOptions
-}: MapProps) => {
-    
+    highlighted,
+    filterComponentOptions,
+    filterProblems,
+    filterProjects,
+    filterComponents,
+    componentDetailIds,
+    selectedOnMap,
+    mapSearch,
+    applyFilter,
+    componentCounter,
+    componentsByProblemId: componentsOfProblems,
+    loaderTableCompoent: loaderTableCompoents,
+    zoomProblemOrProject: zoom
+  } = useMapState();
+  const {
+    detailed,
+    spin: loaderDetailedPage,
+  } = useDetailedState();
     let geocoderRef = useRef<HTMLDivElement>(null);
 
     const hovereableLayers = [ PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
@@ -202,13 +215,6 @@ const Map = ({ leftWidth,
         CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
          PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAMS_FILTERS, EFFECTIVE_REACHES, ACTIVE_LOMS, MHFD_STREAMS_FILTERS];
     const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
-    const { toggleModalFilter, boundsMap, tabCards,
-        filterTabNumber, coordinatesJurisdiction, opacityLayer, bboxComponents, galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup, places } = useMapState();
-    const { setBoundMap, getParamFilterComponents, getParamFilterProblems,
-        getParamFilterProjects, setCoordinatesJurisdiction, setNameZoomArea,
-        setFilterProblemOptions, setFilterProjectOptions, setSpinMapLoaded, setAutocomplete, setBBOXComponents, setTabCards,
-    getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, setFilterComponentOptions, setZoomProjectOrProblem,
-    setSelectedPopup} = useMapDispatch();
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
@@ -226,7 +232,6 @@ const Map = ({ leftWidth,
     const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
     const [zoomValue, setZoomValue] = useState(0);
     const { addHistoric, getCurrent, getHistoric, getNext, getPercentage, getPrevious, hasNext, hasPrevious } = GlobalMapHook();
-    const [cursor, setCursor] = useState('crosshair');
     const colors = {
         RED: '#FF0000',
         ORANGE: '#FA6400',
@@ -264,9 +269,7 @@ const Map = ({ leftWidth,
         MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
         MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS, MENU_OPTIONS.MEASURES
         ];
-    // const [ spinValue, setSpinValue] = useState(true);
-    // const user = store.getState().profile.userInformation;
-    const {userInformation, groupOrganization} = useProfileState();
+    const { userInformation, groupOrganization } = useProfileState();
     const [visible, setVisible] = useState(false);
     const [zoomEndCounter, setZoomEndCounter] = useState(0);
     const [dragEndCounter, setDragEndCounter] = useState(0);
@@ -993,18 +996,6 @@ const Map = ({ leftWidth,
         map.addControl( new mapboxgl.AttributionControl({compact:true}) )
         addMapGeocoder(map, geocoderRef);
 
-        // Uncomment to see coords when a position in map is clicked
-        // map.on('click', (e : any) => console.log(e.lngLat));
-
-        if (polygonRef && polygonRef.current) {
-            const draw = new MapboxDraw({
-                displayControlsDefault: false,
-                controls: { polygon: true }
-            });
-            map.on('draw.create', () => replaceOldPolygon(draw));
-            map.on('draw.update', () => replaceOldPolygon(draw));
-            polygonRef.current.appendChild(draw.onAdd(map));
-        }
         map.on('render', () => {
             if (!globalMapId && itMoved) {
                 const center = [map.getCenter().lng, map.getCenter().lat];
@@ -1018,28 +1009,6 @@ const Map = ({ leftWidth,
             itMoved = false;
         });
 
-        /* Special and Acquisition Projects */
-        if (layers && layers.marker) {
-            const mapMarker = document.createElement('div');
-            mapMarker.className = 'marker';
-            mapMarker.style.backgroundImage = layers.acquisition ? 'url("/Icons/pin-house.svg")' : 'url("/Icons/pin-star.svg")';
-
-            markerRef.current!.onclick = () => {
-                map.getCanvas().style.cursor = 'pointer';
-
-                map.once('click', (e: any) => {
-                    const marker = new mapboxgl.Marker(mapMarker)
-                        .setLngLat(e.lngLat)
-                        .setDraggable(true)
-                        .addTo(map);
-
-                    getReverseGeocode(e.lngLat.lng, e.lngLat.lat, HERE_TOKEN);
-                    saveMarkerCoordinates([e.lngLat.lng, e.lngLat.lat]);
-                    marker.on('dragend', () => getMarkerCoords(marker));
-                    map.getCanvas().style.cursor = '';
-                });
-            }
-        }
         let value = 0;
         /* map.addSource('mask', {
             "type": "geojson",
@@ -1191,7 +1160,7 @@ const Map = ({ leftWidth,
 
     useEffect(() => {
       flytoBoundsCoor()
-    }, [polygon])
+    }, [userInformation.polygon])
 
     useEffect(() => {
         if (currentPopup !== -1 && activeMobilePopups.length > currentPopup) {
@@ -1214,16 +1183,12 @@ const Map = ({ leftWidth,
     }, [leftWidth]);
 
     useEffect(() => {
-        paintSelectedComponents(selectedItems);
-    }, [selectedItems]);
-    useEffect(() => {
         map.on('style.load', () => {
             const waiting = () => {
                 if (!map.isStyleLoaded()) {
                     setTimeout(waiting, 250);
                 } else {
                     applyMapLayers();
-                    setSpinValue(false);
                     setSpinMapLoaded(false);
                     applyNearMapLayer();
                     applyMeasuresLayer();
@@ -1233,7 +1198,6 @@ const Map = ({ leftWidth,
         });
         if (map.isStyleLoaded()) {
             applyMapLayers();
-            setSpinValue(false);
             setSpinMapLoaded(false);
         } else {
             const waiting = () => {
@@ -1241,7 +1205,6 @@ const Map = ({ leftWidth,
                     setTimeout(waiting, 250);
                 } else {
                     applyMapLayers();
-                    setSpinValue(false);
                     setSpinMapLoaded(false);
                 }
             };
@@ -1984,41 +1947,6 @@ const Map = ({ leftWidth,
         saveMarkerCoordinates([lngLat.lng, lngLat.lat]);
     }
 
-    const replaceOldPolygon = (draw: any) => {
-        if (draw.getAll().features.length > 1) {
-            const features = draw.getAll().features;
-            draw.delete(features[0].id);
-        }
-
-        const polygon = draw.getAll().features[0].geometry.coordinates;
-        const polygonTurfCoords = turf.multiPolygon(polygon);
-        const polygonCoords = polygon[0];
-
-        const { geometry } = turf.centroid(polygonTurfCoords);
-        savePolygonCoordinates(polygonCoords);
-        getReverseGeocode(geometry?.coordinates[0], geometry?.coordinates[1], HERE_TOKEN);
-
-        if (layers) {
-            if (layers.components) {
-                const selectedItems: Array<ComponentType> = [];
-                const turfPoints = components.map((point: ComponentType) => turf.point(point.coordinates));
-                const values = turfPoints.map((turfPoint: Feature<Point, Properties>) => turf.inside(turfPoint, polygonTurfCoords));
-
-                components.forEach((point: ComponentType, index: number) => {
-                    if (values[index]) {
-                        selectedItems.push(point);
-                    }
-                });
-
-                paintSelectedComponents(selectedItems);
-                setSelectedItems(selectedItems);
-                setIsPolygon(true);
-            }
-        }
-
-        /* Get the coords on Drawing */
-        
-    }
     const test = (item: any) => {
 
         setVisible(true);
@@ -3725,7 +3653,7 @@ const Map = ({ leftWidth,
     }
 
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
-        const deleteLayers = selectedLayers.filter(layer => !selectedItems.includes(layer as string));
+        const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
           if(layer === 'border' || layer === 'area_based_mask') {
             removeLayerMask(layer);
@@ -4035,8 +3963,8 @@ const Map = ({ leftWidth,
         setCommentVisible(status);
         setOpen(status);
     }
-    const layerObjects: any = selectedLayers.filter(element => typeof element === 'object');
-    const layerStrings = selectedLayers.filter(element => typeof element !== 'object');
+    const layerObjects: any = selectedLayers.filter((element: any) => typeof element === 'object');
+    const layerStrings = selectedLayers.filter((element: any) => typeof element !== 'object');
     const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
     const [measuringState, setMeasuringState] = useState(isMeasuring);
     const [measuringState2, setMeasuringState2] = useState(isMeasuring);
@@ -4266,7 +4194,6 @@ const Map = ({ leftWidth,
                                 const prev = getPrevious();
                                 globalMapId = prev.id;
                                 console.log('click prev ', prev);
-                                fromHistory = true;
                                 map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
                             }
                     }}>
@@ -4282,7 +4209,6 @@ const Map = ({ leftWidth,
                                 const nxt = getNext();
                                 globalMapId = nxt.id;
                                 console.log('click next, ', nxt);
-                                fromHistory = true;
                                 map.fitBounds([[nxt.bbox[0],nxt.bbox[1]],[nxt.bbox[2],nxt.bbox[3]]]);
                             }
                         }}

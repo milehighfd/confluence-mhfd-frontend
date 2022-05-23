@@ -16,6 +16,8 @@ import { capitalLetter, elementCost, getStatus } from '../../utils/utils';
 import { useSelector } from "react-redux";
 import RheoStatService from '../FiltersProject/NewProblemsFilter/RheoStatService';
 import { useProfileDispatch, useProfileState } from "../../hook/profileHook";
+import { useFilterDispatch, useFilterState } from "../../hook/filtersHook";
+import { useDetailedState } from "../../hook/detailedHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -26,33 +28,7 @@ const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Search } = Input;
 const { Option } = AutoComplete;
-const content = (<div className="popoveer-00">Filter by Area</div>);
 let counterZoomArea = 0 ;
-const contentTag = (
-  <div className="tag-filters">
-    <div className="tag-body">
-      <div className="head">PROJECT TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
-      <p>Maintenance <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-      <p>Capital <Button className="btn-transparent"><img src="/Icons/icon-84.svg" width="15px" alt="" /></Button> </p>
-
-      <div className="head">PROJECT STATUS <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
-
-      <p>Initiated <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-      <p>Preliminary Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-      <p>Construction <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-      <p>Final Design <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-
-      <div className="head">PROBLEM TYPE <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
-      <p>Hydrology <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-      <p>Floodpain <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-      <p>Alternatives <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-
-      <div className="head">MHFD DOLLARS ALLOCATED <img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
-      <p>$250K - $500K <Button className="btn-transparent"> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-    </div>
-    <div className="btn-footer-02"><Button className="btn-borde">Clear</Button></div>
-  </div>
-);
 
 const accordionRow: Array<any> = [
   {
@@ -64,17 +40,60 @@ const accordionRow: Array<any> = [
   }
 ];
 
-const MapView = ({ filters, removeFilter, getDropdownFilters,
-  dropdowns, userFiltered, getUserFilters, getGalleryProblems,
-  getGalleryProjects, galleryProblems, galleryProjects, saveUserInformation,
-  getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, filterProblemOptions,
-  filterProjectOptions, setFilterProblemOptions,
-  setFilterProjectOptions, getValuesByGroupColumn, paramFilters, setHighlighted, filterComponentOptions,
-  setFilterComponentOptions, getComponentsByProblemId, componentsOfProblems, setProblemKeyword,
-  setProjectKeyword, existDetailedPageProject, existDetailedPageProblem, displayModal, loaderTableCompoents, selectedOnMap,
-  groupOrganization, applyFilter, spinFilter,
-  setApplyFilter, componentCounter, getComponentCounter, setZoomProjectOrProblem, selectedLayers, updateSelectedLayers }: MapViewTypes) => {
-    
+const MapView = ({}: MapViewTypes) => {
+
+  const {
+    getGalleryProblems, 
+    getGalleryProjects,
+    updateSelectedLayers,
+    getDetailedPageProblem,
+    getDetailedPageProject,
+    setFilterProblemOptions,
+    setFilterProjectOptions, 
+    setHighlighted,
+    setFilterComponentOptions,
+    getComponentsByProblemId,
+    setProblemKeyword,
+    setProjectKeyword,
+    existDetailedPageProject,
+    existDetailedPageProblem,
+    setApplyFilter,
+    getComponentCounter,
+    setZoomProjectOrProblem
+  } = useMapDispatch();
+  const {
+    getDropdownFilters,
+    getUserFilters,
+  } = useFilterDispatch();
+  const { saveUserInformation } = useProfileDispatch();
+
+  const {
+    galleryProblems,
+    galleryProjects,
+    selectedLayers,
+    filterProblemOptions,
+    filterProjectOptions,
+    paramFilters,
+    filterComponentOptions,
+    selectedOnMap,
+    applyFilter,
+    componentCounter,
+    componentsByProblemId: componentsOfProblems,
+    loaderTableCompoent: loaderTableCompoents,
+    spinFilters: spinFilter
+  } = useMapState();
+  const {
+    filters,
+    dropdowns,
+    userFiltered
+  } = useFilterState();
+
+  const {
+    detailed,
+    spin: loaderDetailedPage,
+    displayModal
+  } = useDetailedState();
+
   const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -82,7 +101,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     setTabCards, setOpacityLayer,
     setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete, setBBOXComponents, getMapTables } = useMapDispatch();
   const {getGroupOrganization} = useProfileDispatch();
-  const {userInformation} = useProfileState();
+  const { userInformation, groupOrganization } = useProfileState();
   const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus, places } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
@@ -555,13 +574,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
 
-  // if (nameZoomArea.length === 0) {
-  //   setNameZoomArea(store.getState().profile.userInformation.zoomarea);
-  // }
-
-  const deleteTagProblem = (tag: string, value: string) => { }
- 
-
   useEffect(() => {
     if(counterZoomArea >= 2) {
       setNameZoomArea(userInformation.zoomarea);
@@ -748,7 +760,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
     if(type == "Service Area") {
       options.servicearea = value;
     } else if(type) {
-      // COUNTY AND SERVICE AREA HAS field = county  field = servicearea  field = jurisdiction 
       options[type.toLowerCase()] = value;
     }
     return options;
@@ -768,9 +779,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       let type = zoomareaSelected[0].filter; 
       let zone = zoomareaSelected[0].aoi;
       zone = zone.replace('County ', '').replace('Service Area', '');
-      // if(zone == 'Broomfield') {
-      //   zone = 'Broomfield County';
-      // }
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       const loadFiltered = (zone: any , type: any, projectOptions: any, problemOptions: any, componentOptions: any) => {
         let optionsproj = setValueInFilters(zone, type, projectOptions, true);
@@ -787,15 +795,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
           getParamFilterComponents(boundsMap, optionscomp);
         },1300);
       }
-      // // / tabactive 0 problems 1 projects 
-      // if(tabActive === '0') {
-      //   loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions);
-      // } else if (tabActive === '1') { 
-      //   loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions);
-      // } else {
-      //   setFilterComponentOptions(filterComponentOptions);
-      //   getParamFilterComponents(boundsMap, filterComponentOptions);
-      // }
       changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect'? undefined:"isSelect");
     }
     setBBOXComponents({ bbox: [], centroids: [] })
@@ -918,7 +917,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
       filterCounter = countFilterComponents;
       break;
   }
-  // let filterLabel = `Filters (${filterCounter})`;
   let filterLabel = `Filters `;
   return <>
   <div className="fr-area">Explore Confluence</div>
@@ -945,7 +943,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
               dataSource={dataAutocomplete}
               placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
               filterOption={(inputValue, option: any) => {
-                if (dataAutocomplete.map(r => r.key).includes(inputValue)) {
+                if (dataAutocomplete.map((r: any) => r.key).includes(inputValue)) {
                   return true;
                 }
                 return option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
@@ -983,7 +981,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
                 }
               }}
               onSearch={(e) => {
-
                 if (tabActive === '0') {
                   setProblemKeyword(keywordProblem);
                   getGalleryProblems();
@@ -992,20 +989,14 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
                   getGalleryProjects();
                 }
               }}
-              // style={{ width: 200 }}
             />
           </Col>
           <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
             <Button className="btn-red" onClick={onResetClick}><u>Reset</u></Button>
             <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()}>
-              <Button onClick={handleToggle} style={{ marginLeft:'13px', paddingRight:'0px',/*marginRight:'9px',*/ borderRadius: '4px', backgroundColor:'transparent', borderColor:'transparent'}} className="btn-filter">
+              <Button onClick={handleToggle} style={{ marginLeft:'13px', paddingRight:'0px', borderRadius: '4px', backgroundColor:'transparent', borderColor:'transparent'}} className="btn-filter">
                 <img style={{ background: backgroundStyle }} className="img-filter" alt="" />
                 <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> {filterLabel} ({filterCounter})</span>
-                {/* <span className="circle">
-                  <span className="innercircle">
-                    {filterCounter}
-                  </span>
-                </span> */}
               </Button>
             </Popover>
             <div className="sort-content">
@@ -1013,23 +1004,14 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
                 {filterProjectOptions.order === 'asc' ? <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-83.svg') no-repeat center" }} /> : <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-86.svg') no-repeat center" }} />}
 
               </span>
-              {/* <Button onClick={sortClick} style={{ marginLeft:'15px', marginRight:'15px'}}>
-                <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> Sort By</span>
-              </Button> */}
               <Dropdown trigger={['hover']}
                 overlay={tabActive === '0' ?
                   menuSort(SORTED_PROBLEMS) :
                   menuSort(SORTED_PROJECTS)}
                 getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
-                {/* <span className="ant-dropdown-link" style={{ cursor: 'pointer' }} onClick={sortClick}>
-                  Sort by {tabActive === '0' ? SORTED_PROBLEMS.filter(element => element.name === filterProblemOptions.column)[0]?.title :
-                    SORTED_PROJECTS.filter(element => element.name === filterProjectOptions.column)[0]?.title}
-                </span> */}
-                <Button onClick={sortClick} style={{ marginLeft:'8px', /*, marginRight:'15px,'*/ borderRadius: '4px',  backgroundColor:'transparent', borderColor:'transparent'}} className="btn-filter">
+                <Button onClick={sortClick} style={{ marginLeft:'8px', borderRadius: '4px',  backgroundColor:'transparent', borderColor:'transparent'}} className="btn-filter">
                   <img  className="img-sortBy" alt="" />
-                  {/* <img style={{  width:'20px' }} src={"Icons/ic_sort_by_active.svg"} /> */}
                   <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> Sort By</span>
-                  {/* <Icon type="down" className={'certain-category-icon ' + (filterProjectOptions.order !== 'asc' ? 'rotate-icon': 'normal-icon')} /> */}
                 </Button>
               </Dropdown>
             </div>
@@ -1053,7 +1035,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
             let totalElements = 0;
             let cardInformation: Array<Object> = [];
             if (value === FILTER_PROBLEMS_TRIGGER) {
-              cardInformation = galleryProblems.map(problem => {
+              cardInformation = galleryProblems.map((problem: any) => {
                 return {
                   cartodb_id: problem.cartodb_id,
                   image: `gallery/${problem.problemtype}.jpg`,
@@ -1074,7 +1056,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
               });
               totalElements = cardInformation.length;
             } else {
-              cardInformation = galleryProjects.map(project => {
+              cardInformation = galleryProjects.map((project: any) => {
                 return {
                   cartodb_id: project.cartodb_id,
                   image: project.attachments ? project.attachments : (
@@ -1117,7 +1099,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
                   cardInformation={cardInformation}
                   accordionRow={accordionRow}
                   listFilters={filters}
-                  removeFilter={removeFilter}
                   setHighlighted={setHighlighted}
                   getComponentsByProblemId={getComponentsByProblemId}
                   filterComponentOptions={filterComponentOptions}
@@ -1154,7 +1135,6 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
           dropdowns={dropdowns}
           userFiltered={userFiltered}
           getUserFilters={getUserFilters}
-          getValuesByGroupColumn={getValuesByGroupColumn}
           filterProblemOptions={filterProblemOptions}
           setFilterProblemOptions={setFilterProblemOptions}
           paramFilters={paramFilters}
@@ -1176,9 +1156,4 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
   </>
 }
 
-const layers = {
-  polygons: true,
-  components: true
-}
-
-export default mapFormContainer(MapView, layers);
+export default mapFormContainer(MapView);
