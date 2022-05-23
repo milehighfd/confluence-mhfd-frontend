@@ -9,93 +9,102 @@ import { COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGG
 import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message } from 'antd';
-import { MapHOCProps, ProjectTypes, MapLayersType } from '../Classes/MapTypes';
-import { useMapState } from '../hook/mapHook';
+import { ProjectTypes, MapLayersType } from '../Classes/MapTypes';
+import { useMapDispatch, useMapState } from '../hook/mapHook';
 import { useProjectDispatch, useProjectState} from '../hook/projectHook';
 import { useNotesState } from '../hook/notesHook';
+import { useFilterDispatch, useFilterState } from '../hook/filtersHook';
+import { useDetailedState } from '../hook/detailedHook';
+import { useProfileDispatch, useProfileState } from '../hook/profileHook';
 
 export default function (WrappedComponent : any, layers : MapLayersType) {
-    return ({ problems,
-              projects,
-              projectsByType,
-              components,
-              filters,
-              panel,
-              dropdowns,
-              userFiltered,
-              layerFilters,
-              saveNewCapitalForm,
-              saveNewStudyForm,
-              createNewProjectForm,
-              getReverseGeocode,
-              savePolygonCoordinates,
-              saveMarkerCoordinates,
-              redirect,
-              setRouteRedirect,
-              error,
+    return () => {
+        const {
+          getDropdownFilters,
+          getUserFilters,
+          sortProjects
+        } = useFilterDispatch();
+        const { saveUserInformation } = useProfileDispatch();
+        const {
+          getReverseGeocode, 
+          savePolygonCoordinates, 
+          saveMarkerCoordinates, 
+          clearErrorMessage,
+          setRouteRedirect,
+          getMapTables,
+          getGalleryProblems, 
+          getGalleryProjects,
+          updateSelectedLayers,
+          getDetailedPageProblem,
+          getDetailedPageProject,
+          setFilterCoordinates,
+          setFilterProblemOptions,
+          setFilterProjectOptions, 
+          setHighlighted,
+          setFilterComponentOptions,
+          getComponentsByProblemId,
+          setProblemKeyword,
+          setProjectKeyword,
+          existDetailedPageProject,
+          existDetailedPageProblem,
+          setSelectedOnMap,
+          getParamsFilter,
+          mapSearchQuery,
+          setApplyFilter,
+          getComponentCounter,
+          setZoomProjectOrProblem
+        } = useMapDispatch();
+
+        const {
+          problems,
+          projects,
+          projectsByType,
+          components,
+          layers: layerFilters,
+          error,
+          redirect,
+          galleryProblems,
+          galleryProjects,
+          selectedLayers,
+          filterProblemOptions,
+          filterProjectOptions,
+          filterCoordinates,
+          paramFilters,
+          highlighted,
+          filterComponentOptions,
+          filterProblems,
+          filterProjects,
+          filterComponents,
+          componentDetailIds,
+          selectedOnMap,
+          mapSearch,
+          applyFilter,
+          componentCounter,
+          componentsByProblemId: componentsOfProblems,
+          loaderTableCompoent: loaderTableCompoents,
+          zoomProblemOrProject: zoom,
+          spinFilters: spinFilter
+        } = useMapState();
+        const {
+          filters,
+          dropdowns,
+          userFiltered
+        } = useFilterState();
+        const {
+          detailed,
+          spin: loaderDetailedPage,
+          displayModal
+        } = useDetailedState();
+        const {
+          userInformation: {
+            coordinates: {
               latitude,
-              longitude,
-              clearErrorMessage,
-              getProjectWithFilters,
-              removeFilter,
-              getMapTables,
-              getDropdownFilters,
-              getUserFilters,
-              getPolygonStreams,
-              saveDraftCard,
-              getUserProjects,
-              sortProjects,
-              updateSelectedLayers,
-              getGalleryProblems,
-              getGalleryProjects,
-              galleryProblems,
-              saveUserInformation,
-              polygon,
-              selectedLayers,
-              galleryProjects,
-              getDetailedPageProblem,
-              getDetailedPageProject,
-              detailed,
-              loaderDetailedPage,
-              setFilterCoordinates,
-              filterProblemOptions,
-              filterProjectOptions,
-              filterCoordinates,
-              setFilterProblemOptions,
-              setFilterProjectOptions,
-              paramFilters,
-              highlighted,
-              setHighlighted,
-              spinFilter,
-              setFilterComponentOptions,
-              filterComponentOptions,
-              filterProblems,
-              filterProjects,
-              spinCardProblems,
-              spinCardProjects,
-              getComponentsByProblemId,
-              filterComponents,
-              componentsOfProblems,
-              setProblemKeyword,
-              setProjectKeyword,
-              existDetailedPageProject,
-              existDetailedPageProblem,
-              displayModal,
-              componentDetailIds,
-              loaderTableCompoents,
-              selectedOnMap,
-              setSelectedOnMap,
-              getParamsFilter,
-              mapSearchQuery,
-              mapSearch,
-              groupOrganization,
-              applyFilter,
-              setApplyFilter,
-              componentCounter,
-              getComponentCounter,
-              setZoomProjectOrProblem,
-              zoom
-             } : MapHOCProps) => {
+              longitude
+            },
+            polygon
+          },
+          groupOrganization
+        } = useProfileState();
         const emptyStyle: React.CSSProperties = {};
         const [rotationStyle, setRotationStyle] = useState(emptyStyle);
         const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_LEFT);
@@ -129,9 +138,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
 
         let markerRef = useRef<HTMLDivElement>(null);
         let polygonRef = useRef<HTMLDivElement>(null);
-        useEffect(() => {
-          getProjectWithFilters();
-        }, [getProjectWithFilters]);
 
         useEffect(() => {
           if(error) {
@@ -219,7 +225,6 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             polygonRef={polygonRef}
                             polygon={polygon}
                             selectedLayers={selectedLayers}
-                            getPolygonStreams={getPolygonStreams}
                             updateSelectedLayers={updateSelectedLayers}
                             setFilterCoordinates={setFilterCoordinates}
                             highlighted={highlighted}
@@ -264,23 +269,15 @@ export default function (WrappedComponent : any, layers : MapLayersType) {
                             selectedItems={selectedItems}
                             isPolygon={isPolygon}
                             setSelectedItems={setSelectedItems}
-                            saveNewCapitalForm={saveNewCapitalForm}
-                            saveNewStudyForm={saveNewStudyForm}
-                            createNewProjectForm={createNewProjectForm}
-                            getProjectWithFilters={getProjectWithFilters}
                             getDropdownFilters={getDropdownFilters}
                             filters={filters}
-                            panel={panel}
-                            saveDraftCard={saveDraftCard}
                             dropdowns={dropdowns}
                             userFiltered={userFiltered}
                             getUserFilters={getUserFilters}
-                            removeFilter={removeFilter}
                             projects={projects}
                             projectsByType={projectsByType}
                             markerRef={markerRef}
-                            polygonRef={polygonRef}
-                            getUserProjects={getUserProjects}
+                            polygonRef={polygonRef}getUserProjects
                             sortProjects={sortProjects}
                             getGalleryProblems={getGalleryProblems}
                             getGalleryProjects={getGalleryProjects}

@@ -2,54 +2,6 @@ import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 
 import * as types from '../types/filterTypes';
-import { FILTER_PROJECTS, GET_PROJECTS_BY_TYPES } from '../types/mapTypes'; 
-import { FilterTypes, FilterNamesTypes } from "../../Classes/MapTypes";
-import { PROJECT_TYPES } from '../../constants/constants';
-
-export const getProjectWithFilters = (filters : FilterTypes) => {
-  return (dispatch : Function) => {
-      const data = filters?filters:{};
-      // datasets.postData(SERVER.FILTER_PROJECT, data, datasets.getToken()).then(projects => {
-      //     if(data.hasOwnProperty('requestName')) delete data['requestName'];
-      //     const filteredProjects : any = {};
-      //     PROJECT_TYPES.forEach((type : string) => {
-      //       filteredProjects[type] = filterProjectsByType(projects, type);
-      //     });
-
-      //     dispatch({ type: FILTER_PROJECTS, projects });
-      //     dispatch({ type: GET_PROJECTS_BY_TYPES, filteredProjects });
-      //     dispatch({ type: types.SET_FILTERS, data });
-      // });
-  } 
-}
-
-const filterProjectsByType = (projects : any, type : string) => {
-  if (projects && projects.length) {
-    return projects.filter((project : any) => project.projectType === type);
-  }
-}
-
-export const removeFilter = (item : FilterNamesTypes) => {
-  return (dispatch : Function, getState : Function) => {
-      const state = getState();
-      let newFilters = {...state.filter.filters};
-
-      if(Array.isArray(newFilters[item.key])) {
-          const array = [...newFilters[item.key]];
-          const arrayIndex = array.indexOf(item.type);
-          if(arrayIndex > -1) array.splice(arrayIndex, 1);
-
-          if(array.length) {
-              newFilters = {...newFilters, [item.key]: array};
-          } else {
-              delete newFilters[item.key];
-          }
-      } else {
-          delete newFilters[item.key];
-      }
-      dispatch(getProjectWithFilters(newFilters));
-  }
-}
 
 export const getDropdownFilters = (items : Array<string>) => {
   return async (dispatch: Function) => {

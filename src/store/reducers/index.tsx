@@ -7,7 +7,6 @@ import project from './ProjectReducer'
 
 import mapReducer from './mapReducer';
 import filterReducer from './filterReducer';
-import panelReducer from './panelReducer';
 import carouselImages from './carouselImagesReducer';
 import uploadAttachment from './uploadAttachmentReducer';
 import detailedReducer from './detailedReducer'; 
@@ -18,7 +17,6 @@ const appReducer = (history: any) => combineReducers({
   router: connectRouter(history),
   map: mapReducer,
   filter: filterReducer,
-  panel: panelReducer,
   appUser,
   users,
   profile,

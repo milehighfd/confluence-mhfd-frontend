@@ -8,20 +8,16 @@ import * as constants from '../../constants/constants';
 import { TotalType, ProjectTypes, OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
 import { ComponentType } from 'react';
 import store from '..';
-import { dispatch } from 'd3';
 
 export const getReverseGeocode = (lat : number, lng : number, accessToken : string) => {
-    /* Intentionally Commented By The Other API Proposal and Backup*/
     return (dispatch : Function) => {
         const url = "https://revgeocode.search.hereapi.com/v1/revgeocode?at=" + lng + "%2C" + lat + "&apiKey=" + accessToken;
-        // const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + lat + "," + lng + ".json?types=place&access_token=" + accessToken;
         fetch(url)
             .then(res => res.json())
             .then(data => {
                 const feature = data.items[0];
                 dispatch({ type: types.SET_REVERSE_GEOCODE, county: feature?feature.address.county:'' });
             })
-            // .then(data => dispatch({ type: types.SET_REVERSE_GEOCODE, county: data.features[0].text }))
             .catch(err =>  dispatch({ type: types.GEOCODE_REQUEST_ERROR, err }));
     }
 }
@@ -144,23 +140,6 @@ export const getMapTables = (trigger : string, name? : string) => {
                 else dispatch({ type: types.GET_MAP_LAYERS, data: { trigger, tiles } });
             });
         }
-    }
-}
-
-export const getPolygonStreams = (coordinates : Array<Array<number>>) => {
-    return (dispatch : Function) => {
-        /* https://postgis.net/docs/ST_GeomFromGeoJSON.html */
-        /* in this particular case uncomment the turf call in Map.tsx (line 232) */
-
-        /* https://postgis.net/docs/ST_GeomFromText.html */
-        let postGisQuery = "'POLYGON((";
-        coordinates.forEach((points : Array<number>) => {
-            points.forEach((point : number) => postGisQuery += (point + ','));
-        });
-        postGisQuery = postGisQuery.slice(0, -1) + "))'";
-
-        // console.log(coordinates);  --> for getting POSTGIS GEOJSON format
-        // console.log(postGisQuery); --> for getting the POSTGIS normal format
     }
 }
 

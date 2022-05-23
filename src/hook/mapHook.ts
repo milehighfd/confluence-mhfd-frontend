@@ -1,5 +1,3 @@
-import { ParametricSelector, createSelector } from 'reselect';
-import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -16,150 +14,21 @@ import {
   getComponentsCounter, getProjectCounter, getProblemCounter, mapSearchQuery, setSelectedOnMap, 
   existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,
   getComponentsByProblemId,getMapTables,
-  getComponentsByProjid, getPlaceOnCenter, replaceFilterCoordinates, resetMap
+  getComponentsByProjid, getPlaceOnCenter, replaceFilterCoordinates, resetMap, getReverseGeocode, savePolygonCoordinates,
+  saveMarkerCoordinates,
+  clearErrorMessage,
+  setRouteRedirect,
+  setFilterCoordinates,
+  setProblemKeyword,
+  setProjectKeyword,
+  getParamsFilter
 } from '../store/actions/mapActions';
 
-import { OptionProblems, OptionProjects, LabelFilter } from '../Classes/MapTypes';
-import { AnyLayer } from 'mapbox-gl';
+import { OptionProblems, OptionProjects } from '../Classes/MapTypes';
 
-interface selectMapState {
-  toggleModalFilter: boolean,
-  tabCards: string,
-  filterTabNumber: string,
-  boundsMap: string,
-  opacityLayer: boolean,
-  coordinatesJurisdiction: any[],
-  nameZoomArea: string,
-  labelsFiltersProjects: LabelFilter[],
-  labelsFiltersProblems: LabelFilter[],
-  labelsFiltersComponents: LabelFilter[],
-  spinFilters: boolean,
-  spinCardProblems: boolean,
-  spinCardProjects: boolean,
-  favoriteProblemCards: any,
-  favoriteProjectCards: any,
-  favorites: any,
-  bboxComponents: any,
-  tutorialStatus: boolean,
-  galleryProblems: any,
-  galleryProjects: any,
-  selectedOnMap: any,
-  autocomplete: any,
-  currentPopup: number,
-  totals: any,
-  favoritesLoader: number,
-  layers: any,
-  selectedLayers: any,
-  mapSearch: any,
-  componentDetailIds: any,
-  filterProjects: any, 
-  filterProblems: any,
-  filterComponents: any,
-  detailed: any,
-  loaderDetailedPage: any,
-  componentsByProblemId: any,
-  loaderTableCompoents: any,
-  componentCounter: any,
-  spinMapLoaded: any,
-  places: any
-}
-
-/* Commented because typescript doesn't support that many arguments
-createSelector<any, boolean, string, string, string, boolean, any[], string, LabelFilter[], LabelFilter[], boolean, boolean, boolean, //any,
-  {
-    toggleModalFilter: boolean,
-    tabCards: string,
-    filterTabNumber: string,
-    boundsMap: string,
-    opacityLayer: boolean,
-    coordinatesJurisdiction: any[],
-    nameZoomArea: string,
-    labelsFiltersProjects: any[],
-    labelsFiltersProblems: any[],
-    spinFilters: boolean,
-    spinCardProblems: boolean,
-    spinCardProjects: boolean//,
-    //paramFilters: any
-  }>
-  (
-    state => state.map.toggleModalFilter,
-    state => state.map.tabCards,
-    state => state.map.filterTabNumber,
-    state => state.map.boundsMap,
-    state => state.map.opacityLayer,
-    state => state.map.coordinatesJurisdiction,
-    state => state.map.nameZoomArea,
-    state => state.map.labelsFiltersProjects,
-    state => state.map.labelsFiltersProblems,
-    state => state.map.spinFilters,
-    state => state.map.spinCardProblems,
-    state => state.map.spinCardProjects,
-*/
-
-let createSelectorHack: any = createSelector;
-
-const selectMapStates: ParametricSelector<RootState, undefined, selectMapState> =
-  createSelectorHack(
-      (state: any) => state.map.toggleModalFilter,
-      (state: any) => state.map.tabCards,
-      (state: any) => state.map.filterTabNumber,
-      (state: any) => state.map.boundsMap,
-      (state: any) => state.map.opacityLayer,
-      (state: any) => state.map.coordinatesJurisdiction,
-      (state: any) => state.map.nameZoomArea,
-      (state: any) => state.map.labelsFiltersProjects,
-      (state: any) => state.map.labelsFiltersProblems,
-      (state: any) => state.map.labelsFiltersComponents,
-      (state: any) => state.map.spinFilters,
-      (state: any) => state.map.spinCardProblems,
-      (state: any) => state.map.spinCardProjects,
-      (state: any) => state.map.favoriteProblemCards,
-      (state: any) => state.map.favoriteProjectCards,
-      (state: any) => state.map.favorites,
-      (state: any) => state.map.bboxComponents,
-      (state: any) => state.map.tutorialStatus,
-      (state: any) => state.map.galleryProblems,
-      (state: any) => state.map.galleryProjects,
-      (state: any) => state.map.selectedOnMap,
-      (state: any) => state.map.autocomplete,
-      (state: any) => state.map.currentPopup,
-      (state: any) => state.map.totals,
-      (state: any) => state.map.favoritesLoader,
-      (state: any) => state.map.layers,
-      (state: any) => state.map.selectedLayers,
-      (state: any) => state.map.mapSearch,
-      (state: any) => state.map.componentDetailIds,
-      (state: any) => state.map.filterProblems,
-      (state: any) => state.map.filterProjects,
-      (state: any) => state.map.filterComponents,
-      (state: any) => state.detailed.detailed,
-      (state: any) => state.detailed.spin,
-      (state: any) => state.map.componentsByProblemId,
-      (state: any) => state.map.loaderTableCompoents,
-      (state: any) => state.map.componentCounter,
-      (state: any) => state.map.spinMapLoaded,
-      (state: any) => state.map.places,
-      //state => state.map.paramFilters,
-      (toggleModalFilter: any, tabCards: any, filterTabNumber: any, boundsMap: any, opacityLayer: any, coordinatesJurisdiction: any, 
-        nameZoomArea: any, labelsFiltersProjects: any, labelsFiltersProblems: any, labelsFiltersComponents: any,
-        spinFilters: any, spinCardProblems: any, spinCardProjects: any,//, paramFilters
-        favoriteProblemCards: any,favoriteProjectCards: any, favorites: any, bboxComponents: any, tutorialStatus: boolean,
-        galleryProblems: any, galleryProjects: any, selectedOnMap: any, autocomplete: any, currentPopup: number, totals: any, favoritesLoader: number, 
-        layers: any, selectedLayers: any, mapSearch: any, componentDetailIds: any, filterProblems: any, filterProjects: any, filterComponents: any,
-        detailed: any,loaderDetailedPage: any, componentsByProblemId:any, loaderTableCompoents: any, componentCounter:any, spinMapLoaded: any, places: any
-        ) => ({
-          toggleModalFilter, tabCards, filterTabNumber, boundsMap, opacityLayer, coordinatesJurisdiction, 
-          nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents,
-          spinFilters, spinCardProblems, spinCardProjects, favoriteProblemCards, favoriteProjectCards, favorites, bboxComponents, tutorialStatus,
-          galleryProblems, galleryProjects, selectedOnMap, autocomplete, currentPopup, totals, favoritesLoader, layers, selectedLayers, mapSearch,
-          componentDetailIds, filterProblems, filterProjects, filterComponents, detailed, loaderDetailedPage, componentsByProblemId,
-          loaderTableCompoents, componentCounter, spinMapLoaded, places
-        })
-    );
-
-export const useMapState = () => {
-  return useSelector((state: RootState) => selectMapStates(state, undefined));
-}
+export const useMapState = () => useSelector(
+  (state: { map: any }) => state.map
+);
 
 export const useMapDispatch = () => {
   const dispatch = useDispatch();
@@ -320,6 +189,33 @@ export const useMapDispatch = () => {
     },
     resetMap: () => {
       dispatch(resetMap());
+    },
+    getReverseGeocode: (lat: number, lng: number, accessToken: string) => {
+      dispatch(getReverseGeocode(lat, lng, accessToken));
+    },
+    savePolygonCoordinates: (polygon : Array<[]>) => {
+      dispatch(savePolygonCoordinates(polygon));
+    },
+    saveMarkerCoordinates: (marker : Array<[]>) => {
+      dispatch(saveMarkerCoordinates(marker))
+    },
+    clearErrorMessage: () => {
+      dispatch(clearErrorMessage());
+    },
+    setRouteRedirect: (status : boolean) => {
+      dispatch(setRouteRedirect(status));
+    },
+    setFilterCoordinates: (coordinates: string, tab: string) => {
+      dispatch(setFilterCoordinates(coordinates, tab));
+    },
+    setProblemKeyword: (keyword: string) => {
+      dispatch(setProblemKeyword(keyword));
+    },
+    setProjectKeyword: (keyword: string) => {
+      dispatch(setProjectKeyword(keyword));
+    },
+    getParamsFilter: (bounds: string) => {
+      dispatch(getParamsFilter(bounds));
     }
   }
 }

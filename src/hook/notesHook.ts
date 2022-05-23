@@ -1,8 +1,6 @@
 import { ParametricSelector, createSelector } from 'reselect';
 import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
-import { FilterNamesTypes } from '../Classes/MapTypes';
-import { removeFilter } from '../store/actions/filterActions';
 import { createGroup, createNote, deleteGroup, deleteNote, editGroup, editNote, getAvailableColors, getGroups, getNotes, setOpen } from '../store/actions/notesActions';
 
 interface notesState {
@@ -40,9 +38,6 @@ interface notesState {
 export const useNoteDispatch = () => {
    const dispatch = useDispatch();
    return {
-      removeFilter: (filter: FilterNamesTypes) => {
-         dispatch(removeFilter(filter));
-      },
       getNotes: (color_id?:any) => {
         dispatch(getNotes(color_id));
       },

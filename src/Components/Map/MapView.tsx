@@ -16,7 +16,6 @@ import { capitalLetter, elementCost, getStatus } from '../../utils/utils';
 import { useSelector } from "react-redux";
 import RheoStatService from '../FiltersProject/NewProblemsFilter/RheoStatService';
 import { useProfileDispatch, useProfileState } from "../../hook/profileHook";
-import { getCurrent } from "../../utils/globalMap";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];

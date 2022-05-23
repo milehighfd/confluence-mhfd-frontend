@@ -161,7 +161,6 @@ const Map = ({ leftWidth,
     polygonRef,
     selectedLayers,
     polygon,
-    getPolygonStreams,
     updateSelectedLayers,
     setFilterCoordinates,
     highlighted,
@@ -276,7 +275,6 @@ const Map = ({ leftWidth,
     const [allLayers, setAllLayers] = useState(empty);
     const [tabActive, setTabActive] = useState('1');
     const [tabPosition, setTabPosition] = useState('1');
-    const {removeFilter} = useFilterDispatch();
     const {filters} = useFilterState();
     const [filterNames, setFilterNames] = useState<Array<any>>([]);
     const [mapService] = useState<MapService>(new MapService());
@@ -2015,9 +2013,6 @@ const Map = ({ leftWidth,
                 paintSelectedComponents(selectedItems);
                 setSelectedItems(selectedItems);
                 setIsPolygon(true);
-            } else if (layers.study) {
-                // getPolygonStreams(polygonTurfCoords.geometry);
-                getPolygonStreams(polygonCoords);
             }
         }
 
@@ -4401,7 +4396,6 @@ const Map = ({ leftWidth,
                             cardInformation={cardInformation}
                             accordionRow={accordionRow}
                             listFilters={filters}
-                            removeFilter={removeFilter}
                             setHighlighted={setHighlighted}
                             getComponentsByProblemId={getComponentsByProblemId}
                             filterComponentOptions={filterComponentOptions}
