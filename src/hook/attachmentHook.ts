@@ -5,7 +5,10 @@ import {
   getAllAttachment,
   getAttachment,
   getAttachmentByProject,
-  toggleAttachment
+  removeAttachment,
+  setLoading,
+  toggleAttachment,
+  uploadFile
 } from '../store/actions/uploadAttachmentActions';
 
 export const useAttachmentState = () => useSelector(
@@ -30,8 +33,20 @@ export const useAttachmentDispatch = () => {
     getAttachment: (projectid: any) => {
       dispatch(getAllAttachment(projectid));
     },
+    getAllAttachment: (projectid: any) => {
+      dispatch(getAllAttachment(projectid));
+    },
     getAttachmentByProject: (projectid: any) => {
       dispatch(getAttachmentByProject(projectid));
+    },
+    uploadFile(files: any, url: string) {
+      dispatch(uploadFile(files, url))
+    },
+    removeAttachment(id: string, url: string) {
+      dispatch(removeAttachment(id, url))
+    },
+    setLoading(loading: boolean) {
+      dispatch(setLoading(loading))
     }
   };
 };
