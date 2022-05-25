@@ -899,8 +899,8 @@ const MapView = () => {
                 setvalueA(input2)
               }}
               >
-
-              <Input id={'miclase'} suffix={dropdownIsOpen ? <UpOutlined /> : <DownOutlined />} />
+    
+              <Input id={'miclase'} style={{border: 'none', boxShadow: 'none', borderBottom: '1.5px solid rgba(37, 24, 99, 0.3)'}} suffix={dropdownIsOpen ? <UpOutlined /> : <DownOutlined />} />
             </AutoComplete>
           </div>
         </Col>

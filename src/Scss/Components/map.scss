@@ -966,7 +966,7 @@
   .img-h{
     opacity: 1;
   }
-   .ant-btn:hover .img-h, .ant-btn:focus .img-h, .ant-btn:active .img-h, .ant-btn.active .img-h {
+  .ant-btn:hover .img-h, .ant-btn:focus .img-h, .ant-btn:active .img-h, .ant-btn.active .img-h {
     display: none;
   }
   .ant-btn:hover .img-a, .ant-btn:focus .img-a, .ant-btn:active .img-a, .ant-btn.active .img-a {
@@ -977,7 +977,8 @@
   }
 }
 .auto-complete-map{
-  margin-top: -1px;
+    margin-top: -4px;
+    margin-left: 1px;
   .ant-select{
     width: 100% ;
     max-width: 295px;
@@ -985,11 +986,11 @@
     border-bottom: 1.5px solid $opacity03;
   }
   .ant-select-selection__placeholder, .ant-select-search__field__placeholder, .ant-input{
-   color: $purple;
-   font-size: 22px !important;
-   margin-left: 0px !important;
-   margin-right: 0px !important;
-   height: 30px;
+    color: $black !important;
+    font-size: 22px !important;
+    margin-left: -12px !important;
+    margin-right: -2px !important;
+    height: 30px;
   }
   .ant-select-auto-complete.ant-select .ant-input {
     border: none;
@@ -1011,7 +1012,7 @@
   }
   .ant-input-affix-wrapper .ant-input-suffix {
     right: -5px;
-    color: $purple;
+    color: $black;
     font-size: 16px;
   }
   .rotate-icon{
@@ -1308,19 +1309,20 @@
   background-image: url('../../../public/Icons/icon-21.svg') !important;
 }
 .tabs-map{
-  .ant-tabs-nav .ant-tabs-tab-active {
-    color: $purple;
+  .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: $dark;
   }
   .ant-tabs-nav .ant-tabs-tab {
+    color: $dark;
     padding: 15px 0px 15px 0px !important;
     margin: 0 20px 0 0;
     font-size: 15px;
   }
   .ant-tabs-ink-bar {
-    background-color: $purple;
+    background-color: $dark;
   }
   .ant-tabs-nav .ant-tabs-tab:hover {
-    color: $purple;
+    color: $dark !important;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
     float: none;
@@ -1331,7 +1333,7 @@
   .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     padding: 12px 10px;
     padding-left: 10px;
-    color: $purple;
+    color: $dark;
     line-height: 30px;
     height: 54px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15) !important;
@@ -1356,14 +1358,17 @@
   .ant-collapse-content>.ant-collapse-content-box {
     padding: 20px 15px 0px 15px;
   }
+
 }
 .over-00{
-  margin: 0px -20px !important;
-
+  margin: 0px -4px !important;
+  color: $dark !important;
+  
   .ant-tabs-bar {
     margin: 0 15px 16px 15px;
   }
 }
+
 .line-00{
   height: 7px;
 }
@@ -1486,7 +1491,7 @@
   }
 }
 .card-map{
-  padding: 10px 20px 0px 20px;
+  //padding: 10px 20px 0px 20px;
 
   .card-title-s{
     height: 40px;
