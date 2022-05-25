@@ -5,7 +5,6 @@ const initState = {
     error: '',
     autocomplete: '',
     selectedOnMap: { id: -1, tab: '' },
-    redirect: false,
     newProject: {
         jurisdiction: '',
         coordinates: [],
@@ -482,11 +481,6 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 problems: action.problems
-            }
-        case types.SET_REDIRECT:
-            return {
-                ...state,
-                redirect: action.status
             }
         case types.SET_ERROR_MESSAGE:
             return {

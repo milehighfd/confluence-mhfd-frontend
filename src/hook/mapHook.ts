@@ -17,7 +17,6 @@ import {
   getComponentsByProjid, getPlaceOnCenter, replaceFilterCoordinates, resetMap, getReverseGeocode, savePolygonCoordinates,
   saveMarkerCoordinates,
   clearErrorMessage,
-  setRouteRedirect,
   setFilterCoordinates,
   setProblemKeyword,
   setProjectKeyword,
@@ -201,9 +200,6 @@ export const useMapDispatch = () => {
     },
     clearErrorMessage: () => {
       dispatch(clearErrorMessage());
-    },
-    setRouteRedirect: (status : boolean) => {
-      dispatch(setRouteRedirect(status));
     },
     setFilterCoordinates: (coordinates: string, tab: string) => {
       dispatch(setFilterCoordinates(coordinates, tab));

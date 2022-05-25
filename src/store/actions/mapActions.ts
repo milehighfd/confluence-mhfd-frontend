@@ -34,52 +34,6 @@ export const saveMarkerCoordinates = (marker : Array<[]>) => {
     }
 }
 
-export const saveNewCapitalForm = (data : ProjectTypes, components: Array<ComponentType>, total: TotalType, files: Array<[]>) => {
-    return (dispatch : Function) => {
-        if(components.length) {
-            const newProject : ProjectTypes = {
-                ...data,
-                finalCost: total ? total.total : 0, 
-                additionalCost: total ? total.additional?.additionalCost : 0, 
-                additionalCostDescription: total ? total.additional?.additionalCostDescription : '', 
-                overheadCost: total ? total.overhead?.overheadCost : 0, 
-                overheadCostDescription: total ? total.overhead?.overheadCostDescription : '',
-                components: JSON.stringify(components)
-            };
-
-            dispatch(createNewProjectForm(newProject, files));
-        } else {
-            dispatch({ type: types.SET_ERROR_MESSAGE, error: constants.NO_COMPONENTS_ERROR });
-        }
-    }
-}
-
-export const saveNewStudyForm = (data: ProjectTypes) => {
-    return (dispatch : Function, getState : Function) => {
-        const state = getState();
-        const county = state.map.newProject.jurisdiction;
-        const coordinates = state.map.newProject.coordinates;
-
-        if(coordinates.length) {
-            const dataForm : FormData = new FormData();
-            for (const key in data) {
-                dataForm.append(key, '' + data[key]); 
-            }
-            
-            dataForm.append('jurisdiction', county);
-            dataForm.append('coordinates', JSON.stringify(coordinates));
-            datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(res => {
-                if (res?._id) {
-                    dispatch(setRouteRedirect(true));
-                }
-            });
-        } else {
-            dispatch({ type: types.SET_ERROR_MESSAGE, error: constants.NO_POLYGON_ERROR });
-        }
-
-    }
-}
-
 export const createNewProjectForm = (data: ProjectTypes, files: Array<any>) => {
     return (dispatch : Function, getState : Function) => {
         const state = getState();
@@ -101,7 +55,6 @@ export const createNewProjectForm = (data: ProjectTypes, files: Array<any>) => {
 
             datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(project => {
                 if (project?._id) {
-                    dispatch(setRouteRedirect(true));
                 }
             });
         } else {
@@ -113,12 +66,6 @@ export const createNewProjectForm = (data: ProjectTypes, files: Array<any>) => {
 export const clearErrorMessage = () => {
     return (dispatch : Function) => {
         dispatch({ type: types.SET_ERROR_MESSAGE, error: '' });
-    }
-}
-
-export const setRouteRedirect = (status : boolean) => {
-    return (dispatch : Function) => {
-        dispatch({ type: types.SET_REDIRECT, status });
     }
 }
 

@@ -56,14 +56,12 @@ export type CapitalTypes = {
     selectedItems: Array<ComponentType>, 
     isPolygon: boolean, 
     setSelectedItems: Function, 
-    saveNewCapitalForm: Function, 
     polygonRef: React.RefObject<HTMLDivElement>
 }
 
 export type StudyTypes = {
     selectedItems : Array<ComponentType>, 
     setSelectedItems: Function, 
-    saveNewStudyForm: Function, 
     polygonRef: React.RefObject<HTMLDivElement>, 
     isPolygon: boolean
 }

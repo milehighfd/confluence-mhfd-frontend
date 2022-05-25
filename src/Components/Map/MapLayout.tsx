@@ -6,7 +6,6 @@ import SidebarView from "../Shared/Sidebar/SidebarView";
 import LoadingView from '../Loading/LoadingView';
 
 import { COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MEDIUM_SCREEN_RIGHT, MEDIUM_SCREEN_LEFT } from "../../constants/constants";
-import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message } from 'antd';
 import { useMapDispatch, useMapState } from '../../hook/mapHook';
@@ -18,13 +17,11 @@ import MapView from './MapView';
 const MapLayout = () => {
     const {
       clearErrorMessage,
-      setRouteRedirect,
       updateSelectedLayers,
     } = useMapDispatch();
 
     const {
       error,
-      redirect,
       selectedLayers
     } = useMapState();
     const {
@@ -100,10 +97,7 @@ const MapLayout = () => {
       }
       setCompleteView(!isExtendedView);
     }
-    if (redirect) {
-      setRouteRedirect(false);
-      return <Redirect to='/map' />
-    }
+
     return (
       <Layout>
         <Navbar />
