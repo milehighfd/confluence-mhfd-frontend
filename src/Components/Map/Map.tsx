@@ -11,17 +11,16 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './MapPopups';
-import { Dropdown,  Button, Collapse, Card, Tabs, Row, Col, Checkbox, Popover } from 'antd';
+import { Dropdown,  Button, Collapse, Tabs, Row, Col, Checkbox, Popover } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
 
-import { MapProps, ComponentType, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
+import { MapProps, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import {
     MAP_DROPDOWN_ITEMS,
-    MAPBOX_TOKEN, HERE_TOKEN,
+    MAPBOX_TOKEN,
     PROBLEMS_TRIGGER,
     PROJECTS_TRIGGER,
-    COMPONENTS_TRIGGER,
     COMPONENT_LAYERS,
     STREAMS_FILTERS,
     MUNICIPALITIES_FILTERS,
@@ -38,7 +37,6 @@ import {
     SERVICE_AREA_FILTERS,
     STREAMS_POINT
 } from "../../constants/constants";
-import { Feature, Properties, Point } from '@turf/turf';
 import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../constants/mapStyles';
 import { addMapGeocoder } from '../../utils/mapUtils';
 import { numberWithCommas } from '../../utils/utils';
@@ -52,7 +50,6 @@ import { useProfileDispatch } from '../../hook/profileHook';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import GenericTabView from '../Shared/GenericTab/GenericTabView';
-import { useFilterState } from '../../hook/filtersHook';
 import MapService from './MapService';
 import MobilePopup from '../MobilePopup/MobilePopup';
 import { ModalProjectView } from '../ProjectModal/ModalProjectView';
@@ -60,13 +57,12 @@ import SideBarComment from './SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
 import { useProfileState } from '../../hook/profileHook';
 
-import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, divListOfelements, rotateIcon} from './commetsFunctions';
+import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from './commetsFunctions';
 import { GlobalMapHook } from '../../utils/globalMapHook';
 import { useDetailedState } from '../../hook/detailedHook';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
 
-const MapboxDraw = require('@mapbox/mapbox-gl-draw');
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
 let searchPopup = new mapboxgl.Popup({closeButton: true,});
@@ -83,7 +79,6 @@ let coordY = -1;
 const factorKMToMiles = 0.621371;
 const factorKMtoFeet =  3280.8;
 const factorm2toacre = 0.00024710538146717;
-/// variables for history
 let itMoved = false;
 let globalMapId: string | null = null;
 
@@ -96,7 +91,6 @@ let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
 let contents: any = [];
 let markerNotes_global: any = [];
 let isMeasuring = false;
-    // GeoJSON object to hold our measurement features
     const geojsonMeasures = {
       'type': 'FeatureCollection',
       'features': new Array()
@@ -105,8 +99,7 @@ let isMeasuring = false;
       'type': 'FeatureCollection',
       'features': new Array()
     };
-      
-    // Used to draw a line between points
+
     const linestringMeasure = {
       'type': 'Feature',
       'geometry': {
@@ -138,8 +131,6 @@ const Map = ({
     isExtendedView
 }: MapProps) => {
   const {
-    getReverseGeocode, 
-    saveMarkerCoordinates, 
     getGalleryProblems, 
     getGalleryProjects,
     updateSelectedLayers,
@@ -175,7 +166,6 @@ const Map = ({
     bboxComponents,
     autocomplete,
     currentPopup,
-    components,
     layers: layerFilters,
     galleryProblems,
     galleryProjects,
@@ -194,7 +184,6 @@ const Map = ({
   } = useMapState();
   const {
     detailed,
-    spin: loaderDetailedPage,
   } = useDetailedState();
     let geocoderRef = useRef<HTMLDivElement>(null);
 
@@ -204,14 +193,13 @@ const Map = ({
         LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
         CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
          PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAMS_FILTERS, EFFECTIVE_REACHES, ACTIVE_LOMS, MHFD_STREAMS_FILTERS];
-    const [dropdownItems, setDropdownItems] = useState({ default: 1, items: MAP_DROPDOWN_ITEMS });
+    const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
     const { saveUserInformation } = useProfileDispatch();
     const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
-    const [recentSelection, setRecentSelection] = useState<LayersType>('');
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
@@ -221,7 +209,7 @@ const Map = ({
     const { colorsList } = useColorListState();
     const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
     const [zoomValue, setZoomValue] = useState(0);
-    const { addHistoric, getCurrent, getHistoric, getNext, getPercentage, getPrevious, hasNext, hasPrevious } = GlobalMapHook();
+    const { addHistoric, getCurrent, getNext, getPercentage, getPrevious, hasNext, hasPrevious } = GlobalMapHook();
     const colors = {
         RED: '#FF0000',
         ORANGE: '#FA6400',
@@ -235,23 +223,10 @@ const Map = ({
       YELLOW: '#ffbf00'
     }
     const [noteColor, setNoteColor] = useState(colors.YELLOW);
-    const [noteGeoJSON, setNoteGeoJSON] = useState({
-        "type": "FeatureCollection",
-        "features": []
-    });
     const [markersNotes, setMarkerNotes] = useState([]) ;
     const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
     const { TabPane } = Tabs;
-    
-    const accordionRow: Array<any> = [
-        {
-          color: "green", image: "/Icons/icon-19.svg", field1: "Component 1", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
-        }, {
-          color: "gray", image: "/Icons/icon-19.svg", field1: "Component 2", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
-        }, {
-          color: "green", image: "/Icons/icon-19.svg", field1: "Component 3", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
-        }
-      ];
+
     const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS,MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS ,
         MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,  MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
         MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
@@ -265,9 +240,7 @@ const Map = ({
     const [collapseKey, setCollapseKey] = useState('0');
     const empty:any[] = [];
     const [allLayers, setAllLayers] = useState(empty);
-    const [tabActive, setTabActive] = useState('1');
     const [tabPosition, setTabPosition] = useState('1');
-    const {filters} = useFilterState();
     const [mapService] = useState<MapService>(new MapService());
     const [commentVisible, setCommentVisible] = useState(false);
     const [swSave, setSwSave] = useState(false);
@@ -288,7 +261,6 @@ const Map = ({
           </Col>
         </Row>
       );
-    //const [layerOpacity, setLayerOpacity] = useState(false);
     const coorBounds: any[][] = [];
     const coordinatesMHFD = [
         [-105.3236581, 39.4057815],
@@ -321,61 +293,6 @@ const Map = ({
             return turf.difference(bboxPoly, mask);
         }
     }
-
-    const applyOpacity = async () => {
-        let mask;
-        if (coordinatesJurisdiction.length > 0) {
-            mask = turf.multiPolygon(coordinatesJurisdiction);
-            const arrayBounds = boundsMap.split(',');
-            if (!map.getLayer('mask')) {
-                map.addSource('mask', {
-                    "type": "geojson",
-                    "data": polyMask(mask, arrayBounds)
-                });
-
-                map.addLayer({
-                    "id": "mask",
-                    "source": "mask",
-                    "type": "fill",
-                    "paint": {
-                        "fill-color": "black",
-                        'fill-opacity': 0.8
-                    }
-                });
-            } else {
-                map.setLayoutProperty('mask', 'visibility', 'visible');
-                map.removeLayer('mask');
-                map.removeSource('mask');
-                map.addSource('mask', {
-                    "type": "geojson",
-                    "data": polyMask(mask, arrayBounds)
-                });
-
-                map.addLayer({
-                    "id": "mask",
-                    "source": "mask",
-                    "type": "fill",
-                    "paint": {
-                        "fill-color": "black",
-                        'fill-opacity': 0.8
-                    }
-                });
-                /* map.setLayoutProperty('mask', 'visibility', 'visible');
-                const newConfig = {
-                    "type": "geojson",
-                    "data": polyMask(mask, arrayBounds)
-                }
-                map.getSource('mask').setData(newConfig); */
-            }
-        }
-    }
-
-    /* if (coordinatesJurisdiction.length > 0) {
-        if (map.isStyleLoaded()) {
-            applyOpacity();
-        }
-    } */
-
     useEffect(()=>{
       const user = userInformation;
       if (user?.polygon[0]) {
@@ -390,13 +307,6 @@ const Map = ({
             } else {
                 myPolygon.push([...geo]);
             }
-            //  if (element[0].hasOwnProperty('length')) {
-              //  for (const element2 of element) {
-              //      myPolygon.push([...element2]);
-               // }
-         //   } else {
-              //  myPolygon.push([...element]);
-            //}
         }
         let bottomLongitude = myPolygon[0][0];
         let bottomLatitude = myPolygon[0][1];
@@ -419,39 +329,11 @@ const Map = ({
         }
         bottomLongitude -= 0.125;
         topLongitude += 0.125;
-
-        // console.log('coords ' , bottomLongitude, bottomLatitude, topLongitude, topLatitude);
         coorBounds.push([bottomLongitude, bottomLatitude]);
         coorBounds.push([topLongitude, topLatitude]);
     }
     },[userInformation.polygon]);
  
-    const addSourceOpacity = (data :any) => {
-    
-      if(!map.getSource('mask')) {
-        map.addSource('mask', {
-          "type": "geojson",
-          "data": data
-        });
-      } else {
-        
-        if(map.getLayer('area_based_maskMASK')) {
-          map.removeLayer('area_based_maskMASK');
-        }
-        if(map.getLayer('borderMASK')) {
-          map.removeLayer('borderMASK');
-        }
-        map.removeSource('mask');
-        setTimeout(()=>{
-          if (!map.getSource('mask')) {
-            map.addSource('mask', {
-              "type": "geojson",
-              "data": data
-            });
-          }
-        },300);
-      }
-    }
     const addLayerMask = (id: any) => {
       if (id == 'border' &&  !map.getLayer(id+"MASK")) {
         map.addLayer({
@@ -511,7 +393,6 @@ const Map = ({
 
     useEffect(() => {
         const div = document.getElementById('popup');
-        // console.log("SECOND COUNTER", counterPopup);
         if (div != null) {
             div.innerHTML = `${counterPopup.componentes}`;
         }
@@ -685,33 +566,12 @@ const Map = ({
     useEffect(() => {
       let mask;
       if (coordinatesJurisdiction.length > 0 && map) {
-        
           mask = turf.multiPolygon(coordinatesJurisdiction);
-          let miboundsmap = map.getBounds();
-          // let boundingBox1 = miboundsmap._sw.lng + ',' + miboundsmap._sw.lat + ',' + miboundsmap._ne.lng + ',' + miboundsmap._ne.lat;
           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
           var arrayBounds = misbounds.split(',');
           let poly = polyMask(mask, arrayBounds);
           setOpacityLayer(true);
-          // if (!map.getSource('mask')) {
-          //   console.log("zxc mask");
-          //     map.addSource('mask', {
-          //         "type": "geojson",
-          //         "data": poly
-          //     });
-          //     // this mask is the one added at beginning 
-          //     // map.addLayer({
-          //     //     "id": "mask",
-          //     //     "source": "mask",
-          //     //     "type": "fill",
-          //     //     "paint": {
-          //     //         "fill-color": "black",
-          //     //         'fill-opacity': 0.8
-          //     //     }
-          //     // });
-          // } else {
               map.removeLayer('mask');
-              // map.removeSource('mask');
               if(map.getSource('mask')) {
                 map.getSource('mask').setData(poly);
               } else {
@@ -720,8 +580,6 @@ const Map = ({
                     "data": poly
                 });
               }
-              
-              //this layer is the one on init
               map.addLayer({
                   "id": "mask",
                   "source": "mask",
@@ -745,11 +603,6 @@ const Map = ({
                 map.removeLayer('mask');
                 map.removeLayer('border');
               },4000);
-
-          // }
-          // map.isStyleLoaded(()=>{
-          //   addSourceOpacity(poly);
-          // })
       } else {
           if (opacityLayer) {
               if  (map.loaded()) {
@@ -762,12 +615,6 @@ const Map = ({
           }
 
       }
-      // setTimeout(()=>{
-      //   map.on('load', () => {
-      //     console.log(map.getStyle().getLayers);
-      //     map.moveLayer('borderMASK');
-      //   });
-      // },1000);
   }, [coordinatesJurisdiction]);
 
     useEffect(() => {
@@ -814,7 +661,6 @@ const Map = ({
       if(type == "Service Area") {
         options.servicearea = value;
       } else if(type) {
-        // COUNTY AND SERVICE AREA HAS field = county  field = servicearea  field = jurisdiction 
         options[type.toLowerCase()] = value;
       }
       return options;
@@ -824,7 +670,6 @@ const Map = ({
       if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
         globalMapId = historicBounds.id;
         map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
-        // getPlaceOnCenter(historicBounds.center);
       } else if (coorBounds[0] && coorBounds[1]) {
         map.fitBounds(coorBounds);
         if(userInformation.isSelect != 'isSelect') {
@@ -875,7 +720,7 @@ const Map = ({
             container: 'map',
             dragRotate: true,
             touchZoomRotate: true,
-            style: dropdownItems.items[dropdownItems.default].style, //hosted style id
+            style: dropdownItems.items[dropdownItems.default].style,
             center: [userInformation.coordinates.longitude, userInformation.coordinates.latitude],
             zoom: 8,
             attributionControl: false
@@ -998,20 +843,6 @@ const Map = ({
         });
 
         let value = 0;
-        /* map.addSource('mask', {
-            "type": "geojson",
-            "data": polyMask(mask, boundsMap)
-        });
-
-        map.addLayer({
-            "id": "zmask",
-            "source": "mask",
-            "type": "fill",
-            "paint": {
-                "fill-color": "black",
-                'fill-opacity': 0.8
-            }
-        }); */
         let _ = 0;
         map.on('zoomend', () => {
             mapService.hideOpacity();
@@ -1023,7 +854,6 @@ const Map = ({
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
                 setBoundMap(boundingBox);
                 if (applyFilter) {
-                    //TODO: move this ifs inside toggle modal if it works again
                     if (toggleModalFilter) {
                         if (filterTabNumber === PROJECTS_TRIGGER) {
                             getParamFilterProjects(boundingBox, filterProjectOptions);
@@ -1037,7 +867,6 @@ const Map = ({
                         setFilterCoordinates(boundingBox, tabCards);
                     }
                 }
-                // hideLayerOpacity();
             }
 
         });
@@ -1058,15 +887,12 @@ const Map = ({
                     } else {
                         getParamFilterComponents(boundingBox, filterComponentOptions);
                     }
-                    //TODO: move those ifs inside toggle modal if it works again
                 } else {
                     setFilterCoordinates(boundingBox, tabCards);
                 }
-                // hideLayerOpacity();
             }
         });
         const updateZoom = () => {
-            // console.log(map.getStyle());
             const zoom = map.getZoom().toFixed(2);
             setZoomValue(zoom);
         }
@@ -1076,16 +902,6 @@ const Map = ({
             itMoved = true;
         });
         getColorsList();
-        // createColorList({
-        //   label: 'booker B', 
-        //   color: "#00f507",
-        //   opacity: 1
-        // });
-      //   setTimeout(() => {
-      //     map.getStyle().layers.forEach((layer: any) => {
-      //         console.log("layer",layer);
-      //     });
-      // }, 8000);
     }, []);
     const removeAllChildNodes = (parent:any) => {
       while (parent.firstChild) {
@@ -1106,7 +922,6 @@ const Map = ({
       getNotes();
     },[colorsList]);
     useEffect(() => {
-        //console.log('my apply filter ', applyFilter, zoomEndCounter);
         const bounds = map.getBounds();
         if(markerGeocoder) {
             let lnglat = markerGeocoder.getLngLat();
@@ -1162,8 +977,6 @@ const Map = ({
     }, [dropdownItems.items[dropdownItems.default].style]);
 
     useEffect(() => {
-        /* Due the addition of 200ms extend transition resizing the map
-        every 25ms to add the transition effect within the map extension. */
         const mapResize = () => map.resize();
         for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 1000; i = i + 25) {
             setTimeout(() => mapResize(), i);
@@ -1199,12 +1012,6 @@ const Map = ({
             waiting();
         }
     }, [selectedLayers]);
-
-    useEffect(() => {
-        if (recentSelection) {
-            removeTilesHandler(recentSelection);
-        }
-    }, [recentSelection]);
 
     useEffect(() => {
         if (map.getLayer('mapboxArcs')) {
@@ -1278,21 +1085,6 @@ const Map = ({
 
     const removePopup = () => {
         popup.remove();
-    }
-
-    const hideLayerOpacity = async () => {
-        if (opacityLayer) {
-            const waiting = () => {
-                if (!map.isStyleLoaded()) {
-                    setTimeout(waiting, 50);
-                } else {
-                    // setCoordinatesJurisdiction([]);
-                    map.setLayoutProperty('mask', 'visibility', 'none');
-                    setOpacityLayer(false);
-                }
-            };
-            waiting();
-        }
     }
 
     const applyMeasuresLayer = () => {
@@ -1371,7 +1163,6 @@ const Map = ({
                 'tileSize': 128,
                 'tiles': [
                     `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`
-                        // 'https://tiles.mapillary.com/maps/vtp/mly1_public/2/{z}/{x}/{y}?access_token=MLY|4142433049200173|72206abe5035850d6743b23a49c41333'
                     ]
             });
             map.addLayer(
@@ -1406,8 +1197,7 @@ const Map = ({
                           ]
                     }
                 },
-                'aerialway' // Arrange our new layer beneath this layer,
-                
+                'aerialway'
             );
         }
     }
@@ -1544,12 +1334,6 @@ const Map = ({
                 return;
             }
             const allFilters: any[] = ['all'];
-            // init all added filters to be true
-
-            //iterate the filters that reach here
-            
-            // always will have fields
-            // on reset the only field is status
             for (const filterField in toFilter) {
                 let filters = toFilter[filterField];
                 if (key === 'mhfd_projects' && filterField === 'status' && !filters) {
@@ -1563,7 +1347,6 @@ const Map = ({
                         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
                     }
                 }
-                // if field has length larger, even if is string
                 if (filters && filters.length) {
                     const options: any[] = ['any'];
                     if (filterField === 'keyword') {
@@ -1654,23 +1437,9 @@ const Map = ({
                             const allFilter = ['all', lowerArray, upperArray];
                             options.push(allFilter);
                         }
-                    } else {
-                        // here splits the string in array 
-                        
-                        
+                    } else {                        
                         for (const filter of filters.split(',')) {
-                          // to check if is string of is number
                             if (isNaN(+filter)) {
-                                // if is string it will add to options ( [any, ...])
-                                //    0: "any" // for reset button only adds this to any 
-                                // 1: (3) ['==', Array(2), 'Initiated']
-                                // 2: (3) ['==', Array(2), 'Preliminary Design']
-                                // 3: (3) ['==', Array(2), 'Construction']
-                                // 4: (3) ['==', Array(2), 'Final Design']
-                                // 5: (3) ['==', Array(2), 'Hydrology']
-                                // 6: (3) ['==', Array(2), 'Floodplain']
-                                // 7: (3) ['==', Array(2), 'Alternatives']
-                                // 8: (3) ['==', Array(2), 'Conceptual']
                                 if(filterField == 'projecttype') {
                                   if(JSON.stringify(style.filter).includes(filter)) {
                                     options.push(['==', ['get', filterField], filter]);
@@ -1694,9 +1463,7 @@ const Map = ({
             if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
               allFilters.push(style.filter);
             }
-            // NEED TO BE CHECKED what is componentDetailIds to confirm everything is fine
             if (componentDetailIds && componentDetailIds[key] && key != 'mhfd_projects' && key != 'problems') {
-              // console.log("opt components ", JSON.stringify(componentDetailIds));
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
 
@@ -1705,29 +1472,6 @@ const Map = ({
             }
         });
     };
-    /*     const showOpacityLayer = (key: string) => {
-            const styles = { ...tileStyles as any };
-            //console.log('STYLES', styles['opacity_layers'][0]);
-
-            /* styles['opacity_layers'].foreach((style : LayerStylesType, index : number) => {
-                console.log(style);
-            }) */
-    /* styles[key].forEach((style : LayerStylesType, index : number) => {
-    } */
-    /* const source = 'polygon-opa';
-    map.addSource(source, {
-        type: 'geojson',
-        //style: styles['opacity_layers'][0],
-        data: {
-            type: 'Feature',
-            geometry: {
-                type: 'Polygon',
-                coordinates: [boundsMap]
-            }
-        }
-    });
-    addMapLayers(map, source, opacityLayer); */
-    //} */
 
     const showHighlighted = (key: string, cartodb_id: string) => {
         const styles = { ...tileStyles as any }
@@ -1905,36 +1649,6 @@ const Map = ({
         }
     };
 
-    const paintSelectedComponents = (items: Array<ComponentType>) => {
-        if (map.getSource(COMPONENTS_TRIGGER)) {
-            components.forEach((component: ComponentType) => {
-                map.setFeatureState(
-                    { source: COMPONENTS_TRIGGER, id: component.componentId },
-                    { hover: false }
-                );
-            });
-
-            if (items && items.length) {
-                items.forEach((item: ComponentType) => {
-                    map.setFeatureState(
-                        { source: COMPONENTS_TRIGGER, id: item.componentId },
-                        { hover: true }
-                    );
-                });
-            }
-        }
-    }
-
-    const selectMapStyle = (index: number) => {
-        setDropdownItems({ ...dropdownItems, default: index });
-    }
-
-    const getMarkerCoords = (marker: any) => {
-        const lngLat = marker.getLngLat();
-        getReverseGeocode(lngLat.lng, lngLat.lat, HERE_TOKEN);
-        saveMarkerCoordinates([lngLat.lng, lngLat.lat]);
-    }
-
     const test = (item: any) => {
 
         setVisible(true);
@@ -1959,12 +1673,10 @@ const Map = ({
             const div = document.getElementById('popup-' + i);
             if (div != null) {
                 div.classList.remove('map-pop-03');
-                // div.classList.add('map-pop-00');
             }
         }
         const div = document.getElementById('popup-' + index);
         if (div != null) {
-            // div.classList.remove('map-pop-00');
             div.classList.add('map-pop-03');
 
         }
@@ -2100,7 +1812,6 @@ const Map = ({
             const area = turf.area(polygon);
             setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
           } 
-          // distanceContainer.appendChild(value);
         } else if(geojsonMeasures.features.length == 1){
           setAreaValue('0');
           setDistanceValue('0');
@@ -2134,8 +1845,6 @@ const Map = ({
     }
     
     const addListToPopupNotes = (ul: any, div: any, noteClicked?:any) => {
-      // ul -> id-list-popup | div -> color-list
-      // if(listOfElements.length ) {
         let inner = `
         <div class="listofelements" id="currentItemsinList">
           `;
@@ -2149,8 +1858,6 @@ const Map = ({
             <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
           </li>`
         });
-       //const hasDefault = listOfElements.filter((el:any) => el.label === 'Map Note').length >= 1;
-        //console.log('default ', hasDefault);
         inner += '</div>'
         const addLabelButton = `
           <li id="addLabelButton" style="padding-right:12px">
@@ -2167,7 +1874,6 @@ const Map = ({
         ul.innerHTML = inner;
   
         let c= div.childNodes;
-        // to not add ul multiple times and just the first one 
         if(!c[3]){
           div.appendChild(ul);
         }            
@@ -2176,7 +1882,6 @@ const Map = ({
         clickingAddLabelButton(createColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
         clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
         clickingColorElement(listOfElements, currentElement);
-      // }
     }
     const createNoteWithElem = (note: any) => {
 
@@ -2342,11 +2047,6 @@ const Map = ({
                       if (edit != null) {
                           edit.addEventListener('click', () => {
                             setSwSave(false);
-                              const textarea = (document.getElementById('textarea') as HTMLInputElement);
-                              if (textarea != null) {
-                                  // console.log("VAL", textarea.value);
-
-                              }
                           });
                       }
                     const del = document.getElementById('delete-comment');
@@ -2440,12 +2140,6 @@ const Map = ({
             } else {
 
               let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
-              if (features.length === 0) {            
-                  // return;            
-                }
-              if ((e.point.x === coordX || e.point.y === coordY)) {
-                  // return;
-              }
               coordX = e.point.x;
               coordY = e.point.y;
               const search = (id: number, source: string) => {
@@ -2468,7 +2162,6 @@ const Map = ({
                   return search(element.properties.cartodb_id, element.source) === index;
               });
               features.sort((a: any, b: any) => {
-                  //first sort the projects then problems, then alphabetical
                   if (a.source.includes('project')) {
                       return -1;
                   }
@@ -2484,14 +2177,11 @@ const Map = ({
                   return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
               });
               for (const feature of features) {
-                  //an special and tricky case
                   if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
                       continue;
                   }
-                  let html: any = null;
                   let itemValue;
                   if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects') {
-                      // getComponentCounter(feature.properties.projectid || 0, 'projectid', setCounterPopup);
                       const filtered = galleryProjects.filter((item: any) =>
                           item.cartodb_id === feature.properties.cartodb_id
                       );
@@ -2525,21 +2215,18 @@ const Map = ({
                           value: item.value,
                           projecttype: item.projecctype,
                           image: item.image,
-                          //for detail popup
                           id: item.id,
                           objectid: item.objectid,
                           valueid: item.valueid,
                           streamname: item.streamname
                       });
                       itemValue = { ...item };
-                    // itemValue.value = item.valueid;
                       menuOptions.push(MENU_OPTIONS.PROJECT);
                       popups.push(itemValue);
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   if (feature.source === MENU_OPTIONS.PROBLEMS) {
-                      // getComponentCounter(feature.properties.problemid || 0, 'problemid', setCounterPopup);
                       const item = {
                           type: MENU_OPTIONS.PROBLEMS,
                           streamname: feature.properties.streamname,
@@ -2561,7 +2248,6 @@ const Map = ({
                           value: item.value,
                           name: item.name,
                           image: item.image,
-                          //for detail popup
                           problemid: item.problemid,
                           streamname: item.streamname
                       });
@@ -2615,15 +2301,11 @@ const Map = ({
                           layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
                           feature: feature.properties.projectname ? feature.properties.projectname : '-',
                           projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-                          // projno: feature.properties.projno? feature.properties.projno: '-',
                           mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
                           mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
                           pondname: feature.properties.pondname? feature.properties.pondname: '-',
                           mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                          mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) //feature.properties.status_date ? feature.properties.status_date : '-', // [ending]
-                          // notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-                          // servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
+                          mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
                       }
                       menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
                       popups.push(item);
@@ -2638,21 +2320,13 @@ const Map = ({
                   if (feature.source === 'mep_channels') {
                       const item = {
                           layer: MENU_OPTIONS.MEP_CHANNEL,
-                          // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-                          // projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                          // mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-                          // notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-                          // servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
                           feature: feature.properties.projectname ? feature.properties.projectname : '-',
                           projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-                          // projno: feature.properties.projno? feature.properties.projno: '-',
                           mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
                           mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
                           pondname: feature.properties.pondname? feature.properties.pondname: '-',
                           mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                          mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) //feature.properties.status_date ? feature.properties.status_date : '-', // [ending]
+                          mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
 
                       }
                       menuOptions.push(MENU_OPTIONS.MEP_CHANNEL);
@@ -2668,21 +2342,13 @@ const Map = ({
                   if (feature.source === 'mep_outfalls') {
                       const item = {
                           layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
-                          // feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-                          // projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                          // mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-                          // notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-                          // servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
                           feature: feature.properties.projectname ? feature.properties.projectname : '-',
                           projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-                          // projno: feature.properties.projno? feature.properties.projno: '-',
                           mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
                           mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
                           pondname: feature.properties.pondname? feature.properties.pondname: '-',
                           mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-                          // mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-                          mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) //feature.properties.status_date ? feature.properties.status_date : '-', // [ending]
+                          mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
                       }
                       menuOptions.push(MENU_OPTIONS.MEP_STORM_OUTFALL);
                       popups.push(item);
@@ -2694,13 +2360,12 @@ const Map = ({
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
-                  if (feature.source === 'watershed_service_areas') {  /// this is for service area 
+                  if (feature.source === 'watershed_service_areas') {
                       const item = {
                           layer: MENU_OPTIONS.SERVICE_AREA,
                           feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
                           watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
                           constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
-                          // email: feature.properties.email?feature.properties.email:'-'
                           email: 'contact@mhfd.org'
                       }
                       mobile.push({
@@ -2717,13 +2382,11 @@ const Map = ({
                     const item = {
                         layer: MENU_OPTIONS.COUNTIES,
                         feature: feature.properties.county ? feature.properties.county : '-',
-                        // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
                         constructionmanagers: feature.properties.construction_manager ? feature.properties.construction_manager : '-',
                     }
                     mobile.push({
                         layer: item.layer,
                         feature: item.feature,
-                        // watershedmanager: item.watershedmanager,
                         constructionmanagers: item.constructionmanagers
                     })
                     menuOptions.push(MENU_OPTIONS.COUNTIES);
@@ -2733,17 +2396,11 @@ const Map = ({
                 if (feature.source === MUNICIPALITIES_FILTERS) {  
                   const item = {
                       layer: MENU_OPTIONS.MUNICIPALITIES,
-                      //feature: feature.properties.city ? feature.properties.city : '-',
                       city: feature.properties.city ? feature.properties.city : '-',
-                      // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-                      // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
                   }
                   mobile.push({
                       layer: item.layer,
-                      //feature: item.feature,
                       city: item.city,
-                      // watershedmanager: item.watershedmanager,
-                      // constructionmanagers: item.constructionmanagers
                   })
                   menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
                   popups.push(item);
@@ -2753,7 +2410,6 @@ const Map = ({
                   if (feature.source.includes('catchments') || feature.source.includes('basin')) {
                       const item = {
                           layer: MENU_OPTIONS.WATERSHED,
-                          //feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
                           str_name: feature.properties.str_name ? feature.properties.str_name : 'No name',
                           mhfd_code: feature.properties.mhfd_code ? feature.properties.mhfd_code : '-',
                           catch_acre: feature.properties.catch_acre ? feature.properties.catch_acre : '-',
@@ -2765,7 +2421,6 @@ const Map = ({
                   if (feature.source === 'fema_flood_hazard_zones') {
                     const item = {
                         layer: MENU_OPTIONS.FEMA_FLOOD_HAZARD,
-                        //feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
                         dfirm_id: feature.properties.dfirm_id ? feature.properties.dfirm_id : '-',
                         fld_zone: feature.properties.fld_zone ? feature.properties.fld_zone : '-',
                         zone_subty: feature.properties.zone_subty ? feature.properties.zone_subty : '-',
@@ -2778,7 +2433,6 @@ const Map = ({
                   if (feature.source === 'floodplains_non_fema') {
                     const item = {
                         layer: MENU_OPTIONS.FLOODPLAINS_NON_FEMA,
-                        //feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
                         study_name: feature.properties.study_name ? feature.properties.study_name : '-',
                         floodplain_source: feature.properties.floodplain_source ? feature.properties.floodplain_source : '-',
                         floodplain_type: feature.properties.floodplain_type ? feature.properties.floodplain_type : '-',
@@ -2874,7 +2528,6 @@ const Map = ({
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
-                  // new layers
                   if (feature.source === NRCS_SOILS) {
                       const item = {
                           layer: MENU_OPTIONS.NCRS_SOILS,
@@ -2916,7 +2569,7 @@ const Map = ({
                       const item = {
                           layer: feature.properties.smc_type,
                           scale: feature.properties.scale,
-                          date_created: '01/07/2019' //feature.properties.date_created,
+                          date_created: '01/07/2019'
                       }
                       menuOptions.push(feature.properties.smc_type);
                       popups.push(item);
@@ -2929,7 +2582,6 @@ const Map = ({
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   if (feature.source === BLOCK_CLEARANCE_ZONES_LAYERS && feature.properties.species_name === 'Prebles meadow jumping mouse') {
-                      // console.log("FEature props", feature.properties);
                       const item = {
                           layer: MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
                           expirationdate: epochTransform(feature.properties.expiration_date),
@@ -2950,7 +2602,6 @@ const Map = ({
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   if (feature.source === BLOCK_CLEARANCE_ZONES_LAYERS && feature.properties.species_name !== 'Prebles meadow jumping mouse') {
-                      // console.log("BZX", feature);
                       const item = {
                           layer: MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,
                           bcz_specname: feature.properties.species_name,
@@ -3252,9 +2903,6 @@ const Map = ({
                   });
                 }
             });
-            // if(map.getLayer('measuresSaved')){
-              // availableLayers.push('measuresSaved');
-            // }
             setAllLayers(allLayers => [...allLayers, ...availableLayers]);
 
             map.on('mouseenter', key, () => {
@@ -3271,25 +2919,6 @@ const Map = ({
             });
         }
     }
-
-    const getColor = (color: any) => {
-      switch(color) {
-        case 'yellow':
-          return colors.YELLOW;
-        case 'grey':
-          return colors.GREY;
-        case 'orange':
-          return colors.ORANGE;
-        case 'red':
-          return colors.RED;
-        default:
-          return colors.YELLOW;
-      }
-    };
-    const capitalize = (s : string) => {
-      if (typeof s !== 'string') return '';
-      return s.charAt(0).toUpperCase() + s.slice(1);
-  }
   
   const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
     <>
@@ -3373,97 +3002,6 @@ const Map = ({
             </div>}
         </>
     );
-    const loadMenuPopup = () => ReactDOMServer.renderToStaticMarkup(
-        <>
-            <div className="map-pop-02">
-              <div className="headmap">LAYERS</div>
-              <div className="layer-popup">
-                <Button id="cochi" className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> Detention Facilities <RightOutlined /></Button>
-                <div id="xd" className="map-pop-00">
-                  <Card hoverable>
-                    <div className="bodymap">
-                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
-                      <h6>Denver</h6>
-                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
-                      <hr/>
-                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
-                        <p>Capital</p>
-                        <span>Initiated</span>
-                      </div>
-                    </div>
-                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
-                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
-                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
-                    </div>
-                  </Card>
-                </div>
-              </div>
-              <div className="layer-popup">
-                <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt=""/> Problems <RightOutlined /></Button>
-                <div className="map-pop-00">
-                  <Card hoverable>
-                    <div className="bodymap">
-                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
-                      <h6>Denver</h6>
-                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
-                      <hr/>
-                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
-                        <p>Capital</p>
-                        <span>Initiated</span>
-                      </div>
-                    </div>
-                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
-                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
-                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
-                    </div>
-                  </Card>
-                </div>
-              </div>
-              <div className="layer-popup">
-                <Button className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/> Watersheds <RightOutlined /></Button>
-                <div className="map-pop-00">
-                  <Card hoverable>
-                    <div className="bodymap">
-                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
-                      <h6>Denver</h6>
-                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
-                      <hr/>
-                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
-                        <p>Capital</p>
-                        <span>Initiated</span>
-                      </div>
-                    </div>
-                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
-                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
-                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
-                    </div>
-                  </Card>
-                </div>
-              </div>
-              <div className="layer-popup">
-                <Button className="btn-transparent"><img src="/Icons/icon-76.svg" alt=""/> MEP Referrals <RightOutlined /></Button>
-                <div className="map-pop-00">
-                  <Card hoverable>
-                    <div className="bodymap">
-                      <h4>Irondale Gulch - Montbello Tributary @ Upper Irondale Gulch Watershed 2019</h4>
-                      <h6>Denver</h6>
-                      <h5>$$2,134,000 <span style={{float: 'right'}}><b>4</b> Components</span></h5>
-                      <hr/>
-                      <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
-                        <p>Capital</p>
-                        <span>Initiated</span>
-                      </div>
-                    </div>
-                    <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
-                        <Button  style={{ width: '50%', marginRight: '10px'}} className="btn-purple">Create Project</Button>
-                        <Button  style={{ width: '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
-                    </div>
-                  </Card>
-                </div>
-              </div>
-            </div>
-        </>
-    );
     const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) =>(
         <>
             <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)}></MainPopup>
@@ -3484,17 +3022,6 @@ const Map = ({
       <>
           <MeasurePopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></MeasurePopup>
       </>
-    );
-
-    const popUpContent = (trigger: string, item: any) => ReactDOMServer.renderToStaticMarkup(
-        <>
-            {trigger !== COMPONENTS_TRIGGER ?
-                <MainPopup
-                    trigger={trigger}
-                    item={item} /> :
-                <ComponentPopup
-                    item={item} />}
-        </>
     );
     const loadIconsPopup = (menu: any, popups:any, index:any) =>{
         let icon
@@ -3630,16 +3157,6 @@ const Map = ({
             <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
         )
     }
-
-    const refreshSourceLayers = (id: string) => {
-        const mapSource = map.getSource(id);
-        if (mapSource) {
-            map.removeLayer(id);
-            if (id !== COMPONENTS_TRIGGER) map.removeLayer(id + '_stroke');
-            map.removeSource(id);
-        }
-    }
-
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
@@ -3652,19 +3169,8 @@ const Map = ({
         });
         updateSelectedLayers(selectedItems);
     }
-
-    const handleSelectAll = () => {
-        updateSelectedLayers(SELECT_ALL_FILTERS as Array<LayersType>);
-    }
-
-    const handleResetAll = () => {
-        selectedLayers.forEach((layer: LayersType) => {
-            removeTilesHandler(layer);
-        })
-        updateSelectedLayers([]);
-    }
-
     const removeTilesHandler = (selectedLayer: LayersType) => {
+      console.log('selectedLayer', selectedLayer);
         if (typeof selectedLayer === 'object') {
             selectedLayer.tiles.forEach((subKey: string) => {
                 hideLayers(subKey);
@@ -3673,19 +3179,6 @@ const Map = ({
             hideLayers(selectedLayer);
         }
     }
-
-    const removeTileLayers = (key: string) => {
-        const styles = { ...tileStyles as any };
-        styles[key].forEach((style: LayerStylesType, index: number) => {
-
-            map.removeLayer(key + '_' + index);
-        });
-
-        if (map.getSource(key)) {
-            map.removeSource(key);
-        }
-    };
-    //geocoder
     const renderOption = (item: any) => {
         return (
             <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + '|' + item.place_name}>
@@ -3697,7 +3190,6 @@ const Map = ({
         );
     }
     const [keyword, setKeyword] = useState('');
-    const [options, setOptions] = useState<Array<any>>([]);
 
     const handleSearch = (value: string) => {
         setKeyword(value)
@@ -3724,13 +3216,6 @@ const Map = ({
             title: title,
             subtitle: city + ' , CO ' + zip
         }
-        /**
-         *  [Address]
-        [City], CO [Zipcode]
-        La Abeja La Abeja, 508 E Colfax Ave, Denver, Colorado 80203, United States
-        Palace Arms at Brown Palace Palace Arms at Brown Palace, 321 17th St, Denver, Colorado 80202, United States
-        The Palate Food + Wine The Palate Food + Wine, 5375 Landmark Pl Ste F-105, Greenwood Village, Colorado 80111, United States
-        */
     }
     const onSelect = (value: any) => {
         console.log('onSelect:::', value);
@@ -3749,14 +3234,13 @@ const Map = ({
           const mobile = [], menuOptions = [], popups = [], ids = [];
           let counties = 1, municipalities = 1, watershed_service_areas = 1;
           for (const feature of features) {
-              if (feature.source === 'watershed_service_areas' && watershed_service_areas) {  /// this is for service area 
+              if (feature.source === 'watershed_service_areas' && watershed_service_areas) {
                   watershed_service_areas--;
                   const item = {
                       layer: MENU_OPTIONS.SERVICE_AREA,
                       feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
                       watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
                       constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
-                      // email: feature.properties.email?feature.properties.email:'-'
                       email: 'contact@mhfd.org'
                   }
                   mobile.push({
@@ -3774,13 +3258,11 @@ const Map = ({
                 const item = {
                     layer: MENU_OPTIONS.COUNTIES,
                     feature: feature.properties.county ? feature.properties.county : '-',
-                    // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
                     constructionmanagers: feature.properties.construction_manager ? feature.properties.construction_manager : '-',
                 }
                 mobile.push({
                     layer: item.layer,
                     feature: item.feature,
-                    // watershedmanager: item.watershedmanager,
                     constructionmanagers: item.constructionmanagers
                 })
                 menuOptions.push(MENU_OPTIONS.COUNTIES);
@@ -3792,14 +3274,10 @@ const Map = ({
                 const item = {
                   layer: MENU_OPTIONS.MUNICIPALITIES,
                   feature: feature.properties.city ? feature.properties.city : '-',
-                  // watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-                  // constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
               }
               mobile.push({
                   layer: item.layer,
                   feature: item.feature
-                  // watershedmanager: item.watershedmanager,
-                  // constructionmanagers: item.constructionmanagers
               })
               menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
               popups.push(item);
@@ -3807,11 +3285,6 @@ const Map = ({
             }
           }
           if (popups.length) {
-              /**
-               
-              [Address]
-          [City], CO [Zipcode]
-               */
               const html = loadMenuPopupWithData(menuOptions, popups, titleObject);
               setMobilePopups(mobile);
               setSelectedPopup(0);
@@ -3822,10 +3295,6 @@ const Map = ({
                 searchPopup.setLngLat(coord)
                     .setHTML(html)
                     .addTo(map);
-                  // searchMarker.setLngLat(coord);
-                  // searchMarker.setPopup(popup);
-                  // searchMarker.addTo(map);
-                 
                 for (const index in popups) {
                     document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
                     document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
@@ -3850,7 +3319,6 @@ const Map = ({
         } )
        
     };
-    //end geocoder
     const flyTo = (longitude: number, latitude: number, zoom?: number) => {
         map.flyTo({
             center: [longitude, latitude],
@@ -3920,12 +3388,9 @@ const Map = ({
       eventsOnClickNotes(note);
       popup.remove();
       openMarkerOfNoteWithoutAdd(note);
-      
     }
     const showMHFD = () => {
-        setAutocomplete('')
-        // const user = store.getState().profile.userInformation;
-        // userInformation.polygon = coordinatesMHFD;
+        setAutocomplete('');
         saveUserInformation({...userInformation, polygon: coordinatesMHFD});
         if (!opacityLayer) {
             mapService.hideOpacity();
@@ -3944,15 +3409,12 @@ const Map = ({
         setFilterProjectOptions(optionsProject);
         setNameZoomArea('Mile High Flood District');
         setBBOXComponents({ bbox: [], centroids: [] })
-        //setArea(name);
     }
 
     const setSideBarStatus = (status: boolean) => {
         setCommentVisible(status);
         setOpen(status);
     }
-    const layerObjects: any = selectedLayers.filter((element: any) => typeof element === 'object');
-    const layerStrings = selectedLayers.filter((element: any) => typeof element !== 'object');
     const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
     const [measuringState, setMeasuringState] = useState(isMeasuring);
     const [measuringState2, setMeasuringState2] = useState(isMeasuring);
@@ -4004,9 +3466,7 @@ const Map = ({
                 <Dropdown overlayClassName="dropdown-map-layers"
                     visible={visibleDropdown}
                     onVisibleChange={(flag: boolean) => {
-                        // selectCheckboxes(selectedCheckBox);
                         setVisibleDropdown(flag);
-
                     }}
                     overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
                     trigger={['click']}>
@@ -4024,47 +3484,7 @@ const Map = ({
                 >
                     <Input.Search allowClear size="large" placeholder="Stream or Location" />
                 </AutoComplete>
-
-                {/*<div
-                    ref={geocoderRef}
-                    className="geocoder"
-                    style={{ width: '200px', height: '35px' }}
-                />
-                <Button className="btn-purple"><img src="/Icons/icon-04.svg" alt=""/></Button>*/}
-
             </div>
-
-            {/* <Dropdown
-                overlay={MapTypesView({ dropdownItems, selectMapStyle })}
-                className="btn-03"
-                trigger={['click']}>
-                <Button>
-                    {dropdownItems.items[dropdownItems.default].type} <img src="/Icons/icon-12.svg" alt="" />
-                </Button>
-            </Dropdown> */}
-
-            {/*<div className="m-footer">
-              <Collapse accordion defaultActiveKey={['1']} expandIconPosition="right">
-                <Panel header="Legend" key="1">
-                <hr />
-                <div className="scroll-footer">
-                    {layerObjects.filter((element: any)  => element.name === PROJECTS_MAP_STYLES.name ).length ? <>
-                        <p><span style={{ background: '#ffdd00', border: 'hidden' }} />Projects</p>
-                    </> : ''}
-                    {layerStrings.includes(PROBLEMS_TRIGGER) ? <>
-                    <p><span className="color-footer-problem" style={{ background: '#FF342F', border: 'hidden'   }} />Problems</p>
-                    </> : ''}
-                    {layerObjects.filter((element: any)  => element.name === COMPONENT_LAYERS.name ).length ? <>
-                        <p><span style={{ background: '#3EE135', border: 'hidden' }} />Components</p>
-                    </> : ''}
-                     {layerStrings.includes(MHFD_BOUNDARY_FILTERS) ? <>
-                        <p><span className="color-footer-boundary" style={{ border: '1px dashed' }} />MHFD Boundary</p>
-                    </> : '' }
-                </div>
-                </Panel>
-              </Collapse>
-
-            </div>*/}
             <div className="measure-button">
               {!measuringState && <Button style={{ borderRadius: '4px' }} onMouseEnter={()=>setMeasuringState(true)} ><img className="img-icon" /></Button>}
               {measuringState && 
@@ -4233,11 +3653,9 @@ const Map = ({
                  <div className="ffoo">
                  <Tabs onTabClick={(e: string) => {
                     if (e === '0') {
-                        setTabActive('0');
                         setTabCards(PROBLEMS_TRIGGER);
                         getGalleryProblems();
                     } else {
-                        setTabActive('1');
                         setTabCards(PROJECTS_TRIGGER);
                         getGalleryProjects();
                     }

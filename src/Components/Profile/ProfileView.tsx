@@ -8,7 +8,7 @@ import TabPaneView from "./ProfileComponents/TabPaneView";
 import UserInformationView from "./ProfileComponents/UserInformationView";
 
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
-import { useProfileDispatch, useProfileState } from "../../hook/profileHook";
+import { useProfileState } from "../../hook/profileHook";
 import { useAppUserDispatch } from "../../hook/useAppUser";
 
 const content = (<div className="popoveer-00">View Problems within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
@@ -18,9 +18,6 @@ const { TabPane } = Tabs;
 
 const ProfileView = () => {
   const { userInformation: user } = useProfileState();
-  const {
-    getCountProjects
-  } = useProfileDispatch();
   const {
     getUserInformation
   } = useAppUserDispatch();
@@ -32,11 +29,8 @@ const ProfileView = () => {
   }, [user]);
 
   useEffect(() => {
-    getCountProjects()
-  }, [getCountProjects]);
-  useEffect(() => {
     getUserInformation();
-  }, [getUserInformation]);
+  }, []);
 
   return <>
     <Layout>

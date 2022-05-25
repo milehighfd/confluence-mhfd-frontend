@@ -4,8 +4,7 @@ import {
    updateUserInformation,
    getGroupOrganization,
    uploadImage,
-   spinValue,
-   getCountProjects
+   spinValue
 } from '../store/actions/ProfileActions';
 import { User } from '../Classes/TypeList';
 import { getTimesLogin } from '../store/actions/usersActions';
@@ -34,9 +33,6 @@ export const useProfileDispatch = () => {
       },
       spinValue: (spin: boolean) => {
          dispatch(spinValue(spin));
-      },
-      getCountProjects: () => {
-         dispatch(getCountProjects());
       }
    };
 };

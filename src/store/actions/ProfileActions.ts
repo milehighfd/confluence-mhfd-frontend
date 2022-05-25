@@ -23,13 +23,6 @@ export const saveUserInformation = (user: User) => {
   }
 }
 
-export const getCountProjects = () => {
-  return (dispatch: Function) => {
-    datasets.getData(SERVER.COUNT_PROJECTS_BY_CREATOR, datasets.getToken()).then(countProjects => {
-      dispatch({ type: types.COUNT_PROJECTS, countProjects })
-    })
-  }
-}
 export const spinValue = (spin: boolean) => {
   return (dispatch: Function) => {
     dispatch({ type: types.SPIN, spin })
