@@ -6,8 +6,9 @@ import Accordeon from './UserComponents/Accordeon';
 import UserFilters from './UserFilters';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
-import { OptionsFiltersUser, User, UserActivities } from "../../Classes/TypeList";
+import { OptionsFiltersUser, User } from "../../Classes/TypeList";
 import { PAGE_USER, COLUMNS_USER_ACTIVITY } from "../../constants/constants";
+import { useUsersDispatch, useUsersState } from "../../hook/usersHook";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -21,8 +22,16 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
   });
 }
 
-export default ({ saveUserActivated, saveUserPending, userActivity, getUserActivity, getAllUserActivity, getUserInformation, user } :
-  { saveUserActivated: Function, saveUserPending: Function, userActivity: UserActivities, getUserActivity: Function, getAllUserActivity: Function, getUserInformation: Function, user: User }) => {
+const UserView = () => {
+  const {
+    userActivity
+  } = useUsersState();
+  const {
+    saveUserActivated,
+    saveUserPending,
+    getUserActivity,
+    getAllUserActivity
+  } = useUsersDispatch();
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
@@ -32,8 +41,8 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
   const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserDeleted, setOptionUserDeteled] = useState<OptionsFiltersUser>(PAGE_USER);
-  let pndPos = 0; // momentary forced adition until getting the DB Structure
-  let aprPos = 0; // momentary forced adition until getting the DB Structure
+  let pndPos = 0;
+  let aprPos = 0;
   let delPos = 0;
   useEffect(() => {
     getAllUser();
@@ -91,7 +100,7 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
     setOptionUserDeteled(resetOptions);
     searchUserDelete(resetOptions);
   }
-  userActivity.data.forEach(element => {
+  userActivity.data.forEach((element: any) => {
     element.name = element.firstName + " " + element.lastName;
   });
   const pagination = {
@@ -205,4 +214,6 @@ export default ({ saveUserActivated, saveUserPending, userActivity, getUserActiv
       </Layout>
     </Layout>
   </>
-}
+};
+
+export default UserView;
