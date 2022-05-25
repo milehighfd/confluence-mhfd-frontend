@@ -10,7 +10,7 @@ import { useAppUserState } from './hook/useAppUser';
 import useInitializeApp from './hook/custom/useInitializeApp';
 const MapLayout = lazy(() => import('./Components/Map/MapLayout'));
 const LoginRoute = lazy(() => import('./routes/login'));
-const SignUpView = lazy(() => import('./Components/SignUp/SignUpView'));
+const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
 const ResetPasswordView = lazy(() => import('./Components/ResetPassword/ResetPasswordView'));
 const ConfirmPasswordView = lazy(() => import('./Components/ConfirmPassword/ConfirmPasswordView'));
@@ -31,7 +31,7 @@ const App = () => {
     <Switch>
       <Suspense fallback={<div>...</div>}>
         <Route path={`/login`} component={LoginRoute} />
-        <Route path={`/sign-up`} component={SignUpView} />
+        <Route path={`/sign-up`} component={SignUpRoute} />
         <Route path={'/404'} component={Unauthorized} />
         <Route path={`/reset-password`} component={ResetPasswordView} />
         <Route path={`/confirm-password`} component={ConfirmPasswordView} />
