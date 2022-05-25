@@ -10,9 +10,6 @@ const content = (<div className="popoveer-00">Upload media e.g. video, images, d
 export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, setLoading, loading }: { attachments: any, uploadFile: Function, getAllAttachment: Function, removeAttachment: Function, setLoading: Function, loading: boolean }) => {
   const { Content } = Layout;
   const { Dragger } = Upload;
-  const dummyRequest = ({ onSuccess }: { onSuccess: Function }) => {
-    setTimeout(() => onSuccess("ok"), 0);
-  }
   const columns = [
     {
       title: 'Name',

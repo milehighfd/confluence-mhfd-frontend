@@ -9,7 +9,6 @@ import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../constants/constants';
 import { FilterTypes, MapViewTypes } from "../../Classes/MapTypes";
 import { useLocation } from "react-router-dom";
-import store from "../../store";
 import DetailedModal from "../Shared/Modals/DetailedModal";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { capitalLetter, elementCost, getStatus } from '../../utils/utils';
@@ -55,9 +54,7 @@ const MapView = ({}: MapViewTypes) => {
   } = useMapState();
   const {
     filters,
-    userFiltered
   } = useFilterState();
-
   const {
     detailed,
     displayModal
@@ -81,6 +78,10 @@ const MapView = ({}: MapViewTypes) => {
   } = useMapDispatch();
   const {getGroupOrganization} = useProfileDispatch();
   const { userInformation, groupOrganization } = useProfileState();
+  const {
+    designation,
+    zoomarea
+  } = userInformation;
   const {
     tabCards,
     nameZoomArea,
@@ -118,7 +119,7 @@ const MapView = ({}: MapViewTypes) => {
       }
     });
     return () => {
-      const user = store.getState().profile.userInformation;
+      const user = userInformation;
       user.isSelect = false;
       saveUserInformation(user);
       counterZoomArea = 0;
@@ -539,7 +540,6 @@ const MapView = ({}: MapViewTypes) => {
     setCountFilterProjects(countTagProjets);
 
   }, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
-  const [designation, SetDesignation] = useState(store.getState().profile.userInformation.designation);
   const [tabActive, setTabActive] = useState('1');
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword ? filterProblemOptions.keyword : '');
   const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword ? filterProjectOptions.keyword : '');
@@ -561,10 +561,10 @@ const MapView = ({}: MapViewTypes) => {
 
   useEffect(() => {
     if(counterZoomArea >= 2) {
-      setNameZoomArea(userInformation.zoomarea);
+      setNameZoomArea(zoomarea);
     }
     counterZoomArea++;
-  }, [userInformation.zoomarea, groupOrganization])
+  }, [zoomarea, groupOrganization])
 
   useEffect(() => {
     if (location.includes('problemid=')) {
@@ -587,7 +587,7 @@ const MapView = ({}: MapViewTypes) => {
         setData(auxData);
       }
     }
-    setNameZoomArea(store.getState().profile.userInformation.zoomarea); // add for the dropdown
+    setNameZoomArea(zoomarea); // add for the dropdown
   }, []);
 
   useEffect(() => {
@@ -653,7 +653,7 @@ const MapView = ({}: MapViewTypes) => {
     }
   }
   const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
-    const user = store.getState().profile.userInformation;
+    const user = userInformation;
     user.polygon = coordinates;
     user.isSelect = isSelect;
     saveUserInformation(user);

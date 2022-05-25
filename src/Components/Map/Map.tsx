@@ -442,7 +442,6 @@ const Map = ({
           setMarkerNotes(totalmarkers);
         }
     }, [notes, notesFilter]);
-    let counter = 0 ;
     const eventsOnClickNotes = (noteClicked:any) => {
       const div = document.getElementById('color-list');
         if (div != null) {
@@ -3574,16 +3573,8 @@ const Map = ({
                             }
                             });
                       }
-
-                      function error() {
-                        // thinking
-                      }
-
-                      if(!navigator.geolocation) {
-                          // add some error here
-                      } else {
-                        navigator.geolocation.getCurrentPosition(success, error);
-
+                      if(navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(success, () => {});
                       }
                 }}
                 /></Button>
