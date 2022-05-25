@@ -2231,7 +2231,7 @@ const CreateProjectMap = (type: any) => {
             setVisibleDropdown(flag);
 
           }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView, isWR: true })}
+          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isWR: true })}
           trigger={['click']}>
           <Button>
             <span className="btn-02"></span>

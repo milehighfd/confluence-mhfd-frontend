@@ -109,13 +109,12 @@ const MapLayout = () => {
               <Col xs={{ span: 24 }} className={open ? "height-mobile padding-comment" : "height-mobile"} style={{ transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's' }} lg={leftWidth}>
                 <Map
                   leftWidth={leftWidth}
-                  isExtendedView={isExtendedView}
                 />
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
                 </Button>
               </Col>
-              <Col xs={{ span: 24 }} className="menu-mobile" style={{ transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's' }} lg={rightWidth}>{/*span={9}*/}
+              <Col xs={{ span: 24 }} className="menu-mobile" style={{ transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's' }} lg={rightWidth}>
                 <MapView />
               </Col>
             </Row>}

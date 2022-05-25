@@ -46,8 +46,8 @@ const contentPopOver = (text: string) => {
   return <div className="popoveer-00"><i>{text}</i></div>
 }
 
-export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView,  isWR }:
-  { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean, isWR?: boolean}) => {
+export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isWR }:
+  { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isWR?: boolean}) => {
   const [switches, setSwitches] = useState({
     [GUIDELINES]: true,
     [PROBLEMS_TRIGGER]: true,

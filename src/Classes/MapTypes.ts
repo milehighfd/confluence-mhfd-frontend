@@ -1,6 +1,5 @@
 export type MapProps = {
-    leftWidth: number,
-    isExtendedView: boolean
+    leftWidth: number
 }
 
 export type OptionProblems = {

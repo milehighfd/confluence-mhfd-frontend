@@ -2352,7 +2352,7 @@ const epochTransform = (dateParser: any) => {
           onVisibleChange={(flag: boolean) => {
             setVisibleDropdown(flag);
           }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: selectedLayersWR, setSelectedCheckBox, removePopup, isExtendedView, isWR: true})}
+          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: selectedLayersWR, setSelectedCheckBox, removePopup, isWR: true})}
           trigger={['click']}>
           <Button>
             <span className="btn-02"></span>

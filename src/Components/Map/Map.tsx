@@ -127,8 +127,7 @@ let listOfElements = [{
 }];
 
 const Map = ({
-    leftWidth,
-    isExtendedView
+    leftWidth
 }: MapProps) => {
   const {
     getGalleryProblems, 
@@ -3467,7 +3466,7 @@ const Map = ({
                     onVisibleChange={(flag: boolean) => {
                         setVisibleDropdown(flag);
                     }}
-                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
+                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup })}
                     trigger={['click']}>
                     <Button>
                     <span className="btn-02"></span>
