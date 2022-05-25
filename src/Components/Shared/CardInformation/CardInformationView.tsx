@@ -128,7 +128,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
         setVisible={setVisible}
       />}
 
-      <Col xs={24} lg={12}>
+      <Col xs={24} lg={12} md={12}>
       <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : ''}}>
         <Card
           hoverable
