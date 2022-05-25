@@ -16,13 +16,42 @@ contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent 
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 contents.push((<div className="popoveer-00"><b>Components:</b> Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>));
 
-export default ({ tabActive, tabPosition, setTabPosition, setToggleFilters,
-    paramFilters, filterProblemOptions,
-    setFilterProblemOptions, getGalleryProblems, filterProjectOptions, setFilterProjectOptions,
-    getGalleryProjects, filterComponentOptions, setTabActive, setFilterComponentOptions, selectedLayers, updateSelectedLayers, applyFilter,
-    setApplyFilter, spinFilter }: FiltersProjectTypes) => {
-
-    const { boundsMap, spinCardProblems, spinCardProjects, totals, spinMapLoaded } = useMapState();
+export default ({
+    tabActive,
+    tabPosition,
+    setTabPosition,
+    setToggleFilters,
+    setTabActive
+}: FiltersProjectTypes) => {
+    const {
+        getGalleryProblems, 
+        getGalleryProjects,
+        updateSelectedLayers,
+        setFilterProblemOptions,
+        setFilterProjectOptions, 
+        setFilterComponentOptions,
+        setApplyFilter
+    } = useMapDispatch();
+    const {
+        boundsMap,
+        spinCardProblems,
+        spinCardProjects,
+        totals,
+        spinMapLoaded
+    } = useMapState();
+    const {
+        galleryProblems,
+        galleryProjects,
+        selectedLayers,
+        filterProblemOptions,
+        filterProjectOptions,
+        paramFilters,
+        filterComponentOptions,
+        applyFilter,
+        spinFilters: spinFilter
+      } = useMapState();
+    const projectsLength = galleryProjects.length;
+    const problemsLength = galleryProblems.length;
     const genExtra = () => (
         <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col>

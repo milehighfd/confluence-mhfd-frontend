@@ -227,33 +227,8 @@ export type FiltersProjectTypes = {
     tabActive: string,
     tabPosition: string, 
     setTabPosition: Function, 
-    filterNames : Array<FilterNamesTypes>, 
-    setFilterNames : Function, 
     setToggleFilters: Function, 
-    /* handleOnSubmit: Function, 
-    handleReset: Function,  */
-    projectsLength: number, 
-    problemsLength: number, 
-    getDropdownFilters: Function, 
-    dropdowns: DropdownFilterTypes,
-    userFiltered: { [_id: string]: string },
-    getUserFilters: Function,
-    paramFilters: any,
-    filterProblemOptions: OptionProblems,
-    setFilterProblemOptions: Function,
-    getGalleryProblems: Function,
-    filterProjectOptions: OptionProjects,
-    setFilterProjectOptions: Function,
-    getGalleryProjects: Function,
-    filterComponentOptions: OptionComponents,
-    setFilterComponentOptions: Function,
-    setTabActive: Function,
-    componentsTotal: number,
-    selectedLayers: Array<LayersType>,
-    updateSelectedLayers: Function,
-    applyFilter: boolean,
-    setApplyFilter: Function,
-    spinFilter: boolean
+    setTabActive: Function
 };
 
 export type FilterNamesTypes = {

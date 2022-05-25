@@ -6,8 +6,8 @@ import GenericTabView from "../Shared/GenericTab/GenericTabView";
 import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_TYPES, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../constants/constants';
-import { FilterTypes, FilterNamesTypes, MapViewTypes } from "../../Classes/MapTypes";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../constants/constants';
+import { FilterTypes, MapViewTypes } from "../../Classes/MapTypes";
 import { useLocation } from "react-router-dom";
 import store from "../../store";
 import DetailedModal from "../Shared/Modals/DetailedModal";
@@ -16,7 +16,7 @@ import { capitalLetter, elementCost, getStatus } from '../../utils/utils';
 import { useSelector } from "react-redux";
 import RheoStatService from '../FiltersProject/NewProblemsFilter/RheoStatService';
 import { useProfileDispatch, useProfileState } from "../../hook/profileHook";
-import { useFilterDispatch, useFilterState } from "../../hook/filtersHook";
+import { useFilterState } from "../../hook/filtersHook";
 import { useDetailedState } from "../../hook/detailedHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
@@ -24,28 +24,16 @@ let contents: any = [];
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 
-const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Search } = Input;
 const { Option } = AutoComplete;
 let counterZoomArea = 0 ;
-
-const accordionRow: Array<any> = [
-  {
-    color: "green", image: "/Icons/icon-19.svg", field1: "Component 1", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
-  }, {
-    color: "gray", image: "/Icons/icon-19.svg", field1: "Component 2", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
-  }, {
-    color: "green", image: "/Icons/icon-19.svg", field1: "Component 3", field2: "Westminter", field3: "$200,000", field4: "Project XYZ"
-  }
-];
 
 const MapView = ({}: MapViewTypes) => {
 
   const {
     getGalleryProblems, 
     getGalleryProjects,
-    updateSelectedLayers,
     setFilterProblemOptions,
     setFilterProjectOptions, 
     setFilterComponentOptions,
@@ -55,48 +43,57 @@ const MapView = ({}: MapViewTypes) => {
     existDetailedPageProblem,
     setApplyFilter
   } = useMapDispatch();
-  const {
-    getDropdownFilters,
-    getUserFilters,
-  } = useFilterDispatch();
   const { saveUserInformation } = useProfileDispatch();
-
   const {
     galleryProblems,
     galleryProjects,
-    selectedLayers,
     filterProblemOptions,
     filterProjectOptions,
-    paramFilters,
     filterComponentOptions,
-    selectedOnMap,
     applyFilter,
-    componentCounter,
-    componentsByProblemId: componentsOfProblems,
-    loaderTableCompoent: loaderTableCompoents,
     spinFilters: spinFilter
   } = useMapState();
   const {
     filters,
-    dropdowns,
     userFiltered
   } = useFilterState();
 
   const {
     detailed,
-    spin: loaderDetailedPage,
     displayModal
   } = useDetailedState();
 
-  const [filterNames, setFilterNames] = useState<Array<any>>([]);
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
-  const { setToggleModalFilter, getParamFilterProblems, getParamFilterProjects, getParamFilterComponents,
-    setTabCards, setOpacityLayer,
-    setCoordinatesJurisdiction, setNameZoomArea, setSpinMapLoaded, setAutocomplete, setBBOXComponents, getMapTables } = useMapDispatch();
+  const {
+    setToggleModalFilter,
+    getParamFilterProblems,
+    getParamFilterProjects,
+    getParamFilterComponents,
+    setTabCards,
+    setOpacityLayer,
+    setCoordinatesJurisdiction,
+    setNameZoomArea,
+    setSpinMapLoaded,
+    setAutocomplete,
+    setBBOXComponents,
+    getMapTables
+  } = useMapDispatch();
   const {getGroupOrganization} = useProfileDispatch();
   const { userInformation, groupOrganization } = useProfileState();
-  const { tabCards, nameZoomArea, labelsFiltersProjects, labelsFiltersProblems, labelsFiltersComponents, spinCardProblems, spinCardProjects, boundsMap, toggleModalFilter, filterTabNumber, tutorialStatus, places } = useMapState();
+  const {
+    tabCards,
+    nameZoomArea,
+    labelsFiltersProjects,
+    labelsFiltersProblems,
+    labelsFiltersComponents,
+    spinCardProblems,
+    spinCardProjects,
+    boundsMap,
+    toggleModalFilter,
+    filterTabNumber,
+    tutorialStatus
+  } = useMapState();
 
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
@@ -404,11 +401,7 @@ const MapView = ({}: MapViewTypes) => {
   }
   const generateLabelsFilterProjects = () => {
     const filterProjects = { ...filterProjectOptions } as any;
-    let labelsProjects = [] as any;
-    labelsProjects = [...labelsFiltersProjects];
     for (const key in filterProjectOptions) {
-      let c = 0;
-      const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
       const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
       if (position >= 0) {
         const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
@@ -551,7 +544,6 @@ const MapView = ({}: MapViewTypes) => {
   const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword ? filterProblemOptions.keyword : '');
   const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword ? filterProjectOptions.keyword : '');
   const [visible, setVisible] = useState(useLocation().search ? true : false);
-  const [counterComponents, setCounterComponents] = useState(0);
   const location = useLocation().search;
   const [data, setData] = useState({
     problemid: '',
@@ -607,12 +599,6 @@ const MapView = ({}: MapViewTypes) => {
     }
   }, [filters]);
 
-  useEffect(() => {
-    let counter = galleryProblems.reduce((prev: any, next: any) => prev + next.totalComponents, 0);
-    counter += galleryProjects.reduce((prev: any, next: any) => prev + next.totalComponents, 0);
-    setCounterComponents(counter);
-  })
-
   const handleToggle = () => {
     if (tabPosition === '2') {
       setTabPosition('0');
@@ -664,23 +650,6 @@ const MapView = ({}: MapViewTypes) => {
           value: filtersData[key] as string
         });
       }
-    }
-    const filterTypes: { [key: string]: string | number } = FILTER_TYPES;
-    const getFilterNames = values.map((value: FilterNamesTypes) => {
-      const filterData = filterTypes[value.value] || userFiltered[value.value] || value.value;
-      return { key: value.key, type: value.value, value: filterData }
-    });
-    setFilterNames(getFilterNames);
-  }
-  const clearSearch = () => {
-    if (tabActive === '0') {
-      setProblemKeyword('');
-      setKeywordProblem('');
-      getGalleryProblems();
-    } else {
-      setProjectKeyword('');
-      setKeywordProject('');
-      getGalleryProjects();
     }
   }
   const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
@@ -769,31 +738,15 @@ const MapView = ({}: MapViewTypes) => {
       }
     });
     if(zoomareaSelected[0]){
-      let type = zoomareaSelected[0].filter; 
       let zone = zoomareaSelected[0].aoi;
       zone = zone.replace('County ', '').replace('Service Area', '');
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      const loadFiltered = (zone: any , type: any, projectOptions: any, problemOptions: any, componentOptions: any) => {
-        let optionsproj = setValueInFilters(zone, type, projectOptions, true);
-        let optionsprob = setValueInFilters(zone, type, problemOptions);
-        let optionscomp = setValueInFilters(zone, type, componentOptions);
-        setTimeout(()=>{
-          setFilterProjectOptions(optionsproj);
-          getGalleryProjects();
-          getParamFilterProjects(boundsMap, optionsproj);
-          setFilterProblemOptions(optionsprob);
-          getGalleryProblems();
-          getParamFilterProblems(boundsMap, optionsprob);
-          setFilterComponentOptions(optionscomp);
-          getParamFilterComponents(boundsMap, optionscomp);
-        },1300);
-      }
       changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect'? undefined:"isSelect");
     }
     setBBOXComponents({ bbox: [], centroids: [] })
   };
 
-  const { autcomplete, spinMapLoaded } = useSelector((state: any) => ({
+  const { spinMapLoaded } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete
     }));
@@ -952,10 +905,6 @@ const MapView = ({}: MapViewTypes) => {
             </AutoComplete>
           </div>
         </Col>
-        <Col style={{ textAlign: 'right' }} span={4}>
-          <ButtonGroup>
-          </ButtonGroup>
-        </Col>
       </Row>
 
       <div className="head-filter mobile-display">
@@ -1095,31 +1044,8 @@ const MapView = ({}: MapViewTypes) => {
           tabActive={tabActive}
           tabPosition={tabPosition}
           setTabPosition={setTabPosition}
-          componentsTotal={counterComponents}
-          filterNames={filterNames}
           setToggleFilters={setToggleFilters}
-          setFilterNames={setFilterNames}
-          projectsLength={galleryProjects.length}
-          problemsLength={galleryProblems.length}
-          getDropdownFilters={getDropdownFilters}
-          dropdowns={dropdowns}
-          userFiltered={userFiltered}
-          getUserFilters={getUserFilters}
-          filterProblemOptions={filterProblemOptions}
-          setFilterProblemOptions={setFilterProblemOptions}
-          paramFilters={paramFilters}
-          getGalleryProblems={getGalleryProblems}
-          filterProjectOptions={filterProjectOptions}
-          setFilterProjectOptions={setFilterProjectOptions}
-          getGalleryProjects={getGalleryProjects}
-          setFilterComponentOptions={setFilterComponentOptions}
-          filterComponentOptions={filterComponentOptions}
           setTabActive={setTabActive}
-          selectedLayers={selectedLayers}
-          updateSelectedLayers={updateSelectedLayers}
-          applyFilter={applyFilter}
-          setApplyFilter={setApplyFilter}
-          spinFilter={spinFilter}
         />
       }
     </div>
