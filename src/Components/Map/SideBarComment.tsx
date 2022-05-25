@@ -89,7 +89,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     newTree.sort((a: any, b: any) => {
       return a.data.position - b.data.position;
     });
-    newTree.forEach(element => {
+    newTree.forEach((element: any) => {
       if (element.children) {
         element.children.sort((a: any, b: any) => {
           return a.data.position - b.data.position;
@@ -97,7 +97,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
     });
     if(counterFilters > 0) {
-      newTree = newTree.filter((element => element.children? element.children.length != 0 :true))
+      newTree = newTree.filter(((element: any) => element.children? element.children.length != 0 :true))
     }
     
     setTree(newTree);
