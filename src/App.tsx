@@ -18,7 +18,7 @@ const DetailedPageView = lazy(() => import('./Components/DetailedPage/DetailedPa
 const ProfileView = lazy(() => import('./Components/Profile/ProfileView'));
 const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
 const WorkRequest = lazy(() => import('./Components/Work/Request/WorkRequest'));
-const UserContainer = lazy(() => import('./Components/User/UserContainer'));
+const UserView = lazy(() => import('./Components/User/UserView'));
 const UploadAttachmentContainer = lazy(() => import('./Components/UploadAttachment/UploadAttachmentContainer'));
 
 const App = () => {
@@ -46,7 +46,7 @@ const App = () => {
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
           appUser.designation === 'staff') && <Route path={'/work-request'} component={WorkRequest} />}
         {(appUser.designation === 'admin' ||
-          appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserContainer} />}
+          appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserView} />}
         {(appUser.designation === 'admin' ||
           appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentContainer} />}
         {(loading && <Route path={`/`} component={LoadingView} />)}
