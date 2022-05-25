@@ -5,10 +5,10 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import * as datasets from "./Config/datasets"
 
 import LoadingView from './Components/Loading/LoadingView';
-import MapView from './Components/Map/MapView';
 import useLogin from './hook/custom/useLogin';
 import { useAppUserState } from './hook/useAppUser';
 import useInitializeApp from './hook/custom/useInitializeApp';
+const MapLayout = lazy(() => import('./Components/Map/MapLayout'));
 const LoginView = lazy(() => import('./Components/Login/LoginView'));
 const SignUpView = lazy(() => import('./Components/SignUp/SignUpView'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
@@ -40,7 +40,7 @@ const App = () => {
           <Redirect to="/login" />
         )} />
         {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileView} />}
-        {datasets.getToken() && appUser.email && <Route path={`/map/:projectId?`} component={MapView} />}
+        {datasets.getToken() && appUser.email && <Route path={`/map`} component={MapLayout} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
           appUser.designation === 'staff') && <Route path={'/work-plan'} component={WorkPlan} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||

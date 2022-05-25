@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-import Map from '../Components/Map/Map';
-import Navbar from "../Components/Shared/Navbar/NavbarContainer";
-import SidebarView from "../Components/Shared/Sidebar/SidebarView";
-import LoadingView from '../Components/Loading/LoadingView';
+import Map from './Map';
+import Navbar from "../Shared/Navbar/NavbarContainer";
+import SidebarView from "../Shared/Sidebar/SidebarView";
+import LoadingView from '../Loading/LoadingView';
 
-import { COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MEDIUM_SCREEN_RIGHT, MEDIUM_SCREEN_LEFT } from "../constants/constants";
+import { COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MEDIUM_SCREEN_RIGHT, MEDIUM_SCREEN_LEFT } from "../../constants/constants";
 import { Redirect } from "react-router-dom";
 
 import { Layout, Row, Col, Button, message } from 'antd';
-import { useMapDispatch, useMapState } from '../hook/mapHook';
-import { useProjectDispatch, useProjectState } from '../hook/projectHook';
-import { useNotesState } from '../hook/notesHook';
-import { useProfileState } from '../hook/profileHook';
+import { useMapDispatch, useMapState } from '../../hook/mapHook';
+import { useProjectDispatch, useProjectState } from '../../hook/projectHook';
+import { useNotesState } from '../../hook/notesHook';
+import { useProfileState } from '../../hook/profileHook';
+import MapView from './MapView';
 
-export default function (WrappedComponent: any) {
-  return () => {
+const MapLayout = () => {
     const {
       clearErrorMessage,
       setRouteRedirect,
@@ -122,12 +122,13 @@ export default function (WrappedComponent: any) {
                 </Button>
               </Col>
               <Col xs={{ span: 24 }} className="menu-mobile" style={{ transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's' }} lg={rightWidth}>{/*span={9}*/}
-                <WrappedComponent />
+                <MapView />
               </Col>
             </Row>}
           </Layout>
         </Layout>
       </Layout>
     );
-  };
 };
+
+export default MapLayout;

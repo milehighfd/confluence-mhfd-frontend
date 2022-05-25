@@ -3,11 +3,10 @@ import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoC
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 import GenericTabView from "../Shared/GenericTab/GenericTabView";
-import mapFormContainer from "../../hoc/mapFormContainer";
 import FiltersProjectView from "../FiltersProject/FiltersProjectView";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../constants/constants';
-import { FilterTypes, MapViewTypes } from "../../Classes/MapTypes";
+import { FilterTypes } from "../../Classes/MapTypes";
 import { useLocation } from "react-router-dom";
 import DetailedModal from "../Shared/Modals/DetailedModal";
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
@@ -28,7 +27,7 @@ const { Search } = Input;
 const { Option } = AutoComplete;
 let counterZoomArea = 0 ;
 
-const MapView = ({}: MapViewTypes) => {
+const MapView = () => {
 
   const {
     getGalleryProblems, 
@@ -1051,4 +1050,4 @@ const MapView = ({}: MapViewTypes) => {
   </>
 }
 
-export default mapFormContainer(MapView);
+export default MapView;

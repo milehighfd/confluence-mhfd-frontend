@@ -1,62 +1,8 @@
-//MAPTYPES
-import { Detailed } from "../store/types/detailedTypes";
-
-type LayersType = string | ObjectLayerType;
 export type MapProps = {
     leftWidth: number,
     isExtendedView: boolean
 }
 
-export type MapViewTypes = { 
-    filters: FilterTypes, 
-    projects: Array<ProjectTypes>, 
-    getProjectWithFilters : Function, 
-    removeFilter: Function, 
-    getDropdownFilters: Function, 
-    dropdowns: DropdownFilterTypes,
-    userFiltered: { [_id: string]: string },
-    getUserFilters: Function,
-    sortProjects: Function,
-    getGalleryProblems: Function,
-    getGalleryProjects: Function,
-    galleryProblems: Array<any>,
-    getValuesByGroupColumn: Function,
-    saveUserInformation: Function,
-    galleryProjects: Array<any>,
-    getDetailedPageProblem: Function,
-    getDetailedPageProject: Function,
-    detailed: Detailed,
-    loaderDetailedPage: boolean,
-    filterProblemOptions: any, //OptionProblems,
-    filterProjectOptions: any, //OptionProjects,
-    filterCoordinates: string,
-    setFilterProblemOptions: Function,
-    setFilterProjectOptions: Function,
-    paramFilters: any,
-    getParamsFilter: Function,
-    setHighlighted: Function,
-    filterComponentOptions: OptionComponents,
-    setFilterComponentOptions: Function,
-    getComponentsByProblemId: Function,
-    componentsOfProblems: Function,
-    setProblemKeyword: Function,
-    setProjectKeyword: Function,
-    existDetailedPageProject: Function,
-    existDetailedPageProblem: Function,
-    displayModal: boolean,
-    loaderTableCompoents: boolean,
-    selectedOnMap: any,
-    setSelectedOnMap: Function,
-    groupOrganization: [],
-    applyFilter: boolean,
-    setApplyFilter: Function
-    componentCounter: number,
-    getComponentCounter: Function,
-    setZoomProjectOrProblem: Function,
-    selectedLayers: Array<LayersType>,
-    updateSelectedLayers: Function,
-    spinFilter: boolean,
-}
 export type OptionProblems = {
     keyword: string,
     column: string,
