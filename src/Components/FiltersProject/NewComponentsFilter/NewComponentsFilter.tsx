@@ -18,9 +18,20 @@ const content15 = (<div className="popoveer-00"><b>Component Status</b> is the s
 const content16 = (<div className="popoveer-00"><b>Year of Study</b> refers to the year of the Study in which the Component was first identified or proposed.</div>);
 const content17 = (<div className="popoveer-00"><b>Estimated Cost</b> is the Estimated Cost of implementing or addressing a Component as part of a Capital or Maintenance project.</div>);
 
-export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects, setToggleFilters }: any) => {
-    const { getParamFilterComponents } = useMapDispatch();
-    const { boundsMap } = useMapState();
+export const NewComponentsFilter = () => {
+    const {
+        getGalleryProblems, 
+        getGalleryProjects,
+        setFilterComponentOptions,
+        getParamFilterComponents
+    } = useMapDispatch();
+    const {
+        boundsMap,
+        paramFilters: {
+            components: paramComponents
+        },
+        filterComponentOptions
+    } = useMapState();
 
     const apply = (values: any, field: string) => {
         console.log('value: ' + values + ", field: " + field);
@@ -36,21 +47,6 @@ export const NewComponentsFilter = ({ paramComponents, filterComponentOptions, s
             options[field] = values;
         }
         //let labelsProjects = [...labelsFiltersProjects];
-        setFilterComponentOptions(options);
-        getGalleryProjects();
-        getGalleryProblems();
-        getParamFilterComponents(boundsMap, options);
-    }
-    const reset = () => {
-        const options = { ...filterComponentOptions };
-        options.component_type = '';
-        options.status = '';
-        options.yearofstudy = '';
-        options.estimatedcost = [];
-        options.jurisdiction = '';
-        options.county = '';
-        options.mhfdmanager = '';
-        options.servicearea = '';
         setFilterComponentOptions(options);
         getGalleryProjects();
         getGalleryProblems();

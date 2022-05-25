@@ -16,8 +16,18 @@ const content05 = (<div className="popoveer-00"><b>County</b> is the county wher
 const content06 = (<div className="popoveer-00"><b>Jurisdiction</b> is the local government where the problem is located.</div>);
 const content07 = (<div className="popoveer-00"><b>MHFD Project Manager</b> is the MHFD PM who is responsible for the service area where the problem is located.</div>);
 
-export const NewProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterProblemOptions, getGalleryProblems }: any) => {
-    const { getParamFilterProblems } = useMapDispatch();
+export const NewProblemsFilter = () => {
+    const {
+        filterProblemOptions,
+        paramFilters: {
+            problems: paramProblems
+        }
+    } = useMapState();
+    const {
+        getGalleryProblems,
+        setFilterProblemOptions,
+        getParamFilterProblems
+    } = useMapDispatch();
     const { boundsMap } = useMapState();
 
     const apply = (values: any, field: string) => {

@@ -20,16 +20,12 @@ export default ({
     tabActive,
     tabPosition,
     setTabPosition,
-    setToggleFilters,
     setTabActive
 }: FiltersProjectTypes) => {
     const {
         getGalleryProblems, 
         getGalleryProjects,
         updateSelectedLayers,
-        setFilterProblemOptions,
-        setFilterProjectOptions, 
-        setFilterComponentOptions,
         setApplyFilter
     } = useMapDispatch();
     const {
@@ -40,18 +36,13 @@ export default ({
         spinMapLoaded
     } = useMapState();
     const {
-        galleryProblems,
-        galleryProjects,
         selectedLayers,
         filterProblemOptions,
         filterProjectOptions,
-        paramFilters,
         filterComponentOptions,
         applyFilter,
         spinFilters: spinFilter
       } = useMapState();
-    const projectsLength = galleryProjects.length;
-    const problemsLength = galleryProblems.length;
     const genExtra = () => (
         <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col>
@@ -75,24 +66,11 @@ export default ({
     const getFilterBody = (trigger: string) => {
         switch (trigger) {
             case FILTER_PROBLEMS_TRIGGER:
-                return <NewProblemsFilter paramProblems={paramFilters.problems}
-                    filterProblemOptions={filterProblemOptions}
-                    setFilterProblemOptions={setFilterProblemOptions}
-                    getGalleryProblems={getGalleryProblems}
-                    setToggleFilters={setToggleFilters} />
+                return <NewProblemsFilter />
             case FILTER_PROJECTS_TRIGGER:
-                return <NewProjectsFilter paramProjects={paramFilters.projects}
-                    filterProjectOptions={filterProjectOptions}
-                    setFilterProjectOptions={setFilterProjectOptions}
-                    getGalleryProjects={getGalleryProjects}
-                    setToggleFilters={setToggleFilters} />
+                return <NewProjectsFilter />
             case FILTER_COMPONENTS_TRIGGER:
-                return <NewComponentsFilter paramComponents={paramFilters.components}
-                    filterComponentOptions={filterComponentOptions}
-                    setFilterComponentOptions={setFilterComponentOptions}
-                    getGalleryProblems={getGalleryProblems}
-                    getGalleryProjects={getGalleryProjects}
-                    setToggleFilters={setToggleFilters} />
+                return <NewComponentsFilter />
             default:
                 return null;
         }

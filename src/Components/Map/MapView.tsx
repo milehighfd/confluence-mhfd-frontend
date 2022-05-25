@@ -1044,7 +1044,6 @@ const MapView = ({}: MapViewTypes) => {
           tabActive={tabActive}
           tabPosition={tabPosition}
           setTabPosition={setTabPosition}
-          setToggleFilters={setToggleFilters}
           setTabActive={setTabActive}
         />
       }

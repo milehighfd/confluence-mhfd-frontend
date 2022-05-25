@@ -24,8 +24,18 @@ const content12 = (<div className="popoveer-00"><b>Local Government Manager</b> 
 const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary civil engineering construction contractor on the project.</div>);
 const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
 
-export const NewProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects, setToggleFilters }: any) => {
-    const { getParamFilterProjects } = useMapDispatch();
+export const NewProjectsFilter = () => {
+    const {
+        filterProjectOptions,
+        paramFilters: {
+            projects: paramProjects
+        }
+    } = useMapState();
+    const {
+        getParamFilterProjects,
+        setFilterProjectOptions,
+        getGalleryProjects
+    } = useMapDispatch();
     const { boundsMap } = useMapState();
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };

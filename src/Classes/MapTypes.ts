@@ -227,7 +227,6 @@ export type FiltersProjectTypes = {
     tabActive: string,
     tabPosition: string, 
     setTabPosition: Function, 
-    setToggleFilters: Function, 
     setTabActive: Function
 };
 
