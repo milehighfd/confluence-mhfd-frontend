@@ -128,11 +128,11 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
         setVisible={setVisible}
       />}
 
-      <Col xs={24} lg={12} md={12}>
+      <Col xs={24} lg={12} md={12} style={{display: 'inline-flex', width: '100%', alignSelf: 'stretch'}}>
       <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : ''}}>
         <Card
           hoverable
-          style={{ width: '100%'}}
+          style={{width: '100%', paddingTop: '5px'}}
           onClick={() => setVisible(true)}
           onMouseEnter={() =>  setValuesMap(data.type, data.value)}
           onMouseLeave={()=> setValuesMap('','')}

@@ -236,7 +236,7 @@ export default ({
                 })}
             </div>
         </div>
-        <Row className="card-map" gutter={[16, 16]}>
+        <Row className="card-map" gutter={[16, 16]} >
             <InfiniteScroll
                 dataLength={state.items.length}
                 next={fetchMoreData}
@@ -249,7 +249,8 @@ export default ({
                     return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}
                         getDetailedPageProblem={getDetailedPageProblem}
                         getDetailedPageProject={getDetailedPageProject}
-                        detailed={detailed} type={type}
+                        detailed={detailed} 
+                        type={type}
                         loaderDetailedPage={loaderDetailedPage}
                         setHighlighted={setHighlighted}
                         getComponentsByProblemId={getComponentsByProblemId}
