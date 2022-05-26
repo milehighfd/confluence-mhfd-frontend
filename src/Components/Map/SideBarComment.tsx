@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Row, Col, Input, Button, Menu, Select, Popover, Comment, Avatar, List, Dropdown } from 'antd';
-import { DownOutlined, CheckOutlined } from '@ant-design/icons';
+import { Drawer, Button, Menu, List, Dropdown } from 'antd';
+import { CheckOutlined } from '@ant-design/icons';
 import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
 import { useColorListDispatch, useColorListState } from "../../hook/colorListHook";
 import { useProfileState } from "../../hook/profileHook";
 import { Tree } from '../Tree/Tree';
-import {divListOfelements} from './../Map/commetsFunctions';
-const { Option } = Select;
-const { TextArea } = Input;
+import { divListOfelements } from './../Map/commetsFunctions';
 
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, swSave, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {

@@ -3,18 +3,13 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
-import ReactDOMServer from 'react-dom/server';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
-import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from '../../../Components/Map/MapPopups';
-import { Dropdown,  Button, Tabs, Row, Col, Checkbox } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
-import { DownOutlined } from '@ant-design/icons';
-
+import { Dropdown,  Button } from 'antd';
 import { MapProps, ObjectLayerType, LayerStylesType } from '../../../Classes/MapTypes';
 import {
     MAP_DROPDOWN_ITEMS,
@@ -25,14 +20,11 @@ import {
     STREAMS_FILTERS,
     MUNICIPALITIES_FILTERS,
     SELECT_ALL_FILTERS,
-    MAP_RESIZABLE_TRANSITION, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF,
+    MAP_RESIZABLE_TRANSITION, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
     NEARMAP_TOKEN,
     BLOCK_CLEARANCE_ZONES_LAYERS,
     ACTIVE_LOMS,
     EFFECTIVE_REACHES,
-    NEW_PROJECT_TYPES,
-    ICON_POPUPS,
-    MHFD_STREAMS_FILTERS,
     MENU_OPTIONS,
     SERVICE_AREA_FILTERS,
     STREAMS_POINT
@@ -46,7 +38,6 @@ import { useMapState, useMapDispatch } from '../../../hook/mapHook';
 import { useColorListDispatch, useColorListState } from '../../../hook/colorListHook';
 import { useProjectDispatch } from '../../../hook/projectHook';
 import { setOpacityLayer } from '../../../store/actions/mapActions';
-import { useProfileDispatch } from '../../../hook/profileHook';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import MapService from '../../../Components/Map/MapService';
@@ -61,8 +52,9 @@ import { GlobalMapHook } from '../../../utils/globalMapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
 import MobileMenu from './MobileMenu';
 import SideMenuTools from './SideMenuTools';
+import { commentPopup, loadMenuPopupWithData } from './MapGetters';
+import { hovereableLayers } from '../constants/layout.constants';
 const { Option } = AutoComplete;
-const { TextArea } = Input;
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
@@ -178,18 +170,10 @@ const Map = ({
   } = useDetailedState();
     let geocoderRef = useRef<HTMLDivElement>(null);
 
-    const hovereableLayers = [ PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
-        MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
-         ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
-        LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
-        CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
-         PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAMS_FILTERS, EFFECTIVE_REACHES, ACTIVE_LOMS, MHFD_STREAMS_FILTERS];
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
-    const { saveUserInformation } = useProfileDispatch();
-    const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
@@ -200,7 +184,7 @@ const Map = ({
     const { colorsList } = useColorListState();
     const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
     const [zoomValue, setZoomValue] = useState(0);
-    const { addHistoric, getCurrent, getNext, getPercentage, getPrevious, hasNext, hasPrevious } = GlobalMapHook();
+    const { addHistoric, getCurrent } = GlobalMapHook();
     const colors = {
         RED: '#FF0000',
         ORANGE: '#FA6400',
@@ -213,23 +197,13 @@ const Map = ({
       GREY: 'rgb(142, 132, 132)',
       YELLOW: '#ffbf00'
     }
-    const [noteColor, setNoteColor] = useState(colors.YELLOW);
     const [markersNotes, setMarkerNotes] = useState([]) ;
     const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
-    const { TabPane } = Tabs;
-
-    const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS,MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS ,
-        MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,  MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
-        MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
-        MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
-        MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS, MENU_OPTIONS.MEASURES
-        ];
     const { userInformation, groupOrganization } = useProfileState();
     const [visible, setVisible] = useState(false);
     const [zoomEndCounter, setZoomEndCounter] = useState(0);
     const [dragEndCounter, setDragEndCounter] = useState(0);
-    const empty:any[] = [];
-    const [allLayers, setAllLayers] = useState(empty);
+    const [allLayers, setAllLayers] = useState<any[]>([]);
     const [mapService] = useState<MapService>(new MapService());
     const [commentVisible, setCommentVisible] = useState(false);
     const [swSave, setSwSave] = useState(false);
@@ -1872,7 +1846,6 @@ const Map = ({
                     const red = document.getElementById('red');
                   if (red != null) {
                       red.addEventListener('click', () => {
-                          setNoteColor(colors.RED);
                           if (colorable != null) {
                               colorable.style.color = colors.RED;
                           }
@@ -1881,7 +1854,6 @@ const Map = ({
                   const orange = document.getElementById('orange');
                   if (orange != null) {
                       orange.addEventListener('click', () => {
-                          setNoteColor(colors.ORANGE);
                           if (colorable != null) {
                               colorable.style.color = colors.ORANGE;
                           }
@@ -1890,7 +1862,6 @@ const Map = ({
                   const grey = document.getElementById('grey');
                   if (grey != null) {
                       grey.addEventListener('click', () => {
-                          setNoteColor(colors.GREY);
                           if (colorable != null) {
                               colorable.style.color = colors.GREY;
                           }
@@ -1899,7 +1870,6 @@ const Map = ({
                   const yellow = document.getElementById('yellow');
                   if (yellow != null) {
                       yellow.addEventListener('click', () => {
-                          setNoteColor(colors.YELLOW);
                           if (colorable != null) {
                               colorable.style.color = colors.YELLOW;
                           }
@@ -2669,7 +2639,7 @@ const Map = ({
               }
            }
             if (popups.length) { 
-                const html = loadMenuPopupWithData(menuOptions, popups);
+                const html = loadMenuPopupWithData(menuOptions, popups, test, userInformation);
                 setMobilePopups(mobile);
                 setActiveMobilePopups(mobileIds);
                 setSelectedPopup(0);
@@ -2813,244 +2783,7 @@ const Map = ({
             });
         }
     }
-  
-  const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
-    <>
-        <div className="popup-comment">
-        <div className="headmap">
-          <Button id="color-list" className="testheader">
-            <span id="color-text">{ note?.color ? (note.color.label):'Map Note' }</span>
-            <div className='dr'>
-              <div className="legend-selected">
-                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121'}}></i> 
-              </div>
-              <div id="icon-downlined" className="light">
-                <DownOutlined />
-              </div>
-            </div>
-          </Button>
-        </div>
-        <div className="bodymap">
-            <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"These are my notes…"} defaultValue={note? note.content:''} />
-            <div style={{display:'flex'}} className="footer">
-                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''} className="light b-red">Delete</Button>
-                { note? (<Button id="edit-comment" className='light b-green'>Save</Button>): (<Button id="save-comment" className='light b-green'>Save</Button>) }
-            </div>
 
-        </div>
-        </div>
-    </>);
-    
-    const getBeautifulTitle = (title: any) => {
-        return (
-            <div>
-                <span><b>{title.title}</b></span>
-                <br></br>
-                <span>{title.subtitle}</span>
-            </div>
-        )
-    }
-    const loadMenuPopupWithData = (menuOptions: any[], popups: any[], title?: any) => ReactDOMServer.renderToStaticMarkup(
-
-        <>
-            { 
-              menuOptions.length === 1 ? 
-              <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? 
-                    ( menuOptions[0] == 'Stream' ? 
-                      loadStreamPopup(0, popups[0]) :
-                      (
-                        menuOptions[0] == MENU_OPTIONS.MEASURES ? 
-                        loadMeasurePopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) 
-                        :loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) 
-                      )
-                    )
-                    :
-                    menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
-              </> 
-                :
-            <div className="map-pop-02">
-              <div className="headmap">{title ? (title.subtitle? getBeautifulTitle(title) : title.title)  : 'LAYERS'}</div>
-              <div className="layer-popup">
-                {
-                    menuOptions.map((menu: any, index: number) => {
-                        return (
-                            <div>
-                                {loadIconsPopup(menu, popups[index], index)}
-                                { (menu !== 'Project' && menu !== 'Problem') ?
-                                    ( 
-                                      menu =='Stream'  ? 
-                                      loadStreamPopup(index, popups[index]) : 
-                                      (
-                                        menu == MENU_OPTIONS.MEASURES ? 
-                                        loadMeasurePopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) :
-                                        loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) 
-                                      )
-                                    )
-                                  :
-                                    menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            </div>}
-        </>
-    );
-    const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) =>(
-        <>
-            <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)}></MainPopup>
-        </>
-    );
-
-    const loadStreamPopup = (index: number, item: any) => (
-        <>
-            <StreamPopupFull id={index} item={item} ></StreamPopupFull>
-        </>
-    );
-    const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
-        <>
-            <ComponentPopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></ComponentPopup>
-        </>
-    );
-    const loadMeasurePopup = (index: number, item: any, isComponent: boolean) => (
-      <>
-          <MeasurePopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></MeasurePopup>
-      </>
-    );
-    const loadIconsPopup = (menu: any, popups:any, index:any) =>{
-        let icon
-        ICON_POPUPS.forEach((element) => {
-            if(element[0] === menu){
-                icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            }
-        })
-        if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration ||popups.projecctype === NEW_PROJECT_TYPES.Maintenance || popups.projecctype === "Capital" || popups.projecctype === "Fee in Lieu")){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_projects@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'Master Plan')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_MasterPlan@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-        }
-        if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'FHAD')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_FHAD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-        }
-        if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'A')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupA@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'B')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupB@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'C')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupC@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'D')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === '-')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAE@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === 'FLOODWAY')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_Floodway@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'X')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneX@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AO')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern2.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Watershed')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Watershed')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern3.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Active')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_active.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Suspended')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_suspended.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Violation')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_violation.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Completed')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_completed.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Effective Reaches" && popups.studyname !== 'unknown'){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-studyunkown.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Effective Reaches" && popups.studyname === 'unknown'){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-study.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === MENU_OPTIONS.MEP_DETENTION_BASIN) {
-          return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-mep-detention-basin.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-          );
-        }
-        if(menu === MENU_OPTIONS.MEP_STORM_OUTFALL) {
-          return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-mep-storm-outfall.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-          );
-        }
-        if(menu === MENU_OPTIONS.MEP_CHANNEL) {
-          return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-mep-channel.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-          );
-        }
-        if(icon !== undefined){
-            return icon
-        }
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
@@ -3179,7 +2912,7 @@ const Map = ({
             }
           }
           if (popups.length) {
-              const html = loadMenuPopupWithData(menuOptions, popups, titleObject);
+              const html = loadMenuPopupWithData(menuOptions, popups, titleObject, userInformation);
               setMobilePopups(mobile);
               setSelectedPopup(0);
               if (html) {
@@ -3306,8 +3039,15 @@ const Map = ({
     }
     return (
         <>
-        <SideBarComment visible={commentVisible} setVisible={setSideBarStatus}
-        flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap} changeFilter={setNotesFilter} swSave={swSave} setSwSave={setSwSave}></SideBarComment>
+        <SideBarComment
+          visible={commentVisible}
+          setVisible={setSideBarStatus}
+          flyTo={flyTo}
+          openEditNote={openEditNote}
+          addToMap={addToMap}
+          changeFilter={setNotesFilter}
+          swSave={swSave}
+          setSwSave={setSwSave} />
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}
