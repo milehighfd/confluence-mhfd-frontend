@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { Layout, Row, Col, Button, message } from 'antd';
 
 import Map from './Map';
-import Navbar from "../Shared/Navbar/NavbarContainer";
-import SidebarView from "../Shared/Sidebar/SidebarView";
-import LoadingView from '../Loading/LoadingView';
-
-import { COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MEDIUM_SCREEN_RIGHT, MEDIUM_SCREEN_LEFT } from "../../constants/constants";
-
-import { Layout, Row, Col, Button, message } from 'antd';
-import { useMapDispatch, useMapState } from '../../hook/mapHook';
-import { useProjectDispatch, useProjectState } from '../../hook/projectHook';
-import { useNotesState } from '../../hook/notesHook';
-import { useProfileState } from '../../hook/profileHook';
 import MapView from './MapView';
+import Navbar from "../../../Components/Shared/Navbar/NavbarContainer";
+import SidebarView from "../../../Components/Shared/Sidebar/SidebarView";
+import LoadingView from '../../../Components/Loading/LoadingView';
+
+import { COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MEDIUM_SCREEN_RIGHT, MEDIUM_SCREEN_LEFT } from "../constants/layout.constants";
+
+import { useMapDispatch, useMapState } from '../../../hook/mapHook';
+import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
+import { useNotesState } from '../../../hook/notesHook';
+import { useProfileState } from '../../../hook/profileHook';
 
 const MapLayout = () => {
     const {

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import * as datasets from "../../Config/datasets";
-import { SERVER } from "../../Config/Server.config";
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import ReactDOMServer from 'react-dom/server';
@@ -9,13 +9,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import MapFilterView from '../Shared/MapFilter/MapFilterView';
-import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './MapPopups';
-import { Dropdown,  Button, Collapse, Tabs, Row, Col, Checkbox, Popover } from 'antd';
+import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
+import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from '../../../Components/Map/MapPopups';
+import { Dropdown,  Button, Tabs, Row, Col, Checkbox } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
 
-import { MapProps, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
+import { MapProps, ObjectLayerType, LayerStylesType } from '../../../Classes/MapTypes';
 import {
     MAP_DROPDOWN_ITEMS,
     MAPBOX_TOKEN,
@@ -36,30 +36,31 @@ import {
     MENU_OPTIONS,
     SERVICE_AREA_FILTERS,
     STREAMS_POINT
-} from "../../constants/constants";
-import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../constants/mapStyles';
-import { addMapGeocoder } from '../../utils/mapUtils';
-import { numberWithCommas } from '../../utils/utils';
+} from "../../../constants/constants";
+import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../../constants/mapStyles';
+import { addMapGeocoder } from '../../../utils/mapUtils';
+import { numberWithCommas } from '../../../utils/utils';
 import { Input, AutoComplete } from 'antd';
-import DetailedModal from '../Shared/Modals/DetailedModal';
-import { useMapState, useMapDispatch } from '../../hook/mapHook';
-import { useColorListDispatch, useColorListState } from '../../hook/colorListHook';
-import { useProjectDispatch } from '../../hook/projectHook';
-import { setOpacityLayer } from '../../store/actions/mapActions';
-import { useProfileDispatch } from '../../hook/profileHook';
+import DetailedModal from '../../../Components/Shared/Modals/DetailedModal';
+import { useMapState, useMapDispatch } from '../../../hook/mapHook';
+import { useColorListDispatch, useColorListState } from '../../../hook/colorListHook';
+import { useProjectDispatch } from '../../../hook/projectHook';
+import { setOpacityLayer } from '../../../store/actions/mapActions';
+import { useProfileDispatch } from '../../../hook/profileHook';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
-import GenericTabView from '../Shared/GenericTab/GenericTabView';
-import MapService from './MapService';
-import MobilePopup from '../MobilePopup/MobilePopup';
-import { ModalProjectView } from '../ProjectModal/ModalProjectView';
-import SideBarComment from './SideBarComment';
-import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
-import { useProfileState } from '../../hook/profileHook';
+import MapService from '../../../Components/Map/MapService';
+import MobilePopup from '../../../Components/MobilePopup/MobilePopup';
+import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectView';
+import SideBarComment from '../../../Components/Map/SideBarComment';
+import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
+import { useProfileState } from '../../../hook/profileHook';
 
-import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from './commetsFunctions';
-import { GlobalMapHook } from '../../utils/globalMapHook';
-import { useDetailedState } from '../../hook/detailedHook';
+import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
+import { GlobalMapHook } from '../../../utils/globalMapHook';
+import { useDetailedState } from '../../../hook/detailedHook';
+import MobileMenu from './MobileMenu';
+import SideMenuTools from './SideMenuTools';
 const { Option } = AutoComplete;
 const { TextArea } = Input;
 
@@ -82,13 +83,11 @@ const factorm2toacre = 0.00024710538146717;
 let itMoved = false;
 let globalMapId: string | null = null;
 
-const { Panel } = Collapse;
 const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 const docNote = document.createElement('div');
       docNote.className = 'marker-note';
 const markerNote = new mapboxgl.Marker(docNote);
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
-let contents: any = [];
 let markerNotes_global: any = [];
 let isMeasuring = false;
     const geojsonMeasures = {
@@ -108,8 +107,6 @@ let isMeasuring = false;
       }
     };
 let canAdd = false;
-contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
-contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 
 let commentAvailable = false;
 let listOfElements = [{
@@ -152,7 +149,6 @@ const Map = ({
     setSpinMapLoaded,
     setAutocomplete,
     setBBOXComponents,
-    setTabCards,
     setSelectedPopup
   } = useMapDispatch();
   const {
@@ -166,7 +162,6 @@ const Map = ({
     autocomplete,
     currentPopup,
     layers: layerFilters,
-    galleryProblems,
     galleryProjects,
     selectedLayers,
     filterProblemOptions,
@@ -236,10 +231,8 @@ const Map = ({
     const [visible, setVisible] = useState(false);
     const [zoomEndCounter, setZoomEndCounter] = useState(0);
     const [dragEndCounter, setDragEndCounter] = useState(0);
-    const [collapseKey, setCollapseKey] = useState('0');
     const empty:any[] = [];
     const [allLayers, setAllLayers] = useState(empty);
-    const [tabPosition, setTabPosition] = useState('1');
     const [mapService] = useState<MapService>(new MapService());
     const [commentVisible, setCommentVisible] = useState(false);
     const [swSave, setSwSave] = useState(false);
@@ -261,13 +254,6 @@ const Map = ({
         </Row>
       );
     const coorBounds: any[][] = [];
-    const coordinatesMHFD = [
-        [-105.3236581, 39.4057815],
-        [-105.3236581, 40.1315705],
-        [-104.4889475, 40.1315705],
-        [-104.4889475, 39.4057815],
-        [-105.3236581, 39.4057815]
-    ];
     const [data, setData] = useState({
         problemid: '',
         id: '',
@@ -3387,27 +3373,6 @@ const Map = ({
       popup.remove();
       openMarkerOfNoteWithoutAdd(note);
     }
-    const showMHFD = () => {
-        setAutocomplete('');
-        saveUserInformation({...userInformation, polygon: coordinatesMHFD});
-        if (!opacityLayer) {
-            mapService.hideOpacity();
-        }
-        setOpacityLayer(false);
-        setCoordinatesJurisdiction([]);
-        const optionsProblem = { ...filterProblemOptions };
-        const optionsProject = { ...filterProjectOptions };
-        optionsProblem['servicearea'] = '';
-        optionsProject['servicearea'] = '';
-        optionsProblem['county'] = '';
-        optionsProject['county'] = '';
-        optionsProblem['jurisdiction'] = '';
-        optionsProject['jurisdiction'] = '';
-        setFilterProblemOptions(optionsProblem);
-        setFilterProjectOptions(optionsProject);
-        setNameZoomArea('Mile High Flood District');
-        setBBOXComponents({ bbox: [], centroids: [] })
-    }
 
     const setSideBarStatus = (status: boolean) => {
         setCommentVisible(status);
@@ -3536,190 +3501,12 @@ const Map = ({
               }
             </div>
             
-            <div className="m-zoom">
-                <Button className="btn-green"><img src="/Icons/icon-87.svg" width="15px"
-                onClick={() => {
-                    function success(position: any) {
-                        const latitude  = position.coords.latitude;
-                        const longitude = position.coords.longitude;
-                        console.log(latitude, longitude);
-                        map.flyTo({
-                            center: [longitude, latitude],
-                            zoom: 14
-                            });
-
-                        map.addSource('point', {
-                            'type': 'geojson',
-                            'data': {
-                            'type': 'FeatureCollection',
-                            'features': [
-                            {
-                            'type': 'Feature',
-                            'geometry': {
-                            'type': 'Point',
-                            'coordinates': [longitude, latitude]
-                            }
-                            }
-                            ]
-                            }
-                            });
-                            map.addLayer({
-                            'id': 'points',
-                            'type': 'symbol',
-                            'source': 'point',
-                            'layout': {
-                            'icon-image': 'adjust-24px'
-                            }
-                            });
-                      }
-                      if(navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(success, () => {});
-                      }
-                }}
-                /></Button>
-                <Button className="btn-none" onClick={() => {
-                    setCommentVisible(commentVisible => !commentVisible);
-                    }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
-                
-                <Button className='btn-showmhfd' style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
-                <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04'></img></Button>
-                {displayPrevNext && <div className='mapstatebuttons'  >
-                    <div className="mapstateprevnext"
-                        style={ !hasPrevious() ? {backgroundColor: '#f1f1f1' } : {}}
-                        onClick={() => {
-                            console.log('previous ', hasPrevious());
-                            if (hasPrevious()) {
-                                const prev = getPrevious();
-                                globalMapId = prev.id;
-                                console.log('click prev ', prev);
-                                map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
-                            }
-                    }}>
-                      <div className="title">Prev</div>
-                      <div className="progress left">
-                        <div className="progress-value light" style={{width: `${100.0 - getPercentage()}%`}} ></div>
-                      </div>
-                    </div>
-                    <div className="mapstateprevnext"
-                        style={ !hasNext() ? {backgroundColor: '#f1f1f1' } : {}}
-                        onClick={() => {
-                            if (hasNext()) {
-                                const nxt = getNext();
-                                globalMapId = nxt.id;
-                                console.log('click next, ', nxt);
-                                map.fitBounds([[nxt.bbox[0],nxt.bbox[1]],[nxt.bbox[2],nxt.bbox[3]]]);
-                            }
-                        }}
-                    >
-                      <div className="title">Next</div>
-                      <div className="progress right">
-                        <div className="progress-value light" style={{width: `${getPercentage()}%`}} ></div>
-                      </div>
-                    </div>
-                  </div>}
-            </div>
-
-            <div className="menu-desktop collapse-tabs">
-            <Collapse  accordion activeKey={collapseKey}>
-               <Panel header="" key="1" extra={
-                   <div className="title-explore" onClick={()=> {
-                       console.log('on click');
-                       setCollapseKey(collapseKey => '' + (1 - +collapseKey));
-                   }}>
-                             Explore Confluence
-                   </div>
-               }>
-                <Button onClick={(e) => {
-                    e.stopPropagation();
-                    setCollapseKey('0');
-                }} className="btn-map"><img src="/Icons/menu-green-02.svg" alt="" width="18px"/> Map</Button>
-                <div className="ggyyyy">
-                 <div className="mhfd-mobile">
-                   <h6>About the Platform</h6>
-                   <p>Confluence is your one-stop Mile High Flood District data portal.
-                   MHFD has developed Confluence from the ground up to meet the unique data needs of a
-                   regional flood control and stream management district.</p>
-                 </div>
-                 <div className="ffoo">
-                 <Tabs onTabClick={(e: string) => {
-                    if (e === '0') {
-                        setTabCards(PROBLEMS_TRIGGER);
-                        getGalleryProblems();
-                    } else {
-                        setTabCards(PROJECTS_TRIGGER);
-                        getGalleryProjects();
-                    }
-                    }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" tabBarExtraContent={genExtra()}>
-                    {tabs.map((value: string, index: number) => {
-                        let totalElements = 0;
-                        let cardInformation: Array<Object> = [];
-                        if (value === FILTER_PROBLEMS_TRIGGER) {
-                        cardInformation = galleryProblems.map((problem: any) => {
-                            return {
-                            cartodb_id: problem.cartodb_id,
-                            image: `gallery/${problem.problemtype}.jpg`,
-                            requestName: problem.problemname,
-                            jurisdiction: problem.jurisdiction,
-                            estimatedCost: problem.estimatedcost,
-                            field4: 'X',
-                            field5: 'Components',
-                            priority: problem.problempriority,
-                            percentage: problem.solutionstatus,
-                            problemid: problem.problemid,
-                            type: problem.type,
-                            value: problem.cartodb_id,
-                            totalComponents: problem.totalComponents,
-                            coordinates: problem.coordinates[0]
-                            }
-                        });
-                        totalElements = cardInformation.length;
-                        } else {
-                        cardInformation = galleryProjects.map((project: any) => {
-                            return {
-                            cartodb_id: project.cartodb_id,
-                            image: project.attachments ? project.attachments : (
-                                project.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
-                                project.projecttype === 'Study' ? '/projectImages/study.jpg' :
-                                    project.projecttype === 'Maintenance' ?
-                                    (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
-                                        project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
-                                        project.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
-                                            project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                                            '/projectImages/debris_management.jpg') : '/Icons/eje.png'
-                            ),
-                            requestName: project.projectname ? project.projectname : project.requestedname,
-                            sponsor: project.sponsor,
-                            estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
-                            status: project.status,
-                            projecttype: project.projecttype,
-                            objectid: project.objectid,
-                            type: project.type,
-                            value: project.cartodb_id,
-                            id: project.projectid,
-                            totalComponents: project.totalComponents,
-                            coordinates: project.coordinates[0]
-                            }
-                        });
-                        totalElements = cardInformation.length;
-                        }
-
-                        return (
-                        <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value} </Popover> </span>} key={'' + index}>
-                            <GenericTabView
-                              key={value + index}
-                              type={value}
-                              totalElements={totalElements}
-                              cardInformation={cardInformation}
-                            />
-                        </TabPane>
-                        );
-                    })}
-                    </Tabs>
-                 </div>
-                </div>
-               </Panel>
-             </Collapse>
-            </div>
+            <SideMenuTools
+              map={map}
+              setCommentVisible={setCommentVisible}
+              mapService={mapService}
+            />
+            <MobileMenu />
         </div>
     </>
     )

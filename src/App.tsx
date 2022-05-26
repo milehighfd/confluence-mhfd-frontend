@@ -11,7 +11,7 @@ const LoginRoute = lazy(() => import('./routes/login'));
 const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
 const ConfirmPasswordRoute = lazy(() => import('./routes/confirm-password'));
-const MapLayout = lazy(() => import('./Components/Map/MapLayout'));
+const MapRoute = lazy(() => import('./routes/map'));
 
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
 const DetailedPageView = lazy(() => import('./Components/DetailedPage/DetailedPageView'));
@@ -40,7 +40,7 @@ const App = () => {
           <Redirect to="/login" />
         )} />
         {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileView} />}
-        {datasets.getToken() && appUser.email && <Route path={`/map`} component={MapLayout} />}
+        {datasets.getToken() && appUser.email && <Route path={`/map`} component={MapRoute} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
           appUser.designation === 'staff') && <Route path={'/work-plan'} component={WorkPlan} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||

@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoComplete } from 'antd';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
-import GenericTabView from "../Shared/GenericTab/GenericTabView";
-import FiltersProjectView from "../FiltersProject/FiltersProjectView";
+import GenericTabView from "../../../Components/Shared/GenericTab/GenericTabView";
+import FiltersProjectView from "../../../Components/FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../constants/constants';
-import { FilterTypes } from "../../Classes/MapTypes";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../../constants/constants';
+import { FilterTypes } from "../../../Classes/MapTypes";
 import { useLocation } from "react-router-dom";
-import DetailedModal from "../Shared/Modals/DetailedModal";
-import { useMapDispatch, useMapState } from "../../hook/mapHook";
-import { capitalLetter, elementCost, getStatus } from '../../utils/utils';
+import DetailedModal from "../../../Components/Shared/Modals/DetailedModal";
+import { useMapDispatch, useMapState } from "../../../hook/mapHook";
+import { capitalLetter, elementCost, getStatus } from '../../../utils/utils';
 import { useSelector } from "react-redux";
-import RheoStatService from '../FiltersProject/NewProblemsFilter/RheoStatService';
-import { useProfileDispatch, useProfileState } from "../../hook/profileHook";
-import { useFilterState } from "../../hook/filtersHook";
-import { useDetailedState } from "../../hook/detailedHook";
+import RheoStatService from '../../../Components/FiltersProject/NewProblemsFilter/RheoStatService';
+import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
+import { useFilterState } from "../../../hook/filtersHook";
+import { useDetailedState } from "../../../hook/detailedHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
