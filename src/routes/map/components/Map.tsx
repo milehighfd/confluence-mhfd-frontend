@@ -145,10 +145,7 @@ const Map = ({
     getParamFilterProblems,
     getParamFilterProjects,
     setCoordinatesJurisdiction,
-    setNameZoomArea,
     setSpinMapLoaded,
-    setAutocomplete,
-    setBBOXComponents,
     setSelectedPopup
   } = useMapDispatch();
   const {
@@ -236,23 +233,6 @@ const Map = ({
     const [mapService] = useState<MapService>(new MapService());
     const [commentVisible, setCommentVisible] = useState(false);
     const [swSave, setSwSave] = useState(false);
-    const genExtra = () => (
-    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-          <Col>
-            <div className={'apply-filter-no-effect'}>
-              Apply map view to filters
-              <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
-                setApplyFilter(!applyFilter)
-                getGalleryProblems();
-                getGalleryProjects();
-              }}></Checkbox>
-              <div className="progress">
-                <div className="progress-value"></div>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      );
     const coorBounds: any[][] = [];
     const [data, setData] = useState({
         problemid: '',
@@ -709,97 +689,29 @@ const Map = ({
             zoom: 8,
             attributionControl: false
         });
-        map.loadImage('custom-sprite/30x30px.png', (error: any, image: any) => {
+        const imagesPaths = [
+          'custom-sprite/30x30px.png',
+          'custom-sprite/dollar.png',
+          'custom-sprite/fema-floodway.png',
+          'custom-sprite/Frame13a.png',
+          'custom-sprite/Frame17m2t.png',
+          'custom-sprite/Frame21C.png',
+          'custom-sprite/pjm2.png',
+          'custom-sprite/ic-stripered.png',
+          'custom-sprite/ic-stripeviolet.png',
+          'custom-sprite/Urbanclimbtosafetysign_origclean-50.png',
+        ];
+        imagesPaths.forEach((imagePath: string) => {
+          map.loadImage(imagePath, (error: any, image: any) => {
             if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('adjust-24px')) {
-                map.addImage('adjust-24px', image);
-            }
-        });
-        map.loadImage('custom-sprite/dollar.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('dollar')) {
-                map.addImage('dollar', image);
-            }
-        });
-        map.loadImage('custom-sprite/fema-floodway.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('fema-floodway')) {
-                map.addImage('fema-floodway', image);
-            }
-        });
-        map.loadImage('custom-sprite/Frame13a.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('Frame13a')) {
-                map.addImage('Frame13a', image);
-            }
-        });
-        map.loadImage('custom-sprite/Frame17m2t.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('Frame17m2t')) {
-                map.addImage('Frame17m2t', image);
-            }
-        });
-        map.loadImage('custom-sprite/Frame21C.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('Frame21C')) {
-                map.addImage('Frame21C', image);
-            }
-        });
-        map.loadImage('custom-sprite/pjm2.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-            }
-            if (!map.hasImage('pjm2')) {
-                map.addImage('pjm2', image);
-            }
-        });
-        map.loadImage('custom-sprite/ic-stripered.png', (error: any, image: any) => {
-          if (error) {
               console.log('error on load ', error);
               return;
-          }
-          if (!map.hasImage('ic-stripered')) {
-              map.addImage('ic-stripered', image);
-          }
+            }
+            if (!map.hasImage(imagePath.split('/')[1].split('.')[0])) {
+                map.addImage(imagePath.split('/')[1].split('.')[0], image);
+            }
+          })
         });
-        map.loadImage('custom-sprite/ic-stripeviolet.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-            }
-            if (!map.hasImage('ic-stripeviolet')) {
-                map.addImage('ic-stripeviolet', image);
-            }
-        });
-        
-        map.loadImage('custom-sprite/Urbanclimbtosafetysign_origclean-50.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('Urbanclimbtosafetysign_origclean')) {
-                map.addImage('Urbanclimbtosafetysign_origclean', image);
-            }
-        });
-
-
 
         mapService.map = map;
         
@@ -816,11 +728,9 @@ const Map = ({
         map.on('render', () => {
             if (!globalMapId && itMoved) {
                 const center = [map.getCenter().lng, map.getCenter().lat];
-                // console.log(map.getBounds());
                 const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
                   map.getBounds()._ne.lng, map.getBounds()._ne.lat];
                 addHistoric({center, bbox});
-                // console.log(getCurrent() + ' ' + hasNext());
             }
             globalMapId = null;
             itMoved = false;
@@ -3378,11 +3288,9 @@ const Map = ({
         setCommentVisible(status);
         setOpen(status);
     }
-    const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
     const [measuringState, setMeasuringState] = useState(isMeasuring);
     const [measuringState2, setMeasuringState2] = useState(isMeasuring);
     const [isdrawingmeasure, setIsDrawingMeasure] = useState(false);
-    const [displayPrevNext, setDisplayPrevNext] = useState(false);
     const setIsMeasuring = (value: boolean) => {
       isMeasuring = value;
       setMeasuringState2(value);
@@ -3431,7 +3339,7 @@ const Map = ({
                     onVisibleChange={(flag: boolean) => {
                         setVisibleDropdown(flag);
                     }}
-                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup })}
+                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, removePopup })}
                     trigger={['click']}>
                     <Button>
                     <span className="btn-02"></span>

@@ -88,7 +88,6 @@ const WorkRequestMap = (type: any) => {
   const {groupOrganization} = useProfileState();
   const {getGroupOrganization} = useProfileDispatch();
   const [idsBoardProjects, setIdsBoardProjects]= useState<any>([]);
-  const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayersWR);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -2352,7 +2351,7 @@ const epochTransform = (dateParser: any) => {
           onVisibleChange={(flag: boolean) => {
             setVisibleDropdown(flag);
           }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: selectedLayersWR, setSelectedCheckBox, removePopup, isWR: true})}
+          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: selectedLayersWR, removePopup, isWR: true})}
           trigger={['click']}>
           <Button>
             <span className="btn-02"></span>
