@@ -880,7 +880,7 @@ const MapView = () => {
         setVisible={setVisible}
       />}
       <Row className="head-m mobile-display">
-        <Col span={20} id="westminter">
+        <Col span={24} id="westminter">
           <div className="auto-complete-map">
             <AutoComplete
               style={{ width: '200' }}
@@ -899,8 +899,8 @@ const MapView = () => {
                 setvalueA(input2)
               }}
               >
-    
-              <Input id={'miclase'} style={{border: 'none', boxShadow: 'none', borderBottom: '1.5px solid rgba(37, 24, 99, 0.3)'}} suffix={dropdownIsOpen ? <UpOutlined /> : <DownOutlined />} />
+
+              <Input id={'miclase'} style={{border: 'none', boxShadow: 'none', borderBottom: '1px solid rgba(37, 24, 99, 0.3)',marginRight: '-18px' }} suffix={dropdownIsOpen ? <UpOutlined style={{marginRight: '-18px'}}/> : <DownOutlined style={{marginRight: '-18px'}}/>} />
             </AutoComplete>
           </div>
         </Col>
