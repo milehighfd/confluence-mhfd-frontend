@@ -46,8 +46,19 @@ const contentPopOver = (text: string) => {
   return <div className="popoveer-00"><i>{text}</i></div>
 }
 
-export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView,  isWR }:
-  { selectCheckboxes: Function, setVisibleDropdown: Function, selectedLayers: any, setSelectedCheckBox: Function, removePopup: Function, isExtendedView: boolean, isWR?: boolean}) => {
+export default ({
+  selectCheckboxes,
+  setVisibleDropdown,
+  selectedLayers,
+  removePopup,
+  isWR
+}: {
+  selectCheckboxes: Function,
+  setVisibleDropdown: Function,
+  selectedLayers: any,
+  removePopup: Function,
+  isWR?: boolean
+}) => {
   const [switches, setSwitches] = useState({
     [GUIDELINES]: true,
     [PROBLEMS_TRIGGER]: true,
@@ -181,7 +192,6 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
       }
     }
     setSwitches({...switches, ...newSwitches});
-    setSelectedCheckBox(switchSelected);
     selectCheckboxes(switchSelected);
     removePopup();
   }
@@ -305,7 +315,6 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
         return element !== item;
       });
     }
-    setSelectedCheckBox(switchSelected);
     selectCheckboxes(switchSelected);
 
     removePopup();
@@ -321,7 +330,6 @@ export default ({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelec
         }}><CloseOutlined /></Button>
       </div>
       <Checkbox.Group value={selectedLayers} onChange={(items) => {
-        setSelectedCheckBox(items);
         selectCheckboxes(items);
         removePopup();
       }}>

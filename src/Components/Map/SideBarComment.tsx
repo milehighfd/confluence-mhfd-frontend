@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Row, Col, Input, Button, Menu, Select, Popover, Comment, Avatar, List, Dropdown } from 'antd';
-import { DownOutlined, CheckOutlined } from '@ant-design/icons';
+import { Drawer, Button, Menu, List, Dropdown } from 'antd';
+import { CheckOutlined } from '@ant-design/icons';
 import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
 import { useColorListDispatch, useColorListState } from "../../hook/colorListHook";
 import { useProfileState } from "../../hook/profileHook";
 import { Tree } from '../Tree/Tree';
-import {divListOfelements} from './../Map/commetsFunctions';
-const { Option } = Select;
-const { TextArea } = Input;
+import { divListOfelements } from './../Map/commetsFunctions';
 
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, swSave, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
@@ -89,7 +87,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     newTree.sort((a: any, b: any) => {
       return a.data.position - b.data.position;
     });
-    newTree.forEach(element => {
+    newTree.forEach((element: any) => {
       if (element.children) {
         element.children.sort((a: any, b: any) => {
           return a.data.position - b.data.position;
@@ -97,7 +95,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
     });
     if(counterFilters > 0) {
-      newTree = newTree.filter((element => element.children? element.children.length != 0 :true))
+      newTree = newTree.filter(((element: any) => element.children? element.children.length != 0 :true))
     }
     
     setTree(newTree);

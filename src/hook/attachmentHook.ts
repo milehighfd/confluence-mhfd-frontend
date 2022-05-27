@@ -1,48 +1,52 @@
-import { ParametricSelector, createSelector } from 'reselect';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/reducers';
-import { clear, deleteAttachment, getAllAttachment, getAttachment, getAttachmentByProject, toggleAttachment } from '../store/actions/uploadAttachmentActions';
+import {
+  clear,
+  deleteAttachment,
+  getAllAttachment,
+  getAttachment,
+  getAttachmentByProject,
+  removeAttachment,
+  setLoading,
+  toggleAttachment,
+  uploadFile
+} from '../store/actions/uploadAttachmentActions';
 
-interface selectAttachmentState {
-  attachments: any,
-  uploadAttachment: any
-}
-
-let createSelectorHack: any = createSelector;
-
-const selectAttachmentStates: ParametricSelector<RootState, undefined, selectAttachmentState> =
-createSelectorHack(
-  (state: any) => state.uploadAttachment.attachments.attachments,
-  (state: any) => state.uploadAttachment,
-  (attachments: any, uploadAttachment:any) => ({
-    attachments, uploadAttachment
-  })
+export const useAttachmentState = () => useSelector(
+  (state: { uploadAttachment: any }) => state.uploadAttachment
 );
 
-export const useAttachmentState = () => {
-  return useSelector((state: RootState) => selectAttachmentStates(state, undefined));
-}
-
 export const useAttachmentDispatch = () => {
-   const dispatch = useDispatch();
-   return {
-      clear: () => {
-        dispatch(clear())
-      },
-      getAttachmentProjectId: (projectid: any) => {
-        dispatch(getAttachment(projectid));
-      },
-      deleteAttachment:(index: number, _id: string) => {
-        dispatch(deleteAttachment(index, _id));
-      },
-      toggleAttachment:(index: number, _id: string) => {
-        dispatch(toggleAttachment(index, _id));
-      },
-      getAttachment: (projectid: any) => {
-        dispatch(getAllAttachment(projectid));
-      },
-      getAttachmentByProject: (projectid:any) =>{
-        dispatch(getAttachmentByProject(projectid));
-      }
-   }
-}
+  const dispatch = useDispatch();
+  return {
+    clear: () => {
+      dispatch(clear())
+    },
+    getAttachmentProjectId: (projectid: any) => {
+      dispatch(getAttachment(projectid));
+    },
+    deleteAttachment: (index: number, _id: string) => {
+      dispatch(deleteAttachment(index, _id));
+    },
+    toggleAttachment: (index: number, _id: string) => {
+      dispatch(toggleAttachment(index, _id));
+    },
+    getAttachment: (projectid: any) => {
+      dispatch(getAllAttachment(projectid));
+    },
+    getAllAttachment: (projectid: any) => {
+      dispatch(getAllAttachment(projectid));
+    },
+    getAttachmentByProject: (projectid: any) => {
+      dispatch(getAttachmentByProject(projectid));
+    },
+    uploadFile(files: any, url: string) {
+      dispatch(uploadFile(files, url))
+    },
+    removeAttachment(id: string, url: string) {
+      dispatch(removeAttachment(id, url))
+    },
+    setLoading(loading: boolean) {
+      dispatch(setLoading(loading))
+    }
+  };
+};

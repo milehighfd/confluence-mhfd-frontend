@@ -1,5 +1,4 @@
 import moment from "moment";
-import { SERVER } from "../Config/Server.config";
 
 export const COMPLETE_SCREEN = 24;
 export const MEDIUM_SCREEN = 15;

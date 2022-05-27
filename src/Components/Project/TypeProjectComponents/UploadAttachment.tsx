@@ -38,7 +38,11 @@ export const UploadAttachment = ({ files, setFiles, setCover , isCapital, origin
   const labelRef = useRef<HTMLDivElement>(null);
   const [draggin, setDraggin] = useState(false);
 
-  const { attachments } = useAttachmentState();
+  const {
+    attachments: {
+      attachments
+    }
+  } = useAttachmentState();
   const { deleteAttachment, toggleAttachment } = useAttachmentDispatch();
 
   const onChange: any = (e: any) => {

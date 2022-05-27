@@ -1,73 +1,54 @@
-import { ParametricSelector, createSelector } from 'reselect';
-import { RootState } from '../store/reducers';
 import { useSelector, useDispatch } from 'react-redux';
-import { createGroup, createNote, deleteGroup, deleteNote, editGroup, editNote, getAvailableColors, getGroups, getNotes, setOpen } from '../store/actions/notesActions';
+import {
+  createGroup,
+  createNote,
+  deleteGroup,
+  deleteNote,
+  editGroup,
+  editNote,
+  getAvailableColors,
+  getGroups,
+  getNotes,
+  setOpen
+} from '../store/actions/notesActions';
 
-interface notesState {
-  notes: [],
-  groups: [],
-  open: boolean,
-  availableColors: []
-}
-
- 
- 
- let createSelectorHack: any = createSelector;
- 
- const selectNotes: ParametricSelector<RootState, undefined, notesState> =
-   createSelectorHack(
-       (state: any) => state.notes.notes,
-       (state: any) => state.notes.groups,
-       (state: any) => state.notes.open,
-       (state: any) => state.notes.availableColors,
-       //state => state.map.paramFilters,
-       (notes: [], groups: [], open: boolean, availableColors: []) => ({
-         notes,
-         groups,
-         open,
-         availableColors
-      })
-     );
- 
- export const useNotesState = () => {
-   return useSelector((state: RootState) => selectNotes(state, undefined));
- };
- 
-
+export const useNotesState = () => useSelector(
+  (state: { notes: any }) => state.notes
+);
 
 export const useNoteDispatch = () => {
-   const dispatch = useDispatch();
-   return {
-      getNotes: (color_id?:any) => {
-        dispatch(getNotes(color_id));
-      },
-      createNote: (note: any) => {
-        dispatch(createNote(note));
-      },
-      deleteNote: (id: any) => {
-        dispatch(deleteNote(id));
-      },
-      editNote: (note: any) => {
-        console.log(note);
-        dispatch(editNote(note));
-      },
-      getGroups: () => {
-        dispatch(getGroups());
-      },
-      createGroup: (group: any) => {
-        dispatch(createGroup(group));
-      },
-      editGroup: (group: any) => {
-        dispatch(editGroup(group));
-      },
-      deleteGroup: (id: any) => {
-        dispatch(deleteGroup(id));
-      },
-      setOpen: (open: boolean) => {
-        dispatch(setOpen(open));
-      },
-      getAvailableColors: () => {
-        dispatch(getAvailableColors())
-      }
-   }
+  const dispatch = useDispatch();
+  return {
+    getNotes: (color_id?: any) => {
+      dispatch(getNotes(color_id));
+    },
+    createNote: (note: any) => {
+      dispatch(createNote(note));
+    },
+    deleteNote: (id: any) => {
+      dispatch(deleteNote(id));
+    },
+    editNote: (note: any) => {
+      console.log(note);
+      dispatch(editNote(note));
+    },
+    getGroups: () => {
+      dispatch(getGroups());
+    },
+    createGroup: (group: any) => {
+      dispatch(createGroup(group));
+    },
+    editGroup: (group: any) => {
+      dispatch(editGroup(group));
+    },
+    deleteGroup: (id: any) => {
+      dispatch(deleteGroup(id));
+    },
+    setOpen: (open: boolean) => {
+      dispatch(setOpen(open));
+    },
+    getAvailableColors: () => {
+      dispatch(getAvailableColors())
+    }
+  };
 };

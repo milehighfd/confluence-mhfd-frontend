@@ -67,7 +67,6 @@ const CreateProjectMap = (type: any) => {
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom, getAllComponentsByProblemId } = useProjectDispatch();
   const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream,highlightedStreams } = useProjectState();
   const {groupOrganization} = useProfileState();
-  const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
   const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjectsCreate);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -2231,7 +2230,7 @@ const CreateProjectMap = (type: any) => {
             setVisibleDropdown(flag);
 
           }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView, isWR: true })}
+          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, removePopup, isWR: true })}
           trigger={['click']}>
           <Button>
             <span className="btn-02"></span>

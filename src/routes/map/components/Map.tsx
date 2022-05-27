@@ -1,21 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
-import * as datasets from "../../Config/datasets";
-import { SERVER } from "../../Config/Server.config";
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
-import ReactDOMServer from 'react-dom/server';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
-import MapFilterView from '../Shared/MapFilter/MapFilterView';
-import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './MapPopups';
-import { Dropdown,  Button, Collapse, Tabs, Row, Col, Checkbox, Popover } from 'antd';
-import { RightOutlined } from '@ant-design/icons';
-import { DownOutlined } from '@ant-design/icons';
-
-import { MapProps, ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
+import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
+import { Dropdown,  Button } from 'antd';
+import { MapProps, ObjectLayerType, LayerStylesType } from '../../../Classes/MapTypes';
 import {
     MAP_DROPDOWN_ITEMS,
     MAPBOX_TOKEN,
@@ -25,43 +20,41 @@ import {
     STREAMS_FILTERS,
     MUNICIPALITIES_FILTERS,
     SELECT_ALL_FILTERS,
-    MAP_RESIZABLE_TRANSITION, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF,
+    MAP_RESIZABLE_TRANSITION, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
     NEARMAP_TOKEN,
     BLOCK_CLEARANCE_ZONES_LAYERS,
     ACTIVE_LOMS,
     EFFECTIVE_REACHES,
-    NEW_PROJECT_TYPES,
-    ICON_POPUPS,
-    MHFD_STREAMS_FILTERS,
     MENU_OPTIONS,
     SERVICE_AREA_FILTERS,
     STREAMS_POINT
-} from "../../constants/constants";
-import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../constants/mapStyles';
-import { addMapGeocoder } from '../../utils/mapUtils';
-import { numberWithCommas } from '../../utils/utils';
+} from "../../../constants/constants";
+import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../../constants/mapStyles';
+import { addMapGeocoder } from '../../../utils/mapUtils';
+import { numberWithCommas } from '../../../utils/utils';
 import { Input, AutoComplete } from 'antd';
-import DetailedModal from '../Shared/Modals/DetailedModal';
-import { useMapState, useMapDispatch } from '../../hook/mapHook';
-import { useColorListDispatch, useColorListState } from '../../hook/colorListHook';
-import { useProjectDispatch } from '../../hook/projectHook';
-import { setOpacityLayer } from '../../store/actions/mapActions';
-import { useProfileDispatch } from '../../hook/profileHook';
+import DetailedModal from '../../../Components/Shared/Modals/DetailedModal';
+import { useMapState, useMapDispatch } from '../../../hook/mapHook';
+import { useColorListDispatch, useColorListState } from '../../../hook/colorListHook';
+import { useProjectDispatch } from '../../../hook/projectHook';
+import { setOpacityLayer } from '../../../store/actions/mapActions';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
-import GenericTabView from '../Shared/GenericTab/GenericTabView';
-import MapService from './MapService';
-import MobilePopup from '../MobilePopup/MobilePopup';
-import { ModalProjectView } from '../ProjectModal/ModalProjectView';
-import SideBarComment from './SideBarComment';
-import { useNoteDispatch, useNotesState } from '../../hook/notesHook';
-import { useProfileState } from '../../hook/profileHook';
+import MapService from '../../../Components/Map/MapService';
+import MobilePopup from '../../../Components/MobilePopup/MobilePopup';
+import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectView';
+import SideBarComment from '../../../Components/Map/SideBarComment';
+import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
+import { useProfileState } from '../../../hook/profileHook';
 
-import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from './commetsFunctions';
-import { GlobalMapHook } from '../../utils/globalMapHook';
-import { useDetailedState } from '../../hook/detailedHook';
+import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
+import { GlobalMapHook } from '../../../utils/globalMapHook';
+import { useDetailedState } from '../../../hook/detailedHook';
+import MobileMenu from './MobileMenu';
+import SideMenuTools from './SideMenuTools';
+import { commentPopup, loadMenuPopupWithData } from './MapGetters';
+import { hovereableLayers } from '../constants/layout.constants';
 const { Option } = AutoComplete;
-const { TextArea } = Input;
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
@@ -82,13 +75,11 @@ const factorm2toacre = 0.00024710538146717;
 let itMoved = false;
 let globalMapId: string | null = null;
 
-const { Panel } = Collapse;
 const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 const docNote = document.createElement('div');
       docNote.className = 'marker-note';
 const markerNote = new mapboxgl.Marker(docNote);
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
-let contents: any = [];
 let markerNotes_global: any = [];
 let isMeasuring = false;
     const geojsonMeasures = {
@@ -108,8 +99,6 @@ let isMeasuring = false;
       }
     };
 let canAdd = false;
-contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
-contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 
 let commentAvailable = false;
 let listOfElements = [{
@@ -127,8 +116,7 @@ let listOfElements = [{
 }];
 
 const Map = ({
-    leftWidth,
-    isExtendedView
+    leftWidth
 }: MapProps) => {
   const {
     getGalleryProblems, 
@@ -149,11 +137,7 @@ const Map = ({
     getParamFilterProblems,
     getParamFilterProjects,
     setCoordinatesJurisdiction,
-    setNameZoomArea,
     setSpinMapLoaded,
-    setAutocomplete,
-    setBBOXComponents,
-    setTabCards,
     setSelectedPopup
   } = useMapDispatch();
   const {
@@ -167,7 +151,6 @@ const Map = ({
     autocomplete,
     currentPopup,
     layers: layerFilters,
-    galleryProblems,
     galleryProjects,
     selectedLayers,
     filterProblemOptions,
@@ -187,18 +170,10 @@ const Map = ({
   } = useDetailedState();
     let geocoderRef = useRef<HTMLDivElement>(null);
 
-    const hovereableLayers = [ PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
-        MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
-         ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
-        LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
-        CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
-         PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAMS_FILTERS, EFFECTIVE_REACHES, ACTIVE_LOMS, MHFD_STREAMS_FILTERS];
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
-    const { saveUserInformation } = useProfileDispatch();
-    const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
@@ -209,7 +184,7 @@ const Map = ({
     const { colorsList } = useColorListState();
     const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
     const [zoomValue, setZoomValue] = useState(0);
-    const { addHistoric, getCurrent, getNext, getPercentage, getPrevious, hasNext, hasPrevious } = GlobalMapHook();
+    const { addHistoric, getCurrent } = GlobalMapHook();
     const colors = {
         RED: '#FF0000',
         ORANGE: '#FA6400',
@@ -222,53 +197,17 @@ const Map = ({
       GREY: 'rgb(142, 132, 132)',
       YELLOW: '#ffbf00'
     }
-    const [noteColor, setNoteColor] = useState(colors.YELLOW);
     const [markersNotes, setMarkerNotes] = useState([]) ;
     const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
-    const { TabPane } = Tabs;
-
-    const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS,MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS ,
-        MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,  MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
-        MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
-        MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
-        MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS, MENU_OPTIONS.MEASURES
-        ];
     const { userInformation, groupOrganization } = useProfileState();
     const [visible, setVisible] = useState(false);
     const [zoomEndCounter, setZoomEndCounter] = useState(0);
     const [dragEndCounter, setDragEndCounter] = useState(0);
-    const [collapseKey, setCollapseKey] = useState('0');
-    const empty:any[] = [];
-    const [allLayers, setAllLayers] = useState(empty);
-    const [tabPosition, setTabPosition] = useState('1');
+    const [allLayers, setAllLayers] = useState<any[]>([]);
     const [mapService] = useState<MapService>(new MapService());
     const [commentVisible, setCommentVisible] = useState(false);
     const [swSave, setSwSave] = useState(false);
-    const genExtra = () => (
-    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-          <Col>
-            <div className={'apply-filter-no-effect'}>
-              Apply map view to filters
-              <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
-                setApplyFilter(!applyFilter)
-                getGalleryProblems();
-                getGalleryProjects();
-              }}></Checkbox>
-              <div className="progress">
-                <div className="progress-value"></div>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      );
     const coorBounds: any[][] = [];
-    const coordinatesMHFD = [
-        [-105.3236581, 39.4057815],
-        [-105.3236581, 40.1315705],
-        [-104.4889475, 40.1315705],
-        [-104.4889475, 39.4057815],
-        [-105.3236581, 39.4057815]
-    ];
     const [data, setData] = useState({
         problemid: '',
         id: '',
@@ -724,97 +663,29 @@ const Map = ({
             zoom: 8,
             attributionControl: false
         });
-        map.loadImage('custom-sprite/30x30px.png', (error: any, image: any) => {
+        const imagesPaths = [
+          'custom-sprite/30x30px.png',
+          'custom-sprite/dollar.png',
+          'custom-sprite/fema-floodway.png',
+          'custom-sprite/Frame13a.png',
+          'custom-sprite/Frame17m2t.png',
+          'custom-sprite/Frame21C.png',
+          'custom-sprite/pjm2.png',
+          'custom-sprite/ic-stripered.png',
+          'custom-sprite/ic-stripeviolet.png',
+          'custom-sprite/Urbanclimbtosafetysign_origclean-50.png',
+        ];
+        imagesPaths.forEach((imagePath: string) => {
+          map.loadImage(imagePath, (error: any, image: any) => {
             if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('adjust-24px')) {
-                map.addImage('adjust-24px', image);
-            }
-        });
-        map.loadImage('custom-sprite/dollar.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('dollar')) {
-                map.addImage('dollar', image);
-            }
-        });
-        map.loadImage('custom-sprite/fema-floodway.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('fema-floodway')) {
-                map.addImage('fema-floodway', image);
-            }
-        });
-        map.loadImage('custom-sprite/Frame13a.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('Frame13a')) {
-                map.addImage('Frame13a', image);
-            }
-        });
-        map.loadImage('custom-sprite/Frame17m2t.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('Frame17m2t')) {
-                map.addImage('Frame17m2t', image);
-            }
-        });
-        map.loadImage('custom-sprite/Frame21C.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('Frame21C')) {
-                map.addImage('Frame21C', image);
-            }
-        });
-        map.loadImage('custom-sprite/pjm2.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-            }
-            if (!map.hasImage('pjm2')) {
-                map.addImage('pjm2', image);
-            }
-        });
-        map.loadImage('custom-sprite/ic-stripered.png', (error: any, image: any) => {
-          if (error) {
               console.log('error on load ', error);
               return;
-          }
-          if (!map.hasImage('ic-stripered')) {
-              map.addImage('ic-stripered', image);
-          }
+            }
+            if (!map.hasImage(imagePath.split('/')[1].split('.')[0])) {
+                map.addImage(imagePath.split('/')[1].split('.')[0], image);
+            }
+          })
         });
-        map.loadImage('custom-sprite/ic-stripeviolet.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-            }
-            if (!map.hasImage('ic-stripeviolet')) {
-                map.addImage('ic-stripeviolet', image);
-            }
-        });
-        
-        map.loadImage('custom-sprite/Urbanclimbtosafetysign_origclean-50.png', (error: any, image: any) => {
-            if (error) {
-                console.log('error on load ', error);
-                return;
-            }
-            if (!map.hasImage('Urbanclimbtosafetysign_origclean')) {
-                map.addImage('Urbanclimbtosafetysign_origclean', image);
-            }
-        });
-
-
 
         mapService.map = map;
         
@@ -831,11 +702,9 @@ const Map = ({
         map.on('render', () => {
             if (!globalMapId && itMoved) {
                 const center = [map.getCenter().lng, map.getCenter().lat];
-                // console.log(map.getBounds());
                 const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
                   map.getBounds()._ne.lng, map.getBounds()._ne.lat];
                 addHistoric({center, bbox});
-                // console.log(getCurrent() + ' ' + hasNext());
             }
             globalMapId = null;
             itMoved = false;
@@ -1977,7 +1846,6 @@ const Map = ({
                     const red = document.getElementById('red');
                   if (red != null) {
                       red.addEventListener('click', () => {
-                          setNoteColor(colors.RED);
                           if (colorable != null) {
                               colorable.style.color = colors.RED;
                           }
@@ -1986,7 +1854,6 @@ const Map = ({
                   const orange = document.getElementById('orange');
                   if (orange != null) {
                       orange.addEventListener('click', () => {
-                          setNoteColor(colors.ORANGE);
                           if (colorable != null) {
                               colorable.style.color = colors.ORANGE;
                           }
@@ -1995,7 +1862,6 @@ const Map = ({
                   const grey = document.getElementById('grey');
                   if (grey != null) {
                       grey.addEventListener('click', () => {
-                          setNoteColor(colors.GREY);
                           if (colorable != null) {
                               colorable.style.color = colors.GREY;
                           }
@@ -2004,7 +1870,6 @@ const Map = ({
                   const yellow = document.getElementById('yellow');
                   if (yellow != null) {
                       yellow.addEventListener('click', () => {
-                          setNoteColor(colors.YELLOW);
                           if (colorable != null) {
                               colorable.style.color = colors.YELLOW;
                           }
@@ -2774,7 +2639,7 @@ const Map = ({
               }
            }
             if (popups.length) { 
-                const html = loadMenuPopupWithData(menuOptions, popups);
+                const html = loadMenuPopupWithData(menuOptions, popups, test, userInformation);
                 setMobilePopups(mobile);
                 setActiveMobilePopups(mobileIds);
                 setSelectedPopup(0);
@@ -2918,244 +2783,7 @@ const Map = ({
             });
         }
     }
-  
-  const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
-    <>
-        <div className="popup-comment">
-        <div className="headmap">
-          <Button id="color-list" className="testheader">
-            <span id="color-text">{ note?.color ? (note.color.label):'Map Note' }</span>
-            <div className='dr'>
-              <div className="legend-selected">
-                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121'}}></i> 
-              </div>
-              <div id="icon-downlined" className="light">
-                <DownOutlined />
-              </div>
-            </div>
-          </Button>
-        </div>
-        <div className="bodymap">
-            <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"These are my notes…"} defaultValue={note? note.content:''} />
-            <div style={{display:'flex'}} className="footer">
-                <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''} className="light b-red">Delete</Button>
-                { note? (<Button id="edit-comment" className='light b-green'>Save</Button>): (<Button id="save-comment" className='light b-green'>Save</Button>) }
-            </div>
 
-        </div>
-        </div>
-    </>);
-    
-    const getBeautifulTitle = (title: any) => {
-        return (
-            <div>
-                <span><b>{title.title}</b></span>
-                <br></br>
-                <span>{title.subtitle}</span>
-            </div>
-        )
-    }
-    const loadMenuPopupWithData = (menuOptions: any[], popups: any[], title?: any) => ReactDOMServer.renderToStaticMarkup(
-
-        <>
-            { 
-              menuOptions.length === 1 ? 
-              <> { (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? 
-                    ( menuOptions[0] == 'Stream' ? 
-                      loadStreamPopup(0, popups[0]) :
-                      (
-                        menuOptions[0] == MENU_OPTIONS.MEASURES ? 
-                        loadMeasurePopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) 
-                        :loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) 
-                      )
-                    )
-                    :
-                    menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, true) : loadMainPopup(0, popups[0], test)}
-              </> 
-                :
-            <div className="map-pop-02">
-              <div className="headmap">{title ? (title.subtitle? getBeautifulTitle(title) : title.title)  : 'LAYERS'}</div>
-              <div className="layer-popup">
-                {
-                    menuOptions.map((menu: any, index: number) => {
-                        return (
-                            <div>
-                                {loadIconsPopup(menu, popups[index], index)}
-                                { (menu !== 'Project' && menu !== 'Problem') ?
-                                    ( 
-                                      menu =='Stream'  ? 
-                                      loadStreamPopup(index, popups[index]) : 
-                                      (
-                                        menu == MENU_OPTIONS.MEASURES ? 
-                                        loadMeasurePopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) :
-                                        loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])) 
-                                      )
-                                    )
-                                  :
-                                    menu === 'Project' ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            </div>}
-        </>
-    );
-    const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) =>(
-        <>
-            <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)}></MainPopup>
-        </>
-    );
-
-    const loadStreamPopup = (index: number, item: any) => (
-        <>
-            <StreamPopupFull id={index} item={item} ></StreamPopupFull>
-        </>
-    );
-    const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
-        <>
-            <ComponentPopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></ComponentPopup>
-        </>
-    );
-    const loadMeasurePopup = (index: number, item: any, isComponent: boolean) => (
-      <>
-          <MeasurePopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></MeasurePopup>
-      </>
-    );
-    const loadIconsPopup = (menu: any, popups:any, index:any) =>{
-        let icon
-        ICON_POPUPS.forEach((element) => {
-            if(element[0] === menu){
-                icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            }
-        })
-        if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration ||popups.projecctype === NEW_PROJECT_TYPES.Maintenance || popups.projecctype === "Capital" || popups.projecctype === "Fee in Lieu")){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_projects@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'Master Plan')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_MasterPlan@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-        }
-        if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'FHAD')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_FHAD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-        }
-        if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'A')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupA@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'B')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupB@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'C')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupC@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'D')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === '-')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAE@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === 'FLOODWAY')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_Floodway@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'X')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneX@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AO')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern2.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Watershed')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Watershed')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern3.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Active')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_active.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Suspended')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_suspended.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Violation')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_violation.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Completed')){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_completed.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Effective Reaches" && popups.studyname !== 'unknown'){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-studyunkown.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === "Effective Reaches" && popups.studyname === 'unknown'){
-            return (
-                <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-study.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-            )
-        }
-        if(menu === MENU_OPTIONS.MEP_DETENTION_BASIN) {
-          return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-mep-detention-basin.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-          );
-        }
-        if(menu === MENU_OPTIONS.MEP_STORM_OUTFALL) {
-          return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-mep-storm-outfall.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-          );
-        }
-        if(menu === MENU_OPTIONS.MEP_CHANNEL) {
-          return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-mep-channel.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-          );
-        }
-        if(icon !== undefined){
-            return icon
-        }
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
@@ -3284,7 +2912,7 @@ const Map = ({
             }
           }
           if (popups.length) {
-              const html = loadMenuPopupWithData(menuOptions, popups, titleObject);
+              const html = loadMenuPopupWithData(menuOptions, popups, titleObject, userInformation);
               setMobilePopups(mobile);
               setSelectedPopup(0);
               if (html) {
@@ -3388,37 +3016,14 @@ const Map = ({
       popup.remove();
       openMarkerOfNoteWithoutAdd(note);
     }
-    const showMHFD = () => {
-        setAutocomplete('');
-        saveUserInformation({...userInformation, polygon: coordinatesMHFD});
-        if (!opacityLayer) {
-            mapService.hideOpacity();
-        }
-        setOpacityLayer(false);
-        setCoordinatesJurisdiction([]);
-        const optionsProblem = { ...filterProblemOptions };
-        const optionsProject = { ...filterProjectOptions };
-        optionsProblem['servicearea'] = '';
-        optionsProject['servicearea'] = '';
-        optionsProblem['county'] = '';
-        optionsProject['county'] = '';
-        optionsProblem['jurisdiction'] = '';
-        optionsProject['jurisdiction'] = '';
-        setFilterProblemOptions(optionsProblem);
-        setFilterProjectOptions(optionsProject);
-        setNameZoomArea('Mile High Flood District');
-        setBBOXComponents({ bbox: [], centroids: [] })
-    }
 
     const setSideBarStatus = (status: boolean) => {
         setCommentVisible(status);
         setOpen(status);
     }
-    const [selectedCheckBox, setSelectedCheckBox] = useState(selectedLayers);
     const [measuringState, setMeasuringState] = useState(isMeasuring);
     const [measuringState2, setMeasuringState2] = useState(isMeasuring);
     const [isdrawingmeasure, setIsDrawingMeasure] = useState(false);
-    const [displayPrevNext, setDisplayPrevNext] = useState(false);
     const setIsMeasuring = (value: boolean) => {
       isMeasuring = value;
       setMeasuringState2(value);
@@ -3434,8 +3039,15 @@ const Map = ({
     }
     return (
         <>
-        <SideBarComment visible={commentVisible} setVisible={setSideBarStatus}
-        flyTo={flyTo} openEditNote={openEditNote} addToMap={addToMap} changeFilter={setNotesFilter} swSave={swSave} setSwSave={setSwSave}></SideBarComment>
+        <SideBarComment
+          visible={commentVisible}
+          setVisible={setSideBarStatus}
+          flyTo={flyTo}
+          openEditNote={openEditNote}
+          addToMap={addToMap}
+          changeFilter={setNotesFilter}
+          swSave={swSave}
+          setSwSave={setSwSave} />
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}
@@ -3467,7 +3079,7 @@ const Map = ({
                     onVisibleChange={(flag: boolean) => {
                         setVisibleDropdown(flag);
                     }}
-                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, setSelectedCheckBox, removePopup, isExtendedView })}
+                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, removePopup })}
                     trigger={['click']}>
                     <Button>
                     <span className="btn-02"></span>
@@ -3537,190 +3149,12 @@ const Map = ({
               }
             </div>
             
-            <div className="m-zoom">
-                <Button className="btn-green"><img src="/Icons/icon-87.svg" width="15px"
-                onClick={() => {
-                    function success(position: any) {
-                        const latitude  = position.coords.latitude;
-                        const longitude = position.coords.longitude;
-                        console.log(latitude, longitude);
-                        map.flyTo({
-                            center: [longitude, latitude],
-                            zoom: 14
-                            });
-
-                        map.addSource('point', {
-                            'type': 'geojson',
-                            'data': {
-                            'type': 'FeatureCollection',
-                            'features': [
-                            {
-                            'type': 'Feature',
-                            'geometry': {
-                            'type': 'Point',
-                            'coordinates': [longitude, latitude]
-                            }
-                            }
-                            ]
-                            }
-                            });
-                            map.addLayer({
-                            'id': 'points',
-                            'type': 'symbol',
-                            'source': 'point',
-                            'layout': {
-                            'icon-image': 'adjust-24px'
-                            }
-                            });
-                      }
-                      if(navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(success, () => {});
-                      }
-                }}
-                /></Button>
-                <Button className="btn-none" onClick={() => {
-                    setCommentVisible(commentVisible => !commentVisible);
-                    }} style={{ borderRadius: '4px' }} ><img className="img-icon-01" /></Button>
-                
-                <Button className='btn-showmhfd' style={{ borderRadius: '4px' }} onClick={() => showMHFD()} ><img className="img-icon" /></Button>
-                <Button className='btn-history' onClick={() => setDisplayPrevNext(!displayPrevNext)}><img className='img-icon-04'></img></Button>
-                {displayPrevNext && <div className='mapstatebuttons'  >
-                    <div className="mapstateprevnext"
-                        style={ !hasPrevious() ? {backgroundColor: '#f1f1f1' } : {}}
-                        onClick={() => {
-                            console.log('previous ', hasPrevious());
-                            if (hasPrevious()) {
-                                const prev = getPrevious();
-                                globalMapId = prev.id;
-                                console.log('click prev ', prev);
-                                map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
-                            }
-                    }}>
-                      <div className="title">Prev</div>
-                      <div className="progress left">
-                        <div className="progress-value light" style={{width: `${100.0 - getPercentage()}%`}} ></div>
-                      </div>
-                    </div>
-                    <div className="mapstateprevnext"
-                        style={ !hasNext() ? {backgroundColor: '#f1f1f1' } : {}}
-                        onClick={() => {
-                            if (hasNext()) {
-                                const nxt = getNext();
-                                globalMapId = nxt.id;
-                                console.log('click next, ', nxt);
-                                map.fitBounds([[nxt.bbox[0],nxt.bbox[1]],[nxt.bbox[2],nxt.bbox[3]]]);
-                            }
-                        }}
-                    >
-                      <div className="title">Next</div>
-                      <div className="progress right">
-                        <div className="progress-value light" style={{width: `${getPercentage()}%`}} ></div>
-                      </div>
-                    </div>
-                  </div>}
-            </div>
-
-            <div className="menu-desktop collapse-tabs">
-            <Collapse  accordion activeKey={collapseKey}>
-               <Panel header="" key="1" extra={
-                   <div className="title-explore" onClick={()=> {
-                       console.log('on click');
-                       setCollapseKey(collapseKey => '' + (1 - +collapseKey));
-                   }}>
-                             Explore Confluence
-                   </div>
-               }>
-                <Button onClick={(e) => {
-                    e.stopPropagation();
-                    setCollapseKey('0');
-                }} className="btn-map"><img src="/Icons/menu-green-02.svg" alt="" width="18px"/> Map</Button>
-                <div className="ggyyyy">
-                 <div className="mhfd-mobile">
-                   <h6>About the Platform</h6>
-                   <p>Confluence is your one-stop Mile High Flood District data portal.
-                   MHFD has developed Confluence from the ground up to meet the unique data needs of a
-                   regional flood control and stream management district.</p>
-                 </div>
-                 <div className="ffoo">
-                 <Tabs onTabClick={(e: string) => {
-                    if (e === '0') {
-                        setTabCards(PROBLEMS_TRIGGER);
-                        getGalleryProblems();
-                    } else {
-                        setTabCards(PROJECTS_TRIGGER);
-                        getGalleryProjects();
-                    }
-                    }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" tabBarExtraContent={genExtra()}>
-                    {tabs.map((value: string, index: number) => {
-                        let totalElements = 0;
-                        let cardInformation: Array<Object> = [];
-                        if (value === FILTER_PROBLEMS_TRIGGER) {
-                        cardInformation = galleryProblems.map((problem: any) => {
-                            return {
-                            cartodb_id: problem.cartodb_id,
-                            image: `gallery/${problem.problemtype}.jpg`,
-                            requestName: problem.problemname,
-                            jurisdiction: problem.jurisdiction,
-                            estimatedCost: problem.estimatedcost,
-                            field4: 'X',
-                            field5: 'Components',
-                            priority: problem.problempriority,
-                            percentage: problem.solutionstatus,
-                            problemid: problem.problemid,
-                            type: problem.type,
-                            value: problem.cartodb_id,
-                            totalComponents: problem.totalComponents,
-                            coordinates: problem.coordinates[0]
-                            }
-                        });
-                        totalElements = cardInformation.length;
-                        } else {
-                        cardInformation = galleryProjects.map((project: any) => {
-                            return {
-                            cartodb_id: project.cartodb_id,
-                            image: project.attachments ? project.attachments : (
-                                project.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
-                                project.projecttype === 'Study' ? '/projectImages/study.jpg' :
-                                    project.projecttype === 'Maintenance' ?
-                                    (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
-                                        project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
-                                        project.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
-                                            project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                                            '/projectImages/debris_management.jpg') : '/Icons/eje.png'
-                            ),
-                            requestName: project.projectname ? project.projectname : project.requestedname,
-                            sponsor: project.sponsor,
-                            estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
-                            status: project.status,
-                            projecttype: project.projecttype,
-                            objectid: project.objectid,
-                            type: project.type,
-                            value: project.cartodb_id,
-                            id: project.projectid,
-                            totalComponents: project.totalComponents,
-                            coordinates: project.coordinates[0]
-                            }
-                        });
-                        totalElements = cardInformation.length;
-                        }
-
-                        return (
-                        <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value} </Popover> </span>} key={'' + index}>
-                            <GenericTabView
-                              key={value + index}
-                              type={value}
-                              totalElements={totalElements}
-                              cardInformation={cardInformation}
-                            />
-                        </TabPane>
-                        );
-                    })}
-                    </Tabs>
-                 </div>
-                </div>
-               </Panel>
-             </Collapse>
-            </div>
+            <SideMenuTools
+              map={map}
+              setCommentVisible={setCommentVisible}
+              mapService={mapService}
+            />
+            <MobileMenu />
         </div>
     </>
     )

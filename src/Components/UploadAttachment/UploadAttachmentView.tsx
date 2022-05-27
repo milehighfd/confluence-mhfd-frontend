@@ -4,10 +4,18 @@ import { Layout, Row, Col, Upload, Table, Button, Popover } from 'antd';
 import Navbar from '../Shared/Navbar/NavbarContainer';
 import SidebarView from '../Shared/Sidebar/SidebarView';
 import moment from 'moment';
+import { useAttachmentDispatch, useAttachmentState } from '../../hook/attachmentHook';
 
 const content = (<div className="popoveer-00">Upload media e.g. video, images, documents and other file types associated with problems or images. Max. size of 10MB per file.</div>);
 
-export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, setLoading, loading }: { attachments: any, uploadFile: Function, getAllAttachment: Function, removeAttachment: Function, setLoading: Function, loading: boolean }) => {
+const UploadAttachmentView = () => {
+  const { attachments, loading } = useAttachmentState();
+  const {
+    uploadFile,
+    getAllAttachment,
+    removeAttachment,
+    setLoading
+  } = useAttachmentDispatch();
   const { Content } = Layout;
   const { Dragger } = Upload;
   const columns = [
@@ -104,4 +112,6 @@ export default ({ attachments, uploadFile, getAllAttachment, removeAttachment, s
       </Layout>
     </Layout>
   </>;
-}
+};
+
+export default UploadAttachmentView;
