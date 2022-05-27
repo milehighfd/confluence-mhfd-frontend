@@ -59,10 +59,14 @@
   color: $purple00;
   margin-bottom: 2px;
 }
-.profile-contact button {
-  height: 40px;
-  width: 40px;
-  margin-right: 15px;
+.profile-contact{
+  position: static;
+  margin-bottom: 20px;
+  button {
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+  }
 }
 .profile-prot button,.profile-prot button:hover,
 .profile-prot button:focus, .profile-prot button:active,

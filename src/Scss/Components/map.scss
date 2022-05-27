@@ -1308,8 +1308,10 @@
   background-image: url('../../../public/Icons/icon-21.svg') !important;
 }
 .tabs-map{
-  .ant-tabs-nav .ant-tabs-tab-active {
-    color: $purple;
+  .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: $black !important;
+    padding: 0px -10px 0px -10px!important;
+    font-size: 14px!important;
   }
   .ant-tabs-nav .ant-tabs-tab {
     padding: 15px 0px 15px 0px !important;
@@ -1317,10 +1319,10 @@
     font-size: 15px;
   }
   .ant-tabs-ink-bar {
-    background-color: $purple;
+    background-color: $black !important;
   }
   .ant-tabs-nav .ant-tabs-tab:hover {
-    color: $purple;
+    color: $black !important;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
     float: none;
@@ -1331,7 +1333,7 @@
   .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     padding: 12px 10px;
     padding-left: 10px;
-    color: $purple;
+    color: $black !important;
     line-height: 30px;
     height: 54px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15) !important;

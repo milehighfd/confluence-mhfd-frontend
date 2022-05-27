@@ -52,8 +52,8 @@ const ProfileView = () => {
                 } else {
                   favoriteCards(user.email, false, { keyword: "", column: 'projectname', order: "asc"});
                 }
-              }}>
-                <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>}>
+              }} style={{marginLeft: '24px'}}>
+                <TabPane key="1" tab={<span><Popover content={content} placement="rightBottom">Problems</Popover> </span>} >
                   <TabPaneView
                     type={"Problems"}
                     data={favoriteProblemCards}
