@@ -132,7 +132,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
       <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : ''}}>
         <Card
           hoverable
-          style={{width: '100%', paddingTop: '5px'}}
+          style={{width: '100%', marginTop: '7px', marginLeft: '2px', marginRight: '-10px'}}
           onClick={() => setVisible(true)}
           onMouseEnter={() =>  setValuesMap(data.type, data.value)}
           onMouseLeave={()=> setValuesMap('','')}

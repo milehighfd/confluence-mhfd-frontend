@@ -3093,7 +3093,7 @@ const Map = ({
                     onSearch={handleSearch}
                     value={keyword}
                 >
-                    <Input.Search allowClear size="large" placeholder="Stream or Location" />
+                  <Input.Search allowClear placeholder="Stream or Location" />
                 </AutoComplete>
             </div>
             <div className="measure-button">

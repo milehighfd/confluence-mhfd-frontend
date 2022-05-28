@@ -765,7 +765,7 @@ const MapView = () => {
   }
 
   const genExtra = () => (
-    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+    <Row justify="space-around" align="middle" style={{ cursor: 'pointer', marginTop: '-3px' }}>
       <Col>
         <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'} style={{ borderColor:'transparent' }}>
           Apply map view to filters
@@ -911,7 +911,6 @@ const MapView = () => {
           <Col span={11}>
             <Search
               allowClear
-              className="searchfilter"
               placeholder="Search"
               value={tabActive === '0' ? keywordProblem : keywordProject}
               onChange={(e) => {
