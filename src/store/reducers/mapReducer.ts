@@ -471,6 +471,7 @@ const mapReducer = (state = initState, action: any) => {
                     coordinates: action.polygon
                 }
             }
+        // TODO: eliminar
         case types.SAVE_MARKER_COORDS:
             return {
                 ...state,
