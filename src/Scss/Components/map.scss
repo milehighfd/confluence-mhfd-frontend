@@ -1381,19 +1381,21 @@
 }
 .tabs-map{
   .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: $dark;
+    color: $black !important;
+    padding: 0px -10px 0px -10px!important;
+    font-size: 14px!important;
   }
   .ant-tabs-nav .ant-tabs-tab {
-    color: $dark;
     padding: 15px 0px 15px 0px !important;
     margin: 0 20px 0 0;
     font-size: 15px;
   }
   .ant-tabs-ink-bar {
-    background-color: $dark;
+    background-color: $black !important;
   }
   .ant-tabs-nav .ant-tabs-tab:hover {
     color: $dark !important;
+    background-color: transparent;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
     float: none;
@@ -1404,7 +1406,7 @@
   .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     padding: 12px 10px;
     padding-left: 10px;
-    color: $dark;
+    color: $black !important;
     line-height: 30px;
     height: 54px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15) !important;

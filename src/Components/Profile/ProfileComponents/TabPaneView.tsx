@@ -81,7 +81,7 @@ const TabPaneView = ({
     deleteFavorite(user.email, id, type);
     search(user.email, type === 'problems', options);
   }
-  return <Row style={{ background: '#fff', marginTop: '0px', padding: '20px 35px' }} className="card-map profile-mobile" gutter={[16, 16]}>
+  return <Row style={{ background: '#fff', marginTop: '-4px', marginRight: '-2px', padding: '22px 20px', marginLeft: '-20px' }} className="card-map profile-mobile" gutter={[16, 16]}>
     <div className="user-filter profile-filter mobile-display">
       <div>
         <Search
@@ -95,7 +95,7 @@ const TabPaneView = ({
           style={{ width: 240 }}
         />
       </div>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', marginRight: '20px' }}>
         <Dropdown overlay={menu()} trigger={['click']}>
           <Button className="profile-bystatus">
             Sort by {valueDropdown.filter(element => element.name === options.column)[0]?.title}
@@ -124,24 +124,27 @@ const TabPaneView = ({
         </span>
       </div>
     </div>
-    <InfiniteScroll
-      dataLength={state.items.length}
-      next={fetchMoreData}
-      hasMore={state.hasMore}
-      loader={datas.length ? <h4>Loading...</h4> : ''}
-      height={window.innerHeight - 400}
-      endMessage={''}>
-      {sw ? datas.map((data, index: number) => {
-        return data &&
-          <CardsView
-            key={'profile-card-' + data.cartodb_id}
-            data={data}
-            type={type}
-            detailed={detailed}
-            deleted={deleted}
-          />
-      }) : ''}
-    </InfiniteScroll>
+    <div style={{ width: '100%', marginBottom: '-38px'}}>
+      <InfiniteScroll
+        dataLength={state.items.length}
+        next={fetchMoreData}
+        hasMore={state.hasMore}
+       /*  loader={datas.length ? <h4>Loading...</h4> : ''} */
+        loader={datas.length ? '': ''}
+        height={window.innerHeight - 400}
+        endMessage={''}>
+        {sw ? datas.map((data, index: number) => {
+          return data &&
+            <CardsView
+              key={'profile-card-' + data.cartodb_id}
+              data={data}
+              type={type}
+              detailed={detailed}
+              deleted={deleted}
+            />
+        }) : ''}
+      </InfiniteScroll>
+    </div>
   </Row>
 };
 

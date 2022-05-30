@@ -45,7 +45,7 @@ const CardsView = ({
             visible={visible}
             setVisible={setVisible}
         />}
-        <Col xs={{ span: 24 }} lg={{ span: 6 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }} style={{ width: '100%' }}>
             <Card
                 onClick={() => setVisible(true)}
                 hoverable

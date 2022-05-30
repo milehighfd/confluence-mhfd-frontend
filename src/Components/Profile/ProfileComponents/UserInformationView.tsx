@@ -59,7 +59,7 @@ const UserInformationView = ({
           }
         }} >
           <Button type="default" shape="circle" className="btn-edit-00">
-            <img src="/Icons/icon-66.svg" alt="" />
+            <img src="/Icons/icon-66.svg" alt="" style={{marginTop: '-4px'}}/>
           </Button>
         </Upload>
       </div>
@@ -71,7 +71,7 @@ const UserInformationView = ({
       </div>
 
       <div className="profile-contact">
-        <Popover content={phone}>
+        <Popover content={phone} >
           <Button type="default" shape="circle">
             <a href={'tel:'+user.phone}><img src="/Icons/icon-65.svg" alt="" height="15px" /></a>
           </Button>

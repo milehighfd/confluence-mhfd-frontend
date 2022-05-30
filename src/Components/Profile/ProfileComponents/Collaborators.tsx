@@ -11,7 +11,7 @@ export default () => {
 
     return <Col style={{paddingLeft: '15px', height: '100%'}} span={7} className="mobile-display">
     <Row style={{background: '#fff', height: '100%', borderTop: '17px solid #f5f7ff'}}>
-      <Col className="profile-pad">
+      <Col className="profile-pad" style={{ width: '100%' }}>
         <h2>Project Collaborators <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h2>
         <Collapse accordion
           bordered={false}
