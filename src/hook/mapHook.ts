@@ -38,19 +38,25 @@ export const useMapDispatch = () => {
     getParamFilterProjects: (bounds: string, data?: any) => {
       if (!bounds) return;
       dispatch(getParamFilterProjects(bounds, data));
+      // TODO: eliminar
       dispatch(getProjectCounter(bounds, data));
     },
     getTabCounters: (bounds: string, problemsOpts: any, projectsOpts: any, componentOpts: any) => {
+      // TODO: eliminar
       dispatch(getProblemCounter(bounds, problemsOpts));
+      // TODO: eliminar
       dispatch(getProjectCounter(bounds, projectsOpts));
+      // TODO: eliminar
       dispatch(getComponentsCounter(bounds, componentOpts));
     },
     getParamFilterProblems: (bounds: string, data?: any) => {
       dispatch(getParamFilterProblems(bounds, data));
+      // TODO: eliminar
       dispatch(getProblemCounter(bounds, data));
     },
     getParamFilterComponents: (bounds: string, data?: any) => {
       dispatch(getParamFilterComponents(bounds, data));
+      // TODO: eliminar
       dispatch(getComponentsCounter(bounds, data));
     },
     setTabCards: (tab: string) => {
@@ -62,6 +68,7 @@ export const useMapDispatch = () => {
     setBoundMap: (bounds: string) => {
       dispatch(setBoundMap(bounds));
     },
+    // TODO: eliminar
     getZoomAreaFilter: () => {
       dispatch(getZoomAreaFilter());
     },
@@ -177,6 +184,7 @@ export const useMapDispatch = () => {
     getMapTables: (trigger: any, name?: any) => {
       dispatch(getMapTables(trigger,name));
     },
+    // TODO: eliminar
     getPlaceOnCenter: (center: any) => {
       dispatch(getPlaceOnCenter(center));
     },

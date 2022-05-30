@@ -490,6 +490,7 @@ const mapReducer = (state = initState, action: any) => {
                 ...state,
                 error: action.error
             }
+        // TODO: eliminar
         case types.CLEAR_COORDINATES:
             return {
                 ...state,
@@ -729,6 +730,7 @@ const mapReducer = (state = initState, action: any) => {
                 }
             }
         }
+        // TODO: eliminar
         case types.GET_PARAM_FILTER_PROBLEMS: {
             return {
                 ...state,
@@ -738,6 +740,7 @@ const mapReducer = (state = initState, action: any) => {
                 }
             }
         }
+        // TODO: eliminar
         case types.GET_ZOOMAREA_FILTER: {
             return {
                 ...state,
@@ -768,6 +771,7 @@ const mapReducer = (state = initState, action: any) => {
                 labelsFiltersProblems: action.filters
             }
         }
+        // TODO: eliminar
         case types.SET_LABELS_FILTER_COMPONENTS: {
             return {
                 ...state,
@@ -848,6 +852,7 @@ const mapReducer = (state = initState, action: any) => {
                 currentPopup: action.currentPopup
             }
         }
+        // TODO: eliminar
         case types.SET_COUNTER_TAB: {
             return {
                 ...state,
@@ -869,6 +874,7 @@ const mapReducer = (state = initState, action: any) => {
             showComponents: action.showComponents 
           }
         }
+        // TODO: eliminar
         case types.SET_PLACES_ON_CENTER:{
           return {
             ...state,

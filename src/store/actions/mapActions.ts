@@ -72,7 +72,7 @@ export const clearErrorMessage = () => {
         dispatch({ type: types.SET_ERROR_MESSAGE, error: '' });
     }
 }
-
+// TODO: eliminar
 export const clearCoordinates = () => {
     return (dispatch : Function) => {
         dispatch({ type: types.CLEAR_COORDINATES });
@@ -499,6 +499,7 @@ export const existDetailedPageProblem = (url: string) => {
         });
     }
 }
+// TODO: eliminar
 export const getZoomAreaFilter = () => {
     return (dispatch: Function) => {
         datasets.getData(SERVER.GET_ZOOMAREA_FILTER).then(data => {
@@ -506,6 +507,7 @@ export const getZoomAreaFilter = () => {
         })
     }
 }
+// TODO: eliminar
 export const getValuesByGroupColumn = (table: string, column: string) => {
     return (dispatch: Function) => {
         const params = {
@@ -558,6 +560,7 @@ export const getParamFilterProblems = (bounds: string, data?: any) => {
         })
     }
 }
+// TODO: eliminar
 export const getParamFilterProblemsAsync = (bounds: string) => {
     return (dispatch: Function) => {
         //dispatch(setSpinFilter(true));
@@ -580,6 +583,7 @@ export const getParamFilterComponents = (bounds: string, data?: any) => {
         })
     }
 }
+// TODO: eliminar
 export const getParamFilterComponentsAsync = (bounds: string) => {
     return (dispatch: Function) => {
         //dispatch(setSpinFilter(true));
@@ -615,6 +619,7 @@ export const getComponentsByProblemId = (data: any) => {
         
     }
 }
+// TODO: eliminar
 export const getProblemCounter = (bounds: string, options: any) => {
     return (dispatch: Function) => {
         datasets.postData(SERVER.COUNTER_PROBLEMS + '?bounds=' + bounds, options).then(params => {
@@ -624,6 +629,7 @@ export const getProblemCounter = (bounds: string, options: any) => {
         })
     }
 }
+// TODO: eliminar
 export const getProjectCounter = (bounds: string, options: any) => {
     return (dispatch: Function) => {
         datasets.postData(SERVER.COUNTER_PROJECTS + '?bounds=' + bounds, options).then(params => {
@@ -633,6 +639,7 @@ export const getProjectCounter = (bounds: string, options: any) => {
         })
     }
 }
+// TODO: eliminar
 export const getComponentsCounter = (bounds: string, options: any) => {
     return (dispatch: Function) => {
         datasets.postData(SERVER.COUNTER_COMPONENTS + '?bounds=' + bounds, options).then(params => {
@@ -653,6 +660,7 @@ export const setLabelFilterProjects = (filters: any) => {
         dispatch({type: types.SET_LABELS_FILTER_PROJECTS, filters});
     }
 }
+// TODO: eliminar
 export const setLabelFilterComponents = (filters: any) => {
     return (dispatch: Function) => {
         dispatch({type: types.SET_LABELS_FILTER_COMPONENTS, filters});
@@ -828,7 +836,7 @@ export const changeTutorialStatus = (tutorialStatus: boolean) => {
         dispatch({type: types.TUTORIAL_STATUS, tutorialStatus});
     }
 }
-
+// TODO: eliminar
 export const getPlaceOnCenter = (center: any) => {
   const sortArray = ['Jurisdiction','Service Area','County',null];
   return (dispatch: Function) => {
