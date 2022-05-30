@@ -689,7 +689,6 @@ const mapReducer = (state = initState, action: any) => {
                 }
             }
         }
-        // TODO: eliminar
         case types.GET_PARAM_FILTER_PROBLEMS: {
             return {
                 ...state,
@@ -699,7 +698,6 @@ const mapReducer = (state = initState, action: any) => {
                 }
             }
         }
-        // TODO: eliminar
         case types.GET_ZOOMAREA_FILTER: {
             return {
                 ...state,
