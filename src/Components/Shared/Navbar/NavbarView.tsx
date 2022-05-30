@@ -141,7 +141,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   }
   //  className="menu-login-dropdown" className="login-dropdown"
   const menu = (
-    <Menu className="menu-login-dropdown ">
+    <Menu className="menu-login-dropdown">
       {user.designation !== 'guest' ? <Menu.Item className="login-dropdown" onClick={showProfile}>My Profile</Menu.Item> : '' }
       <Menu.Item className="login-dropdown" onClick={showModal}>Tutorial</Menu.Item>
       <Menu.Item className="login-dropdown" onClick={logout}>
@@ -167,7 +167,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
       theme="dark"
       mode="horizontal"
       defaultSelectedKeys={['0']}
-      style={{ lineHeight: '58px', float: 'right' }}
+      style={{ lineHeight: '60px', float: 'right', marginRight: '-4px' }}
     >
       <Menu.Item>
        <Popover content={content}>

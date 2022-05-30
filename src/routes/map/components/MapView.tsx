@@ -765,7 +765,7 @@ const MapView = () => {
   }
 
   const genExtra = () => (
-    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
+    <Row justify="space-around" align="middle" style={{ cursor: 'pointer', marginTop: '-3px' }}>
       <Col>
         <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'} style={{ borderColor:'transparent' }}>
           Apply map view to filters
@@ -880,7 +880,7 @@ const MapView = () => {
         setVisible={setVisible}
       />}
       <Row className="head-m mobile-display">
-        <Col span={20} id="westminter">
+        <Col span={24} id="westminter">
           <div className="auto-complete-map">
             <AutoComplete
               style={{ width: '200' }}
@@ -900,7 +900,7 @@ const MapView = () => {
               }}
               >
 
-              <Input id={'miclase'} suffix={dropdownIsOpen ? <UpOutlined /> : <DownOutlined />} />
+              <Input id={'miclase'} style={{border: 'none', boxShadow: 'none', borderBottom: '1px solid rgba(37, 24, 99, 0.3)',marginRight: '-18px' }} suffix={dropdownIsOpen ? <UpOutlined style={{marginRight: '-18px'}}/> : <DownOutlined style={{marginRight: '-18px'}}/>} />
             </AutoComplete>
           </div>
         </Col>
@@ -911,7 +911,6 @@ const MapView = () => {
           <Col span={11}>
             <Search
               allowClear
-              className="searchfilter"
               placeholder="Search"
               value={tabActive === '0' ? keywordProblem : keywordProject}
               onChange={(e) => {

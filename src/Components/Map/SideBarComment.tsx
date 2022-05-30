@@ -373,7 +373,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       onClose={() => setVisible(false)}
       visible={visible}
       className="comment-drawer"
-      style={{'paddingLeft':'58px'}}
+      style={{ marginLeft: '58px', width: '0px'}}
     >
       <h3>
       {/* Feature Layers
