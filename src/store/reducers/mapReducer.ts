@@ -448,6 +448,7 @@ const initState = {
 
 const mapReducer = (state = initState, action: any) => {
     switch (action.type) {
+        // TODO: eliminar
         case types.SET_REVERSE_GEOCODE:
             return {
                 ...state,
@@ -456,6 +457,7 @@ const mapReducer = (state = initState, action: any) => {
                     jurisdiction: action.county
                 }
             }
+        // TODO: eliminar
         case types.GEOCODE_REQUEST_ERROR:
             return {
                 ...state,

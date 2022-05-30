@@ -5,10 +5,13 @@ import * as detailedTypes from '../types/detailedTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
+// TODO: eliminar
 import { TotalType, ProjectTypes, OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
+// TODO: eliminar
 import { ComponentType } from 'react';
 import store from '..';
 
+// TODO: eliminar
 export const getReverseGeocode = (lat : number, lng : number, accessToken : string) => {
     return (dispatch : Function) => {
         const url = "https://revgeocode.search.hereapi.com/v1/revgeocode?at=" + lng + "%2C" + lat + "&apiKey=" + accessToken;
@@ -21,7 +24,7 @@ export const getReverseGeocode = (lat : number, lng : number, accessToken : stri
             .catch(err =>  dispatch({ type: types.GEOCODE_REQUEST_ERROR, err }));
     }
 }
-
+// TODO: eliminar
 export const savePolygonCoordinates = (polygon : Array<[]>) => {
     return (dispatch : Function) => {
         dispatch({ type: types.SAVE_POLYGON_COORDS, polygon });

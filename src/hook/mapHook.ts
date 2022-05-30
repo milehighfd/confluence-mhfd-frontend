@@ -189,6 +189,7 @@ export const useMapDispatch = () => {
     resetMap: () => {
       dispatch(resetMap());
     },
+    // TODO: eliminar
     getReverseGeocode: (lat: number, lng: number, accessToken: string) => {
       dispatch(getReverseGeocode(lat, lng, accessToken));
     },
