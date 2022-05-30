@@ -43,81 +43,79 @@ export default () => {
   return <Sider collapsedWidth="58" collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} style={{'zIndex': 1000}}>
     <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline" >
       {(appUser.designation !== 'guest') ?
-      <Menu.Item key="0">
-        <Link to={'/profile-view'}>
-          <img className="img-h anticon mobile-display" src="/Icons/menu-white-01.svg" alt="" width="23px" />
-          <img className="img-a anticon mobile-display" src="/Icons/menu-green-01.svg" alt="" width="23px" />
-          <i className="anticon mdi mdi-home-outline menu-desktop"/>
-          <span>my confluence</span>
+      <Menu.Item key="0" className="menu-mobile">
+        <Link to={'/profile-view'} style={{ textDecoration: 'none' }}>
+          <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="22px" height="18px"/>
+          <img className="img-a anticon" src="/Icons/menu-green-01.svg" alt="" width="22px" height="18px" />
+          <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>my confluence</span>
         </Link>
       </Menu.Item> : ''}
-      <Menu.Item key="1">
-        <Link to={'/map'}>
-          <img className="img-h anticon mobile-display" src="/Icons/menu-white-02.svg" alt="" width="22px" />
-          <img className="img-a anticon mobile-display" src="/Icons/menu-green-02.svg" alt="" width="22px" />
-          <i className="anticon mdi mdi-map-legend menu-desktop"/>
-          <span>map view</span>
+      <Menu.Item key="1" className="menu-mobile" style={{padding: '0px 0px 0px 0px'}}>
+        <Link to={'/map'} >
+          <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="22px" height="18px" />
+          <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="22px" height="18px" />
+          <span style={{marginLeft: collapsed ? '-20px' : '-2px', padding: '0'}}>map view</span>
         </Link>
       </Menu.Item>
       {showWorkRequestPlan &&
         <Menu.Item key="4" className="menu-mobile">
           <Link to={userApproved ? '/work-request': '#'}>
-            <img className="img-h anticon mobile-display" src="/Icons/menu-white-14.svg" alt="" width="22px" style={{opacity: userApproved ? '1': '0.2'}} />
-            <img className="img-a anticon mobile-display" src="/Icons/menu-green-14.svg" alt="" width="22px" style={{opacity: userApproved ? '1': '0.2'}} />
-            <i className="anticon mdi mdi-map-legend menu-desktop"/>
+            <img className="img-h anticon" src="/Icons/menu-white-14.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}} />
+            <img className="img-a anticon" src="/Icons/menu-green-14.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}} />
             <span>work request</span>
+            <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>work request</span>
           </Link>
         </Menu.Item>
       }
       {showWorkRequestPlan ?
       <Menu.Item key="3" className="menu-mobile">
         <Link to={userApproved ? '/work-plan': '#'}>
-          <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="20px" style={{opacity: userApproved ? '1': '0.2'}}/>
-          <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="20px" style={{opacity: userApproved ? '1': '0.2'}}/>
-          <span>work plan</span>
+          <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}}/>
+          <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}}/>
+          <span style={{marginLeft: collapsed ? '-20px' : '0px'}}>project management</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
       <Menu.Item key="5" className="menu-mobile">
         <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" style={{opacity: '0.2'}}  />
-          <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" style={{opacity: '0.2'}}  />
-          <span>project management</span>
+          <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="18px" style={{opacity: '0.2'}}  />
+          <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="18px" style={{opacity: '0.2'}}  />
+          <span style={{marginLeft: collapsed ? '-20px' : '0px'}}>project management</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?
       <Menu.Item key="2" className="menu-mobile">
         <Link to={'/map'}>
-          <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="22px" style={{opacity: '0.2'}} />
-          <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="22px" style={{opacity: '0.2'}}  />
-          <span>watershed story</span>
+          <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="22px" height="18px" style={{opacity: '0.2'}} />
+          <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="22px" height="18px" style={{opacity: '0.2'}}  />
+          <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>watershed story</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation === 'admin' ||
         appUser.designation === 'staff') && (appUser.status === 'approved') ?
         <Menu.Item key="6" className="menu-mobile">
           <Link to={'/upload-attachment'}>
-            <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="19px" />
-            <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="19px" />
-            <span>uploader</span>
+            <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="22px" height="18px" />
+            <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="22px" height="18px" />
+            <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>uploader</span>
           </Link>
         </Menu.Item> : ''}
         <Menu.Item key="7" className="menu-mobile">
           <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
-            <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="21px" />
-            <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="21px" />
-            <span>feedback</span>
+            <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="22px" height="18px" />
+            <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="22px" height="18px" />
+            <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>feedback</span>
           </a>
         </Menu.Item>
       {(appUser.designation === 'admin') && (appUser.status === 'approved') ?
         <Menu.Item key="8" className="menu-mobile">
           <Link to={'/user'}>
-            <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="22px" />
-            <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="22px" />
-            <span>settings</span>
+            <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="22px" height="18px" />
+            <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="22px" height="18px" />
+            <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>settings</span>
           </Link>
         </Menu.Item> : ''}
-        <Menu.Item key="9" className="menu-desktop">
+        {/* <Menu.Item key="9" className="menu-desktop">
           <a onClick={showModal}>
             <i className="anticon mdi mdi-help-circle-outline"/>
             <span></span>
@@ -127,7 +125,7 @@ export default () => {
           <Link to={''}>
             <i className="anticon mdi mdi-logout" />
           </Link>
-        </Menu.Item>
+        </Menu.Item> */}
     </Menu>
     <Modal
        centered

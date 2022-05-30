@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
-import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import { history } from "./store/configureStore";
 import store from './store';
-import 'antd/dist/antd.min.css';
 import '@mdi/font/scss/materialdesignicons.scss';
-
+import 'antd/dist/antd.min.css';
+import './index.scss';
 import App from './App';
 
 ReactDOM.render(
