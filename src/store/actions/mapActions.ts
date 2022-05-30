@@ -31,6 +31,7 @@ export const savePolygonCoordinates = (polygon : Array<[]>) => {
     }
 }
 
+// TODO: eliminar
 export const saveMarkerCoordinates = (marker : Array<[]>) => {
     return (dispatch : Function) => {
         dispatch({ type: types.SAVE_MARKER_COORDS, marker });
