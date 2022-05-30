@@ -3,24 +3,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
   getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
-  getZoomAreaFilter, setOpacityLayer, setCoordinatesJurisdiction,
+  setOpacityLayer, setCoordinatesJurisdiction,
   setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
-  getParamFilterProblemsAsync, getParamFilterComponentsAsync,
-  setAutocomplete, getBBOXComponents, updateSelectedLayers, setLabelFilterComponents,
-  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards, 
-  setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted, 
-  setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter, 
-  getComponentsCounter, getProjectCounter, getProblemCounter, mapSearchQuery, setSelectedOnMap, 
-  existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,
-  getComponentsByProblemId,getMapTables,
-  getComponentsByProjid, getPlaceOnCenter, replaceFilterCoordinates, resetMap, getReverseGeocode, savePolygonCoordinates,
-  saveMarkerCoordinates,
-  clearErrorMessage,
-  setFilterCoordinates,
-  setProblemKeyword,
-  setProjectKeyword,
-  getParamsFilter
+  setAutocomplete, getBBOXComponents, updateSelectedLayers,
+  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards,
+  setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted,
+  setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter,
+  mapSearchQuery, setSelectedOnMap, existDetailedPageProblem,
+  existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,
+  getComponentsByProblemId, getMapTables,
+  getComponentsByProjid, replaceFilterCoordinates, resetMap,
+  clearErrorMessage, setFilterCoordinates, setProblemKeyword,
+  setProjectKeyword, getParamsFilter
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects } from '../Classes/MapTypes';
@@ -38,26 +33,14 @@ export const useMapDispatch = () => {
     getParamFilterProjects: (bounds: string, data?: any) => {
       if (!bounds) return;
       dispatch(getParamFilterProjects(bounds, data));
-      // TODO: eliminar
-      dispatch(getProjectCounter(bounds, data));
     },
     getTabCounters: (bounds: string, problemsOpts: any, projectsOpts: any, componentOpts: any) => {
-      // TODO: eliminar
-      dispatch(getProblemCounter(bounds, problemsOpts));
-      // TODO: eliminar
-      dispatch(getProjectCounter(bounds, projectsOpts));
-      // TODO: eliminar
-      dispatch(getComponentsCounter(bounds, componentOpts));
     },
     getParamFilterProblems: (bounds: string, data?: any) => {
       dispatch(getParamFilterProblems(bounds, data));
-      // TODO: eliminar
-      dispatch(getProblemCounter(bounds, data));
     },
     getParamFilterComponents: (bounds: string, data?: any) => {
       dispatch(getParamFilterComponents(bounds, data));
-      // TODO: eliminar
-      dispatch(getComponentsCounter(bounds, data));
     },
     setTabCards: (tab: string) => {
       dispatch(setTabCards(tab));
@@ -67,10 +50,6 @@ export const useMapDispatch = () => {
     },
     setBoundMap: (bounds: string) => {
       dispatch(setBoundMap(bounds));
-    },
-    // TODO: eliminar
-    getZoomAreaFilter: () => {
-      dispatch(getZoomAreaFilter());
     },
     setOpacityLayer: (value: boolean) => {
       dispatch(setOpacityLayer(value));
@@ -96,17 +75,8 @@ export const useMapDispatch = () => {
     setLabelFilterProblems: (filters: any) => {
       dispatch(setLabelFilterProblems(filters));
     },
-    setLabelFilterComponents: (filters: any) => {
-      dispatch(setLabelFilterComponents(filters));
-    },
     setSpinMapLoaded: (spin: boolean) => {
       dispatch(setSpinMapLoaded(spin));
-    },
-    getParamFilterComponentsAsync: (bounds: string) => {
-      dispatch(getParamFilterComponentsAsync(bounds));
-    },
-    getParamFilterProblemsAsync: (bounds: string) => {
-      dispatch(getParamFilterProblemsAsync(bounds));
     },
     setBBOXComponents: (bboxComponents: any) => {
       dispatch(setBBOXComponents(bboxComponents))
@@ -122,7 +92,7 @@ export const useMapDispatch = () => {
     },
     deleteFavorite: (email: string, id: number, table: string) => {
       dispatch(deleteFavorite(email, id, table));
-    }, 
+    },
     favoriteList: (email: string) => {
       dispatch(favoriteList(email));
     },
@@ -160,7 +130,7 @@ export const useMapDispatch = () => {
     mapSearchQuery: (query: any) => {
       dispatch(mapSearchQuery(query));
     },
-    getComponentCounter: (id: any,type: any, setCountComponents: any) => {
+    getComponentCounter: (id: any, type: any, setCountComponents: any) => {
       dispatch(getComponentCounter(id, type, setCountComponents));
     },
     setSelectedOnMap: (number: any, tab: any) => {
@@ -172,22 +142,19 @@ export const useMapDispatch = () => {
     existDetailedPageProject: (url: any) => {
       dispatch(existDetailedPageProject(url));
     },
-    getDetailedPageProblem: (id: string ) => {
+    getDetailedPageProblem: (id: string) => {
       dispatch(getDetailedPageProblem(id));
     },
-    getDetailedPageProject: (id:number, type: string) => {
+    getDetailedPageProject: (id: number, type: string) => {
       dispatch(getDetailedPageProject(id, type));
     },
-    getComponentsByProblemId: (data:any) => {
+    getComponentsByProblemId: (data: any) => {
       dispatch(getComponentsByProblemId(data));
     },
     getMapTables: (trigger: any, name?: any) => {
-      dispatch(getMapTables(trigger,name));
+      dispatch(getMapTables(trigger, name));
     },
-    // TODO: eliminar
-    getPlaceOnCenter: (center: any) => {
-      dispatch(getPlaceOnCenter(center));
-    },
+
     getComponentsByProjid: (projectid: any, setCounter: Function) => {
       dispatch(getComponentsByProjid(projectid, setCounter));
     },
@@ -196,16 +163,6 @@ export const useMapDispatch = () => {
     },
     resetMap: () => {
       dispatch(resetMap());
-    },
-    // TODO: eliminar
-    getReverseGeocode: (lat: number, lng: number, accessToken: string) => {
-      dispatch(getReverseGeocode(lat, lng, accessToken));
-    },
-    savePolygonCoordinates: (polygon : Array<[]>) => {
-      dispatch(savePolygonCoordinates(polygon));
-    },
-    saveMarkerCoordinates: (marker : Array<[]>) => {
-      dispatch(saveMarkerCoordinates(marker))
     },
     clearErrorMessage: () => {
       dispatch(clearErrorMessage());

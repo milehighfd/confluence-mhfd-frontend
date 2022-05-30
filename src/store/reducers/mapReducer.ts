@@ -448,38 +448,6 @@ const initState = {
 
 const mapReducer = (state = initState, action: any) => {
     switch (action.type) {
-        // TODO: eliminar
-        case types.SET_REVERSE_GEOCODE:
-            return {
-                ...state,
-                newProject: {
-                    ...state.newProject,
-                    jurisdiction: action.county
-                }
-            }
-        // TODO: eliminar
-        case types.GEOCODE_REQUEST_ERROR:
-            return {
-                ...state,
-                error: action.err
-            }
-        case types.SAVE_POLYGON_COORDS:
-            return {
-                ...state,
-                newProject: {
-                    ...state.newProject,
-                    coordinates: action.polygon
-                }
-            }
-        // TODO: eliminar
-        case types.SAVE_MARKER_COORDS:
-            return {
-                ...state,
-                newProject: {
-                    ...state.newProject,
-                    coordinates: action.marker
-                }
-            }
         case types.CREATE_NEW_PROJECT:
             return {
                 ...state,
@@ -489,15 +457,6 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 error: action.error
-            }
-        // TODO: eliminar
-        case types.CLEAR_COORDINATES:
-            return {
-                ...state,
-                newProject: {
-                    ...state.newProject,
-                    coordinates: []
-                }
             }
         case types.FILTER_PROJECTS:
             return {
@@ -618,7 +577,7 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.SET_SPIN_MAP_LOADED: {
-            return { 
+            return {
                 ...state,
                 spinMapLoaded: action.spin
             }
@@ -637,7 +596,7 @@ const mapReducer = (state = initState, action: any) => {
         }
         case types.SET_FILTER_PROJECTS: {
             action.filters.servicearea = action.filters.servicearea.trim();
-            action.filters.county = action.filters.county.replace("County","").trim();
+            action.filters.county = action.filters.county.replace("County", "").trim();
             return {
                 ...state,
                 filterProjects: action.filters
@@ -771,13 +730,6 @@ const mapReducer = (state = initState, action: any) => {
                 labelsFiltersProblems: action.filters
             }
         }
-        // TODO: eliminar
-        case types.SET_LABELS_FILTER_COMPONENTS: {
-            return {
-                ...state,
-                labelsFiltersComponents: action.filters
-            }
-        }
         case types.SET_AUTOCOMPLETE: {
             return {
                 ...state,
@@ -852,16 +804,6 @@ const mapReducer = (state = initState, action: any) => {
                 currentPopup: action.currentPopup
             }
         }
-        // TODO: eliminar
-        case types.SET_COUNTER_TAB: {
-            return {
-                ...state,
-                totals: {
-                    ...state.totals,
-                    [action.key]: action.total
-                }
-            }
-        }
         case types.FAVORITE_LOADER: {
             return {
                 ...state,
@@ -869,17 +811,10 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.CREATE_SHOW_COMPONENTS: {
-          return {
-            ...state, 
-            showComponents: action.showComponents 
-          }
-        }
-        // TODO: eliminar
-        case types.SET_PLACES_ON_CENTER:{
-          return {
-            ...state,
-            places: action.places
-          }
+            return {
+                ...state,
+                showComponents: action.showComponents
+            }
         }
         default:
             return state;

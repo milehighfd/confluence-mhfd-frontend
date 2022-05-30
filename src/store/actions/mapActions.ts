@@ -5,53 +5,23 @@ import * as detailedTypes from '../types/detailedTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
-// TODO: eliminar
-import { TotalType, ProjectTypes, OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
-// TODO: eliminar
-import { ComponentType } from 'react';
+import { ProjectTypes, OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
 import store from '..';
 
-// TODO: eliminar
-export const getReverseGeocode = (lat : number, lng : number, accessToken : string) => {
-    return (dispatch : Function) => {
-        const url = "https://revgeocode.search.hereapi.com/v1/revgeocode?at=" + lng + "%2C" + lat + "&apiKey=" + accessToken;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                const feature = data.items[0];
-                dispatch({ type: types.SET_REVERSE_GEOCODE, county: feature?feature.address.county:'' });
-            })
-            .catch(err =>  dispatch({ type: types.GEOCODE_REQUEST_ERROR, err }));
-    }
-}
-// TODO: eliminar
-export const savePolygonCoordinates = (polygon : Array<[]>) => {
-    return (dispatch : Function) => {
-        dispatch({ type: types.SAVE_POLYGON_COORDS, polygon });
-    }
-}
-
-// TODO: eliminar
-export const saveMarkerCoordinates = (marker : Array<[]>) => {
-    return (dispatch : Function) => {
-        dispatch({ type: types.SAVE_MARKER_COORDS, marker });
-    }
-}
-
 export const createNewProjectForm = (data: ProjectTypes, files: Array<any>) => {
-    return (dispatch : Function, getState : Function) => {
+    return (dispatch: Function, getState: Function) => {
         const state = getState();
         const county = state.map.newProject.jurisdiction;
         const coordinates = state.map.newProject.coordinates;
 
         if (coordinates.length) {
-            const dataForm : FormData = new FormData();
+            const dataForm: FormData = new FormData();
             for (const key in data) {
-                dataForm.append(key, '' + data[key]); 
+                dataForm.append(key, '' + data[key]);
             }
             dataForm.append('county', county);
             dataForm.append('coordinates', JSON.stringify(coordinates));
-            if(files) {
+            if (files) {
                 for (const file of files) {
                     dataForm.append('file', file.originFileObj);
                 }
@@ -68,23 +38,17 @@ export const createNewProjectForm = (data: ProjectTypes, files: Array<any>) => {
 }
 
 export const clearErrorMessage = () => {
-    return (dispatch : Function) => {
+    return (dispatch: Function) => {
         dispatch({ type: types.SET_ERROR_MESSAGE, error: '' });
     }
 }
-// TODO: eliminar
-export const clearCoordinates = () => {
-    return (dispatch : Function) => {
-        dispatch({ type: types.CLEAR_COORDINATES });
-    }
-}
 
-export const getMapTables = (trigger : string, name? : string) => {
+export const getMapTables = (trigger: string, name?: string) => {
     return (dispatch: Function, getState: Function) => {
         const state = getState();
         const layers = { ...state.map.layers };
 
-        if(!layers[trigger]) {
+        if (!layers[trigger]) {
             const requestData = { table: trigger };
             datasets.postData(SERVER.MAP_TABLES, requestData, datasets.getToken()).then(tiles => {
                 if (name) dispatch({ type: types.GET_MAP_WITH_SUBLAYERS, data: { trigger, tiles, name } });
@@ -95,13 +59,13 @@ export const getMapTables = (trigger : string, name? : string) => {
 }
 
 export const updateSelectedLayers = (selectedLayer: any) => {
-    return (dispatch : Function) => {
+    return (dispatch: Function) => {
         dispatch({ type: types.SELECTED_LAYERS, selectedLayer });
     }
 }
 export const resetMap = () => {
-    return (dispatch : Function) => {
-        dispatch({ type: types.RESET_MAP});
+    return (dispatch: Function) => {
+        dispatch({ type: types.RESET_MAP });
     }
 }
 
@@ -138,7 +102,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         sortby: options.column,
         sorttype: options.order,
         bounds: coordinates
-    }: {
+    } : {
         isproblem: true,
         cost: options.cost,
         priority: options.priority,
@@ -172,7 +136,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
             servicearea = filterComponent.servicearea;
         }
     }
-    return applyFilter? {
+    return applyFilter ? {
         name: options.keyword,
         projecttype: options.projecttype,
         status: options.status,
@@ -234,7 +198,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
 
 export const setFilterCoordinates = (coordinates: string, tab: string) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_FILTER_COORDINATES, coordinates});
+        dispatch({ type: types.SET_FILTER_COORDINATES, coordinates });
         if (tab === constants.PROBLEMS_TRIGGER) {
             dispatch(getGalleryProblems());
         } else {
@@ -244,7 +208,7 @@ export const setFilterCoordinates = (coordinates: string, tab: string) => {
 }
 export const replaceFilterCoordinates = (coordinates: string) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_FILTER_COORDINATES, coordinates});
+        dispatch({ type: types.SET_FILTER_COORDINATES, coordinates });
     }
 }
 export const setFilterProblemOptions = (filters: OptionProblems) => {
@@ -267,21 +231,21 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
     const auxSolutionStatus = []
     for (let index = 0; index < solutionstatus.length && filters.solutionstatus.length; index++) {
         const element = solutionstatus[index];
-        auxSolutionStatus.push(element === '10' ? '10,25' : element === '25'? '25,50': element === '50' ? '50,75' : '75,100');
+        auxSolutionStatus.push(element === '10' ? '10,25' : element === '25' ? '25,50' : element === '50' ? '50,75' : '75,100');
     }
     auxFilter.solutionstatus = auxSolutionStatus;
     return (dispatch: Function) => {
-        dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters});
+        dispatch({ type: types.SET_FILTER_PROBLEM_OPTIONS, filters });
         const params = '?tables=' + filters.components;
-        if(filters.components) {
-           datasets.getData(SERVER.GET_FILTER_COMPONENTS_FOR_PROBLEMS + params, datasets.getToken()).then(tables => {
+        if (filters.components) {
+            datasets.getData(SERVER.GET_FILTER_COMPONENTS_FOR_PROBLEMS + params, datasets.getToken()).then(tables => {
                 if (tables?.length >= 0) {
                     auxFilter.components = tables;
-                    dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilter})
+                    dispatch({ type: types.SET_FILTER_PROBLEMS, filters: auxFilter })
                 }
-            }); 
+            });
         } else {
-            dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilter})
+            dispatch({ type: types.SET_FILTER_PROBLEMS, filters: auxFilter })
         }
     }
 }
@@ -292,8 +256,8 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         projectname: filters.keyword,
         projecttype: filters.projecttype,
         status: filters.status,
-        startyear: filters.startyear ? (''+ filters.startyear) : '0',
-        completedyear: filters.completedyear ? (''+ filters.completedyear) : '9999',
+        startyear: filters.startyear ? ('' + filters.startyear) : '0',
+        completedyear: filters.completedyear ? ('' + filters.completedyear) : '9999',
         mhfddollarsallocated: filters.mhfddollarsallocated,
         lgmanager: filters.lgmanager,
         streamname: filters.streamname,
@@ -304,7 +268,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         // problemtype: filters.problemtype as any, // not exist in tables
         mhfdmanager: filters.mhfdmanager,
         jurisdiction: filters.jurisdiction,
-        county: filters.county.replace("County","").trim(),
+        county: filters.county.replace("County", "").trim(),
         problemtypeProjects: [] as any,
         consultant: filters.consultant,
         contractor: filters.contractor,
@@ -312,71 +276,71 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         keyword
     }
     return (dispatch: Function) => {
-        dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters});
+        dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters });
         const params = '?problemtype=' + filters.problemtype;
-        if(filters.problemtype) {
-           datasets.getData(SERVER.GET_FILTER_PROBLEMTYPE_FOR_PROJECTS + params, datasets.getToken()).then(tables => {
+        if (filters.problemtype) {
+            datasets.getData(SERVER.GET_FILTER_PROBLEMTYPE_FOR_PROJECTS + params, datasets.getToken()).then(tables => {
                 if (tables?.length >= 0) {
                     auxFilter.problemtypeProjects = tables;
-                    dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilter});
+                    dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilter });
                 }
-            }); 
+            });
         } else {
-            dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilter});
+            dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilter });
         }
-        
-        
+
+
     }
 }
 
 export const setProblemKeyword = (keyword: string) => {
     const filterOptions = store.getState().map.filterProblemOptions;
-    const auxFilter = {...filterOptions};
+    const auxFilter = { ...filterOptions };
     const filterProblems = store.getState().map.filterProblems;
-    const auxFilterProblems = {...filterProblems};
+    const auxFilterProblems = { ...filterProblems };
     auxFilter.keyword = keyword;
     return (dispatch: Function) => {
-        dispatch({type: types.SET_FILTER_PROBLEM_OPTIONS, filters: auxFilter});
+        dispatch({ type: types.SET_FILTER_PROBLEM_OPTIONS, filters: auxFilter });
         const params = '?field=' + keyword;
-        if(keyword) {
+        if (keyword) {
             datasets.getData(SERVER.SEARCH_KEYWORD_PROBLEMS + params, datasets.getToken()).then(tables => {
                 if (tables?.problems.length >= 0) {
                     auxFilterProblems.keyword = tables;
                     auxFilterProblems.problemname = keyword;
-                    dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems});
+                    dispatch({ type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems });
                 }
-            }); 
+            });
         } else {
             auxFilterProblems.keyword = {};
             auxFilterProblems.problemname = keyword;
-            dispatch({type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems});
+            dispatch({ type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems });
         }
-        
-        
+
+
     }
 }
 
 export const setProjectKeyword = (keyword: string) => {
     const filterOptions = store.getState().map.filterProjectOptions;
-    const auxFilter = {...filterOptions};
+    const auxFilter = { ...filterOptions };
     const filterProjects = store.getState().map.filterProjects;
-    const auxFilterProjects = {...filterProjects};
+    const auxFilterProjects = { ...filterProjects };
     auxFilter.keyword = keyword;
     return (dispatch: Function) => {
-        dispatch({type: types.SET_FILTER_PROJECT_OPTIONS, filters: auxFilter});
+        dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters: auxFilter });
         const params = '?field=' + keyword;
-        if(keyword) {
+        if (keyword) {
             datasets.getData(SERVER.SEARCH_KEYWORD_PROJECTS + params, datasets.getToken()).then(tables => {
                 if (tables?.mhfd_projects?.length >= 0 || tables?.projects_polygon_?.length >= 0) {
                     auxFilterProjects.keyword = tables;
                     auxFilterProjects.projectname = keyword;
-                    dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects});
+                    dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects });
                 }
             });
         } else {
             auxFilterProjects.keyword = {};
             auxFilterProjects.projectname = keyword;
-            dispatch({type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects});
+            dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects });
         }
     }
 }
@@ -400,21 +364,21 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
     // }
     // auxFilter.estimated_cost = auxCost;
     return (dispatch: Function) => {
-        dispatch({type: types.SET_FILTER_COMPONENT_OPTIONS, filters});
-        dispatch({type: types.SET_FILTER_COMPONENTS, filters: auxFilter});
-        if(!auxFilter.component_type) {
+        dispatch({ type: types.SET_FILTER_COMPONENT_OPTIONS, filters });
+        dispatch({ type: types.SET_FILTER_COMPONENTS, filters: auxFilter });
+        if (!auxFilter.component_type) {
             auxFilter.component_type = "grade_control_structure,pipe_appurtenances,special_item_point," +
-                                        "special_item_linear,special_item_area,channel_improvements_linear,"+
-                                        "channel_improvements_area,storm_drain,"+
-                                        "detention_facilities,land_acquisition,landscaping_area" // TODO save on a constant the useful components 
+                "special_item_linear,special_item_area,channel_improvements_linear," +
+                "channel_improvements_area,storm_drain," +
+                "detention_facilities,land_acquisition,landscaping_area" // TODO save on a constant the useful components 
         }
         datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
-            if(filtersComponents?.problems || filtersComponents?.mhfd_projects || filtersComponents?.projects_polygon_) {
-              dispatch({type: types.FILTER_BY_COMPONENTS, filtersComponents});  
+            if (filtersComponents?.problems || filtersComponents?.mhfd_projects || filtersComponents?.projects_polygon_) {
+                dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents });
             } else {
-                dispatch({type: types.FILTER_BY_COMPONENTS, filtersComponents: {}});
+                dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents: {} });
             }
-            
+
         })
     }
 }
@@ -424,12 +388,12 @@ export const getGalleryProblems = () => {
     const filterOptions = store.getState().map.filterProblemOptions;
     const filterComponent = store.getState().map.filterComponentOptions;
     return (dispatch: Function) => {
-        dispatch({type: types.SET_SPIN_CARD_PROBLEMS, spin: true });
+        dispatch({ type: types.SET_SPIN_CARD_PROBLEMS, spin: true });
         datasets.postData(SERVER.GALLERY_PROJECTS, options(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProblems => {
             if (galleryProblems?.length >= 0) {
-                dispatch({type: types.GALLERY_PROBLEMS, galleryProblems});
+                dispatch({ type: types.GALLERY_PROBLEMS, galleryProblems });
             }
-            dispatch({type: types.SET_SPIN_CARD_PROBLEMS, spin: false });
+            dispatch({ type: types.SET_SPIN_CARD_PROBLEMS, spin: false });
         });
     }
 }
@@ -439,136 +403,104 @@ export const getGalleryProjects = () => {
     const filterOptions = store.getState().map.filterProjectOptions;
     const filterComponent = store.getState().map.filterComponentOptions;
     return (dispatch: Function) => {
-        dispatch({type: types.SET_SPIN_CARD_PROJECTS, spin: true });
+        dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: true });
         datasets.postData(SERVER.GALLERY_PROJECTS, optionsProjects(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {
-               dispatch({type: types.GALLERY_PROJECTS, galleryProjects}); 
+                dispatch({ type: types.GALLERY_PROJECTS, galleryProjects });
             }
-            dispatch({type: types.SET_SPIN_CARD_PROJECTS, spin: false });
+            dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         });
     }
 }
 
 export const setSpinMapLoaded = (spin: boolean) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_SPIN_MAP_LOADED, spin: spin});
+        dispatch({ type: types.SET_SPIN_MAP_LOADED, spin: spin });
     }
 }
 
 export const setSelectedPopup = (currentPopup: number) => {
     return (dispatch: Function) => {
-        dispatch({type: types.CHANGE_CURRENT_POPUP, currentPopup: currentPopup});
+        dispatch({ type: types.CHANGE_CURRENT_POPUP, currentPopup: currentPopup });
     }
 }
 
 export const getDetailedPageProject = (id: number, type: string) => {
     return (dispatch: Function) => {
-        dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})
-        datasets.getData(SERVER.DETAILED_PAGE_PROJECT  + '?projectid=' + id + '&type=' + type, datasets.getToken()).then(detailed => {
-            dispatch({type: detailedTypes.REPLACE_DETAILED_PAGE, detailed});
+        dispatch({ type: detailedTypes.REPLACE_VALUE_SPIN })
+        datasets.getData(SERVER.DETAILED_PAGE_PROJECT + '?projectid=' + id + '&type=' + type, datasets.getToken()).then(detailed => {
+            dispatch({ type: detailedTypes.REPLACE_DETAILED_PAGE, detailed });
         });
     }
 }
 export const getDetailedPageProblem = (id: string) => {
     return (dispatch: Function) => {
-        dispatch({type: detailedTypes.REPLACE_VALUE_SPIN})
+        dispatch({ type: detailedTypes.REPLACE_VALUE_SPIN })
         datasets.getData(SERVER.PROBLEM_BY_ID + '/' + id, datasets.getToken()).then(detailed => {
-            dispatch({type: detailedTypes.REPLACE_DETAILED_PAGE, detailed});
+            dispatch({ type: detailedTypes.REPLACE_DETAILED_PAGE, detailed });
         });
     }
 }
 
 export const existDetailedPageProject = (url: string) => {
     return (dispatch: Function) => {
-        dispatch({type: detailedTypes.DISPLAY_MODAL, spin: false});
-        datasets.getData(SERVER.DETAILED_PAGE_PROJECT  + '?' + url, datasets.getToken()).then(detailed => {
+        dispatch({ type: detailedTypes.DISPLAY_MODAL, spin: false });
+        datasets.getData(SERVER.DETAILED_PAGE_PROJECT + '?' + url, datasets.getToken()).then(detailed => {
             // console.log(detailed);
-            if(detailed?.cartodb_id) {
-                dispatch({type: detailedTypes.DISPLAY_MODAL, spin: true});
+            if (detailed?.cartodb_id) {
+                dispatch({ type: detailedTypes.DISPLAY_MODAL, spin: true });
             }
         });
     }
 }
 export const existDetailedPageProblem = (url: string) => {
     return (dispatch: Function) => {
-        dispatch({type: detailedTypes.DISPLAY_MODAL, spin: false});
+        dispatch({ type: detailedTypes.DISPLAY_MODAL, spin: false });
         datasets.getData(SERVER.PROBLEM_BY_ID + '/' + url, datasets.getToken()).then(detailed => {
-            if(detailed?.cartodb_id) {
-                dispatch({type: detailedTypes.DISPLAY_MODAL, spin: true});
+            if (detailed?.cartodb_id) {
+                dispatch({ type: detailedTypes.DISPLAY_MODAL, spin: true });
             }
         });
     }
 }
-// TODO: eliminar
-export const getZoomAreaFilter = () => {
-    return (dispatch: Function) => {
-        datasets.getData(SERVER.GET_ZOOMAREA_FILTER).then(data => {
-            dispatch({type: types.GET_ZOOMAREA_FILTER, data});
-        })
-    }
-}
-// TODO: eliminar
-export const getValuesByGroupColumn = (table: string, column: string) => {
-    return (dispatch: Function) => {
-        const params = {
-            table: table,
-            column: column
-        }
-        datasets.postData(SERVER.GROUP_COLUMNS, params).then(data => {
-            dispatch({type: types.GET_VALUES_BY_GROUP_COLUMN, data});
-        } )
-    }
-}
-export const getParamsFilter = (bounds: string) => { 
+export const getParamsFilter = (bounds: string) => {
     return (dispatch: Function) => {
         dispatch(setSpinFilter(true));
         datasets.getData(SERVER.PARAM_FILTERS + '?bounds=' + bounds).then(params => {
-            if(params.components && params.problems && params.projects) {
-               dispatch({type: types.GET_PARAM_FILTERS, params}); 
+            if (params.components && params.problems && params.projects) {
+                dispatch({ type: types.GET_PARAM_FILTERS, params });
             }
             dispatch(setSpinFilter(false));
         })
     }
 }
 export const getParamFilterProjects = (bounds: string, data?: any) => {
-    if(data) {
-      data.county = data.county.replace("County","").trim();  
-      data.servicearea = data.servicearea.replace("Service Area","").trim();  
+    if (data) {
+        data.county = data.county.replace("County", "").trim();
+        data.servicearea = data.servicearea.replace("Service Area", "").trim();
     }
     return (dispatch: Function) => {
         // dispatch(setSpinFilter(true));
         datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then(params => {
             if (params) {
-                dispatch({type: types.GET_PARAM_FILTER_PROJECTS, params});
+                dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params });
             }
             // dispatch(setSpinFilter(false));
         })
     }
 }
 export const getParamFilterProblems = (bounds: string, data?: any) => {
-    if(data) {
-      data.county = data.county.replace("County","").trim();  
-      data.servicearea = data.servicearea.replace("Service Area","").trim();  
+    if (data) {
+        data.county = data.county.replace("County", "").trim();
+        data.servicearea = data.servicearea.replace("Service Area", "").trim();
     }
     return (dispatch: Function) => {
         // dispatch(setSpinFilter(true));
         datasets.postData(SERVER.PARAM_FILTER_PROBLEMS + '?bounds=' + bounds, data || {}).then(params => {
             if (params) {
-                dispatch({type: types.GET_PARAM_FILTER_PROBLEMS, params});
+                dispatch({ type: types.GET_PARAM_FILTER_PROBLEMS, params });
             }
             // dispatch(setSpinFilter(false));
-        })
-    }
-}
-// TODO: eliminar
-export const getParamFilterProblemsAsync = (bounds: string) => {
-    return (dispatch: Function) => {
-        //dispatch(setSpinFilter(true));
-        datasets.getData(SERVER.PARAM_FILTER_PROBLEMS + '?bounds=' + bounds).then(params => {
-            if (params) {
-                dispatch({type: types.GET_PARAM_FILTER_PROBLEMS, params});
-            }
-            //dispatch(setSpinFilter(false));
         })
     }
 }
@@ -577,175 +509,126 @@ export const getParamFilterComponents = (bounds: string, data?: any) => {
         // dispatch(setSpinFilter(true));
         datasets.postData(SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds, data || {}).then(params => {
             if (params) {
-                dispatch({type: types.GET_PARAM_FILTER_COMPONENTS, params});
+                dispatch({ type: types.GET_PARAM_FILTER_COMPONENTS, params });
             }
             // dispatch(setSpinFilter(false));
         })
     }
 }
-// TODO: eliminar
-export const getParamFilterComponentsAsync = (bounds: string) => {
-    return (dispatch: Function) => {
-        //dispatch(setSpinFilter(true));
-        datasets.getData(SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds).then(params => {
-            if (params) {
-                dispatch({type: types.GET_PARAM_FILTER_COMPONENTS, params});
-            }
-            //dispatch(setSpinFilter(false));
-        })
-    }
-}
 export const getComponentsByProblemId = (data: any) => {
     return (dispatch: Function) => {
-        dispatch({type: types.LOADER_TABLE_COMPONENTS, spin: true})
-        if(data.id) {
-          datasets.postData(SERVER.COMPONENTS_BY_ENTITYID, data, datasets.getToken()).then(data => {
-            let params = data.map((value:any) => {
-              return {
-                ...value, 
-                estimated_cost: value.estimated_cost,
-                percen: value.percen,
-                original_cost: value.original_cost
-              }
-            });
-            console.log("PARAMS", params);
-            dispatch({type: types.GET_COMPONENTS_BY_PROBLEMID, params});
-            dispatch({type: types.LOADER_TABLE_COMPONENTS, spin: false});
-          })  
+        dispatch({ type: types.LOADER_TABLE_COMPONENTS, spin: true })
+        if (data.id) {
+            datasets.postData(SERVER.COMPONENTS_BY_ENTITYID, data, datasets.getToken()).then(data => {
+                let params = data.map((value: any) => {
+                    return {
+                        ...value,
+                        estimated_cost: value.estimated_cost,
+                        percen: value.percen,
+                        original_cost: value.original_cost
+                    }
+                });
+                console.log("PARAMS", params);
+                dispatch({ type: types.GET_COMPONENTS_BY_PROBLEMID, params });
+                dispatch({ type: types.LOADER_TABLE_COMPONENTS, spin: false });
+            })
         } else {
-            dispatch({type: types.GET_COMPONENTS_BY_PROBLEMID, params: []});
-            dispatch({type: types.LOADER_TABLE_COMPONENTS, spin: false});
+            dispatch({ type: types.GET_COMPONENTS_BY_PROBLEMID, params: [] });
+            dispatch({ type: types.LOADER_TABLE_COMPONENTS, spin: false });
         }
-        
-    }
-}
-// TODO: eliminar
-export const getProblemCounter = (bounds: string, options: any) => {
-    return (dispatch: Function) => {
-        datasets.postData(SERVER.COUNTER_PROBLEMS + '?bounds=' + bounds, options).then(params => {
-            if(params) {
-                dispatch({type: types.SET_COUNTER_TAB, key: 'problems', total: params.total})
-            }
-        })
-    }
-}
-// TODO: eliminar
-export const getProjectCounter = (bounds: string, options: any) => {
-    return (dispatch: Function) => {
-        datasets.postData(SERVER.COUNTER_PROJECTS + '?bounds=' + bounds, options).then(params => {
-            if(params){
-                dispatch({type: types.SET_COUNTER_TAB, key: 'projects', total: params.total})
-            }
-        })
-    }
-}
-// TODO: eliminar
-export const getComponentsCounter = (bounds: string, options: any) => {
-    return (dispatch: Function) => {
-        datasets.postData(SERVER.COUNTER_COMPONENTS + '?bounds=' + bounds, options).then(params => {
-            if(params) {
-                dispatch({type: types.SET_COUNTER_TAB, key: 'components', total: params.total})
-            }
-        })
-    }
-}
 
+    }
+}
 export const setLabelFilterProblems = (filters: any) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_LABELS_FILTER_PROBLEMS, filters});
+        dispatch({ type: types.SET_LABELS_FILTER_PROBLEMS, filters });
     }
 }
 export const setLabelFilterProjects = (filters: any) => {
     return async (dispatch: Function) => {
-        dispatch({type: types.SET_LABELS_FILTER_PROJECTS, filters});
-    }
-}
-// TODO: eliminar
-export const setLabelFilterComponents = (filters: any) => {
-    return (dispatch: Function) => {
-        dispatch({type: types.SET_LABELS_FILTER_COMPONENTS, filters});
+        dispatch({ type: types.SET_LABELS_FILTER_PROJECTS, filters });
     }
 }
 export const setSpinFilter = (spin: boolean) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_SPIN_FILTER, spin })
+        dispatch({ type: types.SET_SPIN_FILTER, spin })
     }
 }
 export const setNameZoomArea = (name: string) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_NAME_ZOOMAREA, name});
+        dispatch({ type: types.SET_NAME_ZOOMAREA, name });
     }
 }
 export const setToggleModalFilter = (toggle: boolean) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_TOOGLE_MODAL, toggle })
+        dispatch({ type: types.SET_TOOGLE_MODAL, toggle })
     }
-} 
+}
 export const setOpacityLayer = (value: boolean) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_OPACITY_LAYER, value})
+        dispatch({ type: types.SET_OPACITY_LAYER, value })
     }
 }
 export const setCoordinatesJurisdiction = (coordinates: any) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_COORDINATES_JURISDICTION, coordinates})
+        dispatch({ type: types.SET_COORDINATES_JURISDICTION, coordinates })
     }
 }
 export const setFilterTabNumber = (tab: string) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_FILTER_TAB_NUMBER, tab})
+        dispatch({ type: types.SET_FILTER_TAB_NUMBER, tab })
     }
 }
 export const setTabCards = (tab: string) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_TAB_CARDS, tab});
+        dispatch({ type: types.SET_TAB_CARDS, tab });
     }
 }
 export const setBoundMap = (bounds: string) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_BOUNDS_MAP, bounds});
+        dispatch({ type: types.SET_BOUNDS_MAP, bounds });
     }
 }
 export const setHighlighted = (data: any) => {
     return (dispatch: Function) => {
-        dispatch({type: types.GET_HIGHLIGHTED, data});
+        dispatch({ type: types.GET_HIGHLIGHTED, data });
     };
 }
 
 export const setSelectedOnMap = (id: number, tab: string) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_SELECTED_ON_MAP, id, tab });
+        dispatch({ type: types.SET_SELECTED_ON_MAP, id, tab });
     };
 }
 
 export const mapSearchQuery = (query: string) => {
     return (dispatch: Function) => {
         if (!query) {
-            dispatch({type: types.MAP_SEARCH_QUERY, search: []});
+            dispatch({ type: types.MAP_SEARCH_QUERY, search: [] });
             return;
         }
         datasets.getData(SERVER.MAP_SEARCH + '/' + query, datasets.getToken()).then(search => {
-            dispatch({type: types.MAP_SEARCH_QUERY, search});
+            dispatch({ type: types.MAP_SEARCH_QUERY, search });
         })
     }
 }
 
 export const setApplyFilter = (applyFilter: boolean) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_APPLY_FILTERS, applyFilter });
+        dispatch({ type: types.SET_APPLY_FILTERS, applyFilter });
     }
 }
 export const getComponentsByProjid = (projectid: number, setCounter: Function) => {
-  return (dispatch: Function) => {
-    datasets.getData(SERVER.GET_COMPONENTS_BY_PROJECT(projectid), datasets.getToken()).then(components => {
-      setCounter(components.length);
-    });
-  }
+    return (dispatch: Function) => {
+        datasets.getData(SERVER.GET_COMPONENTS_BY_PROJECT(projectid), datasets.getToken()).then(components => {
+            setCounter(components.length);
+        });
+    }
 }
 export const getComponentCounter = (id: number, type: string, setCountComponents: Function) => {
     return (dispatch: Function) => {
-        datasets.postData(SERVER.COMPONENT_COUNTER, {value: id, column: type}, datasets.getToken()).then(components => {
-            const auxComponent = {...components}
+        datasets.postData(SERVER.COMPONENT_COUNTER, { value: id, column: type }, datasets.getToken()).then(components => {
+            const auxComponent = { ...components }
             setCountComponents(auxComponent);
             // dispatch({type: types.GET_COMPONENTS_COUNTER, components});
         })
@@ -754,19 +637,19 @@ export const getComponentCounter = (id: number, type: string, setCountComponents
 
 export const setZoomProjectOrProblem = (zoom: any) => {
     return (dispatch: Function) => {
-        dispatch({type: types.ZOOM_PROJECT_OR_PROBLEMS, zoom});
+        dispatch({ type: types.ZOOM_PROJECT_OR_PROBLEMS, zoom });
     }
 }
 
 export const setAutocomplete = (autocomplete: string) => {
     return (dispatch: Function) => {
-        dispatch({type: types.SET_AUTOCOMPLETE, autocomplete});
+        dispatch({ type: types.SET_AUTOCOMPLETE, autocomplete });
     }
 }
 
 export const setBBOXComponents = (bboxComponents: any) => {
     return (dispatch: Function) => {
-        dispatch({type: types.BBOX_COMPONENTS, bboxComponents});
+        dispatch({ type: types.BBOX_COMPONENTS, bboxComponents });
     }
 }
 
@@ -775,7 +658,7 @@ export const getBBOXComponents = (table: string, id: number) => {
         //dispatch(setSpinFilter(true));
         datasets.getData(SERVER.BBOX_COMPONENTS + '?table=' + table + '&id=' + id).then(bboxComponents => {
             if (bboxComponents) {
-                dispatch({type: types.BBOX_COMPONENTS, bboxComponents});
+                dispatch({ type: types.BBOX_COMPONENTS, bboxComponents });
             }
             //dispatch(setSpinFilter(false));
         })
@@ -787,23 +670,23 @@ export const addFavorite = (email: string, id: number, table: string) => {
     return (dispatch: Function) => {
         datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
             favorite.id = +favorite.id;
-            dispatch({type: types.ADD_FAVORITE, favorite});
+            dispatch({ type: types.ADD_FAVORITE, favorite });
         });
     }
 }
 
 export const deleteFavorite = (email: string, id: number, table: string) => {
     return (dispatch: Function) => {
-        datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, {email: email, id: id, table: table}, datasets.getToken()).then(favorite => {
-            dispatch({type: types.DELETE_FAVORITE, favorite: {id: id, table: table}});
+        datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
+            dispatch({ type: types.DELETE_FAVORITE, favorite: { id: id, table: table } });
         });
     }
 }
 
 export const favoriteList = (email: string) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.FAVORITES + '?email=' + email, datasets.getToken()).then(favorites  => {
-            dispatch({type: types.FAVORITE_LIST, favorites});
+        datasets.getData(SERVER.FAVORITES + '?email=' + email, datasets.getToken()).then(favorites => {
+            dispatch({ type: types.FAVORITE_LIST, favorites });
         });
     }
 }
@@ -812,18 +695,18 @@ export const favoriteList = (email: string) => {
 
 export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: any) => {
     return (dispatch: Function) => {
-        dispatch({type: types.FAVORITE_LOADER, favoritesLoader: 1});
-        let sendData: any = {email: email, isproblem: isproblem};
+        dispatch({ type: types.FAVORITE_LOADER, favoritesLoader: 1 });
+        let sendData: any = { email: email, isproblem: isproblem };
         if (extraOptions) {
-            sendData = {...sendData, ...{name: extraOptions.keyword, sortby: extraOptions.column, sorttype: extraOptions.order}};
+            sendData = { ...sendData, ...{ name: extraOptions.keyword, sortby: extraOptions.column, sorttype: extraOptions.order } };
         }
         datasets.postData(SERVER.FAVORITE_CARDS, sendData, datasets.getToken()).then(favoriteCards => {
             if (isproblem) {
-                dispatch({type: types.FAVORITE_CARDS_PROBLEMS, favoriteProblemCards: favoriteCards});
-                dispatch({type: types.FAVORITE_LOADER, favoritesLoader: -1});
+                dispatch({ type: types.FAVORITE_CARDS_PROBLEMS, favoriteProblemCards: favoriteCards });
+                dispatch({ type: types.FAVORITE_LOADER, favoritesLoader: -1 });
             } else {
-                dispatch({type: types.FAVORITE_CARDS_PROJECTS, favoriteProjectCards: favoriteCards});
-                dispatch({type: types.FAVORITE_LOADER, favoritesLoader: -1});
+                dispatch({ type: types.FAVORITE_CARDS_PROJECTS, favoriteProjectCards: favoriteCards });
+                dispatch({ type: types.FAVORITE_LOADER, favoritesLoader: -1 });
             }
         });
     }
@@ -833,19 +716,6 @@ export const changeTutorialStatus = (tutorialStatus: boolean) => {
     return (dispatch: Function) => {
         // console.log('tutorial ', tutorialStatus);
         // console.log({type: types.TUTORIAL_STATUS, tutorialStatus});
-        dispatch({type: types.TUTORIAL_STATUS, tutorialStatus});
+        dispatch({ type: types.TUTORIAL_STATUS, tutorialStatus });
     }
-}
-// TODO: eliminar
-export const getPlaceOnCenter = (center: any) => {
-  const sortArray = ['Jurisdiction','Service Area','County',null];
-  return (dispatch: Function) => {
-    datasets.getData(SERVER.MAP_CENTER_SEARCH+`?coord=${center[0]+","+center[1]}`, datasets.getToken()).then((places:any) => {
-      if(places.data){ 
-        places = places.data.sort((a:any, b:any) => sortArray.indexOf(a.filter) - sortArray.indexOf(b.filter));
-        dispatch({type: types.SET_PLACES_ON_CENTER, places})
-      }
-      
-    });
-  }
 }
