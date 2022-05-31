@@ -114,6 +114,7 @@ const projectReducer = (state = initState, action: any) => {
         status: action.status
       }
     }
+    // TODO: eliminar
     case types.SET_EDIT:{
       return {
         ...state,

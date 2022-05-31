@@ -1,4 +1,5 @@
 export const SET_SAVE = 'SET_SAVE';
+// TODO: eliminar
 export const SET_EDIT = 'SET_EDIT';
 export const SET_PROJECT_LOCATION = 'SET_PROJECT_LOCATION';
 export const GET_LOCATION = 'GET_LOCATION';
