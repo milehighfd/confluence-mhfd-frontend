@@ -35,20 +35,6 @@ const profile = (state = initProfile, action: any) => {
         userInformation: action.user,
         spin: false
       }
-    // TODO: eliminar
-    case types.GET_USER_PROJECTS:
-      return {
-        ...state,
-        userProjects: action.projects,
-        loaderCardProjects: false
-      }
-    // TODO: eliminar
-    case types.GET_USER_PROBLEMS:
-      return {
-        ...state,
-        userProblems: action.problems,
-        loaderCardProblems: false
-      }
     case types.UPLOAD_PHOTO:
       return {
         ...state,
@@ -69,18 +55,6 @@ const profile = (state = initProfile, action: any) => {
         ...state,
         spin: action.spin
       }
-    // TODO: eliminar
-    case types.SET_VALUE_LOADER_PROJECT:
-      return {
-        ...state,
-        loaderCardProjects: action.spin
-      }
-    // TODO: eliminar
-    case types.SET_VALUE_LOADER_PROBLEM:
-      return {
-        ...state,
-        loaderCardProblems: action.spin
-      }
     case types.UPDATE_USER_INFORMATION:
       return {
         ...state,
@@ -95,19 +69,7 @@ const profile = (state = initProfile, action: any) => {
         ...state,
         groupOrganization: action.data
       }
-    // TODO: eliminar
-    case types.GET_ALL_USER_PROJECTS:
-      return {
-        ...state,
-        allUserProjects: action.projects
-      }
-    // TODO: eliminar
-    case types.SET_VALUE_LOADER_ALL:
-      return {
-        ...state,
-        laoderAllProjects: action.spin
-      }
-    case types.GET_GUEST_USER: 
+    case types.GET_GUEST_USER:
       return {
         ...state,
         userInformation: action.user
