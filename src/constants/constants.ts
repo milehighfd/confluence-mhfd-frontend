@@ -13,6 +13,7 @@ export const MAP_RESIZABLE_TRANSITION = 0.7;
 /* Map Constants mapbox://styles/milehighfd/ckd4lkry715mf1imadq67n7r5 ${SERVER.URL_BASE}/style/ckarchcyg0vjl1ipcm4kap2k0/milehighfd/${MAPBOX_TOKEN} */
 
 export const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
+// TODO: eliminar
 export const HERE_TOKEN = 'aRgPPlNDstxfi9lnBVXAkAN5fUu5jC1D3fuZoDeyUFw';
 export const NEARMAP_TOKEN = 'NzA3ZjlkODYtMTNiMC00Y2E3LWE1MzAtYzU3NWUzMmJjMGUw';
 export const MAP_DROPDOWN_ITEMS = [
@@ -33,7 +34,7 @@ export const MAP_DROPDOWN_ITEMS = [
         style: 'mapbox://styles/milehighfd/ck4jflu4000ry1cmnh7fdp2oi'
     }
 ];
-
+// TODO: eliminar
 export const DENVER_LOCATION = {
   center: [-104.9063129121965, 39.768682416183],
   zoom: 10.8
@@ -173,6 +174,7 @@ export const PROJECTS_MAP_STYLES = {
     PROJECTS_LINE
   ]
 }
+// TODO: eliminar
 export const STREAMS_POINT_FILTER = {
   name: 'streams',
   tiles: [
@@ -255,6 +257,7 @@ export const PROJECT_TYPES_AND_NAME = [
   // }
 ]
 
+// TODO: eliminar
 export const NEW_PROJECT_FORM_COST = {
   subtotal: 0,
   additional: {
@@ -325,6 +328,7 @@ export const DROPDOWN_ORGANIZATION = {
   ]
 }
 
+// TODO: eliminar
 export const ORGANIZATION_COORDINATES = {
   REGIONAL_AGENCY: [{
     name: 'SEMSWA Stormwater Service Area Boundary',
@@ -639,6 +643,7 @@ export const ORGANIZATION_COORDINATES = {
   ]
 }
 
+// TODO: eliminar
 export const buttonsNewProject = [
     {
       disabled: false,
@@ -970,6 +975,7 @@ export const COUNTIES = [
   "Jefferson"
 ];
 
+// TODO: eliminar
 export const FOOTER_PROJECT_CAPITAL = [
   {
     dataIndex: 'Component',
@@ -1013,6 +1019,7 @@ export const GOAL = [
   }
 ];
 
+// TODO: eliminar
 export const GOAL_STUDY = [
   {
     name: "Reduce flood risk to Structures",
@@ -1038,6 +1045,7 @@ export const GOAL_STUDY = [
   }
 ];
 
+// TODO: eliminar
 export const REQUEST_FUNDING_YEAR = [
   {
     name: (new Date()).getFullYear(),
@@ -1053,6 +1061,8 @@ export const REQUEST_FUNDING_YEAR = [
     id: (new Date()).getFullYear() + 3
   }
 ]
+
+// TODO: eliminar
 export const REQUEST_START_YEAR = [
   {
     name: (new Date()).getFullYear(),
@@ -1321,6 +1331,7 @@ export const  COLUMNS_USER_ACTIVITY = [
   },
 ];
 
+// TODO: eliminar
 export const STATUS_PROJECT = [
   {
     name: "All",
@@ -1359,6 +1370,8 @@ export const STATUS_PROJECT = [
     id: "requested"
   },
 ]
+
+// TODO: eliminar
 export const VALUE_MITIGATION_TYPES_COL_1 = [
   {
     name: "Increased Conveyance - Crossing",
@@ -1382,6 +1395,7 @@ export const VALUE_MITIGATION_TYPES_COL_1 = [
   }
 ]
 
+// TODO: eliminar
 export const VALUE_MITIGATION_TYPES_COL_2 = [
   {
     name: "",
@@ -1404,6 +1418,7 @@ export const VALUE_MITIGATION_TYPES_COL_2 = [
     value: 35
   }
 ]
+// TODO: eliminar
 export const VALUE_GRAPH = [
   {
     name: "Unincorporated Adams County",
@@ -1584,8 +1599,10 @@ export const GOVERNMENT_STAFF = "government_staff";
 export const CONSULTANT = "consultant";
 export const OTHER = "other";
 /* Unselected Items on Maps Errors */
+// TODO: eliminar
 export const NO_COMPONENTS_ERROR = 'Must select at least one map component.';
 export const NO_POLYGON_ERROR = 'Must draw a polygon on the map to continue.';
+// TODO: eliminar
 export const NO_MARKER_ERROR = 'Must put the marker on the map to continue.';
 /* End of Unselected Items on Maps Errors */
 
@@ -1595,14 +1612,22 @@ export const FILTER_PROJECTS_TRIGGER = 'Projects';
 export const FILTER_COMPONENTS_TRIGGER = 'Components';
 
 export const PROJECT_TYPE = 'projectType';
-export const ESTIMATED_COST = 'estimatedCost';
+//export const ESTIMATED_COST = 'estimatedCost';
+// TODO: eliminar
 export const CAPITAL_STATUS = 'capitalStatus';
+// TODO: eliminar
 export const STUDY_STATUS = 'studyStatus';
+// TODO: eliminar
 export const START_YEAR = 'startYear';
+// TODO: eliminar
 export const COMPLETED_YEAR = 'completedYear';
+// TODO: eliminar
 export const CAPITAL_GOAL = 'goal';
+// TODO: eliminar
 export const STUDY_GOAL = 'goal';
+// TODO: eliminar
 export const MHFD_DOLLARS_ALLOCATED = 'mhfdDollarsAllocated';
+// TODO: eliminar
 export const WORK_PLAN_YEAR = 'workPlanYear';
 
 export const PROBLEM_TYPE = 'problemType';
@@ -1615,6 +1640,7 @@ export const STREAM_NAME = 'streamName';
 export const MHFD_DOLLAR_REQUESTED = 'mhfdDollarRequest';
 export const CREATOR = 'creator';
 
+// TODO: eliminar
 export const FILTER_TYPES = {
   /* Project Filters */
   capital: 'Capital',
@@ -1670,11 +1696,13 @@ export const FILTER_TYPES = {
   /* End of Project Filters */
 };
 
+// TODO: eliminar
 export const DROPDOWN_PROJECT_FILTERS = [
   PROBLEM_TYPE, SERVICE_AREA_VALUE, JURIDICTION, COUNTY, LG_MANAGER,
   REQUESTED_START_YEAR, STREAM_NAME, MHFD_DOLLAR_REQUESTED
 ];
 
+// TODO: eliminar
 export const SORTED_LIST = ['dateCreated', 'requestName', 'projectType', 'estimatedCost'];
 
 export const SORTED_PROBLEMS = [{
@@ -1713,6 +1741,7 @@ const twoYears = '' + (actualYear + 2);
 const threeYears = '' + (actualYear + 3);
 const fourYears = '' + (actualYear + 4);
 
+// TODO: eliminar
 export const PROJECT_TABS = [
   {
     name: 'Capital',
@@ -1728,6 +1757,7 @@ export const PROJECT_TABS = [
   }
 ];
 
+// TODO: eliminar
 export const MAINTENANCE_BODY = {
   workspace: [],
   debrisManagement: [],
@@ -1737,6 +1767,7 @@ export const MAINTENANCE_BODY = {
   restoration: []
 }
 
+// TODO: eliminar
 export const DEFAULT_BODY = {
   workspace: [],
   [todaysYear]: [],
