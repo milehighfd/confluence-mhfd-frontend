@@ -585,17 +585,6 @@ const MapView = () => {
     setNameZoomArea(zoomarea); // add for the dropdown
   }, []);
 
-  // TODO: eliminar
-
-  // useEffect(() => {
-  //   if (filters) {
-  //     setCurrentFilters(filters);
-  //   }
-  //   if (designation === 'guest') {
-  //     setApplyFilter(false);
-  //   }
-  // }, [filters]);
-
   const handleToggle = () => {
     if (tabPosition === '2') {
       setTabPosition('0');
@@ -631,24 +620,7 @@ const MapView = () => {
       setTextStyle(purple);
     }
   }
-  const setCurrentFilters = (filtersData: FilterTypes) => {
-    const values: Array<{ key: string, value: string }> = [];
-    for (const key in filtersData) {
-      if (Array.isArray(filtersData[key])) {
-        (filtersData[key] as Array<string>).forEach((value: string) => {
-          values.push({
-            key: key,
-            value: value
-          });
-        });
-      } else {
-        values.push({
-          key: key,
-          value: filtersData[key] as string
-        });
-      }
-    }
-  }
+
   const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
     const user = userInformation;
     user.polygon = coordinates;
