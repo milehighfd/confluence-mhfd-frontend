@@ -25,6 +25,7 @@ export const saveUserPending = (users: any) => {
     dispatch({ type: types.SAVE_USER_PENDING, users });
   }
 }
+// TODO: eliminar
 export const deleteUserPending = (index: number) => {
   return (dispatch: Function, getState: Function) => {
     const state = getState();
@@ -33,7 +34,7 @@ export const deleteUserPending = (index: number) => {
     dispatch({ type: types.DELETE_USER_PENDING, users });
   }
 }
-
+// TODO: eliminar
 export const addUserActivated = (user: any) => {
   return (dispatch: Function, getState: Function) => {
     const state = getState();
@@ -42,7 +43,7 @@ export const addUserActivated = (user: any) => {
     dispatch({ type: types.DELETE_USER_ACTIVATED, users });
   }
 }
-
+// TODO: eliminar
 export const addUserPending = (user: any) => {
   return (dispatch: Function, getState: Function) => {
     const state = getState();
