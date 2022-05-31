@@ -74,15 +74,12 @@ export const useProjectDispatch = () => {
     saveProjectAcquisition: (acquisition: any) => {
       dispatch(saveAcquisition(acquisition));
     },
-    // TODO: eliminar
     saveProjectMaintenance: (maintenance: any) => {
       dispatch(saveMaintenance(maintenance));
     },
-    // TODO: eliminar
     saveProjectStudy: (study: any) => {
       dispatch(saveStudy(study));
     },
-    // TODO: eliminar
     saveProjectCapital: (capital: any) => {
       dispatch(saveCapital(capital));
     },
@@ -167,11 +164,9 @@ export const useProjectDispatch = () => {
     setStreamsIds: (streamsIntersectedIds: any) => {
       dispatch(setStreamsIds(streamsIntersectedIds));
     },
-    // TODO: eliminar
     editProjectSpecial: (data: any) => {
       dispatch(editSpecial(data));
     },
-    // TODO: eliminar
     editProjectAcquisition: (data: any) => {
       dispatch(editAcquisition(data));
     },

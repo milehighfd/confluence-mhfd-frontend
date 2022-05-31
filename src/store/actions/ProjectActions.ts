@@ -59,7 +59,7 @@ export const saveAcquisition = (data: any) => {
     })
   };
 };
-// TODO: eliminar
+
 export const saveCapital = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -86,7 +86,6 @@ export const saveCapital = (data: any) => {
     })
   };
 };
-// TODO: eliminar
 export const saveMaintenance = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -113,7 +112,6 @@ export const saveMaintenance = (data: any) => {
     })
   };
 };
-// TODO: eliminar
 export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -140,7 +138,6 @@ export const saveStudy = (data: any) => {
     })
   };
 };
-// TODO: eliminar
 export const editSpecial = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -167,7 +164,6 @@ export const editSpecial = (data: any) => {
     })
   };
 };
-// TODO: eliminar
 export const editAcquisition = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -195,7 +191,6 @@ export const editAcquisition = (data: any) => {
     })
   };
 };
-// TODO: eliminar
 export const editStudy = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -223,7 +218,6 @@ export const editStudy = (data: any) => {
     })
   };
 };
-// TODO: eliminar
 export const editMaintenance = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -251,7 +245,6 @@ export const editMaintenance = (data: any) => {
     })
   };
 };
-// TODO: eliminar
 export const editCapital = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -347,7 +340,6 @@ export const changeAddLocationState = (isAddLocation: boolean) => {
     dispatch({type: types.ADD_LOCATION, isAddLocation});
   }
 }
-// TODO: eliminar
 export const getComponentsIntersected = (geom: any) => {
   
   return (dispatch: Function) => {
@@ -363,25 +355,6 @@ export const setComponentIntersected = (listComponents: any) => {
     dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
   }
 } 
-// TODO: eliminar
-export const getComponentsSorted = ( components: any) => {
-  return (dispatch: Function) => {
-    datasets.postData(SERVER.GET_LIST_COMPONENTS_SORTED, components, datasets.getToken()).then(listComponents => {
-      dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
-    });
-  }
-}
-// this can receive geom or not, if geom add components, else just update components fields 
-// TODO: eliminar
-export const addComponentsByPolygon = (components: any, geom: any) => {
-  return (dispatch: Function) => {
-    datasets.postData(SERVER.ADD_COMPONENTS_POLYGON, {components, geom}, datasets.getToken()).then(data => {
-      // set components and set streams 
-      // dispatch({type: types.SET_LIST_COMPONENTS, listComponents: data.components });
-      // dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected: data.geom});
-    });
-  }
-}
 
 export const getServiceAreaPoint = (geom:any ) => {
   return (dispatch: Function) => {
