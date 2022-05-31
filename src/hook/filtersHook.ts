@@ -12,12 +12,15 @@ export const useFilterState = () => {
 export const useFilterDispatch = () => {
    const dispatch = useDispatch();
    return {
+      // TODO: eliminar
       getDropdownFilters: (items : Array<string>) => {
          dispatch(getDropdownFilters(items));
       },
+      // TODO: eliminar
       getUserFilters: (id : string, userName: string) => {
          dispatch(getUserFilters(id, userName));
       },
+      // TODO: eliminar
       sortProjects: (sortBy : string) => {
          dispatch(sortProjects(sortBy));
       }

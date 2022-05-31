@@ -3,6 +3,7 @@ import * as datasets from "../../Config/datasets";
 
 import * as types from '../types/filterTypes';
 
+// TODO: eliminar
 export const getDropdownFilters = (items : Array<string>) => {
   return async (dispatch: Function) => {
     const dropdownFilters = {};
@@ -17,12 +18,14 @@ export const getDropdownFilters = (items : Array<string>) => {
   }
 }
 
+// TODO: eliminar
 const getFilterById = async (field : string) => {
   return await datasets.getData(SERVER.FILTER_BY_FIELD + '/' + field, datasets.getToken()).then(value => {
     return { [field]: value };
   });
 }
 
+// TODO: eliminar
 export const filterProjectCreators = () => {
   return (dispatch: Function) => {
       datasets.getData(SERVER.FILTER_PROJECT_CREATORS, datasets.getToken()).then(data => {
@@ -31,12 +34,14 @@ export const filterProjectCreators = () => {
   }
 }
 
+// TODO: eliminar
 export const getUserFilters = (id : string, userName: string) => {
   return (dispatch : Function) => {
     dispatch({ type: types.SET_USERS_DATA, data: { [id]: userName }});
   }
 }
 
+// TODO: eliminar
 export const sortProjects = (sortBy : string) => {
   return (dispatch : Function) => {
     const data = sortBy?{ requestName: sortBy }:{};
