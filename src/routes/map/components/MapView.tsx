@@ -14,7 +14,6 @@ import { capitalLetter, elementCost, getStatus } from '../../../utils/utils';
 import { useSelector } from "react-redux";
 import RheoStatService from '../../../Components/FiltersProject/NewProblemsFilter/RheoStatService';
 import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
-import { useFilterState } from "../../../hook/filtersHook";
 import { useDetailedState } from "../../../hook/detailedHook";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
@@ -51,9 +50,6 @@ const MapView = () => {
     applyFilter,
     spinFilters: spinFilter
   } = useMapState();
-  const {
-    filters,
-  } = useFilterState();
   const {
     detailed,
     displayModal
@@ -589,14 +585,16 @@ const MapView = () => {
     setNameZoomArea(zoomarea); // add for the dropdown
   }, []);
 
-  useEffect(() => {
-    if (filters) {
-      setCurrentFilters(filters);
-    }
-    if (designation === 'guest') {
-      setApplyFilter(false);
-    }
-  }, [filters]);
+  // TODO: eliminar
+
+  // useEffect(() => {
+  //   if (filters) {
+  //     setCurrentFilters(filters);
+  //   }
+  //   if (designation === 'guest') {
+  //     setApplyFilter(false);
+  //   }
+  // }, [filters]);
 
   const handleToggle = () => {
     if (tabPosition === '2') {
