@@ -76,6 +76,7 @@ const getUserCoordinates = () => {
   }
   return bottomLongitude + ',' + bottomLatitude + ',' + topLongitude + ',' + topLatitude;
 }
+// TODO: eliminar
 export const getUserProblem = (option: { keyword: string, column: string, order: string }) => {
   return async (dispatch: Function) => {
     dispatch({ type: types.SET_VALUE_LOADER_PROBLEM, spin: true });
@@ -88,6 +89,7 @@ export const getUserProblem = (option: { keyword: string, column: string, order:
     });
   }
 }
+// TODO: eliminar
 export const getUserProject = (option: { keyword: string, column: string, order: string }, projecttype?: string ) => {
   return async (dispatch: Function) => {
     dispatch({ type: types.SET_VALUE_LOADER_PROJECT, spin: true });
@@ -100,6 +102,7 @@ export const getUserProject = (option: { keyword: string, column: string, order:
     });
   }
 }
+// TODO: eliminar
 export const getAllUserProjects = () => {
   return async (dispatch: Function) => {
     dispatch({ type: types.SET_VALUE_LOADER_ALL, spin: true });
