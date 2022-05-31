@@ -72,7 +72,7 @@ export default () => {
         <Link to={userApproved ? '/work-plan': '#'}>
           <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}}/>
           <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}}/>
-          <span style={{marginLeft: collapsed ? '-20px' : '0px'}}>project management</span>
+          <span style={{marginLeft: collapsed ? '-20px' : '0px'}}>work plan</span>
         </Link>
       </Menu.Item> : ''}
       {(appUser.designation !== 'guest') ?

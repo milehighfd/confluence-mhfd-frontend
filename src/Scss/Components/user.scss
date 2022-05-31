@@ -154,6 +154,9 @@
   .ant-pagination-item-active a {
     color: $white;
   }
+  .ant-pagination-options {
+    display: none;
+  }
   .ant-pagination-item-active {
     background: $green;
     border-color: $green;
