@@ -25,33 +25,6 @@ export const saveUserPending = (users: any) => {
     dispatch({ type: types.SAVE_USER_PENDING, users });
   }
 }
-// TODO: eliminar
-export const deleteUserPending = (index: number) => {
-  return (dispatch: Function, getState: Function) => {
-    const state = getState();
-    const users = [...state.users.usersPending];
-    users.splice(index, 1);
-    dispatch({ type: types.DELETE_USER_PENDING, users });
-  }
-}
-// TODO: eliminar
-export const addUserActivated = (user: any) => {
-  return (dispatch: Function, getState: Function) => {
-    const state = getState();
-    const users = [...state.users.usersActivated];
-    users.push(user);
-    dispatch({ type: types.DELETE_USER_ACTIVATED, users });
-  }
-}
-// TODO: eliminar
-export const addUserPending = (user: any) => {
-  return (dispatch: Function, getState: Function) => {
-    const state = getState();
-    const users = [...state.users.usersPending];
-    users.push(user);
-    dispatch({ type: types.DELETE_USER_PENDING, users });
-  }
-}
 
 export const getUserActivity = ( url: string) => {
   return (dispatch: Function) => {
