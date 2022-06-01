@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
+import { Modal, Button, Row, Col, Popover, Select } from 'antd';
 import { SERVER } from "../../../Config/Server.config";
 import { AlertView } from "../../Alerts/AlertView";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
@@ -16,58 +15,47 @@ import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
 
-const { TextArea } = Input;
 const { Option } = Select;
-const { Panel } = Collapse;
 const content = (<div className="popver-info">The purchase of property that is shown to have high flood risk or is needed to implement master plan improvements.</div>);
-const content00 = (<div className="popver-info"></div>);
-const content01 = (<div className="popver-info"></div>);
-const content02 = (<div className="popver-info"></div>);
 const content03 = (<div className="popver-info">Progress indicates the current status of the acquisition.</div>);
 const content04 = (<div className="popver-info">This is the best available estimate of when the acquisition will close.</div>);
-const content05 = (<div className="popver-info"></div>);
-const content06 = (<div className="popver-info"></div>);
-const content08 = (<div className="popver-info"></div>);
 const selec = [0];
 
-for(var i = 1 ; i < 21 ; i++){
+for (var i = 1; i < 21; i++) {
   selec.push(i);
 }
 const stateValue = {
   visibleAcqui: false,
 }
 
-export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible, locality, data, editable }:
-  {visibleAcquisition: boolean, 
-    setVisibleAcquisition: Function, 
-    nameProject: string , 
-    setNameProject: Function, 
-    typeProject: string, 
-    setVisible: Function, 
-    locality?:any, 
+export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, nameProject, setNameProject, typeProject, setVisible, locality, data, editable }:
+  {
+    visibleAcquisition: boolean,
+    setVisibleAcquisition: Function,
+    nameProject: string,
+    setNameProject: Function,
+    typeProject: string,
+    setVisible: Function,
+    locality?: any,
     data: any,
     editable: boolean
-  } ) => {
+  }) => {
 
-  const {saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor} = useProjectDispatch();
-  const {currentServiceAreaCounty} =useProjectState();
-  const {organization, groupOrganization} = useProfileState();
-  const {userInformation} = useProfileState();
+  const { saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor } = useProjectDispatch();
+  const { organization } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
-  const [description, setDescription] =useState('');
+  const [description, setDescription] = useState('');
   const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
-  const [sponsor, setSponsor] = useState(organization+"");
+  const [sponsor, setSponsor] = useState(organization + "");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [progress, setProgress] = useState('');
   const [purchaseDate, setPurchaseDate] = useState('');
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState<any>();
   const [files, setFiles] = useState<any[]>([]);
-  const [name, setName ] = useState(false);
-  const [disableName, setDisableName ] = useState(true);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
@@ -78,46 +66,46 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
   var year = date.getFullYear();
   const [lengthName, setlengthName] = useState(0);
 
-  useEffect(()=>{
-    if(save === true){
+  useEffect(() => {
+    if (save === true) {
       let params = new URLSearchParams(history.location.search)
       let _year = params.get('year');
       var acquisition = new Project();
       acquisition.year = _year ? _year : acquisition.year;
       let cservice = "";
-      serviceArea.map((element:any) => {
-        cservice= cservice + element + ",";
+      serviceArea.map((element: any) => {
+        cservice = cservice + element + ",";
       })
-      if(cservice.length != 0 ){
-        cservice = cservice.substring(0, cservice.length-1)
+      if (cservice.length != 0) {
+        cservice = cservice.substring(0, cservice.length - 1)
       }
       let ccounty = "";
-      county.map((element:any) => {
-        ccounty= ccounty + element + ",";
+      county.map((element: any) => {
+        ccounty = ccounty + element + ",";
       })
-      if(ccounty.length != 0 ){
-        ccounty = ccounty.substring(0, ccounty.length-1)
+      if (ccounty.length != 0) {
+        ccounty = ccounty.substring(0, ccounty.length - 1)
       }
       let cjurisdiction = "";
-      jurisdiction.map((element:any) => {
-        cjurisdiction= cjurisdiction + element + ",";
+      jurisdiction.map((element: any) => {
+        cjurisdiction = cjurisdiction + element + ",";
       })
-      if(cjurisdiction.length != 0 ){
-        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
+      if (cjurisdiction.length != 0) {
+        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1)
       }
-      
+
       let csponsor = "";
-      if(cosponsor){
-        cosponsor.map((element:any) => {
-          csponsor= csponsor + element + ",";
-        }); 
-        if(cosponsor.length != 0 ){
-          csponsor = csponsor.substring(0, csponsor.length-1)
+      if (cosponsor) {
+        cosponsor.map((element: any) => {
+          csponsor = csponsor + element + ",";
+        });
+        if (cosponsor.length != 0) {
+          csponsor = csponsor.substring(0, csponsor.length - 1)
         }
       }
       acquisition.servicearea = cservice;
       acquisition.county = ccounty;
-      acquisition.jurisdiction= cjurisdiction;
+      acquisition.jurisdiction = cjurisdiction;
       acquisition.sponsor = sponsor;
       acquisition.cosponsor = csponsor;
       acquisition.projectname = nameProject;
@@ -127,47 +115,45 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       acquisition.acquisitionanticipateddate = purchaseDate;
       acquisition.files = files;
       acquisition.editProject = editprojectid;
-      acquisition.locality = locality? locality:'';
+      acquisition.locality = locality ? locality : '';
       acquisition.cover = cover;
-      if(swSave){
+      if (swSave) {
         editProjectAcquisition(acquisition);
-      }else{
+      } else {
         saveProjectAcquisition(acquisition);
       }
       setVisibleAcquisition(false);
       setVisible(false);
     }
-  },[save]);
+  }, [save]);
 
-  const projectReturn = useSelector((state:any)=>({
-    state
-  }));
-  const parseStringToArray = (list:string) => {
-    if( list ){
+
+  const parseStringToArray = (list: string) => {
+    if (list) {
       return list.split(',');
     }
- }
- useEffect(()=>{
-  let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
-  if(juris) {
-    setSponsor(organization);
-  } else {
-    setSponsor(locality);
   }
-},[organization]);
-  useEffect(()=>{
-    if(data!== 'no data' ) {
+  useEffect(() => {
+    let juris = JURISDICTION.find((elem: any) => elem.includes(organization));
+    if (juris) {
+      setSponsor(organization);
+    } else {
+      setSponsor(locality);
+    }
+  }, [organization]);
+  useEffect(() => {
+    if (data !== 'no data') {
       setSwSave(true);
       setDescription(data.description);
       setNameProject(data.projectname);
-      if(data.acquisitionprogress == null){
+      if (data.acquisitionprogress == null) {
         setProgress('');
-      }else{
-         setProgress(data.acquisitionprogress);
+      } else {
+        setProgress(data.acquisitionprogress);
       }
-      if(data.acquisitionanticipateddate == null){
+      if (data.acquisitionanticipateddate == null) {
         setPurchaseDate('');
-      }else{
+      } else {
         setPurchaseDate(data.acquisitionanticipateddate);
       }
       setEditsetprojectid(data.projectid);
@@ -176,67 +162,54 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
       setjurisdiction(parseStringToArray(data.jurisdiction));
       setCosponsor(parseStringToArray(data.cosponsor));
       setSponsor(data.sponsor);
-      setTimeout(()=>{
+      setTimeout(() => {
         getData(SERVER.GET_GEOM_BY_PROJECTID(data.projectid), getToken())
-        .then(
-          (r: any) => {
-            let coor = JSON.parse(r.createdCoordinates);
-            let coordinates = coor.coordinates[0];
-            setGeom(coordinates);
-            setEditLocation(coordinates);
-          },
-          (e) => {
-            console.log('e', e);
-          }
-        )  
-      },1200);
+          .then(
+            (r: any) => {
+              let coor = JSON.parse(r.createdCoordinates);
+              let coordinates = coor.coordinates[0];
+              setGeom(coordinates);
+              setEditLocation(coordinates);
+            },
+            (e) => {
+              console.log('e', e);
+            }
+          )
+      }, 1200);
     } else {
       setEditLocation(undefined);
     }
-  },[data]);
+  }, [data]);
 
-  useEffect(()=>{
-    if(nameProject !== '' && geom != undefined && description != ''  && serviceArea.length !== 0  && county.length !== 0  && jurisdiction.length !== 0  && sponsor !== ''){
+  useEffect(() => {
+    if (nameProject !== '' && geom != undefined && description != '' && serviceArea.length !== 0 && county.length !== 0 && jurisdiction.length !== 0 && sponsor !== '') {
       setDisable(false);
     }
-    else{
+    else {
       setDisable(true);
     }
-  },[nameProject, geom, description, serviceArea, county,jurisdiction, sponsor]);
+  }, [nameProject, geom, description, serviceArea, county, jurisdiction, sponsor]);
 
 
-  useEffect(()=>{
+  useEffect(() => {
     setServiceAreaCounty({});
     setJurisdictionSponsor(undefined);
-    setStreamIntersected({geom:null});
+    setStreamIntersected({ geom: null });
     setStreamsIds([]);
     return () => {
       setGeom('');
     }
-  },[]);
-  
-  // useEffect(()=>{
-  //   if(swSave === true){
-  //     if(locality !== currentServiceAreaCounty.jurisdiction){
-  //       alert("It is not within your jurisdiction.");
-  //     }
-  //   }else{
-  //     if(currentServiceAreaCounty.jurisdiction ){
-  //       if(locality !== currentServiceAreaCounty.jurisdiction){
-  //         alert("It is not within your jurisdiction.");
-  //       }
-  //     }
-  //   }
-  // },[currentServiceAreaCounty.jurisdiction]);
+  }, []);
+
   const getTextWidth = (text: any) => {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     let fontType = "16px sans-serif";
     try {
-      if(context) {
+      if (context) {
         context.font = fontType;
         let length = context.measureText(text).width;
-        if(!isNaN(length)) {
+        if (!isNaN(length)) {
           setlengthName(length);
         } else {
           setlengthName(0);
@@ -250,38 +223,25 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 
   useEffect(() => {
     getTextWidth(nameProject);
-  },[nameProject]);
+  }, [nameProject]);
 
-  const onChange = (e: any)=>{
+  const onChange = (e: any) => {
     setNameProject(e.target.value);
-    /*if(name===true){
-      setNameProject(e.target.value);
-    }*/
-  };
-  const apllyName = ()=>{
-    if(name === true){
-      setDisableName(true);
-      setName(false);
-    }
-    else{
-      setDisableName(false);
-      setName(true);
-    }
-  };
-  
-  const handleOk = (e: any) => {
-    setVisibleAlert( true);
   };
 
-  const apllyProgress = (e: any)=>{
+  const handleOk = (e: any) => {
+    setVisibleAlert(true);
+  };
+
+  const apllyProgress = (e: any) => {
     setProgress(e);
   };
 
-  const apllyPurchaseDate = (e: any)=>{
+  const apllyPurchaseDate = (e: any) => {
     setPurchaseDate(e);
   };
   const handleCancel = (e: any) => {
-    const auxState = {...state};
+    const auxState = { ...state };
     setVisibleAcquisition(false);
     setState(auxState);
     setVisible(false);
@@ -289,131 +249,120 @@ export const ModalAcquisition = ({visibleAcquisition, setVisibleAcquisition, nam
 
   return (
     <>
-     {visibleAlert && <AlertView
-     sponsor={sponsor}
-      visibleAlert = {visibleAlert}
-      setVisibleAlert ={setVisibleAlert}
-      setSave = {setSave}
-     />}
-     <Modal
-       centered
-       maskClosable={false}
-       visible={visibleAcquisition}
-       onOk={handleOk}
-       onCancel={handleCancel}
-       className="projects"
-       width="1100px"
-     >
-      <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          <CreateProjectMap type="ACQUISITION" locality={locality} projectid={editprojectid} isEdit={swSave}></CreateProjectMap>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 14 }}>
-          <div className="head-project">
-            <Row>
-              <Col xs={{ span: 24 }} lg={{ span: 17 }}>
-                <label data-value={nameProject} style={{width: '100%'}}>
-                  <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{
-                    border: 'none',
-                    width: '100%',
-                    fontSize: '24px',
-                    color: '#11093c',
-                    wordWrap: 'break-word',
-                    resize: 'none',
-                    lineHeight: '27px',
-                    height: lengthName > 271 ? 'unset' :'34px'
-                  }} />
-                </label>
-                {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)} value= {nameProject}  />*/}
-                {/*<Button className="btn-transparent">
-                  <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()}/>
-                </Button>*/}
-                <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea.length > 0 && county.length > 0)?'·':''} {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
-                <label className="tag-name" style={{padding:'10px'}}>Acquisition</label>
-                <Popover content={content}>
-                  <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
-                </Popover>
-              </Col>
-            </Row>
-          </div>
+      {visibleAlert && <AlertView
+        sponsor={sponsor}
+        visibleAlert={visibleAlert}
+        setVisibleAlert={setVisibleAlert}
+        setSave={setSave}
+      />}
+      <Modal
+        centered
+        maskClosable={false}
+        visible={visibleAcquisition}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        className="projects"
+        width="1100px"
+      >
+        <Row>
+          <Col xs={{ span: 24 }} lg={{ span: 10 }}>
+            <CreateProjectMap type="ACQUISITION" locality={locality} projectid={editprojectid} isEdit={swSave}></CreateProjectMap>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+            <div className="head-project">
+              <Row>
+                <Col xs={{ span: 24 }} lg={{ span: 17 }}>
+                  <label data-value={nameProject} style={{ width: '100%' }}>
+                    <textarea className="project-name" value={nameProject} onChange={(e) => onChange(e)} style={{
+                      border: 'none',
+                      width: '100%',
+                      fontSize: '24px',
+                      color: '#11093c',
+                      wordWrap: 'break-word',
+                      resize: 'none',
+                      lineHeight: '27px',
+                      height: lengthName > 271 ? 'unset' : '34px'
+                    }} />
+                  </label>
 
-          <div className="body-project">
+                  <p>{serviceArea ? (serviceArea.length > 1 ? 'Multiple Service Area' : (serviceArea[0])) : ''} {(serviceArea.length > 0 && county.length > 0) ? '·' : ''} {county ? (county.length > 1 ? 'Multiple Counties' : (county[0])) : ''} </p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{ textAlign: 'right' }}>
+                  <label className="tag-name" style={{ padding: '10px' }}>Acquisition</label>
+                  <Popover content={content}>
+                    <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
+                  </Popover>
+                </Col>
+              </Row>
+            </div>
 
-            {/*First Section*/}
-            <ProjectInformation
-              description = {description}
-              setDescription = {setDescription}
-            />
-            <Row gutter={[16, 16]}>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <div id="progreid"><Select placeholder={progress!=''? progress+"": "Select a Status" }  style={{width:'100%'}} onChange={(progress)=> apllyProgress(progress)} getPopupContainer={ () => (document.getElementById("progreid") as HTMLElement)}>
-                 {PROJECT_INFORMATION.PROGRESS.map((element) =>{
-                    return <Option key={element} value={element}>{element}</Option>
-                  })}
-                </Select></div>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                <label className="sub-title">Anticipated Purchase Date <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                <div id="antid">
-                <Select placeholder={purchaseDate!=''? purchaseDate   +"": "Select a Purchase Date"} style={{width:'100%'}} onChange={(purchaseDate)=> apllyPurchaseDate(purchaseDate)} getPopupContainer={ () => (document.getElementById("antid") as HTMLElement)}>
-                  {selec.map((element) =>{
-                    var newYear = year+element;
-                    return <Option key={newYear} value={newYear}>{newYear}</Option>
-                  })}
-                </Select>
-                </div>
-              </Col>
-            </Row>
-            <br/>
+            <div className="body-project">
 
-            {/*Second Section*/}
-            <DropPin
-              typeProject= {typeProject}
-              geom= {geom}
-              setGeom= {setGeom}
-            />
+              <ProjectInformation
+                description={description}
+                setDescription={setDescription}
+              />
+              <Row gutter={[16, 16]}>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                  <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+                  <div id="progreid"><Select placeholder={progress != '' ? progress + "" : "Select a Status"} style={{ width: '100%' }} onChange={(progress) => apllyProgress(progress)} getPopupContainer={() => (document.getElementById("progreid") as HTMLElement)}>
+                    {PROJECT_INFORMATION.PROGRESS.map((element) => {
+                      return <Option key={element} value={element}>{element}</Option>
+                    })}
+                  </Select></div>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                  <label className="sub-title">Anticipated Purchase Date <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+                  <div id="antid">
+                    <Select placeholder={purchaseDate != '' ? purchaseDate + "" : "Select a Purchase Date"} style={{ width: '100%' }} onChange={(purchaseDate) => apllyPurchaseDate(purchaseDate)} getPopupContainer={() => (document.getElementById("antid") as HTMLElement)}>
+                      {selec.map((element) => {
+                        var newYear = year + element;
+                        return <Option key={newYear} value={newYear}>{newYear}</Option>
+                      })}
+                    </Select>
+                  </div>
+                </Col>
+              </Row>
+              <br />
 
-            {/*Section*/}
-            {/* <h5>3. GENERATE PROJECT <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Button className="btn-green">Show Project</Button> */}
-            <br/>
+              <DropPin
+                typeProject={typeProject}
+                geom={geom}
+                setGeom={setGeom}
+              />
+              <br />
 
-            {/*Section*/}
-            <LocationInformation
-              setServiceArea = {setServiceArea}
-              serviceArea = {serviceArea}
-              setCounty = {setCounty}
-              county = {county} 
-              setjurisdiction={setjurisdiction}
-              jUrisdiction={jurisdiction}
-              setCoSponsor={setCosponsor}
-              cosponsor={cosponsor}
-              setSponsor={setSponsor}
-              sponsor={sponsor}
-              editable= {editable}
-              isEdit={swSave}
-              originModal="Acquisition"
-            />
-            <br/>
+              <LocationInformation
+                setServiceArea={setServiceArea}
+                serviceArea={serviceArea}
+                setCounty={setCounty}
+                county={county}
+                setjurisdiction={setjurisdiction}
+                jUrisdiction={jurisdiction}
+                setCoSponsor={setCosponsor}
+                cosponsor={cosponsor}
+                setSponsor={setSponsor}
+                sponsor={sponsor}
+                editable={editable}
+                isEdit={swSave}
+                originModal="Acquisition"
+              />
+              <br />
 
-            {/*Section*/}
-            <UploadAttachment
-              files={files}
-              setFiles={setFiles}
-              setCover={setCover}
-              originModal="Acquisition"
-            />
-          </div>
-          <div className="footer-project">
-            <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button key="submit" className="btn-purple" disabled={disable} onClick={handleOk}>Save Draft Project</Button>
-          </div>
-        </Col>
-      </Row>
-     </Modal>
+              <UploadAttachment
+                files={files}
+                setFiles={setFiles}
+                setCover={setCover}
+                originModal="Acquisition"
+              />
+            </div>
+            <div className="footer-project">
+              <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
+              <Button key="submit" className="btn-purple" disabled={disable} onClick={handleOk}>Save Draft Project</Button>
+            </div>
+          </Col>
+        </Row>
+      </Modal>
     </>
   );
 }

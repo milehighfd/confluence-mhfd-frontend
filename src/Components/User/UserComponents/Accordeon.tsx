@@ -25,7 +25,6 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
     return (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
       <Menu className="js-mm-00 sign-menu-organization"
         onClick={(event) => {
-          // values, setTitle
           const item: any = event.item;
           values.zoomarea = item.props.children.props.children;
           const auxTitle = item.props.children.props.children;
@@ -303,7 +302,6 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
         </Panel>
       </Collapse>
       <Alert save={result} visible={modal} setVisible={setModal} message={message} />
-      {/* <Alert save={deleteUserDatabase(user._id)} visible={modalDelete} setVisible={setModalDelete} message={messageDelete} /> */}
     </>
   )
 }

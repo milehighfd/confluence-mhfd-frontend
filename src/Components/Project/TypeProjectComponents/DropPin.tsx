@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
-import { PlusCircleFilled } from '@ant-design/icons';
-import { Geom } from "../../../Classes/Project";
-import { geoNaturalEarth1 } from "d3-geo";
-import { saveSpecialLocation } from "../../../store/actions/ProjectActions";
+import { Button, Row, Col, Popover, Table } from 'antd';
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
-
-const { TextArea } = Input;
-const { Option } = Select;
-const { Panel } = Collapse;
 
 const columns = [
   {
@@ -45,8 +37,6 @@ export const DropPin = ({typeProject, geom, setGeom}:
   ];
   useEffect(()=>{
     if(geom) {
-      // setLatitude(geom[0][0]);
-      // setLongitude(geom[0][1]); 
       setLatitude(geom[0][0]);
       setLongitude(geom[0][1]);
       saveSpecialLocation({geom: {coordinates: [geom[0]]}});
@@ -60,7 +50,6 @@ export const DropPin = ({typeProject, geom, setGeom}:
   }
   useEffect(()=>{
     if(specialLocation.geom) {
-      // console.log("SPC:", acquisitionLocation.geom);
       setLatitude( parseFloat(specialLocation.geom.coordinates[0][0][1]).toFixed(2) );
       setLongitude( parseFloat(specialLocation.geom.coordinates[0][0][0]).toFixed(2) );
       setLocation(specialLocation.geom);
@@ -70,7 +59,6 @@ export const DropPin = ({typeProject, geom, setGeom}:
 
   useEffect(()=>{
     if(acquisitionLocation.geom) {
-      // console.log("ACQ:", acquisitionLocation.geom);
       setLatitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][1]).toFixed(2)    );
       setLongitude(parseFloat(acquisitionLocation.geom.coordinates[0][0][0]).toFixed(2)   );
       setLocation(acquisitionLocation.geom);

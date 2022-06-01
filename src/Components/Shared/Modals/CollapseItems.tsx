@@ -186,7 +186,6 @@ export default forwardRef(({
         let idProjectPolygon = 0;
         detailedPage.components.forEach((element: any) => {
           if(element.projectid) {
-            // let i = 0;
             map.addVectorSource('projects-line', layers.projects.mhfd_projects);
             for (const project of tileStyles.mhfd_projects) {
               map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);

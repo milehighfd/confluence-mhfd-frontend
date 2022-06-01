@@ -1,4 +1,3 @@
-//mapactions
 import * as types from '../types/mapTypes';
 
 import * as detailedTypes from '../types/detailedTypes';
@@ -164,7 +163,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         bounds: coordinates,
         consultant: options.consultant,
         contractor: options.contractor,
-        servicearea: servicearea //options.servicearea
+        servicearea: servicearea 
     } : {
         name: options.keyword,
         projecttype: options.projecttype,
@@ -190,7 +189,7 @@ const optionsProjects = (options: OptionProjects, filterComponent: OptionCompone
         yearofstudy: filterComponent.yearofstudy,
         consultant: options.consultant,
         contractor: options.contractor,
-        servicearea: servicearea, // filterComponent.servicearea,
+        servicearea: servicearea, 
         sortby: options.column,
         sorttype: options.order
     }
@@ -264,8 +263,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         creator: filters.creator,
         estimatedcost: filters.totalcost,
         finalcost: filters.totalcost,
-        workplanyr: filters.workplanyear, // workplanyr1, workplanyr2, workplanyr3, workplanyr4, workplanyr5
-        // problemtype: filters.problemtype as any, // not exist in tables
+        workplanyr: filters.workplanyear, 
         mhfdmanager: filters.mhfdmanager,
         jurisdiction: filters.jurisdiction,
         county: filters.county.replace("County", "").trim(),
@@ -356,13 +354,6 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
         mhfdmanager: filters.mhfdmanager,
         servicearea: filters.servicearea
     }
-    // const estimatedcost = filters.estimatedcost.split(',');
-    // const auxCost = [];
-    // for (let index = 0; index < estimatedcost.length && filters.estimatedcost.length; index++) {
-    //     const element = estimatedcost[index];
-    //     auxCost.push(element === '0' ? '0,2000000' : ((element === '2')? '2000000,4000000': ((element === '4') ? '4000000,6000000' : (element === '6') ? '6000000,8000000' :'8000000,10000000')));
-    // }
-    // auxFilter.estimated_cost = auxCost;
     return (dispatch: Function) => {
         dispatch({ type: types.SET_FILTER_COMPONENT_OPTIONS, filters });
         dispatch({ type: types.SET_FILTER_COMPONENTS, filters: auxFilter });
@@ -446,7 +437,6 @@ export const existDetailedPageProject = (url: string) => {
     return (dispatch: Function) => {
         dispatch({ type: detailedTypes.DISPLAY_MODAL, spin: false });
         datasets.getData(SERVER.DETAILED_PAGE_PROJECT + '?' + url, datasets.getToken()).then(detailed => {
-            // console.log(detailed);
             if (detailed?.cartodb_id) {
                 dispatch({ type: detailedTypes.DISPLAY_MODAL, spin: true });
             }
@@ -480,12 +470,10 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
         data.servicearea = data.servicearea.replace("Service Area", "").trim();
     }
     return (dispatch: Function) => {
-        // dispatch(setSpinFilter(true));
         datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then(params => {
             if (params) {
                 dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params });
             }
-            // dispatch(setSpinFilter(false));
         })
     }
 }
@@ -495,23 +483,19 @@ export const getParamFilterProblems = (bounds: string, data?: any) => {
         data.servicearea = data.servicearea.replace("Service Area", "").trim();
     }
     return (dispatch: Function) => {
-        // dispatch(setSpinFilter(true));
         datasets.postData(SERVER.PARAM_FILTER_PROBLEMS + '?bounds=' + bounds, data || {}).then(params => {
             if (params) {
                 dispatch({ type: types.GET_PARAM_FILTER_PROBLEMS, params });
             }
-            // dispatch(setSpinFilter(false));
         })
     }
 }
 export const getParamFilterComponents = (bounds: string, data?: any) => {
     return (dispatch: Function) => {
-        // dispatch(setSpinFilter(true));
         datasets.postData(SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds, data || {}).then(params => {
             if (params) {
                 dispatch({ type: types.GET_PARAM_FILTER_COMPONENTS, params });
             }
-            // dispatch(setSpinFilter(false));
         })
     }
 }
@@ -630,7 +614,6 @@ export const getComponentCounter = (id: number, type: string, setCountComponents
         datasets.postData(SERVER.COMPONENT_COUNTER, { value: id, column: type }, datasets.getToken()).then(components => {
             const auxComponent = { ...components }
             setCountComponents(auxComponent);
-            // dispatch({type: types.GET_COMPONENTS_COUNTER, components});
         })
     }
 }
@@ -655,12 +638,10 @@ export const setBBOXComponents = (bboxComponents: any) => {
 
 export const getBBOXComponents = (table: string, id: number) => {
     return (dispatch: Function) => {
-        //dispatch(setSpinFilter(true));
         datasets.getData(SERVER.BBOX_COMPONENTS + '?table=' + table + '&id=' + id).then(bboxComponents => {
             if (bboxComponents) {
                 dispatch({ type: types.BBOX_COMPONENTS, bboxComponents });
             }
-            //dispatch(setSpinFilter(false));
         })
     }
 }
@@ -714,8 +695,6 @@ export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: 
 
 export const changeTutorialStatus = (tutorialStatus: boolean) => {
     return (dispatch: Function) => {
-        // console.log('tutorial ', tutorialStatus);
-        // console.log({type: types.TUTORIAL_STATUS, tutorialStatus});
         dispatch({ type: types.TUTORIAL_STATUS, tutorialStatus });
     }
 }

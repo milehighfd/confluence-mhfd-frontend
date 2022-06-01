@@ -3,8 +3,6 @@ import { useNoteDispatch } from '../../hook/notesHook';
 import { Popover, Menu } from 'antd';
 import { useProfileState } from '../../hook/profileHook';
 
-const Nbsp = () => '\u00A0';
-
 const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGroup: any) =>  {
 
   return (
@@ -12,7 +10,6 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
    { !isFolder ?
     <Menu.Item onClick={(e: any) => {
       console.log('my event ',e );
-      //e.stopPropagation();
       console.log(note);
       mapFunctions.openEditNote({
         longitude: note.data.longitude,
@@ -21,26 +18,20 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
         color: note.data.color,
         id: note.id
       });
-      // openEditNote(note);
     }}>
       <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Edit Comment</span>
     </Menu.Item> : null}
     {!isFolder ? 
     <Menu.Item onClick={(e: any) => {
-      //e.stopPropagation();
       console.log(note.data.longitude, note.data.latitude);
       mapFunctions.flyTo(note.data.longitude, note.data.latitude);
-      // flyTo(note.longitude, note.latitude);
     }}>
       <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Zoom to</span>
     </Menu.Item> : null }
     {!isFolder ? 
     <Menu.Item onClick={(e: any) => {
-      //e.stopPropagation();
       mapFunctions.deleteNote(note.id);
-      //it's destroying the app , but the endpoint works well :) <3
       console.log(note.id);
-      // deleteNote(note._id);
     }}>
       <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop:'-3px'}}/> Delete</span>
     </Menu.Item> : null}
@@ -48,7 +39,6 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
       <Menu.Item onClick={(e: any) => {
         e.domEvent.stopPropagation();
         deleteGroup(note.id);
-        // deleteNote(note._id);
       }}>
         <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop:'-3px'}}/> Delete</span>
       </Menu.Item> : null
@@ -70,7 +60,6 @@ export const Node = ({
   setEditMode,
   mapFunctions,
 }: any) => {
-  // console.log(' rendering ', item);
   const { deleteGroup } = useNoteDispatch();
   const { userInformation } = useProfileState();
   const [ isDraggable, setIsDraggable ] = useState(true);
@@ -85,7 +74,6 @@ export const Node = ({
   }
   const unfocus = () => {
     setEditMode(false);
-    // console.log("unfocus", item);
     editGroup({_id: item.id, name: item.label, user_id: item.user_id});
   }
   const showCutText = (text: string) => {
@@ -103,9 +91,6 @@ export const Node = ({
       }
     }
   },[editMode]);
-  // useEffect(()=>{
-  //   console.log("This item??", item);
-  // },[item]);
   const componentRef: any = useRef();
   useEffect(()=>{
       if (componentRef.current && componentRef.current.contains) {
@@ -144,7 +129,6 @@ export const Node = ({
           onDragAndDrop(id, item.data.group_id, item.id);
           e.stopPropagation();
         }
-        // e.stopPropagation();
       }}
     >
       <div 
@@ -160,13 +144,10 @@ export const Node = ({
         className={(isFolder ? "s-item folder":"s-item" ) + (editMode? " editing":"")}
         style={{ paddingLeft: `${(level + 1) * 16}px`, borderBottom: showBorder ? '2px solid #11093C ' : 'none'}}
         onClick={onClick}>
-        {/* {isFolder ? <img src="/Icons/left-arrow.svg" alt="" width="10px" style={ { marginRight: '8px'}}/>  : null} */}
         {isFolder ?<span className="ic-folder"></span>:  <label className="ll-00"
-          // style={{padding: '4px 6px', background: item.data.color ? item.data.color : 'red' +  ' !important'}}
           style={{background:  ( item?.data?.color ? item?.data?.color.color :'#FFE121') }}
         >
                 {initialName}
-                {/* <img id={"circles-folders"} className={"img-circle "} style={{background: ( item?.data?.color ? item?.data?.color.color :'#F6BE0F')}}/>  */}
               </label>}
         {!editMode ? 
           <span className="f-title">{showCutText(item.label)}

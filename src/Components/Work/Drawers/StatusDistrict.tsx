@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Drawer, Row, Col, Input, Button, Dropdown, Menu, List, Checkbox } from 'antd';
-import { CloseOutlined, RightOutlined, DownOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import { Drawer, Row, Col, Button, Menu, List, Checkbox } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 
 const menu = (
   <Menu className="menu-utilities">

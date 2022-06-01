@@ -1,7 +1,6 @@
 import * as types from '../types/notesTypes';
 import * as datasets from '../../Config/datasets';
 import { SERVER } from '../../Config/Server.config';
-import { dispatch } from 'd3';
 
 export const getAvailableColors = () => {
   return (dispatch: Function) => {

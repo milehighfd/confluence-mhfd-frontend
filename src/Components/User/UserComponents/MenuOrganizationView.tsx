@@ -17,8 +17,5 @@ export default (values: User, setTitle: Function) => {
             <label className="label-sg">{'Consultant/Contractor'}</label>
             {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
         </Menu.ItemGroup>
-        {/* <Menu.ItemGroup key="g1" title="Cities">
-            {CITIES.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup> */}
     </Menu>
 };
