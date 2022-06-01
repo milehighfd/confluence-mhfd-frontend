@@ -6,19 +6,20 @@ import { useFormik } from "formik";
 import { useHistory } from "react-router";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
+import { PASSWORD, PASSWORD_IS_REQUIRED, PASWORDS_ARE_NOT_SIMILAR, PASWORD_CONFIRM_IS_REQUIRED } from "./constantsConfirmPassword";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
-    .required('Password is required'),
+    .required(PASSWORD_IS_REQUIRED),
   passwordConfirm: Yup.string()
-    .oneOf([Yup.ref('password'), null])
-    .required('Password confirm is required')
+    .oneOf([Yup.ref(PASSWORD), null])
+    .required(PASWORD_CONFIRM_IS_REQUIRED)
 });
 
 const ConfirmPasswordForm = () => {
   const [redirect, setRedirect] = useState(false);
-  const messagePasswordNoEquals = 'Passwords are not similar';
-  const message = 'Password confirm is required';
+  const messagePasswordNoEquals = PASWORDS_ARE_NOT_SIMILAR;
+  const message = PASWORD_CONFIRM_IS_REQUIRED;
   const history = useHistory();
   let params = new URLSearchParams(history.location.search);
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({

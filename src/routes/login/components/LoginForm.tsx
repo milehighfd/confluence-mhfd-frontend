@@ -11,14 +11,15 @@ import { SERVER } from "../../../Config/Server.config";
 import { useProfileDispatch } from "../../../hook/profileHook";
 import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { useMapDispatch } from "../../../hook/mapHook";
+import { REQUIRED } from "./constantsLogin";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email()
-    .required('Required'),
+    .required(REQUIRED),
   password: Yup.string()
     .min(2)
-    .required('Required'),
+    .required(REQUIRED),
   recaptcha: Yup.string()
     .min(5)
     .required()
