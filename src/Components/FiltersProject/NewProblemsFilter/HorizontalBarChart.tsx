@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { Button } from 'antd';
-import { CHART_CONSTANTS, CHART_CONSTANTS_INV } from './Charts.constants';
+import { CHART_CONSTANTS } from './Charts.constants';
 
 const labelmap: any = {
   0: '0 - 25%',
@@ -104,10 +104,6 @@ const HorizontalBarChart = ({
       return 14;
     }
 
-    var fontSizeFn: any = () => {
-      return 12;
-    }
-
     var getIndex = (d: any) => {
       let property;
       switch (type) {
@@ -164,8 +160,6 @@ const HorizontalBarChart = ({
 
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
-      // .attr("width", width)
-      // .attr("height", height)
 
     let lines = svg
       .selectAll('.hlines')
@@ -301,7 +295,6 @@ const HorizontalBarChart = ({
     }
 
     var countYFn = (d: any) => {
-      // return yFn(d) + ((heightFn() + fontSizeFn()) / 2);
       return yFn(d) + 8.8 ;
     }
 

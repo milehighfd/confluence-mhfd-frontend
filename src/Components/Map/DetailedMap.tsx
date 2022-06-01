@@ -32,9 +32,9 @@ export default ({ coordinates, components } : { coordinates : PolygonCoords, com
     (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
     map = new mapboxgl.Map({
       container: 'detailedMap',
-      style: dropdownItems.items[dropdownItems.default].style, //hosted style id
-      center: getCenterCoordinates(coordinates), // starting position [lng, lat]
-      zoom: 12.4 // starting zoom
+      style: dropdownItems.items[dropdownItems.default].style, 
+      center: getCenterCoordinates(coordinates), 
+      zoom: 12.4
     });
 
     const nav = new mapboxgl.NavigationControl({ showCompass: false });
@@ -115,12 +115,10 @@ export default ({ coordinates, components } : { coordinates : PolygonCoords, com
         .addTo(map);
     });
 
-    // Change the cursor to a pointer when the mouse is over the states layer.
     map.on('mouseenter', trigger, () => {
       map.getCanvas().style.cursor = 'pointer';
     });
 
-    // Change it back to a pointer when it leaves.
     map.on('mouseleave', trigger, () => {
       map.getCanvas().style.cursor = '';
     });

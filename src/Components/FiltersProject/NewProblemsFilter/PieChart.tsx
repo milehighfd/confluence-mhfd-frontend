@@ -49,8 +49,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     d3.select(svgRef.current).select('g').remove();
 
     const svg = d3.select(svgRef.current)
-      // .attr("width", width + 100)
-      // .attr("height", height + 75)
       .attr("viewBox", `0 0 ${width + 100} ${height + 75}`)
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -81,7 +79,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         let index = selectedData.indexOf(d.data.key);
         return index !== -1 ? arc2(d) : arc(d)
       })
-      // .attr('d', (d: any) => arc(d))
 
     slices
       .enter()
@@ -97,7 +94,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         let index = selectedData.indexOf(d.data.key);
         return index !== -1 ? (type == 'projecttype'?arc2(d):arc(d)) : (type == 'projecttype'?arc(d):arc2(d))
       })
-      // .attr('d', (d: any) => arc(d))
 
     slices.exit().remove();
 
@@ -143,7 +139,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         return `translate(${xo},${yo})`;
       })
       .style("font-size", 14)
-      // .style('opacity', 0.8)
 
     legendsText
       .text(function (d: any) { return d.data.key })
@@ -153,7 +148,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
         return `translate(${xo},${yo})`;
       })
       .style("font-size", 14)
-      // .style('opacity', 0.8)
 
     var legendsBar = svg
       .selectAll('slices')

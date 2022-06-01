@@ -366,7 +366,6 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
               setTimeout(()=>{
                 inputX.readOnly = true;
                 editButton.style.removeProperty('display');
-                // inputX.blur();
               },200);
             },timeCheck);
 
@@ -399,7 +398,7 @@ export const clickingAddLabelButton = (createColorList: Function, noteClicked?: 
     buttonAdd.addEventListener('click', (e:any) => {
       e.stopPropagation();
       createColorList();
-      let timeCheck = 1200;//noteClicked? 1200:0;
+      let timeCheck = 1200;
       let draftText = '';
       const textarea = (document.getElementById('textarea') as HTMLInputElement);
         if (textarea != null) {
@@ -409,14 +408,12 @@ export const clickingAddLabelButton = (createColorList: Function, noteClicked?: 
         if(noteClicked) {
           openMarkerOfNote(noteClicked, draftText);
         }
-        // changeContentTitle({..._el, color: colorValue}, index);
         counterWaiter = 0;
         wait('input0', (doc: any) => {
           if(doc != null){
             doc.readOnly = false;
             doc.focus();
             doc.select();
-            // let text = doc.val().length;
             setTimeout(()=>{
               doc.setSelectionRange(15,15);
             },10);

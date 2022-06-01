@@ -88,25 +88,7 @@ export const MainPopup = ({id, item, test, sw, ep } : any) => {
       </Card>
     </div>
 };
-// export const StreamPopup = ({id, item} : any) => {
-  
-//   for (const key in item) {
-//       if (!item[key]) {
-//           item[key] = '-';
-//       }
-//   }
-  
-//   return <div id={"popup-" + id} className="map-pop-00">
-//     <Card hoverable>
-//       <div className="headmap">
-//           STREAM
-//       </div>
-//       <div className="bodymap">
-//         <h4>{capitalize(item.title)}</h4>
-//       </div>
-//     </Card>
-//   </div>
-// };
+
 export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
   
   for (const key in item) {
@@ -183,8 +165,6 @@ export const MeasurePopup = ({ id, item, isComponent } : any) => {
           <span id={"buttonzoom-" + id} style={{paddingRight:'5px'}} className="button-c"><a style={{color:'#11093C'}}><img className='img-measure-03'></img> <b>Center on this area</b></a></span >
           <span id={"buttondelete-" + id} style={{paddingLeft:'22px'}} className="button-c"><a style={{color:'#11093C'}}><img className='img-measure-04'></img> <b>Delete</b></a></span >
         </p>
-        {/* <Button id={"buttonzoom-" + id} style={{ width: '50%', height: '43px', whiteSpace: 'normal', wordWrap: 'break-word', marginRight: '10px'}} className="btn-purple" >Center to this area</Button>
-      <Button id={"buttondelete-" + id} style={{ width: '50%',height: '43px', whiteSpace: 'normal', wordWrap: 'break-word', color: '#28C499' }} className="btn-borde">Delete</Button> */}
       </div>
     </div>
 }
@@ -273,7 +253,6 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             
             {item.pondname? <p><i>Pond Name:</i>  {item.pondname}</p> : ''}
             {item.projectno ? <p><i>Project Number:</i>  {item.projectno}</p> : ''}
-            {/* {item.projno ? <p><i>Project Number:</i>  {item.projno}</p> : ''} */}
             {item.mep_eligibilitystatus ? <p><i>MEP Status:</i>  {item.mep_eligibilitystatus}</p> : ''}
             
             {item.area?<p><i>Area:</i> {item.area} Acre</p>:''}
@@ -285,7 +264,6 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.status_date ? <p><i>Status Date:</i>  {item.status_date}</p> : ''}
             {item.status && item.layer.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
             {item.effective_date ? <p><i>Effective Date:</i>  {item.effective_date}</p> : ''}
-            {/* {item.notes && item.layer.includes('LOMC') ? <p><i>Notes:</i>  {item.lomc_case}</p> : ''} */}
             
             {item.uniqueid ? <p><i>Unique ID:</i>  {item.uniqueid}</p> : ''}
             {item.streamname_mhfd ? <p><i>Stream Name (MHFD):</i>  {item.streamname_mhfd}</p> : ''}

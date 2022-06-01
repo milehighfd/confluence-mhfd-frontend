@@ -110,8 +110,6 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
     var svg = d3
       .select(svgRef.current)
       .attr("viewBox", `0 0 ${width + 20} ${height + 20}`)
-      // .attr('width', width + 20)
-      // .attr('height', height + 20)
 
     var x = d3.scaleBand()
       .rangeRound([marginLeft, width])
