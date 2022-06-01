@@ -6,12 +6,10 @@ import GenericTabView from "../../../Components/Shared/GenericTab/GenericTabView
 import FiltersProjectView from "../../../Components/FiltersProject/FiltersProjectView";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../../constants/constants';
-import { FilterTypes } from "../../../Classes/MapTypes";
 import { useLocation } from "react-router-dom";
 import DetailedModal from "../../../Components/Shared/Modals/DetailedModal";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { capitalLetter, elementCost, getStatus } from '../../../utils/utils';
-import { useSelector } from "react-redux";
 import RheoStatService from '../../../Components/FiltersProject/NewProblemsFilter/RheoStatService';
 import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
 import { useDetailedState } from "../../../hook/detailedHook";
@@ -48,7 +46,8 @@ const MapView = () => {
     filterProjectOptions,
     filterComponentOptions,
     applyFilter,
-    spinFilters: spinFilter
+    spinFilters: spinFilter,
+    spinMapLoaded
   } = useMapState();
   const {
     detailed,
@@ -715,11 +714,6 @@ const MapView = () => {
     setBBOXComponents({ bbox: [], centroids: [] })
   };
 
-  const { spinMapLoaded } = useSelector((state: any) => ({
-    spinMapLoaded: state.map.spinMapLoaded,
-    autcomplete: state.map.autocomplete
-    }));
-
   const sortClick = () => {
     if (tabActive === '0') {
       const auxOptions = { ...filterProblemOptions };
@@ -868,8 +862,7 @@ const MapView = () => {
               onSearch={(input2: any) => {
                 setvalueA(input2)
               }}
-              >
-
+            >
               <Input id={'miclase'} style={{border: 'none', boxShadow: 'none', borderBottom: '1px solid rgba(37, 24, 99, 0.3)',marginRight: '-18px' }} suffix={dropdownIsOpen ? <UpOutlined style={{marginRight: '-18px'}}/> : <DownOutlined style={{marginRight: '-18px'}}/>} />
             </AutoComplete>
           </div>
