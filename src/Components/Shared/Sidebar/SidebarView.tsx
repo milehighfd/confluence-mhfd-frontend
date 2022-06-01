@@ -62,7 +62,6 @@ export default () => {
           <Link to={userApproved ? '/work-request': '#'}>
             <img className="img-h anticon" src="/Icons/menu-white-14.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}} />
             <img className="img-a anticon" src="/Icons/menu-green-14.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}} />
-            <span>work request</span>
             <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>work request</span>
           </Link>
         </Menu.Item>

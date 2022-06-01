@@ -76,7 +76,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
             setOption(auxOption);
             search(auxOption);
           }}
-          style={{ width: 240 }}
+          style={{ width: 240, paddingRight: '10px' }}
         />
       </div>
 
