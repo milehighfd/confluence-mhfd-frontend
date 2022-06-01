@@ -777,10 +777,10 @@ const RequestView = ({ type, isFirstRendering }: {
                         }}
                       >
                         <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
-                          prefix={<i className="mdi mdi-circle"></i>}
-                          suffix={dropdownIsOpen ? <UpOutlined /> : <DownOutlined />} />
+                          prefix={<i className="mdi mdi-circle" style={{marginLeft: '-6px', zIndex: '999'}}></i>}
+                          suffix={dropdownIsOpen ? <UpOutlined style={{marginRight: '-18px'}}/> : <DownOutlined style={{marginRight: '-18px'}}/>} style={{border: 'none', boxShadow: 'none', borderBottom: '1px solid rgba(37, 24, 99, 0.3)', marginRight: '-18px', marginLeft: '-6px' }}/>
                       </AutoComplete> : <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'} value={localityFilter}
-                          readOnly={true} prefix={<i className="mdi mdi-circle"></i>} />
+                          readOnly={true} prefix={<i className="mdi mdi-circle"></i>}/>
                       }
                       
                     </div>
@@ -790,10 +790,10 @@ const RequestView = ({ type, isFirstRendering }: {
                       defaultValue={year}
                       value={`Year ${year}`}
                       onChange={setYear}
-                      className={'ant-select-2'}>
+                      className={'ant-select-2'} >
                       {
                         years.map((y, i) => (
-                          <Option key={i} value={y}>Year {y}</Option>
+                          <Option key={i} value={y} style={{marginRight: '10px', marginLeft: '10px'}}>Year {y}</Option>
                         ))
                       }
                     </Select>
