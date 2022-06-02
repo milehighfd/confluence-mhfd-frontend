@@ -30,7 +30,8 @@ import {
   CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, MHFD_STREAMS_FILTERS,
   PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
   NEARMAP_TOKEN,
-  STREAMS_POINT
+  STREAMS_POINT,
+  PROJECTS_DRAFT
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -251,15 +252,15 @@ const CreateProjectMap = (type: any) => {
         wait(() => {
           setTimeout(() => {
             map.isStyleLoaded(() => {
-              removeLayers('mhfd_projects_created');
-              removeLayersSource('mhfd_projects_created');
+              removeLayers(PROJECTS_DRAFT);
+              removeLayersSource(PROJECTS_DRAFT);
               let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
               postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-                addLayersSource('mhfd_projects_created', tiles);
-                showLayers('mhfd_projects_created');
+                addLayersSource(PROJECTS_DRAFT, tiles);
+                showLayers(PROJECTS_DRAFT);
                 map.isStyleLoaded(() => {
                   setTimeout(() => {
-                    applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
+                    applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
                   }, 700);
                 });
                 firstTime = false;
@@ -272,8 +273,8 @@ const CreateProjectMap = (type: any) => {
       }, 1200);
     } else {
       if (map.map) {
-        removeLayers('mhfd_projects_created');
-        removeLayersSource('mhfd_projects_created');
+        removeLayers(PROJECTS_DRAFT);
+        removeLayersSource(PROJECTS_DRAFT);
       }
 
     }
@@ -824,7 +825,7 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
-        if (key === 'mhfd_projects_created') {
+        if (key === PROJECTS_DRAFT) {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
           if (idsBoardProjects && idsBoardProjects.length > 0) {
             let boardids = idsBoardProjects;
@@ -948,7 +949,7 @@ const CreateProjectMap = (type: any) => {
           allFilters.push(options);
         }
       }
-      if (idsBoardProjects && idsBoardProjects.length > 0 && key === 'mhfd_projects_created' && idsBoardProjects[0] != '-8888') {
+      if (idsBoardProjects && idsBoardProjects.length > 0 && key === PROJECTS_DRAFT && idsBoardProjects[0] != '-8888') {
         let boardids = [...idsBoardProjects];
         boardids = boardids.filter((x: any) => x != type.projectid);
         allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
@@ -1122,7 +1123,7 @@ const CreateProjectMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (key.includes('mhfd_projects_created')) {
+      if (key.includes(PROJECTS_DRAFT)) {
         map.map.addLayer({
           id: key + '_' + index,
           source: key,
@@ -1523,7 +1524,7 @@ const CreateProjectMap = (type: any) => {
           continue;
         }
         let itemValue;
-        if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_created') {
+        if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === PROJECTS_DRAFT) {
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
           const filtered = galleryProjects.filter((item: any) =>
             item.cartodb_id === feature.properties.cartodb_id
