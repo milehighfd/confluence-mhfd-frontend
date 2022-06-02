@@ -20,17 +20,18 @@ import {
   SELECT_ALL_FILTERS,
   MENU_OPTIONS,
   PROJECTS_DRAFT_MAP_STYLES,
-  ROUTINE_NATURAL_AREAS, 
+  ROUTINE_NATURAL_AREAS,
   STREAMS_FILTERS,
-  ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, 
-  ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, 
-  PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, 
-  MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, 
-  LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, 
+  ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA,
+  ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER,
+  PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS,
+  MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA,
+  LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
   CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, MHFD_STREAMS_FILTERS,
   PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
   NEARMAP_TOKEN,
-  STREAMS_POINT
+  STREAMS_POINT,
+  PROJECTS_DRAFT
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -56,18 +57,18 @@ type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
 const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
-  let popup = new mapboxgl.Popup({closeButton: true,});
-  
+  let popup = new mapboxgl.Popup({ closeButton: true, });
+
   const [isExtendedView] = useState(false);
   const user = store.getState().profile.userInformation;
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents, bboxComponents } = useMapState();
 
-  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId , getComponentsByProjid, getBBOXComponents} = useMapDispatch();
-  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint, 
+  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getComponentsByProjid, getBBOXComponents } = useMapDispatch();
+  const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint,
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom, getAllComponentsByProblemId } = useProjectDispatch();
-  const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream,highlightedStreams } = useProjectState();
-  const {groupOrganization} = useProfileState();
-  const [idsBoardProjects, setIdsBoardProjects]= useState(boardProjectsCreate);
+  const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream, highlightedStreams } = useProjectState();
+  const { groupOrganization } = useProfileState();
+  const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -90,7 +91,7 @@ const CreateProjectMap = (type: any) => {
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   const empty: any[] = [];
   const [allLayers, setAllLayers] = useState(empty);
-  const [counterPopup, setCounterPopup] = useState({ componentes: 0 }); 
+  const [counterPopup, setCounterPopup] = useState({ componentes: 0 });
   const [componentsHover, setComponentsHover] = useState([]);
   const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
   const [zoomEndCounter, setZoomEndCounter] = useState(0);
@@ -118,7 +119,7 @@ const CreateProjectMap = (type: any) => {
             setZoomEndCounter(_++);
           });
           let __ = 1;
-          map.dragEnd(()=>{
+          map.dragEnd(() => {
             setDragEndCounter(__++);
           })
         }
@@ -127,23 +128,23 @@ const CreateProjectMap = (type: any) => {
     map = undefined;
     setZoomGeom(undefined);
     waiting();
-    EventService.setRef('click',eventClick);
+    EventService.setRef('click', eventClick);
     EventService.setRef('move', eventMove);
     EventService.setRef('addmarker', addMarker);
     EventService.setRef('oncreatedraw', onCreateDraw);
     changeAddLocationState(false);
     componentsList = [];
-      getData(`${SERVER.URL_BASE}/locality/`, getToken())
-        .then(
-          (r: any) => {
-            if (r.localities.length > 0) {
-              setLocalAOI(r.localities[0].name);
-            }
-          },
-          (e) => {
-            console.log('e', e);
+    getData(`${SERVER.URL_BASE}/locality/`, getToken())
+      .then(
+        (r: any) => {
+          if (r.localities.length > 0) {
+            setLocalAOI(r.localities[0].name);
           }
-        )
+        },
+        (e) => {
+          console.log('e', e);
+        }
+      )
     return () => {
       setStreamIntersected([]);
       setStreamsIds([]);
@@ -154,75 +155,75 @@ const CreateProjectMap = (type: any) => {
     }
   }, []);
   useEffect(() => {
-    if(map && map.map){
+    if (map && map.map) {
       const bounds = map.getBoundingBox();
-      if(markerGeocoder) {
-          let lnglat = markerGeocoder.getLngLat();
-          let swInside = true;
-          let neInside = true;
-          if( (lnglat.lat < bounds._sw.lat || lnglat.lng < bounds._sw.lng)){
-              swInside = false;
-          } 
-          if( (lnglat.lat > bounds._ne.lat || lnglat.lng > bounds._ne.lng) ){
-              neInside = false;
-          }
-          if (!(swInside && neInside)) {
-              markerGeocoder.remove();
-              setMarkerGeocoder(undefined);
-          }
+      if (markerGeocoder) {
+        let lnglat = markerGeocoder.getLngLat();
+        let swInside = true;
+        let neInside = true;
+        if ((lnglat.lat < bounds._sw.lat || lnglat.lng < bounds._sw.lng)) {
+          swInside = false;
+        }
+        if ((lnglat.lat > bounds._ne.lat || lnglat.lng > bounds._ne.lng)) {
+          neInside = false;
+        }
+        if (!(swInside && neInside)) {
+          markerGeocoder.remove();
+          setMarkerGeocoder(undefined);
+        }
       }
     }
-    
 
-}, [zoomEndCounter, dragEndCounter]);
-  useEffect(()=>{
-    if(editLocation && editLocation[0]){
-      setTimeout(()=>{
-        map.isStyleLoaded(() => {AddMarkerEdit({lat: editLocation[0][1], lng: editLocation[0][0] + 0.00003});})
-      },1300);
+
+  }, [zoomEndCounter, dragEndCounter]);
+  useEffect(() => {
+    if (editLocation && editLocation[0]) {
+      setTimeout(() => {
+        map.isStyleLoaded(() => { AddMarkerEdit({ lat: editLocation[0][1], lng: editLocation[0][0] + 0.00003 }); })
+      }, 1300);
     }
-  },[editLocation]);
-  useEffect(()=>{
+  }, [editLocation]);
+  useEffect(() => {
     setLoading(false);
-  },[listStreams]);
-  useEffect(()=>{
-    if(zoomGeom && zoomGeom.geom) {
-      let cg = zoomGeom.geom?JSON.parse(zoomGeom.geom):undefined;
-      map.map.once('render', ()=> {
-        if(cg.type === 'MultiLineString') {
+  }, [listStreams]);
+  useEffect(() => {
+    if (zoomGeom && zoomGeom.geom) {
+      let cg = zoomGeom.geom ? JSON.parse(zoomGeom.geom) : undefined;
+      map.map.once('render', () => {
+        if (cg.type === 'MultiLineString') {
           let poly = turf.multiLineString(cg.coordinates);
           let bboxBounds = turf.bbox(poly);
-          if(map.map){
-            map.map.fitBounds(bboxBounds,{ padding:80, maxZoom: 16});
+          if (map.map) {
+            map.map.fitBounds(bboxBounds, { padding: 80, maxZoom: 16 });
           }
-        } else if(cg.type === 'Point') {
+        } else if (cg.type === 'Point') {
           let poly = turf.point(cg.coordinates);
           let bboxBounds = turf.bbox(poly);
-          if(map.map){
-            map.map.fitBounds(bboxBounds,{ padding:80,  maxZoom: 16});
+          if (map.map) {
+            map.map.fitBounds(bboxBounds, { padding: 80, maxZoom: 16 });
           }
-        } else if ( cg.type === 'MultiPolygon'){
+        } else if (cg.type === 'MultiPolygon') {
           let poly = turf.multiPolygon(cg.coordinates);
           let bboxBounds = turf.bbox(poly);
-          if(map.map){
-            map.map.fitBounds(bboxBounds,{ padding:80 , maxZoom: 16});
+          if (map.map) {
+            map.map.fitBounds(bboxBounds, { padding: 80, maxZoom: 16 });
           }
         } else {
           console.log("DIFF", cg);
         }
       });
-      
+
     }
-  },[zoomGeom])
-  useEffect(()=>{
+  }, [zoomGeom])
+  useEffect(() => {
     if (map) {
       if (highlightedComponent.table) {
-          showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
+        showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
       } else {
-          hideHighlighted();
+        hideHighlighted();
       }
     }
-  },[highlightedComponent]);
+  }, [highlightedComponent]);
   const removeLayers = (key: string) => {
 
     const styles = { ...tileStyles as any };
@@ -230,124 +231,123 @@ const CreateProjectMap = (type: any) => {
 
       if (map.map.getLayer(key + '_' + index)) {
         map.map.removeLayer(key + '_' + index);
-        
+
       }
     });
   }
   const removeLayersSource = (key: string) => {
-    if (map.getSource(key)) { 
-      
+    if (map.getSource(key)) {
+
       map.map.removeSource(key);
     }
   }
 
-  useEffect(()=>{
-    let time = firstTime?2600:1300;
-      if(idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
-        setTimeout(()=>{
-          let filterProjectsDraft = {...filterProjects}; 
-          filterProjectsDraft.projecttype = '';
-          filterProjectsDraft.status = 'Draft';
-            wait(()=>{
-              setTimeout(()=>{
-                map.isStyleLoaded(()=>{
-                  removeLayers('mhfd_projects_created');
-                  removeLayersSource('mhfd_projects_created');
-                  let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
-                  postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-                    addLayersSource('mhfd_projects_created', tiles);
-                    showLayers('mhfd_projects_created');
-                    map.isStyleLoaded(()=>{
-                      setTimeout(()=>{
-                        applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
-                      },700);
-                    });
-                    firstTime = false;
-                  });
-                  
+  useEffect(() => {
+    let time = firstTime ? 2600 : 1300;
+    if (idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
+      setTimeout(() => {
+        let filterProjectsDraft = { ...filterProjects };
+        filterProjectsDraft.projecttype = '';
+        filterProjectsDraft.status = 'Draft';
+        wait(() => {
+          setTimeout(() => {
+            map.isStyleLoaded(() => {
+              removeLayers(PROJECTS_DRAFT);
+              removeLayersSource(PROJECTS_DRAFT);
+              let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
+              postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
+                addLayersSource(PROJECTS_DRAFT, tiles);
+                showLayers(PROJECTS_DRAFT);
+                map.isStyleLoaded(() => {
+                  setTimeout(() => {
+                    applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
+                  }, 700);
                 });
-              },time);
-              
+                firstTime = false;
+              });
+
             });
-        },1200);
-      } else {
-        if(map.map){
-          removeLayers('mhfd_projects_created');
-          removeLayersSource('mhfd_projects_created');
-        }
-        
-      } 
-  },[idsBoardProjects]);
+          }, time);
+
+        });
+      }, 1200);
+    } else {
+      if (map.map) {
+        removeLayers(PROJECTS_DRAFT);
+        removeLayersSource(PROJECTS_DRAFT);
+      }
+
+    }
+  }, [idsBoardProjects]);
   useEffect(() => {
     let mask;
     setTimeout(() => {
-      map.isStyleLoaded(()=>{ 
+      map.isStyleLoaded(() => {
         if (coordinatesJurisdiction.length > 0) {
           mask = turf.multiPolygon(coordinatesJurisdiction);
           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
           var arrayBounds = misbounds.split(',');
           let poly = polyMask(mask, arrayBounds);
-          map.isStyleLoaded(()=>{
+          map.isStyleLoaded(() => {
             map.addSourceOpacity(poly);
           })
-          
-        } 
+        }
       });
     }, 1200);
-  
-}, [coordinatesJurisdiction]);
-  useEffect(()=>{
-    const equals = (a:any, b:any) =>
+
+  }, [coordinatesJurisdiction]);
+  useEffect(() => {
+    const equals = (a: any, b: any) =>
       a.length === b.length &&
-      a.every((v:any, i:any) => v === b[i]);
-    if(boardProjectsCreate.cartoids && boardProjectsCreate.cartoids[0] != '-8888') {
-      if(!equals(boardProjectsCreate.cartoids, idsBoardProjects)) {
+      a.every((v: any, i: any) => v === b[i]);
+    if (boardProjectsCreate.cartoids && boardProjectsCreate.cartoids[0] != '-8888') {
+      if (!equals(boardProjectsCreate.cartoids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjectsCreate.ids);
       }
-    } 
-  },[boardProjectsCreate]);
-  useEffect(()=>{
+    }
+  }, [boardProjectsCreate]);
+  useEffect(() => {
     if (map) {
       if (highlightedProblem.problemid) {
-          showHighlightedProblem(highlightedProblem.problemid);
-          updateSelectedLayers([...selectedLayers,PROBLEMS_TRIGGER]);;
+        showHighlightedProblem(highlightedProblem.problemid);
+        updateSelectedLayers([...selectedLayers, PROBLEMS_TRIGGER]);;
       } else {
-          hideHighlighted();
+        hideHighlighted();
       }
     }
-  },[highlightedProblem]);
-  useEffect(()=>{
+  }, [highlightedProblem]);
+  useEffect(() => {
     console.log(highlightedStream);
-    if(map){
-      if(highlightedStream.streamId) {
+    if (map) {
+      if (highlightedStream.streamId) {
         showHighlightedStream(highlightedStream.streamId);
       } else {
         hideHighlighted();
       }
     }
-  },[highlightedStream]);
-  useEffect(()=>{
-    if(highlightedStreams.ids){
-      let codes = highlightedStreams.ids.map( (hs:any) => hs.mhfd_code);
-      if(map){
-        if(codes.length > 0) {
+  }, [highlightedStream]);
+  useEffect(() => {
+    if (highlightedStreams.ids) {
+      let codes = highlightedStreams.ids.map((hs: any) => hs.mhfd_code);
+      if (map) {
+        if (codes.length > 0) {
           showHighlightedStreams(codes);
         } else {
           hideHighlighted();
         }
       }
     } else {
-      if(map){hideHighlighted()};
+      if (map) { hideHighlighted() };
     }
-    
-  },[highlightedStreams]);
+
+  }, [highlightedStreams]);
   const polyMask = (mask: any, bounds: any) => {
     if (mask !== undefined && bounds.length > 0) {
-        var bboxPoly = turf.bboxPolygon(bounds);
-        return turf.difference(bboxPoly, mask);
+      var bboxPoly = turf.bboxPolygon(bounds);
+      return turf.difference(bboxPoly, mask);
     }
   }
-  const setBounds = (value:any) => {
+  const setBounds = (value: any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => value.includes(x.aoi)).map((element: any) => {
       return {
         aoi: element.aoi,
@@ -355,117 +355,114 @@ const CreateProjectMap = (type: any) => {
         coordinates: element.coordinates
       }
     });
-    if(zoomareaSelected[0]){
+    if (zoomareaSelected[0]) {
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, {name: 'zoomarea'});
+      let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, { name: 'zoomarea' });
       let bboxBounds = turf.bbox(poly);
-      if(map.map){
-        map.map.fitBounds(bboxBounds,{ padding:10, maxZoom: 13});
+      if (map.map) {
+        map.map.fitBounds(bboxBounds, { padding: 10, maxZoom: 13 });
       }
     }
   }
-  const wait = (cb:any) => {
-    
+  const wait = (cb: any) => {
     if (!map.map) {
       setTimeout(wait, 50);
     } else {
-        cb();
+      cb();
     }
   };
-  useEffect(()=>{
-    if(type.projectid != -1 && type.projectid) {
+  useEffect(() => {
+    if (type.projectid != -1 && type.projectid) {
       getData(`${SERVER.URL_BASE}/board/bbox/${type.projectid}`)
-      .then(
-        (r: any) => { 
-          if(r.bbox){
-            let BBoxPolygon = JSON.parse(r.bbox);
-            let bboxBounds = turf.bbox(BBoxPolygon);
-            if(map.map){
-              setTimeout(()=>{
-                map.isStyleLoaded(() => map.map.fitBounds(bboxBounds,{ padding:90, maxZoom: 16 }));
-              }, 3000);              
+        .then(
+          (r: any) => {
+            if (r.bbox) {
+              let BBoxPolygon = JSON.parse(r.bbox);
+              let bboxBounds = turf.bbox(BBoxPolygon);
+              if (map.map) {
+                setTimeout(() => {
+                  map.isStyleLoaded(() => map.map.fitBounds(bboxBounds, { padding: 90, maxZoom: 16 }));
+                }, 3000);
+              }
             }
+          },
+          (e: any) => {
+            console.error('Error getting bbox projectid', e);
           }
-        },
-        (e:any) => {
-          console.error('Error getting bbox projectid', e);
-        }
-      )
+        )
     }
-  },[type.projectid]);
-  useEffect(()=>{
-    setTimeout(()=>{
+  }, [type.projectid]);
+  useEffect(() => {
+    setTimeout(() => {
       let value = localAOI;
-      if(type.locality) {
+      if (type.locality) {
         value = type.locality;
-      } 
-      if(groupOrganization.length > 0) {
-        wait(()=>setBounds(value));
       }
-    },500);
-  },[groupOrganization, type.locality, localAOI]);
-  useEffect(()=>{
-    if(listComponents && listComponents.result && listComponents.result.length > 0) {
-      let componentsHovers:any = {};
-      for(let i of listComponents.result) {
-        componentsHovers[i.table] = componentsHovers[i.table]? [...componentsHovers[i.table],i.cartodb_id]: [i.cartodb_id];
+      if (groupOrganization.length > 0) {
+        wait(() => setBounds(value));
+      }
+    }, 500);
+  }, [groupOrganization, type.locality, localAOI]);
+  useEffect(() => {
+    if (listComponents && listComponents.result && listComponents.result.length > 0) {
+      let componentsHovers: any = {};
+      for (let i of listComponents.result) {
+        componentsHovers[i.table] = componentsHovers[i.table] ? [...componentsHovers[i.table], i.cartodb_id] : [i.cartodb_id];
       }
       setComponentsHover(componentsHovers);
-      setTimeout(()=>{
+      setTimeout(() => {
         setLoading(false);
-      },1500);
-      
+      }, 1500);
+
       componentsList = listComponents.result;
     } else {
-      setStreamIntersected({geom:null});
+      setStreamIntersected({ geom: null });
       setStreamsIds([]);
     }
-  },[listComponents]);
-  
+  }, [listComponents]);
+
   useEffect(() => {
     if (data.problemid || data.cartoid) {
       setVisible(true);
     }
   }, [data]);
-  useEffect(()=>{
-    if(isAddLocation){
+  useEffect(() => {
+    if (isAddLocation) {
       isPopup = false;
       let eventToMove = EventService.getRef('move');
-      map.map.on('mousemove',eventToMove);
-      
+      map.map.on('mousemove', eventToMove);
+
       let eventToAddMarker = EventService.getRef('addmarker');
-      map.map.on('click',eventToAddMarker);
+      map.map.on('click', eventToAddMarker);
     } else {
-      
       let eventToMove = EventService.getRef('move');
       map.map.off('mousemove', eventToMove);
       let eventToAddMarker = EventService.getRef('addmarker');
-      map.map.off('click',eventToAddMarker);
+      map.map.off('click', eventToAddMarker);
       isPopup = true;
       map.removePopUpOffset();
       marker.remove();
       marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
     }
-    
-  },[isAddLocation]); 
-  const showHoverComponents = ()=>{
-    if(listComponents && listComponents.result && listComponents.result.length > 0) { 
-      Object.keys(componentsHover).forEach((key:any) => {
-        showHighlightedArray(key,componentsHover[key]);
-      }); 
+  }, [isAddLocation]);
+  const showHoverComponents = () => {
+    if (listComponents && listComponents.result && listComponents.result.length > 0) {
+      Object.keys(componentsHover).forEach((key: any) => {
+        showHighlightedArray(key, componentsHover[key]);
+      });
     }
   };
   const [isAlreadyDraw, setIsAlreadyDraw] = useState(false);
   useEffect(() => {
-    if(isDraw || isDrawCapital) {
-      currentDraw = isDraw?'polygon':(isDrawCapital?'capitalpolygon':'polygon');
-      if(isDrawCapital) {
+    if (isDraw || isDrawCapital) {
+      currentDraw = isDraw ? 'polygon' : (isDrawCapital ? 'capitalpolygon' : 'polygon');
+      if (isDrawCapital) {
         showHoverComponents();
       } else {
         hideHighlighted();
       }
-      if(isAlreadyDraw) {
+      if (isAlreadyDraw) {
         map.removeDrawController();
       }
       setIsAlreadyDraw(true);
@@ -474,16 +471,16 @@ const CreateProjectMap = (type: any) => {
         map.addDrawControllerTopLeft();
         let drawEvent = EventService.getRef('oncreatedraw');
         map.deleteDraw(drawEvent);
-        setTimeout(()=>{
+        setTimeout(() => {
           map.createDraw(drawEvent);
-          setTimeout(()=>{
+          setTimeout(() => {
             let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_polygon');
             let element: HTMLElement = elements[0] as HTMLElement;
-            if(element) {
+            if (element) {
               element.click();
             }
-          },500);
-        },200);
+          }, 500);
+        }, 200);
       }
     } else {
       isPopup = true;
@@ -493,18 +490,18 @@ const CreateProjectMap = (type: any) => {
     }
   }, [isDraw, isDrawCapital]);
 
-  const getTurfGeom = ( geom: any)=>{
-    if(geom.type.includes('MultiPolygon')) {
+  const getTurfGeom = (geom: any) => {
+    if (geom.type.includes('MultiPolygon')) {
       return turf.multiPolygon(geom.coordinates);
-    } else if(geom.type.includes('Polygon')) {
+    } else if (geom.type.includes('Polygon')) {
       return turf.polygon(geom.coordinates);
-    } else if(geom.type.includes('MultiLineString')){
+    } else if (geom.type.includes('MultiLineString')) {
       return turf.multiLineString(geom.coordinates);
-    } else if(geom.type.includes('LineString')){
+    } else if (geom.type.includes('LineString')) {
       return turf.lineString(geom.coordinates);
-    } else if(geom.type.includes('MultiPoint')) {
+    } else if (geom.type.includes('MultiPoint')) {
       return turf.multiPoint(geom.coordinates);
-    } else if(geom.type.includes('Point')) {
+    } else if (geom.type.includes('Point')) {
       return turf.point(geom.coordinates);
     } else {
       console.log("CG diff", geom.type);
@@ -516,40 +513,39 @@ const CreateProjectMap = (type: any) => {
     let drawStream = true;
     if (thisStreamIntersected && thisStreamIntersected.geom) {
       geom = JSON.parse(thisStreamIntersected.geom);
-      let cg = componentGeom?JSON.parse(componentGeom.geom):undefined;
-      if(geom.coordinates.length == 0 && cg) {
+      let cg = componentGeom ? JSON.parse(componentGeom.geom) : undefined;
+      if (geom.coordinates.length == 0 && cg) {
         geom = cg;
         thisStreamIntersected.geom = componentGeom.geom;
         drawStream = false;
-      } else if(geom.coordinates.length == 0){
+      } else if (geom.coordinates.length == 0) {
         return;
       }
-      if(type.type == 'CAPITAL' || type.type == 'MAINTENANCE') {
+      if (type.type == 'CAPITAL' || type.type == 'MAINTENANCE') {
         getServiceAreaPolygonofStreams(thisStreamIntersected.geom);
         setLoading(false);
       }
-      
-      if(type.problemId && geom.coordinates.length > 0) {
+
+      if (type.problemId && geom.coordinates.length > 0) {
         let poly = getTurfGeom(geom);
-        if(map.map && poly){ 
-          
+        if (map.map && poly) {
+
           let bboxBounds = turf.bbox(poly);
-          map.isStyleLoaded(()=>{
-            map.map.fitBounds(bboxBounds,{ padding:80});
+          map.isStyleLoaded(() => {
+            map.map.fitBounds(bboxBounds, { padding: 80 });
           });
-          
+
         }
-      } else if( type.problemId && cg){
+      } else if (type.problemId && cg) {
         let poly = getTurfGeom(cg);
-        if(map.map && poly){
-          
+        if (map.map && poly) {
           let bboxBounds = turf.bbox(poly);
-          map.isStyleLoaded(()=>{
-            map.map.fitBounds(bboxBounds,{ padding:80});
+          map.isStyleLoaded(() => {
+            map.map.fitBounds(bboxBounds, { padding: 80 });
           });
         }
-      } 
-      if(geom && drawStream) {
+      }
+      if (geom && drawStream) {
         map.isStyleLoaded(() => {
           map.removeLayer('streamIntersected');
           map.removeSource('streamIntersected');
@@ -570,134 +566,124 @@ const CreateProjectMap = (type: any) => {
                 'line-width': 6,
               }
             });
-            setTimeout(()=>{
+            setTimeout(() => {
               map.map.moveLayer('streamIntersected');
-            }, 4500); 
+            }, 4500);
             let poly = getTurfGeom(geom);
-            if(map.map && poly){ 
+            if (map.map && poly) {
               let bboxBounds = turf.bbox(poly);
-              map.isStyleLoaded(()=>{
-                map.map.fitBounds(bboxBounds,{ padding:80});
+              map.isStyleLoaded(() => {
+                map.map.fitBounds(bboxBounds, { padding: 80 });
               });
-              
+
             }
           }
-  
         });
       }
-    
-    } else if(thisStreamIntersected && componentGeom && thisStreamIntersected.geom == null && componentGeom.geom) {
-      let cg = componentGeom?JSON.parse(componentGeom.geom):undefined;
+    } else if (thisStreamIntersected && componentGeom && thisStreamIntersected.geom == null && componentGeom.geom) {
+      let cg = componentGeom ? JSON.parse(componentGeom.geom) : undefined;
       let poly = getTurfGeom(cg);
-        if(map.map && poly){
-          
-          let bboxBounds = turf.bbox(poly);
-          map.isStyleLoaded(()=>{
-            map.map.fitBounds(bboxBounds,{ padding:80});
-          });
-        }
+      if (map.map && poly) {
+
+        let bboxBounds = turf.bbox(poly);
+        map.isStyleLoaded(() => {
+          map.map.fitBounds(bboxBounds, { padding: 80 });
+        });
+      }
     } else {
-      if (map && map.map.isStyleLoaded() ) {
+      if (map && map.map.isStyleLoaded()) {
         map.removeLayer('streamIntersected');
         map.removeSource('streamIntersected');
       }
     }
-
-    
-
   }, [streamIntersected]);
-  useEffect(()=>{
-    if(streamsIntersectedIds.length > 0) {
-      let streamsCodes:any = streamsIntersectedIds.map((str:any) => str.mhfd_code);
-      map.isStyleLoaded( () => {
-        let filter = ['in',['get','unique_mhfd_code'],['literal',[...streamsCodes]]];
-        
+  useEffect(() => {
+    if (streamsIntersectedIds.length > 0) {
+      let streamsCodes: any = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+      map.isStyleLoaded(() => {
+        let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [...streamsCodes]]];
+
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
-          let timer = map.getSource('mhfd_stream_reaches')?50:2300;
-          if(!map.getSource('mhfd_stream_reaches')) {
+          let timer = map.getSource('mhfd_stream_reaches') ? 50 : 2300;
+          if (!map.getSource('mhfd_stream_reaches')) {
             addLayersSource('mhfd_stream_reaches', layerFilters['mhfd_stream_reaches']);
           }
-          setTimeout(()=>{
+          setTimeout(() => {
             map.map.addLayer({
               'id': 'streams-intersects',
               'type': 'line',
               'source': 'mhfd_stream_reaches',
               'source-layer': 'pluto15v1',
-              "layout": {"line-cap": "round", "line-join": "round"},
+              "layout": { "line-cap": "round", "line-join": "round" },
               "paint": {
-                  "line-color": "hsl(40, 100%, 50%)",
-                  "line-width": 7,
+                "line-color": "hsl(40, 100%, 50%)",
+                "line-width": 7,
               },
-              'filter':filter
-            
+              'filter': filter
+
             });
-          },timer);
+          }, timer);
         }
       });
-        
     } else {
       map.removeLayer('streams-intersects');
     }
-    
-    
-
-  },[streamsIntersectedIds]);
+  }, [streamsIntersectedIds]);
   useEffect(() => {
     if (map) {
       map.create();
       setLayerFilters(layers);
       map.map.on('style.load', () => {
         let eventToClick = EventService.getRef('click');
-        map.map.on('click',eventToClick);
+        map.map.on('click', eventToClick);
         applyNearMapLayer();
       });
-      
     }
   }, [map])
   const [compareSL, setCompareSL] = useState('');
   useEffect(() => {
-    if (map ) {
-      let time = firstTimeApplyMapLayers?400:200;
-      setTimeout(()=>{
-        if(JSON.stringify(selectedLayers) != compareSL) { 
-          if(map){
-            if(selectedLayers.length == 0) {
+    if (map) {
+      let time = firstTimeApplyMapLayers ? 400 : 200;
+      setTimeout(() => {
+        if (JSON.stringify(selectedLayers) != compareSL) {
+          if (map) {
+            if (selectedLayers.length == 0) {
             } else {
               map.isStyleLoaded(applyMapLayers);
-              firstTimeApplyMapLayers=false;
+              firstTimeApplyMapLayers = false;
               setCompareSL(JSON.stringify(selectedLayers));
             }
           }
         }
-      },time);
+      }, time);
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
     EventService.setRef('addmarker', addMarker);
   }, [selectedLayers]);
 
   const setLayersSelectedOnInit = () => {
-    let ppArray:any = [];
-    if(!type.isEdit) { 
-      if(type.type!="STUDY") {
+    let ppArray: any = [];
+    if (!type.isEdit) {
+      if (type.type != "STUDY") {
         ppArray = [PROJECTS_MAP_STYLES];
-      } else { 
+      } else {
         ppArray = [PROBLEMS_TRIGGER];
       }
     }
-    let thisSL = [ ...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
+    let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
     if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
-      thisSL = [ ...ppArray, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS, STREAMS_FILTERS];
-    } else if( type.type == 'STUDY') {
-      thisSL = [ MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS ];
+      thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS, STREAMS_FILTERS];
+    } else if (type.type == 'STUDY') {
+      thisSL = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
     } else if (type.type == 'MAINTENANCE') {
       thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, ROUTINE_MAINTENANCE, STREAMS_FILTERS]
-    } 
+    }
     updateSelectedLayers(thisSL);
   }
   const removeProjectLayer = () => {
-    let filterLayers = selectedLayers.filter( (Layer:any) => {
-      if(Layer.name) {
+    let filterLayers = selectedLayers.filter((Layer: any) => {
+      if (Layer.name) {
         return !(Layer.name == 'projects')
       } else {
         return true;
@@ -710,85 +696,84 @@ const CreateProjectMap = (type: any) => {
     updateSelectedLayers(filterLayers);
   }
   const onCreateDraw = (event: any) => {
-    if(firstCallDraw) {
+    if (firstCallDraw) {
       return;
     }
     firstCallDraw = true;
-    removeProjectLayer();    
+    removeProjectLayer();
     setLoading(true);
     const userPolygon = event.features[0];
     if (type.type === 'CAPITAL') {
-      if(currentDraw == 'polygon') {
+      if (currentDraw == 'polygon') {
         getListComponentsByComponentsAndPolygon(componentsList, userPolygon.geometry);
       } else {
         hideHighlighted();
-        getStreamIntersectionPolygon(userPolygon.geometry);  
+        getStreamIntersectionPolygon(userPolygon.geometry);
       }
-      
+
     } else if (type.type === 'MAINTENANCE') {
       getStreamIntersectionPolygon(userPolygon.geometry);
     } else if (type.type === 'STUDY') {
       type.setGeom(userPolygon.geometry);
       getStreamsIntersectedPolygon(userPolygon.geometry);
       getStreamsList(userPolygon.geometry);
-      getServiceAreaStreams(userPolygon.geometry); 
+      getServiceAreaStreams(userPolygon.geometry);
     }
-    
+
     getJurisdictionPolygon(userPolygon.geometry);
     setUserPolygon(userPolygon.geometry);
-    setTimeout(()=>{
+    setTimeout(() => {
       changeDrawState(false);
       changeDrawStateCapital(false);
-    },2000);
-    setTimeout(()=>{
+    }, 2000);
+    setTimeout(() => {
       let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_trash');
       let element: HTMLElement = elements[0] as HTMLElement;
-      if(element) {
+      if (element) {
         element.click();
       }
       firstCallDraw = false;
-    },2500);
-
+    }, 2500);
   }
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {
-        map.map.addSource('raster-tiles', {
-            'type': 'raster',
-            'tileSize': 128,
-            'tiles': [
-                `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`
-                ]
-        });
-        map.map.addLayer(
-            {
-                'id': 'simple-tiles',
-                'type': 'raster',
-                'source': 'raster-tiles',
-                'minzoom': 2,
-                'maxzoom': 24,
-                'paint': {
-                    'raster-fade-duration': 300,
-                    'raster-opacity':[
-                        "interpolate",
-                        ["linear"],
-                        ["zoom"],
-                        0,
-                        0,
-                        13,
-                        0,
-                        14,
-                        0.66,
-                        15,
-                        0.77,
-                        22,
-                        1
-                      ]
-                }
-            },
-            'aerialway'
-        );
+      map.map.addSource('raster-tiles', {
+        'type': 'raster',
+        'tileSize': 128,
+        'tiles': [
+          `https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.png?apikey=${NEARMAP_TOKEN}`
+        ]
+      });
+      map.map.addLayer(
+        {
+          'id': 'simple-tiles',
+          'type': 'raster',
+          'source': 'raster-tiles',
+          'minzoom': 2,
+          'maxzoom': 24,
+          'paint': {
+            'raster-fade-duration': 300,
+            'raster-opacity': [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0,
+              13,
+              0,
+              14,
+              0.66,
+              15,
+              0.77,
+              22,
+              1
+            ]
+          }
+        },
+        'aerialway'
+      );
     }
-}
+  }
   const applyMapLayers = async () => {
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
@@ -809,7 +794,7 @@ const CreateProjectMap = (type: any) => {
       removeTilesHandler(layer);
     });
     await selectedLayers.forEach((layer: LayersType) => {
-      if(layer === 'area_based_mask' || layer === 'border') {
+      if (layer === 'area_based_mask' || layer === 'border') {
         map.addLayerMask(layer);
         return;
       }
@@ -831,25 +816,23 @@ const CreateProjectMap = (type: any) => {
       filterProjectsNew.projecttype = "Maintenance,Capital";
     }
     applyFilters('mhfd_projects', filterProjectsNew);
-    setTimeout(()=>{
+    setTimeout(() => {
       map.map.moveLayer('munis-centroids-shea-plusother');
-    },500);
-    
+    }, 500);
+
   }
   const showLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
-        if(key === 'mhfd_projects_created') {
-          let allFilters:any = ['in', ['get', 'projectid'], ['literal', []]];
-          if(idsBoardProjects && idsBoardProjects.length > 0 ){
+        if (key === PROJECTS_DRAFT) {
+          let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
+          if (idsBoardProjects && idsBoardProjects.length > 0) {
             let boardids = idsBoardProjects;
-            allFilters = ['all',['in', ['get', 'projectid'], ['literal', [...boardids]]]];
-          } 
-          
+            allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...boardids]]]];
+          }
           map.map.setFilter(key + '_' + index, allFilters);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-          
         } else {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         }
@@ -865,7 +848,6 @@ const CreateProjectMap = (type: any) => {
   };
   const applyFiltersIDs = (key: string, toFilter: any) => {
     const styles = { ...tileStyles as any };
-    
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (!map.getLayer(key + '_' + index)) {
         return;
@@ -891,7 +873,6 @@ const CreateProjectMap = (type: any) => {
               const lowerArray: any[] = ['>=', ['get', filterField], +years];
               const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
               options.push(['all', lowerArray, upperArray]);
-
             }
             allFilters.push(options);
             continue;
@@ -968,13 +949,13 @@ const CreateProjectMap = (type: any) => {
           allFilters.push(options);
         }
       }
-      if(idsBoardProjects && idsBoardProjects.length > 0 && key ==='mhfd_projects_created' && idsBoardProjects[0]!='-8888'){
+      if (idsBoardProjects && idsBoardProjects.length > 0 && key === PROJECTS_DRAFT && idsBoardProjects[0] != '-8888') {
         let boardids = [...idsBoardProjects];
-        boardids = boardids.filter((x:any) => x != type.projectid);
+        boardids = boardids.filter((x: any) => x != type.projectid);
         allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
-      } 
+      }
       if (map.getLayer(key + '_' + index)) {
-        
+
         map.setFilter(key + '_' + index, allFilters);
       }
     });
@@ -1006,7 +987,6 @@ const CreateProjectMap = (type: any) => {
               const lowerArray: any[] = ['>=', ['get', filterField], +years];
               const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
               options.push(['all', lowerArray, upperArray]);
-
             }
             allFilters.push(options);
             continue;
@@ -1095,7 +1075,7 @@ const CreateProjectMap = (type: any) => {
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
-      if(layer === 'border' || layer === 'area_based_mask') {
+      if (layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
       } else {
         removeTilesHandler(layer);
@@ -1104,7 +1084,7 @@ const CreateProjectMap = (type: any) => {
     updateSelectedLayers(selectedItems);
   }
   const hideLayers = (key: string) => {
-    
+
     if (map) {
       const styles = { ...tileStyles as any };
       styles[key].forEach((style: LayerStylesType, index: number) => {
@@ -1112,7 +1092,7 @@ const CreateProjectMap = (type: any) => {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         }
       });
-      if(key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
+      if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
         styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
           if (map.map.getLayer(STREAMS_POINT + '_' + index)) {
             map.map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
@@ -1143,15 +1123,15 @@ const CreateProjectMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (key.includes('mhfd_projects_created')) {
+      if (key.includes(PROJECTS_DRAFT)) {
         map.map.addLayer({
           id: key + '_' + index,
           source: key,
           filter: ['in', ['get', 'projectid'], ['literal', []]],
           ...style
         });
-       } else {
-        if(style.source_name){
+      } else {
+        if (style.source_name) {
           map.map.addLayer({
             id: key + '_' + index,
             source: style.source_name,
@@ -1174,28 +1154,27 @@ const CreateProjectMap = (type: any) => {
       }
       if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
         let filter = ['in', 'cartodb_id'];
-        if(key == 'problems') {
-          filter = ['in','problemid'];
+        if (key == 'problems') {
+          filter = ['in', 'problemid'];
         } else if (key == 'mhfd_stream_reaches') {
-          filter = ['in','mhfd_code'];
+          filter = ['in', 'mhfd_code'];
         }
-          map.map.addLayer({
-            id: key + '_highlight_' + index,
-            source: key,
-            type: 'line',
-            'source-layer': 'pluto15v1',
-            layout: {
-              visibility: 'visible'
-            },
-            paint: {
-              'line-color': '#fff',
-              'line-width': 7,
-            },
-            filter: filter
-          });  
-        
+        map.map.addLayer({
+          id: key + '_highlight_' + index,
+          source: key,
+          type: 'line',
+          'source-layer': 'pluto15v1',
+          layout: {
+            visibility: 'visible'
+          },
+          paint: {
+            'line-color': '#fff',
+            'line-width': 7,
+          },
+          filter: filter
+        });
       }
-      if( (style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
+      if ((style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
         map.map.addLayer({
           id: key + '_highlight_' + index,
           type: 'circle',
@@ -1212,7 +1191,6 @@ const CreateProjectMap = (type: any) => {
           filter: ['in', 'cartodb_id']
         });
       }
-
     });
     addMapListeners(key);
   }
@@ -1225,9 +1203,9 @@ const CreateProjectMap = (type: any) => {
           return;
         }
         availableLayers.push(key + '_' + index);
-         if(style.type != 'symbol') {
+        if (style.type != 'symbol') {
           map.map.on('mousemove', key + '_' + index, (e: any) => {
-            if (hovereableLayers.includes(key) && currentDraw!='capitalpolygon') {
+            if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon') {
               showHighlighted(key, e.features[0].properties.cartodb_id);
             }
             if (key.includes('projects') || key === 'problems') {
@@ -1238,14 +1216,13 @@ const CreateProjectMap = (type: any) => {
             }
           });
           map.map.on('mouseleave', key + '_' + index, (e: any) => {
-            if (hovereableLayers.includes(key) && currentDraw!='capitalpolygon') {
+            if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon') {
               hideOneHighlighted(key);
             }
             map.map.getCanvas().style.cursor = '';
             setSelectedOnMap(-1, '');
           });
-         }
-       
+        }
       });
       setAllLayers(allLayers => [...allLayers, ...availableLayers]);
 
@@ -1271,7 +1248,7 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any }
     styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
-        let filter = ['in',['get','unique_mhfd_code'],['literal',[mhfd_code]]];
+        let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [mhfd_code]]];
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
       }
@@ -1281,7 +1258,7 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any }
     styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
-        let filter = ['in',['get','unique_mhfd_code'],['literal',[...mhfd_codes]]];
+        let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [...mhfd_codes]]];
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
       }
@@ -1290,10 +1267,10 @@ const CreateProjectMap = (type: any) => {
   const showHighlightedProblem = (problemid: string) => {
     const styles = { ...tileStyles as any }
     styles['problems'].forEach((style: LayerStylesType, index: number) => {
-      
+
       if (map.getLayer('problems' + '_' + index)) {
-        map.setFilter('problems' + '_highlight_' + index, ['in','problemid', parseInt(problemid)])
-        
+        map.setFilter('problems' + '_highlight_' + index, ['in', 'problemid', parseInt(problemid)])
+
       }
     });
   }
@@ -1309,7 +1286,7 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
-        let filter = ['in',['get','cartodb_id'],['literal',[...cartodb_ids]]];
+        let filter = ['in', ['get', 'cartodb_id'], ['literal', [...cartodb_ids]]];
         map.setFilter(key + '_highlight_' + index, filter);
       }
     });
@@ -1344,7 +1321,6 @@ const CreateProjectMap = (type: any) => {
     const div = document.getElementById('popup-' + index);
     if (div != null) {
       div.classList.add('map-pop-03');
-
     }
     return;
   }
@@ -1368,42 +1344,36 @@ const CreateProjectMap = (type: any) => {
         problemid: ''
       });
     }
-
   }
   const addPopupMarker = (point: any, html: any) => {
     popup.remove();
-
     map.addPopUpOffset(point, html);
-
-      let menuElement = document.getElementById('menu-marker');
-      if (menuElement != null) {
-        menuElement.addEventListener('click',() => { 
-          map.removePopUpOffset();
-          marker.remove();
-          marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
-          changeAddLocationState(false);
-        } );
-      }
-      let closeElement = document.getElementById('closepopupmarker');
-      if (closeElement != null) {
-        closeElement.addEventListener('click',() => { 
-          map.removePopUpOffset();
-        } );
-      }
-      
-
+    let menuElement = document.getElementById('menu-marker');
+    if (menuElement != null) {
+      menuElement.addEventListener('click', () => {
+        map.removePopUpOffset();
+        marker.remove();
+        marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
+        changeAddLocationState(false);
+      });
+    }
+    let closeElement = document.getElementById('closepopupmarker');
+    if (closeElement != null) {
+      closeElement.addEventListener('click', () => {
+        map.removePopUpOffset();
+      });
+    }
   }
   const AddMarkerEdit = (e: any) => {
-    
     const html = loadPopupMarker();
     if (html) {
       popup.remove();
       marker.setLngLat([e.lng, e.lat]).addTo(map.map);
-      let point = {lng:e.lng, lat: e.lat};
+      let point = { lng: e.lng, lat: e.lat };
       marker.getElement().addEventListener('click', () => {
-        addPopupMarker(point,html);
+        addPopupMarker(point, html);
       });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lng-0.00003, e.lat], [e.lng+0.00003, e.lat]] ]} };
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [[[e.lng - 0.00003, e.lat], [e.lng + 0.00003, e.lat]]] } };
       if (type.type === 'SPECIAL') {
         saveSpecialLocation(sendLine);
       } else if (type.type === 'ACQUISITION') {
@@ -1422,9 +1392,9 @@ const CreateProjectMap = (type: any) => {
       marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
       let point = e.lngLat;
       marker.getElement().addEventListener('click', () => {
-        addPopupMarker(point,html);
+        addPopupMarker(point, html);
       });
-      let sendLine = { geom: { type: 'MultiLineString', coordinates: [ [[e.lngLat.lng-0.00003, e.lngLat.lat], [e.lngLat.lng+0.00003, e.lngLat.lat]] ]} };
+      let sendLine = { geom: { type: 'MultiLineString', coordinates: [[[e.lngLat.lng - 0.00003, e.lngLat.lat], [e.lngLat.lng + 0.00003, e.lngLat.lat]]] } };
       if (type.type === 'SPECIAL') {
         saveSpecialLocation(sendLine);
       } else if (type.type === 'ACQUISITION') {
@@ -1434,65 +1404,65 @@ const CreateProjectMap = (type: any) => {
       let eventToMove = EventService.getRef('move');
       map.map.off('mousemove', eventToMove);
       let eventToAddMarker = EventService.getRef('addmarker');
-      map.map.off('click',eventToAddMarker);
+      map.map.off('click', eventToAddMarker);
       isPopup = true;
     }
   }
-  const eventMove = (e:any) => {
+  const eventMove = (e: any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
   const getDateMep = (mep_eligibilitystatus: any, props: any) => {
-    if(!mep_eligibilitystatus) return undefined;
+    if (!mep_eligibilitystatus) return undefined;
     let finalDate = new Date(0);
-    if( mep_eligibilitystatus == 'Design Approval') {
-        finalDate = new Date(props.mep_date_designapproval);
-    } else if( mep_eligibilitystatus == 'Construction Approval') {
-        finalDate = new Date(props.mep_date_constructionapproval);
-    } else if( mep_eligibilitystatus == 'Final Acceptance') {
-        finalDate = new Date(props.mep_date_finalacceptance);
-    } else if( mep_eligibilitystatus == 'Ineligible') {
-        console.log(props.mep_date_ineligible);
-        finalDate = new Date(props.mep_date_ineligible);
+    if (mep_eligibilitystatus == 'Design Approval') {
+      finalDate = new Date(props.mep_date_designapproval);
+    } else if (mep_eligibilitystatus == 'Construction Approval') {
+      finalDate = new Date(props.mep_date_constructionapproval);
+    } else if (mep_eligibilitystatus == 'Final Acceptance') {
+      finalDate = new Date(props.mep_date_finalacceptance);
+    } else if (mep_eligibilitystatus == 'Ineligible') {
+      console.log(props.mep_date_ineligible);
+      finalDate = new Date(props.mep_date_ineligible);
     }
-    let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
-    if(stringDate.includes('NaN')) {
-    return '-'
+    let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() + 1 : ('0' + (finalDate.getDate() + 1))) + '/' + finalDate.getFullYear();
+    if (stringDate.includes('NaN')) {
+      return '-'
     } else {
-    return stringDate;
+      return stringDate;
     }
   }
   const parseDateZ = (dateParser: any) => {
     let finalDate = new Date(dateParser);
-    let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
-    if(stringDate.includes('NaN')) {
-    return '-'
-    } else {
-    return stringDate;
-    }
-  } 
-  const epochTransform = (dateParser: any) => {
-      let finalDate = new Date(0);
-      finalDate.setUTCMilliseconds(dateParser);
-      let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
-      if(stringDate.includes('NaN')) {
+    let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() + 1 : ('0' + (finalDate.getDate() + 1))) + '/' + finalDate.getFullYear();
+    if (stringDate.includes('NaN')) {
       return '-'
-      } else {
+    } else {
       return stringDate;
-      }
+    }
   }
-  useEffect(()=>{
+  const epochTransform = (dateParser: any) => {
+    let finalDate = new Date(0);
+    finalDate.setUTCMilliseconds(dateParser);
+    let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() + 1 : ('0' + (finalDate.getDate() + 1))) + '/' + finalDate.getFullYear();
+    if (stringDate.includes('NaN')) {
+      return '-'
+    } else {
+      return stringDate;
+    }
+  }
+  useEffect(() => {
     let buttonElement = document.getElementById('popup');
-      if (buttonElement != null) {
-        if(typeof(counterPopup.componentes) !== 'undefined') {
-          buttonElement.innerHTML = counterPopup.componentes+'';
-        } else {
-          buttonElement.innerHTML = counterPopup+'';
-        }
+    if (buttonElement != null) {
+      if (typeof (counterPopup.componentes) !== 'undefined') {
+        buttonElement.innerHTML = counterPopup.componentes + '';
+      } else {
+        buttonElement.innerHTML = counterPopup + '';
       }
-  },[counterPopup]);
+    }
+  }, [counterPopup]);
   const eventClick = (e: any) => {
     popup.remove();
-    if(!isPopup){
+    if (!isPopup) {
       return;
     }
     hideHighlighted();
@@ -1506,11 +1476,11 @@ const CreateProjectMap = (type: any) => {
     setMobilePopups([]);
     setActiveMobilePopups([]);
     setSelectedPopup(-1);
-    
+
     let layersToClick = [...allLayers];
-    if(map.map.getLayer('streams-intersects')) {
+    if (map.map.getLayer('streams-intersects')) {
       layersToClick = [...layersToClick, 'streams-intersects'];
-    }   
+    }
     let features = map.map.queryRenderedFeatures(bbox, { layers: layersToClick });
     const search = (id: number, source: string) => {
       let index = 0;
@@ -1522,14 +1492,13 @@ const CreateProjectMap = (type: any) => {
       }
       return -1;
     }
-
     popup.remove();
-    setTimeout(()=>{
+    setTimeout(() => {
       const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
-      if ( popupsClassess.length ) {
-          for(let i = 0 ; i < popupsClassess.length ; ++i) {
-            popupsClassess[i].remove();
-          }
+      if (popupsClassess.length) {
+        for (let i = 0; i < popupsClassess.length; ++i) {
+          popupsClassess[i].remove();
+        }
       }
       popup.remove();
       features = features.filter((element: any, index: number) => {
@@ -1555,7 +1524,7 @@ const CreateProjectMap = (type: any) => {
           continue;
         }
         let itemValue;
-        if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_created') {
+        if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === PROJECTS_DRAFT) {
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
           const filtered = galleryProjects.filter((item: any) =>
             item.cartodb_id === feature.properties.cartodb_id
@@ -1676,10 +1645,10 @@ const CreateProjectMap = (type: any) => {
             layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
             feature: feature.properties.projectname ? feature.properties.projectname : '-',
             projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
-            mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
-            pondname: feature.properties.pondname? feature.properties.pondname: '-',
-            mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
+            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus ? feature.properties.mep_eligibilitystatus : '-',
+            mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
+            pondname: feature.properties.pondname ? feature.properties.pondname : '-',
+            mhfd_servicearea: feature.properties.mhfd_servicearea ? feature.properties.mhfd_servicearea : '-',
             mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
           }
           menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
@@ -1697,11 +1666,11 @@ const CreateProjectMap = (type: any) => {
             layer: MENU_OPTIONS.MEP_CHANNEL,
             feature: feature.properties.projectname ? feature.properties.projectname : '-',
             projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
-            mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
-            pondname: feature.properties.pondname? feature.properties.pondname: '-',
-            mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
-            mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties) 
+            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus ? feature.properties.mep_eligibilitystatus : '-',
+            mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
+            pondname: feature.properties.pondname ? feature.properties.pondname : '-',
+            mhfd_servicearea: feature.properties.mhfd_servicearea ? feature.properties.mhfd_servicearea : '-',
+            mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
           }
           menuOptions.push(MENU_OPTIONS.MEP_CHANNEL);
           popups.push(item);
@@ -1718,10 +1687,10 @@ const CreateProjectMap = (type: any) => {
             layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
             feature: feature.properties.projectname ? feature.properties.projectname : '-',
             projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus? feature.properties.mep_eligibilitystatus:'-',
-            mep_summarynotes: feature.properties.mep_summarynotes? feature.properties.mep_summarynotes: '-',
-            pondname: feature.properties.pondname? feature.properties.pondname: '-',
-            mhfd_servicearea: feature.properties.mhfd_servicearea? feature.properties.mhfd_servicearea: '-',
+            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus ? feature.properties.mep_eligibilitystatus : '-',
+            mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
+            pondname: feature.properties.pondname ? feature.properties.pondname : '-',
+            mhfd_servicearea: feature.properties.mhfd_servicearea ? feature.properties.mhfd_servicearea : '-',
             mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
           }
           menuOptions.push(MENU_OPTIONS.MEP_STORM_OUTFALL);
@@ -1740,7 +1709,7 @@ const CreateProjectMap = (type: any) => {
             feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
             watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
             constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
-            email: feature.properties.email?feature.properties.email:'-'
+            email: feature.properties.email ? feature.properties.email : '-'
           }
           mobile.push({
             layer: item.layer,
@@ -1972,8 +1941,8 @@ const CreateProjectMap = (type: any) => {
           popups.push(item);
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
-        if (feature.source === 'streams' ) {
-        
+        if (feature.source === 'streams') {
+
           const item = {
             type: 'streams-reaches',
             layer: 'Streams',
@@ -1982,21 +1951,21 @@ const CreateProjectMap = (type: any) => {
             mhfd_code: feature.properties.mhfd_code,
             catch_sum: feature.properties.catch_sum,
             str_ft: feature.properties.str_ft,
-            slope: feature.properties.slope 
+            slope: feature.properties.slope
           };
           menuOptions.push('Stream');
-          mobile.push({...item});
-          mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+          mobile.push({ ...item });
+          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           popups.push(item);
-          ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
         for (const component of COMPONENT_LAYERS.tiles) {
           if (feature.source === component) {
-            let isAdded = componentsList.find( (i:any) => i.cartodb_id === feature.properties.cartodb_id); 
+            let isAdded = componentsList.find((i: any) => i.cartodb_id === feature.properties.cartodb_id);
             let status = 'Add';
-            if(isAdded) {
+            if (isAdded) {
               status = 'Remove';
-            } 
+            }
             const item = {
               layer: MENU_OPTIONS.COMPONENTS,
               type: feature.properties.type ? feature.properties.type : '-',
@@ -2004,15 +1973,15 @@ const CreateProjectMap = (type: any) => {
               status: feature.properties.status ? feature.properties.status : '-',
               estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
               studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
-              studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
+              studyyear: feature.properties.year_of_study ? feature.properties.year_of_study : '-',
               jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
               original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
               table: feature.source ? feature.source : '-',
-              cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
+              cartodb_id: feature.properties.cartodb_id ? feature.properties.cartodb_id : '-',
               problem: 'Dataset in development',
               added: status,
-              objectid: feature.properties.objectid? feature.properties.objectid: '',
-              projectid : feature.properties.projectid? feature.properties.projectid: undefined ,
+              objectid: feature.properties.objectid ? feature.properties.objectid : '',
+              projectid: feature.properties.projectid ? feature.properties.projectid : undefined,
               streamname: feature.properties.drainageway,
             };
             const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
@@ -2036,66 +2005,65 @@ const CreateProjectMap = (type: any) => {
         setActiveMobilePopups(mobileIds);
         setSelectedPopup(0);
         if (html) {
-  
-            popup.remove();
-            popup = new mapboxgl.Popup({closeButton: true,});
-            popup.setLngLat(e.lngLat)
-              .setHTML(html)
-              .addTo(map.map);
-            for (const index in popups) {
-    
-              let arrayElements = document.getElementsByClassName('menu-' + index);
-              let menuElement = document.getElementById('menu-' + index);
-              if (menuElement != null) {
-                menuElement.addEventListener('click', (showPopup.bind(index, index, popups.length, ids[index])));
-              }
-              let buttonElement = document.getElementById('buttonPopup-' + index);
-              if (buttonElement != null) {
-                buttonElement.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-              }
-              let componentElement = document.getElementById('component-'+index);
-              if(componentElement) {
-                componentElement.addEventListener('click', addRemoveComponent.bind(popups[index],popups[index]));
-              }
-              let getcomponentElement = document.getElementById('buttonComponents-'+index);
-              if(getcomponentElement) {
-                getcomponentElement.addEventListener('click', getComponentsFromProjProb.bind(popups[index],popups[index]));
-              }
+
+          popup.remove();
+          popup = new mapboxgl.Popup({ closeButton: true, });
+          popup.setLngLat(e.lngLat)
+            .setHTML(html)
+            .addTo(map.map);
+          for (const index in popups) {
+
+            let arrayElements = document.getElementsByClassName('menu-' + index);
+            let menuElement = document.getElementById('menu-' + index);
+            if (menuElement != null) {
+              menuElement.addEventListener('click', (showPopup.bind(index, index, popups.length, ids[index])));
             }
+            let buttonElement = document.getElementById('buttonPopup-' + index);
+            if (buttonElement != null) {
+              buttonElement.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
+            }
+            let componentElement = document.getElementById('component-' + index);
+            if (componentElement) {
+              componentElement.addEventListener('click', addRemoveComponent.bind(popups[index], popups[index]));
+            }
+            let getcomponentElement = document.getElementById('buttonComponents-' + index);
+            if (getcomponentElement) {
+              getcomponentElement.addEventListener('click', getComponentsFromProjProb.bind(popups[index], popups[index]));
+            }
+          }
         }
       }
-    },300);
-   
+    }, 300);
   }
 
   const getComponentsFromProjProb = (item: any, event: any) => {
-    let id = item.type == 'project'? item.id: item.problemid;
-    getData(SERVER.GET_COMPONENTS_BY_PROBLEMID+'?problemid='+id, getToken()).then(componentsFromMap => {
-      if(componentsFromMap.result.length > 0  && componentsList.length > 0){
+    let id = item.type == 'project' ? item.id : item.problemid;
+    getData(SERVER.GET_COMPONENTS_BY_PROBLEMID + '?problemid=' + id, getToken()).then(componentsFromMap => {
+      if (componentsFromMap.result.length > 0 && componentsList.length > 0) {
         getListComponentsByComponentsAndPolygon([...componentsList, ...componentsFromMap.result], null);
-      } else if(componentsList.length == 0 && componentsFromMap.result.length > 0) {
-        getListComponentsByComponentsAndPolygon([ ...componentsFromMap.result], null);
-      } else if(componentsList.length > 0 && componentsFromMap.result.length == 0) {
-        getListComponentsByComponentsAndPolygon([ ...componentsList], null);
+      } else if (componentsList.length == 0 && componentsFromMap.result.length > 0) {
+        getListComponentsByComponentsAndPolygon([...componentsFromMap.result], null);
+      } else if (componentsList.length > 0 && componentsFromMap.result.length == 0) {
+        getListComponentsByComponentsAndPolygon([...componentsList], null);
       }
     });
     removePopup();
   }
-  const addRemoveComponent = (item: any, event: any)=> {
-    let newComponents:any = [];
-    if(item.added === 'Add') {
+  const addRemoveComponent = (item: any, event: any) => {
+    let newComponents: any = [];
+    if (item.added === 'Add') {
       newComponents = [...componentsList, {
-        cartodb_id: item.cartodb_id?item.cartodb_id:'',
-        jurisdiction: item.jurisdiction?item.jurisdiction:'',
-        original_cost: item.original_cost?item.original_cost:'',
+        cartodb_id: item.cartodb_id ? item.cartodb_id : '',
+        jurisdiction: item.jurisdiction ? item.jurisdiction : '',
+        original_cost: item.original_cost ? item.original_cost : '',
         problemid: null,
-        status: item.status?item.status:'',
-        table: item.table?item.table:'',
-        type: item.type?item.type:'',
-        objectid: item.objectid?item.objectid:''
+        status: item.status ? item.status : '',
+        table: item.table ? item.table : '',
+        type: item.type ? item.type : '',
+        objectid: item.objectid ? item.objectid : ''
       }];
     } else {
-      newComponents = componentsList.filter( (comp: any) => ( ! (comp.cartodb_id == item.cartodb_id && comp.table == item.table)));
+      newComponents = componentsList.filter((comp: any) => (!(comp.cartodb_id == item.cartodb_id && comp.table == item.table)));
     }
     getListComponentsByComponentsAndPolygon(newComponents, null);
     removePopup();
@@ -2104,21 +2072,21 @@ const CreateProjectMap = (type: any) => {
     if (allLayers.length < 100) {
       return;
     }
-    EventService.setRef('click',eventClick);
+    EventService.setRef('click', eventClick);
     let eventToClick = EventService.getRef('click');
-    map.map.on('click',eventToClick);
-    return ()=> {
+    map.map.on('click', eventToClick);
+    return () => {
       map.map.off(eventToClick);
     }
   }, [allLayers]);
   const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
 
     <>
-      {menuOptions.length === 1 ? 
-         (<> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') 
-           ? ( menuOptions[0] =='Stream'? loadStreamPopup(0,popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
-             loadMainPopup(0, popups[0], test)}
-        </>) 
+      {menuOptions.length === 1 ?
+        (<> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem')
+          ? (menuOptions[0] == 'Stream' ? loadStreamPopup(0, popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
+          loadMainPopup(0, popups[0], test)}
+        </>)
         :
         <div className="map-pop-02">
           <div className="headmap">LAYERS</div>
@@ -2127,14 +2095,14 @@ const CreateProjectMap = (type: any) => {
               menuOptions.map((menu: any, index: number) => {
                 return (
                   <div>
-                    <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span          className="text-popup-00"> {menu}</span> <RightOutlined />
+                    <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined />
                     </Button>
-                    {(menu !== 'Project' && menu !== 'Problem') ? 
-                      ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) 
+                    {(menu !== 'Project' && menu !== 'Problem') ?
+                      (menu == 'Stream' ? loadStreamPopup(index, popups[index]) : loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])))
                       :
-                      menu === 'Project' ? 
-                        loadMainPopup(index, popups[index], test, true) 
-                      : 
+                      menu === 'Project' ?
+                        loadMainPopup(index, popups[index], test, true)
+                        :
                         loadMainPopup(index, popups[index], test)}
                   </div>
                 )
@@ -2146,28 +2114,26 @@ const CreateProjectMap = (type: any) => {
   );
   const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
     <>
-        <div className="map-pop-02">
-          
-          <div className="headmap">PROPOSED PROJECT <div id="closepopupmarker" style={{'float': 'right', 'paddingRight': '4px', 'height':'16px', 'cursor':'pointer' }}>&#x2716;</div></div>
-          <div className="layer-popup" style={{padding: '21px 13px 0px 10px'}}>
-            
-            <div>
-              <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
-                <Button style={{ color: '#28C499', width: '100%' }} id='menu-marker' className="btn-borde">Remove Marker</Button>
-              </div>
+      <div className="map-pop-02">
+
+        <div className="headmap">PROPOSED PROJECT <div id="closepopupmarker" style={{ 'float': 'right', 'paddingRight': '4px', 'height': '16px', 'cursor': 'pointer' }}>&#x2716;</div></div>
+        <div className="layer-popup" style={{ padding: '21px 13px 0px 10px' }}>
+
+          <div>
+            <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
+              <Button style={{ color: '#28C499', width: '100%' }} id='menu-marker' className="btn-borde">Remove Marker</Button>
             </div>
           </div>
         </div>
+      </div>
     </>
   );
- 
   const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) => (
     <>
       <MainPopupCreateMap id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopupCreateMap>
     </>
   );
 
-  
   const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
     <>
       <ComponentPopupCreate id={index} item={item} isComponent={isComponent} isWR={false}></ComponentPopupCreate>
@@ -2175,7 +2141,7 @@ const CreateProjectMap = (type: any) => {
   );
   const loadStreamPopup = (index: number, item: any) => (
     <>
-        <StreamPopupFull id={index} item={item} ></StreamPopupFull>
+      <StreamPopupFull id={index} item={item} ></StreamPopupFull>
     </>
   );
   const renderOption = (item: any) => {
@@ -2204,16 +2170,16 @@ const CreateProjectMap = (type: any) => {
     const placeName = keyword[1];
     setKeyword(placeName);
     const newmarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
-        newmarker.setLngLat(coord);
-        newmarker.addTo(map.map);
-        setMarkerGeocoder(newmarker);
-        setKeyword('');
+    newmarker.setLngLat(coord);
+    newmarker.addTo(map.map);
+    setMarkerGeocoder(newmarker);
+    setKeyword('');
   };
   const removePopup = () => {
     popup.remove();
   }
   return <>
-    
+
     <div className="map">
       <div id="map3" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal

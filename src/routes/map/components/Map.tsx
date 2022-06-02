@@ -131,7 +131,6 @@ const Map = ({
     setSelectedOnMap,
     getParamsFilter,
     mapSearchQuery,
-    setApplyFilter,
     setBoundMap,
     getParamFilterComponents,
     getParamFilterProblems,

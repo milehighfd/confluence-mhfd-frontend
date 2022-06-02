@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { Button } from 'antd';
-import { CHART_CONSTANTS,CHART_CONSTANTS_INV } from './Charts.constants';
+import { CHART_CONSTANTS_INV } from './Charts.constants';
 
 const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -30,25 +30,23 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
-      // .attr("width", width)
-      // .attr("height", height)
       .append("g")
 
     var y = d3.scaleLinear().rangeRound([height, 0]);
 
     var accum: any[] = [];
-    data.forEach((d: any, i:number) => {
-      accum.push(d.counter + (i > 0 ? accum[i-1] : 0))
+    data.forEach((d: any, i: number) => {
+      accum.push(d.counter + (i > 0 ? accum[i - 1] : 0))
     });
 
-    let sum = d3.sum(data, function(d:any) { return d.counter });
-    
+    let sum = d3.sum(data, function (d: any) { return d.counter });
+
     y.domain([0, sum]);
 
-    let yAccFn: any = (d:any, i: number) => {
+    let yAccFn: any = (d: any, i: number) => {
       return y(accum[i]);
     }
-    let yCountFn: any = (d:any) => {
+    let yCountFn: any = (d: any) => {
       return y(d.counter);
     }
 
@@ -58,26 +56,25 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
     var singleBars = svg
       .selectAll(".singlebar")
       .data(data)
-      
+
     var newBars = singleBars
       .enter()
       .append("rect")
-    
+
     singleBars
       .attr("x", barXOffset)
       .attr("y", yAccFn)
       .attr("rx", 4)
-      // .attr("ry", rounded)
       .attr('width', barWidth)
-      .attr('height', function (d:any, ) {
+      .attr('height', function (d: any,) {
         return height - yCountFn(d) - 2;
       })
-      .attr('fill', (d:any, i) => {
+      .attr('fill', (d: any, i) => {
         if (i === 0) return '#29c499';
         else if (i === 1) return '#ffdd00';
         return '#fe687e';
       })
-      .style("opacity", function(d:any) {
+      .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.value);
         if (index !== -1) {
           return CHART_CONSTANTS_INV.opacityFull;
@@ -96,18 +93,18 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
 
     newBars
       .attr("x", barXOffset)
-      .attr("rx",4)
+      .attr("rx", 4)
       .attr("y", yAccFn)
       .attr('width', barWidth)
-      .attr('height', function (d:any, ) {
+      .attr('height', function (d: any,) {
         return height - yCountFn(d) - 2;
       })
-      .attr('fill', (d:any, i) => {
+      .attr('fill', (d: any, i) => {
         if (i === 0) return '#29C499';
         else if (i === 1) return '#ffdd04';
         return '#FE687E';
       })
-      .style("opacity", function(d:any) {
+      .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.value);
         if (index !== -1) {
           return CHART_CONSTANTS_INV.opacityFull;
@@ -124,32 +121,32 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
         }
       })
 
-    var labels =  svg
+    var labels = svg
       .selectAll('.labels')
       .data(data);
 
     labels
       .enter()
       .append('text')
-      .text(function(d:any){ return d.value })
-      .attr("transform", function(d:any, i) {
+      .text(function (d: any) { return d.value })
+      .attr("transform", function (d: any, i) {
         let xo = 105;
         let yo = yAccFn(d, i) + (height - yCountFn(d)) / 2;
         return `translate(${xo}, ${yo})`;
       })
       .style("font-size", 10)
 
-      svg.selectAll('.hleftlabel').remove();
+    svg.selectAll('.hleftlabel').remove();
 
-      svg
-        .append('g')
-        .attr('class', 'hleftlabel')
-        .attr('transform', `translate(${57}, ${height / 2}) rotate(270) skewX(-20)`)
-        .append('text')
-        .text(axisLabel)
-        .style("text-anchor", "middle")
-        .style("font-size", 10)
-        .style('opacity', 0.60);
+    svg
+      .append('g')
+      .attr('class', 'hleftlabel')
+      .attr('transform', `translate(${57}, ${height / 2}) rotate(270) skewX(-20)`)
+      .append('text')
+      .text(axisLabel)
+      .style("text-anchor", "middle")
+      .style("font-size", 10)
+      .style('opacity', 0.60);
 
   }, [data, selectedData])
 
@@ -164,13 +161,13 @@ const BarChart = ({ data, selected, onSelect, defaultValue, axisLabel }: any) =>
   return (
     <>
       <div>
-      <Button className="btn-svg" onClick={apply}>
-        <u>Apply</u>
-      </Button>
-      &nbsp;|&nbsp;
-      <Button className="btn-svg" onClick={reset}>
-        <u>Reset</u>
-      </Button>
+        <Button className="btn-svg" onClick={apply}>
+          <u>Apply</u>
+        </Button>
+        &nbsp;|&nbsp;
+        <Button className="btn-svg" onClick={reset}>
+          <u>Reset</u>
+        </Button>
       </div>
       <svg ref={svgRef} />
     </>

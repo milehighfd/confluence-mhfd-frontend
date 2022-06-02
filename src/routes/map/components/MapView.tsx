@@ -571,7 +571,7 @@ const MapView = () => {
         setData(auxData);
       }
     }
-    setNameZoomArea(zoomarea); // add for the dropdown
+    setNameZoomArea(zoomarea); 
   }, []);
 
   const handleToggle = () => {

@@ -36,7 +36,6 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
 
   const save = () => {
     putData(`${SERVER.URL_BASE}/board/${boardId}`, {
-    // putData(`${'http://localhost:3003'}/board/${boardId}`, {
       status: boardStatus,
       comment: boardComment,
       substatus: boardSubstatus
@@ -72,7 +71,6 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
     } else {
       setLoading(true);
       getData(`${SERVER.URL_BASE}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
-      // getData(`${'http://localhost:3003'}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
         .then((r) => {
           let list = substatus ? substatus.split(',') : [];
           let newBoardsSorted = [...r.boards];
@@ -219,13 +217,6 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
                           &nbsp; {item.locality}
                         </h6>
                       }
-                      // description={
-                      //   <p style={{width:'100%'}}>
-                      //     
-                      //     {`${item.submissionDate ? format(item.submissionDate) : 'Pending' }`}
-                      //     <img src="/Icons/icon-64.svg" alt="" height="8px" style={{opacity:'0.3'}}/>
-                      //   </p>
-                      // }
                     />
                     {
                       (type === 'WORK_REQUEST' || locality === 'MHFD District Work Plan') &&

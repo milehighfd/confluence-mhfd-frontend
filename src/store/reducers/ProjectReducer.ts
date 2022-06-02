@@ -1,6 +1,5 @@
-import { getStreamIntersection, setComponentsFromMap } from './../actions/ProjectActions';
 import * as types from '../types/ProjectTypes';
-import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS, XSTREAMS } from '../../constants/constants';
+import {  MHFD_BOUNDARY_FILTERS, XSTREAMS } from '../../constants/constants';
 
 function shallowEqual(object1: any, object2:any ) {
   const keys1 = Object.keys(object1);

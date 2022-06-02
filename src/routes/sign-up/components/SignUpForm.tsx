@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { VALIDATION_SIGN_UP } from "../../../constants/validation";
 import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useAppUserDispatch } from "../../../hook/useAppUser";
+import { MILE_HIGH_FLOOD_DISTRICT, STAFF_CONSTANT, COLOR } from "./constantsSignUp";
 
 const SignUpForm = () => {
   const {
@@ -16,10 +17,10 @@ const SignUpForm = () => {
   } = useAppUserDispatch();
   const roles = ROLES;
   const validationSchema = VALIDATION_SIGN_UP;
-  const [message, setMessage] = useState({ message: '', color: '#28C499' });
+  const [message, setMessage] = useState({ message: '', color: COLOR });
   const [title, setTitle] = useState('');
   const [redirect, setRedirect] = useState(false);
-  const [targetButton, setTargetButton] = useState('staff');
+  const [targetButton, setTargetButton] = useState(STAFF_CONSTANT);
   const [organization, setOrganization] = useState(ROLES[0].options);
   const [other, setOther] = useState({ value: '', visible: false });
   const menu = () => {
@@ -71,12 +72,12 @@ const SignUpForm = () => {
   };
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
-      designation: 'staff',
+      designation: STAFF_CONSTANT,
       firstName: '',
       lastName: '',
       email: '',
       password: '',
-      organization: 'Mile High Flood District',
+      organization: MILE_HIGH_FLOOD_DISTRICT,
       recaptcha: '',
       zoomarea: ''
     },
@@ -89,7 +90,7 @@ const SignUpForm = () => {
         values.organization = other.value;
       }
       setTitle(title);
-      values.zoomarea = values.designation === GOVERNMENT_STAFF ? values.organization : 'Mile High Flood District';
+      values.zoomarea = values.designation === GOVERNMENT_STAFF ? values.organization : MILE_HIGH_FLOOD_DISTRICT;
       datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if (res?.token) {
           const auxMessage = { ...message };
@@ -123,7 +124,7 @@ const SignUpForm = () => {
           {roles.map((role: { value: string, style: string, title: string, options: Array<string> }, index: number) => {
             return <Button key={index} style={{ width: role.style }} className={targetButton === role.value ? 'button-dropdown' : 'btn-responsive'} onClick={() => {
               values.designation = role.value;
-              values.organization = role.value === STAFF ? 'Mile High Flood District' : '';
+              values.organization = role.value === STAFF ? MILE_HIGH_FLOOD_DISTRICT : '';
               const auxTitle = role.value;
               setTargetButton(role.value);
               setOrganization(role.options);

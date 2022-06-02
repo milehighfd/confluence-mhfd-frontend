@@ -137,7 +137,6 @@ export default ({
             values: key === 'cost' ? filterProblemOptions[key] : filterProblemOptions[key].split(',')
         }
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-            //tagProblems.push(tag);
         }
     }
 
@@ -148,7 +147,6 @@ export default ({
             values: (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjectOptions[key] : filterProjectOptions[key].split(',')
         }
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-            //tagProjects.push(tag);
         }
     }
 

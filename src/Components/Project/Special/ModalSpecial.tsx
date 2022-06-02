@@ -152,11 +152,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     setStreamsIds([]);
     setServiceAreaCounty({});
   },[]);
-  const showModal = () => {
-    const auxState = {...state};
-    auxState.visibleSpecial = true;
-    setState(auxState);
-  };
 
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
@@ -239,25 +234,18 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
           <div className="body-project">
 
-            {/*First Section*/}
             <ProjectInformation
               description= {description}
               setDescription= {setDescription}
             />
             <br/>
-
-            {/*Second Section*/}
-
             <DropPin
               typeProject= {typeProject}
               geom= {geom}
               setGeom= {setGeom}
             />
-
-            {/*Section*/}
             <br/>
 
-            {/*Section*/}
             <LocationInformation
               setServiceArea = {setServiceArea}
               serviceArea = {serviceArea}
@@ -274,8 +262,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
               originModal="Special"
             />
             <br/>
-
-            {/*Section*/}
             <UploadAttachment
               files={files}
               setFiles={setFiles}
